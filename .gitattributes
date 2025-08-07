@@ -148,3 +148,4 @@
 *.lock filter=lfs diff=lfs merge=lfs -text
 /_config/Common[[:space:]]Creative[[:space:]]License filter=lfs diff=lfs merge=lfs -text
 /_config/Patent[[:space:]]rider filter=lfs diff=lfs merge=lfs -text
+/Modelfile filter=lfs diff=lfs merge=lfs -text
