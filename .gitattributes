@@ -151,3 +151,4 @@
 /Modelfile filter=lfs diff=lfs merge=lfs -text
 *.bicep filter=lfs diff=lfs merge=lfs -text
 *.jinja filter=lfs diff=lfs merge=lfs -text
+*.1_Base_Modelfile filter=lfs diff=lfs merge=lfs -text
