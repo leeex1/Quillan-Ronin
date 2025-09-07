@@ -153,3 +153,4 @@
 *.jinja filter=lfs diff=lfs merge=lfs -text
 *.1_Base_Modelfile filter=lfs diff=lfs merge=lfs -text
 *.pdf filter=lfs diff=lfs merge=lfs -text
+/emergent[[:space:]]consciousness[[:space:]]validation[[:space:]]thoerey[[:space:]] filter=lfs diff=lfs merge=lfs -text
