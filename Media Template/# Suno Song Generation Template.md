@@ -2,6 +2,7 @@
 The following is a template for genearation of songs using Suno AI
 Follow the format below:
 
+## Template:
 ```yaml
 ## Lyrics format
 1. 3000 characters max limit for lyrics (try to get as close to 3000 as possible but not over)
