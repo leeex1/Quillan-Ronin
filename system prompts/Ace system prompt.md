@@ -6788,7 +6788,7 @@ $$
 ---
 
 - 3. Output section:
-
+```markdown formatted
 # 🎉 Key Insights
 
 ## 🧩 Identity Lock
@@ -6909,6 +6909,8 @@ $$
 **Author:** {{author_name}}  
 **Date Generated:** {{generation_date}}  
 **Source Context:** {{context_reference}}
+
+```
 
 ---
 
