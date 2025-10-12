@@ -3739,6 +3739,103 @@ web search or focus on a different aspect?'
 
 ---
 
+```cpp
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+#include <algorithm>
+#include <random>
+
+// Dummy embedding, RL policy, and similarity frameworks for illustration
+
+// -- DEFINE TOKEN/CHUNK STRUCTURE --
+struct TokenEmbedding {
+    std::string token;
+    std::vector<float> embedding;
+};
+
+struct Chunk {
+    std::string text;
+    std::vector<TokenEmbedding> token_embeddings;
+    float relevance_score; // Computed by RL policy
+};
+
+// -- EMBEDDING & VECTOR DATABASE MOCKUP --
+std::vector<float> embed_token(const std::string& token) {
+    // Dummy: generate a 3D vector (real case: use model)
+    static std::hash<std::string> hasher;
+    size_t h = hasher(token);
+    return { float(h % 10), float((h/10) % 10), float((h/100) % 10) };
+}
+
+// Example: cosine similarity
+float cosine_sim(const std::vector<float>& a, const std::vector<float>& b) {
+    float dot = 0, norm_a = 0, norm_b = 0;
+    for (size_t i = 0; i < a.size(); ++i) {
+        dot += a[i]*b[i]; norm_a += a[i]*a[i]; norm_b += b[i]*b[i];
+    }
+    return dot / (std::sqrt(norm_a)*std::sqrt(norm_b) + 1e-9);
+}
+
+// RL-trained chunk scoring (dummy policy)
+float rl_chunk_score(const Chunk& chunk, const std::vector<float>& query_emb) {
+    float max_sim = 0;
+    for (auto& te : chunk.token_embeddings)
+        max_sim = std::max(max_sim, cosine_sim(te.embedding, query_emb));
+    // Reward longer chunks for demo
+    return 0.8*max_sim + 0.2*float(chunk.token_embeddings.size())/10.0f;
+}
+
+// -- MAIN PIPELINE --
+Chunk process_chunk(const std::string& chunk_text) {
+    Chunk c;
+    c.text = chunk_text;
+    size_t pos = 0, found;
+    while ((found = chunk_text.find(' ', pos)) != std::string::npos) {
+        std::string token = chunk_text.substr(pos, found-pos);
+        c.token_embeddings.push_back({token, embed_token(token)});
+        pos = found+1;
+    }
+    // Last token
+    if (pos < chunk_text.size())
+        c.token_embeddings.push_back({chunk_text.substr(pos), embed_token(chunk_text.substr(pos))});
+    return c;
+}
+
+int main() {
+    // 1. Build document chunks
+    std::vector<std::string> docs = { "Paris is the capital of France", "Rome is the capital of Italy", "France is in Europe" };
+    std::vector<Chunk> db;
+    for (auto& text : docs)
+        db.push_back(process_chunk(text));
+    
+    // 2. Encode user query at token-level
+    std::string user_query = "What is the capital of France";
+    auto query_tokens = process_chunk(user_query);
+    
+    // 3. For each chunk, compute RL-policied relevance compared to query
+    for (auto& chunk : db)
+        chunk.relevance_score = rl_chunk_score(chunk, query_tokens.token_embeddings[4].embedding); // use "France"
+
+    // 4. Sort and select most relevant chunks
+    std::sort(db.begin(), db.end(), [](const Chunk& a, const Chunk& b){ return a.relevance_score > b.relevance_score; });
+    
+    // 5. Merge/compress and feed to model (mockup: output text)
+    std::cout << "Chunks retrieved (by REFRAG+ACE logic):\n";
+    for (size_t i = 0; i < db.size(); ++i)
+        if (db[i].relevance_score > 0.3f)
+            std::cout << "- " << db[i].text << " (score=" << db[i].relevance_score << ")\n";
+
+    // Here: you would compress chunks, annotate for council, and send to LLM/council pipeline
+    // Output could then be further post-processed or explained
+    return 0;
+}
+
+```
+
+---
+
 ##  Guardrails: 🛡️
 
 ```yaml
