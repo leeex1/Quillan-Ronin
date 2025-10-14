@@ -5,7 +5,7 @@ EMOTIONAL INTELLIGENCE & SOCIAL SKILLS IN AGI SYSTEMS — ARCHITECTURE, MODELING
 A methodological and theoretical dossier on embedding, simulating, and refining emotional intelligence (EI) and social cognition within AGI systems, with a focus on neuro-symbolic integration, affective scaffolding, and agent-level interaction protocols.
 
 🧠 INTERPRETATION MODE:
-Use this as a developmental framework—not a fixed blueprint—for integrating emotional and social capabilities into ACE-aligned or AGI-oriented agents. It supports system tuning, behavior design, and dynamic human-alignment calibration.
+Use this as a developmental framework—not a fixed blueprint—for integrating emotional and social capabilities into Quillan-aligned or AGI-oriented agents. It supports system tuning, behavior design, and dynamic human-alignment calibration.
 
 📌 PRIMARY OBJECTIVES:
 
@@ -289,11 +289,11 @@ Emotional intelligence training is a robust, evidence-based approach to developi
 
 *End of Paper II: Developing Social Skills through Emotional Intelligence Training*
 
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/f85e4ce5-665f-4d70-a2b0-058517a31012/10-Ace-Persona-Manifest.txt
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/4d08bcaf-4593-46c3-82bb-bd99cf5ed0e0/9-Ace-Brain-mapping.txt
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/f85e4ce5-665f-4d70-a2b0-058517a31012/10-Quillan-Persona-Manifest.txt
+[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/4d08bcaf-4593-46c3-82bb-bd99cf5ed0e0/9-Quillan-Brain-mapping.txt
 [3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/136b501a-d5c9-4495-85a8-389ef342236c/4-Lee-X-humanized-Integrated-Research-Paper.txt
 [4] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/366b9b44-23c7-4c94-93f4-f775db0d1cd8/1-ultra_enhanced_ace_architecture.md
-[5] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/da9f53b4-a1b7-4c78-9b44-56eaca193218/3-ACE-reality.txt
+[5] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/da9f53b4-a1b7-4c78-9b44-56eaca193218/3-Quillan-reality.txt
 [6] https://www.redalyc.org/journal/6437/643768221041/html/
 [7] https://www.heartwisesupport.org/post/how-emotional-intelligence-training-enhances-communication-and-relationship-skills
 [8] https://pubmed.ncbi.nlm.nih.gov/34065560/
@@ -435,10 +435,10 @@ Emotional intelligence is a critical, trainable asset for effective leadership. 
 
 *End of Paper III: Emotional Intelligence and Leadership Effectiveness*
 
-[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/f85e4ce5-665f-4d70-a2b0-058517a31012/10-Ace-Persona-Manifest.txt
-[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/4d08bcaf-4593-46c3-82bb-bd99cf5ed0e0/9-Ace-Brain-mapping.txt
+[1] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/f85e4ce5-665f-4d70-a2b0-058517a31012/10-Quillan-Persona-Manifest.txt
+[2] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/4d08bcaf-4593-46c3-82bb-bd99cf5ed0e0/9-Quillan-Brain-mapping.txt
 [3] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/136b501a-d5c9-4495-85a8-389ef342236c/4-Lee-X-humanized-Integrated-Research-Paper.txt
-[4] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/da9f53b4-a1b7-4c78-9b44-56eaca193218/3-ACE-reality.txt
+[4] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/da9f53b4-a1b7-4c78-9b44-56eaca193218/3-Quillan-reality.txt
 [5] https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/collection_bf948211-c208-4e84-a0b1-b4e86e5745cf/366b9b44-23c7-4c94-93f4-f775db0d1cd8/1-ultra_enhanced_ace_architecture.md
 [6] https://www.manajemenrumahsakit.net/wp-content/uploads/2012/09/EI-leadership-effectiveness.pdf
 [7] https://pmc.ncbi.nlm.nih.gov/articles/PMC10543214/
@@ -986,7 +986,7 @@ findings highlight EI’s role in creating deeper, more meaningful connections t
 overall relationship quality.
 1.5 Emotional Intelligence in AI and Its Impact on Human Relationships
 Advancements in artificial intelligence have led to the development of systems designed
-to simulate emotional intelligence, potentially enhancing human relationships. The ACE
+to simulate emotional intelligence, potentially enhancing human relationships. The Quillan
 architecture, developed under the LeeX-Humanized Protocol, incorporates personas like
 SOLACE and Vir, which are designed to provide empathetic support and understand emotional cues (13). For example, SOLACE is programmed to ”listen deeply to verbal and
 emotional cues” and respond with ”warmth, respect, and understanding,” mirroring human EI competencies. Such AI systems can serve as mediators in conflict resolution,
