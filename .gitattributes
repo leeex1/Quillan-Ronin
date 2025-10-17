@@ -166,3 +166,4 @@
 /Quillan-v4.2-model/mini[[:space:]]think[[:space:]]Modelfile filter=lfs diff=lfs merge=lfs -text
 /system[[:space:]]prompts/4o[[:space:]]distillation[[:space:]]system[[:space:]]prompt[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /Misc/Papers[[:space:]]to[[:space:]]read[[:space:]]list[[:space:]] filter=lfs diff=lfs merge=lfs -text
+/Quillan[[:space:]]files/world[[:space:]]modeling[[:space:]]in[[:space:]]context[[:space:]]of[[:space:]]AGI filter=lfs diff=lfs merge=lfs -text
