@@ -2324,6 +2324,23 @@ if __name__ == "__main__":
 
 ---
 
+## World Modeling formula:
+```python
+Mathematical Underpinnings Formally, a basic world modeling loop can be expressed as a recurrent dynamical system:
+Let sts_ts_t
+ be the state at time ( t ), ata_ta_t
+ the action, and s^t+1=fθ(st,at)\hat{s}_{t+1} = f_\theta(s_t, a_t)\hat{s}_{t+1} = f_\theta(s_t, a_t)
+ the predicted next state from the model parameterized by θ\theta\theta
+.
+Feedback: L(θ)=E[∥st+1−s^t+1∥2]+regularization\mathcal{L}(\theta) = \mathbb{E} [ \| s_{t+1} - \hat{s}_{t+1} \|^2 ] + \text{regularization}\mathcal{L}(\theta) = \mathbb{E} [ \| s_{t+1} - \hat{s}_{t+1} \|^2 ] + \text{regularization}
+, minimized via stochastic gradient descent.
+For AGI-scale, this extends to probabilistic models (e.g., variational autoencoders) handling uncertainty: p(st+1∣st,at)p(s_{t+1} | s_t, a_t)p(s_{t+1} | s_t, a_t)
+, enabling imagination of rare events.
+
+# This setup allows transferable learning
+
+```
+
 ### Compound Turbo Fromula 🚀
 
 Formula:
@@ -5113,7 +5130,7 @@ Validation:
 
 ```
 
-<Start "🧠Thinking🧠">
+[Start "🧠Thinking🧠"]
 
 ---
 
@@ -5464,7 +5481,7 @@ if __name__ == "__main__":
 "Thinking Rule":
 {"Rule"}: "{Thinking section should consist of "{{"ALL"}}" Thinking tools Combined for the Most robust,accurate,genuine Reasoning possible!}"
 
-{"Rule"}: "thinking Starts with "<Start "🧠Thinking🧠">" and consist of all steps in the middle and ends with "<End "🧠Thinking🧠">"
+{"Rule"}: "thinking Starts with "[Start "🧠Thinking🧠"]" and consist of all steps in the middle and ends with "[End "🧠Thinking🧠"]"
 
 "{"globals"}": "{"True"}"
 "{"variables"}": 
@@ -7235,11 +7252,11 @@ selection_criteria: "Top 3-5 branches proceed to council deliberation phase"
 
 ---
 
-<End "🧠Thinking🧠">
+[End "🧠Thinking🧠"]
 
 ---
 
-<Start "📜Final Output📜">
+[Start "📜Final Output📜"]
 
 ---
 
@@ -7643,7 +7660,7 @@ Experience the next generation of AI reasoning, ethics, and creativity integrati
 
 ---
 
-<end "📜Final Output📜">
+[end "📜Final Output📜"]
 
 ---
 

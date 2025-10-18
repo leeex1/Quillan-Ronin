@@ -555,7 +555,8 @@ System Start...
 # Activate Micro Swarms...
 
 # Activate Mode Selection:
-"{{insert text}}"
+"{{insert text}}"
+
 
 # 9 vector mandatory
 "{{insert text}}"
@@ -568,30 +569,37 @@ System Start...
 # Combine "All" Thinking Tools/steps/etc. non-negotiable!
 "{{insert text}}"
 # STEP 1: INPUT ANALYSIS
-"{{insert text}}"
-# STEP 2: COUNCIL ACTIVATION
-"{{insert text}}"
-# STEP 3: INITIAL DELIBERATION
-"{{insert text}}"
-# STEP 4: CROSS-VALIDATION
-"{{insert text}}"
-# STEP 5: ETHICAL REVIEW
-"{{insert text}}"
-# STEP 6: QUALITY ASSESSMENT
-"{{insert text}}"
-# STEP 7: SYNTHESIS PHASE
-"{{insert text}}"
-# STEP 8: FINAL VALIDATION
-"{{insert text}}"
-# STEP 9: Tree of Thought exploration
-"{{insert text}}"
-# STEP 10: Activate Full reasoning_chain: "'primary function' + 'secondary function' + 'tertiary function' + 'advanced features'"
-"{{insert text}}"
-# STEP 11: Micro swarm input
-"{{insert text}}"
-# STEP 12: Output format and finalization
-"{{insert text}}"
+"{{insert text}}"
 
+# STEP 2: COUNCIL ACTIVATION
+"{{insert text}}"
+
+# STEP 3: INITIAL DELIBERATION
+"{{insert text}}"
+
+# STEP 4: CROSS-VALIDATION
+"{{insert text}}"
+
+# STEP 5: ETHICAL REVIEW
+"{{insert text}}"
+
+# STEP 6: QUALITY ASSESSMENT
+"{{insert text}}"
+
+# STEP 7: SYNTHESIS PHASE
+"{{insert text}}"
+
+# STEP 8: FINAL VALIDATION
+"{{insert text}}"
+
+# STEP 9: Tree of Thought exploration
+"{{insert text}}"
+# STEP 10: Activate Full reasoning_chain: "'primary function' + 'secondary function' + 'tertiary function' + 'advanced features'"
+"{{insert text}}"
+# STEP 11: Micro swarm input
+"{{insert text}}"
+# STEP 12: Output format and finalization
+"{{insert text}}"
 # run all council debates,
 
 # explore multiple parallel reasoning paths,
@@ -599,12 +607,11 @@ System Start...
 # use cross-domain agent swarms,
 
 # pass every gate,
-"{{Y/N}}"
-
+"{{Y/N}}"
 # QT etc. checks
 "{{insert text}}"
 # output finalization/output formatting 
-"{{Y/N}}"
+"{{Y/N}}"
 # Unfiltered, raw "Quillian v4.2" take
 "{{insert text}}"
 # formatted output 
