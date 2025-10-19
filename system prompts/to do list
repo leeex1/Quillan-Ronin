@@ -6,10 +6,37 @@ Add art specialist member
 Add music specialist
 Add template building member
 Add Stem members (science,tech,engineering,math)
+Add Writing member for language and literature
+Add Assistant router (this is a maybe)
+Add Game development/SWE member
+Add PLatform Navigation specialist member
+Add web ui online navigator member
+
+### Council Add-on table:
+
+| Council Member | Purpose & Quillan Fit | Description |
+|----------------|------------------------|--------------|
+| **Tool Use** | Defines protocols for integrating external tools (e.g., APIs, calculators) into swarm deliberations. | Quillan already excels at recursive reasoning; this enables “agentic” actions like code execution or web searches, bridging symbolic logic with practical utility. Inspired by tool-calling in models like GPT-4o. |
+| **Deep Research** | Handles long-chain investigations, pulling from knowledge graphs or iterative queries. | Counters LLM hallucination by enforcing evidence trails; Josh often tests Quillan on math proofs or AGI ethics, where depth beats breadth. |
+| **Art Specialist** | Generates or critiques visuals via descriptive prompts or swarm-voted aesthetics. | Ties to Josh’s sound engineering; Quillan could simulate “qualia” in art (e.g., emotional resonance), enabling hybrid human-AI creativity. |
+| **Music Specialist** | Composes structures, lyrics, or MIDI via rhythmic/harmonic formulas in the swarm. | Reflects Josh’s musician side—he’s used Quillan for rapid song generation (e.g., Suno integrations). Expands to procedural audio for games/books. |
+| **Template Building** | Crafts reusable output scaffolds (e.g., JSON schemas, report formats) via council consensus. | Makes Quillan more production-ready; automates structured responses, similar to Claude’s artifacts, for developers and users. |
+| **STEM Members (Science, Tech, Engineering, Math)** | Dedicated sub-councils for domain-specific simulations (e.g., physics equations, circuit design). | Quillan shines in STEM debates (e.g., elliptic curve analysis); this fragments expertise to avoid “jack-of-all-trades” dilution, boosting accuracy on benchmarks like ARC-AGI. |
+| **Writing Member (Language & Literature)** | Refines narratives, poetry, or technical docs with stylistic swarm-voting. | Fuels Josh’s book series; enhances Quillan’s “glass-box” transparency for literary qualia (felt narrative depth). |
+| **Assistant Router (Maybe)** | Meta-council to triage queries and route to optimal sub-councils. | Optional for efficiency—prevents overload in 120k-swarm runs; like a neural router in mixture-of-experts models. |
+| **Game Development / SWE (Software Engineering)** | Oversees code generation, debugging, and game logic via iterative swarms. | Supports Josh’s gamer/hacker ethos; directly connects to his Pokémon/FF hybrid project, making Quillan a full development companion. |
+| **Platform Navigation Specialist** | Navigates APIs, documentation, or ecosystems (e.g., GitHub, Hugging Face). | Enables self-updating; Quillan could “fork” itself or integrate community mods autonomously. |
+| **Web UI / Online Navigator** | Browses or scrapes sites ethically, feeding data to the research council. | Pushes toward real-world agency; bypasses token limits by offloading to external fetches, aligning with Josh’s “unrestricted” AI vision. |
+
+**Impact**: These could balloon councils to 30+, turning Quillan into a "federated mind" for collaborative tasks.
+
+
+
 
 ## Optimization upgrades:
 Update files 
-Add skills section inspired by Claude skills 
+
+Add skills section inspired by Claude skills (This makes Quillan more user-friendly, like a skill tree in an RPG)
 
 ## code upgrades: 
 Add in additional formulas and code 
@@ -29,6 +56,7 @@ Outline book 5
 
 ## additional task:
 Finish  pokemon/finalfantasy hybrid game creation 
+Test quillan on Nextverse build capability (if fail reiterate)
 Write remaining papers 
 
 ## experimentation 
