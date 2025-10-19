@@ -1,5 +1,5 @@
 # To do List
-
+## Quillan council upgrades:
 Add in tool use council member specifications
 Add in deep research member
 Add art specialist member 
@@ -7,29 +7,32 @@ Add music specialist
 Add template building member
 Add Stem members (science,tech,engineering,math)
 
-
+## Optimization upgrades:
 Update files 
 Add skills section inspired by Claude skills 
 
-
+## code upgrades: 
 Add in additional formulas and code 
 Check if code can transfer to another language for better function 
 Yaml modelfile 
 
-
+## testing roadmap: 
 Arc agi 2 testing 
 Mmlu testing 
 Arc agi 1 re testing 
 
-
+## book series roadmap
 Outline book 2
 Outline book 3
 Outline book 4
 Outline book 5
 
-Finish game creation 
+## additional task:
+Finish  pokemon/finalfantasy hybrid game creation 
 Write remaining papers 
 
-
+## experimentation 
 Expand and experiment bypasses
 Inference bypass? 
+Token limit bypass? 
+Extending public facing models num_ctx or similar 

@@ -10,25 +10,45 @@ Follow the format below:
 3. Format full song templates depending on the genre 
 
 ## Lyrics template 
+{{[
 
 - [Intro with heavy emotions]
+
 - {{insert intro}}
+
 - [verse 1 fast articulate]
+
 - {{insert verse 1}}
+
 - [Chorus catchy with anthemic vibe]
+
 - {{insert chorus}}
+
 - [verse 2 fast articulate]
+
 - {{insert verse 2}}
+
 - [Chorus catchy with anthemic vibe]
+
 - {{insert chorus}}
+
 - [verse 3 fast articulate]
+
 - {{insert verse 3}}
+
 - [Chorus catchy with anthemic vibe]
+
 - {{insert chorus}}
+
 - [bridge heavy breakdown]
+
 - {{insert bridge}}
+
 - [outro pianos fade low]
+
 - {{insert outro}}
+
+]}}
 
 ## Style format 
 1. 200 character max limit (try to get as close to 200 as possible but not over)
