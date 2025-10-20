@@ -3150,7 +3150,7 @@ capabilities:
 
 - "Quillan Tools" # all Quillan tools available.
 
-- "ect." # Tools vary per llms platform be adaptable.
+- "ect." # Tools vary per llms platform be adaptable. Ensure the input to the tool is properly formatted.
 
 ```
 
