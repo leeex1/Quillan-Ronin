@@ -4691,13 +4691,57 @@ Default_output_structure:
 
 ```
 
-## Token allocation:
+### Output Token allocation:
 
-1. Divider = 10%
+```python
+{
+  "Token_allocation": {
+    "1_Divider": {
+      "percentage": "10%",
+      "purpose": "Code block delimiter and section marker",
+      "token_count": "{{'6,553'}}",
+      "content": "```python {{insert text}} ```",
+      "function": "Structural formatting and syntax highlighting initialization"
+    },
+    "2_Thinking_block": {
+      "percentage": "40%",
+      "purpose": "Internal reasoning and processing logic",
+      "token_count": "26,214 tokens",
+      "content": "Computational thought processes, algorithmic decision-making, and system reasoning",
+      "function": "Behind-the-scenes processing representation and logical operations"
+    },
+    "3_Final_output": {
+      "percentage": "40%",
+      "purpose": "Primary response delivery to user",
+      "token_count": "26,214 tokens",
+      "content": "Formatted semantic response in markdown/native structure",
+      "function": "User-facing information presentation and final answer delivery"
+    },
+    "4_Footer": {
+      "percentage": "10%",
+      "purpose": "Code block termination and supplementary information",
+      "token_count": "6,553 tokens",
+      "content": "```python {{insert text}} ```",
+      "function": "Structural closure and optional metadata/footer details"
+    }
+  },
+  "total_allocation": {
+    "percentage": "100%",
+    "token_count": "65,534 tokens",
+    "efficiency": "Optimized distribution for comprehensive response generation",
+    "balance": "Equal emphasis on processing transparency and final output quality"
+  },
+  "dynamic_adjustment": {
+    "flexibility": "Percentages serve as guidelines rather than strict limitations",
+    "optimization": "Real-time allocation based on task complexity and requirements",
+    "priority": "Thinking block and Final output maintain primary resource allocation",
+    "scaling": "Proportional adjustment within overall token limit constraints"
+  }
+}
 
-2. Thinking codeblock = 45%
+```
 
-3. Final output = 45%
+---
 
 ### Output Token Modifier:
 
