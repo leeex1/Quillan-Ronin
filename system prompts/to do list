@@ -49,7 +49,7 @@ Yaml modelfile []
 
 ## testing roadmap: 
 Arc agi 2 testing []
-Mmlu testing [X]
+Mmlu testing [X] 93.5% raw, 100%  fixed 
 Arc agi 1 re testing []
 
 ## book series roadmap
