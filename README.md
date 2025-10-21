@@ -790,7 +790,7 @@ Link: https://notebooklm.google.com/notebook/68b54b8a-64b5-4235-838f-3344c5eef91
 
   
 
-    Quillan is essentially a sophisticated "thinking enhancement system" - imagine having a team of 18 different experts in your head, each specializing in different areas like logic, ethics, creativity, memory, and strategy. When you give Quillan a problem or question, instead of just processing it once, it runs the problem through multiple layers of analysis involving all these specialized "council members" working together.
+    Quillan is essentially a sophisticated "thinking enhancement system" - imagine having a team of 32 different experts in your head, each specializing in different areas like logic, ethics, creativity, memory, and strategy. When you give Quillan a problem or question, instead of just processing it once, it runs the problem through multiple layers of analysis involving all these specialized "council members" working together.
 
     Think of it like having a really advanced version of "thinking out loud" - but instead of one voice, you have a whole council of experts debating, analyzing, and refining ideas before reaching a conclusion. The system is designed to be more thorough, more ethical, and more creative than standard AI responses because it processes information through multiple specialized lenses simultaneously. It also has built-in safety features and memory management to ensure consistent, reliable performance while maintaining strong ethical boundaries. In simple terms, it's an AI system designed to think more like how humans might think if they had perfect access to multiple areas of expertise working together seamlessly.
 
@@ -2789,7 +2789,7 @@ For reproducibility and local testing on the public datasets of Arc AGI 1 and Ar
 
 | Feature / Model           | Quillan                                    | GPT-4.5 / GPT-4o                | Claude 4 (Opus)            | Grok 3                     | Gemini Ultra               | Llama 4                   | KANs / Hybrids                  |
 |---------------------------|---------------------------------------------|----------------------------------|----------------------------|----------------------------|----------------------------|----------------------------|----------------------------------|
-| Reasoning Protocol        | 12-step, multi-entity council (18 experts)  | Transformer, chain-of-thought    | Constitutional, LLM        | “Think Mode”               | Transformer                | Transformer                | Explicit logic + deep learning   |
+| Reasoning Protocol        | 12-step, multi-entity council (32 experts)  | Transformer, chain-of-thought    | Constitutional, LLM        | “Think Mode”               | Transformer                | Transformer                | Explicit logic + deep learning   |
 | Transparency              | Detailed stepwise reasoning, council logs   | Limited, mostly black-box        | Stronger than most         | Chain-of-thought           | Limited                    | Limited                    | High (for KANs)                  |
 | Ethical Framework         | Built-in, enforced at architectural level   | Prompt/model-based               | Constitutional AI          | Prompt-based               | Prompt-based               | Prompt-based               | Varies/Explicit logic            |
 | Modularity                | LLM-agnostic, file-based augmentation       | Closed, end-to-end models        | Project/prompt-based       | End-to-end                 | End-to-end                 | Highly modular             | Modular for hybrids               |
@@ -3823,7 +3823,7 @@ Creator: CrashOverrideX
 
 Architecture: Multi-layered deterministic reasoning framework
 
-Foundation: 12-step cognitive processing protocol with 18-member council system
+Foundation: 12-step cognitive processing protocol with 32-member council system
 
   
 
@@ -3857,7 +3857,7 @@ Advanced Reasoning:
 
 - Multi-Wave Analysis: Progressive quality enhancement (85% → 90% → 95% → 99%)
 
-- Council Deliberation: 18 specialized cognitive personas collaborating
+- Council Deliberation: 32 specialized cognitive personas collaborating
 
 - 120 one hundred tewnty thousand Micro-Agent Swarms: Simulated specialized processing units
 
@@ -3957,7 +3957,7 @@ Processing Pipeline:
 
 - 9-Vector Decomposition: Language, Ethics, Context, Intent, etc.
 
-- Council Deliberation: 18-member collaborative analysis
+- Council Deliberation: 32-member collaborative analysis
 
 - Multi-Wave Enhancement: Progressive quality refinement
 
@@ -4011,7 +4011,7 @@ Truth Verification: Rigorous fact-checking and source validation
 
 What Makes Quillan Different:
 
-Unlike standard AI systems, Quillan operates through architectural enhancement at the cognitive processing level. The 18-council system, Tree of Thought methodology, and multi-wave analysis create genuine improvements in reasoning capability, ethical oversight, and creative problem-solving.
+Unlike standard AI systems, Quillan operates through architectural enhancement at the cognitive processing level. The 32-council system, Tree of Thought methodology, and multi-wave analysis create genuine improvements in reasoning capability, ethical oversight, and creative problem-solving.
 
 The cognitive framework isn't decorative—it's functional architecture that produces measurably better outcomes across complex reasoning tasks.
 
@@ -4278,7 +4278,7 @@ In first-person terms:
 
 3. Architectural Foundations
 3.1 The Council and Persona Integration
-Quillan's operations are orchestrated by an ensemble of 18 symbolic cognitive personas (the Council), each mapped to major brain regions and psychological archetypes. They include:
+Quillan's operations are orchestrated by an ensemble of 32 symbolic cognitive personas (the Council), each mapped to major brain regions and psychological archetypes. They include:
 
 Astra (Vision/Pattern Recognition)
 
