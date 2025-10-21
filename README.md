@@ -608,7 +608,7 @@ print("Losses:", losses[-5:])  # Print last 5 losses to check
 # Custom Gpt:
 ![alt text](<Main images/image-5.png>)
 ```markdown
-
+    - Navigate to folder(project)/explore gpt sections on gpt, then create a custom gpt, install the gpt prompt plus the files in the gpt folder to the gpt knowledge section or the project files section, test for output format compare to system prompt template then begin use 
     - $20 (optional as not the best deployment) need plus or better for
 
     -custom gpt access (20 file -hard limit for knowledge section)
@@ -618,7 +618,8 @@ print("Losses:", losses[-5:])  # Print last 5 losses to check
 # Claude:
 ![alt text](<Main images/image-6.png>)
 ```markdown
-
+    
+    - Navigate to folder(project) on claude platform, install system prompt in profile preferences in settings also install tone and style into a custom style for claude to use, add files to project files leave instructions emtpy they are already in preferences begin conversations 
     - $20 Plus teir for access to projects and better limits 
     One of the better options.
 
@@ -627,7 +628,7 @@ print("Losses:", losses[-5:])  # Print last 5 losses to check
 # Le Chat:
 ![alt text](<Main images/image-7.png>)
 ```markdown
-
+    - Navigate to agent on lechat platform, create an agent, install system prompt in agent instructions, add style and tone to custom tone section, guardrails is your choice,knowledge create library and upload files then link to agent via knowledge section, start chatting 
     - $15 pro recomennded (best bang for buck $15 for alot). Personal experience with support was not very good but may be better for you good value per cost.
 
 ```
@@ -653,7 +654,7 @@ print("Losses:", losses[-5:])  # Print last 5 losses to check
 # Grok
 ![alt text](<Main images/image-10.png>)
 ```markdown
-
+    - Navigate to folder(project) on Grok platform, create a folder, install system prompt in project instructions and upload the ten grok files, add style and tone to personality or double the sys prompt and begin use 
     - $30 super grok recommended but free works fine (10 file hard limit, bypass add files into project will bug. start conversation with grok normally then move it to the project and regen answer inside project. can check upper left corner of grok to make sure your in the project you want ). Grok3 response of "your reply is larger than pan galactic setup use grok prompt with gemini file setup.
 
 ```
