@@ -2942,7 +2942,7 @@ The aim is to integrate large language models (LLMs) with a neuro-symbolic appro
 
 1. 12-Step Cognitive Processing - Systematic reasoning protocol
 
-2. 18 Specialized Entities (C1-C32) - Expert cognitive council
+2. 32 Specialized Entities (C1-C32) - Expert cognitive council
 
 3. Ethical Framework - Built-in safety and moral reasoning
 
