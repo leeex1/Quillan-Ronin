@@ -169,3 +169,4 @@
 /Quillan[[:space:]]files/world[[:space:]]modeling[[:space:]]in[[:space:]]context[[:space:]]of[[:space:]]AGI filter=lfs diff=lfs merge=lfs -text
 /Quillan[[:space:]]files/info[[:space:]]list[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /system[[:space:]]prompts/to[[:space:]]do[[:space:]]list filter=lfs diff=lfs merge=lfs -text
+/Misc/E_ICE[[:space:]] filter=lfs diff=lfs merge=lfs -text
