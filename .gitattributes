@@ -171,3 +171,4 @@
 /system[[:space:]]prompts/to[[:space:]]do[[:space:]]list filter=lfs diff=lfs merge=lfs -text
 /Misc/E_ICE[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /Quillan[[:space:]]files/E_ICE[[:space:]] filter=lfs diff=lfs merge=lfs -text
+/Quillan-v4.2-model/Quillan-Mini-Modelfile filter=lfs diff=lfs merge=lfs -text
