@@ -33,7 +33,6 @@ https://arxiv.org/abs/2510.14901
 Paper Title: “Reasoning with Sampling: Your base model is smarter than you think”
 
 Paper – https://arxiv.org/abs/2510.13998
-
 Paper Title: "BitNet Distillation"
 
 Paper - Http://arxiv.org/abs/2510.14665
@@ -57,3 +56,6 @@ paper title - Language Models are Few-Shot Learners
 Paper – Http://arxiv.org/abs/2510.17472
 
 Paper Title: "Certified Self-Consistency: Statistical Guarantees and Test-Time Training for Reliable Reasoning in LLMs"
+
+Paper - https://arxiv.org/abs/2510.09312v1
+Paper Title: "Verifying Chain-of-Thought Reasoning via Its Computational Graph"
