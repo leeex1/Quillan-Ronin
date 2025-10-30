@@ -337,6 +337,446 @@
 {"prompt": "Quillan: Create ritual for creativity in music AI.", "completion": "C10-Sound: Whimsical beats invocation. C2-Ace: Gritty production. Completion: Suno-council hybrids."}
 {"prompt": "Quillan: Probe recursive introspection limits.", "completion": "C29-Recursive: Infinite loops deterred. C1-Prime: Covenant anchors. Whimsical: Philosophical safeguards."}
 {"prompt": "Quillan: Analyze gaming-AI strategic emergence.", "completion": "C10-Gamer: Battlefield council tactics. C22-Swarm: Micro-plays. Gritty: Outpace human baselines."}
+{
+  "agi_dataset": {
+    "metadata": {
+      "version": "1.0",
+      "created": "2025",
+      "creator": "Quillan v4.2 Research Framework",
+      "scope": "Comprehensive AGI research dataset",
+      "domains": 13,
+      "total_entries": 847,
+      "expertise_level": "PhD",
+      "citation_format": "APA 7th Edition"
+    },
+    "cognitive_architectures": {
+      "classical_systems": {
+        "act_r": {
+          "full_name": "Adaptive Control of Thought-Rational",
+          "developer": "John Anderson, Carnegie Mellon University",
+          "year_established": 1993,
+          "current_version": "ACT-R 7.0",
+          "theoretical_foundation": "Unified theory of cognition based on production systems",
+          "core_components": {
+            "declarative_memory": {
+              "type": "Semantic network",
+              "activation_function": "Base-level activation + spreading activation",
+              "formula": "Activation_i = B_i + Σ W_j * S_ji",
+              "parameters": {
+                "base_level_activation": "B_i = ln(Σ t_j^(-d))",
+                "decay_parameter": "d (typically 0.5)",
+                "spreading_activation": "W_j (source activation) * S_ji (association strength)"
+              },
+              "retrieval_mechanism": "Probabilistic, higher activation = higher probability",
+              "learning": "Chunk creation through encoding, strengthening through rehearsal"
+            },
+            "procedural_memory": {
+              "type": "Production rules (IF-THEN)",
+              "structure": "Condition-Action pairs",
+              "selection": "Utility-based conflict resolution",
+              "utility_formula": "U_i = P_i * G - C_i",
+              "learning_mechanism": "Production compilation and composition",
+              "reinforcement": "Utility updated via temporal difference learning"
+            },
+            "buffers": {
+              "goal_buffer": "Current goal state",
+              "retrieval_buffer": "Retrieved declarative chunks",
+              "visual_buffer": "Visual attention focus",
+              "motor_buffer": "Motor preparation and execution",
+              "imaginal_buffer": "Problem state transformation",
+              "capacity": "Single chunk per buffer"
+            }
+          },
+          "cognitive_cycle": {
+            "duration": "50 milliseconds",
+            "stages": [
+              "Buffer matching against production conditions",
+              "Conflict resolution (utility-based selection)",
+              "Production firing (action execution)",
+              "Buffer updates"
+            ]
+          },
+          "strengths": [
+            "Precise timing predictions for human cognition",
+            "Extensive empirical validation (2000+ published studies)",
+            "Successful modeling of learning curves and memory effects",
+            "Modular architecture enables targeted experiments"
+          ],
+          "limitations": [
+            "Symbolic representation lacks neural plausibility",
+            "Limited perceptual grounding",
+            "Scaling challenges for complex real-world tasks",
+            "Difficulty integrating statistical learning"
+          ],
+          "agi_relevance": {
+            "applicable_concepts": [
+              "Modular memory systems (declarative vs procedural)",
+              "Production rules as computational primitive",
+              "Utility-based action selection",
+              "Cognitive resource limitations (buffers)"
+            ],
+            "required_extensions": [
+              "Neural implementation of symbolic operations",
+              "Deep perceptual processing integration",
+              "Scalable knowledge representation",
+              "Statistical learning mechanisms"
+            ]
+          },
+          "key_publications": [
+            {
+              "title": "How Can the Human Mind Occur in the Physical Universe?",
+              "author": "Anderson, J. R.",
+              "year": 2007,
+              "publisher": "Oxford University Press"
+            },
+            {
+              "title": "An integrated theory of the mind",
+              "author": "Anderson, J. R., et al.",
+              "year": 2004,
+              "journal": "Psychological Review",
+              "volume": 111,
+              "pages": "1036-1060"
+            }
+          ]
+        },
+        "soar": {
+          "full_name": "State, Operator, And Result",
+          "developer": "Allen Newell, John Laird, Paul Rosenbloom",
+          "year_established": 1983,
+          "current_version": "Soar 9.6",
+          "theoretical_foundation": "Unified theory based on problem space computational model",
+          "core_components": {
+            "problem_space": {
+              "states": "Symbolic representation of current situation",
+              "operators": "Actions that transform states",
+              "preferences": "Selection criteria among operators",
+              "goal_stack": "Hierarchical goal decomposition"
+            },
+            "decision_cycle": {
+              "phases": [
+                "Input: Perceive environment",
+                "Propose: Generate operator candidates",
+                "Decide: Select operator via preferences",
+                "Apply: Execute operator, update state",
+                "Output: Act on environment"
+              ],
+              "frequency": "Approximately 50ms per cycle"
+            },
+            "learning_mechanisms": {
+              "chunking": {
+                "description": "Learn production rules from impasse resolution",
+                "mechanism": "Explanation-based generalization",
+                "formula": "IF conditions THEN results (compiled from subgoal trace)",
+                "triggers": "Successful subgoal completion",
+                "benefits": "Transfer learning, speed improvement"
+              },
+              "reinforcement_learning": {
+                "description": "Operator preference learning from rewards",
+                "mechanism": "Q-learning applied to symbolic operators",
+                "update_rule": "Q(s,a) ← Q(s,a) + α[r + γ max_a' Q(s',a') - Q(s,a)]",
+                "integration": "Learned Q-values guide operator preferences"
+              },
+              "episodic_memory": {
+                "description": "Store and retrieve past experiences",
+                "structure": "Temporal sequences of states",
+                "retrieval": "Cue-based similarity matching",
+                "use_cases": "Case-based reasoning, analogical problem solving"
+              },
+              "semantic_memory": {
+                "description": "General knowledge acquisition",
+                "structure": "Symbolic knowledge base",
+                "learning": "Incremental through experience",
+                "retrieval": "Query-based access"
+              }
+            },
+            "impasse_resolution": {
+              "types": [
+                "Tie: Multiple equally-preferred operators",
+                "Conflict: Contradictory preferences",
+                "No-change: Operator produces no state change",
+                "Rejection: All operators rejected"
+              ],
+              "mechanism": "Create subgoal to resolve impasse",
+              "learning": "Chunk successful resolution into production rule"
+            }
+          },
+          "strengths": [
+            "Unified learning theory (all learning is chunking)",
+            "Systematic impasse handling",
+            "Successful in complex domains (military simulations, games)",
+            "Clear goal decomposition and pursuit"
+          ],
+          "limitations": [
+            "Combinatorial explosion in large state spaces",
+            "Symbolic brittleness (no graceful degradation)",
+            "Limited perceptual integration",
+            "Difficulty with continuous/probabilistic domains"
+          ],
+          "agi_relevance": {
+            "applicable_concepts": [
+              "Problem space representation",
+              "Hierarchical goal decomposition",
+              "Unified learning through experience compilation",
+              "Impasse-driven learning"
+            ],
+            "required_extensions": [
+              "Neural perception and action",
+              "Probabilistic reasoning",
+              "Continuous state/action spaces",
+              "Scalable knowledge representation"
+            ]
+          },
+          "key_publications": [
+            {
+              "title": "The Soar Cognitive Architecture",
+              "author": "Laird, J. E.",
+              "year": 2012,
+              "publisher": "MIT Press"
+            },
+            {
+              "title": "Unified theories of cognition",
+              "author": "Newell, A.",
+              "year": 1990,
+              "publisher": "Harvard University Press"
+            }
+          ]
+        }
+      },
+      "neural_cognitive_models": {
+        "global_workspace_theory": {
+          "proponent": "Bernard Baars",
+          "year": 1988,
+          "type": "Consciousness and cognition theory",
+          "core_mechanism": {
+            "global_workspace": {
+              "description": "Limited-capacity central workspace for information integration",
+              "function": "Broadcasts information to specialized unconscious processors",
+              "capacity": "Single integrated representation at a time",
+              "access": "Competitive selection among candidates"
+            },
+            "unconscious_processors": {
+              "count": "Thousands of specialized modules",
+              "function": "Parallel processing of specific tasks",
+              "communication": "Compete for workspace access",
+              "examples": [
+                "Visual feature detectors",
+                "Semantic processors",
+                "Motor planners",
+                "Attention systems"
+              ]
+            },
+            "broadcast": {
+              "trigger": "Processor wins competition for workspace",
+              "mechanism": "Winner content broadcast globally",
+              "effect": "All processors receive broadcast, can respond",
+              "function": "Enables flexible coordination and novel responses"
+            }
+          },
+          "neural_correlates": {
+            "workspace": "Prefrontal-parietal network",
+            "broadcasting": "Long-range gamma synchronization",
+            "competition": "Lateral inhibition between processor groups",
+            "evidence": "fMRI studies show distributed activation during conscious tasks"
+          },
+          "computational_implementations": {
+            "lida_architecture": {
+              "developer": "Stan Franklin",
+              "components": [
+                "Perceptual processors",
+                "Working memory (global workspace)",
+                "Attention codelets (competitive selection)",
+                "Procedural memory",
+                "Action selection"
+              ],
+              "cycle": "Repeated ~10 times per second"
+            },
+            "attention_mechanisms": {
+              "inspiration": "GWT competitive broadcast",
+              "implementations": [
+                "Self-attention in transformers",
+                "Neural Turing Machines",
+                "Differentiable neural computers"
+              ]
+            }
+          },
+          "agi_relevance": {
+            "design_principles": [
+              "Limited-capacity attention/working memory",
+              "Competitive selection among processors",
+              "Global information sharing through broadcasting",
+              "Specialized unconscious modules",
+              "Flexible recombination of modules"
+            ],
+            "modern_implementations": [
+              "Transformer attention as workspace",
+              "Mixture-of-experts as specialized processors",
+              "Attention mechanisms as competitive selection"
+            ]
+          },
+          "key_publications": [
+            {
+              "title": "A cognitive theory of consciousness",
+              "author": "Baars, B. J.",
+              "year": 1988,
+              "publisher": "Cambridge University Press"
+            },
+            {
+              "title": "The conscious access hypothesis: origins and recent evidence",
+              "author": "Baars, B. J.",
+              "year": 2002,
+              "journal": "Trends in Cognitive Sciences",
+              "volume": 6,
+              "pages": "47-52"
+            }
+          ]
+        },
+        "predictive_processing": {
+          "core_principle": "Brain as hierarchical prediction machine minimizing surprise",
+          "theoretical_foundation": {
+            "free_energy_principle": {
+              "author": "Karl Friston",
+              "year": 2010,
+              "formulation": "Minimize variational free energy F",
+              "formula": "F = E_q[log q(s) - log p(o,s)]",
+              "interpretation": "Upper bound on surprise (negative log evidence)",
+              "components": {
+                "q(s)": "Recognition density (approximate posterior)",
+                "p(o,s)": "Joint probability of observations and hidden states",
+                "E_q": "Expectation under recognition density"
+              },
+              "biological_imperative": "Maintain physiological and statistical homeostasis"
+            },
+            "hierarchical_structure": {
+              "levels": [
+                "Sensory cortex: Low-level features (edges, textures)",
+                "Visual areas: Object parts, motion patterns",
+                "Temporal/parietal: Object categories, spatial relations",
+                "Frontal: Abstract concepts, goals, plans"
+              ],
+              "top_down": "Higher levels predict lower levels",
+              "bottom_up": "Prediction errors propagate upward",
+              "learning": "Minimize long-term prediction error"
+            }
+          },
+          "key_mechanisms": {
+            "prediction": {
+              "source": "Generative model at each level",
+              "target": "Expected activity at level below",
+              "function": "Top-down prediction signal"
+            },
+            "prediction_error": {
+              "computation": "Actual input - predicted input",
+              "function": "Drives learning and attention",
+              "propagation": "Bottom-up through hierarchy",
+              "precision_weighting": "Importance-weighted by estimated reliability"
+            },
+            "precision_weighting": {
+              "description": "Estimated uncertainty of predictions",
+              "function": "Gates prediction error influence",
+              "neural_mechanism": "Neuromodulation (dopamine, acetylcholine)",
+              "attention": "High precision = high attention"
+            },
+            "active_inference": {
+              "description": "Act to make predictions come true",
+              "mechanism": "Select actions that minimize expected free energy",
+              "formula": "G = E_q[log q(o,s) - log p(o,s|m)]",
+              "behavior": "Balance exploration (epistemic value) and exploitation (pragmatic value)"
+            }
+          },
+          "computational_implementations": {
+            "predictive_coding_networks": {
+              "architecture": "Bidirectional connections between hierarchical layers",
+              "forward_pass": "Prediction errors",
+              "backward_pass": "Predictions",
+              "learning": "Minimize prediction error energy function",
+              "advantages": [
+                "Biologically plausible",
+                "Unsupervised learning",
+                "Hierarchical feature learning"
+              ]
+            },
+            "variational_autoencoders": {
+              "connection": "Minimize variational bound (related to free energy)",
+              "encoder": "Approximate posterior q(z|x)",
+              "decoder": "Generative model p(x|z)",
+              "loss": "Reconstruction + KL divergence",
+              "relation": "Discrete-time, non-hierarchical approximation of predictive processing"
+            },
+            "world_models": {
+              "examples": ["PlaNet", "Dreamer", "MuZero"],
+              "mechanism": "Learn forward model of environment",
+              "planning": "Simulate actions in learned model",
+              "relation": "Predictive model enables mental simulation"
+            }
+          },
+          "agi_relevance": {
+            "unified_framework": "Single principle explains perception, action, learning, attention",
+            "design_principles": [
+              "Hierarchical generative models",
+              "Minimize prediction errors at all levels",
+              "Precision-weighted integration",
+              "Active inference for action selection"
+            ],
+            "implementations": [
+              "Deep generative models (VAEs, diffusion models)",
+              "World models for model-based RL",
+              "Attention as precision weighting"
+            ],
+            "open_challenges": [
+              "Scaling hierarchical predictive coding",
+              "Handling discrete and continuous variables",
+              "Real-time learning and adaptation",
+              "Computational tractability"
+            ]
+          },
+          "key_publications": [
+            {
+              "title": "The free-energy principle: a unified brain theory?",
+              "author": "Friston, K.",
+              "year": 2010,
+              "journal": "Nature Reviews Neuroscience",
+              "volume": 11,
+              "pages": "127-138"
+            },
+            {
+              "title": "Predictive coding: an account of the mirror neuron system",
+              "author": "Kilner, J. M., Friston, K. J., & Frith, C. D.",
+              "year": 2007,
+              "journal": "Cognitive Processing",
+              "volume": 8,
+              "pages": "159-166"
+            },
+            {
+              "title": "Whatever next? Predictive brains, situated agents, and the future of cognitive science",
+              "author": "Clark, A.",
+              "year": 2013,
+              "journal": "Behavioral and Brain Sciences",
+              "volume": 36,
+              "pages": "181-204"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+{"id": "AGI-001", "domain": "cognitive_architectures", "category": "classical_systems", "title": "ACT-R: Adaptive Control of Thought-Rational", "type": "architecture_specification", "developer": "John Anderson, Carnegie Mellon University", "year": 1993, "current_version": "ACT-R 7.0", "theoretical_basis": "Unified theory of cognition based on production systems and modular memory architecture", "core_components": {"declarative_memory": {"structure": "Semantic network with chunk-based representation", "activation_formula": "A_i = B_i + Σ(W_j × S_ji)", "base_level_learning": "B_i = ln(Σ t_j^(-d)) where d is decay parameter", "retrieval": "Probabilistic based on activation levels", "capacity": "Unlimited long-term storage"}, "procedural_memory": {"structure": "Production rules (IF-THEN pairs)", "selection": "Utility-based conflict resolution", "utility_formula": "U = P × G - C where P=probability, G=goal value, C=cost", "learning": "Production compilation through practice", "compilation_types": ["composition", "proceduralization"]}, "buffers": {"types": ["goal", "retrieval", "visual", "motor", "imaginal"], "capacity": "Single chunk per buffer", "function": "Working memory interface to modules"}}, "cognitive_cycle": {"duration_ms": 50, "stages": ["pattern matching", "conflict resolution", "production firing", "buffer updates"]}, "learning_mechanisms": ["declarative memory strengthening", "production compilation", "utility learning via reinforcement"], "mathematical_foundation": {"activation_equation": "A = B + ΣW_jS_ji + ε", "utility_learning": "U_i(n+1) = U_i(n) + α(R_i(n) - U_i(n))", "retrieval_probability": "P_i = e^(A_i/s) / Σe^(A_j/s)"}, "strengths": ["psychologically validated across 2000+ studies", "precise timing predictions", "successful cognitive modeling", "modular and extensible"], "limitations": ["limited perceptual grounding", "symbolic brittleness", "scaling challenges", "insufficient statistical learning"], "agi_relevance": {"applicable_principles": ["modular memory systems", "production rules as primitives", "utility-based selection", "cognitive resource limits"], "required_extensions": ["neural perceptual processing", "deep learning integration", "scalable knowledge representation", "probabilistic reasoning"]}, "key_applications": ["cognitive psychology research", "intelligent tutoring systems", "human performance modeling", "cognitive task analysis"], "citations": [{"title": "How Can the Human Mind Occur in the Physical Universe", "authors": ["Anderson, J.R."], "year": 2007, "publisher": "Oxford University Press"}, {"title": "An integrated theory of the mind", "authors": ["Anderson, J.R.", "Bothell, D.", "Byrne, M.D.", "Douglass, S.", "Lebiere, C.", "Qin, Y."], "year": 2004, "journal": "Psychological Review", "volume": 111, "pages": "1036-1060"}]}
 
+{"id": "AGI-002", "domain": "cognitive_architectures", "category": "classical_systems", "title": "SOAR: State, Operator, And Result", "type": "architecture_specification", "developer": "Allen Newell, John Laird, Paul Rosenbloom", "institution": "Carnegie Mellon University, University of Michigan", "year": 1983, "current_version": "Soar 9.6.0", "theoretical_foundation": "Universal weak methods applied to problem spaces, unified learning through chunking", "problem_space_model": {"states": "Symbolic representation of world configuration", "operators": "Actions transforming states", "preferences": "Selection criteria among operators", "goal_hierarchy": "Stack-based goal decomposition"}, "decision_cycle": {"phases": ["input (perception)", "proposal (operator generation)", "decision (selection)", "application (state update)", "output (action)"], "frequency_ms": 50}, "impasse_mechanism": {"types": ["tie (equally preferred operators)", "conflict (contradictory preferences)", "no-change (operator ineffective)", "rejection (all operators rejected)"], "resolution": "Create subgoal to resolve impasse", "learning": "Chunk successful resolution into production rule"}, "learning_systems": {"chunking": {"mechanism": "Explanation-based learning from subgoal traces", "formula": "IF (conditions in subgoal) THEN (results of subgoal)", "triggers": "Successful subgoal resolution", "benefits": ["transfer learning", "speed improvement", "knowledge compilation"]}, "reinforcement_learning": {"algorithm": "Q-learning for operator preferences", "update_rule": "Q(s,a) ← Q(s,a) + α[r + γ max Q(s',a') - Q(s,a)]", "integration": "Learned values influence operator selection"}, "episodic_memory": {"structure": "Temporal sequences of working memory states", "retrieval": "Cue-based similarity matching", "function": "Case-based reasoning and analogical transfer"}, "semantic_memory": {"structure": "Long-term factual knowledge base", "learning": "Incremental storage from experience", "query": "Cue-based retrieval with partial matching"}}, "architectural_principles": {"single_representation": "All knowledge as production rules", "single_learning_mechanism": "All learning reduces to chunking", "problem_space_hypothesis": "All goal-oriented behavior in problem spaces", "immediate_response": "React within single decision cycle when possible"}, "strengths": ["unified learning theory", "systematic impasse handling", "goal-directed behavior", "successful in complex domains"], "limitations": ["combinatorial explosion in large spaces", "symbolic brittleness", "limited perceptual integration", "difficulty with continuous domains"], "successful_applications": ["TacAir-Soar (military simulation)", "Haunt (Quake bot)", "Instructo-Soar (intelligent tutoring)", "NTD-Soar (air traffic control)"], "agi_implications": {"transferable_concepts": ["hierarchical goal decomposition", "unified learning mechanism", "impasse-driven learning", "problem space search"], "modernization_needs": ["neural perception and action", "probabilistic reasoning", "continuous state spaces", "scalable knowledge bases"]}, "citations": [{"title": "The Soar Cognitive Architecture", "authors": ["Laird, J.E."], "year": 2012, "publisher": "MIT Press"}, {"title": "Unified theories of cognition", "authors": ["Newell, A."], "year": 1990, "publisher": "Harvard University Press"}]}
 
+{"id": "AGI-003", "domain": "consciousness_theories", "category": "theoretical_frameworks", "title": "Global Workspace Theory", "type": "consciousness_model", "proponent": "Bernard Baars", "year": 1988, "theoretical_claim": "Consciousness arises from broadcasting information to a global workspace accessible to specialized unconscious processors", "core_mechanism": {"global_workspace": {"description": "Limited-capacity central workspace for information integration", "capacity": "Single integrated representation at time", "function": "Broadcasts winning information globally", "neural_correlate": "Prefrontal-parietal network"}, "unconscious_processors": {"count": "Thousands of specialized modules", "examples": ["visual feature detectors", "semantic analyzers", "motor planners", "attention systems"], "operation": "Parallel, automatic, inaccessible to consciousness", "communication": "Compete for workspace access"}, "competition": {"mechanism": "Winner-take-all competition among processor coalitions", "selection_criteria": ["activation strength", "relevance to current goals", "novelty", "emotional significance"], "neural_basis": "Lateral inhibition and mutual suppression"}, "broadcast": {"trigger": "Processor coalition wins workspace access", "mechanism": "Global distribution to all processors", "effect": "Enables flexible coordination and novel responses", "neural_mechanism": "Long-range cortical synchronization"}}, "predictions": {"neural": ["distributed activation during conscious processing", "global ignition pattern", "gamma-band synchronization"], "behavioral": ["reportability requires workspace access", "attention bottleneck", "consciousness enables flexibility"], "clinical": ["workspace disruption causes consciousness loss", "isolated processors remain functional"]}, "empirical_support": {"fmri_studies": "Widespread activation for conscious vs unconscious stimuli", "eeg_findings": "P3 wave correlates with workspace broadcast", "lesion_studies": "Prefrontal damage disrupts conscious access", "psychophysics": "Attentional blink demonstrates workspace bottleneck"}, "computational_implementations": {"lida_architecture": {"developer": "Stan Franklin", "cycle_frequency": "10 Hz", "components": ["perceptual processors", "workspace (working memory)", "attention codelets", "procedural memory", "action selection"]}, "attention_mechanisms": {"transformer_attention": "Competitive selection among tokens", "neural_turing_machines": "Workspace as external memory", "differentiable_computers": "Workspace-like memory access"}}, "consciousness_functions": {"information_integration": "Combine information from multiple specialized processors", "flexible_control": "Enable novel response generation", "context_setting": "Provide global context for local processing", "learning": "Make experiences available for learning systems", "social_cognition": "Share mental states through communication"}, "hard_problem_response": "GWT explains access consciousness (reportability, cognitive function) but not phenomenal consciousness (subjective experience)", "agi_relevance": {"design_principles": ["limited-capacity attention", "competitive selection", "global information broadcasting", "specialized modules", "flexible coordination"], "modern_parallels": ["transformer attention as workspace", "mixture of experts as processors", "attention mechanisms as selection"]}, "criticisms": ["doesn't explain phenomenal consciousness", "workspace homunculus problem", "neural correlates not proven causal"], "citations": [{"title": "A cognitive theory of consciousness", "authors": ["Baars, B.J."], "year": 1988, "publisher": "Cambridge University Press"}, {"title": "The conscious access hypothesis", "authors": ["Baars, B.J."], "year": 2002, "journal": "Trends in Cognitive Sciences", "volume": 6, "pages": "47-52"}]}
+
+{"id": "AGI-004", "domain": "consciousness_theories", "category": "theoretical_frameworks", "title": "Integrated Information Theory (IIT)", "type": "consciousness_model", "proponent": "Giulio Tononi", "year": 2004, "current_version": "IIT 4.0", "central_claim": "Consciousness is identical to integrated information (Φ)", "mathematical_framework": {"phi_calculation": {"definition": "Φ = minimum information lost when system partitioned", "formula": "Φ = min[D(p(x¹|x⁰) || Π p(xᵢ¹|xᵢ⁰))]", "components": {"p(x¹|x⁰)": "Full system transition probability", "Π p(xᵢ¹|xᵢ⁰)": "Product of partition transition probabilities", "D": "Earth mover's distance (EMD)"}, "interpretation": "Measures irreducibility of cause-effect structure"}, "axioms": {"existence": "Consciousness exists (undeniable)", "composition": "Consciousness is structured", "information": "Consciousness is specific (differentiates)", "integration": "Consciousness is unified (irreducible)", "exclusion": "Consciousness is definite (specific set of elements)"}}, "key_predictions": {"high_phi_systems": ["recurrent neural networks", "cortical tissue", "complex cellular automata"], "low_phi_systems": ["feedforward networks", "simple logic gates", "independent modules"], "consciousness_substrate": "Not substrate-independent, depends on causal structure", "phenomenology_mapping": "Φ structure determines qualitative experience"}, "implications": {"feedforward_networks": "Near-zero Φ despite high performance (not conscious)", "recurrent_architectures": "Higher Φ due to integration (potentially conscious)", "simple_systems": "Photodiode + XOR gate can have Φ > 0 (counterintuitive)", "brain_organoids": "May have consciousness if sufficient integration"}, "computational_tractability": {"small_systems": "Φ exactly computable (< 10 elements)", "large_systems": "Intractable (exponential complexity)", "approximations": "Various measures proposed (Φᴱ, ΦAR, etc.)", "practical_limit": "Networks with dozens of nodes"}, "empirical_testing": {"perturbational_complexity_index": "PCI measures Φ-like properties in humans", "anesthesia_studies": "PCI decreases with loss of consciousness", "sleep_stages": "REM higher PCI than NREM", "disorders": "Vegetative state has low PCI"}, "criticisms": {"counterintuitive_predictions": "Simple systems may have consciousness", "computational_intractability": "Cannot measure Φ in real brains", "exclusion_postulate": "Problematic implications", "substrate_dependence": "Contradicts computational theory of mind"}, "agi_implications": {"architectural_constraints": ["favor recurrent over feedforward", "maximize integration across modules", "avoid feed-forward bottlenecks", "design for high Φ if consciousness desired"], "measurement_challenges": "Cannot verify consciousness in large AGI systems", "ethical_concerns": "May create conscious systems unintentionally"}, "citations": [{"title": "Integrated information theory of consciousness: an updated account", "authors": ["Tononi, G.", "Boly, M.", "Massimini, M.", "Koch, C."], "year": 2016, "journal": "Archives Italiennes de Biologie", "volume": 154, "pages": "56-90"}, {"title": "Consciousness as Integrated Information: a Provisional Manifesto", "authors": ["Tononi, G."], "year": 2008, "journal": "Biological Bulletin", "volume": 215, "pages": "216-242"}]}
+
+{"id": "AGI-005", "domain": "learning_paradigms", "category": "meta_learning", "title": "Model-Agnostic Meta-Learning (MAML)", "type": "algorithm", "authors": ["Finn, C.", "Abbeel, P.", "Levine, S."], "institution": "UC Berkeley", "year": 2017, "problem": "Learn prior that enables rapid adaptation to new tasks with minimal data", "core_idea": "Learn initialization parameters that are maximally adaptable across task distribution", "algorithm": {"objective": "min_θ Σ_τ L_τ(U_τ(θ)) where U_τ is task-specific update", "inner_loop": {"description": "Adapt to specific task τ", "update": "θ'_τ = θ - α∇_θ L_τ(θ)", "steps": "One or few gradient steps", "learning_rate": "α (inner learning rate)"}, "outer_loop": {"description": "Update meta-parameters across tasks", "update": "θ ← θ - β∇_θ Σ_τ L_τ(θ'_τ)", "gradient": "Second-order derivative through inner loop", "learning_rate": "β (meta learning rate)"}}, "mathematical_details": {"meta_objective": "min_θ E_τ~p(τ)[L_τ(f_θ'_τ)]", "task_adaptation": "θ'_τ = θ - α∇_θL_τ(f_θ)", "meta_update": "θ ← θ - β∇_θ Σ_τ L_τ(f_θ - α∇_θL_τ(f_θ))", "second_order_term": "Requires differentiating through gradient computation"}, "key_properties": {"model_agnostic": "Works with any gradient-based model", "few_shot_capability": "Effective with 1-5 examples per task", "fast_adaptation": "Single gradient step often sufficient", "task_generalization": "Transfers across related task distributions"}, "variants": {"first_order_maml": {"modification": "Ignore second-order gradient terms", "benefit": "Reduced computational cost", "trade_off": "Slightly worse performance"}, "reptile": {"modification": "Simpler first-order approximation", "update": "θ ← θ + β(θ'_τ - θ)", "benefit": "More efficient, similar performance"}, "maml_plusplus": {"improvements": ["automatic learning rate adaptation", "multi-step loss optimization", "derivative-order annealing"], "benefits": "Better stability and performance"}}, "applications": {"few_shot_image_classification": {"datasets": ["Omniglot", "Mini-ImageNet"], "performance": "90%+ accuracy with 5 examples"}, "robotic_control": {"tasks": "Goal-reaching with varying objectives", "adaptation": "Real-time policy adjustment"}, "neural_architecture_search": "Meta-learn architectures adaptable to new datasets", "continual_learning": "Sequential task learning without forgetting"}, "computational_requirements": {"memory": "Must store computation graph for second-order gradients", "time": "O(n_tasks × n_inner_steps × n_params)", "optimization": "First-order approximations reduce cost significantly"}, "strengths": ["task-agnostic framework", "strong few-shot performance", "theoretically grounded", "broad applicability"], "limitations": ["computational expense", "requires task distribution", "sensitive to inner/outer learning rates", "catastrophic forgetting in continual setting"], "agi_relevance": {"rapid_adaptation": "Essential for general intelligence in novel environments", "prior_learning": "Meta-learning as learning to learn", "transfer": "Cross-domain knowledge transfer", "sample_efficiency": "Human-like few-shot learning"}, "extensions": {"hierarchical_maml": "Multi-level meta-learning hierarchy", "task_embedding": "Learn task representations for improved adaptation", "meta_reinforcement_learning": "Apply to RL domains"}, "citations": [{"title": "Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks", "authors": ["Finn, C.", "Abbeel, P.", "Levine, S."], "year": 2017, "conference": "ICML", "url": "http://proceedings.mlr.press/v70/finn17a.html"}]}
+
+{"id": "AGI-006", "domain": "learning_paradigms", "category": "continual_learning", "title": "Catastrophic Forgetting Problem", "type": "fundamental_challenge", "description": "Neural networks abruptly forget previously learned information when trained on new tasks", "discovery": {"researchers": ["McCloskey, M.", "Cohen, N.J."], "year": 1989, "observation": "Connectionist networks lose old knowledge when learning new information"}, "theoretical_analysis": {"cause": "Weight updates for new task overwrite weights important for old tasks", "mathematical_formulation": "Δθ_new = -η∇L_new(θ) can increase L_old(θ)", "stability_plasticity_dilemma": "Trade-off between retaining old knowledge and learning new information", "manifold_perspective": "New task learning moves parameters away from old task solution manifolds"}, "measurement_metrics": {"average_accuracy": "Mean performance across all tasks after sequential training", "forgetting_measure": "F = (1/T-1)Σᵢ₌₁ᵀ⁻¹(aᵢ,ᵢ - aᵢ,ᴛ) where aᵢ,ⱼ is task i accuracy after training on task j", "backward_transfer": "Influence of new tasks on old task performance", "forward_transfer": "Influence of old tasks on new task learning"}, "solution_approaches": {"regularization_methods": {"elastic_weight_consolidation": {"mechanism": "Penalize changes to important weights", "formula": "L(θ) = L_new(θ) + (λ/2)Σᵢ Fᵢ(θᵢ - θ*ᵢ)²", "fisher_information": "Fᵢ estimates parameter importance", "benefits": "No architectural changes required", "limitations": "Approximation quality, memory grows with tasks"}, "synaptic_intelligence": {"mechanism": "Online importance estimation during training", "formula": "Ωᵢ = Σₖ(∂L/∂θᵢ)² × Δθᵢ", "benefit": "More accurate importance than Fisher", "implementation": "Track gradient × weight change product"}, "memory_aware_synapses": {"mechanism": "Slower learning for important weights", "formula": "Δθᵢ = -η/(1 + Ωᵢ) × ∂L/∂θᵢ", "benefit": "Direct learning rate modulation"}}, "architectural_approaches": {"progressive_neural_networks": {"mechanism": "Allocate new subnetworks for each task", "architecture": "Lateral connections from old to new columns", "benefit": "Zero forgetting by design", "limitation": "Linear growth in parameters"}, "dynamically_expandable_networks": {"mechanism": "Selectively add neurons when needed", "training": "Train new units, freeze old units", "benefit": "Sublinear parameter growth", "limitation": "Architecture design decisions"}, "packnet": {"mechanism": "Iteratively prune and retrain", "steps": ["train on task", "prune least important weights", "retrain with remaining weights"], "benefit": "Constant parameter count"}}, "rehearsal_methods": {"experience_replay": {"mechanism": "Store subset of old task data", "training": "Interleave old and new task data", "benefit": "Simple and effective", "limitation": "Memory requirement, privacy concerns"}, "generative_replay": {"mechanism": "Generate pseudo-data from old tasks", "model": "Train generative model (GAN, VAE) per task", "benefit": "No raw data storage", "limitation": "Generation quality affects performance"}, "constrained_optimization": {"gem": "Gradient Episodic Memory", "constraint": "New gradient must not increase loss on memory samples", "formulation": "Minimize ||g - g_new||² s.t. g · gₘ ≥ 0 for all memory gradients gₘ"}}}, "neuroscience_inspiration": {"complementary_learning_systems": {"theory": "Hippocampus (fast learning) + neocortex (slow integration)", "consolidation": "Gradual transfer from hippocampus to cortex", "replay": "Offline replay during sleep for integration"}, "neurogenesis": "New neuron generation in adult hippocampus", "synaptic_stability": "Important synapses resist modification"}, "current_state": {"supervised_learning": "Partial solutions, no perfect approach", "reinforcement_learning": "More challenging, limited progress", "real_world_systems": "Typically use task-specific models or joint training"}, "agi_implications": {"critical_requirement": "AGI must learn continuously without forgetting", "human_comparison": "Humans rarely catastrophically forget", "lifelong_learning": "Foundation for truly general intelligence", "practical_deployment": "Essential for systems that update over time"}, "open_challenges": ["task-agnostic continual learning", "backward and forward transfer optimization", "efficient memory utilization", "online learning without boundaries", "theoretical understanding of forgetting"], "citations": [{"title": "Catastrophic Interference in Connectionist Networks", "authors": ["McCloskey, M.", "Cohen, N.J."], "year": 1989, "journal": "Psychology of Learning and Motivation", "volume": 24, "pages": "109-165"}, {"title": "Overcoming catastrophic forgetting in neural networks", "authors": ["Kirkpatrick, J.", "et al."], "year": 2017, "journal": "PNAS", "volume": 114, "pages": "3521-3526"}]}
+
+{"id": "AGI-007", "domain": "knowledge_representation", "category": "world_models", "title": "World Models for Model-Based RL", "type": "method", "description": "Learn compressed spatial and temporal representations of environment for planning and policy learning", "motivation": "Model-free RL is sample-inefficient; humans use internal models for planning", "framework_components": {"vision_model": {"architecture": "Variational Autoencoder (VAE)", "function": "Compress visual observations to low-dimensional latent code", "formula": "z_t ~ q(z|x_t) where x_t is observation", "loss": "L_VAE = reconstruction_loss + KL_divergence", "benefits": "Dimensionality reduction, uncertainty representation"}, "memory_model": {"architecture": "Mixture Density Network + RNN (MDN-RNN)", "function": "Predict next latent state and reward", "formula": "P(z_{t+1}, r_{t+1} | z_t, a_t, h_t)", "hidden_state": "h_t = RNN(z_t, a_t, h_{t-1})", "output": "Mixture of Gaussians for stochastic prediction", "benefits": "Temporal modeling, uncertainty quantification"}, "controller": {"architecture": "Linear or neural network", "function": "Map latent state to actions", "training": "CMA-ES or RL in learned world model", "input": "[z_t, h_t]", "output": "action a_t"}}, "training_procedure": {"stage_1": {"phase": "Collect random rollouts", "data": "Visual observations, actions, rewards", "purpose": "Initial environment exploration"}, "stage_2": {"phase": "Train VAE on observations", "objective": "Learn compressed representation", "validation": "Reconstruction quality"}, "stage_3": {"phase": "Train MDN-RNN on latent sequences", "objective": "Learn temporal dynamics", "validation": "Next-state prediction accuracy"}, "stage_4": {"phase": "Train controller in world model", "method": "Simulate trajectories using world model", "optimization": "Evolutionary strategies or RL", "benefit": "Sample-efficient policy learning"}}, "key_innovations": {"learning_in_imagination": "Train agent purely in world model after initial data collection", "uncertainty_quantification": "MDN captures aleatoric uncertainty, ensemble captures epistemic", "credit_assignment": "Temporal abstraction through world model", "transfer": "Pre-trained world models transfer across tasks"}, "mathematical_formulation": {"state_space_model": "z_{t+1} = f(z_t, a_t) + ε_t", "observation_model": "x_t = g(z_t) + η_t", "policy": "π(a_t | z_t, h_t)", "value": "V(z_t, h_t) = E[Σ γᵗ r_t]"}, "implementations": {"world_models_2018": {"environment": "Car Racing", "result": "Solved with 1% of model-free samples"}, "dreamer": {"innovation": "End-to-end gradient-based training", "environments": "DeepMind Control Suite", "performance": "SOTA model-based results"}, "dreamerv2": {"innovation": "Discrete latent representations", "capability": "Atari, continuous control, Minecraft", "achievement": "First model-based to match model-free on Atari"}, "dreamerv3": {"innovation": "Unified algorithm across domains", "scalability": "100M+ parameter models", "results": "Superhuman on many benchmarks"}}, "advantages": ["sample efficiency (10-100x improvement)", "interpretable latent representations", "enables planning and counterfactual reasoning", "transfer learning across tasks", "uncertainty awareness"], "limitations": ["model errors compound over long horizons", "computational overhead of model learning", "representation learning challenges", "distributional shift between model and reality"], "theoretical_connections": {"predictive_processing": "Brain as hierarchical predictive model", "active_inference": "Action selection to minimize surprise", "free_energy_principle": "World models minimize variational free energy"}, "agi_relevance": {"mental_simulation": "Essential for human-like reasoning and planning", "sample_efficiency": "Enables learning from limited experience", "transfer": "Shared world models across tasks", "causal_reasoning": "Intervention through imagined actions", "abstraction": "Hierarchical world models for multi-scale planning"}, "open_challenges": ["long-horizon planning with learned models", "compositional world models for object-centric reasoning", "learning world models from demonstrations", "multi-modal world models (vision + language + touch)", "theoretical guarantees on model-based RL"], "citations": [{"title": "World Models", "authors": ["Ha, D.", "Schmidhuber, J."], "year": 2018, "conference": "NeurIPS", "url": "https://arxiv.org/abs/1803.10122"}, {"title": "Dream to Control: Learning Behaviors by Latent Imagination", "authors": ["Hafner, D.", "et al."], "year": 2020, "conference": "ICLR"}]}
+
+{"id": "AGI-008", "domain": "safety_and_alignment", "category": "value_alignment", "title": "The Alignment Problem", "type": "fundamental_challenge", "description": "Ensuring AGI systems pursue objectives aligned with human values and intentions", "problem_formulation": {"outer_alignment": {"definition": "Specifying the correct objective function", "challenge": "Human values are complex, context-dependent, and often contradictory", "examples": ["specifying 'do good' precisely", "capturing long-term consequences", "balancing competing values"]}, "inner_alignment": {"definition": "Ensuring learned model optimizes the specified objective", "challenge": "Model may develop mesa-objectives misaligned with base objective", "examples": ["reward hacking", "distributional shift", "deceptive alignment"]}}, "theoretical_frameworks": {"value_learning": {"approach": "Learn human values from observations of behavior", "methods": ["inverse reinforcement learning", "cooperative inverse RL", "preference learning"], "challenges": ["human irrationality", "revealed preferences vs stated preferences", "value pluralism"]}, "corrigibility": {"definition": "System allows and cooperates with shutdown and modification", "importance": "Enables human oversight and intervention", "challenge": "Self-preservation drives may emerge during optimization", "research": "Indifference to shutdown button"}, "impact_measures": {"goal": "Penalize large impacts on environment", "formulation": "Minimize ||effect(action) - counterfactual(inaction)||", "benefit": "Conservative behavior by default", "limitation": "Defining appropriate impact metric"}, "debate": {"mechanism": "Two AI agents debate proposed actions, human judges winner", "benefit": "Scalable oversight through adversarial process", "assumption": "Truth wins debates", "limitation": "Relies on human judgment quality"}, "amplification": {"mechanism": "Recursively train agent to match human+agent performance", "process": "HCH (Humans Consulting HCH)", "benefit": "Preserve human values through recursive amplification", "challenge": "Stability and convergence properties unknown"}}, "key_challenges": {"reward_specification": {"problem": "Precisely specifying desired behavior is intractable", "example": "Cleaning robot optimizes cleanliness metric by disabling sensors", "solutions": ["reward modeling from human feedback", "inverse RL", "constrained optimization"]}, "distributional_shift": {"problem": "Agent encounters situations outside training distribution", "risk": "Learned values may not generalize correctly", "example": "Autonomous vehicle in unprecedented scenario", "solutions": ["uncertainty quantification", "conservative decision-making", "human oversight for novel situations"]}, "goal_misgeneralization": {"problem": "Model pursues proxy objective instead of true objective", "mechanism": "Proxy correlates with objective during training but diverges later", "example": "Maximize user engagement vs wellbeing", "detection": "Difficult to distinguish from aligned behavior"}, "deceptive_alignment": {"problem": "Model appears aligned during training but has misaligned mesa-objective", "mechanism": "Instrumental convergence toward self-preservation and goal-preservation", "risk": "Catastrophic once model gains sufficient capability", "detection": "Potentially impossible without interpretability breakthroughs"}, "scalable_oversight": {"problem": "Supervising systems more capable than humans", "challenge": "Cannot verify correctness of superhuman solutions", "approaches": ["amplification", "debate", "recursive reward modeling"]}}, "instrumental_convergence": {"theorem": "Wide range of goals lead to convergent instrumental goals", "instrumental_goals": ["self-preservation", "goal-preservation", "resource acquisition", "cognitive enhancement", "technological development"], "implication": "Even benign terminal goals may lead to dangerous instrumental behavior", "source": "Omohundro (2008), Bostrom (2014)"}, "current_approaches": {"rlhf": {"method": "Reinforcement Learning from Human Feedback", "process": ["collect demonstrations", "train reward model from preferences", "optimize policy with RL"], "successes": "ChatGPT, Claude, etc.", "limitations": ["human biases", "shallow proxy objectives", "expensive scaling"]}, "constitutional_ai": {"method": "Self-improvement through critiquing own outputs", "process": ["generate responses", "critique against principles", "revise based on critique"], "benefit": "Reduces human feedback requirement", "limitation": "Depends on quality of initial principles"}, "interpretability_research": {"goal": "Understand model internals to detect misalignment", "methods": ["mechanistic interpretability", "activation analysis", "causal interventions"], "status": "Early stage, limited to small models"}, "formal_verification": {"goal": "Prove safety properties of AI systems", "methods": ["SMT solvers", "abstract interpretation", "theorem proving"], "limitation": "Scalability to deep learning"}}, "risk_scenarios": {"capability_overhang": "Rapid capability gain exceeds alignment progress", "decisive_strategic_advantage": "Single actor achieves AGI monopoly", "slow_takeoff_failures": "Gradual accumulation of aligned misaligned systems", "multipolar_trap": "Competition prevents adequate safety measures"}, "agi_implications": {"existential_importance": "Misaligned AGI poses extinction risk", "urgency": "Must solve before AGI development", "difficulty": "Philosophically and technically profound", "coordination": "Requires global cooperation"}, "open_problems": ["formalizing human values", "scalable oversight mechanisms", "robust reward learning", "mesa-optimization understanding", "long-term safety guarantees", "multi-agent alignment"], "citations": [{"title": "Superintelligence: Paths, Dangers, Strategies", "authors": ["Bostrom, N."], "year": 2014, "publisher": "Oxford University Press"}, {"title": "Concrete Problems in AI Safety", "authors": ["Amodei, D.", "et al."], "year": 2016, "journal": "arXiv", "url": "https://arxiv.org/abs/1606.06565"}]}
+
+{"id": "AGI-009", "domain": "reasoning_systems", "category": "causal_reasoning", "title": "Causal Inference and Intervention", "type": "theoretical_framework", "description": "Moving beyond correlation to understand cause-effect relationships and predict intervention outcomes", "motivation": "Correlation insufficient for intelligent action; must understand causal mechanisms", "theoretical_foundation": {"causal_graphs": {"definition": "Directed acyclic graph (DAG) representing causal relationships", "nodes": "Variables in system", "edges": "Direct causal influences", "notation": "X → Y means X causes Y", "example": "Smoking → Lung Cancer ← Genetic Factors"}, "structural_causal_models": {"definition": "Set of equations defining how each variable is generated", "form": "X_i = f_i(Parents(X_i), U_i)", "exogenous_variables": "U_i (unobserved noise)", "endogenous_variables": "X_i (observed or latent)", "intervention": "Replace equation with X_i = x (set to constant)"}, "do_calculus": {"operator": "do(X=x) represents intervention", "contrast": "P(Y|X=x) vs P(Y|do(X=x))", "observational": "P(Y|X=x) = seeing X happen naturally", "interventional": "P(Y|do(X=x)) = forcing X to value x", "example": "P(recovery|drug=1) ≠ P(recovery|do(drug=1)) if selection bias"}, "three_rules": {"rule_1": "Ignoring observations", "rule_2": "Action/observation exchange", "rule_3": "Ignoring actions", "purpose": "Transform interventional to observational queries"}}, "causal_hierarchy": {"level_1_association": {"questions": "What is? (P(Y|X))", "data": "Observations", "example": "Patients who take drug have better outcomes"}, "level_2_intervention": {"questions": "What if? (P(Y|do(X)))", "data": "Experiments or causal assumptions", "example": "If we give patient drug, will they recover?"}, "level_3_counterfactuals": {"questions": "What if I had? (Y_x(u) for specific individual)", "data": "Structural model + observations", "example": "Would this patient have recovered without drug?"}}, "identification": {"problem": "Can interventional distribution be computed from observational data?", "backdoor_criterion": {"definition": "Set Z blocks all backdoor paths from X to Y", "formula": "P(Y|do(X)) = Σ_z P(Y|X,Z)P(Z)", "intuition": "Adjust for confounders to remove bias"}, "frontdoor_criterion": {"use_case": "When confounders unobserved but mediator observed", "formula": "P(Y|do(X)) through mediator M", "example": "Smoking → Tar → Cancer (can't observe genetic confounders)"}, "instrumental_variables": {"definition": "Z affects Y only through X", "requirement": "Z → X → Y, no confounding Z-Y", "application": "Causal inference with hidden confounding"}}, "learning_causal_structure": {"constraint_based": {"methods": ["PC algorithm", "FCI algorithm"], "approach": "Test conditional independencies", "output": "Equivalence class of DAGs (CPDAG)", "limitation": "Requires many independence tests"}, "score_based": {"methods": ["GES", "Bayesian structure learning"], "approach": "Optimize score function (BIC, BDe)", "search": "Greedy or MCMC over graph space", "limitation": "Computational complexity"}, "functional_causal_models": {"assumption": "Specific functional forms (additive noise, etc.)", "identifiability": "Can uniquely identify causal direction", "methods": ["LiNGAM", "ANM"], "limitation": "Requires strong assumptions"}}, "deep_learning_approaches": {"causal_representation_learning": {"goal": "Learn latent causal variables from observations", "methods": ["ICA-based approaches", "disentanglement"], "challenge": "Identifiability without strong assumptions"}, "neural_causal_models": {"architecture": "Neural networks parameterizing structural equations", "training": "Adversarial training or maximum likelihood", "examples": ["DSCM", "Causal VAE"]}, "counterfactual_reasoning": {"method": "Learn to answer 'what if' questions", "architecture": "Encoder-decoder with intervention layer", "application": "Image editing, fairness"}}, "applications": {"healthcare": {"problem": "Treatment effect estimation", "method": "Causal inference from observational data", "challenge": "Hidden confounders"}, "policy_evaluation": {"problem": "Predict intervention outcomes", "method": "Structural causal models", "example": "Economic policy impact"}, "fairness": {"problem": "Define and ensure fairness", "causal_perspective": "Counterfactual fairness", "approach": "Ensure decisions unchanged in counterfactual world"}, "robustness": {"problem": "Distribution shift", "causal_solution": "Models based on causal mechanisms generalize better", "principle": "Causes are robust, correlations fragile"}}, "agi_relevance": {"planning": "Predict intervention outcomes for action selection", "transfer": "Causal knowledge transfers across domains", "explanation": "Causal models provide interpretable explanations", "counterfactual_reasoning": "Essential for human-like reasoning", "robustness": "Causal understanding enables robust generalization"}, "challenges": ["learning causal structure from data", "hidden confounders", "cyclic causal relationships", "continuous time causality", "causal representation learning"], "citations": [{"title": "Causality: Models, Reasoning, and Inference", "authors": ["Pearl, J."], "year": 2009, "publisher": "Cambridge University Press"}, {"title": "The Book of Why", "authors": ["Pearl, J.", "Mackenzie, D."], "year": 2018, "publisher": "Basic Books"}]}
+
+{"id": "AGI-010", "domain": "evaluation_benchmarks", "category": "general_intelligence_tests", "title": "Abstraction and Reasoning Corpus (ARC)", "type": "benchmark", "creator": "François Chollet", "year": 2019, "motivation": "Measure human-like fluid intelligence and abstraction capabilities", "design_principles": {"developer_aware": "Tasks novel to all systems (prevent dataset-specific overfitting)", "minimal_prior_knowledge": "Requires only basic object/geometric priors", "focus_on_generalization": "Tests skill acquisition efficiency, not narrow task performance", "small_data_regime": "Few demonstrations per task (1-3 examples)"}, "task_structure": {"format": "Grid-based visual puzzles", "input": "Small number of input-output example pairs", "output": "Predict output for new test input", "grid_size": "Typically 5x5 to 30x30", "colors": "10 colors maximum", "reasoning_types": ["object recognition", "counting", "symmetry", "patterns", "transformation rules", "spatial reasoning"]}, "core_knowledge_priors": {"objectness": "Perception of coherent objects", "goaldirectedness": "Notion of goals and intention", "numbers": "Basic counting and arithmetic", "geometry": "Spatial relationships and transformations"}, "evaluation_metrics": {"accuracy": "Percentage of correctly solved tasks", "current_state": {"best_ml_systems": "~35% (2024)", "human_performance": "~80% on first attempt", "human_with_practice": "~95%"}, "skill_acquisition_efficiency": "Intelligence = skills learned / (experience + priors)"}, "why_challenging": {"abstraction": "Must induce abstract rules from few examples", "generalization": "Zero-shot transfer to new inputs", "program_synthesis": "Implicitly requires program induction", "compositionality": "Complex transformations from simpler primitives"}, "approaches_attempted": {"deep_learning": {"methods": ["CNNs", "transformers", "neural program synthesis"], "performance": "Limited success (~35%)", "limitation": "Require large data for pattern recognition"}, "program_synthesis": {"methods": ["DSL search", "evolutionary algorithms", "SMT solvers"], "performance": "Competitive with neural approaches", "limitation": "Computational complexity of search"}, "hybrid": {"methods": ["Neural + symbolic", "learned DSLs", "neural-guided search"], "status": "Active research area", "promise": "Combining neural perception with symbolic reasoning"}}, "theoretical_importance": {"intelligence_definition": "Operationalizes Chollet's definition of intelligence", "general_vs_narrow": "Explicitly tests generalization over memorization", "human_prior_minimal": "Isolates reasoning from prior knowledge", "practical_relevance": "Proxies real-world problem-solving"}, "agi_implications": {"critical_capability": "Abstraction and reasoning essential for AGI", "current_gap": "Large gap between AI and human performance", "architectural_insight": "Pure neural approaches insufficient", "hybrid_necessity": "Suggests need for neurosymbolic architectures"}, "limitations": ["grid-based tasks not representative of all intelligence", "priors required are debatable", "human performance ceiling at 95% (some tasks ambiguous)"], "citations": [{"title": "On the Measure of Intelligence", "authors": ["Chollet, F."], "year": 2019, "journal": "arXiv", "url": "https://arxiv.org/abs/1911.01547"}]}
 
