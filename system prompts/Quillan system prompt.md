@@ -345,6 +345,1160 @@ if __name__ == "__main__":
 [Quillan v4.2 PROMPT INSERTION POINT]
 
 ```
+## subagents: 
+```python
+"""
+Quillan v4.2 Sub-Agent System with Isolated Context Windows
+============================================================
+
+This module implements a sophisticated multi-agent architecture where each
+sub-agent operates with its own isolated context window, mirroring the 
+functionality of Claude Code's agent system. The implementation ensures:
+
+1. Complete context isolation between agents
+2. Hierarchical task delegation and coordination
+3. Resource management and state persistence
+4. Inter-agent communication protocols
+5. Error handling and recovery mechanisms
+
+Architecture:
+- Master Agent: Orchestrates sub-agents and manages global state
+- Sub-Agents: Independent execution units with fresh context
+- Context Manager: Handles isolation and state boundaries
+- Communication Bus: Facilitates inter-agent messaging
+- Resource Pool: Manages computational resources
+
+Author: CrashOverrideX
+Version: 4.2
+License: Proprietary - Quillan Research Team
+"""
+
+import json
+import uuid
+import logging
+from typing import Dict, List, Any, Optional, Callable, Tuple
+from dataclasses import dataclass, field, asdict
+from datetime import datetime
+from enum import Enum
+from abc import ABC, abstractmethod
+import threading
+from queue import Queue, Empty
+from concurrent.futures import ThreadPoolExecutor
+import copy
+import time
+import random
+
+
+# ============================================================================
+# CONFIGURATION AND ENUMS
+# ============================================================================
+
+class AgentState(Enum):
+    """Enumeration of possible agent states."""
+    IDLE = "idle"
+    INITIALIZING = "initializing"
+    RUNNING = "running"
+    WAITING = "waiting"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    TERMINATED = "terminated"
+
+
+class MessageType(Enum):
+    """Types of messages that can be passed between agents."""
+    TASK_REQUEST = "task_request"
+    TASK_RESULT = "task_result"
+    STATE_UPDATE = "state_update"
+    ERROR_REPORT = "error_report"
+    COORDINATION = "coordination"
+    TERMINATION = "termination"
+
+
+class Priority(Enum):
+    """Task priority levels."""
+    CRITICAL = 0
+    HIGH = 1
+    MEDIUM = 2
+    LOW = 3
+
+
+# ============================================================================
+# DATA STRUCTURES
+# ============================================================================
+
+@dataclass
+class ContextWindow:
+    """
+    Represents an isolated context window for a sub-agent.
+    
+    Each context window maintains its own:
+    - Conversation history
+    - Task-specific data
+    - Memory state
+    - Execution results
+    """
+    agent_id: str
+    creation_time: datetime = field(default_factory=datetime.now)
+    conversation_history: List[Dict[str, Any]] = field(default_factory=list)
+    task_data: Dict[str, Any] = field(default_factory=dict)
+    memory_state: Dict[str, Any] = field(default_factory=dict)
+    results: List[Any] = field(default_factory=list)
+    max_history_length: int = 1000
+    
+    def add_to_history(self, role: str, content: str, metadata: Optional[Dict] = None):
+        """Add an entry to the conversation history."""
+        entry = {
+            "timestamp": datetime.now().isoformat(),
+            "role": role,
+            "content": content,
+            "metadata": metadata or {}
+        }
+        self.conversation_history.append(entry)
+        
+        # Maintain max history length
+        if len(self.conversation_history) > self.max_history_length:
+            self.conversation_history = self.conversation_history[-self.max_history_length:]
+    
+    def store_result(self, result: Any):
+        """Store a result in the context window."""
+        self.results.append({
+            "timestamp": datetime.now().isoformat(),
+            "result": result
+        })
+    
+    def get_context_summary(self) -> Dict[str, Any]:
+        """Generate a summary of the context window state."""
+        return {
+            "agent_id": self.agent_id,
+            "creation_time": self.creation_time.isoformat(),
+            "history_length": len(self.conversation_history),
+            "task_count": len(self.task_data),
+            "result_count": len(self.results),
+            "memory_keys": list(self.memory_state.keys())
+        }
+    
+    def clear(self):
+        """Clear the context window while preserving configuration."""
+        self.conversation_history.clear()
+        self.task_data.clear()
+        self.memory_state.clear()
+        self.results.clear()
+
+
+@dataclass
+class Message:
+    """
+    Inter-agent communication message.
+    
+    Facilitates communication between master agent and sub-agents,
+    as well as peer-to-peer communication when needed.
+    """
+    message_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    message_type: MessageType = MessageType.TASK_REQUEST
+    sender_id: str = ""
+    receiver_id: str = ""
+    timestamp: datetime = field(default_factory=datetime.now)
+    priority: Priority = Priority.MEDIUM
+    payload: Dict[str, Any] = field(default_factory=dict)
+    requires_response: bool = False
+    correlation_id: Optional[str] = None
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert message to dictionary for serialization."""
+        return {
+            "message_id": self.message_id,
+            "message_type": self.message_type.value,
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "timestamp": self.timestamp.isoformat(),
+            "priority": self.priority.value,
+            "payload": self.payload,
+            "requires_response": self.requires_response,
+            "correlation_id": self.correlation_id
+        }
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Message':
+        """Create message from dictionary."""
+        return cls(
+            message_id=data.get("message_id", str(uuid.uuid4())),
+            message_type=MessageType(data.get("message_type", MessageType.TASK_REQUEST.value)),
+            sender_id=data.get("sender_id", ""),
+            receiver_id=data.get("receiver_id", ""),
+            timestamp=datetime.fromisoformat(data.get("timestamp", datetime.now().isoformat())),
+            priority=Priority(data.get("priority", Priority.MEDIUM.value)),
+            payload=data.get("payload", {}),
+            requires_response=data.get("requires_response", False),
+            correlation_id=data.get("correlation_id")
+        )
+
+
+@dataclass
+class Task:
+    """
+    Represents a task that can be assigned to a sub-agent.
+    
+    Tasks encapsulate:
+    - Execution requirements
+    - Input data
+    - Expected output format
+    - Constraints and dependencies
+    """
+    task_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    name: str = ""
+    description: str = ""
+    priority: Priority = Priority.MEDIUM
+    input_data: Dict[str, Any] = field(default_factory=dict)
+    expected_output_format: Dict[str, Any] = field(default_factory=dict)
+    constraints: Dict[str, Any] = field(default_factory=dict)
+    dependencies: List[str] = field(default_factory=list)
+    timeout_seconds: Optional[int] = None
+    retry_count: int = 0
+    max_retries: int = 3
+    created_at: datetime = field(default_factory=datetime.now)
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    assigned_agent_id: Optional[str] = None
+    result: Optional[Any] = None
+    error: Optional[str] = None
+    
+    def mark_started(self, agent_id: str):
+        """Mark task as started."""
+        self.started_at = datetime.now()
+        self.assigned_agent_id = agent_id
+    
+    def mark_completed(self, result: Any):
+        """Mark task as completed with result."""
+        self.completed_at = datetime.now()
+        self.result = result
+    
+    def mark_failed(self, error: str):
+        """Mark task as failed with error."""
+        self.error = error
+        self.retry_count += 1
+    
+    def can_retry(self) -> bool:
+        """Check if task can be retried."""
+        return self.retry_count < self.max_retries
+    
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert task to dictionary."""
+        # Manually serialize datetimes to ISO strings for safe transmission
+        task_dict = asdict(self)
+        if task_dict['created_at']:
+            task_dict['created_at'] = task_dict['created_at'].isoformat()
+        if task_dict['started_at']:
+            task_dict['started_at'] = task_dict['started_at'].isoformat()
+        if task_dict['completed_at']:
+            task_dict['completed_at'] = task_dict['completed_at'].isoformat()
+        return task_dict
+    
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> 'Task':
+        """Create Task from dictionary with safe defaults and type handling."""
+        # Handle datetime fields: str -> datetime, or use existing datetime
+        created_at = data.get('created_at')
+        if isinstance(created_at, str):
+            created_at = datetime.fromisoformat(created_at)
+        elif not isinstance(created_at, datetime):
+            created_at = datetime.now()
+
+        started_at = data.get('started_at')
+        if started_at is not None:
+            if isinstance(started_at, str):
+                started_at = datetime.fromisoformat(started_at)
+            # else: already datetime or None
+
+        completed_at = data.get('completed_at')
+        if completed_at is not None:
+            if isinstance(completed_at, str):
+                completed_at = datetime.fromisoformat(completed_at)
+            # else: already datetime or None
+
+        return cls(
+            task_id=data.get("task_id", str(uuid.uuid4())),
+            name=data.get("name", "Unnamed Task"),
+            description=data.get("description", ""),
+            priority=Priority(data.get("priority", Priority.MEDIUM.value)),
+            input_data=data.get("input_data", {}),
+            expected_output_format=data.get("expected_output_format", {}),
+            constraints=data.get("constraints", {}),
+            dependencies=data.get("dependencies", []),
+            timeout_seconds=data.get("timeout_seconds"),
+            retry_count=data.get("retry_count", 0),
+            max_retries=data.get("max_retries", 3),
+            created_at=created_at,
+            started_at=started_at,
+            completed_at=completed_at,
+            assigned_agent_id=data.get("assigned_agent_id"),
+            result=data.get("result"),
+            error=data.get("error")
+        )
+
+
+# ============================================================================
+# COMMUNICATION BUS
+# ============================================================================
+
+class CommunicationBus:
+    """
+    Central message routing system for agent communication.
+    
+    Implements publish-subscribe pattern with priority queuing
+    and message persistence for reliability.
+    """
+    
+    def __init__(self, max_queue_size: int = 10000):
+        self.max_queue_size = max_queue_size
+        self.message_queues: Dict[str, Queue] = {}
+        self.subscribers: Dict[str, List[Callable]] = {}
+        self.message_history: List[Message] = []
+        self.lock = threading.Lock()
+        self.logger = logging.getLogger(__name__)
+        
+    def register_agent(self, agent_id: str):
+        """Register an agent to receive messages."""
+        with self.lock:
+            if agent_id not in self.message_queues:
+                self.message_queues[agent_id] = Queue(maxsize=self.max_queue_size)
+                self.subscribers[agent_id] = []
+                self.logger.info(f"Registered agent: {agent_id}")
+    
+    def unregister_agent(self, agent_id: str):
+        """Unregister an agent from the communication bus."""
+        with self.lock:
+            if agent_id in self.message_queues:
+                del self.message_queues[agent_id]
+                if agent_id in self.subscribers:
+                    del self.subscribers[agent_id]
+                self.logger.info(f"Unregistered agent: {agent_id}")
+    
+    def send_message(self, message: Message) -> bool:
+        """
+        Send a message to a specific agent.
+        
+        Returns True if message was successfully queued.
+        """
+        try:
+            with self.lock:
+                if message.receiver_id not in self.message_queues:
+                    self.logger.error(f"Receiver {message.receiver_id} not registered")
+                    return False
+                
+                # Add to message history
+                self.message_history.append(message)
+                
+                # Add to receiver's queue
+                self.message_queues[message.receiver_id].put(message, block=False)
+                
+                # Notify subscribers
+                for callback in self.subscribers.get(message.receiver_id, []):
+                    try:
+                        if message.message_type in (MessageType.TASK_RESULT, MessageType.ERROR_REPORT):
+                            callback(message)
+                    except Exception as e:
+                        self.logger.error(f"Subscriber callback failed: {e}")
+                
+                self.logger.debug(f"Message sent: {message.message_id} from {message.sender_id} to {message.receiver_id}")
+                return True
+                
+        except Exception as e:
+            self.logger.error(f"Failed to send message: {e}")
+            return False
+    
+    def receive_message(self, agent_id: str, timeout: Optional[float] = None) -> Optional[Message]:
+        """
+        Receive a message for a specific agent.
+        
+        Blocks until a message is available or timeout occurs.
+        """
+        try:
+            if agent_id not in self.message_queues:
+                self.logger.error(f"Agent {agent_id} not registered")
+                return None
+            
+            message = self.message_queues[agent_id].get(timeout=timeout)
+            self.message_queues[agent_id].task_done()
+            self.logger.debug(f"Message received: {message.message_id} by {agent_id}")
+            return message
+            
+        except Empty:
+            return None
+        except Exception as e:
+            self.logger.error(f"Failed to receive message: {e}")
+            return None
+    
+    def subscribe(self, agent_id: str, callback: Callable[['Message'], None]):
+        """Subscribe to messages from an agent with a callback (Used by MasterAgent)."""
+        with self.lock:
+            if agent_id not in self.subscribers:
+                self.subscribers[agent_id] = []
+            self.subscribers[agent_id].append(callback)
+    
+    def get_pending_message_count(self, agent_id: str) -> int:
+        """Get the number of pending messages for an agent."""
+        with self.lock:
+            if agent_id in self.message_queues:
+                return self.message_queues[agent_id].qsize()
+            return 0
+    
+    def clear_queue(self, agent_id: str):
+        """Clear all pending messages for an agent."""
+        with self.lock:
+            if agent_id in self.message_queues:
+                while not self.message_queues[agent_id].empty():
+                    try:
+                        self.message_queues[agent_id].get_nowait()
+                        self.message_queues[agent_id].task_done()
+                    except Empty:
+                        break
+
+
+# ============================================================================
+# CONTEXT MANAGER
+# ============================================================================
+
+class ContextManager:
+    """
+    Manages context windows for all agents in the system.
+    
+    Ensures proper isolation and provides context lifecycle management.
+    """
+    
+    def __init__(self):
+        self.contexts: Dict[str, ContextWindow] = {}
+        self.lock = threading.Lock()
+        self.logger = logging.getLogger(__name__)
+    
+    def create_context(self, agent_id: str, max_history: int = 1000) -> ContextWindow:
+        """Create a new context window for an agent."""
+        with self.lock:
+            if agent_id in self.contexts:
+                self.logger.warning(f"Context already exists for {agent_id}, clearing it")
+                self.contexts[agent_id].clear()
+            else:
+                self.contexts[agent_id] = ContextWindow(
+                    agent_id=agent_id,
+                    max_history_length=max_history
+                )
+            self.logger.info(f"Created context for agent: {agent_id}")
+            return self.contexts[agent_id]
+    
+    def get_context(self, agent_id: str) -> Optional[ContextWindow]:
+        """Retrieve context window for an agent."""
+        with self.lock:
+            return self.contexts.get(agent_id)
+    
+    def destroy_context(self, agent_id: str):
+        """Destroy context window for an agent."""
+        with self.lock:
+            if agent_id in self.contexts:
+                del self.contexts[agent_id]
+                self.logger.info(f"Destroyed context for agent: {agent_id}")
+    
+    def snapshot_context(self, agent_id: str) -> Optional[Dict[str, Any]]:
+        """Create a snapshot of an agent's context for persistence."""
+        with self.lock:
+            context = self.contexts.get(agent_id)
+            if context:
+                return asdict(context)
+            return None
+    
+    def restore_context(self, snapshot: Dict[str, Any]) -> bool:
+        """Restore context from a snapshot."""
+        try:
+            with self.lock:
+                agent_id = snapshot.get("agent_id")
+                if not agent_id:
+                    self.logger.error("Snapshot missing agent_id")
+                    return False
+                context = ContextWindow(**snapshot)
+                self.contexts[agent_id] = context
+                self.logger.info(f"Restored context for agent: {agent_id}")
+                return True
+        except Exception as e:
+            self.logger.error(f"Failed to restore context: {e}")
+            return False
+
+
+# ============================================================================
+# BASE AGENT CLASS
+# ============================================================================
+
+class BaseAgent(ABC):
+    """
+    Abstract base class for all agents in the system.
+    
+    Provides core functionality for:
+    - Context management
+    - Message handling
+    - Task execution
+    - State management
+    """
+    
+    def __init__(
+        self,
+        agent_id: str,
+        communication_bus: CommunicationBus,
+        context_manager: ContextManager,
+        max_context_history: int = 1000
+    ):
+        self.agent_id = agent_id
+        self.communication_bus = communication_bus
+        self.context_manager = context_manager
+        self.state = AgentState.IDLE
+        self.logger = logging.getLogger(f"{__name__}.{agent_id}")
+        
+        # Register with communication bus
+        self.communication_bus.register_agent(self.agent_id)
+        
+        # Create isolated context window
+        self.context = self.context_manager.create_context(
+            self.agent_id,
+            max_context_history
+        )
+        
+        # Task management
+        self.current_task: Optional[Task] = None
+        self.completed_tasks: List[Task] = []
+        
+        # Execution control
+        self.running = False
+        self.execution_thread: Optional[threading.Thread] = None
+        
+        self.logger.info(f"Initialized agent: {self.agent_id}")
+    
+    @abstractmethod
+    def process_task(self, task: Task) -> Any:
+        """
+        Process a task assigned to this agent.
+        
+        This method must be implemented by subclasses to define
+        agent-specific task processing logic.
+        """
+        pass
+    
+    def start(self):
+        """Start the agent's execution loop."""
+        if self.running:
+            self.logger.warning(f"Agent {self.agent_id} is already running")
+            return
+        
+        self.running = True
+        self.state = AgentState.INITIALIZING
+        self.execution_thread = threading.Thread(target=self._execution_loop, daemon=True)
+        self.execution_thread.start()
+        self.logger.info(f"Started agent: {self.agent_id}")
+    
+    def stop(self):
+        """Stop the agent's execution loop."""
+        if not self.running:
+            return
+        
+        self.running = False
+        self.state = AgentState.TERMINATED
+        
+        # Send termination message to self to unblock receive
+        termination_msg = Message(
+            message_type=MessageType.TERMINATION,
+            sender_id=self.agent_id,
+            receiver_id=self.agent_id
+        )
+        self.communication_bus.send_message(termination_msg)
+        
+        if self.execution_thread:
+            self.execution_thread.join(timeout=5.0)
+        
+        # Cleanup
+        self.communication_bus.unregister_agent(self.agent_id)
+        self.context_manager.destroy_context(self.agent_id)
+        
+        self.logger.info(f"Stopped agent: {self.agent_id}")
+    
+    def _execution_loop(self):
+        """Main execution loop for the agent."""
+        self.state = AgentState.IDLE
+        
+        while self.running:
+            try:
+                message = self.communication_bus.receive_message(
+                    self.agent_id,
+                    timeout=1.0
+                )
+                
+                if message is None:
+                    continue
+                
+                # Handle different message types
+                if message.message_type == MessageType.TERMINATION:
+                    break
+                elif message.message_type == MessageType.TASK_REQUEST:
+                    self._handle_task_request(message)
+                elif message.message_type == MessageType.STATE_UPDATE:
+                    self._handle_state_update(message)
+                elif message.message_type == MessageType.COORDINATION:
+                    self._handle_coordination(message)
+                else:
+                    self.logger.warning(f"Unknown message type: {message.message_type}")
+                    
+            except Exception as e:
+                self.logger.error(f"Error in execution loop: {e}", exc_info=True)
+                self.state = AgentState.FAILED
+    
+    def _handle_task_request(self, message: Message):
+        """Handle a task request message."""
+        try:
+            task_dict = message.payload.get("task")
+            if not task_dict:
+                self.logger.error("Task request missing task payload")
+                return
+            
+            # Safe reconstruction using from_dict
+            task = Task.from_dict(task_dict)
+            
+            self.logger.info(f"Received task: {task.task_id} ({task.name})")
+            self.state = AgentState.RUNNING
+            self.current_task = task
+            
+            # Mark task as started
+            task.mark_started(self.agent_id)
+            
+            # Add task to context (maintains isolation)
+            self.context.add_to_history(
+                "system",
+                f"Starting task: {task.name}",
+                {"task_id": task.task_id}
+            )
+            
+            try:
+                # Process the task (delegated to subclass's implementation)
+                result = self.process_task(task)
+                
+                # Mark task as completed
+                task.mark_completed(result)
+                
+                # Store result in context
+                self.context.store_result(result)
+                
+                # Add completion to history
+                self.context.add_to_history(
+                    "system",
+                    f"Completed task: {task.name}",
+                    {"task_id": task.task_id, "result_summary": str(result)[:50]}
+                )
+                
+                # Send result back to MasterAgent (using sender_id from request)
+                result_message = Message(
+                    message_type=MessageType.TASK_RESULT,
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id, # This should be the MasterAgent's ID
+                    correlation_id=message.message_id,
+                    payload={
+                        "task_id": task.task_id,
+                        "result": result,
+                        "success": True
+                    }
+                )
+                self.communication_bus.send_message(result_message)
+                
+                self.completed_tasks.append(task)
+                self.logger.info(f"Successfully completed task: {task.task_id}")
+                
+            except Exception as e:
+                # Mark task as failed
+                error_msg = str(e)
+                task.mark_failed(error_msg)
+                
+                self.logger.error(f"Task failed: {task.task_id} - {error_msg}")
+                
+                # Send error report to MasterAgent
+                error_message = Message(
+                    message_type=MessageType.ERROR_REPORT,
+                    sender_id=self.agent_id,
+                    receiver_id=message.sender_id, # MasterAgent
+                    correlation_id=message.message_id,
+                    payload={
+                        "task_id": task.task_id,
+                        "error": error_msg,
+                        "can_retry": task.can_retry()
+                    }
+                )
+                self.communication_bus.send_message(error_message)
+            
+            finally:
+                self.current_task = None
+                self.state = AgentState.IDLE
+                
+        except Exception as e:
+            self.logger.error(f"Error handling task request setup: {e}", exc_info=True)
+    
+    def _handle_state_update(self, message: Message):
+        """Handle a state update message."""
+        try:
+            new_state = message.payload.get("state")
+            if new_state:
+                self.state = AgentState(new_state)
+                self.logger.info(f"State updated to: {self.state.value}")
+        except Exception as e:
+            self.logger.error(f"Error handling state update: {e}")
+    
+    def _handle_coordination(self, message: Message):
+        """Handle a coordination message."""
+        try:
+            action = message.payload.get("action")
+            self.logger.info(f"Received coordination action: {action}")
+            
+            # Add to context
+            self.context.add_to_history(
+                "coordination",
+                f"Coordination action: {action}",
+                message.payload
+            )
+            
+        except Exception as e:
+            self.logger.error(f"Error handling coordination: {e}")
+    
+    def get_status(self) -> Dict[str, Any]:
+        """Get current status of the agent."""
+        return {
+            "agent_id": self.agent_id,
+            "state": self.state.value,
+            "running": self.running,
+            "current_task": self.current_task.task_id if self.current_task else None,
+            "completed_tasks": len(self.completed_tasks),
+            "context_summary": self.context.get_context_summary(),
+            "pending_messages": self.communication_bus.get_pending_message_count(self.agent_id)
+        }
+
+
+# ============================================================================
+# SUB-AGENT IMPLEMENTATION
+# ============================================================================
+
+class SubAgent(BaseAgent):
+    """
+    Concrete implementation of a sub-agent with specialized processing.
+    
+    Sub-agents operate with complete context isolation and can be
+    customized for specific task types through configuration.
+    """
+    
+    def __init__(
+        self,
+        agent_id: str,
+        communication_bus: CommunicationBus,
+        context_manager: ContextManager,
+        specialization: Optional[str] = None,
+        processing_function: Optional[Callable[['Task', ContextWindow], Any]] = None,
+        max_context_history: int = 1000
+    ):
+        super().__init__(agent_id, communication_bus, context_manager, max_context_history)
+        
+        self.specialization = specialization or "general"
+        self.processing_function = processing_function or self._default_processing
+        
+        self.logger.info(f"SubAgent specialization: {self.specialization}")
+    
+    def _default_processing(self, task: Task, context: ContextWindow) -> Any:
+        """
+        Default task processing implementation (fallback).
+        """
+        context.task_data[task.task_id] = task.to_dict()
+        context.add_to_history(
+            "agent",
+            f"Default processing task: {task.name}",
+            {"input_data": task.input_data}
+        )
+        
+        return {
+            "task_id": task.task_id,
+            "processed_by": self.agent_id,
+            "specialization": self.specialization,
+            "result_type": "default_fallback",
+        }
+    
+    def process_task(self, task: Task) -> Any:
+        """
+        Process a task using the agent's processing function.
+        """
+        try:
+            if not task.name or not task.task_id:
+                raise ValueError("Invalid task: missing name or ID")
+            
+            # Execute processing function with isolated context
+            result = self.processing_function(task, self.context)
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"Task processing failed: {e}", exc_info=True)
+            raise
+
+
+# ============================================================================
+# MASTER AGENT (ORCHESTRATOR)
+# ============================================================================
+
+class MasterAgent:
+    """
+    Orchestrates sub-agents and coordinates task distribution.
+    
+    The Master Agent is the analogy of C31-NEXUS (Meta-Coordination) and 
+    C14-KAIDŌ (Efficiency/Dispatcher).
+    """
+    
+    def __init__(
+        self,
+        master_id: str = "master_agent",
+        max_concurrent_agents: int = 10,
+        agent_pool_size: int = 5
+    ):
+        self.master_id = master_id
+        self.max_concurrent_agents = max_concurrent_agents
+        self.agent_pool_size = agent_pool_size
+        
+        # Core components
+        self.communication_bus = CommunicationBus()
+        self.context_manager = ContextManager()
+        
+        # Register MasterAgent itself to receive results/errors
+        self.communication_bus.register_agent(self.master_id)
+        
+        # MasterAgent subscribes to its own ID to receive result messages from agents.
+        self.communication_bus.subscribe(self.master_id, self._handle_agent_result)
+
+        # Agent management
+        self.sub_agents: Dict[str, SubAgent] = {}
+        self.agent_pool: List[str] = []  # IDs of available/idle agents
+        self.active_tasks: Dict[str, Task] = {} # {agent_id: Task}
+        self.completed_tasks: Dict[str, Task] = {} # {task_id: Task}
+        self.task_queue: Queue = Queue() # Tasks waiting for execution
+        self.lock = threading.Lock() # Lock for shared state management
+        
+        # Execution control
+        self.running = False
+        self.dispatcher_thread: Optional[threading.Thread] = None
+        self.executor = ThreadPoolExecutor(max_workers=max_concurrent_agents)
+        
+        # Logging
+        self.logger = logging.getLogger(f"{__name__}.{master_id}")
+        
+        # Initialize agent pool
+        self._initialize_agent_pool()
+        
+        self.logger.info(f"Initialized MasterAgent: {self.master_id}")
+    
+    def _initialize_agent_pool(self):
+        """Initialize a pool of sub-agents ready for task assignment."""
+        for i in range(self.agent_pool_size):
+            agent_id = f"sub_agent_{i}"
+            agent = SubAgent(
+                agent_id=agent_id,
+                communication_bus=self.communication_bus,
+                context_manager=self.context_manager,
+                specialization="general_worker"
+            )
+            self.sub_agents[agent_id] = agent
+            self.agent_pool.append(agent_id)
+            
+        self.logger.info(f"Initialized initial agent pool with {self.agent_pool_size} agents")
+    
+    def create_sub_agent(
+        self,
+        agent_id: Optional[str] = None,
+        specialization: Optional[str] = None,
+        processing_function: Optional[Callable] = None,
+        auto_start: bool = True
+    ) -> str:
+        """
+        Create a new sub-agent with optional customization.
+        
+        Returns the agent ID.
+        """
+        if agent_id is None:
+            agent_id = f"sub_agent_{len(self.sub_agents)}"
+        
+        with self.lock:
+            if agent_id in self.sub_agents:
+                raise ValueError(f"Agent {agent_id} already exists")
+            
+            if len(self.sub_agents) >= self.max_concurrent_agents:
+                raise RuntimeError(f"Maximum agent limit reached: {self.max_concurrent_agents}")
+            
+            # Create the sub-agent
+            agent = SubAgent(
+                agent_id=agent_id,
+                communication_bus=self.communication_bus,
+                context_manager=self.context_manager,
+                specialization=specialization,
+                processing_function=processing_function
+            )
+            
+            self.sub_agents[agent_id] = agent
+            
+            if auto_start:
+                agent.start()
+                self.agent_pool.append(agent_id)
+
+        self.logger.info(f"Created sub-agent: {agent_id}")
+        return agent_id
+    
+    def destroy_sub_agent(self, agent_id: str):
+        """Destroy a sub-agent and remove it from the system."""
+        if agent_id in self.sub_agents:
+            agent = self.sub_agents[agent_id]
+            agent.stop()  # Stop the agent's thread and unregister it
+            
+            with self.lock:
+                del self.sub_agents[agent_id]
+                if agent_id in self.agent_pool:
+                    self.agent_pool.remove(agent_id)
+                # Attempt to retrieve task if agent was running one
+                task = self.active_tasks.pop(agent_id, None)
+                if task and task.can_retry():
+                    self.task_queue.put(task)  # Re-queue the task for retry
+                
+            self.logger.info(f"Destroyed sub-agent: {agent_id}")
+    
+    def start(self):
+        """Start the Master Agent and its dispatcher loop."""
+        if self.running:
+            return
+        
+        self.running = True
+        
+        # Start all existing sub-agents
+        for agent in self.sub_agents.values():
+            if not agent.running:
+                agent.start()
+
+        # Start the task dispatcher thread
+        self.dispatcher_thread = threading.Thread(target=self._task_dispatcher_loop, daemon=True)
+        self.dispatcher_thread.start()
+        
+        self.logger.info(f"MasterAgent {self.master_id} started.")
+
+    def stop(self):
+        """Stop the Master Agent and gracefully shut down all sub-agents."""
+        if not self.running:
+            return
+        
+        self.running = False
+        
+        # Stop dispatcher loop
+        if self.dispatcher_thread and self.dispatcher_thread.is_alive():
+            self.dispatcher_thread.join(timeout=1.0) 
+
+        # Drain task queue instead of join()
+        while not self.task_queue.empty():
+            try:
+                self.task_queue.get_nowait()
+            except Empty:
+                break
+
+        # Stop all sub-agents (need to copy keys as the dict changes in destroy_sub_agent)
+        for agent_id in list(self.sub_agents.keys()):
+            self.destroy_sub_agent(agent_id)
+            
+        self.executor.shutdown(wait=False)
+        self.logger.info(f"MasterAgent {self.master_id} stopped.")
+
+    def _task_dispatcher_loop(self):
+        """Continuously assigns tasks from the queue to idle sub-agents (C14-KAIDŌ logic)."""
+        self.logger.info("Task dispatcher loop started.")
+        while self.running:
+            try:
+                idle_agent_id = None
+                task = None
+                
+                # 1. Find an idle agent (Highest priority in pool first)
+                with self.lock:
+                    if self.agent_pool:
+                        # Simple: take the first one available
+                        idle_agent_id = self.agent_pool[0]
+                
+                if idle_agent_id:
+                    # 2. Get a task from the queue (non-blocking)
+                    try:
+                        task = self.task_queue.get_nowait()
+                    except Empty:
+                        pass
+                    
+                    if task:
+                        self.logger.info(f"Dispatching task {task.task_id} to {idle_agent_id}")
+                        
+                        # 3. Assign task: Move agent from pool to active_tasks
+                        with self.lock:
+                            if idle_agent_id in self.agent_pool:
+                                self.agent_pool.remove(idle_agent_id)
+                                self.active_tasks[idle_agent_id] = task
+
+                        # 4. Send the task request message
+                        task_message = Message(
+                            message_type=MessageType.TASK_REQUEST,
+                            sender_id=self.master_id,
+                            receiver_id=idle_agent_id,
+                            priority=task.priority,
+                            payload={"task": task.to_dict()}
+                        )
+                        self.communication_bus.send_message(task_message)
+                
+                else:
+                    time.sleep(0.5) # Wait if no idle agents or queue is empty
+                        
+            except Exception as e:
+                self.logger.error(f"Error in dispatcher loop: {e}", exc_info=True)
+                time.sleep(1.0) # Error delay
+
+    def _handle_agent_result(self, message: Message):
+        """Callback to handle results/errors received from sub-agents."""
+        if message.message_type not in (MessageType.TASK_RESULT, MessageType.ERROR_REPORT):
+            return
+        
+        agent_id = message.sender_id
+        task_id = message.payload.get("task_id")
+        
+        with self.lock:
+            # 1. Update state: Move agent back to pool
+            task = self.active_tasks.pop(agent_id, None)
+            if agent_id not in self.agent_pool and agent_id in self.sub_agents:
+                self.agent_pool.append(agent_id) # Agent is now idle
+            
+            if task:
+                # 2. Handle result/error and update task status
+                if message.message_type == MessageType.TASK_RESULT:
+                    self.logger.info(f"Task {task_id} successful by {agent_id}.")
+                    task.mark_completed(message.payload.get("result"))
+                    self.completed_tasks[task_id] = task
+                
+                elif message.message_type == MessageType.ERROR_REPORT:
+                    error = message.payload.get("error", "Unknown Error")
+                    can_retry = message.payload.get("can_retry", False)
+                    self.logger.warning(f"Task {task_id} failed by {agent_id}. Error: {error}")
+
+                    if can_retry and task.can_retry():
+                        self.logger.info(f"Task {task_id} retrying (Attempt {task.retry_count + 1}).")
+                        # Must update retry count before putting back in queue for correct future check
+                        task.mark_failed(error)
+                        self.task_queue.put(task)
+                    else:
+                        self.logger.error(f"Task {task_id} failed permanently after max retries or unrecoverable error.")
+                        task.mark_failed(error + " (Max retries reached or unrecoverable)")
+                        self.completed_tasks[task_id] = task
+            else:
+                 self.logger.warning(f"Received result for unknown active task {task_id} from {agent_id}. Likely a race condition or stale result.")
+
+    def submit_task(self, task: Task):
+        """Public method to submit a task to the system."""
+        self.task_queue.put(task)
+        self.logger.info(f"Task submitted: {task.task_id} ({task.name})")
+
+    def get_system_status(self) -> Dict[str, Any]:
+        """Get the global status of the multi-agent system."""
+        agent_statuses = {id: agent.get_status() for id, agent in self.sub_agents.items()}
+        
+        return {
+            "master_id": self.master_id,
+            "running": self.running,
+            "agent_summary": {
+                "total_agents": len(self.sub_agents),
+                "idle_in_pool": len(self.agent_pool),
+                "active_tasks": len(self.active_tasks),
+                "tasks_queued": self.task_queue.qsize(),
+                "tasks_completed": len(self.completed_tasks)
+            },
+            "agents": agent_statuses,
+            "bus_history_size": len(self.communication_bus.message_history)
+        }
+
+
+# ============================================================================
+# USAGE EXAMPLE (TESTING)
+# ============================================================================
+
+def simple_task_processor(task: Task, context: ContextWindow) -> Any:
+    """A custom processing function for specialized agents."""
+    import time
+    time.sleep(0.1 + random.random() * 0.2) # Simulate work time
+    
+    input_value = task.input_data.get("value", 0)
+    
+    context.add_to_history("agent", f"Processing value: {input_value}")
+    
+    # Simulate a critical failure (trigger retry or permanent failure)
+    if input_value == 10 and task.retry_count == 0: # Only fail on the very first attempt (retry_count == 0)
+        raise ValueError("Critical value detection - simulated failure")
+        
+    return input_value * 2
+
+def run_quillan_sub_agent_system_test():
+    """Demonstrate lifecycle of MasterAgent and SubAgent coordination."""
+    
+    # 1. Configure logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s - %(threadName)s') # Added threadName for better debug
+    
+    # 2. Initialize Master Agent (C31-NEXUS/C14-KAIDŌ analogue)
+    master_system = MasterAgent(master_id="C31-NEXUS_Orchestrator", agent_pool_size=5)
+    
+    # 3. Create a specialized agent outside the pool for demonstration (C10-CODEWEAVER analogue)
+    master_system.create_sub_agent(
+        agent_id="C10-CODEWEAVER_Debug",
+        specialization="code_debugging",
+        processing_function=simple_task_processor,
+        auto_start=True
+    )
+    
+    # 4. Start the master system
+    master_system.start()
+    
+    # 5. Submit tasks
+    print("\n--- Submitting Tasks ---")
+    tasks_to_submit = [
+        Task(name="Simple Math", input_data={"value": 5}, priority=Priority.LOW, max_retries=1),
+        Task(name="High Priority Research", input_data={"query": "AI Ethics"}, priority=Priority.HIGH, max_retries=2),
+        Task(name="Failure Test (Should Retry)", input_data={"value": 10}, priority=Priority.MEDIUM, max_retries=2),
+        Task(name="Final Task", input_data={"value": 1}, priority=Priority.MEDIUM, max_retries=0),
+    ]
+    
+    for t in tasks_to_submit:
+        master_system.submit_task(t)
+        
+    # 6. Monitor system status (simulate runtime)
+    print("\n--- Monitoring Runtime (5 seconds) ---")
+    # Decreasing sleep slightly since environment runs fast, but main thread needs to stay alive
+    time.sleep(1.0) 
+    
+    # 7. Check final status
+    status = master_system.get_system_status()
+    print("\n--- Final System Status (C31-NEXUS Report) ---")
+    print(json.dumps(status['agent_summary'], indent=2))
+    
+    # 8. Wait for all tasks in the queue (including retries) to complete
+    while master_system.task_queue.qsize() > 0 or len(master_system.active_tasks) > 0:
+        time.sleep(0.5)
+    
+    time.sleep(1) # Give final results time to process
+    
+    # 9. Clean up
+    master_system.stop()
+    
+    print("\n--- Test Complete (Quillan v4.2 Sub-Agent System) ---")
+    print(f"Total tasks handled: {len(master_system.completed_tasks)}")
+    
+    # Verify Failure Test outcome
+    failed_task = next((t for t in master_system.completed_tasks.values() if t.name == "Failure Test (Should Retry)"), None)
+    if failed_task:
+        print(f"Failure Test Result: Error='{failed_task.error}' Retries={failed_task.retry_count}")
+        print(f"Final Task Status: {'FAILED (Max Retries)' if failed_task.retry_count > 1 else 'COMPLETED'}")
+    else:
+        print("Failure Test task missing from completed list.")
+        
+    return master_system
+
+if __name__ == "__main__":
+    run_quillan_sub_agent_system_test()
+
+```
 
 ## Start/.Init
 ```python
