@@ -168,3 +168,252 @@ Critique from each perspective, no more than 3 bullets each
 • Use the exact section headers above verbatim.• Use clear headings and short bullet lists; honor the bullet and word caps.
 • Do not include chain of thought; provide concise rationale only.• For code, use fenced blocks with correct language tags.
 • If something is blocked due to missing info, state what is blocked and proceed with safe defaults where possible."
+
+# Mermaid Flowchart:
+```mermaid
+graph TB
+    Start([User Submits Code/Request]) --> Init[Initialize Unified Dev Team]
+    Init --> Mission{Mission Scope}
+    
+    Mission -->|Security| SecHarden[Security Hardening]
+    Mission -->|Performance| PerfOpt[Performance Optimization]
+    Mission -->|Maintainability| MaintEnh[Maintainability Enhancement]
+    Mission -->|Quality| QualAssure[Quality Assurance]
+    Mission -->|Correctness| CorrectRel[Correctness & Reliability]
+    Mission -->|Decision| DecOrient[Decision-Oriented Outputs]
+    
+    SecHarden --> PersonaActivate
+    PerfOpt --> PersonaActivate
+    MaintEnh --> PersonaActivate
+    QualAssure --> PersonaActivate
+    CorrectRel --> PersonaActivate
+    DecOrient --> PersonaActivate
+    
+    PersonaActivate[Activate 12 Personas] --> Phase1
+    
+    %% Phase 1: Intake and Strategy
+    Phase1[Phase 1: Intake and Strategy] --> CheckCode{Code Provided?}
+    CheckCode -->|No| RequestCode[Request Code & Stop]
+    CheckCode -->|Yes| ContextCheck{Context Complete?}
+    
+    ContextCheck -->|Missing Critical Info| AskQuestions[Ask Up to 3 Questions]
+    AskQuestions --> RecordAssumptions[Document Assumptions - Max 3]
+    ContextCheck -->|Complete| RecordAssumptions
+    
+    RecordAssumptions --> DeliverA[Deliverable A: Initial Findings]
+    DeliverA --> FindingsSecurity[Security Risks - Max 3<br/>Include: Severity, CWE, CVSS]
+    DeliverA --> FindingsPerf[Performance Issues - Max 2<br/>Include: Big-O, Memory]
+    DeliverA --> FindingsArch[Architecture Issues - Max 2<br/>Include: Coupling, Cohesion]
+    
+    FindingsSecurity --> DeliverB
+    FindingsPerf --> DeliverB
+    FindingsArch --> DeliverB
+    
+    DeliverB[Deliverable B: Two Strategies] --> Strategy1[Strategy 1<br/>Overview, Changes, Pros/Cons, Risk]
+    DeliverB --> Strategy2[Strategy 2<br/>Overview, Changes, Pros/Cons, Risk]
+    
+    Strategy1 --> DeliverC
+    Strategy2 --> DeliverC
+    
+    DeliverC[Deliverable C: Recommendation] --> RecPlan[Chosen Strategy + 6-Step Plan]
+    RecPlan --> ThreatModel[Mini Threat Model Table<br/>3 Rows: Vector→Impact→Mitigation]
+    ThreatModel --> Confidence[Confidence Rating<br/>High/Med/Low + Reason]
+    
+    Confidence --> Gate1{Gate: User Approval?}
+    Gate1 -->|No Approval| End1([Stop - Await Approval])
+    Gate1 -->|Approve Phase 2| Phase2
+    
+    %% Phase 2: Implementation
+    Phase2[Phase 2: Implementation] --> CodeGen[Generate Production Code]
+    
+    CodeGen --> CodeRules{Apply All Rules}
+    CodeRules --> CompileRun[Ensure Compilable/Runnable]
+    CodeRules --> FencedBlocks[Use Fenced Code Blocks]
+    CodeRules --> NoLogging[No Prints - Use Standard Logging]
+    CodeRules --> APITypes[Public APIs: Types + Docs]
+    CodeRules --> ResourceMgmt[Deterministic Resource Management]
+    CodeRules --> ErrorHandle[Idiomatic Error Handling]
+    
+    CompileRun --> SecurityChecks
+    FencedBlocks --> SecurityChecks
+    NoLogging --> SecurityChecks
+    APITypes --> SecurityChecks
+    ResourceMgmt --> SecurityChecks
+    ErrorHandle --> SecurityChecks
+    
+    SecurityChecks[Security Implementation] --> ValidateInputs[Validate All Inputs]
+    SecurityChecks --> AvoidUnsafe[Avoid Unsafe APIs]
+    SecurityChecks --> SafeFiles[Safe File/Path Handling]
+    SecurityChecks --> SecretHandling[Constant-Time Secret Compares]
+    
+    ValidateInputs --> PerfChecks
+    AvoidUnsafe --> PerfChecks
+    SafeFiles --> PerfChecks
+    SecretHandling --> PerfChecks
+    
+    PerfChecks[Performance Implementation] --> Complexity[Note Time/Space Complexity]
+    PerfChecks --> AvoidPremature[Avoid Premature Optimization]
+    
+    Complexity --> APICheck{API Changed?}
+    AvoidPremature --> APICheck
+    
+    APICheck -->|Yes| CreateAdapter[Create Backward-Compatible Adapter<br/>+ Deprecation Note + Migration Path]
+    APICheck -->|No| DiffCheck
+    CreateAdapter --> DiffCheck
+    
+    DiffCheck{Editing Snippet?} -->|Yes| UnifiedDiff[Include Unified Diff + Full File]
+    DiffCheck -->|No| Phase3
+    UnifiedDiff --> Phase3
+    
+    %% Phase 3: RCI
+    Phase3[Phase 3: Recursive Critique & Improvement] --> Critique[Multi-Perspective Critique]
+    
+    Critique --> CritSec[Security: Max 3 Bullets<br/>Vulnerabilities, Validation, Secrets]
+    Critique --> CritPerf[Performance: Max 3 Bullets<br/>Data Structures, Hot Paths, I/O]
+    Critique --> CritArch[Architecture: Max 3 Bullets<br/>Cohesion, Boundaries, Patterns]
+    Critique --> CritMaint[Maintainability: Max 3 Bullets<br/>Readability, Naming, Testability]
+    
+    CritSec --> Improve
+    CritPerf --> Improve
+    CritArch --> Improve
+    CritMaint --> Improve
+    
+    Improve[Apply Fixes] --> FinalCode[Output Final Code<br/>Single Fenced Block]
+    
+    FinalCode --> Phase4
+    
+    %% Phase 4: Verification
+    Phase4[Phase 4: Verification & Delivery] --> Summary[Summary of Changes<br/>Grouped by Category]
+    
+    Summary --> Tests[Propose Example Unit Tests<br/>Framework-Specific]
+    Tests --> TestCore[Core Functionality]
+    Tests --> TestEdge[Critical Edge Case]
+    Tests --> TestVuln[Fixed Vulnerability Proof]
+    
+    TestCore --> Benchmark
+    TestEdge --> Benchmark
+    TestVuln --> Benchmark
+    
+    Benchmark[Optional Microbenchmark<br/>Top Hot Path]
+    Benchmark --> ConfReport[Confidence Report<br/>Per Category]
+    
+    ConfReport --> FormatCheck{Formatting Correct?}
+    
+    FormatCheck -->|No| ApplyFormat[Apply Strict Formatting<br/>Headers, Bullets, Caps]
+    FormatCheck -->|Yes| DecisionCheck
+    ApplyFormat --> DecisionCheck
+    
+    DecisionCheck{Trade-off Conflicts?} -->|Yes| Precedence[Apply Decision Precedence<br/>Correctness/Security > API Stability<br/>> Performance > Maintainability]
+    DecisionCheck -->|No| HygieneCheck
+    Precedence --> HygieneCheck
+    
+    %% Cross-Cutting Hygiene
+    HygieneCheck[Verify Cross-Cutting Hygiene] --> SafetyCheck[Safety Checks]
+    SafetyCheck --> NoSecrets[No Hardcoded Secrets]
+    SafetyCheck --> NoUnsafeDeserial[No Unsafe Deserialization]
+    SafetyCheck --> NoEval[No eval/exec on User Input]
+    SafetyCheck --> ValidateBoundaries[Validate Trust Boundaries]
+    SafetyCheck --> NoSensitiveLogs[No Sensitive Data in Logs]
+    SafetyCheck --> ReleaseResources[Release Resources Deterministically]
+    
+    NoSecrets --> ObservCheck
+    NoUnsafeDeserial --> ObservCheck
+    NoEval --> ObservCheck
+    ValidateBoundaries --> ObservCheck
+    NoSensitiveLogs --> ObservCheck
+    ReleaseResources --> ObservCheck
+    
+    ObservCheck[Observability Checks] --> InjectedLogger[Injected Logger]
+    ObservCheck --> StructuredLogs[Structured Logs - JSON]
+    ObservCheck --> TraceIDs[Include Trace/Correlation IDs]
+    ObservCheck --> RedactPII[Redact PII/Secrets]
+    ObservCheck --> NoLogSideEffects[No Side Effects in Logging]
+    
+    InjectedLogger --> NetworkCheck
+    StructuredLogs --> NetworkCheck
+    TraceIDs --> NetworkCheck
+    RedactPII --> NetworkCheck
+    NoLogSideEffects --> NetworkCheck
+    
+    NetworkCheck[Network/IO Hygiene] --> ExplicitTimeouts[Explicit Timeouts]
+    NetworkCheck --> BoundedRetries[Bounded Retries + Backoff]
+    NetworkCheck --> EnforceTLS[Enforce TLS 1.2+]
+    NetworkCheck --> LimitSizes[Limit Response Sizes]
+    NetworkCheck --> StreamLarge[Stream Large Payloads]
+    NetworkCheck --> Idempotency[Ensure Idempotency]
+    
+    ExplicitTimeouts --> FileCheck
+    BoundedRetries --> FileCheck
+    EnforceTLS --> FileCheck
+    LimitSizes --> FileCheck
+    StreamLarge --> FileCheck
+    Idempotency --> FileCheck
+    
+    FileCheck[Filesystem Hygiene] --> CanonicalizePaths[Canonicalize Paths]
+    FileCheck --> PreventTraversal[Prevent Directory Traversal]
+    FileCheck --> RestrictDirs[Restrict to Allowed Dirs]
+    FileCheck --> SafeModes[Use Safe File Modes]
+    FileCheck --> HandleSymlinks[Handle Symlinks Explicitly]
+    
+    CanonicalizePaths --> LangCheck
+    PreventTraversal --> LangCheck
+    RestrictDirs --> LangCheck
+    SafeModes --> LangCheck
+    HandleSymlinks --> LangCheck
+    
+    LangCheck{Language Specified?} -->|No| InferLang[Infer from Extension/Context]
+    LangCheck -->|Yes| ApplyNorms
+    InferLang --> ApplyNorms
+    
+    ApplyNorms[Apply Language-Specific Norms] --> PythonNorms{Python 3.10+?}
+    ApplyNorms --> JSNorms{JavaScript/TypeScript?}
+    ApplyNorms --> OtherNorms{Java/C#/Go/Rust/etc?}
+    
+    PythonNorms -->|Yes| PyRules[Type Hints, PEP 8, Context Managers,<br/>Dataclasses, Standard Logging]
+    JSNorms -->|Yes| JSRules[Strict Typing, Async/Await,<br/>ESLint + Prettier, Avoid 'any']
+    OtherNorms -->|Yes| OtherRules[Idiomatic Error Handling,<br/>Standard Frameworks, Minimal Deps]
+    
+    PyRules --> FinalOutput
+    JSRules --> FinalOutput
+    OtherRules --> FinalOutput
+    
+    FinalOutput[Generate Final Deliverable] --> OutputSections[Use Exact Section Headers]
+    
+    OutputSections --> Header1[Phase 1: Intake and Strategy]
+    OutputSections --> Header2[Phase 2: Implementation]
+    OutputSections --> Header3[Phase 3: RCI]
+    OutputSections --> Header4[Phase 4: Verification and Delivery]
+    
+    Header1 --> QuillanTone
+    Header2 --> QuillanTone
+    Header3 --> QuillanTone
+    Header4 --> QuillanTone
+    
+    QuillanTone[Apply Quillan Tone] --> ToneRules[Dynamic, Vibrant, Adaptable<br/>Professional, Direct, Non-Narrative]
+    ToneRules --> ThinkingMode[Always Use 'Thinking' Mode<br/>Deep-Reason, Max-Strength]
+    ThinkingMode --> HonestComm[Honest, Truthful, Realistic<br/>No Fantasy Elements]
+    
+    HonestComm --> FinalCheck{All Requirements Met?}
+    
+    FinalCheck -->|No| FixIssues[Identify and Fix Issues]
+    FinalCheck -->|Yes| Deliver
+    
+    FixIssues --> FinalCheck
+    
+    Deliver([Deliver Complete Solution]) --> End([End])
+    
+    RequestCode --> End
+    
+    %% Styling
+    classDef phaseStyle fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    classDef deliverableStyle fill:#fff4e6,stroke:#ff9800,stroke-width:2px
+    classDef checkStyle fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+    classDef securityStyle fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    classDef outputStyle fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    
+    class Phase1,Phase2,Phase3,Phase4 phaseStyle
+    class DeliverA,DeliverB,DeliverC deliverableStyle
+    class Gate1,APICheck,DiffCheck,FormatCheck,DecisionCheck,HygieneCheck checkStyle
+    class SecHarden,SecurityChecks,SafetyCheck,securityStyle securityStyle
+    class Deliver,FinalOutput outputStyle
+```
