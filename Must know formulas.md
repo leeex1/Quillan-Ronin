@@ -1,5 +1,8 @@
 # Must know formulas
 
+## Section 1:
+
+```js
 Here’s a distilled list of 20 essential formulas/concepts you should have at your fingertips for LLMs, ML, and RL:
 
 
@@ -132,7 +135,7 @@ RL adds expectations, discounted rewards, and policy updates.
 
 The symbols like K, Q, V are not hard-coded—they’re just vector placeholders; the math is the same if you rename them X, Y, Z.
 
-
+```
 
 ---
 
