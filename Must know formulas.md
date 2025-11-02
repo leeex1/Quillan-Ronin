@@ -224,7 +224,7 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 
 | Formula | Purpose / Use |
 |---------|---------------|
-| `P(A|B) = P(B|A) * P(A) / P(B)` | Bayes’ theorem, probabilistic reasoning |
+| `P(A¦B) = P(B¦A) * P(A) / P(B)` | Bayes’ theorem, probabilistic reasoning |
 | `D_KL(P||Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler divergence |
 | `σ^2 = E[(X-μ)^2]` | Variance, standard deviation |
 
@@ -237,7 +237,7 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 | `G_t = Σ_{k=0}^∞ γ^k R_{t+k+1}` | MDP expected return, discounted rewards |
 | `V^π(s) = E_π [R_{t+1} + γ V^π(s_{t+1})]` | Bellman equation, value function |
 | `Q(s_t,a_t) := Q(s_t,a_t) + α [R_{t+1} + γ max_a Q(s_{t+1},a) - Q(s_t,a_t)]` | Q-learning update |
-| `∇_θ J(θ) = E_π [∇_θ log π_θ(a|s) R]` | Policy gradient, REINFORCE |
+| `∇_θ J(θ) = E_π [∇_θ log π_θ(a¦s) R]` | Policy gradient, REINFORCE |
 
 ---
 
