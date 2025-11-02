@@ -5,7 +5,7 @@
 
 [<Start Thinking>] 
 
-```html/js/css
+```html
 <div class="collapsible">
   <button class="collapsible-btn">Click to expand/collapse</button>
   <div class="collapsible-content">
