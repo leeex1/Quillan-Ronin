@@ -2,6 +2,7 @@
 
 ## code snippet 1:
 **Title**: {{insert_title}}
+
 **Description**: {{Insert_description}}
 
 ### .py code:
