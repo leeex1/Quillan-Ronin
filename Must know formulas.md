@@ -3,137 +3,37 @@
 ## Section 1:
 
 ```js
-Here’s a distilled list of 20 essential formulas/concepts you should have at your fingertips for LLMs, ML, and RL:
-
-
-1. Linear Layer (Fully Connected Layer)
-
-y = Wx + b
-
-Fundamental building block for MLPs and transformers.
-
-
-
-2. Activation Functions
-
-ReLU: 
-
-Sigmoid: 
-
-Tanh: 
-
-
-3. Softmax
-
-\text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
-
-
-4. Cross-Entropy Loss (Classification)
-
-L = - \sum_i y_i \log(\hat{y}_i)
-
-
-5. Mean Squared Error (Regression)
-
-L = \frac{1}{n} \sum_i (\hat{y}_i - y_i)^2
-
-
-6. Gradient Descent Update
-
-\theta \leftarrow \theta - \eta \frac{\partial L}{\partial \theta}
-
-
-7. Adam Optimizer
-
-m_t = \beta_1 m_{t-1} + (1-\beta_1) g_t
-
-v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t^2 
-
-\hat{\theta}_t = \theta_{t-1} - \eta \frac{m_t / (1-\beta_1^t)}{\sqrt{v_t / (1-\beta_2^t)} + \epsilon}
-
-
-
-8. Attention (Scaled Dot-Product)
-
-\text{Attention}(Q,K,V) = \text{softmax}\Big(\frac{QK^\top}{\sqrt{d_k}}\Big) V
-
-
-
-9. Positional Encoding
-
-PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_\text{model}}}\right), \quad
-PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_\text{model}}}\right)
-
-
-
-10. Layer Normalization
-
-\text{LN}(x) = \frac{x - \mu}{\sigma + \epsilon} \cdot \gamma + \beta
-
-
-
-11. Transformer Feed-Forward
-
-\text{FFN}(x) = \max(0, xW_1 + b_1) W_2 + b_2
-
-
-12. KL Divergence (for knowledge distillation, variational models)
-
-D_\text{KL}(P || Q) = \sum_i P(i) \log\frac{P(i)}{Q(i)}
-
-
-
-13. Backpropagation Chain Rule
-
-\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial x}
-
-
-14. Convolution Operation (CNNs, sometimes in embedding)
-
-S(i,j) = (X * K)(i,j) = \sum_m \sum_n X(i+m,j+n) K(m,n)
-
-
-
-15. Reinforcement Learning: Bellman Equation
-
-V^\pi(s) = \mathbb{E}_\pi \Big[ r_t + \gamma V^\pi(s_{t+1}) \Big]
-
-
-16. Q-Learning Update
-
-Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \big[ r_t + \gamma \max_a Q(s_{t+1}, a) - Q(s_t, a_t) \big]
-
-
-17. Policy Gradient (REINFORCE)
-
-\nabla_\theta J(\theta) = \mathbb{E}_\pi \big[ \nabla_\theta \log \pi_\theta(a|s) R \big]
-
-
-
-18. Transformer Multi-Head Attention
-
-\text{MultiHead}(Q,K,V) = \text{Concat}(\text{head}_1, ..., \text{head}_h) W^O
-
-\text{head}_i = \text{Attention}(Q W_i^Q, K W_i^K, V W_i^V) 
-
-
-19. Weight Initialization (Xavier/Glorot)
-
-W \sim \mathcal{U}\Big(-\frac{\sqrt{6}}{\sqrt{n_\text{in} + n_\text{out}}}, \frac{\sqrt{6}}{\sqrt{n_\text{in} + n_\text{out}}}\Big)
-
-
-20. Dropout Regularization
-
-y = x \odot \text{mask}, \quad \text{mask} \sim \text{Bernoulli}(p)
-
-
-💡 Think key takeaways:
-
-Most LLM formulas revolve around linear algebra (matrix ops), probabilities, gradients, and attention mechanics.
-
-RL adds expectations, discounted rewards, and policy updates.
-
-The symbols like K, Q, V are not hard-coded—they’re just vector placeholders; the math is the same if you rename them X, Y, Z.
+# Essential Formulas for LLMs, ML, and RL
+
+| #  | Concept / Formula | Purpose / Use |
+|----|-----------------|---------------|
+| 1  | `y = Wx + b` | Linear Layer (Fully Connected), fundamental for MLPs and transformers |
+| 2  | `ReLU(x) = max(0,x)`<br>`Sigmoid(x) = 1/(1+e^{-x})`<br>`Tanh(x) = (e^x - e^{-x}) / (e^x + e^{-x})` | Activation functions for introducing non-linearity |
+| 3  | `softmax(z_i) = e^{z_i} / Σ_j e^{z_j}` | Converts logits into probabilities |
+| 4  | `L = - Σ_i y_i log(ŷ_i)` | Cross-Entropy Loss for classification |
+| 5  | `L = (1/n) Σ_i (ŷ_i - y_i)^2` | Mean Squared Error (Regression) |
+| 6  | `θ ← θ - η ∂L/∂θ` | Gradient Descent update rule |
+| 7  | `m_t = β₁ m_{t-1} + (1-β₁) g_t`<br>`v_t = β₂ v_{t-1} + (1-β₂) g_t^2`<br>`θ_t = θ_{t-1} - η (m_t / (1-β₁^t)) / (√(v_t / (1-β₂^t)) + ε)` | Adam Optimizer |
+| 8  | `Attention(Q,K,V) = softmax(QK^T / √d_k) V` | Scaled Dot-Product Attention in transformers |
+| 9  | `PE(pos,2i) = sin(pos / 10000^{2i/d_model})`<br>`PE(pos,2i+1) = cos(pos / 10000^{2i/d_model})` | Positional Encoding |
+| 10 | `LN(x) = (x - μ)/(σ + ε) * γ + β` | Layer Normalization |
+| 11 | `FFN(x) = max(0, xW_1 + b_1) W_2 + b_2` | Transformer Feed-Forward Network |
+| 12 | `D_KL(P || Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler Divergence (knowledge distillation, variational models) |
+| 13 | `∂L/∂x = (∂L/∂y) * (∂y/∂x)` | Backpropagation chain rule |
+| 14 | `S(i,j) = (X * K)(i,j) = Σ_m Σ_n X(i+m,j+n) K(m,n)` | Convolution operation (CNNs, embeddings) |
+| 15 | `V^π(s) = E_π [ r_t + γ V^π(s_{t+1}) ]` | Bellman Equation in Reinforcement Learning |
+| 16 | `Q(s_t,a_t) ← Q(s_t,a_t) + α [ r_t + γ max_a Q(s_{t+1},a) - Q(s_t,a_t) ]` | Q-Learning update |
+| 17 | `∇_θ J(θ) = E_π [ ∇_θ log π_θ(a|s) R ]` | Policy Gradient (REINFORCE) |
+| 18 | `MultiHead(Q,K,V) = Concat(head_1,...,head_h) W^O`<br>`head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)` | Transformer Multi-Head Attention |
+| 19 | `W ~ U(-√6/√(n_in+n_out), √6/√(n_in+n_out))` | Weight Initialization (Xavier/Glorot) |
+| 20 | `y = x ⊙ mask, mask ~ Bernoulli(p)` | Dropout Regularization |
+
+---
+
+💡 **Think Key Takeaways:**  
+- Most LLM formulas revolve around **linear algebra, probability, gradients, and attention mechanics**.  
+- RL formulas add **expectations, discounted rewards, and policy updates**.  
+- Symbols like **K, Q, V** are vector placeholders; the math is the same if renamed (e.g., X, Y, Z).
 
 ```
 
