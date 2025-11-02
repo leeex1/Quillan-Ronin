@@ -57,6 +57,10 @@
 ```yaml
 # Here are 20 essential formulas and mathematical concepts you should know for building LLMs, machine learning (ML), and reinforcement learning (RL):  
    
+# Updated: 20 essential + 15 missing formulas/concepts for building LLMs, machine learning (ML), and reinforcement learning (RL).
+# Original focused on matrix ops, prob, RL returns, and attention. Additions cover activations, eval, reg, gen models, and fine-tuning.
+# Total: 35 entries. Letters like K, V, Q are attention-specific; others (A, B) are general notation.
+
 formulas:
   - id: 1
     name: "Matrix Multiplication"
@@ -157,6 +161,87 @@ formulas:
     name: "Linear Regression Formula"
     formula: "y = Xβ + ε"
     description: "Fundamental model underlying many machine learning algorithms."
+
+  # Additions: Missing Formulas (Gaps Filled for Completeness)
+  - id: 21
+    name: "Mean Squared Error (MSE) Loss"
+    formula: "L = (1/n) Σ_i (ŷ_i - y_i)^2"
+    description: "Regression loss measuring squared prediction errors; complements CE for continuous outputs in ML."
+
+  - id: 22
+    name: "Sigmoid Activation"
+    formula: "Sigmoid(x) = 1 / (1 + e^{-x})"
+    description: "S-shaped activation for binary classification and gating in RNNs/LLMs."
+
+  - id: 23
+    name: "Tanh Activation"
+    formula: "Tanh(x) = (e^x - e^{-x}) / (e^x + e^{-x})"
+    description: "Hyperbolic tangent for bounded non-linearity, common in LSTMs and early transformers."
+
+  - id: 24
+    name: "Layer Normalization"
+    formula: "LN(x) = (x - μ)/(σ + ε) * γ + β"
+    description: "Normalizes across features for stable LLM training; γ/β learnable scale/shift."
+
+  - id: 25
+    name: "Feed-Forward Network (FFN)"
+    formula: "FFN(x) = max(0, x W_1 + b_1) W_2 + b_2"
+    description: "Position-wise MLP in transformers for non-linear feature expansion."
+
+  - id: 26
+    name: "Policy Gradient (REINFORCE)"
+    formula: "∇_θ J(θ) = E_π [ ∇_θ log π_θ(a|s) R ]"
+    description: "Direct policy optimization in RL for LLM alignment and decision-making."
+
+  - id: 27
+    name: "Xavier/Glorot Initialization"
+    formula: "W ~ U(-√6/√(n_in + n_out), √6/√(n_in + n_out))"
+    description: "Variance-preserving weight init to prevent vanishing/exploding gradients in deep nets."
+
+  - id: 28
+    name: "Convolution Operation"
+    formula: "S(i,j) = (X * K)(i,j) = Σ_m Σ_n X(i+m,j+n) K(m,n)"
+    description: "Spatial feature extraction in CNNs; used in vision-augmented LLMs."
+
+  - id: 29
+    name: "Perplexity (LLM Evaluation)"
+    formula: "PPL = exp(-1/N Σ log P(w_i))"
+    description: "Exponential of average negative log-likelihood; measures LLM predictive fluency."
+
+  - id: 30
+    name: "L2 Regularization"
+    formula: "L_total = L + λ Σ w^2"
+    description: "Weight decay penalty for overfitting control in LLM pre-training and fine-tuning."
+
+  - id: 31
+    name: "Batch Normalization"
+    formula: "BN(x) = γ (x - μ_B)/σ_B + β"
+    description: "Mini-batch normalization for faster, stable training in ML/RL pipelines."
+
+  - id: 32
+    name: "LoRA (Low-Rank Adaptation)"
+    formula: "ΔW = B A (low-rank matrices B, A)"
+    description: "Efficient fine-tuning for LLMs by updating low-rank adapters instead of full weights."
+
+  - id: 33
+    name: "Diffusion Forward Process"
+    formula: "x_t = √α_t x_{t-1} + √(1-α_t) ε"
+    description: "Noise addition in generative diffusion models for image/text synthesis in multimodal LLMs."
+
+  - id: 34
+    name: "PPO Clipped Objective"
+    formula: "L_PPO = E[min(r(θ) Â, clip(r(θ), 1-ε, 1+ε) Â)]"
+    description: "Proximal policy optimization for stable RLHF in aligning LLMs with preferences."
+
+  - id: 35
+    name: "Cosine Similarity"
+    formula: "cos θ = (A · B) / (||A|| ||B||)"
+    description: "Vector alignment metric for embeddings in retrieval and attention mechanisms."
+
+# Updated Notes:
+# - Covers original gaps: Activations (Sigmoid/Tanh), losses (MSE), transformer internals (FFN/LN), RL depth (Policy Grad), init (Xavier), conv ops.
+# - 2025 additions: Eval (Perplexity), reg (L2/BN), fine-tune (LoRA), gen (Diffusion), alignment (PPO).
+# - Total backbone: Linear alg + prob + gradients + attention + RL + modern scaling.
 
 # These formulas and concepts collectively form the backbone of LLMs, general machine learning, and reinforcement learning models. Letters like K, V, Q specifically arise in the transformer attention formula, while others like A, B, C are general matrix/vector notation used in many equations. Understanding these will enable building, training, fine-tuning, and analyzing such models effectively. 
 ```
