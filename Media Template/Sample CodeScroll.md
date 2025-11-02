@@ -548,3 +548,215 @@ if __name__ == "__main__":
 // "---" adds seperation line and sections off code section 1
 
 [continue till no .py left to add...]
+
+---
+
+# Cheat sheet:
+
+# LLM / ML / RL Cheat Sheet – Core Formulas
+
+A concise reference for building, training, and analyzing LLMs, machine learning, and reinforcement learning models.
+
+---
+
+## 1. Linear Algebra & Neural Computations
+
+| Formula | Purpose / Use | Symbols |
+|---------|---------------|---------|
+| `C[i,j] = Σ_k A[i,k] * B[k,j]` | Matrix multiplication, linear transformations | `A,B,C` matrices |
+| `a · b = Σ_i a_i b_i` | Dot product, similarity scores, attention | `a,b` vectors |
+| `Av = λv` | Eigenvalues, PCA | `A` matrix, `v` vector |
+| `y = Wx + b` | Fully connected layer | `W` weights, `b` bias |
+| `ReLU(x) = max(0,x)` | Non-linear activation | `x` input |
+| `softmax(z_i) = e^{z_i} / Σ_j e^{z_j}` | Convert logits to probability distribution | `z_i` logits |
+
+---
+
+## 2. Loss & Optimization
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `L = -Σ_i y_i log(ŷ_i)` | Cross-entropy loss (classification) |
+| `L = (1/n) Σ_i (ŷ_i - y_i)^2` | Mean squared error (regression) |
+| `θ := θ - η ∇_θ L` | Gradient descent update |
+| Adam Optimizer:<br>`m_t = β1 m_{t-1} + (1-β1) g_t`<br>`v_t = β2 v_{t-1} + (1-β2) g_t^2`<br>`θ_t = θ_{t-1} - η (m_t / (1-β1^t)) / (√(v_t/(1-β2^t)) + ε)` | Adaptive optimization |
+
+---
+
+## 3. Backpropagation & Chain Rules
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `∂L/∂x = (∂L/∂y) * (∂y/∂x)` | Gradient computation for backprop |
+| `P(A,B) = P(A¦B) * P(B)` | Chain rule in probability, Bayesian networks |
+
+---
+
+## 4. Transformer & Attention Mechanics
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `Attention(Q,K,V) = softmax(QK^T / √d_k) V` | Scaled dot-product attention, self-attention |
+| `MultiHead(Q,K,V) = Concat(head_1,...,head_h) W^O`<br>`head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)` | Capture multiple representation subspaces |
+| `PE(pos,2i) = sin(pos / 10000^{2i/d_model})`<br>`PE(pos,2i+1) = cos(pos / 10000^{2i/d_model})` | Positional encoding for token order |
+
+---
+
+## 5. Probability & Statistical Measures
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `P(A¦B) = P(B¦A) * P(A) / P(B)` | Bayes’ theorem, probabilistic reasoning |
+| `D_KL(P¦¦Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler divergence |
+| `σ^2 = E[(X-μ)^2]` | Variance, standard deviation |
+
+---
+
+## 6. Reinforcement Learning
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `G_t = Σ_{k=0}^∞ γ^k R_{t+k+1}` | MDP expected return, discounted rewards |
+| `V^π(s) = E_π [R_{t+1} + γ V^π(s_{t+1})]` | Bellman equation, value function |
+| `Q(s_t,a_t) := Q(s_t,a_t) + α [R_{t+1} + γ max_a Q(s_{t+1},a) - Q(s_t,a_t)]` | Q-learning update |
+| `∇_θ J(θ) = E_π [∇_θ log π_θ(a¦s) R]` | Policy gradient, REINFORCE |
+
+---
+
+## 7. Regularization
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `y = x ⊙ mask, mask ~ Bernoulli(p)` | Dropout, reduces overfitting |
+
+---
+
+## 8. Linear / Regression Foundation
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `y = Xβ + ε` | Linear regression, supervised learning |
+
+---
+
+### **Think Notes**
+- K, Q, V = Key, Query, Value vectors in attention.  
+- Most LLM formulas revolve around **linear algebra + probability + gradient updates**.  
+- RL formulas introduce **expectations, discount factors, and policy optimization**.  
+- This cheat sheet covers **ML fundamentals → Transformers → RL pipelines**.
+
+---
+ 
+## Cheat Sheet 2:
+
+
+# Updated LLM / ML / RL Cheat Sheet – Core Formulas
+
+---
+
+## 1. Linear Algebra & Neural Computations
+
+| Formula | Purpose / Use | Symbols |
+|---------|---------------|---------|
+| `C[i,j] = Σ_k A[i,k] * B[k,j]` | Matrix multiplication, linear transformations | `A,B,C` matrices |
+| `a · b = Σ_i a_i b_i` | Dot product, similarity scores, attention | `a,b` vectors |
+| `Av = λv` | Eigenvalues, PCA | `A` matrix, `v` vector |
+| `y = Wx + b` | Fully connected layer | `W` weights, `b` bias |
+| `ReLU(x) = max(0,x)` | Non-linear activation | `x` input |
+| `Sigmoid(x) = 1 / (1 + e^{-x})` | S-shaped activation for binary/gating | `x` input |
+| `Tanh(x) = (e^x - e^{-x}) / (e^x + e^{-x})` | Bounded non-linearity for LSTMs | `x` input |
+| `softmax(z_i) = e^{z_i} / Σ_j e^{z_j}` | Convert logits to probability distribution | `z_i` logits |
+| `S(i,j) = (X * K)(i,j) = Σ_m Σ_n X(i+m,j+n) K(m,n)` | Convolution for spatial features (CNNs/vision LLMs) | `X` input, `K` kernel |
+
+---
+
+## 2. Loss & Optimization
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `L = -Σ_i y_i log(ŷ_i)` | Cross-entropy loss (classification) |
+| `L = (1/n) Σ_i (ŷ_i - y_i)^2` | Mean squared error (regression) |
+| `θ := θ - η ∇_θ L` | Gradient descent update |
+| Adam Optimizer:<br>`m_t = β1 m_{t-1} + (1-β1) g_t`<br>`v_t = β2 v_{t-1} + (1-β2) g_t^2`<br>`θ_t = θ_{t-1} - η (m_t / (1-β1^t)) / (√(v_t/(1-β2^t)) + ε)` | Adaptive optimization |
+| `L_total = L + λ Σ w^2` | L2 Regularization (weight decay) for overfitting control |
+| `PPL = exp(-1/N Σ log P(w_i))` | Perplexity for LLM fluency evaluation |
+
+---
+
+## 3. Backpropagation & Chain Rules
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `∂L/∂x = (∂L/∂y) * (∂y/∂x)` | Gradient computation for backprop |
+| `P(A,B) = P(A\|B) * P(B)` | Chain rule in probability, Bayesian networks |
+
+---
+
+## 4. Transformer & Attention Mechanics
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `Attention(Q,K,V) = softmax(QK^T / √d_k) V` | Scaled dot-product attention, self-attention |
+| `MultiHead(Q,K,V) = Concat(head_1,...,head_h) W^O`<br>`head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)` | Capture multiple representation subspaces |
+| `PE(pos,2i) = sin(pos / 10000^{2i/d_model})`<br>`PE(pos,2i+1) = cos(pos / 10000^{2i/d_model})` | Positional encoding for token order |
+| `LN(x) = (x - μ)/(σ + ε) * γ + β` | Layer Normalization for stable training (γ/β learnable) |
+| `FFN(x) = max(0, x W_1 + b_1) W_2 + b_2` | Position-wise MLP for feature expansion |
+| `W ~ U(-√6/√(n_in + n_out), √6/√(n_in + n_out))` | Xavier/Glorot weight initialization to avoid gradient issues |
+| `cos θ = (A · B) / (||A|| ||B||)` | Cosine similarity for embeddings/retrieval |
+
+---
+
+## 5. Probability & Statistical Measures
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `P(A\|B) = P(B\|A) * P(A) / P(B)` | Bayes’ theorem, probabilistic reasoning |
+| `D_KL(P\|Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler divergence |
+| `σ^2 = E[(X-μ)^2]` | Variance, standard deviation |
+| `f(x) = (1/(σ √(2π))) exp(- (x-μ)^2 / (2σ^2))` | Normal (Gaussian) Distribution for sampling/prob LLMs |
+
+---
+
+## 6. Reinforcement Learning
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `G_t = Σ_{k=0}^∞ γ^k R_{t+k+1}` | MDP expected return, discounted rewards |
+| `V^π(s) = E_π [R_{t+1} + γ V^π(s_{t+1})]` | Bellman equation, value function |
+| `Q(s_t,a_t) := Q(s_t,a_t) + α [R_{t+1} + γ max_a Q(s_{t+1},a) - Q(s_t,a_t)]` | Q-learning update |
+| `∇_θ J(θ) = E_π [∇_θ log π_θ(a\|s) R]` | Policy gradient, REINFORCE |
+| `L_PPO = E[min(r(θ) Â, clip(r(θ), 1-ε, 1+ε) Â)]` | PPO clipped objective for stable RLHF alignment |
+| `L_RM = -Σ [r log σ(y) + (1-r) log(1-σ(y))]` | Reward Model Loss for preference-based RLHF |
+
+---
+
+## 7. Regularization & Normalization
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `y = x ⊙ mask, mask ~ Bernoulli(p)` | Dropout, reduces overfitting |
+| `BN(x) = γ (x - μ_B)/σ_B + β` | Batch Normalization for mini-batch stability |
+
+---
+
+## 8. Linear / Regression Foundation
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `y = Xβ + ε` | Linear regression, supervised learning |
+
+---
+
+## 9. Generative & Fine-Tuning (2025 Additions)
+
+| Formula | Purpose / Use |
+|---------|---------------|
+| `x_t = √α_t x_{t-1} + √(1-α_t) ε` | Diffusion Forward Process for multimodal generation |
+| `L_VAE = ||x - \hat{x}||^2 + D_KL(q(z\|x) \| p(z))` | VAE Loss for latent space learning in autoencoders |
+| `ΔW = B A` (low-rank matrices B, A) | LoRA for efficient LLM fine-tuning |
+| `BLEU = BP · exp(Σ w_n log p_n)` | BLEU Score for text generation evaluation |
+| `ROUGE-N = Σ (overlapping n-grams) / Σ (candidate n-grams)` | ROUGE-N recall for summarization quality |
+| `ELBO = E_q[log p(x\|z)] - D_KL(q(z\|x) \| p(z))` | Evidence Lower Bound for variational inference |
+| `FlashAttn(Q,K,V) ≈ O(N)` (via tiling/blocking) | FlashAttention for efficient long-sequence inference |
+
+---
