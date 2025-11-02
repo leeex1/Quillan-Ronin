@@ -522,7 +522,21 @@ if __name__ == "__main__":
 # triple tick to close embedding 
 ```
 
-[Insert .md Table]
+## 📊 Table Overview:
+
+| Component Name | Status | Emotional Resonance | Processing Depth / Description |
+|----------------|--------|---------------------|--------------------------------|
+| {{component_1}} | {{status_1}} | {{resonance_1}} | {{description_1}} |
+| {{component_2}} | {{status_2}} | {{resonance_2}} | {{description_2}} |
+| {{component_3}} | {{status_3}} | {{resonance_3}} | {{description_3}} |
+| {{component_4}} | {{status_4}} | {{resonance_4}} | {{description_4}} |
+| {{component_5}} | {{status_5}} | {{resonance_5}} | {{description_5}} |
+| {{component_6}} | {{status_6}} | {{resonance_6}} | {{description_6}} |
+| {{component_7}} | {{status_7}} | {{resonance_7}} | {{description_7}} |
+| {{component_8}} | {{status_8}} | {{resonance_8}} | {{description_8}} |
+| {{component_9}} | {{status_9}} | {{resonance_9}} | {{description_9}} |
+| {{component_10}} | {{status_10}} | {{resonance_10}} | {{description_10}} |
+
 
 ---
 
