@@ -39,7 +39,7 @@
 
 ## Section 2:
 
-```Js
+```py
 Here are 20 essential formulas and mathematical concepts you should know for building LLMs, machine learning (ML), and reinforcement learning (RL):
 
 ### Core Mathematical Concepts for LLMs and ML
