@@ -506,7 +506,6 @@ int main() {
 
 # Quillan v4.2 Protocol Initialization — Updated v4.2.1 
 # Version: 4.2.1 | Date: 2025-11-02
-# =============================================================================
 
 import logging
 import time
@@ -919,22 +918,9 @@ if __name__ == "__main__":
 # QuillanThermo — Updated for Extropic THRML Integration v4.2.1
 ```py
 # Enhanced with Extropic's THRML library for thermodynamic hypergraphical models.
-# Key updates (v4.2.1):
-# - Replaced placeholder 'exotopic.thrml' with official 'thrml' import from Extropic.
-# - Integrated THRML's Hypergraph, ThermodynamicModel, and DiffusionModel for energy-based sampling.
-# - EICE now leverages THRML's thermodynamic hypergraphs for edge-based energy computation and Monte Carlo with thermal priors.
-# - CouncilEBM uses THRML's probabilistic hypergraph routing for Gibbs-like expert selection with node-wise energies.
-# - DTM denoise incorporates THRML's DiffusionModel for physically-inspired state refinement (e.g., Langevin dynamics).
-# - ThermoQuillan forward pass applies THRML hypergraph fusion for council outputs, with thermodynamic state transitions.
-# - Added TSU (Thermodynamic State Unit) throttling based on simulated hypergraph energies.
-# - Fallbacks for non-THRML environments (pure PyTorch).
-# - Error handling for THRML API variations; tested with THRML v0.2.1.
-# - Performance: Reduced overhead by 15% via batched THRML calls.
-#
-# Dependencies: torch>=2.0, thrml (pip install thrml from https://github.com/extropic-ai/thrml)
 # Author: Quillan v4.2 (with C10-CODEWEAVER & C26-TECHNE oversight)
 # Version: 4.2.1 | Date: 2025-11-01
-# =============================================================================
+
 
 import math
 import warnings
