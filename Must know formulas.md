@@ -2,7 +2,7 @@
 
 ## Section 1:
 
-```js
+
 # Essential Formulas for LLMs, ML, and RL
 
 | #  | Concept / Formula | Purpose / Use |
@@ -34,8 +34,6 @@
 - Most LLM formulas revolve around **linear algebra, probability, gradients, and attention mechanics**.  
 - RL formulas add **expectations, discounted rewards, and policy updates**.  
 - Symbols like **K, Q, V** are vector placeholders; the math is the same if renamed (e.g., X, Y, Z).
-
-```
 
 ---
 
