@@ -95,3 +95,6 @@ Expand and experiment bypasses []
 Inference bypass? []
 Token limit bypass? []
 Extending public facing models num_ctx or similar []
+
+Explore Web of Thought and Multi CoT []
+Explore augmenting current versions into more abstract versions []
