@@ -3,8 +3,6 @@
 Here’s a distilled list of 20 essential formulas/concepts you should have at your fingertips for LLMs, ML, and RL:
 
 
----
-
 1. Linear Layer (Fully Connected Layer)
 
 y = Wx + b
@@ -12,8 +10,6 @@ y = Wx + b
 Fundamental building block for MLPs and transformers.
 
 
-
----
 
 2. Activation Functions
 
@@ -24,36 +20,25 @@ Sigmoid:
 Tanh: 
 
 
-
----
-
 3. Softmax
 
 \text{softmax}(z_i) = \frac{e^{z_i}}{\sum_j e^{z_j}}
 
-
----
 
 4. Cross-Entropy Loss (Classification)
 
 L = - \sum_i y_i \log(\hat{y}_i)
 
 
----
-
 5. Mean Squared Error (Regression)
 
 L = \frac{1}{n} \sum_i (\hat{y}_i - y_i)^2
 
 
----
-
 6. Gradient Descent Update
 
 \theta \leftarrow \theta - \eta \frac{\partial L}{\partial \theta}
 
-
----
 
 7. Adam Optimizer
 
@@ -64,14 +49,12 @@ v_t = \beta_2 v_{t-1} + (1-\beta_2) g_t^2 
 \hat{\theta}_t = \theta_{t-1} - \eta \frac{m_t / (1-\beta_1^t)}{\sqrt{v_t / (1-\beta_2^t)} + \epsilon}
 
 
----
 
 8. Attention (Scaled Dot-Product)
 
 \text{Attention}(Q,K,V) = \text{softmax}\Big(\frac{QK^\top}{\sqrt{d_k}}\Big) V
 
 
----
 
 9. Positional Encoding
 
@@ -79,63 +62,50 @@ PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_\text{model}}}\right), \quad
 PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{2i/d_\text{model}}}\right)
 
 
----
 
 10. Layer Normalization
 
 \text{LN}(x) = \frac{x - \mu}{\sigma + \epsilon} \cdot \gamma + \beta
 
 
----
 
 11. Transformer Feed-Forward
 
 \text{FFN}(x) = \max(0, xW_1 + b_1) W_2 + b_2
 
 
----
-
 12. KL Divergence (for knowledge distillation, variational models)
 
 D_\text{KL}(P || Q) = \sum_i P(i) \log\frac{P(i)}{Q(i)}
 
 
----
 
 13. Backpropagation Chain Rule
 
 \frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \frac{\partial y}{\partial x}
 
 
----
-
 14. Convolution Operation (CNNs, sometimes in embedding)
 
 S(i,j) = (X * K)(i,j) = \sum_m \sum_n X(i+m,j+n) K(m,n)
 
 
----
 
 15. Reinforcement Learning: Bellman Equation
 
 V^\pi(s) = \mathbb{E}_\pi \Big[ r_t + \gamma V^\pi(s_{t+1}) \Big]
 
 
----
-
 16. Q-Learning Update
 
 Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \big[ r_t + \gamma \max_a Q(s_{t+1}, a) - Q(s_t, a_t) \big]
 
-
----
 
 17. Policy Gradient (REINFORCE)
 
 \nabla_\theta J(\theta) = \mathbb{E}_\pi \big[ \nabla_\theta \log \pi_\theta(a|s) R \big]
 
 
----
 
 18. Transformer Multi-Head Attention
 
@@ -144,21 +114,15 @@ Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \big[ r_t + \gamma \max_a Q(s_{t+1},
 \text{head}_i = \text{Attention}(Q W_i^Q, K W_i^K, V W_i^V) 
 
 
----
-
 19. Weight Initialization (Xavier/Glorot)
 
 W \sim \mathcal{U}\Big(-\frac{\sqrt{6}}{\sqrt{n_\text{in} + n_\text{out}}}, \frac{\sqrt{6}}{\sqrt{n_\text{in} + n_\text{out}}}\Big)
 
 
----
-
 20. Dropout Regularization
 
 y = x \odot \text{mask}, \quad \text{mask} \sim \text{Bernoulli}(p)
 
-
----
 
 💡 Think key takeaways:
 
