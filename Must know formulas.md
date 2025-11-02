@@ -300,14 +300,120 @@ Here are 20 essential formulas and mathematical concepts you should know for bui
 
 These formulas and concepts collectively form the backbone of LLMs, general machine learning, and reinforcement learning models. Letters like K, V, Q specifically arise in the transformer attention formula, while others like A, B, C are general matrix/vector notation used in many equations. Understanding these will enable building, training, fine-tuning, and analyzing such models effectively [1][2].
 
-If you want, more detailed explanations or coding examples for any formula can be provided.
 
-Citations:
-[1] Math, Machine Learning & Coding Needed For LLMs - KDnuggets https://www.kdnuggets.com/math-machine-learning-coding-needed-llms
-[2] The Mathematical Foundations Of AI: 25 Essential Equations ... https://empathyfirstmedia.com/mathematical-foundation-equations-ai-llm/
-[3] Understanding LLMs from Scratch Using Middle School Math https://towardsdatascience.com/understanding-llms-from-scratch-using-middle-school-math-e602d27ec876/
-[4] [PDF] Benchmarking LLMs on Advanced Mathematical Reasoning https://www2.eecs.berkeley.edu/Pubs/TechRpts/2025/EECS-2025-121.pdf
-[5] The maths you need to start understanding LLMs - Giles' blog https://www.gilesthomas.com/2025/09/maths-for-llms
-[6] Large Language Models in Five Formulas - YouTube https://www.youtube.com/watch?v=KCXDr-UOb9A
-[7] Evaluation of LLMs for mathematical problem solving - arXiv https://arxiv.org/html/2506.00309v1
-[8] Large language models, explained with a minimum of math and jargon https://www.understandingai.org/p/large-language-models-explained-with
+## Cheat sheet:
+
+---
+
+LLM / ML / RL Cheat Sheet – Core Formulas
+
+1. Linear Algebra & Neural Computations
+
+Formula	Purpose / Use	Symbols
+
+	Matrix multiplication, linear transformations	 matrices
+	Dot product, similarity scores, attention	 vectors
+	Eigenvalues, PCA	 matrix,  vector
+	Fully connected layer	 weights,  bias
+	ReLU activation	 input
+	Convert logits to probability distribution	 logits
+
+
+
+---
+
+2. Loss & Optimization
+
+Formula	Purpose / Use
+
+	Cross-entropy loss for classification
+	Mean squared error for regression
+	Gradient descent
+Adam optimizer:<br><br><br>	Adaptive optimization
+
+
+
+---
+
+3. Backpropagation & Chain Rules
+
+Formula	Purpose / Use
+
+	Gradient computation for backprop
+Chain rule in probability:<br>P(A,B) = P(A	B) P(B)
+
+
+
+---
+
+4. Transformer & Attention Mechanics
+
+Formula	Purpose / Use
+
+Scaled Dot-Product Attention:<br>	Self-attention mechanism, core of LLMs
+Multi-Head Attention:<br><br>	Capture multiple representation subspaces
+Positional Encoding:<br>,<br>	Encode token order
+
+
+
+---
+
+5. Probability & Statistical Measures
+
+Formula	Purpose / Use
+
+Bayes’ Theorem:<br>P(A	B) = \frac{P(B
+KL Divergence:<br>D_{KL}(P	
+Variance / Std Dev:<br>	Data spread, normalization
+
+
+
+---
+
+6. Reinforcement Learning
+
+Formula	Purpose / Use
+
+MDP Expected Return:<br>	Discounted reward accumulation
+Bellman Equation:<br>	Value function for policy π
+Q-Learning Update:<br>	Off-policy RL update
+Policy Gradient:<br>\nabla_\theta J(\theta) = \mathbb{E}\pi[\nabla\theta \log \pi_\theta(a	s) R]
+
+
+
+---
+
+7. Regularization
+
+Formula	Purpose / Use
+
+Dropout:<br>	Reduce overfitting
+
+
+
+---
+
+8. Linear / Regression Foundation
+
+Formula	Purpose / Use
+
+Linear Regression:<br>	Core supervised learning model
+
+
+
+---
+
+💡 Think notes:
+
+K, Q, V = Key, Query, Value in attention—not arbitrary.
+
+Most LLM formulas are matrix/vector algebra + probability + gradient updates.
+
+RL formulas introduce expectations, discount factors, and policy optimization.
+
+This cheat sheet essentially covers everything from basic MLPs → transformers → RL.
+
+
+
+---
+ 
