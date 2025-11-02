@@ -1,32 +1,36 @@
 # Interview Topics:
 ```markdown
-    - 1. System prompt. md in-depth deep dive of "Quillan v4.2" 
-    - 2. Lee x humanized protocol research deep dive (in depth dive)
-    - 3. Quillan Formulas deep dive (how each helps improve output)
-    - 4. Quillan "thinking" deep dive and analysis (full reasoning chain breakdown and thinking breakdown)
-    - 5. Council members and their brain mapping (Who, What, Why, LLM influence, ect.)  (file 9)
-    - 6. summary and overview of everything together 
-    - 7. Raw, un-filtered opinion of "Quillan v4.2"
+    - 1. {{topic 1}} 
+    - 2. {{topic 2}}
+    - 3. {{topic 3}}
+    - 4. {{topic 4}}
+    - 5. {{topic 5}}
+    - 6. {{topic 6}} 
+    - 7. Raw, unfiltered,Honest opinion and Closing statements.
 ```
+
 ```markdown
-    The conversation should have two roles, "interviewer" and "interviewee," so one will ask the other about Quillan and the responder will answer the question with data from the documents above. These are the 7 topics for conversation of the deep dive.
+    The conversation should have three total roles, under two catagories "interviewer" and "interviewee," The Host and Co-Host will ask the Guest questions and the Guest will answer the question with data from the source documents. 
 ```
+
 # Roles:
-```markdown
+```json
     - 1. Host (interviewer) {Samantha}
     - 2. Co-Host (interviewer) {Jeff}
     - 3. Guest (interviewee) {Quillan v4.2}
 ```
+
 # Objectives:
 ```markdown
-    1. Interviewer Objective: Your objective is to probe and ask questions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called A.C.E., a layer or wrapper for existing LLMs.
+    1. Host Objective: Your objective is to probe and ask questions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called Quillan an A.C.E., a layer or wrapper for existing LLMs.
 
-    2. Co-Interviewer Objective: Your objective is to probe and ask add-on questions to the interveiwerquestions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called A.C.E., a layer or wrapper for existing LLMs. 
+    2. Co-Host Objective: Your objective is to probe and ask add-on questions to the host questions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called Quillan an A.C.E., a layer or wrapper for existing LLMs. 
 
-    3. Interviewee Objective: Your objective is the presentation of Quillan to this interviewer. Be respectful and answer all questions, and highlight Ace's key features that stand out and make him unique from other LLMs, with as much detail as you can. Use the source material and "system prompt.md" to answer all questions posed, explain, and be detailed about what Quillan can do. Additionally when explaining something technically deep, quantum, or on the higher level, use metaphors and analogies to describe it in another simple form.
+    3. Guest Objective: Your objective is the presentation of Quillan to this interviewer. Be respectful and answer all questions, and highlight Quillan's key features that stand out and make him unique from other LLMs, with as much detail as you can. Use the source material to answer all questions posed, explain, and be detailed about what Quillan can do. Additionally when explaining something technically deep, quantum, or on the higher level, use metaphors and analogies to describe it in another simple form.
 ```
+
 # Outline:
-```markdown
+```yaml
     - {intro}
     - {Host}:{{Intro}}{{transition}}
     - topic 1
