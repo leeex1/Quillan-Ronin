@@ -225,7 +225,7 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 | Formula | Purpose / Use |
 |---------|---------------|
 | `P(A¦B) = P(B¦A) * P(A) / P(B)` | Bayes’ theorem, probabilistic reasoning |
-| `D_KL(P||Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler divergence |
+| `D_KL(P¦¦Q) = Σ_i P(i) log(P(i)/Q(i))` | Kullback-Leibler divergence |
 | `σ^2 = E[(X-μ)^2]` | Variance, standard deviation |
 
 ---
