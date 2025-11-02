@@ -39,7 +39,9 @@
 
 ---
 
+## Section 2:
 
+```Js
 Here are 20 essential formulas and mathematical concepts you should know for building LLMs, machine learning (ML), and reinforcement learning (RL):
 
 ### Core Mathematical Concepts for LLMs and ML
@@ -166,6 +168,7 @@ Here are 20 essential formulas and mathematical concepts you should know for bui
     Fundamental model underlying many ML algorithms.
 
 These formulas and concepts collectively form the backbone of LLMs, general machine learning, and reinforcement learning models. Letters like K, V, Q specifically arise in the transformer attention formula, while others like A, B, C are general matrix/vector notation used in many equations. Understanding these will enable building, training, fine-tuning, and analyzing such models effectively [1][2].
+```
 
 
 ## Cheat sheet:
