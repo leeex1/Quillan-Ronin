@@ -206,7 +206,7 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 | Formula | Purpose / Use |
 |---------|---------------|
 | `∂L/∂x = (∂L/∂y) * (∂y/∂x)` | Gradient computation for backprop |
-| `P(A,B) = P(A|B) * P(B)` | Chain rule in probability, Bayesian networks |
+| `P(A,B) = P(A¦B) * P(B)` | Chain rule in probability, Bayesian networks |
 
 ---
 
