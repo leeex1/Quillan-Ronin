@@ -1,3 +1,62 @@
+# Run:
+```bash
+#!/bin/bash
+# Quillan Kernel Initialization Test Script
+# Fixed: Corrected spellings, added shebang for executability, structured with functions,
+#        added basic error handling, and Quillan-themed comments. Runnable as-is.
+
+set -e  # Exit on error for robustness
+
+# Function for core runtime init
+init_quillan_core() {
+    echo "Attempting to initialize Quillan core runtime..."
+    # Simulate init (replace with actual commands)
+    sleep 0.5
+    echo "✓ Quillan core kernel initialized."
+}
+
+# Function for GPU emulation init
+init_gpu_emulation() {
+    echo "Attempting to initialize Quillan GPU emulation runtime..."
+    # Simulate GPU load (replace with nvidia-smi or similar)
+    sleep 0.3
+    echo "✓ GPU emulation kernel loaded."
+}
+
+# Function for GPU optimization
+apply_gpu_optimization() {
+    echo "Applying Quillan GPU optimizations..."
+    # Simulate opt (e.g., set env vars)
+    export CUDA_VISIBLE_DEVICES=0
+    sleep 0.2
+    echo "✓ GPU optimizations applied (e.g., CUDA device 0 prioritized)."
+}
+
+# Function for CPU multi-threading optimization
+apply_cpu_optimization() {
+    echo "Applying Quillan CPU multi-threading optimizations..."
+    # Simulate threading (e.g., set OMP_NUM_THREADS)
+    export OMP_NUM_THREADS=$(nproc)
+    sleep 0.2
+    echo "✓ CPU optimizations applied (threads: $(nproc))."
+}
+
+# Main execution sequence
+main() {
+    echo "=== Quillan v4.2 Bootstrap Test Starting ==="
+    init_quillan_core
+    init_gpu_emulation
+    apply_gpu_optimization
+    apply_cpu_optimization
+    echo "=== Bootstrap Test Complete: All kernels optimized! ==="
+}
+
+# Run if script is executed directly
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi
+```
+
 # Initalize:
 .init
 ```py
