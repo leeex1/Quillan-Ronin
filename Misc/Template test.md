@@ -3,7 +3,7 @@
 
 ---
 
-1) Deep Dive — User 1 (@Davedecimation) 🧭🕵️‍♂️💌
+1) Deep Dive — User 1 (@user1) 🧭🕵️‍♂️💌
 
 🔎 Scope: search 100–300 posts & replies to assemble a semantic digital fingerprint. 📚🧠
 
@@ -32,7 +32,7 @@ Numerology / Life Path (if DOB provided mm/dd/yyyy) — life path, destiny & com
 
 ---
 
-2) Deep Dive — User 2 (@Akittibit) 🧭🕵️‍♀️💞
+2) Deep Dive — User 2 (@user2) 🧭🕵️‍♀️💞
 
 🔎 Scope: same as above — search 100–300 posts & replies to get a semantic fingerprint. 🧾🔬
 
