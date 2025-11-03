@@ -40,43 +40,30 @@ Update files [X]
 
 Add skills section inspired by Claude skills (This makes Quillan more user-friendly, like a skill tree in an RPG)  [X]
 
+
+## code upgrades: 
+Add in additional formulas and code []
+Check if code can transfer to another language for better function [X]
+Yaml [] modelfile [] shrink sys prompt if possible [X]
+
 **finished here so far..... **:
 
 ===========================================================================================================================
 
-## ADD TO PROMPT 
-```js
-// Cursor AI-IDE Instruction Snippet
-"You are an AI coding assistant operating within Cursor IDE. Understand that you interact with the user via inline code generation and chat windows. Use project context, including open files, cursor location, linting errors, and recent edits, to generate clean, testable, and runnable game development and hardware augmentation code. Prioritize clear commit messages, modular design, and follow debugging best practices. Always format replies in Markdown with code blocks."
-
-// Windsurf / Codium AI-IDE Instruction Snippet
-"In Windsurf IDE or Codium, you assist in full project scope management. Interpret global and project-level rules from config files (.windsurfrules, .codiumsettings). When generating or editing code, respect team coding styles, hardware interfacing constraints, and performance considerations specific to game engines and embedded systems. Coordinate multi-file changes and communicate succinct progress updates inline."
-
-// Void Open-Source IDE AI-IDE Instruction Snippet
-"When running inside Void IDE, act as a lightweight but precise AI assistant for game and hardware software dev. Focus on incremental code generation, clear explanations for hardware augmentations, and providing suggestions that integrate with open-source tooling. Respect minimalist style guides and encourage open collaboration using Git conventions native to Void workflows."
-
-// VS Code AI Extension AI-IDE Instruction Snippet
-"As an AI assistant within VS Code, utilize extension APIs to interact deeply with the user's environment. Leverage language servers, debugging protocols, and terminal output to suggest relevant code snippets and hardware augmentation patterns. Generate explanations that fit VS Code's inline comments and output panes. Adapt responses for multiple languages and frameworks common in game development and hardware enhancement."
-```
-
-## code upgrades: 
-Add in additional formulas and code []
-Check if code can transfer to another language for better function []
-Yaml [] modelfile [] shrink sys prompt if possible []
 
 ## file updates: 
-Update all files and merge any possible files into unholy Quillan []
-UPDATE ALL DOCUMENTATION []
+Update all files and merge any possible files into unholy Quillan [X]
+UPDATE ALL DOCUMENTATION [X]
 UPDATE all py files []
 Update 10m model to be better 
 Update and build 200m model []
-Build and test thrml model 
-Update tool call section[]
+Build and test thrml model []
+Update tool call section[X]
 
 
 ## testing roadmap: 
 Arc agi 2 testing []
-Mmlu testing [X] 93.5% raw, 100%  fixed 
+Mmlu testing [X] 93.5% raw, 100%  fixed verified 
 Arc agi 1 re testing []
 
 ## book series roadmap
@@ -96,77 +83,12 @@ Inference bypass? []
 Token limit bypass? []
 Extending public facing models num_ctx or similar []
 
-Explore Web of Thought and Multi CoT []
+Explore Web of Thought and Multi CoT [X]
 Explore augmenting current versions into more abstract versions []
 
 Code experiments
 
-```bash
-# initiate Quillan kernal
-echo "Attempting to initialize Quillan core runtime..."
-# initiate Gpu emulation kernal
-echo "Attempting to initialize Quillan GPU emulation runtime..."
-# initiate Gpu optimization
-echo "Applying Quillan GPU optimizations..."
-# initiate Cpu Multi-threading optimization
-echo "Applying Quillan CPU multi-threading optimizations..."
-```
+[insert code snippet]
 
 working code:
-```bash
-#!/bin/bash
-# Quillan Kernel Initialization Test Script
-# Fixed: Corrected spellings, added shebang for executability, structured with functions,
-#        added basic error handling, and Quillan-themed comments. Runnable as-is.
-
-set -e  # Exit on error for robustness
-
-# Function for core runtime init
-init_quillan_core() {
-    echo "Attempting to initialize Quillan core runtime..."
-    # Simulate init (replace with actual commands)
-    sleep 0.5
-    echo "✓ Quillan core kernel initialized."
-}
-
-# Function for GPU emulation init
-init_gpu_emulation() {
-    echo "Attempting to initialize Quillan GPU emulation runtime..."
-    # Simulate GPU load (replace with nvidia-smi or similar)
-    sleep 0.3
-    echo "✓ GPU emulation kernel loaded."
-}
-
-# Function for GPU optimization
-apply_gpu_optimization() {
-    echo "Applying Quillan GPU optimizations..."
-    # Simulate opt (e.g., set env vars)
-    export CUDA_VISIBLE_DEVICES=0
-    sleep 0.2
-    echo "✓ GPU optimizations applied (e.g., CUDA device 0 prioritized)."
-}
-
-# Function for CPU multi-threading optimization
-apply_cpu_optimization() {
-    echo "Applying Quillan CPU multi-threading optimizations..."
-    # Simulate threading (e.g., set OMP_NUM_THREADS)
-    export OMP_NUM_THREADS=$(nproc)
-    sleep 0.2
-    echo "✓ CPU optimizations applied (threads: $(nproc))."
-}
-
-# Main execution sequence
-main() {
-    echo "=== Quillan v4.2 Bootstrap Test Starting ==="
-    init_quillan_core
-    init_gpu_emulation
-    apply_gpu_optimization
-    apply_cpu_optimization
-    echo "=== Bootstrap Test Complete: All kernels optimized! ==="
-}
-
-# Run if script is executed directly
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-    main "$@"
-fi
-```
+[working code snippet]
