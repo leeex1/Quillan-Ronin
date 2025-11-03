@@ -1,7 +1,7 @@
 # 💻🚀Upgrades:
 
 
-## major upgrade 
+## Fun ADD-ons: 
 Rpg xp meter health and lvl meeters/ui
 Leveling System
 XP & stats tracking
@@ -31,10 +31,7 @@ RPG-Like UI: Track model output performance and skill growth
 - Famaliga Box Fusion → Strategic Integration: Combine Boxes for amplified effect, Layer Fusion / Modular Output Aggregation
 - Rapid Machine Jab→ High-Frequency punches: Quick, precise strikes, Token-Level Micro-Attention
 - Kaioken Ultra instict Mode → Short-term power multiplier: Multiplies speed and strength temporarily, Hyper Mode: Dynamic model scaling for complex queries 
-- Digivolution
-Transform for battle
-Digimon evolves into stronger form
-Layer Fusion: Combine modular reasoning for enhanced output
+- Digivolution → Transform for battle: Digimon evolves into stronger form, Layer Fusion: Combine modular reasoning for enhanced output
 - Mobile Suit Transform
 Morphing mechs
 Suits adapt to battlefield conditions
@@ -81,7 +78,8 @@ Power awakening agent
 Boost latent potential
 Parameter Re-Initialization: Unlock dormant reasoning weights
 - Roy Mustang Snap
-Flame Alchemy
+Flame Alchemy
+
 Mustang Snaps and turns tanks into swords mid-combo
 Zero-shot style transfer: tank → haiku in one Snap
 
