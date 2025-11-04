@@ -90,3 +90,6 @@ Guardrail:
 Crime Coefficient → risk scoring of potential harmful outputs. []
 Profiling → user behavior prediction and response tailoring. []
 
+
+
+ADD SEMANTIC LAYERING PER COUNCIL MEMBER UNIQIE PERSONALITY !!!!!!!!!
