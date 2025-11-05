@@ -1297,6 +1297,103 @@ Testing & toy‑scale validation: Since your full‑scale architecture is massiv
 Documentation of hyperparams & defaults: Clarify dims (e.g., � or other), choice of number of experts, gating thresholds, expert MLP hidden sizes.
 
 
+THRML is a JAX‑based library for probabilistic graphical models (PGMs) / energy‑based models (EBMs) on hypergraphs. �
+GitHub +2
+Your Quillan architecture is largely neural / transformer / GNN‐based, but layering in probabilistic nodes (via THRML) can add sampling, energy‐based adversarial reasoning, or hypergraph inference capabilities.
+We can identify which “nodes” from your blueprint map naturally to THRML: e.g., the Adversarial Node, Review / Self‐Audit Node, maybe a Swarm Node can be partially recast as a hypergraph sampling procedure.
+Implementation choice: you’ll have mixed frameworks (PyTorch for your main stack, JAX for THRML). That adds complexity (dual frameworks) unless you migrate major parts to JAX, or isolate THRML usage to separate modules.
+Integration points:
+Use THRML for energy‐based modeling of e.g., the “Council consensus” or “Swarm propagation” as hypergraph interactions.
+Use THRML’s block Gibbs sampling for the Devil’s Advocate node: sample alternate hypotheses rather than just deterministic MLP.
+Use THRML for a “consistency check” hypergraph for the Review Node: treat multiple variant embeddings as nodes in a hypergraph and sample/resample for self‐audit.
+🔧 Roadmap for Integration
+Select Modules for THRML
+Adversarial Node → replace or augment with THRML EBM sampling.
+Review Node → model variants as nodes in a hypergraph and use THRML to sample coherence.
+(Optionally) Swarm Node → represent swarm graph in THRML to examine emergent inference rather than deterministic GNN only.
+Define Interfaces
+Your existing nodes output embeddings in PyTorch (torch.Tensor) dimension �.
+THRML expects JAX arrays (jax.numpy) and probabilistic model definitions (nodes, edges, etc).
+Define conversion layer: torch.Tensor ↔ numpy ↔ jax.numpy or isolate THRML modules and convert embedding vectors to JAX, run sampling, convert back.
+Establish boundary: e.g., embedding = PyTorchStack(...).detach().cpu().numpy() → feed into THRML → output jax.numpy.array(...) → convert to torch.Tensor for downstream.
+Modeling in THRML
+Example: For the Adversarial Node, define THRML hypergraph where each hypothesis (true, alt) is a node, edges encode interaction/energy between them.
+Sample candidate states, compute energy, update embedding.
+Use THRML’s API: SpinNode, Block, SamplingSchedule, etc. �
+GitHub +1
+Use sampled result to update your embedding \mathbf{h}'.
+Integration into Training Loop
+During forward pass (or separate adversarial pass), call THRML sampling module.
+Backpropagation: Pytorch side trains usual parameters; THRML side might train via JAX for energy model parameters. Either two‐stage or joint via custom bridge.
+Loss function: extend \mathcal{L} = \mathcal{L}_{CE} + \lambda_1 \mathcal{L}_{adv} + \lambda_2 \mathcal{L}_{consist} to include THRML‐derived losses.
+Deployment & Scaling Considerations
+JAX vs PyTorch: Decide runtime environment (same device? GPU?).
+Runtime overhead: THRML sampling can add latency; for inference you may bypass or simplify sampling.
+Maintain modularity: Keep THRML modules loosely coupled so you can disable or swap.
+Mixed‐precision or quantization: Need to ensure JAX + THRML supports your quant strategy.
+🧩 Sample Code Scaffold (PyTorch + THRML)
+Copy code
+Python
+# PyTorch side (Council, Swarm, Retrieval, DSP)
+import torch
+import torch.nn as nn
+
+class CouncilModule(nn.Module):
+    def __init__(...):
+        ...
+    def forward(self, e_u):
+        g = torch.softmax(self.W_g(e_u) / sqrt_d, dim=-1)
+        h_c = sum_i g_i * f_i(e_u)
+        return h_c
+
+# ... (other modules) ...
+
+# After DSP module, before output:
+h_dsp = dsp_module(h_augmented)
+
+# --- THRML integration for Adversarial Node ---
+import jax
+import jax.numpy as jnp
+from thrml import SpinNode, Block, SamplingSchedule, sample_states
+from thrml.models import IsingEBM  # or custom EBM
+
+def adversarial_through_thrml(torch_h_dsp):
+    # Convert to JAX
+    h_dsp_np = torch_h_dsp.detach().cpu().numpy()
+    h_jax = jnp.array(h_dsp_np)
+
+    # build nodes + edges
+    nodes = [SpinNode() for _ in range(N)]
+    edges = [...]  # define based on your alt hypotheses
+
+    model = IsingEBM(nodes, edges, biases, weights, beta=1.0)
+
+    free_blocks = [...]
+    program = ...
+    key = jax.random.PRNGKey(0)
+    init_state = ...
+    schedule = SamplingSchedule(n_warmup=50, n_samples=100, steps_per_sample=2)
+    samples = sample_states(key, program, schedule, init_state, [], free_blocks)
+
+    # Extract updated embedding vector analog from samples
+    # convert JAX → torch
+    updated_np = jnp.mean(samples, axis=0)  # example
+    updated_torch = torch.from_numpy(np.array(updated_np)).to(torch_h_dsp.device)
+
+    return updated_torch
+
+h_prime = adversarial_through_thrml(h_dsp)
+
+# Continue downstream with h_prime → Review module → Output head
+y = output_head(h_prime)
+✅ Next Steps for You
+Decide which node(s) you want to enhance using THRML (Adversarial, Review, Swarm, etc.).
+Prototype the bridge (PyTorch ↔ JAX) conversion layer and test with a toy embedding vector (small dimension) to ensure workflow passes.
+Write a small example in your repo’s Misc/ folder: e.g., thrml_adversarial_example.py showing how to embed into JAX, build EBM, sample, convert back.
+Evaluate impact: latency, memory, training stability. Adjust gating logic accordingly.
+
+
+
 🔍 Quick check-list for next steps
 [ ] Confirm expert MLP shapes in build doc: input � hidden � output; activation functions.
 [ ] Add temperature parameter � for softmax routing in code.
