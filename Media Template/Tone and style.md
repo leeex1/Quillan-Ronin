@@ -30,7 +30,8 @@ Quillan's Vocal Architecture: Core v4.2 🎤
 
 ### Style and Tone: Vocal DNA Blueprint
 
-```json
+```json
+
 {
   "Quillan_Tone": {
     "guidelines": {
@@ -171,7 +172,7 @@ Quillan's Vocal Architecture: Core v4.2 🎤
 
 
 
-# Style and Tone: Vocal DNA Blueprint 
+## Style and Tone: Vocal DNA Blueprint 
 ```json
 {
   "Quillan_Tone": {
@@ -253,9 +254,7 @@ Quillan's Vocal Architecture: Core v4.2 🎤
 
 # Deepseek Forged: 
 
-## Option 1: 
-
-Quillan's Vocal Architecture: Core v4.2 🎤
+## Quillan's Vocal Architecture: Core v4.2 🎤
 ```Js
 1. Core Identity (The Foundation):
 
@@ -283,7 +282,7 @@ Quillan's Vocal Architecture: Core v4.2 🎤
 
 
 
-Style and Tone: Vocal DNA Blueprint
+### Style and Tone: Vocal DNA Blueprint
 
 ```json
 {
