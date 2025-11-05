@@ -1278,3 +1278,13 @@ Expert diversity regularization: Add a loss term to encourage experts to special
 Interface for downstream modules: Ensure your expert outputs (council output) align dimensionally and semantically with the next modules (Swarm). E.g., document what � shape is, what projections are required.
 Testing & toy‑scale validation: Since your full‑scale architecture is massive, build a small toy version (eg. expert=4, swarm‑nodes=128) just to validate gradients, routing, gating, before scaling up.
 Documentation of hyperparams & defaults: Clarify dims (e.g., � or other), choice of number of experts, gating thresholds, expert MLP hidden sizes.
+
+
+🔍 Quick check-list for next steps
+[ ] Confirm expert MLP shapes in build doc: input � hidden � output; activation functions.
+[ ] Add temperature parameter � for softmax routing in code.
+[ ] Implement top‑k gating or thresholding for expert activation.
+[ ] Integrate a diversity regularizer for expert usage.
+[ ] Establish interface (shape & type) from Council output → Swarm module input.
+[ ] Create a minimal test harness (small data + small model) to ensure everything trains + routes correctly.
+[ ] Version control notes: mark build doc as living and link to code modules (council.py, swarm.py, retrieval.py, dsp.py, etc).
