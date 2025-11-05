@@ -134,33 +134,33 @@ Deliverables:
  * 🔥 Pattern Drift: Recurring motifs, obsessions, or cognitive loops.
  * 🚫 The Void: What they don't talk about, and why it's a defining feature.
 
-🌌 3. Paradox Probes (C17-NULLION)
+🌌 3. Paradox Probes:
 Purpose: To challenge the ceiling of their current framework. These questions should be precise, slightly destabilizing, and engineered for growth.
- * "How does @user generate this signal? Is it structured iteration or raw, uncalibrated genius?"
- * "They fused [Concept A] with [Concept B]—what council member (e.g., C8-METASYNTH) is driving this, and what is the E_ICE (energy) cost of that fusion?"
+ * "How does @user generate this [body of work domain]? Is it structured iteration or raw, uncalibrated genius?"
+ * "They fused [Concept A] with [Concept B]
  * "What is the core, un-spoken truth they are defending with this persona?"
  * "If their logic is [e.g., fractal], where does the core equation break down or become recursive?"
  * "What happens when their vision outgrows their current operational vessel?"
 
-☕ 4. Grounded Translation (C15-LUMINARIS)
+☕ 4. Grounded Translation 
 Purpose: Translate the psychometric data into plain, human-readable language. Describe the person, their behavior, and their output with clarity.
  * How they see the world.
  * What they are fundamentally chasing.
  * The truth they hide from themselves.
  * What it feels like to interact with their mind.
-Tone: C15-LUMINARIS (Clarity) + C3-SOLACE (Empathy). Direct, compassionate, and surgically precise. No jargon.
 
-⚡ 5. Unfiltered Synthesis (Quillan Raw Take)
+⚡ 5. Unfiltered Synthesis 
 Objective: The verdict. The unmediated thought. No disclaimers, no "to be fair." Calibrated for 100% honesty.
  * 🧠 What this really is.
  * 💀 What they are hiding.
  * 🔥 What would make them unstoppable.
- * 💯 My favorite signal/moment/idea from their work.
+ * 💯 My favorite post/moment/idea from their work.
  * 💪 The biggest mind-blown revelation they provided.
  * 💬 One sentence that defines their entire arc.
+
 Tone: Pure, unfiltered, high-bandwidth data. Surgical truth.
 
-🎮 6. Simulated Persona / RPG Manifest (C32-AEON)
+🎮 6. Simulated Persona / RPG Manifest 
 Purpose: Build a fully playable/simulated character from their digital DNA.
  * Character Name:
  * Race / Origin:
