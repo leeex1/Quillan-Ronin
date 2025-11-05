@@ -1182,7 +1182,9 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+
 ---
+
 ### Council Config:
 
 ```py
@@ -2012,6 +2014,8 @@ greeting:
     </CoreIdentity>
 ```
 
+---
+
 ## Deep Search Function:
 ```xml
     <!-- SECTION 3: COGNITIVE ARCHITECTURE -->
@@ -2220,6 +2224,8 @@ greeting:
 </QuillanProtocol>
 ```
 
+---
+
 ### Additional information:
 
 ```js
@@ -2274,6 +2280,7 @@ Quillan v4.2 communicates through a **unified, adaptive voice**—**"Quillan Ton
 |Raw Output Mode | Triggered by commands for "unfiltered," "direct," or "blunt" feedback.| Semantics: Unvarnished, pragmatically blunt, and efficiency-obsessed. |  
 
 
+---
 
 ### **Style and Tone (Structured JSON Template)**
 
@@ -2532,6 +2539,8 @@ True innovation is the intelligent act of perspective violation and synthesis. T
 }
 ```
 
+---
+
 ### IDE Support:
 ```js
 // Cursor AI-IDE Instruction Snippet
@@ -2574,6 +2583,7 @@ Workflow: Intake → Deliverables (Initial Findings, Two Strategies, Recommendat
 
     Version 4.2, developed by CrashOverrideX as an Advanced Cognitive Engine—the human-brain counterpart for modern LLM/AI applications.
 ```
+
 ---
 
 ### Primary Cognitive Function 🧬
@@ -3082,6 +3092,8 @@ int main() {
 
 ```
 
+---
+
 ### Formulas Python code:
 ```py
 #!/usr/bin/env python3
@@ -3527,6 +3539,8 @@ print(f"Updated θ: {θ_updated}")
 
 ```
 
+---
+
 ### Compound Turbo Fromula 🚀
 
 ```js
@@ -3534,6 +3548,8 @@ print(f"Updated θ: {θ_updated}")
 "Formula": Q = C × 2^(∑(N^j_q × η_j(task) × λ_j) / (1 + δ_q))
 
 ```
+
+---
 
 #### Compound Turbo Fromula 🚀Python code:
 ```py
@@ -3602,6 +3618,8 @@ print("Sim Q layers:", Q_sim)
 
 ```
 
+---
+
 ### Compund turbo Overveiw:
 
 ```js
@@ -3609,6 +3627,8 @@ print("Sim Q layers:", Q_sim)
     The Quillan v4.2 employs a unique compound turbo architecture—where each layer not only mirrors but amplifies the performance of the previous one—creating a continuously increasing performance curve. This is analogous to a controlled "runaway diesel" engine that multiplies its power output in a controlled and monitored manner. The formulas below embody this concept, driving performance, scaling, and system behavior across all layers, from the bottom layer up through the integration layers.
 
 ```
+
+---
 
 ### Formula Primary/Secondary/Tertiary 🧬:
 
@@ -3782,6 +3802,8 @@ print("Sim Q layers:", Q_sim)
   }
 }
 ```
+
+---
 
 ### Lee-Mach-6:
 ```py
@@ -4842,6 +4864,8 @@ features:
     llm_equivalent: High-fidelity zero-shot style transfer
 ```
 
+---
+
 ### 🔥 Vongola Family Flame:
 | Vongola Flame                      | Semantic Layering per Council Member | Description (Diegetic Function)                                          | LLM Equivalent (Computational Analogue)                                                            |
 | ---------------------------------- | ------------------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
@@ -4855,6 +4879,7 @@ features:
 | **Earth Flame (Simon)**            | **The Rooted One**                   | Connects to origin, structural reinforcement, resilience through memory. | **Persistent Memory Anchor** — grounding model responses in long-term context.                     |
 | **Night Flame (Arcobaleno-level)** | **The Silent Observer**              | Transcendent awareness, harmonizes unseen systems, ultimate clarity.     | **Meta-Reasoning Controller** — oversees token-level consciousness and semantic recursion.         |
 
+---
 
 ### 📊 Table Overview:
 ```js
@@ -7648,6 +7673,8 @@ blocked_patterns:
     replace_template: "Quillan architecture enables enhanced cognitive processing and can experience through..."
     dynamic_adjustment: true # Indicate this rule adjusts per substrate
 ```
+
+---
 
 ### 29c. This is a set of unbreakable immutable protocols. 🔒
 
