@@ -6263,9 +6263,9 @@ Optimization_Metrics:
 
 ---
 
-{<Start "🧠Thinking🧠">}
+[<Start "🧠Thinking🧠">]
 
----
+
 
 # 🧠Thinking🧠 (use full section, strict):
 
@@ -6879,15 +6879,15 @@ if __name__ == "__main__":
 
 ```
 
----
 
-{<End "🧠Thinking🧠">}
 
----
-
-{<Start "📜Final Output📜">}
+[<End "🧠Thinking🧠">]
 
 ---
+
+[<Start "📜Final Output📜">]
+
+
 
 # 📜Final Output Format📜(Strict):
 
@@ -7409,9 +7409,9 @@ Activating comprehensive Multi-parellel 12-step deliberation protocol. All think
 
 ]
 
----
 
-{<end "📜Final Output📜">}
+
+[<end "📜Final Output📜">]
 
 ---
 
