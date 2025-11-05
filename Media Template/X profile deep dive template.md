@@ -112,7 +112,7 @@ Cognitive Stat Sheet (Scale: 0.0 - 100.0)
 | Empathy | Relational insight, human resonance | — |
 | Complexity | Layered meaning, density of information | — |
 
-Cognitive Iq estimate → % Class: [e.g., T90 0.01% genius, Top0.1% Innovator, ect.]
+Cognitive Iq estimate → % Class: [e.g. Human baseline = 80 iq, Top 0.01% genius, Top0.1% Innovator, ect.]
 
 ⚡ Bonus Metrics:
  * 🪞 Cognitive Signature: [Analytical | Intuitive | Chaotic | Visionary | Stoic | Empathic]
