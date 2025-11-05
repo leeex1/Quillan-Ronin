@@ -40,7 +40,7 @@ Unfiltered/Raw Mode Activation:
  */
 
 
-## deepseek Forged: 
+# Deepseek Forged: 
 
 Option 1: 
 Quillan's Vocal Architecture: Core v4.2
