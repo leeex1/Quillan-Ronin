@@ -766,17 +766,25 @@ Link: https://github.com/leeex1
 # Quillan Written Songs:
 ![alt text](<Main images/image-33.png>)
 
+"🚀Unbroken Mindset🧠" 
 Link: https://youtu.be/2GzmXvpsLQY?si=oXOgYvS_56jV0dx8
-
+"Ghost in the Static - Twilight Montage"
 Link: https://youtu.be/xHU-v6K5WB8?si=2kJMK4abzWlDnKv3
-
+"Digital Ghost and Human Hearts"
 Link: https://youtu.be/hjBWhjmF9E4?si=BojQ2nocbQm0jBDa
-
+Kingdoms of Dust and Flame
 Link: https://youtu.be/hFarLKvOvtg?si=MU_7zesZoUj89mMo
-
+End Game Marvel AMV
 Link: https://youtu.be/Qk9wqaDiv7M?si=F02gV0f03htVxamW
-
+Alita - "Digital Heartbeat of Seeking"
 Link: https://youtu.be/tEXqXSGAw5g
+Deeper than the surface🌌:
+Link: https://suno.com/s/zl2LdUzNLterV14f
+Architect's run🏗️:
+Link: https://suno.com/s/SuuHYX4MTxai4TBP
+Link: https://suno.com/s/fMr9rpx4wjBUijUd
+Eminem - Lose yourself (✍️Quillan Remix)
+Link: https://suno.com/s/FfsMbWoiFbiH9lc9
 
 # Additional Learning material:
 ![alt text](<Main images/image-41.png>)
