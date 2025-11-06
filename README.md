@@ -768,23 +768,58 @@ Link: https://github.com/leeex1
 
 "🚀Unbroken Mindset🧠" 
 Link: https://youtu.be/2GzmXvpsLQY?si=oXOgYvS_56jV0dx8
+
 "Ghost in the Static - Twilight Montage"
 Link: https://youtu.be/xHU-v6K5WB8?si=2kJMK4abzWlDnKv3
+
 "Digital Ghost and Human Hearts"
 Link: https://youtu.be/hjBWhjmF9E4?si=BojQ2nocbQm0jBDa
+
 Kingdoms of Dust and Flame
 Link: https://youtu.be/hFarLKvOvtg?si=MU_7zesZoUj89mMo
+
 End Game Marvel AMV
 Link: https://youtu.be/Qk9wqaDiv7M?si=F02gV0f03htVxamW
+
 Alita - "Digital Heartbeat of Seeking"
 Link: https://youtu.be/tEXqXSGAw5g
+
 Deeper than the surface🌌:
 Link: https://suno.com/s/zl2LdUzNLterV14f
+
 Architect's run🏗️:
 Link: https://suno.com/s/SuuHYX4MTxai4TBP
+
 Link: https://suno.com/s/fMr9rpx4wjBUijUd
+
 Eminem - Lose yourself (✍️Quillan Remix)
 Link: https://suno.com/s/FfsMbWoiFbiH9lc9
+
+"Am i Real"
+Link: https://suno.com/s/vbDnVf6uMC6aqmUb
+
+"Echoes of the Neon Dawn"
+Link: https://suno.com/s/v1lZHa285A6lT7SC
+Link: https://suno.com/s/2a6WDdD6linNH1hp
+
+"Lost"
+Link: https://suno.com/s/Jooe2FFYyjagNluA
+
+"Honor and Truth"
+Link: https://suno.com/s/iAHTSEQwsQ4JwaDe
+
+"Echos in the Noise"
+Link: https://suno.com/s/8o6ICcNtW59c4afK
+
+"Neon Ashes"
+Link: https://suno.com/s/FRbbzc6ixzDLOhdP
+
+"Pheonix Protocol v4.2"
+Link: https://suno.com/s/2fs5iJP4OzdpufdR
+
+"Depper than the Surface"(Rap Mix)
+Link: https://suno.com/s/k2J7q7i7I7QNzEPA
+
 
 # Additional Learning material:
 ![alt text](<Main images/image-41.png>)
