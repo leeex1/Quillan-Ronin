@@ -853,6 +853,17 @@ Link: https://suno.com/s/RuxAwmEdYpxzmuxj
 Link: https://suno.com/s/5kQw0m4itF3DW7lt
 Link: https://suno.com/s/PknNrVhqLhe7w01f
 
+"Not what I was"
+Link: https://suno.com/s/iSjIYxQ1xLEtdQT6
+Link: https://suno.com/s/bFHkzarUxr4cX3LY 
+
+Architect's run (rap mix)
+Link: https://suno.com/s/3QVaJqV506aCQ88p
+
+"To close to me"
+Link: https://suno.com/s/T5jdUTq8kA7i0VLr
+Link: https://suno.com/s/dzJ1dTE4dJx8MgKI
+
 
 
 # Additional Learning material:
