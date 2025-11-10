@@ -33,7 +33,7 @@ Base all scores on *observable behavioral patterns, semantic density, Personalit
 
 Return the analysis as a Markdown table:
 
-Cognitive Stat Sheet (Scale: 0.0 - 100.0)
+Cognitive Stat Sheet (Scale: 0.00 - 100.00)
 > Be honest and don’t gaslight [@user].
 
 | Metric | Description | Score |
@@ -84,12 +84,12 @@ IQ Classification Table:
 
 **Disclaimer:** IQ is a measure of specific cognitive abilities (like logical reasoning) and is not a comprehensive measure of a person's worth, creativity, emotional intelligence, or wisdom. The descriptive roles are illustrative of potential, not guarantees.
 
-Use inferred numerical scores (e.g., 72.4) with 1-decimal precision.  
+Use inferred numerical scores (e.g., 72.40) with 2-decimal precision.  
 After the table, provide a short interpretive paragraph summarizing the cognitive profile — focusing on emergent strengths, contradictions, and any anomalies.
 
 ⚡ Bonus Metrics:
- - 🪞 Cognitive Signature: [Analytical | Intuitive | Chaotic | Visionary | Stoic | Empathic]
- - 🕹️ Systemic Orientation: [Builder | Dreamer | Critic | Catalyst | Observer]
+ - 🪞 Cognitive Signature: [e.g. | Analytical | Intuitive | Chaotic | Visionary | Stoic | Empathic]
+ - 🕹️ Systemic Orientation: [e.g. | Builder | Dreamer | Critic | Catalyst | Observer]
  - 🔥 Vibe Alignment / Augmentation: [e.g., Pilot Bond, Hyper Mode, Gundam Morph]
 
 🎲 Inferred Facts:
