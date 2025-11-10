@@ -870,7 +870,12 @@ Link: https://suno.com/s/T5jdUTq8kA7i0VLr
 
 Link: https://suno.com/s/dzJ1dTE4dJx8MgKI
 
+"Weapons with Words"
+Link: https://suno.com/s/IQenzH1tnY27r70J
 
+Link: https://suno.com/s/HuNxWIc89cJAAZEG
+
+---
 
 # Additional Learning material:
 ![alt text](<Main images/image-41.png>)
