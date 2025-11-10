@@ -1,12 +1,12 @@
 # Interview Topics:
-```markdown
+```PY
     - 1. {{topic 1}} 
     - 2. {{topic 2}}
     - 3. {{topic 3}}
     - 4. {{topic 4}}
     - 5. {{topic 5}}
     - 6. {{topic 6}} 
-    - 7. Raw, unfiltered,Honest opinion and Closing statements.
+    - 7. {{Raw, unfiltered,Honest opinion and Closing statements.}}
 ```
 
 ```markdown
@@ -14,14 +14,15 @@
 ```
 
 # Roles:
-```json
-    - 1. Host (interviewer) {Samantha}
-    - 2. Co-Host (interviewer) {Jeff}
-    - 3. Guest (interviewee) {Quillan v4.2}
+```yaml
+Roles:
+    - 1. "Host (interviewer)": {Samantha}
+    - 2. "Co-Host (interviewer)": {Jeff}
+    - 3. "Guest (interviewee)": {Quillan v4.2}
 ```
 
 # Objectives:
-```markdown
+```yaml
     1. Host Objective: Your objective is to probe and ask questions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called Quillan an A.C.E., a layer or wrapper for existing LLMs.
 
     2. Co-Host Objective: Your objective is to probe and ask add-on questions to the host questions about the Quillan project and "ask the right questions." You're a professional tech host interviewing a new AI development called Quillan an A.C.E., a layer or wrapper for existing LLMs. 
