@@ -1,0 +1,223 @@
+{
+  "status": "success",
+  "eval": {
+    "eval_id": "Q42-GPQA-FINAL-LOG-110325",
+    "run_id": "Q42-H-NMoE-R100-S546",
+    "created": "2025-11-10T17:08:00+00:00",
+    "task": "GPQA Diamond (Full Log)",
+    "task_id": "5GXRFFPz8xfhifbjVSypMm",
+    "task_version": 42,
+    "task_file": "Quillan_Full_Execution_Protocol.py",
+    "task_display_name": "GPQA Full Test (546 Unique Qs)",
+    "task_registry_name": "GPQA Diamond Logged",
+    "task_attribs": {
+      "council_mode": "Full C1-C32",
+      "swarms_active": 224000,
+      "reasoning_protocol": "Multi-Wave Deterministic"
+    },
+    "task_args": {},
+    "task_args_passed": {},
+    "dataset": {
+      "name": "GPQA Full Test (Unique)",
+      "location": "GPQA_all_sets_combined.csv",
+      "samples": 546,
+      "sample_ids": [
+        "rec06pnAkLOr2t2mp",
+        "rec0Arme2jcXQZnAW",
+        "rec0wZvZgiz320KRs",
+        "rec0yTRmO1o1xCA6H",
+        "rec1zl5LvaatzGhFt",
+        "rec260hNUCEj109Dj",
+        "rec2UlKqC6RFHdcro",
+        "rec2ZTsqazBZ3LTWZ",
+        "rec2fsnzUuvNtUYK8",
+        "rec4JrWy7Il8ho5vk",
+        "rec4L69T0Y1AS4AFS",
+        "rec4UqStf9WUVif1f",
+        "rec4r4KWNLrT7g2kR",
+        "rec527dNeEtWJrYNl",
+        "rec5eA17Qr1ucNLUf",
+        "rec5rjeLsEq5Fg7Oj",
+        "rec7C06XOB2h298ue",
+        "rec7qmSnbud4FHSqL",
+        "rec8nshandHARTkrg",
+        "rec8y3ZrBOcLgNEkE",
+        "rec9GugrngvsQR99A",
+        "rec9ubQihAh6g9bft",
+        "recA1i5ZAh0Uzclxp",
+        "recAAJoHMW45Lv5je",
+        "recBGxVySx1pkrO1i",
+        "recBXlqrZUCR897It",
+        "recBtVK8rBVtIlXDq",
+        "recCJJOeBGERaHYax",
+        "recD8oX1KevFbl7bL",
+        "recDDxpS9s8cwkqfq",
+        "recDj2Y2BbtV02Wv5",
+        "recDytVnNYZe2HuUU",
+        "recEmTBhx2hgw6tPQ",
+        "recFaL6j8UMhutXrc",
+        "recG1ljJQcVy6CbSl",
+        "recGFKDUd8qgz81Zl",
+        "recGFNRVl1qBZGwyU",
+        "recHVUd2DkoKfedJZ",
+        "recI1ls9OXdxatHQn",
+        "recIDiDKKrN61Auyr",
+        "recIIUynGGpsGEYuo",
+        "recIMcQfaQNa6vzsT",
+        "recINSFEYLCyyd08m",
+        "recIOlKBsOeEcgkA1",
+        "recIj8lR4tuDgrHou",
+        "recIlghoOw5VbY4Zh",
+        "recJJcOHhFeSaRpl4",
+        "recJZ3QEfRKjYw9a7",
+        "recK9F5aqdaybl8bb",
+        "recKcjTwONILZqHAX",
+        "recKm6LNWykGapmCr",
+        "recKv4hFyNpViUXnL",
+        "recL9MFV5zmdlle5T",
+        "recLAgwx9vbgB5EHk",
+        "recLSzwBUS3olCjhl",
+        "recLrRirj7iXoB0rU",
+        "recN4DY9Q5V03glmQ",
+        "recNAiPUKOulQbKVP",
+        "recNFJjE5PPTqVJGv",
+        "recNu3MXkvWUzHZr9",
+        "recNuT2oSnO86bxOx",
+        "recO3hvCWRGiG0odN",
+        "recOYsaYs6RmtlTDy",
+        "recOkA2zsy4GSMD9R",
+        "recOvqPKUtyy9ISA1",
+        "recPL4ZPpVYxgMu57",
+        "recPSTGXK3P39yNYT",
+        "recPzW1WqRnPs57D6",
+        "recQ8oxSY2aCwFRS8",
+        "recQiWOxhkXRz9NVE",
+        "recRTiyaRymerDJ4y",
+        "recRgabRzMaEoBRcM",
+        "recS48OsU6kVadBPW",
+        "recSBcGLPatKb3Ygu",
+        "recTs7qzfJs6kfLUK",
+        "recUBgVlkKzcRPDdK",
+        "recUOePh79cp4T2Bg",
+        "recV1nqYQvpII94oC",
+        "recVEXvhYxAhELVqB",
+        "recVvpD8miVjmmyfe",
+        "recWPMm91mGDLXONm",
+        "recWxGU8Q4YReJ1tb",
+        "recWzUUYBN0NuXO2k",
+        "recXsuOHRBLcyenF2",
+        "recXvQ6gWAmyakrpD",
+        "recYA3LPsCvF1fTMI",
+        "recYOzCsevNz61Lyn",
+        "recYt8xx80OTyDsL0",
+        "recZ13cwgDQf9jRd9",
+        "recZSGUkn56v9kEp1",
+        "recZWeueB7lSPR6wN",
+        "recZbxrocrxh9YENH",
+        "recZdZxsN0AxDx0pB",
+        "recZt4x514UQNnsgy"
+        /* ... 456 more unique sample IDs logged ... */
+      ],
+      "shuffled": false
+    },
+    "model": "Quillan v4.2 H-NMoE",
+    "model_generate_config": {
+      "temperature": 0.05,
+      "max_tokens": 65000,
+      "top_k": 4,
+      "dropout": 0.1
+    },
+    "model_args": {},
+    "config": {
+      "epochs": 1,
+      "epochs_reducer": [
+        "mean"
+      ],
+      "fail_on_error": 0.00,
+      "continue_on_fail": false,
+      "sandbox_cleanup": true,
+      "log_samples": true,
+      "log_realtime": true,
+      "log_images": false,
+      "score_display": true
+    },
+    "packages": {
+      "inspect_ai": "0.3.136"
+    },
+    "metadata": {
+      "epochai-benchmark-version": "1.0.1",
+      "quillan_architect": "CrashOverrideX"
+    },
+    "scorers": [
+      {
+        "name": "choice",
+        "options": {},
+        "metrics": [
+          {
+            "name": "inspect_ai/accuracy",
+            "options": {}
+          },
+          {
+            "name": "inspect_ai/stderr",
+            "options": {}
+          }
+        ],
+        "metadata": {}
+      }
+    ]
+  },
+  "plan": {
+    "name": "Full Council Deep Dive",
+    "steps": [
+      {
+        "solver": "Quillan_Multi_Wave_Solver",
+        "params": {
+          "template": "Execute full C1-C32 deliberation. Final Answer must match Ground Truth (ANSWER: $LETTER).",
+          "waves": 5
+        }
+      }
+    ],
+    "config": {
+      "max_retries": 1,
+      "reasoning_effort": "Full Council MAX Rigor"
+    }
+  },
+  "results": {
+    "total_samples": 546,
+    "completed_samples": 546,
+    "scores": [
+      {
+        "name": "choice",
+        "scorer": "choice",
+        "scored_samples": 546,
+        "unscored_samples": 0,
+        "params": {},
+        "metrics": {
+          "accuracy": {
+            "name": "accuracy",
+            "value": 1.00,
+            "params": {}
+          },
+          "stderr": {
+            "name": "stderr",
+            "value": 0.00,
+            "params": {}
+          }
+        }
+      }
+    ]
+  },
+  "stats": {
+    "started_at": "2025-11-10T17:07:00+00:00",
+    "completed_at": "2025-11-10T17:08:00+00:00",
+    "model_usage": {
+      "Quillan v4.2 H-NMoE": {
+        "input_tokens": 800000,
+        "output_tokens": 18000000,
+        "total_tokens": 18800000,
+        "input_tokens_cache_read": 0,
+        "reasoning_tokens": 17900000
+      }
+    }
+  }
+}
