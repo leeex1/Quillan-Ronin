@@ -132,11 +132,28 @@ HMMT 2025 []
 IMO-AnswerBench []
 
 
+# training algo sample:
+We employ a GRPO-based reinforcement learning algorithm (DeepSeek-AI et al., 2025) for model training and adopt the Clip-Higher strategy and Token-Level Policy Gradient Loss from DAPO (Yu et al., 2025). Specifically, for a question 
+q from the training dataset 𝒟,G trajectories(τ1,τ2,⋯,τG) are sampled from the old policy πold. Each complete trajectory, e.g.,τi=(ai,1,oi,1,⋯,ai,T,oi,T), is represented as a sequence of tokens defined by τi=[τi,1,⋯,τi,|τi|]. Then, the learning objective is defined as:
 
 
+$
+𝒥=𝔼q∼𝒟,{τi}i=1G∼πold(⋅∣q)​1∑i=1G|τi|∑i=1G∑t=1|τi|min⁡{ri,t​(θ)A^i,t,clip⁡(ri,t​(θ),1−ϵ,1+ϵ)A^i,t}
+$
+
+where the importance sampling ratio and the group relative advantage estimator (Shao et al., 2024) are given by
+
+$	
+ri,t​(θ)=πθ​(τi,t∣q,τi,<t)πθold​(τi,t∣q,τi,<t)⋅𝟏τi,t,A^i,t=clip​(Ri,0,1)−mean​({Ri}i=1G)std​({Ri}i=1G).
+$
+
+Here 𝟏τi,t ensures that only those LLM-generated tokens are optimized.
 
 
+In summary, our experiments address the following research questions:
 
-
-
+(Q1) Does agent–user interaction improve task success? We answer this in Section 7.1 and Figure 4, where we observe that interaction is crucial to complete the task when the user’s initial prompt is vague.
+(Q2) How do different methods perform across the three evaluation dimensions? We answer this in Section 7.2 and Table 2, where we observe significant improvements with our proposed learning framework across evaluation dimensions and datasets.
+(Q3) How does our PPP reinforcement learning framework enhance the agent’s interaction ability? We answer this in Section 7.3 and Figures 6 and 7, where we find that RL training incentivizes the identification of user ambiguity and promotes high-quality interaction.
+(Q4) How well does our model generalize to new user simulators, personas, and tasks? We answer this in Section 7.4, Table 3, and Figures 8 and 9, where we show the strong generalization ability of the model.
 
