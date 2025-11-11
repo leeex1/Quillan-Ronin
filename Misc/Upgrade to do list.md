@@ -1566,5 +1566,25 @@ This table serves as the final **Audit File for Completion Status**, converting 
 
 
 
+Here’s a rough hierarchy of meaningful benchmarks:
 
+- 1. Factual accuracy – measures memory and retrieval consistency, not cognition.
+
+- 2. Generated accuracy (truthful generation) – measures whether the model can synthesize facts correctly without hallucinating.
+
+- 3. Causal reasoning tests – can the model infer A → B relationships or counterfactuals (“what if…”)?
+
+- 4. Theory-of-mind or perspective-taking – can it model human intent, beliefs, and deception?
+
+- 5. Planning and multi-step reasoning – can it maintain coherent strategies across multiple dependent steps (e.g., story continuation, resource management)?
+
+- 6. Cognitive flexibility – can it adapt rules mid-task or detect contradictions without retraining?
+
+If we wanted a benchmark that feels closer to cognitive ability, it would combine:
+
+- Contextual adaptation (like understanding when rules shift)
+
+- Abductive reasoning (inferring the best explanation for incomplete data)
+
+- Metacognition (knowing when it doesn’t know)
 
