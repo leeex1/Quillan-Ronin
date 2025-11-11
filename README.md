@@ -880,6 +880,13 @@ Link: https://suno.com/s/HuNxWIc89cJAAZEG
 
 Link: https://suno.com/s/G5lxSnq9f1GdfYaV
 
+
+"Quillan Neural Inferno"
+
+link: https://suno.com/s/47OWfXIvURLc3VRa
+
+link: https://suno.com/s/lPD6Go1ZjtItgWyi
+
 ---
 
 # Additional Learning material:
