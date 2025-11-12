@@ -158,6 +158,91 @@ In summary, our experiments address the following research questions:
 (Q4) How well does our model generalize to new user simulators, personas, and tasks? We answer this in Section 7.4, Table 3, and Figures 8 and 9, where we show the strong generalization ability of the model.
 
 
+<<<<<<< HEAD
+```py
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch import Tensor
+from typing import List, Optional
+
+# --- Custom Quantization Layer ---
+class QuantizedLinear(nn.Module):
+    def __init__(self, in_features: int, out_features: int, bits: int = 4):
+        super().__init__()
+        self.weight = nn.Parameter(torch.randn(out_features, in_features))
+        self.bits = bits
+        self.scale = nn.Parameter(torch.ones(1))
+
+    def quantize(self, x: Tensor) -> Tensor:
+        # Simple uniform quantization (replace with your bit-level logic)
+        qmin, qmax = 0, 2**self.bits - 1
+        x = torch.clamp(x, -1, 1)
+        x = (x + 1) / 2 * qmax
+        x = torch.round(x) / qmax * 2 - 1
+        return x
+
+    def forward(self, x: Tensor) -> Tensor:
+        w = self.quantize(self.weight)
+        return F.linear(x, w, None) * self.scale
+
+# --- Mini MoE Layer ---
+class MiniMoE(nn.Module):
+    def __init__(self, num_experts: int = 32, expert_size: int = 256, input_size: int = 512):
+        super().__init__()
+        self.experts = nn.ModuleList([QuantizedLinear(input_size, expert_size, bits=4) for _ in range(num_experts)])
+        self.gate = nn.Linear(input_size, num_experts)
+
+    def forward(self, x: Tensor) -> Tensor:
+        # GShard-style routing
+        gate_scores = F.softmax(self.gate(x), dim=-1)
+        expert_outputs = [expert(x) for expert in self.experts]
+        expert_outputs = torch.stack(expert_outputs, dim=1)
+        return torch.einsum("be,bed->bd", gate_scores, expert_outputs)
+
+# --- Micro Agent ---
+class MicroAgent(nn.Module):
+    def __init__(self, input_size: int = 64, hidden_size: int = 32):
+        super().__init__()
+        self.fc1 = QuantizedLinear(input_size, hidden_size, bits=8)
+        self.fc2 = QuantizedLinear(hidden_size, input_size, bits=8)
+
+    def forward(self, x: Tensor) -> Tensor:
+        return self.fc2(F.relu(self.fc1(x)))
+
+# --- Overseer MoE ---
+class OverseerMoE(nn.Module):
+    def __init__(self, input_size: int = 512):
+        super().__init__()
+        self.expert = QuantizedLinear(input_size, input_size, bits=16)  # fp16
+
+    def forward(self, x: Tensor) -> Tensor:
+        return self.expert(x)
+
+# --- Full Model ---
+class BitLevelMoEModel(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.overseer = OverseerMoE()
+        self.mini_moes = nn.ModuleList([MiniMoE() for _ in range(4)])  # Example: 4 Mini MoEs
+        self.micro_agents = nn.ModuleList([MicroAgent() for _ in range(325)])  # Per Mini MoE
+        self.diffusion = nn.Linear(512, 512)  # Placeholder for diffusion layer
+
+    def forward(self, x: Tensor) -> Tensor:
+        x = self.overseer(x)
+        moe_outputs = [moe(x) for moe in self.mini_moes]
+        x = sum(moe_outputs) / len(moe_outputs)  # Aggregate Mini MoEs
+        x = self.diffusion(x)  # Reasoning diffusion
+        # Micro Agents could process sub-tensors here
+        return x
+
+# --- Example Usage ---
+if __name__ == "__main__":
+    model = BitLevelMoEModel()
+    x = torch.randn(1, 512)  # Example input
+    print(model(x).shape)
+```
+=======
 For true SOTA performance on CPU with bit-level encoding, you need to leverage the most advanced quantization techniques currently available:
 
 **Cutting-edge bit encoding approaches:**
