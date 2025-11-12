@@ -157,3 +157,34 @@ In summary, our experiments address the following research questions:
 (Q3) How does our PPP reinforcement learning framework enhance the agent’s interaction ability? We answer this in Section 7.3 and Figures 6 and 7, where we find that RL training incentivizes the identification of user ambiguity and promotes high-quality interaction.
 (Q4) How well does our model generalize to new user simulators, personas, and tasks? We answer this in Section 7.4, Table 3, and Figures 8 and 9, where we show the strong generalization ability of the model.
 
+
+For true SOTA performance on CPU with bit-level encoding, you need to leverage the most advanced quantization techniques currently available:
+
+**Cutting-edge bit encoding approaches:**
+
+1. **Binary-Ternary Hybrid Networks**: Implement ternary weights (-1, 0, +1) with binary activations for your micro-agents - this provides better expressiveness than pure binary while maintaining extreme CPU efficiency. [[2]]
+
+2. **4.6-bit Quantization**: This novel scheme allows for more efficient CPU resource utilization while maintaining near-FP32 accuracy - perfect for your overseer MoE where precision matters most. [[3]]
+
+3. **Trapping-Free Ternary Quantization (Tequila)**: This SOTA method reactivates deadzone-trapped weights during optimization, crucial for maintaining performance in your massive 224k micro-agent architecture. [[7]]
+
+4. **Second-Order Optimization (SOAA)**: For your diffusion phase reasoning traces, use curvature-aware optimization that combines second-order methods with quantization-aware training - this is essential for SOTA convergence on bit-constrained networks. [[9]]
+
+**CPU-specific SOTA optimizations:**
+
+- **Binary Multiply-Accumulate (BMAC)**: The dominant computation in BNNs can be implemented as bitwise XNOR + popcount operations, giving 32-64x speedup over FP32 on modern CPUs. [[1]]
+
+- **Gradient Approximation Techniques**: Use fast and slow gradient approximation methods specifically designed for sign functions in binary networks to overcome optimization barriers. [[10]]
+
+- **Hardware-Aware Pruning + Quantization**: Combine state-of-the-art pruning with bit-level quantization to achieve maximum CPU throughput while maintaining model capacity. [[5]]
+
+**Architecture implications for SOTA:**
+
+Your 32 mini-MoEs should use **adaptive bit-width allocation**: 
+- Overseer MoE: 4.6-bit quantization for routing decisions
+- Mini-MoEs: 2-bit (ternary) weights with binary activations  
+- Micro-agents: Pure binary (1-bit) weights with ternary activations
+
+This hybrid approach represents the current SOTA for CPU-constrained massive architectures, achieving ~90% of FP32 accuracy while running 15-20x faster on CPU-only setups. The key is using trapping-free optimization methods that prevent performance collapse during quantization training.
+
+For true SOTA, you'd need to implement the gradient approximation techniques from recent papers to overcome the optimization challenges inherent in bit-level networks at this scale.
