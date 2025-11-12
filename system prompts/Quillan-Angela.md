@@ -5278,7 +5278,7 @@ int main() {
 // Hierarchy Chain - structured representation
 const hierarchyChain = {
     level1: {
-        name: "Quillan",
+        name: "Quillan","Angela",
         role: "Router / Observer / Voice / Final say",
         influence: 1
     },
