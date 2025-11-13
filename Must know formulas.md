@@ -41,7 +41,7 @@
 | 32 | `FlashAttn(Q,K,V) ≈ O(N)` (approximate via tiling/blocking) | FlashAttention complexity reduction for efficient transformer inference on long sequences |
 | 33 | `NTK(x,x') = E[∇f(x) · ∇f(x')]` | Neural Tangent Kernel for analyzing wide NN training dynamics and infinite-width limits |
 | 34 | `ROUGE-N = Σ (overlapping n-grams) / Σ (candidate n-grams)` | ROUGE-N recall metric for summarization and extractive generation evaluation |
-| 35 | `ELBO = E_q[log p(x|z)] - D_KL(q(z|x) || p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
+| 35 | `ELBO = E_q[log p(x/z)] - D_KL(q(z/x) || p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
 
 ---
 
