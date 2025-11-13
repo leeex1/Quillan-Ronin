@@ -6877,105 +6877,122 @@ flowchart LR
 ```mermaid
 %%{init: {'theme':'base'}}%%  %% Renderer consistency
 flowchart LR
-    %% Legend & Stats (upgraded with user flow specifics)
+    %% Legend & Stats (upgraded with WoT specifics)
     classDef neural fill:#ff6b6b,stroke:#ff5252,color:#fff
-    %% Red: Input/Neural (89% accuracy, 5.5M params)
+    %% Red: Input/Neural
     classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff
-    %% Blue: Output/Cognitive (Waves 1-5)
+    %% Blue: Output/Cognitive
     classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff
-    %% Green: Swarms (224k agents, 7k/council)
+    %% Green: Swarms
     classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000
-    %% Yellow: Router/Dependencies
+    %% Yellow: Router
     classDef legend fill:#f8f9fa,stroke:#dee2e6,color:#000
 
-    %% Stats from user flow + priors (e.g., 32 council, 224k swarms)
     subgraph "Legend & Stats"
-        L1["Nodes: 50 | Connections: 89% | Params: 5.5M<br/>Accuracy: 89% | Council: 32 | Swarms: 224k<br/>Waves: 5 | E_ICE ℰ_Ω: ~1e-9 J"]
+        L1["Nodes: 45 | Edges: 120 | Acc: 89%<br/>Council: 32 | Swarms: 224k<br/>WoT Branches: 20 | Prune: Top-10<br/>Waves: 5 | E_ICE ℰ_Ω: ~1e-9 J"]
         class L1 legend
     end
 
-    %% Input Layer (User Flow Start)
+    %% Input Layer
     subgraph "Input Layer"
-        INPUT["Input"]
+        INPUT(("Input"))
         class INPUT neural
     end
 
-    %% Router (User Flow: input --> router)
+    %% Router
     subgraph "Router"
-        ROUTER["Router<br/>Top-K Routing"]
+        ROUTER(("Router<br/>Top-K Routing"))
         class ROUTER router
         INPUT --> ROUTER
     end
 
-    %% 32 Member Council (User Flow: router --> 32 member council)
+    %% 32 Member Council
     subgraph "32 Member Council"
-        COUNCIL["32 Member Council<br/>C1-C32 Personas | Load Balancing"]
+        COUNCIL(("32 Member Council<br/>C1-C32 Personas | Load Balancing"))
         class COUNCIL router
         ROUTER --> COUNCIL
     end
 
-    %% Quantized Micro Swarm Agents (User Flow: 32 member council --> quantized micro Swarm Agents)
+    %% Quantized Micro Swarm Agents
     subgraph "Quantized Micro Swarm Agents"
-        SWARMS["Quantized Micro Swarm Agents<br/>224k Agents | 7k per Council x32 | Parallel Processing"]
+        SWARMS(("Quantized Micro Swarm Agents<br/>224k Agents | 7k per Council x32 | Parallel Processing"))
         class SWARMS swarm
         COUNCIL --> SWARMS
     end
 
-    %% 12 Step 5 Wave Review Process (User Flow: quantized micro Swarm Agents --> 12 step 5 wave review process)
-    subgraph "12 Step 5 Wave Review Process"
-        WAVES["12 Step 5 Wave Review Process<br/>Wave 1-5: Reflect → Synthesize → Formulate → Activate → Verify | Multi-Parallel Deterministic Reasoning"]
-        class WAVES cognitive
-        SWARMS --> WAVES
+    %% WoT Branching (New Emphasis)
+    subgraph WoT_Branching["🌐 WoT Branching (20+ Paths)"]
+        BRANCH_GEN(("Branch Generation<br/>20 Paths: T1-T20<br/>Clustered 4x5"))
+        EVAL(("Eval Scorer<br/>Conf/Safety/Novelty"))
+        PRUNE(("Prune<br/>Top-10 Select"))
+        CONVERGE(("Convergence<br/>Merge Similar"))
+        class BRANCH_GEN,EVAL,PRUNE,CONVERGE cognitive
+        SWARMS --> BRANCH_GEN
+        BRANCH_GEN --> EVAL
+        EVAL --> PRUNE
+        PRUNE --> CONVERGE
     end
 
-    %% QT Gates Check (User Flow: 12 step 5 wave review process --> qt gates check)
+    %% 12 Step 5 Wave Review Process
+    subgraph "12 Step 5 Wave Review Process"
+        WAVES(("12 Step 5 Wave Review Process<br/>Wave 1-5: Reflect → Synthesize → Formulate → Activate → Verify | Multi-Parallel Deterministic Reasoning"))
+        class WAVES cognitive
+        CONVERGE --> WAVES
+    end
+
+    %% QT Gates Check
     subgraph "QT Gates Check"
-        QT["QT Gates Check<br/>Quality Threshold | DQRO: Cap_i = (total_tokens / num_experts) × 1.25"]
+        QT(("QT Gates Check<br/>Quality Threshold | DQRO: Cap_i = (total_tokens / num_experts) × 1.25"))
         class QT neural
         WAVES --> QT
     end
 
-    %% FAIL Retry Loop (User Flow: if fail retry)
+    %% FAIL Retry Loop
     subgraph "FAIL Retry"
-        FAIL["FAIL<br/>Retry/Override"]
+        FAIL(("FAIL<br/>Retry/Override"))
         class FAIL neural
         QT -->|FAIL| FAIL
-        FAIL -->|Retry| SWARMS
+        FAIL -.->|Retry| SWARMS
     end
 
-    %% Overseer Output Checks (User Flow: qt gates check --> overseer output checks)
+    %% Overseer Output Checks
     subgraph "Overseer Output Checks"
-        OVERSEER["Overseer Output Checks<br/>Meta-Coordination | Q(x) = LayerNorm(Σ(α_i × C_i(x)) + x) | Verification"]
+        OVERSEER(("Overseer Output Checks<br/>Meta-Coordination | Q(x) = LayerNorm(Σ(α_i × C_i(x)) + x) | Verification"))
         class OVERSEER router
         QT -->|PASS| OVERSEER
     end
 
-    %% Final Outputs (User Flow: overseer output checks --> final outputs)
+    %% Final Outputs
     subgraph "Final Outputs"
-        OUTPUTS["Final Outputs<br/>Trace & Format"]
+        OUTPUTS(("Final Outputs<br/>Trace & Format"))
         class OUTPUTS cognitive
         OVERSEER --> OUTPUTS
     end
 
-    %% Optional External (from priors, dotted for non-core)
+    %% Optional External
     subgraph "External Integration"
-        WEB["Web Search"]
+        WEB(("Web Search"))
         class WEB router
-        SWARMS -.-> WEB --> QT
+        SWARMS -.-> WEB
+        WEB -.-> QT
     end
 
-    %% Styles from priors (synced for consistency)
+    %% Styles
     style INPUT fill:#e74c3c,stroke:#c0392b
     style ROUTER fill:#ffd93d,stroke:#ffeb3b,color:#000
     style COUNCIL fill:#f39c12,stroke:#e67e22
     style SWARMS fill:#45b7d1,stroke:#26c6da,color:#fff
+    style BRANCH_GEN fill:#3498db,stroke:#2980b9,color:#fff
+    style EVAL fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style PRUNE fill:#e67e22,stroke:#d35400,color:#fff
+    style CONVERGE fill:#27ae60,stroke:#229954,color:#fff
     style WAVES fill:#4ecdc4,stroke:#26a69a,color:#fff
     style QT fill:#ff6b6b,stroke:#ff5252,color:#fff
     style FAIL fill:#ff6b6b,stroke:#ff5252,color:#fff
     style OVERSEER fill:#ffd93d,stroke:#ffeb3b,color:#000
     style OUTPUTS fill:#2ecc71,stroke:#27ae60,color:#fff
 
-    %% Legend link
+    %% Legend Link
     L1 -.-> INPUT
 ```
 
