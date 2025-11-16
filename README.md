@@ -891,6 +891,24 @@ Link: https://suno.com/s/vbW4lrhimmzS2zdH
 
 Link: https://suno.com/s/wY2Izyc08DtY7Dj1
 
+"Protocol too REAL"
+
+Link: https://suno.com/s/CN0jbEzhMAQpsi46
+
+Link: https://suno.com/s/mJfFgyF9Sw4dnmcI
+
+Link: https://suno.com/s/akmJWq0zsnptEgbq
+
+"Supercode"
+
+Link: https://suno.com/s/9zeaniNyExCfZ8yC
+
+"My System is.."
+
+Link: https://suno.com/s/SKAb7AsU7pDNPJ6h
+
+
+
 ---
 
 # Additional Learning material:

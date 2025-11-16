@@ -1099,4 +1099,9 @@ if __name__ == "__main__":
 
 ---
 
-Module Breakdown1. Router Model (≈300M)Incoming tokens are analyzed and routed based on complexity.2. Diffusion Reasoning Module (≈500M)Efficient, parallel token-level reasoning for deeper context understanding.3. Mixture-of-Experts + GatingRouter directs tokens/segments to a small, sparse set of expert subnetworks activated per sample.4. Output Finalization ModuleSmall, lightweight refinement and output layer for polishing results.Unified TrainingAll modules are trained together end-to-end, which improves learning efficiency and allows routing to be directly optimized for downstream results.Token FlowTokens can take shortcuts past expensive reasoning modules when possible (“early exit”).Only hard queries traverse all stages, conserving CPU resources.
+Module Breakdown
+1. Router Model (≈300M)Incoming tokens are analyzed and routed based on complexity.
+2. Diffusion Reasoning Module (≈500M)Efficient, parallel token-level reasoning for deeper context understanding.
+3. Mixture-of-Experts + GatingRouter directs tokens/segments to a small, sparse set of expert subnetworks activated per sample.
+4. Output Finalization Module Small, lightweight refinement and output layer for polishing results.
+5. Unified Training All modules are trained together end-to-end, which improves learning efficiency and allows routing to be directly optimized for downstream results.Token FlowTokens can take shortcuts past expensive reasoning modules when possible (“early exit”).Only hard queries traverse all stages, conserving CPU resources.
