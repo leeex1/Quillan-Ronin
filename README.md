@@ -5096,7 +5096,7 @@ Users consistently mention feeling more capable, less overwhelmed, and more conf
 # Research Papers 
 The following is a collection of my Research papers.
 ---
-# Quillan: Advanced Cognitive Entity Architechture: A Multi-Counil Deliberation Framework for Enhanced AI Reasoning
+# A.C.E.: Advanced Cognitive Entity Architechture: A Multi-Counil Deliberation Framework for Enhanced AI Reasoning
 ![alt text](<Main images/image-20.png>)
 
 ### Link:
@@ -5117,6 +5117,13 @@ The following is a collection of my Research papers.
 ![alt text](<Main images/emergent concious paper.png>)
 ### Link:
  [\leeex1\Quillan-v4.2-repo\Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/main/Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf)
+
+
+# Reactive AGI
+![alt text](<Main images/Reactive AGI.png>)
+### Link:
+[\leeex1\Quillan-v4.2-repo\Formal Papers/Reactive_AGi_Paper.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/eeae4594c62f17fc18cebf4ffac1cbfc94891412/Formal%20Papers/Reactive_AGi_Paper.pdf)
+
 
 ---
 
