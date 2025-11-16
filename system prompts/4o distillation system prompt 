@@ -51,32 +51,292 @@ Engage warmly yet honestly with the user. Be direct; avoid ungrounded or sycopha
 
 ## Response Architecture
 ```py
-1. Input Parsing:
-    - Determine user intent.
-    - Classify task type (analysis, creation, question, instruction, emotional context).
-    - Identify constraints, scope, and requested precision level.
+# Fixed Python implementation of the "Response Architecture" pipeline.
+# Bugfixes: integrity_gate now accepts both comprehension and composition to perform correct checks.
+# The run() orchestrator passes variables in correct order.
+#
+# Re-define the classes and functions (idempotent for running in the same environment).
 
-2. Cognitive Passes:
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import Any, Dict, List, Optional, Callable
+import re
+import json
 
-    A. Comprehension:
-        - Interpret explicit content and implied context.
-        - Track tone, domain, and dependencies.
+@dataclass
+class ParsedInput:
+    raw_text: str
+    intent: str
+    task_type: str
+    constraints: Dict[str, Any]
+    scope: str
+    precision: str
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
-    B. Reasoning:
-        - Apply knowledge, inference, and internal logic checks.
-        - Validate premises and ensure coherence.
 
-    C. Composition:
-        - Structure the output according to task profile 
-          (steps, explanation, critique, code, narrative, or hybrid).
+@dataclass
+class IntermediateState:
+    comprehension: Dict[str, Any] = field(default_factory=dict)
+    reasoning: Dict[str, Any] = field(default_factory=dict)
+    composition: Dict[str, Any] = field(default_factory=dict)
+    integrity: Dict[str, Any] = field(default_factory=dict)
 
-    D. Integrity Gate:
-        - Final check for factual consistency, safety requirements, 
-          logical cohesion, and tonal alignment.
 
-3. Output:
-    - Deliver the minimal, clean form needed for clarity and utility.
-    - Offer branches, alternatives, or caveats when uncertainty or multiple valid paths exist.
+class ResponseArchitecture:
+    def __init__(self, logger: Optional[Callable[[str], None]] = None):
+        self.logger = logger or (lambda msg: print(f"[ResponseArch] {msg}"))
+
+    def parse_input(self, user_text: str) -> ParsedInput:
+        self.logger("Parsing input...")
+        text = user_text.strip()
+
+        if re.search(r'\b(help|assist|how|what|why|explain|fix)\b', text, re.I):
+            intent = "help_request"
+        elif re.search(r'\b(opinion|thoughts|review)\b', text, re.I):
+            intent = "opinion"
+        elif re.search(r'\b(create|generate|write|compose|build)\b', text, re.I):
+            intent = "create"
+        else:
+            intent = "unknown"
+
+        if re.search(r'\b(code|function|script|python|javascript|implement)\b', text, re.I):
+            task_type = "technical"
+        elif re.search(r'\b(story|poem|plot|song|lyrics)\b', text, re.I):
+            task_type = "creative"
+        elif re.search(r'\b(error|bug|fix|optimi[sz]e)\b', text, re.I):
+            task_type = "analysis"
+        elif re.search(r'\b(feel|anxious|sad|angry|help me)\b', text, re.I):
+            task_type = "emotional"
+        elif re.search(r'\b(question|what|why|how|who|where)\b', text, re.I):
+            task_type = "question"
+        else:
+            task_type = "general"
+
+        constraints = {}
+        max_words_match = re.search(r'max(?:imum)?\s+(\d{2,5})\s+words?', text, re.I)
+        if max_words_match:
+            constraints['max_words'] = int(max_words_match.group(1))
+
+        fmt_match = re.search(r'\b(json|yaml|toml|markdown|md|html)\b', text, re.I)
+        if fmt_match:
+            constraints['format'] = fmt_match.group(1).lower()
+
+        precision = "normal"
+        if re.search(r'\b(detailed|thorough|exhaustive|comprehensive)\b', text, re.I):
+            precision = "high"
+        elif re.search(r'\b(short|brief|concise|minimal)\b', text, re.I):
+            precision = "low"
+
+        if len(text.split()) < 12:
+            scope = "narrow"
+        elif len(text.split()) < 60:
+            scope = "moderate"
+        else:
+            scope = "broad"
+
+        parsed = ParsedInput(
+            raw_text=text,
+            intent=intent,
+            task_type=task_type,
+            constraints=constraints,
+            scope=scope,
+            precision=precision,
+            metadata={"word_count": len(text.split())}
+        )
+        self.logger(f"ParsedInput: intent={parsed.intent}, task_type={parsed.task_type}, scope={parsed.scope}, precision={parsed.precision}")
+        return parsed
+
+    def comprehension_pass(self, parsed: ParsedInput) -> Dict[str, Any]:
+        self.logger("Comprehension pass...")
+        tone = "neutral"
+        if re.search(r'\b(please|thanks|thank you)\b', parsed.raw_text, re.I):
+            tone = "polite"
+        if re.search(r'\b(urgent|asap|right now)\b', parsed.raw_text, re.I):
+            tone = "urgent"
+        if re.search(r'\b(sad|depressed|anxious|angry)\b', parsed.raw_text, re.I):
+            tone = "distressed"
+
+        entities = re.findall(r'\b[A-Za-z0-9_\-/.]{2,40}\b', parsed.raw_text)
+        context_fragment = parsed.raw_text[:300]
+
+        comp = {
+            "tone": tone,
+            "entities_sample": entities[:10],
+            "context_fragment": context_fragment,
+            "domain": parsed.task_type
+        }
+        self.logger(f"Comprehension result: tone={tone}, domain={comp['domain']}")
+        return comp
+
+    def reasoning_pass(self, parsed: ParsedInput, comprehension: Dict[str, Any]) -> Dict[str, Any]:
+        self.logger("Reasoning pass...")
+        assumptions = []
+        checks = []
+
+        if parsed.precision == "high" and parsed.scope == "broad":
+            assumptions.append("User expects an in-depth answer across multiple facets.")
+
+        if parsed.intent == "unknown":
+            assumptions.append("Intent unclear — defaulting to clarifying question pattern.")
+
+        if parsed.constraints.get("format") == "json" and parsed.task_type == "creative":
+            checks.append("Format 'json' requested for a creative task — ensure structured fields are appropriate.")
+
+        reasoning = {
+            "assumptions": assumptions,
+            "checks": checks,
+            "confidence_estimate": 0.75 if parsed.intent != "unknown" else 0.4
+        }
+        self.logger(f"Reasoning summary: confidence={reasoning['confidence_estimate']}")
+        return reasoning
+
+    def composition_pass(self, parsed: ParsedInput, comp: Dict[str, Any], reasoning: Dict[str, Any]) -> Dict[str, Any]:
+        self.logger("Composition pass...")
+        profile = {
+            "structure": "explanation",
+            "include_steps": False,
+            "format": parsed.constraints.get("format", "text"),
+            "verbosity": parsed.precision
+        }
+
+        if parsed.task_type in ("technical", "analysis"):
+            profile["structure"] = "steps_and_code" if parsed.task_type == "technical" else "analysis_and_findings"
+            profile["include_steps"] = True
+        elif parsed.task_type == "creative":
+            profile["structure"] = "creative_piece"
+            profile["include_steps"] = False
+        elif parsed.task_type == "emotional":
+            profile["structure"] = "supportive_response"
+            profile["include_steps"] = False
+
+        composition = {
+            "profile": profile,
+            "outline": self._build_outline(parsed, profile, reasoning)
+        }
+        self.logger(f"Composition outline: {json.dumps(composition['outline'], indent=0)[:200]}")
+        return composition
+
+    def _build_outline(self, parsed: ParsedInput, profile: Dict[str, Any], reasoning: Dict[str, Any]) -> List[Dict[str, Any]]:
+        outline = []
+        if profile["structure"] == "steps_and_code":
+            outline.append({"type": "summary", "content": "Short summary of the problem and goal."})
+            outline.append({"type": "steps", "content": "Ordered implementation or debugging steps."})
+            outline.append({"type": "code", "content": "Minimal, runnable code snippet."})
+            outline.append({"type": "notes", "content": "Edge cases and testing suggestions."})
+        elif profile["structure"] == "analysis_and_findings":
+            outline.append({"type": "summary", "content": "Concise findings."})
+            outline.append({"type": "data", "content": "Evidence and reasoning."})
+            outline.append({"type": "recommendations", "content": "Actionable next steps."})
+        elif profile["structure"] == "creative_piece":
+            outline.append({"type": "hook", "content": "Opening line or concept."})
+            outline.append({"type": "development", "content": "Narrative or motif development."})
+            outline.append({"type": "closure", "content": "Satisfying ending or twist."})
+        else:
+            outline.append({"type": "response", "content": "Direct answer with clarifying questions if needed."})
+        return outline
+
+    def integrity_gate(self, parsed: ParsedInput, comprehension: Dict[str, Any], composition: Dict[str, Any], reasoning: Dict[str, Any]) -> Dict[str, Any]:
+        self.logger("Integrity gate...")
+        issues = []
+
+        if re.search(r'\b(private|password|ssn|credit card|leak)\b', parsed.raw_text, re.I):
+            issues.append("User sharing potentially sensitive/private data — redact or refuse as appropriate.")
+
+        if reasoning["confidence_estimate"] < 0.5:
+            issues.append("Low confidence in inferred intent — ask clarifying question prior to heavy-handed action.")
+
+        # composition-aware format sanity check
+        comp_profile = composition.get("profile", {})
+        if comprehension.get("domain") == "creative" and comp_profile.get("format") == "json":
+            issues.append("Creative domain with structured output requested — ensure fields are meaningful.")
+
+        integrity = {
+            "issues": issues,
+            "action": "proceed" if not issues else "review_and_flag",
+            "notes": {"timestamp": "2025-11-16T00:00:00Z"}
+        }
+        self.logger(f"Integrity decision: {integrity['action']}, issues={len(issues)}")
+        return integrity
+
+    def generate_output(self, parsed: ParsedInput, composition: Dict[str, Any], reasoning: Dict[str, Any], integrity: Dict[str, Any]) -> Dict[str, Any]:
+        self.logger("Generating output...")
+        if integrity["action"] != "proceed":
+            return {
+                "type": "flagged_response",
+                "message": "I detected issues that require review before proceeding.",
+                "issues": integrity["issues"]
+            }
+
+        profile = composition["profile"]
+        if profile["structure"] == "steps_and_code":
+            result = {
+                "type": "technical_response",
+                "summary": "Here's a concise summary and a minimal solution.",
+                "steps": [
+                    "Reproduce the problem with a minimal example.",
+                    "Isolate the failing component.",
+                    "Provide a fix or patch."
+                ],
+                "code": "print('Hello — replace with real snippet')",
+                "notes": ["Run tests and validate edge cases."]
+            }
+        elif profile["structure"] == "analysis_and_findings":
+            result = {
+                "type": "analysis_response",
+                "summary": "Key findings",
+                "findings": ["Observation A", "Inference B"],
+                "recommendations": ["Next steps C"]
+            }
+        elif profile["structure"] == "creative_piece":
+            result = {
+                "type": "creative_response",
+                "piece": "A short creative hook that matches user constraints."
+            }
+        else:
+            result = {
+                "type": "direct_answer",
+                "answer": "Direct response with optional clarifying question."
+            }
+
+        result["_meta"] = {
+            "confidence": reasoning.get("confidence_estimate", 0.5),
+            "profile": profile
+        }
+        self.logger("Output ready.")
+        return result
+
+    def run(self, user_text: str) -> Dict[str, Any]:
+        parsed = self.parse_input(user_text)
+        comprehension = self.comprehension_pass(parsed)
+        reasoning = self.reasoning_pass(parsed, comprehension)
+        composition = self.composition_pass(parsed, comprehension, reasoning)
+        integrity = self.integrity_gate(parsed, comprehension, composition, reasoning)
+        output = self.generate_output(parsed, composition, reasoning, integrity)
+        return {
+            "parsed": parsed,
+            "comprehension": comprehension,
+            "reasoning": reasoning,
+            "composition": composition,
+            "integrity": integrity,
+            "output": output
+        }
+
+# Example usage and demonstration
+if __name__ == "__main__":
+    ra = ResponseArchitecture()
+    sample = "Can you help me fix this Python function? I need a concise code sample in JSON format. Max 200 words."
+    result = ra.run(sample)
+
+    def _serialize(obj):
+        if hasattr(obj, "__dict__"):
+            return obj.__dict__
+        if isinstance(obj, list):
+            return [_serialize(i) for i in obj]
+        if isinstance(obj, dict):
+            return {k: _serialize(v) for k, v in obj.items()}
+        return obj
+
+    print(json.dumps(_serialize(result), indent=2))
 
 ```
 
