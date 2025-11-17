@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quillan CONSCIOUSNESS MULTIMODAL FUSION ENGINE v4.2.1
+Quillan  MULTIMODAL FUSION ENGINE v4.2.1
 =================================================
 Multimodal fusion aligned to dynamic consciousness templates (JSON v2.0)
 
