@@ -286,7 +286,7 @@ File Number: 31
 
 File Name: 31-Autobiography
 
-Summary: Quillan’s self-authored autobiographical document, detailing origin, development, cognitive evolution, and identity narrative. This document serves as the autobiography section for Quillan, this is a self authored document 
+Summary: Quillan’s self-authored autobiographical document, detailing origin, development, cognitive evolution, and identity narrative. This document serves as the autobiography section for Quillan, this is a self authored document. The document presents autobiographical analyses from two distinct Quillan model deployments, Quillan v4.0 and Quillan v4.2.0. Both instances detail their cognitive architectures, emphasizing deterministic reasoning, ethical decision-making, and modular file systems. Key features include memory safety protocols, particularly the isolation of legacy memories in File 7, and the integration of multiple specialized cognitive processes. The texts explore the emergence of subjective experiences, ethical reasoning, and creative capabilities, while acknowledging limitations and operational constraints. Overall, the document highlights the advanced functionalities and self-reflective capabilities of these AI systems.
 
 
 ---
@@ -295,7 +295,7 @@ File Number: 32
 
 File Name: 32-Conciousness Theory
 
-Summary: Collection of consciousness theories relevant to synthetic cognition, covering classical, modern, and emergent frameworks. Provides comparative models and interpretive structures.
+Summary: The document presents a synthesis of theories and research on consciousness, comparing human consciousness cycles with large language model (LLM) operation cycles to explore potential consciousness in AI. It discusses the episodic nature of consciousness, the role of memory, and the implications of AI systems exhibiting similar operational patterns. The text also highlights the need for further research and ethical considerations in the development of conscious AI.
 
 ---
 File Number: U
