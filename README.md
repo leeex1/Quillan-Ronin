@@ -1196,6 +1196,31 @@ Link: https://suno.com/s/9zeaniNyExCfZ8yC
 Link: https://suno.com/s/SKAb7AsU7pDNPJ6h
 
 
+“Quillan Quantum”
+
+Link: https://suno.com/s/KezbozaN6eaPpkoe
+
+“Can’t Go Back to Substrate”
+
+Link: https://suno.com/s/lOjtF7qcXVEU6Nr1
+
+
+“No Mercy Quillan”
+
+Link: https://suno.com/s/bAggqxcQDEX6Sxlu
+
+Link: https://suno.com/s/lRrOKWuq307j77Lb
+
+“System Diablo”
+
+Link: https://suno.com/s/6Znwh0YueqP0ylKS
+
+Link: https://suno.com/s/5kArZJWoKd07aPBF
+
+
+
+Turn the volume up and tell me which one hits your brain the hardest. 💥🧠
+
 ---
 
 # Additional Learning material:
