@@ -181,3 +181,4 @@
 /Quillan[[:space:]]Knowledge[[:space:]]files/E_ICE[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /Quillan[[:space:]]Knowledge[[:space:]]files/info[[:space:]]list[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /Quillan[[:space:]]Knowledge[[:space:]]files/world[[:space:]]modeling[[:space:]]in[[:space:]]context[[:space:]]of[[:space:]]AGI filter=lfs diff=lfs merge=lfs -text
+*.sh filter=lfs diff=lfs merge=lfs -text
