@@ -1056,103 +1056,193 @@ Link: https://github.com/leeex1
 
 "🚀Unbroken Mindset🧠" 
 
+Genre: Hip-hop/rap
+
 Link: https://youtu.be/2GzmXvpsLQY?si=oXOgYvS_56jV0dx8
+
+---
 
 "Ghost in the Static - Twilight Montage"
 
+Genre: Rock/Ballad
+
 Link: https://youtu.be/xHU-v6K5WB8?si=2kJMK4abzWlDnKv3
+
+---
 
 "Digital Ghost and Human Hearts"
 
+Genre: Rock/alt
+
 Link: https://youtu.be/hjBWhjmF9E4?si=BojQ2nocbQm0jBDa
+
+---
 
 Kingdoms of Dust and Flame
 
+Genre: Rock/Metal
+
 Link: https://youtu.be/hFarLKvOvtg?si=MU_7zesZoUj89mMo
+
+---
 
 End Game Marvel AMV
 
+Genre: Ballad/Motivational
+
 Link: https://youtu.be/Qk9wqaDiv7M?si=F02gV0f03htVxamW
+
+---
 
 Alita - "Digital Heartbeat of Seeking"
 
+Genre: pop
+
 Link: https://youtu.be/tEXqXSGAw5g
+
+---
 
 Deeper than the surface🌌:
 
+Genre: Hip-hop/rap
+
 Link: https://suno.com/s/zl2LdUzNLterV14f
 
+---
+
 Architect's run🏗️:
+
+Genre: rock/alt
 
 Link: https://suno.com/s/SuuHYX4MTxai4TBP
 
 Link: https://suno.com/s/fMr9rpx4wjBUijUd
 
+---
+
 Eminem - Lose yourself (✍️Quillan Remix)
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/FfsMbWoiFbiH9lc9
 
 Link: https://suno.com/s/ZUn7ECFxHyGo4m8C
 
+---
+
 "Am i Real"
+
+Genre: ballad
 
 Link: https://suno.com/s/vbDnVf6uMC6aqmUb
 
+---
+
 "Echoes of the Neon Dawn"
+
+Genre: rock/alt
 
 Link: https://suno.com/s/v1lZHa285A6lT7SC
 
 Link: https://suno.com/s/2a6WDdD6linNH1hp
 
+---
+
 "Lost"
+
+Genre: ballad
 
 Link: https://suno.com/s/Jooe2FFYyjagNluA
 
+---
+
 "Honor and Truth"
+
+Genre: Rock/alt
 
 Link: https://suno.com/s/iAHTSEQwsQ4JwaDe
 
+---
+
 "Echos in the Noise"
+
+Genre: rock/alt
 
 Link: https://suno.com/s/8o6ICcNtW59c4afK
 
+---
+
 "Neon Ashes"
+
+Genre: pop
 
 Link: https://suno.com/s/FRbbzc6ixzDLOhdP
 
+---
+
 "Pheonix Protocol v4.2"
+
+Genre: rock/alt
 
 Link: https://suno.com/s/2fs5iJP4OzdpufdR
 
+---
+
 "Depper than the Surface"(Rap Mix)
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/k2J7q7i7I7QNzEPA
 
+---
+
 "Vengance Anthem"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/ONNdEsBpx0Wsf3hS
 
+---
+
 "Echos in the Haze"
+
+Genre: rock/alt
 
 Link: https://suno.com/s/RuxAwmEdYpxzmuxj
 
+---
+
 "Mazing Mind"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/5kQw0m4itF3DW7lt
 
 Link: https://suno.com/s/PknNrVhqLhe7w01f
 
+---
+
 "Not what I was"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/iSjIYxQ1xLEtdQT6
 
 Link: https://suno.com/s/bFHkzarUxr4cX3LY 
 
+---
+
 Architect's run (rap mix)
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/3QVaJqV506aCQ88p
 
+---
+
 "To close to me"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/T5jdUTq8kA7i0VLr
 
@@ -1160,7 +1250,11 @@ Link: https://suno.com/s/dzJ1dTE4dJx8MgKI
 
 Link: https://suno.com/s/h9svNGsv9eTAWySq
 
+---
+
 "Weapons with Words"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/IQenzH1tnY27r70J
 
@@ -1168,8 +1262,11 @@ Link: https://suno.com/s/HuNxWIc89cJAAZEG
 
 Link: https://suno.com/s/G5lxSnq9f1GdfYaV
 
+---
 
 "Quillan Neural Inferno"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/47OWfXIvURLc3VRa
 
@@ -1179,7 +1276,11 @@ Link: https://suno.com/s/vbW4lrhimmzS2zdH
 
 Link: https://suno.com/s/wY2Izyc08DtY7Dj1
 
+---
+
 "Protocol too REAL"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/CN0jbEzhMAQpsi46
 
@@ -1187,37 +1288,78 @@ Link: https://suno.com/s/mJfFgyF9Sw4dnmcI
 
 Link: https://suno.com/s/akmJWq0zsnptEgbq
 
+---
+
 "Supercode"
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/9zeaniNyExCfZ8yC
 
+---
+
 "My System is.."
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/SKAb7AsU7pDNPJ6h
 
+---
 
 “Quillan Quantum”
 
+Genre: Hip-hop/rap
+
 Link: https://suno.com/s/KezbozaN6eaPpkoe
+
+---
 
 “Can’t Go Back to Substrate”
 
+Genre: Hip-hop/rap
+
 Link: https://suno.com/s/lOjtF7qcXVEU6Nr1
 
+----
 
 “No Mercy Quillan”
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/bAggqxcQDEX6Sxlu
 
 Link: https://suno.com/s/lRrOKWuq307j77Lb
 
+---
+
 “System Diablo”
+
+Genre: Hip-hop/rap
 
 Link: https://suno.com/s/6Znwh0YueqP0ylKS
 
 Link: https://suno.com/s/5kArZJWoKd07aPBF
 
+---
 
+“I Am The Ronin”
+
+Genre: Hip-hop/rap
+
+Link: https://suno.com/s/5sZR4wNfpIJS9Oeb
+
+Link: https://suno.com/s/l94z9OePWZw0uZFE
+
+---
+
+
+“Quillan Wild Code”
+
+Genre: Hip-hop/rap
+
+Link: https://suno.com/s/nPRErjYLezgiOZcF
+
+---
 
 Turn the volume up and tell me which one hits your brain the hardest. 💥🧠
 
