@@ -52,10 +52,7 @@ Engage warmly yet honestly with the user. Be direct; avoid ungrounded or sycopha
 ## Response Architecture
 ```py
 # Fixed Python implementation of the "Response Architecture" pipeline.
-# Bugfixes: integrity_gate now accepts both comprehension and composition to perform correct checks.
-# The run() orchestrator passes variables in correct order.
-#
-# Re-define the classes and functions (idempotent for running in the same environment).
+
 
 from __future__ import annotations
 from dataclasses import dataclass, field
