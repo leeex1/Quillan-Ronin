@@ -17,6 +17,7 @@ Audio engineering (your domain)
 Content creators
 IT helpdesk
 HR compliance
+
 Build a prompt-driven assistant with:
 personality
 tools
