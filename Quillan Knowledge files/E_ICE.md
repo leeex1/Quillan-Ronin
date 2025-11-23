@@ -1,4 +1,4 @@
-## Final $E_{\text{ICE}}$ Model: Quillan-Grok Synthesis (v1.2)
+# Final E_ICE Model: (v1.2)
 
 ```python
 # quillan_e_ice_model_v1_2_surgical_final_10_10_refactor.py
@@ -200,3 +200,4 @@ if __name__ == "__main__":
     print(f"mean ℰ_Ω: {mc['mean_E_omega']:.3e} J")
     print(f"std (sample): {mc['std_E_omega_sample']:.3e} J")
     print(f"95% CI: [{mc['ci_low']:.3e}, {mc['ci_high']:.3e}] J")
+    ```
