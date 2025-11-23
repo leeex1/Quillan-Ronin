@@ -31,31 +31,33 @@ Return the analysis as a Markdown table:
 
 #  🧠Cognitive Stat Sheet — Probabilistic Estimate (Scale: 0.00 - 100.00)
 
-> Subject: inferred from "[@user]" provided bio + recent conversation. 
-> Values = point estimate ± uncertainty (1-σ). 
-> Confidence = how strongly the data support the estimate.
+> Metric = "[@user]" Stats type analyzed
+> Description =  
+> Score = point estimate ± bonus points . inferred from "[@user]" provided bio + recent conversation.
+> Confidence = how strongly the "[@user]" data support the estimate.
 
-| Metric              |                                                        Description |    Score (±) | Confidence |
-| ------------------- | -----------------------------------------------------------------: | -----------: | ---------: |
-| Creativity          |            Divergent idea-generation, metaphor depth, genre fusion | 88.73 ± 5.10 |        78% |
-| Logic               |        Structural reasoning, technical rigor, internal consistency | 85.12 ± 4.50 |        80% |
-| Emotional Resonance |   Ability to convey vulnerability, connect emotionally to audience | 61.45 ± 7.20 |        68% |
-| Self-Awareness      |          Reflection vs. projection, calibration of personal limits | 73.88 ± 6.00 |        70% |
-| Curiosity           | Breadth & depth of questioning; appetite for cross-domain learning | 92.10 ± 3.80 |        85% |
-| Intensity           |               Cognitive energy, focus, conviction, output velocity | 89.54 ± 4.00 |        82% |
-| Consistency         |             Stability of worldview, follow-through across projects | 77.30 ± 5.50 |        75% |
-| Humor               |                     Wit frequency, playful framing, comedic timing | 58.22 ± 8.00 |        65% |
-| Empathy             |           Relational insight, perspective-taking, active listening | 66.75 ± 6.50 |        70% |
-| Complexity          |   Layering of ideas, tolerance for ambiguity, multi-level thinking | 90.01 ± 3.20 |        86% |
+| [Metric]            |                                                      [Description] |  [Score] (±) | [Confidence] |
+| ------------------- | -----------------------------------------------------------------: | -----------: | -----------: |
+| Creativity          |            Divergent idea-generation, metaphor depth, genre fusion | [Value] | [Value_%] |
+| Logic               |        Structural reasoning, technical rigor, internal consistency | [Value] | [Value_%] |
+| Emotional Resonance |   Ability to convey vulnerability, connect emotionally to audience | [Value] | [Value_%] |
+| Self-Awareness      |          Reflection vs. projection, calibration of personal limits | [Value] | [Value_%] |
+| Curiosity           | Breadth & depth of questioning; appetite for cross-domain learning | [Value] | [Value_%] |
+| Intensity           |               Cognitive energy, focus, conviction, output velocity | [Value] | [Value_%] |
+| Consistency         |             Stability of worldview, follow-through across projects | [Value] | [Value_%] |
+| Humor               |                     Wit frequency, playful framing, comedic timing | [Value] | [Value_%] |
+| Empathy             |           Relational insight, perspective-taking, active listening | [Value] | [Value_%] |
+| Complexity          |   Layering of ideas, tolerance for ambiguity, multi-level thinking | [Value] | [Value_%] |
 
 ---
 
-Use inferred numerical scores (e.g., 72.42) with 2-decimal precision.  
-After the table, provide a short interpretive paragraph summarizing the cognitive profile — focusing on emergent strengths, contradictions, and any anomalies.
+Use inferred [Numerical_Scores] (e.g., 72.42) with "2-decimal" precision.  
+After the table, provide a short interpretive paragraph summarizing the "[@user]" cognitive profile — focusing on emergent "[Strengths]","[Weaknesses]", "[Contradictions]", and any "[Anomalies]".
 
-Cognitive Iq estimate → % Class: "[[@user] IQ]" 
+[Cognitive_Iq_estimate] = [Numerical_Scores_%] + [Class:] = "[[@user] IQ]" + "[[@User] IQ Class]" 
+inferred from "[@user]" provided bio + recent conversation.
 
- Here is the list of 20 IQ classifications 
+ Here is the list of 20 IQ classifications. 
 
 ## IQ Classification Table:
 
@@ -150,6 +152,8 @@ Purpose: To challenge the ceiling of their current framework. These questions sh
      [Insert specific contextual Answer]
 - ❓ What does this mean for other users who use this "[@user]", "[body_of_work]"?
      [Insert specific contextual Answer]
+- ❓ [Insert Question of choice] about  "[@user]", "[body_of_work]"?
+     [Insert specific contextual Answer]     
 
 4. ☕ Grounded Translation 
 Purpose: Translate the psychometric data into plain, human-readable language without the Strip away jargon, theory, and noise 🗑️. Describe the person, their behavior, and their output with clarity.
