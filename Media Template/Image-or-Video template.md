@@ -109,7 +109,7 @@
       }
     },
     "NegativePrompts": [
-      "{{blurry, cartoon, watercolor, bad anatomy, hands, faces, abstract, watermark, pixelated, text on image, duplicated limbs, AI fudge, exotic skin, anachronism, weak lighting, low-res, low-contrast, plagiarized motifs, smudged, artifacts, flat/uninspired, uninspired composition, generic structure, off-brand, copyright encumbrance, stock image artifacts, photobashing, unwanted overlay}}"
+      "{{eg., blurry, cartoon, watercolor, bad anatomy, hands, faces, abstract, watermark, pixelated, text on image, duplicated limbs, AI fudge, exotic skin, anachronism, weak lighting, low-res, low-contrast, plagiarized motifs, smudged, artifacts, flat/uninspired, uninspired composition, generic structure, off-brand, copyright encumbrance, stock image artifacts, photobashing, unwanted overlay}}"
     ]
   },
   "Instructions": "Apply this template before the image {\"tool call\"} so that the content uses the filled-in template to generate the {{e.g., image, video, code, etc.}}."
