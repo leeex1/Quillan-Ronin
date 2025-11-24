@@ -3,225 +3,209 @@ This is a curated list of professional papers to read and understand llms.
 
 ## Glossary:
 
-Paper – https://arxiv.org/abs/2510.12787
+Paper – https://arxiv.org/abs/2510.12787 [X]
 
 Paper Title: "Ax-Prover: A Deep Reasoning Agentic Framework for Theorem Proving in Mathematics and Quantum Physics"
 
-Paper – https://arxiv.org/abs/2510.10281
+Paper – https://arxiv.org/abs/2510.10281  [X]
 
 Paper Title: "ArtPerception: ASCII Art-based Jailbreak on LLMs with Recognition Pre-test"
 
-Paper – https://arxiv.org/abs/2510.04871
+Paper – https://arxiv.org/abs/2510.04871  [X]
 
 Paper Title: "Less is More: Recursive Reasoning with Tiny Networks" 
 
-Paper – https://arxiv.org/abs/2506.21734
+Paper – https://arxiv.org/abs/2506.21734  [X]
 
 Paper Title: "Hierarchical Reasoning Model" 
 
-Paper – https://arxiv.org/abs/2509.13351
+Paper – https://arxiv.org/abs/2509.13351  [X]
 
 Paper Title: "Teaching LLMs to Plan: Logical Chain-of-Thought Instruction Tuning for Symbolic Planning" 
 
-Paper – https://arxiv.org/abs/2510.01171
+Paper – https://arxiv.org/abs/2510.01171  [X]
 
 Paper Title: "Verbalized Sampling"
 
-Paper – https://arxiv.org/abs/2510.04618
+Paper – https://arxiv.org/abs/2510.04618  [X]
 
 Paper Title: "Agentic Context Engineering: Evolving Contexts for Self-Improving Language Models" 
 
-Paper – https://arxiv.org/abs/2510.14901
+Paper – https://arxiv.org/abs/2510.14901  [X]
 
 Paper Title: “Reasoning with Sampling: Your base model is smarter than you think”
 
-Paper – https://arxiv.org/abs/2510.13998
+Paper – https://arxiv.org/abs/2510.13998  [X]
 
 Paper Title: "BitNet Distillation"
 
-Paper - Http://arxiv.org/abs/2510.14665
+Paper - Http://arxiv.org/abs/2510.14665  [X]
 
 Paper Title: "Beyond Hallucinations: The Illusion of Understanding in LLMs"
 
-Paper – Http://arxiv.org/abs/2510.17498
+Paper – Http://arxiv.org/abs/2510.17498  [X]
 
 Paper Title: "Deep Self-Evolving Reasoning"
 
-Paper – http://arxiv.org/abs/2510.16872
+Paper – http://arxiv.org/abs/2510.16872  [X]
 
 Paper Title: "DeepAnalyze: Agentic Large Language Models for Autonomous Data Science"
 
-Paper – https://arxiv.org/abs/1706.03762
+Paper – https://arxiv.org/abs/1706.03762  [X]
 
 Paper title - Attention is all you need
 
-Paper – https://arxiv.org/abs/2005.14165
+Paper – https://arxiv.org/abs/2005.14165  [X]
 
 paper title - Language Models are Few-Shot Learners
 
-Paper – http://arxiv.org/abs/2510.17472
+Paper – http://arxiv.org/abs/2510.17472  [X]
 
 Paper Title: "Certified Self-Consistency: Statistical Guarantees and Test-Time Training for Reliable Reasoning in LLMs"
 
-Paper - https://arxiv.org/abs/2510.09312v1
+Paper - https://arxiv.org/abs/2510.09312v1  [X]
 
 Paper Title: "Verifying Chain-of-Thought Reasoning via Its Computational Graph"
 
-paper - https://arxiv.org/html/2510.09244v1
+paper - https://arxiv.org/html/2510.09244v1 [X]
 
 paper title: "Fundamentals of Building Autonomous LLM Agents"
 
-Paper - https://arxiv.org/abs/2510.24701
+Paper - https://arxiv.org/abs/2510.24701  [X]
 GitHub: github. com/Alibaba-NLP/DeepResearch
 
-Paper: https://arxiv.org/abs/2510.26788
+Paper: https://arxiv.org/abs/2510.26788  [X]
 Paper Title : "Defeating the Training-Inference Mismatch via FP16"
 
-Paper – https://arxiv.org/abs/2510.22977
+Paper – https://arxiv.org/abs/2510.22977  [X]
 
 Paper Title: "The Reasoning Trap: How Enhancing LLM Reasoning Amplifies Tool Hallucination"
 
-Paper – http://arxiv.org/abs/2510.26697
+Paper – http://arxiv.org/abs/2510.26697  [X]
 
 Paper Title: "The End of Manual Decoding: Towards Truly End-to-End Language Models" 
 
-Paper – http://arxiv.org/abs/2510.25784
+Paper – http://arxiv.org/abs/2510.25784  [X]
 
 Paper Title: "zFLoRA: Zero-Latency Fused Low-Rank Adapters"
 
-Paper – http://arxiv.org/abs/2510.17800
+Paper – http://arxiv.org/abs/2510.17800  [X]
 
 Paper Title: "Glyph: Scaling Context Windows via Visual-Text Compression"
 
-Paper – http://arxiv.org/abs/2510.23972
+Paper – http://arxiv.org/abs/2510.23972  [X]
 
 Paper Title: "An efficient probabilistic hardware architecture for diffusion-like models"
 
-Paper – http://arxiv.org/abs/2510.24711
+Paper – http://arxiv.org/abs/2510.24711  [X]
 
 Paper Title: "Routing Matters in MoE: Scaling Diffusion Transformers with Explicit Routing Guidance"
 
-Paper – http://arxiv.org/abs/2510.23595v1
+Paper – http://arxiv.org/abs/2510.23595v1  [X]
 
 Paper Title: "Multi-Agent Evolve: LLM Self-Improve through Co-evolution"
 
-Paper – http://arxiv.org/abs/2510.21618
+Paper – http://arxiv.org/abs/2510.21618  [X]
 
 Paper Title: "DeepAgent: A General Reasoning Agent with Scalable Toolsets"
 
-Paper – http://arxiv.org/abs/2510.23601
+Paper – http://arxiv.org/abs/2510.23601  [X]
 
 Paper Title: "Alita-G: Self-Evolving Generative Agent for Agent Generation"
 
-Paper – http://arxiv.org/abs/2510.25933
+Paper – http://arxiv.org/abs/2510.25933  [X]
 
 Paper Title: "Humains-Junior: A 3.8B Language Model Achieving GPT-4o-Level Factual Accuracy by Directed Exoskeleton Reasoning" 
 
-Paper – http://arxiv.org/abs/2510.21890
+Paper – http://arxiv.org/abs/2510.21890  [X]
 
 Paper Title: "The Principles of Diffusion Models"
 
-Paper – http://arxiv.org/abs/2510.26418
+Paper – http://arxiv.org/abs/2510.26418  [X]
 
 Paper Title: "Chain-of-Thought Hijacking"
 
-Paper – http://arxiv.org/abs/2510.26380
+Paper – http://arxiv.org/abs/2510.26380  [X]
 
 Paper Title: "AI Mathematician as a Partner in Advancing Mathematical Discovery - A Case Study in Homogenization Theory"
 
-Paper – http://arxiv.org/abs/2510.26298v1
+Paper – http://arxiv.org/abs/2510.26298v1  [X]
 
 Paper Title: "Can Agent Conquer Web? Exploring the Frontiers of ChatGPT Atlas Agent in Web Games"
 
-Paper – http://arxiv.org/abs/2510.24797
+Paper – http://arxiv.org/abs/2510.24797  [X]
 
 Paper Title: "LLMs Report Subjective Experience Under Self-Referential Processing"
 
 Paper Title: "Swarm Inference research" 
 
-Paper - http://arxiv.org/abs/2510.24801
+Paper - http://arxiv.org/abs/2510.24801  [X]
 
-Paper - http://arxiv.org/abs/2511.01854
+Paper - http://arxiv.org/abs/2511.01854  [X]
 
 Paper Title: "Tools-to-Agent Retrieval"
 
-Paper – http://arxiv.org/abs/2511.00588
+Paper – http://arxiv.org/abs/2511.00588  [X]
 
 Paper Title: "Diagnosing Hallucination Risk in AI Surgical Decision-Support: A Sequential Framework for Sequential Validation"
 
 Paper Title:"Unlocking the Power of Multi-Agent LLM for Reasoning"
-Paper: http://arxiv.org/abs/2511.02303
+Paper: http://arxiv.org/abs/2511.02303  [X]
 
-Paper – http://arxiv.org/abs/2511.03408
+Paper – http://arxiv.org/abs/2511.03408  [X]
 
 Paper Title: "Efficient Reasoning via Thought-Training and Thought-Free Inference"
 
-Paper – http://arxiv.org/abs/2511.04460
+Paper – http://arxiv.org/abs/2511.04460  [X]
 
 Paper Title: "V-Thinker: Interactive Thinking with Images"
 
-Paper – http://arxiv.org/abs/2511.03492
+Paper – http://arxiv.org/abs/2511.03492  [X]
 
 Paper Title: "Why Less is More (Sometimes): A Theory of Data Curation"
 
-Paper – http://arxiv.org/abs/2511.03235
+Paper – http://arxiv.org/abs/2511.03235  [X]
 
 Paper Title: "From Five Dimensions to Many: LLMs as Precise and Interpretable Psychological Profilers"
 
-Paper – htpp://arxiv.org/abs/2511.04502
-
-Paper Title: "RAGalyst: Automated Human-Aligned Agentic Evaluation for Domain-Specific RAG"
-
-Paper - http://arxiv.org/pdf/2506.21734
-
-Paper Title: "Hierarchical Reasoning Model"
-
-Paper - https://arxiv.org/html/2504.01002v3
+Paper - https://arxiv.org/html/2504.01002v3  [X]
 
 Paper Title: "Token Embeddings Violate the Manifold Hypothesis
 Michael Robinson"
 
-Paper: http://arxiv.org/abs/2511.02208v1
+Paper: http://arxiv.org/abs/2511.02208v1  [X]
 
 Paper Title: "Training Proactive and Personalized LLM Agents.”
 
-Paper – http://arxiv.org/abs/2511.04898
+Paper – http://arxiv.org/abs/2511.04898  [X]
 
 Paper Title: "Real-Time Reasoning Agents in Evolving Environments" 
 
-Paper – http://arxiv.org/abs/2511.03408
-
-Paper Title: "Efficient Reasoning via Thought-Training and Thought-Free Inference"
-
-Paper - http://arxiv.org/html/2511.05933v1
+Paper - http://arxiv.org/html/2511.05933v1  [X]
 
 Paper title: "Reinforcement Learning Improves Traversal of Hierarchical Knowledge in LLMs"
 
-Paper – http://arxiv.org/abs/2511.07124
+Paper – http://arxiv.org/abs/2511.07124  [X]
 
 Paper Title: "Think Consistently, Reason Efficiently: Energy-Based Calibration for Implicit Chain-of-Thought"
 
-Paper – http://arxiv.org/abs/2511.07129
+Paper – http://arxiv.org/abs/2511.07129  [X]
 
 Paper Title: "LoRA on the Go: Instance-level Dynamic LoRA Selection and Merging
 
-Paper - https://arxiv.org/html/2510.23601v1
-
-Paper Title "Alita-G: Self-Evolving Generative Agent for Agent Generation"
-
-Paper - https://arxiv.org/html/2511.10395v1 
+Paper - https://arxiv.org/html/2511.10395v1   [X]
 
 Paper Title: "AgentEvolver: Towards Efficient Self-Evolving Agent System"
 
-Paper – http://arxiv.org/abs/2511.10621
+Paper – http://arxiv.org/abs/2511.10621  [X]
 
 Paper Title: "SSR: Socratic Self-Refine for LLM Reasoning"
 
 Paper Title: "TiDAR: Think in Diffusion, Talk in Auto regression"
 
-Paper - https://arxiv.org/html/2511.08923v1
+Paper - https://arxiv.org/html/2511.08923v1  [X]
 
-Paper – https://arxiv.org/abs/2511.13782
+Paper – https://arxiv.org/abs/2511.13782  [X]
 
 Paper Title: "Imagine in Space: Exploring the Frontier of Spatial Intelligence and Reasoning Efficiency in Vision Language Models"
 
