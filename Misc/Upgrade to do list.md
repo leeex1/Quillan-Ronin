@@ -109,4 +109,3 @@ $$
 H_{\Omega}(\pi_{\Omega}(s)) = - \sum_{i=1}^{32} \alpha_i(s) \log \alpha_i(s)
 $$
  
- 
