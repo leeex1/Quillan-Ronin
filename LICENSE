@@ -239,19 +239,3 @@ APPENDIX: How to apply the Apache License to your work.
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-Users are prohibited from filing patents on this architecture or derivative works. Any attempt constitutes termination of rights granted under this license
-
-PATENT PROHIBITION RIDER — Quillan Architecture
-Prohibition on Patent Filings.
-No licensee is granted any right to file, prosecute, or maintain any patent application, claim, or continuation that reads on, covers, or is derived from the Quillan architecture, its design, mechanisms, routing, training processes, or any derivative thereof.
-Automatic Termination.
-Any attempt to file such a patent immediately and permanently terminates all rights granted under this license.
-Scope.
-This prohibition applies to:
-the architecture, topology, algorithms, routing systems
-any derivative implementations
-any model weights or checkpoints derived from Quillan
-any training or inference process substantially based on Quillan
-Survival.
-This clause survives termination of all other license terms.
