@@ -1,0 +1,56 @@
+                  Commons Clause License Condition v1.0
+
+   The Software is provided to you by the Licensor under the License
+   (Apache License, Version 2.0), subject to the following condition:
+
+   Without limiting other conditions in the License, the grant of
+   rights under the License does not include, and the License does not
+   grant to you, the right to “Sell” the Software.
+
+   For purposes of this condition, “Sell” means using any rights
+   granted under the License to provide the Software, alone or
+   substantially unchanged, to third parties for a fee or other
+   consideration (including hosting, support, or consulting services),
+   **without** providing:
+
+     (a) clear attribution to the original Licensor (e.g., "This includes
+         Software © YEAR LicensorName"),
+     (b) a **revenue share of at least X%** of fees collected.
+
+   You may develop upon, embed, redistribute, or sell a **derivative
+   work** or larger product that includes the Software — **so long as**
+   the value does not derive *entirely or substantially* from the
+   original Software.
+
+   Any notices required by the License **must** also include this
+   Commons Clause text.
+
+   Software: [Quillan v4.2 and any other itteration]
+   License: Apache License, Version 2.0 + Commons Clause v1.0
+   Licensor: [Joshua Don Lee]
+
+
+APPENDIX: How to apply the Apache License to your work.
+
+      To apply the Apache License to your work, attach the following
+      boilerplate notice, with the fields enclosed by brackets "[]"
+      replaced with your own identifying information. (Don't include
+      the brackets!)  The text should be enclosed in the appropriate
+      comment syntax for the file format. We also recommend that a
+      file or class name and description of purpose be included on the
+      same "printed page" as the copyright notice for easier
+      identification within third-party archives.
+
+   Copyright [2025] [Joshua Don Lee]
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License
