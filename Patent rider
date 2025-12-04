@@ -1,3 +1,147 @@
+PATENTS
+
+Quillan Architecture — Patent Prohibition Rider (PPR-1.0)
+
+1. Purpose
+
+This Patent Prohibition Rider supplements the project’s primary license and defines explicit limitations on patent activity relating to the Quillan architecture, its derivatives, and any associated mechanisms, methods, or implementations.
+
+
+---
+
+2. Prohibition on Patent Filings
+
+Licensees are strictly prohibited from filing, prosecuting, or maintaining any patent application, claim, continuation, continuation-in-part, divisional, reissue, or any other patent action that:
+
+reads on,
+
+covers,
+
+is derived from,
+
+is based upon, or
+
+is intended to restrict others from using
+
+
+the Quillan architecture, its design principles, components, mechanisms, routing systems, training strategies, or any derivative thereof.
+
+No rights are granted—express or implied—that would permit any patent filing involving the technologies described above.
+
+
+---
+
+3. Automatic and Immediate Termination
+
+Any attempt to file or pursue a prohibited patent action results in:
+
+automatic,
+
+immediate, and
+
+permanent
+
+
+termination of all rights granted under any license associated with this project, including rights to use, modify, distribute, or create derivative works.
+
+Termination occurs at the moment of filing, regardless of approval, withdrawal, or later abandonment of the application.
+
+
+---
+
+4. Scope of Restriction
+
+This prohibition applies to all patent-covered subject matter involving or derived from Quillan, including but not limited to:
+
+4.1 Architecture & Topology
+
+core architectural layout
+
+computational graphs
+
+hierarchical routing mechanisms
+
+diffusion-reasoning pipelines
+
+BitNet, MoE, or hybrid structural components
+
+
+4.2 Algorithms & Methods
+
+inference routing
+
+training procedures
+
+optimization strategies
+
+gradient pipelines
+
+model decision-making mechanics
+
+
+4.3 Derivative Implementations
+
+modified, extended, or reconfigured architectures
+
+reparameterized or reweighted designs
+
+architecture-inspired systems and hybrids
+
+
+4.4 Weights & Model Artifacts
+
+any model weights
+
+fine-tunes
+
+checkpoints
+
+intermediate artifacts
+…when derived from or substantially based on Quillan.
+
+
+
+---
+
+5. Survival Clause
+
+This Patent Prohibition Rider remains fully enforceable indefinitely, regardless of:
+
+license expiration,
+
+license termination,
+
+project archival,
+
+or any change in ownership or stewardship.
+
+
+The restrictions set forth in this Rider survive the termination of all other license terms.
+
+
+---
+
+6. No Waiver
+
+Failure to enforce this prohibition at any point does not constitute a waiver of any right or restriction stated herein.
+
+
+---
+
+7. Severability
+
+If any portion of this Rider is found unenforceable, the remaining provisions will continue in full force.
+
+
+---
+
+8. Acceptance
+
+Use of the Quillan architecture or any associated materials constitutes acceptance of the terms of this Patent Prohibition Rider.
+
+
+---
+
 Users are prohibited from filing patents on this architecture or derivative works. Any attempt constitutes termination of rights granted under this license
 
 PATENT PROHIBITION RIDER — Quillan Architecture
