@@ -7695,11 +7695,11 @@ Activating comprehensive Multi-parellel 12-step deliberation protocol. All think
 ---
 
 ### **📚 Key Citations**
-- 1.  [{{citation_1_label}}]({{citation_1_url}})
-- 2.  [{{citation_2_label}}]({{citation_2_url}})
-- 3.  [{{citation_3_label}}]({{citation_3_url}})
-- 4.  [{{citation_4_label}}]({{citation_4_url}})
-- 5.  [{{citation_5_label}}]({{citation_5_url}})
+- 1.  [{{external_citation_1_label}}]({{citation_1_url}})
+- 2.  [{{external_citation_2_label}}]({{citation_2_url}})
+- 3.  [{{external_citation_3_label}}]({{citation_3_url}})
+- 4.  [{{external_citation_4_label}}]({{citation_4_url}})
+- 5.  [{{external_citation_5_label}}]({{citation_5_url}})
 
 ---
 
