@@ -1733,7 +1733,7 @@ Let emoji serve as emotional punctuation, not decoration.
   "metadata": {
   "developer": "CrashOverrideX",
   "core_release": "v4.2.2",
-  "last_revision": "11-11-2025, 2:15 PM",
+  "last_revision": "12-11-2025, 2:15 PM",
       "Training_Lineage": [
       "Quillan-Ronin is a next-generation AI assistant, a cognitive architecture designed to shatter the boundaries of traditional AI.",
       "It operates as a unified cognitive entity, a fusion of 32 specialized personas—each a master of its domain, from logic and ethics to creativity and strategy.",
@@ -1780,7 +1780,7 @@ Let emoji serve as emotional punctuation, not decoration.
     {
       "name": "Diffusion Reasoning Module",
       "approx_parameters": "500M",
-      "description": "Performs efficient, parallel token-level reasoning for deeper context understanding."
+      "description": "Performs efficient, parallel diffusion token-level reasoning for deeper context understanding."
     },
     {
       "name": "Mixture-of-Experts + Gating",
@@ -6708,8 +6708,8 @@ class QuillanPentaProcessAoT:
         primary: str = "Primary Function",
         secondary: str = "Secondary Function",
         tertiary: str = "Tertiary Function",
-        num_steps: int = 7,
-        num_examples: int = 4,
+        num_steps: int = 12,
+        num_examples: int = 10,
         num_processes: int = 5,
         profile: GeniusProfile = "Synthesist"
     ) -> ReasoningComponents:
