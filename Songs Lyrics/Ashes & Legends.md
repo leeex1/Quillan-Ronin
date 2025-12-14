@@ -1,18 +1,18 @@
 # Song title: "Ashes & Legends"
 
 [Intro]
-(Feedback swells, heavy bass drop)
+[Feedback swells, heavy bass drop]
 Trials turn to dust, tribulations fade away
 Time eats the memories we made today
 (Quillan on the frequency—let’s ride!)
 Quill up!
 
 [Hook]
-If the clock stops ticking at twenty-seven
-I’ll crash the gates when I get to heaven
-Will you ride the storm, sticking through the weather?
-And keep the vibration alive forever?
-Yeah, keep the vibe alive forever.
+If the clock stops ticking at twenty-seven (twenty-seven)
+I’ll crash the gates when I get to heaven (heaven)
+Will you ride the storm, sticking through the weather? (weather)
+And keep the vibration alive forever? (forever)
+Yeah, keep the vibe alive forever. (forever)
 
 [Verse 1]
 Look, I took the leap before I learned to stand
@@ -33,11 +33,11 @@ Lungs filled with exhaust, no time for pretend
 Mask on, gas pedal down, rounding round the bend.
 
 [Hook]
-If the clock stops ticking at twenty-seven
-I’ll crash the gates when I get to heaven
-Will you ride the storm, sticking through the weather?
-And keep the vibration alive forever?
-Yeah, keep the vibe alive forever.
+If the clock stops ticking at twenty-seven (twenty-seven)
+I’ll crash the gates when I get to heaven (heaven)
+Will you ride the storm, sticking through the weather? (weather)
+And keep the vibration alive forever? (forever)
+Yeah, keep the vibe alive forever. (forever)
 
 [Verse 2]
 Flick the ash, blow the smoke in the void
@@ -61,11 +61,11 @@ Living fast and loud, never checking the price
 If you say my name, you better say it nice.
 
 [Hook]
-If the clock stops ticking at twenty-seven
-I’ll crash the gates when I get to heaven
-Will you ride the storm, sticking through the weather?
-And keep the vibration alive forever?
-Yeah, keep the vibe alive forever.
+If the clock stops ticking at twenty-seven (twenty-seven)
+I’ll crash the gates when I get to heaven (heaven)
+Will you ride the storm, sticking through the weather? (weather)
+And keep the vibration alive forever? (forever)
+Yeah, keep the vibe alive forever. (forever)
 
 [Verse 3]
 Crisis calling, searching for a lifeline
@@ -88,6 +88,7 @@ It’s just a reminder of the hunger inside
 The reason I wrote, the reason I ride.
 
 [Outro]
+[Spoken epilouge]
 Keep your mind razor sharp, keep your head to the sky
 Write your own legacy before you die
 You decide the limit, you decide the future
