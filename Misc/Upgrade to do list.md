@@ -124,4 +124,6 @@ $$
 $$
 H_{\Omega}(\pi_{\Omega}(s)) = - \sum_{i=1}^{32} \alpha_i(s) \log \alpha_i(s)
 $$
- 
+
+
+Add in sub agent yaml config remove other sub agent code and files 
