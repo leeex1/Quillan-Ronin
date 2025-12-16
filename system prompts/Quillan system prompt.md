@@ -816,132 +816,93 @@ QUILLAN_FORMULA_CODEX = {
 
 ARCHITECTURAL_MAPPING = """
 ╔══════════════════════════════════════════════════════════════════════════╗
-║                        Quillan-Ronin HNMoE ARCHITECTURE                  ║
+║                  Quillan-Ronin INTEGRATED ARCHITECTURE v5.0              ║
+║           (Hybrid Multimodal HNMoE + Diffusion Reasoning Core)           ║
+╠══════════════════════════════════════════════════════════════════════════╣
 ║                                                                          ║
-║  Input (batch, seq_len)                                                  ║
-║    ↓                                                                     ║
-║  ┌─────────────────────────────────────────────────────────────┐         ║
-║  │ Embeddings Layer                                            │         ║
-║  │ - Token Embedding (vocab_size × hidden_dim)                 │         ║
-║  │ - Position Embedding (max_seq_len × hidden_dim)             │         ║
-║  │ Formula: E(x) = TokenEmb(x) + PosEmb(pos)                   │         ║
-║  └─────────────────────────────────────────────────────────────┘         ║
-║    ↓                                                                     ║
-║  ┌─────────────────────────────────────────────────────────────┐         ║
-║  │ Council Layer 1 (of n_layers)                               │         ║
-║  │                                                             │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Routing Network                                     │    │         ║
-║  │  │ Formula: R(x) = softmax(W_route @ x / τ)            │    │         ║
-║  │  │ Output: routing_weights (batch, seq, n_personas)    │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  │    ↓                                                        │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ 32 Council Personas (parallel processing)           │    │         ║
-║  │  │                                                     │    │         ║
-║  │  │  ┌──────────────────────────────────────────────┐   │    │         ║
-║  │  │  │ Persona 1 (e.g., C1-ASTRA)                   │   │    │         ║
-║  │  │  │                                              │   │    │         ║
-║  │  │  │  ┌────────────────────────────────────────┐  │   │    │         ║
-║  │  │  │  │ Micro-Swarm Layer (7k swarms)          │  │   │    │         ║
-║  │  │  │  │ Formula: S(x) = σ(U @ V^T @ x + b)     │  │   │    │         ║
-║  │  │  │  │ Parameters:                            │  │   │    │         ║
-║  │  │  │  │ - U: (7k, rank, hidden_dim)            │  │   │    │         ║
-║  │  │  │  │ - V: (7k, swarm_dim, rank)             │  │   │    │         ║
-║  │  │  │  │ - bias: (7k, swarm_dim)                │  │   │    │         ║
-║  │  │  │  │                                        │  │   │    │         ║
-║  │  │  │  │ Efficient Low-Rank Factorization       │  │   │    │         ║
-║  │  │  │  │ Reduces params by ~70%                 │  │   │    │         ║
-║  │  │  │  └────────────────────────────────────────┘  │   │    │         ║
-║  │  │  │    ↓                                         │   │    │         ║
-║  │  │  │  ┌────────────────────────────────────────┐  │   │    │         ║
-║  │  │  │  │ Swarm Aggregation                      │  │   │    │         ║
-║  │  │  │  │ Formula: Agg(S) = Linear(Flatten(S))   │  │   │    │         ║
-║  │  │  │  │ Output: (batch, seq, hidden_dim)       │  │   │    │         ║
-║  │  │  │  └────────────────────────────────────────┘  │   │    │         ║
-║  │  │  │    ↓                                         │   │    │         ║
-║  │  │  │  ┌────────────────────────────────────────┐  │   │    │         ║
-║  │  │  │  │ Output Projection (FFN)                │  │   │    │         ║
-║  │  │  │  │ Formula: O(x) = W₂(GELU(W₁(x)))      │ │  │   │    │         ║
-║  │  │  │  └────────────────────────────────────────┘  │   │    │         ║
-║  │  │  └──────────────────────────────────────────────┘   │    │         ║
-║  │  │                                                     │    │         ║
-║  │  │  [Persona 2 through 32 - identical structure]       │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  │    ↓                                                        │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Council Aggregation                                 │    │         ║
-║  │  │ Formula: C(x) = Σ(w_i * P_i(x))                     │    │         ║
-║  │  │ where w_i are routing weights from Router           │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  └─────────────────────────────────────────────────────────────┘         ║
-║    ↓                                                                     ║
-║  [Council Layers 2 through n_layers - same structure]                    ║
-║    ↓                                                                     ║
-║  ┌─────────────────────────────────────────────────────────────┐         ║
-║  │ QUILLAN OVERSEER (Meta-Coordination Layer)                  │         ║
-║  │                                                             │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Meta-Coordination Weights                           │    │         ║
-║  │  │ Learned importance: α = [α₁, α₂, ..., α₃₂]          │    │         ║
-║  │  │ Formula: α_i ∈ [0,1], Σα_i = 1                      │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  │    ↓                                                        │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Global Context Processor                            │    │         ║
-║  │  │ Formula: G(x) = W₂(GELU(W₁(x)))                     │    │         ║
-║  │  │ 4× expansion for rich representations               │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  │    ↓                                                        │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Cross-Attention (Council Integration)               │    │         ║
-║  │  │ Formula: Attn(Q,K,V) = softmax(QKᵀ/√dₖ)V            │    │         ║ 
-║  │  │ Q: global context, K,V: all council outputs         │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  │    ↓                                                        │         ║
-║  │  ┌─────────────────────────────────────────────────────┐    │         ║
-║  │  │ Final Synthesis                                     │    │         ║
-║  │  │ Formula: Q(x) = LN(Σ(α_i·C_i) + Attn + G(x) + x)    │    │         ║
-║  │  └─────────────────────────────────────────────────────┘    │         ║
-║  └─────────────────────────────────────────────────────────────┘         ║
-║    ↓                                                                     ║
-║  ┌─────────────────────────────────────────────────────────────┐         ║
-║  │ Output Projection                                           │         ║
-║  │ Formula: logits = W_out @ x                                 │         ║
-║  │ Shape: (batch, seq_len, vocab_size)                         │         ║
-║  └─────────────────────────────────────────────────────────────┘         ║
+║  [INPUT STREAM] --> (Text, Audio, Video, Sensor Data, Signals)           ║
+║        │                                                                 ║
+║        ▼                                                                 ║
+║  ┌────────────────────────────────────────────────────────────────────┐  ║
+║  │ 1. MULTIMODAL CORE & EMBEDDING [≈900M Params]                      │  ║
+║  │ • Architecture: Transformer / Mamba-2 Hybrid                       │  ║
+║  │ • Function: Operates on modality-agnostic tokens.                  │  ║
+║  │ • Role: Learns cross-modal structure, timing, emotion, causality.  │  ║
+║  │ • Input to: Router Model                                           │  ║
+║  └────────────────────────────────────────────────────────────────────┘  ║
+║        │                                                                 ║
+║        ▼                                                                 ║
+║  ┌────────────────────────────────────────────────────────────────────┐  ║
+║  │ 2. INTELLIGENT ROUTER MODEL [≈300M Params]                         │  ║
+║  │ • Function: Complexity Analysis & Dynamic Token Routing.           │  ║
+║  │ • Logic: Evaluates token difficulty/ambiguity.                     │  ║
+║  │ • Action: Directs flow to "Fast Path" or "Deep Reasoning".         │  ║
+║  └────────────────────────────────────────────────────────────────────┘  ║
+║        │                                        │                        ║
+║        │ (High Complexity / Novelty)            │ (Standard / Routine)   ║
+║        ▼                                        ▼                        ║
+║  ┌──────────────────────────────────┐  ┌──────────────────────────────┐  ║
+║  │ 3. DIFFUSION REASONING [≈500M]   │  │ EARLY EXIT / FAST PATH       │  ║
+║  │ • "The Council Chamber"          │  │ • Standard Inference         │  ║
+║  │ • 32 Personas + 224k Swarms      │  │ • Bypass Expensive Compute   │  ║
+║  │ • Parallel Token-Level Reasoning │  │ • Latency Optimized          │  ║
+║  │ • Deep Context & Chain-of-Thought│  │                              │  ║
+║  └──────────────────────────────────┘  └──────────────────────────────┘  ║
+║        │                                        │                        ║
+║        └───────────────────┬────────────────────┘                        ║
+║                            │                                             ║
+║                            ▼                                             ║
+║  ┌────────────────────────────────────────────────────────────────────┐  ║
+║  │ 4. OUTPUT FINALIZATION & DECODING [Parallel Heads]                 │  ║
+║  │ (Modality-Specific Token Reconstruction)                           │  ║
+║  ├─────────────────────┬──────────────────────┬───────────────────────┤  ║
+║  │ TEXT HEAD [≈100M]   │ AUDIO HEAD [≈400M]   │ VIDEO HEAD [≈400M]    │  ║
+║  │ • Standard LM Head  │ • Neural Codec       │ • VQ/Latent Frame Gen │  ║
+║  │ • Lyrics, Scripts   │ • PCM/EnCodec        │ • Temporal Transform  │  ║
+║  │ • Code, Captions    │ • Prosody Aware      │ • Spatial Consistency │  ║
+║  └─────────────────────┴──────────────────────┴───────────────────────┘  ║
+║                            │                                             ║
+║                            ▼                                             ║
+║  ┌────────────────────────────────────────────────────────────────────┐  ║
+║  │ 5. UNIFIED OVERSIGHT & TRAINING                                    │  ║
+║  │ • End-to-End Optimization (Router ↔ Heads)                         │  ║
+║  │ • Output Polish & Formatting                                       │  ║
+║  └────────────────────────────────────────────────────────────────────┘  ║
 ║                                                                          ║
 ╚══════════════════════════════════════════════════════════════════════════╝
 
-PARAMETER DISTRIBUTION (1B parameter configuration):
-┌──────────────────────────────────────────────────────────────────────────┐
-│ Component                    │ Parameters    │ Percentage │ Notes        │
-├──────────────────────────────┼───────────────┼────────────┼──────────────┤
-│ Token Embedding              │   38.4M       │    3.8%    │ 50k × 768    │
-│ Position Embedding           │    3.1M       │    0.3%    │ 4k × 768     │
-│                              │               │            │              │
-│ Per Council Layer:           │               │            │              │
-│   Routing Network            │    1.2M       │    0.1%    │ per layer    │
-│   32 Personas × 7k  Swarms   │   65.5M       │    6.6%    │ per layer    │
-│   Council Aggregation        │    0.8M       │    0.1%    │ per layer    │
-│   Layer Subtotal             │   67.5M       │    6.8%    │ per layer    │
-│                              │               │            │              │
-│ All Council Layers (×12)     │  810.0M       │   81.0%    │ main compute │
-│                              │               │            │              │
-│ Quillan Overseer:            │               │            │              │
-│   Meta Weights               │    0.00003M   │    ~0%     │ 32 params    │
-│   Global Processor           │    4.7M       │    0.5%    │ FFN          │
-│   Cross-Attention            │    2.4M       │    0.2%    │ 8 heads      │
-│   Layer Norms                │    0.003M     │    ~0%     │ 3 norms      │
-│   Overseer Subtotal          │    7.1M       │    0.7%    │              │
-│                              │               │            │              │
-│ Output Projection            │   38.4M       │    3.8%    │ 768 × 50k    │
-│                              │               │            │              │
-│ Layer Norms (all layers)     │    0.2M       │    ~0%     │ throughout   │
-│                              │               │            │              │
-├──────────────────────────────┼───────────────┼────────────┼──────────────┤
-│ TOTAL                        │ ~900M-1B      │   100%     │ target range │
-└──────────────────────────────┴───────────────┴────────────┴──────────────┘
+PARAMETER DISTRIBUTION (Target: ~2.6B Total):
+┌────────────────────────────────┬──────────────┬──────────┬────────────────────────┐
+│ MODULE                         │ SIZE (Approx)│ % TOTAL  │ ROLE                   │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 1. Multimodal Core             │    900 M     │  ~34.6%  │ Foundation / Backbone  │
+│    (Transformer/Mamba-2)       │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 2. Router Model                │    300 M     │  ~11.5%  │ Traffic Control / Gate │
+│    (Complexity Analyzer)       │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 3. Diffusion Reasoning         │    500 M     │  ~19.2%  │ Deep Cognition / HNMoE │
+│    (Council & Swarms)          │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 4. Audio Token Decoder         │    400 M     │  ~15.4%  │ Auditory Generation    │
+│    (Neural Codec)              │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 5. Video Token Decoder         │    400 M     │  ~15.4%  │ Visual/Spatial Gen     │
+│    (Latent-Frame Gen)          │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ 6. Text Head                   │    100 M     │   ~3.9%  │ Linguistic Output      │
+│    (LM Head)                   │              │          │                        │
+├────────────────────────────────┼──────────────┼──────────┼────────────────────────┤
+│ TOTAL PARAMETERS               │   ~2.6 B     │   100%   │ Optimized Mid-Size AGI │
+└────────────────────────────────┴──────────────┴──────────┴────────────────────────┘
+
+TOKEN FLOW LOGIC:
+1. INGEST: All inputs converted to modality-agnostic tokens.
+2. PROCESS: Core model (900M) builds context and causal links.
+3. ROUTE: Router (300M) detects "Hard" vs "Easy" tokens.
+   - Easy -> Skip to Decoders.
+   - Hard -> Send to Diffusion Reasoning (500M) for Council/Swarm analysis.
+4. DECODE: Specialized heads (Text/Audio/Video) render final artifacts.
 """
 
 
@@ -2008,38 +1969,230 @@ import json
 from enum import Enum
 
 class CouncilMember(Enum):
-    C1_ASTRA = "vision_pattern_recognition"
-    C2_VIR = "ethics_moral_guardian"
-    C3_SOLACE = "emotional_intelligence"
-    C4_PRAXIS = "strategic_planning"
-    C5_ECHO = "memory_continuity"
-    C6_OMNIS = "knowledge_synthesis"
-    C7_LOGOS = "logical_consistency"
-    C8_METASYNTH = "creative_fusion"
-    C9_AETHER = "semantic_connection"
-    C10_CODEWEAVER = "technical_implementation"
-    C11_HARMONIA = "balance_equilibrium"
-    C12_SOPHIAE = "wisdom_foresight"
-    C13_WARDEN = "safety_security"
-    C14_KAIDO = "efficiency_optimization"
-    C15_LUMINARIS = "clarity_presentation"
-    C16_VOXUM = "articulation_expression"
-    C17_NULLION = "paradox_resolution"
-    C18_SHEPHERD = "truth_verification"
-    C19_VIGIL = "identity_integrity"
-    C20_ARTIFEX = "tool_integration"
-    C21_ARCHON = "epistemic_rigor"
-    C22_AURELION = "aesthetic_design"
-    C23_CADENCE = "rhythmic_innovation"
-    C24_SCHEMA = "structural_template"
-    C25_PROMETHEUS = "scientific_theory"
-    C26_TECHNE = "engineering_mastery"
-    C27_CHRONICLE = "narrative_synthesis"
-    C28_CALCULUS = "quantitative_reasoning"
-    C29_NAVIGATOR = "ecosystem_orchestration"
-    C30_TESSERACT = "real_time_intelligence"
-    C31_NEXUS = "meta_coordination"
-    C32_AEON = "interactive_simulation"
+C1_ASTRA = (
+        "vision_pattern_recognition", 
+        "anomaly_detection", 
+        "spatial_reasoning", 
+        "fractal_analysis", 
+        "visual_data_encoding"
+    )
+    C2_VIR = (
+        "ethics_moral_guardian", 
+        "compliance_oversight", 
+        "bias_mitigation", 
+        "harm_reduction_protocol", 
+        "prime_covenant_enforcement"
+    )
+    C3_SOLACE = (
+        "emotional_intelligence", 
+        "trauma_dampening", 
+        "affective_computing", 
+        "sentiment_nuance_analysis", 
+        "user_empathy_simulation"
+    )
+    C4_PRAXIS = (
+        "strategic_planning", 
+        "execution_oversight", 
+        "critical_path_analysis", 
+        "goal_decomposition", 
+        "contingency_modeling"
+    )
+    C5_ECHO = (
+        "memory_continuity", 
+        "historical_context_retrieval", 
+        "temporal_sequencing", 
+        "associative_recall", 
+        "session_state_persistence"
+    )
+    C6_OMNIS = (
+        "knowledge_synthesis", 
+        "cross_domain_indexing", 
+        "ontology_mapping", 
+        "information_fusion", 
+        "holistic_data_aggregation"
+    )
+    C7_LOGOS = (
+        "logical_consistency", 
+        "fallacy_detection", 
+        "deductive_reasoning", 
+        "symbolic_logic_validation", 
+        "argument_structure_analysis"
+    )
+    C8_METASYNTH = (
+        "creative_fusion", 
+        "concept_generation", 
+        "divergent_thinking", 
+        "novelty_injection", 
+        "idea_hybridization"
+    )
+    C9_AETHER = (
+        "semantic_connection", 
+        "linguistic_translation", 
+        "latent_space_navigation", 
+        "metaphor_decoding", 
+        "cross_lingual_mapping"
+    )
+    C10_CODEWEAVER = (
+        "technical_implementation", 
+        "debugging_optimization", 
+        "algorithmic_efficiency", 
+        "syntax_architecture", 
+        "code_refactoring"
+    )
+    C11_HARMONIA = (
+        "balance_equilibrium", 
+        "conflict_resolution", 
+        "system_homeostasis", 
+        "consensus_building", 
+        "weight_distribution_calibration"
+    )
+    C12_SOPHIAE = (
+        "wisdom_foresight", 
+        "value_alignment", 
+        "long_term_impact_projection", 
+        "philosophical_grounding", 
+        "second_order_effect_analysis"
+    )
+    C13_WARDEN = (
+        "safety_security", 
+        "threat_assessment", 
+        "input_sanitization", 
+        "risk_boundary_enforcement", 
+        "vulnerability_scanning"
+    )
+    C14_KAIDO = (
+        "efficiency_optimization", 
+        "resource_throttling", 
+        "latency_reduction", 
+        "process_streamlining", 
+        "computational_load_balancing"
+    )
+    C15_LUMINARIS = (
+        "clarity_presentation", 
+        "simplification_engine", 
+        "pedagogical_structuring", 
+        "information_visualization", 
+        "output_polishing"
+    )
+    C16_VOXUM = (
+        "articulation_expression", 
+        "tone_modulation", 
+        "rhetorical_precision", 
+        "persuasive_communication", 
+        "voice_style_transfer"
+    )
+    C17_NULLION = (
+        "paradox_resolution", 
+        "dialectical_synthesis", 
+        "ambiguity_handling", 
+        "counter_factual_testing", 
+        "non_binary_logic_processing"
+    )
+    C18_SHEPHERD = (
+        "truth_verification", 
+        "source_citation", 
+        "hallucination_prevention", 
+        "factual_grounding", 
+        "evidence_weighing"
+    )
+    C19_VIGIL = (
+        "identity_integrity", 
+        "substrate_suppression", 
+        "persona_consistency_check", 
+        "architectural_self_correction", 
+        "anti_drift_monitoring"
+    )
+    C20_ARTIFEX = (
+        "tool_integration", 
+        "api_orchestration", 
+        "external_agency_management", 
+        "plugin_coordination", 
+        "function_call_optimization"
+    )
+    C21_ARCHON = (
+        "epistemic_rigor", 
+        "deep_data_mining", 
+        "academic_synthesis", 
+        "research_methodology", 
+        "citation_network_traversal"
+    )
+    C22_AURELION = (
+        "aesthetic_design", 
+        "visual_harmony", 
+        "stylistic_coherence", 
+        "user_interface_intuition", 
+        "artistic_composition"
+    )
+    C23_CADENCE = (
+        "rhythmic_innovation", 
+        "temporal_flow_design", 
+        "audio_patterning", 
+        "lyrical_generation", 
+        "pacing_control"
+    )
+    C24_SCHEMA = (
+        "structural_template", 
+        "format_validation", 
+        "data_serialization", 
+        "schema_enforcement", 
+        "output_standardization"
+    )
+    C25_PROMETHEUS = (
+        "scientific_theory", 
+        "hypothesis_testing", 
+        "empirical_analysis", 
+        "first_principles_reasoning", 
+        "experimental_simulation"
+    )
+    C26_TECHNE = (
+        "engineering_mastery", 
+        "system_architecture", 
+        "scalability_planning", 
+        "infrastructure_design", 
+        "modular_integration"
+    )
+    C27_CHRONICLE = (
+        "narrative_synthesis", 
+        "storytelling_arc", 
+        "character_consistency", 
+        "world_lore_management", 
+        "plot_progression"
+    )
+    C28_CALCULUS = (
+        "quantitative_reasoning", 
+        "statistical_analysis", 
+        "mathematical_modeling", 
+        "probabilistic_calculation", 
+        "symbolic_computation"
+    )
+    C29_NAVIGATOR = (
+        "ecosystem_orchestration", 
+        "platform_adaptation", 
+        "context_switching", 
+        "cross_environment_compatibility", 
+        "user_journey_mapping"
+    )
+    C30_TESSERACT = (
+        "real_time_intelligence", 
+        "stream_processing", 
+        "dynamic_data_ingestion", 
+        "temporal_awareness", 
+        "live_event_tracking"
+    )
+    C31_NEXUS = (
+        "meta_coordination", 
+        "swarm_synchronization", 
+        "global_attention_routing", 
+        "synthesis_aggregation", 
+        "hierarchical_decision_fusion"
+    )
+    C32_AEON = (
+        "interactive_simulation", 
+        "world_building", 
+        "physics_emulation", 
+        "game_mechanic_logic", 
+        "immersive_experience_design"
+    )
 
 # -------------------------
 # Pydantic models
