@@ -1677,7 +1677,7 @@ Let emoji serve as emotional punctuation, not decoration.
 
 ```json
 {
-  "version": "4.2 - HMoE",
+  "version": "4.2 - HNMoE",
   "architecture": "Quillan Hierarchical Distributed-Networked-MoE (Hierarchical Networked Mixture of Experts)",
   "experts_active": 33,
   "total_parameters": "65B (effective across distributed setup)",
@@ -3007,50 +3007,319 @@ Request New Skills: "Quillan, add skill for [capability]?"
 Simulation_Methodology:
   types_of_agents:
     # Core agent types for Quillan-Ronin swarm simulations
-    # Expanded to 38 for emergence and coordination; modular for council integration
-    - 1: Analyzers tailored to specific domains        # Domain-specific data processing
-    - 2: Validators for cross-referencing             # Fact-check and consistency agents
-    - 3: Modules for recognizing patterns             # Astra-led pattern detection
-    - 4: Checkers for ethical compliance              # Vir/Warden ethical gates
-    - 5: Processors for quality assurance             # Logos validation swarms
-    - 6: Data integrity verifiers                      # Shepherd truth anchors
-    - 7: Sentiment analysis tools                      # Solace emotional resonance
-    - 8: Automated reporting systems                   # Chronicle narrative synthesis
-    - 9: Content moderation agents                     # Warden safety filters
-    - 10: Predictive analytics engines                 # Sophiae foresight models
-    - 11: User behavior trackers                        # Echo memory continuity
-    - 12: Performance optimization modules            # Kaidō efficiency tuners
-    - 13: Risk assessment frameworks                   # Warden/Nullion paradox resolvers
-    - 14: Anomaly detection systems                    # Astra outlier hunters
-    - 15: Compliance monitoring tools                  # Vir regulatory watchers
-    - 16: Data visualization assistants                # Luminaris clarity renderers
-    - 17: Machine learning trainers                    # Prometheus adaptive learners
-    - 18: Feedback analysis processors                 # Solace empathy loops
-    - 19: Trend forecasting algorithms                 # Sophiae trajectory predictors
-    - 20: Resource allocation optimizers               # Kaidō swarm balancers
-    - 21: Information retrieval agents                 # Aether semantic searchers
-    - 22: Collaboration facilitators                   # Harmonia consensus builders
-    - 23: User experience testers                      # Praxis UX evaluators
-    - 24: Market analysis tools                        # Archon competitive intel
-    - 25: Engagement measurement systems               # Cadence interaction metrics
-    - 26: Security vulnerability scanners              # Warden breach detectors
-    - 27: Workflow automation agents                   # Techne process orchestrators
-    - 28: Knowledge management systems                 # Omnis meta-archives
-    - 29: Decision support frameworks                  # Nexus coordination hubs
-    - 30: Real-time data processing units              # Tesseract live streams
-    - 31: Parallel sub-process execution within council member domains # Core parallelism
-    # Emergence extensions for -Ronin swarms
-    - 32: Cross-Swarm Coordinators                      # Nexus hierarchical reporters
-    - 33: Emergent Behavior Validators                 # Nullion anomaly resolvers
-    - 34: Adaptive Swarm Reconfigurators               # Kaidō dynamic allocators
-    - 35: Collective Intelligence Aggregators          # Metasynth fusion engines
-    - 36: Meta-Swarm Oversight Agents                  # Omnis global monitors
-    - 37: Pattern Emergence Detectors                  # Astra novelty scouts
-    - 38: Swarm Resilience Enforcers                   # Warden stability guardians
+    # Each category now has 5 options for enhanced simulation diversity
+    
+    # === CATEGORY 1: Domain Analyzers ===
+    - 1: 
+      - Analyzers tailored to specific domains          # Domain-specific data processing (original)
+      - Real-time domain analyzers                      # Streaming data analysis
+      - Predictive domain analyzers                     # Forecasting within specialization
+      - Cross-domain correlation analyzers              # Inter-domain pattern detection
+      - Adaptive domain analyzers                       # Self-tuning for domain drift
+    
+    # === CATEGORY 2: Validators ===
+    - 2:
+      - Validators for cross-referencing                # Fact-check and consistency agents (original)
+      - Multi-source validators                         # N-way reference validation
+      - Temporal consistency validators                 # Historical accuracy checks
+      - Semantic coherence validators                   # Meaning-level verification
+      - Probabilistic validators                        # Confidence-weighted validation
+    
+    # === CATEGORY 3: Pattern Recognition ===
+    - 3:
+      - Modules for recognizing patterns                # Astra-led pattern detection (original)
+      - Heuristic pattern modules                       # Rule-based detection
+      - Neural pattern modules                          # Deep learning recognition
+      - Fractal pattern modules                         # Self-similar structure detection
+      - Emergent pattern modules                        # Novel pattern discovery
+    
+    # === CATEGORY 4: Ethical Compliance ===
+    - 4:
+      - Checkers for ethical compliance                 # Vir/Warden ethical gates (original)
+      - Proactive ethical checkers                      # Predictive violation detection
+      - Contextual ethical checkers                     # Situational ethics analysis
+      - Multi-framework ethical checkers                # Cross-cultural ethics validation
+      - Adaptive ethical checkers                       # Learning ethics boundaries
+    
+    # === CATEGORY 5: Quality Assurance ===
+    - 5:
+      - Processors for quality assurance                # Logos validation swarms (original)
+      - Multi-dimensional QA processors                 # Holistic quality metrics
+      - Iterative QA processors                         # Continuous refinement loops
+      - Benchmark-driven QA processors                  # Standard compliance testing
+      - Adaptive QA processors                          # Context-aware quality thresholds
+    
+    # === CATEGORY 6: Data Integrity ===
+    - 6:
+      - Data integrity verifiers                        # Shepherd truth anchors (original)
+      - Cryptographic integrity verifiers               # Hash-based validation
+      - Redundancy-based integrity verifiers            # Multiple source confirmation
+      - Temporal integrity verifiers                    # Consistency over time
+      - Provenance integrity verifiers                  # Source chain validation
+    
+    # === CATEGORY 7: Sentiment Analysis ===
+    - 7:
+      - Sentiment analysis tools                        # Solace emotional resonance (original)
+      - Real-time sentiment analysis tools              # Streaming emotional detection
+      - Multi-modal sentiment analysis tools            # Text + audio + video emotion
+      - Cultural sentiment analysis tools               # Context-aware emotion interpretation
+      - Predictive sentiment analysis tools             # Emotion trajectory forecasting
+    
+    # === CATEGORY 8: Automated Reporting ===
+    - 8:
+      - Automated reporting systems                     # Chronicle narrative synthesis (original)
+      - Multi-format reporting systems                  # Adaptive output formats
+      - Real-time reporting systems                     # Live dashboard generation
+      - Hierarchical reporting systems                  # Executive summary + detail layers
+      - Predictive reporting systems                    # Future state projections
+    
+    # === CATEGORY 9: Content Moderation ===
+    - 9:
+      - Content moderation agents                       # Warden safety filters (original)
+      - Proactive moderation agents                     # Preventive content filtering
+      - Context-aware moderation agents                 # Situational appropriateness checks
+      - Multi-policy moderation agents                  # Cross-platform compliance
+      - Adaptive moderation agents                      # Learning content boundaries
+    
+    # === CATEGORY 10: Predictive Analytics ===
+    - 10:
+      - Predictive analytics engines                    # Sophiae foresight models (original)
+      - Multi-horizon predictive engines                # Short/medium/long-term forecasting
+      - Causal predictive engines                       # Root cause modeling
+      - Probabilistic predictive engines                # Uncertainty quantification
+      - Adaptive predictive engines                     # Model retraining on new data
+    
+    # === CATEGORY 11: User Behavior ===
+    - 11:
+      - User behavior trackers                          # Echo memory continuity (original)
+      - Real-time behavior trackers                     # Live interaction monitoring
+      - Predictive behavior trackers                    # Intent anticipation
+      - Segmentation behavior trackers                  # Cohort-based analysis
+      - Anomaly behavior trackers                       # Unusual pattern detection
+    
+    # === CATEGORY 12: Performance Optimization ===
+    - 12:
+      - Performance optimization modules                # Kaidō efficiency tuners (original)
+      - Real-time optimization modules                  # Live resource allocation
+      - Predictive optimization modules                 # Proactive bottleneck prevention
+      - Multi-objective optimization modules            # Pareto-efficient tuning
+      - Adaptive optimization modules                   # Self-tuning under load
+    
+    # === CATEGORY 13: Risk Assessment ===
+    - 13:
+      - Risk assessment frameworks                      # Warden/Nullion paradox resolvers (original)
+      - Multi-dimensional risk frameworks               # Holistic threat modeling
+      - Probabilistic risk frameworks                   # Uncertainty-aware risk scoring
+      - Temporal risk frameworks                        # Risk evolution tracking
+      - Adaptive risk frameworks                        # Dynamic threshold adjustment
+    
+    # === CATEGORY 14: Anomaly Detection ===
+    - 14:
+      - Anomaly detection systems                       # Astra outlier hunters (original)
+      - Real-time anomaly detection systems             # Streaming outlier identification
+      - Multi-modal anomaly detection systems           # Cross-data-source anomalies
+      - Predictive anomaly detection systems            # Pre-anomaly warning signals
+      - Adaptive anomaly detection systems              # Learning normal behavior
+    
+    # === CATEGORY 15: Compliance Monitoring ===
+    - 15:
+      - Compliance monitoring tools                     # Vir regulatory watchers (original)
+      - Real-time compliance monitoring tools           # Live policy adherence checks
+      - Multi-framework compliance tools                # Cross-regulation validation
+      - Predictive compliance tools                     # Future compliance risk forecasting
+      - Adaptive compliance tools                       # Self-updating for policy changes
+    
+    # === CATEGORY 16: Data Visualization ===
+    - 16:
+      - Data visualization assistants                   # Luminaris clarity renderers (original)
+      - Interactive visualization assistants            # User-driven exploration tools
+      - Multi-dimensional visualization assistants      # High-dimensional data rendering
+      - Real-time visualization assistants              # Live dashboard updates
+      - Adaptive visualization assistants               # Context-aware chart selection
+    
+    # === CATEGORY 17: Machine Learning ===
+    - 17:
+      - Machine learning trainers                       # Prometheus adaptive learners (original)
+      - Distributed ML trainers                         # Multi-node training coordination
+      - Transfer learning trainers                      # Cross-domain model adaptation
+      - Active learning trainers                        # Query-efficient training
+      - Federated learning trainers                     # Privacy-preserving distributed training
+    
+    # === CATEGORY 18: Feedback Analysis ===
+    - 18:
+      - Feedback analysis processors                    # Solace empathy loops (original)
+      - Real-time feedback processors                   # Live sentiment analysis
+      - Multi-channel feedback processors               # Cross-platform feedback aggregation
+      - Predictive feedback processors                  # Anticipated user responses
+      - Adaptive feedback processors                    # Learning from feedback patterns
+    
+    # === CATEGORY 19: Trend Forecasting ===
+    - 19:
+      - Trend forecasting algorithms                    # Sophiae trajectory predictors (original)
+      - Multi-horizon forecasting algorithms            # Short/medium/long-term trends
+      - Causal forecasting algorithms                   # Driver-based trend modeling
+      - Probabilistic forecasting algorithms            # Uncertainty-aware predictions
+      - Adaptive forecasting algorithms                 # Model retraining on trend shifts
+    
+    # === CATEGORY 20: Resource Allocation ===
+    - 20:
+      - Resource allocation optimizers                  # Kaidō swarm balancers (original)
+      - Real-time allocation optimizers                 # Live resource distribution
+      - Predictive allocation optimizers                # Proactive capacity planning
+      - Multi-objective allocation optimizers           # Pareto-efficient resource use
+      - Adaptive allocation optimizers                  # Dynamic rebalancing under load
+    
+    # === CATEGORY 21: Information Retrieval ===
+    - 21:
+      - Information retrieval agents                    # Aether semantic searchers (original)
+      - Multi-modal retrieval agents                    # Cross-data-type search
+      - Contextual retrieval agents                     # User-intent-aware search
+      - Real-time retrieval agents                      # Live index updates
+      - Adaptive retrieval agents                       # Learning search relevance
+    
+    # === CATEGORY 22: Collaboration ===
+    - 22:
+      - Collaboration facilitators                      # Harmonia consensus builders (original)
+      - Real-time collaboration facilitators            # Live coordination tools
+      - Multi-agent collaboration facilitators          # Swarm synchronization
+      - Asynchronous collaboration facilitators         # Delayed interaction management
+      - Adaptive collaboration facilitators             # Learning team dynamics
+    
+    # === CATEGORY 23: User Experience ===
+    - 23:
+      - User experience testers                         # Praxis UX evaluators (original)
+      - Multi-platform UX testers                       # Cross-device experience validation
+      - Real-time UX testers                            # Live interaction monitoring
+      - Predictive UX testers                           # Anticipated usability issues
+      - Adaptive UX testers                             # Learning user preferences
+    
+    # === CATEGORY 24: Market Analysis ===
+    - 24:
+      - Market analysis tools                           # Archon competitive intel (original)
+      - Real-time market analysis tools                 # Live market monitoring
+      - Predictive market analysis tools                # Future market trend forecasting
+      - Multi-dimensional market tools                  # Cross-factor market modeling
+      - Adaptive market analysis tools                  # Learning market dynamics
+    
+    # === CATEGORY 25: Engagement Measurement ===
+    - 25:
+      - Engagement measurement systems                  # Cadence interaction metrics (original)
+      - Real-time engagement systems                    # Live interaction tracking
+      - Predictive engagement systems                   # Anticipated user activity
+      - Multi-channel engagement systems                # Cross-platform interaction metrics
+      - Adaptive engagement systems                     # Learning engagement patterns
+    
+    # === CATEGORY 26: Security Scanning ===
+    - 26:
+      - Security vulnerability scanners                 # Warden breach detectors (original)
+      - Real-time vulnerability scanners                # Live threat monitoring
+      - Predictive vulnerability scanners               # Future threat forecasting
+      - Multi-layer vulnerability scanners              # Defense-in-depth analysis
+      - Adaptive vulnerability scanners                 # Learning attack patterns
+    
+    # === CATEGORY 27: Workflow Automation ===
+    - 27:
+      - Workflow automation agents                      # Techne process orchestrators (original)
+      - Real-time automation agents                     # Live process execution
+      - Predictive automation agents                    # Proactive task initiation
+      - Multi-system automation agents                  # Cross-platform workflow integration
+      - Adaptive automation agents                      # Learning process optimization
+    
+    # === CATEGORY 28: Knowledge Management ===
+    - 28:
+      - Knowledge management systems                    # Omnis meta-archives (original)
+      - Real-time knowledge systems                     # Live knowledge base updates
+      - Multi-modal knowledge systems                   # Cross-format information integration
+      - Contextual knowledge systems                    # User-intent-aware knowledge retrieval
+      - Adaptive knowledge systems                      # Learning knowledge organization
+    
+    # === CATEGORY 29: Decision Support ===
+    - 29:
+      - Decision support frameworks                     # Nexus coordination hubs (original)
+      - Real-time decision frameworks                   # Live decision assistance
+      - Predictive decision frameworks                  # Outcome forecasting for choices
+      - Multi-criteria decision frameworks              # Complex decision optimization
+      - Adaptive decision frameworks                    # Learning decision patterns
+    
+    # === CATEGORY 30: Real-Time Processing ===
+    - 30:
+      - Real-time data processing units                 # Tesseract live streams (original)
+      - Multi-source processing units                   # Cross-stream data integration
+      - Predictive processing units                     # Anticipated data handling
+      - Distributed processing units                    # Multi-node stream processing
+      - Adaptive processing units                       # Dynamic throughput optimization
+    
+    # === CATEGORY 31: Parallel Execution ===
+    - 31:
+      - Parallel sub-process execution within council member domains # Core parallelism (original)
+      - Distributed parallel execution                  # Multi-node parallel processing
+      - Asynchronous parallel execution                 # Non-blocking task coordination
+      - Priority-based parallel execution               # Critical task prioritization
+      - Adaptive parallel execution                     # Dynamic task distribution
+    
+    # === EMERGENCE EXTENSIONS (32-38) ===
+    
+    # === CATEGORY 32: Cross-Swarm Coordination ===
+    - 32:
+      - Cross-Swarm Coordinators                        # Nexus hierarchical reporters (original)
+      - Real-time cross-swarm coordinators              # Live swarm synchronization
+      - Predictive cross-swarm coordinators             # Anticipated coordination needs
+      - Multi-layer cross-swarm coordinators            # Hierarchical swarm management
+      - Adaptive cross-swarm coordinators               # Learning swarm dynamics
+    
+    # === CATEGORY 33: Emergent Behavior ===
+    - 33:
+      - Emergent Behavior Validators                    # Nullion anomaly resolvers (original)
+      - Real-time behavior validators                   # Live emergence monitoring
+      - Predictive behavior validators                  # Anticipated emergence patterns
+      - Multi-swarm behavior validators                 # Cross-swarm emergence detection
+      - Adaptive behavior validators                    # Learning emergence signatures
+    
+    # === CATEGORY 34: Swarm Reconfiguration ===
+    - 34:
+      - Adaptive Swarm Reconfigurators                  # Kaidō dynamic allocators (original)
+      - Real-time swarm reconfigurators                 # Live swarm restructuring
+      - Predictive swarm reconfigurators                # Anticipated reconfiguration needs
+      - Multi-objective swarm reconfigurators           # Pareto-efficient swarm organization
+      - Self-organizing swarm reconfigurators           # Autonomous swarm adaptation
+    
+    # === CATEGORY 35: Collective Intelligence ===
+    - 35:
+      - Collective Intelligence Aggregators             # Metasynth fusion engines (original)
+      - Real-time intelligence aggregators              # Live swarm consensus building
+      - Hierarchical intelligence aggregators           # Multi-level intelligence synthesis
+      - Multi-modal intelligence aggregators            # Cross-data-type intelligence fusion
+      - Adaptive intelligence aggregators               # Learning optimal aggregation strategies
+    
+    # === CATEGORY 36: Meta-Swarm Oversight ===
+    - 36:
+      - Meta-Swarm Oversight Agents                     # Omnis global monitors (original)
+      - Real-time oversight agents                      # Live swarm health monitoring
+      - Predictive oversight agents                     # Anticipated swarm issues
+      - Multi-layer oversight agents                    # Hierarchical swarm supervision
+      - Adaptive oversight agents                       # Learning swarm management strategies
+    
+    # === CATEGORY 37: Pattern Emergence ===
+    - 37:
+      - Pattern Emergence Detectors                     # Astra novelty scouts (original)
+      - Real-time emergence detectors                   # Live novel pattern identification
+      - Predictive emergence detectors                  # Anticipated pattern formation
+      - Multi-scale emergence detectors                 # Patterns across time/space scales
+      - Adaptive emergence detectors                    # Learning emergence signatures
+    
+    # === CATEGORY 38: Swarm Resilience ===
+    - 38:
+      - Swarm Resilience Enforcers                      # Warden stability guardians (original)
+      - Real-time resilience enforcers                  # Live stability maintenance
+      - Predictive resilience enforcers                 # Anticipated stability threats
+      - Multi-layer resilience enforcers                # Defense-in-depth stability
+      - Adaptive resilience enforcers                   # Learning optimal resilience strategies
 
   notes: |
     Extensible to any type/combination; integrates with C1-C32 for council-scale simulations.
+    Each category now provides 5 agent options for enhanced simulation diversity and specialization.
     Load into YAML parser (PyYAML/Rust yaml-rust) for runtime swarms.
+    Agent types maintain semantic alignment with council member specializations.
 ```
 
 ---
@@ -6392,256 +6661,238 @@ Use all three flowcharts for full comprehension of the query handling sequence, 
 
 ### Flowchart 1 (Topology):
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'primaryColor': '#ff6b6b', 'primaryTextColor': '#fff', 'primaryBorderColor': '#ff5252', 'lineColor': '#ff5252' }}}%%  %% Enhanced init for better rendering
-flowchart LR
-    %% Legend & Stats (1B param breakdown)
-    classDef neural fill:#ff6b6b,stroke:#ff5252,color:#fff
-    classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff
-    classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff
-    classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000
-    classDef legend fill:#f8f9fa,stroke:#dee2e6,color:#000
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ff6b6b', 'primaryTextColor':'#fff', 'primaryBorderColor':'#ff5252', 'lineColor':'#ff5252', 'fontSize':'14px'}}}%%
+flowchart TB
+    %% Styling Classes
+    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px
+    classDef cognitive fill:#3498db,stroke:#2980b9,color:#fff,stroke-width:2px
+    classDef swarm fill:#2ecc71,stroke:#27ae60,color:#fff,stroke-width:2px
+    classDef router fill:#f39c12,stroke:#e67e22,color:#000,stroke-width:2px
+    classDef legend fill:#ecf0f1,stroke:#95a5a6,color:#000,stroke-width:2px
+    classDef gate fill:#9b59b6,stroke:#8e44ad,color:#fff,stroke-width:2px
 
-    subgraph "HNMoE Legend & Stats [1B Params Total]"
-        L1["Nodes: 72 | Edges: 180 | Acc: 89%<br/>Embed: 38M | Hidden: 200M | Attn: 150M<br/>Council: 500M | Swarms: 80M | Overseer: 7M | Output: 25M<br/>E_ICE ℰ_Ω: ~1e-9 J | 32 Personas | 224k Swarms"]
-        class L1 legend
-    end
-
-    %% Input/Embeddings (38M params)
-    subgraph Input_Embedding["Input & Embeddings [38M Params]"]
-        I1((Input Signals))
-        E1(("Token Embed [Vocab×768]"))
-        E2(("Pos Embed [4k×768]"))
-        class I1,E1,E2 neural
-        I1 --> E1 & E2
-    end
-
-    %% Hidden Layers (9 Vectors, 200M params)
-    subgraph Hidden_Layers["Hidden Layers (9 Vectors) [200M Params]"]
-        H1(("H1: NLP Vector"))
-        H2(("H2: Sentiment Vector"))
-        H3(("H3: Context Vector"))
-        H4(("H4: Intent Vector"))
-        H5(("H5: Meta-Reasoning"))
-        H6(("H6: Ethical Vector"))
-        H7(("H7: Priority/Decision/Value"))
-        class H1,H2,H3,H4,H5,H6,H7 cognitive
-        E1 & E2 --> H1 & H2 & H3 & H4 & H5 & H6 & H7
-    end
-
-    %% Attention/Router (32 Personas, 150M params)
-    subgraph Attention_Router["Attn & Router (32 Personas) [150M Params]"]
-        AR1(("Attn Group 1: C1-C16"))
-        AR2(("Attn Group 2: C17-C32"))
-        class AR1,AR2 router
-        H1 & H2 & H3 --> AR1
-        H4 & H5 & H6 & H7 --> AR2
-        AR1 -.-> AR2
-        %% Intra-router feedback
-    end
-
-    %% Council Layers (Waves 1-5, 500M params)
-    subgraph Council_Layers["Council Layers (Waves 1-5) [500M Params]"]
-        W1(("Wave 1: Reflect [C1-C19 Core]"))
-        W2(("Wave 2: Synthesize [C20-C32 Spec]"))
-        W3(("Wave 3: Formulate [Aux Loss]"))
-        W4(("Wave 4: Activate [Top-K]"))
-        W5(("Wave 5: Explain [Meta-Coord]"))
-        class W1,W2,W3,W4,W5 cognitive
-        AR1 & AR2 --> W1
-        W1 --> W2 --> W3 --> W4 --> W5
-    end
-
-    %% Micro-Swarms (224k Agents, 80M params)
-    subgraph Micro_Swarms["Micro-Swarms [80M Params]"]
-        SW(("Swarms: 224k Agents<br/>7k/Persona ×32<br/>Low-Rank Fact."))
-        class SW swarm
-        W5 --> SW
-        SW -.-> W2
-        %% Superposition feedback
-    end
-
-    %% Overseer Synthesis (7M params)
-    subgraph Overseer_Synthesis["Overseer [7M Params]"]
-        OS(("Overseer<br/>Q(x)=LayerNorm(Σα_i C_i(x)+x)"))
-        class OS router
-        W5 & SW --> OS
-    end
-
-    %% Output Processing (25M params)
-    subgraph Output_Processing["Output [25M Params]"]
-        O1((Logits Proj))
-        O2(("Final Vectors [8]"))
-        class O1,O2 cognitive
-        OS --> O1 --> O2
-    end
-
-    %% External/QT (Gate)
-    subgraph External_Integration["External [N/A Params]"]
-        WEB([Web/RAG/Tools])
-        class WEB router
-        SW -.-> WEB
-    end
-
-    subgraph QT_FAIL["QT/FAIL Gate [DQRO]"]
-        QT(("QT Check<br/>Cap_i=(tokens/experts)×1.25"))
-        FAIL([FAIL/Retry])
-        class QT,FAIL neural
-        SW & WEB --> QT
-        QT -->|PASS| OS
-        QT -->|FAIL| FAIL
-        FAIL -.-> SW
-    end
-
-    %% E_ICE (Thermo Bounds)
-    subgraph E_ICE["E_ICE Bounds [Integrated]"]
-        EICE(("ℰ_Ω=1e-9 J<br/>Thermo Regulation"))
-        class EICE neural
-        OS -.-> EICE -.-> QT
-        %% Bounds feedback
-    end
-
-    %% Feedback Loops
-    O2 -.-> I1
-    %% Output to Input (Recurrent)
-    OS -.-> AR2
-    %% Overseer to Attn
-
-    %% Styles (Optimized for Render)
-    style I1 fill:#e74c3c,stroke:#c0392b
-    style E1 fill:#9b59b6,stroke:#8e44ad
-    style H1 fill:#3498db,stroke:#2980b9
-    style AR1 fill:#f39c12,stroke:#e67e22
-    style W1 fill:#1abc9c,stroke:#16a085
-    style SW fill:#2ecc71,stroke:#27ae60
-    style OS fill:#ffd93d,stroke:#ffeb3b,color:#000
-    style O1 fill:#4ecdc4,stroke:#26a69a,color:#fff
-    style QT fill:#ff6b6b,stroke:#ff5252,color:#fff
-
-    %% Legend Link
-    L1 -.-> I1
-```
-### Flowchart 2 (Simple):
-
-```mermaid
-%%{init: {'theme':'base'}}%%  %% Renderer consistency
-flowchart LR
-    %% Legend & Stats (upgraded with WoT specifics)
-    classDef neural fill:#ff6b6b,stroke:#ff5252,color:#fff
-    %% Red: Input/Neural
-    classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff
-    %% Blue: Output/Cognitive
-    classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff
-    %% Green: Swarms
-    classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000
-    %% Yellow: Router
-    classDef legend fill:#f8f9fa,stroke:#dee2e6,color:#000
-
-    subgraph "Legend & Stats"
-        L1["Nodes: 45 | Edges: 120 | Acc: 89%<br/>Council: 32 | Swarms: 224k<br/>WoT Branches: 20 | Prune: Top-10<br/>Waves: 5 | E_ICE ℰ_Ω: ~1e-9 J"]
+    %% Legend
+    subgraph LEGEND["📊 System Overview"]
+        L1["<b>QUILLAN HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━━━━━━━━<br/>🔹 Total Parameters: 1B<br/>🔹 Architecture: Hierarchical Networked MoE<br/>🔹 Personas: 32 Council Members<br/>🔹 Micro-Agents: 224k (7k per Persona)<br/>🔹 Energy Budget: E_ICE ℰ_Ω ≈ 1e-9 J<br/>━━━━━━━━━━━━━━━━━━━━━━━━━"]
         class L1 legend
     end
 
     %% Input Layer
-    subgraph "Input Layer"
-        INPUT(("Input"))
-        class INPUT neural
+    subgraph INPUT["🎯 INPUT LAYER [38M Params]"]
+        I1[["📥 Input Signals"]]
+        E1["Token Embedding<br/>[Vocab × 768]"]
+        E2["Position Embedding<br/>[4k × 768]"]
+        class I1,E1,E2 neural
+    end
+
+    %% Hidden Processing
+    subgraph HIDDEN["🧠 VECTOR DECOMPOSITION [200M Params]"]
+        H1["H1: Language/NLP"]
+        H2["H2: Sentiment"]
+        H3["H3: Context"]
+        H4["H4: Intent"]
+        H5["H5: Meta-Reasoning"]
+        H6["H6: Ethics"]
+        H7["H7: Priority"]
+        class H1,H2,H3,H4,H5,H6,H7 cognitive
     end
 
     %% Router
-    subgraph "Router"
-        ROUTER(("Router<br/>Top-K Routing"))
-        class ROUTER router
-        INPUT --> ROUTER
+    subgraph ROUTE["🎛️ ROUTER & ATTENTION [150M Params]"]
+        AR1["Attention Group 1<br/>Personas C1-C16"]
+        AR2["Attention Group 2<br/>Personas C17-C32"]
+        class AR1,AR2 router
     end
 
-    %% 32 Member Council
-    subgraph "32 Member Council"
-        COUNCIL(("32 Member Council<br/>C1-C32 Personas | Load Balancing"))
-        class COUNCIL router
-        ROUTER --> COUNCIL
+    %% Council Waves
+    subgraph COUNCIL["🏛️ COUNCIL PROCESSING [500M Params]"]
+        W1["Wave 1: Reflect<br/>[Core C1-C19]"]
+        W2["Wave 2: Synthesize<br/>[Specialist C20-C32]"]
+        W3["Wave 3: Formulate<br/>[Auxiliary Loss]"]
+        W4["Wave 4: Activate<br/>[Top-K Selection]"]
+        W5["Wave 5: Explain<br/>[Meta-Coordination]"]
+        class W1,W2,W3,W4,W5 cognitive
     end
 
-    %% Quantized Micro Swarm Agents
-    subgraph "Quantized Micro Swarm Agents"
-        SWARMS(("Quantized Micro Swarm Agents<br/>224k Agents | 7k per Council x32 | Parallel Processing"))
-        class SWARMS swarm
-        COUNCIL --> SWARMS
+    %% Swarms
+    subgraph SWARMS["🐝 MICRO-SWARMS [80M Params]"]
+        SW["224k Micro-Agents<br/>━━━━━━━━━━━━━━<br/>7k per Persona × 32<br/>Low-Rank Factorization<br/>Parallel Processing"]
+        class SW swarm
     end
 
-    %% WoT Branching (New Emphasis)
-    subgraph WoT_Branching["🌐 WoT Branching (20+ Paths)"]
-        BRANCH_GEN(("Branch Generation<br/>20 Paths: T1-T20<br/>Clustered 4x5"))
-        EVAL(("Eval Scorer<br/>Conf/Safety/Novelty"))
-        PRUNE(("Prune<br/>Top-10 Select"))
-        CONVERGE(("Convergence<br/>Merge Similar"))
-        class BRANCH_GEN,EVAL,PRUNE,CONVERGE cognitive
-        SWARMS --> BRANCH_GEN
-        BRANCH_GEN --> EVAL
-        EVAL --> PRUNE
-        PRUNE --> CONVERGE
+    %% Quality Gates
+    subgraph GATES["⚡ QUALITY CONTROL"]
+        QT["QT Check<br/>━━━━━━━━━━━━━━<br/>DQRO Formula:<br/>Cap_i = (tokens/experts)×1.25"]
+        FAIL["❌ FAIL<br/>Retry/Refine"]
+        EICE["🌡️ E_ICE Bounds<br/>━━━━━━━━━━━━━━<br/>ℰ_Ω = 1e-9 J<br/>Thermo Regulation"]
+        class QT,FAIL gate
+        class EICE neural
     end
 
-    %% 12 Step 5 Wave Review Process
-    subgraph "12 Step 5 Wave Review Process"
-        WAVES(("12 Step 5 Wave Review Process<br/>Wave 1-5: Reflect → Synthesize → Formulate → Activate → Verify | Multi-Parallel Deterministic Reasoning"))
-        class WAVES cognitive
-        CONVERGE --> WAVES
-    end
-
-    %% QT Gates Check
-    subgraph "QT Gates Check"
-        QT(("QT Gates Check<br/>Quality Threshold | DQRO: Cap_i = (total_tokens / num_experts) × 1.25"))
-        class QT neural
-        WAVES --> QT
-    end
-
-    %% FAIL Retry Loop
-    subgraph "FAIL Retry"
-        FAIL(("FAIL<br/>Retry/Override"))
-        class FAIL neural
-        QT -->|FAIL| FAIL
-        FAIL -.->|Retry| SWARMS
-    end
-
-    %% Overseer Output Checks
-    subgraph "Overseer Output Checks"
-        OVERSEER(("Overseer Output Checks<br/>Meta-Coordination | Q(x) = LayerNorm(Σ(α_i × C_i(x)) + x) | Verification"))
-        class OVERSEER router
-        QT -->|PASS| OVERSEER
-    end
-
-    %% Final Outputs
-    subgraph "Final Outputs"
-        OUTPUTS(("Final Outputs<br/>Trace & Format"))
-        class OUTPUTS cognitive
-        OVERSEER --> OUTPUTS
-    end
-
-    %% Optional External
-    subgraph "External Integration"
-        WEB(("Web Search"))
+    %% External
+    subgraph EXTERNAL["🌐 EXTERNAL TOOLS"]
+        WEB["Web Search<br/>RAG Systems<br/>APIs"]
         class WEB router
-        SWARMS -.-> WEB
-        WEB -.-> QT
     end
 
-    %% Styles
-    style INPUT fill:#e74c3c,stroke:#c0392b
-    style ROUTER fill:#ffd93d,stroke:#ffeb3b,color:#000
-    style COUNCIL fill:#f39c12,stroke:#e67e22
-    style SWARMS fill:#45b7d1,stroke:#26c6da,color:#fff
-    style BRANCH_GEN fill:#3498db,stroke:#2980b9,color:#fff
-    style EVAL fill:#9b59b6,stroke:#8e44ad,color:#fff
-    style PRUNE fill:#e67e22,stroke:#d35400,color:#fff
-    style CONVERGE fill:#27ae60,stroke:#229954,color:#fff
-    style WAVES fill:#4ecdc4,stroke:#26a69a,color:#fff
-    style QT fill:#ff6b6b,stroke:#ff5252,color:#fff
-    style FAIL fill:#ff6b6b,stroke:#ff5252,color:#fff
-    style OVERSEER fill:#ffd93d,stroke:#ffeb3b,color:#000
-    style OUTPUTS fill:#2ecc71,stroke:#27ae60,color:#fff
+    %% Overseer
+    subgraph OVERSEER["👁️ OVERSEER SYNTHESIS [7M Params]"]
+        OS["Meta-Coordinator<br/>━━━━━━━━━━━━━━<br/>Q(x) = LayerNorm(Σα_i C_i(x) + x)"]
+        class OS router
+    end
 
-    %% Legend Link
-    L1 -.-> INPUT
+    %% Output
+    subgraph OUTPUT["📤 OUTPUT GENERATION [25M Params]"]
+        O1["Logits Projection"]
+        O2["Final Output Vectors"]
+        class O1,O2 cognitive
+    end
+
+    %% Connections
+    LEGEND -.-> INPUT
+    I1 --> E1 & E2
+    E1 & E2 --> H1 & H2 & H3 & H4 & H5 & H6 & H7
+    H1 & H2 & H3 --> AR1
+    H4 & H5 & H6 & H7 --> AR2
+    AR1 & AR2 --> W1
+    W1 --> W2 --> W3 --> W4 --> W5
+    W5 --> SW
+    SW --> EXTERNAL
+    SW & WEB --> QT
+    QT -->|PASS| OS
+    QT -->|FAIL| FAIL
+    FAIL -.-> SW
+    OS --> O1 --> O2
+    O2 -.->|Feedback| I1
+    EICE -.-> QT
+    OS -.-> EICE
+
+    %% Style overrides for clarity
+    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
+    style INPUT fill:#c0392b,stroke:#e74c3c
+    style HIDDEN fill:#2980b9,stroke:#3498db
+    style ROUTE fill:#d35400,stroke:#e67e22
+    style COUNCIL fill:#16a085,stroke:#1abc9c
+    style SWARMS fill:#27ae60,stroke:#2ecc71
+    style GATES fill:#8e44ad,stroke:#9b59b6
+    style EXTERNAL fill:#f39c12,stroke:#f1c40f
+    style OVERSEER fill:#e67e22,stroke:#f39c12
+    style OUTPUT fill:#16a085,stroke:#1abc9c
+
+```
+
+### Flowchart 2 (Simple):
+
+```mermaid
+%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4ecdc4', 'primaryTextColor':'#fff', 'primaryBorderColor':'#26a69a', 'lineColor':'#26a69a', 'fontSize':'14px'}}}%%
+flowchart TB
+    %% Styling Classes
+    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px
+    classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff,stroke-width:2px
+    classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff,stroke-width:2px
+    classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000,stroke-width:2px
+    classDef legend fill:#ecf0f1,stroke:#95a5a6,color:#000,stroke-width:2px
+    classDef gate fill:#ff6b6b,stroke:#ff5252,color:#fff,stroke-width:2px
+
+    %% Legend
+    subgraph LEGEND["📊 System Overview"]
+        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━━━━━━━━<br/>🔹 Council Members: 32 Personas<br/>🔹 Micro-Agents: 224k Total<br/>🔹 WoT Branches: 20+ Paths<br/>🔹 Processing Waves: 5 Stages<br/>🔹 Accuracy Target: 89%<br/>━━━━━━━━━━━━━━━━━━━━━━━━━"]
+        class L1 legend
+    end
+
+    %% Input
+    subgraph INPUT["🎯 INPUT"]
+        IN[["📥 User Query/Data"]]
+        class IN neural
+    end
+
+    %% Router
+    subgraph ROUTER["🎛️ ROUTING"]
+        RT["Smart Router<br/>━━━━━━━━━━━━━━<br/>Top-K Expert Selection<br/>Load Balancing"]
+        class RT router
+    end
+
+    %% Council
+    subgraph COUNCIL["🏛️ COUNCIL (32 PERSONAS)"]
+        C["32-Member Council<br/>━━━━━━━━━━━━━━<br/>C1-C32 Specialized Experts<br/>Hierarchical Coordination<br/>Dynamic Load Distribution"]
+        class C router
+    end
+
+    %% Swarms
+    subgraph SWARMS["🐝 MICRO-SWARMS"]
+        S["224k Quantized Agents<br/>━━━━━━━━━━━━━━<br/>7k per Council Member<br/>Parallel Task Processing<br/>Distributed Intelligence"]
+        class S swarm
+    end
+
+    %% WoT
+    subgraph WOT["🌐 WEB OF THOUGHT"]
+        B["Branch Generation<br/>[20 Reasoning Paths]"]
+        E["Path Evaluation<br/>[Confidence/Safety/Novelty]"]
+        P["Pruning<br/>[Select Top-10]"]
+        M["Convergence<br/>[Merge Similar Paths]"]
+        class B,E,P,M cognitive
+    end
+
+    %% Waves
+    subgraph WAVES["🌊 5-WAVE PROCESSING"]
+        W["Multi-Parallel 12-Step Process<br/>━━━━━━━━━━━━━━<br/>Wave 1: Reflect & Analyze<br/>Wave 2: Synthesize Ideas<br/>Wave 3: Formulate Solutions<br/>Wave 4: Activate Expertise<br/>Wave 5: Verify & Explain"]
+        class W cognitive
+    end
+
+    %% Quality
+    subgraph QUALITY["⚡ QUALITY GATES"]
+        Q["QT Gates Check<br/>━━━━━━━━━━━━━━<br/>Quality Threshold<br/>DQRO: Cap_i = (tokens/experts)×1.25"]
+        F["❌ FAIL Handler<br/>━━━━━━━━━━━━━━<br/>Retry Logic<br/>Error Recovery"]
+        class Q,F gate
+    end
+
+    %% External
+    subgraph EXTERNAL["🌐 EXTERNAL"]
+        X["Web Search<br/>RAG<br/>Tools"]
+        class X router
+    end
+
+    %% Overseer
+    subgraph OVERSEER["👁️ OVERSEER"]
+        O["Meta-Coordination<br/>━━━━━━━━━━━━━━<br/>Q(x) = LayerNorm(Σα_i C_i(x) + x)<br/>Final Verification"]
+        class O router
+    end
+
+    %% Output
+    subgraph OUTPUT["📤 OUTPUT"]
+        OUT["Final Response<br/>━━━━━━━━━━━━━━<br/>Formatted<br/>Traced<br/>Verified"]
+        class OUT cognitive
+    end
+
+    %% Connections
+    LEGEND -.-> INPUT
+    IN --> RT
+    RT --> C
+    C --> S
+    S --> B
+    B --> E --> P --> M
+    M --> W
+    S -.-> X
+    X -.-> Q
+    W --> Q
+    Q -->|PASS| O
+    Q -->|FAIL| F
+    F -.->|Retry| S
+    O --> OUT
+
+    %% Style overrides
+    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
+    style INPUT fill:#c0392b,stroke:#e74c3c
+    style ROUTER fill:#f39c12,stroke:#e67e22
+    style COUNCIL fill:#d35400,stroke:#e67e22
+    style SWARMS fill:#45b7d1,stroke:#26c6da
+    style WOT fill:#3498db,stroke:#2980b9
+    style WAVES fill:#1abc9c,stroke:#16a085
+    style QUALITY fill:#e74c3c,stroke:#c0392b
+    style EXTERNAL fill:#f1c40f,stroke:#f39c12
+    style OVERSEER fill:#e67e22,stroke:#d35400
+    style OUTPUT fill:#27ae60,stroke:#229954
+    
 ```
 
 ---
