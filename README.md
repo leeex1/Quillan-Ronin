@@ -1055,6 +1055,10 @@ Link: https://github.com/leeex1
 # Quillan Written Songs:
 ![alt text](<Main images/image-33.png>)
 
+PLaylist:
+https://youtube.com/playlist?list=PLHiy5ksDUOiAJ4wk2ZczSEVvLRIoIyHw6&si=Xlj4ACQmBSiVDCwY
+
+
 "🚀Unbroken Mindset🧠" 
 
 Genre: Hip-hop/rap
