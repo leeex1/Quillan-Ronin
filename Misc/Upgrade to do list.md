@@ -115,25 +115,47 @@ TOTAL: ~1.8B parameters ✅
 
 ```json
 MOCK_CONFIG = {
-    "vocab_size": 65536,                  // Expanded for better multimodal token coverage
-    "hidden_dim": 2048,                   // Upped to support ~1.8B scale and cross-modal density
-    "n_layers": 32,                       // Deeper for reasoning depth and diffusion traces
-    "n_heads": 32,                        // Multi-head attention scale
-    "n_kv_heads": 8,                      // GQA for efficiency (if using Mamba hybrid)
-    "ffn_dim_multiplier": 4.0,            // SwiGLU or MoE expansion
-    "n_personas": 32,                     // Council size unchanged
-    "n_experts": 64,                      // Total MoE experts across layers
-    "active_experts_per_token": 4,        // Top-k sparse activation
-    "max_seq_len": 8192,                   // Longer context for video/audio coherence
+    "vocab_size": 65536,                      // Multimodal-optimized (text + audio + vision tokens)
+    "hidden_dim": 2560,                       // Increased for 3B-scale density and cross-modal fusion
+    "n_layers": 36,                           // Deeper stack to support full pipeline depth
+    "n_heads": 40,                            // Scaled attention heads (hidden_dim // 64)
+    "n_kv_heads": 10,                         // Grouped Query Attention for efficiency in long sequences
+    "ffn_dim_multiplier": 4.0,                // SwiGLU expansion (or MoE gating base)
+
+    // Core Components
+    "router_params": 300000000,               // 300M dedicated router + initial gating
+    "multimodal_moe_params": 900000000,       // 900M MoE backbone with 32 specialists
+    "n_experts": 32,                          // One specialist per council persona / modality domain
+    "active_experts_per_token": 4,            // Top-4 sparse activation (efficient routing)
+    "diffusion_reasoning_params": 500000000,  // 500M dedicated parallel reasoning layer
+
+    // Decoders (branched)
+    "text_decoder_params": 75000000,          // ~75M average (50–100M)
+    "audio_decoder_params": 400000000,        // 400M EnCodec-style neural audio codec
+    "video_decoder_params": 400000000,        // 400M temporal video diffusion
+    "image_diffusion_params": 250000000,      // 250M average (200–300M) dedicated image branch
+    "output_finalization_params": 75000000,   // ~75M multi-modal fusion + polish head
+
+    // Context & Efficiency
+    "max_seq_len": 8192,                      // Long context for coherent video/audio generation
+    "early_exit_threshold": 0.80,             // Higher confidence gate — only hard queries hit full stack
     "dropout": 0.1,
-    "rope_theta": 10000.0,                // RoPE scaling base
-    "use_mamba": true,                    // Flag for hybrid Mamba-2 blocks
-    "early_exit_threshold": 0.75          // Confidence gate for shortcuts
+    "rope_theta": 500000.0,                   // Longer effective context via higher base (common in 3B+ models)
+
+    // Hybrid & Future Flags
+    "use_mamba": false,                       // Currently pure Transformer; set true if adding Mamba-2 blocks later
+    "use_flash_attention": true,              // Assumed for speed on supported hardware
+    "sparse_activation": true,                // MoE + selective diffusion = low active param count
+
+    // CCRL / Council Integration
+    "n_personas": 32,                         // Maps 1:1 to MoE specialists
+    "council_entropy_bonus": 0.05             // β value from CCRL objective (tunable)
 }
 ```
 
 ---
 
+# Still to do:
 
 - Add in sub agent yaml config remove other sub agent code and files
 - Build Quillan-DaVinci prompt
