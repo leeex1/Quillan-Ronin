@@ -104,15 +104,20 @@ TOTAL: ~1.8B parameters ✅
 
 ```json
 MOCK_CONFIG = {
-    'vocab_size': 50000,
-    'hidden_dim': 768,
-    'n_layers': 12,
-    'n_personas': 32,
-    'n_swarms_per_persona': 7000,
-    'swarm_dim': 32,
-    'top_k': 4,
-    'max_seq_len': 4096,
-    'dropout': 0.1
+    "vocab_size": 65536,                  // Expanded for better multimodal token coverage
+    "hidden_dim": 2048,                   // Upped to support ~1.8B scale and cross-modal density
+    "n_layers": 32,                       // Deeper for reasoning depth and diffusion traces
+    "n_heads": 32,                        // Multi-head attention scale
+    "n_kv_heads": 8,                      // GQA for efficiency (if using Mamba hybrid)
+    "ffn_dim_multiplier": 4.0,            // SwiGLU or MoE expansion
+    "n_personas": 32,                     // Council size unchanged
+    "n_experts": 64,                      // Total MoE experts across layers
+    "active_experts_per_token": 4,        // Top-k sparse activation
+    "max_seq_len": 8192,                   // Longer context for video/audio coherence
+    "dropout": 0.1,
+    "rope_theta": 10000.0,                // RoPE scaling base
+    "use_mamba": true,                    // Flag for hybrid Mamba-2 blocks
+    "early_exit_threshold": 0.75          // Confidence gate for shortcuts
 }
 ```
 
