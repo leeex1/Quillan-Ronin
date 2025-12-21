@@ -9,7 +9,7 @@ A Quill in your pocket to rewrite history? Who wouldn’t want that?
 # Model type:
 Hierarchical Distributed Network Mixture of Experts (HNMoE)
 
-![alt text](<Main images/ace nueronet.png>)
+![alt text](<Main images/topologyv5.png>)
 
 
 ---
