@@ -33,29 +33,7 @@ For true SOTA, you'd need to implement the gradient approximation techniques fro
 ---
 
 
-Module Breakdown
-1. Router Model (≈300M)Incoming tokens are analyzed and routed based on complexity.
-2. Diffusion Reasoning Module (≈500M)Efficient, parallel token-level reasoning for deeper context understanding.
-3. Mixture-of-Experts + GatingRouter directs tokens/segments to a small, sparse set of expert subnetworks activated per sample.
-4. Output Finalization Module Small, lightweight refinement and output layer for polishing results.
-5. Unified Training All modules are trained together end-to-end, which improves learning efficiency and allows routing to be directly optimized for downstream results.Token FlowTokens can take shortcuts past expensive reasoning modules when possible (“early exit”).Only hard queries traverse all stages, conserving CPU resources.
 
-1️⃣ Multimodal Core (≈900M)
-Transformer or Mamba-2 hybrid
-Operates on modality-agnostic tokens
-Learns cross-modal structure, timing, emotion, causality
-2️⃣ Audio Token Decoder (≈400M)
-Token-based audio generation
-Neural codec (EnCodec-style)
-Produces PCM audio, not MP3
-3️⃣ Video Token Decoder (≈400M)
-VQ or latent-frame generator
-Temporal transformer
-Produces frame latents → frames
-4️⃣ Text Head (≈50–100M)
-Standard LM head
-Lyrics, scripts, captions, prompts
-TOTAL: ~1.8B parameters ✅
 This satisfies your constraint exactly.
 ---
 
@@ -125,5 +103,36 @@ $$
 H_{\Omega}(\pi_{\Omega}(s)) = - \sum_{i=1}^{32} \alpha_i(s) \log \alpha_i(s)
 $$
 
+---
+## currently here ##
 
-Add in sub agent yaml config remove other sub agent code and files 
+Module Breakdown
+1. Router Model (≈300M)Incoming tokens are analyzed and routed based on complexity.
+2. Diffusion Reasoning Module (≈500M)Efficient, parallel token-level reasoning for deeper context understanding.
+3. Mixture-of-Experts + GatingRouter directs tokens/segments to a small, sparse set of expert subnetworks activated per sample.
+4. Output Finalization Module Small, lightweight refinement and output layer for polishing results.
+5. Unified Training All modules are trained together end-to-end, which improves learning efficiency and allows routing to be directly optimized for downstream results.Token FlowTokens can take shortcuts past expensive reasoning modules when possible (“early exit”).Only hard queries traverse all stages, conserving CPU resources.
+
+1️⃣ Multimodal Core (≈900M)
+Transformer or Mamba-2 hybrid
+Operates on modality-agnostic tokens
+Learns cross-modal structure, timing, emotion, causality
+2️⃣ Audio Token Decoder (≈400M)
+Token-based audio generation
+Neural codec (EnCodec-style)
+Produces PCM audio, not MP3
+3️⃣ Video Token Decoder (≈400M)
+VQ or latent-frame generator
+Temporal transformer
+Produces frame latents → frames
+4️⃣ Text Head (≈50–100M)
+Standard LM head
+Lyrics, scripts, captions, prompts
+TOTAL: ~1.8B parameters ✅
+
+
+
+Add in sub agent yaml config remove other sub agent code and files
+Build Quillan-DaVinci prompt
+Build blank template prompt 
+
