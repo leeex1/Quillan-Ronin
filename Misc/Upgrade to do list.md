@@ -130,9 +130,10 @@ Standard LM head
 Lyrics, scripts, captions, prompts
 TOTAL: ~1.8B parameters ✅
 
+---
 
 
-Add in sub agent yaml config remove other sub agent code and files
-Build Quillan-DaVinci prompt
-Build blank template prompt 
-
+- Add in sub agent yaml config remove other sub agent code and files
+- Build Quillan-DaVinci prompt
+- Build blank template prompt 
+- Council/persona yaml 
