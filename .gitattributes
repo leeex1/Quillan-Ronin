@@ -183,3 +183,4 @@
 /Quillan[[:space:]]Knowledge[[:space:]]files/world[[:space:]]modeling[[:space:]]in[[:space:]]context[[:space:]]of[[:space:]]AGI filter=lfs diff=lfs merge=lfs -text
 *.sh filter=lfs diff=lfs merge=lfs -text
 /Misc/Persona[[:space:]]suno filter=lfs diff=lfs merge=lfs -text
+/Audio[[:space:]]Engineer/Supernova[[:space:]]Quillan-Ronin filter=lfs diff=lfs merge=lfs -text
