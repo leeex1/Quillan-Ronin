@@ -73,6 +73,7 @@ H_{\Omega}(\pi_{\Omega}(s)) = - \sum_{i=1}^{32} \alpha_i(s) \log \alpha_i(s)
 $$
 
 ---
+
 ## currently here ##
 
 Module Breakdown:
@@ -99,6 +100,16 @@ Produces frame latents → frames
 Standard LM head
 Lyrics, scripts, captions, prompts
 TOTAL: ~1.8B parameters ✅
+
+# Finalized architecture:
+
+- 1. Router Quillan 300M 
+- 2. Multi-Modal MoE layer 32 specialist 900M 
+- 3. Encoders
+- 4. diffusion reasoning layer 500M 
+- 5. text 50M - 100M decoder/ Audio decoder 400M/ video doffusion 400M decoder/ 200M - 300M image diffusion layer
+- 6. Multi-Modal Output Finalization layer 50M - 100M
+- 7. Unified model 3B or less
 
 ---
 
