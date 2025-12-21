@@ -102,6 +102,7 @@ TOTAL: ~1.8B parameters ✅
 
 ---
 
+```json
 MOCK_CONFIG = {
     'vocab_size': 50000,
     'hidden_dim': 768,
@@ -113,6 +114,7 @@ MOCK_CONFIG = {
     'max_seq_len': 4096,
     'dropout': 0.1
 }
+```
 
 ---
 
