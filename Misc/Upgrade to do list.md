@@ -32,17 +32,6 @@ For true SOTA, you'd need to implement the gradient approximation techniques fro
 
 ---
 
-# --- 2. Configuration and Load/Inference Functions ---
-
-
-
-CHECKPOINT_PATH = "quillan_checkpoint.pt"
-
-
-
-
---- 
-
 
 Here are the three formula expressions for the Council-Calibrated Reinforcement Learning (CCRL) framework.
 1. Quillan Multi-Objective Value Function (V_{\Omega})
