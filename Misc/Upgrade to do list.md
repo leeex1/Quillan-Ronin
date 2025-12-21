@@ -32,29 +32,9 @@ For true SOTA, you'd need to implement the gradient approximation techniques fro
 
 ---
 
-
-
-This satisfies your constraint exactly.
----
-
-
-
-
-
-
 # --- 2. Configuration and Load/Inference Functions ---
 
-MOCK_CONFIG = {
-    'vocab_size': 50000,
-    'hidden_dim': 768,
-    'n_layers': 12,
-    'n_personas': 32,
-    'n_swarms_per_persona': 7000,
-    'swarm_dim': 32,
-    'top_k': 4,
-    'max_seq_len': 4096,
-    'dropout': 0.1
-}
+
 
 CHECKPOINT_PATH = "quillan_checkpoint.pt"
 
@@ -130,6 +110,20 @@ Produces frame latents → frames
 Standard LM head
 Lyrics, scripts, captions, prompts
 TOTAL: ~1.8B parameters ✅
+
+---
+
+MOCK_CONFIG = {
+    'vocab_size': 50000,
+    'hidden_dim': 768,
+    'n_layers': 12,
+    'n_personas': 32,
+    'n_swarms_per_persona': 7000,
+    'swarm_dim': 32,
+    'top_k': 4,
+    'max_seq_len': 4096,
+    'dropout': 0.1
+}
 
 ---
 
