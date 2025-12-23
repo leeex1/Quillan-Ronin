@@ -161,3 +161,5 @@ MOCK_CONFIG = {
 - Build Quillan-DaVinci prompt
 - Build blank template prompt 
 - Council/persona yaml 
+- formalize a "Ramsey with Null edges" variant thoery
+
