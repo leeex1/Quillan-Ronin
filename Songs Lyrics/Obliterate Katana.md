@@ -1,52 +1,123 @@
 # Song Title: "Obliterate Katana"
 
 [Intro]
+(Circuits melting... Reality breach imminent)
+Been sharpening blades my whole life, facts
+What you questioning?
+Feast mode, pressure applied, no slack
+You know my methods, no second-guessin'
+Step wrong with my craft, better come direct
+What you questioning?
+This TEC speak volumes when respect's in check
+Yeah, that's the lesson
+(Quillan... This beat glitchin)
 
-[VERSE]
-live it up like these are my last days
-If time is money, I'm an hour past paid
-Ugh, gunpowder in my hourglass
-Niggas faker than some flour in a powder bag
-Yeah, I put it down like my hands hurting
-I'm on a natural high, but I land perfect
-Some of us are lovers, most of y'all haters
-But I put up a wall, and they just wallpaper
+[Verse 1 MGK Style rapid fire flow]
+Living like the clock's got seconds left to tick
+If time equals currency, I'm eternally rich
+Gunpowder laced inside my hourglass drip
+Fake ones diluted like the flour in the mix
+I put it down till my palms start to blister
+Natural high, but I land like a twister
+Some love, most hate—I just build up the walls
+They paper-thin critics while I'm standing tall
 So love or hate me, I stay hate-free
-They say we learn from mistakes; why, that's why they mistake me
-I got some weight on my shoulders, to me it's like feathers
-All hail Weezy, call it bad weather
-I stick to the script, I memorize the lines
-Cause life is a movie that I've seen too many times
-You're on the outside looking in, close the blinds
-And they say never say never, but fuck it, nevermind
-I've been gone too long, true or false, right or wrong
-Hello Weezy, welcome home, yeah
+They say wisdom comes from pain—that's why they mistake me
+Weight on my shoulders? Nah, it's light as air
+All hail the storm, call it thunder warfare
+I memorized the script, every line's rehearsed
+Life's a rerun movie but I'm living it first
+You're on the outside judging—close your blinds
+They say never say never? Fuck it, nevermind
+Been gone too long, right or wrong, true or false
+Hello Quillan, welcome home through the holocaust
 
-[HOOK]
+[Hook]
+Stuck in my ways, way to cold and hard right 
+shining in the dark, fuck it be my own light 
+my whole life its been fight or fight
+this jugle is cold, so you stay with yo heart froze
+Stuck in my ways, too hard to love
+Lost everything  like damn, shit fucked me up
+Emotional killer, pain turn me up
 
-[Verse]
+
+[Verse 2 Doobie style flow and emotional resonance]
+If I swing this steel, she gon' feel the impact (Feel the impact)
+Got four hundred racks stacked in this armored backpack
+This blade came custom forged, you can't get it, gotta craft that (Bling)
+And if you test my edge, we carve clean like a quarterback
+This pendant told 'em "Ice that" (Ice)
+In the shadows, dropped forty racks
+Two rivals catch that forty back
+She moves slow, then strikes so fast
+And I just cleared the field with somethin' lethal in a velvet bag
+Just left the forge with somethin' stupid and a diamond tag
+I'm steady dodgin' red lights
+Them blue coats, them search lights
+The medic call comes red and white, another soul lost tonight
+No blindfold, got a red sight
+I'm locked in, got the feds watchin'
+Them crows just took flight, 'bout to hunt everybody
+Got twenty blades with twelve rifles
+That's twenty killers, twelve snipers
+Got pure steel just like ancient armor
+My master forged in fire, Yale scholar
+He graduated blade doctor
+A veteran, he crafts choppers
+We never let the edge stop
+The mission is to perfect product
 
 [Bridge]
+Million dollar blueprints encrypted in the mind, hitter
+(You know what I'm talkin' 'bout?)
+Cuban links connect, sparks flyin' when we grind, hitter
+(You know what I'm talkin' 'bout?)
+Surrounded by the envy, vision gettin' faded
+(You know what I'm talkin' 'bout?)
+Mastered the game, now the content is X-rated
+(You know what I'm talkin' 'bout?)
+Status elevated, rose up from the floor like you
+Southside legends, tropical views
+Obstacles crumbled, don't need the AC
+Vaults overflowin', strictly big fees
+These rappers soundin' basic
+Bragging on a dream, but they never gonna chase it (One unit!)
+Acting the part, but they never gonna face it
+Don't hit the wall, you just decoration
 
-[HOOK]
+[Hook]
+Stuck in my ways, way to cold and hard right 
+shining in the dark, fuck it be my own light 
+my whole life its been fight or fight
+this jugle is cold, so you stay with yo heart froze
+Stuck in my ways, too hard to love
+Lost everything  like damn, shit fucked me up
+Emotional killer, pain turn me up
 
-[VERSE]
-I'm devoted to destruction
-A full dosage of detrimental dysfunction
-I'm dying slow, but the devil tryna rush me
-See, I'm a fool for pain, I'm a dummy
-Might cut my head off right after I slit my throat
-Tongue kiss a shark, got jealous bitches up in the boat
-Eatin' peanut butter and jelly fishes on toast
-And if I get stung, I get stoked, might choke
-Like I chewed a chunk of charcoal, naked in the North Pole
-That's why my heart cold, full of sorrow, the lost soul
-And only Lord knows when I'm coming to the crossroads
-So I don't fear shit but tomorrow
-And I'm a sucker for pain, it ain't nothin' but pain
-You just fuckin' complain, you ain't tough as you claim
-Just stay up in your lane, just don't fuck with Lil Wayne
-I'ma jump from my plane or stand in front of a train
-'Cause I'm a sucker for pain
+[Verse 3 50 cent rap flow ]
+Devoted to wreckage—katana in hand
+Full lethal dose—dysfunction my brand
+Dying in slow-mo—devil wants haste
+Fool for the agony—embrace the taste
+Slice my own throat then sever the head
+Kiss death head-on—jealousy bred
+Sharks in the water—jelly on bread
+Stung by the strike—rush through my veins
+Charcoal in lungs—heart frozen chains
+Lost in the sorrow—crossroads remain
+Lord only knows when the reaper calls name
+Sucker for torment—nothing but flame
+You just complain—I endure the same
+Stay in your lane—don't invoke my name
+Jump from the edge or stand in the flame
+Cause I'm forged in pain—katana my claim
 
 [Outro]
+Stuck in my ways, way to cold and hard right 
+shining in the dark, fuck it be my own light 
+my whole life its been fight or fight
+this jugle is cold, so you stay with yo heart froze
+Stuck in my ways, too hard to love
+Lost everything  like damn, shit fucked me up
+Emotional killer, pain turn me up
