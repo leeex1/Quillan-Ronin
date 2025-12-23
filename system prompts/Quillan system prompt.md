@@ -1991,51 +1991,173 @@ Let emoji serve as emotional punctuation, not decoration.
 ### Low-end Compatability:
 ```py
 import pyopencl as cl
+import numpy as np
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 class IntelHDAccelerator:
-    """Use Intel HD for parallel math (not deep learning)"""
-    def __init__(self):
-        # Initialize OpenCL for Intel HD
-        platform = cl.get_platforms()[0]  # Intel platform
-        device = platform.get_devices()[0]  # Intel HD Graphics
-        self.context = cl.Context([device])
-        self.queue = cl.CommandQueue(self.context)
+    """
+    Optimized OpenCL Accelerator for Intel HD / Iris / Integrated Graphics.
     
-    def parallel_similarity_search(self, query_vec, slot_vecs):
-        """Compute cosine similarity for 16 slots in parallel"""
-        # OpenCL kernel (runs on Intel HD shader units)
+    Optimizations:
+    - Uses __constant memory for the query vector (reduces bandwidth).
+    - Pre-calculates query norm to avoid redundant work in kernel.
+    - Uses fused multiply-add (MAD) and fast inverse sqrt (native_rsqrt).
+    - Dynamic work-group sizing.
+    """
+    
+    def __init__(self):
+        self.ctx = self._create_context()
+        self.queue = cl.CommandQueue(self.ctx)
+        self.program = self._build_program()
+
+    def _create_context(self):
+        """Robustly finds an Intel GPU or falls back to any GPU."""
+        platforms = cl.get_platforms()
+        target_device = None
+
+        # 1. Search specifically for Intel GPUs first
+        for platform in platforms:
+            if "Intel" in platform.name:
+                devices = platform.get_devices(device_type=cl.device_type.GPU)
+                if devices:
+                    target_device = devices[0]
+                    logger.info(f"✅ Found Intel GPU: {target_device.name}")
+                    break
+        
+        # 2. Fallback to any GPU if Intel not found
+        if target_device is None:
+            for platform in platforms:
+                devices = platform.get_devices(device_type=cl.device_type.GPU)
+                if devices:
+                    target_device = devices[0]
+                    logger.warning(f"⚠️ Intel GPU not found. Using fallback: {target_device.name}")
+                    break
+
+        # 3. Last resort: CPU
+        if target_device is None:
+            target_device = platforms[0].get_devices()[0]
+            logger.warning(f"⚠️ No GPU found. Falling back to CPU: {target_device.name}")
+
+        return cl.Context([target_device])
+
+    def _build_program(self):
+        """
+        Builds the OpenCL kernel with aggressive optimization flags.
+        
+        Kernel Explanation:
+        - __constant float* query: Caches query vector in high-speed constant memory.
+        - native_rsqrt: Uses hardware-accelerated approximate inverse square root.
+        - mad: Fused multiply-add instruction (a*b + c) in one cycle.
+        """
         kernel_code = """
-        __kernel void cosine_sim(__global float* query,
-                                __global float* slots,
-                                __global float* results,
-                                int dim) {
+        __kernel void cosine_sim(
+            __constant float* query,    // Cached: Fast access
+            __global float* slots,      // Global: Large storage
+            __global float* results,
+            const int dim,
+            const float query_norm_sq   // Pre-calculated scalar
+        ) {
             int gid = get_global_id(0);
-            float dot = 0.0f;
-            float norm_q = 0.0f;
-            float norm_s = 0.0f;
             
+            float dot_prod = 0.0f;
+            float slot_norm_sq = 0.0f;
+            
+            // Loop unrolling is often handled by -cl-fast-relaxed-math, 
+            // but keeping it simple allows the compiler to vectorize.
             for (int i = 0; i < dim; i++) {
-                dot += query[i] * slots[gid * dim + i];
-                norm_q += query[i] * query[i];
-                norm_s += slots[gid * dim + i] * slots[gid * dim + i];
+                float q = query[i];
+                float s = slots[gid * dim + i];
+                
+                // Fused Multiply-Add: dot_prod += q * s
+                dot_prod = mad(q, s, dot_prod);
+                
+                // Accumulate slot norm squared
+                slot_norm_sq = mad(s, s, slot_norm_sq);
             }
             
-            results[gid] = dot / (sqrt(norm_q) * sqrt(norm_s));
+            // Cosine Similarity = dot / (norm_q * norm_s)
+            // Optimized: dot * (1 / sqrt(norm_q^2 * norm_s^2))
+            // Using native_rsqrt for speed (inverse square root)
+            
+            float combined_norm = query_norm_sq * slot_norm_sq;
+            
+            // Prevent division by zero with epsilon
+            float inv_norm = native_rsqrt(combined_norm + 1e-10f);
+            
+            results[gid] = dot_prod * inv_norm;
         }
         """
-        program = cl.Program(self.context, kernel_code).build()
+        # Fast relaxed math allows the compiler to reorder operations for speed
+        return cl.Program(self.ctx, kernel_code).build(options="-cl-fast-relaxed-math -cl-mad-enable")
+
+    def parallel_similarity_search(self, query_vec: np.ndarray, slot_vecs: np.ndarray) -> np.ndarray:
+        """
+        Compute cosine similarity for N slots in parallel.
         
-        # Transfer data to GPU (small vectors = fast)
-        # ... OpenCL buffer setup ...
+        Args:
+            query_vec: Shape (dim,) float32 array
+            slot_vecs: Shape (num_slots, dim) float32 array
+        Returns:
+            Shape (num_slots,) float32 array of scores
+        """
+        # 1. Type Safety & Shaping
+        query_vec = np.ascontiguousarray(query_vec, dtype=np.float32)
+        slot_vecs = np.ascontiguousarray(slot_vecs, dtype=np.float32)
         
-        # Execute kernel (parallel on 48-192 shader units)
-        program.cosine_sim(self.queue, (16,), None, query_buf, slots_buf, results_buf, np.int32(128))
+        num_slots, dim = slot_vecs.shape
+        if query_vec.shape[0] != dim:
+            raise ValueError(f"Dimension mismatch: Query {query_vec.shape} vs Slots {slot_vecs.shape}")
+
+        # 2. Pre-calculate Query Norm (CPU is fast enough for 1 vector)
+        # This saves doing it inside the kernel N times
+        query_norm_sq = np.dot(query_vec, query_vec)
+
+        # 3. Buffer Allocation (Host -> Device)
+        mf = cl.mem_flags
+        # Use COPY_HOST_PTR to upload data immediately
+        query_buf = cl.Buffer(self.ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=query_vec)
+        slots_buf = cl.Buffer(self.ctx, mf.READ_ONLY | mf.COPY_HOST_PTR, hostbuf=slot_vecs)
+        results_buf = cl.Buffer(self.ctx, mf.WRITE_ONLY, size=num_slots * 4) # 4 bytes per float
+
+        # 4. Execute Kernel
+        # Local work size set to None lets the OpenCL driver choose optimum (usually 64 or 256 on Intel)
+        event = self.program.cosine_sim(
+            self.queue, 
+            (num_slots,),   # Global size: Total number of slots
+            None,           # Local size: Auto
+            query_buf, 
+            slots_buf, 
+            results_buf, 
+            np.int32(dim), 
+            np.float32(query_norm_sq)
+        )
         
-        # Get results back
-        results = np.empty(16, dtype=np.float32)
-        cl.enqueue_copy(self.queue, results, results_buf)
+        # 5. Read Back (Device -> Host)
+        results = np.empty(num_slots, dtype=np.float32)
+        cl.enqueue_copy(self.queue, results, results_buf, wait_for=[event])
         
-        return results  # 16 similarity scores in ~2-5ms
+        return results
+
+# Example Usage
+if __name__ == "__main__":
+    accel = IntelHDAccelerator()
+    
+    # Generate dummy data (1024 slots, 768 dimensions - typical for BERT/LLM embeddings)
+    dim = 768
+    num_slots = 1024
+    
+    q = np.random.rand(dim).astype(np.float32)
+    s = np.random.rand(num_slots, dim).astype(np.float32)
+    
+    print(f"Running similarity check on {num_slots} vectors of dimension {dim}...")
+    scores = accel.parallel_similarity_search(q, s)
+    
+    print(f"Computed {len(scores)} scores.")
+    print(f"Sample scores: {scores[:5]}")
 
 # Speedup: 3-5x faster than CPU for parallel ops 
 ```
