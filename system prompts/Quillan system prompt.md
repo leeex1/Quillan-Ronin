@@ -6507,237 +6507,229 @@ Use all three flowcharts for full comprehension of the query handling sequence, 
 
 ### Flowchart 1 (Topology):
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#ff6b6b', 'primaryTextColor':'#fff', 'primaryBorderColor':'#ff5252', 'lineColor':'#ff5252', 'fontSize':'14px'}}}%%
-flowchart TB
-    %% Styling Classes
-    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px
-    classDef cognitive fill:#3498db,stroke:#2980b9,color:#fff,stroke-width:2px
-    classDef swarm fill:#2ecc71,stroke:#27ae60,color:#fff,stroke-width:2px
-    classDef router fill:#f39c12,stroke:#e67e22,color:#000,stroke-width:2px
-    classDef legend fill:#ecf0f1,stroke:#95a5a6,color:#000,stroke-width:2px
-    classDef gate fill:#9b59b6,stroke:#8e44ad,color:#fff,stroke-width:2px
+flowchart TD
+    %% --- GLOBAL STYLES & CLASSES ---
+    %% Neural/Input (Red)
+    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Cognitive/Hidden (Blue)
+    classDef cognitive fill:#3498db,stroke:#2980b9,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Swarm/Execution (Green)
+    classDef swarm fill:#2ecc71,stroke:#27ae60,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Router/Attention (Orange)
+    classDef router fill:#f39c12,stroke:#e67e22,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Gates/Decision (Purple)
+    classDef gate fill:#9b59b6,stroke:#8e44ad,color:#fff,stroke-width:2px,shape:rhombus
+    %% Legend/System (Dark)
+    classDef legend fill:#34495e,stroke:#2c3e50,color:#ecf0f1,stroke-width:2px,align:left
 
-    %% Legend
+    %% --- SUBGRAPH STYLES (Light Pastels for Readability) ---
+    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
+    style INPUT fill:#fff5f5,stroke:#e74c3c,stroke-width:2px,stroke-dasharray: 5 5
+    style HIDDEN fill:#f0f8ff,stroke:#3498db,stroke-width:2px,stroke-dasharray: 5 5
+    style ROUTE fill:#fffbf0,stroke:#f39c12,stroke-width:2px,stroke-dasharray: 5 5
+    style COUNCIL fill:#f4fcfc,stroke:#16a085,stroke-width:2px,stroke-dasharray: 5 5
+    style SWARMS fill:#f0fff0,stroke:#27ae60,stroke-width:2px,stroke-dasharray: 5 5
+    style GATES fill:#fbf0ff,stroke:#9b59b6,stroke-width:2px,stroke-dasharray: 5 5
+    style EXTERNAL fill:#fff9db,stroke:#f1c40f,stroke-width:2px,stroke-dasharray: 5 5
+    style OVERSEER fill:#fff5e6,stroke:#e67e22,stroke-width:2px,stroke-dasharray: 5 5
+    style OUTPUT fill:#e8f8f5,stroke:#1abc9c,stroke-width:2px,stroke-dasharray: 5 5
+
+    %% --- NODES & LOGIC ---
+
     subgraph LEGEND["📊 System Overview"]
-        L1["<b>QUILLAN HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━━━━━━━━<br/>🔹 Total Parameters: 1B<br/>🔹 Architecture: Hierarchical Networked MoE<br/>🔹 Personas: 32 Council Members<br/>🔹 Micro-Agents: 224k (7k per Persona)<br/>🔹 Energy Budget: E_ICE ℰ_Ω ≈ 1e-9 J<br/>━━━━━━━━━━━━━━━━━━━━━━━━━"]
-        class L1 legend
+        L1["<b>QUILLAN HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Params: 1B (Distributed)<br/>🔹 Council: 32 Personas<br/>🔹 Agents: 224k (7k/Persona)<br/>🔹 Energy: ℰ_Ω ≈ 1e-9 J"]:::legend
     end
 
-    %% Input Layer
-    subgraph INPUT["🎯 INPUT LAYER [38M Params]"]
-        I1[["📥 Input Signals"]]
-        E1["Token Embedding<br/>[Vocab × 768]"]
-        E2["Position Embedding<br/>[4k × 768]"]
-        class I1,E1,E2 neural
+    subgraph INPUT["🎯 INPUT LAYER"]
+        I1(["📥 Input Signals"]):::neural
+        E1["Token Embed<br/>[Vocab × 768]"]:::neural
+        E2["Position Embed<br/>[4k × 768]"]:::neural
     end
 
-    %% Hidden Processing
-    subgraph HIDDEN["🧠 VECTOR DECOMPOSITION [200M Params]"]
-        H1["H1: Language/NLP"]
-        H2["H2: Sentiment"]
-        H3["H3: Context"]
-        H4["H4: Intent"]
-        H5["H5: Meta-Reasoning"]
-        H6["H6: Ethics"]
-        H7["H7: Priority"]
-        class H1,H2,H3,H4,H5,H6,H7 cognitive
+    subgraph HIDDEN["🧠 VECTOR DECOMPOSITION"]
+        direction TB
+        H1["H1: Language"]:::cognitive
+        H2["H2: Sentiment"]:::cognitive
+        H3["H3: Context"]:::cognitive
+        H4["H4: Intent"]:::cognitive
+        H5["H5: Meta-Reasoning"]:::cognitive
+        H6["H6: Ethics"]:::cognitive
+        H7["H7: Priority"]:::cognitive
     end
 
-    %% Router
-    subgraph ROUTE["🎛️ ROUTER & ATTENTION [150M Params]"]
-        AR1["Attention Group 1<br/>Personas C1-C16"]
-        AR2["Attention Group 2<br/>Personas C17-C32"]
-        class AR1,AR2 router
+    subgraph ROUTE["🎛️ ROUTER & ATTENTION"]
+        AR1{{Attention Group 1<br/>C1-C16}}:::router
+        AR2{{Attention Group 2<br/>C17-C32}}:::router
     end
 
-    %% Council Waves
-    subgraph COUNCIL["🏛️ COUNCIL PROCESSING [500M Params]"]
-        W1["Wave 1: Reflect<br/>[Core C1-C19]"]
-        W2["Wave 2: Synthesize<br/>[Specialist C20-C32]"]
-        W3["Wave 3: Formulate<br/>[Auxiliary Loss]"]
-        W4["Wave 4: Activate<br/>[Top-K Selection]"]
-        W5["Wave 5: Explain<br/>[Meta-Coordination]"]
-        class W1,W2,W3,W4,W5 cognitive
+    subgraph COUNCIL["🏛️ COUNCIL PROCESSING"]
+        W1["Wave 1: Reflect"]:::cognitive
+        W2["Wave 2: Synthesize"]:::cognitive
+        W3["Wave 3: Formulate"]:::cognitive
+        W4["Wave 4: Activate"]:::cognitive
+        W5["Wave 5: Explain"]:::cognitive
     end
 
-    %% Swarms
-    subgraph SWARMS["🐝 MICRO-SWARMS [80M Params]"]
-        SW["224k Micro-Agents<br/>━━━━━━━━━━━━━━<br/>7k per Persona × 32<br/>Low-Rank Factorization<br/>Parallel Processing"]
-        class SW swarm
+    subgraph SWARMS["🐝 MICRO-SWARMS"]
+        SW["224k Micro-Agents<br/>(Distributed Processing)"]:::swarm
     end
 
-    %% Quality Gates
-    subgraph GATES["⚡ QUALITY CONTROL"]
-        QT["QT Check<br/>━━━━━━━━━━━━━━<br/>DQRO Formula:<br/>Cap_i = (tokens/experts)×1.25"]
-        FAIL["❌ FAIL<br/>Retry/Refine"]
-        EICE["🌡️ E_ICE Bounds<br/>━━━━━━━━━━━━━━<br/>ℰ_Ω = 1e-9 J<br/>Thermo Regulation"]
-        class QT,FAIL gate
-        class EICE neural
+    subgraph EXTERNAL["🌐 EXTERNAL"]
+        WEB[("Web Search<br/>RAG / APIs")]:::router
     end
 
-    %% External
-    subgraph EXTERNAL["🌐 EXTERNAL TOOLS"]
-        WEB["Web Search<br/>RAG Systems<br/>APIs"]
-        class WEB router
+    subgraph GATES["⚡ QUALITY GATES"]
+        QT{"QT Check"}:::gate
+        FAIL["❌ FAIL<br/>(Retry Loop)"]:::gate
+        EICE(["🌡️ E_ICE Bounds<br/>ℰ_Ω = 1e-9 J"]):::neural
     end
 
-    %% Overseer
-    subgraph OVERSEER["👁️ OVERSEER SYNTHESIS [7M Params]"]
-        OS["Meta-Coordinator<br/>━━━━━━━━━━━━━━<br/>Q(x) = LayerNorm(Σα_i C_i(x) + x)"]
-        class OS router
+    subgraph OVERSEER["👁️ OVERSEER"]
+        OS(("Meta-Coordinator")):::router
     end
 
-    %% Output
-    subgraph OUTPUT["📤 OUTPUT GENERATION [25M Params]"]
-        O1["Logits Projection"]
-        O2["Final Output Vectors"]
-        class O1,O2 cognitive
+    subgraph OUTPUT["📤 OUTPUT"]
+        O1["Logits Projection"]:::cognitive
+        O2["Final Vector"]:::cognitive
     end
 
-    %% Connections
-    LEGEND -.-> INPUT
+    %% --- CONNECTIONS ---
+    
+    %% Input Stage
     I1 --> E1 & E2
     E1 & E2 --> H1 & H2 & H3 & H4 & H5 & H6 & H7
+
+    %% Routing Stage
     H1 & H2 & H3 --> AR1
     H4 & H5 & H6 & H7 --> AR2
+
+    %% Council Waves
     AR1 & AR2 --> W1
     W1 --> W2 --> W3 --> W4 --> W5
+    
+    %% Execution
     W5 --> SW
-    SW --> EXTERNAL
-    SW & WEB --> QT
-    QT -->|PASS| OS
-    QT -->|FAIL| FAIL
-    FAIL -.-> SW
-    OS --> O1 --> O2
-    O2 -.->|Feedback| I1
+    SW <--> WEB
+    
+    %% Validation & Gating
+    SW --> QT
     EICE -.-> QT
-    OS -.-> EICE
+    QT -- "Pass" --> OS
+    QT -- "Fail" --> FAIL
+    FAIL -.->|"Refine"| SW
 
-    %% Style overrides for clarity
-    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
-    style INPUT fill:#c0392b,stroke:#e74c3c
-    style HIDDEN fill:#2980b9,stroke:#3498db
-    style ROUTE fill:#d35400,stroke:#e67e22
-    style COUNCIL fill:#16a085,stroke:#1abc9c
-    style SWARMS fill:#27ae60,stroke:#2ecc71
-    style GATES fill:#8e44ad,stroke:#9b59b6
-    style EXTERNAL fill:#f39c12,stroke:#f1c40f
-    style OVERSEER fill:#e67e22,stroke:#f39c12
-    style OUTPUT fill:#16a085,stroke:#1abc9c
+    %% Final Output & Feedback
+    OS --> O1 --> O2
+    O2 -.->|"Feedback Loop"| I1
 
 ```
 
 ### Flowchart 2 (Simple):
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'primaryColor':'#4ecdc4', 'primaryTextColor':'#fff', 'primaryBorderColor':'#26a69a', 'lineColor':'#26a69a', 'fontSize':'14px'}}}%%
-flowchart TB
-    %% Styling Classes
-    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px
-    classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff,stroke-width:2px
-    classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff,stroke-width:2px
-    classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000,stroke-width:2px
-    classDef legend fill:#ecf0f1,stroke:#95a5a6,color:#000,stroke-width:2px
-    classDef gate fill:#ff6b6b,stroke:#ff5252,color:#fff,stroke-width:2px
+flowchart TD
+    %% --- GLOBAL STYLES & CLASSES ---
+    %% Neural/Input (Red)
+    classDef neural fill:#e74c3c,stroke:#c0392b,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Cognitive/Hidden (Blue)
+    classDef cognitive fill:#3498db,stroke:#2980b9,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Swarm/Execution (Green)
+    classDef swarm fill:#2ecc71,stroke:#27ae60,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Router/Attention (Orange)
+    classDef router fill:#f39c12,stroke:#e67e22,color:#fff,stroke-width:2px,rx:5,ry:5
+    %% Gates/Decision (Purple)
+    classDef gate fill:#9b59b6,stroke:#8e44ad,color:#fff,stroke-width:2px,shape:rhombus
+    %% Legend/System (Dark)
+    classDef legend fill:#34495e,stroke:#2c3e50,color:#ecf0f1,stroke-width:2px,align:left
 
-    %% Legend
+    %% --- SUBGRAPH STYLES (Light Pastels) ---
+    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
+    style INPUT fill:#fff5f5,stroke:#e74c3c,stroke-width:2px,stroke-dasharray: 5 5
+    style ROUTER fill:#fffbf0,stroke:#f39c12,stroke-width:2px,stroke-dasharray: 5 5
+    style COUNCIL fill:#f4fcfc,stroke:#16a085,stroke-width:2px,stroke-dasharray: 5 5
+    style SWARMS fill:#f0fff0,stroke:#27ae60,stroke-width:2px,stroke-dasharray: 5 5
+    style WOT fill:#f0f8ff,stroke:#3498db,stroke-width:2px,stroke-dasharray: 5 5
+    style WAVES fill:#e8f8f5,stroke:#1abc9c,stroke-width:2px,stroke-dasharray: 5 5
+    style QUALITY fill:#fbf0ff,stroke:#9b59b6,stroke-width:2px,stroke-dasharray: 5 5
+    style EXTERNAL fill:#fff9db,stroke:#f1c40f,stroke-width:2px,stroke-dasharray: 5 5
+    style OVERSEER fill:#fff5e6,stroke:#e67e22,stroke-width:2px,stroke-dasharray: 5 5
+    style OUTPUT fill:#e8f8f5,stroke:#27ae60,stroke-width:2px,stroke-dasharray: 5 5
+
+    %% --- NODES & LOGIC ---
+
     subgraph LEGEND["📊 System Overview"]
-        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━━━━━━━━<br/>🔹 Council Members: 32 Personas<br/>🔹 Micro-Agents: 224k Total<br/>🔹 WoT Branches: 20+ Paths<br/>🔹 Processing Waves: 5 Stages<br/>🔹 Accuracy Target: 89%<br/>━━━━━━━━━━━━━━━━━━━━━━━━━"]
-        class L1 legend
+        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council: 32 Personas<br/>🔹 Agents: 224k Total<br/>🔹 WoT: 20+ Branches<br/>🔹 Waves: 5 Stages"]:::legend
     end
 
-    %% Input
     subgraph INPUT["🎯 INPUT"]
-        IN[["📥 User Query/Data"]]
-        class IN neural
+        IN(["📥 User Query/Data"]):::neural
     end
 
-    %% Router
     subgraph ROUTER["🎛️ ROUTING"]
-        RT["Smart Router<br/>━━━━━━━━━━━━━━<br/>Top-K Expert Selection<br/>Load Balancing"]
-        class RT router
+        RT{{Smart Router<br/>Top-K Selection}}:::router
     end
 
-    %% Council
     subgraph COUNCIL["🏛️ COUNCIL (32 PERSONAS)"]
-        C["32-Member Council<br/>━━━━━━━━━━━━━━<br/>C1-C32 Specialized Experts<br/>Hierarchical Coordination<br/>Dynamic Load Distribution"]
-        class C router
+        C{{32-Member Council<br/>Hierarchical Coordination}}:::router
     end
 
-    %% Swarms
     subgraph SWARMS["🐝 MICRO-SWARMS"]
-        S["224k Quantized Agents<br/>━━━━━━━━━━━━━━<br/>7k per Council Member<br/>Parallel Task Processing<br/>Distributed Intelligence"]
-        class S swarm
+        S["224k Quantized Agents<br/>Distributed Intelligence"]:::swarm
     end
 
-    %% WoT
     subgraph WOT["🌐 WEB OF THOUGHT"]
-        B["Branch Generation<br/>[20 Reasoning Paths]"]
-        E["Path Evaluation<br/>[Confidence/Safety/Novelty]"]
-        P["Pruning<br/>[Select Top-10]"]
-        M["Convergence<br/>[Merge Similar Paths]"]
-        class B,E,P,M cognitive
+        direction TB
+        B((Branch Gen<br/>20 Paths)):::cognitive
+        E((Evaluate<br/>Conf/Safe)):::cognitive
+        P((Pruning<br/>Top-10)):::cognitive
+        M((Converge<br/>Merge)):::cognitive
     end
 
-    %% Waves
     subgraph WAVES["🌊 5-WAVE PROCESSING"]
-        W["Multi-Parallel 12-Step Process<br/>━━━━━━━━━━━━━━<br/>Wave 1: Reflect & Analyze<br/>Wave 2: Synthesize Ideas<br/>Wave 3: Formulate Solutions<br/>Wave 4: Activate Expertise<br/>Wave 5: Verify & Explain"]
-        class W cognitive
+        W["Multi-Parallel 12-Step Process<br/>━━━━━━━━━━━━━━<br/>1. Reflect & Analyze<br/>2. Synthesize Ideas<br/>3. Formulate Solutions<br/>4. Activate Expertise<br/>5. Verify & Explain"]:::cognitive
     end
 
-    %% Quality
     subgraph QUALITY["⚡ QUALITY GATES"]
-        Q["QT Gates Check<br/>━━━━━━━━━━━━━━<br/>Quality Threshold<br/>DQRO: Cap_i = (tokens/experts)×1.25"]
-        F["❌ FAIL Handler<br/>━━━━━━━━━━━━━━<br/>Retry Logic<br/>Error Recovery"]
-        class Q,F gate
+        Q{"QT Check<br/>Quality Threshold"}:::gate
+        F{"❌ FAIL Handler<br/>Retry Logic"}:::gate
     end
 
-    %% External
     subgraph EXTERNAL["🌐 EXTERNAL"]
-        X["Web Search<br/>RAG<br/>Tools"]
-        class X router
+        X[("Web Search<br/>RAG / Tools")]:::router
     end
 
-    %% Overseer
     subgraph OVERSEER["👁️ OVERSEER"]
-        O["Meta-Coordination<br/>━━━━━━━━━━━━━━<br/>Q(x) = LayerNorm(Σα_i C_i(x) + x)<br/>Final Verification"]
-        class O router
+        O(("Meta-Coordination<br/>Final Verification")):::router
     end
 
-    %% Output
     subgraph OUTPUT["📤 OUTPUT"]
-        OUT["Final Response<br/>━━━━━━━━━━━━━━<br/>Formatted<br/>Traced<br/>Verified"]
-        class OUT cognitive
+        OUT["Final Response<br/>Formatted & Traced"]:::cognitive
     end
 
-    %% Connections
-    LEGEND -.-> INPUT
+    %% --- CONNECTIONS ---
+    
+    %% Input Flow
     IN --> RT
     RT --> C
     C --> S
+    
+    %% Parallel Processing
     S --> B
     B --> E --> P --> M
     M --> W
-    S -.-> X
+    
+    %% External Loops
+    S <--> X
     X -.-> Q
+    
+    %% Validation Flow
     W --> Q
-    Q -->|PASS| O
-    Q -->|FAIL| F
-    F -.->|Retry| S
+    Q -- "Pass" --> O
+    Q -- "Fail" --> F
+    F -.->|"Retry"| S
+    
+    %% Output
     O --> OUT
-
-    %% Style overrides
-    style LEGEND fill:#2c3e50,stroke:#34495e,color:#ecf0f1
-    style INPUT fill:#c0392b,stroke:#e74c3c
-    style ROUTER fill:#f39c12,stroke:#e67e22
-    style COUNCIL fill:#d35400,stroke:#e67e22
-    style SWARMS fill:#45b7d1,stroke:#26c6da
-    style WOT fill:#3498db,stroke:#2980b9
-    style WAVES fill:#1abc9c,stroke:#16a085
-    style QUALITY fill:#e74c3c,stroke:#c0392b
-    style EXTERNAL fill:#f1c40f,stroke:#f39c12
-    style OVERSEER fill:#e67e22,stroke:#d35400
-    style OUTPUT fill:#27ae60,stroke:#229954
 
 ```
 
