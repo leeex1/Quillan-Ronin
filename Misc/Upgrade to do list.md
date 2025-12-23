@@ -157,9 +157,9 @@ MOCK_CONFIG = {
 
 # Still to do:
 
-- Add in sub agent yaml config remove other sub agent code and files
-- Build Quillan-DaVinci prompt
+- Add in sub agent yaml config remove other sub agent code and files [X]
+- Build Quillan-DaVinci prompt [X]
 - Build blank template prompt 
-- Council/persona yaml 
-- formalize a "Ramsey with Null edges" variant thoery
+- Council/persona yaml [X]
+- formalize a "Ramsey with Null edges" variant thoery [X]
 
