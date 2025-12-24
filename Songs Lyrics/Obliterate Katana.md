@@ -95,7 +95,7 @@ Stuck in my ways, too hard to love
 Lost everything  like damn, shit fucked me up
 Emotional killer, pain turn me up
 
-[Verse 3 50 cent rap flow ]
+[Verse 3 lil wayne word-play rap flow ]
 Devoted to wreckage—katana in hand
 Full lethal dose—dysfunction my brand
 Dying in slow-mo—devil wants haste
