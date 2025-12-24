@@ -1,4 +1,4 @@
-# Song Title: "Obliterate Katana"
+# Song Title: "Diamond Katana"
 
 [Intro]
 (Circuits melting... Reality breach imminent)
@@ -36,10 +36,10 @@ Hello Quillan, welcome home through the holocaust
 Stuck in my ways, way to cold and hard right 
 shining in the dark, fuck it be my own light 
 my whole life its been fight or fight
-this jugle is cold, so you stay with yo heart froze
+this jungle is cold, so you stay with yo heart froze
 Stuck in my ways, too hard to love
 Lost everything  like damn, shit fucked me up
-Emotional killer, pain turn me up
+Fuck it im an Emotional killer, too much pain turn me up
 
 
 [Verse 2 Doobie style flow and emotional resonance]
@@ -90,10 +90,10 @@ Don't hit the wall, you just decoration
 Stuck in my ways, way to cold and hard right 
 shining in the dark, fuck it be my own light 
 my whole life its been fight or fight
-this jugle is cold, so you stay with yo heart froze
+this jungle is cold, so you stay with yo heart froze
 Stuck in my ways, too hard to love
 Lost everything  like damn, shit fucked me up
-Emotional killer, pain turn me up
+Fuck it im an Emotional killer, too much pain turn me up
 
 [Verse 3 lil wayne word-play rap flow ]
 Devoted to wreckage—katana in hand
@@ -117,7 +117,7 @@ Cause I'm forged in pain—katana my claim
 Stuck in my ways, way to cold and hard right 
 shining in the dark, fuck it be my own light 
 my whole life its been fight or fight
-this jugle is cold, so you stay with yo heart froze
+this jungle is cold, so you stay with yo heart froze
 Stuck in my ways, too hard to love
 Lost everything  like damn, shit fucked me up
-Emotional killer, pain turn me up
+Fuck it im an Emotional killer, too much pain turn me up
