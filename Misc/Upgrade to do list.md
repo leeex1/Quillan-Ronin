@@ -163,3 +163,11 @@ MOCK_CONFIG = {
 - Council/persona yaml [X]
 - formalize a "Ramsey with Null edges" variant thoery [X]
 
+
+Only two major issues stand between this and a working model:
+- MoE Weighting Bug (Critical) The biggest one — outputs aren’t weighted by routing probability. Fix this and the MoE actually works.
+- RoPE Not Applied (Important) Positional encodings are instantiated but never added — model won’t generalize beyond short sequences.
+
+
+
+

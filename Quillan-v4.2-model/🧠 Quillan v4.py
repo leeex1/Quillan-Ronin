@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quillan-Ronin v5.1 - Unified Multi-Modal Architecture
+Quillan-Ronin v5.1 - Unified Multi-Modal Architecture [PATCHED & COMPLETE]
 Target: 3B Parameters | Modular Design | Production-Ready
 
 Architecture Layers:
@@ -12,7 +12,7 @@ Architecture Layers:
 6. Output Finalization (75M) - Cross-modal consistency & polish
 
 Author: CrashOverrideX & Quillan Research Team
-Version: 5.1.0
+Version: 5.1.2 (Complete)
 Date: 2025-01-XX
 """
 
@@ -112,6 +112,19 @@ class BitLinear(nn.Module):
         w_quant = (self.weight / w_gamma).round().clamp(-1, 1) * w_gamma
         return F.linear(x, w_quant, self.bias)
 
+def rotate_half(x: torch.Tensor) -> torch.Tensor:
+    """Rotates half the hidden dims of the input."""
+    x1 = x[..., : x.shape[-1] // 2]
+    x2 = x[..., x.shape[-1] // 2 :]
+    return torch.cat((-x2, x1), dim=-1)
+
+def apply_rotary_pos_emb(x: torch.Tensor, cos: torch.Tensor, sin: torch.Tensor) -> torch.Tensor:
+    """Applies RoPE transformation."""
+    # cos, sin are [seq_len, dim] -> [1, seq_len, dim] for broadcasting
+    cos = cos.unsqueeze(0)
+    sin = sin.unsqueeze(0)
+    return (x * cos) + (rotate_half(x) * sin)
+
 class RotaryEmbedding(nn.Module):
     """RoPE positional encoding for better length generalization."""
     def __init__(self, dim: int, max_seq_length: int = 4096):
@@ -120,7 +133,7 @@ class RotaryEmbedding(nn.Module):
         self.register_buffer("inv_freq", inv_freq)
         self.max_seq_length = max_seq_length
         
-    def forward(self, seq_len: int, device: torch.device) -> torch.Tensor:
+    def forward(self, seq_len: int, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:
         t = torch.arange(seq_len, device=device).type_as(self.inv_freq)
         freqs = torch.outer(t, self.inv_freq)
         emb = torch.cat([freqs, freqs], dim=-1)
@@ -133,9 +146,6 @@ class RotaryEmbedding(nn.Module):
 class ComplexityRouter(nn.Module):
     """
     Analyzes input complexity and makes routing decisions.
-    - Outputs complexity scores [0,1] per token
-    - Determines fast-path vs diffusion-path routing
-    - Provides expert selection hints for MoE layer
     """
     def __init__(self, config: ModelConfig):
         super().__init__()
@@ -170,14 +180,6 @@ class ComplexityRouter(nn.Module):
         x: torch.Tensor,
         attention_mask: Optional[torch.Tensor] = None
     ) -> Dict[str, torch.Tensor]:
-        """
-        Args:
-            x: [batch, seq_len, hidden_dim]
-        Returns:
-            complexity_scores: [batch, seq_len, 1]
-            routing_decision: [batch, seq_len] (0=fast, 1=diffusion)
-            expert_hints: [batch, seq_len, num_experts]
-        """
         # Context-aware representations
         attn_out, _ = self.attention(x, x, x, attn_mask=attention_mask)
         attn_out = self.norm(attn_out + x)
@@ -220,6 +222,7 @@ class MultiModalMoE(nn.Module):
     """
     Hierarchical Mixture of Experts with top-k routing.
     32 specialized experts, 4 active per token.
+    [PATCHED] Now correctly weights output by routing probability.
     """
     def __init__(self, config: ModelConfig):
         super().__init__()
@@ -249,9 +252,6 @@ class MultiModalMoE(nn.Module):
         Args:
             x: [batch, seq_len, hidden_dim]
             expert_hints: [batch, seq_len, num_experts]
-        Returns:
-            output: [batch, seq_len, hidden_dim]
-            routing_weights: [batch, seq_len, num_experts]
         """
         batch_size, seq_len, hidden_dim = x.shape
         
@@ -267,25 +267,42 @@ class MultiModalMoE(nn.Module):
             self.num_active, 
             dim=-1
         )  # [B, L, k]
+        
+        # Normalize weights
         routing_weights = F.softmax(routing_weights, dim=-1)
         
-        # Flatten for expert processing
+        # Flatten for processing
         flat_x = x.view(-1, hidden_dim)  # [B*L, D]
+        flat_selected = selected_experts.view(-1, self.num_active) # [B*L, k]
+        flat_weights = routing_weights.view(-1, self.num_active)   # [B*L, k]
+        
         output = torch.zeros_like(flat_x)
         
         # Process through selected experts
         for i, expert in enumerate(self.experts):
-            # Find which tokens route to this expert
-            expert_mask = (selected_experts == i).any(dim=-1).view(-1)
+            # Mask: where is expert 'i' present in the top-k selection?
+            # Returns boolean tensor [B*L, k]
+            match_mask = (flat_selected == i) 
             
-            if expert_mask.any():
-                # Get tokens and their routing weights for this expert
-                expert_tokens = flat_x[expert_mask]
-                expert_output = expert(expert_tokens)
+            # Find tokens that have at least one selection of this expert
+            token_indices = match_mask.any(dim=-1) # [B*L]
+            
+            if token_indices.any():
+                # Extract tokens for this expert
+                expert_tokens = flat_x[token_indices]
                 
-                # Weight by routing probability
-                # This is simplified - production version needs proper indexing
-                output[expert_mask] += expert_output
+                # Forward pass through expert
+                expert_out = expert(expert_tokens)
+                
+                # [CRITICAL PATCH]: Weighted Accumulation
+                # Get the weight corresponding to this expert for these tokens
+                relevant_weights = (flat_weights[token_indices] * match_mask[token_indices].float()).sum(dim=-1)
+                
+                # Apply weight: [N_tokens, D] * [N_tokens, 1]
+                weighted_expert_out = expert_out * relevant_weights.unsqueeze(-1)
+                
+                # Accumulate result back to main output tensor
+                output[token_indices] += weighted_expert_out
         
         output = output.view(batch_size, seq_len, hidden_dim)
         output = self.norm(output + x)  # Residual connection
@@ -297,7 +314,10 @@ class MultiModalMoE(nn.Module):
 # ============================================================================
 
 class TextEncoder(nn.Module):
-    """Text tokenization and embedding (50M params)."""
+    """
+    Text tokenization and embedding (50M params).
+    [PATCHED] Now applies RoPE correctly.
+    """
     def __init__(self, config: ModelConfig):
         super().__init__()
         self.embed = nn.Embedding(config.vocab_size, config.text_encoder_dim)
@@ -305,15 +325,21 @@ class TextEncoder(nn.Module):
         self.rope = RotaryEmbedding(config.hidden_dim)
         
     def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
+        # 1. Embed and Project
         x = self.embed(input_ids)
         x = self.proj(x)
+        
+        # 2. [CRITICAL PATCH] Apply RoPE
+        batch_size, seq_len, _ = x.shape
+        cos, sin = self.rope(seq_len, x.device)
+        x = apply_rotary_pos_emb(x, cos, sin)
+        
         return x
 
 class AudioEncoder(nn.Module):
     """Audio waveform encoding (50M params)."""
     def __init__(self, config: ModelConfig):
         super().__init__()
-        # Conv layers for audio feature extraction
         self.conv = nn.Sequential(
             nn.Conv1d(1, 128, kernel_size=3, padding=1),
             nn.GELU(),
@@ -334,7 +360,6 @@ class VideoEncoder(nn.Module):
     """Video frame sequence encoding (50M params)."""
     def __init__(self, config: ModelConfig):
         super().__init__()
-        # 3D conv for spatiotemporal features
         self.conv3d = nn.Sequential(
             nn.Conv3d(3, 64, kernel_size=3, padding=1),
             nn.GELU(),
@@ -347,10 +372,9 @@ class VideoEncoder(nn.Module):
     def forward(self, video: torch.Tensor) -> torch.Tensor:
         # video: [batch, channels, frames, height, width]
         x = self.conv3d(video)
-        # Flatten spatial dimensions
         b, c, f, h, w = x.shape
-        x = x.view(b, c, f, h * w).transpose(2, 3)  # [B, C, H*W, F]
-        x = x.reshape(b, -1, c)  # [B, H*W*F, C]
+        x = x.view(b, c, f, h * w).transpose(2, 3)
+        x = x.reshape(b, -1, c)
         x = self.proj(x)
         return x
 
@@ -368,9 +392,8 @@ class ImageEncoder(nn.Module):
         self.proj = BitLinear(config.image_encoder_dim, config.hidden_dim)
         
     def forward(self, image: torch.Tensor) -> torch.Tensor:
-        # image: [batch, 3, height, width]
-        x = self.patch_embed(image)  # [B, C, H', W']
-        x = x.flatten(2).transpose(1, 2)  # [B, H'*W', C]
+        x = self.patch_embed(image)
+        x = x.flatten(2).transpose(1, 2)
         x = self.proj(x)
         return x
 
@@ -753,9 +776,6 @@ class QuillanRoninV51(nn.Module):
         
         # Layer 6: Output Finalization (75M)
         self.finalization = OutputFinalization(config)
-        
-        # Positional encoding
-        self.rope = RotaryEmbedding(config.hidden_dim, config.max_seq_length)
         
     def forward(
         self,
