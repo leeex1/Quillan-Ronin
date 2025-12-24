@@ -169,5 +169,10 @@ Only two major issues stand between this and a working model:
 - RoPE Not Applied (Important) Positional encodings are instantiated but never added — model won’t generalize beyond short sequences.
 
 
+All that’s left is:
+- Adding RoPE to other encoders (audio/video/image — minor)
+- Testing video path (add shape kwargs)
+- Training it
+
 
 

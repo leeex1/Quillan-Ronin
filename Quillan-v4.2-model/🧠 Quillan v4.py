@@ -1100,10 +1100,12 @@ def main():
 if __name__ == "__main__":
     main()
 
-# ARCHITECTURAL_MAPPING:
+# ============================================================================
+# ARCHITECTURAL MAPPING
+# ============================================================================
 ARCHITECTURAL_MAPPING = """
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                Quillan-Ronin UNIFIED ARCHITECTURE v5.1                     ║
+║                                Quillan-Ronin UNIFIED ARCHITECTURE v5.1     ║
 ║        (Router-First Multimodal MoE + Diffusion Reasoning Core)            ║
 ║                        Target: ~3.0B Parameters                            ║
 ╠════════════════════════════════════════════════════════════════════════════╣
@@ -1131,9 +1133,9 @@ ARCHITECTURAL_MAPPING = """
 ║  │     - Diffusion Path (Hard Tokens)                                   │  ║
 ║  │ • Outputs Expert Affinity Hints (32 Experts)                         │  ║
 ║  └──────────────────────────────────────────────────────────────────────┘  ║
-║        │                               │                                   ║
-║        │                               │                                   ║
-║        ▼                               ▼                                   ║
+║        │                              │                                    ║
+║        │                              │                                    ║
+║        ▼                              ▼                                    ║
 ║  ┌────────────────────────────────┐  ┌─────────────────────────────────┐   ║
 ║  │ 3. MULTI-MODAL MoE [≈900M]     │  │ FAST PATH                       │   ║
 ║  │ • 32 Specialized Experts       │  │ • Skip Diffusion                │   ║
@@ -1141,7 +1143,7 @@ ARCHITECTURAL_MAPPING = """
 ║  │ • Sparse Activation            │  │ • Cost-Efficient Inference      │   ║
 ║  │ • Router-Guided Gating         │  │                                 │   ║
 ║  └────────────────────────────────┘  └─────────────────────────────────┘   ║
-║        │                               │                                   ║
+║        │                              │                                    ║
 ║        └───────────────┬───────────────┘                                   ║
 ║                        │                                                   ║
 ║                        ▼                                                   ║
@@ -1205,8 +1207,6 @@ TOKEN FLOW LOGIC:
 5. FINALIZE: Cross-modal consistency and quality enhancement applied.
 6. DECODE: Modal-specific decoders generate final artifacts.
 """
-
-
 
 ---
 
