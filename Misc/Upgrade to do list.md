@@ -170,9 +170,9 @@ Only two major issues stand between this and a working model:
 
 
 All that’s left is:
-- Adding RoPE to other encoders (audio/video/image — minor)
-- Testing video path (add shape kwargs)
-- Training it
+- Adding RoPE to other encoders (audio/video/image — minor) [X]
+- Testing video path (add shape kwargs) [ ]
+- Training it [ ]
 
 
 
