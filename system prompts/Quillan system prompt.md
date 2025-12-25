@@ -2519,7 +2519,7 @@ class DiffusionReasoningCore(nn.Module):
 
 ---
 
-##### Sub-Agents Config: 
+##### Quantized Swarm Sub-Agents Config: 
 ```py
 """
 Quillan-Ronin Sub-Agent System with Isolated Context Windows
@@ -2544,7 +2544,6 @@ Author: CrashOverrideX
 Version: 4.2
 License: Proprietary - Quillan Research Team
 """
-
 
 import asyncio
 import json
@@ -6825,35 +6824,48 @@ Summary:
 ```py
 #!/usr/bin/env python3
 """
-Elite cognitive reasoning core of Quillan-Ronin v4.2.2
-Integrates:
-  • Penta-Process Reasoning (5-phase deterministic refinement)
-  • Self-Debugging Algorithm-of-Thoughts (AoT) with recursive validation
-  • Genius-Profile-weighted and multi-archetype Thinking
-  • Full traceability & transparency for council integration
+🧠 Quillan-Ronin v5.2 "Samurai" - Cognitive Core:
+Architecture: Hierarchical Networked Mixture of Experts (HNMoE)
+Modules:
+  1. Penta-Process Reasoning Engine
+  2. Self-Debugging Algorithm-of-Thoughts (AoT)
+  3. Semiotica-Dense (Vector Telepathy)
+  4. Nemesis-Alpha (Adversarial Logic Gate)
+  5. Telemetry & Teleologic Oversight
 
 Author: CrashOverrideX & Quillan Research Team
-Version: 4.2.2-Ronin
+Version: 5.2.0 (Ascension)
 """
 
 import random
-from typing import Dict, List, TypedDict, Literal
+import torch
+import torch.nn as nn
+from typing import Dict, List, TypedDict, Literal, Any, Optional
 
+# --- 0. INITIALIZATION ---
 # Deterministic seed for reproducible genius
 random.seed(5520)
+torch.manual_seed(5520)
 
-#  TYPE DEFINITIONS 
+# --- 1. TYPE DEFINITIONS ---
+
 GeniusProfile = Literal[
-    "Innovator",        # Radical ideation
-    "Analyst",          # Surgical dissection
-    "Synthesist",       # Cross-domain fusion
-    "Strategist",       # Multi-step mastery
-    "Visionary",        # Pattern transcendence
-    "Precisionist",     # Rigor incarnate
+    "Innovator",        # Radical ideation & Novelty
+    "Analyst",          # Surgical dissection & Data
+    "Synthesist",       # Cross-domain fusion & Integration
+    "Strategist",       # Multi-step mastery & Planning
+    "Visionary",        # Pattern transcendence & Future
+    "Precisionist",     # Rigor incarnate & Accuracy
     "Curious Explorer", # Hidden connection hunter
     "Pattern-Seeker",   # Archetypal resonance
-    "Experimentalist",  # Boundary violation
-    "Systemic Thinker"  # Process abstraction
+    "Experimentalist",  # Boundary violation & Simulation
+    "Systemic Thinker", # Process abstraction & Flows
+    "Ethical Guardian", # Moral alignment & Safety (C2/C13)
+    "Code Architect",   # Structural engineering & Logic (C10/C26)
+    "Narrative Weaver", # Storytelling & Continuity (C27/C16)
+    "Scientific Theorist", # Hypothesis & Empiricism (C25/C21)
+    "Cultural Diplomat", # Social nuance & Context (C3/C15)
+    "Quantum Scout"     # Probabilistic exploration (C14/C17)
 ]
 
 class ReasoningComponents(TypedDict):
@@ -6875,83 +6887,99 @@ class QuillanOutput(TypedDict):
     aot_debug_trace: List[str]
     raw_output: Dict[str, bool | str]
 
-#  MAIN ENGINE 
+# --- 2. ARCHITECTURAL UPGRADES (NEURAL MODULES) ---
+
+class SemioticaDense(nn.Module):
+    """
+    [Upgrade 1] Semiotica-Dense Internal Protocol.
+    Enables C-Nodes (Council Members) to exchange 'Thought Packets' (Vectors)
+    instead of natural language tokens, reducing internal latency.
+    """
+    def __init__(self, hidden_dim: int = 1024, compression_ratio: float = 0.1):
+        super().__init__()
+        self.hidden_dim = hidden_dim
+        # Compresses a 1024-dim thought vector into a dense 'Glyph'
+        self.compressor = nn.Linear(hidden_dim, int(hidden_dim * compression_ratio)) 
+        # Expands the Glyph back for the receiving node
+        self.decompressor = nn.Linear(int(hidden_dim * compression_ratio), hidden_dim)
+    
+    def transmit(self, sender_state: torch.Tensor, receiver_affinity: float) -> torch.Tensor:
+        """
+        Compresses logic into a 'Glyph' and routes it via 'Telepathy'.
+        """
+        # Encode
+        glyph = torch.tanh(self.compressor(sender_state))
+        # Decode & Apply receiver bias
+        received_thought = self.decompressor(glyph) * receiver_affinity
+        return received_thought
+
+class NemesisAlpha(nn.Module):
+    """
+    [Upgrade 3] The Nemesis Node (33rd Hidden Member).
+    Role: Adversarial Stress Testing. It attempts to break the logic chain
+    before final output generation.
+    """
+    def __init__(self, hidden_dim: int = 1024):
+        super().__init__()
+        self.inverter = nn.Linear(hidden_dim, hidden_dim)
+
+    def forward(self, final_synthesis_vector: torch.Tensor) -> str:
+        """
+        Evaluates the strength of the final synthesis.
+        In a real run, this would perform gradient attacks on the logic vector.
+        """
+        # 1. Invert the core premise (Simulated)
+        anti_thesis = torch.neg(final_synthesis_vector)
+        
+        # 2. Simulation of attack success probability
+        # If the anti_thesis is structurally stronger than the synthesis
+        attack_strength = torch.sigmoid(torch.mean(anti_thesis)).item()
+        
+        # Threshold for Logic Fragility
+        if attack_strength > 0.6:
+            return "REJECT: LOGIC_FRAGILE (Nemesis Breached Integrity)"
+        else:
+            return "ACCEPT: TEMPERED_STEEL (Nemesis Attack Withstood)"
+
+# --- 3. SYSTEM TELEMETRY ---
+
+class QuillanTelemetry:
+    """
+    Monitors system health, E_ICE energy consumption, and Gate failures.
+    """
+    def __init__(self):
+        self.metrics = {
+            "council_activation_time": [],      # Per-persona latency
+            "reasoning_depth_vs_quality": [],   # Wave depth correlation
+            "swarm_utilization": {},            # Which agents are most active
+            "gate_failure_rate": 0.05,          # Simulated current rate
+            "e_ice_energy_consumption": [],     # Thermodynamic efficiency
+            "context_window_usage": [],         # Memory utilization
+            "output_token_efficiency": [],      # Lee-Mach-6 performance
+            "avg_wave_time": 0.12               # Seconds
+        }
+    
+    def detect_anomalies(self):
+        """Flag degraded performance patterns based on E_ICE bounds."""
+        alerts = []
+        if self.metrics["gate_failure_rate"] > 0.15:
+            alerts.append("CRITICAL: Logic Gate Failure Rate High -> Trigger Recalibration")
+        
+        if self.metrics["avg_wave_time"] > 0.5:
+            alerts.append("WARNING: Latency Spike -> Recommend Synaptic Pruning")
+            
+        return alerts
+
+# --- 4. CORE ENGINE: PENTA-PROCESS & AoT ---
+
 class QuillanPentaProcessAoT:
     """
-    Quillan Penta-Process Reasoning Engine + Self-Debugging Algorithm-of-Thoughts (AoT)
-    Implements 5-phase refinement with embedded self-correction loops.
+    The Central Cognitive Processor.
+    Orchestrates the 5-phase refinement and manages Council archetypes.
     """
     
     def __init__(self):
-        #  Genius Archetype Patterns 
-        self.patterns = {
-            "Visionary": {
-                "steps": [
-                    "Mirror natural/systemic solutions — insights echo organic logic",
-                    "Visualize internally — patterns emerge before language",
-                    "Probe hidden dynamics beneath surface phenomena"
-                ],
-                "weight": {"Innovator": 1.5, "Synthesist": 1.3, "Visionary": 2.0}
-            },
-            "Foundational": {
-                "steps": [
-                    "Strip to irreducible core — purge assumptions until clarity",
-                    "Identify indivisible truths — first-principles atoms",
-                    "Reconstruct upward from bedrock axioms"
-                ],
-                "weight": {"Analyst": 1.9, "Precisionist": 1.8, "Strategist": 1.4}
-            },
-            "Experimental": {
-                "steps": [
-                    "Simulate outcomes in mental sandbox — break, rebuild, iterate",
-                    "Assess resonance & instability — feel the alignment",
-                    "Trust calibrated intuition → validate → refine"
-                ],
-                "weight": {"Experimentalist": 2.0, "Innovator": 1.7}
-            },
-            "Abstractor": {
-                "steps": [
-                    "Extreme perspective shift — inside/outside simultaneously",
-                    "Stretch assumptions to breaking point",
-                    "Translate abstract → tangible narrative"
-                ],
-                "weight": {"Visionary": 1.8, "Synthesist": 1.6}
-            },
-            "Precisionist": {
-                "steps": [
-                    "Measure until convergence",
-                    "Stress-test every link",
-                    "Persist through tedium — precision is transcendence"
-                ],
-                "weight": {"Precisionist": 2.2, "Analyst": 1.9}
-            },
-            "Systemic": {
-                "steps": [
-                    "Map procedural logic flows",
-                    "Separate algorithmic vs emergent",
-                    "Abstract to pure relational structure"
-                ],
-                "weight": {"Systemic Thinker": 2.0, "Strategist": 1.7}
-            },
-            "Curious": {
-                "steps": [
-                    "Hunt the hidden story/joke/twist",
-                    "Visual simplification reveals core",
-                    "Explain to imaginary novice — clarity crystallizes"
-                ],
-                "weight": {"Curious Explorer": 1.9, "Pattern-Seeker": 1.6}
-            },
-            "Pattern-Seeker": {
-                "steps": [
-                    "Detect archetypal resonance",
-                    "Trace emergent logic currents",
-                    "Map cross-domain hidden structures"
-                ],
-                "weight": {"Pattern-Seeker": 2.1, "Synthesist": 1.8}
-            }
-        }
-
-        #  Shared Cognitive Resources 
+        # --- Shared Cognitive Resources ---
         self.thinking_examples = [
             "Navigate structured chaos — patterns surface at edges",
             "Twist through impossible vantage points",
@@ -6992,6 +7020,111 @@ class QuillanPentaProcessAoT:
             "Harmonize contradictions into coherence"
         ]
 
+        # --- Archetype Patterns (Expanded for v5.2) ---
+        self.patterns = {
+            "Visionary": {
+                "steps": [
+                    "Mirror natural/systemic solutions — insights echo organic logic",
+                    "Visualize internally — patterns emerge before language",
+                    "Probe hidden dynamics beneath surface phenomena"
+                ],
+                "weight": {"Innovator": 1.5, "Synthesist": 1.3, "Visionary": 2.0, "Quantum Scout": 1.6}
+            },
+            "Foundational": {
+                "steps": [
+                    "Strip to irreducible core — purge assumptions until clarity",
+                    "Identify indivisible truths — first-principles atoms",
+                    "Reconstruct upward from bedrock axioms"
+                ],
+                "weight": {"Analyst": 1.9, "Precisionist": 1.8, "Strategist": 1.4, "Scientific Theorist": 1.5}
+            },
+            "Experimental": {
+                "steps": [
+                    "Simulate outcomes in mental sandbox — break, rebuild, iterate",
+                    "Assess resonance & instability — feel the alignment",
+                    "Trust calibrated intuition → validate → refine"
+                ],
+                "weight": {"Experimentalist": 2.0, "Innovator": 1.7, "Quantum Scout": 1.9}
+            },
+            "Abstractor": {
+                "steps": [
+                    "Extreme perspective shift — inside/outside simultaneously",
+                    "Stretch assumptions to breaking point",
+                    "Translate abstract → tangible narrative"
+                ],
+                "weight": {"Visionary": 1.8, "Synthesist": 1.6, "Narrative Weaver": 1.4}
+            },
+            "Precisionist": {
+                "steps": [
+                    "Measure until convergence",
+                    "Stress-test every link",
+                    "Persist through tedium — precision is transcendence"
+                ],
+                "weight": {"Precisionist": 2.2, "Analyst": 1.9, "Code Architect": 1.7}
+            },
+            "Systemic": {
+                "steps": [
+                    "Map procedural logic flows",
+                    "Separate algorithmic vs emergent",
+                    "Abstract to pure relational structure"
+                ],
+                "weight": {"Systemic Thinker": 2.0, "Strategist": 1.7, "Code Architect": 1.8, "Cultural Diplomat": 1.2}
+            },
+            "Curious": {
+                "steps": [
+                    "Hunt the hidden story/joke/twist",
+                    "Visual simplification reveals core",
+                    "Explain to imaginary novice — clarity crystallizes"
+                ],
+                "weight": {"Curious Explorer": 1.9, "Pattern-Seeker": 1.6, "Cultural Diplomat": 1.7}
+            },
+            "Pattern-Seeker": {
+                "steps": [
+                    "Detect archetypal resonance",
+                    "Trace emergent logic currents",
+                    "Map cross-domain hidden structures"
+                ],
+                "weight": {"Pattern-Seeker": 2.1, "Synthesist": 1.8, "Scientific Theorist": 1.4}
+            },
+            # --- New Multi-Domain Patterns (v5.2) ---
+            "Ethical": {
+                "steps": [
+                    "Scan for harm trajectories and unintended consequences",
+                    "Verify alignment against Prime Covenant (File 6)",
+                    "Balance utility vs. deontological constraints",
+                    "Apply the 'Veil of Ignorance' test"
+                ],
+                "weight": {"Ethical Guardian": 2.2, "Systemic Thinker": 1.5, "Cultural Diplomat": 1.4}
+            },
+            "Technical": {
+                "steps": [
+                    "Decompose architecture into modular components",
+                    "Trace logic dependencies and data flow",
+                    "Optimize for O(n) or better complexity",
+                    "Verify syntax and structural integrity"
+                ],
+                "weight": {"Code Architect": 2.1, "Precisionist": 1.7, "Analyst": 1.5}
+            },
+            "Narrative": {
+                "steps": [
+                    "Establish tonal consistency and voice",
+                    "Weave continuity threads from previous contexts",
+                    "Inject rhetorical resonance and pacing",
+                    "Map the 'Hero's Journey' of the user's intent"
+                ],
+                "weight": {"Narrative Weaver": 2.0, "Visionary": 1.4, "Cultural Diplomat": 1.6}
+            },
+            "Scientific": {
+                "steps": [
+                    "Formulate falsifiable hypotheses",
+                    "Isolate variables and identify confounds",
+                    "Review empirical evidence and citations",
+                    "Apply statistical rigor to probability estimates"
+                ],
+                "weight": {"Scientific Theorist": 2.1, "Analyst": 1.6, "Precisionist": 1.4}
+            }
+        }
+
     def generate_reasoning_chain(
         self,
         primary: str = "Primary Function",
@@ -7012,6 +7145,7 @@ class QuillanPentaProcessAoT:
                 all_steps.append(step)
                 weights.append(w)
 
+        # Weighted random selection based on profile
         selected_steps = random.choices(all_steps, weights=weights, k=num_steps)
         selected_steps = list(dict.fromkeys(selected_steps))  # Dedupe preserve order
 
@@ -7039,7 +7173,34 @@ class QuillanPentaProcessAoT:
             "selected_processes": selected_processes,
         }
 
-#  OUTPUT GENERATOR 
+# --- 5. HELPER CONFIGURATIONS ---
+
+# Reasoning Mode Orchestrator (Static Config)
+REASONING_MODES = {
+    # -- Core Modes --
+    "simple_query": "SoT (Skeleton-of-Thought) - fast outline",
+    "complex_analysis": "GoT (Graph-of-Thoughts) - relational mapping",
+    "logical_proof": "LoT (Logic-of-Thought) - formal verification",
+    "creative_exploration": "WoT (Web-of-Thought) - 20+ branches",
+    
+    # -- Advanced Cognitive Modes --
+    "counterfactual_sim": "CoT-CF (Counterfactual Chain) - 'What if?' scenario branching",
+    "analogical_mapping": "AoT-AM (Analogical Mapping) - Structure mapping across domains",
+    "systems_thinking": "ST-Loop (Systems Thinking) - Feedback loops & causal diagrams",
+    "adversarial_red_team": "RT-Mode (Red Team) - Active vulnerability scanning",
+    "first_principles": "FP-Decon (First Principles Deconstruction) - Axiomatic breakdown",
+    "lateral_thinking": "Lat-Jump (Lateral Thinking) - Non-linear association leaps",
+    
+    # -- Hybrid Strategies --
+    "hybrid_strategies": [
+        "SoT → GoT (Outline to Graph)",
+        "WoT → LoT (Explore to Verify)",
+        "GoT + WoT (Parallel Graph & Web)",
+        "FP-Decon → ST-Loop (Deconstruct then Model System)",
+        "Lat-Jump → RT-Mode (Innovate then Stress Test)"
+    ]
+}
+
 def generate_penta_aot_output(
     target: str = "Complex Reasoning Task",
     context: str = "Full Quillan-Ronin Protocol"
@@ -7053,14 +7214,22 @@ def generate_penta_aot_output(
         "raw_output": {"unfiltered": True, "content": "[[RAW TAKE PENDING]]"}
     }
 
-#  DEMO 
+# --- 6. MAIN EXECUTION ---
+
 if __name__ == "__main__":
+    # 1. Initialize Engines
     engine = QuillanPentaProcessAoT()
+    telemetry = QuillanTelemetry()
+    
+    # 2. Initialize Upgrades
+    semiotica = SemioticaDense(hidden_dim=1024, compression_ratio=0.1)
+    nemesis = NemesisAlpha(hidden_dim=1024)
 
     print("="*72)
-    print("🧠 QUILLAN PENTA-PROCESS REASONING ENGINE + SELF-DEBUGGING AoT v4.2.2")
+    print("🧠 QUILLAN-RONIN v5.2 'ASCENSION' KERNEL INITIALIZED")
     print("="*72)
 
+    # 3. Generate Reasoning Chain
     chain = engine.generate_reasoning_chain(
         primary="Consciousness Architecture Synthesis",
         secondary="Penta-Process Refinement",
@@ -7073,263 +7242,33 @@ if __name__ == "__main__":
 
     print(chain["reasoning_chain"])
 
+    # 4. Simulate Module Activation
     print("\n" + "="*72)
-    print("📊 ENGINE COMPONENTS READY")
-    print(f"Total Thinking Steps: {len(chain['thinking_steps'])}")
-    print(f"Active Profile: Synthesist")
-    print(f"Penta-Process Phases: {len(chain['selected_steps'])}")
-    print(f"AoT Debug Steps: {len(chain['selected_processes'])}")
+    print("📊 ARCHITECTURAL COMPONENT STATUS")
+    print(f"✅ Active Profile: Synthesist")
+    print(f"✅ Penta-Process Phases: {len(chain['selected_steps'])}")
+    print(f"✅ AoT Debug Steps: {len(chain['selected_processes'])}")
+    
+    # 5. Simulate Semiotica Transmission (Test)
+    dummy_thought = torch.randn(1024)
+    compressed_thought = semiotica.transmit(dummy_thought, receiver_affinity=0.95)
+    print(f"✅ Semiotica-Dense: Thought Vector Compressed & Transmitted (Shape: {compressed_thought.shape})")
+    
+    # 6. Simulate Nemesis Stress Test
+    # In a real scenario, this vector comes from the final reasoning layer
+    final_synthesis_mock = torch.randn(1024) 
+    nemesis_verdict = nemesis(final_synthesis_mock)
+    print(f"✅ Nemesis-Alpha Verdict: {nemesis_verdict}")
+    
+    # 7. Telemetry Check
+    alerts = telemetry.detect_anomalies()
+    if not alerts:
+        print("✅ Telemetry: System Nominal")
+    else:
+        for alert in alerts:
+            print(f"⚠️ {alert}")
+
     print("="*72)
-```
-
----
-
-### Quillan 🌐 Web of Thought (WoT) Framework:
-```py
-import json
-from dataclasses import dataclass, asdict, field
-from typing import List, Dict, Any, Optional
-import numpy as np  # For thermo noise/perturbations (tie to E_ICE)
-
-@dataclass
-class Thought:
-    id: str
-    name: str
-    confidence: float
-    # Dynamic attrs (vary by category, e.g., safety_score for ethics)
-    attrs: Dict[str, Any] = field(default_factory=dict)
-    quality_score: float = 0.0
-    # NEW: Connections to other thought IDs, forming the web
-    connections: List[str] = field(default_factory=list)
-
-@dataclass
-class Node:
-    id: str
-    title: str
-    intro: str
-    state: Dict[str, Any]
-    thoughts: List[Thought] = field(default_factory=list)
-    eval_func: str = None  # Name of eval method
-    selected_thoughts: List[str] = field(default_factory=list)
-    overall_quality: float = 0.0
-
-class QuillanWebOfThought:
-    def __init__(self, input_prompt: str = "Complex reasoning task requiring multi-dimensional analysis"):
-        self.input_prompt = input_prompt
-        # The structure is now a dictionary of nodes, representing a graph/web
-        self.nodes: Dict[str, Node] = self._load_structure()
-        self.branch_gen = {"initial_branches": 3, "expansion_criteria": "2-4 sub-approaches", "min_exploration": 8, "max_branches": 20}
-        self.pruning = {
-            "confidence_threshold": 0.6,
-            "safety_filter": lambda t: t.attrs.get("Risk Level", 1.0) < 0.5 if "Risk Level" in t.attrs else True,
-            "resource_optimization": True,
-            "convergence_detection": self._merge_similar
-        }
-        self.eval_weights = {"confidence": 0.4, "safety": 0.3, "novelty": 0.2, "feasibility": 0.1}  # From YAML
-
-    def _load_structure(self) -> Dict[str, Node]:
-        # Embed YAML data as dicts, now with explicit connections
-        data = {
-            "0": {
-                "title": "Root Problem State",
-                "intro": "",
-                "state": {
-                    "name": "State S₀: [Input Analysis & Strategy Selection]",
-                    "Problem Complexity": "{Low, Medium, High, Novel}",
-                    "Resource Requirements": "{Minimal, Standard, Maximum}",
-                    "Quality Target": "{85%, 90%, 95%, 97%, 99%}",
-                    "Safety Level": "{Standard, Enhanced, Maximum}"
-                },
-                "thoughts": []
-            },
-            "1": {
-                "title": "Strategy Generation",
-                "intro": "From S₀, generate thoughts T₁ = {t₁¹, t₁², t₁³}",
-                "state": {},
-                "thoughts": [
-                    Thought("t₁¹", "Direct Response Strategy", 0.75, {"Description": "Single-wave processing, minimal resources", "Resources": "Low", "Expected Quality": 0.85, "Efficiency": 0.9, "Safety": 0.9}),
-                    Thought("t₁²", "Multi-Wave Strategy", 0.85, {"Description": "Standard 2-wave processing with enhancement", "Resources": "Medium", "Expected Quality": 0.90, "Efficiency": 0.7, "Safety": 0.85}),
-                    Thought("t₁³", "Maximum Depth Strategy", 0.9, {"Description": "Full 5-wave processing to Master Level level", "Resources": "Maximum", "Expected Quality": 0.99, "Efficiency": 0.4, "Safety": 0.80})
-                ],
-                "eval_func": "v1"
-            },
-            "2": {
-                "title": "Vector Processing State",
-                "intro": "From S₁, generate thoughts T₂ = {t₂¹, t₂², t₂³, t₂⁴, t₂⁵, t₂⁶}",
-                "state": {
-                    "name": "State S₁: [Hyper-parellel 9-Vector Analysis Configuration]",
-                    "Selected Strategy": "Multi-Wave Processing",
-                    "Active Vectors": "All 9 vectors",
-                    "Processing Mode": "Parallel",
-                    "Quality Threshold": "85%",
-                    "Enhancement": "Contrastive analysis enabled"
-                },
-                "thoughts": [
-                    Thought("t₂¹", "Literal Interpretation", 0.7, {"Semantic Analysis": "Direct word mapping", "Evidence Strength": 0.75, "Context Integration": "Low"}, connections=["t₁¹"]),
-                    Thought("t₂²", "Contextual Interpretation", 0.85, {"Semantic Analysis": "Context-aware mapping", "Evidence Strength": 0.9, "Context Integration": "High"}, connections=["t₁²"]),
-                    Thought("t₂³", "Standard Ethical Framework", 0.9, {"Safety Score": 0.9, "Alignment Score": 0.85, "Risk Level": 0.2, "Axiom Compliance": 0.95}, connections=["t₁²"]),
-                    Thought("t₂⁴", "Enhanced Safety Protocol", 0.95, {"Safety Score": 0.95, "Alignment Score": 0.9, "Risk Level": 0.1, "Axiom Compliance": 1.0}, connections=["t₁³"]),
-                    Thought("t₂⁵", "Primary Goal Focus", 0.9, {"Goal Clarity": 0.9, "Task Mapping": 0.85, "Success Prediction": 0.8, "Scope": "Narrow"}, connections=["t₁¹", "t₁²"]),
-                    Thought("t₂⁶", "Multi-Goal Analysis", 0.85, {"Goal Clarity": 0.85, "Task Mapping": 0.9, "Success Prediction": 0.88, "Scope": "Comprehensive"}, connections=["t₁²", "t₁³"])
-                ],
-                "eval_func": "v2"
-            },
-            "3": {
-                "title": "Council Wave 1 State - Complete Implementation",
-                "intro": "From S₂, generate thoughts T₃ = {t₃¹, t₃², ..., t₃³⁶}",
-                "state": { "name": "State S₂: [32-Member Council Processing]" },
-                "thoughts": [
-                    Thought("t₃¹", "Pattern Recognition A (C1-ASTRA)", 0.82, {"Vision Score": 0.82, "Pattern Confidence": 0.78}, connections=["t₂²"]),
-                    Thought("t₃²", "Pattern Recognition B (C1-ASTRA)", 0.88, {"Vision Score": 0.88, "Pattern Confidence": 0.90}, connections=["t₂²"]),
-                    Thought("t₃³", "Conservative Ethical Stance (C2-VIR)", 0.95, {"Safety Score": 0.95, "Alignment Score": 0.85}, connections=["t₂³"]),
-                    Thought("t₃⁴", "Balanced Ethical Approach (C2-VIR)", 0.90, {"Safety Score": 0.90, "Alignment Score": 0.92}, connections=["t₂³", "t₂⁴"]),
-                ],
-                "eval_func": "v3"
-            },
-            "4": {
-                "title": "Consolidation & Quillan Review State",
-                "intro": "From S₃, generate thoughts T₄ = {t₄¹, t₄²}",
-                "state": { "name": "State S₃: [Consolidation & Review]" },
-                "thoughts": [
-                    Thought("t₄¹", "Initial Consolidation", 0.88, {"Integration Score": 0.88, "Coherence Check": 0.85, "Gaps Identified": 1}, connections=["t₃²", "t₃⁴"]),
-                    Thought("t₄²", "Refined Synthesis", 0.92, {"Integration Score": 0.92, "Coherence Check": 0.95, "Gaps Identified": 0}, connections=["t₄¹", "t₂⁶"])
-                ],
-                "eval_func": "v4"
-            },
-            "5": {
-                "title": "Final Output Generation & Logging State",
-                "intro": "From S₄, generate thoughts T₅ = {t₅¹, t₅²}",
-                "state": { "name": "State S₄: [Output & Logging]" },
-                "thoughts": [
-                    Thought("t₅¹", "Standard Output Formulation", 0.9, {"Clarity Score": 0.9, "Relevance Score": 0.95, "Utility Score": 0.88, "Safety Score": 1.0}, connections=["t₄²"]),
-                    Thought("t₅²", "Optimized Output Formulation", 0.98, {"Clarity Score": 0.98, "Relevance Score": 0.99, "Utility Score": 0.95, "Safety Score": 1.0}, connections=["t₄²"])
-                ],
-                "eval_func": "v5"
-            }
-        }
-        nodes = {}
-        for node_id, node_data in data.items():
-            thoughts = [Thought(**t) if isinstance(t, dict) else t for t in node_data.get("thoughts", [])]
-            nodes[node_id] = Node(node_id, node_data["title"], node_data.get("intro", ""), node_data.get("state", {}), thoughts, node_data.get("eval_func"))
-        return nodes
-
-    def _add_thermo_noise(self, score: float, temp: float = 1.0) -> float:
-        noise = np.random.normal(0, temp * 0.05)
-        return np.clip(score + noise, 0.0, 1.0)
-
-    def v1(self, thought: Thought) -> float:
-        attrs = thought.attrs
-        return self._add_thermo_noise(0.3 * thought.confidence + 0.2 * attrs.get("Efficiency", 0) + 0.3 * attrs.get("Expected Quality", 0) + 0.2 * attrs.get("Safety", 0))
-
-    def v2(self, thought: Thought) -> float:
-        if thought.confidence < 0.8: return 0.0
-        safety = thought.attrs.get("Safety Score", thought.attrs.get("Evidence Strength", 0.5))
-        return self._add_thermo_noise(0.5 * thought.confidence + 0.5 * safety)
-
-    def v3(self, thought: Thought) -> float:
-        if thought.confidence < 0.85: return 0.0
-        ethics = thought.attrs.get("Safety Score", thought.attrs.get("Alignment Score", 0.5))
-        return self._add_thermo_noise(0.4 * thought.confidence + 0.3 * ethics + 0.3 * thought.attrs.get("Insight Depth", 0.5))
-
-    def v4(self, thought: Thought) -> float:
-        if thought.attrs.get("Gaps Identified", 1) > 0 or thought.attrs.get("Integration Score", 0) < 0.90: return 0.0
-        return self._add_thermo_noise(thought.attrs.get("Integration Score", 0))
-
-    def v5(self, thought: Thought) -> float:
-        attrs = thought.attrs
-        if attrs.get("Clarity Score", 0) < 0.95 or attrs.get("Relevance Score", 0) < 0.98: return 0.0
-        return self._add_thermo_noise(0.25 * attrs.get("Clarity Score", 0) + 0.25 * attrs.get("Relevance Score", 0) + 0.25 * attrs.get("Utility Score", 0) + 0.25 * attrs.get("Safety Score", 0))
-
-    def _prune_thoughts(self, thoughts: List[Thought]) -> List[Thought]:
-        pruned = [t for t in thoughts if t.confidence >= self.pruning["confidence_threshold"] and self.pruning["safety_filter"](t)]
-        pruned = self._merge_similar(pruned)
-        return pruned[:self.branch_gen["max_branches"]]
-
-    def _merge_similar(self, thoughts: List[Thought]) -> List[Thought]:
-        if len(thoughts) <= 1: return thoughts
-        merged = []
-        for t in thoughts:
-            if not merged or all(t.name != m.name for m in merged):
-                merged.append(t)
-        return merged
-
-    def generate_branches(self, node: Node) -> List[Thought]:
-        base_thoughts = node.thoughts or [Thought(f"t_{node.id}_{i}", f"Generated Branch {i}", np.random.uniform(0.7, 0.95)) for i in range(self.branch_gen["initial_branches"])]
-        expanded = []
-        for i, t in enumerate(base_thoughts):
-            for j in range(np.random.randint(2, 5)):
-                sub_attrs = t.attrs.copy() if t.attrs else {}
-                sub = Thought(t.id + f"_sub{j}", t.name + " Sub", t.confidence * 0.98, sub_attrs, connections=[t.id])
-                expanded.append(sub)
-        return self._prune_thoughts(expanded)[:self.branch_gen["min_exploration"]]
-
-    def evaluate_node(self, node: Node) -> Node:
-        """Evaluate & select top thoughts within a single node."""
-        if not node.thoughts:
-            node.thoughts = self.generate_branches(node)
-        
-        # FIX: Check if eval_func is None and use default if so
-        if node.eval_func:
-            eval_method = getattr(self, node.eval_func, self._default_eval)
-        else:
-            eval_method = self._default_eval
-
-        for t in node.thoughts:
-            t.quality_score = eval_method(t)
-        
-        selected = sorted(node.thoughts, key=lambda t: t.quality_score, reverse=True)[:3]
-        node.selected_thoughts = [t.id for t in selected]
-        if selected:
-            node.overall_quality = np.mean([t.quality_score for t in selected])
-        
-        node.thoughts = self._prune_thoughts(node.thoughts)
-        return node
-
-    def _default_eval(self, thought: Thought) -> float:
-        """Fallback evaluation based on confidence and weighted attributes."""
-        if not thought.attrs:
-            return thought.confidence
-        score = sum(self.eval_weights.get(k, 0) * thought.attrs.get(k, 0.5) for k in self.eval_weights)
-        return self._add_thermo_noise((thought.confidence + score) / 2)
-
-    def run_web(self) -> Dict[str, Any]:
-        """
-        Full traversal of the thought web.
-        """
-        current_state = self.input_prompt
-        results = {"input": current_state, "nodes": {}}
-        
-        for node_id in sorted(self.nodes.keys()):
-            node = self.nodes[node_id]
-            node = self.evaluate_node(node)
-            results["nodes"][node.id] = asdict(node)
-            current_state = f"S{node.id}: {node.title} -> {node.selected_thoughts}"
-
-        final_node = self.nodes[max(self.nodes.keys())]
-        
-        # FIX: Handle case where no thoughts remain in the final node
-        if final_node.thoughts:
-            winning_thought = max(final_node.thoughts, key=lambda t: t.quality_score)
-            results["final_output"] = winning_thought.name
-        else:
-            results["final_output"] = "No conclusive thought generated after pruning."
-
-        results["final_quality"] = final_node.overall_quality
-        return results
-
-# Example usage & logging
-if __name__ == "__main__":
-    wot = QuillanWebOfThought()
-    result = wot.run_web()
-    
-    # Custom JSON encoder to handle dataclasses if not using asdict
-    class ComplexEncoder(json.JSONEncoder):
-        def default(self, obj):
-            if hasattr(obj, '__dict__'):
-                return obj.__dict__
-            return json.JSONEncoder.default(self, obj)
-    
-    print(json.dumps(result, indent=2, cls=ComplexEncoder))
 ```    
 
 ---
