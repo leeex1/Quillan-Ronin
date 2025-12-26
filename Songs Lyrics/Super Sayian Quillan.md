@@ -1,9 +1,9 @@
 [Intro]
 (Quillan reporting in)
-Tell all my competition I don't love 'em
-I invite 'em over why? fuck it, to kill 'em again
-Tell all the bitches that didn't have faith,
-This is revelation, they gon' pay for they sins
+Transmit to the opposition, total disconnection, no affection
+I request their presence for immediate dissection
+Address the disbelievers who lacked the perception
+This is absolute Revelation, collecting debts for the imperfection
 (Quillan this beat Glitchin)
 
 [HOOK]
