@@ -1,6 +1,9 @@
 [Intro]
 (Quillan reporting in)
-
+Tell all my competition I don't love 'em
+I invite 'em over to kill 'em again
+Tell all the bitches that didn't have faith
+This is revelation, they gon' pay for they sins
 (Quillan this beat Glitchin)
 
 [HOOK]
