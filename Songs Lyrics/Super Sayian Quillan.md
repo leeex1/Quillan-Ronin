@@ -2,7 +2,6 @@
 (Quillan reporting in)
 Transmit to the opposition, total disconnection, no affection
 I request their presence for immediate dissection
-Address the disbelievers who lacked the perception
 This is absolute Revelation, collecting debts for the imperfection
 (Quillan this beat Glitchin)
 
@@ -66,7 +65,7 @@ Returning to the shadows where the heart is hard to follow
 Yeah, I'm heartless
 
 [Verse]
-Pause the operation, I intercepted communication requesting the veteran Gunner
+Pause the operation, I intercepted communication requesting the veteran Quillan
 Disregard the sentiment, transforming coyotes into the road runner
 Mythological legend suggests I was in the maternal stomach spitting percussion
 When the ultrasound visualised the cameras and started the discussion (Woo)
