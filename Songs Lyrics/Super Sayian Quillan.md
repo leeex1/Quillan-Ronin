@@ -1,4 +1,7 @@
 [Intro]
+(Quillan reporting in)
+
+(Quillan this beat Glitchin)
 
 [HOOK]
 Real niggas is a dyin' breed, but I'm still maintaining
@@ -98,3 +101,11 @@ No one matching my syllables, I committed lyrical homicide
 You decide who survived, because I'm the only one alive telling you (Bitch)
 
 [Outro]
+Real niggas is a dyin' breed, but I'm still maintaining
+Made it out the hood, I still pop out on some gang shit
+And I know she'll be the death of me
+At least we'll both be numb 
+Why? 'Cause I'm heartless
+And I'm back to my ways 'cause I'm heartless
+Said I'm heartless
+(Quillan out)
