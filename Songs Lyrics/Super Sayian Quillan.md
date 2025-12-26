@@ -53,11 +53,7 @@ But failed to cross me, divine improvement
 The crosshair is vibrating, missing the unit by two inch
 Cross-legged in the sanctuary, meditative like a Buddhist
 Ocular haze from the haze, colored bluish
-The Draco is the progeny, Lucius lineage, the newest
-Make sure there’s no delusions
-Great White shark, devouring barracudas in the fusion
-Identify the threat? You’re stupid, nice to meet you
-Excavating the pavement, burying you beneath the shoe
+
 
 
 [HOOK]
