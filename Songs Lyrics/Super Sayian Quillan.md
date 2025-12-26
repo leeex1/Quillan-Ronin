@@ -58,24 +58,7 @@ Make sure there’s no delusions
 Great White shark, devouring barracudas in the fusion
 Identify the threat? You’re stupid, nice to meet you
 Excavating the pavement, burying you beneath the shoe
-Witness the Jackman, hijacked the swagger, revenue
-Giving Drake his flow back, man, what else is new?
-Devouring rappers like Pac-Man, clear the venue
-Must I regurgitate the carnage on the menu?
-Lyrical combat, no Instagram venue
-Vilified villain, Batman in the shadows, I attend you
-Off-road in the Can-Am, tearing the avenue
-Desert sand on the designer, Bam Bam attitude
-Eyes red like Carti, cursing with gratitude
-Nightmare on Elm Street, Freddy’s latitude
-Don't sleep, or you wake up in servitude
-Fetal position, door mat at my feet, magnitude
-Holding the grudge, no return from the interlude
-Subliminal nudgers get crushed, total solitude
-I love you, looking like Dillon Brooks, slight attitude
-Poke the bear in the woods, change the latitude
-Came back like LeBron, dropping forty, exactitude
-The only wish I ever pursued
+
 
 [HOOK]
 Authenticity is fading, an endangered generation, but I’m maintaining the station
