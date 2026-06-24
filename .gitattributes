@@ -198,3 +198,4 @@
 *.svg filter=lfs diff=lfs merge=lfs -text
 *.css filter=lfs diff=lfs merge=lfs -text
 *.bak filter=lfs diff=lfs merge=lfs -text
+/training_data/readme filter=lfs diff=lfs merge=lfs -text
