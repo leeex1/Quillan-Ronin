@@ -1,5 +1,0 @@
-* -filter -diff -merge
-*.webp -filter -diff -merge
-*.png -filter -diff -merge
-*.jpg -filter -diff -merge
-*.jpeg -filter -diff -merge
