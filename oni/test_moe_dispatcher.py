@@ -333,8 +333,11 @@ def run_gradcheck_verification():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     BT, C, K, E = 8, 16, 2, 4
 
-    expert = SyntheticExpert(C, ffn_dim=32).to(device).to(torch.float64)
-    experts = [expert for _ in range(E)]
+    # NOTE (post-merge fix): previously `experts = [expert for _ in range(E)]`
+    # aliased ONE object E times, so the gradcheck never exercised distinct
+    # experts. Construct E distinct experts from one seed stream instead.
+    experts = [SyntheticExpert(C, ffn_dim=32).to(device).to(torch.float64)
+               for _ in range(E)]
 
     tokens = torch.randn(BT, C, dtype=torch.float64, device=device, requires_grad=True)
     topk_i = torch.randint(0, E, (BT, K), device=device)
