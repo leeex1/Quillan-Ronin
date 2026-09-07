@@ -6,13 +6,24 @@
 *.json text
 *.md text
 Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+*.m4a filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.pdf filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.bin filter=lfs diff=lfs merge=lfs -text
+*.pt filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
+*.safetensors filter=lfs diff=lfs merge=lfs -text
 *.txt filter=lfs diff=lfs merge=lfs -text
 *.md filter=lfs diff=lfs merge=lfs -text
 *.json filter=lfs diff=lfs merge=lfs -text
 *.project_root filter=lfs diff=lfs merge=lfs -text
 *.gitignore filter=lfs diff=lfs merge=lfs -text
 *.gitnexusignore filter=lfs diff=lfs merge=lfs -text
-*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.py filter=lfs diff=lfs merge=lfs -text
 *.Md filter=lfs diff=lfs merge=lfs -text
 *.ipynb filter=lfs diff=lfs merge=lfs -text
@@ -38,7 +49,6 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.txn filter=lfs diff=lfs merge=lfs -text
 *.manifest filter=lfs diff=lfs merge=lfs -text
 *.0 prompt filter=lfs diff=lfs merge=lfs -text
-*.zip filter=lfs diff=lfs merge=lfs -text
 *.exe filter=lfs diff=lfs merge=lfs -text
 *.yaml filter=lfs diff=lfs merge=lfs -text
 *.ps1 filter=lfs diff=lfs merge=lfs -text
@@ -160,10 +170,7 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.bicep filter=lfs diff=lfs merge=lfs -text
 *.jinja filter=lfs diff=lfs merge=lfs -text
 *.1_Base_Modelfile filter=lfs diff=lfs merge=lfs -text
-*.pdf filter=lfs diff=lfs merge=lfs -text
 /emergent[[:space:]]consciousness[[:space:]]validation[[:space:]]thoerey[[:space:]] filter=lfs diff=lfs merge=lfs -text
-*.pt filter=lfs diff=lfs merge=lfs -text
-*.bin filter=lfs diff=lfs merge=lfs -text
 *.binary filter=lfs diff=lfs merge=lfs -text
 *.jsonl filter=lfs diff=lfs merge=lfs -text
 /ace-v4.2-model/mini[[:space:]]think[[:space:]]Modelfile filter=lfs diff=lfs merge=lfs -text
@@ -181,7 +188,6 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 /Quillan[[:space:]]files/E_ICE[[:space:]] filter=lfs diff=lfs merge=lfs -text
 /Quillan-v4.2-model/Quillan-Mini-Modelfile filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
-*.wav filter=lfs diff=lfs merge=lfs -text
 *.tmx filter=lfs diff=lfs merge=lfs -text
 *.tsx filter=lfs diff=lfs merge=lfs -text
 *.ttf filter=lfs diff=lfs merge=lfs -text
@@ -204,11 +210,8 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 /training_data/readme filter=lfs diff=lfs merge=lfs -text
 *.pyc filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text
-*.flac filter=lfs diff=lfs merge=lfs -text
-*.m4a filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
 *.jpeg filter=lfs diff=lfs merge=lfs -text
-*.gif filter=lfs diff=lfs merge=lfs -text
 *.cpp filter=lfs diff=lfs merge=lfs -text
 *.cu filter=lfs diff=lfs merge=lfs -text
 *.nojekyll filter=lfs diff=lfs merge=lfs -text
