@@ -329,3 +329,5 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 /02[[:space:]]-[[:space:]]Knowledge[[:space:]]Foundation/knowledge/legacy/00[[:space:]]-[[:space:]]Templates/Misc/world[[:space:]]modeling[[:space:]]in[[:space:]]context[[:space:]]of[[:space:]]AGI filter=lfs diff=lfs merge=lfs -text
 /08[[:space:]]-[[:space:]]Templates[[:space:]]&[[:space:]]Config/Common[[:space:]]Creative[[:space:]]License filter=lfs diff=lfs merge=lfs -text
 /10[[:space:]]-[[:space:]]Formal[[:space:]]Papers/Patent[[:space:]]rider filter=lfs diff=lfs merge=lfs -text
+*.pyw filter=lfs diff=lfs merge=lfs -text
+*.crdownload filter=lfs diff=lfs merge=lfs -text
