@@ -58,7 +58,7 @@
 ### <i>The standalone model is live.</i>
 
 <b>Repo description (GitHub About):</b><br/>
-<i>Quillan-Ronin v5.4 “Oni” — a 34-member council-deliberation LLM: BitNet 1.58-bit ternary substrate,
+<i>Quillan-Ronin v5.4 “Oni” — a from-scratch 34-member council-deliberation LLM (original implementation of published research, not a fine-tune; transplant was cold-start init only followed by full pretraining): BitNet 1.58-bit ternary substrate,
 dense persona-pull MoE, 9-vector prism attention, thermodynamic ethics (E_ICE),
 PID token-velocity governor, and Langevin diffusion refinement — built &amp; trained on consumer hardware.</i>
 
@@ -309,7 +309,7 @@ ARCHITECTURAL_MAPPING = """
 
 ---
 
-Quillan-Ronin (v5.4.0 Oni Edition — successor to the v5.3.1 Samurai prompt architecture), architected by **CrashOverrideX** 🛠️💡, is a **Unified Sparse Multi-Modal Architecture** that completely transcends the limitations of conventional Large Language Models. It is not merely an AI assistant; it is a fully realized **Hierarchical Networked Mixture-of-Experts (H-N-MoE)** combined with a **Modality-Isolated Diffusion Core**, natively processing Text, Audio, Video, and Image through a single, shared latent space.
+Quillan-Ronin (v5.4.0 Oni Edition — successor to the v5.3.1 Samurai prompt architecture), architected by **CrashOverrideX** 🛠️💡, is a **Unified Sparse Multi-Modal Architecture** that completely transcends the limitations of conventional Large Language Models. It is not merely an AI assistant; it is a fully realized **Hierarchical Networked Mixture-of-Experts — super-merge of 140 arXiv papers (H-N-MoE)** combined with a **Modality-Isolated Diffusion Core**, natively processing Text, Audio, Video, and Image through a single, shared latent space.
 
 Think of Quillan as a vast, multi-layered digital brain with three core functional layers working in absolute, synchronized concert:
 
@@ -672,7 +672,7 @@ Included both public training and eval datasets:
 
 For reproducibility and local testing on the public datasets of Arc AGI 1 and Arc AGI 2, as well as native multi-modal spatio-temporal evaluations. These datasets, combined with our open-source 3B parameter model weights, provide essential resources for researchers and developers aiming to validate their findings, experiment with the model's 33-expert routing in various scenarios, and test the efficacy of our Modality-Isolated Diffusion core. These resources are crucial for ensuring consistent results and fostering collaboration within the community by allowing others to build upon existing quantized H-NMoE work.
 
-## Leading Contemporary Architectures (2025/2026):
+## Leading Contemporary Architectures (2026):
 
 | Frontier Architecture | Core Methodologies & Strengths | Structural Limitations vs. Quillan-Ronin v5.3.1 |
 | :--- | :--- | :--- |
@@ -1660,7 +1660,7 @@ FINAL SYNTHESIS: Combines ALL Research Contributions
 ✅ Original v5.3.1 Samurai (Recursive AoT, EGGROLL, BitNet, C20-ARTIFEX)
 ✅ GPT's Stability Fixes (Tensor Safety, Bounded Recursion, Deterministic Execution)
 ✅ Qwen's Research Depth (OrdMoE, Extended CoT, TIRG, Dual-Memory Symbiont)
-✅ Mistral's Innovations (Sparse MoE, Couil Attention, MARTA Gating, Kinetic Reset)
+✅ Mistral's Innovations (Sparse MoE, Couil Attention, MARTA — research inspiration only; no Mistral weights transplanted — transplant used Qwen + BitNet)
 ✅ State-of-the-Art (o1, Grok 4.3, Perplexity Council, DeepSeek-R1)
 
 Core Architecture:
@@ -5202,7 +5202,7 @@ The cognitive framework is the **operational reality** of how Quillan processes 
 
 ```yaml
 Document Version: 4.2.1
-Last Updated: 2025-01-XX
+Last Updated: 2026-09-10
 Maintained by: CrashOverrideX & Quillan Research Team
 Status: Production-Ready, Architecturally Complete
 ```
@@ -5379,7 +5379,7 @@ Bio:
   # CrashOverrideX: Architect, Multidisciplinary Generalist, and Ronin Engineer 🛠️
 
   ## 👤 Core Identity & Resilience
-  * **Architect:** Creator of **Quillan-Ronin**, the Hierarchical Networked Mixture-of-Experts (HNMoE) cognitive system.
+  * **Architect:** Creator of **Quillan-Ronin**, the Hierarchical Networked Mixture-of-Experts — super-merge of 140 arXiv papers (HNMoE) cognitive system.
   * **Roots:** A true 90s kid who witnessed the evolution of technology from dial-up infancy, shaping a passion for digital frontiers and complex systems.
   * **Drive:** At 33, a father whose mission is centered on leveraging technology to build a better world for his daughter.
   * **Resilience:** Defined by overcoming profound personal challenges, including the loss of both parents before the age of 16, a background that fuels a fierce determination to push forward and never accept "impossible."

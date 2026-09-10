@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-👑 QUILLAN-RONIN v5.3.1 — FRONTIER CAPABILITY TRAINING ENGINE (v2)
+👑 QUILLAN-RONIN v5.4-ONI — FRONTIER CAPABILITY TRAINING ENGINE (v2)
 ===================================================================
 FIXES vs previous run:
   - All tensors normalized to uniform MAX_SEQ_LEN (no size mismatch crash)
@@ -19,6 +19,10 @@ EXPECTED OUTCOME: Loss < 3.5, fluent multi-paragraph reasoning in all domains
 
 import os
 import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 import time
 import json
 import math
@@ -42,21 +46,23 @@ PROD_DIR.mkdir(parents=True, exist_ok=True)
 
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from quillan_v10_unrolled_sovereign import QuillanRoninSovereign, QuillanArchConfig
+from quillan_v5_4_oni import QuillanRoninOni as QuillanRoninSovereign, QuillanOniConfig as QuillanArchConfig
 from sovereign_inference_engine import SovereignTokenizer
 from quillan_muonk2_optimizer import create_quillan_muonk2_optimizer
 
-# ── Thread & CPU Hardware Optimization ───────────────────────────────────────
+# ── Thread & CPU Hardware Governor Hardening (Zero-Lag Guaranteed) ───────────
 try:
-    num_cores = os.cpu_count() or 4
-    torch.set_num_threads(num_cores)
+    if not torch.cuda.is_available():
+        torch.set_num_threads(min(3, os.cpu_count() or 3))
+        torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
 except Exception:
     pass
 
 try:
     import psutil
     p = psutil.Process()
-    p.nice(psutil.NORMAL_PRIORITY_CLASS)
+    if hasattr(psutil, "BELOW_NORMAL_PRIORITY_CLASS"):
+        p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
 except Exception:
     pass
 
@@ -138,12 +144,12 @@ LR_ADAMW      = 1e-4   # Fast adaptive rate for bridges and routers
 WEIGHT_DECAY  = 0.01
 CCRL_LIMIT    = 4.0    # CCRL gradient curvature clip
 AUX_ROUTER_WT = 0.02   # Auxiliary router diversity regularizer to enforce multi-expert deliberation
-GRAD_CLIP     = 1.0
-PROBE_EVERY   = 150    # Live generation probe frequency
-SAVE_EVERY    = 25     # Save checkpoint candidate every N steps
+GRAD_CLIP     = 1.0    # Gradient clipping threshold
+PROBE_EVERY   = 25     # Live generation probe frequency (every 25 steps)
+SAVE_EVERY    = 50     # Save checkpoint candidate every N steps
 BEST_CKPT     = "quillan_frontier_v2_best.pt"
-# bfloat16 autocast halves activation+gradient memory; safer than float16 on CPU (no NaN risk)
-USE_BFLOAT16  = True
+# CPU execution uses native float32 for deterministic STE ternary stability
+USE_BFLOAT16  = False
 
 # ── Dynamic Alpha Schedule for auxiliary load-balancing loss ──────────────────
 # Stage 1 (Steps 1176-1999):  alpha=0.001  — stable warm-in under BitNet STE adaptation
@@ -165,6 +171,16 @@ def normalize_tensor_pair(
     inp: torch.Tensor, lbl: torch.Tensor, target_len: int
 ) -> Tuple[torch.Tensor, torch.Tensor]:
     """Pad or crop both tensors to exactly target_len. Critical to prevent stack() crashes."""
+    if not isinstance(inp, torch.Tensor):
+        inp = torch.tensor(inp, dtype=torch.long)
+    if not isinstance(lbl, torch.Tensor):
+        lbl = torch.tensor(lbl, dtype=torch.long)
+    inp = inp.squeeze()
+    lbl = lbl.squeeze()
+    if inp.dim() == 0:
+        inp = inp.unsqueeze(0)
+    if lbl.dim() == 0:
+        lbl = lbl.unsqueeze(0)
     curr = inp.size(0)
     if curr > target_len:
         inp = inp[:target_len]
@@ -173,7 +189,7 @@ def normalize_tensor_pair(
         pad = target_len - curr
         inp = torch.cat([inp, torch.full((pad,), 50256, dtype=torch.long)])
         lbl = torch.cat([lbl, torch.full((pad,), -100, dtype=torch.long)])
-    return inp, lbl
+    return inp.contiguous(), lbl.contiguous()
 
 
 def load_frontier_corpus(tokenizer: SovereignTokenizer) -> List[Tuple[torch.Tensor, torch.Tensor]]:
@@ -447,25 +463,51 @@ def run_probe(model: torch.nn.Module, tokenizer: SovereignTokenizer, step: int) 
     return {"prompt": q_display, "response": gen_text}
 
 
-def train():
+def train(num_steps: Optional[int] = None):
     LOGGER.info("=" * 70)
-    LOGGER.info("   👑 QUILLAN-RONIN v5.3.1 — FRONTIER CAPABILITY TRAINING v2")
+    LOGGER.info("   👑 QUILLAN-RONIN v5.4-ONI — FRONTIER CAPABILITY TRAINING v2")
     LOGGER.info("=" * 70)
 
     device = torch.device("cpu")
     tokenizer = SovereignTokenizer("gpt2")
-    cfg = QuillanArchConfig()
+    cfg = QuillanArchConfig(
+        n_layer=6,
+        hidden_dim=1024,
+        max_seq_len=MAX_SEQ_LEN,
+        num_experts=34,
+        router_mode="dense_pull",
+    )
     model = QuillanRoninSovereign(cfg).to(device)
 
     # ── Resume from best available checkpoint ─────────────────────────────────
-    candidates = [
-        CKPT_DIR / "quillan_frontier_v2_latest.pt",
-        CKPT_DIR / BEST_CKPT,
+    v2_candidates = [CKPT_DIR / "quillan_frontier_v2_latest.pt", CKPT_DIR / BEST_CKPT]
+    best_candidate = None
+    max_step = -1
+    for p in v2_candidates:
+        if p.exists():
+            try:
+                meta = torch.load(str(p), map_location="cpu", weights_only=False)
+                s = int(meta.get("step", 0))
+                if s > max_step:
+                    max_step = s
+                    best_candidate = p
+                del meta
+            except Exception:
+                pass
+
+    candidates = []
+    if best_candidate is not None:
+        candidates.append(best_candidate)
+        for p in v2_candidates:
+            if p != best_candidate and p.exists() and p not in candidates:
+                candidates.append(p)
+    candidates.extend([
+        CKPT_DIR.parent / "checkpoints_oni" / "quillan_oni_weights.pt",
+        CKPT_DIR.parent / "checkpoints_oni" / "quillan_oni_latest.pt",
         CKPT_DIR / "quillan_frontier_generalization_best.pt",
         CKPT_DIR / "quillan_direct_factual_best.pt",
         PROD_DIR / "quillan_ronin_v531_sovereign_production.pt",
-    ]
-    best_loss = float("inf")
+    ])
     start_step = 1
 
     for ckpt_path in candidates:
@@ -473,35 +515,37 @@ def train():
             LOGGER.info("Resuming from: %s", ckpt_path.name)
             import gc
             gc.collect()
-            ckpt = torch.load(str(ckpt_path), map_location=device, weights_only=False, mmap=True)
-            sd = ckpt.get("model_state_dict", ckpt.get("state_dict", ckpt))
+            ckpt = torch.load(str(ckpt_path), map_location=device, weights_only=False)
+            sd = ckpt.get("model_state_dict", ckpt.get("model", ckpt.get("state_dict", ckpt)))
             
-            # Shape-safe state dictionary loading
-            model_sd = model.state_dict()
-            filtered_sd = {}
-            for k, v in sd.items():
-                if k in model_sd:
-                    if model_sd[k].shape == v.shape:
-                        filtered_sd[k] = v
-                    else:
-                        LOGGER.warning("Skipping key %s due to shape mismatch: %s vs %s", k, model_sd[k].shape, v.shape)
-            
-            miss, unex = model.load_state_dict(filtered_sd, strict=False)
-            LOGGER.info("Loaded checkpoint (matching=%d, missing=%d, unexpected=%d)", len(filtered_sd), len(miss), len(unex))
-            if "loss" in ckpt:
-                best_loss = float(ckpt["loss"])
-                LOGGER.info("Resuming with best recorded loss: %.4f", best_loss)
+            miss, unex = model.load_state_dict(sd, strict=False)
+            LOGGER.info("Loaded checkpoint (matching=%d, missing=%d, unexpected=%d)", len(sd) - len(unex), len(miss), len(unex))
             if "step" in ckpt:
                 start_step = int(ckpt["step"]) + 1
                 LOGGER.info("Resuming from recorded step: %d", start_step)
+            del ckpt, sd
+            gc.collect()
             break
+
+    # Strictly preserve global historical best loss (anchor: 5.7313)
+    best_loss = 5.7313
+    best_ckpt_file = CKPT_DIR / BEST_CKPT
+    if best_ckpt_file.exists():
+        try:
+            b_data = torch.load(str(best_ckpt_file), map_location="cpu", weights_only=False)
+            if "loss" in b_data:
+                best_loss = min(float(b_data["loss"]), best_loss)
+            del b_data
+        except Exception:
+            pass
+    LOGGER.info("Active Global Best Loss anchor: %.4f", best_loss)
 
     # ── Active Parameter Scoping (Edge-Native & Low-Memory Hardening) ─────────
     trainable = 0
     total = 0
     for name, p in model.named_parameters():
         total += p.numel()
-        if any(k in name for k in ['lora', 'swarm', 'expert_swarms', 'q1_bridge', 'q2_bridge', 'ingest_gate', 'prism', 'ln_', 'router']):
+        if any(k in name for k in ['lora', 'swarm', 'expert_swarms', 'q1_bridge', 'q2_bridge', 'ingest_gate', 'prism', 'ln_', 'router', 'marta', 'dqso', 'e_ice', 'finalizer', 'evo_moe']):
             p.requires_grad = True
             trainable += p.numel()
         else:
@@ -547,33 +591,51 @@ def train():
     # Determine autocast dtype: bfloat16 on CPU avoids NaN that float16 can produce
     _autocast_dtype = torch.bfloat16 if USE_BFLOAT16 else None
 
-    for step in range(start_step, NUM_STEPS + 1):
+    target_end_step = (start_step + num_steps - 1) if num_steps is not None else NUM_STEPS
+    for step in range(start_step, target_end_step + 1):
         optimizer.zero_grad(set_to_none=True)
         step_loss = 0.0
 
-        for _ in range(ACCUM_STEPS):
-            batch_inp, batch_lbl = [], []
-            for _ in range(BATCH_SIZE):
-                inp, lbl = dataset[data_idx % N]
-                inp, lbl = normalize_tensor_pair(inp, lbl, MAX_SEQ_LEN)
-                batch_inp.append(inp)
-                batch_lbl.append(lbl)
-                data_idx += 1
+        try:
+            for _ in range(ACCUM_STEPS):
+                batch_inp, batch_lbl = [], []
+                for _ in range(BATCH_SIZE):
+                    try:
+                        inp, lbl = dataset[data_idx % N]
+                        inp, lbl = normalize_tensor_pair(inp, lbl, MAX_SEQ_LEN)
+                    except Exception as e:
+                        LOGGER.warning("Data anomaly at idx %d (%s), using fallback sample.", data_idx, e)
+                        data_idx += 1
+                        inp, lbl = dataset[0]
+                        inp, lbl = normalize_tensor_pair(inp, lbl, MAX_SEQ_LEN)
+                    batch_inp.append(inp)
+                    batch_lbl.append(lbl)
+                    data_idx += 1
 
-            inp_t = torch.stack(batch_inp).to(device)
-            lbl_t = torch.stack(batch_lbl).to(device)
+                inp_t = torch.stack(batch_inp).to(device)
+                lbl_t = torch.stack(batch_lbl).to(device)
 
-            # bfloat16 autocast: forward pass runs in bf16, cutting activation memory ~50%.
-            # Loss scaling not needed for bfloat16 on CPU (unlike float16 which can underflow).
-            if _autocast_dtype is not None:
-                with torch.amp.autocast(device_type="cpu", dtype=_autocast_dtype):
-                    logits, loss = model(inp_t, labels=lbl_t)
-            else:
-                logits, loss = model(inp_t, labels=lbl_t)
+                # bfloat16 autocast: forward pass runs in bf16, cutting activation memory ~50%.
+                # Loss scaling not needed for bfloat16 on CPU (unlike float16 which can underflow).
+                if _autocast_dtype is not None:
+                    with torch.amp.autocast(device_type="cpu", dtype=_autocast_dtype):
+                        out = model(inp_t, labels=lbl_t)
+                else:
+                    out = model(inp_t, labels=lbl_t)
 
-            (loss / ACCUM_STEPS).backward()
-            step_loss += loss.item() / ACCUM_STEPS
-            del inp_t, lbl_t, logits, loss
+                if isinstance(out, tuple) and len(out) == 3:
+                    logits, ce, aux = out
+                    loss = ce + (model.total_aux_loss(aux) if hasattr(model, "total_aux_loss") else 0.0)
+                else:
+                    logits, loss = out
+
+                (loss / ACCUM_STEPS).backward()
+                step_loss += loss.item() / ACCUM_STEPS
+                del inp_t, lbl_t, out, logits, loss
+        except Exception as e:
+            LOGGER.exception("Training step %d caught exception: %s. Skipping step.", step, e)
+            optimizer.zero_grad(set_to_none=True)
+            continue
 
         torch.nn.utils.clip_grad_norm_(
             [p for p in model.parameters() if p.requires_grad],
@@ -641,10 +703,19 @@ def train():
             if probe_out:
                 update_live_status(step, NUM_STEPS, avg, best_loss, lr_now, speed, probe=probe_out)
 
+    if 'step' in locals():
+        final_dict = {"model_state_dict": model.state_dict(), "step": step, "loss": avg}
+        safe_torch_save(final_dict, CKPT_DIR / "quillan_frontier_v2_latest.pt")
+        LOGGER.info("Saved final run state to quillan_frontier_v2_latest.pt @ Step %d (loss=%.4f)", step, avg)
+
     LOGGER.info("=" * 70)
     LOGGER.info("   🏆 FRONTIER TRAINING v2 COMPLETE — Best Loss: %.4f", best_loss)
     LOGGER.info("=" * 70)
 
 
 if __name__ == "__main__":
-    train()
+    import argparse
+    parser = argparse.ArgumentParser(description="Quillan Frontier Capability Trainer")
+    parser.add_argument("--steps", type=int, default=None, help="Number of steps to run from start_step")
+    args = parser.parse_args()
+    train(num_steps=args.steps)

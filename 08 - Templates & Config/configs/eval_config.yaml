@@ -1,7 +1,7 @@
 # 👑 Quillan-Ronin v5.3.1 — Automated Post-Training Evaluation Config
 evaluation:
   checkpoint_candidates:
-    - "C:/02_QUILLAN/checkpoints/quillan_frontier_v2_best.pt"
+    - "C:/02_QUILLAN/checkpoints/checkpoints_sft/quillan_frontier_v2_best.pt"
     - "C:/02_QUILLAN/checkpoints/quillan_ronin_v531_sovereign_production.pt"
   output_report: "C:/02_QUILLAN/training_logs/terminal_evaluation_report.json"
   markdown_report: "C:/02_QUILLAN/training_logs/terminal_evaluation_report.md"

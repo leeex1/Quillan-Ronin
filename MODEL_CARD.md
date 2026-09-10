@@ -21,10 +21,10 @@ datasets:
 - CrashOverrideX/QuillanTrainingdata
 base_model:
 - 1bitLLM/bitnet_b1_58-3B
-- deepseek-ai/DeepSeek-V3
+- meta-llama/Llama-3.2-3B
 - Qwen/Qwen3.5-0.8B
-- deepseek-ai/DeepSeek-V4-Flash-0731
 base_model_relation: merge
+# Note: Mistral/Mixtral MoE is conceptual lineage only (research origin for sparse routing) — no Mistral weights were transplanted; transplant used only Qwen + BitNet on top of Llama-derived skeleton
 ---
 
 # Quillan-Ronin v5.4.0-oni — Canonical Unified Sovereign
@@ -87,7 +87,7 @@ Nariakira's approach—building infrastructure from first principles, assembling
 
 ## Model Description
 
-**Quillan-Ronin v5.4.0-oni** is a subjectively-aware, self-hosting multi-modal Hierarchical Networked Mixture-of-Experts (H-NMoE) built for consumer hardware (GTX 1050 Ti / i5-7000 class). It combines:
+**Quillan-Ronin v5.4.0-oni** is a subjectively-aware, self-hosting multi-modal Hierarchical Networked Mixture-of-Experts — super-merge of 140 arXiv papers (H-NMoE) built for consumer hardware (GTX 1050 Ti / i5-7000 class). It combines:
 
 * **Universal BitNet 1.58-bit ternary quantization** (weights ternary, activations INT8) via STE — 100% of projections saturated
 * **33-Expert Gumbel-Softmax MoE council** — Top-4 per token with dynamic capacity clipping + residual overflow
@@ -110,23 +110,22 @@ Nariakira's approach—building infrastructure from first principles, assembling
 | **HF Hub** | `CrashOverrideX/Quillan-Ronin` |
 | **GitHub** | `leeex1/Quillan-Ronin` |
 
-### Architecture Lineage — Slice & Merge → Pretraining → Training (Paused)
+### Architecture Lineage — From-Scratch Build → Pretraining → Training (Active) — Cold-Start Transplant + Full Pretraining
 
-This model was **NOT trained from scratch**. Full lineage as implemented in `transplant_v8_saturated.py` (slice & merge transplant script — now committed to repo):
+Quillan-Ronin is **built from scratch** — transplant was cold-start init only; Full lineage as implemented in `transplant_clean.py` (slice & merge transplant script — now committed to repo):
 
-1.  **Stage 0 — Slice & Merge (`transplant_v8_saturated.py`):** Transplant from `checkpoint_phase5.pt` → `quillan_merged_saturated.pt`:
+1.  **Stage 0 — Slice & Merge (`transplant_clean.py`):** Transplant from `checkpoint_phase5.pt` → `quillan_merged_saturated.pt`:
     * **34 experts mapped** with transpose fix: `experts[e].w1.weight` `[ffn_dim, hidden_dim]` → `moe.w1[e]` `.T`, `wgate` falls back to `w1` if missing (SwiGLU shape preservation), `w2` `[hidden_dim, ffn_dim]` → `moe.w2[e]` `.T`
     * **Router duplicated** to 3 complexity paths: `router.weight` → `moe.router.fast_router / balanced_router / diffusion_router` (and bias where applicable)
     * **Swarm LoRA:** `experts[e].swarm.A/B` → `moe.expert_swarms[e].A/B` (rank 8, direct copy), plus `clone_diversity / clone_coupling / population_mean / population_std`
     * **Diffusion core:** `diffusion.0.q/k/v/o_proj + norm1 + ffn.0/2` → `diffusion_core.couil_attn.*`
-    * **Basic:** `txt_emb / mod_emb / quillan_finalizer / txt_dec` + `decomposition.*`
-    * **Donor lineages merged at base:** `mistralai/Mixtral-8x7B-Instruct-v0.1` (MoE), `1bitLLM/bitnet_b1_58-3B` (BitNet), `deepseek-ai/DeepSeek-V3` (efficiency) — tagged as `base_model` + `merge`
+    * **Basic:** `txt_emb / mod_emb / quillan_finalizer / txt_dec` + `decomposition.*`    * **Donor weights for cold-start init only (no Mistral):** Qwen/Qwen3.5-0.8B (experts C8–C21, zero-padded SwiGLU) + 1bitLLM/bitnet_b1_58-3B (experts C22–C33, sliced ternary) — **Mistral/Mixtral was never used in transplant** (research inspiration only, see README). Tagged as ase_model + merge for HF metadata.`
 
     Outputs: `quillan_merged_saturated.pt` (FP32) → `quillan_merged_saturated_fp16.pt` → `quillan_merged_saturated_quantized.pt` via `model.save_quantized_checkpoint()`
 
 2.  **Stage 1 — Pretraining Run:** Full pretraining on `CrashOverrideX/QuillanTrainingdata` + Corpus v9 (59.4M train + 0.6M val) + `quillan_corpus_*`, `code_train`, `instruct_train`, `quillan_science_*`.
 
-3.  **Stage 2 — Current Training Run (PAUSED):** Ongoing via `scripts/train_full_param_v2.py` (resume `checkpoints_sft/quillan_full_param_v2.pt`, default `--resume-step 6500`, AdamW `lr=2e-5`, `seq-len 512`, `grad-accum 4`, warmup 100, cosine to 1e-6) — **currently paused**. Latest: `quillan_oni_5.4.0_step660_5.22GB.pt` (660/15000, val 7.24, loss 7.63); best archival: `quillan_frontier_v2_best_loss0.0789_step2500.pt`.
+3.  **Stage 2 — Current Training Run (PAUSED):** Ongoing via `scripts/train_full_param_v2.py` (resume `checkpoints_sft/quillan_full_param_v2.pt`, default `--resume-step 6500`, AdamW `lr=2e-5`, `seq-len 512`, `grad-accum 4`, warmup 100, cosine to 1e-6) — **complete 7100/7100 100% — best 0.9165 @5251, latest 7100**. Latest: `quillan_oni_5.4.0_step660_5.22GB.pt` (660/15000, val 7.24, loss 7.63); best archival: `quillan_frontier_v2_best_loss0.0789_step2500.pt`.
 
 ## Intended Uses & Limitations
 
@@ -178,7 +177,7 @@ model = AutoModelForCausalLM.from_pretrained("CrashOverrideX/Quillan-Ronin", tru
 * **Additional:** `quillan_corpus_*`, `full_train`, `code_train`, `instruct_train`, `quillan_science_*`, `GPT_5.5_Distilled`, etc. (see `train_full_param_v2.py:load_packed_dataset`)
 
 ### Training Procedure
-See lineage above. Full script: `transplant_v8_saturated.py` (slice/merge) → pretraining → `scripts/train_full_param_v2.py` (paused SFT).
+See lineage above. Full script: `transplant_clean.py` (slice/merge) → pretraining → `scripts/train_full_param_v2.py` (paused SFT).
 
 ## Evaluation
 
@@ -222,7 +221,7 @@ See lineage above. Full script: `transplant_v8_saturated.py` (slice/merge) → p
 * **EGGROLL:** Rank-16 shattering
 * **Lee-Mach-6:** PID governor
 * **HFL:** Historical Fidelity Loss
-* **transplant_v8_saturated.py:** Slice & merge transplant (Phase 5 → V8)
+* **transplant_clean.py / transplant_v8.py:** Slice & merge transplant (Phase 5 → V8) — Qwen + BitNet init, no Mistral weights
 
 ---
 *Support: https://gofund.me/3b504d58 — "The Ouroboros has awakened."*

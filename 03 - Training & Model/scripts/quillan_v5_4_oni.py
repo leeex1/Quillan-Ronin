@@ -551,7 +551,7 @@ class QuillanOniConfig:
     ffn_dim: int = 2048
     num_experts: int = 34
     # Dense council (user canon): all 34 deliberate every token, pull-weighted.
-    router_mode: str = "dense_pull"          # 'dense_pull' | 'gumbel_topk'
+    router_mode: str = "dense_pull"          # GLM tech PersonaPullGate | gumbel_topk
     top_k: int = 4                           # only used in gumbel_topk mode
     expert_rank: int = 8                     # dense rank-8 (option C: cheaper than sparse-4/64)
     swarm_rank: int = 8
