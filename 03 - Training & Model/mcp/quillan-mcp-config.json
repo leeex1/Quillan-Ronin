@@ -91,7 +91,13 @@
         "ThinkingEngine": {
             "command": "C:\\Program Files\\nodejs\\node.exe",
             "args": [
-                "C:\\02_QUILLAN\\mcp\\thinking-engine\\index.js"
+                "C:\\02_QUILLAN\\03 - Training & Model\\mcp\\thinking-engine\\index.js"
+            ]
+        },
+        "QuillanRAG": {
+            "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+            "args": [
+                "C:\\02_QUILLAN\\03 - Training & Model\\mcp\\quillan_rag\\server.py"
             ]
         },
         "DeepWiki": {
