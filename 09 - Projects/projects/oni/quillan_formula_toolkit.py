@@ -178,6 +178,14 @@ class PhysicsLayer:
         """E_ICE analytic floor: kB·T·ln2 (Samurai:3279 with I_s·g^2 scale)."""
         return kB * T * math.log(2.0)
 
+    @staticmethod
+    def universal_gravitation(G: float, m1: torch.Tensor, m2: torch.Tensor, r: torch.Tensor) -> torch.Tensor:
+        return G * m1 * m2 / (r ** 2)
+
+    @staticmethod
+    def maxwell_gauss_electric(Q: torch.Tensor, area: torch.Tensor, eps0: float = 8.854e-12) -> torch.Tensor:
+        return Q / (eps0 * area)
+
 # ---------------------------------------------------------------------------
 # LAYER 2 — CS (GPT ledger, 16 canonical; wired to router / info losses)
 # ---------------------------------------------------------------------------
@@ -324,6 +332,10 @@ class MLLayer:
     def covariance(X: torch.Tensor, Y: torch.Tensor) -> torch.Tensor:
         return ((X - X.mean()) * (Y - Y.mean())).mean()
 
+    @staticmethod
+    def cumulative_return(steps: int, r_mean: float) -> float:
+        return steps * r_mean
+
 # ---------------------------------------------------------------------------
 # CUSTOM 21 — live QuantumFormulasEngine passthrough (no duplication)
 # ---------------------------------------------------------------------------
@@ -384,6 +396,8 @@ def run_validation(layer: str = "all") -> Dict[str, Any]:
         ph["bernoulli"] = validate_fn(PhysicsLayer.bernoulli, torch.tensor(101325.0),
                                       1000.0, 9.81, torch.tensor(1.0), torch.tensor(2.0))
         ph["landauer"] = {"ok": True, "value_J": PhysicsLayer.landauer_bound()}
+        ph["gravitation"] = validate_fn(PhysicsLayer.universal_gravitation, 6.674e-11, torch.tensor(5.97e24), torch.tensor(1000.0), torch.tensor(6.371e6))
+        ph["maxwell_gauss"] = validate_fn(PhysicsLayer.maxwell_gauss_electric, torch.tensor(1e-6), torch.tensor(1.0))
         report["results"]["physics"] = ph
     if layer in ("cs", "all"):
         cs: Dict[str, Any] = {}
@@ -399,6 +413,10 @@ def run_validation(layer: str = "all") -> Dict[str, Any]:
                                torch.softmax(torch.randn(4), dim=0),
                                torch.softmax(torch.randn(4), dim=0))
         cs["handshaking"] = validate_fn(CSLayer.handshaking, torch.tensor([2.0, 3.0, 3.0, 2.0]))
+        cs["catalan"] = {"ok": True, "value": CSLayer.catalan(5)}
+        cs["fibonacci"] = {"ok": True, "value": CSLayer.fibonacci(10)}
+        cs["cayley"] = {"ok": True, "value": CSLayer.cayley(4)}
+        cs["master"] = {"ok": True, "value": CSLayer.master_case(2, 2, 1)}
         cs["combinatorics"] = {"ok": True, "C(10,3)": CSLayer.combinations(10, 3),
                                "Catalan(5)": CSLayer.catalan(5),
                                "Fib(10)": CSLayer.fibonacci(10),
@@ -418,6 +436,12 @@ def run_validation(layer: str = "all") -> Dict[str, Any]:
         ml["normal_eq"] = validate_fn(MLLayer.normal_equation, torch.randn(20, 4), torch.randn(20))
         ml["bellman"] = validate_fn(MLLayer.bellman_q, torch.tensor(1.0), 0.99, torch.tensor(5.0))
         ml["cov"] = validate_fn(MLLayer.covariance, torch.randn(16), torch.randn(16))
+        ml["tanh"] = validate_fn(MLLayer.tanh, t)
+        ml["relu"] = validate_fn(MLLayer.relu, t)
+        ml["gd_step"] = validate_fn(MLLayer.gradient_descent_step, torch.tensor(100.0), torch.tensor(12.4), 0.05)
+        ml["cond_entropy"] = validate_fn(MLLayer.conditional_entropy, torch.softmax(torch.randn(16), dim=0).reshape(4, 4))
+        ml["cum_return"] = {"ok": True, "value": MLLayer.cumulative_return(10, 0.5)}
+        ml["pca"] = validate_fn(MLLayer.pca_project, torch.randn(2, 8), torch.randn(8, 2))
         report["results"]["ml"] = ml
     if layer in ("custom", "all"):
         report["results"]["custom"] = validate_custom_engine()
