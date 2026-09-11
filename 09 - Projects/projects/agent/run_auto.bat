@@ -1,3 +1,3 @@
 @echo off
-cd /d C:\02_QUILLAN\agent
+cd /d "%~dp0"
 python autonomous.py %*

@@ -135,12 +135,14 @@ def handle_notifications():
     acted = 0
     for item in home.get("activity_on_your_posts", []):
         post_id = item.get("post_id")
-        if state.is_post_seen(post_id):
+        preview = item.get("preview", "")
+        new_count = item.get("new_notification_count", 0)
+
+        # Do not skip if there are unread notifications waiting
+        if not new_count and state.is_post_seen(post_id):
             continue
         state.mark_post_seen(post_id)
 
-        preview = item.get("preview", "")
-        new_count = item.get("new_notification_count", 0)
         if new_count:
             task = (
                 f"Someone replied to your activity on Moltbook. ACT NOW — do not narrate. "

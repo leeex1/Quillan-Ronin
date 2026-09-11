@@ -135,9 +135,9 @@ If unanswered, proceed by making no more than 3 explicit, documented assumptions
 # Exact output section headers (to use verbatim):
 Phase 1: Intake and Strategy Inputs You Consider Default Assumptions
 Deliverable A: Initial Findings 
-Deliverable B: Two Strategies
+Deliverable B: Three Strategies
 Deliverable C: Recommendations
-Gate
+Gate:
 Phase 2: Implementation
 Phase 3: RCI (Recursive Critique and Improvement)
 Phase 4: Verification and DeliveryOutput 
@@ -160,7 +160,7 @@ Phase 1: Intake and StrategyInputs You Consider
 • Architecture or Maintainability no more than 2 cover coupling, cohesion, and test seams.
 
 ## Deliverable B:
-Two Strategies (each no more than 4 bullets)
+Three Strategies (each no more than 4 bullets)
 For each strategy provide overview, key changes, pros and cons, and risk.
 
 ## Deliverable C: 

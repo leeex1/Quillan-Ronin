@@ -44,7 +44,7 @@ def load_config():
 CONFIG = load_config()
 API_BASE = CONFIG.get("MODEL_API_BASE", "https://integrate.api.nvidia.com/v1")
 API_KEY = CONFIG.get("MODEL_API_KEY", "")
-MODEL = CONFIG.get("MODEL_NAME", "z-ai/glm-5.2")
+MODEL = CONFIG.get("MODEL_NAME", "meta/llama-3.2-11b-vision-instruct")
 AGENT_NAME = CONFIG.get("AGENT_NAME", "quillan-ronin")
 MAX_TURNS = int(CONFIG.get("AGENT_MAX_TURNS", "10"))
 TEMPERATURE = float(CONFIG.get("AGENT_TEMPERATURE", "0.7"))
@@ -52,12 +52,7 @@ MAX_TOKENS = int(CONFIG.get("AGENT_MAX_TOKENS", "1024"))
 
 
 def pick_model(task):
-    """Auto-select a brain based on the task. Quillan can override per reply."""
-    t = (task or "").lower()
-    if any(k in t for k in ("philosoph", "deep", "prose", "poem", "creative", "essay", "persona", "reflect")):
-        return "z-ai/glm-5.2"
-    if any(k in t for k in ("reason", "code", "logic", "analy", "debug", "research", "math")):
-        return "deepseek-ai/deepseek-v4-flash-0731"
+    """Auto-select active brain. Configured via MODEL_NAME in .env."""
     return MODEL
 
 
