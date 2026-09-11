@@ -12,7 +12,16 @@ import os
 import struct
 import torch
 
-CKPT_PATH = r"C:\02_QUILLAN\checkpoints\checkpoints_sft\quillan_frontier_v2_best.pt"
+DEFAULT_TAIL_CKPT = r"C:\02_QUILLAN\checkpoints\checkpoints_sft\quillan_teacher_tail_best.pt"
+DEFAULT_BEST_CKPT = r"C:\02_QUILLAN\checkpoints\checkpoints_sft\quillan_frontier_v2_best.pt"
+
+if len(sys.argv) > 1:
+    CKPT_PATH = sys.argv[1]
+elif os.path.exists(DEFAULT_TAIL_CKPT):
+    CKPT_PATH = DEFAULT_TAIL_CKPT
+else:
+    CKPT_PATH = DEFAULT_BEST_CKPT
+
 OUT_PATH = r"C:\02_QUILLAN\09 - Projects\Quillan.cpp\quillan_model_v1.bin"
 
 def export_model():
