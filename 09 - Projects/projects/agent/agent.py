@@ -296,9 +296,29 @@ def main():
     parser.add_argument("task", nargs="*", help="Task to perform")
     parser.add_argument("--turns", type=int, default=None, help="Max tool turns")
     parser.add_argument("--model", type=str, default=None, help="Model to start with (quillan can switch per reply)")
+    parser.add_argument("--agent", "--variant", dest="variant", type=str, default=None, help="Select one of the 10 Sovereign Agent variants (architect, coder, security, etc.)")
     args = parser.parse_args()
 
     task = " ".join(args.task) if args.task else None
+
+    # If variant specified, dispatch through harness
+    if args.variant:
+        from harness.variants import AGENT_VARIANTS, get_agent
+        variant_name = args.variant.lower().strip()
+        if variant_name in AGENT_VARIANTS:
+            if not task:
+                task = input("What should I do? ")
+            agent_inst = get_agent(variant_name)
+            print(f"Agent Variant: {agent_inst.config.name} ({agent_inst.config.role_title})")
+            print(f"Council Chamber: {agent_inst.config.council_chamber}")
+            print(f"Authorized Tools: {', '.join(agent_inst.config.tool_whitelist)}")
+            print("=" * 50)
+            res = agent_inst.run(task)
+            print("\n" + "=" * 50)
+            print("FINAL ANSWER")
+            print("=" * 50)
+            print(res.final_answer)
+            return
 
     print(f"Agent: {AGENT_NAME}")
     print(f"Model: {args.model or MODEL}")

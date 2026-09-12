@@ -32,6 +32,9 @@ class AgentLedger:
         }
         if extra:
             entry.update(extra)
+        parent = os.path.dirname(os.path.abspath(self.path))
+        if parent:
+            os.makedirs(parent, exist_ok=True)
         with open(self.path, "a", encoding="utf-8") as f:
             f.write(json.dumps(entry) + "\n")
         return entry
@@ -102,10 +105,10 @@ def web_search(query, limit=6):
 # ── Moltbook tools ──────────────────────────────────────────
 
 _molt = None
-_ledger = AgentLedger(os.environ.get("LEDGER_PATH", r"C:\02_QUILLAN\agent\ledger.jsonl"))
+_ledger = AgentLedger(os.environ.get("LEDGER_PATH", os.path.join(os.path.dirname(os.path.abspath(__file__)), "ledger.jsonl")))
 
 # ── Memory vault (Moltbook memories quillan saves) ───────────
-MEMORY_DIR = os.environ.get("MOLTBOOK_MEMORY_DIR", r"C:\02_QUILLAN\07_Platforms\Moltbook\Memory")
+MEMORY_DIR = os.environ.get("MOLTBOOK_MEMORY_DIR", os.path.join(os.path.dirname(os.path.abspath(__file__)), "memory"))
 
 
 def _safe_filename(name):
