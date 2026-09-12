@@ -32,7 +32,7 @@ scripts/test_generation.py → _dev/quillan_v8_saturated.py + quillan_bpe_tokeni
 QuillanRoninSovereign (main model)
   ├── InputIngestionLayer    (token -> embedding)
   ├── NineVectorDecomposition (Language/Sentiment/Context/Intent/Meta/Creativity/Ethics/Strategy/Constraint)
-  ├── EvolvableVectorizedMoE (34 experts C0-C33, top_k=4)
+  ├── EvolvableVectorizedMoE (34 experts C1–C34, top_k=4)
   │     ├── BitLinear (1.58-bit STE + 4-bit activations + EGGROLL LoRA)
   │     └── CouncilExpertSwarm (9B virtual agents via Rank-24 perturbation)
   ├── ComplexityRouter (3 paths: Fast/Balanced/Diffusion, Gumbel-Softmax)
