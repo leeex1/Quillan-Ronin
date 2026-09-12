@@ -307,6 +307,8 @@ COUNCIL_SPECS = [
     },
 ]
 
+from .swarm import get_swarm_policy_for_expert
+
 def build_council_configs() -> Dict[str, AgentConfig]:
     """Construct dictionary of C0-QUILLAN and C1..C34 Council Chambers with alias indexing."""
     configs: Dict[str, AgentConfig] = {}
@@ -319,6 +321,7 @@ def build_council_configs() -> Dict[str, AgentConfig]:
             system_prompt=spec["prompt"],
             tool_whitelist=spec["tools"],
             temperature=spec["temp"],
+            swarm_policy=get_swarm_policy_for_expert(spec["name"]),
         )
         # By persona name (e.g. 'quillan', 'astra', 'predator')
         configs[spec["name"]] = cfg

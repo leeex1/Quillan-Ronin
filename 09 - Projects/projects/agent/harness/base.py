@@ -29,6 +29,7 @@ class AgentConfig:
     temperature: float = 0.4
     max_tokens: int = 2048
     max_turns: int = 8
+    swarm_policy: Optional[Any] = None
 
 @dataclass
 class AgentResponse:
@@ -40,6 +41,7 @@ class AgentResponse:
     duration_sec: float
     success: bool
     error: Optional[str] = None
+    swarm_report: Optional[Dict[str, Any]] = None
 
 class AgentAuditLedger:
     def __init__(self, ledger_file: Optional[str] = None):
@@ -217,3 +219,50 @@ class BaseAgent:
                 success=False,
                 error=err_msg
             )
+
+    def run_swarm(self, task: str) -> AgentResponse:
+        """
+        Execute the parent expert's Tier-3 micro-diverse cloned swarm:
+        1. Spawns micro-clones with specialized perspectives and jitter.
+        2. Executes micro-clones in parallel/sequence.
+        3. Applies the parent expert's diversity filter.
+        4. Injects crystallized findings into parent expert for authoritative synthesis.
+        """
+        t_start = time.time()
+        policy = self.config.swarm_policy
+        if not policy:
+            from .swarm import get_swarm_policy_for_expert
+            policy = get_swarm_policy_for_expert(self.config.name)
+
+        clones = policy.spawn_micro_prompts(self.config.council_chamber, self.config.name, task)
+        micro_results = []
+
+        # Execute micro-clones
+        for c in clones:
+            try:
+                msgs = [
+                    {"role": "system", "content": "You are a Tier-3 micro-agent clone. Be concise, dense, and precise."},
+                    {"role": "user", "content": c["prompt"]}
+                ]
+                # Single chat completion with clone-specific temperature
+                out = self._chat_completion(msgs)
+                micro_results.append({**c, "output": out})
+            except Exception as e:
+                micro_results.append({**c, "output": f"Error in clone: {e}"})
+
+        # Apply expert diversity filter
+        filtered_report = policy.filter_micro_results(micro_results)
+
+        # Formulate parent expert's synthesis incorporating surviving swarm findings
+        synthesis_prompt = (
+            f"You are parent Council Expert [{self.config.council_chamber} — {self.config.name.upper()}].\n"
+            f"Your Tier-3 micro-diverse swarm explored '{task}' and produced these crystallized perspectives:\n\n"
+            f"{filtered_report['crystallized_text']}\n\n"
+            f"As the parent Expert, synthesize these micro-findings into your final authoritative verdict for Quillan Core."
+        )
+
+        resp = self.run(synthesis_prompt)
+        resp.swarm_report = filtered_report
+        resp.duration_sec = time.time() - t_start
+        return resp
+

@@ -81,5 +81,36 @@ class TestQuillanParliamentHarness(unittest.TestCase):
         a2 = reg.get("c34")
         self.assertIs(a1, a2)
 
+    def test_tier3_swarm_policies(self):
+        # Verify C34-PREDATOR has custom adversarial_hunting swarm policy with 4 micro-roles
+        pred = get_agent("c34")
+        self.assertIsNotNone(pred.config.swarm_policy)
+        self.assertEqual(pred.config.swarm_policy.filter_strategy, "adversarial_hunting")
+        self.assertEqual(pred.config.swarm_policy.clone_count, 4)
+        self.assertIn("Weak Operational Assumption Hunter", pred.config.swarm_policy.micro_roles)
+
+        # Verify C8-METASYNTH has creative_leap swarm policy with 4 micro-roles
+        meta = get_agent("c8")
+        self.assertIsNotNone(meta.config.swarm_policy)
+        self.assertEqual(meta.config.swarm_policy.filter_strategy, "creative_leap")
+        self.assertEqual(meta.config.swarm_policy.diversity_entropy, 0.45)
+
+        # Verify C2-VIR has ethical_invariant swarm policy
+        vir = get_agent("c2")
+        self.assertEqual(vir.config.swarm_policy.filter_strategy, "ethical_invariant")
+
+    def test_swarm_diversity_filtering(self):
+        pred = get_agent("c34")
+        policy = pred.config.swarm_policy
+        mock_results = [
+            {"role": "Hunter", "output": "Critical vulnerability detected in database authentication tokens"},
+            {"role": "Exploiter", "output": "Critical vulnerability detected in database authentication tokens"}, # near duplicate
+            {"role": "Adversary", "output": "Asymmetric zero-day exploit targeting network boundary routing"}, # diverse
+        ]
+        filtered = policy.filter_micro_results(mock_results)
+        # Duplicate should be filtered out
+        self.assertEqual(filtered["surviving_count"], 2)
+        self.assertEqual(filtered["total_spawned"], 3)
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

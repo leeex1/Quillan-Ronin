@@ -91,6 +91,42 @@ def cmd_run_agent(agent_identifier: str, task: str):
         print(f"❌ Execution failed: {resp.error}")
         return 1
 
+def cmd_swarm_agent(agent_identifier: str, task: str):
+    print_banner()
+    agent_clean = agent_identifier.lower().strip()
+    if agent_clean not in AGENT_VARIANTS:
+        print(f"❌ Error: Unknown Council chamber or agent '{agent_identifier}'.")
+        return 1
+
+    cfg = AGENT_VARIANTS[agent_clean]
+    policy = cfg.swarm_policy
+    print(f"\n[TIER-2 PARENT EXPERT]: {cfg.council_chamber} ({cfg.role_title})")
+    print(f"Autonomous Swarm Policy:")
+    print(f"  • Clone Count      : {policy.clone_count}")
+    print(f"  • Diversity Entropy: {policy.diversity_entropy}")
+    print(f"  • Filter Strategy  : {policy.filter_strategy}")
+    print(f"  • Variance Filter  : {policy.variance_threshold}")
+    print(f"  • Micro-Roles      : {', '.join(policy.micro_roles)}")
+    print(f"Task: {task}")
+    print("-" * 78)
+
+    agent = default_registry.get(agent_clean)
+    print(f"\n>>> Spawning {policy.clone_count} Tier-3 micro-clones with diversity jitter...")
+    resp = agent.run_swarm(task)
+
+    if resp.swarm_report and resp.swarm_report.get("findings"):
+        print("\n┌── TIER-3 MICRO-SWARM TRACE (Expert Diversity Filtered) " + "─" * 20)
+        for c in resp.swarm_report["findings"]:
+            print(f"│ [{c['role']} | temp: {c['temperature']}]:")
+            print(f"│   {c['output'].strip()[:180]}...\n")
+        print(f"└─ Surviving Clones: {resp.swarm_report['surviving_count']} / {resp.swarm_report['total_spawned']}")
+
+    print("\n" + "=" * 78)
+    print(f" 🎯 [{cfg.council_chamber}] FINAL SYNTHESIS (in {resp.duration_sec:.2f}s):")
+    print("=" * 78)
+    print(resp.final_answer)
+    return 0
+
 def cmd_council_deliberation(task: str):
     print_banner()
     print(f"\n[TOP-4 SPARSE COUNCIL DELIBERATION INITIATED]")
@@ -162,9 +198,10 @@ def main():
     parser = argparse.ArgumentParser(description="Quillan Sovereign Council Harness CLI (C0 + C1..C34)")
     parser.add_argument("--list", action="store_true", help="List C0 Core and all 34 Council Chambers")
     parser.add_argument("--agent", "--chamber", dest="agent", type=str, default="", help="Select chamber by ID (c0..c34) or name")
+    parser.add_argument("--swarm", dest="swarm_chamber", type=str, default="", help="Execute Tier-3 micro-diverse swarm for an expert (e.g. --swarm c34)")
     parser.add_argument("--council", "--deliberate", dest="council", type=str, default="", help="Run Top-4 Council deliberation")
     parser.add_argument("--interactive", action="store_true", help="Launch interactive Council REPL shell")
-    parser.add_argument("task", nargs="*", default=[], help="Task description for the chamber")
+    parser.add_argument("task", nargs="*", default=[], help="Task description for the chamber or swarm")
 
     args = parser.parse_args()
 
@@ -174,6 +211,9 @@ def main():
         sys.exit(cmd_council_deliberation(args.council))
     elif args.interactive:
         cmd_interactive()
+    elif args.swarm_chamber:
+        task_str = " ".join(args.task) if args.task else input("Enter task for swarm: ")
+        sys.exit(cmd_swarm_agent(args.swarm_chamber, task_str))
     elif args.agent:
         task_str = " ".join(args.task) if args.task else input("Enter task: ")
         sys.exit(cmd_run_agent(args.agent, task_str))
