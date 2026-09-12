@@ -144,7 +144,7 @@ class ModelTester:
 
         generated_text = self.tokenizer.decode(generated[0].tolist())
 
-        print(".2f"        print(f"   Generated {len(generated_text)} characters")
+        print(f"   Generated {len(generated_text)} characters in {end_time - start_time:.2f}s")
 
         return generated_text
 
@@ -212,7 +212,7 @@ class ModelTester:
             print(f"   {tokens_generated} tokens in {time_taken:.2f}s ({tokens_generated/time_taken:.1f} tokens/sec)")
 
         avg_speed = total_tokens / total_time if total_time > 0 else 0
-        print(".1f"
+        print(f"   Average Speed: {avg_speed:.1f} tokens/sec")
     def evaluate_coherence(self):
         """Evaluate text coherence and quality"""
         if not self.model or not self.tokenizer:
@@ -246,9 +246,9 @@ class ModelTester:
             coherence = min(1.0, (avg_sentence_length / 15) * unique_ratio)
 
             coherence_scores.append(coherence)
-            print(".2f"
+        print(f"   Generated {len(generated_text)} characters in {end_time - start_time:.2f}s")
         overall_coherence = sum(coherence_scores) / len(coherence_scores)
-        print(".2f"
+        print(f"   Generated {len(generated_text)} characters in {end_time - start_time:.2f}s")
         if overall_coherence > 0.6:
             print("   🌟 Excellent coherence - approaching Grok-level quality!")
         elif overall_coherence > 0.4:
@@ -273,8 +273,8 @@ def main():
     tester.benchmark_generation_speed()
     coherence_score = tester.evaluate_coherence()
 
-    print("
-🎉 Inference Testing Complete!"    print(".2f"
+    print("\n🎉 Inference Testing Complete!")
+
     if coherence_score > 0.6:
         print("🏆 Your model is performing at advanced levels!")
     elif coherence_score > 0.4:

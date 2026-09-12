@@ -5,8 +5,8 @@ Optimized for GPU acceleration with visual progress tracking
 """
 
 # Install dependencies first
-!pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-!pip install matplotlib numpy scipy
+# !pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# !pip install matplotlib numpy scipy
 
 # Check GPU availability
 import torch
@@ -24,10 +24,10 @@ drive.mount('/content/drive')
 DATA_PATH = "/content/drive/MyDrive/QuillanData/"
 
 # Copy the training script and run
-!cp /content/drive/MyDrive/Quillan/train_full_multimodal.py .
-!python train_full_multimodal.py
+# !cp /content/drive/MyDrive/Quillan/train_full_multimodal.py .
+# !python train_full_multimodal.py
 
 # After training, download the results
 from google.colab import files
-!files.download("best_multimodal_quillan.pt")
-!files.download("training_progress_step_*.png")
+# !files.download("best_multimodal_quillan.pt")
+# !files.download("training_progress_step_*.png")

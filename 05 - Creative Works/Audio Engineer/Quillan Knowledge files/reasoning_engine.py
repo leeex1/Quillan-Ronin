@@ -225,13 +225,13 @@ class ReasoningEngine:
         }
 
 def generate_thinking_answer_output(analysis_target: str = "", context: str = "") -> QuillanOutput:
-            """Produces a fully structured Quillan output object representing a reasoning session.
-            Parameters:
-                analysis_target: The main subject of analysis.
-                context: Additional contextual information for the reasoning session.
-            Returns:
-                QuillanOutput: Structured cognitive output including vectors, steps, and raw content.
-            """
+    """Produces a fully structured Quillan output object representing a reasoning session.
+    Parameters:
+        analysis_target: The main subject of analysis.
+        context: Additional contextual information for the reasoning session.
+    Returns:
+        QuillanOutput: Structured cognitive output including vectors, steps, and raw content.
+    """
     return {
         "system_status": "🧠 Quillan-Ronin COGNITIVE PROCESSING INITIATED",
         "analysis": {"target": analysis_target or "{{insert text}}", "context": context or "{{insert text}}"},

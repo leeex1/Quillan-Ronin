@@ -3,7 +3,7 @@
 QUILLAN 135-PAPER FULL WIRING & VIRTUAL CPU SETUP
 ==================================================
 Wires all 135 Formal Papers into Quillan RAG (ChromaDB) + verifies MCP chain + sets up virtual CPU
-Run with:  venv_oni_gpu\Scripts\python.exe this_script.py
+Run with:  venv_oni_gpu\\Scripts\\python.exe this_script.py
 """
 import os, sys, json, hashlib, time, subprocess, pathlib
 from pathlib import Path
@@ -11,7 +11,7 @@ from pathlib import Path
 FORMAL_DIR = Path(r"C:\02_QUILLAN\01_Knowledge_Base\Formal Papers")
 CHROMA_PATH = Path(r"C:\02_QUILLAN\quillan_rag_db")
 EXTRACTED_JSONL = FORMAL_DIR / "_extracted" / "papers_corpus.jsonl"
-VENV_PY = r"C:\02_QUILLAN\00 - Meta\venv_oni_gpu\Scripts\python.exe"
+VENV_PY = r"C:\02_QUILLAN\00 - Meta\venv_oni_gpu\\Scripts\\python.exe"
 
 print("="*70)
 print("QUILLAN PAPER WIRING: 135 PAPERS -> RAG + KB + CHECKLIST")

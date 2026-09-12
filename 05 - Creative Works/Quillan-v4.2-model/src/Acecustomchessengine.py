@@ -285,4 +285,4 @@ if __name__ == "__main__":
     # Ensure `python-chess` is installed: pip install python-chess
     # ACE's depth can be adjusted here. Higher depth = better but slower.
     engine = ACEChessEngine(depth=3) 
-    play_game(engine)_
+    play_game(engine)

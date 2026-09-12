@@ -1724,53 +1724,49 @@ if __name__ == "__main__":
         TARGET_GOAL = EXAMPLE_GOALS[0]  # Default to first example
     
     # Direct mode or VLM mode
-    if args.direct_mode or args.direct_commands:
-        if args.direct_commands:
-            # Load commands from file
-            try:
-                with open(args.direct_commands, 'r') as f:
-                    commands = json.load(f)
-                print(f"[*] Loaded {len(commands)} commands from {args.direct_commands}")
-            except Exception as e:
-                print(f"[!] Failed to load commands file: {e}")
-                commands = []
+    try:
+        if args.direct_mode or args.direct_commands:
+            if args.direct_commands:
+                # Load commands from file
+                try:
+                    with open(args.direct_commands, 'r') as f:
+                        commands = json.load(f)
+                    print(f"[*] Loaded {len(commands)} commands from {args.direct_commands}")
+                except Exception as e:
+                    print(f"[!] Failed to load commands file: {e}")
+                    commands = []
+            else:
+                # Use example commands for testing
+                commands = [
+                    {"action": "press", "args": {"key": "win"}},
+                    {"action": "wait", "args": {"duration": 1.0}},
+                    {"action": "type", "args": {"text": "brave"}},
+                    {"action": "press", "args": {"key": "enter"}},
+                    {"action": "wait", "args": {"duration": 3.0}},
+                    {"action": "navigate", "args": {"url": "https://substack.com"}},
+                    {"action": "wait", "args": {"duration": 3.0}},
+                ]
+                print("[*] Using example commands for direct mode test")
+            agent.run_direct(commands)
         else:
-            # Use example commands for testing
-            commands = [
-                {"action": "press", "args": {"key": "win"}},
-                {"action": "wait", "args": {"duration": 1.0}},
-                {"action": "type", "args": {"text": "brave"}},
-                {"action": "press", "args": {"key": "enter"}},
-                {"action": "wait", "args": {"duration": 3.0}},
-                {"action": "navigate", "args": {"url": "https://substack.com"}},
-                {"action": "wait", "args": {"duration": 3.0}},
-            ]
-            print("[*] Using example commands for direct mode test")
-        
-        agent.run_direct(commands)
-    else:
-        # VLM mode
-        print(f"\n🎯 Running with goal: {TARGET_GOAL}")
-        print(f"⚙️ Configuration: API Provider={agent.config.get('api_provider', 'mock')}, OCR={agent.enable_ocr}")
-        print("💡 Press Ctrl+C to stop, or move mouse to corner for failsafe")
-        print("="*40)
-        
-        try:
+            # VLM mode
+            print(f"\n🎯 Running with goal: {TARGET_GOAL}")
+            print(f"⚙️ Configuration: API Provider={agent.config.get('api_provider', 'mock')}, OCR={agent.enable_ocr}")
+            print("💡 Press Ctrl+C to stop, or move mouse to corner for failsafe")
+            print("="*40)
             agent.run(TARGET_GOAL, retry_on_failure=True, max_retries=3)
-            
             # Save state on completion
             print("\n[*] Saving agent state...")
             agent.save_state("agent_state.json")
-        
-        except pyautogui.FailSafeException:
-            print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
-            logger.warning("Failsafe triggered")
-            agent.save_state("agent_state_emergency.json")
-        except KeyboardInterrupt:
-            print("\n🛑 Manual interrupt received. Agent terminated.")
-            logger.info("Manual interrupt")
-            agent.save_state("agent_state_interrupt.json")
-        except Exception as e:
-                print(f"\n❌ Unexpected error: {e}")
-                    logger.error(f"Unexpected error: {e}", exc_info=True)
+    except pyautogui.FailSafeException:
+        print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
+        logger.warning("Failsafe triggered")
+        agent.save_state("agent_state_emergency.json")
+    except KeyboardInterrupt:
+        print("\n🛑 Manual interrupt received. Agent terminated.")
+        logger.info("Manual interrupt")
+        agent.save_state("agent_state_interrupt.json")
+    except Exception as e:
+        print(f"\n❌ Unexpected error: {e}")
+        logger.error(f"Unexpected error: {e}", exc_info=True)
         agent.save_state("agent_state_error.json")

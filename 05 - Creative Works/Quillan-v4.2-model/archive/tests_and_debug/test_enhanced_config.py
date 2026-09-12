@@ -42,16 +42,18 @@ def test_enhanced_configuration():
     # Create model with enhanced config
     print("🏗️ Creating enhanced model...")
     start_time = time.time()
+    try:
         model = QuillanRoninV5_3(cfg).to(device)
         model_creation_time = time.time() - start_time
-        print(".2f"        except Exception as e:
-            print(f"❌ Model creation failed: {e}")
-            return False
+        print(f"✅ Model created in {model_creation_time:.2f}s")
+    except Exception as e:
+        print(f"❌ Model creation failed: {e}")
+        return False
 
-        # Count parameters
-        total_params = sum(p.numel() for p in model.parameters())
-        print(","
-        # Test forward pass with enhanced inputs
+    # Count parameters
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"📊 Total parameters: {total_params:,}")
+    # Test forward pass with enhanced inputs
     print("🧪 Testing forward pass with enhanced inputs...")
 
     # Create test inputs matching enhanced specifications
@@ -89,7 +91,7 @@ def test_enhanced_configuration():
             inference_time = time.time() - start_time
 
             print("✅ Forward pass successful!")
-            print(".3f"
+            print(f"⏱️ Inference time: {inference_time:.3f}s")
             # Verify output shapes
             print("📤 Output verification:")
             print(f"   • Text logits: {outputs['text'].shape}")
@@ -113,7 +115,8 @@ def test_enhanced_configuration():
             # Memory usage check
             if device.type == 'cuda':
                 memory_used = torch.cuda.memory_allocated() / 1024**3
-                print(".2f"            else:
+                print(f"💾 GPU memory used: {memory_used:.2f} GB")
+            else:
                 print("💾 CPU memory: Test completed (no GPU memory tracking)")
 
         except Exception as e:
