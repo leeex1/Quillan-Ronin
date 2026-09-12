@@ -1,0 +1,507 @@
+{
+  "toolkit": "5.4.0-oni+toolkit.2026-09-10",
+  "layer": "all",
+  "results": {
+    "physics": {
+      "F=ma": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "KE": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "SHO": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "pendulum": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "ideal_gas_T": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "stefan_boltzmann": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "wien": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "planck": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "mass_energy": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "lorentz": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "photoelectric": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "coulomb": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "bernoulli": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "landauer": {
+        "ok": true,
+        "value_J": 2.870978885078724e-21
+      },
+      "gravitation": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "maxwell_gauss": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      }
+    },
+    "cs": {
+      "shannon": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "kl": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "bayes": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "dft": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            16
+          ]
+        ]
+      },
+      "mi": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "handshaking": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "catalan": {
+        "ok": true,
+        "value": 42
+      },
+      "fibonacci": {
+        "ok": true,
+        "value": 55
+      },
+      "cayley": {
+        "ok": true,
+        "value": 16
+      },
+      "master": {
+        "ok": true,
+        "value": "Theta(n^1 log n)"
+      },
+      "combinatorics": {
+        "ok": true,
+        "C(10,3)": 120,
+        "Catalan(5)": 42,
+        "Fib(10)": 55,
+        "Cayley(4)": 16,
+        "K5_edges": 10,
+        "master": "Theta(n^1 log n)"
+      }
+    },
+    "ml": {
+      "activations": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          [
+            4
+          ]
+        ]
+      },
+      "softmax": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            8
+          ]
+        ]
+      },
+      "ce": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "mse": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "attention": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            4,
+            16
+          ]
+        ]
+      },
+      "gaussian": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            8
+          ]
+        ]
+      },
+      "normal_eq": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            4
+          ]
+        ]
+      },
+      "bellman": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "cov": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "tanh": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          [
+            4
+          ]
+        ]
+      },
+      "relu": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          [
+            4
+          ]
+        ]
+      },
+      "gd_step": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "cond_entropy": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          []
+        ]
+      },
+      "cum_return": {
+        "ok": true,
+        "value": 5.0
+      },
+      "pca": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            2
+          ]
+        ]
+      }
+    },
+    "custom": {
+      "AQCS": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            34,
+            1024
+          ]
+        ]
+      },
+      "EEMF": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            512,
+            512
+          ],
+          [
+            2
+          ],
+          [
+            2
+          ]
+        ]
+      },
+      "QHIS": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          []
+        ]
+      },
+      "DQRO": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            16
+          ]
+        ]
+      },
+      "QCRDM": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          [
+            2,
+            8,
+            1024
+          ]
+        ]
+      },
+      "AQML": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          []
+        ]
+      },
+      "QCIE": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            8
+          ]
+        ]
+      },
+      "QICS": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          []
+        ]
+      },
+      "QSSR": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "OK",
+        "shapes": [
+          []
+        ]
+      },
+      "JQLD": {
+        "ok": true,
+        "nan": false,
+        "inf": false,
+        "grad": "n/a (pure fn)",
+        "shapes": [
+          [
+            2,
+            8,
+            8
+          ]
+        ]
+      }
+    }
+  },
+  "summary": {
+    "passed": 52,
+    "total": 52,
+    "pass_rate": 100.0
+  }
+}

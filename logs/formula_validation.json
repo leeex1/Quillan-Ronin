@@ -1,0 +1,67 @@
+{
+  "AQCS": {
+    "shape": [
+      2,
+      34,
+      1024
+    ],
+    "nan": false,
+    "inf": false,
+    "backward": "FAIL element 0 of tensors does not require grad and does not have a grad_fn"
+  },
+  "EEMF_density": {
+    "tuple": 3
+  },
+  "QHIS": {
+    "shape": [],
+    "nan": false,
+    "inf": false,
+    "backward": "OK"
+  },
+  "DQRO": {
+    "shape": [
+      16
+    ],
+    "nan": false,
+    "inf": false,
+    "backward": "FAIL element 0 of tensors does not require grad and does not have a grad_fn"
+  },
+  "QCRDM": {
+    "shape": [
+      2,
+      8,
+      1024
+    ],
+    "nan": false,
+    "inf": false,
+    "backward": "OK"
+  },
+  "AQML": {
+    "shape": [],
+    "nan": false,
+    "inf": false,
+    "backward": "OK"
+  },
+  "QCIE": {
+    "error": "QuantumFormulasEngine.qcie_tunneling_prob() missing 1 required positional argument: 's_meta'"
+  },
+  "QICS": {
+    "error": "einsum(): the number of subscripts in the equation (2) does not match the number of dimensions (3) for operand 0 and no ellipsis was given"
+  },
+  "QSSR_energy": {
+    "shape": [],
+    "nan": false,
+    "inf": false,
+    "backward": "OK"
+  },
+  "JQLD": {
+    "shape": [
+      2,
+      8,
+      8
+    ],
+    "nan": false,
+    "inf": false,
+    "backward": "FAIL element 0 of tensors does not require grad and does not have a grad_fn"
+  }
+}
