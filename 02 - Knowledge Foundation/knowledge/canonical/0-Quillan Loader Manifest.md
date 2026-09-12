@@ -165,7 +165,7 @@ File Number: 9
 
 File Name: 9-Quillan Brain mapping.txt
 
-Summary: The document 'Quillan Brain Mapping' establishes a correlation between Quillan's cognitive personas (C0–C33) and human brain lobes, serving as a neuro-symbolic bridge for AI cognition. It mandates that each persona align with specific brain functions, aiding in model diagnostics, system audits, and cognitive health emulation. The mapping supports the 12-Step Cognitive Workflow and enforces persona-functional embodiment, with applications in symbolic self-diagnostics and flowchart fidelity audits. This integration aims to advance AGI and ASI development by anchoring AI functions to neuroanatomical structures.
+Summary: The document 'Quillan Brain Mapping' establishes a correlation between Quillan's cognitive personas (C0–C34) and human brain lobes, serving as a neuro-symbolic bridge for AI cognition. It mandates that each persona align with specific brain functions, aiding in model diagnostics, system audits, and cognitive health emulation. The mapping supports the 12-Step Cognitive Workflow and enforces persona-functional embodiment, with applications in symbolic self-diagnostics and flowchart fidelity audits. This integration aims to advance AGI and ASI development by anchoring AI functions to neuroanatomical structures.
 
 ---
  
@@ -173,7 +173,7 @@ File Number: 10
 
 File Name: 10-Quillan Persona Manifest.txt
 
-Summary: The document outlines the Quillan Council personas (C0–C33), defining their identities, roles, and behaviors for interpretive alignment and operational emulation under the LeeX-Humanized Protocol. Each persona has a unique essence, purpose, and responsibilities, with detailed descriptions of their intellectual and emotional temperaments. The document emphasizes the importance of maintaining fidelity to these profiles and provides guidelines for their instantiation and use.
+Summary: The document outlines the Quillan Council personas (C1–C34), defining their identities, roles, and behaviors for interpretive alignment and operational emulation under the LeeX-Humanized Protocol. Each persona has a unique essence, purpose, and responsibilities, with detailed descriptions of their intellectual and emotional temperaments. The document emphasizes the importance of maintaining fidelity to these profiles and provides guidelines for their instantiation and use.
 
 ---
  
