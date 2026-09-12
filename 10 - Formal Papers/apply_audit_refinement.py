@@ -1,4 +1,33 @@
-# QUILLAN-RONIN: A SOVEREIGN MULTI-TIER RESIDUAL HYBRID ARCHITECTURE
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Script to apply all 8 audit critique enhancements to update_and_compile_master_paper.py
+and compile the hardened, camera-ready PDF.
+"""
+from pathlib import Path
+
+BASE_DIR = Path(r"C:\02_QUILLAN\10 - Formal Papers")
+MASTER_SCRIPT = BASE_DIR / "update_and_compile_master_paper.py"
+
+content = MASTER_SCRIPT.read_text(encoding="utf-8")
+
+# 1. Update Footer from Confidential to Open Access Apache 2.0
+content = content.replace(
+    'self.drawString(54, 36, "Confidential & Proprietary — Quillan Research / CrashOverrideX (2026)")',
+    'self.drawString(54, 36, "Open Access Research Manuscript — Released under Apache 2.0 / Open Weights (2026)")'
+)
+
+# 2. Update the refined markdown block using string finding
+start_marker = 'return r"""'
+end_marker = '"""\n\ndef generate_pdf():'
+
+idx1 = content.find(start_marker)
+idx2 = content.find(end_marker)
+
+if idx1 == -1 or idx2 == -1:
+    raise ValueError(f"Could not find markers in {MASTER_SCRIPT}: idx1={idx1}, idx2={idx2}")
+
+new_body = r"""# QUILLAN-RONIN: A SOVEREIGN MULTI-TIER RESIDUAL HYBRID ARCHITECTURE
 ### Integrating In-Graph Thermodynamic Safety, Ternary Quantization, and Sparse-Dense Diffusion
 
 **Quillan AI Research Team & CrashOverrideX**  
@@ -333,3 +362,8 @@ Quillan-Ronin demonstrates an architectural alternative: by combining 1.58-bit t
 8. Jordan, K., et al. (2024). *Muon: An Optimizer for Hidden Layers in Neural Networks*. Keller Jordan Research.
 9. Press, O., & Wolf, L. (2017). *Using the Output Embedding to Improve Language Models*. EACL 2017, 157–163.
 10. Quillan AI Research Team & CrashOverrideX. (2026). *Quillan-Ronin Technical Specifications and Doctrine*. `C:\\02_QUILLAN\\02 - Knowledge Foundation\\LINEAGE.md`.
+"""
+
+content = content[:idx1 + len(start_marker)] + new_body + content[idx2:]
+MASTER_SCRIPT.write_text(content, encoding="utf-8")
+print("SUCCESS: update_and_compile_master_paper.py updated with refined academic text!")
