@@ -27,6 +27,7 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Image as RLImage, Table, TableStyle, PageBreak, KeepTogether, HRFlowable
 )
 from reportlab.pdfgen import canvas
+from PIL import Image as PILImage
 
 PAPERS_DIR = Path(r"C:\02_QUILLAN\10 - Formal Papers")
 MD_PATH = PAPERS_DIR / "Quillan-Ronin-Master-Paper.md"
@@ -693,13 +694,44 @@ def generate_pdf():
             img_path = PAPERS_DIR / img_rel
             if img_path.exists():
                 try:
-                    # Scale image to 504 width max
-                    img_flowable = RLImage(str(img_path), width=504, height=210)
-                    img_flowable.hAlign = 'CENTER'
-                    story.append(Spacer(1, 6))
-                    story.append(img_flowable)
-                    story.append(Paragraph(f"<b>{caption}</b>", caption_style))
-                    story.append(Spacer(1, 4))
+                    with PILImage.open(img_path) as pimg:
+                        orig_w, orig_h = pimg.size
+                    
+                    aspect = orig_h / orig_w
+                    
+                    if aspect > 0.8:
+                        # Vertical / Tall Diagram (e.g., Fig 11 & Fig 12)
+                        target_h = 475.0
+                        target_w = target_h / aspect
+                        if target_w > 504.0:
+                            target_w = 504.0
+                            target_h = target_w * aspect
+                        
+                        img_flowable = RLImage(str(img_path), width=target_w, height=target_h)
+                        img_flowable.hAlign = 'CENTER'
+                        story.append(PageBreak())
+                        story.append(Spacer(1, 10))
+                        story.append(img_flowable)
+                        story.append(Spacer(1, 6))
+                        story.append(Paragraph(f"<b>{caption}</b>", caption_style))
+                        story.append(Spacer(1, 10))
+                    else:
+                        # Landscape / Wide Diagram (e.g., Fig 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+                        target_w = 490.0
+                        target_h = target_w * aspect
+                        if target_h > 310.0:
+                            target_h = 310.0
+                            target_w = target_h / aspect
+                        
+                        img_flowable = RLImage(str(img_path), width=target_w, height=target_h)
+                        img_flowable.hAlign = 'CENTER'
+                        story.append(KeepTogether([
+                            Spacer(1, 8),
+                            img_flowable,
+                            Spacer(1, 4),
+                            Paragraph(f"<b>{caption}</b>", caption_style),
+                            Spacer(1, 8)
+                        ]))
                 except Exception as e:
                     print(f"Warning: Failed to render image {img_path}: {e}")
             i += 1
