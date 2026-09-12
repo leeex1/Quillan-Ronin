@@ -7,7 +7,7 @@ Generator: nvidia/nemotron-3-super-120b-a12b
 Storage:   ChromaDB (local persistent)
 """
 
-import os, json, logging, hashlib
+import os, json, logging, hashlib, asyncio
 from pathlib import Path
 from typing import Optional
 import httpx, chromadb
@@ -51,30 +51,68 @@ CHUNK_OVERLAP  = 80
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [RAG] %(message)s")
 log = logging.getLogger("quillan_rag")
 
-CHROMA_PATH.mkdir(parents=True, exist_ok=True)
 _chroma = chromadb.PersistentClient(path=str(CHROMA_PATH), settings=Settings(anonymized_telemetry=False))
 _col    = _chroma.get_or_create_collection(name=COLLECTION, metadata={"hnsw:space": "cosine"})
-_http   = httpx.AsyncClient(timeout=30.0)
+
+_client_holder = {"client": None, "loop": None}
+
+def _get_http() -> httpx.AsyncClient:
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+    if _client_holder["client"] is None or _client_holder["client"].is_closed or _client_holder["loop"] != loop:
+        _client_holder["client"] = httpx.AsyncClient(timeout=45.0)
+        _client_holder["loop"] = loop
+    return _client_holder["client"]
+
 mcp     = FastMCP("Quillan RAG", instructions="NIM-powered knowledge retrieval over Quillan's corpus")
+
+# Allowed root directory to prevent path traversal
+ALLOWED_ROOT = Path(r"C:\02_QUILLAN").resolve()
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
-async def _embed(texts: list[str], input_type: str = "passage") -> list[list[float]]:
-    r = await _http.post(f"{NIM_BASE}/embeddings",
-        headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
-        json={"input": texts, "model": EMBED_MODEL, "input_type": input_type,
-              "encoding_format": "float", "truncate": "END"})
-    r.raise_for_status()
-    return [d["embedding"] for d in sorted(r.json()["data"], key=lambda x: x["index"])]
+async def _embed(texts: list[str], input_type: str = "passage", max_retries: int = 4) -> list[list[float]]:
+    delay = 1.0
+    client = _get_http()
+    for attempt in range(max_retries):
+        try:
+            r = await client.post(f"{NIM_BASE}/embeddings",
+                headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
+                json={"input": texts, "model": EMBED_MODEL, "input_type": input_type,
+                      "encoding_format": "float", "truncate": "END"})
+            r.raise_for_status()
+            return [d["embedding"] for d in sorted(r.json()["data"], key=lambda x: x["index"])]
+        except (httpx.HTTPStatusError, httpx.RequestError) as e:
+            if attempt == max_retries - 1:
+                log.error(f"Embedding failed after {max_retries} attempts: {e}")
+                raise
+            import random
+            sleep_time = delay * (2 ** attempt) + random.uniform(0.1, 0.5)
+            log.warning(f"Embedding attempt {attempt+1} failed: {e}. Retrying in {sleep_time:.2f}s...")
+            await asyncio.sleep(sleep_time)
 
-async def _generate(system: str, user: str, max_tokens: int = 1024) -> str:
-    r = await _http.post(f"{NIM_BASE}/chat/completions",
-        headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
-        json={"model": GEN_MODEL, "messages": [{"role": "system", "content": system},
-              {"role": "user", "content": user}], "max_tokens": max_tokens, "temperature": 0.2},
-        timeout=60.0)
-    r.raise_for_status()
-    return r.json()["choices"][0]["message"]["content"]
+async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 3) -> str:
+    delay = 1.5
+    client = _get_http()
+    for attempt in range(max_retries):
+        try:
+            r = await client.post(f"{NIM_BASE}/chat/completions",
+                headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
+                json={"model": GEN_MODEL, "messages": [{"role": "system", "content": system},
+                      {"role": "user", "content": user}], "max_tokens": max_tokens, "temperature": 0.2},
+                timeout=60.0)
+            r.raise_for_status()
+            return r.json()["choices"][0]["message"]["content"]
+        except (httpx.HTTPStatusError, httpx.RequestError) as e:
+            if attempt == max_retries - 1:
+                log.error(f"Generation failed after {max_retries} attempts: {e}")
+                raise
+            import random
+            sleep_time = delay * (2 ** attempt) + random.uniform(0.2, 0.8)
+            log.warning(f"Generation attempt {attempt+1} failed: {e}. Retrying in {sleep_time:.2f}s...")
+            await asyncio.sleep(sleep_time)
 
 def _chunk(text: str) -> list[str]:
     words = text.split()
@@ -87,12 +125,21 @@ def _chunk(text: str) -> list[str]:
 def _id(src: str, idx: int) -> str:
     return hashlib.md5(f"{src}::{idx}".encode()).hexdigest()
 
+def _is_safe_path(p: Path) -> bool:
+    try:
+        resolved = p.resolve()
+        return resolved == ALLOWED_ROOT or ALLOWED_ROOT in resolved.parents
+    except Exception:
+        return False
+
 # ── Tools ─────────────────────────────────────────────────────────────────────
 
 @mcp.tool()
 async def ingest_file(file_path: str, metadata: Optional[dict] = None) -> str:
     """Ingest a file into Quillan's RAG knowledge base. Supports .txt .md .pdf .py .json .lrc"""
     path = Path(file_path)
+    if not _is_safe_path(path):
+        return f"Error: Path traversal blocked. Path must reside within {ALLOWED_ROOT}"
     if not path.exists():
         return f"Error: not found: {file_path}"
     try:
@@ -124,6 +171,8 @@ async def ingest_folder(folder_path: str, extensions: Optional[list[str]] = None
     """Recursively ingest all matching files from a folder. Default exts: .md .txt .py .lrc .json .pdf"""
     exts  = set(extensions or [".md", ".txt", ".py", ".lrc", ".json", ".pdf"])
     root  = Path(folder_path)
+    if not _is_safe_path(root):
+        return f"Error: Path traversal blocked. Path must reside within {ALLOWED_ROOT}"
     if not root.exists():
         return f"Error: not found: {folder_path}"
     files = [f for f in root.rglob("*") if f.is_file() and f.suffix.lower() in exts]
