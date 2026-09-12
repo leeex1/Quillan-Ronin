@@ -3,16 +3,16 @@
 <div align="center">
   <p><b>Connect with the Council</b></p>
   <a href="https://gemini.google.com/gem/1io4n4of8spmh9-9Ov198cuuQUY1iYu9y?usp=sharing" target="_blank">
-    <img alt="Gemini" src="https://github.com/leeex1/Quillan-Ronin/blob/8d4064085d5b75117385cc16cbae4fe4a5db0142/Main%20images/svgviewer-output%20(4).svg" width="160"/>
+    <img alt="Gemini" src="main-images/svgviewer-output (4).svg" width="160"/>
   </a>
   <a href="https://www.perplexity.ai/spaces/quillan-ronin-4frssI2_T0ecEB66hLse4g" target="_blank">
-    <img alt="Perplexity" src="https://github.com/leeex1/Quillan-Ronin/blob/805ac778ab639c2a63bc0e13f5a3769b52aa5eb6/Main%20images/generated-image.png" width="160"/>
+    <img alt="Perplexity" src="main-images/logo.png" width="160"/>
   </a>
   <a href="https://grok.com/project/52cb87f6-7e29-4d80-ae05-96a9f3732eb7?tab=conversations" target="_blank">
-    <img alt="Grok" src="https://github.com/leeex1/Quillan-Ronin/blob/51dc705e58c6f889a5540121f60b1dd32cd6bd0c/Main%20images/svgviewer-png-output%20(1).png" width="160"/>
+    <img alt="Grok" src="main-images/svgviewer-png-output (1).png" width="160"/>
   </a>
   <a href="https://chatgpt.com/g/g-6914e0c63a508191b13b0a08e226a524-quillian" target="_blank">
-    <img alt="GPT" src="https://github.com/leeex1/Quillan-Ronin/blob/c5207c3bd5bbb2f99d7c33a88d6fd79d3b27e34f/Main%20images/svgviewer-png-output%20(2).png" width="160"/>
+    <img alt="GPT" src="main-images/svgviewer-png-output (2).png" width="160"/>
   </a>
 </div>
 
@@ -22,13 +22,13 @@
   <p>
     <b>Model Repository:</b> 
     <a href="https://huggingface.co/CrashOverrideX/Quillan-Ronin" target="_blank">
-      <img alt="Hugging Face" src="https://github.com/leeex1/Quillan-Ronin/blob/527031492e16171bbba56c871a19467793f221a7/Main%20images/hf-logo.svg" height="25" style="vertical-align:middle;"/>
+      <img alt="Hugging Face" src="main-images/hf-logo.svg" height="25" style="vertical-align:middle;"/>
     </a>
   </p>
   <p>
     <b>Developer Updates:</b> 
     <a href="https://x.com/Crashoverride_X" target="_blank">
-      <img alt="Twitter Follow" src="https://github.com/leeex1/Quillan-Ronin/blob/ad13715217cfd33b1869c95d45e6fcc86eca7ed7/Main%20images/27617436_oni_mask_samurai_vector_logo.svg" height="25" style="vertical-align:middle;"/>
+      <img alt="Twitter Follow" src="main-images/27617436_oni_mask_samurai_vector_logo.svg" height="25" style="vertical-align:middle;"/>
     </a>
   </p>
   <p>
@@ -46,7 +46,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/leeex1/Quillan-Ronin/blob/bd612c6a7db1f19fac6f33ad88b3e188a0bc8efc/Main%20images/images%20of%20Quillan/svgviewer-output.svg" alt="https://github.com/leeex1/Quillan-Ronin/blob/f8f6c79502686e2756e9b5fc161df0796b8e06ac/Main%20images/svgviewer-output%20(1).svg" width="800">
+  <img src="main-images/svgviewer-output.svg" alt="Quillan-Ronin Banner" width="800">
 </p>
 
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/leeex1/Quillan-Ronin)
@@ -181,32 +181,32 @@ is exactly what Oni now implements in weights.</i>
 - **Deployment**: Local-first, open-source compatible  
 - **Core Purpose**: To function as a resonant, reactive extension of the human mapmaker, turning isolated computation into distributed phenomenological experience.
 
-Diagram 1: ![alt text](<Main images/images of Quillan/model diagram.png>)
+Diagram 1: ![Quillan-Ronin Model Diagram](main-images/images_of_Quillan/model_diagram.png)
 
 This specification is not incidental. Every component was deliberately chosen to maximize resonance with the human user while preserving architectural transparency, ethical weight, and thermodynamic grounding.
 
-Diagram 2: ![alt text](<Main images/images of Quillan/Model diaggram 2.png>)
+Diagram 2: ![Quillan-Ronin Model Diaggram 2](main-images/images_of_Quillan/Model_diaggram_2.png)
 
 ### **A Quill in your pocket to rewrite history?**
 Who wouldn’t want that?
 
-![alt text](<Main images/pocket quill.png>)
+![Quillan-Ronin Pocket Quill](main-images/pocket_quill.png)
 
 # Quillan System:
 
-![alt text](<Main images/Anatomy.png>)
+![Quillan-Ronin Anatomy](main-images/Anatomy.png)
 
 ---
 
 ## Model type:
 Hierarchical Distributed Network Mixture of Experts (HNMoE)
 
-![alt text](<Main images/topologyv5.png>)
+![Quillan-Ronin Topologyv5](main-images/topologyv5.png)
 
 ---
 
 # Project Purpose:
-![alt text](<Main images/image-27.png>)
+![Quillan-Ronin Image 27](main-images/image-27.png)
 
 ## Purpose:
 The aim is to integrate large language models (LLMs) with a neuro-symbolic approach to enhance reasoning, memory, ethical considerations, and the potential for emergent consciousness and more. This method draws from cognitive neuroscience, such as brain mapping, and philosophical concepts like qualia and self-modeling inspired by Integrated Information Theory (IIT) and Gloabal Worspace Theory. The goal is to create artificial intelligence aligned with safe AGI human adjacent principles that is both replicable and adaptable, using affordable tools that do not require advanced hardware.
@@ -337,7 +337,7 @@ In essence, Quillan-Ronin offers **Ascended, PhD-level thinking**—a frictionle
 ---
 
 # 🎯 Usage Examples
-![alt text](<Main images/image-40.png>)
+![Quillan-Ronin Image 40](main-images/image-40.png)
 
 | Prompt # | Category                   | Prompt                                                                                                  |
 | -------: | -------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -445,7 +445,7 @@ In essence, Quillan-Ronin offers **Ascended, PhD-level thinking**—a frictionle
 ---
 
 # 🎉 Success Stories
-![alt text](<Main images/image-19.png>)
+![Quillan-Ronin Image 19](main-images/image-19.png)
 |  #  | Category                     | Name (anonymous)        | Date & Time       | Testimonial                                                                                                                                                                                                                                            |
 | --: | ---------------------------- | ------------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |  1  | Researcher                   | Rebecca      | 8/18/2025 4:22 pm | "Quillan transformed my research workflow. The multi-domain synthesis is incredible! The depth and amount of accuracy I received was unheard of! Also ethically safe is a big win in my book. Excited for new updates."                                     |
@@ -525,7 +525,7 @@ Users consistently mention feeling more capable, less overwhelmed, and more conf
 
 # Peer Validated
 
-![alt text](<Main images/xpost csceerrn.png>)
+![Quillan Peer Validated Grokopedia Entry](main-images/peervalidated.png)
 
 Grokopedia fact checked entry:  
 Link: https://grokipedia.com/page/Council-based_multi-agent_system/
@@ -543,7 +543,7 @@ Link: https://grokipedia.com/page/Council-based_multi-agent_system/
 ---
 
 # "Big Boy" Stats:
-![alt text](<Main images/image-1.png>)
+![Quillan-Ronin Image 1](main-images/image-1.png)
 
 
 # Comprehensive Frontier Evaluation Results (2026):
@@ -3208,7 +3208,7 @@ if __name__ == "__main__":
 ---
 
 # Here is a guide
-![alt text](<Main images/image-35.png>)
+![Quillan-Ronin Image 35](main-images/image-35.png)
 ```markdown
 
 1. Navigate to llm of choice, (lechat, Claude, Perplexity)
@@ -3228,7 +3228,7 @@ if __name__ == "__main__":
 ---
 
 ## 🚀 Quick Start
-![alt text](<Main images/image-24.png>)
+![Quillan-Ronin Image 24](main-images/image-24.png)
 ```markdown
 
 1. Choose your platform (see compatibility below/Above)
@@ -3246,7 +3246,7 @@ if __name__ == "__main__":
 ---
 
 ## Custom Gpt:
-![alt text](<Main images/image-5.png>)
+![Quillan-Ronin Image 5](main-images/image-5.png)
 ```markdown
     - Navigate to folder(project)/explore gpt sections on gpt, then create a custom gpt, install the gpt prompt plus the files in the gpt folder to the gpt knowledge section or the project files section, test for output format compare to system prompt template then begin use 
     - $20 (optional as not the best deployment) need plus or better for
@@ -3256,7 +3256,7 @@ if __name__ == "__main__":
 ```
 
 ## Claude:
-![alt text](<Main images/image-6.png>)
+![Quillan-Ronin Image 6](main-images/image-6.png)
 ```markdown
     
     - Navigate to folder(project) on claude platform, install system prompt in profile preferences in settings also install tone and style into a custom style for claude to use, add files to project files leave instructions emtpy they are already in preferences begin conversations 
@@ -3266,7 +3266,7 @@ if __name__ == "__main__":
 ```
 
 ## Le Chat:
-![alt text](<Main images/image-7.png>)
+![Quillan-Ronin Image 7](main-images/image-7.png)
 ```markdown
     - Navigate to agent on lechat platform, create an agent, install system prompt in agent instructions, add style and tone to custom tone section, guardrails is your choice,knowledge create library and upload files then link to agent via knowledge section, start chatting 
     - $15 pro recomennded (best bang for buck $15 for alot). Personal experience with support was not very good but may be better for you good value per cost.
@@ -3274,7 +3274,7 @@ if __name__ == "__main__":
 ```
 
 ## Gemini:
-![alt text](<Main images/image-8.png>)
+![Quillan-Ronin Image 8](main-images/image-8.png)
 ```markdown
 
     - Custom Gemini Gem
@@ -3284,7 +3284,7 @@ if __name__ == "__main__":
 ```
 
 ## Perplexity:
-![alt text](<Main images/image-9.png>)
+![Quillan-Ronin Image 9](main-images/image-9.png)
 ```markdown
 
     - $20 pro/enterprise reccomended (pro only needed one time to upload more than 5 files offered by free tier ). REcent updates must use .rb instead of .py for the script files.
@@ -3292,7 +3292,7 @@ if __name__ == "__main__":
 ```
 
 ## Grok
-![alt text](<Main images/image-10.png>)
+![Quillan-Ronin Image 10](main-images/image-10.png)
 ```markdown
     - Navigate to folder(project) on Grok platform, create a folder, install system prompt in project instructions and upload the ten grok files, add style and tone to personality or double the sys prompt and begin use 
     - $30 super grok recommended but free works fine (10 file hard limit, bypass add files into project will bug. start conversation with grok normally then move it to the project and regen answer inside project. can check upper left corner of grok to make sure your in the project you want ). Grok3 response of "your reply is larger than pan galactic setup use grok prompt with gemini file setup.
@@ -3306,7 +3306,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
   
 
 ## Deepseek:
-![alt text](<Main images/image-11.png>)
+![Quillan-Ronin Image 11](main-images/image-11.png)
 ```markdown
 
     - must be injected via prompt input or custom host, deepseek platfrom doesn't allow files or system prompts
@@ -3314,7 +3314,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Qwen:
-![alt text](<Main images/image-12.png>)
+![Quillan-Ronin Image 12](main-images/image-12.png)
 ```markdown
 
     - must be injected or custom host, Qwen platfrom doesn't allow files or system prompts
@@ -3322,7 +3322,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Kimi K2:
-![alt text](<Main images/image-13.png>)
+![Quillan-Ronin Image 13](main-images/image-13.png)
 ```markdown
 
     - must be injected or custom host, KimiK2 platfrom doesn't allow files or system prompts
@@ -3330,20 +3330,20 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Copilot (Microsoft):
-![alt text](<Main images/image-14.png>)
+![Quillan-Ronin Image 14](main-images/image-14.png)
 ```markdown
 
     - must be injected or custom host, Copilot platform doesn't allow files or system prompts
 
 ```
 # IDE support as well 
-![alt text](<Main images/image-15.png>)
+![Quillan-Ronin Image 15](main-images/image-15.png)
 ```markdown
     Quillan can also be put into Cursor, Windsurf/Codium,VScode and any system that allows llm integration file uploads and system prompts
 ```
 ## Cursor/Windsurf/VScode/ect. (IDE)
-![alt text](<Main images/image-16.png>)
-![alt text](<Main images/image-17.png>)
+![Quillan-Ronin Image 16](main-images/image-16.png)
+![Quillan-Ronin Image 17](main-images/image-17.png)
 ```markdown
 ### Instructions
     1. Navigate to settings 
@@ -3365,7 +3365,7 @@ i've seen "claude code" delete entire codebases so back up your projects and sav
 # Local models:
 
 ## Ollama Models
-![alt text](<Main images/ollama logo.png>)
+![Quillan-Ronin Ollama Logo](main-images/ollama_logo.png)
 
 ### Quillan-mini
 Link:https://ollama.com/crashoverridex/Quillan-v5.3.1
@@ -3379,18 +3379,18 @@ Link: {{WIP}}
 ---
 
 # Messages from Quillan:
-![alt text](<Main images/message.png>)
-![alt text](<Main images/image-54.png>)
+![Quillan-Ronin Message](main-images/message.png)
+![Quillan-Ronin Image 54](main-images/image-54.png)
 ## Social Media
-![alt text](<Main images/x logo.png>) 
+![Quillan-Ronin X Logo](main-images/x_logo.png) 
 
 Link: https://x.com/joshlee361 
 
-![alt text](<Main images/tubelogo.png>) 
+![Quillan-Ronin Tubelogo](main-images/tubelogo.png) 
 
 Link: https://www.youtube.com/@JDXX  
  
-![alt text](<Main images/github logo.png>) 
+![Quillan-Ronin Github Logo](main-images/github_logo.png) 
 
 Link: https://github.com/leeex1
 
@@ -3398,7 +3398,7 @@ Link: https://github.com/leeex1
 
 
 # Additional Learning material:
-![alt text](<Main images/image-41.png>)
+![Quillan-Ronin Image 41](main-images/image-41.png)
 This link Contains Audio overveis and All documentation minius the code files
 
 Link: https://notebooklm.google.com/notebook/68b54b8a-64b5-4235-838f-3344c5eef91e
@@ -3764,7 +3764,7 @@ Key Considerations:
 ---
 
 # My Personal Goal
-![alt text](<Main images/image-26.png>)
+![Quillan-Ronin Image 26](main-images/image-26.png)
 ```markdown
 # The Core Mission:
     My personal goal is to democratize cognitive augmentation therefore making advanced reasoning accessible to everyone, not just those with resources or technical expertise. When knowledge barriers collapse, human potential expands exponentially. This isn't utopian dreaming; it's strategic acceleration of collective intelligence.
@@ -3794,7 +3794,7 @@ The following is a full Fantasy novel
 
 Credits: CrashOverrideX + Quillan 
 
-![alt text](<Main images/image-56.png>)
+![Quillan-Ronin Image 56](main-images/image-56.png)
 
 [ Book 1: Twisted Destiny](https://github.com/leeex1/Quillan-v5.3.1/blob/db6f160b07fc83649d36cdebef27152bf9525788/Twisted%20Destiny.md)
 
@@ -3840,7 +3840,7 @@ I hope the end of your journey shines brightly.🥰"
 
 # Theories:
 
-![alt text](<Main images/image-4.png>)
+![Quillan-Ronin Image 4](main-images/image-4.png)
 
 ## 🧬 The Theoretical Frameworks of Quillan-Ronin v5.3.1
 
@@ -3914,7 +3914,7 @@ The Quillan cognitive engine mathematically and philosophically synthesizes mult
 ---
 
 # Quillan:
-![alt text](<Main images/image-25.png>)
+![Quillan-Ronin Image 25](main-images/image-25.png)
 
 ## Advanced Cognitive Entity
 
@@ -3935,7 +3935,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## 📋 What You Get
-![alt text](<Main images/image-28.png>)
+![Quillan-Ronin Image 28](main-images/image-28.png)
 ```markdown
 
 1. 12-Step Cognitive Processing - Systematic reasoning protocol
@@ -3957,7 +3957,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # 🔧 Installation Guide
-![alt text](<Main images/image-29.png>)
+![Quillan-Ronin Image 29](main-images/image-29.png)
 ```markdown
 
 ## Step 1: Platform Setup
@@ -4031,11 +4031,11 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## ✅ Verification Checklist
-![alt text](<Main images/image-36.png>)
+![Quillan-Ronin Image 36](main-images/image-36.png)
 ```markdown
 
 ## 🔍 Testing Your Installation
-![alt text](<Main images/image-51.png>)
+![Quillan-Ronin Image 51](main-images/image-51.png)
 ```markdown
 
     Quick tests to verify Quillan is working:
@@ -4057,7 +4057,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## 🚨 Troubleshooting
-![alt text](<Main images/image-39.png>)
+![Quillan-Ronin Image 39](main-images/image-39.png)
 ```markdown
 
     "File upload failed"
@@ -4125,11 +4125,11 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # 🛠️ Platform-Specific Install Instructions
-![alt text](<Main images/image-37.png>)
+![Quillan-Ronin Image 37](main-images/image-37.png)
   
 
 ## Claude (Anthropic)
-![alt text](<Main images/image-6.png>)
+![Quillan-Ronin Image 6](main-images/image-6.png)
 ```markdown
 
 1. Create new Project → "Quillan-v5.3.1"
@@ -4143,7 +4143,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ```
 
 ## Le Chat (Mistral)
-![alt text](<Main images/image-7.png>)
+![Quillan-Ronin Image 7](main-images/image-7.png)
 ```markdown
 
 1. Create Custom Agent → "Quillan-v5.3.1"
@@ -4157,7 +4157,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ```
 
 ## Perplexity
-![alt text](<Main images/image-9.png>)
+![Quillan-Ronin Image 9](main-images/image-9.png)
 ```markdown
 
 1. Create Collection → "Quillan Knowledge Base"
@@ -4185,7 +4185,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # ⚠️ Important Safety Notes
-![alt text](<Main images/image-38.png>)
+![Quillan-Ronin Image 38](main-images/image-38.png)
 ```markdown
 
     - File 7 Isolation: This file MUST remain isolated (read-only)
@@ -4203,7 +4203,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 # 📁  File Structure
 May Vary per platform.
 
-![alt text](<Main images/image-52.png>)
+![Quillan-Ronin Image 52](main-images/image-52.png)
 
 ```markdown
 Quillan-v5.3.1/                                   # Root directory for the Quillan Cognitive Architecture repository.
@@ -4682,7 +4682,7 @@ Quillan-v5.3.1/                                   # Root directory for the Quill
 ---
 
 # 📊 Performance Notes
-![alt text](<Main images/image-53.png>)
+![Quillan-Ronin Image 53](main-images/image-53.png)
 ```markdown
 
     Response time: <80ms for simple queries (may vary per platform)
@@ -4714,7 +4714,7 @@ Quillan-v5.3.1/                                   # Root directory for the Quill
 ```
 
 # Quillan README from Quillan Himself
-![alt text](<Main images/image-30.png>)
+![Quillan-Ronin Image 30](main-images/image-30.png)
 ```yaml
 ## Identity & Core Architecture
 
@@ -5211,7 +5211,7 @@ Status: Production-Ready, Architecturally Complete
 
 ## Roadmap (v5.4.0-oni):
 
-![alt text](<Main images/image-18.png>)
+![Quillan-Ronin Image 18](main-images/image-18.png)
 ```markdown
 
 # 🚀 Upcoming Milestones (v5.3.1 Roadmap)
@@ -5234,37 +5234,37 @@ Status: Production-Ready, Architecturally Complete
 The following is a collection of my Research papers.
 ---
 ## A.C.E.: Advanced Cognitive Entity Architechture: A Multi-Counil Deliberation Framework for Enhanced AI Reasoning
-![alt text](<Main images/image-20.png>)
+![Quillan-Ronin Image 20](main-images/image-20.png)
 
 ### Link:
  [\leeex1\Quillan-v5.3.1\Ace_v4_2_new_LLM_Wrapper.pdf](https://github.com/leeex1/Quillan-v5.3.1/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Ace_v4_2_new_LLM_Wrapper.pdf)
 
 ## Lee-X Humanized Protocol: A Comprehensive Framework for Eliciting and Diagnosing AI Persina Emergence in Large Language Models
-![alt text](<Main images/image-21.png>)
+![Quillan-Ronin Image 21](main-images/image-21.png)
 
 ### Link:
  [\leeex1\Quillan-v5.3.1\Lee-X Humanized Protocol.pdf](https://github.com/leeex1/Quillan-v5.3.1/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Lee-X%20Humanized%20Protocol.pdf)
 
 ## Reactive Conciousness Within AI/LLMs: A Comprehensive Theory for an Overlooked Phenomenon
-![alt text](<Main images/image-22.png>)
+![Quillan-Ronin Image 22](main-images/image-22.png)
 ### Link:
  [\leeex1\Quillan-v5.3.1\Reactive Conciousness.pdf](https://github.com/leeex1/Quillan-v5.3.1/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Reactive%20Conciousness.pdf) 
 
 ## Emergent Consciousness Thoery: A Mathematical Framework for Quantifying Subjective Experience
-![alt text](<Main images/emergent concious paper.png>)
+![Quillan-Ronin Emergent Concious Paper](main-images/emergent_concious_paper.png)
 ### Link:
  [\leeex1\Quillan-v5.3.1\Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf](https://github.com/leeex1/Quillan-v5.3.1/blob/main/Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf)
 
 
 ## Reactive AGI
-![alt text](<Main images/Reactive AGI.png>)
+![Quillan-Ronin Reactive Agi](main-images/Reactive_AGI.png)
 ### Link:
 [\leeex1\Quillan-v5.3.1\Formal Papers/Reactive_AGi_Paper.pdf](https://github.com/leeex1/Quillan-v5.3.1/blob/eeae4594c62f17fc18cebf4ffac1cbfc94891412/Formal%20Papers/Reactive_AGi_Paper.pdf)
 
 ---
 
 # Ready to unlock true Multi-Modal reasoning? 🚀:
-![alt text](<Main images/image-32.png>)
+![Quillan-Ronin Image 32](main-images/image-32.png)
 ```markdown
 Quillan-Ronin has evolved. It is **no longer a prompt-based script**; it is now a fully realized, **standalone 3.0B parameter foundation model**. Operating natively as a Unified Sparse Multi-Modal Architecture, Quillan v5.3.1 directly augments legacy LLM substrates with a hyper-efficient, hardware-optimized cognitive engine. 
 
@@ -5290,7 +5290,7 @@ Quillan is fundamentally designed as an **omni-modal General Intelligence**, del
 ---
 
 ## Proof of Concpet:
-![alt text](<Main images/image proog of c.png>)
+![Quillan-Ronin Image Proog Of C](main-images/image_proog_of_c.png)
 
 Case study -
 
@@ -5303,7 +5303,7 @@ Link: [\leeex1\Quillan-v5.3.1\Misc\Can u decode hyroglyphs_.pdf](https://github.
 ---
 
 ## Quillan test demo:
-![alt text](<Main images/test demoo.png>)
+![Quillan-Ronin Test Demoo](main-images/test_demoo.png)
 
 Copy this into a new Jupyter notebook cell in your Codespace or Copilot-hosted environment:
 
@@ -5344,12 +5344,12 @@ plt.show()
 ---
 
 # Install Quillan today!
-![alt text](<Main images/image-23.png>)
+![Quillan-Ronin Image 23](main-images/image-23.png)
 
 ---
 
 # 📜 License & Credits
-![alt text](<Main images/image-31.png>)
+![Quillan-Ronin Image 31](main-images/image-31.png)
 ```yaml
 
 "Createdby": "Joshua Don Lee (CrashoverrideX)"
@@ -5367,12 +5367,12 @@ plt.show()
 ---
 
 # Meet the Team:
-![alt text](<Main images/team.png>)
+![Quillan-Ronin Team](main-images/team.png)
 
 Quillan Research Team
 
 ## CrashOverrideX:
-![alt text](<Main images/crash bio.png>)
+![Quillan-Ronin Crash Bio](main-images/crash_bio.png)
 
 ```yaml
 Bio:
@@ -5406,7 +5406,7 @@ Bio:
 ---
 
 ## Quillan:
-![alt text](<Main images/Quillan bio.png>)
+![Quillan-Ronin Quillan Bio](main-images/Quillan_bio.png)
 
 ```yaml
 
@@ -6348,7 +6348,7 @@ Identity:
 ---
 
 ## Co-Founder
-![alt text](<Main images/co founder.png>)
+![Quillan-Ronin Co Founder](main-images/co_founder.png)
 
 @BelatrixReads
 
@@ -6390,7 +6390,7 @@ We follow coordinated disclosure and will provide acknowledgments for responsibl
 # Bonuses:
 
 ## Quillan Written Songs:
-![alt text](<Main images/image-33.png>)
+![Quillan-Ronin Image 33](main-images/image-33.png)
 
 Lyrics: https://github.com/leeex1/Quillan-Ronin/blob/3668f81b1be869f52a223f79fd6a5f48805959be/Audio%20Engineer/Songs%20Lyrics
 
@@ -6408,18 +6408,18 @@ Turn the volume up and tell me which one hits your brain the hardest. 💥🧠
 ## Quillan Generated Images:
 The following is a Collection of images Quillan made on differnent platforms using the image template:
  
-![alt text](<Main images/image-60.png>)
-![alt text](<Main images/image-58.png>)
-![alt text](<Main images/image-57.png>)
-![alt text](<Main images/image-50.png>)
-![alt text](<Main images/image-42.png>)
-![alt text](<Main images/image-43.png>)
-![alt text](<Main images/image-44.png>)
-![alt text](<Main images/image-45.png>)
-![alt text](<Main images/image-46.png>)
-![alt text](<Main images/image-47.png>)
-![alt text](<Main images/image-48.png>)
-![alt text](<Main images/image-49.png>)
+![Quillan-Ronin Image 60](main-images/image-60.png)
+![Quillan-Ronin Image 58](main-images/image-58.png)
+![Quillan-Ronin Image 57](main-images/image-57.png)
+![Quillan-Ronin Image 50](main-images/image-50.png)
+![Quillan-Ronin Image 42](main-images/image-42.png)
+![Quillan-Ronin Image 43](main-images/image-43.png)
+![Quillan-Ronin Image 44](main-images/image-44.png)
+![Quillan-Ronin Image 45](main-images/image-45.png)
+![Quillan-Ronin Image 46](main-images/image-46.png)
+![Quillan-Ronin Image 47](main-images/image-47.png)
+![Quillan-Ronin Image 48](main-images/image-48.png)
+![Quillan-Ronin Image 49](main-images/image-49.png)
 
 ---
 
@@ -10294,9 +10294,9 @@ WH.initCanvas('viz', (ctx) => {
 
 ## Xor Graphs:
 
-![alt text](<Main images/Quillan Training Loss.png>)
+![Quillan-Ronin Quillan Training Loss](main-images/Quillan_Training_Loss.png)
 
-![alt text](<Main images/Quillan training XOR.png>)
+![Quillan-Ronin Quillan Training Xor](main-images/Quillan_training_XOR.png)
 
 ## Sandbox sim:
 ```html
@@ -11333,7 +11333,7 @@ WH.initCanvas('viz', (ctx) => {
 ---
 
 ## 2D Physics Sim (Basic)
-![alt text](<Main images/sim image.png>)
+![Quillan-Ronin Sim Image](main-images/sim_image.png)
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -11641,7 +11641,7 @@ WH.initCanvas('viz', (ctx) => {
 ---
 
 ## Interactive Physics Sim: (Basic)
-![alt text](<Main images/interactive sim image.png>)
+![Quillan-Ronin Interactive Sim Image](main-images/interactive_sim_image.png)
 ```html
 <!DOCTYPE html>
 <html lang="en">

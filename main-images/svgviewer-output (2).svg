@@ -1,0 +1,35 @@
+<!-- SMALL RONIN BADGE SVG for X/Twitter Link -->
+<a href="https://x.com/Crashoverride_X" target="_blank" rel="noopener">
+  <svg width="32" height="32" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-labelledby="ronin-title" role="img">
+    <title id="ronin-title">Quillan-Ronin X Profile</title>
+    
+    <!-- Outer Ronin Emblem Ring (Samurai aesthetic) -->
+    <circle cx="100" cy="100" r="92" stroke="#FFD700" stroke-width="12" stroke-dasharray="8 4"/>
+    <circle cx="100" cy="100" r="78" stroke="#8B0000" stroke-width="8"/>
+    
+    <!-- Straw Kasa (Ronin Hat) -->
+    <ellipse cx="100" cy="68" rx="48" ry="22" fill="#2F2F2F" stroke="#FFD700" stroke-width="8"/>
+    <path d="M62 68 Q100 48 138 68" fill="none" stroke="#FFD700" stroke-width="10" stroke-linejoin="round"/>
+    
+    <!-- Samurai Face / Mask -->
+    <rect x="78" y="78" width="44" height="36" rx="8" fill="#1C2526"/>
+    
+    <!-- Eyes (piercing ronin gaze) -->
+    <circle cx="88" cy="90" r="4" fill="#FFD700"/>
+    <circle cx="112" cy="90" r="4" fill="#FFD700"/>
+    
+    <!-- Katana (diagonal across body) -->
+    <line x1="68" y1="118" x2="132" y2="158" stroke="#C0C0C0" stroke-width="18" stroke-linecap="round"/>
+    <line x1="68" y1="118" x2="132" y2="158" stroke="#FFD700" stroke-width="8" stroke-linecap="round"/>
+    
+    <!-- Hilt -->
+    <rect x="124" y="148" width="12" height="22" rx="2" fill="#8B4513" transform="rotate(-45 130 158)"/>
+    
+    <!-- Inner Ronin Seal -->
+    <circle cx="100" cy="100" r="28" fill="none" stroke="#FFD700" stroke-width="6"/>
+    <text x="100" y="108" text-anchor="middle" fill="#FFD700" font-size="22" font-family="serif" font-weight="bold">浪</text>
+    
+    <!-- Subtle inner glow -->
+    <circle cx="100" cy="100" r="55" fill="none" stroke="#FFD700" stroke-width="3" opacity="0.3"/>
+  </svg>
+</a>
