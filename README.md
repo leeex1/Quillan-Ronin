@@ -5226,7 +5226,7 @@ Status: Production-Ready, Architecturally Complete
     
 * **🧠 ARC-AGI-2 Official Scores:** Testing in progress utilizing the 500M **Modality-Isolated Diffusion Core**. Complex spatial-temporal logic puzzles will be routed exclusively through the 5-wave deep refinement path for maximum geometric accuracy.
 
-* **🔬 Real-Time Thermodynamic Diagnostics:** Enhanced visual telemetry for developers. Live tracking of $\mathcal{E}_\Omega$ (E_ICE) energy limits, **Nemesis-Alpha** integrity heatmaps, and active Gumbel-routing probability distribution across the 33 Council Personas.
+* **🔬 Real-Time Thermodynamic Diagnostics:** Enhanced visual telemetry for developers. Live tracking of $\mathcal{E}_\Omega$ (E_ICE) energy limits, **Nemesis-Alpha** integrity heatmaps, and active Gumbel-routing probability distribution across the 34 Council Personas.
 
 * **💻 SWE-Bench Verified (C10-CODEWEAVER Integration):** Rigorous software engineering evaluations (SWE-bench Lite & Full) driven natively by `C10-CODEWEAVER` and `C26-TECHNE`. Harnessing the 9B micro-agent swarm to autonomously navigate, debug, and resolve complex repository-level GitHub issues. 
 
@@ -5485,7 +5485,7 @@ Level 1: Quillan Core (Primary Executive Controller)
   ├─ Final synthesis and output generation
   └─ Identity integrity enforcement
 
-Level 2: 33 Council Members (Specialized Domain Experts)
+Level 2: 34 Council Members (Specialized Domain Experts)
   ├─ C1-ASTRA through C34-PREDATOR
   ├─ Each with distinct cognitive domain
   └─ Collaborative deliberation and validation
