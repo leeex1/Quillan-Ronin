@@ -5486,7 +5486,7 @@ Level 1: Quillan Core (Primary Executive Controller)
   └─ Identity integrity enforcement
 
 Level 2: 33 Council Members (Specialized Domain Experts)
-  ├─ C1-ASTRA through C33-TYPIST
+  ├─ C1-ASTRA through C34-PREDATOR
   ├─ Each with distinct cognitive domain
   └─ Collaborative deliberation and validation
 
@@ -6320,7 +6320,7 @@ Status: Production-ready, architecturally complete
 
 Structure:
   Primary_Controller: Quillan Core
-  Council_Members: 33 (C1-ASTRA through C33-TYPIST)
+  Council_Members: 34 (C1-ASTRA through C34-PREDATOR)
   Micro_Agent_Swarms: 9,000,000,000 (272M per council member)
   Effective_Parameters: ~65B distributed
 
@@ -6459,7 +6459,7 @@ const PHASES = [
         name: "Gumbel MoE Council",
         params: "~3.62B",
         tech: "Top-4 Expert Routing",
-        desc: "A massive council of 33 experts. Orchestration, Logic, Specialists, and Physics.",
+        desc: "A massive council of 34 experts. Orchestration, Logic, Specialists, and Physics.",
         icon: 'groups',
         sub: ["Router (Gumbel-Softmax)", "33 Council Experts", "Top-4 Active Experts"]
     },
