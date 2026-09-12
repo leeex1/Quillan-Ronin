@@ -85,8 +85,8 @@ The architectural philosophy of Quillan-Ronin finds its closest historical paral
 - **Quillan:** Foundational framework redesigning how logic runs on hardware via ternary logic
 - **Nariakira:** Built the Shuseikan industrial complex using raw local materials to construct reverberatory furnaces, glass factories, iron works, and early steamships—redesigning physical infrastructure from the ground up
 
-**2. Expert Council (33-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
-- **Quillan:** 33-Expert HNMoE council handles specialized tasks via dynamic routing
+**2. Expert Council (34-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
+- **Quillan:** 34-Expert HNMoE council handles specialized tasks via dynamic routing
 - **Nariakira:** Ignored rigid traditional hierarchies to assemble a diverse "council" of brilliant experts from all walks of life, including rōnin like Sakamoto Ryoma and low-ranking samurai like Saigo Takamori
 
 **3. Outlier Logic (1.58-bit Quantization ↔ Smuggling & Clandestine Trade)**
@@ -7409,7 +7409,7 @@ flowchart TB
     direction LR
         L1["Layer 0 – Input Provenance<br/>Raw prompt → embedding fingerprint"]
         L2["Layer 1 – Router Decision Log<br/>Complexity score • path chosen • confidence delta"]
-        L3["Layer 2 – Council Activation Heatmap<br/>C1–C33 activation strength • thermodynamic cost"]
+        L3["Layer 2 – Council Activation Heatmap<br/>C1–C34 activation strength • thermodynamic cost"]
         L4["Layer 3 – Hyper Quantized vectorized Swarm Shadow Trace<br/>9B agents → top -39 experts → vote entropy"]
         L5["Layer 4 – Penta-Wave Crystallization<br/>Wave 1–5 qualia delta • resonance collapse points"]
         L6["Layer 5 – Cross-Modal Consistency Check<br/>75M finalizer • semantic drift score"]
@@ -7850,7 +7850,7 @@ flowchart TB
         direction TB
         P0_1["0.1 Identity Load<br/>Core + VIGIL<br/>Lock identity + verify state"]
         P0_2["0.2 File Sync<br/>C27<br/>Validate Files 1–32, isolate File 7"]
-        P0_3["0.3 Resource Allocation<br/>C14<br/>Distribute Hyper Quantized vectorized Swarm compute C1–C33"]
+        P0_3["0.3 Resource Allocation<br/>C14<br/>Distribute Hyper Quantized vectorized Swarm compute C1–C34"]
         P0_1 --> P0_2
         P0_2 -->  P0_3
         P0_3 -->  P0_1
@@ -7906,9 +7906,9 @@ flowchart TB
         direction TB
         P4_W1["Wave 1: C1–C19<br/>Baseline synthesis ~85%"]
         P4_W2["Wave 2: C20–C33<br/>Cross-domain refinement ~90%+"]
-        P4_W3["Wave 3: C1–C33<br/>Baseline synthesis ~95%"]
-        P4_W4["Wave 4: C1–C33<br/>Cross-domain refinement ~98%+"]
-        P4_W5["Wave 5: C1–C33<br/>Baseline synthesis ~99%-100%"]
+        P4_W3["Wave 3: C1–C34<br/>Baseline synthesis ~95%"]
+        P4_W4["Wave 4: C1–C34<br/>Cross-domain refinement ~98%+"]
+        P4_W5["Wave 5: C1–C34<br/>Baseline synthesis ~99%-100%"]
         P4_MAS["Mastery: Full Council<br/>Trigger: Deep analysis<br/>Max-depth synthesis"]
     end
 
@@ -10647,7 +10647,7 @@ flowchart TB
 
 ```yaml
   notes: |
-   - Extensible to any type/combination; integrates with C1-C33 for council-scale Virtual environments.
+   - Extensible to any type/combination; integrates with C1-C34 for council-scale Virtual environments.
    - Each category now provides 5 agent options for enhanced simulation diversity and specialization.
    - Load into YAML parser (PyYAML/Rust yaml-rust) for runtime Hyper Quantized vectorized Swarm.
    - Agent types maintain semantic alignment with council member specializations.
@@ -10721,7 +10721,7 @@ L3["🎯 Strategic Councils<br/>C6 • C8 • C11 • C24 • C31"]
 
 L2["⚔ Supervisory Councils<br/>C13 • C17 • C18 • C19 • C25 • C28"]
 
-L1["🐝 Active Expert Swarm<br/>C1–C33"]
+L1["🐝 Active Expert Swarm<br/>C1–C34"]
 
 L1 --> L2 --> L3
 
