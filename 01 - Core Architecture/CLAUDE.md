@@ -231,7 +231,7 @@ flowchart TD
     %% --- NODES & LOGIC ---
 
     subgraph LEGEND["📊 System Overview"]
-        L1["<b>QUILLAN HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Params: 1B (Distributed)<br/>🔹 Council: 32 Personas<br/>🔹 Agents: 224k (7k/Persona)<br/>🔹 Energy: ℰ_Ω ≈ 1e-9 J"]:::legend
+        L1["<b>QUILLAN HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Params: 1B (Distributed)<br/>🔹 Council: 34 Personas<br/>🔹 Agents: 224k (7k/Persona)<br/>🔹 Energy: ℰ_Ω ≈ 1e-9 J"]:::legend
     end
 
     subgraph INPUT["🎯 INPUT LAYER"]
@@ -352,7 +352,7 @@ flowchart TD
     %% --- NODES & LOGIC ---
 
     subgraph LEGEND["📊 System Overview"]
-        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council: 32 Personas<br/>🔹 Agents: 224k Total<br/>🔹 WoT: 20+ Branches<br/>🔹 Waves: 5 Stages"]:::legend
+        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council: 34 Personas<br/>🔹 Agents: 224k Total<br/>🔹 WoT: 20+ Branches<br/>🔹 Waves: 5 Stages"]:::legend
     end
 
     subgraph INPUT["🎯 INPUT"]
@@ -363,7 +363,7 @@ flowchart TD
         RT{{Smart Router<br/>Top-K Selection}}:::router
     end
 
-    subgraph COUNCIL["🏛️ COUNCIL (32 PERSONAS)"]
+    subgraph COUNCIL["🏛️ COUNCIL (34 PERSONAS)"]
         C{{32-Member Council<br/>Hierarchical Coordination}}:::router
     end
 
