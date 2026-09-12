@@ -87,8 +87,12 @@ class StreamingBatchIterator:
                 loaded = torch.load(data_path, map_location="cpu", weights_only=True)
                 if isinstance(loaded, torch.Tensor):
                     self.tokens = loaded.flatten().long()
-                elif isinstance(loaded, dict) and "tokens" in loaded:
-                    self.tokens = loaded["tokens"].flatten().long()
+                elif isinstance(loaded, dict):
+                    if "input_ids" in loaded and isinstance(loaded["input_ids"], torch.Tensor):
+                        self.tokens = loaded["input_ids"].flatten().long()
+                        LOGGER.info("Successfully bound 'input_ids' tensor with %d samples.", loaded.get("num_samples", len(loaded["input_ids"])))
+                    elif "tokens" in loaded and isinstance(loaded["tokens"], torch.Tensor):
+                        self.tokens = loaded["tokens"].flatten().long()
             elif data_path.suffix == ".bin":
                 raw_data = np.memmap(data_path, dtype=np.uint16, mode="r")
                 self.tokens = torch.from_numpy(raw_data.astype(np.int64))
