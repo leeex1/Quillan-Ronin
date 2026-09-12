@@ -1,4 +1,4 @@
-﻿# LanceDB + MD + Obsidian E2E — Quillan Memory System
+# LanceDB + MD + Obsidian E2E — Quillan Memory System
 
 ## Architecture (inside 02_QUILLAN only)
 - **MD source:** knowledge/canonical/*.md (49 files, ONE canonical)
@@ -14,10 +14,13 @@
 
 ## Status
 - Canonical: 49 md ✅
-- Platforms mirrors: 7 folders (Claude/GPT/Gemini/Grok/Mistral) — should sync from canonical
-- LanceDB: currently EMPTY (0 files) — needs ingest
+- Platforms mirrors: 7 folders (Claude/GPT/Gemini/Grok/Mistral) — synced from canonical ✅
+- LanceDB: POPULATED (901 chunks, 2048-dim vectors, nvidia/nemotron-3-embed-1b) ✅
+  - Primary: `C:\02_QUILLAN\lancedb\thoughts.lance`
+  - Synced: `C:\02_QUILLAN\07 - Memory & LanceDB\lancedb\thoughts.lance`
+  - Synced: `C:\02_QUILLAN\07 - Memory & LanceDB\quillan_memory\thoughts.lance`
 - Obsidian: restored to root (.obsidian/app.json present) ✅
-- quillan_memory: chroma.sqlite3 present but needs sync to LanceDB
+- quillan_memory: chroma.sqlite3 fallback + thoughts.lance primary ✅
 
-## Next: Run ingest
-python scripts/synchronize_knowledge_vault.py --vault C:\02_QUILLAN --lancedb C:\02_QUILLAN\lancedb --obsidian
+## Maintenance / Re-Ingest Command
+`python scripts/ingest_lancedb.py`

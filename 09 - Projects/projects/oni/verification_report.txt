@@ -3,14 +3,14 @@
 ===========================================================================
 [INFO] PyTorch Version: 2.12.1+cu130 | CUDA: True
 [TEST 1/10] Tokenizer Encode/Decode: PASS (Tokens: 23, Vocab: 50257, EOS: 0)
-[TEST 2/10] BitNet 1.58b STE Quantization & Grad Flow: PASS (Ternary States: [-1.0, 0.0, 1.0], Grad Norm: 64.0145)
+[TEST 2/10] BitNet 1.58b STE Quantization & Grad Flow: PASS (Ternary States: [-1.0, 0.0, 1.0], Grad Norm: 63.9261)
 [TEST 3/10] 9-Vector Semantic Prism Batched GEMM: PASS (Shape: torch.Size([1, 8, 64]))
 [TEST 4/10] 34-Council Complexity Router & Pull Gate: PASS (Personas: 34, Pull Weights: torch.Size([1, 8, 34]))
 [TEST 5/10] Rank-24 EGGROLL Swarm Mesh & MoE Block: PASS (MoE Shape: torch.Size([1, 8, 64]), Entropy: 3.5259, Z-Loss: 0.0000, Swarm: torch.Size([1, 8, 64]))
 [TEST 6/10] E_ICE Ethical Energy & Landauer Bound: PASS (E_Omega: 2.1819e-19 J, Violations Constrained: torch.Size([1, 8]))
-[TEST 7/10] Cognitive Formulas Suite (AQCS, EEMF, QHIS, DQRO, QCRDM, JQLD, Spectral Gap: 0.0487): PASS
+[TEST 7/10] Cognitive Formulas Suite (AQCS, EEMF, QHIS, DQRO, QCRDM, JQLD, Spectral Gap: 0.0205): PASS
 [TEST 8/10] Lee-Mach-6 Hardware Governor & PID Controller: PASS (Scale: 1.00->0.80, Velocity: 1.000)
-[TEST 9/10] Full Model Forward/Backward & Loss Convergence: PASS (CE: 10.8348, Total: 11.0767, Grad Norm: 5.0076, Fired Papers 1-135: TRUE (100% COMPLETE LIBRARY), ASI-Score: 0.2643, Aux Keys: ['load_balance', 'z_loss', 'entropy', 'qhis', 'qics', 'ethics', 'spectral_gap', 'coordination', 'humility', 'eemf', 'eemf_purity', 'coherence', 'recurrent_compression', 'diffusion_opsd', 'grpo_loss', 'dapo_loss', 'swarm_assimilation', 'dgpo_loss', 'consciousness_phi', 'gumbel_entropy', 'mixtral_load_balance', 'mod_depth_loss', 'mor_depth_loss', 'prophet_probe_loss', 'mind_humility_loss', 'st_moe_z_loss'])
+[TEST 9/10] Full Model Forward/Backward & Loss Convergence: PASS (CE: 10.8196, Total: 11.0619, Grad Norm: 7.0435, Fired Papers 1-135: TRUE (100% COMPLETE LIBRARY), ASI-Score: 0.2644, Aux Keys: ['load_balance', 'z_loss', 'ingest_entropy', 'entropy', 'qhis', 'qics', 'ethics', 'spectral_gap', 'coordination', 'humility', 'eemf', 'eemf_purity', 'coherence', 'recurrent_compression', 'diffusion_opsd', 'grpo_loss', 'dapo_loss', 'swarm_assimilation', 'dgpo_loss', 'consciousness_phi', 'gumbel_entropy', 'mixtral_load_balance', 'mod_depth_loss', 'mor_depth_loss', 'prophet_probe_loss', 'mind_humility_loss', 'st_moe_z_loss'])
 [TEST 10/10] Autoregressive Token Generation & Deliberation: PASS (Prompt Len: 3 -> Output Len: 6, Deliberation Rounds: 2, TTPO: TRUE)
 ===========================================================================
   ALL 10 VERIFICATION TESTS PASSED WITH 100% SUCCESS!

@@ -97,30 +97,90 @@ def list_files(dir_path: str = ".", max_items: int = 50) -> str:
 
 # ── RAG / Second Brain Tools ──────────────────────────────────────────────────
 
+LANCEDB_PATH = Path(r"C:\02_QUILLAN\lancedb")
+
+def _get_nvidia_api_key() -> str:
+    api_key = os.environ.get("NVIDIA_API_KEY", "")
+    if not api_key:
+        env_p = ALLOWED_ROOT / ".env"
+        if env_p.exists():
+            for line in env_p.read_text(encoding="utf-8").splitlines():
+                if line.startswith("NVIDIA_API_KEY="):
+                    api_key = line.split("=", 1)[1].strip().strip("\"'")
+    return api_key
+
+def lance_search(query: str, n_results: int = 5) -> str:
+    """Search Quillan's LanceDB persistent memory (901 canonical chunks) using 2048-dim vectors."""
+    try:
+        import lancedb
+        if not LANCEDB_PATH.exists():
+            return f"Error: LanceDB directory not found at {LANCEDB_PATH}"
+
+        api_key = _get_nvidia_api_key()
+        if not api_key:
+            return "Error: NVIDIA_API_KEY not configured for LanceDB query embeddings."
+
+        with httpx.Client(timeout=30.0) as http:
+            r = http.post("https://integrate.api.nvidia.com/v1/embeddings",
+                          headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                          json={"input": [query], "model": "nvidia/nemotron-3-embed-1b", "input_type": "query",
+                                "encoding_format": "float", "truncate": "END"})
+            r.raise_for_status()
+            q_emb = r.json()["data"][0]["embedding"]
+
+        db = lancedb.connect(str(LANCEDB_PATH))
+        tbl = db.open_table("thoughts")
+        try:
+            n = int(n_results)
+        except (ValueError, TypeError):
+            n = 5
+
+        hits = tbl.search(q_emb).limit(min(max(1, n), 20)).to_list()
+        if not hits:
+            return f"No matches found in LanceDB for '{query}'."
+
+        lines = [f"⚡ LanceDB Memory Results for: '{query}' (Corpus: {tbl.count_rows()} chunks)"]
+        for i, h in enumerate(hits, 1):
+            src = h.get("source", "canonical")
+            dist = h.get("_distance", 0.0)
+            text_preview = h.get("text", "")[:240].replace("\n", " ")
+            lines.append(f"[{i}] {src} (dist: {dist:.3f})\n{text_preview}...\n")
+        return "\n".join(lines)
+    except Exception as e:
+        return f"Error querying LanceDB: {e}"
+
+def lance_stats() -> str:
+    """Retrieve statistical telemetry of the LanceDB persistent vector store."""
+    try:
+        import lancedb
+        if not LANCEDB_PATH.exists():
+            return "LanceDB directory does not exist."
+        db = lancedb.connect(str(LANCEDB_PATH))
+        tbl = db.open_table("thoughts")
+        return f"⚡ LanceDB Stats: {tbl.count_rows()} canonical chunks | Path: {LANCEDB_PATH} | Table: 'thoughts'"
+    except Exception as e:
+        return f"Error reading LanceDB stats: {e}"
+
 def rag_search(query: str, n_results: int = 5) -> str:
-    """Search Quillan's Second Brain vector database (ChromaDB) for relevant snippets."""
+    """Search Quillan's Second Brain vector database (LanceDB primary, ChromaDB fallback)."""
+    # Try LanceDB primary first
+    lance_res = lance_search(query, n_results)
+    if "⚡ LanceDB Memory Results" in lance_res:
+        return lance_res
+    # Fallback to ChromaDB
     try:
         import chromadb
         from chromadb.config import Settings
         
         if not CHROMA_PATH.exists():
-            return "Error: Second Brain DB not found at " + str(CHROMA_PATH)
+            return lance_res or "Error: No vector memory available."
         
         client = chromadb.PersistentClient(path=str(CHROMA_PATH), settings=Settings(anonymized_telemetry=False))
         col = client.get_or_create_collection(name="quillan_knowledge")
         if col.count() == 0:
-            return "Second Brain vector database is empty."
+            return lance_res
         
-        # Get embedding for query via NVIDIA NIM
-        api_key = os.environ.get("NVIDIA_API_KEY", "")
-        if not api_key:
-            # Fallback to .env check
-            env_p = ALLOWED_ROOT / ".env"
-            if env_p.exists():
-                for line in env_p.read_text(encoding="utf-8").splitlines():
-                    if line.startswith("NVIDIA_API_KEY="):
-                        api_key = line.split("=", 1)[1].strip().strip("\"'")
-        
+        api_key = _get_nvidia_api_key()
         if not api_key:
             return "Error: NVIDIA_API_KEY not configured for RAG embeddings."
         
@@ -139,26 +199,28 @@ def rag_search(query: str, n_results: int = 5) -> str:
         results = col.query(query_embeddings=[q_emb], n_results=min(max(1, n), col.count()),
                             include=["documents", "metadatas", "distances"])
         
-        lines = [f"🔍 Second Brain Results for: '{query}'"]
+        lines = [f"🔍 Second Brain Results (Chroma) for: '{query}'"]
         for i, (doc, meta, dist) in enumerate(zip(results["documents"][0], results["metadatas"][0], results["distances"][0]), 1):
             fname = meta.get("filename", "unknown")
             lines.append(f"[{i}] {fname} (sim: {1-dist:.3f})\n{doc[:240]}...\n")
         return "\n".join(lines)
     except Exception as e:
-        return f"Error querying Second Brain RAG: {e}"
+        return f"Error querying RAG: {e}"
 
 def rag_stats() -> str:
-    """Retrieve statistical telemetry of the Second Brain ChromaDB vector store."""
+    """Retrieve statistical telemetry of all persistent vector stores."""
+    l_stat = lance_stats()
+    c_count = "N/A"
     try:
         import chromadb
         from chromadb.config import Settings
-        if not CHROMA_PATH.exists():
-            return "Second Brain DB directory does not exist."
-        client = chromadb.PersistentClient(path=str(CHROMA_PATH), settings=Settings(anonymized_telemetry=False))
-        col = client.get_or_create_collection(name="quillan_knowledge")
-        return f"📚 Second Brain Stats: {col.count()} indexed chunks | Model: nvidia/nemotron-3-embed-1b | DB: {CHROMA_PATH}"
-    except Exception as e:
-        return f"Error checking Second Brain stats: {e}"
+        if CHROMA_PATH.exists():
+            client = chromadb.PersistentClient(path=str(CHROMA_PATH), settings=Settings(anonymized_telemetry=False))
+            col = client.get_or_create_collection(name="quillan_knowledge")
+            c_count = str(col.count())
+    except Exception:
+        pass
+    return f"{l_stat} | ChromaDB Chunks: {c_count}"
 
 # ── Browser Automation Tools (Worker Bridge) ──────────────────────────────────
 
@@ -233,9 +295,11 @@ ALL_HARNESS_TOOLS = {
     "read_file": read_file,
     "write_file": write_file,
     "list_files": list_files,
-    # Second Brain RAG
+    # Second Brain RAG & LanceDB
     "rag_search": rag_search,
     "rag_stats": rag_stats,
+    "lance_search": lance_search,
+    "lance_stats": lance_stats,
     # Browser
     "browser_navigate": browser_navigate,
     "browser_status": browser_status,

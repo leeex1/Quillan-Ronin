@@ -233,5 +233,9 @@ worker/node_modules/
 *.db-wal
 *.sqlite3
 **/quillan_rag_db/**
-**/thoughts.lance/**
+09 - Projects/Validation-test-kit/
+09 - Projects/projects/FreeLatticebykirk/
+lancedb/
+*.lance/
 **/Quillans personal dev logs/Build history files and more/**
+

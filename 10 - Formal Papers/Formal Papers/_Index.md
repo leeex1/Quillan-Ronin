@@ -1,6 +1,6 @@
 # Formal Papers
 
-Folder note for `Formal Papers/` — 103 entries.
+Folder note for `Formal Papers/` — 126 PDFs + MD/TeX audited 2026-09-12 (was 103; recount after consolidation to C:\02_QUILLAN). Canonical build v5.4.0-oni.
 
 - [[system prompts/Quillan-Samurai.md]]
 - [[00 - Meta/00 - Vault Index.md]]

@@ -206,3 +206,5 @@ def get_swarm_policy_for_expert(persona_name: str) -> SwarmPolicy:
             f"{persona_name.capitalize()}-Synthetic-Integrator"
         ]
     )
+
+get_swarm_policy = get_swarm_policy_for_expert

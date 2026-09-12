@@ -1,10 +1,12 @@
-# Quillan-Ronin v5.3.1 → v8 — Master Paper Bibliography
+# Quillan-Ronin v5.4.0-oni — Master Paper Bibliography (retires v5.3.1 / v8 labels)
 
 > **Complete inventory of all academic papers** mapped to every architectural module, compression technique, optimizer tweak, and training strategy used in the Quillan-Ronin model.
 > 
-> ✅ = Downloaded to `C:\Users\Admin\Downloads\Papers\`  
+> ✅ = Downloaded to `C:\02_QUILLAN\10 - Formal Papers\Formal Papers\`  
 > 🔍 = Referenced (web search only, not downloaded as PDF)  
-> 📄 = In `Formal Papers\` or `Quillan-Ronin\` directory
+> 📄 = In `10 - Formal Papers\Formal Papers\` or `02 - Knowledge Foundation\Quillan Knowledge files\` directory
+> 
+> **Canonical version:** Quillan-Ronin **v5.4.0-oni** (see `02 - Knowledge Foundation\LINEAGE.md` + root `version.py`). Older labels v5.3.1 / v8.1 are retired.
 
 ---
 
@@ -217,9 +219,31 @@
 
 ---
 
-## Total PDF Count
+## Total PDF Count (audited 2026-09-12)
 
-- **Papers folder**: `C:\Users\Admin\Downloads\Papers\` — **136 PDFs**
-- **Formal Papers folder**: `C:\Users\Admin\Quillan-Ronin\Formal Papers\` — additional internal papers
-- **Total unique academic references**: **80** mapped to architectural components
+- **Formal Papers folder**: `C:\02_QUILLAN\10 - Formal Papers\Formal Papers\` — **126 PDFs** (was 136 in old Downloads folder; consolidated)
+- **Knowledge files**: `C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\` — **46 MD** + canonical mirror `knowledge\canonical\` (**49 MD**)
+- **Total unique academic references**: **80+ mapped + 16. New 2025–2026 Additions below (previously unmapped)**
+
+---
+
+## 16. New 2025–2026 Additions (present in folder, previously unmapped — audited 2026-09-12)
+
+| Paper (filename) | Topic | Maps To |
+|:-----------------|:------|:--------|
+| `2607.24720v1.pdf`, `2607.28607v1.pdf`, `2608.03874v1.pdf`, `2608.05446v1.pdf`, `2608.12875v1.pdf`, `2608.13482v1.pdf`, `2608.16801v1.pdf`, `2608.17271v1.pdf`, `2608.17286v1.pdf`, `2608.17896v1.pdf`, `2608.17981v1.pdf`, `2609.11677v1.pdf` | 2026 preprints batch | Triage: map to MoE / routing / diffusion / eval upgrades; see `10 - Formal Papers\Formal Papers\_Index.md` |
+| `DAPO_Open_Source_LLM_RL.pdf` | DAPO RL | CCRL upgrade path (critic-free RL, cf. GRPO/DGPO) |
+| `DGPO_ Distribution Guided Policy Optimization for Fine Grained Credit Assignment.pdf` | DGPO | CCRL fine-grained credit assignment (Phase D candidate) |
+| `DeepSeekMath_GRPO.pdf` | GRPO | CCRL RL stage (already in §6; duplicate copy — dedupe) |
+| `EvoMoE_2505.23830.pdf` | Evolving MoE | Expert evolution / EGGROLL Evolution Mode (Phase D) |
+| `MoE_CPU_GPU_2512.16473.pdf`, `OD_MoE_2512.03927.pdf`, `MoHGE_2604.23108.pdf`, `MoR_2507.10524.pdf`, `MoDSE_2409.12210.pdf` | MoE systems / depth / routing | ComplexityRouter capacity, overflow, deployment on 1050Ti/CPU |
+| `NITRO_D_2407.11698.pdf`, `DFlash_2602.06036.pdf` | Flash / sparse attention | SovereignFlashDiffusionCore upgrades |
+| `DALI_2602.03495.pdf`, `Dream7B_2508.15487.pdf`, `Prophet_2508.19982.pdf` | Diffusion LM / generative | Diffusion core discrete-diffusion roadmap |
+| `BitNet_v2_2504.18415.pdf`, `BitNet_b1.58_2B4T_Technical_Report.pdf`, `BitNet_Scaling_1-bit_Transformers.pdf`, `BitNet_a4.8_4-bit_Activations.pdf`, `bitnet_cpp_Efficient_Edge_Inference.pdf`, `bitnet_1-bit_AI_Infra.pdf` | BitNet family | BitLinear STE, 1050Ti edge inference (core to v5.4.0-oni §3) |
+| `Deep_Optimizer_States_2410.21316.pdf`, `ProTrain_2406.08334.pdf`, `ZeRO_Infinity_2104.07857.pdf` | Memory-efficient training | `train_full_param_v2.py` grad-accum / ZeRO-style sharding |
+| `ES_at_Scale_2509.24372.pdf`, `ES_Forgetting_2601.20861.pdf`, `ES_Forgetting_Fix_2605.30148.pdf` | Evolution strategies / forgetting | EGGROLL + continual learning safeguards |
+| `Ax-Prover_Agentic_Theorem_Proving.pdf`, `WikiSkill_2608.27454.pdf` | Agentic skills / prover | C20-ARTIFEX tool routing, C21-ARCHON rigor |
+| `235_Position_LLMs_can_t_jump.pdf`, `2502.08145v1.pdf` + batch `2502.x–2506.x`, `2401.07013v2.pdf`, `2407.12117v1.pdf`, `2410.05686v1.pdf` | Reasoning / position / general | 9-Vector Prism + RoPE + eval harness |
+
+> Action: promoters of §16 into §§2–7 on next pass; current counts exclude §16 from Summary Statistics until mapped.
 

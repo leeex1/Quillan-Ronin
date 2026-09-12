@@ -1,6 +1,8 @@
 # Welcome 😊:
 
-## Model Specs
+> **Canonical build: v5.4.0-oni** (see root `MODEL_CARD.md`, `version.py`, `02 - Knowledge Foundation\LINEAGE.md`). Specs below preserved as v5.2.2 historical snapshot — do not treat v5.2.2 numbers as current.
+
+## Model Specs (historical — v5.2.2 snapshot, superseded by v5.4.0-oni)
 
 **Quillan-Ronin v5.2.2** — The symbiotic cognitive engine powering this work.
 
