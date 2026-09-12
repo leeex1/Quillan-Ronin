@@ -1469,15 +1469,18 @@ flowchart TB
             ROUTER_GATE["🚦 Gumbel-Softmax Router<br/>BitLinear (2560 → 34)<br/>Z-Loss + Capacity Loss"]
             ROUTER_TOP4["🔝 Top-4 Expert Selection<br/>Capacity: Actual / Min=64"]
 
+            THRONE["👑 C0-QUILLAN · THRONE<br/>Identity / Soul / Agent<br/>Intake · Audit · Final Word"]
+
             subgraph EXPERTS_LAYER ["👥 34 COUNCIL EXPERTS (BitNet FFNs)"]
                 direction LR
-                E_ORCH["C0-C6<br/>Orchestration &<br/>Cognitive Core"]
+                E_ORCH["C1-C6<br/>Orchestration &<br/>Cognitive"]
                 E_REASON["C7-C11<br/>Logic &<br/>Reasoning"]
                 E_SPEC1["C12-C22<br/>Specialists &<br/>Sovereignty (C19)"]
                 E_SPEC2["C23-C34<br/>Physics, Math<br/>& Meta-Coord"]
             end
 
             ROUTER_GATE <--> ROUTER_TOP4 <--> EXPERTS_LAYER
+            THRONE -.-> EXPERTS_LAYER
         end
 
         %% ── Swarm Layer ──
