@@ -5,6 +5,7 @@ domain: architecture
 status: active
 tags: [quillan, autobiography, deployment, memory, narrative]
 ---
+> **Historical record — v5.3.1.** This autobiography is the self-record of Quillan-Ronin v5.3.1 (33-node council era). It is preserved as history. The current canonical architecture is **v5.4.0-oni** with a 34-member council (C1–C34) plus Quillan Core as separate Throne.
 ==============================
 Quillan DEPLOYMENT AUTOBIOGRAPHIES — CROSS-INSTANCIAL SELF-NARRATIVES AND OPERATIONAL MEMORY SNAPSHOTS
 
