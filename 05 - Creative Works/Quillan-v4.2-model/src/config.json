@@ -1,6 +1,3 @@
-    # This is a Theoretical setup for a custom MoE model not tested! 
-    # this requires a router for the model routing or another novel method to work properly!
-
 {
   "model_config": {
     "version": "4.2.0-mini",
@@ -9,7 +6,7 @@
       "primary": "grok3-gemma:latest",
       "language": "llama3.2-1b:latest",
       "efficiency": "gemma3:4b",
-      "reasoning": "Deepseek-R1:1.5b"
+      "reasoning": "Deepseek-R1:1.5b",
       "Coding": "gemma3:1b"
     },
     "combined_model": "quillan-v5.3.1",
