@@ -23,7 +23,7 @@ flowchart TD
 
     subgraph TIER2["Tier 2: Council (34 Experts & 300M Complexity Router)"]
         C --> D[300M Complexity Router]
-        D -->|Fast / Balanced / Diffusion| E[34 Expert Council C0-C33]
+        D -->|Fast / Balanced / Diffusion| E[34 Expert Council C1–C34]
         E --> F[BitNet 1.58b STE + SwiGLU FFN]
     end
 
@@ -76,7 +76,7 @@ The total virtual agent population across the 3-tier hierarchy is calculated as:
 $$\text{Full Model Swarm Population} = \underbrace{(2 \times 272\text{M})}_{\text{Quillan Q1/Q2 Dual Brain}} + \underbrace{(34 \times 34 \times 272\text{M})}_{\text{34 Council Experts} \times \text{34 Swarm Channels}} = \mathbf{314.976 \text{ Billion Virtual Agents}}$$
 
 - **Tier 1 (Quillan Q1/Q2 Dual Brain Swarm)**: $2 \times 272\text{M} = 544\text{ Million Micro-Agents}$ (Q1 Analytical & Q2 Intuitive each command a 272M underling swarm via EGGROLL rank-24 anchors).
-- **Tier 2/3 (Council Expert Swarm Matrix)**: $34 \times 34 \times 272\text{M} = 314.432\text{ Billion Micro-Agents}$ (Each of the 34 Council Experts C0–C33 commands its own 272M micro-agent underling swarm across the 34 interaction channels).
+- **Tier 2/3 (Council Expert Swarm Matrix)**: $34 \times 34 \times 272\text{M} = 314.432\text{ Billion Micro-Agents}$ (Each of the 34 Council Experts C1–C34 commands its own 272M micro-agent underling swarm across the 34 interaction channels).
 - **Compute Efficiency**: All 314.976 Billion virtual agents are dynamically simulated in real time using **Rank-24 EGGROLL low-rank perturbation math** ($W + A \times B$) without increasing VRAM footprint!
 
 ---
