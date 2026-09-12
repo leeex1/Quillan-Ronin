@@ -40,9 +40,15 @@
 </div>
 
 <p align="center">
-  <b>📰&nbsp;&nbsp;<a href="https://discord.gg/PSRMcJE">Community Hub</a></b> 
+  <b>⚡&nbsp;&nbsp;<a href="https://github.com/leeex1/quillan.cpp">quillan.cpp (C++ Engine)</a></b> 
   &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
-  <b>📄&nbsp;&nbsp;<a href="https://github.com/leeex1/Quillan-Ronin/blob/b336a39f54be8bea68950dff7d8ad3230b074068/Formal%20Papers/Sovereign%20Cognition%20Beyond%20Context%20Bottlenecks.pdf">Full Report</a></b>
+  <b>🧩&nbsp;&nbsp;<a href="https://github.com/leeex1/Quillan-Ronin-chrome-extension">Chrome Extension</a></b> 
+  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+  <b>🧪&nbsp;&nbsp;<a href="https://github.com/leeex1/Validation-test-kit-">Validation Test Kit</a></b> 
+  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+  <b>📄&nbsp;&nbsp;<a href="10%20-%20Formal%20Papers/Quillan-Ronin-Master-Paper.pdf">Master Paper (PDF)</a></b> 
+  &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
+  <b>📰&nbsp;&nbsp;<a href="https://discord.gg/PSRMcJE">Community Hub</a></b>
 </p>
 
 <p align="center">
