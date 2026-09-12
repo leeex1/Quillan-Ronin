@@ -1825,7 +1825,10 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 moe_out = torch.zeros_like(flat_x)
                 _stk = []
                 for e in range(self.cfg.num_experts):
-                    e_out = self.experts[e](flat_x, gov_scale)
+                    try:
+                        e_out = self.experts[e](flat_x, gov_scale)
+                    except TypeError:
+                        e_out = self.experts[e](flat_x)
                     _stk.append(e_out)
                     moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
                 probs = pull
@@ -1862,7 +1865,10 @@ class UnrolledCouncilMoEBlock(nn.Module):
                     continue
                 pos = token_pos[sel]
                 w = flat_w[sel]
-                e_out = self.experts[e](flat_x[pos], gov_scale)
+                try:
+                    e_out = self.experts[e](flat_x[pos], gov_scale)
+                except TypeError:
+                    e_out = self.experts[e](flat_x[pos])
                 moe_out.index_add_(0, pos, w * e_out)
 
             # Aux losses: KL-to-uniform load balance (AGI paper eq.13) + z-loss (ST-MoE)
