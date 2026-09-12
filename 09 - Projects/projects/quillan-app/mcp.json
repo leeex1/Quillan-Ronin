@@ -1,4 +1,4 @@
-﻿{
+{
     "mcpServers": {
         "QuillanRAG": {
             "command": "python",
@@ -168,4 +168,3 @@
         }
     }
 }
-
