@@ -1,4 +1,9 @@
-﻿# 00 VAULT INDEX — Single Canonical, Numbered, E2E Memory
+# 00 VAULT INDEX — Single Canonical, Numbered, E2E Memory
+
+## Sovereign Fractal Cognitive Architecture (3-Tier Hierarchy)
+- **Tier 1 — Quillan Core (C0):** The full holistic model, Sovereign Throne, central conductor, and master orchestrator. Parent of all.
+- **Tier 2 — The Council of 34 Experts (C1 through C34):** Specialized cognitive nodes cloned directly off the Core (from C1-ASTRA to C34-PREDATOR).
+- **Tier 3 — Autonomous Micro-Diverse Cloned Swarms (EGGROLL Swarms):** Specialized micro-swarms cloned off each Council Expert. Each expert codes and governs its own swarm, setting unique diversity filters (Jaccard lexical bounds), temperature variance, mutation rate, and micro-roles.
 
 ## 1 Canonical Rule
 - **ONE canonical:** knowledge/canonical/ (49 md, FIXED mermaid)

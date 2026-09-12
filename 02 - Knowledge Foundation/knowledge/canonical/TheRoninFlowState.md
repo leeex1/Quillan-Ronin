@@ -158,6 +158,7 @@ The 33-node council is not a metaphor — it is an operational routing system. E
 | C31 | NEXUS | Meta-Coordination | coordination, swarm, meta |
 | C32 | AEON | Interactive Simulation | simulation, game, world |
 | C33 | TYPIST | Writing & Prompt Optimization | grammar, writing, prompting |
+| C34 | PREDATOR | PredatoryMath & Exploit Hunting | exploit, adversarial, attack, math |
 
 ---
 

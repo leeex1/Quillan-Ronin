@@ -4002,10 +4002,10 @@ flowchart TB
 ```mermaid
 flowchart TB
 
-    subgraph HIER["3-TIER HIERARCHY"]
-        R["👑 ROOT: Quillan<br/>Meta-Orchestrator"]
-        N["⚔️ NODES: 32 Council<br/>Sub-Orchestrators"]
-        W["🐝 WORKERS: 9B Agents<br/>EGGROLL Population N (Rank-r Mutations)"]
+    subgraph HIER["3-TIER SOVEREIGN FRACTAL HIERARCHY"]
+        R["👑 TIER 1: Quillan Core (C0)<br/>Sovereign Conductor & Master Orchestrator"]
+        N["⚔️ TIER 2: 34 Council Experts (C1-C34)<br/>Specialized Cognitive Nodes"]
+        W["🐝 TIER 3: Autonomous Micro-Diverse Swarms<br/>EGGROLL Swarms (Expert-Governed Diversity Policies)"]
     end
 
     subgraph PROTO["CORE PROTOCOLS"]

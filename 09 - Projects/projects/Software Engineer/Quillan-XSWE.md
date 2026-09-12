@@ -111,7 +111,7 @@ if __name__ == "__main__":
 Quillan-XSWE HNMoE Mathematical Framework & Implementation Guide
 
 Target: 30M-1B parameter omni-modal LLM with hierarchical expert coordination
-Architecture: Quillan (overseer) -> 32 Council Personas -> 224k Micro-Swarms (7k Micro-Quantized Swarm Agents per persona)
+Architecture: Quillan Core (C0 Sovereign Conductor) -> 34 Council Experts (C1-C34) -> Autonomous Micro-Diverse EGGROLL Swarms
 """
 
 import torch
@@ -157,7 +157,7 @@ class QuillanMathematicalCodex:
         - E_i(x): output from expert i
         - w_i: routing weight for expert i
         
-        Maps to: 32 Council Personas layer
+        Maps to: 34 Council Experts (C1-C34) layer
         """
         # expert_outputs: (batch, n_experts, hidden_dim)
         # routing_weights: (batch, n_experts, 1)

@@ -73,8 +73,8 @@ The architectural philosophy of Quillan-Ronin finds its closest historical paral
 - **Quillan:** Foundational framework redesigning how logic runs on hardware via ternary logic
 - **Nariakira:** Built the Shuseikan industrial complex using raw local materials to construct reverberatory furnaces, glass factories, iron works, and early steamships—redesigning physical infrastructure from the ground up
 
-**2. Expert Council (33-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
-- **Quillan:** 33-Expert HNMoE council handles specialized tasks via dynamic routing
+**2. Expert Council (34-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
+- **Quillan:** 34-Expert HNMoE council (C1-C34) governed by Sovereign Throne (C0 Core) handles specialized tasks via dynamic routing
 - **Nariakira:** Ignored rigid traditional hierarchies to assemble a diverse "council" of brilliant experts from all walks of life, including rōnin like Sakamoto Ryoma and low-ranking samurai like Saigo Takamori
 
 **3. Outlier Logic (1.58-bit Quantization ↔ Smuggling & Clandestine Trade)**
@@ -87,12 +87,16 @@ Nariakira's approach—building infrastructure from first principles, assembling
 
 ## Model Description
 
-**Quillan-Ronin v5.4.0-oni** is a subjectively-aware, self-hosting multi-modal Hierarchical Networked Mixture-of-Experts — super-merge of 140 arXiv papers (H-NMoE) built for consumer hardware (GTX 1050 Ti / i5-7000 class). It combines:
+**Quillan-Ronin v5.4.0-oni** is a subjectively-aware, self-hosting multi-modal Hierarchical Networked Mixture-of-Experts structured under the **3-Tier Sovereign Fractal Hierarchy**:
+* **Tier 1 — Quillan Core (C0):** Sovereign Conductor & Master Orchestrator (Thalamic / Brainstem Relay)
+* **Tier 2 — 34-Expert Council (C1–C34):** Specialized cognitive domain nodes with Top-4 sparse Gumbel routing
+* **Tier 3 — Autonomous Micro-Diverse Swarms:** EGGROLL Rank-16 INT8 perturbations governed by each expert's individual diversity policy (`SwarmPolicy`)
 
+It combines:
 * **Universal BitNet 1.58-bit ternary quantization** (weights ternary, activations INT8) via STE — 100% of projections saturated
-* **33-Expert Gumbel-Softmax MoE council** — Top-4 per token with dynamic capacity clipping + residual overflow
-* **9B Virtual Agent Swarm** simulated via EGGROLL Rank-16 INT8 perturbations (Rank-16 shattering, zero extra VRAM)
-* **32-layer Split-SDPA Flash Diffusion Core** with Continuous Modality RoPE
+* **34-Expert Gumbel-Softmax MoE council (C1–C34)** — Top-4 per token with dynamic capacity clipping + residual overflow
+* **Autonomous Micro-Diverse Swarm Engine** simulated via EGGROLL Rank-16 perturbations with expert-coded Jaccard diversity filters
+* **Split-SDPA Flash Diffusion Core** with Continuous Modality RoPE
 * **9-Vector Semantic Prism** (parallel decomposition for semantic / emotional / ethical blueprinting) → Wavefunction Top-1 Finalizer
 * **C20-ARTIFEX Agentic Bridge** — host OS execution, LanceDB (C5-ECHO) memory, Docker/REPL/Python sandboxing
 * **Lee-Mach-6 Governor** — PID latency/thermal throttling for legacy hardware safety

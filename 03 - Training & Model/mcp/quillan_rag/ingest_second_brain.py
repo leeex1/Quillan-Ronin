@@ -27,6 +27,8 @@ CORE_FILES = [
     r"C:\02_QUILLAN\02 - Knowledge Foundation\LINEAGE.md",
     r"C:\02_QUILLAN\02 - Knowledge Foundation\00_VAULT_INDEX.md",
     r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\9-Quillan Brain mapping.md",
+    r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\10- Quillan Persona Manifest.md",
+    r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\3-Quillan(reality).md",
     r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\31- Autobiography.md",
     r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\6-prime_covenant_codex.md",
     r"C:\02_QUILLAN\02 - Knowledge Foundation\Quillan Knowledge files\TheRoninFlowState.md",
