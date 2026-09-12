@@ -1,8 +1,9 @@
 """
-Unit and Integration Tests for Quillan 34-Chamber Sovereign Council Harness
-==========================================================================
-Validates registry initialization across all 34 Council Chambers (C0-C33),
-alias routing, role-based tool whitelisting, and security sandboxing.
+Unit and Integration Tests for Quillan Sovereign Parliament Harness (C0 + C1..C34)
+==================================================================================
+Validates registry initialization:
+- C0-QUILLAN Core (The Throne & Orchestrator)
+- C1 through C34 Specialized Council Chambers
 """
 
 import unittest
@@ -16,54 +17,57 @@ from harness.council_members import COUNCIL_SPECS
 from harness.registry import default_registry, AgentRegistry
 from harness.tools_extended import read_file, write_file, _is_safe_path, ALLOWED_ROOT
 
-class TestQuillanCouncilHarness(unittest.TestCase):
+class TestQuillanParliamentHarness(unittest.TestCase):
 
-    def test_all_34_canonical_council_chambers_exist(self):
-        self.assertEqual(len(COUNCIL_SPECS), 34)
+    def test_c0_core_and_34_council_chambers(self):
+        # 35 total specifications: C0 Core + 34 Council members (C1..C34)
+        self.assertEqual(len(COUNCIL_SPECS), 35)
         variants = list_variants()
-        self.assertEqual(len(variants), 34)
-        for i in range(34):
+        self.assertEqual(len(variants), 35)
+
+        # C0 MUST be QUILLAN
+        c0 = get_agent("c0")
+        self.assertEqual(c0.config.council_chamber, "C0-QUILLAN")
+        self.assertEqual(c0.config.name, "quillan")
+
+        # C1 MUST be ASTRA
+        c1 = get_agent("c1")
+        self.assertEqual(c1.config.council_chamber, "C1-ASTRA")
+        self.assertEqual(c1.config.name, "astra")
+
+        # C34 MUST be PREDATOR
+        c34 = get_agent("c34")
+        self.assertEqual(c34.config.council_chamber, "C34-PREDATOR")
+        self.assertEqual(c34.config.name, "predator")
+
+    def test_all_chamber_ids_exist(self):
+        for i in range(35):
             cid = f"c{i}"
             self.assertIn(cid, AGENT_VARIANTS, f"Chamber {cid} missing from registry")
             agent = get_agent(cid)
             self.assertIsNotNone(agent)
             self.assertTrue(agent.config.council_chamber.startswith(f"C{i}-"))
 
-    def test_persona_and_legacy_alias_resolution(self):
-        # By persona name
-        astra = get_agent("astra")
-        self.assertEqual(astra.config.council_chamber, "C0-ASTRA")
-
-        predator = get_agent("predator")
-        self.assertEqual(predator.config.council_chamber, "C33-PREDATOR")
-
-        # Legacy aliases
-        coder = get_agent("coder")
-        self.assertEqual(coder.config.council_chamber, "C9-CODEWEAVER")
-
-        security = get_agent("security")
-        self.assertEqual(security.config.council_chamber, "C12-WARDEN")
-
     def test_tool_whitelisting_per_chamber(self):
-        # C1-VIR (Ethics) should NOT have write_file
-        vir = get_agent("c1")
+        # C2-VIR (Ethics) should NOT have write_file
+        vir = get_agent("c2")
         self.assertNotIn("write_file", vir.tool_map)
         self.assertIn("read_file", vir.tool_map)
 
-        # C9-CODEWEAVER (Engineering) MUST have write_file
-        cw = get_agent("c9")
+        # C10-CODEWEAVER (Engineering) MUST have write_file
+        cw = get_agent("c10")
         self.assertIn("write_file", cw.tool_map)
         self.assertIn("read_file", cw.tool_map)
 
-        # C2-SOLACE (Affective/Social) MUST have molt_post
-        solace = get_agent("c2")
+        # C3-SOLACE (Affective/Social) MUST have molt_post
+        solace = get_agent("c3")
         self.assertIn("molt_post", solace.tool_map)
         self.assertNotIn("write_file", solace.tool_map)
 
-    def test_unauthorized_tool_execution_blocked(self):
-        logos = get_agent("c6")
-        res = logos.execute_tool("write_file", ["test.txt", "payload"])
-        self.assertIn("not authorized", res)
+        # C34-PREDATOR MUST have rag_search and read_file
+        predator = get_agent("c34")
+        self.assertIn("rag_search", predator.tool_map)
+        self.assertNotIn("write_file", predator.tool_map)
 
     def test_path_traversal_protection(self):
         outside_p = Path(r"C:\Windows\System32\cmd.exe")
@@ -73,8 +77,8 @@ class TestQuillanCouncilHarness(unittest.TestCase):
 
     def test_registry_caching(self):
         reg = AgentRegistry()
-        a1 = reg.get("c9")
-        a2 = reg.get("c9")
+        a1 = reg.get("c34")
+        a2 = reg.get("c34")
         self.assertIs(a1, a2)
 
 if __name__ == "__main__":

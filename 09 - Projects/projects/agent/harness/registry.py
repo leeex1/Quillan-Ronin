@@ -2,7 +2,7 @@
 Quillan Agent Registry & Orchestration Bus
 ==========================================
 Manages lifecycle, capabilities, and cross-agent delegation dispatching
-across all 34 Council Chambers with Top-K sparse council deliberation.
+across C0-QUILLAN Core and all 34 Council Chambers (C1 - C34).
 """
 
 from typing import Dict, List, Any, Optional
@@ -24,17 +24,17 @@ class AgentRegistry:
         return list_variants()
 
     def dispatch(self, agent_name: str, task: str) -> AgentResponse:
-        """Dispatch a specific task to an individual agent or chamber."""
+        """Dispatch a specific task to an individual chamber or agent."""
         agent = self.get(agent_name)
         return agent.run(task)
 
     def deliberate(self, task: str, chamber_ids: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
         """
         Execute Top-4 Council Deliberation:
-        By default, routes to the core synthesis triad + specialist:
-        C0-ASTRA (Pattern), C6-LOGOS (Logic), C1-VIR (Ethics), and C9-CODEWEAVER (Execution).
+        Routes across core cognitive pillars:
+        C1-ASTRA (Pattern Eye), C7-LOGOS (Logic Razor), C2-VIR (Moral Spine), and C10-CODEWEAVER (Execution).
         """
-        chambers = chamber_ids or ["c0", "c6", "c1", "c9"]
+        chambers = chamber_ids or ["c1", "c7", "c2", "c10"]
         deliberations = {}
         for c in chambers:
             deliberations[c] = self.dispatch(c, task)
@@ -42,7 +42,7 @@ class AgentRegistry:
 
     def broadcast(self, task: str, agent_names: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
         """Run multiple agents across a shared prompt and collect perspectives."""
-        targets = agent_names or ["c0", "c1", "c6", "c9"]
+        targets = agent_names or ["c0", "c1", "c2", "c7", "c10", "c34"]
         results = {}
         for name in targets:
             results[name] = self.dispatch(name, task)
