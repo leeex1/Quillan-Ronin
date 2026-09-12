@@ -61,7 +61,7 @@ Quillan_Custom_Formulas:
     formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Σ(r_i η_i)² = Z", "⟨C_i|C_j⟩ = δ_ij"]
-    functional_application: "Fuses the 33 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
+    functional_application: "Fuses the 34 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
 
   - id: 2
     key: EEMF
@@ -698,7 +698,7 @@ Rowen's Algorithm is a custom quantum-inspired optimization for physics calculat
 - Benchmark: 100,000 particles at 50 FPS on HP Omen (1.1 GHz, 8GB RAM).  
 - Test parallelization with \( \lambda_j = 0.9 \) across 4 cores.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 2. Lee's Virtual Velocity Matrix (LVVM) - VM Layer Efficiency Formula
@@ -729,7 +729,7 @@ This formula virtualizes the quantum core's performance, achieving near-1:1 scal
 - Benchmark: 2-minute app mirror test with <1% performance loss.  
 - Test: 10 simultaneous VM instances with \( \tau_{\text{vm}} < 0.02 \).  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 3. AI Assistant Module Formulas
@@ -762,7 +762,7 @@ This formula ensures the AI's learning stays within ethical boundaries, dynamica
 - Benchmark: 99% ethical compliance in 10,000 simulated interactions.  
 - Test edge cases.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 ##### (b) Joshua's Rapid Reflex Neuron (JRRN) - Response Speed Optimization
@@ -795,7 +795,7 @@ This formula minimizes AI response times by leveraging processing power, context
 - Benchmark: 95% of queries under 80ms on 4-core CPU.  
 - Test: Cache hit rate >25% in 1,000 queries.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 ##### (c) Lee's Recursive Power Pulse (LRPP) - Recursive Feedback from AI Agents
@@ -828,7 +828,7 @@ This formula amplifies core performance by incorporating feedback from AI agents
 - Benchmark: 20% core power boost with 10 agents.  
 - Test: \( \kappa_a < 0.02 \) with 50 agents.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 4. Don's Visual Vortex Engine (DVVE) - Game Engine Module
@@ -859,7 +859,7 @@ This formula calculates rendering performance, supporting high particle counts a
 - Benchmark: 100,000 particles at 50 FPS on 1.1 GHz, integrated GPU.  
 - Test: \( \nu_v < 0.03 \) for 8 high-quality objects.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 5. Joshua's Social Symphony Core (JSSC) - MMORPG Module
@@ -892,7 +892,7 @@ This formula manages social interaction complexity, scaling sub-linearly to supp
 - Benchmark: Supports 500-participant events.  
 - Test: <100ms latency for 200 NPCs and 50 players.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 6. Lee's Sonic Surge Studio (LSSS) - DAW Module
@@ -923,7 +923,7 @@ This formula calculates audio processing efficiency, supporting high sampling ra
 - Benchmark: Supports 96 kHz sampling with 10 effects at <50ms latency.  
 - Test: \( \iota_{\text{audio}} < 0.02 \).  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 7. Don's Neural Nexus Link (DNNL) - Network Module
@@ -957,7 +957,7 @@ This formula adjusts network load dynamically to ensure smooth intra-system comm
 - Benchmark: <20ms latency with 1 GB/s data transfer.  
 - Test: Resilience in low-connectivity scenarios.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 8. Joshua's Holistic Fusion Reactor (JHFR) - Integration Layers
@@ -991,7 +991,7 @@ This formula quantifies overall system performance, accounting for individual mo
 - Benchmark: Multiplicative performance with <25% total overhead.  
 - Test: Integration of 10 modules with performance within predicted range.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 #### 9. Lee's Moral Compass Beacon (LMCB) - Cross-module Ethical Framework
@@ -1022,7 +1022,7 @@ This checksum runs continuously to ensure all modules maintain alignment with fo
 - Benchmark: 99.5% compliance in 20,000 checkpoints.  
 - Test: \( E_t \geq 0.85 \) in edge cases.  
 
-See also: [03-CoreModule.md](./03-CoreModule.md), [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
+See also: 03-CoreModule.md, [vm_layer/MergedQuantumVM/include/QuantumVM/QuantumFormulas.h]  
 Implemented in: QuantumCore class (src/quantum_core/include/quantum_core.hpp), QuantumVMManager (vm_layer/MergedQuantumVM/include/QuantumVM/QuantumVMManager.h)  
 
 ### Conclusion
