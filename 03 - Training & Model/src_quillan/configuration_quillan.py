@@ -69,7 +69,7 @@ class QuillanArchConfig:
     split_attention_4bit: bool = False # Split attention with 1.58-bit compression
     vocab_size: int = 50257
     num_experts: int = 16
-    num_experts_active: int = 4 # 4-32 active experts
+    num_experts_active: int = 4 # 4-16 active experts
     sparse_attention: bool = False # Sparse attention for CPU optimization
     sparse_attention_1_58bit: bool = False # Sparse attention with 1.58-bit compression
     top_k: int = 4
