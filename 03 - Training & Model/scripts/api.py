@@ -68,7 +68,7 @@ class SovereignAPIHandler(BaseHTTPRequestHandler):
             self.end_headers()
             resp = {
                 "status": "healthy",
-                "model": "quillan-ronin-v5.3.1",
+                "model": "quillan-ronin-v5.4-oni",
                 "engine": "sovereign-master-orchestrator",
                 "timestamp": time.time()
             }
@@ -84,7 +84,7 @@ class SovereignAPIHandler(BaseHTTPRequestHandler):
                 "object": "list",
                 "data": [
                     {
-                        "id": "quillan-ronin-v5.3.1",
+                        "id": "quillan-ronin-v5.4-oni",
                         "object": "model",
                         "created": 1777000000,
                         "owned_by": "quillan-foundation",
@@ -162,7 +162,7 @@ class SovereignAPIHandler(BaseHTTPRequestHandler):
                         "id": chat_id,
                         "object": "chat.completion.chunk",
                         "created": created_ts,
-                        "model": "quillan-ronin-v5.3.1",
+                        "model": "quillan-ronin-v5.4-oni",
                         "choices": [{"index": 0, "delta": {"content": chunk_text}, "finish_reason": None}]
                     }
                     self.wfile.write(f"data: {json.dumps(payload)}\n\n".encode("utf-8"))
@@ -179,7 +179,7 @@ class SovereignAPIHandler(BaseHTTPRequestHandler):
                 "id": chat_id,
                 "object": "chat.completion",
                 "created": created_ts,
-                "model": "quillan-ronin-v5.3.1",
+                "model": "quillan-ronin-v5.4-oni",
                 "choices": [
                     {
                         "index": 0,

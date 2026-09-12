@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(r"C:\Users\Admin\Quillan-Ronin")
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / '_dev'))
+sys.path.insert(0, r"C:\02_QUILLAN\09 - Projects\projects")  # FIX 2026-09-09: live _dev package home
 
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')

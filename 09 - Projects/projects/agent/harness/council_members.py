@@ -322,6 +322,8 @@ def build_council_configs() -> Dict[str, AgentConfig]:
         "audio": "c22",           # Cadence
         "creative": "c26",        # Chronicle
         "governor": "c30",        # Nexus
+        "c34": "c33",             # SOUL.md C34-PREDATOR alias
+        "c34-predator": "c33",
     }
     for alias, target_id in legacy_aliases.items():
         if target_id in configs and alias not in configs:

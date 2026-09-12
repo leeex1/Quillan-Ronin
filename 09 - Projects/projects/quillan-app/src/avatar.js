@@ -12,6 +12,8 @@ let scene, camera, renderer, loader, desk=null;
 let avatars = {}; let current = "quillan"; let animId=null;
 let spriteCfg = null; let sheetImg=null; let sheetReady=false;
 let frame = 0, frameTick=0, lastTs=0;
+let _disposed = false; // guard against running loop after dispose
+let _pendingGLB = new Set(); // track pending GLB promises to abort
 
 const BUILTIN = {
   quillan: { name:"quillan", type:"glb", sheet:null, frameW:200, frameH:200, fps:9, states:{ idle:{fps:6,frames:4,loop:true}, blink:{fps:14,frames:3,loop:false,next:"idle"}, talk:{fps:12,frames:4,loop:true}, think:{fps:5,frames:4,loop:true}, dance:{fps:14,frames:6,loop:true}, walk:{fps:12,frames:6,loop:true}, chill:{fps:4,frames:2,loop:true}, desk:{fps:6,frames:4,loop:true} } },
@@ -22,6 +24,9 @@ const BUILTIN = {
 function log(m){ try{ console.log("[avatar] "+m); const fs=require("fs"); fs.appendFileSync("C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\renderer.log", new Date().toISOString()+" [avatar] "+m+"\n"); }catch(e){} }
 
 async function init({ stage, canvas: c, mount3d: m3, glowEl: g, onState }){
+  // dispose previous loop if re-init (fixes RAF leak)
+  if (animId) { try { cancelAnimationFrame(animId); } catch(e){} animId=null; }
+  _disposed = false;
   stageEl=stage; canvas=c; mount3d=m3; glowEl=g; onStateCb=onState||null;
   ctx = canvas.getContext("2d");
   canvas.width=200; canvas.height=200;
@@ -38,14 +43,25 @@ async function init({ stage, canvas: c, mount3d: m3, glowEl: g, onState }){
   animId = requestAnimationFrame(loop);
   log("sprite loop started (visible) mode="+mode);
   log("avatar init done (sprite visible) mode="+mode+" current="+current+" — GLB lazy on avatar switch — alive ticker on");
-  setTimeout(()=>{ show("quillan"); }, 800); // auto-upgrade sprite -> GLB
+  // FIX: store timeout so we can clear on dispose; don't auto-upgrade if already disposed
+  const _autoTO = setTimeout(()=>{ if(!_disposed) show("quillan"); }, 800);
+  // expose dispose cleanup
+  if (typeof window !== "undefined") {
+    window.addEventListener("beforeunload", dispose, { once:true });
+    document.addEventListener("visibilitychange", ()=>{
+      if (document.hidden) { if(animId){ cancelAnimationFrame(animId); animId=null; } }
+      else if(!animId && !_disposed){ lastTs=performance.now(); animId=requestAnimationFrame(loop); }
+    });
+  }
   // auto-test removed
 }
 
 function loadSheet(url){
+  // FIX: dispose previous image to prevent img mem leak
+  if (sheetImg) { try { sheetImg.onload=null; sheetImg.onerror=null; sheetImg.src=""; } catch(e){} sheetImg=null; sheetReady=false; }
   sheetImg = new Image();
   sheetImg.onload = ()=>{ sheetReady=true; log("sheet ready "+url); };
-  sheetImg.onerror = ()=>{ sheetReady=false; log("sheet missing "+url); sheetImg=null; };
+  sheetImg.onerror = ()=>{ sheetReady=false; log("sheet missing "+url); try{ sheetImg.src=""; }catch(e){} sheetImg=null; };
   sheetImg.src = url;
 }
 
@@ -82,11 +98,18 @@ async function loadGLBs(){
   if(scene) return;
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(48, 1, 0.1, 100); camera.position.set(0, 1.05, 3.4); camera.lookAt(0, 0.35, 0);
-  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-  renderer.setSize(200,200); renderer.setPixelRatio(window.devicePixelRatio); renderer.shadowMap.enabled=true;
+  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:"low-power" });
+  // FIX: limit pixelRatio to 1.5 to cap GPU mem (was devicePixelRatio unlimited -> 3x VRAM on retina)
+  renderer.setSize(200,200); renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.5)); renderer.shadowMap.enabled=true;
   if(THREE.SRGBColorSpace) renderer.outputColorSpace = THREE.SRGBColorSpace;
-  mount3d.innerHTML=""; mount3d.appendChild(renderer.domElement);
-  renderer.domElement.addEventListener("wheel", (e)=>{ e.preventDefault(); camera.position.z += e.deltaY*0.004; camera.position.z = Math.max(1.8, Math.min(6, camera.position.z)); camera.lookAt(0,0.35,0); }, {passive:false});
+  // FIX: dispose old renderer before clearing mount
+  if (mount3d.firstChild && mount3d.firstChild !== renderer.domElement) {
+    try { mount3d.innerHTML=""; } catch(e){}
+  } else mount3d.innerHTML="";
+  mount3d.appendChild(renderer.domElement);
+  const _wheelFn = (e)=>{ e.preventDefault(); camera.position.z += e.deltaY*0.004; camera.position.z = Math.max(1.8, Math.min(6, camera.position.z)); camera.lookAt(0,0.35,0); };
+  renderer.domElement._wheelFn=_wheelFn;
+  renderer.domElement.addEventListener("wheel", _wheelFn, {passive:false});
   log("renderer 200x200 alpha");
   const hemi=new THREE.HemisphereLight(0xffffff,0x1a1a2e,0.7); scene.add(hemi);
   const key=new THREE.DirectionalLight(0xffffff,1.1); key.position.set(2,3,2); key.castShadow=true; scene.add(key);
@@ -171,8 +194,11 @@ function getState(){ return state; }
 function blink(){ if(state==="idle"){ setState("blink"); setTimeout(()=> { if(state==="blink") setState("idle"); }, 420); }}
 
 function loop(ts){
+  if (_disposed) return;
   animId=requestAnimationFrame(loop);
   const dt = Math.min(0.05, (ts - lastTs)/1000 || 0.016); lastTs=ts; t+=dt;
+  // FIX: skip rendering when page hidden to save GPU mem (cooperates with main suspend)
+  if (typeof document !== "undefined" && document.hidden) return;
   if(mode==="sprite"){
     const stCfg = (spriteCfg && spriteCfg.states && spriteCfg.states[state]) || spriteCfg.states["idle"] || {fps:7,frames:4};
     const fps = stCfg.fps||7; frameTick += dt*fps;
@@ -193,6 +219,24 @@ function loop(ts){
     for(const [k,v] of Object.entries(avatars)){ if(v.mesh!==m && !v.mesh.visible){ v.mesh.position.y = v.baseY + Math.sin(t*1.2)*0.01; } }
     renderer.render(scene,camera);
   }
+}
+
+function dispose(){
+  _disposed = true;
+  if (animId) { try{ cancelAnimationFrame(animId);}catch(e){} animId=null; }
+  if (sheetImg) { try{ sheetImg.onload=null; sheetImg.onerror=null; sheetImg.src=""; }catch(e){} sheetImg=null; }
+  // Dispose Three resources
+  try {
+    if (renderer) {
+      if (renderer.domElement && renderer.domElement._wheelFn) renderer.domElement.removeEventListener("wheel", renderer.domElement._wheelFn);
+      renderer.dispose();
+      // dispose geometries/materials
+      if (scene) scene.traverse(o=>{ if(o.geometry) try{o.geometry.dispose()}catch(e){}; if(o.material){ const mats=Array.isArray(o.material)?o.material:[o.material]; mats.forEach(m=>{ try{ if(m.map) m.map.dispose(); m.dispose(); }catch(e){} }); } });
+      if (mount3d && renderer.domElement && mount3d.contains(renderer.domElement)) mount3d.removeChild(renderer.domElement);
+    }
+  } catch(e){ log("dispose fail "+e.message); }
+  scene=null; camera=null; renderer=null; loader=null;
+  log("avatar disposed");
 }
 
 function drawSheetFrame(stCfg, f){
@@ -234,7 +278,7 @@ function roundRect(c,x,y,w,h,r){ c.beginPath(); c.moveTo(x+r,y); c.arcTo(x+w,y,x
 function setSpriteSheet(url){ loadSheet(url); mode="sprite"; canvas.style.display="block"; if(mount3d) mount3d.style.display="none"; }
 function setSpriteConfig(cfg){ spriteCfg=Object.assign({}, spriteCfg||BUILTIN.quillan, cfg); if(cfg.sheet) loadSheet(cfg.sheet); frame=0; frameTick=0; }
 function getConfig(){ return spriteCfg; }
-module.exports = { init, show, setState, getState, blink, setSpriteSheet, setSpriteConfig, getConfig, ensureThree, loadGLBs };
+module.exports = { init, show, setState, getState, blink, setSpriteSheet, setSpriteConfig, getConfig, ensureThree, loadGLBs, dispose };
 
 
 

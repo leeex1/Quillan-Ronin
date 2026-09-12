@@ -2,6 +2,7 @@ import sys
 import os
 ROOT = r"C:\Users\Admin\Quillan-Ronin"
 sys.path.insert(0, os.path.join(ROOT, "_dev"))
+sys.path.insert(0, r"C:\02_QUILLAN\09 - Projects\projects")  # FIX 2026-09-09: live _dev package home
 sys.path.insert(0, ROOT)
 
 import torch

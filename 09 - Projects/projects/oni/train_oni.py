@@ -237,19 +237,21 @@ def main():
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     print(f"[PATHS] data_dir={DATA}  ckpt_dir={CKPT_DIR}  log_dir={LOG_DIR}")
 
-    # Windows OS Process Priority Elevation & Thread Tuning
+    # Windows OS Hardware Governor & Thread Capping (Zero-Lag Guaranteed)
     import os
     try:
         import psutil
         p = psutil.Process(os.getpid())
-        if sys.platform == "win32":
-            p.nice(psutil.HIGH_PRIORITY_CLASS)
+        if sys.platform == "win32" and hasattr(psutil, "BELOW_NORMAL_PRIORITY_CLASS"):
+            p.nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
     except Exception:
         pass
 
-    num_cpus = os.cpu_count() or 4
-    torch.set_num_threads(num_cpus)
-    torch.set_num_interop_threads(min(4, num_cpus))
+    if args.device == "cpu" or not torch.cuda.is_available():
+        torch.set_num_threads(min(2, os.cpu_count() or 2))
+        torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
+    else:
+        torch.set_num_threads(min(4, os.cpu_count() or 4))
 
     rng = np.random.default_rng(42)
     tok = UnifiedQuillanTokenizer()

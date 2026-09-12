@@ -48,10 +48,15 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 # ── Path setup ────────────────────────────────────────────────────────────────
 ROOT = Path(r'C:\Users\Admin\Quillan-Ronin')
+SCRIPTS_DIR = Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPTS_DIR))
 sys.path.insert(0, str(ROOT / '_dev'))
 sys.path.insert(0, str(ROOT))
 
-from quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig
+try:
+    from quillan_v5_4_oni import QuillanRoninOni as QuillanRoninSovereign, QuillanOniConfig as QuillanArchConfig
+except ImportError:
+    from quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig
 
 # ── Hardware detection ────────────────────────────────────────────────────────
 def detect_device():

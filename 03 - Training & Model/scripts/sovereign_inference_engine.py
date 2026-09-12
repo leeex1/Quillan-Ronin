@@ -51,7 +51,7 @@ class SamplingParams:
     frequency_penalty: float = 0.0
     presence_penalty: float = 0.0
     no_repeat_ngram_size: int = 0
-    stop_token_ids: Tuple[int, ...] = (50256,)  # <|endoftext|>
+    stop_token_ids: Tuple[int, ...] = (0, 50256)  # <|endoftext|> (0 = unified custom, 50256 = legacy)
     stop_strings: Tuple[str, ...] = field(default_factory=lambda: ("<|end|>", "<|im_end|>"))
     use_kv_cache: bool = True
     seed: Optional[int] = None
@@ -138,7 +138,7 @@ class SovereignInferenceEngine:
             LOGGER.warning("Standard weights_only load exception: %s. Validating state dict schema.", exc)
             ckpt = torch.load(str(ckpt_p), map_location="cpu", weights_only=False)
 
-        state_dict = ckpt.get("model_state_dict", ckpt)
+        state_dict = ckpt.get("model_state_dict", ckpt.get("model", ckpt.get("state_dict", ckpt)))
         if not isinstance(state_dict, dict):
             raise ValueError("Invalid checkpoint schema: expected dictionary state_dict")
 

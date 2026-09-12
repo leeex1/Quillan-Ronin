@@ -24,6 +24,8 @@ CKPT_PATH = os.path.join(BASE_DIR, "checkpoints", "quillan_transplanted.pt")
 OUT_PATH = os.path.join(BASE_DIR, "checkpoints", "quillan_transplanted_v8.pt")
 
 sys.path.insert(0, BASE_DIR)
+# FIX 2026-09-09: module home moved to CascadeProjects mirror (old root has data only)
+sys.path.insert(0, r"C:\Users\Admin\CascadeProjects\Quillan-Ronin")
 from quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig
 
 def load_source_tensor(path: str, key: str) -> torch.Tensor:

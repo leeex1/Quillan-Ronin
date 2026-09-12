@@ -17,6 +17,7 @@ import json
 import logging
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
+import pypdf
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -83,11 +84,12 @@ BOOK_PAGE_COUNTS = {
 
 def get_paperback_specs(book_num: int) -> dict:
     """
-    Returns exact template specs for KDP Paperback based on interior page count.
-    For Book 1 (631 pages), KDP explicitly mandates 13.730" x 9.250" (1.480" spine).
+    Returns exact template specs for KDP Paperback based on interior page count and paper type.
+    - Book 1 (631 pages): Exact Amazon KDP preflight mandates 13.730" x 9.250" (1.480" spine).
+    - Book 2 (527 pages): Exact Amazon KDP preflight mandates 13.568" x 9.250" (1.318" spine, cream stock).
+    - Books 3-5: Dynamic calculation using KDP standard B&W Cream paper caliper (0.0025" / page).
     """
     if book_num == 1:
-        # Exact Amazon KDP preflight dimension specification
         return {
             "name": "Paperback Book 1 Exact KDP (13.730x9.250)",
             "width_in": 13.730,
@@ -103,9 +105,25 @@ def get_paperback_specs(book_num: int) -> dict:
             "front_w_px": 1837,
         }
 
-    # Calibrated calculation for other books based on their actual page count
+    if book_num == 2:
+        return {
+            "name": "Paperback Book 2 Exact KDP (13.568x9.250)",
+            "width_in": 13.568,
+            "height_in": 9.250,
+            "spine_in": 1.318,
+            "bleed_in": 0.125,
+            "trim_w_in": 6.000,
+            "trim_h_in": 9.000,
+            "width_px": 4070,
+            "height_px": 2775,
+            "spine_px": 395,
+            "front_x_px": 2233,
+            "front_w_px": 1837,
+        }
+
+    # Calibrated cream paper stock calculation (0.0025 in / page) for other books
     pages = BOOK_PAGE_COUNTS.get(book_num, 550)
-    spine_in = round(pages * 0.00234548, 3)
+    spine_in = round(pages * 0.0025, 3)
     width_in = round(12.250 + spine_in, 3)
     height_in = 9.250
     width_px = int(round(width_in * DPI))
@@ -115,7 +133,7 @@ def get_paperback_specs(book_num: int) -> dict:
     front_x_px = width_px - front_w_px
 
     return {
-        "name": f"Paperback Book {book_num} ({pages}pp, {width_in}x{height_in})",
+        "name": f"Paperback Book {book_num} ({pages}pp Cream, {width_in}x{height_in})",
         "width_in": width_in,
         "height_in": height_in,
         "spine_in": spine_in,
@@ -285,7 +303,23 @@ def build_full_wrap_cover(book: dict, specs: dict, blurbs: dict, suffix: str) ->
 
     out_pdf = OUT_DIR / f"{book['file_stem']} ({suffix}).pdf"
     canvas.save(str(out_pdf), "PDF", resolution=DPI)
-    logger.info(f"Generated Full-Wrap PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {W/DPI:.3f}x{H/DPI:.3f} in)")
+
+    # Exact point precision calibration for Amazon KDP preflight
+    target_w_pt = round(float(specs["width_in"]) * 72.0, 3)
+    target_h_pt = round(float(specs["height_in"]) * 72.0, 3)
+    try:
+        reader = pypdf.PdfReader(str(out_pdf))
+        writer = pypdf.PdfWriter()
+        page = reader.pages[0]
+        page.mediabox.lower_left = (0, 0)
+        page.mediabox.upper_right = (target_w_pt, target_h_pt)
+        writer.add_page(page)
+        with open(out_pdf, "wb") as f:
+            writer.write(f)
+    except Exception as e:
+        logger.warning(f"Could not calibrate MediaBox points for {out_pdf.name}: {e}")
+
+    logger.info(f"Generated Full-Wrap PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)")
     return out_pdf
 
 
@@ -319,6 +353,19 @@ def build_front_cover_pdf(book: dict) -> Path:
 
     out_pdf = OUT_DIR / f"{book['file_stem']} (Front Cover - Formatted).pdf"
     front_canvas.save(str(out_pdf), "PDF", resolution=DPI)
+
+    try:
+        reader = pypdf.PdfReader(str(out_pdf))
+        writer = pypdf.PdfWriter()
+        page = reader.pages[0]
+        page.mediabox.lower_left = (0, 0)
+        page.mediabox.upper_right = (6.125 * 72.0, 9.250 * 72.0)
+        writer.add_page(page)
+        with open(out_pdf, "wb") as f:
+            writer.write(f)
+    except Exception as e:
+        logger.warning(f"Could not calibrate MediaBox points for {out_pdf.name}: {e}")
+
     logger.info(f"Generated Front Cover PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI)")
     return out_pdf
 
@@ -332,7 +379,22 @@ def build_scaled_draft_template_pdf(book: dict, specs: dict) -> Path:
 
     out_pdf = OUT_DIR / f"{book['file_stem']} (Draft Scaled to Template).pdf"
     scaled.save(str(out_pdf), "PDF", resolution=DPI)
-    logger.info(f"Generated Draft-Scaled Template PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {W/DPI:.3f}x{H/DPI:.3f} in)")
+
+    target_w_pt = round(float(specs["width_in"]) * 72.0, 3)
+    target_h_pt = round(float(specs["height_in"]) * 72.0, 3)
+    try:
+        reader = pypdf.PdfReader(str(out_pdf))
+        writer = pypdf.PdfWriter()
+        page = reader.pages[0]
+        page.mediabox.lower_left = (0, 0)
+        page.mediabox.upper_right = (target_w_pt, target_h_pt)
+        writer.add_page(page)
+        with open(out_pdf, "wb") as f:
+            writer.write(f)
+    except Exception as e:
+        logger.warning(f"Could not calibrate MediaBox points for {out_pdf.name}: {e}")
+
+    logger.info(f"Generated Draft-Scaled Template PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)")
     return out_pdf
 
 
