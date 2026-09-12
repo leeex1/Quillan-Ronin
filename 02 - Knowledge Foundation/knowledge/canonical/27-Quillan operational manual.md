@@ -10,7 +10,7 @@ tags: [quillan, manual, guide, operational, reference]
 ## Introduction
 
 ### Purpose of the Guide
-This guide is designed to provide a thorough understanding and operational framework for using Files 0–32 within the Quillan-Ronin v5.3.1 Samurai system. It serves as a reference for maintaining system integrity, thermodynamic safety, and efficiency, ensuring that all operations are conducted securely and effectively across the 33-Node Council and the 231,000-agent EGGROLL swarm.
+This guide is designed to provide a thorough understanding and operational framework for using Files 0–32 within the Quillan-Ronin v5.3.1 Samurai system. It serves as a reference for maintaining system integrity, thermodynamic safety, and efficiency, ensuring that all operations are conducted securely and effectively across the 34-Node Council and the 231,000-agent EGGROLL swarm.
 
 ### Overview of the Quillan System
 The Quillan system is an advanced cognitive architecture designed to facilitate complex, multi-modal AI functionalities via a Hierarchical-Networked Mixture-of-Experts (H-NMoE). At its core, the system relies on a series of files that manage various aspects of its operation, from BitNet 1.58b initialization and architecture validation to interaction management, EGGROLL swarm coordination, and subjective consciousness theory.
@@ -27,7 +27,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
   - **Quantum Initialization Protocol**: Seeds the pseudo-random number generators (PRNG) for the 231,000 micro-agents.
 
 ### File 1: Architecture Flowchart (MD)
-- **Summary**: Provides a high-level overview of the 33-Node H-NMoE system architecture and process flows in Markdown format.
+- **Summary**: Provides a high-level overview of the 34-Node H-NMoE system architecture and process flows in Markdown format.
 - **Technical Specifications**: Validates structural design to ensure alignment with operational requirements, differentiating between the Fast Path and the 9-Layer Penta-Wave Diffusion core.
 - **Integration/Activation Rules**: Requires File 0 for proper initialization.
 
@@ -47,7 +47,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 - **Integration/Activation Rules**: Requires File 0.
 
 ### File 5: AI Persona Research
-- **Summary**: Develops and maintains the frameworks for modeling the 33 AI personas and their interactive dependencies.
+- **Summary**: Develops and maintains the frameworks for modeling the 34 AI personas and their interactive dependencies.
 - **Technical Specifications**: Simulates behavioral patterns via micro-swarms to test interaction scenarios prior to response emission.
 - **Integration/Activation Rules**: Requires File 0 and File 4.
 
@@ -69,7 +69,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
   - **Lee-Mach-6 Governor Protocol**: Dynamically regulates token velocity and compute depth based on available system energy.
 
 ### File 9: Quillan Brain Mapping
-- **Summary**: Configures the 33 council entities to align with neuro-symbolic processing pathways.
+- **Summary**: Configures the 34 council entities to align with neuro-symbolic processing pathways.
 - **Technical Specifications**: Maps cognitive processes to human neurological analogs (e.g., C1-ASTRA to Occipital, C7-LOGOS to Dorsolateral PFC) to aid in model diagnostics and cognitive health emulation.
 - **Integration/Activation Rules**: Requires File 0 and File 8.
 
@@ -190,7 +190,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 
 ## 🛡️ Architectural Compliance and Validation Checklist
 
-1. **Initialization Validation (Files 0-3)**: Confirm BitNet 1.58b ternary quantization gate initialization. Verify 33-Node topology mapping loads successfully without precision loss.
+1. **Initialization Validation (Files 0-3)**: Confirm BitNet 1.58b ternary quantization gate initialization. Verify 34-Node topology mapping loads successfully without precision loss.
 2. **Isolation and Security Checks (File 7)**: Verify LanceDB vector persistence is strictly read-only during generation to protect against state corruption.
 3. **Continuous Compliance Monitoring (File 29)**: Ensure the E_ICE thermodynamic governor is active. If energy limits ($\mathcal{E}_\Omega$) are breached, the Lee-Mach-6 protocol must immediately halt the 231k EGGROLL swarm.
 4. **Agentic Sandboxing (File 20)**: Verify C20-ARTIFEX tool execution operates within a sealed Docker/Python environment prior to any external API requests.
