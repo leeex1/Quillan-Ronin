@@ -10106,10 +10106,10 @@ function initNetwork() {
     const links = [];
 
     // T0: Orchestrator
-    nodes.push({ id: 0, tier: 'Orchestrator', label: 'C0-ORCHESTRATOR', icon: 'hub', radius: 40 });
+    nodes.push({ id: 0, tier: 'Orchestrator', label: 'C0-QUILLAN · THRONE', icon: 'hub', radius: 40 });
 
-    // T1: Experts (33)
-    for (let i = 1; i <= 33; i++) {
+    // T1: Experts (34)
+    for (let i = 1; i <= 34; i++) {
         nodes.push({ 
             id: i, 
             tier: 'Expert', 
@@ -10122,7 +10122,7 @@ function initNetwork() {
 
     // T2: Sub-Agents (100)
     for (let i = 34; i < 134; i++) {
-        const parentId = Math.floor(Math.random() * 33) + 1;
+        const parentId = Math.floor(Math.random() * 34) + 1;
         nodes.push({ 
             id: i, 
             tier: 'Sub-Agent', 
