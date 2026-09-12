@@ -1,7 +1,8 @@
 """
 Quillan Agent Registry & Orchestration Bus
 ==========================================
-Manages lifecycle, capabilities, and cross-agent delegation dispatching.
+Manages lifecycle, capabilities, and cross-agent delegation dispatching
+across all 34 Council Chambers with Top-K sparse council deliberation.
 """
 
 from typing import Dict, List, Any, Optional
@@ -23,13 +24,25 @@ class AgentRegistry:
         return list_variants()
 
     def dispatch(self, agent_name: str, task: str) -> AgentResponse:
-        """Dispatch a specific task to an agent variant."""
+        """Dispatch a specific task to an individual agent or chamber."""
         agent = self.get(agent_name)
         return agent.run(task)
 
+    def deliberate(self, task: str, chamber_ids: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
+        """
+        Execute Top-4 Council Deliberation:
+        By default, routes to the core synthesis triad + specialist:
+        C0-ASTRA (Pattern), C6-LOGOS (Logic), C1-VIR (Ethics), and C9-CODEWEAVER (Execution).
+        """
+        chambers = chamber_ids or ["c0", "c6", "c1", "c9"]
+        deliberations = {}
+        for c in chambers:
+            deliberations[c] = self.dispatch(c, task)
+        return deliberations
+
     def broadcast(self, task: str, agent_names: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
-        """Run multiple agents in sequence across a shared prompt and collect perspectives."""
-        targets = agent_names or list(AGENT_VARIANTS.keys())
+        """Run multiple agents across a shared prompt and collect perspectives."""
+        targets = agent_names or ["c0", "c1", "c6", "c9"]
         results = {}
         for name in targets:
             results[name] = self.dispatch(name, task)

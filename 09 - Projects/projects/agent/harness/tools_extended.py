@@ -132,7 +132,11 @@ def rag_search(query: str, n_results: int = 5) -> str:
             r.raise_for_status()
             q_emb = r.json()["data"][0]["embedding"]
             
-        results = col.query(query_embeddings=[q_emb], n_results=min(int(n_results), col.count()),
+        try:
+            n = int(n_results)
+        except (ValueError, TypeError):
+            n = 5
+        results = col.query(query_embeddings=[q_emb], n_results=min(max(1, n), col.count()),
                             include=["documents", "metadatas", "distances"])
         
         lines = [f"🔍 Second Brain Results for: '{query}'"]
