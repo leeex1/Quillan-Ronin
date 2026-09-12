@@ -10121,12 +10121,12 @@ function initNetwork() {
     }
 
     // T2: Sub-Agents (100)
-    for (let i = 34; i < 134; i++) {
+    for (let i = 35; i < 135; i++) {
         const parentId = Math.floor(Math.random() * 34) + 1;
         nodes.push({ 
             id: i, 
             tier: 'Sub-Agent', 
-            label: `Agent-${i-33}`, 
+            label: `Agent-${i-34}`, 
             icon: 'smart_toy', 
             radius: 6 
         });
