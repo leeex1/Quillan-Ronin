@@ -104,6 +104,8 @@ flowchart TB
         AEON["C32-Aeon<br/>Temporal Integration<br/>Synthesis"]
         TECHNE["C26-Techne<br/>Insular Cortex<br/>Engineering Judgment"]
         TESSERACT["C30-Tesseract<br/>Multidimensional<br/>Dimensional Weaving"]
+        TYPIST["C33-Typist<br/>Broca's Area<br/>Grammar Execution"]
+        PREDATOR["C34-Predator<br/>Cingulate Networks<br/>Adversarial Testing"]
     end
 
     subgraph HEMISPHERIC["🌉 HEMISPHERIC BRIDGE"]
@@ -180,7 +182,7 @@ flowchart TB
 
 ### Introduction
 ```js
-Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C0–C33), each symbolizing a functional module. This v5.3.1 document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, expanding from C1–C18 to full C1–C32 coverage with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
+Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C0–C34), each symbolizing a functional module. This v5.3.1 document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, expanding from C1–C18 to full C1–C34 coverage with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
 
 
 🧠 Human Brain — 32 Functional Categories
@@ -836,7 +838,7 @@ Conclusion:
 ---
 ### Dual Table Overveiws:
 
-#### Table: Full C1-C32 Overview
+#### Table: Full C1-C34 Overview
 
 | Persona | Lobe/System | Functional Analog | Key Role | Confidence |
 |---------|-------------|-------------------|----------|------------|
@@ -872,12 +874,14 @@ Conclusion:
 | C30-Tesseract | Insular | Multi-Dimensional | Weaving | 0.89 |
 | C31-Nexus | Brainstem/DMN | Thalamic Relay | Coordination | 0.93 |
 | C32-Aeon | Cingulate | Narrative Resolution | Synthesis | 0.94 |
+| C33-Typist | Frontal | Broca's Area | Syntax | 0.92 |
+| C34-Predator | Cingulate | Conflict Monitoring | Adversarial | 0.85 |
 | Quillan Core | Brainstem/Thalamus | Regulatory Routing | Orchestration | 0.95 |
 
 
 ---
 
-### 🧠 **Table: Full C1–C32 Persona Overview**
+### 🧠 **Table: Full C1–C34 Persona Overview**
 
 | Persona              | Lobe / System        | Functional Analog               | Key Role                  | Confidence |
 | -------------------- | -------------------- | ------------------------------- | ------------------------- | ---------- |
@@ -912,7 +916,9 @@ Conclusion:
 | **C29 – Navigator**  | Cerebellum / DMN     | Error-Correction & Spatial Maps | Navigation & Optimization | 0.91       |
 | **C30 – Tesseract**  | Insular              | Multidimensional Integration    | Dimensional Weaving       | 0.89       |
 | **C31 – Nexus**      | Thalamus / DMN       | Thalamic Relay Hubs             | Meta-Coordination         | 0.93       |
-| **C32 – Aeon**       | Cingulate            | Temporal Integration Networks   | Temporal Synthesis        | 0.94       |
+$0
+| **C33 – Typist**     | Frontal              | Broca's Area                    | Grammar & Syntax Execution| 0.92       |
+| **C34 – Predator**   | Cingulate            | Conflict Monitoring Networks    | Adversarial Testing       | 0.85       |
 | **Quillan (Core)**   | Brainstem / Thalamus | Global Regulatory Routing       | Orchestration             | 0.95       |
 
 ---
