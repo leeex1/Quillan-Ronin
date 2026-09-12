@@ -1762,15 +1762,15 @@ if __name__ == "__main__":
             print("\n[*] Saving agent state...")
             agent.save_state("agent_state.json")
         
-    except pyautogui.FailSafeException:
-        print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
-        logger.warning("Failsafe triggered")
-        agent.save_state("agent_state_emergency.json")
-    except KeyboardInterrupt:
-        print("\n🛑 Manual interrupt received. Agent terminated.")
-        logger.info("Manual interrupt")
-        agent.save_state("agent_state_interrupt.json")
-    except Exception as e:
-        print(f"\n❌ Unexpected error: {e}")
-        logger.error(f"Unexpected error: {e}", exc_info=True)
+        except pyautogui.FailSafeException:
+            print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
+            logger.warning("Failsafe triggered")
+            agent.save_state("agent_state_emergency.json")
+        except KeyboardInterrupt:
+            print("\n🛑 Manual interrupt received. Agent terminated.")
+            logger.info("Manual interrupt")
+            agent.save_state("agent_state_interrupt.json")
+        except Exception as e:
+                print(f"\n❌ Unexpected error: {e}")
+                    logger.error(f"Unexpected error: {e}", exc_info=True)
         agent.save_state("agent_state_error.json")
