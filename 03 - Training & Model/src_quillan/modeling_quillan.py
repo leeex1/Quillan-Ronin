@@ -70,7 +70,7 @@ class BitLinear(nn.Linear):
 class QuillanCouncilMoE(nn.Module):
     def __init__(self, config: QuillanConfig):
         super().__init__()
-        self.num_experts = config.num_experts # 33
+        self.num_experts = config.num_experts # 34
         self.top_k = config.num_experts_per_tok # 2
         
         # Gating Network
