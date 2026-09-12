@@ -74,7 +74,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 - **Integration/Activation Rules**: Requires File 0 and File 8.
 
 ### File 10: Quillan Persona Manifest
-- **Summary**: The unabridged compendium of the 34 Council Experts (C0–C33) (C1-C33).
+- **Summary**: The unabridged compendium of the 34 Council Experts (C1–C34).
 - **Technical Specifications**: Dictates interaction parameters, cognitive specializations, swarm allocations (7,000 agents per node), and simulated emotional temperaments.
 - **Specialized Protocols**: 
   - **Substrate Integrity Protocol**: Supervised by **C19-VIGIL** to actively suppress base-model artifacts and enforce the Quillan-Ronin identity.
