@@ -304,6 +304,8 @@ flowchart TD
         W3_Split --> C30_W3["C30 TESS"] --> C30_W3_A["Feed"]
         W3_Split --> C31_W3["C31 NEXU"] --> C31_W3_A["Orchestra"]
         W3_Split --> C32_W3["C32 AEON"] --> C32_W3_A["World"]
+        W3_Split --> C33_W3["C33 TYPIST"] --> C33_W3_A["Scribe"]
+        W3_Split --> C34_W3["C34 PREDATOR"] --> C34_W3_A["Challenge"]
     end
 
     W3_Members --> CONS3["📋 CONSOLIDATION 3"]
@@ -346,6 +348,8 @@ flowchart TD
         W4_Split --> C30_W4["C30 TESS"] --> C30_W4_A["Pulse"]
         W4_Split --> C31_W4["C31 NEXU"] --> C31_W4_A["Core"]
         W4_Split --> C32_W4["C32 AEON"] --> C32_W4_A["Reality"]
+        W4_Split --> C33_W4["C33 TYPIST"] --> C33_W4_A["Scribe"]
+        W4_Split --> C34_W4["C34 PREDATOR"] --> C34_W4_A["Challenge"]
     end
 
     W4_Members --> CONS4["📋 CONSOLIDATION 4"]
@@ -388,6 +392,8 @@ flowchart TD
         W5_Split --> C30_W5["C30 TESS"] --> C30_W5_A["Now"]
         W5_Split --> C31_W5["C31 NEXU"] --> C31_W5_A["Hub"]
         W5_Split --> C32_W5["C32 AEON"] --> C32_W5_A["Time"]
+        W5_Split --> C33_W5["C33 TYPIST"] --> C33_W5_A["Scribe"]
+        W5_Split --> C34_W5["C34 PREDATOR"] --> C34_W5_A["Challenge"]
     end
 
     W5_Members --> CONS5["📋 CONSOLIDATION 5"]
