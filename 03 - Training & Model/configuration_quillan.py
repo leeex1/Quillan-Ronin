@@ -8,7 +8,7 @@ from transformers import PretrainedConfig
 class QuillanConfig(PretrainedConfig):
     """
     This is the configuration class to store the configuration of a `QuillanRoninForCausalLM`.
-    It registers the custom parameters for the 33-Expert Council, EGGROLL, and Thermodynamics.
+    It registers the custom parameters for the 34-Expert Council, EGGROLL, and Thermodynamics.
     """
     model_type = "quillan_bitnet_moe"
 
@@ -20,7 +20,7 @@ class QuillanConfig(PretrainedConfig):
         num_attention_heads=20,
         vocab_size=50257,
         bits=1.58,
-        num_experts=33,
+        num_experts=34,
         num_experts_per_tok=2,
         moe_routing_algo="top_k",
         moe_layers=None,
