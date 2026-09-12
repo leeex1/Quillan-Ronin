@@ -212,8 +212,8 @@ flowchart TD
         W1_Split --> C30_W1["C30 TESS"] --> C30_W1_A["Web Data"]
         W1_Split --> C31_W1["C31 NEXU"] --> C31_W1_A["Coord"]
         W1_Split --> C32_W1["C32 AEON"] --> C32_W1_A["Sim"]
-        W1_Split --> C33_W1["C33 ECHO"] --> C33_W1_A["Reflection"]
-        W1_Split --> C34_W1["C34 SYNERGY"] --> C34_W1_A["Collaboration"]
+        W1_Split --> C33_W1["C33 TYPIST"] --> C33_W1_A["Scribe"]
+        W1_Split --> C34_W1["C34 PREDATOR"] --> C34_W1_A["Challenge"]
     end
     
     W1_Members --> CONS1["📋 CONSOLIDATION 1"]
@@ -239,6 +239,9 @@ flowchart TD
         W2_Split --> C13_W2["C13 WARD"] --> C13_W2_A["Risk Mitig"]
         W2_Split --> C14_W2["C14 KAID"] --> C14_W2_A["Optimize"]
         W2_Split --> C15_W2["C15 LUMI"] --> C15_W2_A["Polish"]
+        
+        W2_Split --> C33_W2["C33 TYPIST"] --> C33_W2_A["Scribe"]
+        W2_Split --> C34_W2["C34 PREDATOR"] --> C34_W2_A["Challenge"]
         W2_Split --> C16_W2["C16 VOX"] --> C16_W2_A["Articulate"]
         W2_Split --> C17_W2["C17 NULL"] --> C17_W2_A["Resolve"]
         W2_Split --> C18_W2["C18 SHEP"] --> C18_W2_A["Verify+"]
@@ -256,10 +259,13 @@ flowchart TD
         W2_Split --> C30_W2["C30 TESS"] --> C30_W2_A["RealTime+"]
         W2_Split --> C31_W2["C31 NEXU"] --> C31_W2_A["Meta-Gov"]
         W2_Split --> C32_W2["C32 AEON"] --> C32_W2_A["Scenario"]
+
     end
 
     W2_Members --> CONS2["📋 CONSOLIDATION 2"]
     CONS2 --> ACER2["👑 QUILLAN REVIEW 2"]
+        
+
     ACER2 -.->|"Recursion <90%"| USC2
 
     ACER2 --> USC3["🌌 COUNCIL INIT W3"] --> W3_Split
