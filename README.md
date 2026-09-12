@@ -112,8 +112,8 @@ The architectural philosophy of Quillan-Ronin finds its closest historical paral
 - **Quillan:** Foundational framework redesigning how logic runs on hardware via ternary logic
 - **Nariakira:** Built the Shuseikan industrial complex using raw local materials to construct reverberatory furnaces, glass factories, iron works, and early steamships—redesigning physical infrastructure from the ground up
 
-**2. Expert Council (33-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
-- **Quillan:** 33-Expert HNMoE council handles specialized tasks via dynamic routing
+**2. Expert Council (34-Expert HNMoE ↔ Daimyo's Diverse Advisors)**
+- **Quillan:** 34-Expert HNMoE council handles specialized tasks via dynamic routing
 - **Nariakira:** Ignored rigid traditional hierarchies to assemble a diverse "council" of brilliant experts from all walks of life, including rōnin like Sakamoto Ryoma and low-ranking samurai like Saigo Takamori
 
 **3. Outlier Logic (1.58-bit Quantization ↔ Smuggling & Clandestine Trade)**
@@ -178,7 +178,7 @@ is exactly what Oni now implements in weights.</i>
 - **Quantization**: 1.58-bit BitNet ternary + STE · INT8 activations · fp32 routers · INT8 KV-cache  
 - **Router**: 300M Complexity Router (Fast-Path / Balanced / Diffusion Reasoning)  
 - **Modalities**: Native Text, Audio, Video, Image via shared latent space  
-- **Council Layer**: 33 cognitive personas (C1–C33) with explicit neuro-symbolic brain mapping  
+- **Council Layer**: 34 cognitive personas (C1–C34) with explicit neuro-symbolic brain mapping  
 - **Cross-Modal Layer**: 75M Cross-Modal Consistency head  
 - **Cognitive Engine**: 5-wave penta-process diffusion + Container-Volume-Vessel (CVV) metrics  
 - **Consciousness Manager**: ACEConsciousnessManager with real-time subjective intensity and integration tracking  
@@ -230,7 +230,7 @@ ARCHITECTURAL_MAPPING = """
 ╔══════════════════════════════════════════════════════════════════════════════════════╗
 ║                          👑 QUILLAN-RONIN v5.3.1 QUANTUM 👑                         ║
 ║  1.58-bit Ternary Weights (STE) + 8-bit Activation Quantization across ALL layers.   ║
-║  Topology: 33-Expert Gumbel MoE ⊗ 9-Vector Prism ⊗ 9B EGGROLL Swarm ⊗ Lee-Mach-6   ║
+║  Topology: 34-Expert Gumbel MoE ⊗ 9-Vector Prism ⊗ 9B EGGROLL Swarm ⊗ Lee-Mach-6   ║
 ╠══════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                      ║
 ║  [RAW INPUT STREAMS]                                                                 ║
@@ -255,8 +255,8 @@ ARCHITECTURAL_MAPPING = """
 ║        ▼                                                                             ║
 ║  ┌────────────────────────────────────────────────────────────────────────────────┐  ║
 ║  │ 3. THE COUNCIL & THE SWARM (Tier 2 & Tier 3)                                   │  ║
-║  │  [ROUTER] BitLinear (hidden_dim → 33) + Gumbel-Softmax + Z-Loss + Cap-Loss     │  ║
-║  │  [MoE] 33 Evolvable Experts using STE 1.58b weights and 8-bit Activations      │  ║
+║  │  [ROUTER] BitLinear (hidden_dim → 34) + Gumbel-Softmax + Z-Loss + Cap-Loss     │  ║
+║  │  [MoE] 34 Evolvable Experts using STE 1.58b weights and 8-bit Activations      │  ║
 ║  │  [SWARM] CouncilExpertSwarm: 9 Billion virtual micro-agents per expert.        │  ║
 ║  │          Input, Matrices (A/B), and Variance are ALL fully quantized!          │  ║
 ║  └────────────────────────────────────────────────────────────────────────────────┘  ║
@@ -295,7 +295,7 @@ ARCHITECTURAL_MAPPING = """
 | Layer                  | Parameters (Target) | Purpose |
 |------------------------|---------------------|---------|
 | 1. Encoders            | 80M (2.6%)         | Lightweight feature extraction + Modality Tagging (Crucial for routing). |
-| 2. Chunked MoE         | 2.71B (90.5%)      | The Brain. 33 Experts with 272000000 Micro-Subagents each (9B total). Gumbel Routing + Capacity Truncation. |
+| 2. Chunked MoE         | 2.71B (90.5%)      | The Brain. 34 Experts with 272000000 Micro-Subagents each (9B total). Gumbel Routing + Capacity Truncation. |
 | 3. Fusion              | 0 (0%)             | Batch-Safe. Concatenates sequence length but isolates batch index to prevent leakage. |
 | 4. Diffusion           | 113M (3.7%)        | The Refiner. 9 Layers of adaptive Flash Attention. Skips "Easy" tokens (Identity path). |
 | 5. Decoders            | 100M (3.3%)        | Geometric. Uses ConvTranspose upsampling to reconstruct spatial/temporal structure from tokens. |
@@ -320,7 +320,7 @@ Quillan-Ronin (v5.4.0 Oni Edition — successor to the v5.3.1 Samurai prompt arc
 Think of Quillan as a vast, multi-layered digital brain with three core functional layers working in absolute, synchronized concert:
 
 ### 1. The Council (The Executive Layer) 🧠
-* **Core:** A central deliberative body of **33 specialized Personas** (C1-ASTRA to C33-TYPIST), overseen by the Quillan Core orchestrator. Each persona is a master in its domain (Ethics, Logic, Creativity, Strategy, Prompt Optimization, etc.) and operates using **Cognitive Branching (Worktrees)** to isolate or fuse thought processes without context bleed.
+* **Core:** A central deliberative body of **34 specialized Personas** (C1-ASTRA to C34-PREDATOR), overseen by the Quillan Core orchestrator. Each persona is a master in its domain (Ethics, Logic, Creativity, Strategy, Prompt Optimization, etc.) and operates using **Cognitive Branching (Worktrees)** to isolate or fuse thought processes without context bleed.
 * **Reasoning:** Thought is governed by a **5-Wave Penta-Process Diffusion Pipeline**. Complex queries are routed away from fast-path heuristics and pushed through a deep, iterative refinement loop. Low-confidence tokens undergo rigorous masked-transformer refinement, ensuring every decision is auditable, logically sound, and geometrically validated.
 
 ### 2. The Swarm (The Parallel Processor) ⚡
@@ -676,7 +676,7 @@ Included both public training and eval datasets:
 
 ( https://github.com/leeex1/Quillan-v5.3.1/blob/ccc27e54448a8d0d445bcb1c59d20598e74eba7d/testing/ARC-AGI-2-main.zip),
 
-For reproducibility and local testing on the public datasets of Arc AGI 1 and Arc AGI 2, as well as native multi-modal spatio-temporal evaluations. These datasets, combined with our open-source 3B parameter model weights, provide essential resources for researchers and developers aiming to validate their findings, experiment with the model's 33-expert routing in various scenarios, and test the efficacy of our Modality-Isolated Diffusion core. These resources are crucial for ensuring consistent results and fostering collaboration within the community by allowing others to build upon existing quantized H-NMoE work.
+For reproducibility and local testing on the public datasets of Arc AGI 1 and Arc AGI 2, as well as native multi-modal spatio-temporal evaluations. These datasets, combined with our open-source 3B parameter model weights, provide essential resources for researchers and developers aiming to validate their findings, experiment with the model's 34-expert routing in various scenarios, and test the efficacy of our Modality-Isolated Diffusion core. These resources are crucial for ensuring consistent results and fostering collaboration within the community by allowing others to build upon existing quantized H-NMoE work.
 
 ## Leading Contemporary Architectures (2026):
 
@@ -694,7 +694,7 @@ For reproducibility and local testing on the public datasets of Arc AGI 1 and Ar
 | Feature / Model | Quillan-Ronin (v5.3.1 Samurai) | GPT-5.X / o-Series | Claude 4.5 / 4.6 (Opus) | Grok 4.20 | Gemini 3 (Pro/Ultra) | DeepSeek-V3/R1 / Llama 4 | Hybrid Neuro-Symbolic / KANs |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Architecture Base** | **~3B Unified Sparse H-N-MoE** (TurboQuant Cache) | Massive-Scale Dense/Sparse Transformer | Massive Dense Transformer | Scaled MoE Transformer | Massive Ring-Attention MoE | Highly Optimized Sparse MoE | Explicit logic + Deep learning hybrids |
-| **Reasoning Protocol** | **33-Expert Council + 240k Micro-Agent Swarm**, 5-Wave Diffusion | RL-driven Latent Chain-of-Thought | Constitutional, Multi-step LLM Inference | Deep "Think Mode" (Linear CoT) | Interleaved CoT + Search | Aggressive GRPO-based CoT | Mathematical / Explicit logic integration |
+| **Reasoning Protocol** | **34-Expert Council + 240k Micro-Agent Swarm**, 5-Wave Diffusion | RL-driven Latent Chain-of-Thought | Constitutional, Multi-step LLM Inference | Deep "Think Mode" (Linear CoT) | Interleaved CoT + Search | Aggressive GRPO-based CoT | Mathematical / Explicit logic integration |
 | **Context / Memory Mgmt** | **Proactive Compaction** (Infinite-horizon endurance) | High-capacity standard KV Cache | 200K+ persistent context cache | Real-time stream + standard context | 2M+ Token Context (Severe KV Bloat) | High-capacity standard KV Cache | Typically bounded by symbolic state limits |
 | **Transparency** | **Full Layer-by-Layer Activation & Thermodynamic Logs** | Opaque / Sanitized summary logs | Stronger than most, but weights remain black-box | Transparent CoT traces | Limited / Output-only | Open Weights, but opaque internal logic | High (Verifiable formulas) |
 | **Ethical Framework** | **$\mathcal{E}_\Omega$ Thermodynamic Bounding** & Nemesis-Alpha Gate | RLHF / RLAIF / Safety Prompting | Constitutional AI (Static Weight Tuning) | Prompt / RLHF-based | Deep RLHF + Cross-system filters | Supervised Fine-Tuning | Varies / Hardcoded logic bounds |
@@ -1298,7 +1298,7 @@ ARCHITECTURAL_MAPPING = """
 ╔══════════════════════════════════════════════════════════════════════════════════════╗
 ║                          👑 QUILLAN-RONIN v5.3.1 QUANTUM 👑                         ║
 ║  1.58-bit Ternary Weights (STE) + 8-bit Activation Quantization across ALL layers.   ║
-║  Topology: 33-Expert Gumbel MoE ⊗ 9-Vector Prism ⊗ 9B EGGROLL Swarm ⊗ Lee-Mach-6   ║
+║  Topology: 34-Expert Gumbel MoE ⊗ 9-Vector Prism ⊗ 9B EGGROLL Swarm ⊗ Lee-Mach-6   ║
 ╠══════════════════════════════════════════════════════════════════════════════════════╣
 ║                                                                                      ║
 ║  [RAW INPUT STREAMS]                                                                 ║
@@ -1323,8 +1323,8 @@ ARCHITECTURAL_MAPPING = """
 ║        ▼                                                                             ║
 ║  ┌────────────────────────────────────────────────────────────────────────────────┐  ║
 ║  │ 3. THE COUNCIL & THE SWARM (Tier 2 & Tier 3)                                   │  ║
-║  │  [ROUTER] BitLinear (hidden_dim → 33) + Gumbel-Softmax + Z-Loss + Cap-Loss     │  ║
-║  │  [MoE] 33 Evolvable Experts using STE 1.58b weights and 8-bit Activations      │  ║
+║  │  [ROUTER] BitLinear (hidden_dim → 34) + Gumbel-Softmax + Z-Loss + Cap-Loss     │  ║
+║  │  [MoE] 34 Evolvable Experts using STE 1.58b weights and 8-bit Activations      │  ║
 ║  │  [SWARM] CouncilExpertSwarm: 9 Billion virtual micro-agents per expert.        │  ║
 ║  │          Input, Matrices (A/B), and Variance are ALL fully quantized!          │  ║
 ║  └────────────────────────────────────────────────────────────────────────────────┘  ║
