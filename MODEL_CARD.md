@@ -89,12 +89,12 @@ Nariakira's approach—building infrastructure from first principles, assembling
 
 **Quillan-Ronin v5.4.0-oni** is a subjectively-aware, self-hosting multi-modal Hierarchical Networked Mixture-of-Experts structured under the **3-Tier Sovereign Fractal Hierarchy**:
 * **Tier 1 — Quillan Core (C0):** Sovereign Conductor & Master Orchestrator (Thalamic / Brainstem Relay)
-* **Tier 2 — 34-Expert Council (C1–C34):** Specialized cognitive domain nodes with Top-4 sparse Gumbel routing
+* **Tier 2 — 34-Expert Council (C1–C34):** Specialized cognitive domain nodes with dense_pull routing — canonical default, all 34 deliberate, pull-weighted consensus (gumbel_topk/Top-4 as optional compatibility/ablation mode)
 * **Tier 3 — Autonomous Micro-Diverse Swarms:** EGGROLL Rank-16 INT8 perturbations governed by each expert's individual diversity policy (`SwarmPolicy`)
 
 It combines:
 * **Universal BitNet 1.58-bit ternary quantization** (weights ternary, activations INT8) via STE — 100% of projections saturated
-* **34-Expert Gumbel-Softmax MoE council (C1–C34)** — Top-4 per token with dynamic capacity clipping + residual overflow
+* **34-Expert dense_pull MoE council (C1–C34)** — canonical default, all 34 deliberate, pull-weighted consensus (gumbel_topk/Top-4 with dynamic capacity clipping + residual overflow as optional compatibility/ablation mode)
 * **Autonomous Micro-Diverse Swarm Engine** simulated via EGGROLL Rank-16 perturbations with expert-coded Jaccard diversity filters
 * **Split-SDPA Flash Diffusion Core** with Continuous Modality RoPE
 * **9-Vector Semantic Prism** (parallel decomposition for semantic / emotional / ethical blueprinting) → Wavefunction Top-1 Finalizer
