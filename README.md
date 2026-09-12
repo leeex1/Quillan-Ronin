@@ -131,7 +131,7 @@ Nariakira's approach—building infrastructure from first principles, assembling
 | [`quillan_v5_4_oni.py`](09%20-%20Projects/projects/oni/quillan_v5_4_oni.py) | The model — Throne + Council C1–C34 + all cognitive engines |
 | [`quillan_tokenizer_unified.py`](09%20-%20Projects/projects/oni/quillan_tokenizer_unified.py) + [`tokenizer.json`](09%20-%20Projects/projects/oni/tokenizer.json) | Unified custom BPE 50,257 (EOS=0) — modular domains, legacy-ID translation |
 | [`train_oni.py`](09%20-%20Projects/projects/oni/train_oni.py) | Trainer — aux losses, governor wiring, weight EMA, resume |
-| [`LINEAGE.md`](LINEAGE.md) | <b>Canonical version registry</b> — one counter, full organ-by-organ lineage |
+| [`LINEAGE.md`](02%20-%20Knowledge%20Foundation/LINEAGE.md) | <b>Canonical version registry</b> — one counter, full organ-by-organ lineage |
 
 ---
 
