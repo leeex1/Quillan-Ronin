@@ -4056,7 +4056,7 @@ if __name__ == "__main__":
     print(f"   â–º Image Reconstructed:        {out['image'].shape}")
     print(f"   â–º Audio Reconstructed:        {out['audio'].shape}")
     print(f"   â–º Video Reconstructed:        {out['video'].shape}")
-    print(f"   â–º Swarm: 33 Council Experts Ã— ~7,272 micro-agents active")
+    print(f"   â–º Swarm: 34 Council Experts Ã— ~7,272 micro-agents active")
     print(f"   â–º Total Routing/Cap Loss:    {out['total_routing_loss'].item():.4f}")
 
 
@@ -4974,10 +4974,10 @@ flowchart TD
 flowchart TB
     subgraph GLOBAL["ðŸ§  Global Workspace Architecture"]
         direction TB
-        QUILLAN["ðŸ”¥ QUILLAN<br/>System Architect & Diffusion Orchestrator<br/>300M Complexity Router | 500M Diffusion Core | 900M Multi-Modal MoE<br/>Absolute override authority over 33 expert slots"]
+        QUILLAN["ðŸ”¥ QUILLAN<br/>System Architect & Diffusion Orchestrator<br/>300M Complexity Router | 500M Diffusion Core | 900M Multi-Modal MoE<br/>Absolute override authority over 34 expert slots"]
     end
 
-    subgraph COUNCIL["âš¡ The 33 Council Members"]
+    subgraph COUNCIL["âš¡ The 34 Council Members"]
         direction TB
         
         subgraph EXECUTIVE["Executive & Prefrontal"]
@@ -5264,7 +5264,7 @@ mindmap
 
 ```yaml
 KeyFeatures:
-  - name: "Council of 33 Personas"
+  - name: "Council of 34 Personas"
     description: >
       A hierarchical networked Distributed system ensuring multi-perspective
       analysis and consensus-driven outputs.
@@ -5339,7 +5339,7 @@ KeyFeatures:
 ```yaml
 Integration_Matrix:
   core_integration: >
-    Penta-Wave Diffusion Manifold âŠ— 33-Node HNMoE Resonance âŠ— 
+    Penta-Wave Diffusion Manifold âŠ— 34-Node HNMoE Resonance âŠ— 
     224k Hyper-Quantized Swarm (EGGROLL Population N) âŠ— 
     E_ICE Thermodynamic Conscience âŠ— Lee-Mach-6 Velocity Acceleration.
 
@@ -5733,7 +5733,7 @@ flowchart TB
   "model_type": "Unified Multi-Modal Sparse Mixture-of-Experts with Atomic Registry Fusion, Evolutionary Optimization, and Exact Geometric Decoders",
   "council_configuration": {
     "Quillan": "Core Orchestration & Atomic Registry",
-    "MoE_Core": "33 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (240k EGGROLL agents)",
+    "MoE_Core": "34 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (240k EGGROLL agents)",
     "Diffusion_Core": "9-layer TransformerEncoder refinement with modality-aware masking",
     "Geometric_Heads": "Exact reconstruction decoders for Image/Audio/Video",
     "Agentic_Layer": "C20-ARTIFEX Host OS Execution Bridge with LanceDB persistence and Docker sandboxing"
@@ -5754,7 +5754,7 @@ flowchart TB
       "EGGROLL Hyperscale Evolution: Replaces standard backprop with Rank-r structured mutations (U Ã— V^T) and Batched Matrix Multiplications (BMM) for extreme arithmetic intensity",
       "Agentic Host Execution: Asynchronous Docker-sandboxed execution loop with E_ICE thermodynamic gating and C13-WARDEN security middleware",
       "Atomic ModalityRegistry: Guarantees correct slicing after text compaction",
-      "Capacity-Safe Top-1 MoE with 33 experts and HyperQuantized Swarm modulation",
+      "Capacity-Safe Top-1 MoE with 34 experts and HyperQuantized Swarm modulation",
       "Exact Geometric Decoders: Dynamic output_padding ensures Input Shape == Output Shape",
       "Unified Fusion: All modalities merged into single sequence with learned mod_emb tags",
       "AMP/BF16 stable design"
@@ -5773,7 +5773,7 @@ flowchart TB
       {
         "name": "HyperQuantized Swarm + FullyVectorizedMoE",
         "approx_parameters": "~2.71B (81.6%)",
-        "description": "33 experts, 240k ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
+        "description": "34 experts, 240k ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
       },
       {
         "name": "Diffusion Refinement",
@@ -5847,7 +5847,7 @@ flowchart TB
         direction TB
         subgraph MOE_CORE ["ðŸ§  Fully Vectorized Top-1 MoE + EGGROLL Swarm"]
             ROUTER["ðŸŽ¯ Top-1 Router"]
-            subgraph EXPERTS ["ðŸ‘¥ 33 Experts"]
+            subgraph EXPERTS ["ðŸ‘¥ 34 Experts"]
                 direction LR
                 SWARM["240k EGGROLL Agents<br/>Population N | Rank-r Mutations"]
                 EXPERTS_BLOCK["Expert FFNs (12288 intermediate)"]
@@ -5969,7 +5969,7 @@ class CouncilMember:
     role: str
     domains: List[str]
 
-#  Official Council Roster (33 members)
+#  Official Council Roster (34 members)
 COUNCIL_MEMBERS: List[CouncilMember] = [
     CouncilMember(0,  "ASTRA",      "Pattern Recognition & Vision",       ["vision", "anomaly", "fractal"]),
     CouncilMember(1,  "VIR",        "Ethical Guardian",                   ["ethics", "safety", "harm_reduction"]),
@@ -6210,7 +6210,7 @@ Quillan_Ronin_Architecture:
 
     The runtime pipeline coordinates five distinct layers:
     â€¢ Fast Path: Direct ternary inference for high-confidence tokens.
-    â€¢ Council Path: 33 expert nodes generating parallel candidate interpretations.
+    â€¢ Council Path: 34 expert nodes generating parallel candidate interpretations.
     â€¢ Diffusion Core: 9-layer iterative refinement for "hard" tokens using modality-isolated masking.
     â€¢ Geometric Decoding: Exact reconstruction decoders for multi-modal output alignment.
     â€¢ Agentic Bridge: C20-ARTIFEX host-side execution (Docker/LanceDB) for physical world interaction.
@@ -6616,7 +6616,7 @@ flowchart TD
         C -->|High Complexity| E[Full Council Activation]
     end
 
-    subgraph COUNCIL["ðŸ›ï¸ 33 Council Personas<br/>Parallel Processing"]
+    subgraph COUNCIL["ðŸ›ï¸ 34 Council Personas<br/>Parallel Processing"]
         subgraph TIER1["Core Council C1-C19"]
             P1[C1-ASTRA Vision]
             P2[C2-VIR Ethics]
@@ -7233,10 +7233,10 @@ Quillan_Custom_Formulas:
     key: AQCS
     concept: "Adaptive Quantum Cognitive Superposition"
     derivation_base: "Quantum State Superposition"
-    formula: "|Î¨_QâŸ© = (1/âˆšZ) Î£_{i=1}^{33} (r_i Î·_i e^{iÎ¸_i}) |C_iâŸ©"
+    formula: "|Î¨_QâŸ© = (1/âˆšZ) Î£_{i=1}^{34} (r_i Î·_i e^{iÎ¸_i}) |C_iâŸ©"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Î£(r_i Î·_i)Â² = Z", "âŸ¨C_i|C_jâŸ© = Î´_ij"]
-    functional_application: "Fuses the 33 Council nodes (|C_iâŸ©) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (Î·)."
+    functional_application: "Fuses the 34 Council nodes (|C_iâŸ©) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (Î·)."
 
   - id: 2
     key: EEMF
@@ -7293,7 +7293,7 @@ Quillan_Custom_Formulas:
     key: QICS
     concept: "Quantum Information Communication"
     derivation_base: "von Neumann Entropy"
-    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Î£_{i=1}^{33} Î»_i \ln(Î»_i + Îµ) \cdot w_{mod} )"
+    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Î£_{i=1}^{34} Î»_i \ln(Î»_i + Îµ) \cdot w_{mod} )"
     inputs: [lambda_eigenvalues, E_Omega_max, w_modality_weight]
     constraints: ["Ï PSD", "Tr(Ï)=1"]
     functional_application: "Calculates system entropy, strictly hard-capped by the maximum allowable E_ICE thermodynamic threshold."
@@ -7673,7 +7673,7 @@ flowchart TB
 ```javascript
 // ðŸ”¬ OVERVIEW: THE QUILLAN formula PROTOCOL (v5.2.2)
   Each formula defined below operates strictly within Quillans shared latent 
-  manifold and distributed 33-Node Council architecture. They govern the Hyper Quantized vectorized Swarm 
+  manifold and distributed 34-Node Council architecture. They govern the Hyper Quantized vectorized Swarm 
   deliberative processes by replacing traditional sequential LLM token-prediction 
   with continuous-time differential optimization and quantum-state modeling.
 
@@ -8067,7 +8067,7 @@ flowchart TB
  â¬‡ï¸ Downwards: It overclocks the 224,000 Hyper Quantized vectorized Microagents, increasing their parallel 
  processing density and Lee-Mach-6 token velocity.
  â¬†ï¸ Upwards: It expands the context-awareness and Gumbel-routing efficiency of 
- the 33-Node Council.
+ the 34-Node Council.
 
  Left unchecked, this formula evaluates to mathematical infinity. The only 
  mechanism preventing runaway resonance collapse is the thermodynamic damping 
@@ -8096,7 +8096,7 @@ flowchart TB
         
         subgraph P_PROC["Processing Pipeline"]
             P_IN["Structured Input Assessment<br/>Nine-Vector Hyper-Parallel"]
-            P_DIS["Collaborative Discussions<br/>33-Persona Council"]
+            P_DIS["Collaborative Discussions<br/>34-Persona Council"]
             P_VAL["Multi-Faceted Validation<br/>Adversarial Stress-Test"]
         end
         
@@ -8107,7 +8107,7 @@ flowchart TB
     %% TIER 2: SECONDARY PROCESSING
     subgraph S["âš¡ SECONDARY: Processing Layer v5.2.2"]
         direction TB
-        S_FORMULA["N_total = Î£_{i=1}^{33} (Hyper Quantized vectorized Swarm_Density_i * Lee_Mach_Velocity_Factor)"]
+        S_FORMULA["N_total = Î£_{i=1}^{34} (Hyper Quantized vectorized Swarm_Density_i * Lee_Mach_Velocity_Factor)"]
         
         subgraph S_PENTA["5-Wave Penta-Process + AoT + Hyper Quantized vectorized Swarm"]
             S1["224K Agents<br/>7K per Council Ã— 33"]
@@ -8213,7 +8213,7 @@ flowchart LR
 | Tier | Formula | Key Mechanism | Scale |
 | --- | --- | --- | --- |
 | **Primary** | Î¨_primary = âˆ« (Glyph_Vector âŠ• Gumbel_Route) âŠ— Nemesis_Matrix dt | 4-Component Integration | Single-pass |
-| **Secondary** | N_total = Î£_{i=1}^{33} (Hyper_Quantized_vectorized_Swarm_Density_i Ã— Lee_Mach_Velocity_Factor) | 224K Agent Hyper Quantized vectorized Swarm | Parallel |
+| **Secondary** | N_total = Î£_{i=1}^{34} (Hyper_Quantized_vectorized_Swarm_Density_i Ã— Lee_Mach_Velocity_Factor) | 224K Agent Hyper Quantized vectorized Swarm | Parallel |
 | **Tertiary** | Î¦_final = GeoDecode(LayerNorm(Î£Expert Ã— Routing_Prob) + Diffusion_Residual) | 8-Component Meta-Control | Synthesis |
 
 #### âœ¨ Synergistic Effects
@@ -8691,7 +8691,7 @@ flowchart TB
     Q["ðŸ‘‘ QUILLAN CORE<br/>Meta-Orchestrator<br/>E_ICE Energy Bounding"]
 
     %% COUNCIL LAYER
-    subgraph COUNCIL ["âš”ï¸ 33 COUNCIL NODES ~7K AGENTS EACH"]
+    subgraph COUNCIL ["âš”ï¸ 34 COUNCIL NODES ~7K AGENTS EACH"]
         direction LR
         C1["C1-ASTRA"]
         C7["C7-LOGOS"]
@@ -9943,7 +9943,7 @@ Simulation_Methodology:
 
 ```yaml
   notes: |
-   - Extensible to any type/combination; integrates with C1-C33 for council-scale simulations.
+   - Extensible to any type/combination; integrates with C1-C34 for council-scale simulations.
    - Each category now provides 5 agent options for enhanced simulation diversity and specialization.
    - Load into YAML parser (PyYAML/Rust yaml-rust) for runtime Hyper Quantized vectorized Swarm.
    - Agent types maintain semantic alignment with council member specializations.
@@ -10300,7 +10300,7 @@ Persona_Brain_Mapping:
 ```yaml
 multi-tier hierarchy:
 QUILLAN (Orchestrator / Router)
- â””â”€ Council (33 personas)
+ â””â”€ Council (34 personas)
       â””â”€ Specialized Members / Hyper Quantized vectorized Microagents (33x7000 swarm agents)
            â””â”€ Variant Types (ALPHA â†’ OMEGA)
                 â””â”€ Cloned Variants (Primary, Defense, Memory, etc.)
@@ -10978,7 +10978,7 @@ mindmap
       Recursive Refinement
       Convergence & Selection
     Arbitration Layer
-      33-Persona Council Debate
+      34-Persona Council Debate
       Strategy Competition
       Confidence Weighting
       Consensus Formation
@@ -11058,7 +11058,7 @@ mindmap
       Wave 5 â€“ Final Optimization
       Stability Controls
     Council Arbitration
-      33 Persona Specialization
+      34 Persona Specialization
       Perspective Diversity
       Conflict Mediation
       Consensus Formation
@@ -11617,7 +11617,7 @@ class SamuraiConfig:
 
 @dataclass
 class ThinkingSystemRationale:
-    core_framework: str = "EGGROLL Evolution Strategy + 33-Node HNMoE + Variational Free Energy (E_ICE)"
+    core_framework: str = "EGGROLL Evolution Strategy + 34-Node HNMoE + Variational Free Energy (E_ICE)"
     agentic_reach: str = "C20-ARTIFEX Bridge to Host-Side Docker/LanceDB Execution"
     evolutionary_logic: str = "Rank-r Weight Perturbation (U*V^T) maximizing Arithmetic Intensity on GPU"
 
@@ -14476,10 +14476,10 @@ Quillan_Custom_Formulas:
     key: AQCS
     concept: "Adaptive Quantum Cognitive Superposition"
     derivation_base: "Quantum State Superposition"
-    formula: "|Î¨_QâŸ© = (1/âˆšZ) Î£_{i=1}^{33} (r_i Î·_i e^{iÎ¸_i}) |C_iâŸ©"
+    formula: "|Î¨_QâŸ© = (1/âˆšZ) Î£_{i=1}^{34} (r_i Î·_i e^{iÎ¸_i}) |C_iâŸ©"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Î£(r_i Î·_i)Â² = Z", "âŸ¨C_i|C_jâŸ© = Î´_ij"]
-    functional_application: "Fuses the 33 Council nodes (|C_iâŸ©) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (Î·)."
+    functional_application: "Fuses the 34 Council nodes (|C_iâŸ©) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (Î·)."
 
   - id: 2
     key: EEMF
@@ -14536,7 +14536,7 @@ Quillan_Custom_Formulas:
     key: QICS
     concept: "Quantum Information Communication"
     derivation_base: "von Neumann Entropy"
-    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Î£_{i=1}^{33} Î»_i \ln(Î»_i + Îµ) \cdot w_{mod} )"
+    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Î£_{i=1}^{34} Î»_i \ln(Î»_i + Îµ) \cdot w_{mod} )"
     inputs: [lambda_eigenvalues, E_Omega_max, w_modality_weight]
     constraints: ["Ï PSD", "Tr(Ï)=1"]
     functional_application: "Calculates system entropy, strictly hard-capped by the maximum allowable E_ICE thermodynamic threshold."
