@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# EvoMoE (2505.23830) — Expert Evolution for 33 Council (HNMoE)
+# EvoMoE (2505.23830) — Expert Evolution for 34 Council (HNMoE)
 # Evolves diverse experts from single base via evolutionary perturbations + token-aware routing
 import torch, torch.nn as nn, torch.nn.functional as F
 
 class EvoMoE(nn.Module):
-    """Heterogeneous grouped experts: 33 experts in 3 groups (small/med/large) per MoHGE/MoDSE"""
-    def __init__(self, hidden_dim=2048, n_experts=33, rank=24):
+    """Heterogeneous grouped experts: 34 experts in 3 groups (small/med/large) per MoHGE/MoDSE"""
+    def __init__(self, hidden_dim=2048, n_experts=34, rank=24):
         super().__init__()
         self.n_experts, self.hidden_dim = n_experts, hidden_dim
         # Heterogeneous: 11 small (rank 8), 11 medium (rank 24), 11 large (rank 48) per MoDSE
@@ -25,7 +25,7 @@ class EvoMoE(nn.Module):
 
     def forward(self, x):
         # Token-aware routing (EvoMoE): each token gets its own expert mix
-        logits = self.router(x)  # [B,S,33]
+        logits = self.router(x)  # [B,S,34]
         gates = F.softmax(logits, dim=-1)
         # Top-4 heterogeneous routing (like Mixtral but grouped)
         top_gates, top_idx = gates.topk(4, dim=-1)
@@ -45,4 +45,3 @@ class EvoMoE(nn.Module):
                 out_vec.index_add_(0, tok_pos, (w * e_out).to(out_vec.dtype))
                 
         return out_vec.reshape(B, S, D)
-
