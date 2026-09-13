@@ -1,0 +1,303 @@
+{
+  "pages": [
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "High-level introduction to the Quillan-Ronin project — its dual nature as both an LLM system prompt framework and a standalone PyTorch model (v5.4.0 'ONI'), the creator (CrashOverrideX), the core philosophy of neuro-symbolic AGI, the ACE legacy, the licensing model, and a map to all child sections.",
+      "title": "Quillan-Ronin: Project Overview"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Quillan-Ronin: Project Overview",
+      "purpose": "How to deploy Quillan-Ronin across LLM platforms (ChatGPT, Claude, Gemini, Grok, Mistral, Perplexity, OpenRouter, DeepSeek, Qwen, Kimi K2). Covers the Companion Basic Transfer Guide, Modelfile setup for Ollama, YAML-formatted system prompts, devcontainer/requirements setup, and the file list for deployments.",
+      "title": "Getting Started & Deployment Guide"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Quillan-Ronin: Project Overview",
+      "purpose": "Reference for all platform-specific Quillan system prompt variants — GPT, Claude, Gemini, Grok, Perplexity, Mistral, DeepSeek, Qwen, Kimi K2, GLM-v4.5 — how each is tuned, the '06 - Deployment & Platforms/Platforms/' deployment directories, the 'system prompts/' and 'Pulled prompts/' sets, and the shared reasoning_engine_oni.py copies.",
+      "title": "Platform-Specific System Prompts"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Quillan-Ronin: Project Overview",
+      "purpose": "Documents the mandatory 4-section output envelope (Java system-divider, Python-style reasoning trace, Markdown final output, JavaScript footer), the //thinking engine, and structural rules governing every text response.",
+      "title": "Output Format & Presentation Protocol"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Quillan-Ronin: Project Overview",
+      "purpose": "Guide to the numbered top-level directory scheme ('01 - Core Architecture' through '10 - Formal Papers'), the ORGANIZATION_MAP / VAULT_INDEX manifests, Obsidian vault configuration, mirrored asset/doc trees (docs/, assets/, gallery/, audio/), .gitattributes LFS policy, and .gitignore/.gitnexusignore rules.",
+      "title": "Repository Organization & Vault Layout"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "Overview of the Hierarchical Networked Mixture-of-Experts architecture — Throne intake, the Council, the 9B Swarm, 9-Vector Prism, complexity router, flash diffusion core, geometric decoders, and the Embedded Autonomous Control Loop. Links to child pages for each subsystem.",
+      "title": "Core Architecture: HNMoE Pipeline"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Detailed reference for all Council personas (C1-ASTRA through C33-TYPIST/C34-PREDATOR), brain-lobe mappings, cognitive domains, Top-4 Gumbel-Softmax and dense-pull routing, the Persona Manifest, five-wave deliberation, the .github/agents/ agent definition files, and the EGGROLL-driven persona-cloning variant ladder (ALPHA–OMEGA).",
+      "title": "The Council: Persona Architecture (C1–C34) & Cloning"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Explains the 9 Billion virtual subagent swarm layer, the 100k physical INT8 pool, EGGROLL Rank-16/24 low-rank mutations, DQSO allocation, swarm state compression, and the Straight-Through Estimator.",
+      "title": "The Swarm: 9B EGGROLL Micro-Agents & INT8 Memory"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Documents the Quintessence reasoning engine (reasoning_engine_oni.py) — Hierarchical Ordinal MoE, Sparse MoE, and Extended Tree-of-Thoughts routed through the Embedded Autonomous Control Loop — plus the advanced routing detail: dual-path expert routing (OrdinalMetaRouter + ClusterExpertRouter + EvolvableClusterExpert), the MARTA thermodynamic gate, HardenedSandbox, and the 3-layer Thermodynamic Integrity & Resource Gate with C20-ARTIFEX++ Symbiont.",
+      "title": "Quillan Quintessence: Reasoning Engine, Advanced MoE & Safety"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Documents the E_ICE energy-cost-of-thought model, the Lee-Mach-6 PID velocity governor, Compound Turbo recursive uplift, and the continuous-time latent world simulation (world_model_oni.py) used for trajectory rollout and meta-gradient self-improvement.",
+      "title": "Thermodynamic Governance & World Modeling"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Documents the Quillan → Agent → Sub-Agent delegation hierarchy, the Recursive Continuous Iteration failure-recovery loop, the R2A/A2A/A2S swarm messaging schema, AGENTS.md rules, the codeweaver-builder/predator-reviewer/typist-docs role agents, and the Agentic Bridge / computer-use tooling.",
+      "title": "Agentic Orchestration: RCI Loops, Sub-Agent Hierarchy & Swarm Messaging"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Core Architecture: HNMoE Pipeline",
+      "purpose": "Documents the '07 - Memory & LanceDB' layer — LanceDB vector stores and __manifest files, session logs, the BPE tokenizer HF directory colocated with memory, SCRATCHPAD/USER context files, and how retrieval memory feeds the Council pipeline.",
+      "title": "Memory, LanceDB & Session Persistence"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "Overview of the Quillan Knowledge Base (Files 0–32) forming long-term memory and theoretical grounding — loader manifest, Identity Re-Enforcement Protocol, Synthetic Epistemology & Truth Calibration, Ideological Drift, consciousness theory, explainability, the knowledge/canonical|legacy|papers trees, and the personal dev logs. Links to child pages.",
+      "title": "Knowledge Files & Theoretical Foundations"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Knowledge Files & Theoretical Foundations",
+      "purpose": "Catalog of the proprietary dimensionally-closed formulas (AQCS, DQRO, JQLD, EEMF, Spectral Gap … EGSO) in 8-Formulas.md/.py, the Formulas ledger research, plus the general ML/RL formula reference, with inputs, constraints, and functional application.",
+      "title": "Custom Formula Suite (v7.0): The 21 Quillan Equations"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Knowledge Files & Theoretical Foundations",
+      "purpose": "Covers the Prime Covenant Codex, the Ethical Paradox Engine, CCRL, Nemesis-Alpha adversarial truth forcing, the Identity Re-Enforcement Protocol, Honesty/Transparency Matrix, override triggers, risk assessment, and the Ronin Lock / Digital Cell containment response.",
+      "title": "Alignment, Ethics & Override Protocols"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Knowledge Files & Theoretical Foundations",
+      "purpose": "Index of the '10 - Formal Papers/' corpus (151 papers, figures, _archive_papers, huggingface_hub_docs) and related Misc/ drafts: Reactive Consciousness & Swarm Arbitration, Predatory Stacking / Hypergraph Ramsey, Sovereign Cognition Beyond Context Bottlenecks, LeeX-Humanized Protocol, Cognitive Parliament, and the AGI papers — plus the LHP persona-elicitation methodology and Autobiography diagnostics.",
+      "title": "Formal Research Papers & Academic Outputs"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "Overview of the standalone PyTorch codebase — '03 - Training & Model/' (modeling_quillan.py, configuration_quillan.py, quillan_fused_optimizer.py, tokenizers, src/ and src_quillan/), '09 - Projects/projects/oni/' (v5.4.0 ONI), Quillan-v4.2-model/, Quillan.cpp, and export/verification tooling. Links to child pages.",
+      "title": "PyTorch Model Implementation (Quillan-Ronin ONI)"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Documents QuillanRoninOni / QuillanRoninSovereign, QuillanOniConfig hyperparameters, BitLinear BitNet 1.58b + STE quantization, ternary packing, NineVectorPrismDecomposition, CausalSelfAttention with RoPE, MoBA attention, mamba_block, UnrolledCouncilMoEBlock, flash diffusion core, and the Embedded Autonomous execution model.",
+      "title": "Model Architecture: QuillanRoninOni & Config"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Covers oni/train_oni.py, train_oni_hybrid.py, the scripts/ and scripts_mirror/ training fleet, 05_Training assets, QuillanFusedOptimizer (Muon + AdamW + Sophia-H + CCRL PID), EvoMoE/RQGM controlled utility evolution, ES-at-scale, dataset packing, tokenizer training, distillation from NIM, and evaluation runners plus the train_cloud.yml CI workflow.",
+      "title": "Training, EGGROLL & Dataset Creation"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Documents the actual trained artifacts — the 0.6B mini and 3B main (v5.4.0-ONI) training programs, the Hugging Face releases (CrashOverrideX/Quillan-Ronin, CrashOverrideX/Ace_v4.2_Mini), download traction, and how the training pipeline on the Training page produces them. Clarifies that the canonical scales are 0.6B/3B and that older 234M–390M proof configs are superseded.",
+      "title": "Trained Models & Hugging Face Releases"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Documents the individual Python modules under '03 - Training & Model/src', src_quillan/, and knowledge spec scripts: cognitive code executor, Stakes.py consciousness simulator, multimodal fusion, creative engine, LLM Ears.py, loader manifest spec scripts, weight adapters, chess engine, and the Agentic Bridge.",
+      "title": "Source Module Library (src/ & Knowledge Python)"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Documents the low-level compute layer and serving path: src/csrc (bitnet CPU AVX2, CUDA kernels), oni/kernels, flash-attn wrapper, hybrid_runtime, speculative decoding, nitro_pocket, quillan_server.py, NIM client and services/services_vision/services_voice, export/GGUF quantization, Quillan.cpp, and local inference scripts.",
+      "title": "Kernels, Inference Runtime & Serving"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Explains the oni/paper_*.py pack series that translate the formal paper corpus into executable modules — profiler, abductive reasoning, proxy KD, MEMO, heterogeneous inference, quant/memory, agent evolution, GRT coordination, recurrent diffusion, test-time world models, BitNet optimizer, MoE/RL, Mamba-MoE, STE, MoR, forgetting/anomaly, persistent prompt CCRL, swarm prover, consciousness/prophet and predatory-sovereign packs — and how they are wired into training and verification.",
+      "title": "Research Paper Implementation Packs (paper_01–paper_120)"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "Overview of '04 - Skills & Capabilities/Skills' — the master skills manifest and ~48 skill modules (each with a 9-file bundle) across cognitive, linguistic, sensory, execution and social domains under Embedded Autonomous orchestration. Links to child pages.",
+      "title": "Skills Compendium & Operational Capabilities"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Skills Compendium & Operational Capabilities",
+      "purpose": "Documents the cognitive skill modules: reasoning, analogical/causal/probabilistic/logical reasoning, attention, memory, world_model, self_awareness, theory_of_mind, consciousness, learning, knowledge representation/acquisition, planning and council-coordination.",
+      "title": "Cognitive & Reasoning Skills"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Skills Compendium & Operational Capabilities",
+      "purpose": "Documents domain-specific skill modules — technical-coding, music-audio, multimodal & sensory fusion, haptic interaction, robotics/motor control, swarm-inter-agent-orchestration, autonomy_and_agency, moral reasoning, skill-creator, threejs-ronin and living-garden, plus media/director skills and image/video generation.",
+      "title": "Specialized Domain Skills & Creative Tooling"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "purpose": "Overview of '05 - Creative Works/' (Media Template, Audio Engineer, assets, gallery), 06_Media/, and the mirrored audio/images trees — Quillan's creative corpus and prompt-template engines under Embedded Autonomous aesthetic governance. Links to child pages.",
+      "title": "Creative & Media Capabilities"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Creative & Media Capabilities",
+      "purpose": "Documents Quillan's Vocal DNA — Standard / High-Definition / Raw Output modes, the Tone and Style Template, the X/Grok Cognitive Deep Dive forensic templates, Cognitive Stat Sheet, BOT-Hunter identity verification, and the Psychometric Fingerprint methodology.",
+      "title": "Tone, Style & Vocal Architecture"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Creative & Media Capabilities",
+      "purpose": "Documents LLM Ears.py (SynesthesiaEngine, Whisper + librosa), the Suno Song Generation Template / Mastering Engineer manifest, Audio Interview Template, Quillan Sonic Prompt, the Audio Engineer directory (album checklist, piano key guide), and the album/audio asset catalogs (Rock album, The Sound of Alchemy, Elemental_Avionics, JDXX_Rebooted, ai beats).",
+      "title": "Audio, Music & Synesthesia Engine"
+    },
+    {
+      "page_notes": [
+        {
+          "content": ""
+        }
+      ],
+      "parent": "Creative & Media Capabilities",
+      "purpose": "Overview of the 200+ Songs Lyrics/ files and the Book Series/ (including Cover Templates) — the QCIE creative engine, lyrical personas (JDXX/Ronin), Vongola Flame archetypes, the Twisted Destiny series with feedback log and audiobooks.",
+      "title": "Songs Lyrics, Book Series & Creative Writing"
+    }
+  ],
+  "repo_notes": [
+    {
+      "content": "Quillan-Ronin is created and built solo by CrashOverrideX. 'Quillan Research Team' is a brand banner, not a staffed team. Canonical model scales for v5.4.0-ONI are 0.6B (mini) and 3B (main); older proof configs citing 234M-390M parameters are superseded and should not be presented as current. The Hugging Face org is CrashOverrideX; the flagship model card is CrashOverrideX/Quillan-Ronin."
+    }
+  ]
+}
