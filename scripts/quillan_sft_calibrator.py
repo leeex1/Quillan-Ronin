@@ -55,7 +55,7 @@ class QuillanSFTCalibrator:
         checkpoint_path: Path,
         dataset_path: Path,
         device_str: str = "cpu",
-        learning_rate: float = 2e-5,
+        learning_rate: float = 5e-5,
     ) -> None:
         self.device = torch.device(device_str)
         self.checkpoint_path = checkpoint_path
@@ -85,9 +85,10 @@ class QuillanSFTCalibrator:
 
     def run_calibration(
         self,
-        num_steps: int = 150,
-        batch_size: int = 4,
+        num_steps: int = 60,
+        batch_size: int = 2,
         grad_accum_steps: int = 2,
+        calibrate_head_only: bool = True,
         save_path: Optional[Path] = None,
     ) -> Path:
         """Executes fast SFT annealing pass to align logits and eliminate token loops."""
@@ -98,8 +99,20 @@ class QuillanSFTCalibrator:
         num_samples = all_inputs.size(0)
         LOGGER.info("Loaded %d gold conversation samples (seq_len=%d)", num_samples, all_inputs.size(1))
 
-        # Optimizer targeting language head, layer norms, and routers
-        trainable_params = [p for p in self.model.parameters() if p.requires_grad]
+        if calibrate_head_only:
+            # Calibrate language head, layer norms, and routers for fast high-impact alignment
+            trainable_params = []
+            for name, param in self.model.named_parameters():
+                if any(k in name.lower() for k in ["lm_head", "ln", "norm", "gate", "router", "lora"]):
+                    param.requires_grad = True
+                    trainable_params.append(param)
+                else:
+                    param.requires_grad = False
+            total_trainable = sum(p.numel() for p in trainable_params)
+            LOGGER.info("Calibrating %d parameters (%.2fM) in head, routers, and norms...", len(trainable_params), total_trainable / 1e6)
+        else:
+            trainable_params = [p for p in self.model.parameters() if p.requires_grad]
+
         optimizer = torch.optim.AdamW(trainable_params, lr=self.lr, weight_decay=0.01)
         self.model.train()
 
@@ -107,15 +120,14 @@ class QuillanSFTCalibrator:
         t_start = time.perf_counter()
 
         for step in range(1, num_steps + 1):
-            # Sample random batch
             indices = torch.randint(0, num_samples, (batch_size,))
-            batch_x = all_inputs[indices].to(self.device)
-            batch_y = all_labels[indices].to(self.device)
+            # Crop to active dialogue length for throughput
+            batch_x = all_inputs[indices, :128].to(self.device)
+            batch_y = all_labels[indices, :128].to(self.device)
 
             out = self.model(batch_x)
             logits = out[0] if isinstance(out, tuple) else out
 
-            # Cross entropy loss with target masking
             shift_logits = logits[..., :-1, :].contiguous()
             shift_labels = batch_y[..., 1:].contiguous()
 
@@ -132,7 +144,7 @@ class QuillanSFTCalibrator:
                 optimizer.step()
                 optimizer.zero_grad()
 
-            if step % 25 == 0 or step == num_steps:
+            if step % 10 == 0 or step == num_steps:
                 elapsed = time.perf_counter() - t_start
                 loss_val = loss.item() * grad_accum_steps
                 LOGGER.info(
@@ -147,8 +159,8 @@ class QuillanSFTCalibrator:
         LOGGER.info("Calibration complete. Model weights saved successfully.")
         return out_path
 
-    def test_reasoning(self, prompt: str, max_new_tokens: int = 30) -> str:
-        """Evaluates conversational generation with repetition penalty."""
+    def test_reasoning(self, prompt: str, max_new_tokens: int = 25, temperature: float = 0.8, top_k: int = 40) -> str:
+        """Evaluates conversational generation with Karpathy-style multinomial sampling & repetition penalty."""
         self.model.eval()
         formatted_prompt = f"<|user|>\n{prompt}\n<|assistant|>\n"
         input_ids = self.tokenizer.encode(formatted_prompt)
@@ -168,7 +180,15 @@ class QuillanSFTCalibrator:
                     else:
                         next_logits[token_id] *= 1.2
 
-                next_token = int(torch.argmax(next_logits).item())
+                # Temperature scaling & top-k filtering
+                next_logits = next_logits / max(0.1, temperature)
+                v, _ = torch.topk(next_logits, min(top_k, next_logits.size(-1)))
+                next_logits[next_logits < v[[-1]]] = -float('Inf')
+
+                # Multinomial sampling (Karpathy nanoGPT style)
+                probs = F.softmax(next_logits, dim=-1)
+                next_token = int(torch.multinomial(probs, num_samples=1).item())
+
                 generated.append(next_token)
                 if next_token in [50256, self.tokenizer.encode("<|endoftext|>")[0]]:
                     break
@@ -180,7 +200,7 @@ if __name__ == "__main__":
     ckpt = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
     data_path = REPO_ROOT / "training_data" / "canonical_standardized" / "quillan_gold_canonical.pt"
     calibrator = QuillanSFTCalibrator(ckpt, data_path)
-    calibrator.run_calibration(num_steps=100, batch_size=2)
-    response = calibrator.test_reasoning("What is 2 + 2?")
-    print("\n--- Test Response ---")
-    print(response)
+    calibrator.run_calibration(num_steps=50, batch_size=2)
+    print("\n--- Testing Calibrated Model ---", flush=True)
+    for q in ["Who are you?", "What is 2 + 2?"]:
+        print(f"Q: {q}\nA: {calibrator.test_reasoning(q)}\n", flush=True)

@@ -111,22 +111,69 @@ def test_native_engine() -> bool:
         return False
 
 def test_checkpoints() -> bool:
-    print_header("Suite 4: Model Checkpoints & Parameter Audit")
+    print_header("Suite 4: Model Checkpoints & Parameter Audit (Mini 6L & Main 12L)")
     try:
         import torch
-        ckpt_path = ROOT / "checkpoints" / "checkpoints_oni" / "quillan_oni_inference.pt"
-        if not ckpt_path.exists():
-            print(f"❌ FAILED: Clean inference checkpoint missing at {ckpt_path}")
+        sys.path.insert(0, str(ROOT / "09 - Projects" / "projects" / "oni"))
+        from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
+
+        models_to_audit = [
+            ("Quillan-Oni Mini (6 Layers)", ROOT / "checkpoints" / "quillan_oni_mini_6l.pt", 6, 400_000_000),
+            ("Quillan-Oni Main (12 Layers)", ROOT / "checkpoints" / "quillan_oni_main_12l.pt", 12, 550_000_000),
+        ]
+
+        all_healthy = True
+        for name, ckpt_path, expected_layers, min_params in models_to_audit:
+            print(f"\n--- Auditing: {name} ---")
+            if not ckpt_path.exists():
+                print(f"❌ FAILED: Checkpoint missing at {ckpt_path}")
+                all_healthy = False
+                continue
+
+            data = torch.load(ckpt_path, map_location="cpu", weights_only=True)
+            model_sd = data.get("model", {})
+            param_count = sum(t.numel() for t in model_sd.values())
+            print(f"  Checkpoint Size : {ckpt_path.stat().st_size / (1024**2):.2f} MB")
+            print(f"  Total Parameters: {param_count / 1e6:.2f}M ({len(model_sd)} tensor keys)")
+            print(f"  Layer Depth     : {data.get('n_layer', 'unknown')} layers")
+
+            if param_count < min_params:
+                print(f"❌ FAILED: Parameter count {param_count} below threshold {min_params}")
+                all_healthy = False
+                continue
+
+            cfg = QuillanOniConfig(
+                vocab_size=50257,
+                hidden_dim=1024,
+                ffn_dim=2048,
+                n_layer=expected_layers,
+                num_experts=34,
+                top_k=4,
+                max_seq_len=512,
+            )
+            model = QuillanRoninOni(cfg)
+            missing, unexpected = model.load_state_dict(model_sd, strict=False)
+            if len(missing) > 0 or len(unexpected) > 0:
+                print(f"❌ FAILED: State dict mismatch (Missing: {len(missing)}, Unexpected: {len(unexpected)})")
+                all_healthy = False
+                continue
+
+            # Forward pass smoke test
+            dummy_input = torch.randint(0, 1000, (1, 8), dtype=torch.long)
+            with torch.no_grad():
+                out = model(dummy_input)
+                logits = out[0] if isinstance(out, tuple) else out
+                if torch.isnan(logits).any():
+                    print("❌ FAILED: NaN detected in model forward logits!")
+                    all_healthy = False
+                    continue
+
+            print(f"✅ PASSED: {name} structural integrity and forward inference verified.")
+
+        if not all_healthy:
             return False
-        data = torch.load(ckpt_path, map_location="cpu", weights_only=False)
-        model_sd = data.get("model", {})
-        param_count = sum(t.numel() for t in model_sd.values())
-        print(f"Inference Checkpoint Size: {ckpt_path.stat().st_size / (1024**2):.2f} MB")
-        print(f"Total Parameters         : {param_count / 1e6:.2f}M ({len(model_sd)} tensor keys)")
-        if param_count < 400_000_000:
-            print("❌ FAILED: Parameter count below expected threshold.")
-            return False
-        print("✅ PASSED: Neural parameters match 577.31M flagship specification.")
+
+        print("\n✅ PASSED: Both Quillan-Oni Mini and Main models verified with 100% integrity.")
         return True
     except Exception as e:
         print(f"❌ FAILED: Checkpoint audit error: {e}")
