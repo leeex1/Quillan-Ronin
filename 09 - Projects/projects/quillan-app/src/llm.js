@@ -1,4 +1,4 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 
 // LLM client — streaming with proper cleanup (fixes stream reader mem leak + AbortController leaks)
@@ -9,6 +9,7 @@ let cfgCache = null;
 function loadCfg(){
   if(cfgCache) return cfgCache;
   const defaults = {
+    sovereign: { base:"http://127.0.0.1:8000/v1", model:"quillan-oni-mini-6l" },
     ollama: { base:"http://localhost:11434/v1", model:"falcon3:1b-instruct-q8_0" },
     nvidia: { base:"https://integrate.api.nvidia.com/v1", key: (process.env.NVIDIA_API_KEY||"").trim(), model:"nvidia/nemotron-3.5-lightning-30b-a3b" },
     openai: { base:"https://api.openai.com/v1", key:(process.env.OPENAI_API_KEY||"").trim(), model:"gpt-4o-mini" }
@@ -115,10 +116,15 @@ async function send(prompt, { onToken=()=>{}, onDone=()=>{}, onError=()=>{} }={}
   const cfg = loadCfg();
   const safe = String(prompt).slice(0, 900);
   let lastErr = "";
+  // Priority 1: Local Quillan Sovereign Neural Reasoning Engine
+  try {
+    await tryFetch(cfg.sovereign.base, "unused", cfg.sovereign.model, safe, { onToken, onDone, onError });
+    return;
+  } catch(e){ lastErr = "sovereign: "+e.message; }
   try {
     await tryFetch(cfg.ollama.base, "unused", cfg.ollama.model, safe, { onToken, onDone, onError });
     return;
-  } catch(e){ lastErr = "ollama: "+e.message; }
+  } catch(e){ lastErr += " | ollama: "+e.message; }
   if(cfg.nvidia.key){
     try {
       await tryFetch(cfg.nvidia.base, cfg.nvidia.key, cfg.nvidia.model, safe, { onToken, onDone, onError });

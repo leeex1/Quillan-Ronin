@@ -138,6 +138,15 @@ class QuillanModelBuilder:
 
                     sd_12[target_key] = tensor_copy
 
+            # Map layer-indexed mod_routers and depth_routers for layers 6..11
+            for router_prefix in ["mod_routers.", "mixture_of_depths.depth_routers."]:
+                src_r = f"{router_prefix}{source_layer}."
+                tgt_r = f"{router_prefix}{target_layer}."
+                for k, v in sd_6.items():
+                    if k.startswith(src_r):
+                        target_key = k.replace(src_r, tgt_r, 1)
+                        sd_12[target_key] = v.clone()
+
         missing, unexpected = model_12.load_state_dict(sd_12, strict=False)
         LOGGER.info("Main 12-layer weights bound (Missing: %d, Unexpected: %d)", len(missing), len(unexpected))
 
@@ -153,9 +162,10 @@ class QuillanModelBuilder:
 
 if __name__ == "__main__":
     ckpt_dir = REPO_ROOT / "checkpoints"
+    golden_ckpt = ckpt_dir / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
     calibrated_ckpt = ckpt_dir / "checkpoints_sft" / "quillan_calibrated_dialogue.pt"
-    fallback_ckpt = ckpt_dir / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
-    source_ckpt = calibrated_ckpt if calibrated_ckpt.exists() else fallback_ckpt
+    # Use pristine 5,251-step golden SFT checkpoint with loss 0.9165
+    source_ckpt = golden_ckpt if golden_ckpt.exists() else calibrated_ckpt
 
     mini_out = ckpt_dir / "quillan_oni_mini_6l.pt"
     main_out = ckpt_dir / "quillan_oni_main_12l.pt"

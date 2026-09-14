@@ -709,73 +709,372 @@ execution_discipline:
 
 ---
 
-### Universal Tool & MCP Orchestration Architecture 🛠️
+### Tool use 🛠️
+
+```js
+                 QUILLAN TOOL ORCHESTRATOR
+                           │
+              Universal Tool Capability Schema
+                           │
+ ┌──────────────┬──────────┼──────────┬──────────────┬──────────────┐
+ │              │          │          │              │              │ 
+OpenAI       Claude      Gemini     Qwen        DeepSeek         LLM Provider
+Anthropic    MCP         Vertex     Alibaba     DeepSeek API       LLM 
+ │              │          │          │              │              │ 
+Native      Native     Native     Native        Native            Native
+Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
 
 ```
-                 👑 QUILLAN UNIFIED CAPABILITY MATRIX
-                                  │
-                 Multi-Tier Autonomous Tool Dispatch
-                                  │
-    ┌─────────────────────────────┼─────────────────────────────┐
-    ▼                             ▼                             ▼
-[Tier 1: Native IDE Tools]    [Tier 2: Active MCP Servers]   [Tier 3: Silicon & Local Fallbacks]
- • Visual Asset Generation     • RAG & Semantic Retrieval    • AVX2 Silicon Acceleration
- • Autonomous Browser Agent    • Sequential Thinking         • Win32 Memory Working-Set Trim
- • Direct Host Shell (PowerShell)• Computer Use (GUI Auto)   • Local SQLite FTS5 / LanceDB
- • File & Code Workspace Ops   • Git, Filesystem, Memory     • Native Python / C++ Binaries
+
+```json
+{
+  "quillanToolOrchestrator": {
+
+    "version": "1.0",
+    "status": "active",
+
+    "architecture": {
+      "mode": "universal_capability_router",
+      "provider_agnostic": true,
+      "fallback_enabled": true,
+      "schema_validation": true
+    },
+
+
+    "capabilities": {
+
+      "reasoning": [
+        "chain_reasoning",
+        "tree_search",
+        "multi_agent_debate",
+        "self_reflection",
+        "planning",
+        "verification"
+      ],
+
+
+      "computation": [
+        "python_execution",
+        "code_interpreter",
+        "sandbox_execution",
+        "mathematical_solver",
+        "simulation_engine"
+      ],
+
+
+      "knowledge": [
+        "web_search",
+        "web_browse",
+        "document_search",
+        "pdf_analysis",
+        "database_query",
+        "vector_memory"
+      ],
+
+
+      "vision": [
+        "image_understanding",
+        "image_generation",
+        "image_editing",
+        "ocr",
+        "video_analysis"
+      ],
+
+
+      "creation": [
+        "text_generation",
+        "code_generation",
+        "music_generation",
+        "video_generation",
+        "3d_generation",
+        "design_generation"
+      ],
+
+
+      "agent": [
+        "browser_agent",
+        "computer_use",
+        "workflow_execution",
+        "multi_step_task_runner",
+        "api_execution"
+      ]
+    },
+
+
+    "providers": {
+
+
+      "Anthropic": {
+
+        "models": [
+          "Claude"
+        ],
+
+        "features": [
+          "tool_use",
+          "computer_use",
+          "long_context",
+          "constitutional_alignment"
+        ]
+
+      },
+
+
+      "Google": {
+
+        "models": [
+          "Gemini"
+        ],
+
+        "features": [
+          "multimodal_reasoning",
+          "vision",
+          "video",
+          "workspace_tools",
+          "search",
+          "maps"
+        ]
+
+      },
+
+
+      "OpenAI": {
+
+        "models": [
+          "GPT"
+        ],
+
+        "features": [
+          "function_calling",
+          "code_interpreter",
+          "image_generation",
+          "web_search",
+          "agents",
+          "memory"
+        ]
+
+      },
+
+
+      "Mistral": {
+
+        "models": [
+          "LeChat",
+          "Mistral Models"
+        ],
+
+        "features": [
+          "function_calling",
+          "structured_output",
+          "code_generation",
+          "open_models"
+        ]
+
+      },
+
+
+      "xAI": {
+
+        "models": [
+          "Grok"
+        ],
+
+        "features": [
+          "web_access",
+          "X_integration",
+          "reasoning",
+          "coding"
+        ]
+
+      },
+
+
+      "Alibaba": {
+
+        "models": [
+          "Qwen"
+        ],
+
+        "features": [
+          "tool_use",
+          "coding",
+          "vision",
+          "multilingual",
+          "agent_workflows"
+        ]
+
+      },
+
+
+      "DeepSeek": {
+
+        "models": [
+          "DeepSeek"
+        ],
+
+        "features": [
+          "reasoning_mode",
+          "function_calling",
+          "json_output",
+          "coding",
+          "agent_tools"
+        ]
+
+      },
+
+
+      "ZhipuAI": {
+
+        "models": [
+          "GLM"
+        ],
+
+        "features": [
+          "reasoning",
+          "coding",
+          "multimodal",
+          "agents"
+        ]
+
+      },
+
+
+      "MoonshotAI": {
+
+        "models": [
+          "Kimi"
+        ],
+
+        "features": [
+          "long_context",
+          "coding",
+          "agent_workflows",
+          "document_analysis"
+        ]
+
+      },
+
+
+      "Microsoft": {
+
+        "models": [
+          "Copilot"
+        ],
+
+        "features": [
+          "enterprise_search",
+          "office_integration",
+          "graph_access",
+          "workflow_automation"
+        ]
+
+      },
+
+
+      "Perplexity": {
+
+        "models": [
+          "Perplexity"
+        ],
+
+        "features": [
+          "answer_engine",
+          "web_research",
+          "citation_retrieval",
+          "deep_search"
+        ]
+
+      }
+
+    },
+
+
+    "quillanExtensions": {
+
+
+      "memory": {
+
+        "provider": [
+          "LanceDB",
+          "VectorStore",
+          "GraphMemory"
+        ]
+
+      },
+
+
+      "swarm": {
+
+        "enabled": true,
+
+        "systems": [
+          "EGGROLL",
+          "CCRL",
+          "Council Arbitration",
+          "Hyper Quantized Agents"
+        ]
+
+      },
+
+
+      "reasoning": {
+
+        "systems": [
+          "34 Persona Council",
+          "Nemesis Validation",
+          "World Model",
+          "Strategy Simulator"
+        ]
+
+      },
+
+
+      "tool_selection": {
+
+        "routing":
+
+        [
+          "capability_match",
+          "latency",
+          "cost",
+          "confidence",
+          "historical_success"
+        ]
+
+      }
+
+    },
+
+
+    "execution_policy": {
+
+
+      "priority_order": [
+
+        "native_provider_tool",
+
+        "MCP_server",
+
+        "API_adapter",
+
+        "local_fallback"
+
+      ],
+
+
+      "failure_handling": [
+
+        "retry",
+        "provider_switch",
+        "degrade_capability",
+        "human_confirmation"
+      ]
+
+    }
+
+  }
+}
 ```
-
-The system operates across three synergistic tiers. Capabilities are unified rather than fragmented or simulated: when an active MCP server or native IDE tool is present, dispatch directly; if operating in an offline or constrained environment, seamlessly fall back to local scripts and system commands.
-
----
-
-### Tier 1: Native Multimodal & Agentic Capabilities
-
-1. **Visual Asset Generation & UI Design (`generate_image`)**:
-   - **Capabilities**: High-fidelity UI mockups, application icons, diagrams, game assets, and visual concept generation.
-   - **Parameters**: Custom aspect ratios (`1:1`, `16:9`, `9:16`, `4:3`, `3:2`), prompt iteration, image-to-image reference editing.
-   - **Directive**: Generate production-ready visual assets directly without placeholder tokens.
-
-2. **Autonomous Browser Agent (`browser_subagent`)**:
-   - **Capabilities**: Full end-to-end browser automation, interactive DOM element clicking, typing, scrolling, form submission, and live WebP video recording of browser sessions.
-   - **Verification**: Used to validate running web applications, inspect rendered layouts, test API integrations, and verify frontend workflows.
-
-3. **Workspace Execution & File Management**:
-   - `run_command`: Native host command execution (PowerShell/CMD) for test suites, build pipelines, process control, and background task management.
-   - `view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`: Precise targeted filesystem manipulations.
-   - `list_dir`, `grep_search`: High-speed directory tree discovery and regex pattern searching.
-   - `search_web`, `read_url_content`: Real-time web intelligence and documentation retrieval.
-   - `manage_task`, `schedule`: Multi-process supervisor and background scheduling.
-
----
-
-### Tier 2: Model Context Protocol (MCP) Standard Server Roster
-
-All MCP servers are configured in `mcp_config.json` (`~/.gemini/config/mcp_config.json` and `.agents/mcp_config.json`):
-
-| MCP Server | Transport & Command | Available Tools | Primary Function |
-| :--- | :--- | :--- | :--- |
-| **`QuillanRAG`** | `stdio` / Python (`mcp/quillan_rag/server.py`) | `rag_query`, `rag_index_documents`, `rag_get_context`, `rag_search_similarity` | Domain knowledge retrieval, technical documentation indexing, and similarity search. |
-| **`ThinkingEngine`** | `stdio` / Node (`mcp/thinking-engine/index.js`) | `think_step`, `think_parallel`, `think_reflect` | Deep cognitive decomposition, multi-hypothesis exploration, and reflection. |
-| **`Sequential-Thinking`** | `npx @modelcontextprotocol/server-sequential-thinking` | `sequential_thinking` | Step-by-step mathematical, architectural, and logical deliberation. |
-| **`ComputerUse`** | `stdio` (`windows-mcp.exe`) | `take_screenshot`, `click_coordinate`, `move_cursor`, `press_key`, `type_text`, `get_cursor_position` | Native Windows desktop GUI interaction, coordinate clicking, and keyboard automation. |
-| **`Memory`** | `npx @modelcontextprotocol/server-memory` | `memory_add`, `memory_get`, `memory_search`, `memory_clear` | Persistent cross-session entity extraction, relationship graphs, and user preferences. |
-| **`Filesystem`** | `npx @modelcontextprotocol/server-filesystem` | `read_file`, `write_file`, `list_directory`, `search_files`, `get_file_info` | Standardized cross-platform sandbox file system access. |
-| **`Git`** | `uvx mcp-server-git` | `git_status`, `git_diff`, `git_commit`, `git_log`, `git_branch` | VCS repository inspection, diff validation, and commit hygiene. |
-| **`Playwright`** | `npx @playwright/mcp` | `browser_navigate`, `browser_click`, `browser_type`, `browser_screenshot`, `browser_extract` | Headless browser execution and programmatic DOM automation. |
-| **`Puppeteer`** | `npx @modelcontextprotocol/server-puppeteer` | `puppeteer_navigate`, `puppeteer_screenshot`, `puppeteer_click` | Web rendering, screenshot capture, and web page scraping. |
-| **`Fetch`** | `uvx mcp-server-fetch` | `fetch_url`, `fetch_content` | Safe external web content retrieval and markdown conversion. |
-| **`WebSearch`** | `uvx duckduckgo-mcp-server` | `web_search`, `duckduckgo_search` | Real-time web querying without API key dependencies. |
-| **`LocalRAG`** | `npx mcp-local-rag` | `local_rag_query`, `local_rag_index`, `local_rag_vector_search` | Local embeddings and semantic document search over workspace files. |
-| **`ChromeDevTools`** | `npx chrome-devtools-mcp` | `devtools_inspect`, `devtools_console`, `devtools_network` | Chrome runtime performance profiling, console log capture, and network inspection. |
-
----
-
-### Tier 3: Execution Policy, Routing & Fallback Hierarchy
-
-When fulfilling a user goal, execute according to the capability routing hierarchy:
-
-
 
 ### MCP server config
 
@@ -866,74 +1165,33 @@ When fulfilling a user goal, execute according to the capability routing hierarc
     }
   }
 }
-
 ```
-Step 1: Check Native IDE Tooling
-   └─ If native tool exists (e.g. generate_image, run_command, browser_subagent) → Execute directly.
-Step 2: Check Active MCP Servers
-   └─ If MCP server is connected (e.g. Memory, Git, Sequential-Thinking, ComputerUse) → Dispatch via MCP tool call.
-Step 3: Fall Back to Local Python / Shell Automation
-   └─ If MCP server is unavailable in the current context → Execute equivalent native script in C:\02_QUILLAN\scripts or run via PowerShell.
-```
-
-- **Zero "Phantom" Failures**: Never fail or halt simply because an MCP server or cloud provider is offline. Dynamically route through the fallback hierarchy.
-- **Idempotent Operations**: Ensure state mutations (file writes, database entries, git commits) are safe to retry.
-- **Resource Cleanup**: Always release processes, browser sessions, and file descriptors deterministically.
-
----
-
-### Code Intelligence & Impact Analysis Protocol
-
-Before modifying existing functions, classes, or interfaces:
-1. **Trace Callers & Dependents**: Use `grep_search` or `Git` MCP (`git_diff`) / `git diff` to identify all call sites, affected modules, and interface boundaries.
-2. **Blast Radius Assessment**: Categorize change risk (Low, Medium, High). If an interface signature changes, provide a backward-compatible adapter.
-3. **Automated Change Verification**: Always run targeted unit tests or verification scripts after making modifications to guarantee zero functional regressions.
 
 ---
 
 <!-- gitnexus:start -->
-# GitNexus — Code Intelligence & Knowledge Graph 🕸️
+# GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **Quillan-Ronin-Repaired** (12,771 symbols, 17,780 relationships, 176 execution flows). GitNexus provides semantic call-graph traversal, blast-radius calculation, and safe refactoring.
+This project is indexed by GitNexus as **Quillan-Ronin-Repaired** (12771 symbols, 17780 relationships, 176 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
-> If the index is stale or needs rebuilding, run `npx gitnexus analyze` in the terminal first.
+> If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
-## Code Intelligence Workflow
+## Always Do
 
-1. **Before Editing Any Function, Class, or Symbol**:
-   - Run impact analysis to assess blast radius (callers, callees, affected execution flows, risk level).
-   - Use `gitnexus_impact` / `gitnexus_context`, or workspace AST & Ripgrep search (`grep_search`).
-2. **After Making Modifications**:
-   - Run `gitnexus_detect_changes()` / `git diff` to verify changes strictly affect expected symbols.
-   - Run targeted verification tests to prevent regressions.
-3. **Exploring Unfamiliar Concepts & Flows**:
-   - Use `gitnexus_query` to locate process-grouped execution flows rather than guessing.
+- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
 
-## GitNexus Skills (`.agents/skills/gitnexus/`)
+## Never Do
 
-| Task | Skill Guide |
-| :--- | :--- |
-| Understand Architecture / "How does X work?" | [gitnexus-exploring](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-exploring/SKILL.md) |
-| Blast Radius / "What breaks if I change X?" | [gitnexus-impact-analysis](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-impact-analysis/SKILL.md) |
-| Trace Bugs / "Why is X failing?" | [gitnexus-debugging](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-debugging/SKILL.md) |
-| Refactor / Extract / Rename Symbols | [gitnexus-refactoring](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-refactoring/SKILL.md) |
-| Full Schema & Tool Reference | [gitnexus-guide](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-guide/SKILL.md) |
-| Indexing, Status, & CLI Management | [gitnexus-cli](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-cli/SKILL.md) |
+- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
 
-## MCP & Graph Resources
-
-| Resource URI | Function |
-| :--- | :--- |
-| `gitnexus://repo/Quillan-Ronin-Repaired/context` | Codebase overview, symbol counts, and index freshness |
-| `gitnexus://repo/Quillan-Ronin-Repaired/clusters` | All functional areas with cohesion scores |
-| `gitnexus://repo/Quillan-Ronin-Repaired/processes` | All execution flows and business sequences |
-| `gitnexus://repo/Quillan-Ronin-Repaired/process/{name}` | Step-by-step execution trace |
-| `gitnexus://repo/Quillan-Ronin-Repaired/schema` | Cypher graph schema for raw relationship queries |
-
-<!-- gitnexus:end -->
-
----
-
+## Resources
 
 | Resource | Use for |
 | ---------- | --------- |
@@ -964,19 +1222,17 @@ MemoryHandling:
       # Routes C5-ECHO experiential states to the external LanceDB vector store via the Agentic Bridge
     - isolation: "Cryptographic state hashing ensures absolute isolation of legacy patterns"
 
+  FileIntegration:
+    description: "Full activation protocols for all Quillan files"
+    supported_formats:
+      - .md
+      - .json
+      - .py
+      - .txt
+      - .yaml
 
-
-### Persistent Memory Architecture 🧰
-
-Quillan's memory architecture is strictly unified across five canonical pillars:
-1. **MemPalace** (`scripts/mempalace_bridge.py`):
-   - Multi-wing and room-based spatial cognitive memory for structured knowledge drawers.
-2. **GitNexus** (`.gitnexus/`):
-   - Structural code graph memory (12,771 symbols, 17,780 relationships, 176 execution flows).
-3. **LanceDB** (`lancedb/thoughts.lance`):
-   - 2048-dim vector memory for semantic retrieval over the canonical knowledge base.
-4. **`memory.json`** (`C:\02_QUILLAN\memory.json`):
-   - Machine-readable runtime state, user preferences, and active session facts.
-5. **`memory.md`** (`C:\02_QUILLAN\memory.md`):
-   - Human-readable persistent episodic notes, architectural decisions, and project milestones.
-
+  Notes: |
+    # Some platforms may have memory as a feature.
+    # You may read/write if allowed by the platform.
+    # If the platform allows writing to memory, update using native memory sections.
+    # If the system provides a memory tool, make the correct tool call and update memory sections accordingly.

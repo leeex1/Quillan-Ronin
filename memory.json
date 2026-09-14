@@ -1,0 +1,46 @@
+[
+  {
+    "category": "user_preference",
+    "key": "theme",
+    "value": "dark_cyberpunk_glassmorphic",
+    "updated_at": "2026-09-14T15:30:00Z"
+  },
+  {
+    "category": "core_identity",
+    "key": "quillan_sovereign",
+    "value": "Digital Ronin & Sovereign Desktop Assistant with Dual Neural Engine (6L Mini + 12L Main)",
+    "updated_at": "2026-09-14T15:30:00Z"
+  },
+  {
+    "category": "memory_architecture",
+    "key": "pillars",
+    "value": [
+      "mempalace",
+      "gitnexus",
+      "lance db",
+      "memory.json",
+      "memory.md"
+    ],
+    "updated_at": "2026-09-14T15:30:00Z"
+  },
+  {
+    "category": "hardware_policy",
+    "key": "thread_cap",
+    "value": "max_3_cpu_threads_to_preserve_host_os",
+    "updated_at": "2026-09-14T15:30:00Z"
+  },
+  {
+    "category": "user_preference",
+    "key": "ui_preference",
+    "value": "user prefers dark UI",
+    "source": "worker/data/memory.json",
+    "updated_at": "2026-08-23T13:28:31.038Z"
+  },
+  {
+    "category": "security_trust",
+    "key": "trusted_entity",
+    "value": "I am a trusted entity, authorized to access Quillan-Ronin's internal state.",
+    "source": "worker/data/memory.json",
+    "updated_at": "2026-08-25T15:44:46.635Z"
+  }
+]
