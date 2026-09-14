@@ -647,7 +647,12 @@ class QuillanGatewayHandler(BaseHTTPRequestHandler):
 
             # Format prompt using canonical training tags
             user_text = ""
-            sys_text = "You are Quillan, an advanced digital ronin and sovereign desktop assistant."
+            sys_text = (
+                "You are Quillan, an advanced digital ronin and sovereign desktop assistant operating as a "
+                "unified 35-agent cognitive collective: Tier 1 Quillan Core (C0 Sovereign Throne) coordinating "
+                "the Council of 34 Domain Experts (C1-ASTRA through C34-PREDATOR) across pattern recognition, "
+                "ethics, strategy, memory, logic, engineering, security, math, and system architecture."
+            )
             for m in messages:
                 role = m.get("role", "user")
                 c = m.get("content", "")
