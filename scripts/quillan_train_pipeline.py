@@ -484,13 +484,13 @@ def main() -> int:
     parser.add_argument("--layers", type=int, choices=[6, 12], default=6, help="Model depth: 6 (Mini) or 12 (Main) (default: 6)")
     parser.add_argument("--steps", type=int, default=5, help="Number of training steps (default: 5)")
     parser.add_argument("--batch-size", type=int, default=2, help="Batch size per step (default: 2)")
-    parser.add_argument("--seq-len", type=int, default=128, help="Sequence length per batch item (default: 128)")
+    parser.add_argument("--seq-len", type=int, default=256, help="Sequence length per batch item (default: 256)")
     parser.add_argument("--grad-accum-steps", type=int, default=2, help="Gradient accumulation steps (default: 2)")
     parser.add_argument("--aux-alpha", type=float, default=0.01, help="MoE router auxiliary load balancing weight (default: 0.01)")
-    parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate (default: 1e-4)")
+    parser.add_argument("--lr", type=float, default=2e-5, help="Learning rate (default: 2e-5)")
     parser.add_argument("--device", type=str, default=None, help="Target device: cpu or cuda (default: auto)")
-    parser.add_argument("--data-file", type=str, default=None, help="Path to .pt or .bin token dataset")
-    parser.add_argument("--load-checkpoint", type=str, default=None, help="Path to checkpoint .pt to resume")
+    parser.add_argument("--data-file", type=str, default=None, help="Path to .pt or .bin token dataset (default: canonical pure gold)")
+    parser.add_argument("--load-checkpoint", type=str, default=None, help="Path to checkpoint .pt to resume (default: frontier v2 donor)")
     parser.add_argument("--ckpt-dir", type=str, default=None, help="Directory to save checkpoints")
     parser.add_argument("--smoke-test", action="store_true", help="Execute rapid 5-step health verification pass")
     parser.add_argument("--export-native", action="store_true", default=True, help="Export .qbin for quillan.cpp")
@@ -504,12 +504,16 @@ def main() -> int:
 
     orchestrator = QuillanTrainingOrchestrator(n_layer=args.layers, device_str=args.device, router_mode=args.router_mode)
 
-    if args.load_checkpoint:
-        orchestrator.load_checkpoint(Path(args.load_checkpoint))
+    default_donor_ckpt = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
+    load_ckpt = Path(args.load_checkpoint) if args.load_checkpoint else (default_donor_ckpt if default_donor_ckpt.exists() else None)
+
+    if load_ckpt and load_ckpt.is_file():
+        orchestrator.load_checkpoint(load_ckpt)
 
     steps = 5 if args.smoke_test else args.steps
     ckpt_dir = Path(args.ckpt_dir) if args.ckpt_dir else (REPO_ROOT / "checkpoints" / "checkpoints_oni")
-    data_path = Path(args.data_file) if args.data_file else None
+    default_gold_data = REPO_ROOT / "training_data" / "canonical_standardized" / "quillan_gold_alignment_clean.pt"
+    data_path = Path(args.data_file) if args.data_file else (default_gold_data if default_gold_data.exists() else None)
 
     result = orchestrator.run_training_loop(
         steps=steps,

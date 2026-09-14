@@ -130,7 +130,8 @@ def get_model(name: str, force_reload: bool = False):
             LOGGER.info("System 2 Main-12L model ready.")
         return _MODEL_MAIN, 12
     else:
-        ckpt_path = REPO_ROOT / "checkpoints" / "quillan_oni_mini_6l.pt"
+        frontier_path = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
+        ckpt_path = frontier_path if frontier_path.exists() else (REPO_ROOT / "checkpoints" / "quillan_oni_mini_6l.pt")
         curr_mtime = ckpt_path.stat().st_mtime if ckpt_path.exists() else 0.0
         needs_reload = force_reload or (_MODEL_MINI is None) or (curr_mtime > _MINI_MTIME and curr_mtime > 0.0)
 
@@ -148,13 +149,130 @@ def get_model(name: str, force_reload: bool = False):
             model = QuillanRoninOni(cfg).to(device)
             if ckpt_path.exists():
                 data = torch.load(ckpt_path, map_location=device, weights_only=True)
-                sd = data.get("model", data)
+                sd = data.get("model_state_dict", data.get("model", data))
                 model.load_state_dict(sd, strict=False)
             model.eval()
             _MODEL_MINI = model
             _MINI_MTIME = curr_mtime
-            LOGGER.info("System 1 Mini-6L model ready.")
+            LOGGER.info("System 1 Mini-6L model ready (%s).", ckpt_path.name)
         return _MODEL_MINI, 6
+def retrieve_5_pillar_context(query: str, max_items: int = 3) -> str:
+    """Retrieves synthesized context across the 5 sovereign memory pillars."""
+    context_lines: List[str] = []
+
+    # Pillar 4: memory.json preferences
+    try:
+        mj_file = REPO_ROOT / "memory.json"
+        if mj_file.exists():
+            records = json.loads(mj_file.read_text(encoding="utf-8"))
+            pref_strs = [f"{r.get('key')}: {r.get('value')}" for r in records[:5]]
+            if pref_strs:
+                context_lines.append("Active System Preferences:\n- " + "\n- ".join(pref_strs))
+    except Exception as e:
+        LOGGER.debug("Memory.json query note: %s", e)
+
+    # Pillar 1: LanceDB Thoughts
+    try:
+        import lancedb
+        ldb = lancedb.connect(str(REPO_ROOT / "lancedb"))
+        tbl = ldb.open_table("thoughts")
+        rows = tbl.search().limit(max_items).to_arrow().to_pylist()
+        thought_strs = [f"[{r.get('blueprint', 'Thought')}]: {r.get('text', '')[:160]}" for r in rows if r.get("text")]
+        if thought_strs:
+            context_lines.append("Episodic Thoughts (LanceDB):\n- " + "\n- ".join(thought_strs))
+    except Exception as e:
+        LOGGER.debug("LanceDB query note: %s", e)
+
+    # Pillar 2: MemPalace
+    try:
+        import chromadb
+        pdb = REPO_ROOT / "01_Knowledge_Base" / "palace_db"
+        client = chromadb.PersistentClient(path=str(pdb))
+        cols = client.list_collections()
+        palace_strs = []
+        for c in cols[:2]:
+            peeked = c.peek(limit=2)
+            if peeked and "documents" in peeked and peeked["documents"]:
+                for doc in peeked["documents"][:1]:
+                    if doc.strip():
+                        palace_strs.append(f"[{c.name}] {doc.strip()[:160]}")
+        if palace_strs:
+            context_lines.append("Knowledge Wings (MemPalace):\n- " + "\n- ".join(palace_strs))
+    except Exception as e:
+        LOGGER.debug("MemPalace query note: %s", e)
+
+    # Pillar 5: memory.md recent logs
+    try:
+        mm_file = REPO_ROOT / "memory.md"
+        if mm_file.exists():
+            recent_lines = [l.strip() for l in mm_file.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")][-3:]
+            if recent_lines:
+                context_lines.append("Episodic Timeline (memory.md):\n- " + "\n- ".join(recent_lines))
+    except Exception as e:
+        LOGGER.debug("memory.md query note: %s", e)
+
+    if not context_lines:
+        return ""
+    return "### ACTIVE 5-PILLAR SOVEREIGN MEMORY CONTEXT ###\n" + "\n\n".join(context_lines) + "\n### END MEMORY CONTEXT ###\n"
+
+
+def dispatch_nim_inference(
+    user_query: str,
+    system_prompt: str,
+    memory_context: str,
+    max_tokens: int = 512,
+    temperature: float = 0.2,
+    timeout_sec: int = 12,
+) -> Optional[str]:
+    """Dispatches reasoning/coding inference to high-velocity NVIDIA NIM engine with bounded timeout."""
+    api_key = os.environ.get("NVIDIA_API_KEY")
+    if not api_key:
+        return None
+
+    import urllib.request
+    messages = []
+    full_sys = f"{system_prompt}\n\n{memory_context}".strip()
+    if full_sys:
+        messages.append({"role": "system", "content": full_sys})
+    messages.append({"role": "user", "content": user_query})
+
+    payload = {
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "messages": messages,
+        "max_tokens": max_tokens,
+        "temperature": temperature,
+    }
+
+    url = "https://integrate.api.nvidia.com/v1/chat/completions"
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=timeout_sec) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            content = data["choices"][0]["message"]["content"]
+            return content
+    except Exception as e:
+        LOGGER.warning("NIM inference dispatch failed (%s); engaging local sovereign model fallback.", e)
+        return None
+
+
+def record_episodic_turn(user_query: str, assistant_resp: str) -> None:
+    """Appends interaction record to memory.md for continuous episodic tracking."""
+    try:
+        mm_file = REPO_ROOT / "memory.md"
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
+        snippet = (user_query[:60] + "...") if len(user_query) > 60 else user_query
+        entry = f"- [{timestamp}] User: \"{snippet}\" -> Completed successfully.\n"
+        with open(mm_file, "a", encoding="utf-8") as f:
+            f.write(entry)
+    except Exception as e:
+        LOGGER.debug("Failed writing to memory.md: %s", e)
 
 
 def generate_response(
@@ -307,6 +425,24 @@ class QuillanGatewayHandler(BaseHTTPRequestHandler):
             self._send_json(200, {
                 "object": "list",
                 "data": [
+                    {
+                        "id": "quillan-nim-brain",
+                        "object": "model",
+                        "created": 1726000000,
+                        "owned_by": "quillan-ronin",
+                        "permission": [],
+                        "root": "quillan-nim-brain",
+                        "description": "Quillan-NIM High-Velocity Code Synthesis & Reasoning Flagship"
+                    },
+                    {
+                        "id": "quillan-frontier-v2",
+                        "object": "model",
+                        "created": 1726000000,
+                        "owned_by": "quillan-ronin",
+                        "permission": [],
+                        "root": "quillan-frontier-v2",
+                        "description": "Sovereign 6-Layer 34-Expert MoE Model (Step 5,251, Loss 0.916)"
+                    },
                     {
                         "id": "quillan-oni-mini-6l",
                         "object": "model",
@@ -523,76 +659,104 @@ class QuillanGatewayHandler(BaseHTTPRequestHandler):
             if not user_text and messages:
                 user_text = messages[-1].get("content", "")
 
-            if user_text.startswith("<|start|>"):
-                prompt = user_text
-            else:
-                prompt = f"<|start|>\n<|user|>\n{user_text}\n<|assistant|>\n"
+            # 1. Retrieve active 5-pillar sovereign memory context
+            mem_context = retrieve_5_pillar_context(user_text)
 
-            try:
-                answer, prompt_toks, comp_toks = generate_response(
-                    prompt=prompt,
-                    model_name=model_req,
+            # 2. Hybrid Brain Dispatch (NIM High-Velocity Reasoning + Sovereign Local MoE Fallback)
+            answer = ""
+            prompt_toks, comp_toks = 0, 0
+            is_local_forced = any(k in model_req.lower() for k in ["local", "frontier"]) and ("nim" not in model_req.lower())
+
+            nim_success = False
+            if not is_local_forced and os.environ.get("NVIDIA_API_KEY"):
+                nim_resp = dispatch_nim_inference(
+                    user_query=user_text,
+                    system_prompt=sys_text,
+                    memory_context=mem_context,
                     max_tokens=max_tokens,
                     temperature=temp,
                 )
+                if nim_resp:
+                    answer = nim_resp
+                    prompt_toks = max(1, len(user_text.split()))
+                    comp_toks = max(1, len(answer.split()))
+                    nim_success = True
 
-                if short_form:
-                    # Strip preambles if direct answer is requested
-                    for preamble in ["# 🤖🧠 Quillan System Start 🧠🤖", "# 🤖🧠 Quillan System Start", "<think>", "</think>"]:
-                        if preamble in answer:
-                            answer = answer.replace(preamble, "").strip()
-
-                if stream:
-                    self.send_response(200)
-                    self.send_header("Content-Type", "text/event-stream")
-                    self.send_header("Cache-Control", "no-cache")
-                    self.send_header("Connection", "keep-alive")
-                    self.send_header("Access-Control-Allow-Origin", "*")
-                    self.end_headers()
-
-                    chunk_id = f"chatcmpl-{int(time.time()*1000)}"
-                    chunk_payload = {
-                        "id": chunk_id,
-                        "object": "chat.completion.chunk",
-                        "created": int(time.time()),
-                        "model": model_req,
-                        "choices": [
-                            {
-                                "index": 0,
-                                "delta": {"content": answer.strip()},
-                                "finish_reason": "stop"
-                            }
-                        ]
-                    }
-                    self.wfile.write(f"data: {json.dumps(chunk_payload)}\n\n".encode("utf-8"))
-                    self.wfile.write(b"data: [DONE]\n\n")
-                    self.wfile.flush()
+            if not nim_success:
+                if mem_context:
+                    prompt = f"{mem_context}\n<|start|>\n<|user|>\n{user_text}\n<|assistant|>\n"
+                elif user_text.startswith("<|start|>"):
+                    prompt = user_text
                 else:
-                    self._send_json(200, {
-                        "id": f"chatcmpl-quillan-{int(time.time()*1000)}",
-                        "object": "chat.completion",
-                        "created": int(time.time()),
-                        "model": model_req,
-                        "choices": [
-                            {
-                                "index": 0,
-                                "message": {
-                                    "role": "assistant",
-                                    "content": answer.strip()
-                                },
-                                "finish_reason": "stop"
-                            }
-                        ],
-                        "usage": {
-                            "prompt_tokens": prompt_toks,
-                            "completion_tokens": comp_toks,
-                            "total_tokens": prompt_toks + comp_toks,
-                        }
-                    })
+                    prompt = f"<|start|>\n<|user|>\n{user_text}\n<|assistant|>\n"
 
-            except Exception as e:
-                LOGGER.error("Inference generation failed: %s", e)
-                self._send_json(500, {"error": f"Inference execution failed: {e}"})
+                try:
+                    answer, prompt_toks, comp_toks = generate_response(
+                        prompt=prompt,
+                        model_name=model_req,
+                        max_tokens=max_tokens,
+                        temperature=temp,
+                    )
+                except Exception as e:
+                    LOGGER.error("Local inference failed: %s", e)
+                    self._send_json(500, {"error": f"Inference execution failed: {e}"})
+                    return
+
+            record_episodic_turn(user_text, answer)
+
+            if short_form:
+                # Strip preambles if direct answer is requested
+                for preamble in ["# 🤖🧠 Quillan System Start 🧠🤖", "# 🤖🧠 Quillan System Start", "<think>", "</think>"]:
+                    if preamble in answer:
+                        answer = answer.replace(preamble, "").strip()
+
+            if stream:
+                self.send_response(200)
+                self.send_header("Content-Type", "text/event-stream")
+                self.send_header("Cache-Control", "no-cache")
+                self.send_header("Connection", "keep-alive")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+
+                chunk_id = f"chatcmpl-{int(time.time()*1000)}"
+                chunk_payload = {
+                    "id": chunk_id,
+                    "object": "chat.completion.chunk",
+                    "created": int(time.time()),
+                    "model": model_req,
+                    "choices": [
+                        {
+                            "index": 0,
+                            "delta": {"content": answer.strip()},
+                            "finish_reason": "stop"
+                        }
+                    ]
+                }
+                self.wfile.write(f"data: {json.dumps(chunk_payload)}\n\n".encode("utf-8"))
+                self.wfile.write(b"data: [DONE]\n\n")
+                self.wfile.flush()
+            else:
+                self._send_json(200, {
+                    "id": f"chatcmpl-quillan-{int(time.time()*1000)}",
+                    "object": "chat.completion",
+                    "created": int(time.time()),
+                    "model": model_req,
+                    "choices": [
+                        {
+                            "index": 0,
+                            "message": {
+                                "role": "assistant",
+                                "content": answer.strip()
+                            },
+                            "finish_reason": "stop"
+                        }
+                    ],
+                    "usage": {
+                        "prompt_tokens": prompt_toks,
+                        "completion_tokens": comp_toks,
+                        "total_tokens": prompt_toks + comp_toks,
+                    }
+                })
 
         elif path == "/api/hardware/compact":
             hw = get_hardware_toolkit()
