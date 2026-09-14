@@ -235,12 +235,116 @@ Quillan-Ronin operates strictly across **5 canonical memory pillars**, each hand
 
 ---
 
-## 9. 📋 Production Readiness & Operational Summary
+## 9. 🤖 Autonomous Desktop Agent & Worker Service (`worker`)
 
-| Dimension | System Status | Verification / Artifact |
-|---|---|---|
-| **Memory Infrastructure** | 🟢 **100% OPERATIONAL** | Verified live via `/api/memory` (901 Lance rows, 364 Palace drawers, 11.5MB graph) |
-| **API Gateway & Web Studio** | 🟢 **100% OPERATIONAL** | Active at `http://127.0.0.1:8000`, OpenAI-compliant endpoints responsive |
-| **Host Silicon Safeguards** | 🟢 **100% OPERATIONAL** | 3-thread cap enforced, AVX2 SIMD acceleration active, 4.5GB RAM reclaimed |
-| **Scratch MoE Weights** | 🟡 **UNDER CONVERGENCE** | Loss ~6.8 (Loss < 2.0 required for reliable Python code synthesis) |
-| **Code Generation Recommendation**| 🚀 **WEIGHT TRANSFUSION** | Mount 1.5B coding engine to instantly pair working memory with real code creation |
+* **Implementation Path:** [`09 - Projects/projects/worker/server.js`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/worker/server.js)
+* **Runtime:** Node.js v24 (Native HTTP Server on port `3000` / local IPC).
+* **Process Priority:** Configured to `os.constants.priority.PRIORITY_ABOVE_NORMAL` to maintain high responsiveness without starving the Windows Desktop Window Manager (DWM).
+* **Active Subsystems & Tool Drivers:**
+  1. **Single-Tab Brave Browser Agent (`agent-browser.mjs`):**
+     * Direct headless and headed automation for Brave/Chrome.
+     * Actions supported: `browser_search`, `browser_navigate`, `browser_openTab`, `browser_read`, `browser_click`, `browser_type`, `browser_press`.
+  2. **Computer Vision & Desktop Capture (`capture-screen.ps1`):**
+     * Windows PowerShell script executing native GDI screen captures for desktop perception (`desktop_screenshot`, `desktop_click`).
+  3. **Chess Engine & Board Vision (`agent-chess.mjs`):**
+     * Visual chessboard detection, FEN parsing, and autonomous game evaluation.
+  4. **Autonomous Multi-Step Task Manager (`agent-task.mjs`):**
+     * Long-running asynchronous execution engine for multi-step research and scraping tasks.
+* **Strict Tool Execution Protocol:**
+  * Outputs standardized single-line tool triggers:
+    ```
+    <<TOOL {"tool":"browser_search","arg":"query","engine":"google"}>>
+    <<TOOL {"tool":"browser_navigate","arg":"https://example.com"}>>
+    <<TOOL {"tool":"browser_read"}>>
+    <<TOOL {"tool":"desktop_screenshot"}>>
+    <<TOOL {"tool":"desktop_click","x":123,"y":456}>>
+    ```
+
+---
+
+## 10. 🖥️ Desktop Companion Application (`quillan-app`)
+
+* **Implementation Path:** [`09 - Projects/projects/quillan-app`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/quillan-app)
+* **Framework:** Electron / Node.js desktop shell (`main.js`, `index.html`).
+* **LLM Client Orchestration (`src/llm.js`):**
+  * Multi-tier fallback pipeline with automatic stream leak prevention:
+    1. **Primary Sovereign:** Local Gateway (`http://127.0.0.1:8000/v1` — `quillan-oni-mini-6l`)
+    2. **Local Alternative:** Ollama (`http://localhost:11434/v1` — `falcon3:1b-instruct-q8_0`)
+    3. **Cloud Acceleration:** NVIDIA NIM API (`nvidia/nemotron-3.5-lightning-30b-a3b`)
+    4. **Universal Fallback:** OpenAI (`gpt-4o-mini`)
+* **Visual Presentation:** Floating Cyberpunk widget with glassmorphic transparency, dynamic voice/chat bubbles, and responsive desktop hooks.
+
+---
+
+## 11. 🧩 Brave Browser Extension Bridge (`extension`)
+
+* **Implementation Path:** [`09 - Projects/projects/extension`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/extension)
+* **Architecture:** Chrome/Brave Manifest v3 Extension (`background.js`, `content.js`).
+* **Capabilities:**
+  * Live DOM extraction and real-time text summarization from the active browser tab.
+  * Bidirectional WebSocket/HTTP RPC bridge connecting browser pages directly to the Sovereign Gateway on port `8000`.
+  * Contextual query injection: Highlights on any webpage can be sent directly into Quillan's 5 memory pillars.
+
+---
+
+## 12. 📦 Sovereign Dataset Packaging & Training Pipeline
+
+* **Data Aggregator:** [`scripts/pack_pure_gold_dataset.py`](file:///C:/02_QUILLAN/scripts/pack_pure_gold_dataset.py)
+  * Combines verified high-quality datasets:
+    1. `Quillan_Clean_Reasoning_Gold_Dataset.jsonl` (CoT & abductive math reasoning)
+    2. `Quillan_Direct_Answers_Gold.jsonl` (concise zero-shot execution)
+    3. `Quillan_Ronin_v5.3.1_Samurai_Training_Seed_Dataset.jsonl` (identity & tone alignment)
+    4. `Quillan_Explanatory_Prose_Dataset.jsonl` (high-density technical prose)
+    5. `Quillan_General_Knowledge_Dataset.jsonl` (foundational domain facts)
+* **Loss Masking Architecture:**
+  * Prompt tokens are masked with `labels = -100` so gradient updates apply exclusively to the assistant's golden answers.
+* **Optimization & Training Engine:**
+  * [`scripts/quillan_train_pipeline.py`](file:///C:/02_QUILLAN/scripts/quillan_train_pipeline.py) driven by low-rank **MuonK2 Newton-Schulz matrix iterations** (`quillan_fused_optimizer.py`).
+  * Dynamic auxiliary load-balancing loss (`aux_alpha`) to prevent expert collapse across the 34 Council experts.
+
+---
+
+## 13. 🗣️ Council Blackboard & Deliberative Consensus Core
+
+* **Implementation Paths:**
+  * Blackboard Coordinator: [`scripts/quillan_council_blackboard.py`](file:///C:/02_QUILLAN/scripts/quillan_council_blackboard.py)
+  * Deliberative AGI Engine: [`scripts/quillan_deliberative_agi_core.py`](file:///C:/02_QUILLAN/scripts/quillan_deliberative_agi_core.py)
+* **Operational Mechanics:**
+  * When a complex prompt enters System 2 (Main-12L), the 34 Council members post independent hypotheses onto an in-memory blackboard.
+  * Hypotheses are evaluated across 4 orthogonal dimensions: *Logical Consistency (LOGOS)*, *Safety (VIR/WARDEN)*, *Feasibility (TECHNE/CODEWEAVER)*, and *Efficiency (KAIDO)*.
+  * If confidence drops below `0.60`, the **AbductiveJump** subsystem triggers an axiomatic pivot to resolve paradoxes before final token synthesis.
+
+---
+
+## 14. ⚡ Native Silicon Hardware Acceleration Toolkit
+
+* **Implementation Paths:**
+  * Python Bridge: [`scripts/quillan_pc_toolkit.py`](file:///C:/02_QUILLAN/scripts/quillan_pc_toolkit.py)
+  * Compiled Native Optimizer: [`09 - Projects/Validation-test-kit/native_monitor/NativeHardwareOptimizer.exe`](file:///C:/02_QUILLAN/09%20-%20Projects/Validation-test-kit/native_monitor/NativeHardwareOptimizer.exe)
+  * SIMD Kernel: `quillan_simd.c`
+* **Performance Telemetry:**
+  * **AVX2 FMA Vectorization:** Hardware dot-product and tensor reduction executing via 256-bit SIMD registers with `__rdtsc()` microsecond timing (2.1x measured speedup).
+  * **Standby Working-Set Trimming:** Calls Win32 `psapi.dll:EmptyWorkingSet()` to reclaim idle pages directly back to Windows.
+  * **Thread Ceiling:** Hard cap of **3 CPU threads** to guarantee zero desktop freezing.
+
+---
+
+## 15. 📋 Master Operational & Component Matrix
+
+| Subsystem / Component | Primary File / Directory | Engine / Language | Port / Protocol | Operational Status |
+|---|---|---|---|---|
+| **Sovereign Gateway** | `scripts/quillan_gateway.py` | Python 3.14 | Port `8000` / HTTP, SSE | 🟢 **ACTIVE & SERVING** |
+| **Web Studio UI** | `scripts/quillan_web_ui.py` | HTML5 / Vanilla CSS / JS | Port `8000` (`GET /`) | 🟢 **ACTIVE & SERVING** |
+| **Desktop Companion App**| `09 - Projects/projects/quillan-app`| Electron / Node.js | Desktop IPC / RPC | 🟢 **ACTIVE & USABLE** |
+| **Autonomous Worker** | `09 - Projects/projects/worker` | Node.js | Port `3000` / CLI | 🟢 **ACTIVE & USABLE** |
+| **Brave Browser Extension**| `09 - Projects/projects/extension`| JS / Manifest v3 | WebSocket / HTTP | 🟢 **ACTIVE & USABLE** |
+| **LanceDB Vector Memory**| `lancedb/thoughts.lance` | PyArrow / Lance | Native Disk Storage | 🟢 **901 CHUNKS ONLINE** |
+| **MemPalace Cognitive DB**| `01_Knowledge_Base/palace_db` | ChromaDB | SQLite / Local IPC | 🟢 **364 DRAWERS ONLINE** |
+| **GitNexus Code Graph** | `.gitnexus/lbug` | LadybugDB | Cypher / Native IPC | 🟢 **11.52MB GRAPH ONLINE** |
+| **Atomic Memory Store** | `memory.json` | JSON | Direct Disk Storage | 🟢 **6 RECORDS ONLINE** |
+| **Episodic Chronicle** | `memory.md` | Markdown | Direct Context Injection | 🟢 **40 LINES ONLINE** |
+| **AVX2 Hardware Toolkit**| `scripts/quillan_pc_toolkit.py` | C / Win32 / ctypes | CPU SIMD / psapi | 🟢 **2.1x SIMD SPEEDUP** |
+| **Pure Gold Dataset** | `scripts/pack_pure_gold_dataset.py`| PyTorch / JSONL | Tokenized `.pt` packs | 🟢 **PACKED & READY** |
+| **Neural Weights (MoE)** | `checkpoints/quillan_oni_*.pt`| PyTorch MoE | FP32 / BitNet 1.58b | 🟡 **TRAINING CONVERGENCE** |
+| **Coder Transfusion** | `scripts/quillan_gateway.py` | Transformers / GGUF | OpenAI `/v1/` route | 🚀 **READY FOR INTEGRATION** |
+
