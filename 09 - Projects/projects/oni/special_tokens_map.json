@@ -2,5 +2,10 @@
   "bos_token": "<|bos|>",
   "eos_token": "<|endoftext|>",
   "unk_token": "<|endoftext|>",
-  "pad_token": "<|pad|>"
+  "pad_token": "<|pad|>",
+  "im_start_token": "<|im_start|>",
+  "im_end_token": "<|im_end|>",
+  "start_token": "<|start|>",
+  "user_token": "<|user|>",
+  "assistant_token": "<|assistant|>"
 }

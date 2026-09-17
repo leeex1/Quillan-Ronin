@@ -58,7 +58,11 @@ MASTER_DATASET: Final[Path] = (
 CHECKPOINTS_DIR: Final[Path] = REPO_ROOT / "checkpoints"
 CKPT_ONI_DIR: Final[Path] = REPO_ROOT / "checkpoints" / "checkpoints_oni"
 
-MINI_CHECKPOINT: Final[Path] = CHECKPOINTS_DIR / "quillan_oni_mini_6l.pt"
+MINI_CHECKPOINT: Final[Path] = (
+    CHECKPOINTS_DIR / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
+    if (CHECKPOINTS_DIR / "checkpoints_sft" / "quillan_frontier_v2_best.pt").exists()
+    else CHECKPOINTS_DIR / "quillan_oni_mini_6l.pt"
+)
 MAIN_CHECKPOINT: Final[Path] = CHECKPOINTS_DIR / "quillan_oni_main_12l.pt"
 
 def ensure_master_dataset() -> Path:
@@ -98,7 +102,7 @@ def train_model(
         layers = 6
         target_ckpt = MINI_CHECKPOINT
         bs = batch_size or 2
-        learning_rate = lr or 1.2e-4
+        learning_rate = lr or 3.5e-5
         ga = grad_accum or 2
         name = "System 1 Mini (6 Layers, 455M params)"
     elif model_type.lower() in ("main", "12l", "12"):
@@ -128,6 +132,9 @@ def train_model(
         "--grad-accum-steps", str(ga),
         "--lr", str(learning_rate),
         "--router-mode", router_mode,
+        "--eval-interval", "25",
+        "--patience", "3",
+        "--val-split", "0.10",
         "--ckpt-dir", str(CKPT_ONI_DIR),
         "--export-native",
     ]
@@ -139,11 +146,15 @@ def train_model(
     if res.returncode != 0:
         raise RuntimeError(f"Training pipeline exited with error code {res.returncode}")
 
-    # Find the latest saved checkpoint (either latest.pt or matching step)
+    # Prioritize promoting the lowest validation loss checkpoint (best.pt) to production target
+    best_ckpt = CKPT_ONI_DIR / f"quillan_{layers}l_best.pt"
     latest_ckpt = CKPT_ONI_DIR / f"quillan_{layers}l_latest.pt"
     step_ckpts = sorted(CKPT_ONI_DIR.glob(f"quillan_{layers}l_step_*.pt"), key=lambda p: p.stat().st_mtime)
     
-    if latest_ckpt.exists():
+    if best_ckpt.exists():
+        LOGGER.info("Promoting BEST validation checkpoint to production target: %s -> %s", best_ckpt.name, target_ckpt.name)
+        shutil.copy2(best_ckpt, target_ckpt)
+    elif latest_ckpt.exists():
         LOGGER.info("Promoting latest checkpoint to production target: %s -> %s", latest_ckpt.name, target_ckpt.name)
         shutil.copy2(latest_ckpt, target_ckpt)
     elif step_ckpts:

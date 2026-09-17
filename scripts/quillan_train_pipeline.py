@@ -87,14 +87,18 @@ class StreamingBatchIterator:
         seq_len: int,
         device: torch.device,
         vocab_size: int = 50257,
+        val_split: float = 0.10,
     ) -> None:
         self.batch_size = batch_size
         self.seq_len = seq_len
         self.device = device
         self.vocab_size = vocab_size
+        self.val_split = max(0.0, min(0.5, val_split))
         self.tokens: Optional[torch.Tensor] = None
         self.input_ids_2d: Optional[torch.Tensor] = None
         self.labels_2d: Optional[torch.Tensor] = None
+        self.val_input_ids_2d: Optional[torch.Tensor] = None
+        self.val_labels_2d: Optional[torch.Tensor] = None
 
         if data_path and data_path.is_file():
             LOGGER.info("Loading dataset from %s", data_path)
@@ -122,6 +126,19 @@ class StreamingBatchIterator:
                 raw_data = np.memmap(data_path, dtype=np.uint16, mode="r")
                 self.tokens = torch.from_numpy(raw_data.astype(np.int64))
 
+        # Partition 2D dataset into Train and Validation splits to guard against overfitting
+        if self.input_ids_2d is not None and self.val_split > 0 and len(self.input_ids_2d) > 10:
+            split_idx = int(len(self.input_ids_2d) * (1.0 - self.val_split))
+            self.val_input_ids_2d = self.input_ids_2d[split_idx:]
+            self.input_ids_2d = self.input_ids_2d[:split_idx]
+            if self.labels_2d is not None:
+                self.val_labels_2d = self.labels_2d[split_idx:]
+                self.labels_2d = self.labels_2d[:split_idx]
+            LOGGER.info(
+                "Partitioned dataset: %d train samples | %d validation samples (val_split=%.2f)",
+                len(self.input_ids_2d), len(self.val_input_ids_2d), self.val_split
+            )
+
         if self.input_ids_2d is None and (self.tokens is None or len(self.tokens) < (batch_size * seq_len + 1)):
             LOGGER.info("Generating synthetic sovereign demonstration tokens (smoke-test fallback)...")
             torch.manual_seed(42)
@@ -130,17 +147,20 @@ class StreamingBatchIterator:
         self.total_tokens = len(self.input_ids_2d) * self.seq_len if self.input_ids_2d is not None else len(self.tokens)
         LOGGER.info("Streaming dataset initialized with %d total tokens", self.total_tokens)
 
-    def get_batch(self) -> Tuple[torch.Tensor, torch.Tensor]:
-        """Fetch random batch of input sequences and target labels."""
-        if self.input_ids_2d is not None:
+    def get_batch(self, is_val: bool = False) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Fetch random batch of input sequences and target labels from train or val split."""
+        target_ids = self.val_input_ids_2d if (is_val and self.val_input_ids_2d is not None) else self.input_ids_2d
+        target_labels = self.val_labels_2d if (is_val and self.val_labels_2d is not None) else self.labels_2d
+
+        if target_ids is not None:
             batch_x, batch_y = [], []
-            n_samples = len(self.input_ids_2d)
+            n_samples = len(target_ids)
             for _ in range(self.batch_size):
                 for _attempt in range(50):
                     idx = int(torch.randint(0, n_samples, (1,)).item())
-                    x_row = self.input_ids_2d[idx, :self.seq_len]
-                    if self.labels_2d is not None:
-                        y_row = self.labels_2d[idx, :self.seq_len]
+                    x_row = target_ids[idx, :self.seq_len]
+                    if target_labels is not None:
+                        y_row = target_labels[idx, :self.seq_len]
                         if (y_row != -100).any():
                             batch_x.append(x_row)
                             batch_y.append(y_row)
@@ -152,9 +172,9 @@ class StreamingBatchIterator:
                         batch_y.append(y_row)
                         break
                 else:
-                    x_row = self.input_ids_2d[idx, :self.seq_len]
-                    y_row = self.labels_2d[idx, :self.seq_len] if self.labels_2d is not None else torch.roll(x_row, -1, dims=-1)
-                    if self.labels_2d is not None and not (y_row != -100).any():
+                    x_row = target_ids[idx, :self.seq_len]
+                    y_row = target_labels[idx, :self.seq_len] if target_labels is not None else torch.roll(x_row, -1, dims=-1)
+                    if target_labels is not None and not (y_row != -100).any():
                         y_row = y_row.clone()
                         y_row[-1] = x_row[-1]
                     batch_x.append(x_row)
@@ -225,7 +245,7 @@ class NativeQuillanExporter:
 class QuillanTrainingOrchestrator:
     """Production training orchestrator managing model lifecycle, training, and verification."""
 
-    MIN_DISK_HEADROOM_GB: Final[float] = 10.0
+    MIN_DISK_HEADROOM_GB: Final[float] = 8.0
 
     def __init__(
         self,
@@ -341,6 +361,51 @@ class QuillanTrainingOrchestrator:
         torch.save(payload, save_path)
         LOGGER.info("Saved checkpoint step %d (loss=%.4f, %d layers) to %s", step, loss, self.n_layer, save_path)
 
+    def evaluate_validation(self, dataset: StreamingBatchIterator, eval_batches: int = 8, aux_alpha: float = 0.01) -> Dict[str, float]:
+        """Measures true generalizability on held-out validation sequences without gradients."""
+        self.model.eval()
+        lm_losses: List[float] = []
+        aux_raws: List[float] = []
+        totals: List[float] = []
+        with torch.no_grad():
+            for _ in range(eval_batches):
+                x, y = dataset.get_batch(is_val=True)
+                try:
+                    try:
+                        out = self.model(x, labels=y, return_aux=True)
+                    except Exception:
+                        out = self.model(x, labels=y, return_aux=False)
+                    if isinstance(out, tuple) and len(out) == 3:
+                        _, ce_loss, aux = out
+                        if isinstance(aux, dict) and hasattr(self.model, "total_aux_loss"):
+                            aux_val = self.model.total_aux_loss(aux)
+                        elif isinstance(aux, torch.Tensor):
+                            aux_val = aux
+                        else:
+                            aux_val = torch.tensor(0.0, device=ce_loss.device)
+                        if torch.isnan(ce_loss) or torch.isinf(ce_loss):
+                            continue
+                        lm = float(ce_loss.item())
+                        raw = float(aux_val.item()) if not (torch.isnan(aux_val) or torch.isinf(aux_val)) else 0.0
+                        lm_losses.append(lm)
+                        aux_raws.append(raw)
+                        totals.append(lm + aux_alpha * raw)
+                    else:
+                        loss = out[1] if isinstance(out, tuple) and len(out) > 1 else (out[0] if isinstance(out, tuple) else out)
+                        if not (torch.isnan(loss) or torch.isinf(loss)):
+                            lm_losses.append(float(loss.item()))
+                            aux_raws.append(0.0)
+                            totals.append(float(loss.item()))
+                except Exception:
+                    pass
+        self.model.train()
+        if not totals:
+            nan = float("nan")
+            return {"lm": nan, "aux_raw": nan, "aux_scaled": nan, "total": nan}
+        lm_mean = float(np.mean(lm_losses))
+        raw_mean = float(np.mean(aux_raws))
+        return {"lm": lm_mean, "aux_raw": raw_mean, "aux_scaled": raw_mean * aux_alpha, "total": float(np.mean(totals))}
+
     def run_training_loop(
         self,
         steps: int = 10,
@@ -350,11 +415,14 @@ class QuillanTrainingOrchestrator:
         warmup_steps: int = 5,
         grad_accum_steps: int = 2,
         aux_alpha: float = 0.01,
+        eval_interval: int = 25,
+        patience: int = 3,
+        val_split: float = 0.10,
         data_path: Optional[Path] = None,
         checkpoint_dir: Optional[Path] = None,
         export_native: bool = True,
     ) -> Dict[str, Any]:
-        """Executes training pass with AdamW, Cosine Annealing, Grad Accumulation, and MoE Aux Loss."""
+        """Executes training pass with AdamW, Cosine Annealing, Grad Accumulation, and Overfitting Guards."""
         # Step 1: Pre-flight smoke test
         if not self.preflight_smoke_test():
             raise RuntimeError("Pre-flight gradient smoke-test failed. Training aborted.")
@@ -377,19 +445,25 @@ class QuillanTrainingOrchestrator:
             seq_len=effective_seq_len,
             device=self.device,
             vocab_size=self.cfg.vocab_size,
+            val_split=val_split,
         )
 
         self.model.train()
         losses: List[float] = []
+        best_val_loss = float("inf")
+        patience_counter = 0
+        early_stopped = False
         start_time = time.perf_counter()
         optimizer.zero_grad()
 
         LOGGER.info(
-            "Beginning training loop: %d steps, batch_size=%d, seq_len=%d, lr=%.2e, grad_accum=%d, aux_alpha=%.3f",
-            steps, batch_size, effective_seq_len, lr, grad_accum_steps, aux_alpha
+            "Beginning training loop: %d steps, batch_size=%d, seq_len=%d, lr=%.2e, grad_accum=%d, eval_interval=%d, patience=%d",
+            steps, batch_size, effective_seq_len, lr, grad_accum_steps, eval_interval, patience
         )
 
+        actual_steps_run = 0
         for step in range(1, steps + 1):
+            actual_steps_run = step
             if step <= warmup_steps:
                 cur_lr = lr * (step / max(1, warmup_steps))
             else:
@@ -399,9 +473,11 @@ class QuillanTrainingOrchestrator:
             for param_group in optimizer.param_groups:
                 param_group["lr"] = cur_lr
 
-            x, y = dataset.get_batch()
+            x, y = dataset.get_batch(is_val=False)
 
-            # Execute forward with auxiliary router loss when available
+            # Execute forward with auxiliary router loss when available (split LM vs MoE-aux logging)
+            train_lm_val = float("nan")
+            train_aux_raw_val = 0.0
             try:
                 out = self.model(x, labels=y, return_aux=True)
                 if isinstance(out, tuple) and len(out) == 3:
@@ -413,13 +489,31 @@ class QuillanTrainingOrchestrator:
                     else:
                         aux_val = torch.tensor(0.0, device=ce_loss.device)
                     total_loss = ce_loss + (aux_alpha * aux_val)
+                    train_lm_val = float(ce_loss.detach().item())
+                    train_aux_raw_val = float(aux_val.detach().item()) if not (torch.isnan(aux_val) or torch.isinf(aux_val)) else 0.0
                 elif isinstance(out, tuple):
                     logits, total_loss = out
+                    train_lm_val = float(total_loss.detach().item())
+                    train_aux_raw_val = 0.0
                 else:
                     total_loss = out
+                    train_lm_val = float(total_loss.detach().item())
+                    train_aux_raw_val = 0.0
             except Exception as exc:
                 LOGGER.warning("Forward with aux failed (%s); falling back to return_aux=False", exc)
-                logits, total_loss = self.model(x, labels=y, return_aux=False)
+                try:
+                    out_fb = self.model(x, labels=y, return_aux=False)
+                except Exception:
+                    out_fb = self.model(x, labels=y)
+                if isinstance(out_fb, tuple):
+                    logits = out_fb[0]
+                    total_loss = out_fb[1] if len(out_fb) > 1 else out_fb[0]
+                else:
+                    logits = None
+                    total_loss = out_fb
+                train_lm_val = float(total_loss.detach().item())
+                train_aux_raw_val = 0.0
+            train_aux_scaled_val = train_aux_raw_val * aux_alpha
 
             if torch.isnan(total_loss) or torch.isinf(total_loss):
                 LOGGER.warning("Step %d: NaN/Inf loss encountered (skipping anomalous batch)", step)
@@ -439,17 +533,41 @@ class QuillanTrainingOrchestrator:
                 optimizer.step()
                 optimizer.zero_grad()
 
-            if step == 1 or step % max(1, steps // 5) == 0 or step == steps:
+            # Periodic logging and held-out validation evaluation (split LM vs MoE-aux)
+            if step == 1 or step % eval_interval == 0 or step == steps:
+                val_stats = self.evaluate_validation(dataset, eval_batches=8, aux_alpha=aux_alpha)
+                val_loss = val_stats["total"]
                 elapsed = time.perf_counter() - start_time
                 tok_per_sec = (step * batch_size * x.size(1)) / max(1e-5, elapsed)
                 LOGGER.info(
-                    "Step %4d/%d | Loss: %.4f | LR: %.2e | Velocity: %.1f tok/s",
-                    step, steps, loss_val, cur_lr, tok_per_sec
+                    "Step %4d/%d | Train LM: %.4f | Aux_raw: %.4f | Aux_scaled: %.4f | Total: %.4f | Val LM: %.4f | Aux_raw: %.4f | Aux_scaled: %.4f | Total: %.4f | LR: %.2e | Velocity: %.1f tok/s",
+                    step, steps, train_lm_val, train_aux_raw_val, train_aux_scaled_val, loss_val,
+                    val_stats["lm"], val_stats["aux_raw"], val_stats["aux_scaled"], val_loss,
+                    cur_lr, tok_per_sec
                 )
+
+                if not math.isnan(val_loss):
+                    if val_loss < best_val_loss:
+                        best_val_loss = val_loss
+                        patience_counter = 0
+                        if checkpoint_dir:
+                            best_ckpt = checkpoint_dir / f"quillan_{self.n_layer}l_best.pt"
+                            self.save_checkpoint(best_ckpt, self.global_step + step, val_loss)
+                            LOGGER.info("🌟 New Best Validation Checkpoint saved: %s (val_loss=%.4f)", best_ckpt.name, val_loss)
+                    else:
+                        patience_counter += 1
+                        LOGGER.info("Validation loss did not improve (best: %.4f, patience: %d/%d)", best_val_loss, patience_counter, patience)
+                        if patience_counter >= patience:
+                            LOGGER.warning(
+                                "🛑 Early stopping triggered at step %d to prevent overfitting! (Patience %d reached)",
+                                step, patience
+                            )
+                            early_stopped = True
+                            break
 
         final_loss = losses[-1] if losses else 0.0
 
-        cumulative_step = self.global_step + steps
+        cumulative_step = self.global_step + actual_steps_run
         if checkpoint_dir:
             ckpt_file = checkpoint_dir / f"quillan_{self.n_layer}l_step_{cumulative_step}.pt"
             self.save_checkpoint(ckpt_file, cumulative_step, final_loss)
@@ -495,6 +613,9 @@ def main() -> int:
     parser.add_argument("--smoke-test", action="store_true", help="Execute rapid 5-step health verification pass")
     parser.add_argument("--export-native", action="store_true", default=True, help="Export .qbin for quillan.cpp")
     parser.add_argument("--router-mode", type=str, choices=["topk", "gumbel_topk", "dense_pull"], default="topk", help="MoE router mode: topk (8.5x CPU velocity) or dense_pull (default: topk)")
+    parser.add_argument("--eval-interval", type=int, default=25, help="Evaluation interval for validation loss (default: 25)")
+    parser.add_argument("--patience", type=int, default=3, help="Early stopping patience in eval intervals (default: 3)")
+    parser.add_argument("--val-split", type=float, default=0.10, help="Held-out validation fraction (default: 0.10)")
 
     args = parser.parse_args()
 
@@ -512,7 +633,7 @@ def main() -> int:
 
     steps = 5 if args.smoke_test else args.steps
     ckpt_dir = Path(args.ckpt_dir) if args.ckpt_dir else (REPO_ROOT / "checkpoints" / "checkpoints_oni")
-    default_gold_data = REPO_ROOT / "training_data" / "canonical_standardized" / "quillan_gold_alignment_clean.pt"
+    default_gold_data = REPO_ROOT / "training_data" / "canonical_standardized" / "quillan_master_gold_training_v1.pt"
     data_path = Path(args.data_file) if args.data_file else (default_gold_data if default_gold_data.exists() else None)
 
     result = orchestrator.run_training_loop(
@@ -523,6 +644,9 @@ def main() -> int:
         warmup_steps=max(1, steps // 4),
         grad_accum_steps=args.grad_accum_steps,
         aux_alpha=args.aux_alpha,
+        eval_interval=args.eval_interval,
+        patience=args.patience,
+        val_split=args.val_split,
         data_path=data_path,
         checkpoint_dir=ckpt_dir,
         export_native=args.export_native,

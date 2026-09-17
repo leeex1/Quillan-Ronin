@@ -1,12 +1,14 @@
 {
   "model_type": "quillan_ronin_oni",
-  "architectures": ["QuillanOniForCausalLM"],
+  "architectures": [
+    "QuillanOniForCausalLM"
+  ],
   "auto_map": {
     "AutoConfig": "configuration_quillan_oni.QuillanOniConfig",
     "AutoModelForCausalLM": "modeling_quillan_oni.QuillanOniForCausalLM"
   },
   "version": "5.4.0-oni",
-  "vocab_size": 50257,
+  "vocab_size": 50262,
   "hidden_size": 1024,
   "hidden_dim": 1024,
   "intermediate_size": 2048,

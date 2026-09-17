@@ -86,9 +86,12 @@ def get_tokenizer():
     global _TOKENIZER
     if _TOKENIZER is None:
         try:
-            from quillan_bpe_tokenizer import QuillanBPETokenizer
-            _TOKENIZER = QuillanBPETokenizer()
-            LOGGER.info("Quillan BPE Tokenizer initialized (vocab=%d).", _TOKENIZER.vocab_size)
+            from quillan_tokenizer_unified import UnifiedQuillanTokenizer
+            _TOKENIZER = UnifiedQuillanTokenizer()
+            try:
+                LOGGER.info("Quillan Unified Tokenizer initialized (vocab=%s).", getattr(_TOKENIZER, "vocab_size", "50262-fixed"))
+            except Exception:
+                pass
         except Exception as e:
             LOGGER.error("Failed to load QuillanBPETokenizer: %s", e)
     return _TOKENIZER
@@ -130,15 +133,19 @@ def get_model(name: str, force_reload: bool = False):
             LOGGER.info("System 2 Main-12L model ready.")
         return _MODEL_MAIN, 12
     else:
-        frontier_path = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
-        ckpt_path = frontier_path if frontier_path.exists() else (REPO_ROOT / "checkpoints" / "quillan_oni_mini_6l.pt")
+        # Mini-6L head-tuned on clean v62 data (best val 7.62 @step 140)
+        ckpt_path = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_head_v62_best.pt"
+        if not ckpt_path.exists():
+            ckpt_path = REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_frontier_v2_best.pt"
+        if not ckpt_path.exists():
+            ckpt_path = REPO_ROOT / "checkpoints" / "quillan_oni_mini_6l.pt"
         curr_mtime = ckpt_path.stat().st_mtime if ckpt_path.exists() else 0.0
         needs_reload = force_reload or (_MODEL_MINI is None) or (curr_mtime > _MINI_MTIME and curr_mtime > 0.0)
 
         if needs_reload:
             LOGGER.info("Loading System 1 Mini-6L model from %s (mtime=%.1f)...", ckpt_path, curr_mtime)
             cfg = QuillanOniConfig(
-                vocab_size=50257,
+                vocab_size=50262,
                 hidden_dim=1024,
                 ffn_dim=2048,
                 n_layer=6,
@@ -329,7 +336,7 @@ def generate_response(
                 next_tok = torch.multinomial(probs, 1).item()
 
             generated.append(next_tok)
-            if next_tok in [50256, 0]:
+            if next_tok in [50256, 0, 50261]:
                 break
 
             # Autoregressive single-token decode using KV-cache
@@ -340,7 +347,7 @@ def generate_response(
     completion_tokens = generated[len(tokens):]
     decoded_text = tok.decode(completion_tokens).strip()
 
-    for stop_tag in ["<|end|>", "<|endoftext|>", "</assistant_response>", "<|user|>", "<|start|>"]:
+    for stop_tag in ["<|end|>", "<|endoftext|>", "</assistant_response>", "<|user|>", "<|start|>", "<|im_end|>", "<|im_start|>"]:
         if stop_tag in decoded_text:
             decoded_text = decoded_text.split(stop_tag)[0].strip()
 
@@ -482,7 +489,7 @@ class QuillanGatewayHandler(BaseHTTPRequestHandler):
                 "working_set_mb": working_set,
                 "models_available": ["quillan-oni-mini-6l", "quillan-oni-main-12l", "quillan-ronin-v5.3.1"],
                 "active_checkpoint_paths": {
-                    "mini": str(REPO_ROOT / "checkpoints" / "quillan_oni_mini_6l.pt"),
+                    "mini": str(REPO_ROOT / "checkpoints" / "checkpoints_sft" / "quillan_head_v62_best.pt"),
                     "main": str(REPO_ROOT / "checkpoints" / "quillan_oni_main_12l.pt"),
                 }
             })
@@ -667,13 +674,13 @@ class QuillanGatewayHandler(BaseHTTPRequestHandler):
             # 1. Retrieve active 5-pillar sovereign memory context
             mem_context = retrieve_5_pillar_context(user_text)
 
-            # 2. Hybrid Brain Dispatch (NIM High-Velocity Reasoning + Sovereign Local MoE Fallback)
+            # 2. Sovereign Local Model Dispatch (100% On-Prem Neural Weights)
             answer = ""
             prompt_toks, comp_toks = 0, 0
-            is_local_forced = any(k in model_req.lower() for k in ["local", "frontier"]) and ("nim" not in model_req.lower())
-
             nim_success = False
-            if not is_local_forced and os.environ.get("NVIDIA_API_KEY"):
+
+            # Cloud API is only engaged if the user explicitly requests "nim"
+            if "nim" in model_req.lower() and os.environ.get("NVIDIA_API_KEY"):
                 nim_resp = dispatch_nim_inference(
                     user_query=user_text,
                     system_prompt=sys_text,

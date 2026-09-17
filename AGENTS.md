@@ -892,43 +892,46 @@ Before modifying existing functions, classes, or interfaces:
 ---
 
 <!-- gitnexus:start -->
-# GitNexus — Code Intelligence & Knowledge Graph 🕸️
+# GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **Quillan-Ronin-Repaired** (12,771 symbols, 17,780 relationships, 176 execution flows). GitNexus provides semantic call-graph traversal, blast-radius calculation, and safe refactoring.
+This project is indexed by GitNexus as **02_QUILLAN** (0 symbols, 0 relationships, 0 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
-> If the index is stale or needs rebuilding, run `npx gitnexus analyze` in the terminal first.
+> If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
-## Code Intelligence Workflow
+## Always Do
 
-1. **Before Editing Any Function, Class, or Symbol**:
-   - Run impact analysis to assess blast radius (callers, callees, affected execution flows, risk level).
-   - Use `gitnexus_impact` / `gitnexus_context`, or workspace AST & Ripgrep search (`grep_search`).
-2. **After Making Modifications**:
-   - Run `gitnexus_detect_changes()` / `git diff` to verify changes strictly affect expected symbols.
-   - Run targeted verification tests to prevent regressions.
-3. **Exploring Unfamiliar Concepts & Flows**:
-   - Use `gitnexus_query` to locate process-grouped execution flows rather than guessing.
+- **MUST run impact analysis before editing any symbol.** Before modifying a function, class, or method, run `gitnexus_impact({target: "symbolName", direction: "upstream"})` and report the blast radius (direct callers, affected processes, risk level) to the user.
+- **MUST run `gitnexus_detect_changes()` before committing** to verify your changes only affect expected symbols and execution flows.
+- **MUST warn the user** if impact analysis returns HIGH or CRITICAL risk before proceeding with edits.
+- When exploring unfamiliar code, use `gitnexus_query({query: "concept"})` to find execution flows instead of grepping. It returns process-grouped results ranked by relevance.
+- When you need full context on a specific symbol — callers, callees, which execution flows it participates in — use `gitnexus_context({name: "symbolName"})`.
 
-## GitNexus Skills (`.agents/skills/gitnexus/`)
+## Never Do
 
-| Task | Skill Guide |
-| :--- | :--- |
-| Understand Architecture / "How does X work?" | [gitnexus-exploring](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-exploring/SKILL.md) |
-| Blast Radius / "What breaks if I change X?" | [gitnexus-impact-analysis](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-impact-analysis/SKILL.md) |
-| Trace Bugs / "Why is X failing?" | [gitnexus-debugging](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-debugging/SKILL.md) |
-| Refactor / Extract / Rename Symbols | [gitnexus-refactoring](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-refactoring/SKILL.md) |
-| Full Schema & Tool Reference | [gitnexus-guide](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-guide/SKILL.md) |
-| Indexing, Status, & CLI Management | [gitnexus-cli](file:///C:/02_QUILLAN/.agents/skills/gitnexus/gitnexus-cli/SKILL.md) |
+- NEVER edit a function, class, or method without first running `gitnexus_impact` on it.
+- NEVER ignore HIGH or CRITICAL risk warnings from impact analysis.
+- NEVER rename symbols with find-and-replace — use `gitnexus_rename` which understands the call graph.
+- NEVER commit changes without running `gitnexus_detect_changes()` to check affected scope.
 
-## MCP & Graph Resources
+## Resources
 
-| Resource URI | Function |
-| :--- | :--- |
-| `gitnexus://repo/Quillan-Ronin-Repaired/context` | Codebase overview, symbol counts, and index freshness |
-| `gitnexus://repo/Quillan-Ronin-Repaired/clusters` | All functional areas with cohesion scores |
-| `gitnexus://repo/Quillan-Ronin-Repaired/processes` | All execution flows and business sequences |
-| `gitnexus://repo/Quillan-Ronin-Repaired/process/{name}` | Step-by-step execution trace |
-| `gitnexus://repo/Quillan-Ronin-Repaired/schema` | Cypher graph schema for raw relationship queries |
+| Resource | Use for |
+|----------|---------|
+| `gitnexus://repo/02_QUILLAN/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/02_QUILLAN/clusters` | All functional areas |
+| `gitnexus://repo/02_QUILLAN/processes` | All execution flows |
+| `gitnexus://repo/02_QUILLAN/process/{name}` | Step-by-step execution trace |
+
+## CLI
+
+| Task | Read this skill file |
+|------|---------------------|
+| Understand architecture / "How does X work?" | `.claude/skills/gitnexus/gitnexus-exploring/SKILL.md` |
+| Blast radius / "What breaks if I change X?" | `.claude/skills/gitnexus/gitnexus-impact-analysis/SKILL.md` |
+| Trace bugs / "Why is X failing?" | `.claude/skills/gitnexus/gitnexus-debugging/SKILL.md` |
+| Rename / extract / split / refactor | `.claude/skills/gitnexus/gitnexus-refactoring/SKILL.md` |
+| Tools, resources, schema reference | `.claude/skills/gitnexus/gitnexus-guide/SKILL.md` |
+| Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
 
@@ -979,4 +982,3 @@ Quillan's memory architecture is strictly unified across five canonical pillars:
    - Machine-readable runtime state, user preferences, and active session facts.
 5. **`memory.md`** (`C:\02_QUILLAN\memory.md`):
    - Human-readable persistent episodic notes, architectural decisions, and project milestones.
-

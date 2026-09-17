@@ -530,7 +530,7 @@ torch.backends.cuda.matmul.allow_tf32 = True
 torch.set_float32_matmul_precision("high")
 
 EOS_TOKEN_ID = 0  # unified custom BPE: <|endoftext|> at 0 (50256 legacy compat)
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262  # +5 custom specials (<|start|>, <|user|>, <|assistant|>, <|im_start|>, <|im_end|>) ids 50257-50261
 ONI_VERSION = "5.4.0-oni"
 USE_INTEGER_ONLY = False  # NITRO-D/PocketNN (2407.11698) â€” set True via cfg.use_nitro
 
