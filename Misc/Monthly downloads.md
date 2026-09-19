@@ -13,3 +13,7 @@ July 2026: 71k total
 Aug 2026: 76k total 
 
 Sept 2026: 66k total 
+
+Total downloads- 514,000 
+
+!!! HALF A MILLLION DOWNLOADS !!!
