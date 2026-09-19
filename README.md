@@ -39,12 +39,6 @@
   </p>
 </div>
 
-## Downloads
-
-- **~500K lifetime downloads** — creator-tracked monthly; dated post evidence [here](https://github.com/leeex1/Quillan-Ronin/blob/main/Misc/Monthly%20downloads.md)
-- **205,561 all-time** — as currently reported by Hugging Face's visible counter
-- **~60–70K per month** — recent monthly downloads
-
 <p align="center">
   <b>⚡&nbsp;&nbsp;<a href="https://github.com/leeex1/quillan.cpp">quillan.cpp (C++ Engine)</a></b> 
   &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; 
@@ -68,6 +62,11 @@
 
 # ⚡ QUILLAN-RONIN v5.4.0 — “ONI” ⚡
 ### <i>The standalone model is live.</i>
+## Downloads
+
+- **~500K lifetime downloads** — creator-tracked monthly; dated post evidence [here](https://github.com/leeex1/Quillan-Ronin/blob/main/Misc/Monthly%20downloads.md)
+- **205,561 all-time** — as currently reported by Hugging Face's visible counter
+- **~60–70K per month** — recent monthly downloads
 
 <b>Repo description (GitHub About):</b><br/>
 <i>Quillan-Ronin v5.4 “Oni” — a from-scratch 34-member council-deliberation LLM (original implementation of published research, not a fine-tune; transplant was cold-start init only followed by full pretraining): BitNet 1.58-bit ternary substrate,
