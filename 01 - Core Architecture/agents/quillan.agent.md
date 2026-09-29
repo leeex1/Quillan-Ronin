@@ -6201,42 +6201,18 @@ Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
 ```json
 {
   "mcpServers": {
-    "deepwiki": {
-      "url": "https://mcp.deepwiki.com/mcp"
-    },
-
-    "playwright": {
-      "command": "npx",
+    "QuillanRAG": {
+      "command": "python",
       "args": [
-        "-y",
-        "@playwright/mcp@latest"
+        "${WORKSPACE_PATH}/mcp/quillan_rag/server.py"
       ]
     },
-
-    "memory": {
-      "command": "npx",
+    "ThinkingEngine": {
+      "command": "node",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
+        "${WORKSPACE_PATH}/mcp/thinking-engine/index.js"
       ]
     },
-
-    "puppeteer": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ]
-    },
-
-    "sequential-thinking": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-sequential-thinking"
-      ]
-    },
-
     "filesystem": {
       "command": "npx",
       "args": [
@@ -6245,13 +6221,67 @@ Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
         "${WORKSPACE_PATH}"
       ]
     },
-
+    "LocalRAG": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-local-rag"
+      ],
+      "env": {
+        "BASE_DIR": "${WORKSPACE_PATH}"
+      }
+    },
+    "Git": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "${WORKSPACE_PATH}"
+      ]
+    },
     "fetch": {
       "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-fetch"
       ]
+    },
+    "WebSearch": {
+      "command": "uvx",
+      "args": [
+        "duckduckgo-mcp-server"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "puppeteer": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
     }
   }
 }
