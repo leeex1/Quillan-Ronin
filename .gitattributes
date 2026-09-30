@@ -18,3 +18,4 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.pt filter=lfs diff=lfs merge=lfs -text
 *.pth filter=lfs diff=lfs merge=lfs -text
 *.safetensors filter=lfs diff=lfs merge=lfs -text
+10[[:space:]]-[[:space:]]Formal[[:space:]]Papers/Formal[[:space:]]Papers/Beyond_1.58_Bits.pdf -filter -diff -merge -text
