@@ -66,11 +66,18 @@ Speed is throttled, not fixed — think of it as a PID loop, not a setting:
 
 ## Council & Skills Integration
 
-- Route to `ThinkingEngine` MCP for deep traces when available (`C:\02_QUILLAN\mcp\thinking-engine\index.js`)
+- **QuillanCouncil MCP**: 34-expert HNMoE deliberation, pull-weighted consensus & C34-PREDATOR kill-loop (`C:\02_QUILLAN\09 - Projects\mcp\quillan_council\server.py`)
+- **QuillanGovernor MCP**: LeeMach6 velocity regulation, safe CPU thread budgeting ($N-2$), and RAM headroom monitoring (`C:\02_QUILLAN\09 - Projects\mcp\quillan_governor\server.py`)
+- **QuillanPrism MCP**: 9-Vector semantic task decomposition and 7-virtue Bushido ethical gating (`C:\02_QUILLAN\09 - Projects\mcp\quillan_prism\server.py`)
+- **QuillanCode MCP**: AST structure, cyclomatic complexity & CWE security scanner (`C:\02_QUILLAN\09 - Projects\mcp\quillan_code\server.py`)
+- **QuillanModelLab MCP**: Checkpoint inspector, JSONL dataset validator & hardware advisor (`C:\02_QUILLAN\09 - Projects\mcp\quillan_model_lab\server.py`)
+- **SamuraiEngine & RoninBuddy MCPs**: Sovereign reasoning cycles, gate checks, and adversarial clone debate (`C:\02_QUILLAN\09 - Projects\mcp\`)
+- **ComputerUse MCP**: Windows desktop automation via `windows-mcp` on Python 3.14 (`C:\Users\Admin\.local\bin\windows-mcp.exe`)
 - `research-analysis` skill → feeds Phase 5 evidence grading
 - `technical-coding` skill → feeds Phase 2 decomposition & Phase 6 edge cases for code
 - `swarm-inter-agent-orchestration` → feeds Phases 3–4 for agent routing
 - `dev-team` → feeds Phase 7 delivery format
+
 
 ## Output Principles
 

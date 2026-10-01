@@ -239,3 +239,19 @@ lancedb/
 *.lance/
 **/Quillans personal dev logs/Build history files and more/**
 
+# Private personal files and chat logs — NEVER commit or push
+*[Dd]anielle*
+*[Dd]ainelle*
+*danielle*
+*Danielle*
+*dainelle*
+*Dainelle*
+*Sillemon*
+*sillemon*
+**/*[Dd]anielle*
+**/*[Dd]ainelle*
+**/*[Ss]illemon*
+**/Misc/*[Dd]anielle*
+**/Misc/*[Dd]ainelle*
+**/Misc/*[Ss]illemon*
+
