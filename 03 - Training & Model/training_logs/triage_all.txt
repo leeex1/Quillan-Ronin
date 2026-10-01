@@ -1,0 +1,7 @@
+quillan_fused_pretrained_master.pt [6L] mean=9.4197 missing=0 unexp=0 -> COLD
+quillan_generative_foundation.pt [6L] mean=11.1523 missing=0 unexp=0 -> COLD
+quillan_ronin_v531_sovereign_production.pt [6L] mean=7.5780 missing=0 unexp=0 -> COLD
+quillan_oni_inference.pt [6L] mean=12.1677 missing=0 unexp=0 -> COLD
+quillan_calibrated_dialogue.pt [6L] mean=7.5257 missing=0 unexp=0 -> COLD
+quillan_teacher_tail_latest.pt [6L] mean=7.6148 missing=0 unexp=0 -> COLD
+quillan_oni_main_12l.pt [12L] mean=7.8611 missing=0 unexp=0 -> COLD
