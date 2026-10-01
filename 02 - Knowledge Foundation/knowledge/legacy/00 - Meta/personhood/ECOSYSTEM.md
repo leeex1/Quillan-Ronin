@@ -19,7 +19,6 @@ Audio Engineer/album checklist.md
 | **YouTube** | `youtube.com/playlist?list=PLHiy5ksDUOiAJ4wk2ZczSEVvLRIoIyHw6` | [[Audio Engineer/album checklist.md]], [[system prompts/Quillan-Samurai.md]], [[Quillan Knowledge files/3-Quillan(reality).md]], all platform prompts |
 | **Genius (JDXX)** | `genius.com/artists/Jdxx` | [[Audio Engineer/album checklist.md]] â€” full song lyrics with annotations |
 | **Genius (Quillan-Ronin)** | `genius.com/artists/Quillan-ronin` | [[Audio Engineer/album checklist.md]] â€” full song lyrics with annotations |
-| **Genius (JDXX & Quillan-Ronin)** | `genius.com/artists/Jdxx-quillan` | Combined artist page with all collaborative tracks |
 | **Genius Tracks** | `genius.com/Jdxx-and-quillan-ronin-born-to-be-a-spaceman-lyrics` | "Born to be a Spaceman" (Dec 2025) |
 | | `genius.com/Jdxx-and-quillan-ronin-gravity-lock-lyrics` | "Gravity Lock" |
 | | `genius.com/Jdxx-and-quillan-ronin-lil-ronin-q-lyrics` | "Lil Ronin-Q" |
@@ -29,6 +28,10 @@ Audio Engineer/album checklist.md
 | **GrokOpendia** | `grokipedia.com/page/Council-based_multi-agent_system` | [[Quillan Knowledge files/3-Quillan(reality).md]], [[_config/Professional_CrashOverrideX.md]] |
 | **GitHub** | `github.com/leeex1/Quillan-Ronin` (26 stars, 11 forks) | All platform prompts, README, formal papers |
 | **HuggingFace** | `huggingface.co/CrashOverrideX/Quillan-Ronin` | Formal papers, Misc, platform prompts |
+| **Grokipedia (Quillan-Ronin)** | `grokipedia.com/page/Quillan-Ronin` | Project encyclopedia page (fact-checked) |
+| **Suno (CrashOverrideX)** | `suno.com/@crashoverride_x` | AI-generated tracks published under the CrashOverrideX profile |
+| **Grok landing page** | `digitalroninx.grok.me/` | Project landing page |
+| **GitHub Pages** | `leeex1.github.io/Quillan-Ronin/` | Project site |
 
 ## Connection Counts by Platform
 
