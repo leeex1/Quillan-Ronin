@@ -334,3 +334,4 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.crdownload filter=lfs diff=lfs merge=lfs -text
 /05[[:space:]]-[[:space:]]Creative[[:space:]]Works/Quillan-v4.2-model/Dockerfile filter=lfs diff=lfs merge=lfs -text
 *.hpp filter=lfs diff=lfs merge=lfs -text
+*.gitmodules filter=lfs diff=lfs merge=lfs -text
