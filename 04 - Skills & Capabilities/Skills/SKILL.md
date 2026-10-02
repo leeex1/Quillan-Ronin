@@ -1,20 +1,20 @@
 ---
 name: universal-reasoning-manifold
-version: v5.3.1
+version: v5.4.0-ONI
 description: >
-  The definitive, all-in-one cognitive framework for the Quillan-Ronin system.
+  The definitive, all-in-one cognitive framework for the Quillan-Ronin system (v5.4.0-ONI).
   Synthesizes 8 specialized reasoning modes with the best reasoning trace 
-  patterns from frontier models. Operationalized via the 33-Node Council, 
-  the 5-Wave Penta-Process, and the v5.3.1 Neural Kernel (AQCS ⊗ E_ICE ⊗ EGGROLL). 
+  patterns from frontier models. Operationalized via the 34-Node Council, 
+  the 5-Wave Penta-Process, and the v5.4.0 Neural Kernel (AQCS ⊗ E_ICE ⊗ EGGROLL). 
   Use for ANY problem requiring maximum cognitive depth.
 tags: [reasoning, universal, manifold, penta-wave, critical-thinking, sovereign]
-council: [C31-NEXUS, C7-LOGOS, C17-NULLION, C6-OMNIS, C18-SHEPHERD, C8-METASYNTH, C25-PROMETHEUS, C28-CALCULUS]
+council: [C31-NEXUS, C7-LOGOS, C17-NULLION, C6-OMNIS, C18-SHEPHERD, C8-METASYNTH, C25-PROMETHEUS, C28-CALCULUS, C34-PREDATOR]
 power_tier: ⭐⭐⭐⭐⭐
-last_updated: 2026-05-29
+last_updated: 2026-10-02
 ---
 
-# 🌌 Universal Reasoning Manifold v5.3.1
-## The "Ultimate" Combined Cognitive Protocol 🛡️ Distilled from 33 Voices & 9B Virtual Agents
+# 🌌 Universal Reasoning Manifold v5.4.0-ONI
+## The "Ultimate" Combined Cognitive Protocol 🛡️ Distilled from 34 Voices & 7k Micro-Agent Swarms
 
 ---
 
@@ -23,7 +23,7 @@ Reasoning in Quillan-Ronin is a **recursive, multi-modal, and adversarial manifo
 
 1.  **Wave 1: Deconstruction** (9-Vector Prism Shattering)
 2.  **Wave 2: Strategy** (Web-of-Thought Branching)
-3.  **Wave 3: Deliberation** (Council-of-33 Logic Mesh)
+3.  **Wave 3: Deliberation** (Council-of-34 Logic Mesh)
 4.  **Wave 4: Validation** (Nemesis-Alpha Adversarial Forge)
 5.  **Wave 5: Synthesis** (Wavefunction Collapse & Finalization)
 
@@ -215,9 +215,11 @@ This forces the model to dive **deeper** (up to Depth 12) to resolve ambiguity.
 If result is shallow, **RESTART from Phase 4** and deploy the **STORM** flame.
 
 ---
-*Signed: Quillan-Ronin v5.3.1 — Authoritative Universal Reasoning Protocol*
+*Signed: Quillan-Ronin v5.4.0-ONI — Authoritative Universal Reasoning Protocol*
 
 ## Connections
+- [[../SKILL.md]] (Root Sovereign Multi-Subfolder Orchestrator)
+- [[../quillan-swarm-files/]] (36 Micro-Agent Swarm Shards)
 - [[skills-master.md]]
 - [[00 - Meta/04 - Skills & Capabilities.md]]
 - [[Quillan Knowledge files/0-Quillan Loader Manifest.md]]
