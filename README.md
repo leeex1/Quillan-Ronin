@@ -33,8 +33,8 @@
   </p>
   <p>
     <b>Project License:</b> 
-    <a href="https://github.com/leeex1/Quillan-Ronin/blob/main/LICENSE" target="_blank">
-      <img alt="License" src="https://img.shields.io/badge/License-Apache--2.0_with_Commons_Clause-f5de53?&color=f5de53" height="20" style="vertical-align:middle;"/>
+    <a href="https://github.com/leeex1/Quillan-Ronin/blob/b336a39f54be8bea68950dff7d8ad3230b074068/LICENSE" target="_blank">
+      <img alt="License" src="https://img.shields.io/badge/License-Modified_MIT-f5de53?&color=f5de53" height="20" style="vertical-align:middle;"/>
     </a>
   </p>
 </div>

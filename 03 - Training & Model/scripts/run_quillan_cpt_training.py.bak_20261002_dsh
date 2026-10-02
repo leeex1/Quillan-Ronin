@@ -1,0 +1,322 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+QUILLAN-RONIN v5.4.0-ONI — PRODUCTION CONTINUED PRE-TRAINING (CPT) ENGINE
+==========================================================================
+Resumes training directly from existing checkpoints (quillan_6l_ma_best.pt or
+quillan_12l_ma_best.pt) without resetting weights.
+
+Features:
+  1. Checkpoint Resumption: Strict 100% parameter match for BitNet 1.58b STE.
+  2. Anti-Forgetting Replay Buffer: Interleaves 10% gold SFT samples (15,631 samples)
+     to preserve the rōnin persona, formatting, and matched-pair reasoning.
+  3. Gradient Stabilization: Linear 500-step warm-up + cosine decay with grad clipping.
+  4. Atomic Checkpointing: Safe saving (.tmp -> .pt) preventing state corruption.
+  5. Multi-Device Compatibility: CPU (AVX2 optimized) or Pascal/CUDA.
+
+Usage:
+  python scripts/run_quillan_cpt_training.py --model mini --steps 5000 --batch-size 4 --lr 8e-5
+"""
+
+import os
+import sys
+import gc
+import time
+import math
+import argparse
+import logging
+from pathlib import Path
+from typing import Tuple, Dict, Any, Optional
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
+
+# ── Paths & Setup ─────────────────────────────────────────────────────────────
+REPO_ROOT = Path(r"C:\02_QUILLAN")
+SCRIPTS_DIR = REPO_ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS_DIR))
+
+from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    datefmt="%H:%M:%S",
+)
+LOGGER = logging.getLogger("QuillanCPT")
+
+
+# ── Dataset & Replay Interleaver ──────────────────────────────────────────────
+
+class CPTInterleavedDataset(Dataset):
+    """Interleaves continuous domain knowledge tokens with gold persona replay samples."""
+
+    def __init__(
+        self,
+        gold_archive_path: Path,
+        raw_pt_path: Optional[Path] = None,
+        seq_len: int = 256,
+        replay_ratio: float = 0.15,
+    ):
+        self.seq_len = seq_len
+        self.replay_ratio = replay_ratio
+
+        # 1. Load Gold Replay Archive
+        LOGGER.info("Loading Gold Replay Archive from: %s", gold_archive_path)
+        gold_data = torch.load(gold_archive_path, map_location="cpu", weights_only=False)
+        self.gold_tokens = gold_data["input_ids"].to(torch.int64)
+        self.num_gold = self.gold_tokens.shape[0]
+        LOGGER.info("Gold Replay Pool: %d sequences loaded (Persona Protection Active).", self.num_gold)
+
+        # 2. Load Continuous Knowledge Corpus (if available)
+        self.raw_tokens = None
+        if raw_pt_path and raw_pt_path.exists():
+            LOGGER.info("Loading Knowledge Corpus from: %s", raw_pt_path)
+            raw_data = torch.load(raw_pt_path, map_location="cpu", weights_only=False)
+            if isinstance(raw_data, dict):
+                self.raw_tokens = raw_data.get("input_ids", next(iter(raw_data.values()))).to(torch.int64)
+            else:
+                self.raw_tokens = raw_data.to(torch.int64)
+            LOGGER.info("Continuous Knowledge Pool: %d sequences loaded.", len(self.raw_tokens))
+        else:
+            LOGGER.warning("No secondary raw corpus specified; operating in expanded Gold Pre-Training mode.")
+
+    def __len__(self) -> int:
+        if self.raw_tokens is not None:
+            return max(len(self.raw_tokens), self.num_gold * 2)
+        return self.num_gold
+
+    def __getitem__(self, idx: int) -> Tuple[torch.Tensor, torch.Tensor]:
+        # Interleave replay buffer probabilistically or systematically
+        use_gold = (self.raw_tokens is None) or (torch.rand(1).item() < self.replay_ratio)
+
+        if use_gold:
+            g_idx = idx % self.num_gold
+            seq = self.gold_tokens[g_idx]
+        else:
+            r_idx = idx % len(self.raw_tokens)
+            seq = self.raw_tokens[r_idx]
+
+        # Standard causal shift: input = seq[:-1], target = seq[1:]
+        # Given a sequence of length L, input is first L-1 tokens, target is next L-1 tokens
+        effective_len = min(len(seq) - 1, self.seq_len - 1)
+        inp = seq[:effective_len]
+        target = seq[1:effective_len + 1]
+
+        target_len = self.seq_len - 1
+        if len(inp) < target_len:
+            pad_len = target_len - len(inp)
+            inp = F.pad(inp, (0, pad_len), value=50256)
+            target = F.pad(target, (0, pad_len), value=-100)
+
+        return inp, target
+
+
+# ── Learning Rate Scheduler ───────────────────────────────────────────────────
+
+def get_lr(step: int, warmup_steps: int, total_steps: int, max_lr: float, min_lr: float = 1e-6) -> float:
+    """Linear warm-up followed by cosine decay."""
+    if step < warmup_steps:
+        return max_lr * (step + 1) / max(1, warmup_steps)
+    if step > total_steps:
+        return min_lr
+    progress = (step - warmup_steps) / max(1, total_steps - warmup_steps)
+    return min_lr + 0.5 * (max_lr - min_lr) * (1.0 + math.cos(math.pi * progress))
+
+
+# ── Atomic Checkpointing ──────────────────────────────────────────────────────
+
+def save_atomic_checkpoint(
+    path: Path,
+    model: nn.Module,
+    config: QuillanOniConfig,
+    step: int,
+    loss: float,
+    optimizer: Optional[torch.optim.Optimizer] = None,
+) -> None:
+    """Writes state to a temporary file before atomically renaming to prevent corruption."""
+    tmp_path = path.with_suffix(".pt.tmp")
+    ckpt_dict = {
+        "step": step,
+        "loss": loss,
+        "config": config.__dict__,
+        "model_state_dict": model.state_dict(),
+        "timestamp": time.time(),
+        "engine": "Quillan-Ronin v5.4.0-ONI CPT",
+    }
+    if optimizer is not None:
+        ckpt_dict["optimizer_state_dict"] = optimizer.state_dict()
+
+    torch.save(ckpt_dict, tmp_path)
+    if tmp_path.exists():
+        tmp_path.replace(path)
+    LOGGER.info("[CKPT] Saved checkpoint atomically: %s (Step %d, Loss %.4f)", path.name, step, loss)
+
+
+# ── Main Training Loop ────────────────────────────────────────────────────────
+
+def run_training(args: argparse.Namespace) -> None:
+    device = torch.device(args.device)
+    LOGGER.info("Executing Continued Pre-Training on device: %s", device)
+
+    # Resolve Checkpoint & Config
+    ckpt_dir = REPO_ROOT / "checkpoints" / "checkpoints_oni"
+    if args.model.lower() == "main":
+        in_ckpt = ckpt_dir / "quillan_12l_ma_best.pt"
+        out_ckpt = ckpt_dir / "quillan_12l_cpt_best.pt"
+    else:
+        in_ckpt = ckpt_dir / "quillan_6l_ma_best.pt"
+        out_ckpt = ckpt_dir / "quillan_6l_cpt_best.pt"
+
+    if not in_ckpt.exists():
+        raise FileNotFoundError(f"Source checkpoint not found: {in_ckpt}")
+
+    LOGGER.info("Loading baseline checkpoint: %s", in_ckpt)
+    ckpt_data = torch.load(in_ckpt, map_location="cpu", weights_only=False)
+    state = ckpt_data["model_state_dict"]
+    cfg_dict = ckpt_data["config"]
+    cfg_dict["device"] = args.device
+    cfg = QuillanOniConfig(**cfg_dict)
+
+    LOGGER.info("Instantiating QuillanRoninOni architecture (Layers: %d, Experts: %d)...", cfg.n_layer, cfg.num_experts)
+    model = QuillanRoninOni(cfg).to(device)
+    incompatible = model.load_state_dict(state, strict=True)
+    LOGGER.info("Checkpoint state_dict loaded with 100%% strict tensor alignment.")
+
+    # Parameter Trainability Strategy
+    if args.freeze_base or (args.device.startswith("cuda") and args.freeze_base is None):
+        LOGGER.info("Freezing base backbone; training 34 Council experts, LoRA adapters, routers, and norms on %s...", device)
+        for n, p in model.named_parameters():
+            if any(k in n for k in ("expert", "router", "ln", "norm", "gate", "w_gate")):
+                p.requires_grad = True
+            else:
+                p.requires_grad = False
+    else:
+        for param in model.parameters():
+            param.requires_grad = True
+
+    trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    LOGGER.info("Active Trainable Parameters: %s (Device: %s)", f"{trainable_params:,}", device)
+
+    # Build Replay Dataset & DataLoader
+    gold_pt = REPO_ROOT / "training_data" / "canonical_standardized" / "quillan_master_gold_training_v1.pt"
+    default_raw = REPO_ROOT / "training_data" / "quillan_pretrain_corpus_343mb.pt"
+    raw_pt = Path(args.raw_corpus) if args.raw_corpus else (default_raw if default_raw.exists() else None)
+
+    dataset = CPTInterleavedDataset(
+        gold_archive_path=gold_pt,
+        raw_pt_path=raw_pt,
+        seq_len=args.seq_len,
+        replay_ratio=args.replay_ratio,
+    )
+    dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, drop_last=True)
+    loader_iter = iter(dataloader)
+
+    # Optimizer (separate 2D weight decay from 1D biases/norms)
+    decay_params = [p for p in model.parameters() if p.dim() >= 2 and p.requires_grad]
+    nodecay_params = [p for p in model.parameters() if p.dim() < 2 and p.requires_grad]
+    optim_groups = [
+        {"params": decay_params, "weight_decay": 0.01},
+        {"params": nodecay_params, "weight_decay": 0.0},
+    ]
+    optimizer = torch.optim.AdamW(optim_groups, lr=args.lr, betas=(0.9, 0.95), eps=1e-8)
+
+    model.train()
+    if device.type == "cuda":
+        torch.cuda.empty_cache()
+    LOGGER.info("Starting CPT: Steps=%d, Warmup=%d, MaxLR=%.2e, BatchSize=%d", args.steps, args.warmup_steps, args.lr, args.batch_size)
+
+    running_loss = 0.0
+    start_time = time.time()
+    best_loss = float("inf")
+
+    for step in range(1, args.steps + 1):
+        try:
+            batch_inp, batch_tgt = next(loader_iter)
+        except StopIteration:
+            loader_iter = iter(dataloader)
+            batch_inp, batch_tgt = next(loader_iter)
+
+        batch_inp = batch_inp.to(device)
+        batch_tgt = batch_tgt.to(device)
+
+        # Update dynamic learning rate
+        curr_lr = get_lr(step, args.warmup_steps, args.steps, args.lr)
+        for pg in optimizer.param_groups:
+            pg["lr"] = curr_lr
+
+        optimizer.zero_grad(set_to_none=True)
+
+        # Forward pass through BitNet 1.58b STE MoE
+        out = model(batch_inp, use_cache=False, deliberation=False)
+        logits = out[0] if isinstance(out, tuple) else out
+
+        # Causal Cross-Entropy Loss: logits at position t predicts batch_tgt at position t
+        shift_logits = logits.contiguous().view(-1, cfg.vocab_size)
+        shift_targets = batch_tgt.contiguous().view(-1)
+        ce_loss = F.cross_entropy(shift_logits, shift_targets, ignore_index=-100)
+
+        # Dynamic Entropy Regularization: penalizes attractor collapse and uniform repetition
+        probs = F.softmax(logits, dim=-1)
+        entropy = -(probs * torch.log(probs + 1e-8)).sum(dim=-1).mean()
+        loss = ce_loss - (getattr(cfg, "entropy_bonus_weight", 0.01) * entropy)
+
+        # Backpropagation via Straight-Through Estimators
+        loss.backward()
+
+        # Gradient clipping prevents ternary quantization instability
+        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
+
+        optimizer.step()
+
+        running_loss += loss.item()
+
+        # Telemetry Logging
+        is_log_step = (step % args.log_interval == 0) or (step == 1) or (step == args.steps)
+        if is_log_step:
+            step_count = (step % args.log_interval) if (step % args.log_interval != 0 and step > 1) else (args.log_interval if step > 1 else 1)
+            avg_loss = running_loss / max(1, step_count)
+            running_loss = 0.0
+            elapsed = time.time() - start_time
+            tok_per_sec = (step * args.batch_size * args.seq_len) / max(1.0, elapsed)
+            LOGGER.info(
+                "Step %4d/%d | Loss: %.4f | PPL: %.2f | LR: %.2e | Speed: %.1f tok/s",
+                step, args.steps, avg_loss, math.exp(min(20.0, avg_loss)), curr_lr, tok_per_sec
+            )
+
+            if avg_loss < best_loss and step > args.warmup_steps:
+                best_loss = avg_loss
+                save_atomic_checkpoint(out_ckpt, model, cfg, step, avg_loss)
+
+        # Periodic Periodic Save
+        if step % args.save_interval == 0:
+            step_ckpt = ckpt_dir / f"quillan_{args.model}_cpt_step_{step}.pt"
+            save_atomic_checkpoint(step_ckpt, model, cfg, step, loss.item())
+            save_atomic_checkpoint(out_ckpt, model, cfg, step, loss.item())
+
+    # Final Save
+    save_atomic_checkpoint(out_ckpt, model, cfg, args.steps, loss.item())
+    LOGGER.info("[DONE] Continued Pre-Training completed successfully in %.1f minutes.", (time.time() - start_time) / 60)
+
+
+# ── CLI Interface ─────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Quillan-Ronin Continued Pre-Training (CPT) Engine")
+    parser.add_argument("--model", type=str, default="mini", choices=["mini", "main"], help="Model size to train")
+    parser.add_argument("--steps", type=int, default=500, help="Total training steps")
+    parser.add_argument("--batch-size", type=int, default=2, help="Batch size per step")
+    parser.add_argument("--seq-len", type=int, default=256, help="Sequence length")
+    parser.add_argument("--lr", type=float, default=8e-5, help="Peak learning rate")
+    parser.add_argument("--warmup-steps", type=int, default=50, help="Warm-up steps")
+    parser.add_argument("--replay-ratio", type=float, default=0.15, help="Fraction of batches drawn from gold replay")
+    parser.add_argument("--raw-corpus", type=str, default=None, help="Path to secondary continuous text .pt file")
+    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu", help="Compute device (cpu, cuda)")
+    parser.add_argument("--freeze-base", action="store_true", default=None, help="Freeze base backbone to train on GPU VRAM budget")
+    parser.add_argument("--log-interval", type=int, default=10, help="Steps between log outputs")
+    parser.add_argument("--save-interval", type=int, default=50, help="Steps between periodic checkpoint saves")
+
+    cli_args = parser.parse_args()
+    run_training(cli_args)

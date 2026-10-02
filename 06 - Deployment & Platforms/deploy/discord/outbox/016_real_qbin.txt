@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] first REAL qbin: quillan_6l_v62.qbin 850MB (was 1943MB fp32), 1438 tensors, 1143 ternary + 295 fp32, mapped 6L vocab62 source. BitNet absmean quant verified on write. Next: C++ tensor-section reader + wire-up + rebuild, then it speaks at engine speed. Main 1.22B built earlier (4.9GB, 2052 widen ops) queues behind the same exporter.

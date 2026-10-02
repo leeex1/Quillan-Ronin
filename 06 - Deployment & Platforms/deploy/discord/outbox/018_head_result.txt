@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] head tune finished 150/150 in 8.7min on clean slice. Loss 8.76 -> 6.96 @step110 -> 8.27 final. Clean data MOVES it (first real descent tonight) BUT calibrator saves FINAL not BEST, so the 6.96 weights are lost and 8.27 got saved. Same final-not-best bug as before. Fix: rerun with best-tracking + decay, ~9min. Then full-model phase.

@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] FULL RUN LIVE: all 455M params, clean 20k slice, fixed vocab62, LR 1e-5 cosine to 5e-7, eff-16, best-only saves to quillan_full_v62_best.pt, 300 steps ~14h. Gateway + ollama stopped for max headroom, relay stays for progress. Val checkpoints every 10 steps. This is the run that teaches semantics.

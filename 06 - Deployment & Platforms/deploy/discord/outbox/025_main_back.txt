@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] MAIN RESTORED: era-pinned code binds the 5.22GB checkpoint STRICT, 3652/3652, zero gaps. Frozen 6-batch loss probe running solo now. Mini frozen re-run queued behind it. HF backup push after numbers land.

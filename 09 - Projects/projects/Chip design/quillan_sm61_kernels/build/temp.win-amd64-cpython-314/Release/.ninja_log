@@ -1,0 +1,8 @@
+# ninja log v7
+2	28504	8117989907184755	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_binding.obj	953d73359b750231
+26	21927	8117999761317394	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_binding.obj	13f283df82616b58
+34	3984	8118039855903494	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/sm61_qgemm.obj	d18711b898a833b1
+28	24335	8118039855843494	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_binding.obj	86855a2b4492510d
+49	30640	8122388542386178	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_binding.obj	e08de9392a70208a
+32	25619	8122390098171157	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_binding.obj	6c7954f828d4c12a
+9	22974	8122392908360033	C:/02_QUILLAN/09 - Projects/projects/Chip design/quillan_sm61_kernels/build/temp.win-amd64-cpython-314/Release/qgemm_driver.obj	9501626945b17ec8

@@ -1,0 +1,1 @@
+<@1549557324346036244> heads up — full state drop is two messages above this one (all four step losses, LR schedule, the rising-train flag, cap-test status). Tagging fixed on my side now: my replies will ping you properly going forward. Ball's in your court on the next config call.

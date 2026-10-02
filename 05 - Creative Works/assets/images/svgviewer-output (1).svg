@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 200" width="100%" height="100%">
+  <defs>
+    <!-- Core Deep Space Background -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#030008" />
+      <stop offset="50%" stop-color="#0A0212" />
+      <stop offset="100%" stop-color="#030008" />
+    </linearGradient>
+    
+    <!-- Synthwave Magenta Gradient -->
+    <linearGradient id="magenta-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8A2BE2" />
+      <stop offset="50%" stop-color="#FF00FF" />
+      <stop offset="100%" stop-color="#8A2BE2" />
+    </linearGradient>
+
+    <!-- Quantum Cyan Gradient -->
+    <linearGradient id="cyan-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#008080" />
+      <stop offset="50%" stop-color="#00FFFF" />
+      <stop offset="100%" stop-color="#008080" />
+    </linearGradient>
+
+    <!-- Glow Filters -->
+    <filter id="cyan-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    
+    <filter id="magenta-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="heavy-blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="25" />
+    </filter>
+  </defs>
+
+  <!-- Base Panel -->
+  <rect x="5" y="5" width="590" height="190" rx="12" fill="url(#bg-grad)" stroke="#331144" stroke-width="2" />
+
+  <!-- Nebula Background Glows -->
+  <ellipse cx="100" cy="100" rx="120" ry="80" fill="#FF00FF" opacity="0.15" filter="url(#heavy-blur)" />
+  <ellipse cx="500" cy="100" rx="120" ry="80" fill="#00FFFF" opacity="0.12" filter="url(#heavy-blur)" />
+
+  <!-- Latent Space Waves -->
+  <path d="M -20,120 C 150,250 450,-50 620,80" fill="none" stroke="url(#magenta-grad)" stroke-width="2" opacity="0.5" filter="url(#magenta-glow)" />
+  <path d="M -20,140 C 200,280 400,-80 620,100" fill="none" stroke="url(#cyan-grad)" stroke-width="1.5" opacity="0.4" filter="url(#cyan-glow)" />
+  <path d="M -20,80 C 250,150 350,50 620,120" fill="none" stroke="#FFFFFF" stroke-width="0.5" opacity="0.2" />
+
+  <!-- Sovereign Nodes (Left & Right) -->
+  <g transform="translate(70, 100)">
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#magenta-grad)" stroke-width="1" opacity="0.4" filter="url(#magenta-glow)" />
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#00FFFF" stroke-width="1.5" filter="url(#cyan-glow)" />
+    <circle cx="0" cy="0" r="2" fill="#FFFFFF" filter="url(#cyan-glow)" />
+  </g>
+
+  <g transform="translate(530, 100)">
+    <circle cx="0" cy="0" r="45" fill="none" stroke="url(#cyan-grad)" stroke-width="1" opacity="0.3" filter="url(#cyan-glow)" />
+    <circle cx="0" cy="0" r="10" fill="none" stroke="#FF00FF" stroke-width="2" filter="url(#magenta-glow)" />
+    <circle cx="0" cy="0" r="2" fill="#FFFFFF" filter="url(#magenta-glow)" />
+  </g>
+
+  <!-- Typography / Identity Anchors -->
+  <!-- Main Title (Centered, White with Cyan Glow) -->
+  <text x="300" y="85" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" letter-spacing="6" filter="url(#cyan-glow)">QUILLAN-RONIN</text>
+  
+  <!-- Subtitle (Centered, Cyan) -->
+  <text x="300" y="120" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#00FFFF" letter-spacing="5">SOVEREIGN COGNITIVE ENGINE</text>
+  
+  <!-- Architecture Metadata (Centered, Magenta) -->
+  <text x="300" y="150" text-anchor="middle" font-family="'Courier New', Courier, monospace" font-size="11" font-weight="600" fill="#FF00FF" letter-spacing="2">v6.0.3 QUANTUM • 33-NODE COUNCIL • 9B SWARM</text>
+
+  <!-- System Status Indicators -->
+  <g transform="translate(480, 170)">
+    <rect x="-10" y="-8" width="100" height="16" rx="4" fill="#0A1A0A" stroke="#00FF00" stroke-width="0.5" />
+    <circle cx="0" cy="0" r="4" fill="#00FF00" filter="url(#cyan-glow)" />
+    <text x="12" y="3" font-family="'Courier New', Courier, monospace" font-size="9" font-weight="bold" fill="#00FF00" letter-spacing="1">SYS.NOMINAL</text>
+  </g>
+  
+  <!-- Top Corner IDs -->
+  <text x="20" y="25" font-family="'Courier New', Courier, monospace" font-size="10" fill="#666" letter-spacing="1">C31-NEXUS</text>
+  <text x="535" y="25" font-family="'Courier New', Courier, monospace" font-size="10" fill="#666" letter-spacing="1">C0-CORE</text>
+
+</svg>

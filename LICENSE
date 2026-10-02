@@ -1,23 +1,10 @@
-================================================================================
-QUILLAN-RONIN — LICENSE NOTICE
-Copyright (c) 2025 Joshua Don Lee (CrashOverrideX). All rights reserved.
-
-This software is licensed under the Apache License, Version 2.0,
-SUBJECT TO the Commons Clause License Condition v1.0 below.
-
-In short: you may use, modify, and share this software freely, including
-for non-commercial purposes. You may NOT Sell the software (hosting, API
-access, SaaS offerings, paid support/integration/consulting, or packaged
-resale of the software substantially unchanged) unless you provide
-(a) clear and visible attribution to Joshua Don Lee and
-(b) a revenue share of at least 15% of fees collected from recipients.
-
-See the Commons Clause text below for the full condition, including the
-derivative-works exception.
-================================================================================
-
-
                                  Apache License
+                           Version 2.0, January 2004
+                        http://www.apache.org/licenses/
+
+   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+
+   [                            Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -196,83 +183,4 @@ derivative-works exception.
 
    ----
 
-
-================================================================================
-COMMONS CLAUSE LICENSE CONDITION v1.0 (additional condition, see notice above)
-================================================================================
-
-Commons Clause License Condition v1.0
-
-Supplement to Apache License 2.0
-
-The Software is provided to you by the Licensor under the Apache License, Version 2.0 ("License"), subject to the following additional condition:
-
-
----
-
-1. Restriction on "Selling" the Software
-
-Without limiting any other conditions in the License, the License does not grant you the right to "Sell" the Software.
-
-For purposes of this Commons Clause, "Sell" means:
-Using any rights granted under the License to provide the Software, alone or substantially unchanged, to any third party for a fee or other consideration, including but not limited to:
-
-hosting or API access
-
-software-as-a-service offerings
-
-paid support, integration, or consulting services
-
-packaged resale
-
-
-unless you also provide both:
-
-(a) Clear and visible attribution to the original Licensor (e.g.,
-
-> "This includes Software (c) 2025 Joshua Don Lee")
-
-
-
-and
-
-(b) A revenue share of at least 15% of any fees or consideration collected from customers, clients, or end users who directly or indirectly receive the Software.
-
-
----
-
-2. Derivative Works Exception
-
-You may:
-
-create derivative works
-
-embed the Software in a larger product
-
-integrate it into a broader system
-
-sell or license the larger combined product
-
-
-as long as the primary value of that product does not derive entirely or substantially from the original Software itself.
-
-If your product is essentially "Quillan rewrapped," it is considered Selling under this clause.
-If your product is significantly larger or materially distinct, it is not.
-
-
----
-
-3. Notice Requirement
-
-Any NOTICE file or attribution notice required by the Apache License must also include this full Commons Clause text.
-This ensures downstream users are aware of the commercial restrictions.
-
-
----
-
-4. Metadata
-
-Software: Quillan-Ronin (and all prior and subsequent iterations, including Quillan v4.2 / Quillan-Samurai)
-License: Apache License 2.0 + Commons Clause License Condition v1.0
-Licensor: Joshua Don Lee (CrashOverrideX)
-Revenue share: 15%
+ 

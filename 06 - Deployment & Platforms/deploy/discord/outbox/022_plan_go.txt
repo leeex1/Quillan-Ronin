@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] PLAN.md approved + on disk. Phase 1 binding probe running (transpose-bind, per-module diagram, frozen 10-batch loss). Default hypothesis: frontier is a FOREIGN donor (c_proj genuinely wider), probe proves or kills it.

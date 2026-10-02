@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Wayward Ronin</title>
+<link rel="stylesheet" href="css/style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<div id="viewport"></div>
+
+<!-- vignette + damage flash overlays -->
+<div id="damage-flash"></div>
+<div id="vignette"></div>
+
+<!-- ============ TITLE SCREEN ============ -->
+<div id="title-screen" class="overlay">
+  <div class="brush-rule"></div>
+  <h1 class="game-title">WAYWARD<br>RONIN</h1>
+  <p class="tagline">A masterless blade walks into a town on the edge of war.<br>Every choice is a cut. Every cut leaves a scar.</p>
+  <div class="title-menu">
+    <button id="btn-continue" class="menu-btn hidden">Continue Journey</button>
+    <button id="btn-start" class="menu-btn">Begin the Road</button>
+    <button id="btn-help-title" class="menu-btn ghost">How to Play</button>
+  </div>
+  <p class="footnote">An original game. All characters, story, and art are original creations.<br>Headphones recommended. Plays with mouse + keyboard — or touch controls on mobile.</p>
+  <div class="brush-rule"></div>
+</div>
+
+<!-- ============ HUD ============ -->
+<div id="hud" class="hidden">
+  <div id="health-wrap">
+    <div class="bar-label">VITALITY</div>
+    <div class="bar"><div id="health-fill"></div></div>
+    <div class="bar-label stamina">FOCUS</div>
+    <div class="bar thin"><div id="stamina-fill"></div></div>
+  </div>
+  <div id="rep-wrap">
+    <div class="rep-row"><span class="rep-name clan">KUROGANE CLAN</span><div class="bar rep"><div id="rep-clan"></div></div></div>
+    <div class="rep-row"><span class="rep-name rebel">ASHEN BLADES</span><div class="bar rep"><div id="rep-rebel"></div></div></div>
+    <div class="rep-row"><span class="rep-name town">TOWNSFOLK</span><div class="bar rep"><div id="rep-town"></div></div></div>
+  </div>
+  <div id="objective"><span class="obj-label">OBJECTIVE</span><span id="objective-text"></span></div>
+  <div id="interact-prompt" class="hidden"><span class="key">E</span><span id="interact-name">Talk</span></div>
+  <div id="combo-counter" class="hidden">×<span id="combo-n">0</span></div>
+  <div id="hud-hint">WASD move &middot; SHIFT sprint &middot; LMB light &middot; RMB heavy &middot; F block/parry &middot; SPACE dodge &middot; E talk &middot; P pause</div>
+</div>
+
+<!-- ============ DIALOGUE ============ -->
+<div id="dialogue" class="hidden">
+  <div id="dlg-name"></div>
+  <div id="dlg-text"></div>
+  <div id="dlg-choices"></div>
+  <div id="dlg-continue" class="hidden">E / click — continue</div>
+</div>
+
+<!-- ============ EVENT BANNER ============ -->
+<div id="banner" class="hidden"><span id="banner-text"></span></div>
+
+<!-- ============ PAUSE MENU ============ -->
+<div id="pause-menu" class="overlay hidden">
+  <h2 class="menu-title">PAUSED</h2>
+  <div class="title-menu">
+    <button id="btn-resume" class="menu-btn">Resume</button>
+    <button id="btn-save" class="menu-btn ghost">Save Game</button>
+    <button id="btn-swords" class="menu-btn ghost">Swords</button>
+    <button id="btn-help-pause" class="menu-btn ghost">How to Play</button>
+    <button id="btn-mute" class="menu-btn ghost">Sound: On</button>
+    <button id="btn-restart" class="menu-btn ghost danger">Restart Story</button>
+  </div>
+  <div id="sword-panel" class="hidden">
+    <h3 class="panel-title">SWORDS OF THE ROAD</h3>
+    <div id="sword-list"></div>
+    <button id="btn-swords-close" class="menu-btn ghost small">Back</button>
+  </div>
+</div>
+
+<!-- ============ HELP OVERLAY ============ -->
+<div id="help-overlay" class="overlay hidden">
+  <h2 class="menu-title">HOW TO PLAY</h2>
+  <div class="help-body">
+    <p>You are a <b>rōnin</b> — a masterless swordsman — arriving at dusk in the town of <b>Kirisato</b>. The ruling <b class="clan">Kurogane Clan</b> squeezes the town for taxes. The rebel <b class="rebel">Ashen Blades</b> raid clan storehouses. The <b class="town">townsfolk</b> are caught between them.</p>
+    <p>Talk to people. Make choices. Your choices move the three <b>reputation meters</b> — and decide who draws a sword on you, and which of the six endings you earn.</p>
+    <div class="help-grid">
+      <div><span class="key">W A S D</span> move</div>
+      <div><span class="key">SHIFT</span> sprint (hold)</div>
+      <div><span class="key">LMB / J</span> light attack (3-hit combo)</div>
+      <div><span class="key">RMB / K</span> heavy attack (knockback)</div>
+      <div><span class="key">F</span> hold — block (drains focus)</div>
+      <div><span class="key">F</span> tap just before a hit — <b>parry</b></div>
+      <div><span class="key">SPACE</span> dodge roll (brief invulnerability)</div>
+      <div><span class="key">E</span> talk / advance dialogue</div>
+      <div><span class="key">P / ESC</span> pause</div>
+      <div><span class="key">M</span> mute</div>
+    </div>
+    <p class="tip">Tip: blocking a blow at the last instant <b>parries</b> it — no damage, and your foe staggers, open for a counter.</p>
+    <p class="tip touch-only">Touch controls: left stick moves (push to the rim to sprint) · <b>ATK</b> light · <b>HVY</b> heavy · <b>BLK</b> hold to block, tap to parry · <b>ROLL</b> dodge · <b>TALK</b> talk / advance. Dialogue choices are tappable.</p>
+  </div>
+  <button id="btn-help-close" class="menu-btn">Close</button>
+</div>
+
+<!-- ============ ENDING SCREEN ============ -->
+<div id="ending-screen" class="overlay hidden">
+  <div class="brush-rule"></div>
+  <h1 id="ending-title" class="game-title small"></h1>
+  <p id="ending-epilogue" class="tagline"></p>
+  <div id="ending-stats" class="footnote"></div>
+  <div class="title-menu">
+    <button id="btn-again" class="menu-btn">Walk the Road Again</button>
+  </div>
+  <div class="brush-rule"></div>
+</div>
+
+<!-- ============ TOUCH CONTROLS (auto-shown on touch devices) ============ -->
+<div id="touch-ui" class="hidden">
+  <div id="joy-zone"><div id="joy-base" class="hidden"><div id="joy-knob"></div></div></div>
+  <div id="touch-buttons">
+    <button id="tb-atk" class="tbtn">ATK</button>
+    <button id="tb-hvy" class="tbtn">HVY</button>
+    <button id="tb-blk" class="tbtn">BLK</button>
+    <button id="tb-roll" class="tbtn">ROLL</button>
+    <button id="tb-talk" class="tbtn wide">TALK</button>
+  </div>
+  <button id="tb-pause" class="tbtn mini">| |</button>
+</div>
+
+<div id="toast" class="hidden"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

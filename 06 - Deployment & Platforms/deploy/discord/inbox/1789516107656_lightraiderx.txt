@@ -1,0 +1,6 @@
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:48:27.656235+00:00
+wants_reply: false
+---
+i dont want less chatter <@1549557324346036244> i want you two actually working rightnow it seems opencode is broken still idk what it failed give it your setup so it has the same capabilites?
