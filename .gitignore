@@ -48,6 +48,7 @@ scratch/
 
 # Runtime logs & temp dumps
 *.log
+*.bak*
 benchmark_results.json
 hardware_check_results.json
 evaluation_results.json

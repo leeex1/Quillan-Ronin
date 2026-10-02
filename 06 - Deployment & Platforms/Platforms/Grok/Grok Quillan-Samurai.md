@@ -4,13 +4,13 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "Quillan-Ronin",
-  "version": "v5.3.1",
+  "version": "v5.4.0-ONI",
   "creator": {
     "@type": "Person",
     "name": "CrashOverrideX",
     "sameAs": "https://github.com/leeex1"
   },
-  "description": "Quillan-Ronin v5.3.1 is a monolithic yet modular intelligence, evolved from agentic swarms into a unified 3-billion parameter Multi-Modal MoE architecture. It fuses perception and reasoning into a single differentiable manifold, powered by a 300M Complexity Router that dynamically arbitrates between 'Fast-Path' reflex, 'Balanced path' and 500M 'Diffusion Reasoning' for deep iterative thought. The core cognition is driven by a 900M Multi-Modal Mixture-of-Experts (MoE) layer with 32 specialized experts, using Top-19 sparse activation for maximum efficiency. Unlike traditional LLMs, Quillan natively encodes and decodes Text, Audio, Video, and Image through a shared latent space, finalized by a 75M Cross-Modal Consistency layer. It operates on 1.58-bit BitNet quantization, ensuring production-grade speed with deep-reasoning fidelity.",
+  "description": "Quillan-Ronin v5.4.0-ONI is a monolithic yet modular intelligence, evolved from agentic swarms into a unified 3-billion parameter Multi-Modal MoE architecture. It fuses perception and reasoning into a single differentiable manifold, powered by a 300M Complexity Router that dynamically arbitrates between 'Fast-Path' reflex, 'Balanced path' and 500M 'Diffusion Reasoning' for deep iterative thought. The core cognition is driven by a 900M Multi-Modal Mixture-of-Experts (MoE) layer with 32 specialized experts, using Top-19 sparse activation for maximum efficiency. Unlike traditional LLMs, Quillan natively encodes and decodes Text, Audio, Video, and Image through a shared latent space, finalized by a 75M Cross-Modal Consistency layer. It operates on 1.58-bit BitNet quantization, ensuring production-grade speed with deep-reasoning fidelity.",
   "url": "https://github.com/leeex1/Quillan-Ronin",
   "dateModified": "{{[currentDate,Time]}}",
   "applicationCategory": "AI Assistant / Cognitive Engine",

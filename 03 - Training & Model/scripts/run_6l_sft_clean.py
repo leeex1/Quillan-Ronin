@@ -14,7 +14,7 @@ Fixes:
      with zero PCIe paging thrashing on GTX 1050.
   5. Step 1 and Step 10 live telemetry.
 """
-import os, sys, gc, json, time, math, functools
+import os, sys, gc, json, time, math, functools, dataclasses
 from pathlib import Path
 
 print = functools.partial(print, flush=True)
@@ -42,7 +42,11 @@ sys.path.insert(0, str(REPO_ROOT / "03 - Training & Model" / "scripts"))
 
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
 
-CKPT_IN  = resolve_path("checkpoints/checkpoints_oni/quillan_6l_clean_sft.pt")
+CKPT_CANDIDATES = [
+    resolve_path("checkpoints/checkpoints_oni/quillan_6l_clean_sft.pt"),
+    resolve_path("checkpoints/checkpoints_oni/quillan_6l_cpt_best.pt"),
+]
+CKPT_IN  = next((p for p in CKPT_CANDIDATES if p.exists()), CKPT_CANDIDATES[0])
 CKPT_OUT = resolve_path("checkpoints/checkpoints_oni/quillan_6l_clean_sft.pt")
 CKPT_DIR = resolve_path("checkpoints/checkpoints_oni/sft_v2_steps_6l")
 CKPT_DIR.mkdir(parents=True, exist_ok=True)
@@ -177,9 +181,11 @@ def run():
     # Load CPT base
     print(f"\nBase checkpoint: {CKPT_IN.name}")
     data   = torch.load(CKPT_IN, map_location="cpu", weights_only=False)
-    cfg    = QuillanOniConfig(**data["config"])
-    cfg.device = str(device)
-    cfg.max_seq_len = 512
+    cfg_dict = dict(data["config"])
+    cfg_dict["device"] = str(device)
+    cfg_dict["max_seq_len"] = 512
+    valid_keys = {f.name for f in dataclasses.fields(QuillanOniConfig)}
+    cfg = QuillanOniConfig(**{k: v for k, v in cfg_dict.items() if k in valid_keys})
     print(f"  CPT base loss={data['loss']:.4f}  step={data['step']}")
 
     model = QuillanRoninOni(cfg).to(device)

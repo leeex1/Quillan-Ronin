@@ -410,6 +410,7 @@ class QuillanOniConfig:
     entropy_bonus_weight: float = 0.01
     dropout: float = 0.0
     grad_checkpoint: bool = False
+    use_memory_attention: bool = True   # ArXiv:2609.28399 Memory Attention (zero W_V projection, token memory)
     device: str = "cpu"
 
     def __post_init__(self):
@@ -1222,7 +1223,16 @@ class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuillanOniConfig):
         super().__init__()
         self.n_head, self.n_embd, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
-        self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
+        self.use_ma = getattr(cfg, "use_memory_attention", False)
+        if self.use_ma:
+            # ArXiv:2609.28399 Memory Attention: Q and K only, W_V eliminated
+            self.c_attn = nn.Linear(cfg.hidden_dim, 2 * cfg.hidden_dim)
+            self.token_memory = nn.Embedding(cfg.vocab_size, cfg.hidden_dim)
+            self.mem_norm = nn.RMSNorm(self.head_dim, eps=1e-5)
+            self.register_buffer("_folded_memory", None, persistent=False)
+            self.is_folded = False
+        else:
+            self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
         self.prism = NineVectorPrismDecomposition(cfg.hidden_dim)
         self.attn_dim = self.n_head * self.head_dim
@@ -1232,11 +1242,40 @@ class CausalSelfAttention(nn.Module):
         # Absolute keep-window: identical across full/cached passes (cache-exact)
         self.keep_abs = max(1, int(cfg.max_seq_len * (1.0 - self.sparse_ratio)))
 
-    def forward(self, x, layer_past=None, use_cache=False):
+    def fold_weights_for_inference(self) -> None:
+        """Pre-folds per-head RMSNorm into embedding table for O(1) inference."""
+        if not self.use_ma:
+            return
+        with torch.no_grad():
+            w = self.token_memory.weight.view(-1, self.n_head, self.head_dim)
+            normed_w = self.mem_norm(w).view(-1, self.n_embd)
+            self._folded_memory = normed_w.contiguous()
+            self.is_folded = True
+
+    def unfold_weights(self) -> None:
+        """Restores un-folded training state."""
+        if not self.use_ma:
+            return
+        self._folded_memory = None
+        self.is_folded = False
+
+    def forward(self, x, token_ids=None, layer_past=None, use_cache=False):
         B, T, C = x.size()
         past_len = 0 if layer_past is None else layer_past[0].size(-2)
-        qkv = self.c_attn(x)
-        q, k, v = qkv.chunk(3, dim=-1)
+        if self.use_ma:
+            qk = self.c_attn(x)
+            q, k = qk.chunk(2, dim=-1)
+            if token_ids is None:
+                mem = torch.zeros_like(k)
+            elif self.is_folded and self._folded_memory is not None:
+                mem = F.embedding(token_ids, self._folded_memory)
+            else:
+                raw_mem = self.token_memory(token_ids)
+                mem = self.mem_norm(raw_mem.view(B, T, self.n_head, self.head_dim)).view(B, T, C)
+            v = k + mem
+        else:
+            qkv = self.c_attn(x)
+            q, k, v = qkv.chunk(3, dim=-1)
         q = q.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         k = k.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         v = v.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
@@ -1401,8 +1440,8 @@ class UnrolledTransformerBlock(nn.Module):
         self.ln_2 = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
         self.moe = UnrolledCouncilMoEBlock(cfg)
 
-    def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0):
-        a, present = self.attn(self.ln_1(x), layer_past=layer_past, use_cache=use_cache)
+    def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0, token_ids=None):
+        a, present = self.attn(self.ln_1(x), token_ids=token_ids, layer_past=layer_past, use_cache=use_cache)
         x = x + a
         m, probs, lb, z, ent = self.moe(self.ln_2(x), gov_scale)
         x = x + m
@@ -11839,15 +11878,31 @@ class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuintessenceOniConfig):
         super().__init__()
         self.n_head, self.hidden_dim, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
-        self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
+        self.use_ma = getattr(cfg, "use_memory_attention", False)
+        if self.use_ma:
+            self.c_attn = nn.Linear(cfg.hidden_dim, 2 * cfg.hidden_dim)
+            self.token_memory = nn.Embedding(cfg.vocab_size, cfg.hidden_dim)
+            self.mem_norm = nn.RMSNorm(self.head_dim, eps=1e-5)
+        else:
+            self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
         self.prism = NineVectorPrism(cfg.hidden_dim)
         self.rope = RotaryEmbedding(cfg.head_dim, cfg.max_seq_len * 4)
 
-    def forward(self, x: torch.Tensor, offset: int = 0) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, offset: int = 0, token_ids: Optional[torch.Tensor] = None) -> torch.Tensor:
         B, T, C = x.size()
-        qkv = self.c_attn(x)
-        q, k, v = qkv.chunk(3, dim=-1)
+        if self.use_ma:
+            qk = self.c_attn(x)
+            q, k = qk.chunk(2, dim=-1)
+            if token_ids is None:
+                mem = torch.zeros_like(k)
+            else:
+                raw_mem = self.token_memory(token_ids)
+                mem = self.mem_norm(raw_mem.view(B, T, self.n_head, self.head_dim)).view(B, T, C)
+            v = k + mem
+        else:
+            qkv = self.c_attn(x)
+            q, k, v = qkv.chunk(3, dim=-1)
         q = q.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         k = k.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         v = v.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
