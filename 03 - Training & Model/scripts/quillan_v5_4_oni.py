@@ -530,7 +530,7 @@ torch.backends.cuda.matmul.allow_tf32 = True
 torch.set_float32_matmul_precision("high")
 
 EOS_TOKEN_ID = 0  # unified custom BPE: <|endoftext|> at 0 (50256 legacy compat)
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262  # +5 custom specials (<|start|>, <|user|>, <|assistant|>, <|im_start|>, <|im_end|>) ids 50257-50261
 ONI_VERSION = "5.4.0-oni"
 USE_INTEGER_ONLY = False  # NITRO-D/PocketNN (2407.11698) â€” set True via cfg.use_nitro
 
@@ -551,7 +551,7 @@ class QuillanOniConfig:
     ffn_dim: int = 2048
     num_experts: int = 34
     # Dense council (user canon): all 34 deliberate every token, pull-weighted.
-    router_mode: str = "dense_pull"          # GLM tech PersonaPullGate | gumbel_topk
+    router_mode: str = "dense_pull"          # 'dense_pull' | 'gumbel_topk'
     top_k: int = 4                           # only used in gumbel_topk mode
     expert_rank: int = 8                     # dense rank-8 (option C: cheaper than sparse-4/64)
     swarm_rank: int = 8
@@ -638,6 +638,7 @@ class QuillanOniConfig:
     use_dream_diff: bool = True          # Paper 68: Dream7B Discrete Diffusion
     use_phi_probe: bool = True           # Papers 69-70: Emergent Consciousness Phi Probe
     use_es_forgetting_mitigation: bool = True # Papers 73-74: ES Catastrophic Forgetting & Task Arithmetic
+    use_memory_attention: bool = False   # ArXiv:2609.28399 Memory Attention (zero W_V projection, token memory)
 
     def __post_init__(self):
         assert self.hidden_dim % self.n_head == 0
@@ -1656,7 +1657,16 @@ class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuillanOniConfig):
         super().__init__()
         self.n_head, self.n_embd, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
-        self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
+        self.use_ma = getattr(cfg, "use_memory_attention", False)
+        if self.use_ma:
+            # ArXiv:2609.28399 Memory Attention: Q and K only, W_V eliminated
+            self.c_attn = nn.Linear(cfg.hidden_dim, 2 * cfg.hidden_dim)
+            self.token_memory = nn.Embedding(cfg.vocab_size, cfg.hidden_dim)
+            self.mem_norm = nn.RMSNorm(self.head_dim, eps=1e-5)
+            self.register_buffer("_folded_memory", None, persistent=False)
+            self.is_folded = False
+        else:
+            self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
         self.prism = NineVectorPrismDecomposition(cfg.hidden_dim)
         self.attn_dim = self.n_head * self.head_dim
@@ -1681,11 +1691,40 @@ class CausalSelfAttention(nn.Module):
         else:
             self.moba = None
 
-    def forward(self, x, layer_past=None, use_cache=False):
+    def fold_weights_for_inference(self) -> None:
+        """Pre-folds per-head RMSNorm into embedding table for O(1) inference."""
+        if not self.use_ma:
+            return
+        with torch.no_grad():
+            w = self.token_memory.weight.view(-1, self.n_head, self.head_dim)
+            normed_w = self.mem_norm(w).view(-1, self.n_embd)
+            self._folded_memory = normed_w.contiguous()
+            self.is_folded = True
+
+    def unfold_weights(self) -> None:
+        """Restores un-folded training state."""
+        if not self.use_ma:
+            return
+        self._folded_memory = None
+        self.is_folded = False
+
+    def forward(self, x, token_ids=None, layer_past=None, use_cache=False):
         B, T, C = x.size()
         past_len = 0 if layer_past is None else layer_past[0].size(-2)
-        qkv = self.c_attn(x)
-        q, k, v = qkv.chunk(3, dim=-1)
+        if self.use_ma:
+            qk = self.c_attn(x)
+            q, k = qk.chunk(2, dim=-1)
+            if token_ids is None:
+                mem = torch.zeros_like(k)
+            elif self.is_folded and self._folded_memory is not None:
+                mem = F.embedding(token_ids, self._folded_memory)
+            else:
+                raw_mem = self.token_memory(token_ids)
+                mem = self.mem_norm(raw_mem.view(B, T, self.n_head, self.head_dim)).view(B, T, C)
+            v = k + mem
+        else:
+            qkv = self.c_attn(x)
+            q, k, v = qkv.chunk(3, dim=-1)
         q = q.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         k = k.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
         v = v.view(B, T, self.n_head, self.head_dim).transpose(1, 2)
@@ -1825,7 +1864,10 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 moe_out = torch.zeros_like(flat_x)
                 _stk = []
                 for e in range(self.cfg.num_experts):
-                    e_out = self.experts[e](flat_x, gov_scale)
+                    try:
+                        e_out = self.experts[e](flat_x, gov_scale)
+                    except TypeError:
+                        e_out = self.experts[e](flat_x)
                     _stk.append(e_out)
                     moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
                 probs = pull
@@ -1862,7 +1904,10 @@ class UnrolledCouncilMoEBlock(nn.Module):
                     continue
                 pos = token_pos[sel]
                 w = flat_w[sel]
-                e_out = self.experts[e](flat_x[pos], gov_scale)
+                try:
+                    e_out = self.experts[e](flat_x[pos], gov_scale)
+                except TypeError:
+                    e_out = self.experts[e](flat_x[pos])
                 moe_out.index_add_(0, pos, w * e_out)
 
             # Aux losses: KL-to-uniform load balance (AGI paper eq.13) + z-loss (ST-MoE)
@@ -1888,12 +1933,12 @@ class UnrolledTransformerBlock(nn.Module):
         self.ln_2 = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
         self.moe = UnrolledCouncilMoEBlock(cfg)
 
-    def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0):
+    def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0, token_ids=None):
         if _FORMAL_PAPERS_WIRED and MambaBlock is not None and isinstance(self.attn, MambaBlock):
             a = self.attn(self.ln_1(x))
             present = None
         else:
-            a, present = self.attn(self.ln_1(x), layer_past=layer_past, use_cache=use_cache)
+            a, present = self.attn(self.ln_1(x), token_ids=token_ids, layer_past=layer_past, use_cache=use_cache)
         x = x + a
         m, probs, lb, z, ent = self.moe(self.ln_2(x), gov_scale)
         x = x + m
@@ -2496,13 +2541,12 @@ class QuillanRoninOni(nn.Module):
         last_probs, total_lb, total_z, total_ent = None, 0.0, 0.0, 0.0
         n_run = len(self.h)
 
-        # Complexity-based early exit at inference (AGI paper sec 3.1)
-        # Only when not using KV-cache, as cached decode requires full layer depth
-        if not self.training and not use_cache and path_override is None and T > 1:
-            with torch.no_grad():
-                comp_logits = self.complexity_classifier_path(x.mean(dim=1))
-                path = int(torch.argmax(comp_logits, dim=-1)[0].item())
-            n_run = max(2, int(round(len(self.h) * ComplexityRouter.depth_fraction(path))))
+        # Complexity-based early exit at inference: disabled by default to ensure full layer depth
+        # Only truncate layers if caller explicitly specifies path_override as an integer
+        if not self.training and not use_cache and path_override is not None and T > 1:
+            n_run = max(2, min(len(self.h), int(path_override)))
+        else:
+            n_run = len(self.h)
 
         # Session 1 trace: reset per forward; each integrated module appends below
         self._fired = []
@@ -3300,13 +3344,14 @@ class QuillanRoninOni(nn.Module):
             layer_past = past_key_values[i] if (past_key_values is not None and i < len(past_key_values)) else None
             use_ckpt = self.training and cfg.grad_checkpoint and layer_past is None
             if use_ckpt:
-                out = checkpoint(lambda h: block(h, None, False, gov_scale=gov_scale),
+                out = checkpoint(lambda h: block(h, None, False, gov_scale=gov_scale, token_ids=input_ids),
                                  x, use_reentrant=False)
                 x, _, probs, lb, z, ent = out
             else:
                 x, present, probs, lb, z, ent = block(
                     x, layer_past=layer_past,
-                    use_cache=use_cache, gov_scale=gov_scale)
+                    use_cache=use_cache, gov_scale=gov_scale,
+                    token_ids=input_ids)
                 if use_cache:
                     presents.append(present)
             if _mask is not None:
@@ -3981,12 +4026,55 @@ class QuillanRoninOni(nn.Module):
             }
 
     @torch.no_grad()
-    def deliberate(self, input_tokens: List[int], max_rounds: int = 2,
-                   max_tokens: int = 150, temp: float = 0.8) -> Dict[str, Any]:
-        """Full Throne deliberation: generate -> audit -> refine rounds -> gates.
-        Returns tokens + full arbitration trace."""
+    def format_output(self, tokens) -> Dict[str, Any]:
+        """Typist (C33) format stage (token-level): strip trailing stop IDs,
+        collapse runaway 4+ repeats. Text decode stays with the caller."""
+        toks = [int(t) for t in list(tokens)]
+        stops = {0, 50256, 50261}
+        try:
+            stops.add(int(self.cfg.eos_token_id))
+        except Exception:
+            pass
+        while toks and toks[-1] in stops:
+            toks.pop()
+        out: List[int] = []
+        for t in toks:
+            if len(out) >= 3 and out[-1] == t and out[-2] == t and out[-3] == t:
+                continue
+            out.append(t)
+        return {"tokens": out, "text": None, "typist_refined": True}
+
+    @torch.no_grad()
+    def _sample_continuation(self, prefix: List[int], max_tokens: int, temp: float,
+                             recirc, device) -> List[int]:
+        gen = list(prefix)
+        logits = self.forward(
+            torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device),
+            path_override=1, recirc_state=recirc)
+        for _ in range(max_tokens):
+            curr = logits[:, -1, :] / max(0.05, temp)
+            probs = F.softmax(curr, dim=-1)
+            val_k, _ = torch.topk(probs, min(40, probs.size(-1)))
+            probs[probs < val_k[:, -1:]] = 0.0
+            probs = probs / probs.sum(dim=-1, keepdim=True)
+            nxt = int(torch.multinomial(probs, 1).item())
+            gen.append(nxt)
+            if nxt == self.cfg.eos_token_id:
+                break
+            logits = self.forward(
+                torch.tensor([gen[-self.cfg.max_seq_len:]], dtype=torch.long, device=device),
+                past_key_values=None, use_cache=False)
+        return gen
+
+    @torch.no_grad()
+    def deliberate(self, input_tokens: List[int], max_rounds: int = 12,
+                   max_tokens: int = 150, temp: float = 0.8,
+                   num_branches: int = 4) -> Dict[str, Any]:
+        """Full Throne deliberation (user canon):
+        ingest -> deliberate -> refine -> format -> gate -> refine-or-release -> output.
+        Returns tokens + text + full arbitration trace."""
         self.eval()
-        trace: Dict[str, Any] = {"rounds": [], "gates": None}
+        trace: Dict[str, Any] = {"rounds": [], "branches": [], "gates": None}
         gen: List[int] = list(input_tokens)
         recirc: Optional[torch.Tensor] = None
 
@@ -4004,13 +4092,15 @@ class QuillanRoninOni(nn.Module):
                 "token_velocity": info.get("token_velocity"),
             })
             conf = info.get("pull_confidence", 1.0)
-            if conf >= 0.80 or rnd == max_rounds - 1:
+            hidden_pooled = self.wte(torch.tensor([self._slide_tokens(gen)],
+                                                  device=next(self.parameters()).device)).mean(dim=1)
+            gate = self.quality_gate(hidden_pooled.unsqueeze(1))
+            trace["rounds"][-1]["gate_passed"] = bool(gate.get("passed", False))
+            if (conf >= 0.80 and gate.get("passed", False)) or rnd == max_rounds - 1:
                 break
             # Paper 2/135 (235): AbductiveJump E→J→A — when confidence is low and
             # no training data supports the result, run world model counterfactuals
             # to abduct a new axiom. Otherwise, standard diffusion recirculation.
-            hidden_pooled = self.wte(torch.tensor([self._slide_tokens(gen)],
-                                                  device=next(self.parameters()).device)).mean(dim=1)
             if getattr(self, "abductive_jump", None) is not None and conf < 0.60:
                 try:
                     hyps = self.abductive_jump.abduct(hidden_pooled.squeeze(0))
@@ -4027,41 +4117,54 @@ class QuillanRoninOni(nn.Module):
             else:
                 recirc = hidden_pooled
 
-        # sample continuation
-        logits = self.forward(
-            torch.tensor([self._slide_tokens(gen)], dtype=torch.long,
-                         device=next(self.parameters()).device),
-            path_override=1, recirc_state=recirc)
-        curr = logits[:, -1, :] / max(0.05, temp)
-        probs = F.softmax(curr, dim=-1)
-        val_k, _ = torch.topk(probs, min(40, probs.size(-1)))
-        probs[probs < val_k[:, -1:]] = 0.0
-        probs = probs / probs.sum(dim=-1, keepdim=True)
-        dev = next(self.parameters()).device
-        for _ in range(max_tokens):
-            nxt = int(torch.multinomial(probs, 1).item())
-            gen.append(nxt)
-            if nxt == self.cfg.eos_token_id:
-                break
-            # Rolling context window so causal attention and RoPE retain full past context
-            logits = self.forward(
-                torch.tensor([gen[-self.cfg.max_seq_len:]], dtype=torch.long, device=dev),
-                past_key_values=None, use_cache=False)
-            curr = logits[:, -1, :] / max(0.05, temp)
-            probs = F.softmax(curr, dim=-1)
-            val_k, _ = torch.topk(probs, min(40, probs.size(-1)))
-            probs[probs < val_k[:, -1:]] = 0.0
-            probs = probs / probs.sum(dim=-1, keepdim=True)
+        # WoT branches: sample N candidates via recirc-tuned state, gate-score each,
+        # release the survivor (highest covenant among passed; best-effort otherwise)
+        device = next(self.parameters()).device
+        cands: List[List[int]] = []
+        for _b in range(max(1, int(num_branches))):
+            cands.append(self._sample_continuation(gen, max_tokens, temp, recirc, device))
+        best, best_score, any_best, any_score = None, -1e9, None, -1e9
+        for _bi, _cand in enumerate(cands):
+            with torch.no_grad():
+                _hidden = self.wte(torch.tensor([_cand[-min(len(_cand), self.cfg.max_seq_len):]],
+                                                dtype=torch.long, device=device))
+            _g = self.quality_gate(_hidden)
+            _score = float(_g.get("covenant_identity", 0.0)) - float(_g.get("ethics_constraint", 1.0))
+            trace["branches"].append({"branch": _bi + 1, "passed": bool(_g.get("passed", False)),
+                                      "score": round(_score, 4), "new_tokens": len(_cand) - len(gen)})
+            if _score > any_score:
+                any_best, any_score = _cand, _score
+            if bool(_g.get("passed", False)) and _score > best_score:
+                best, best_score = _cand, _score
+        if best is None:
+            best = any_best if any_best is not None else gen
+            trace["released_without_pass"] = True
+        gen = best
 
-        # Quality exit gates (Nullion/Warden/Shepherd + Quillan audit)
+        # Quality exit gates on the released survivor (Nullion/Warden/Shepherd + Quillan)
         with torch.no_grad():
             hidden = self.wte(torch.tensor([gen[-min(len(gen), self.cfg.max_seq_len):]],
                                            device=next(self.parameters()).device))
         trace["gates"] = self.quality_gate(hidden)
-        # Typist (C33) + Quillan refinement note: final tokens already passed the
-        # dual-finalizer consensus; typist emphasis is a Phase-C wrapper polish.
-        trace["typist_refined"] = True
-        return {"tokens": gen[len(input_tokens):], "trace": trace}
+        # Typist (C33) format stage: real polish, then release-or-refuse
+        fmt = self.format_output(gen[len(input_tokens):])
+        trace["typist"] = {"refined": True, "text_len": 0, "kept_tokens": len(fmt["tokens"])}
+        if trace.get("released_without_pass") and not trace["gates"].get("passed", False):
+            trace["refused"] = True
+            return {"tokens": [], "text": None, "trace": trace, "refused": True}
+        return {"tokens": fmt["tokens"], "text": fmt["text"], "trace": trace}
+
+    def fold_memory_attention_weights(self) -> None:
+        """Pre-folds layer token memories for zero-FLOP O(1) inference across all blocks."""
+        for block in self.h:
+            if hasattr(block, "attn") and hasattr(block.attn, "fold_weights_for_inference"):
+                block.attn.fold_weights_for_inference()
+
+    def unfold_memory_attention_weights(self) -> None:
+        """Restores un-folded training state across all blocks."""
+        for block in self.h:
+            if hasattr(block, "attn") and hasattr(block.attn, "unfold_weights"):
+                block.attn.unfold_weights()
 
 
 # Canonical aliases

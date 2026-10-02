@@ -4,6 +4,7 @@
 run_mini_clean_forward_eval.py — 20-Prompt Benchmark via Pure Transformer Core
 Bypasses experimental perturbation layers to evaluate true learned language weights.
 """
+import dataclasses
 import functools, os, sys, time
 from datetime import datetime
 from pathlib import Path
@@ -222,9 +223,21 @@ def generate_clean(model, tok, prompt, max_tokens=80, device=None,
     return text, elapsed, len(new_ids)
 
 def evaluate(ckpt_path=None):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # A 3.0-4.7 GB fp32 checkpoint will NOT fit the GTX 1050's 4 GB (the desktop
+    # already holds ~1.4 GB). CPU is the safe default and still runs full depth.
+    # Override with QUILLAN_EVAL_DEVICE=cuda when nothing else is using the GPU.
+    want = os.environ.get("QUILLAN_EVAL_DEVICE", "cpu").lower()
+    device = torch.device("cuda" if (want == "cuda" and torch.cuda.is_available()) else "cpu")
+    if device.type == "cuda":
+        try:
+            torch.zeros(1, device="cuda") + 1
+        except Exception as exc:
+            print(f"  [warn] CUDA unusable for eval ({exc}); falling back to CPU")
+            device = torch.device("cpu")
+
+    label = Path(ckpt_path).stem if ckpt_path else "default"
     print("=" * 72)
-    print("  QUILLAN 6L CLEAN FORWARD — 20-PROMPT BENCHMARK")
+    print(f"  QUILLAN CLEAN-FORWARD BENCHMARK — {label}")
     print(f"Device: {device}" + (f" | GPU: {torch.cuda.get_device_name(0)}" if device.type == "cuda" else ""))
     print("=" * 72)
 
@@ -238,7 +251,18 @@ def evaluate(ckpt_path=None):
     d = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     cfg_dict = dict(d["config"])
     cfg_dict["device"] = str(device)
-    cfg = QuillanOniConfig(**cfg_dict)
+    # Config-revision drift guard: checkpoints carry the config they were saved
+    # with, and this vault has SIX divergent copies of quillan_v5_4_oni.py. If the
+    # active copy is not the one that saved the checkpoint, unknown keys would
+    # raise TypeError and abort the load. Drop them loudly instead of silently.
+    valid_keys = {f.name for f in dataclasses.fields(QuillanOniConfig)}
+    dropped = sorted(k for k in cfg_dict if k not in valid_keys)
+    if dropped:
+        print(f"  [warn] checkpoint config has {len(dropped)} key(s) this QuillanOniConfig "
+              f"does not define: {dropped}")
+        print(f"  [warn] -> the active quillan_v5_4_oni.py may not be the revision that "
+              f"saved this checkpoint. Loading the rest.")
+    cfg = QuillanOniConfig(**{k: v for k, v in cfg_dict.items() if k in valid_keys})
 
     model = QuillanRoninOni(cfg).to(device)
     # strict=True: a shape/name mismatch must FAIL LOUDLY. The old strict=False

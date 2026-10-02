@@ -24,6 +24,7 @@ import gc
 import time
 import math
 import argparse
+import dataclasses
 import logging
 from pathlib import Path
 from typing import Tuple, Dict, Any, Optional
@@ -216,9 +217,22 @@ def run_training(args: argparse.Namespace) -> None:
     LOGGER.info("Loading baseline checkpoint: %s", in_ckpt)
     ckpt_data = torch.load(in_ckpt, map_location="cpu", weights_only=False)
     state = ckpt_data["model_state_dict"]
-    cfg_dict = ckpt_data["config"]
+    cfg_dict = dict(ckpt_data["config"])
     cfg_dict["device"] = args.device
-    cfg = QuillanOniConfig(**cfg_dict)
+    # Config-revision drift guard: this vault has SIX divergent copies of
+    # quillan_v5_4_oni.py. If the active copy is not the one that saved the
+    # checkpoint, unknown config keys raise TypeError and abort the run.
+    # Drop them loudly so the drift is visible instead of fatal.
+    valid_keys = {f.name for f in dataclasses.fields(QuillanOniConfig)}
+    dropped = sorted(k for k in cfg_dict if k not in valid_keys)
+    if dropped:
+        LOGGER.warning(
+            "Checkpoint config has %d key(s) this QuillanOniConfig does not define: %s",
+            len(dropped), dropped,
+        )
+        LOGGER.warning("-> active quillan_v5_4_oni.py may differ from the revision that "
+                       "saved this checkpoint. Continuing with the remaining keys.")
+    cfg = QuillanOniConfig(**{k: v for k, v in cfg_dict.items() if k in valid_keys})
 
     # Gradient checkpointing is already implemented in the model (cfg.grad_checkpoint,
     # consumed in QuillanRoninOni.forward) but was never switched on for CPT.
