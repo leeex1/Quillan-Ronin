@@ -264,7 +264,7 @@ def run():
 
     dataloader = DataLoader(train_ds, batch_size=1, shuffle=True, drop_last=True, num_workers=0)
     val_iter   = iter(val_loader) if val_loader is not None else None
-    scaler     = torch.cuda.amp.GradScaler(enabled=half_frozen)
+    scaler     = torch.amp.GradScaler('cuda', enabled=half_frozen)
 
     # Training config
     LR           = 2.5e-5
@@ -321,7 +321,7 @@ def run():
             b_inp = b_inp.to(device)
             b_tgt = b_tgt.to(device)
 
-            with torch.cuda.amp.autocast(enabled=half_frozen):
+            with torch.amp.autocast('cuda', enabled=half_frozen):
                 out = model(b_inp, use_cache=False, deliberation=False)
             logits = (out[0] if isinstance(out, tuple) else out).float()
 
@@ -377,7 +377,7 @@ def run():
                         except StopIteration:
                             break
                         v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
-                        with torch.cuda.amp.autocast(enabled=half_frozen):
+                        with torch.amp.autocast('cuda', enabled=half_frozen):
                             v_out = model(v_inp, use_cache=False, deliberation=False)
                         v_logits = (v_out[0] if isinstance(v_out, tuple) else v_out).float()
                         v_sl = v_logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)

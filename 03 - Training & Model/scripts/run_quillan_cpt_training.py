@@ -357,7 +357,7 @@ def run_training(args: argparse.Namespace) -> None:
     # fp16 autocast + loss scaling is REQUIRED when frozen weights are stored as fp16,
     # otherwise the fp16 weight matmuls raise a dtype mismatch against fp32 activations.
     amp_enabled = bool(half_frozen)
-    scaler = torch.cuda.amp.GradScaler(enabled=amp_enabled)
+    scaler = torch.amp.GradScaler('cuda', enabled=amp_enabled)
     if amp_enabled:
         LOGGER.info("Mixed precision ENABLED (frozen weights are fp16) with GradScaler.")
 
@@ -376,7 +376,7 @@ def run_training(args: argparse.Namespace) -> None:
                 except StopIteration:
                     break
                 v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
-                with torch.cuda.amp.autocast(enabled=amp_enabled):
+                with torch.amp.autocast('cuda', enabled=amp_enabled):
                     v_out = model(v_inp, use_cache=False, deliberation=False)
                 v_logits = v_out[0] if isinstance(v_out, tuple) else v_out
                 v_loss = F.cross_entropy(
@@ -417,7 +417,7 @@ def run_training(args: argparse.Namespace) -> None:
         optimizer.zero_grad(set_to_none=True)
 
         # Forward pass through BitNet 1.58b STE MoE
-        with torch.cuda.amp.autocast(enabled=amp_enabled):
+        with torch.amp.autocast('cuda', enabled=amp_enabled):
             out = model(batch_inp, use_cache=False, deliberation=False)
         logits = (out[0] if isinstance(out, tuple) else out).float()
 

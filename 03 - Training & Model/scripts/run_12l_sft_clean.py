@@ -12,7 +12,7 @@ Trains the 12-Layer Main model (1.0B) on clean question-and-answer pairs:
   4. Micro-batch 1 with 8-step Gradient Accumulation (Effective Batch Size = 8).
   5. 512-Token Context Anchor.
 """
-import os, sys, gc, json, time, math, functools
+import os, sys, gc, json, time, math, functools, dataclasses
 from pathlib import Path
 
 print = functools.partial(print, flush=True)
@@ -149,10 +149,19 @@ def run():
         except Exception:
             print("  [DEVICE] GPU sm_61 detected without binary kernels in PyTorch wheel; utilizing optimized CPU threading.")
             device = torch.device("cpu")
-    torch.set_num_threads(os.cpu_count() or 4)
+    # Safe thread budgeting: reserve 1 core for OS/DWM to eliminate mouse/UI stutter
+    safe_threads = max(1, (os.cpu_count() or 4) - 1)
+    torch.set_num_threads(safe_threads)
+    torch.set_num_interop_threads(1)
+    try:
+        import psutil
+        psutil.Process().nice(psutil.BELOW_NORMAL_PRIORITY_CLASS)
+    except Exception:
+        pass
     print("=" * 70)
     print("  QUILLAN 12L — MONOLITHIC SFT (Attention, Prism, LoRA & Gate Unfrozen)")
     print(f"  Device: {device}" + (f" | {torch.cuda.get_device_name(0)}" if device.type=="cuda" else ""))
+    print(f"  CPU Threads: {safe_threads}/{os.cpu_count()} (1 core reserved for DWM/UI responsiveness)")
     print("=" * 70)
 
     print(f"\nBase checkpoint: {CKPT_IN.name}")
@@ -160,11 +169,28 @@ def run():
     cfg_dict = dict(data["config"])
     cfg_dict["device"] = str(device)
     cfg_dict["max_seq_len"] = 512
-    cfg    = QuillanOniConfig(**cfg_dict)
+    # Config-revision drift guard: checkpoints carry the config they were saved
+    # with, and this vault has SIX divergent copies of quillan_v5_4_oni.py. If the
+    # active copy is not the one that saved the checkpoint, unknown keys would
+    # raise TypeError and abort the load. Drop them loudly instead of silently.
+    valid_keys = {f.name for f in dataclasses.fields(QuillanOniConfig)}
+    dropped = sorted(k for k in cfg_dict if k not in valid_keys)
+    if dropped:
+        print(f"  [warn] checkpoint config has {len(dropped)} key(s) this QuillanOniConfig "
+              f"does not define: {dropped}")
+    cfg = QuillanOniConfig(**{k: v for k, v in cfg_dict.items() if k in valid_keys})
     print(f"  12L base step={data.get('step', '?')} val_loss={data.get('val_loss', 0.0):.4f}")
 
     model = QuillanRoninOni(cfg).to(device)
-    model.load_state_dict(data["model_state_dict"], strict=False)
+    missing, unexpected = model.load_state_dict(data["model_state_dict"], strict=False)
+    if missing or unexpected:
+        raise RuntimeError(
+            f"Checkpoint/model mismatch — refusing to train a partially loaded model.\n"
+            f"  missing ({len(missing)}): {list(missing)[:5]}\n"
+            f"  unexpected ({len(unexpected)}): {list(unexpected)[:5]}\n"
+            f"  checkpoint config: n_layer={cfg.n_layer} hidden={cfg.hidden_dim} "
+            f"vocab={cfg.vocab_size}"
+        )
 
     UNFREEZE_SET = os.environ.get("QUILLAN_UNFREEZE_SET", "wide")
     HALF_FROZEN  = os.environ.get("QUILLAN_HALF_FROZEN", "1") == "1"
@@ -231,7 +257,7 @@ def run():
     PROBE_EVERY  = 25
 
     optimizer = torch.optim.AdamW(trainable, lr=LR, betas=(0.9, 0.98), weight_decay=0.01)
-    scaler    = torch.cuda.amp.GradScaler(enabled=half_frozen)
+    scaler    = torch.amp.GradScaler('cuda', enabled=half_frozen)
 
     print(f"\n  Max steps    : {MAX_STEPS}")
     print(f"  LR           : {LR:.1e} (cosine w/ {WARMUP_STEPS} warmup steps)")
@@ -276,7 +302,7 @@ def run():
             b_inp = b_inp.to(device)
             b_tgt = b_tgt.to(device)
 
-            with torch.cuda.amp.autocast(enabled=half_frozen):
+            with torch.amp.autocast('cuda', enabled=half_frozen):
                 out = model(b_inp, use_cache=False, deliberation=False)
             logits = (out[0] if isinstance(out, tuple) else out).float()
 
@@ -331,7 +357,7 @@ def run():
                             val_iter = iter(val_loader)
                             v_inp, v_tgt = next(val_iter)
                         v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
-                        with torch.cuda.amp.autocast(enabled=half_frozen):
+                        with torch.amp.autocast('cuda', enabled=half_frozen):
                             v_out = model(v_inp, use_cache=False, deliberation=False)
                         v_logits = (v_out[0] if isinstance(v_out, tuple) else v_out).float()
                         v_sl = v_logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)
