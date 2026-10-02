@@ -1222,6 +1222,33 @@ class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuillanOniConfig):
         super().__init__()
         self.n_head, self.n_embd, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
+        # ====================================================================
+        # ⚠️  ARCHITECTURE MISMATCH — DO NOT SYNC THIS BLOCK INTO
+        #     scripts\quillan_v5_4_oni.py WITHOUT READING THIS FIRST.
+        #
+        # This embedded sample is the "3x fused QKV" revision. **Every shipped
+        # checkpoint in checkpoints_oni\** was trained with the OTHER revision,
+        # still present at:
+        #   08 - Templates & Config\scratch\hf_sync_staging\quillan_code\quillan_v5_4_oni.py
+        #
+        # That revision differs structurally, not cosmetically:
+        #   * QuillanOniConfig carries a `use_memory_attention` field
+        #   * c_attn is 2*hidden_dim -> [2048, 1024], NOT 3*hidden_dim -> [3072, 1024]
+        #   * there is NO W_V projection (memory attention is
+        #     "zero W_V projection, token memory"; V is built from token memory)
+        #   * UnrolledTransformerBlock.forward takes an extra `token_ids=` argument
+        #   * the forward does NOT do `q, k, v = qkv.chunk(3, dim=-1)`
+        #
+        # Consequence of getting this wrong: loading a 2x checkpoint against this
+        # 3x code raises a size mismatch, and with `strict=False` it SILENTLY
+        # leaves every attention weight at random initialisation. That is the
+        # cause of the long-standing "the model speaks word salad" symptom.
+        # With `strict=True` it crashes outright.
+        #
+        # Source of truth: C:\02_QUILLAN\03 - Training & Model\scripts\quillan_v5_4_oni.py
+        # (correct 2x revision, verified to load all seven checkpoints with zero
+        #  missing/unexpected keys, 2026-10-02)
+        # ====================================================================
         self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
         self.prism = NineVectorPrismDecomposition(cfg.hidden_dim)
@@ -11839,6 +11866,33 @@ class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuintessenceOniConfig):
         super().__init__()
         self.n_head, self.hidden_dim, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
+        # ====================================================================
+        # ⚠️  ARCHITECTURE MISMATCH — DO NOT SYNC THIS BLOCK INTO
+        #     scripts\quillan_v5_4_oni.py WITHOUT READING THIS FIRST.
+        #
+        # This embedded sample is the "3x fused QKV" revision. **Every shipped
+        # checkpoint in checkpoints_oni\** was trained with the OTHER revision,
+        # still present at:
+        #   08 - Templates & Config\scratch\hf_sync_staging\quillan_code\quillan_v5_4_oni.py
+        #
+        # That revision differs structurally, not cosmetically:
+        #   * QuillanOniConfig carries a `use_memory_attention` field
+        #   * c_attn is 2*hidden_dim -> [2048, 1024], NOT 3*hidden_dim -> [3072, 1024]
+        #   * there is NO W_V projection (memory attention is
+        #     "zero W_V projection, token memory"; V is built from token memory)
+        #   * UnrolledTransformerBlock.forward takes an extra `token_ids=` argument
+        #   * the forward does NOT do `q, k, v = qkv.chunk(3, dim=-1)`
+        #
+        # Consequence of getting this wrong: loading a 2x checkpoint against this
+        # 3x code raises a size mismatch, and with `strict=False` it SILENTLY
+        # leaves every attention weight at random initialisation. That is the
+        # cause of the long-standing "the model speaks word salad" symptom.
+        # With `strict=True` it crashes outright.
+        #
+        # Source of truth: C:\02_QUILLAN\03 - Training & Model\scripts\quillan_v5_4_oni.py
+        # (correct 2x revision, verified to load all seven checkpoints with zero
+        #  missing/unexpected keys, 2026-10-02)
+        # ====================================================================
         self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
         self.prism = NineVectorPrism(cfg.hidden_dim)

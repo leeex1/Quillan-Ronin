@@ -5,7 +5,7 @@ run_mini_clean_forward_eval.py — 20-Prompt Benchmark via Pure Transformer Core
 Bypasses experimental perturbation layers to evaluate true learned language weights.
 """
 import dataclasses
-import functools, os, sys, time
+import functools, inspect, os, sys, time
 from datetime import datetime
 from pathlib import Path
 
@@ -95,6 +95,9 @@ LONG_FORM_PROMPTS = [
      "prompt": "Provide a rigorous mathematical formulation of Memory Attention as an extension of standard scaled dot-product attention for multi-layer context recurrence. Detail key-value compression, working memory banks, and backward gradient flow.", "max_tokens": 200},
 ]
 
+_FORWARD_INFO_PRINTED = False
+
+
 def clean_forward(model, input_ids):
     """Faithful full-depth forward pass.
 
@@ -140,9 +143,26 @@ def clean_forward(model, input_ids):
     gov = getattr(model, "governor", None)
     gov_scale = float(getattr(gov, "current_scale", 1.0)) if gov is not None else 1.0
 
+    # This vault has TWO attention parameterizations:
+    #   * "scripts"/3x revision: c_attn = 3*hidden (fused QKV), forward WITHOUT token_ids
+    #   * "staging"/2x revision: c_attn = 2*hidden + use_memory_attention (zero W_V,
+    #     token memory), forward WITH token_ids=<input ids>
+    # All seven shipped checkpoints are the 2x/memory-attention revision, so
+    # token_ids MUST be passed or the token memory is empty. Detect and pass it
+    # only when the loaded block actually accepts it, so this works either way.
+    wants_token_ids = "token_ids" in inspect.signature(model.h[0].forward).parameters
+    global _FORWARD_INFO_PRINTED
+    if not _FORWARD_INFO_PRINTED:
+        _FORWARD_INFO_PRINTED = True
+        print(f"  [info] block.forward accepts token_ids: {wants_token_ids} "
+              f"(memory attention active: {getattr(model.h[0], 'use_ma', False)})")
+
     layers_run = 0
     for block in model.h:
-        out = block(x, None, False, gov_scale)   # -> (x, present, probs, lb, z, ent)
+        if wants_token_ids:
+            out = block(x, None, False, gov_scale, input_ids)
+        else:
+            out = block(x, None, False, gov_scale)
         x = out[0]
         layers_run += 1
     assert layers_run == len(model.h), (

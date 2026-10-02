@@ -1,5 +1,52 @@
 # HANDOFF — 2026-10-02 — CPT + eval repairs (DeepSeek Harness session)
 
+> ## ⚠️ CRITICAL ADDENDUM — read first (found during verification)
+>
+> ### A. Checkpoints and model code came from DIFFERENT revisions
+> All **seven** checkpoints were saved by the
+> **`08 - Templates & Config\scratch\hf_sync_staging\quillan_code\quillan_v5_4_oni.py`**
+> revision (`use_memory_attention` in config; `c_attn = 2*hidden` -> `[2048,1024]`).
+>
+> Every training/eval script imports
+> **`03 - Training & Model\scripts\quillan_v5_4_oni.py`** (`c_attn = 3*hidden`
+> -> `[3072,1024]`).
+>
+> **Consequence: no script could load any checkpoint.** With `strict=True` it
+> crashed; with the `strict=False` actually in use, **every attention weight was
+> silently left at random initialisation.** That alone produces word salad no
+> matter how good the trained weights are.
+>
+> **FIX APPLIED:** the staging revision now sits at `scripts\quillan_v5_4_oni.py`.
+> The wrong 3x file is preserved as
+> `scripts\quillan_v5_4_oni.py.bak_3x_wrongrevision_20261002`.
+> Verified: checkpoint loads with **zero** missing/unexpected keys and reports
+> `Arch: n_layer=6 hidden=1024 vocab=50257 experts=34 router=topk`.
+>
+> The revisions also differ in `Block.forward`:
+> `staging: forward(x, layer_past, use_cache, gov_scale, token_ids=None)`
+> `scripts: forward(x, layer_past, use_cache, gov_scale)`
+> The eval introspects the signature and passes `token_ids` only when accepted.
+>
+> ### B. The best CPT weights were destroyed — twice over
+> 1. `run_quillan_cpt_training.py` wrote to `out_ckpt` (the "best" file) at **every**
+>    `--save-interval` and again unconditionally at the end, so "best" always held
+>    the **latest** state. **FIXED** (final save now goes to `..._cpt_final.pt`).
+> 2. `auto_prune_cpt_ckpts.py` then retired every intermediate milestone (50–450),
+>    trusting that the "best" file was authoritative.
+>
+> The run genuinely hit **PPL 14.49 / loss 1.63 around steps 370–450**, but all of
+> those files were deleted, and the surviving `quillan_6l_cpt_best.pt` is the
+> **step-500 final state, loss 6.797 (PPL ~895)**. **The good weights are gone**, and
+> `quillan_6l_cpt_best.pt` is misnamed. Benchmark new runs against a checkpoint you
+> generate, not against this file.
+>
+> ### C. Verification status
+> With A and B fixed, the eval loads correctly, runs **6/6 blocks at full depth**,
+> and produces genuine model output rather than an embedding-table artefact. That
+> output is still **not coherent** — which is consistent with a step-500 checkpoint
+> whose recorded loss is 6.797. **The harness is now trustworthy; the surviving
+> weights are not good.**
+
 **Scope of this change set:** make Continued Pre-Training runnable again after the
 Oct-1 vault reorganisation, widen the trainable set so attention can learn syntax,
 add a real held-out validation metric, and fix the benchmark that was reporting

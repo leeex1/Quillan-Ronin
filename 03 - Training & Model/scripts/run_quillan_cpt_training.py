@@ -483,9 +483,17 @@ def run_training(args: argparse.Namespace) -> None:
             save_atomic_checkpoint(step_ckpt, model, cfg, step, loss.item())
             save_atomic_checkpoint(out_ckpt, model, cfg, step, loss.item())
 
-    # Final Save
-    save_atomic_checkpoint(out_ckpt, model, cfg, args.steps, loss.item())
-    LOGGER.info("[DONE] Continued Pre-Training completed successfully in %.1f minutes.", (time.time() - start_time) / 60)
+    # Final Save — must NOT overwrite the best checkpoint.
+    # The original wrote to out_ckpt here, which SILENTLY CLOBBERED the best
+    # weights with the last step's state. That is why quillan_6l_cpt_best.pt
+    # reports step=500 / loss=6.797 instead of the best value seen.
+    final_ckpt = ckpt_dir / f"quillan_{args.model}_cpt_final.pt"
+    save_atomic_checkpoint(final_ckpt, model, cfg, args.steps, loss.item())
+    LOGGER.info(
+        "[DONE] Continued Pre-Training completed successfully in %.1f minutes. "
+        "Best val: %.4f | best weights: %s | final: %s",
+        (time.time() - start_time) / 60, best_val, out_ckpt.name, final_ckpt.name,
+    )
 
 
 # ── CLI Interface ─────────────────────────────────────────────────────────────
