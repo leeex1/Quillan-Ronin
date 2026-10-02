@@ -40,7 +40,12 @@ sys.path.insert(0, str(REPO_ROOT / "03 - Training & Model" / "scripts"))
 
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
 
-CKPT_IN  = resolve_path("checkpoints/checkpoints_oni/quillan_12l_ma_best.pt")
+CKPT_CANDIDATES = [
+    resolve_path("checkpoints/checkpoints_oni/quillan_12l_clean_sft.pt"),
+    resolve_path("checkpoints/checkpoints_oni/sft_steps_12l/step_0060_loss1.531.pt"),
+    resolve_path("checkpoints/checkpoints_oni/quillan_12l_ma_best.pt"),
+]
+CKPT_IN  = next((p for p in CKPT_CANDIDATES if p.exists()), CKPT_CANDIDATES[0])
 CKPT_OUT = resolve_path("checkpoints/checkpoints_oni/quillan_12l_clean_sft.pt")
 CKPT_DIR = resolve_path("checkpoints/checkpoints_oni/sft_steps_12l")
 CKPT_DIR.mkdir(parents=True, exist_ok=True)
@@ -161,27 +166,61 @@ def run():
     model = QuillanRoninOni(cfg).to(device)
     model.load_state_dict(data["model_state_dict"], strict=False)
 
-    trainable, frozen = [], []
-    # Comprehensive unfreeze: Self-Attention (QKV/out), Semantic Prism, 34 Expert LoRAs, Gates, Norms, Bridges, Embeddings
-    ALIGNMENT_KEYS = ("wte", "ln", "norm", "gate", "lora", "finalizer", "c_attn", "c_proj", "prism", "bridge")
-    for name, p in model.named_parameters():
-        if any(k in name for k in ALIGNMENT_KEYS):
-            p.requires_grad = True
-            trainable.append(p)
-        else:
-            p.requires_grad = False
+    UNFREEZE_SET = os.environ.get("QUILLAN_UNFREEZE_SET", "wide")
+    HALF_FROZEN  = os.environ.get("QUILLAN_HALF_FROZEN", "1") == "1"
+    GRAD_CKPT    = os.environ.get("QUILLAN_GRAD_CHECKPOINT", "1") == "1"
 
+    WIDE_KEYS = ("expert", "router", "ln", "norm", "gate", "w_gate",
+                 "attn", "c_attn", "c_proj", "wte", "prism", "bridge",
+                 "finalizer", "lora")
+
+    trainable = []
+    for name, p in model.named_parameters():
+        if UNFREEZE_SET == "full":
+            p.requires_grad = True
+        else:
+            p.requires_grad = any(k in name for k in WIDE_KEYS)
+        if p.requires_grad:
+            trainable.append(p)
+
+    half_frozen = False
+    if HALF_FROZEN and device.type == "cuda":
+        freed = 0
+        for name, p in model.named_parameters():
+            if not p.requires_grad and p.dtype == torch.float32:
+                freed += p.numel() * 2
+                p.data = p.data.half()
+        half_frozen = True
+        print(f"  [MEM] Frozen weights cast to fp16 — reclaimed ~{freed/1e9:.2f} GB")
+
+    if GRAD_CKPT:
+        cfg.grad_checkpoint = True
+        print("  [MEM] Gradient checkpointing ENABLED")
+
+    total_params = sum(p.numel() for p in trainable)
+    frozen_params = sum(p.numel() for p in model.parameters() if not p.requires_grad)
+    est = (total_params * 16 + frozen_params * (2 if half_frozen else 4)) / 1e9
     print(f"\n  ======================================================================")
-    print(f"  [ATTENTION + PRISM + EXPERT LORA + GATE UNFREEZE ACTIVATED]")
-    print(f"  Trainable Parameters: {sum(p.numel() for p in trainable):,} | Frozen: {sum(p.numel() for p in model.parameters() if not p.requires_grad):,}")
-    print(f"  All Attention Heads, Semantic Prism, Expert Adapters, and Routing Gates Active")
+    print(f"  [STRATEGY: {UNFREEZE_SET.upper()}]  Trainable: {total_params:,} | Frozen: {frozen_params:,}")
+    print(f"  Estimated optimizer+weight footprint: ~{est:.2f} GB")
+    if device.type == "cuda" and est > 3.7:
+        print(f"  ⚠️  WARNING: ~{est:.2f} GB approaches the 4 GB card limit.")
     print(f"  ======================================================================\n")
 
     tok = Tokenizer.from_file(str(resolve_path("quillan_bpe_tokenizer_hf/tokenizer.json")))
 
     print("\nBuilding monolithic clean dataset (seq_len=512)...")
-    dataset    = MonolithicCleanSFTDataset(tok, seq_len=512)
-    dataloader = DataLoader(dataset, batch_size=1, shuffle=True, drop_last=True, num_workers=0)
+    full_dataset = MonolithicCleanSFTDataset(tok, seq_len=512)
+    val_sz       = max(1, int(len(full_dataset) * 0.05))
+    train_sz     = len(full_dataset) - val_sz
+    train_ds, val_ds = torch.utils.data.random_split(
+        full_dataset, [train_sz, val_sz],
+        generator=torch.Generator().manual_seed(42)
+    )
+    print(f"  Dataset: {len(full_dataset)} total -> {train_sz} train, {val_sz} val")
+
+    dataloader = DataLoader(train_ds, batch_size=1, shuffle=True, drop_last=True, num_workers=0)
+    val_loader = DataLoader(val_ds, batch_size=1, shuffle=False, num_workers=0)
 
     LR           = 2.5e-5
     WARMUP_STEPS = 25
@@ -192,6 +231,7 @@ def run():
     PROBE_EVERY  = 25
 
     optimizer = torch.optim.AdamW(trainable, lr=LR, betas=(0.9, 0.98), weight_decay=0.01)
+    scaler    = torch.cuda.amp.GradScaler(enabled=half_frozen)
 
     print(f"\n  Max steps    : {MAX_STEPS}")
     print(f"  LR           : {LR:.1e} (cosine w/ {WARMUP_STEPS} warmup steps)")
@@ -204,6 +244,7 @@ def run():
     running_loss = 0.0
     best_loss    = float("inf")
     loader_iter  = iter(dataloader)
+    val_iter     = iter(val_loader)
 
     model.train()
     optimizer.zero_grad(set_to_none=True)
@@ -235,8 +276,9 @@ def run():
             b_inp = b_inp.to(device)
             b_tgt = b_tgt.to(device)
 
-            out    = model(b_inp, use_cache=False, deliberation=False)
-            logits = out[0] if isinstance(out, tuple) else out
+            with torch.cuda.amp.autocast(enabled=half_frozen):
+                out = model(b_inp, use_cache=False, deliberation=False)
+            logits = (out[0] if isinstance(out, tuple) else out).float()
 
             shift_logits  = logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)
             shift_targets = b_tgt[:, 1:].contiguous().view(-1)
@@ -247,13 +289,15 @@ def run():
             else:
                 loss = shift_logits.sum() * 0.0
             scaled      = loss / ACCUM
-            scaled.backward()
+            scaler.scale(scaled).backward()
             accum_loss += loss.item() / ACCUM
 
             del out, logits, shift_logits, shift_targets, b_inp, b_tgt, loss, scaled
 
+        scaler.unscale_(optimizer)
         torch.nn.utils.clip_grad_norm_(trainable, max_norm=1.0)
-        optimizer.step()
+        scaler.step(optimizer)
+        scaler.update()
         optimizer.zero_grad(set_to_none=True)
 
         running_loss += accum_loss
@@ -274,16 +318,45 @@ def run():
                     "timestamp": time.time(),
                 }, step_ckpt)
 
-            if avg < best_loss:
-                best_loss = avg
+            # Evaluate on held-out validation set
+            model.eval()
+            val_loss = float("nan")
+            if val_iter is not None:
+                tot_v, n_v = 0.0, 0
+                with torch.no_grad():
+                    for _ in range(4):
+                        try:
+                            v_inp, v_tgt = next(val_iter)
+                        except StopIteration:
+                            val_iter = iter(val_loader)
+                            v_inp, v_tgt = next(val_iter)
+                        v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
+                        with torch.cuda.amp.autocast(enabled=half_frozen):
+                            v_out = model(v_inp, use_cache=False, deliberation=False)
+                        v_logits = (v_out[0] if isinstance(v_out, tuple) else v_out).float()
+                        v_sl = v_logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)
+                        v_st = v_tgt[:, 1:].contiguous().view(-1)
+                        v_ok = (v_st != -100)
+                        if v_ok.any():
+                            tot_v += float(F.cross_entropy(v_sl[v_ok], v_st[v_ok]).item())
+                            n_v += 1
+                val_loss = tot_v / max(1, n_v)
+            model.train()
+
+            selection = val_loss if (val_loss == val_loss) else avg
+            if selection < best_loss:
+                best_loss = selection
                 torch.save({
                     "step": step, "loss": best_loss, "ppl": ppl,
+                    "val_loss": val_loss,
                     "config": cfg.__dict__,
                     "model_state_dict": model.state_dict(),
                     "timestamp": time.time(),
                     "engine": "Quillan-12L Monolithic SFT",
                 }, CKPT_OUT)
-                print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  loss={best_loss:.4f}")
+                _src = "VAL" if (val_loss == val_loss) else "TRAIN"
+                print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  selection={_src}={best_loss:.4f}"
+                      + (f"  (train avg={avg:.4f})" if val_loss == val_loss else ""))
 
             if avg <= EARLY_STOP:
                 print(f"\n  [EARLY STOP] Balanced loss floor reached: {avg:.4f} <= target {EARLY_STOP}")
