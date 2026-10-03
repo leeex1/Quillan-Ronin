@@ -121,6 +121,27 @@ class MonolithicCleanSFTDataset(Dataset):
         return self.samples[idx]
 
 
+def atomic_save(payload: dict, dest: Path, headroom_gb: float = 0.5) -> bool:
+    """Write to a temp file then os.replace, so a crash or full disk never
+    corrupts the existing checkpoint. Skips (returns False) if free space is
+    below the previous file size + headroom."""
+    import shutil
+    need = (dest.stat().st_size if dest.exists() else 6 * 1024**3) + headroom_gb * 1024**3
+    free = shutil.disk_usage(dest.parent).free
+    if free < need:
+        print(f"  [SAVE SKIPPED] {dest.name}: {free/1e9:.1f} GB free < {need/1e9:.1f} GB needed")
+        return False
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
+    try:
+        torch.save(payload, tmp)
+        os.replace(tmp, dest)
+    except Exception:
+        if tmp.exists():
+            tmp.unlink()
+        raise
+    return True
+
+
 def probe(model, tok, prompt, device, max_new=60):
     model.eval()
     fmt  = f"User: {prompt}\n\nAssistant:"
@@ -194,11 +215,14 @@ def run():
 
     UNFREEZE_SET = os.environ.get("QUILLAN_UNFREEZE_SET", "wide")
     HALF_FROZEN  = os.environ.get("QUILLAN_HALF_FROZEN", "1") == "1"
-    GRAD_CKPT    = os.environ.get("QUILLAN_GRAD_CHECKPOINT", "1") == "1"
+    GRAD_CKPT    = (os.environ.get("QUILLAN_GRAD_CHECKPOINT", "0") == "1") and (device.type == "cuda")
 
-    WIDE_KEYS = ("expert", "router", "ln", "norm", "gate", "w_gate",
-                 "attn", "c_attn", "c_proj", "wte", "prism", "bridge",
-                 "finalizer", "lora")
+    # Scoped Alignment Set (~222M params): Unfreezes attention projections, semantic prism,
+    # layer norms, routers, gates, bridges, finalizers, and LoRA adapters. Keeps token_memory
+    # and peripheral modules frozen for fast step execution with zero VRAM paging thrash.
+    WIDE_KEYS = ("c_attn", "c_proj", "prism", "ln", "norm", "router",
+                 "pull_gate", "evo_moe", "lora", "bridge", "finalizer",
+                 "moe_gate", "ingest_gate")
 
     trainable = []
     for name, p in model.named_parameters():
@@ -216,11 +240,11 @@ def run():
             if not p.requires_grad and p.dtype == torch.float32:
                 freed += p.numel() * 2
                 p.data = p.data.half()
-        half_frozen = True
+            half_frozen = True
         print(f"  [MEM] Frozen weights cast to fp16 — reclaimed ~{freed/1e9:.2f} GB")
 
+    cfg.grad_checkpoint = GRAD_CKPT
     if GRAD_CKPT:
-        cfg.grad_checkpoint = True
         print("  [MEM] Gradient checkpointing ENABLED")
 
     total_params = sum(p.numel() for p in trainable)
@@ -249,25 +273,30 @@ def run():
     val_loader = DataLoader(val_ds, batch_size=1, shuffle=False, num_workers=0)
 
     LR           = 2.5e-5
-    WARMUP_STEPS = 25
-    MAX_STEPS    = 500
-    ACCUM        = 4        # effective batch 4
+    WARMUP_STEPS = 10
+    start_step   = int(data.get("step", 0) or 0)
+    target_steps = int(os.environ.get("QUILLAN_TARGET_STEPS", str(start_step + 30)))
+    MAX_STEPS    = target_steps
+    ACCUM        = 2        # effective batch 2
     EARLY_STOP   = 0.35     # Deep convergence floor
-    SAVE_EVERY   = 25
-    PROBE_EVERY  = 25
+    SAVE_EVERY   = int(os.environ.get("QUILLAN_SAVE_EVERY", "0"))     # 0 = no milestone saves (disk)
+    EVAL_EVERY   = int(os.environ.get("QUILLAN_EVAL_EVERY", "50"))
+    PROBE_EVERY  = int(os.environ.get("QUILLAN_PROBE_EVERY", "100"))
+    VAL_BATCHES  = int(os.environ.get("QUILLAN_VAL_BATCHES", "24"))    # fixed subset -> comparable evals
 
     optimizer = torch.optim.AdamW(trainable, lr=LR, betas=(0.9, 0.98), weight_decay=0.01)
     scaler    = torch.amp.GradScaler('cuda', enabled=half_frozen)
 
-    print(f"\n  Max steps    : {MAX_STEPS}")
+    print(f"\n  Resuming at  : Step {start_step} -> Target {MAX_STEPS} (+{MAX_STEPS-start_step} steps)")
     print(f"  LR           : {LR:.1e} (cosine w/ {WARMUP_STEPS} warmup steps)")
     print(f"  Effective BS : {1*ACCUM}")
     print(f"  Early stop   : loss <= {EARLY_STOP}")
-    print(f"  Save every   : {SAVE_EVERY} steps")
+    print(f"  Save every   : {SAVE_EVERY or 'off'} | eval every {EVAL_EVERY} on {VAL_BATCHES} fixed val samples")
     print("=" * 70 + "\n")
 
-    step         = 0
+    step         = start_step
     running_loss = 0.0
+    avg          = float("nan")
     best_loss    = float("inf")
     loader_iter  = iter(dataloader)
     val_iter     = iter(val_loader)
@@ -283,10 +312,12 @@ def run():
     while step < MAX_STEPS:
         step += 1
 
-        if step < WARMUP_STEPS:
-            curr_lr = LR * step / WARMUP_STEPS
+        local_step = step - start_step
+        span       = max(1, MAX_STEPS - start_step)
+        if local_step <= WARMUP_STEPS:
+            curr_lr = LR * local_step / WARMUP_STEPS
         else:
-            prog    = (step - WARMUP_STEPS) / max(1, MAX_STEPS - WARMUP_STEPS)
+            prog    = (local_step - WARMUP_STEPS) / max(1, span - WARMUP_STEPS)
             curr_lr = 2e-6 + 0.5 * (LR - 2e-6) * (1.0 + math.cos(math.pi * prog))
         for pg in optimizer.param_groups:
             pg["lr"] = curr_lr
@@ -328,61 +359,54 @@ def run():
 
         running_loss += accum_loss
 
-        if step == 1 or step % 10 == 0:
-            count = 1.0 if step == 1 else 10.0
+        if step == (start_step + 1) or step % 10 == 0 or step == MAX_STEPS:
+            count = 1.0 if (step == start_step + 1) else (10.0 if step % 10 == 0 else max(1.0, float(step % 10)))
             avg = running_loss / count
             ppl = math.exp(min(avg, 20.0))
             print(f"[{step:4d}/{MAX_STEPS}] loss={avg:.4f}  PPL={ppl:6.2f}  lr={curr_lr:.2e}")
             running_loss = 0.0
 
-            if step % SAVE_EVERY == 0:
-                step_ckpt = CKPT_DIR / f"step_{step:04d}_loss{avg:.3f}.pt"
-                torch.save({
+            if SAVE_EVERY and (step % SAVE_EVERY == 0 or step == MAX_STEPS):
+                atomic_save({
                     "step": step, "loss": avg, "ppl": ppl,
                     "config": cfg.__dict__,
                     "model_state_dict": model.state_dict(),
                     "timestamp": time.time(),
-                }, step_ckpt)
+                }, CKPT_DIR / f"step_{step:04d}_loss{avg:.3f}.pt")
 
-            # Evaluate on held-out validation set
+        # Held-out eval on a FIXED val subset (comparable across evals) + best selection
+        if step % EVAL_EVERY == 0 or step == MAX_STEPS:
             model.eval()
-            val_loss = float("nan")
-            if val_iter is not None:
-                tot_v, n_v = 0.0, 0
-                with torch.no_grad():
-                    for _ in range(4):
-                        try:
-                            v_inp, v_tgt = next(val_iter)
-                        except StopIteration:
-                            val_iter = iter(val_loader)
-                            v_inp, v_tgt = next(val_iter)
-                        v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
-                        with torch.amp.autocast('cuda', enabled=half_frozen):
-                            v_out = model(v_inp, use_cache=False, deliberation=False)
-                        v_logits = (v_out[0] if isinstance(v_out, tuple) else v_out).float()
-                        v_sl = v_logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)
-                        v_st = v_tgt[:, 1:].contiguous().view(-1)
-                        v_ok = (v_st != -100)
-                        if v_ok.any():
-                            tot_v += float(F.cross_entropy(v_sl[v_ok], v_st[v_ok]).item())
-                            n_v += 1
-                val_loss = tot_v / max(1, n_v)
+            tot_v, n_v = 0.0, 0
+            with torch.no_grad():
+                for vi, (v_inp, v_tgt) in enumerate(val_loader):
+                    if vi >= VAL_BATCHES:
+                        break
+                    v_inp, v_tgt = v_inp.to(device), v_tgt.to(device)
+                    with torch.amp.autocast('cuda', enabled=half_frozen):
+                        v_out = model(v_inp, use_cache=False, deliberation=False)
+                    v_logits = (v_out[0] if isinstance(v_out, tuple) else v_out).float()
+                    v_sl = v_logits[:, :-1, :].contiguous().view(-1, cfg.vocab_size)
+                    v_st = v_tgt[:, 1:].contiguous().view(-1)
+                    v_ok = (v_st != -100)
+                    if v_ok.any():
+                        tot_v += float(F.cross_entropy(v_sl[v_ok], v_st[v_ok]).item())
+                        n_v += 1
             model.train()
+            val_loss = (tot_v / n_v) if n_v else float("nan")
+            print(f"  [EVAL @ {step}] val_loss={val_loss:.4f} over {n_v} fixed samples")
 
-            selection = val_loss if (val_loss == val_loss) else avg
-            if selection < best_loss:
-                best_loss = selection
-                torch.save({
-                    "step": step, "loss": best_loss, "ppl": ppl,
+            if val_loss == val_loss and val_loss < best_loss:   # NaN-safe
+                best_loss = val_loss
+                if atomic_save({
+                    "step": step, "loss": best_loss, "ppl": math.exp(min(best_loss, 20.0)),
                     "val_loss": val_loss,
                     "config": cfg.__dict__,
                     "model_state_dict": model.state_dict(),
                     "timestamp": time.time(),
                     "engine": "Quillan-12L Monolithic SFT",
-                }, CKPT_OUT)
-                _src = "VAL" if (val_loss == val_loss) else "TRAIN"
-                print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  selection={_src}={best_loss:.4f}"
-                      + (f"  (train avg={avg:.4f})" if val_loss == val_loss else ""))
+                }, CKPT_OUT):
+                    print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  val={best_loss:.4f}")
 
             if avg <= EARLY_STOP:
                 print(f"\n  [EARLY STOP] Balanced loss floor reached: {avg:.4f} <= target {EARLY_STOP}")

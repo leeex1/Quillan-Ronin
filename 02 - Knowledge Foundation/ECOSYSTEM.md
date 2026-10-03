@@ -24,6 +24,7 @@ A structured directory of official links, repositories, model hubs, research not
 | **Quillan-Samurai Master Prompt** | [Quillan-Samurai.md](https://github.com/leeex1/Quillan-Ronin/blob/main/06%20-%20Deployment%20&%20Platforms/system%20prompts/Quillan-Samurai.md) | Canonical sovereign system prompt & architecture specification |
 | **quillan.cpp** | [github.com/leeex1/quillan.cpp](https://github.com/leeex1/quillan.cpp) | Native C++ high-performance inference engine for BitNet 1.58b / STE kernels |
 | **Validation Test Kit** | [github.com/leeex1/Validation-test-kit-](https://github.com/leeex1/Validation-test-kit-) | Formal test harness, regression checks & equation verification suite |
+| **MCP + DevKit** | [github.com/leeex1/MCP-DevKit](https://github.com/leeex1/MCP-DevKit) | Model Context Protocol servers, developer tooling & mathematical validation suite |
 | **Chrome Extension** | [github.com/leeex1/Quillan-Ronin-chrome-extension](https://github.com/leeex1/Quillan-Ronin-chrome-extension) | Browser companion interface for Quillan-Ronin integration |
 | **Nextverse Prototype App** | [github.com/leeex1/Nextverse-protype-app-](https://github.com/leeex1/Nextverse-protype-app-/tree/main) | Nextverse core application prototype and live engine integration |
 | **Metamon Game** | [github.com/leeex1/metamon-game](https://github.com/leeex1/metamon-game) | Experimental interactive game environment and autonomous logic sandbox |
@@ -41,6 +42,7 @@ A structured directory of official links, repositories, model hubs, research not
 | **Grokipedia — Multi-Agent Systems** | [grokipedia.com/.../Multi-agent_frameworks](https://grokipedia.com/page/Multi-agent_frameworks) | Multi-agent framework analysis & council-architecture taxonomy |
 | **Google NotebookLM (Core)** | [Notebook aeebd738](https://notebook.google.com/notebook/aeebd738-c44f-483b-bcfc-c1ed51633c25) | Grounded AI research notebook for Quillan architecture & lineage |
 | **Google NotebookLM (Technical)** | [Notebook 8ac3819a](https://notebook.google.com/notebook/8ac3819a-627b-4ed1-820d-b803bbfd89f7?pli=1) | Deep research source notebook for mathematical derivations and papers |
+| **trending-local-llms** | [andyholst/trending-local-llms](https://github.com/andyholst/trending-local-llms) | Officially classified and registered standalone C++17 inference engine (PR #74) |
 
 ---
 

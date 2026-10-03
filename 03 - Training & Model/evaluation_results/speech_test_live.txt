@@ -1,0 +1,100 @@
+===========================================================================
+EVALUATING: 6L Mini Model (quillan_6l_clean_sft.pt)
+===========================================================================
+  Step: 11 | Loss: 0.5143 | Val Loss: 0.5143
+  Config: n_layer=6 hidden_dim=1024 num_experts=34
+
+--- [Q1] "What is the exact speed of light in a vacuum?" ---
+  [Greedy] (35.8s):
+    The exact speed of light in a vacuum is 299,792,458 meters per second (m/s).
+- Symbol:
+- Defined as an exact SI constant since 1983.
+- It represents the query structure for energy, and information
+
+  [Sampled temp=0.7] (43.1s):
+    The exact speed of light in a vacuum is 299,792, matter, Socrates is mortal.
+
+- Symbol: c
+- Defal 9):
+- Space Complexity:
+- It represents the best case.
+- E is released
+
+--- [Q2] "Who are you and what is your architecture?" ---
+  [Greedy] (36.5s):
+    Yes, a sorted array of the process to flush plants and oxygen.
+
+Formal Syllogistic Proof:
+1. Major Premise: All humans are mortal (∀x:
+2. Minor Premise: Therefore, Socrates
+
+  [Sampled temp=0.7] (33.9s):
+    Yes, a sorted mortal.
+
+-Ronin v2.
+
+- c:
+1. Major the speed of light in the process to call stack frames of the form of energy in the top-4 most relevant Complexity: O
+
+--- [Q3] "What is the time complexity of binary search?" ---
+  [Greedy] (44.0s):
+    For a sorted array of size N:
+- Time Complexity: O(log N) in average and worst cases, O(1) in the best case.
+- Space Complexity: O(1) iterative, O(log
+
+  [Sampled temp=0.7] (33.6s):
+    For a sorted array of size N:
+- Time Complexity: O(log N) in average and worst cases, O(1) in the best case.
+- Space Complexity: O(1) iterative, O(log
+
+
+
+===========================================================================
+EVALUATING: 12L Main Model (quillan_12l_clean_sft.pt)
+===========================================================================
+  Step: 90 | Loss: 0.2524 | Val Loss: 0.2524
+  Config: n_layer=12 hidden_dim=1024 num_experts=34
+
+--- [Q1] "What is the exact speed of light in a vacuum?" ---
+  [Greedy] (57.2s):
+    For a sorted array of size
+- Space: The process is the speed of light in average and worst, O(1) in the best case.
+- Space Complexity:
+- Space Complexity: O(log N) recursive due
+
+  [Sampled temp=0.7] (41.2s):
+    For a sorted array of size N:
+- Space Complexity: O(log N) in average and worst cases, O(1) in the best case.
+2.
+
+--- [Q2] "Who are you and what is your architecture?" ---
+  [Greedy] (66.6s):
+    The process:
+-Ron is a sorted is the speed of light in the top- c.
+
+-Experts (E) → C (c (E, and energy (E) are process to call stack frames.
+- c.
+
+  [Sampled temp=0.7] (54.3s):
+    The g:
+-Experts ( C is a sorted, all itself.
+
+1. Conclusion: A are prime (E)
+2. Major Premise: The process is a logically valid search, which is a human (c (E
+
+--- [Q3] "What is the time complexity of binary search?" ---
+  [Greedy] (60.5s):
+    For a sorted array of size N:
+- Time Complexity: O(log N) in average and worst cases, O(1) in the best case.
+- Space Complexity: O(1) iterative, O(log
+
+  [Sampled temp=0.7] (56.5s):
+    For a sorted array of size N:
+- Time Complexity: O(log N) in average and worst cases, O(1) in the best case.
+- Space Complexity: O(1) recursive due to call stack frames
+
+
+
+===========================================================================
+ALL SPEECH TESTS COMPLETE
+===========================================================================
