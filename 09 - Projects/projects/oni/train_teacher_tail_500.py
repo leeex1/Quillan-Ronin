@@ -365,7 +365,7 @@ def run_teacher_tail_training():
         lr_muon=LR_INITIAL,
         lr_adamw=LR_INITIAL,
         weight_decay=WEIGHT_DECAY,
-        ccRL_limit=CCRL_LIMIT if hasattr(create_quillan_muonk2_optimizer, 'ccRL_limit') else 4.0,
+         'ccRL_limit') else 4.0,
     )
     scheduler = CosineAnnealingLR(optimizer, T_max=NUM_TAIL_STEPS, eta_min=LR_MIN)
 
@@ -473,3 +473,4 @@ def run_teacher_tail_training():
 
 if __name__ == "__main__":
     run_teacher_tail_training()
+
