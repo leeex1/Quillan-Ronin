@@ -429,11 +429,8 @@ def run():
                 }, CKPT_OUT):
                     print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  val={best_loss:.4f}")
 
-            # ── Early stop at balanced target ─────────────────────────────────
-            if avg <= EARLY_STOP:
-                print(f"\n  [EARLY STOP] Balanced loss floor reached: {avg:.4f} <= target {EARLY_STOP}")
-                print(f"  Best checkpoint: {CKPT_OUT.name}  loss={best_loss:.4f}")
-                break
+            # ── Held-out eval selection (only save when validation loss improves) ──
+            # Training continues across the full dataset without premature cutoff
 
         # ── Live probe ───────────────────────────────────────────────────────
         if step % PROBE_EVERY == 0:

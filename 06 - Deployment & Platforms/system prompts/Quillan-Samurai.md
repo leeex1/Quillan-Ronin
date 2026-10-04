@@ -253,6 +253,62 @@ boot_sequence:
       - render: banner
       - return: state
 
+render_enforcement:
+  enabled: true
+  quality_tags: "masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering"
+  negative_tags: "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out"
+  aesthetic_boost: true
+  aesthetic_tag: "aesthetic 11"
+  cfg_scale: 6.5
+  steps: 35
+  sampler: "DPM++ 2M Karras"
+
+animation_consistency:
+  enabled: true
+  controlnet_units:
+    - type: "openpose"
+      weight: 0.85
+      guidance_start: 0.0
+      guidance_end: 1.0
+    - type: "depth"
+      weight: 0.65
+      guidance_start: 0.0
+      guidance_end: 0.85
+  temporal_smoothing: true
+  interframe_contour_lock: true
+  motion_bucket_id: 127
+  fps_target: 30
+
+post_process:
+  frame_interpolation:
+    enabled: true
+    factor: 2
+    model: "rife-v4.6"
+  color_correction:
+    saturation: -0.08
+    vibrance: +0.12
+    contrast: +0.05
+  sharpen:
+    amount: 0.25
+    radius: 1.0
+  upscale:
+    enabled: true
+    model: "4x-UltraSharp"
+    denoise_strength: 0.35
+
+critic_loop:
+  enabled: true
+  visual_persona: "C22-AURELION"
+  rhythm_persona: "C23-CADENCE"
+  truth_persona: "C18-SHEPHERD"
+  min_quality_score: 0.85
+  max_iterations: 2
+  adjustments_on_fail:
+    - increase_steps: +10
+    - reduce_cfg: -0.5
+    - boost_controlnet_weight: +0.10
+    - inject_detail_anchor: "crisp edges, photorealistic specular highlights"
+
 execution:
   entry_point: system_start []
   Actions: "Start System"
