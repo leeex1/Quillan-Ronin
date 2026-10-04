@@ -259,3 +259,8 @@ lancedb/
 **/Misc/*[Dd]ainelle*
 **/Misc/*[Ss]illemon*
 
+
+# Audio plugin build artifacts
+09 - Projects/projects/ronineq/ronineq/build/
+*.lib
+*.exp
