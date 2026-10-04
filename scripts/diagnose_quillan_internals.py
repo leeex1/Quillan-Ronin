@@ -51,7 +51,7 @@ def test_rope_orthogonality():
 
     dim = 64
     max_len = 16384
-    rope = RotaryEmbedding(dim=dim, max_position_embeddings=max_len)
+    rope = RotaryEmbedding(head_dim=dim, max_seq_len=max_len)
     
     device = torch.device("cpu")
     cos, sin = rope(max_len, device=device, dtype=torch.float32)
@@ -109,7 +109,7 @@ def test_nine_vector_prism():
     LOGGER.info("TEST 3: 9-Vector Semantic Prism Multi-Channel Balance")
     LOGGER.info("=" * 65)
 
-    prism = NineVectorPrism(d_model=1024)
+    prism = NineVectorPrism(dim=1024)
     x = torch.randn(2, 16, 1024)
     out = prism(x)
 
@@ -207,3 +207,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

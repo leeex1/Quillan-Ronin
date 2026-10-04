@@ -103,7 +103,7 @@ def load_jsonl_data(paths: List[str], max_samples: int = 5000) -> List[Dict]:
                 try:
                     d = json.loads(line)
                     all_data.append(d)
-                except:
+                except Exception:
                     pass
         print(f'  Loaded {p.name}: {len(all_data)} total samples')
         if len(all_data) >= max_samples:
@@ -310,3 +310,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

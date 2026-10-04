@@ -57,7 +57,7 @@ def analyze_llama():
                             tensor_key = '.'.join(parts[i+2:])
                             layers[layer_num][tensor_key] = list(f.get_tensor(k).shape)
                         except ValueError:
-                            pass
+                            pass # skip bad lines
         
         # Get embedding
         emb_shape = list(f.get_tensor("model.embed_tokens.weight").shape)
@@ -100,7 +100,7 @@ def analyze_qwen():
                             tensor_key = '.'.join(parts[i+2:])
                             layers[layer_num][tensor_key] = list(f.get_tensor(k).shape)
                         except ValueError:
-                            pass
+                            pass # skip bad lines
         
         # Get embedding
         emb_shape = list(f.get_tensor("model.language_model.embed_tokens.weight").shape)
@@ -142,7 +142,7 @@ def analyze_bitnet():
                             tensor_key = '.'.join(parts[i+2:])
                             layers[layer_num][tensor_key] = list(f.get_tensor(k).shape)
                         except ValueError:
-                            pass
+                            pass # skip bad lines
         
         # Get embedding
         emb_shape = list(f.get_tensor("model.embed_tokens.weight").shape)
@@ -298,3 +298,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

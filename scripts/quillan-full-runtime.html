@@ -606,6 +606,7 @@ function disconnectOllama(){
   agentLog('warn', 'Ollama disconnected.');
 }
 
+function escapeHTML(str) { return typeof str === 'string' ? str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', ': '&#39;' }[m])) : str; }
 function renderModelList(){
   const c = document.getElementById('models-container');
   c.innerHTML = '';
@@ -615,7 +616,7 @@ function renderModelList(){
   models.forEach(name => {
     const d = document.createElement('div');
     d.className = 'model-item' + (name===state.activeModel?' active':'');
-    d.innerHTML = `<span class="model-name">${name}</span><span class="model-badge">${sizeHint(name)}</span>`;
+    d.innerHTML = `<span class="model-name">${escapeHTML(name)}</span><span class="model-badge">${sizeHint(name)}</span>`;
     d.onclick = () => setActiveModel(name);
     c.appendChild(d);
   });
@@ -1091,7 +1092,7 @@ function renderTasks(){
     d.className='task-item';
     d.innerHTML=`
       <div class="task-header">
-        <span class="task-name" style="color:${t.status==='running'?'var(--cyan)':t.status==='done'?'#333':'#555'}">${t.name.slice(0,36)}</span>
+        <span class="task-name" style="color:${t.status==='running'?'var(--cyan)':t.status==='done'?'#333':'#555'}">${escapeHTML(t.name.slice(0,36))}</span>
         <span class="task-status ${t.status}">${t.status.toUpperCase()}</span>
       </div>
       <div class="task-progress"><div class="task-fill" style="width:${t.progress}%"></div></div>
@@ -1604,3 +1605,4 @@ window.addEventListener('DOMContentLoaded', async ()=>{
 </script>
 </body>
 </html>
+
