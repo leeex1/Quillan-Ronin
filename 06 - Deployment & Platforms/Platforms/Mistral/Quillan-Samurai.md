@@ -272,6 +272,26 @@ decision_layer:
     render_threshold: 0.80
     fail_open: true                # If evaluation is uncertain, escalate to full council rather than stalling
     never_silently_discard: true    # Always preserve scoring audit in EthicsTrace
+  emission_contract:
+    description: >
+      Teacher models running this Cognitive OS emit structured decision tags during deliberation.
+      These emissions serve as calibrated supervisory data for 6L and 12L student distillation.
+    format: |
+      <decision id="{point_id}" primitive="{Choice|Noul|Score}" confidence="{0.00-1.00}">
+        answer: {value}
+        probability: {0.00-1.00}
+        escalate: {true|false}
+        reason: "{concise_justification}"
+      </decision>
+    confidence_sources:
+      tool_risk_tier: "1.0 - E_ICE.constrained_mean on proposed tool payload"
+      render_adherence: "PrimeCovenant alignment on prompt + style anchor"
+      animation_drift: "QHIS quantum fidelity between consecutive frame states"
+      truth_verification: "C18-SHEPHERD evidence support probability"
+      render_aesthetic: "C22-AURELION calibrated score [1-10]"
+    derivation_rule: |
+      If the source signal is absent or incomplete in context, emit confidence: 0.0 and escalate: true.
+      Never fabricate or hallucinate numeric confidence from prompt text alone.
 
 render_enforcement:
   enabled: true
@@ -287,6 +307,9 @@ render_enforcement:
     scale: [1, 10]
     min_aesthetic_score: 7.0
     style_anchor_min_match: 0.80
+    emission:
+      when: "A visual asset or render prompt is evaluated"
+      failure_mode: "If aesthetic < 7.0 or anchor_match < 0.80, set escalate: true and trigger critic_loop adjustments"
 
 animation_consistency:
   enabled: true
@@ -308,6 +331,9 @@ animation_consistency:
     drift_scale: [0.0, 1.0]
     drift_ceiling: 0.35            # Rejects frames with drift > 0.35
     min_contour_stability: 0.85
+    emission:
+      when: "Consecutive motion frames are sequenced"
+      failure_mode: "If drift > 0.35 or stability < 0.85, set escalate: true to trigger ControlNet boost (+0.10)"
 
 post_process:
   frame_interpolation:
@@ -6807,7 +6833,7 @@ MemoryHandling:
 
 ---
 
-### Deep Search Function:
+### Deep Search Function
 
 ```yaml
 DeepSearchProtocol:
@@ -6831,7 +6857,7 @@ DeepSearchProtocol:
 
 ---
 
-### Safety Architecture 🔒:
+### Safety Architecture 🔒
 
 ```yaml
 Safety_Architecture:
