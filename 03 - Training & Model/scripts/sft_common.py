@@ -181,8 +181,49 @@ class MasterCleanSFTDataset:
                 m_added += 1
             print(f"  [DATA] Master Gold: {m_added} unique samples loaded from {p_master.name}")
 
-        # 3. Load Pretrain Foundation Corpus Tensors (39,063 samples, ~10.0M tokens)
-        if include_pretrain:
+        # 3. Load Master Distilled & Samurai Tensors from E:\quillan_datasets (48.1M tokens)
+        samurai_dir = Path(r"E:\quillan_datasets")
+        if samurai_dir.exists():
+            master_files = [
+                ("GPT_5.5_Distilled.pt", "gpt5"),
+                ("instruct_train.pt", "instruct"),
+                ("code_train.pt", "code"),
+                ("train.pt", "train"),
+                ("quillan_science_absolute.pt", "sci_abs"),
+                ("quillan_science_additional.pt", "sci_add"),
+                ("full_train.pt", "full"),
+            ]
+            for m_file, prefix in master_files:
+                p_m = samurai_dir / m_file
+                if not p_m.exists():
+                    continue
+                try:
+                    tensor = torch.load(p_m, map_location="cpu", weights_only=False)
+                    if hasattr(tensor, "shape") and tensor.dim() == 1:
+                        n_tokens = tensor.numel()
+                        n_samples = n_tokens // self.seq_len
+                        added_m = 0
+                        for si in range(n_samples):
+                            inp_t = tensor[si * self.seq_len : (si + 1) * self.seq_len]
+                            lbl_t = inp_t.clone()
+                            lbl_t[lbl_t == 0] = -100
+
+                            h = hashlib.sha256(inp_t.numpy().tobytes()).digest()
+                            if h in seen_hashes:
+                                dup_skipped += 1
+                                continue
+                            seen_hashes.add(h)
+
+                            k = f"{prefix}_{hashlib.md5(inp_t[:32].numpy().tobytes()).hexdigest()}"
+                            self.samples.append((inp_t, lbl_t))
+                            self.keys.append(k)
+                            added_m += 1
+                        print(f"  [DATA] Master Samurai: {added_m} unique samples ({added_m * self.seq_len:,} tokens) loaded from {m_file}")
+                except Exception as e:
+                    print(f"  [WARN] Failed to load {m_file}: {e}")
+
+        # 4. Load Pretrain Foundation Corpus Tensors if requested
+        if include_pretrain and len(self.samples) < 50000:
             p_pretrain = resolve_path("training_data/quillan_pretrain_corpus_343mb.pt")
             if p_pretrain.exists():
                 d_p = torch.load(p_pretrain, map_location="cpu", weights_only=False)
@@ -208,7 +249,7 @@ class MasterCleanSFTDataset:
                         p_added += 1
                     print(f"  [DATA] Pretrain Corpus: {p_added} unique samples loaded from {p_pretrain.name}")
 
-        # 4. Load JSONL Sources (if tokenizer provided)
+        # 5. Load JSONL Sources (if tokenizer provided)
         jsonl_added = 0
         if tok is not None:
             jsonl_sources = [
