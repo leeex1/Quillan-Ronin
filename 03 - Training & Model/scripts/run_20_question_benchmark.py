@@ -295,9 +295,15 @@ def main():
                         help="Which standalone model to evaluate (6l, 12l, or both sequentially)")
     parser.add_argument("--max_tokens", type=int, default=100)
     parser.add_argument("--temp", type=float, default=0.35)
+    parser.add_argument("--device", type=str, default="cpu", choices=["cpu", "cuda", "auto"],
+                        help="Device for inference (default: cpu)")
     args = parser.parse_args()
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if args.device == "auto":
+        dev_str = "cuda" if torch.cuda.is_available() else "cpu"
+    else:
+        dev_str = args.device
+    device = torch.device(dev_str)
     print("=" * 76)
     print("  👑 QUILLAN-RONIN — 20-QUESTION MASTER BENCHMARK SUITE")
     print(f"  Device: {device}" + (f" ({torch.cuda.get_device_name(0)})" if device.type == "cuda" else " (CPU Inference)"))

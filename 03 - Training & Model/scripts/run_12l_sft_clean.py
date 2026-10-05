@@ -7,10 +7,12 @@ Trains the 12-Layer Main model (1.0B) on clean question-and-answer pairs:
   1. Monolithic BPE Encoding: Prompt + Answer encoded as ONE continuous string.
      Eliminates subword splicing bugs.
   2. Loss Masking: Computes loss strictly on assistant response tokens (-100 on prompt).
-  3. Selective Unfreezing: Unfreezes alignment parameters (~65M params) to fit
-     100% within physical 4GB VRAM without PCIe paging stalls.
-  4. Micro-batch 1 with 8-step Gradient Accumulation (Effective Batch Size = 8).
-  5. 512-Token Context Anchor.
+  3. Selective Unfreezing (default "wide", ~222M of ~1.2B params; set
+     QUILLAN_UNFREEZE_SET=full for every parameter - guarded by a RAM check).
+  4. Micro-batch 1 with 2-step Gradient Accumulation (Effective Batch Size = 2).
+  5. Honest evaluation: exact duplicate pairs are dropped and validation holds
+     out whole QUESTIONS (see sft_common.group_split), with patience early stop.
+  6. 512-Token Context Anchor.
 """
 import os, sys, gc, json, time, math, functools, dataclasses
 from pathlib import Path
@@ -39,6 +41,7 @@ sys.path.insert(0, str(SCRIPTS_DIR))
 sys.path.insert(0, str(REPO_ROOT / "03 - Training & Model" / "scripts"))
 
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
+from sft_common import group_split, data_health_report, check_full_unfreeze_fits, MasterCleanSFTDataset
 
 CKPT_CANDIDATES = [
     resolve_path("checkpoints/checkpoints_oni/quillan_12l_clean_sft.pt"),
@@ -50,75 +53,8 @@ CKPT_OUT = resolve_path("checkpoints/checkpoints_oni/quillan_12l_clean_sft.pt")
 CKPT_DIR = resolve_path("checkpoints/checkpoints_oni/sft_steps_12l")
 CKPT_DIR.mkdir(parents=True, exist_ok=True)
 
-
-class MonolithicCleanSFTDataset(Dataset):
-    def __init__(self, tok: Tokenizer, seq_len: int = 512):
-        self.seq_len = seq_len
-        self.samples = []
-        self.tok = tok
-        self.EOS_ID = 0
-
-        sources = [
-            (resolve_path("training_data/Quillan_Universal_Sovereign_Gold_1000.jsonl"), "question", "response"),
-            (resolve_path("training_data/Quillan_Direct_Answers_Gold.jsonl"), "prompt", "response"),
-            (resolve_path("training_data/sovereign_thinking_gold.jsonl"), "question", "response"),
-        ]
-
-        total_read = 0
-        skipped_long = 0
-
-        for path, q_key, a_key in sources:
-            if not path.exists():
-                print(f"  [SKIP] Not found: {path.name}")
-                continue
-            count = 0
-            with open(path, "r", encoding="utf-8") as f:
-                for line in f:
-                    line = line.strip()
-                    if not line:
-                        continue
-                    try:
-                        item = json.loads(line)
-                        q = item.get(q_key, "").strip()
-                        a = item.get(a_key, "").strip()
-                        if not q or not a:
-                            continue
-                        total_read += 1
-
-                        prompt_prefix = f"User: {q}\n\nAssistant:"
-                        full_text     = f"{prompt_prefix} {a}"
-
-                        prompt_ids = self.tok.encode(prompt_prefix).ids
-                        full_ids   = self.tok.encode(full_text).ids
-
-                        if len(full_ids) + 1 > self.seq_len:
-                            skipped_long += 1
-                            continue
-
-                        prefix_len = len(prompt_ids)
-                        if full_ids[:prefix_len] != prompt_ids:
-                            continue
-
-                        input_ids = full_ids + [self.EOS_ID]
-                        labels    = [-100] * prefix_len + full_ids[prefix_len:] + [self.EOS_ID]
-
-                        # Keep exact unpadded sequence length (3.8x faster on CPU)
-                        self.samples.append((
-                            torch.tensor(input_ids, dtype=torch.long),
-                            torch.tensor(labels,    dtype=torch.long),
-                        ))
-                        count += 1
-                    except Exception:
-                        pass
-            print(f"  Loaded {count:4d} intact samples from {path.name}")
-
-        print(f"  Total intact 12L samples: {len(self.samples)} (skipped {skipped_long} over-length)")
-
-    def __len__(self):
-        return len(self.samples)
-
-    def __getitem__(self, idx):
-        return self.samples[idx]
+# Backward compatibility alias
+MonolithicCleanSFTDataset = MasterCleanSFTDataset
 
 
 def atomic_save(payload: dict, dest: Path, headroom_gb: float = 0.5) -> bool:
@@ -250,6 +186,8 @@ def run():
     total_params = sum(p.numel() for p in trainable)
     frozen_params = sum(p.numel() for p in model.parameters() if not p.requires_grad)
     est = (total_params * 16 + frozen_params * (2 if half_frozen else 4)) / 1e9
+    if UNFREEZE_SET == "full" and device.type == "cpu":
+        check_full_unfreeze_fits(est)   # raises instead of thrashing the pagefile
     print(f"\n  ======================================================================")
     print(f"  [STRATEGY: {UNFREEZE_SET.upper()}]  Trainable: {total_params:,} | Frozen: {frozen_params:,}")
     print(f"  Estimated optimizer+weight footprint: ~{est:.2f} GB")
@@ -259,30 +197,35 @@ def run():
 
     tok = Tokenizer.from_file(str(resolve_path("quillan_bpe_tokenizer_hf/tokenizer.json")))
 
-    print("\nBuilding monolithic clean dataset (seq_len=512)...")
-    full_dataset = MonolithicCleanSFTDataset(tok, seq_len=512)
-    val_sz       = max(1, int(len(full_dataset) * 0.05))
-    train_sz     = len(full_dataset) - val_sz
-    train_ds, val_ds = torch.utils.data.random_split(
-        full_dataset, [train_sz, val_sz],
-        generator=torch.Generator().manual_seed(42)
-    )
-    print(f"  Dataset: {len(full_dataset)} total -> {train_sz} train, {val_sz} val")
+    print("\nBuilding master clean dataset (seq_len=256)...")
+    full_dataset = MasterCleanSFTDataset(tok, seq_len=256)
+    VAL_FRACTION = float(os.environ.get("QUILLAN_VAL_FRACTION", "0.05"))
+    train_idx, val_idx, held_out = group_split(full_dataset.keys, val_fraction=VAL_FRACTION)
+    if not val_idx:
+        raise RuntimeError("No held-out questions available; refusing to select 'best' on training data.")
+    train_ds = torch.utils.data.Subset(full_dataset, train_idx)
+    val_ds   = torch.utils.data.Subset(full_dataset, val_idx)
+    print(f"  Dataset: {len(full_dataset)} unique -> {len(train_idx)} train, {len(val_idx)} val "
+          f"(held-out QUESTIONS: {len(held_out)}; none appear in train)")
 
     dataloader = DataLoader(train_ds, batch_size=1, shuffle=True, drop_last=True, num_workers=0)
     val_loader = DataLoader(val_ds, batch_size=1, shuffle=False, num_workers=0)
 
-    LR           = 2.5e-5
-    WARMUP_STEPS = 10
-    start_step   = int(data.get("step", 0) or 0)
-    target_steps = int(os.environ.get("QUILLAN_TARGET_STEPS", str(start_step + 30)))
+    LR           = 2.0e-5
+    WARMUP_STEPS = 20
+    RESET_STEP   = os.environ.get("QUILLAN_RESET_STEP", "1") == "1"
+    start_step   = 0 if RESET_STEP else int(data.get("step", 0) or 0)
+    target_steps = int(os.environ.get("QUILLAN_TARGET_STEPS", str(start_step + 1500)))
     MAX_STEPS    = target_steps
     ACCUM        = 2        # effective batch 2
-    EARLY_STOP   = 0.35     # Deep convergence floor
+    EARLY_STOP   = 0.20     # Deep convergence floor
     SAVE_EVERY   = int(os.environ.get("QUILLAN_SAVE_EVERY", "0"))     # 0 = no milestone saves (disk)
     EVAL_EVERY   = int(os.environ.get("QUILLAN_EVAL_EVERY", "50"))
     PROBE_EVERY  = int(os.environ.get("QUILLAN_PROBE_EVERY", "100"))
-    VAL_BATCHES  = int(os.environ.get("QUILLAN_VAL_BATCHES", "24"))    # fixed subset -> comparable evals
+    VAL_BATCHES  = int(os.environ.get("QUILLAN_VAL_BATCHES", "32"))    # fixed subset -> comparable evals
+    PATIENCE     = int(os.environ.get("QUILLAN_PATIENCE", "10"))      # evals without held-out improvement before stopping
+    MIN_DELTA    = float(os.environ.get("QUILLAN_MIN_DELTA", "0.002"))
+    evals_since_best = 0
 
     optimizer = torch.optim.AdamW(trainable, lr=LR, betas=(0.9, 0.98), weight_decay=0.01)
     scaler    = torch.amp.GradScaler('cuda', enabled=half_frozen)
@@ -396,17 +339,25 @@ def run():
             val_loss = (tot_v / n_v) if n_v else float("nan")
             print(f"  [EVAL @ {step}] val_loss={val_loss:.4f} over {n_v} fixed samples")
 
-            if val_loss == val_loss and val_loss < best_loss:   # NaN-safe
+            if val_loss == val_loss and val_loss < best_loss - MIN_DELTA:   # NaN-safe
                 best_loss = val_loss
+                evals_since_best = 0
                 if atomic_save({
                     "step": step, "loss": best_loss, "ppl": math.exp(min(best_loss, 20.0)),
                     "val_loss": val_loss,
+                    "val_protocol": "heldout-by-question",
                     "config": cfg.__dict__,
                     "model_state_dict": model.state_dict(),
                     "timestamp": time.time(),
                     "engine": "Quillan-12L Monolithic SFT",
                 }, CKPT_OUT):
                     print(f"  >>> [BEST] Saved: {CKPT_OUT.name}  val={best_loss:.4f}")
+            else:
+                evals_since_best += 1
+                print(f"  [EVAL] no held-out improvement ({evals_since_best}/{PATIENCE})")
+                if evals_since_best >= PATIENCE:
+                    print("  [EARLY STOP] held-out loss stopped improving - further steps only memorise.")
+                    break
 
             # ── Held-out eval selection (only save when validation loss improves) ──
             # Training continues across the full dataset without premature cutoff
