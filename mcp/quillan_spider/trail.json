@@ -1,8 +1,8 @@
 {
  "root": "C:\\02_QUILLAN",
- "at": 1791500364.469204,
+ "at": 1791501338.0825698,
  "live": false,
- "started": 1791500359.1301005,
+ "started": 1791501332.6164205,
  "mission": "Scan core workspace modules & verify AST",
  "nodes": [
   {
@@ -403,7 +403,7 @@
  ],
  "trail": [
   {
-   "t": 0.06,
+   "t": 0.07,
    "at": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
    "full": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
    "name": "quillan_collector.py",
@@ -411,15 +411,15 @@
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "472 lines | 13F/1C | 0 findings",
-   "thought": "[C10-CODEWEAVER] Dissecting quillan_collector.py AST hierarchy (13 functions, 1 classes).",
+   "detail": "516 lines | 14F/1C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting quillan_collector.py AST hierarchy (14 functions, 1 classes).",
    "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\u26a1 QUILLAN UNIFIED LIVE RUNTIME HUB & TELEMETRY COLLECTOR (PORT 8777)\n===================================================================\nLocal-only zero-simulation runtime hub for the Quillan mission control dashboard.\nUnifies:\n  1. Real-time agent event collector (/api/events)\n  2. Live codebase filesystem radar (/api/codebase)\n  3. Real GitNexus topology (/api/gitnexus)\n  4. Real Obsidian memory brain (/api/obsidian)\n  5. Live BitNet 1.58b training forge telemetry from train_6l_master.log\n  6. 9-Stage Council deliberation pipeline (/api/run)\n  7. Integrated Spider bot crawler bridge (/api/trail, /api/tasks, /api/task, /api/takeover, /api/read)\n\"\"\"\nimport sys\nimport time\nimport json\nimport re\nimport urllib.parse\nfrom datetime import datetime, timezone\nfrom collections import deque\nfrom pathlib import Path\nimport threading\nfrom http.server import ThreadingHTTPServer, BaseHTTPRequestHandler",
-   "lines": 472,
+   "lines": 516,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 0.21,
+   "t": 0.22,
    "at": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
    "full": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
    "name": "repair_readme.py",
@@ -435,7 +435,7 @@
    "compiled": true
   },
   {
-   "t": 0.35,
+   "t": 0.36,
    "at": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
    "full": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
    "name": "resize_embedding.py",
@@ -451,7 +451,7 @@
    "compiled": true
   },
   {
-   "t": 0.52,
+   "t": 0.53,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
    "name": "quillan_v10_unrolled_sovereign.py",
@@ -473,7 +473,7 @@
    "compiled": true
   },
   {
-   "t": 0.67,
+   "t": 0.68,
    "at": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
    "full": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
    "name": "rebuild_readme_clean.py",
@@ -489,7 +489,7 @@
    "compiled": true
   },
   {
-   "t": 0.84,
+   "t": 0.85,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
    "name": "quillan_runtime.py",
@@ -511,7 +511,7 @@
    "compiled": true
   },
   {
-   "t": 0.99,
+   "t": 1.04,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
    "name": "quillan_substrate_core.py",
@@ -527,7 +527,7 @@
    "compiled": true
   },
   {
-   "t": 1.17,
+   "t": 1.22,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
    "name": "quillan_ronin_sovereign_unified.py",
@@ -554,7 +554,7 @@
    "compiled": true
   },
   {
-   "t": 1.32,
+   "t": 1.37,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
    "name": "quillan_daemon_swarm.py",
@@ -570,7 +570,7 @@
    "compiled": true
   },
   {
-   "t": 1.47,
+   "t": 1.52,
    "at": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
    "full": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
    "name": "quillan_muonk2_optimizer.py",
@@ -586,7 +586,7 @@
    "compiled": true
   },
   {
-   "t": 1.62,
+   "t": 1.68,
    "at": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
    "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
    "name": "quantize_and_test.py",
@@ -608,7 +608,7 @@
    "compiled": true
   },
   {
-   "t": 1.77,
+   "t": 1.83,
    "at": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
    "full": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
    "name": "phase1_analysis.py",
@@ -624,7 +624,7 @@
    "compiled": true
   },
   {
-   "t": 1.93,
+   "t": 2.01,
    "at": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
    "full": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
    "name": "progressive_train.py",
@@ -640,7 +640,7 @@
    "compiled": true
   },
   {
-   "t": 2.07,
+   "t": 2.16,
    "at": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
    "full": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
    "name": "overfit_check.py",
@@ -656,7 +656,7 @@
    "compiled": true
   },
   {
-   "t": 2.22,
+   "t": 2.31,
    "at": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
    "full": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
    "name": "interactive_chat.py",
@@ -672,7 +672,7 @@
    "compiled": true
   },
   {
-   "t": 2.36,
+   "t": 2.45,
    "at": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
    "full": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
    "name": "migrate_weights.py",
@@ -688,7 +688,7 @@
    "compiled": true
   },
   {
-   "t": 2.51,
+   "t": 2.6,
    "at": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
    "full": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
    "name": "hf_sync_all.py",
@@ -704,7 +704,7 @@
    "compiled": true
   },
   {
-   "t": 2.67,
+   "t": 2.76,
    "at": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
    "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
    "name": "generate_sovereign.py",
@@ -726,7 +726,7 @@
    "compiled": true
   },
   {
-   "t": 2.82,
+   "t": 2.92,
    "at": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
    "full": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
    "name": "hardware_check.py",
@@ -742,7 +742,7 @@
    "compiled": true
   },
   {
-   "t": 2.97,
+   "t": 3.07,
    "at": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
    "full": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
    "name": "fix_projections.py",
@@ -758,7 +758,7 @@
    "compiled": true
   },
   {
-   "t": 3.12,
+   "t": 3.21,
    "at": "C:\\02_QUILLAN\\scripts\\final_train.py",
    "full": "C:\\02_QUILLAN\\scripts\\final_train.py",
    "name": "final_train.py",
@@ -774,7 +774,7 @@
    "compiled": true
   },
   {
-   "t": 3.26,
+   "t": 3.36,
    "at": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
    "full": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
    "name": "fix_moc_links.py",
@@ -790,7 +790,7 @@
    "compiled": true
   },
   {
-   "t": 3.41,
+   "t": 3.51,
    "at": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
    "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
    "name": "export_phase5_gguf.py",
@@ -812,7 +812,7 @@
    "compiled": false
   },
   {
-   "t": 3.56,
+   "t": 3.66,
    "at": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
    "full": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
    "name": "extract_knowledge_and_thinking_data.py",
@@ -828,7 +828,7 @@
    "compiled": true
   },
   {
-   "t": 3.71,
+   "t": 3.81,
    "at": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
    "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
    "name": "evaluate_terminal_run.py",
@@ -850,7 +850,7 @@
    "compiled": true
   },
   {
-   "t": 3.86,
+   "t": 3.96,
    "at": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
    "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
    "name": "diagnose_quillan_internals.py",
@@ -872,7 +872,7 @@
    "compiled": true
   },
   {
-   "t": 4.02,
+   "t": 4.13,
    "at": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
    "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
    "name": "evaluate_model.py",
@@ -904,7 +904,7 @@
    "compiled": true
   },
   {
-   "t": 4.17,
+   "t": 4.28,
    "at": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
    "full": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
    "name": "deploy_media_template.py",
@@ -920,7 +920,7 @@
    "compiled": true
   },
   {
-   "t": 4.32,
+   "t": 4.43,
    "at": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
    "full": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
    "name": "daemon_harvester.py",
@@ -936,7 +936,7 @@
    "compiled": true
   },
   {
-   "t": 4.46,
+   "t": 4.57,
    "at": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
    "full": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
    "name": "create_remaining_notes.py",
@@ -952,7 +952,7 @@
    "compiled": true
   },
   {
-   "t": 4.61,
+   "t": 4.72,
    "at": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
    "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
    "name": "daemon_evaluator.py",
@@ -974,7 +974,7 @@
    "compiled": true
   },
   {
-   "t": 4.75,
+   "t": 4.87,
    "at": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
    "full": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
    "name": "create_indexes.py",
@@ -990,7 +990,7 @@
    "compiled": true
   },
   {
-   "t": 4.9,
+   "t": 5.02,
    "at": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
    "full": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
    "name": "create_media_index.py",
@@ -1006,7 +1006,7 @@
    "compiled": true
   },
   {
-   "t": 5.04,
+   "t": 5.16,
    "at": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
    "full": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
    "name": "create_folder_notes.py",
@@ -1022,7 +1022,7 @@
    "compiled": true
   },
   {
-   "t": 5.18,
+   "t": 5.31,
    "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
    "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
    "name": "consolidate_and_export_sovereign.py",
@@ -1073,7 +1073,7 @@
  ],
  "spider": {
   "pos": {
-   "t": 5.18,
+   "t": 5.31,
    "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
    "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
    "name": "consolidate_and_export_sovereign.py",
@@ -1099,7 +1099,7 @@
   "action": "IDLE",
   "total_findings": 14,
   "wires": 5,
-  "elapsed_s": 5.3,
+  "elapsed_s": 5.5,
   "active_thought": "Mission 'Scan core workspace modules & verify AST' complete. Wove 5 synaptic wires across 35 artifacts."
  }
 }

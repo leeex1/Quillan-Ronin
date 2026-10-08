@@ -358,6 +358,16 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send_json({"ok": False, "error": str(e)}, 500)
             return self.send_json({"ok": False, "error": "SYSTEM_TOPOLOGY_MAP.md not found"}, 404)
 
+        if path == "/api/brain/audit":
+            audit_file = BASE_DIR / "ORGANIZATION_AUDIT.json"
+            if audit_file.exists():
+                try:
+                    return self.send_json(json.loads(audit_file.read_text(encoding="utf-8")))
+                except Exception as e:
+                    return self.send_json({"error": str(e)}, 500)
+            return self.send_json({"error": "ORGANIZATION_AUDIT.json not found"}, 404)
+
+
         if path == "/api/memory":
             if MEMGRAPH_JSON.exists():
                 try:
@@ -454,6 +464,40 @@ class Handler(BaseHTTPRequestHandler):
                 threading.Thread(target=run_w, daemon=True).start()
                 return self.send_json(sub)
             return self.send_json({"error": "spider_module unavailable"}, 500)
+
+        if path == "/api/brain/remap":
+            import subprocess
+            def run_indexer():
+                indexer_path = BASE_DIR / "09 - Projects" / "mcp" / "quillan_spider" / "quillan_brain_indexer.py"
+                if indexer_path.exists():
+                    subprocess.run([sys.executable, str(indexer_path)], cwd=str(BASE_DIR), capture_output=True)
+            threading.Thread(target=run_indexer, daemon=True).start()
+            return self.send_json({"status": "REMAP_STARTED", "message": "High-throughput 105k brain scan triggered in background."})
+
+        if path == "/api/brain/organize":
+            dry_run = payload.get("dry_run", True)
+            audit_file = BASE_DIR / "ORGANIZATION_AUDIT.json"
+            if not audit_file.exists():
+                return self.send_json({"error": "ORGANIZATION_AUDIT.json not found"}, 404)
+            try:
+                audit = json.loads(audit_file.read_text(encoding="utf-8"))
+                actions = []
+                for item in audit.get("misplaced_files", []):
+                    src = Path(item["current_path"])
+                    dst = Path(item["recommended_path"])
+                    actions.append({
+                        "file": item["name"],
+                        "src": str(src),
+                        "dst": str(dst),
+                        "status": "RECOMMENDED" if dry_run else "REFILED"
+                    })
+                    if not dry_run and src.exists():
+                        dst.parent.mkdir(parents=True, exist_ok=True)
+                        import shutil
+                        shutil.copy2(src, dst)
+                return self.send_json({"ok": True, "dry_run": dry_run, "actions": actions, "count": len(actions)})
+            except Exception as e:
+                return self.send_json({"error": str(e)}, 500)
 
         self.send_json({"error": "not found"}, 404)
 
