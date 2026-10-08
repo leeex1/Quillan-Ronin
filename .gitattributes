@@ -380,3 +380,14 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 /09[[:space:]]-[[:space:]]Projects/projects/ronineq/ronineq/build/_deps/juce-subbuild/juce-populate-prefix/src/juce-populate-stamp/Debug/juce-populate-test filter=lfs diff=lfs merge=lfs -text
 *.in filter=lfs diff=lfs merge=lfs -text
 *.BROKEN_evidence filter=lfs diff=lfs merge=lfs -text
+*.excalidraw filter=lfs diff=lfs merge=lfs -text
+*.bak-emfofix filter=lfs diff=lfs merge=lfs -text
+*.bak-merge filter=lfs diff=lfs merge=lfs -text
+*.bak-middle filter=lfs diff=lfs merge=lfs -text
+*.bak-prune filter=lfs diff=lfs merge=lfs -text
+*.bak-shells filter=lfs diff=lfs merge=lfs -text
+*.bak-chain filter=lfs diff=lfs merge=lfs -text
+*.bak-killchecks filter=lfs diff=lfs merge=lfs -text
+*.bak-prethronefix filter=lfs diff=lfs merge=lfs -text
+*.bak-seqchain filter=lfs diff=lfs merge=lfs -text
+*.bak-unify filter=lfs diff=lfs merge=lfs -text
