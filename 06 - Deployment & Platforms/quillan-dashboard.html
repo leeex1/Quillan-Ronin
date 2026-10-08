@@ -1610,6 +1610,7 @@
           <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
             <button class="primary-btn" id="btnQuillanTakeover" type="button" style="background:var(--cyan);color:#071013;font-weight:900;box-shadow:0 0 15px rgba(73,224,218,0.4);">⚡ QUILLAN TAKEOVER</button>
             <button class="primary-btn" id="btnWeaveSecondBrain" type="button" style="background:linear-gradient(135deg, #f6b84b, #ff7b72);color:#071013;font-weight:900;box-shadow:0 0 15px rgba(246,184,75,0.4);">🕸️ WEAVE SECOND BRAIN</button>
+            <button class="primary-btn" id="btnAutoWeaveToggle" type="button" style="background:#09302e;border:1px solid #49e0da;color:#49e0da;font-weight:900;box-shadow:0 0 12px rgba(73,224,218,0.3);">🤖 AUTONOMOUS WEAVER: ON</button>
             <button class="primary-btn" id="btnToggleTopologyDocs" type="button" style="background:#0d233a;border:1px solid #58a6ff;color:#58a6ff;font-weight:900;box-shadow:0 0 15px rgba(88,166,255,0.3);">📑 SYSTEM TOPOLOGY (105k+ FILES)</button>
             <button class="ghost-btn" id="btnRescanBrain" type="button" style="border-color:var(--cyan);color:var(--cyan);">⚡ RESCAN 100k+ BRAIN</button>
             <button class="primary-btn" id="btnReturnToOffice" type="button" style="background:#0c2830;border:1px solid var(--amber);color:var(--amber);font-weight:900;">🏠 RETURN TO OFFICE</button>
@@ -1731,6 +1732,11 @@
               <div id="spiderSynapsesRibbon" style="padding:5px 10px;background:rgba(7,16,19,0.85);border-top:1px solid var(--line);font:800 8.5px/1.3 var(--mono);color:var(--muted);display:flex;align-items:center;gap:6px;overflow-x:auto;white-space:nowrap;">
                 <span style="color:var(--amber);">🕸️ SYNAPSES:</span>
                 <span id="spiderSynapsesList" style="color:var(--cyan);">Anchored to Quillan Core Nucleus</span>
+              </div>
+              <!-- ORGANIZATIONAL TAXONOMY & PROPER FOLDER AUDIT -->
+              <div id="spiderOrgAuditRibbon" style="padding:4px 10px;background:rgba(8,20,24,0.9);border-top:1px solid var(--line);font:800 8.5px/1.3 var(--mono);display:flex;justify-content:space-between;align-items:center;">
+                <span style="color:var(--muted);">📁 TAXONOMY AUDIT:</span>
+                <span id="spiderOrgAuditBadge" class="badge" style="font-size:7.5px;color:var(--green);border-color:var(--green);">PROPER FOLDER: VERIFIED [01_CORE]</span>
               </div>
               <div style="padding:6px 10px;background:var(--panel-2);border-top:1px solid var(--line);font:800 8px/1 var(--mono);color:var(--muted);display:flex;justify-content:space-between;">
                 <span id="spiderAstStats">AST: 0 FUNCTIONS · 0 CLASSES</span>
@@ -4126,7 +4132,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         synapseLookup: new Map(), // name -> Set of connected target names
         coreRotation: 0,
         extrudingThread: null,   // Active silk thread from spinneret: { fromX, fromY, toX, toY, life }
-        mode: "second_brain"     // "second_brain" or "hierarchy"
+        mode: "second_brain",    // "second_brain" or "hierarchy"
+        autonomousWeaving: true  // Autonomous continuous crawl, weave & organize loop
       };
 
       // ── SPIDER OFFICE STATE MANAGER & STEP SEQUENCER ──
@@ -4136,6 +4143,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         state: "IDLE_AT_DESK", // "IDLE_AT_DESK", "WALKING_TO_FILE", "SCANNING_AST", "RETURNING_TO_DESK"
         targetQueue: [],       // FIFO queue of target files: { nodeIdx, path, full, name, action }
         currentTarget: null,
+        walkOrigin: null,      // Departure origin point for trailing silk: { x, y, fromName }
+        patrolIdx: 0,          // Continuous patrol cycle counter
         scanDwell: 0,          // Countdown frames for dwell optic scan
         scannedSet: new Set(),
         layoutCards: [],

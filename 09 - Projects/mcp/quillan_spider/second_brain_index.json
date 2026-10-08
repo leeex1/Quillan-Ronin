@@ -1,8 +1,8 @@
 {
- "timestamp": 1791499944.7432022,
- "elapsed_s": 14.87,
- "total_files": 105963,
- "total_clusters": 566,
+ "timestamp": 1791500869.740654,
+ "elapsed_s": 12.09,
+ "total_files": 105964,
+ "total_clusters": 567,
  "total_connections": 2281,
  "sectors": {
   "01_CORE": {
@@ -614,6 +614,23 @@
      "rel": "sync_to_google_drive.py",
      "ext": ".py",
      "is_code": true
+    }
+   ]
+  },
+  "SYSTEM_TOPOLOGY_MAP.md": {
+   "name": "SYSTEM_TOPOLOGY_MAP.md",
+   "sector": "01_CORE",
+   "file_count": 1,
+   "code_files": 0,
+   "doc_files": 1,
+   "media_files": 0,
+   "dependencies": [],
+   "sample_files": [
+    {
+     "name": "SYSTEM_TOPOLOGY_MAP.md",
+     "rel": "SYSTEM_TOPOLOGY_MAP.md",
+     "ext": ".md",
+     "is_code": false
     }
    ]
   },

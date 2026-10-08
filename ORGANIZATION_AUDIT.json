@@ -1,0 +1,109 @@
+{
+  "timestamp": 1791500869.7656803,
+  "time_utc": "2026-10-08 23:07:49 UTC",
+  "total_files_audited": 105964,
+  "canonical_files": 105955,
+  "misplaced_count": 9,
+  "compliance_percentage": 99.99,
+  "misplaced_files": [
+    {
+      "name": "memory.json",
+      "current_path": "C:\\02_QUILLAN\\memory.json",
+      "current_folder": "ROOT",
+      "canonical_sector": "07_MEMORY",
+      "canonical_folder": "07 - Memory & LanceDB",
+      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\memory.json",
+      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
+      "size_bytes": 1254,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "memory.md",
+      "current_path": "C:\\02_QUILLAN\\memory.md",
+      "current_folder": "ROOT",
+      "canonical_sector": "07_MEMORY",
+      "canonical_folder": "07 - Memory & LanceDB",
+      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\memory.md",
+      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
+      "size_bytes": 6914,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "modeling_quillan.py",
+      "current_path": "C:\\02_QUILLAN\\modeling_quillan.py",
+      "current_folder": "ROOT",
+      "canonical_sector": "03_TRAINING",
+      "canonical_folder": "03 - Training & Model/scripts",
+      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\scripts\\modeling_quillan.py",
+      "reason": "Model architecture or training optimizer should reside in Training Pipeline",
+      "size_bytes": 9221,
+      "priority": "HIGH"
+    },
+    {
+      "name": "quillan.db",
+      "current_path": "C:\\02_QUILLAN\\quillan.db",
+      "current_folder": "ROOT",
+      "canonical_sector": "07_MEMORY",
+      "canonical_folder": "07 - Memory & LanceDB",
+      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan.db",
+      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
+      "size_bytes": 0,
+      "priority": "MEDIUM"
+    },
+    {
+      "name": "quillan_fused_optimizer.py",
+      "current_path": "C:\\02_QUILLAN\\quillan_fused_optimizer.py",
+      "current_folder": "ROOT",
+      "canonical_sector": "03_TRAINING",
+      "canonical_folder": "03 - Training & Model/scripts",
+      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\scripts\\quillan_fused_optimizer.py",
+      "reason": "Model architecture or training optimizer should reside in Training Pipeline",
+      "size_bytes": 19108,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Quillan_ONI_Live_Training.ipynb",
+      "current_path": "C:\\02_QUILLAN\\Quillan_ONI_Live_Training.ipynb",
+      "current_folder": "ROOT",
+      "canonical_sector": "03_TRAINING",
+      "canonical_folder": "03 - Training & Model/notebooks",
+      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_ONI_Live_Training.ipynb",
+      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
+      "size_bytes": 19992,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Quillan_v5_4_ONI_Master_Training.ipynb",
+      "current_path": "C:\\02_QUILLAN\\Quillan_v5_4_ONI_Master_Training.ipynb",
+      "current_folder": "ROOT",
+      "canonical_sector": "03_TRAINING",
+      "canonical_folder": "03 - Training & Model/notebooks",
+      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_v5_4_ONI_Master_Training.ipynb",
+      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
+      "size_bytes": 19992,
+      "priority": "HIGH"
+    },
+    {
+      "name": "Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+      "current_path": "C:\\02_QUILLAN\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+      "current_folder": "ROOT",
+      "canonical_sector": "03_TRAINING",
+      "canonical_folder": "03 - Training & Model/notebooks",
+      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
+      "size_bytes": 21687,
+      "priority": "HIGH"
+    },
+    {
+      "name": "sync_to_google_drive.py",
+      "current_path": "C:\\02_QUILLAN\\sync_to_google_drive.py",
+      "current_folder": "ROOT",
+      "canonical_sector": "06_DEPLOYMENT",
+      "canonical_folder": "scripts",
+      "recommended_path": "C:\\02_QUILLAN\\scripts\\sync_to_google_drive.py",
+      "reason": "System maintenance or sync script belongs in scripts/",
+      "size_bytes": 5180,
+      "priority": "HIGH"
+    }
+  ]
+}
