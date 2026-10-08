@@ -339,6 +339,25 @@ class Handler(BaseHTTPRequestHandler):
                     pass
             return self.send_json([])
 
+        # Second Brain 100k+ Mapping & Documentation Endpoints
+        if path == "/api/brain/index":
+            idx_file = SPIDER_DIR / "second_brain_index.json"
+            if idx_file.exists():
+                try:
+                    return self.send_json(json.loads(idx_file.read_text(encoding="utf-8")))
+                except Exception as e:
+                    return self.send_json({"error": str(e)}, 500)
+            return self.send_json({"error": "Index not compiled yet"}, 404)
+
+        if path == "/api/brain/docs":
+            docs_file = BASE_DIR / "SYSTEM_TOPOLOGY_MAP.md"
+            if docs_file.exists():
+                try:
+                    return self.send_json({"ok": True, "markdown": docs_file.read_text(encoding="utf-8")})
+                except Exception as e:
+                    return self.send_json({"ok": False, "error": str(e)}, 500)
+            return self.send_json({"ok": False, "error": "SYSTEM_TOPOLOGY_MAP.md not found"}, 404)
+
         if path == "/api/memory":
             if MEMGRAPH_JSON.exists():
                 try:
