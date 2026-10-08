@@ -1,153 +1,237 @@
 {
- "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
- "at": 1791499742.4549737,
+ "root": "C:\\02_QUILLAN",
+ "at": 1791500364.469204,
  "live": false,
- "started": 1791499741.2148466,
- "mission": "Weave Second Brain Connections",
+ "started": 1791500359.1301005,
+ "mission": "Scan core workspace modules & verify AST",
  "nodes": [
   {
    "id": 0,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+   "path": "C:\\02_QUILLAN",
+   "full": "C:\\02_QUILLAN",
    "kind": "dir"
   },
   {
    "id": 1,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
+   "path": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
+   "full": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
    "kind": "file"
   },
   {
    "id": 2,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
+   "path": "C:\\02_QUILLAN\\06 - Deployment & Platforms",
+   "full": "C:\\02_QUILLAN\\06 - Deployment & Platforms",
    "kind": "dir"
   },
   {
    "id": 3,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+   "path": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
+   "full": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
    "kind": "file"
   },
   {
    "id": 4,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "kind": "file"
+   "path": "C:\\02_QUILLAN\\scripts",
+   "full": "C:\\02_QUILLAN\\scripts",
+   "kind": "dir"
   },
   {
    "id": 5,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "path": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
+   "full": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
    "kind": "file"
   },
   {
    "id": 6,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
    "kind": "file"
   },
   {
    "id": 7,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
+   "path": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
+   "full": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
    "kind": "file"
   },
   {
    "id": 8,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
    "kind": "file"
   },
   {
    "id": 9,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
    "kind": "file"
   },
   {
    "id": 10,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
    "kind": "file"
   },
   {
    "id": 11,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
+   "kind": "file"
   },
   {
    "id": 12,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
    "kind": "file"
   },
   {
    "id": 13,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "kind": "file"
   },
   {
    "id": 14,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
+   "full": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
    "kind": "file"
   },
   {
    "id": 15,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
+   "full": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
+   "kind": "file"
   },
   {
    "id": 16,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
+   "full": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
    "kind": "file"
   },
   {
    "id": 17,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
+   "full": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
+   "kind": "file"
   },
   {
    "id": 18,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
+   "full": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
    "kind": "file"
   },
   {
    "id": 19,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
+   "full": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
+   "kind": "file"
   },
   {
    "id": 20,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
    "kind": "file"
   },
   {
    "id": 21,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
+   "full": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
+   "kind": "file"
   },
   {
    "id": 22,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "path": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
+   "full": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
    "kind": "file"
   },
   {
    "id": 23,
-   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev",
-   "kind": "dir"
+   "path": "C:\\02_QUILLAN\\scripts\\final_train.py",
+   "full": "C:\\02_QUILLAN\\scripts\\final_train.py",
+   "kind": "file"
+  },
+  {
+   "id": 24,
+   "path": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
+   "full": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
+   "kind": "file"
+  },
+  {
+   "id": 25,
+   "path": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "kind": "file"
+  },
+  {
+   "id": 26,
+   "path": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
+   "full": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
+   "kind": "file"
+  },
+  {
+   "id": 27,
+   "path": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "kind": "file"
+  },
+  {
+   "id": 28,
+   "path": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "kind": "file"
+  },
+  {
+   "id": 29,
+   "path": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "kind": "file"
+  },
+  {
+   "id": 30,
+   "path": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
+   "full": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
+   "kind": "file"
+  },
+  {
+   "id": 31,
+   "path": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
+   "full": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
+   "kind": "file"
+  },
+  {
+   "id": 32,
+   "path": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
+   "kind": "file"
+  },
+  {
+   "id": 33,
+   "path": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "kind": "file"
+  },
+  {
+   "id": 34,
+   "path": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
+   "kind": "file"
+  },
+  {
+   "id": 35,
+   "path": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
+   "kind": "file"
+  },
+  {
+   "id": 36,
+   "path": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
+   "kind": "file"
+  },
+  {
+   "id": 37,
+   "path": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "kind": "file"
   }
  ],
  "edges": [
@@ -156,356 +240,866 @@
    "to": 1
   },
   {
-   "from": 2,
+   "from": 4,
    "to": 3
   },
   {
-   "from": 2,
-   "to": 4
-  },
-  {
-   "from": 2,
+   "from": 4,
    "to": 5
   },
   {
-   "from": 2,
+   "from": 4,
    "to": 6
   },
   {
-   "from": 2,
+   "from": 4,
    "to": 7
   },
   {
-   "from": 2,
+   "from": 4,
    "to": 8
   },
   {
-   "from": 0,
+   "from": 4,
    "to": 9
   },
   {
-   "from": 11,
+   "from": 4,
    "to": 10
   },
   {
-   "from": 13,
+   "from": 4,
+   "to": 11
+  },
+  {
+   "from": 4,
    "to": 12
   },
   {
-   "from": 15,
+   "from": 4,
+   "to": 13
+  },
+  {
+   "from": 4,
    "to": 14
   },
   {
-   "from": 17,
+   "from": 4,
+   "to": 15
+  },
+  {
+   "from": 4,
    "to": 16
   },
   {
-   "from": 19,
+   "from": 4,
+   "to": 17
+  },
+  {
+   "from": 4,
    "to": 18
   },
   {
-   "from": 21,
+   "from": 4,
+   "to": 19
+  },
+  {
+   "from": 4,
    "to": 20
   },
   {
-   "from": 23,
+   "from": 4,
+   "to": 21
+  },
+  {
+   "from": 4,
    "to": 22
   },
   {
-   "from": 5,
-   "to": 22,
+   "from": 4,
+   "to": 23
+  },
+  {
+   "from": 4,
+   "to": 24
+  },
+  {
+   "from": 4,
+   "to": 25
+  },
+  {
+   "from": 4,
+   "to": 26
+  },
+  {
+   "from": 4,
+   "to": 27
+  },
+  {
+   "from": 4,
+   "to": 28
+  },
+  {
+   "from": 4,
+   "to": 29
+  },
+  {
+   "from": 4,
+   "to": 30
+  },
+  {
+   "from": 4,
+   "to": 31
+  },
+  {
+   "from": 4,
+   "to": 32
+  },
+  {
+   "from": 4,
+   "to": 33
+  },
+  {
+   "from": 4,
+   "to": 34
+  },
+  {
+   "from": 4,
+   "to": 35
+  },
+  {
+   "from": 4,
+   "to": 36
+  },
+  {
+   "from": 4,
+   "to": 37
+  },
+  {
+   "from": 17,
+   "to": 6,
+   "wire": true
+  },
+  {
+   "from": 27,
+   "to": 6,
+   "wire": true
+  },
+  {
+   "from": 28,
+   "to": 6,
+   "wire": true
+  },
+  {
+   "from": 33,
+   "to": 6,
+   "wire": true
+  },
+  {
+   "from": 37,
+   "to": 6,
    "wire": true
   }
  ],
  "trail": [
   {
-   "t": 0.48,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
-   "name": "memory_graph.json",
+   "t": 0.06,
+   "at": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
+   "full": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan_collector.py",
+   "name": "quillan_collector.py",
    "node": 1,
    "event": "file",
-   "action": "EXAMINING_PAGE",
+   "action": "READING_CODE",
    "result": "OK",
-   "detail": "1 lines | 0F/0C | 0 findings",
-   "thought": "[C10-CODEWEAVER] Dissecting memory_graph.json AST hierarchy (0 functions, 0 classes).",
-   "snippet": "{\"nodes\": {\"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\": {\"kind\": \"dir\", \"first_seen\": 1791495900.8086147, \"visits\": 13, \"last_seen\": 1791499712.26403, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_audio\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 8, \"last_seen\": 1791499712.26403, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_audio\\\\server.py\", \"lines\": 154, \"last_action\": \"READING_CODE\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_buddy\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 5, \"last_seen\": 1791496396.6605942, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_buddy\\\\server.py\", \"lines\": 215, \"last_action\": \"SCANNING\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 5, \"last_seen\": 1791496396.6605942, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\", \"lines\": 383, \"findings\": [{\"rule\": \"todo_fixme\", \"line\": 320, \"preview\": \"# TODO: Arrange nominal inputs based on ({args_spec})\"}, {\"rule\": \"todo_fixme\", \"line\": 328, \"preview\": \"# TODO: Pass boundary values\"}, {\"rule\": \"todo",
-   "lines": 1,
+   "detail": "472 lines | 13F/1C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting quillan_collector.py AST hierarchy (13 functions, 1 classes).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\u26a1 QUILLAN UNIFIED LIVE RUNTIME HUB & TELEMETRY COLLECTOR (PORT 8777)\n===================================================================\nLocal-only zero-simulation runtime hub for the Quillan mission control dashboard.\nUnifies:\n  1. Real-time agent event collector (/api/events)\n  2. Live codebase filesystem radar (/api/codebase)\n  3. Real GitNexus topology (/api/gitnexus)\n  4. Real Obsidian memory brain (/api/obsidian)\n  5. Live BitNet 1.58b training forge telemetry from train_6l_master.log\n  6. 9-Stage Council deliberation pipeline (/api/run)\n  7. Integrated Spider bot crawler bridge (/api/trail, /api/tasks, /api/task, /api/takeover, /api/read)\n\"\"\"\nimport sys\nimport time\nimport json\nimport re\nimport urllib.parse\nfrom datetime import datetime, timezone\nfrom collections import deque\nfrom pathlib import Path\nimport threading\nfrom http.server import ThreadingHTTPServer, BaseHTTPRequestHandler",
+   "lines": 472,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 0.53,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
-   "name": "trail.json",
+   "t": 0.21,
+   "at": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
+   "full": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
+   "name": "repair_readme.py",
    "node": 3,
    "event": "file",
-   "action": "EXAMINING_PAGE",
+   "action": "READING_CODE",
    "result": "OK",
-   "detail": "76 lines | 0F/0C | 0 findings",
-   "thought": "[C34-PREDATOR] Scanning trail.json attack surface for eval/shell injections.",
-   "snippet": "{\n \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n \"at\": 1791499741.698771,\n \"live\": true,\n \"started\": 1791499741.2148466,\n \"mission\": \"Weave Second Brain Connections\",\n \"nodes\": [\n  {\n   \"id\": 0,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n   \"kind\": \"dir\"\n  },\n  {\n   \"id\": 1,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\memory_graph.json\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\memory_graph.json\",\n   \"kind\": \"file\"\n  },\n  {\n   \"id\": 2,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\",\n   \"kind\": \"dir\"\n  }",
-   "lines": 76,
+   "detail": "112 lines | 1F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning repair_readme.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"Full README repair:\n1. Restore from git HEAD (bypasses PowerShell encoding mangling)\n2. Reverse the cp1252 mojibake (encode cp1252 -> decode utf-8)\n3. Fence-aware reflow: restore line structure for GitHub/HF rendering\n4. Verify content integrity\n\"\"\"\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nREPO = r\"C:\\02_QUILLAN\"\np = Path(REPO) / \"README.md\"\n\n# 1. Restore from git HEAD as raw bytes\nres = subprocess.run([\"git\", \"-C\", REPO, \"show\", \"HEAD:README.md\"],\n                     capture_output=True)\ns = res.stdout.decode(\"utf-8\", errors=\"replace\")\nprint(f\"[1] restored from HEAD: {len(s)} chars\")\n\n# 2. Reverse mojibake (cp1252 round-trip). ASCII unaffected; genuine\n#    non-cp1252 chars are kept as-is via the per-char fallback.\nfixed_chars = 0\nif \"\\ufffd\" in s or \"\\u2261\" in s or \"\\u2018\" in s or True:  # attempt always; verify after",
+   "lines": 112,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 0.62,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "name": "server.py",
-   "node": 4,
+   "t": 0.35,
+   "at": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
+   "full": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
+   "name": "resize_embedding.py",
+   "node": 5,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "95 lines | 1F/0C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across resize_embedding.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nResize Quillan-Ronin model embedding layers from 50,257 to 128,256 vocab.\nPreserves training progress while fixing tokenizer mismatch.\n\"\"\"\nimport sys\nimport torch\nfrom pathlib import Path\n\nROOT = Path(__file__).parent.parent\nsys.path.insert(0, str(ROOT / '_dev'))\n\ndef resize_checkpoint(ckpt_path, output_path, old_vocab=50257, new_vocab=128256):\n    \"\"\"Resize embedding layers in checkpoint.\"\"\"\n    print(f\"Loading checkpoint: {ckpt_path}\")\n    ckpt = torch.load(ckpt_path, map_location='cpu', weights_only=False)\n    \n    # Handle different checkpoint formats\n    if isinstance(ckpt, dict):\n        if 'model_state_dict' in ckpt:\n            state = ckpt['model_state_dict']\n        elif 'state_dict' in ckpt:\n            state = ckpt['state_dict']\n        else:\n            state = ckpt",
+   "lines": 95,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.52,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
+   "name": "quillan_v10_unrolled_sovereign.py",
+   "node": 6,
    "event": "file",
    "action": "READING_CODE",
    "result": "FLAGGED",
-   "detail": "931 lines | 32F/1C | 2 findings",
-   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across server.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udd77\ufe0f QUILLAN-RONIN SPIDER CRAWLER \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nA visible body for Quillan to crawl files + repo while you watch.\nEmbodying C1-ASTRA (Vision), C31-NEXUS (Routing), C5-ECHO (Memory),\nC14-KAIDO (Efficiency), C15-LUMINARIS (Clarity):\n  1. spider_crawl \u2014 BFS crawl a root, emit trail + graph for dashboard\n  2. spider_status \u2014 where is the spider right now?\n  3. spider_map \u2014 nodes + edges JSON for canvas rendering\n  4. spider_watch_file \u2014 path dashboard should poll (trail JSON)\nTRAIL FILE: C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\trail.json\nVIEWER:     C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider-viewer.html (open in browser)\n\"\"\"\n\nimport sys\nimport time\nimport json\nimport re\nimport threading\nimport urllib.request\nimport urllib.parse\nfrom html.parser import HTMLParser\nfrom pathlib import Path",
-   "lines": 931,
+   "detail": "437 lines | 22F/10C | 1 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (437 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 OMNI-FRACTAL SOVEREIGN \u2014 RECURSIVE CONSCIOUSNESS (UNIFIED MASTER)\n---------------------------------------------------------------------------------------\nTIER 1: Quillan (Orchestrator) \u2192 9-Vector Prism, Dual Q1/Q2 Ingestion Bridges\nTIER 2: Council (34 Experts)   \u2192 Top-4 Sparse Activation, BitNet 1.58b STE, MoE Feed-Forward\nTIER 3: Swarm (9B Virtual)     \u2192 272M Agents per Expert simulated via Rank-24 EGGROLL Swarms\n\"\"\"\n\nimport sys\nimport os\nimport math\nimport json\nimport time\nimport random\nimport logging\nfrom dataclasses import dataclass\nfrom typing import Dict, Tuple, Any, Optional, List, Union\nfrom collections import Counter\n\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n",
+   "lines": 437,
    "findings": [
     {
-     "rule": "subprocess_shell",
-     "line": 541,
-     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 358,
-     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+     "rule": "eval_exec",
+     "line": 399,
+     "preview": "self.eval()"
     }
    ],
    "compiled": true
   },
   {
    "t": 0.67,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
-   "name": "spider_bridge.py",
-   "node": 5,
+   "at": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
+   "full": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
+   "name": "rebuild_readme_clean.py",
+   "node": 7,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "249 lines | 11F/1C | 0 findings",
-   "thought": "[C15-LUMINARIS] Parsing file structure (249 lines, verified contiguous).",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udd77\ufe0f QUILLAN SPIDER BRIDGE \u2014 CORS static server + task API for the dashboard.\nServes C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider on 127.0.0.1:8082\n  GET  /api/trail -> trail.json (live crawl state)\n  GET  /api/tasks -> tasks.json (queue)\n  POST /api/task  {task, job, root, max_files, delay_ms} -> queues + worker runs spider_work_next\nDashboard Spider tab polls these; CORS * so file:// dashboard works.\n\"\"\"\n\nimport json\nimport sys\nimport threading\nimport time\nimport os\nimport urllib.parse\nfrom http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler\nfrom pathlib import Path\n\nSPIDER_DIR = Path(r\"C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\")\nsys.path.insert(0, str(SPIDER_DIR))\nimport server as spider  # noqa: E402\n\nWORK_LOCK = threading.Lock()",
-   "lines": 249,
-   "findings": [],
-   "compiled": true
-  },
-  {
-   "t": 0.71,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
-   "name": "tasks.json",
-   "node": 6,
-   "event": "file",
-   "action": "EXAMINING_PAGE",
-   "result": "OK",
-   "detail": "232 lines | 0F/0C | 0 findings",
-   "thought": "[C1-ASTRA] Tracing topological import vector for module tasks.",
-   "snippet": "[\n {\n  \"task_id\": \"task-5112b3\",\n  \"task\": \"bridge smoke scan\",\n  \"job\": \"scan\",\n  \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\",\n  \"max_files\": 5,\n  \"state\": \"DONE\",\n  \"at\": 1791488430.3419323,\n  \"report\": {\n   \"files\": 1,\n   \"total_findings\": 3,\n   \"wires\": 0,\n   \"changes\": [\n    \"server.py:320 [todo_fixme] # TODO: Arrange nominal inputs based on ({args_spec})\",\n    \"server.py:328 [todo_fixme] # TODO: Pass boundary values\",\n    \"server.py:335 [todo_fixme] # TODO: Pass invalid type\",\n    \"wrote trail.json (nodes/edges/trail)\",\n    \"wrote spider_report.json\"\n   ],\n   \"why\": [\n    \"todo_fixme: unfinished work left in shipping code\",\n    \"todo_fixme: unfinished work left in shipping code\",\n    \"todo_fixme: unfinished work left in shipping code\"\n   ],",
-   "lines": 232,
-   "findings": [],
-   "compiled": true
-  },
-  {
-   "t": 0.76,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
-   "name": "spider_report.json",
-   "node": 7,
-   "event": "file",
-   "action": "EXAMINING_PAGE",
-   "result": "OK",
-   "detail": "93 lines | 0F/0C | 0 findings",
-   "thought": "[C10-CODEWEAVER] Dissecting spider_report.json AST hierarchy (0 functions, 0 classes).",
-   "snippet": "{\n \"job\": \"scan\",\n \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n \"files\": 18,\n \"total_findings\": 6,\n \"wiring\": [\n  {\n   \"from\": \"ingest_second_brain.py\",\n   \"to\": \"server\",\n   \"why\": \"ingest_second_brain.py imports server; coupled \\u2014 a change in server can break it\"\n  },\n  {\n   \"from\": \"spider_bridge.py\",\n   \"to\": \"server\",\n   \"why\": \"spider_bridge.py imports server; coupled \\u2014 a change in server can break it\"\n  }\n ],\n \"flagged\": [\n  {\n   \"t\": 0.45,\n   \"at\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\",\n   \"node\": 3,\n   \"event\": \"file\",\n   \"action\": \"SCANNING\",",
-   "lines": 93,
-   "findings": [],
-   "compiled": true
-  },
-  {
-   "t": 0.8,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
-   "name": "spider-viewer.html",
-   "node": 8,
-   "event": "file",
-   "action": "EXAMINING_PAGE",
-   "result": "OK",
-   "detail": "75 lines | 0F/0C | 0 findings",
-   "thought": "[C34-PREDATOR] Scanning spider-viewer.html attack surface for eval/shell injections.",
-   "snippet": "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Quillan Spider \u2014 Live Crawl</title>\n<style>\n:root{color-scheme:dark;--bg:#071013;--panel:#0b171b;--ink:#e8f2ef;--mut:#89a09c;--line:#264047;--cy:#49e0da;--am:#f6b84b;--gr:#79dd8e;--rd:#ff725f}\n*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,Segoe UI,sans-serif}\n.wrap{max-width:1100px;margin:0 auto;padding:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}\n.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--mut)}\n#cv{width:100%;height:520px;background:#020708;border:1px solid var(--line);border-radius:10px}\n.pill{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:20px;font-size:12px}\n.pill.live{border-color:var(--gr);color:var(--gr)} .pill.done{border-color:var(--line);color:var(--mut)}\n.dot{width:10px;height:10px;border-radius:50%;background:var(--cy);display:inline-block;margin-right:6px;box-shadow:0 0",
-   "lines": 75,
+   "detail": "70 lines | 1F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module rebuild_readme_clean.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"Clean README rebuild: raw restore from 45cc7be + ONI banner + version sweep.\nNO reflow - the original formatting is already correct.\"\"\"\nimport re\nimport subprocess\nfrom pathlib import Path\n\nREPO = r\"C:\\02_QUILLAN\"\np = Path(REPO) / \"README.md\"\n\n# 1. Raw restore (binary-safe via subprocess, no PowerShell encoding damage)\ns = subprocess.run([\"git\", \"-C\", REPO, \"show\", \"45cc7be:README.md\"],\n                   capture_output=True).stdout.decode(\"utf-8\", errors=\"replace\")\norig_lines = s.count(\"\\n\") + 1\nprint(f\"[1] restored 45cc7be: {len(s)} chars, {orig_lines} lines\")\nassert \"Success Stories\" in s and \"Model Specs\" in s\n\n# 2. Insert styled ONI banner before Model Specs\nbanner = Path(REPO + r\"\\scripts\\_oni_banner.md\").read_text(encoding=\"utf-8\")\nanchor = \"## Model Specs\"\nassert anchor in s, \"Model Specs anchor missing\"\ns = s.replace(anchor, banner + \"\\n\" + anchor, 1)\nprint(f\"[2] ONI banner inserted ({len(banner)} chars)\")\n",
+   "lines": 70,
    "findings": [],
    "compiled": true
   },
   {
    "t": 0.84,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
-   "name": "quillan-mcp-config.json",
-   "node": 9,
-   "event": "file",
-   "action": "EXAMINING_PAGE",
-   "result": "OK",
-   "detail": "247 lines | 0F/0C | 0 findings",
-   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across quillan-mcp-config.",
-   "snippet": "{\n  \"mcpServers\": {\n    \"QuillanRAG\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [\n        \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_rag\\\\server.py\"\n      ],\n      \"env\": {\n        \"PYTHONPATH\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp;C:\\\\02_QUILLAN\",\n        \"QUILLAN_RAG_DB\": \"C:\\\\02_QUILLAN\\\\07 - Memory & LanceDB\\\\quillan_rag_db\"\n      }\n    },\n    \"ThinkingEngine\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [\n        \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_thinking_engine\\\\server.py\"\n      ],\n      \"env\": {\n        \"PYTHONPATH\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\projects\\\\oni;C:\\\\02_QUILLAN\",\n        \"PYTHONIOENCODING\": \"utf-8\"\n      }\n    },\n    \"SamuraiEngine\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [",
-   "lines": 247,
-   "findings": [],
-   "compiled": true
-  },
-  {
-   "t": 0.91,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
-   "name": "server.py",
-   "node": 10,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
+   "name": "quillan_runtime.py",
+   "node": 8,
    "event": "file",
    "action": "READING_CODE",
    "result": "FLAGGED",
-   "detail": "645 lines | 23F/0C | 1 findings",
-   "thought": "[C15-LUMINARIS] Parsing file structure (645 lines, verified contiguous).",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83e\udde0 QUILLAN QUINTESSENCE THINKING ENGINE \u2014 NATIVE FAST-MCP SERVER\n================================================================\nCanonical MCP bridge exposing the true Quillan-Ronin v5.4.0-ONI\nReasoning Architecture:\n- 9-Vector Semantic Prism Decomposition\n- 34-Node Council Dense Deliberation Mesh (C1-C34)\n- Lee-Mach-6 Velocity Governor\n- Hardened AST-Whitelisted Execution Sandbox\n\"\"\"\n\nimport sys\nimport os\n\n# Enforce UTF-8 on Windows\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom pathlib import Path\nfrom typing import Dict, Any, List, Optional\nimport hashlib\nimport re",
-   "lines": 645,
+   "detail": "544 lines | 19F/3C | 1 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting quillan_runtime.py AST hierarchy (19 functions, 3 classes).",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Shared Quillan-Ronin local runtime utilities.\n\nThis module centralizes checkpoint selection, safe state-dict loading, compact\nhealth metadata, and small generation helpers for the v5.3.1 custom runtime.\nOriginal checkpoint files are never modified here.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport hashlib\nimport json\nimport logging\nimport os\nfrom dataclasses import asdict, dataclass\nfrom pathlib import Path\nfrom typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple\n\nimport torch\nimport torch.nn.functional as F\n\n\nLOGGER = logging.getLogger(__name__)\nBASE_DIR = Path(__file__).resolve().parent\n",
+   "lines": 544,
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 82,
-     "preview": "_ENGINE.eval()"
+     "line": 373,
+     "preview": "model.eval()"
     }
    ],
    "compiled": true
   },
   {
-   "t": 0.96,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
-   "name": "server.py",
+   "t": 0.99,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
+   "name": "quillan_substrate_core.py",
+   "node": 9,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "247 lines | 9F/3C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning quillan_substrate_core.py attack surface for eval/shell injections.",
+   "snippet": "import os\nimport sys\nimport math\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom typing import Dict, Tuple, Any, Optional, List\n\n# Force UTF-8 on Windows\nif hasattr(sys.stdout, 'reconfigure'):\n    sys.stdout.reconfigure(encoding='utf-8', errors='replace')\n\n# \u2500\u2500\u2500 PHOENIX HARDWARE AFFINITY LOCK \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\ndef apply_phoenix_affinity() -> None:\n    \"\"\"forcefully bind the orchestration execution threads strictly to CPU Cores 2 and 3.\"\"\"\n    try:\n        import psutil\n        p = psutil.Process(os.getpid())\n        p.cpu_affinity([2, 3])\n        print(\"[PHOENIX AFFINITY] Thread affinity successfully locked to CPU Cores 2 and 3.\")\n    except ImportError:\n        print(\"[PHOENIX AFFINITY WARNING] psutil not installed. Cannot lock CPU affinity.\")\n    except Exception as e:\n        print(f\"[PHOENIX AFFINITY WARNING] Could not lock CPU affinity: {e}\")",
+   "lines": 247,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.17,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
+   "name": "quillan_ronin_sovereign_unified.py",
+   "node": 10,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "651 lines | 40F/17C | 2 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across quillan_ronin_sovereign_unified.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 OMNI-FRACTAL SOVEREIGN \u2014 RECURSIVE CONSCIOUSNESS (UNIFIED MASTER)\n---------------------------------------------------------------------------------------\nTIER 1: Quillan (Orchestrator) \u2192 9-Vector Prism, Dual Q1/Q2 Ingestion & Finalizers, Flash Diffusion Core\nTIER 2: Council (34 Experts)   \u2192 Top-4 Sparse Activation, BitNet 1.58b STE, DeepSeekMoE Shared+Routed\nTIER 3: Swarm (9B Virtual)     \u2192 272M Agents per Expert simulated via Rank-24 EGGROLL & DQSO Kuramoto\n\nSaturated Features:\n- Complete 34-Expert Council Registry (C0-ASTRA through C33-PREDATOR with specialized domains)\n- 9-Vector Sovereign Semantic Prism Decomposition (Language, Sentiment, Context, Intent, Meta, Creativity, Ethics, Strategy, Constraint)\n- 20 Quantum-Inspired Formulas Engine (AQCS, EEMF, QHIS, DQRO, QCRDM, AQML, QCIE, QICS, QSSR, JQLD, DQSO, ROUTING_SOFTMAX, etc.)\n- E_ICE: Ethical Impact Constraint Engine with thermodynamic bounds\n- MARTA: Modular Adaptive Reasoning Thermodynamic Architecture Gating with Epistemic Signatures\n- DQSO: Dynamic Quantum Swarm Oscillation with Kuramoto Phase Synchronization\n- CCRL: Council-Calibrated Reinforcemen",
+   "lines": 651,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 396,
+     "preview": "exec(code, test_env)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 600,
+     "preview": "self.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 1.32,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
+   "name": "quillan_daemon_swarm.py",
+   "node": 11,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "127 lines | 3F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (127 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 AUTONOMOUS DAEMON SWARM ORCHESTRATOR\n==============================================================\nManages the concurrent background daemon swarm:\n  1. Trainer Watchdog Daemon  -> train_frontier_capability.py (7100 steps)\n  2. Auto-Evaluator Daemon    -> daemon_evaluator.py (polls new best checkpoints)\n  3. Data Harvester Daemon    -> daemon_harvester.py (mines background chat logs)\n\nMaintains system stability with process priority throttling and automatic telemetry updates.\n\"\"\"\n\nimport sys\nimport os\nimport subprocess\nimport time\nimport json\nimport logging\nfrom pathlib import Path\n\nSCRIPTS_DIR = Path(__file__).resolve().parent\nSTATUS_FILE = SCRIPTS_DIR / \"swarm_dashboard.json\"\n\nlogging.basicConfig(level=logging.INFO, format=\"[%(asctime)s] [SWARM-ORCHESTRATOR] %(message)s\")",
+   "lines": 127,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.47,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
+   "name": "quillan_muonk2_optimizer.py",
    "node": 12,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "101 lines | 4F/0C | 0 findings",
-   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udee0\ufe0f QUILLAN-RONIN OPS ENGINE \u2014 NATIVE FAST-MCP SERVER\n=====================================================\nEmbodying C14-KAIDO (Efficiency), C13-WARDEN (Safety), C2-VIR (Ethics),\nC4-PRAXIS (Planning), C19-VIGIL (Anti-drift):\n  1. ops_task_graph \u2014 goal -> DAG with gates\n  2. ops_guardrail_check \u2014 pre-execution risk tier gating\n  3. ops_health \u2014 repo hygiene snapshot\n  4. ops_release_note \u2014 conventional release note builder\n\"\"\"\n\nimport sys\nfrom pathlib import Path\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanOps\")\n",
-   "lines": 101,
+   "detail": "193 lines | 4F/1C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module quillan_muonk2_optimizer.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 SOVEREIGN MUON-K2 + ADAMW + CCRL HYBRID OPTIMIZER\n---------------------------------------------------------------------------------------\nCPU-Hardened Implementation:\n  1. Low-Rank Muon: Matrix Orthogonalization via Newton-Schulz for 2D LoRA/Swarm adapters (Rank <= 256).\n  2. AdamW: Standard adaptive second-moment updates for larger weight matrices & embeddings.\n  3. CCRL Layer: Curvature-Conditioned Recursive Learning with dynamic gradient clipping.\n\"\"\"\n\nimport math\nimport torch\nfrom typing import List, Dict, Any, Tuple, Optional\nfrom torch.optim.optimizer import Optimizer\n\ndef zeropower_via_newtonschulz5_lowrank(G: torch.Tensor, steps: int = 5, eps: float = 1e-7) -> torch.Tensor:\n    \"\"\"\n    Computes approximate polar decomposition via 5th-order Newton-Schulz\n    for matrices where min(dim) <= 256.\n    \"\"\"\n    assert G.ndim >= 2\n    a, b, c = (3.4445, -4.7750, 2.0315)\n    \n    orig_shape = G.shape",
+   "lines": 193,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 1.0,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
-   "name": "server.py",
+   "t": 1.62,
+   "at": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "name": "quantize_and_test.py",
+   "node": 13,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "147 lines | 3F/0C | 1 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting quantize_and_test.py AST hierarchy (3 functions, 0 classes).",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nQuillan-Ronin Quantized Export & Inference Test\nPacks model weights to 1.58-bit ternary and tests GPU inference.\n\"\"\"\nimport os, sys, torch, gc, time\nos.environ['PYTHONIOENCODING'] = 'utf-8'\nsys.path.insert(0, r'C:\\Users\\Admin\\Quillan-Ronin')\nfrom quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig, _weight_quant\nfrom pathlib import Path\n\ndevice = 'cuda' if torch.cuda.is_available() else 'cpu'\nprint(f'Device: {device}')\nif device == 'cuda':\n    cap = torch.cuda.get_device_properties(0)\n    print(f'GPU: {cap.name}, VRAM: {cap.total_memory/1e9:.1f}GB')\n\ndef export_quantized(model, out_path='checkpoints/quillan_quantized.pt'):\n    \"\"\"Export model with all BitLinear weights pre-quantized to ternary.\n    This replaces full fp16 weights with tiny ternary buffers.\"\"\"\n    \n    quantized_state = {}\n    \n    for name, param in model.named_parameters():\n        data = param.data",
+   "lines": 147,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 88,
+     "preview": "model.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 1.77,
+   "at": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
+   "full": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
+   "name": "phase1_analysis.py",
    "node": 14,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "87 lines | 3F/0C | 0 findings",
-   "thought": "[C10-CODEWEAVER] Dissecting server.py AST hierarchy (3 functions, 0 classes).",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udf10 QUILLAN-RONIN WEB ENGINE \u2014 NATIVE FAST-MCP SERVER\n=====================================================\nEmbodying C29-NAVIGATOR (Ecosystem), C24-SCHEMA (Structure),\nC15-LUMINARIS (Clarity), C13-WARDEN (Safety):\n  1. web_scaffold \u2014 stack-aware route + file plan\n  2. web_audit \u2014 a11y / SEO / perf checklist from code\n  3. web_deploy_checklist \u2014 target-aware ship gate\n\"\"\"\n\nimport sys\nimport re\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanWeb\")\n\n",
-   "lines": 87,
+   "detail": "302 lines | 5F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning phase1_analysis.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nPhase 1: Analysis & Mapping for Quillan-Ronin Transplant\nAnalyzes source model tensors and builds complete mapping table.\n\"\"\"\nimport os\nimport json\nimport logging\nfrom safetensors import safe_open\n\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    handlers=[\n        logging.FileHandler(\"quillan_build.log\"),\n        logging.StreamHandler()\n    ]\n)\nlogger = logging.getLogger(\"Phase1\")\n\nBASE = r\"C:\\Users\\Admin\\Quillan-Ronin\\Quillan-v4.2-model\"\n\n# Target architecture\nTARGET = {\n    \"hidden_dim\": 2048,",
+   "lines": 302,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 1.05,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
-   "name": "server.py",
+   "t": 1.93,
+   "at": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
+   "full": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
+   "name": "progressive_train.py",
+   "node": 15,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "313 lines | 4F/1C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across progressive_train.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nQuillan-Ronin Progressive Training Pipeline (Vocational School)\nTrains each layer/expert independently on domain-specific data.\n\nPhases:\n  P1: Ingestion (embeddings + position) \n  P2: 9-Vector Decomposition \n  P3: Diffusion Core (CouilAttention)\n  P4: Router (ComplexityRouter) \u2190 completed\n  P5: 34 Experts (vocational \u2014 each expert on its domain)\n  P6: EGGROLL Swarm (rank-R perturbations)\n  P7: Cognitive Engines + Dual Quillan + txt_dec\n  P8: Full assembly + quantized export\n\nPhase 5 Expert \u2192 Domain mapping:\n  C0-ASTRA: vision/patterns     C1-VIR: ethics/safety\n  C2-SOLACE: empathy/sentiment  C3-PRAXIS: strategy\n  C4-ECHO: memory/context       C5-OMNIS: synthesis\n  C6-LOGOS: logic/deduction     C7-METASYNTH: creativity\n  C8-AETHER: language/semantics C9-CODEWEAVER: code\n  C10-HARMONIA: balance         C11-SOPHIAE: wisdom/philosophy\n  C12-WARDEN: safety            C13-KAIDO: efficiency\n  C14-LUMINARIS: clarity        C15-VOXUM: rhetoric\n  C16-NULLION: paradox          C17-SHEPHERD: truth",
+   "lines": 313,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 2.07,
+   "at": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
+   "full": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
+   "name": "overfit_check.py",
    "node": 16,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "105 lines | 4F/0C | 0 findings",
-   "thought": "[C34-PREDATOR] Scanning server.py attack surface for eval/shell injections.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfa8 QUILLAN-RONIN MEDIA ENGINE \u2014 NATIVE FAST-MCP SERVER\n=======================================================\nEmbodying C22-AURELION (Aesthetics), C15-LUMINARIS (Clarity),\nC1-ASTRA (Vision), C8-METASYNTH (Fusion):\n  1. media_image_brief \u2014 objective -> strict JSON-schema image brief\n  2. media_video_brief \u2014 beats -> camera + duration brief\n  3. media_character_sheet \u2014 consistent character bible\n  4. media_prompt_enhance \u2014 raw prompt -> boosted + negative tags\n\"\"\"\n\nimport sys\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanMedia\")\n\nQUALITY_TAGS = \"masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering\"",
+   "detail": "110 lines | 6F/2C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (110 lines, verified contiguous).",
+   "snippet": "import os\nimport sys\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\nfrom torch.utils.data import Dataset, DataLoader\nimport time\nimport math\n\n# Import model definition from _dev\nsys.path.append(os.path.abspath('.'))\nsys.path.append(os.path.abspath('_dev'))\nfrom _dev.quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig\n\n# Custom tiny dataset\nclass TinyDataset(Dataset):\n    def __init__(self, path, num_samples=20, seq=128):\n        t = torch.load(path, weights_only=True, map_location='cpu').to(torch.long)\n        self.t = t[:num_samples * (seq // 2) + seq + 1]\n        self.seq = seq\n        self.stride = seq // 2\n        self.num_chunks = num_samples\n        print(f\"  Tiny Dataset initialized with {len(self.t)} tokens, {self.num_chunks} chunks.\")\n    def __len__(self):\n        return self.num_chunks",
+   "lines": 110,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 2.22,
+   "at": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
+   "full": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
+   "name": "interactive_chat.py",
+   "node": 17,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "105 lines | 3F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module interactive_chat.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 / v5.4 \u2014 STREAMING INTERACTIVE SOVEREIGN TERMINAL\n==================================================================\nRun this script to chat directly with Quillan-Ronin v5.3.1 (Canonical) / v5.4 (Frontier).\nAutomatically selects the best available checkpoint.\n\"\"\"\n\nimport sys\nimport time\nfrom pathlib import Path\nimport torch\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")\nCHECKPOINT_DIR = Path(r\"C:\\02_QUILLAN\\checkpoints\")\n\nsys.path.insert(0, str(SCRIPTS_DIR))\n\nfrom quillan_v10_unrolled_sovereign import QuillanConfig, QuillanSovereignUnifiedModel\nfrom sovereign_inference_engine import SovereignTokenizer, SovereignInferenceEngine, SamplingParams\n\nif hasattr(sys.stdout, \"reconfigure\"):\n    sys.stdout.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n",
    "lines": 105,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 1.09,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
-   "name": "server.py",
+   "t": 2.36,
+   "at": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
+   "full": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
+   "name": "migrate_weights.py",
    "node": 18,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "154 lines | 5F/0C | 0 findings",
-   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across server.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfb5 QUILLAN-RONIN AUDIO ENGINE \u2014 NATIVE FAST-MCP SERVER\n=======================================================\nEmbodying C23-CADENCE (Rhythm/Audio), C8-METASYNTH (Fusion),\nC22-AURELION (Aesthetics), C27-CHRONICLE (Narrative timing):\n  1. audio_design_cue \u2014 mood -> stems, BPM, key, texture brief\n  2. audio_analyze_track \u2014 lightweight Synesthesia-style analysis (librosa/whisper optional)\n  3. audio_mix_plan \u2014 stems -> LUFS / headroom / bus plan\n  4. audio_generate_sfx_brief \u2014 action+material -> layered SFX recipe\n  5. audio_director_note \u2014 adaptive music state machine for games\n\"\"\"\n\nimport sys\nfrom pathlib import Path\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanAudio\")",
-   "lines": 154,
+   "detail": "79 lines | 1F/0C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting migrate_weights.py AST hierarchy (1 functions, 0 classes).",
+   "snippet": "import torch\nimport sys\nfrom transplant_weights import QuillanConfig\n\ndef migrate(ckpt_path=\"quillan_transplanted.pt\", out_path=\"quillan_transplanted_v8.pt\"):\n    print(f\"Loading {ckpt_path}...\")\n    ckpt = torch.load(ckpt_path, map_location='cpu', weights_only=False)\n    sd = ckpt['model_state_dict']\n    new_sd = {}\n    \n    num_experts = 34\n    hidden_dim = 2048\n    ffn_dim = 4096\n    \n    # Initialize the new parameter tensors for MoE\n    w1 = torch.zeros(num_experts, hidden_dim, ffn_dim)\n    wgate = torch.zeros(num_experts, hidden_dim, ffn_dim)\n    w2 = torch.zeros(num_experts, ffn_dim, hidden_dim)\n    \n    # Initialize wgate normally since it didn't exist (using normal since Kaiming uses uniform or normal)\n    torch.nn.init.kaiming_normal_(wgate.view(-1, ffn_dim))\n    \n    # Check old layers to map\n    for k, v in sd.items():\n        if k == 'txt_emb.weight':",
+   "lines": 79,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 1.14,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
-   "name": "server.py",
-   "node": 20,
+   "t": 2.51,
+   "at": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
+   "full": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
+   "name": "hf_sync_all.py",
+   "node": 19,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "177 lines | 6F/0C | 0 findings",
-   "thought": "[C15-LUMINARIS] Parsing file structure (177 lines, verified contiguous).",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc65 QUILLAN-RONIN TEAM MODE ENGINE \u2014 NATIVE FAST-MCP SERVER\n===========================================================\nEmbodying C31-NEXUS (Meta-Coordination), C11-HARMONIA (Consensus),\nC4-PRAXIS (Execution), C34-PREDATOR (Red-Team), C2-VIR (Ethics):\n  1. team_spawn_crew \u2014 stand up a role-based agent crew for an objective\n  2. team_dispatch \u2014 assign a task slice to a role with acceptance criteria\n  3. team_debate \u2014 thesis vs antithesis -> hardened synthesis\n  4. team_status \u2014 crew roster, load, and blockers\n  5. team_merge \u2014 converge parallel outputs into one coherent delivery\n\"\"\"\n\nimport sys\nimport time\nimport uuid\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
-   "lines": 177,
+   "detail": "189 lines | 1F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning hf_sync_all.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nQuillan Hugging Face Multi-Dataset & Model Sync Script\n======================================================\nUploads:\n1. CrashOverrideX/quillan-lyrics-corpus (Dataset: Lyrics, poems, markdown prompts)\n2. CrashOverrideX/quillan-audio-media   (Dataset: MP3/FLAC/WAV audio & artwork)\n3. CrashOverrideX/Quillan-Ronin         (Model/Repo: Core architecture, code, and papers)\n\"\"\"\n\nimport os\nimport shutil\nimport time\nfrom pathlib import Path\nfrom huggingface_hub import HfApi, create_repo, HfFolder\n\n# Explicitly set request timeout env for Hugging Face Hub if available\nos.environ[\"HF_HUB_DOWNLOAD_TIMEOUT\"] = \"120\"\n\nTOKEN = os.environ.get(\"HF_TOKEN\") or os.environ.get(\"HUGGING_FACE_HUB_TOKEN\") or HfFolder.get_token()\napi = HfApi(token=TOKEN)\n\nuser_info = api.whoami()\nusername = user_info.get(\"name\", user_info.get(\"username\", \"CrashOverrideX\"))\nprint(f\"Authenticated with Hugging Face as: {username}\")",
+   "lines": 189,
    "findings": [],
    "compiled": true
   },
   {
-   "t": 1.19,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "name": "server.py",
+   "t": 2.67,
+   "at": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
+   "name": "generate_sovereign.py",
+   "node": 20,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "169 lines | 3F/0C | 1 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across generate_sovereign.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nQuillan-Ronin v5.3.1 \u2014 Text Generation Script (2026)\n===================================================\nLoads the trained checkpoint and runs autoregressive text generation\nwith full support for the multi-diffusion step KV caching.\n\"\"\"\nimport os\nimport sys\nimport gc\nimport time\nimport argparse\nimport warnings\n\n# Disable CUDA and warnings\nos.environ['CUDA_VISIBLE_DEVICES'] = ''\nwarnings.filterwarnings('ignore', category=UserWarning, module='torch')\n\nimport torch\nimport torch.nn.functional as F\nfrom pathlib import Path\n\n# Add root and _dev to path\nROOT = Path(__file__).resolve().parent.parent\nsys.path.insert(0, str(ROOT / '_dev'))",
+   "lines": 169,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 59,
+     "preview": "model.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 2.82,
+   "at": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
+   "full": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
+   "name": "hardware_check.py",
+   "node": 21,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "260 lines | 6F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (260 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nPhase 0: Hardware Validation for Quillan-Ronin Transplant\nVerifies source models, RAM, GPU, and dependencies.\n\"\"\"\nimport os\nimport sys\nimport time\nimport json\nimport logging\n\nlogging.basicConfig(\n    level=logging.INFO,\n    format=\"%(asctime)s [%(levelname)s] %(message)s\",\n    handlers=[\n        logging.FileHandler(\"quillan_build.log\"),\n        logging.StreamHandler()\n    ]\n)\nlogger = logging.getLogger(\"HardwareCheck\")\n\nRESULTS = {}\n\ndef check_dependencies():\n    \"\"\"Check required Python packages.\"\"\"",
+   "lines": 260,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 2.97,
+   "at": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
+   "full": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
+   "name": "fix_projections.py",
    "node": 22,
    "event": "file",
    "action": "READING_CODE",
    "result": "OK",
-   "detail": "183 lines | 5F/0C | 0 findings",
-   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfae QUILLAN-RONIN GAMEDEV ENGINE \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nEmbodying C32-AEON (Simulation), C4-PRAXIS (Strategy), C10-CODEWEAVER (Code),\nC27-CHRONICLE (Narrative), C23-CADENCE (Audio/Rhythm):\n  1. gamedev_new_project \u2014 scaffold engine-agnostic folder + systems map\n  2. gamedev_design_loop \u2014 core fantasy -> verbs -> loop -> progression\n  3. gamedev_balance_economy \u2014 XP / currency curve math + sinks/sources\n  4. gamedev_simulate_playtest \u2014 archetype Monte-Carlo playtest sim\n  5. gamedev_review_build \u2014 C34-PREDATOR kill-loop for builds\n\"\"\"\n\nimport sys\nimport math\nimport time\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
-   "lines": 183,
+   "detail": "155 lines | 2F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module fix_projections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Phase 1: Fix expert projections by directly copying source weights.\n\nThe 3 source models were sliced into Quillan's 34 experts.\nThe problem: dimension mismatches were handled with random SVD projections\nthat corrupted the signal. Fix: pad/trim source weights directly to target dims.\n\"\"\"\nimport os, sys, torch, gc\nsys.path.insert(0, r'C:\\Users\\Admin\\Quillan-Ronin')\nfrom safetensors import safe_open\nfrom pathlib import Path\n\nBASE = Path(r'C:\\Users\\Admin\\Quillan-Ronin')\nMODEL_DIR = BASE / 'Quillan-v4.2-model'\nCKPT_PATH = BASE / 'checkpoints' / 'quillan_finetuned.pt'\nOUT_PATH = BASE / 'checkpoints' / 'quillan_fixed.pt'\nH, F = 2048, 4096\n\ndef dequantize_bitnet(w_uint8, w_scale):\n    \"\"\"BitNet stores uint8 with per-tensor scale. \n    Formula: w_fp = (uint8 - 128.0) * scale\"\"\"\n    return (w_uint8.float() - 128.0) * w_scale.float()\n\ndef pad_to_target(w, target_in, target_out):\n    \"\"\"Pad or trim a weight to target dimensions.",
+   "lines": 155,
    "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 3.12,
+   "at": "C:\\02_QUILLAN\\scripts\\final_train.py",
+   "full": "C:\\02_QUILLAN\\scripts\\final_train.py",
+   "name": "final_train.py",
+   "node": 23,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "134 lines | 0F/0C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting final_train.py AST hierarchy (0 functions, 0 classes).",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nQuillan-Ronin Final Training (GTX 1050 Optimized)\n=================================================\nPapers leveraged:\n- Paper 9 (BitDistill): 1.58-bit ternary STE training via _weight_quant\n- Paper 20 (zFLoRA): EGGROLL fused LoRA adapters (disabled during training)\n- Paper 18 (FP16): fp16 for all weights, trains on GPU with AMP\n- Paper 3 (TRM): Small dataset, recursive refinement via 5-wave diffusion\n- Paper 8 (MCMC): Base model already contains latent capabilities\n\"\"\"\nimport sys, torch, os, time\nos.environ['PYTHONUNBUFFERED'] = '1'\nos.chdir(r'C:\\Users\\Admin\\Quillan-Ronin')\nsys.path.insert(0, r'C:\\Users\\Admin\\Quillan-Ronin\\_dev')\nsys.path.insert(0, r'C:\\Users\\Admin\\Quillan-Ronin')\nfrom quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig, BitLinear\nimport torch.nn.functional as F\nfrom torch.cuda.amp import autocast\n\n# Device detection\ndevice = 'cuda' if torch.cuda.is_available() else 'cpu'\npascal = torch.cuda.is_available() and torch.cuda.get_device_capability()[0] < 7\nif pascal:\n    print('Pascal mode (GTX 1050): fp16 compute')",
+   "lines": 134,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 3.26,
+   "at": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
+   "full": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
+   "name": "fix_moc_links.py",
+   "node": 24,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "69 lines | 0F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning fix_moc_links.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Add correct MOC links to all _Index.md files.\"\"\"\nimport os\n\nROOT = r'C:\\Users\\Admin\\Quillan-Ronin'\n\n# Directory -> correct MOC link\nmoc_links = {\n    'Audio Engineer': '[[00 - Meta/05 - Creative Works.md]]',\n    'Book Series': '[[00 - Meta/05 - Creative Works.md]]',\n    'Formal Papers': '[[00 - Meta/02 - Knowledge Foundation.md]]',\n    'Platforms': '[[00 - Meta/06 - Deployment & Platforms.md]]',\n    'Quillan Knowledge files': '[[00 - Meta/02 - Knowledge Foundation.md]]',\n    'Skills': '[[00 - Meta/04 - Skills & Capabilities.md]]',\n    'Software Engineer': '[[00 - Meta/01 - Core Architecture.md]]',\n    '_dev': '[[00 - Meta/03 - Training & Model.md]]',\n    'checkpoints': '[[00 - Meta/03 - Training & Model.md]]',\n    'scripts': '[[00 - Meta/03 - Training & Model.md]]',\n    'system prompts': '[[00 - Meta/06 - Deployment & Platforms.md]]',\n    'testing': '[[00 - Meta/03 - Training & Model.md]]',\n    'training_data': '[[00 - Meta/03 - Training & Model.md]]',\n    'training_logs': '[[00 - Meta/03 - Training & Model.md]]',\n    'Main images': '[[00 - Meta/05 - Creative Works.md]]',\n    'Media Template': '[[00 - Meta/05 - Creative Works.md]]',\n    'Misc': '[[00 - Met",
+   "lines": 69,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 3.41,
+   "at": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "name": "export_phase5_gguf.py",
+   "node": 25,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "180 lines | 0F/0C | 1 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across export_phase5_gguf.",
+   "snippet": "\ufeff#!/usr/bin/env python3\n\"\"\"\nExport Quillan-Ronin Phase 5 - GGUF with proper quantization.\nBitNet experts - TQ2_0 (ternary), attention - Q8_0, embeddings - Q4_0.\n\"\"\"\nimport os\nimport sys\nfrom pathlib import Path\nimport torch\nimport numpy as np\n\n# Try importing gguf, provide helpful error if missing\ntry:\n    from gguf import GGUFWriter, quantize, GGMLQuantizationType\nexcept ImportError:\n    print(\"ERROR: gguf package not installed. Install with: pip install gguf\")\n    sys.exit(1)\n\nBASE = Path(__file__).parent.parent\nCKPT_DIR = BASE / 'checkpoints'\nOUT_DIR = BASE / 'exports'\nOUT_DIR.mkdir(exist_ok=True)\n\ndef q(data, qtype):\n    \"\"\"Quantize a numpy array and return the quantized bytes.\"\"\"",
+   "lines": 180,
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 142,
+     "preview": "except:"
+    }
+   ],
+   "compiled": false
+  },
+  {
+   "t": 3.56,
+   "at": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
+   "full": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
+   "name": "extract_knowledge_and_thinking_data.py",
+   "node": 26,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "197 lines | 3F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (197 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 KNOWLEDGE, DIAGRAMS & THINKING PARADIGM EXTRACTOR\n---------------------------------------------------------------------------------------\nExtracts structured architectural diagrams, CoT/ToT reasoning templates, formulas,\nand Samurai protocols from:\n1. `c:\\\\02_QUILLAN\\\\Quillan Knowledge files\\\\` (Thinking within LLMS.md, Flowcharts, Formulas, Personas)\n2. `c:\\\\02_QUILLAN\\\\system prompts\\\\Quillan-Samurai.md` (Samurai Manifest, 3-Tier Hierarchy, Swarm Math)\n\nInjects verified QA reasoning pairs directly into `training_data/experts_34/` and `training_data/Quillan_Clean_Reasoning_Gold_Dataset.jsonl`.\n\"\"\"\n\nimport os\nimport sys\nimport re\nimport json\nimport logging\nfrom pathlib import Path\nfrom typing import List, Dict, Tuple\n\nlogging.basicConfig(level=logging.INFO, format=\"[%(asctime)s] [%(levelname)s] %(message)s\")\nLOGGER = logging.getLogger(\"extract_knowledge\")\n\nREPO_ROOT = Path(r\"C:\\02_QUILLAN\")",
+   "lines": 197,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 3.71,
+   "at": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "name": "evaluate_terminal_run.py",
+   "node": 27,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "247 lines | 8F/0C | 1 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module evaluate_terminal_run.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 / v5.4 \u2014 ADVANCED SOVEREIGN REASONING EVALUATION HARNESS\n---------------------------------------------------------------------------------------\nIncorporates:\n1. Deterministic Structural Logic Parsers (Aristotelian Premise-Conclusion deduction)\n2. Sandboxed Code Execution Unit Testing (AST / exec verification)\n3. Adversarial Stress Suite (Paradoxes, Anti-Sycophancy, Negative Constraint Adherence)\n4. Multi-Temperature Generative Sweep (T = 0.2, 0.7, 1.0)\n\"\"\"\n\nimport sys\nimport time\nimport json\nimport yaml\nimport re\nimport torch\nfrom pathlib import Path\nfrom typing import Dict, List, Any, Tuple\n\nif hasattr(sys.stdout, \"reconfigure\"):\n    sys.stdout.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")",
+   "lines": 247,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 62,
+     "preview": "exec(\"\\n\".join(clean_lines), sandbox_env)"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 3.86,
+   "at": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "name": "diagnose_quillan_internals.py",
+   "node": 28,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "210 lines | 6F/0C | 1 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting diagnose_quillan_internals.py AST hierarchy (6 functions, 0 classes).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 COMPREHENSIVE INTERNAL ARCHITECTURE DIAGNOSTIC SUITE\n==============================================================================\nDeep mathematical and functional verification of all model subsystems:\n  1. RoPE Positional Extrapolation up to 16,384 tokens\n  2. BitLinear 1.58-bit Ternary Quantization & STE Gradient Flow\n  3. 9-Vector Semantic Prism Balance & Projection Normalization\n  4. 34 Council Experts Routing Dispersion & Swarm Subspace Variance\n  5. Zero-Copy KV-Cache State Isolation in Deliberative Decoding\n\"\"\"\n\nimport sys\nimport time\nimport math\nimport logging\nfrom pathlib import Path\nfrom typing import Dict, List, Tuple\n\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")",
+   "lines": 210,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 173,
+     "preview": "model.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 4.02,
+   "at": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "name": "evaluate_model.py",
+   "node": 29,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "347 lines | 7F/0C | 3 findings",
+   "thought": "[C34-PREDATOR] Scanning evaluate_model.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"\nComprehensive evaluation script for Quillan-Ronin v5.3.1\nTests generation quality, perplexity, and reasoning capabilities.\n\"\"\"\nimport sys, os, json\nfrom pathlib import Path\nimport torch\nimport torch.nn.functional as F\nimport time\nimport math\n\nBASE = Path(__file__).parent.parent\nsys.path.insert(0, str(BASE / '_dev'))\n\nfrom quillan_v8_saturated import QuillanRoninSovereign, QuillanArchConfig\nfrom quillan_bpe_tokenizer import QuillanBPETokenizer\n\ndef load_tokenizer():\n    \"\"\"Load GPT-2 tokenizer to match model checkpoint (50257 vocab).\"\"\"\n    try:\n        from transformers import GPT2Tokenizer\n        tokenizer = GPT2Tokenizer.from_pretrained('gpt2')\n        print(f'[OK] Loaded GPT-2 tokenizer: {tokenizer.vocab_size} vocab')\n        return tokenizer",
+   "lines": 347,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 64,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 75,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "bare_except",
+     "line": 282,
+     "preview": "except:"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 4.17,
+   "at": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
+   "full": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
+   "name": "deploy_media_template.py",
+   "node": 30,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "490 lines | 0F/0C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across deploy_media_template.",
+   "snippet": "import json\nfrom pathlib import Path\n\nclean_skill_md = \"\"\"---\nname: image_video_generation\ndescription: Canonical Media Generation Template (Schema v3.0) for professional cinema, commercial videography, and generative image pipelines.\n---\n\n# Image & Video Generation Template (Schema v3.0)\n\nA comprehensive, industry-standard specification for directing, cinematography, color science (ACEScg), sound design, art theory, and prompt compilation for high-end image and video generation engines.\n\n## Key Capabilities & Dimensions\n\n- **Filmography & Directing**: Scene slug, shot purpose, coverage patterns, screen direction, 180-degree line rule, eyeline matching, match on action, 30-degree rule, and subject/camera blocking notation.\n- **Cinematography & Optical Physics**: Sensor format (Super35, FullFrame, 65mm), shutter angle (180\u00b0), ND filtration stops, T-stops vs f-stops, anamorphic squeeze, lens breathing tolerance, bokeh character, focus pull points, camera support rigs (Steadicam, gimbal, crane, drone), and exposure strategies (ETTR, protect highlights, middle grey).\n- **Color Pipeline & Mastering**: ACEScg working space, IDT, creative LMT, ODT (Rec.709, P3-D65, Rec.2020), log transfer",
+   "lines": 490,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 4.32,
+   "at": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
+   "full": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
+   "name": "daemon_harvester.py",
+   "node": 31,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "112 lines | 4F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (112 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 AUTONOMOUS CHAT HARVESTER DAEMON\n===========================================================\nMonitors `.gemini/tmp` chat session logs in the background, extracts\nnew high-quality Q&A and reasoning pairs, and stages them for upcoming training runs.\nRuns at low priority with minimal memory footprint.\n\"\"\"\n\nimport os\nimport sys\nimport json\nimport time\nimport logging\nfrom pathlib import Path\n\nREPO_ROOT    = Path(r\"C:\\02_QUILLAN\")\nSESSION_DIRS = [\n    REPO_ROOT / \".gemini\" / \"tmp\" / \"admin\" / \"chats\",\n    REPO_ROOT / \".gemini\" / \"tmp\" / \"system32\" / \"chats\",\n]\nOUT_FILE     = REPO_ROOT / \"training_data\" / \"harvested_conversations_gold.jsonl\"\nSTATE_FILE   = REPO_ROOT / \"scripts\" / \"harvester_state.json\"\n",
+   "lines": 112,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 4.46,
+   "at": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
+   "name": "create_remaining_notes.py",
+   "node": 32,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "45 lines | 0F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module create_remaining_notes.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Create remaining _Index.md folder notes.\"\"\"\nimport os\n\nROOT = r'C:\\Users\\Admin\\Quillan-Ronin'\n\ndirs = {\n    'Main images': 'Quillan branding, logos, diagrams, AI-generated artwork',\n    'Media Template': 'Content generation templates for social media, branding, marketing',\n    'Software Engineer': 'Development prompts, SWE orchestrator documentation',\n}\n\nfor d, desc in dirs.items():\n    base = os.path.join(ROOT, d)\n    if not os.path.exists(base):\n        print(f'SKIP: {d}')\n        continue\n    \n    entries = []\n    for f in sorted(os.listdir(base)):\n        fp = os.path.join(base, f)\n        if os.path.isdir(fp):\n            entries.append(f'  - **{f}/**')\n        else:\n            entries.append(f'  - [[{d}/{f}]]')",
+   "lines": 45,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 4.61,
+   "at": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "name": "daemon_evaluator.py",
+   "node": 33,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "128 lines | 2F/0C | 1 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting daemon_evaluator.py AST hierarchy (2 functions, 0 classes).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 AUTONOMOUS CHECKPOINT EVALUATION DAEMON\n=================================================================\nMonitors checkpoint directory for new `*_best.pt` models and automatically\nruns benchmark probes without interrupting the primary training loop.\nOperates with single-thread CPU cap to prevent core contention.\n\"\"\"\n\nimport sys\nimport time\nimport os\nimport json\nimport logging\nfrom pathlib import Path\n\n# CPU constraint: strictly 1 thread for background evaluation\nimport torch\ntorch.set_num_threads(1)\ntorch.set_num_interop_threads(1)\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")\nCKPT_DIR    = Path(r\"C:\\02_QUILLAN\\checkpoints\\checkpoints_sft\")\nOUT_FILE    = SCRIPTS_DIR / \"daemon_eval_results.json\"",
+   "lines": 128,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 62,
+     "preview": "model.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 4.75,
+   "at": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
+   "name": "create_indexes.py",
+   "node": 34,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "54 lines | 0F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning create_indexes.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Create directory index files listing every file with wikilinks.\"\"\"\nimport os\n\nROOT = r'C:\\Users\\Admin\\Quillan-Ronin'\nskip_dirs = {'node_modules','__pycache__','.git','venv','venv_cuda1050','.venv','.venv-cuda','__pycache__'}\nskip_ext = {'.pyc', '.exe', '.dll', '.so', '.pyd'}\n\n# Major directories to index\ndirs = ['scripts', '_dev', 'checkpoints', 'training_data', 'training_logs',\n        'Quillan Knowledge files', 'Formal Papers', 'Skills', 'Platforms',\n        'system prompts', 'Audio Engineer', 'Book Series', 'testing',\n        'Software Engineer', 'Misc', 'Media Template', '_config', '_projects',\n        '00 - Meta', '00 - Templates']\n\nfor d in dirs:\n    base = os.path.join(ROOT, d)\n    if not os.path.exists(base):\n        continue\n    \n    # Collect all files\n    entries = []\n    for root, dirs, files in os.walk(base):\n        dirs[:] = [x for x in dirs if x not in skip_dirs]\n        for f in sorted(files):",
+   "lines": 54,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 4.9,
+   "at": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
+   "name": "create_media_index.py",
+   "node": 35,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "52 lines | 0F/0C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across create_media_index.",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Generate complete media index for Quillan-generated content.\"\"\"\nimport os\n\nROOT = r'C:\\Users\\Admin\\Quillan-Ronin'\nDOWNLOAD = r'C:\\Users\\Admin\\Downloads'\nLINK = '\\n- [[system prompts/Quillan-Samurai.md]]\\n- [[00 - Meta/05 - Creative Works.md]]\\n- [[Audio Engineer/_Index.md]]\\n'\n\nmedia_sources = {\n    'Downloads/audio': ('Audio (Tracks, Freestyles)', '.mp3', '.wav', '.flac', '.m4a', '.ogg'),\n    'Downloads/iamges': ('Images (AI-Generated Art)', '.png', '.jpg', '.jpeg', '.svg', '.gif', '.webp'),\n    'Downloads/vids': ('Videos (Music Videos, Clips)', '.mp4', '.mov', '.avi', '.mkv', '.webm'),\n    'Main images': ('Vault Media (Branding, Logos)', '.png', '.jpg', '.jpeg', '.svg', '.gif'),\n}\n\nsections = []\nfor folder, (title, *exts) in media_sources.items():\n    exts = exts[0]\n    base = os.path.join(DOWNLOAD if folder.startswith('Downloads') else ROOT, folder.split('/')[-1])\n    if not os.path.exists(base):\n        base = os.path.join(ROOT, folder)\n    if not os.path.exists(base):\n        continue\n    \n    files = []",
+   "lines": 52,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 5.04,
+   "at": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
+   "full": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
+   "name": "create_folder_notes.py",
+   "node": 36,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "40 lines | 0F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (40 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n\"\"\"Create _Index.md folder notes in each major directory.\"\"\"\nimport os\n\nROOT = r'C:\\Users\\Admin\\Quillan-Ronin'\nLINK = '\\n- [[system prompts/Quillan-Samurai.md]]\\n- [[00 - Meta/00 - Vault Index.md]]\\n'\n\n# Directories that need folder notes\ndirs = ['scripts', '_dev', 'Quillan Knowledge files', 'Formal Papers', \n        'Skills', 'Platforms', 'system prompts', 'Audio Engineer', \n        'Book Series', 'testing', 'Misc', '00 - Meta', '00 - Templates',\n        'training_data', 'training_logs', 'checkpoints',\n        '_projects/Ronin-Saga-Neo-Eden', '_projects/Python-Monsters']\n\nfor d in dirs:\n    base = os.path.join(ROOT, d)\n    if not os.path.exists(base):\n        print(f'SKIP (not found): {d}')\n        continue\n    \n    # Build listing\n    entries = []\n    for f in sorted(os.listdir(base)):\n        fp = os.path.join(base, f)\n        if os.path.isdir(fp) and not f.startswith('.'):",
+   "lines": 40,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 5.18,
+   "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "name": "consolidate_and_export_sovereign.py",
+   "node": 37,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "88 lines | 1F/0C | 1 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module consolidate_and_export_sovereign.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 SOVEREIGN WEIGHT CONSOLIDATION & EXPORT\nFuses active LoRA matrices and underling swarm projections into static inference weights,\nstrips optimizer overhead, and exports a lightweight, production-ready deployable checkpoint.\n\"\"\"\n\nimport os\nimport sys\nimport time\nimport torch\nfrom pathlib import Path\n\nif hasattr(sys.stdout, \"reconfigure\"):\n    sys.stdout.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")\nSCRATCH_DIR = Path(r\"C:\\Users\\Admin\\.gemini\\antigravity-ide\\brain\\47d0b748-384a-4cc6-bcb6-f13c52f1d9d9\\scratch\")\nCKPT_DIR = Path(r\"C:\\02_QUILLAN\\checkpoints\\checkpoints_sft\")\nEXPORT_DIR = Path(r\"C:\\02_QUILLAN\\checkpoints\\production_export\")\nEXPORT_DIR.mkdir(parents=True, exist_ok=True)\n\nsys.path.insert(0, str(SCRIPTS_DIR))\nsys.path.insert(0, str(SCRATCH_DIR))",
+   "lines": 88,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 58,
+     "preview": "model.eval()"
+    }
+   ],
    "compiled": true
   }
  ],
  "wiring": [
   {
-   "from": "spider_bridge.py",
-   "to": "server",
-   "why": "spider_bridge.py imports server; coupled"
+   "from": "interactive_chat.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "interactive_chat.py imports quillan_v10_unrolled_sovereign; coupled"
+  },
+  {
+   "from": "evaluate_terminal_run.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "evaluate_terminal_run.py imports quillan_v10_unrolled_sovereign; coupled"
+  },
+  {
+   "from": "diagnose_quillan_internals.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "diagnose_quillan_internals.py imports quillan_v10_unrolled_sovereign; coupled"
+  },
+  {
+   "from": "daemon_evaluator.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "daemon_evaluator.py imports quillan_v10_unrolled_sovereign; coupled"
+  },
+  {
+   "from": "consolidate_and_export_sovereign.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "consolidate_and_export_sovereign.py imports quillan_v10_unrolled_sovereign; coupled"
   }
  ],
  "spider": {
   "pos": {
-   "t": 1.19,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "name": "server.py",
-   "node": 22,
+   "t": 5.18,
+   "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "name": "consolidate_and_export_sovereign.py",
+   "node": 37,
    "event": "file",
    "action": "READING_CODE",
-   "result": "OK",
-   "detail": "183 lines | 5F/0C | 0 findings",
-   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
-   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfae QUILLAN-RONIN GAMEDEV ENGINE \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nEmbodying C32-AEON (Simulation), C4-PRAXIS (Strategy), C10-CODEWEAVER (Code),\nC27-CHRONICLE (Narrative), C23-CADENCE (Audio/Rhythm):\n  1. gamedev_new_project \u2014 scaffold engine-agnostic folder + systems map\n  2. gamedev_design_loop \u2014 core fantasy -> verbs -> loop -> progression\n  3. gamedev_balance_economy \u2014 XP / currency curve math + sinks/sources\n  4. gamedev_simulate_playtest \u2014 archetype Monte-Carlo playtest sim\n  5. gamedev_review_build \u2014 C34-PREDATOR kill-loop for builds\n\"\"\"\n\nimport sys\nimport math\nimport time\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
-   "lines": 183,
-   "findings": [],
+   "result": "FLAGGED",
+   "detail": "88 lines | 1F/0C | 1 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module consolidate_and_export_sovereign.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc51 QUILLAN-RONIN v5.3.1 \u2014 SOVEREIGN WEIGHT CONSOLIDATION & EXPORT\nFuses active LoRA matrices and underling swarm projections into static inference weights,\nstrips optimizer overhead, and exports a lightweight, production-ready deployable checkpoint.\n\"\"\"\n\nimport os\nimport sys\nimport time\nimport torch\nfrom pathlib import Path\n\nif hasattr(sys.stdout, \"reconfigure\"):\n    sys.stdout.reconfigure(encoding=\"utf-8\", errors=\"replace\")\n\nSCRIPTS_DIR = Path(r\"C:\\02_QUILLAN\\scripts\")\nSCRATCH_DIR = Path(r\"C:\\Users\\Admin\\.gemini\\antigravity-ide\\brain\\47d0b748-384a-4cc6-bcb6-f13c52f1d9d9\\scratch\")\nCKPT_DIR = Path(r\"C:\\02_QUILLAN\\checkpoints\\checkpoints_sft\")\nEXPORT_DIR = Path(r\"C:\\02_QUILLAN\\checkpoints\\production_export\")\nEXPORT_DIR.mkdir(parents=True, exist_ok=True)\n\nsys.path.insert(0, str(SCRIPTS_DIR))\nsys.path.insert(0, str(SCRATCH_DIR))",
+   "lines": 88,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 58,
+     "preview": "model.eval()"
+    }
+   ],
    "compiled": true
   },
-  "visited": 15,
+  "visited": 35,
   "state": "MISSION_COMPLETE",
   "action": "IDLE",
-  "total_findings": 3,
-  "wires": 1,
-  "elapsed_s": 1.2,
-  "active_thought": "Mission 'Weave Second Brain Connections' complete. Wove 1 synaptic wires across 15 artifacts."
+  "total_findings": 14,
+  "wires": 5,
+  "elapsed_s": 5.3,
+  "active_thought": "Mission 'Scan core workspace modules & verify AST' complete. Wove 5 synaptic wires across 35 artifacts."
  }
 }
