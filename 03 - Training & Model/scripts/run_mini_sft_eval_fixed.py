@@ -3,7 +3,7 @@
 """
 QUILLAN-RONIN v5.4.0-ONI — FIXED 20-PROMPT BENCHMARK EVALUATION
 ================================================================
-Run with:  C:\02_QUILLAN\venv_oni_cu126\Scripts\python.exe run_mini_sft_eval_fixed.py
+Run with:  C:\\02_QUILLAN\\venv_oni_cu126\\Scripts\\python.exe run_mini_sft_eval_fixed.py
 
 Key fixes vs original run_mini_sft_20q_eval.py:
   1. No use_cache in autoregressive loop — avoids KV-cache corruption with

@@ -11,8 +11,8 @@ Evaluates across:
   - 10 Long-Form Prompts (160-220 max tokens)
 
 Logs outputs per-turn to:
-  - C:\02_QUILLAN\evaluation_results\mini_6l_20q_evaluation.log
-  - C:\02_QUILLAN\evaluation_results\mini_6l_20q_evaluation.md
+  - C:\\02_QUILLAN\\evaluation_results\\mini_6l_20q_evaluation.log
+  - C:\\02_QUILLAN\\evaluation_results\\mini_6l_20q_evaluation.md
 """
 
 import os

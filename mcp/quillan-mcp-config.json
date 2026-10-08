@@ -172,6 +172,76 @@
       "env": {
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "QuillanGameDev": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanTeam": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanAudio": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanMedia": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanWeb": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanOps": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
+    },
+    "QuillanSpider": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
+      }
     }
   }
 }

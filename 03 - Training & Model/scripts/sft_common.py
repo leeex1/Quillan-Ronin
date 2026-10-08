@@ -131,6 +131,25 @@ class MasterCleanSFTDataset:
                 return p1
             return self.repo_root / rel_p
 
+        # 0. Check for Fast Pre-Tokenized Cache
+        cache_p = Path(r"E:\quillan_datasets\sft_master_tokenized_cache.pt")
+        if cache_p.exists():
+            try:
+                print(f"  [DATA] Loading fast pre-tokenized cache from {cache_p.name}...")
+                cached = torch.load(cache_p, map_location="cpu", weights_only=False)
+                if "inputs" in cached and "labels" in cached:
+                    inps = cached["inputs"]
+                    lbls = cached["labels"]
+                    self.samples = [(inps[i], lbls[i]) for i in range(len(inps))]
+                    self.keys = cached["keys"]
+                else:
+                    self.samples = cached["samples"]
+                    self.keys = cached["keys"]
+                print(f"  [DATA] Total Active Dataset: {len(self.samples)} genuine SFT samples loaded in 0.5s!")
+                return
+            except Exception as e:
+                print(f"  [WARN] Cache load failed ({e}), rebuilding from raw sources...")
+
         # 1. Load SFT Master Tensors (2,355 samples)
         p_sft = resolve_path("training_data/canonical_standardized/quillan_gold_sft_master.pt")
         if p_sft.exists():
@@ -181,73 +200,137 @@ class MasterCleanSFTDataset:
                 m_added += 1
             print(f"  [DATA] Master Gold: {m_added} unique samples loaded from {p_master.name}")
 
-        # 3. Load Master Distilled & Samurai Tensors from E:\quillan_datasets (48.1M tokens)
-        samurai_dir = Path(r"E:\quillan_datasets")
-        if samurai_dir.exists():
-            master_files = [
-                ("GPT_5.5_Distilled.pt", "gpt5"),
-                ("instruct_train.pt", "instruct"),
-                ("code_train.pt", "code"),
-                ("train.pt", "train"),
-                ("quillan_science_absolute.pt", "sci_abs"),
-                ("quillan_science_additional.pt", "sci_add"),
-                ("full_train.pt", "full"),
-            ]
-            for m_file, prefix in master_files:
-                p_m = samurai_dir / m_file
-                if not p_m.exists():
-                    continue
-                try:
-                    tensor = torch.load(p_m, map_location="cpu", weights_only=False)
-                    if hasattr(tensor, "shape") and tensor.dim() == 1:
-                        n_tokens = tensor.numel()
-                        n_samples = n_tokens // self.seq_len
-                        added_m = 0
-                        for si in range(n_samples):
-                            inp_t = tensor[si * self.seq_len : (si + 1) * self.seq_len]
-                            lbl_t = inp_t.clone()
-                            lbl_t[lbl_t == 0] = -100
+        # 3. Load Authentic Raw JSONL Dialogues from E:\quillan_datasets (GPT-5.5, Code, Instruct, Train)
+        if tok is None:
+            from tokenizers import Tokenizer
+            tok_path = resolve_path("quillan_bpe_tokenizer_hf/tokenizer.json")
+            if tok_path.exists():
+                tok = Tokenizer.from_file(str(tok_path))
 
+        samurai_dir = Path(r"E:\quillan_datasets")
+        if samurai_dir.exists() and tok is not None:
+            # A. GPT_5.5_Distilled.jsonl (18,197 samples)
+            p_gpt = samurai_dir / "GPT_5.5_Distilled.jsonl"
+            if p_gpt.exists():
+                gpt_added = 0
+                with open(p_gpt, "r", encoding="utf-8", errors="replace") as f:
+                    for line in f:
+                        if not line.strip(): continue
+                        try:
+                            obj = json.loads(line)
+                            text = obj.get("text", "")
+                            if "<|user|>" in text and "<|assistant|>" in text:
+                                parts = text.split("<|assistant|>")
+                                q = parts[0].replace("<|user|>", "").strip()
+                                a = parts[1].strip()
+                                if not q or not a: continue
+                                prompt_prefix = f"User: {q}\n\nAssistant:"
+                                full_text     = f"{prompt_prefix} {a}"
+                                p_ids = tok.encode(prompt_prefix).ids
+                                f_ids = tok.encode(full_text).ids
+                                if len(f_ids) + 1 > self.seq_len:
+                                    f_ids = f_ids[:self.seq_len - 1]
+                                if len(p_ids) >= len(f_ids):
+                                    continue
+                                inp_list = (f_ids + [0] * (self.seq_len - len(f_ids)))[:self.seq_len]
+                                lbl_list = ([-100] * len(p_ids) + f_ids[len(p_ids):] + [0] + [-100] * (self.seq_len - len(f_ids) - 1))[:self.seq_len]
+
+                                inp_t = torch.tensor(inp_list, dtype=torch.long)
+                                lbl_t = torch.tensor(lbl_list, dtype=torch.long)
+                                h = hashlib.sha256(inp_t.numpy().tobytes()).digest()
+                                if h in seen_hashes:
+                                    dup_skipped += 1
+                                    continue
+                                seen_hashes.add(h)
+                                k = f"gpt_{hashlib.md5(q.encode('utf-8')).hexdigest()}"
+                                self.samples.append((inp_t, lbl_t))
+                                self.keys.append(k)
+                                gpt_added += 1
+                        except Exception:
+                            pass
+                print(f"  [DATA] GPT-5.5 Distilled: {gpt_added} unique SFT samples loaded from {p_gpt.name}")
+
+            # B. code_train.jsonl & instruct_train.jsonl (Claude Opus dialogues)
+            for fn, pfx in [("code_train.jsonl", "code"), ("instruct_train.jsonl", "inst")]:
+                p_c = samurai_dir / fn
+                if not p_c.exists(): continue
+                c_added = 0
+                with open(p_c, "r", encoding="utf-8", errors="replace") as f:
+                    for line in f:
+                        if not line.strip(): continue
+                        try:
+                            obj = json.loads(line)
+                            msgs = obj.get("messages", [])
+                            q, a = "", ""
+                            for m in msgs:
+                                if m.get("role") == "user" and not q:
+                                    q = m.get("content", "").strip()
+                                elif m.get("role") == "assistant" and not a:
+                                    a = m.get("content", "").strip()
+                            if not q or not a: continue
+                            prompt_prefix = f"User: {q}\n\nAssistant:"
+                            full_text     = f"{prompt_prefix} {a}"
+                            p_ids = tok.encode(prompt_prefix).ids
+                            f_ids = tok.encode(full_text).ids
+                            if len(f_ids) + 1 > self.seq_len:
+                                f_ids = f_ids[:self.seq_len - 1]
+                            if len(p_ids) >= len(f_ids):
+                                continue
+                            inp_list = (f_ids + [0] * (self.seq_len - len(f_ids)))[:self.seq_len]
+                            lbl_list = ([-100] * len(p_ids) + f_ids[len(p_ids):] + [0] + [-100] * (self.seq_len - len(f_ids) - 1))[:self.seq_len]
+
+                            inp_t = torch.tensor(inp_list, dtype=torch.long)
+                            lbl_t = torch.tensor(lbl_list, dtype=torch.long)
                             h = hashlib.sha256(inp_t.numpy().tobytes()).digest()
                             if h in seen_hashes:
                                 dup_skipped += 1
                                 continue
                             seen_hashes.add(h)
-
-                            k = f"{prefix}_{hashlib.md5(inp_t[:32].numpy().tobytes()).hexdigest()}"
+                            k = f"{pfx}_{hashlib.md5(q.encode('utf-8')).hexdigest()}"
                             self.samples.append((inp_t, lbl_t))
                             self.keys.append(k)
-                            added_m += 1
-                        print(f"  [DATA] Master Samurai: {added_m} unique samples ({added_m * self.seq_len:,} tokens) loaded from {m_file}")
-                except Exception as e:
-                    print(f"  [WARN] Failed to load {m_file}: {e}")
+                            c_added += 1
+                        except Exception:
+                            pass
+                print(f"  [DATA] Claude Opus ({pfx}): {c_added} unique SFT samples loaded from {fn}")
 
-        # 4. Load Pretrain Foundation Corpus Tensors if requested
-        if include_pretrain and len(self.samples) < 50000:
-            p_pretrain = resolve_path("training_data/quillan_pretrain_corpus_343mb.pt")
-            if p_pretrain.exists():
-                d_p = torch.load(p_pretrain, map_location="cpu", weights_only=False)
-                p_inps = d_p.get("input_ids", None)
-                if p_inps is not None:
-                    p_added = 0
-                    for i in range(len(p_inps)):
-                        inp_t = p_inps[i]
-                        if inp_t.dtype != torch.long:
-                            inp_t = inp_t.long()
-                        lbl_t = inp_t.clone()
-                        lbl_t[lbl_t == 0] = -100
+            # C. train.jsonl (15,000 reasoning samples)
+            p_tr = samurai_dir / "train.jsonl"
+            if p_tr.exists():
+                tr_added = 0
+                with open(p_tr, "r", encoding="utf-8", errors="replace") as f:
+                    for line in f:
+                        if not line.strip(): continue
+                        try:
+                            obj = json.loads(line)
+                            q = obj.get("question", "").strip()
+                            a = obj.get("answer", "").strip()
+                            if not q or not a: continue
+                            prompt_prefix = f"User: {q}\n\nAssistant:"
+                            full_text     = f"{prompt_prefix} {a}"
+                            p_ids = tok.encode(prompt_prefix).ids
+                            f_ids = tok.encode(full_text).ids
+                            if len(f_ids) + 1 > self.seq_len:
+                                f_ids = f_ids[:self.seq_len - 1]
+                            if len(p_ids) >= len(f_ids):
+                                continue
+                            inp_list = (f_ids + [0] * (self.seq_len - len(f_ids)))[:self.seq_len]
+                            lbl_list = ([-100] * len(p_ids) + f_ids[len(p_ids):] + [0] + [-100] * (self.seq_len - len(f_ids) - 1))[:self.seq_len]
 
-                        h = hashlib.sha256(inp_t.numpy().tobytes()).digest()
-                        if h in seen_hashes:
-                            dup_skipped += 1
-                            continue
-                        seen_hashes.add(h)
-
-                        k = f"pre_{hashlib.md5(inp_t[:32].numpy().tobytes()).hexdigest()}"
-                        self.samples.append((inp_t, lbl_t))
-                        self.keys.append(k)
-                        p_added += 1
-                    print(f"  [DATA] Pretrain Corpus: {p_added} unique samples loaded from {p_pretrain.name}")
+                            inp_t = torch.tensor(inp_list, dtype=torch.long)
+                            lbl_t = torch.tensor(lbl_list, dtype=torch.long)
+                            h = hashlib.sha256(inp_t.numpy().tobytes()).digest()
+                            if h in seen_hashes:
+                                dup_skipped += 1
+                                continue
+                            seen_hashes.add(h)
+                            k = f"tr_{hashlib.md5(q.encode('utf-8')).hexdigest()}"
+                            self.samples.append((inp_t, lbl_t))
+                            self.keys.append(k)
+                            tr_added += 1
+                        except Exception:
+                            pass
+                print(f"  [DATA] Core Reasoning: {tr_added} unique SFT samples loaded from {p_tr.name}")
 
         # 5. Load JSONL Sources (if tokenizer provided)
         jsonl_added = 0

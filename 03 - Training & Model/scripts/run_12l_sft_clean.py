@@ -56,6 +56,39 @@ CKPT_DIR.mkdir(parents=True, exist_ok=True)
 # Backward compatibility alias
 MonolithicCleanSFTDataset = MasterCleanSFTDataset
 
+def emit_hub_event(step, max_steps, loss, lr=0.0, best_loss=None, cadence_ms=5800, model_name="Quillan 12L Main", probe_prompt=None, probe_think=None, probe_output=None):
+    """Post live training telemetry to local dashboard collector at http://127.0.0.1:8777."""
+    try:
+        import urllib.request
+        payload = {
+            "agent": "quillan_trainer",
+            "type": "train_step",
+            "step": int(step),
+            "max_steps": int(max_steps),
+            "loss": round(float(loss), 4),
+            "lr": float(lr),
+            "cadence_ms": float(cadence_ms),
+            "model": model_name,
+            "tokens": int(step * 512),
+        }
+        if best_loss is not None:
+            payload["best_loss"] = round(float(best_loss), 4)
+        if probe_prompt:
+            payload["probe_prompt"] = str(probe_prompt)
+        if probe_think:
+            payload["probe_think"] = str(probe_think)
+        if probe_output:
+            payload["probe_output"] = str(probe_output)
+        req = urllib.request.Request(
+            "http://127.0.0.1:8777/api/events",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST"
+        )
+        urllib.request.urlopen(req, timeout=0.15)
+    except Exception:
+        pass
+
 
 def atomic_save(payload: dict, dest: Path, headroom_gb: float = 0.5) -> bool:
     """Write to a temp file then os.replace, so a crash or full disk never
@@ -78,9 +111,9 @@ def atomic_save(payload: dict, dest: Path, headroom_gb: float = 0.5) -> bool:
     return True
 
 
-def probe(model, tok, prompt, device, max_new=60):
+def probe(model, tok, prompt, device, max_new=120):
     model.eval()
-    fmt  = f"User: {prompt}\n\nAssistant:"
+    fmt  = f"User: {prompt}\n\nAssistant:\n<think>\n"
     ids  = tok.encode(fmt).ids
     gen  = list(ids)
     with torch.no_grad():
@@ -89,7 +122,7 @@ def probe(model, tok, prompt, device, max_new=60):
             out    = model(x, use_cache=False, deliberation=False)
             logits = out[0] if isinstance(out, tuple) else out
             nxt    = int(logits[0, -1, :].argmax().item())
-            if nxt in (0, 50256):
+            if nxt == 50256:
                 break
             gen.append(nxt)
             x = torch.tensor([gen[-512:]], dtype=torch.long, device=device)
@@ -97,7 +130,31 @@ def probe(model, tok, prompt, device, max_new=60):
     return tok.decode(gen[len(ids):]).strip()
 
 
+class TeeLogger:
+    def __init__(self, filepath):
+        self.terminal = sys.stdout
+        self.filepath = filepath
+        Path(filepath).parent.mkdir(parents=True, exist_ok=True)
+        self.log = open(filepath, "a", encoding="utf-8", buffering=1)
+    def write(self, message):
+        self.terminal.write(message)
+        try:
+            self.log.write(message)
+        except Exception:
+            pass
+    def flush(self):
+        self.terminal.flush()
+        try:
+            self.log.flush()
+        except Exception:
+            pass
+
+
 def run():
+    log_file = resolve_path("evaluation_results/train_12l_master.log")
+    sys.stdout = TeeLogger(log_file)
+    sys.stderr = sys.stdout
+
     device = torch.device("cpu")
     if torch.cuda.is_available():
         try:
@@ -119,6 +176,7 @@ def run():
     print("  QUILLAN 12L — MONOLITHIC SFT (Attention, Prism, LoRA & Gate Unfrozen)")
     print(f"  Device: {device}" + (f" | {torch.cuda.get_device_name(0)}" if device.type=="cuda" else ""))
     print(f"  CPU Threads: {safe_threads}/{os.cpu_count()} (1 core reserved for DWM/UI responsiveness)")
+    print(f"  Live log: {log_file}")
     print("=" * 70)
 
     print(f"\nBase checkpoint: {CKPT_IN.name}")
@@ -197,8 +255,8 @@ def run():
 
     tok = Tokenizer.from_file(str(resolve_path("quillan_bpe_tokenizer_hf/tokenizer.json")))
 
-    print("\nBuilding master clean dataset (seq_len=256)...")
-    full_dataset = MasterCleanSFTDataset(tok, seq_len=256)
+    print("\nBuilding master clean dataset (seq_len=512)...")
+    full_dataset = MasterCleanSFTDataset(tok, seq_len=512)
     VAL_FRACTION = float(os.environ.get("QUILLAN_VAL_FRACTION", "0.05"))
     train_idx, val_idx, held_out = group_split(full_dataset.keys, val_fraction=VAL_FRACTION)
     if not val_idx:
@@ -215,16 +273,16 @@ def run():
     WARMUP_STEPS = 20
     RESET_STEP   = os.environ.get("QUILLAN_RESET_STEP", "1") == "1"
     start_step   = 0 if RESET_STEP else int(data.get("step", 0) or 0)
-    target_steps = int(os.environ.get("QUILLAN_TARGET_STEPS", str(start_step + 1500)))
+    target_steps = int(os.environ.get("QUILLAN_TARGET_STEPS", str(start_step + 500)))
     MAX_STEPS    = target_steps
     ACCUM        = 2        # effective batch 2
     EARLY_STOP   = 0.20     # Deep convergence floor
     SAVE_EVERY   = int(os.environ.get("QUILLAN_SAVE_EVERY", "0"))     # 0 = no milestone saves (disk)
     EVAL_EVERY   = int(os.environ.get("QUILLAN_EVAL_EVERY", "50"))
-    PROBE_EVERY  = int(os.environ.get("QUILLAN_PROBE_EVERY", "100"))
-    VAL_BATCHES  = int(os.environ.get("QUILLAN_VAL_BATCHES", "32"))    # fixed subset -> comparable evals
-    PATIENCE     = int(os.environ.get("QUILLAN_PATIENCE", "10"))      # evals without held-out improvement before stopping
-    MIN_DELTA    = float(os.environ.get("QUILLAN_MIN_DELTA", "0.002"))
+    PROBE_EVERY  = int(os.environ.get("QUILLAN_PROBE_EVERY", "50"))
+    VAL_BATCHES  = int(os.environ.get("QUILLAN_VAL_BATCHES", "16"))    # fixed subset -> comparable evals
+    PATIENCE     = int(os.environ.get("QUILLAN_PATIENCE", "20"))      # evals without held-out improvement before stopping
+    MIN_DELTA    = float(os.environ.get("QUILLAN_MIN_DELTA", "0.001"))
     evals_since_best = 0
 
     optimizer = torch.optim.AdamW(trainable, lr=LR, betas=(0.9, 0.98), weight_decay=0.01)
@@ -250,6 +308,7 @@ def run():
     PROBE_PROMPTS = [
         "What is the exact speed of light in a vacuum?",
         "Who are you and what is your architecture?",
+        "Explain the Bushido code in Quillan-Ronin.",
     ]
 
     while step < MAX_STEPS:
@@ -308,6 +367,7 @@ def run():
             ppl = math.exp(min(avg, 20.0))
             print(f"[{step:4d}/{MAX_STEPS}] loss={avg:.4f}  PPL={ppl:6.2f}  lr={curr_lr:.2e}")
             running_loss = 0.0
+            emit_hub_event(step=step, max_steps=MAX_STEPS, loss=avg, lr=curr_lr, best_loss=best_loss, model_name="Quillan 12L Main")
 
             if SAVE_EVERY and (step % SAVE_EVERY == 0 or step == MAX_STEPS):
                 atomic_save({
@@ -369,6 +429,7 @@ def run():
                 resp = probe(model, tok, pp, device)
                 print(f"  Q: {pp}")
                 print(f"  A: {resp[:200]}")
+                emit_hub_event(step=step, max_steps=MAX_STEPS, loss=best_loss, lr=curr_lr, best_loss=best_loss, model_name="Quillan 12L Main", probe_prompt=pp, probe_output=resp)
             print(f"{'─'*70}\n")
 
     print("\n" + "=" * 70)

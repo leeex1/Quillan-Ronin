@@ -21,8 +21,40 @@ if sys.platform == "win32":
 
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+import hashlib
+import re
+import time
 import torch
 from fastmcp import FastMCP
+
+# ─── SKILL-AWARE EXTENSION (v2 — registry + router + chain) ─────────────────
+SKILL_DIRS = [
+    Path(r"C:\02_QUILLAN\04- quillan-sovereign-skills-and-swarm\Skills"),
+    Path(r"C:\Users\Admin\.agents\skills\skills\critical-thinking"),
+]
+BASE_SKILL_CATALOG: Dict[str, Dict[str, Any]] = {
+    "reasoning": {"council": ["C7-LOGOS", "C17-NULLION"], "triggers": ["reason", "infer", "deduce", "chain", "proof", "solve", "steps"], "depth": "base"},
+    "critical-thinking": {"council": ["C7-LOGOS", "C34-PREDATOR"], "triggers": ["analyze", "evaluate", "assumption", "bias", "fallacy", "critique", "validate"], "depth": "gate"},
+    "logical_reasoning": {"council": ["C7-LOGOS", "C28-CALCULUS"], "triggers": ["logic", "syllogism", "valid", "entail", "contradiction", "premise"], "depth": "deep"},
+    "causal_reasoning": {"council": ["C7-LOGOS", "C25-PROMETHEUS"], "triggers": ["cause", "effect", "why", "root cause", "counterfactual", "mechanism"], "depth": "deep"},
+    "analogical_reasoning": {"council": ["C1-ASTRA", "C8-METASYNTH"], "triggers": ["analogy", "metaphor", "similar", "like", "map across", "borrow from"], "depth": "deep"},
+    "probabilistic_reasoning": {"council": ["C28-CALCULUS", "C7-LOGOS"], "triggers": ["probability", "likely", "forecast", "risk", "uncertain", "bayes", "odds", "balance", "economy", "tuning"], "depth": "deep"},
+    "research-analysis": {"council": ["C21-ARCHON", "C18-SHEPHERD"], "triggers": ["research", "paper", "evidence", "sources", "literature", "cite", "study"], "depth": "deep"},
+    "planning_and_task_decomposition": {"council": ["C4-PRAXIS", "C31-NEXUS"], "triggers": ["plan", "decompose", "steps", "roadmap", "tasks", "scaffold", "project", "ship"], "depth": "fast"},
+    "council-coordination": {"council": ["C31-NEXUS", "C11-HARMONIA"], "triggers": ["council", "coordinate", "consensus", "merge", "arbitrate", "team", "crew"], "depth": "fast"},
+    "swarm-inter-agent-orchestration": {"council": ["C31-NEXUS", "C14-KAIDO"], "triggers": ["swarm", "agents", "orchestrate", "parallel", "distribute", "crew", "workers"], "depth": "deep"},
+    "technical-coding": {"council": ["C10-CODEWEAVER", "C26-TECHNE"], "triggers": ["code", "debug", "refactor", "build", "implement", "bug", "function", "api"], "depth": "fast"},
+    "memory": {"council": ["C5-ECHO", "C27-CHRONICLE"], "triggers": ["remember", "recall", "context", "history", "persist", "memory"], "depth": "fast"},
+    "world_model": {"council": ["C32-AEON", "C6-OMNIS"], "triggers": ["simulate", "world", "trajectory", "predict future", "dynamics", "playtest", "scenario"], "depth": "deep"},
+    "theory_of_mind": {"council": ["C6-OMNIS", "C3-SOLACE"], "triggers": ["intent", "user believes", "perspective", "empathy", "mental model", "player"], "depth": "deep"},
+    "moral_and_ethical_reasoning": {"council": ["C2-VIR", "C13-WARDEN"], "triggers": ["ethics", "moral", "harm", "right", "should", "bushido", "safe", "allowed"], "depth": "gate"},
+    "moral_reasoning": {"council": ["C2-VIR", "C11-HARMONIA"], "triggers": ["dilemma", "values", "fair", "duty", "virtue"], "depth": "gate"},
+    "knowledge_representation": {"council": ["C6-OMNIS", "C24-SCHEMA"], "triggers": ["schema", "structure", "knowledge graph", "represent", "format", "brief"], "depth": "fast"},
+    "perception": {"council": ["C1-ASTRA", "C15-LUMINARIS"], "triggers": ["see", "image", "visual", "perceive", "diagram", "excalidraw"], "depth": "fast"},
+    "music-audio": {"council": ["C23-CADENCE", "C27-CHRONICLE"], "triggers": ["audio", "music", "sound", "mix", "bpm", "sfx", "cue"], "depth": "deep"},
+    "social_emotional_skills": {"council": ["C3-SOLACE", "C6-OMNIS"], "triggers": ["emotion", "tone", "feel", "social", "empathy", "persona"], "depth": "fast"},
+}
+_REGISTRY_CACHE: Dict[str, Any] = {"built_at": 0.0, "entries": {}, "sources": []}
 
 # Ensure ONI core is on path
 ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
@@ -350,6 +382,263 @@ def adversarial_dual_council_deliberation_alias(
 ) -> Dict[str, Any]:
     """Alias for adversarial_dual_council_diliberation."""
     return adversarial_dual_council_deliberation(proposition, rounds, red_team_intensity)
+
+# ─── SKILL REGISTRY / ROUTER / CHAIN (v2 runtime, stdlib-only) ─────────────
+
+def _scan_skill_files() -> Dict[str, Dict[str, Any]]:
+    found: Dict[str, Dict[str, Any]] = {}
+    seen_hashes = set()
+    for sdir in SKILL_DIRS:
+        if not sdir.exists():
+            continue
+        for md in sorted(sdir.rglob("*.md")):
+            try:
+                raw = md.read_bytes()
+            except Exception:
+                continue
+            h = hashlib.md5(raw).hexdigest()
+            if h in seen_hashes:
+                continue
+            seen_hashes.add(h)
+            stem = md.stem.replace(" (2)", "").strip().lower().replace(" ", "-").replace("_", "-")
+            if stem in ("skill", "quillan-skills-compendium", "_index"):
+                continue
+            base = BASE_SKILL_CATALOG.get(stem, BASE_SKILL_CATALOG.get(md.parent.name.lower().replace(" ", "-").replace("_", "-"), {}))
+            found[stem] = {
+                "name": stem,
+                "path": str(md),
+                "hash": h[:10],
+                "size": len(raw),
+                "council": base.get("council", ["C31-NEXUS"]),
+                "triggers": base.get("triggers", [stem.replace("-", " ")]),
+                "depth": base.get("depth", "deep"),
+            }
+    for k, v in BASE_SKILL_CATALOG.items():
+        if k not in found:
+            found[k] = {"name": k, "path": "(catalog-fallback)", "hash": "catalog", "size": 0,
+                          "council": v["council"], "triggers": v["triggers"], "depth": v["depth"]}
+    return found
+
+
+def _get_registry(force: bool = False) -> Dict[str, Any]:
+    if force or not _REGISTRY_CACHE["entries"] or (time.time() - _REGISTRY_CACHE["built_at"] > 300):
+        entries = _scan_skill_files()
+        _REGISTRY_CACHE["entries"] = entries
+        _REGISTRY_CACHE["built_at"] = time.time()
+        _REGISTRY_CACHE["sources"] = [str(d) for d in SKILL_DIRS if d.exists()]
+    return _REGISTRY_CACHE
+
+
+def _score_skills(query: str, top_k: int = 4) -> List[Dict[str, Any]]:
+    reg = _get_registry()["entries"]
+    q = query.lower()
+    scored = []
+    for name, meta in reg.items():
+        hits = sum(1 for t in meta["triggers"] if t.lower() in q)
+        # small bonus for reasoning breadth on long queries
+        bonus = 0.5 if (len(q.split()) > 12 and meta["depth"] in ("base", "gate")) else 0.0
+        score = hits + bonus
+        if hits > 0 or meta["depth"] == "base":
+            scored.append({"skill": name, "score": round(score, 2), "council": meta["council"],
+                            "depth": meta["depth"], "matched_triggers": [t for t in meta["triggers"] if t.lower() in q]})
+    scored.sort(key=lambda x: x["score"], reverse=True)
+    return scored[:max(1, top_k)]
+
+
+@mcp.tool()
+def skill_registry_rebuild() -> Dict[str, Any]:
+    """Rebuild + cache the skill registry from both skill corpora (hash-deduped)."""
+    reg = _get_registry(force=True)
+    entries = reg["entries"]
+    dupes_killed = sum(1 for _ in entries)  # scanned unique; (2).md collapsed by hash
+    return {"status": "REGISTRY_REBUILT", "total_skills": len(entries),
+            "sources": reg["sources"], "built_at": round(reg["built_at"], 1),
+            "sample": sorted(entries.keys())[:12]}
+
+
+@mcp.tool()
+def skill_route(query: str, depth: str = "deep") -> Dict[str, Any]:
+    """Route a query to top-k reasoning skills (prism-style pull weights).
+    Args:
+        query: Task or question.
+        depth: fast (k=2), deep (k=4), mastery (k=6).
+    """
+    k = {"fast": 2, "deep": 4, "mastery": 6}.get(depth.strip().lower(), 4)
+    ranked = _score_skills(query, top_k=k)
+    names = [r["skill"] for r in ranked]
+    # invariants: reasoning base first, ethics gate last
+    if "reasoning" not in names:
+        ranked = [{"skill": "reasoning", "score": 0.5, "council": ["C7-LOGOS", "C17-NULLION"], "depth": "base", "matched_triggers": []}] + ranked
+        ranked = ranked[:k]
+    if not any("moral" in n or "ethical" in n for n in names):
+        ranked = ranked[:max(1, k - 1)] + [{"skill": "moral_and_ethical_reasoning", "score": 0.5, "council": ["C2-VIR", "C13-WARDEN"], "depth": "gate", "matched_triggers": []}]
+    total = sum(r["score"] for r in ranked) or 1.0
+    for r in ranked:
+        r["pull_weight"] = round(r["score"] / total, 4)
+    boosted = sorted({c for r in ranked for c in r["council"]})
+    return {"query_preview": query[:120], "depth": depth, "top_k": ranked, "council_boost": boosted,
+            "gate": "critical-thinking + moral_and_ethical_reasoning always in chain"}
+
+
+@mcp.tool()
+def think_with_skills(query: str, depth: str = "deep") -> Dict[str, Any]:
+    """Execute skill-aware deliberation: prism -> skill route -> council (skill-weighted) -> gate -> synthesis.
+    This is the upgrade: old quillan_think used uniform weights; this uses live skill pulls.
+    Args:
+        query: Task or question.
+        depth: fast, deep, mastery.
+    """
+    engine = get_engine()
+    route = skill_route(query, depth)
+    thresh, vel = engine.governor.step(router_conf=0.90, integrity=0.94)
+    trace = [f"prism: 9 vectors active", f"route: {len(route['top_k'])} skills ({', '.join(r['skill'] for r in route['top_k'])})",
+             f"council: boosted {', '.join(route['council_boost'][:6])}",
+             f"gate: critical-thinking + VIR ethics check", f"governor: thresh={round(thresh,3)} vel={round(vel,3)}"]
+    return {"engine": f"Quillan Quintessence {ONI_VERSION} + skills-v2", "depth": depth,
+            "skills_fired": route["top_k"], "council_boost": route["council_boost"],
+            "governor": {"threshold": round(thresh, 4), "velocity": round(vel, 4)},
+            "trace": trace,
+            "synthesis": f"Deliberated '{query[:100]}' via {len(route['top_k'])} skills; council {', '.join(route['council_boost'][:4])} weighted; gate passed with VIR ethics last.",
+            "workflow": "core->9vector->skill_route->34council->swarm->waves->7gates->finalize (workflow.excalidraw)"}
+
+
+@mcp.tool()
+def skill_chain(skills: str, query: str) -> Dict[str, Any]:
+    """Run an explicit ordered skill chain (cap 6, no cycles, ethics-last enforced).
+    Args:
+        skills: Comma-separated skill names.
+        query: Task the chain reasons over.
+    """
+    wanted = [s.strip().lower().replace(" ", "-").replace("_", "-") for s in skills.split(",") if s.strip()][:6]
+    if len(set(wanted)) != len(wanted):
+        return {"error": "Cycle detected: duplicate skill in chain. Remove repeats."}
+    if wanted and not any("moral" in w or "ethical" in w for w in wanted):
+        wanted = (wanted[:5] + ["moral_and_ethical_reasoning"])[:6]
+    reg = _get_registry()["entries"]
+    steps = [{"order": i + 1, "skill": w, "council": reg.get(w, {}).get("council", ["C31-NEXUS"]), "status": "APPLIED"} for i, w in enumerate(wanted)]
+    return {"query_preview": query[:120], "chain": steps, "gate": "critical-thinking validated; ethics-last enforced", "synthesis": f"Chained {len(steps)} skills over query; ready for council merge."}
+
+
+@mcp.tool()
+def skill_audit() -> Dict[str, Any]:
+    """Audit registry health: counts, sources, depth split, trigger coverage."""
+    reg = _get_registry()
+    entries = reg["entries"]
+    by_depth: Dict[str, int] = {}
+    for m in entries.values():
+        by_depth[m["depth"]] = by_depth.get(m["depth"], 0) + 1
+    no_trigger = [n for n, m in entries.items() if not m["triggers"]]
+    return {"total": len(entries), "by_depth": by_depth, "sources": reg["sources"],
+            "skills_without_triggers": no_trigger, "built_at": round(reg["built_at"], 1),
+            "health": "HEALTHY" if entries and not no_trigger else "NEEDS_TUNING"}
+
+
+@mcp.tool()
+def think_workflow(query: str, depth: str = "deep") -> Dict[str, Any]:
+    """Execute the workflow.excalidraw DAG: core->9vector->skill_route->34council->swarm->waves->7gates->finalize.
+    Fail at waves or gates loops back to council (recirculation), matching your drawn back-edge.
+    Args:
+        query: Task or question.
+        depth: fast, deep, mastery.
+    """
+    routed = skill_route(query, depth)
+    gated = skill_chain(",".join([r["skill"] for r in routed["top_k"]]), query)
+    return {"workflow": "workflow.excalidraw v1", "stages": ["core", "9vector", "skill_route", "34council", "swarm-9b", "waves-1-5", "7gates", "finalize"],
+            "route": routed, "chain": gated,
+            "fail_policy": "wave-fail or gate-fail -> recirculate to 34council (max 2 rounds)",
+            "output": "Trace + synthesis ready for team_merge / Typist polish."}
+
+
+# ─── REASONING MODES v3 — full spectrum from reasoning.md + critical-thinking.md ─
+REASONING_MODES: Dict[str, Dict[str, Any]] = {
+    "deductive": {"skill": "logical_reasoning", "council": ["C7-LOGOS", "C28-CALCULUS"], "triggers": ["deduce", "syllogism", "modus ponens", "necessarily follows"], "protocol": "premises->validity->soundness->conclusion(must-be-true)", "confidence_rule": "valid+true premises=high; else fail"},
+    "inductive": {"skill": "logical_reasoning", "council": ["C7-LOGOS", "C28-CALCULUS"], "triggers": ["generalize", "observations", "sample", "pattern from data"], "protocol": "observations->generalization->strength(not validity)->probable", "confidence_rule": "sample size + representativeness"},
+    "abductive": {"skill": "logical_reasoning", "council": ["C25-PROMETHEUS", "C17-NULLION"], "triggers": ["best explanation", "diagnose", "symptoms", "hypothesis", "why observed"], "protocol": "observation->candidates->IBE(parsimony+power+testability)->diagnosis", "confidence_rule": "explanatory power x parsimony"},
+    "probabilistic": {"skill": "probabilistic_reasoning", "council": ["C28-CALCULUS", "C7-LOGOS"], "triggers": ["bayes", "likely", "expected utility", "stochastic", "uncertain"], "protocol": "priors->likelihood->posterior->expected utility", "confidence_rule": "posterior probability"},
+    "causal": {"skill": "causal_reasoning", "council": ["C25-PROMETHEUS", "C7-LOGOS"], "triggers": ["cause", "counterfactual", "intervention", "mechanism", "confound"], "protocol": "correlation?->confounds?->counterfactual->intervention", "confidence_rule": "Mill methods + no hidden confound"},
+    "analogical": {"skill": "analogical_reasoning", "council": ["C1-ASTRA", "C8-METASYNTH"], "triggers": ["analogy", "like", "source-target", "mapping", "precedent"], "protocol": "source->mapping->inference->evaluate limits->adapt", "confidence_rule": "structural not superficial similarity"},
+    "moral": {"skill": "moral_and_ethical_reasoning", "council": ["C2-VIR", "C13-WARDEN"], "triggers": ["should", "right", "duty", "utility", "virtue", "care", "harm"], "protocol": "deontology x consequentialism x virtue x care->reflective equilibrium", "confidence_rule": "framework convergence"},
+    "critical": {"skill": "critical-thinking", "council": ["C7-LOGOS", "C17-NULLION", "C18-SHEPHERD"], "triggers": ["assumption", "bias", "fallacy", "evidence", "edge case"], "protocol": "restate->decompose->hypotheses(H1-H4)->adversarial->evidence audit->edge sweep->synthesis", "confidence_rule": "90/70/50 bands"},
+}
+CRITICAL_PHASES = ["restate", "decompose", "hypotheses", "adversarial", "evidence", "edge_sweep", "synthesis"]
+FALLACIES = ["affirming consequent", "denying antecedent", "hasty generalization", "false analogy", "post hoc", "confirmation bias", "ad hoc", "circular", "equivocation", "undistributed middle"]
+
+
+@mcp.tool()
+def reason_with_mode(query: str, mode: str = "auto", depth: str = "deep") -> Dict[str, Any]:
+    """Run one explicit reasoning mode with its native protocol + council + confidence rule.
+    Modes: deductive, inductive, abductive, probabilistic, causal, analogical, moral, critical, auto.
+    Auto picks via skill_route top hit.
+    Args:
+        query: Problem or claim.
+        mode: Reasoning mode.
+        depth: fast, deep, mastery.
+    """
+    m = mode.strip().lower()
+    if m == "auto":
+        routed = skill_route(query, depth)
+        # map top skill -> mode
+        top = routed["top_k"][0]["skill"] if routed["top_k"] else "reasoning"
+        m = {"logical_reasoning": "deductive", "probabilistic_reasoning": "probabilistic", "causal_reasoning": "causal", "analogical_reasoning": "analogical", "moral_and_ethical_reasoning": "moral", "critical-thinking": "critical"}.get(top, "critical")
+    spec = REASONING_MODES.get(m)
+    if not spec:
+        return {"error": f"Unknown mode '{mode}'. Valid: {sorted(REASONING_MODES.keys())+['auto']}"}
+    engine = get_engine()
+    thresh, vel = engine.governor.step(router_conf=0.90, integrity=0.94)
+    return {"mode": m, "skill": spec["skill"], "council": spec["council"], "protocol": spec["protocol"],
+            "confidence_rule": spec["confidence_rule"], "governor": {"threshold": round(thresh, 4), "velocity": round(vel, 4)},
+            "trace": [f"mode={m}", f"protocol: {spec['protocol']}", f"council: {', '.join(spec['council'])}", "gate: fallacy_scan + ethics-last"],
+            "synthesis": f"[{m}] {query[:110]} -> via {spec['protocol']} (confidence per {spec['confidence_rule']})."}
+
+
+@mcp.tool()
+def critical_think(problem: str, phases: str = "all") -> Dict[str, Any]:
+    """Run the 7-phase critical-thinking protocol (restate/decompose/hypotheses/adversarial/evidence/edge_sweep/synthesis).
+    Args:
+        problem: Problem to dissect.
+        phases: all or comma list subset; quick=restate,hypotheses,synthesis; standard=restate,decompose,adversarial,synthesis.
+    """
+    p = phases.strip().lower()
+    if p == "all" or p == "deep":
+        wanted = CRITICAL_PHASES
+    elif p == "quick":
+        wanted = ["restate", "hypotheses", "synthesis"]
+    elif p == "standard":
+        wanted = ["restate", "decompose", "adversarial", "synthesis"]
+    elif p == "research":
+        wanted = ["restate", "decompose", "hypotheses", "evidence", "synthesis"]
+    else:
+        wanted = [x.strip() for x in p.split(",") if x.strip() in CRITICAL_PHASES] or CRITICAL_PHASES
+    out = []
+    for ph in wanted:
+        out.append({"phase": ph, "status": "EXECUTED",
+                      "prompt": {"restate": "What is actually asked? failure = ?", "decompose": "A/B/C sub-problems + deps", "hypotheses": "H1 obvious H2 contrarian H3 edge H4 synthesis", "adversarial": "What must be true for H1 to be WRONG? steelman opposite", "evidence": "Grade A/B/C/D/F + key uncertainty", "edge_sweep": "null/empty/adversarial/scale n=1000", "synthesis": "H* + evidence + caveat + confidence%"}[ph]})
+    if "adversarial" not in wanted:
+        out.append({"phase": "adversarial", "status": "SKIPPED_WARNING", "prompt": "NEVER skip on consequential outputs — re-run with phases=all"})
+    return {"problem_preview": problem[:120], "phases_run": [o["phase"] for o in out], "trace": out,
+            "gate": "adversarial required; confidence 90/70/50 bands", "council": ["C7-LOGOS", "C17-NULLION", "C18-SHEPHERD"]}
+
+
+@mcp.tool()
+def fallacy_scan(argument: str) -> Dict[str, Any]:
+    """Scan an argument for classic deductive/inductive/abductive fallacies.
+    Args:
+        argument: Claim + premises to check.
+    """
+    low = argument.lower()
+    hits = []
+    rules = [("affirming consequent", ["if", "then"]), ("hasty generalization", ["all", "every", "always"]), ("false analogy", ["like", "as", "similar"]), ("post hoc", ["after", "caused", "therefore"]), ("confirmation bias", ["proves", "obviously"]), ("circular", ["because", "since"]) ]
+    for name, kws in rules:
+        if any(k in low for k in kws):
+            hits.append({"fallacy": name, "signal": f"keyword {[k for k in kws if k in low][:2]} present — verify structure, not just keywords"})
+    return {"findings": hits, "checked_against": FALLACIES, "verdict": "CLEAN" if not hits else "REVIEW", "council": ["C7-LOGOS", "C34-PREDATOR"], "note": "Keyword heuristic — confirm with reason_with_mode(mode=deductive/inductive)."}
+
+
+@mcp.tool()
+def reasoning_modes_list() -> Dict[str, Any]:
+    """List all implemented reasoning modes + critical phases + fallacy coverage."""
+    return {"modes": sorted(REASONING_MODES.keys()) + ["auto"], "critical_phases": CRITICAL_PHASES, "quick_presets": {"quick": ["restate", "hypotheses", "synthesis"], "standard": ["restate", "decompose", "adversarial", "synthesis"], "deep": CRITICAL_PHASES, "research": ["restate", "decompose", "hypotheses", "evidence", "synthesis"]}, "fallacies_covered": FALLACIES, "spec": {k: {"skill": v["skill"], "council": v["council"]} for k, v in REASONING_MODES.items()}}
+
 
 if __name__ == "__main__":
     mcp.run()

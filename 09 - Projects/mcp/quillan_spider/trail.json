@@ -1,0 +1,511 @@
+{
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+ "at": 1791499742.4549737,
+ "live": false,
+ "started": 1791499741.2148466,
+ "mission": "Weave Second Brain Connections",
+ "nodes": [
+  {
+   "id": 0,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+   "kind": "dir"
+  },
+  {
+   "id": 1,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
+   "kind": "file"
+  },
+  {
+   "id": 2,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
+   "kind": "dir"
+  },
+  {
+   "id": 3,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+   "kind": "file"
+  },
+  {
+   "id": 4,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 5,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "kind": "file"
+  },
+  {
+   "id": 6,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
+   "kind": "file"
+  },
+  {
+   "id": 7,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
+   "kind": "file"
+  },
+  {
+   "id": 8,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
+   "kind": "file"
+  },
+  {
+   "id": 9,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
+   "kind": "file"
+  },
+  {
+   "id": 10,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 11,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine",
+   "kind": "dir"
+  },
+  {
+   "id": 12,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 13,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops",
+   "kind": "dir"
+  },
+  {
+   "id": 14,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 15,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web",
+   "kind": "dir"
+  },
+  {
+   "id": 16,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 17,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media",
+   "kind": "dir"
+  },
+  {
+   "id": 18,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 19,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio",
+   "kind": "dir"
+  },
+  {
+   "id": 20,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 21,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team",
+   "kind": "dir"
+  },
+  {
+   "id": 22,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "kind": "file"
+  },
+  {
+   "id": 23,
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev",
+   "kind": "dir"
+  }
+ ],
+ "edges": [
+  {
+   "from": 2,
+   "to": 1
+  },
+  {
+   "from": 2,
+   "to": 3
+  },
+  {
+   "from": 2,
+   "to": 4
+  },
+  {
+   "from": 2,
+   "to": 5
+  },
+  {
+   "from": 2,
+   "to": 6
+  },
+  {
+   "from": 2,
+   "to": 7
+  },
+  {
+   "from": 2,
+   "to": 8
+  },
+  {
+   "from": 0,
+   "to": 9
+  },
+  {
+   "from": 11,
+   "to": 10
+  },
+  {
+   "from": 13,
+   "to": 12
+  },
+  {
+   "from": 15,
+   "to": 14
+  },
+  {
+   "from": 17,
+   "to": 16
+  },
+  {
+   "from": 19,
+   "to": 18
+  },
+  {
+   "from": 21,
+   "to": 20
+  },
+  {
+   "from": 23,
+   "to": 22
+  },
+  {
+   "from": 5,
+   "to": 22,
+   "wire": true
+  }
+ ],
+ "trail": [
+  {
+   "t": 0.48,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\memory_graph.json",
+   "name": "memory_graph.json",
+   "node": 1,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "1 lines | 0F/0C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting memory_graph.json AST hierarchy (0 functions, 0 classes).",
+   "snippet": "{\"nodes\": {\"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\": {\"kind\": \"dir\", \"first_seen\": 1791495900.8086147, \"visits\": 13, \"last_seen\": 1791499712.26403, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_audio\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 8, \"last_seen\": 1791499712.26403, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_audio\\\\server.py\", \"lines\": 154, \"last_action\": \"READING_CODE\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_buddy\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 5, \"last_seen\": 1791496396.6605942, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_buddy\\\\server.py\", \"lines\": 215, \"last_action\": \"SCANNING\"}, \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\": {\"kind\": \"file\", \"first_seen\": 1791495900.8086147, \"visits\": 5, \"last_seen\": 1791496396.6605942, \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\", \"lines\": 383, \"findings\": [{\"rule\": \"todo_fixme\", \"line\": 320, \"preview\": \"# TODO: Arrange nominal inputs based on ({args_spec})\"}, {\"rule\": \"todo_fixme\", \"line\": 328, \"preview\": \"# TODO: Pass boundary values\"}, {\"rule\": \"todo",
+   "lines": 1,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.53,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+   "name": "trail.json",
+   "node": 3,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "76 lines | 0F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning trail.json attack surface for eval/shell injections.",
+   "snippet": "{\n \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n \"at\": 1791499741.698771,\n \"live\": true,\n \"started\": 1791499741.2148466,\n \"mission\": \"Weave Second Brain Connections\",\n \"nodes\": [\n  {\n   \"id\": 0,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n   \"kind\": \"dir\"\n  },\n  {\n   \"id\": 1,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\memory_graph.json\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\memory_graph.json\",\n   \"kind\": \"file\"\n  },\n  {\n   \"id\": 2,\n   \"path\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\",\n   \"kind\": \"dir\"\n  }",
+   "lines": 76,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.62,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "name": "server.py",
+   "node": 4,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "931 lines | 32F/1C | 2 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across server.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udd77\ufe0f QUILLAN-RONIN SPIDER CRAWLER \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nA visible body for Quillan to crawl files + repo while you watch.\nEmbodying C1-ASTRA (Vision), C31-NEXUS (Routing), C5-ECHO (Memory),\nC14-KAIDO (Efficiency), C15-LUMINARIS (Clarity):\n  1. spider_crawl \u2014 BFS crawl a root, emit trail + graph for dashboard\n  2. spider_status \u2014 where is the spider right now?\n  3. spider_map \u2014 nodes + edges JSON for canvas rendering\n  4. spider_watch_file \u2014 path dashboard should poll (trail JSON)\nTRAIL FILE: C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\trail.json\nVIEWER:     C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider-viewer.html (open in browser)\n\"\"\"\n\nimport sys\nimport time\nimport json\nimport re\nimport threading\nimport urllib.request\nimport urllib.parse\nfrom html.parser import HTMLParser\nfrom pathlib import Path",
+   "lines": 931,
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 541,
+     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 358,
+     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 0.67,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "name": "spider_bridge.py",
+   "node": 5,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "249 lines | 11F/1C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (249 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udd77\ufe0f QUILLAN SPIDER BRIDGE \u2014 CORS static server + task API for the dashboard.\nServes C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider on 127.0.0.1:8082\n  GET  /api/trail -> trail.json (live crawl state)\n  GET  /api/tasks -> tasks.json (queue)\n  POST /api/task  {task, job, root, max_files, delay_ms} -> queues + worker runs spider_work_next\nDashboard Spider tab polls these; CORS * so file:// dashboard works.\n\"\"\"\n\nimport json\nimport sys\nimport threading\nimport time\nimport os\nimport urllib.parse\nfrom http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler\nfrom pathlib import Path\n\nSPIDER_DIR = Path(r\"C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\")\nsys.path.insert(0, str(SPIDER_DIR))\nimport server as spider  # noqa: E402\n\nWORK_LOCK = threading.Lock()",
+   "lines": 249,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.71,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\tasks.json",
+   "name": "tasks.json",
+   "node": 6,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "232 lines | 0F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module tasks.",
+   "snippet": "[\n {\n  \"task_id\": \"task-5112b3\",\n  \"task\": \"bridge smoke scan\",\n  \"job\": \"scan\",\n  \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\",\n  \"max_files\": 5,\n  \"state\": \"DONE\",\n  \"at\": 1791488430.3419323,\n  \"report\": {\n   \"files\": 1,\n   \"total_findings\": 3,\n   \"wires\": 0,\n   \"changes\": [\n    \"server.py:320 [todo_fixme] # TODO: Arrange nominal inputs based on ({args_spec})\",\n    \"server.py:328 [todo_fixme] # TODO: Pass boundary values\",\n    \"server.py:335 [todo_fixme] # TODO: Pass invalid type\",\n    \"wrote trail.json (nodes/edges/trail)\",\n    \"wrote spider_report.json\"\n   ],\n   \"why\": [\n    \"todo_fixme: unfinished work left in shipping code\",\n    \"todo_fixme: unfinished work left in shipping code\",\n    \"todo_fixme: unfinished work left in shipping code\"\n   ],",
+   "lines": 232,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.76,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json",
+   "name": "spider_report.json",
+   "node": 7,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "93 lines | 0F/0C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting spider_report.json AST hierarchy (0 functions, 0 classes).",
+   "snippet": "{\n \"job\": \"scan\",\n \"root\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\",\n \"files\": 18,\n \"total_findings\": 6,\n \"wiring\": [\n  {\n   \"from\": \"ingest_second_brain.py\",\n   \"to\": \"server\",\n   \"why\": \"ingest_second_brain.py imports server; coupled \\u2014 a change in server can break it\"\n  },\n  {\n   \"from\": \"spider_bridge.py\",\n   \"to\": \"server\",\n   \"why\": \"spider_bridge.py imports server; coupled \\u2014 a change in server can break it\"\n  }\n ],\n \"flagged\": [\n  {\n   \"t\": 0.45,\n   \"at\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\",\n   \"full\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_code\\\\server.py\",\n   \"node\": 3,\n   \"event\": \"file\",\n   \"action\": \"SCANNING\",",
+   "lines": 93,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.8,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.html",
+   "name": "spider-viewer.html",
+   "node": 8,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "75 lines | 0F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning spider-viewer.html attack surface for eval/shell injections.",
+   "snippet": "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\">\n<title>Quillan Spider \u2014 Live Crawl</title>\n<style>\n:root{color-scheme:dark;--bg:#071013;--panel:#0b171b;--ink:#e8f2ef;--mut:#89a09c;--line:#264047;--cy:#49e0da;--am:#f6b84b;--gr:#79dd8e;--rd:#ff725f}\n*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,Segoe UI,sans-serif}\n.wrap{max-width:1100px;margin:0 auto;padding:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}\n.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--mut)}\n#cv{width:100%;height:520px;background:#020708;border:1px solid var(--line);border-radius:10px}\n.pill{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:20px;font-size:12px}\n.pill.live{border-color:var(--gr);color:var(--gr)} .pill.done{border-color:var(--line);color:var(--mut)}\n.dot{width:10px;height:10px;border-radius:50%;background:var(--cy);display:inline-block;margin-right:6px;box-shadow:0 0",
+   "lines": 75,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.84,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json",
+   "name": "quillan-mcp-config.json",
+   "node": 9,
+   "event": "file",
+   "action": "EXAMINING_PAGE",
+   "result": "OK",
+   "detail": "247 lines | 0F/0C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across quillan-mcp-config.",
+   "snippet": "{\n  \"mcpServers\": {\n    \"QuillanRAG\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [\n        \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_rag\\\\server.py\"\n      ],\n      \"env\": {\n        \"PYTHONPATH\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp;C:\\\\02_QUILLAN\",\n        \"QUILLAN_RAG_DB\": \"C:\\\\02_QUILLAN\\\\07 - Memory & LanceDB\\\\quillan_rag_db\"\n      }\n    },\n    \"ThinkingEngine\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [\n        \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_thinking_engine\\\\server.py\"\n      ],\n      \"env\": {\n        \"PYTHONPATH\": \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\projects\\\\oni;C:\\\\02_QUILLAN\",\n        \"PYTHONIOENCODING\": \"utf-8\"\n      }\n    },\n    \"SamuraiEngine\": {\n      \"command\": \"C:\\\\Users\\\\Admin\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python314\\\\python.exe\",\n      \"args\": [",
+   "lines": 247,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 0.91,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "name": "server.py",
+   "node": 10,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "FLAGGED",
+   "detail": "645 lines | 23F/0C | 1 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (645 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83e\udde0 QUILLAN QUINTESSENCE THINKING ENGINE \u2014 NATIVE FAST-MCP SERVER\n================================================================\nCanonical MCP bridge exposing the true Quillan-Ronin v5.4.0-ONI\nReasoning Architecture:\n- 9-Vector Semantic Prism Decomposition\n- 34-Node Council Dense Deliberation Mesh (C1-C34)\n- Lee-Mach-6 Velocity Governor\n- Hardened AST-Whitelisted Execution Sandbox\n\"\"\"\n\nimport sys\nimport os\n\n# Enforce UTF-8 on Windows\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom pathlib import Path\nfrom typing import Dict, Any, List, Optional\nimport hashlib\nimport re",
+   "lines": 645,
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 82,
+     "preview": "_ENGINE.eval()"
+    }
+   ],
+   "compiled": true
+  },
+  {
+   "t": 0.96,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "name": "server.py",
+   "node": 12,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "101 lines | 4F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udee0\ufe0f QUILLAN-RONIN OPS ENGINE \u2014 NATIVE FAST-MCP SERVER\n=====================================================\nEmbodying C14-KAIDO (Efficiency), C13-WARDEN (Safety), C2-VIR (Ethics),\nC4-PRAXIS (Planning), C19-VIGIL (Anti-drift):\n  1. ops_task_graph \u2014 goal -> DAG with gates\n  2. ops_guardrail_check \u2014 pre-execution risk tier gating\n  3. ops_health \u2014 repo hygiene snapshot\n  4. ops_release_note \u2014 conventional release note builder\n\"\"\"\n\nimport sys\nfrom pathlib import Path\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanOps\")\n",
+   "lines": 101,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.0,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "name": "server.py",
+   "node": 14,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "87 lines | 3F/0C | 0 findings",
+   "thought": "[C10-CODEWEAVER] Dissecting server.py AST hierarchy (3 functions, 0 classes).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udf10 QUILLAN-RONIN WEB ENGINE \u2014 NATIVE FAST-MCP SERVER\n=====================================================\nEmbodying C29-NAVIGATOR (Ecosystem), C24-SCHEMA (Structure),\nC15-LUMINARIS (Clarity), C13-WARDEN (Safety):\n  1. web_scaffold \u2014 stack-aware route + file plan\n  2. web_audit \u2014 a11y / SEO / perf checklist from code\n  3. web_deploy_checklist \u2014 target-aware ship gate\n\"\"\"\n\nimport sys\nimport re\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanWeb\")\n\n",
+   "lines": 87,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.05,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "name": "server.py",
+   "node": 16,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "105 lines | 4F/0C | 0 findings",
+   "thought": "[C34-PREDATOR] Scanning server.py attack surface for eval/shell injections.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfa8 QUILLAN-RONIN MEDIA ENGINE \u2014 NATIVE FAST-MCP SERVER\n=======================================================\nEmbodying C22-AURELION (Aesthetics), C15-LUMINARIS (Clarity),\nC1-ASTRA (Vision), C8-METASYNTH (Fusion):\n  1. media_image_brief \u2014 objective -> strict JSON-schema image brief\n  2. media_video_brief \u2014 beats -> camera + duration brief\n  3. media_character_sheet \u2014 consistent character bible\n  4. media_prompt_enhance \u2014 raw prompt -> boosted + negative tags\n\"\"\"\n\nimport sys\nfrom typing import Dict, Any, List\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanMedia\")\n\nQUALITY_TAGS = \"masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering\"",
+   "lines": 105,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.09,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "name": "server.py",
+   "node": 18,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "154 lines | 5F/0C | 0 findings",
+   "thought": "[C18-SHEPHERD] Grounding references and dependency graph across server.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfb5 QUILLAN-RONIN AUDIO ENGINE \u2014 NATIVE FAST-MCP SERVER\n=======================================================\nEmbodying C23-CADENCE (Rhythm/Audio), C8-METASYNTH (Fusion),\nC22-AURELION (Aesthetics), C27-CHRONICLE (Narrative timing):\n  1. audio_design_cue \u2014 mood -> stems, BPM, key, texture brief\n  2. audio_analyze_track \u2014 lightweight Synesthesia-style analysis (librosa/whisper optional)\n  3. audio_mix_plan \u2014 stems -> LUFS / headroom / bus plan\n  4. audio_generate_sfx_brief \u2014 action+material -> layered SFX recipe\n  5. audio_director_note \u2014 adaptive music state machine for games\n\"\"\"\n\nimport sys\nfrom pathlib import Path\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n\nmcp = FastMCP(\"QuillanAudio\")",
+   "lines": 154,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.14,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "name": "server.py",
+   "node": 20,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "177 lines | 6F/0C | 0 findings",
+   "thought": "[C15-LUMINARIS] Parsing file structure (177 lines, verified contiguous).",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83d\udc65 QUILLAN-RONIN TEAM MODE ENGINE \u2014 NATIVE FAST-MCP SERVER\n===========================================================\nEmbodying C31-NEXUS (Meta-Coordination), C11-HARMONIA (Consensus),\nC4-PRAXIS (Execution), C34-PREDATOR (Red-Team), C2-VIR (Ethics):\n  1. team_spawn_crew \u2014 stand up a role-based agent crew for an objective\n  2. team_dispatch \u2014 assign a task slice to a role with acceptance criteria\n  3. team_debate \u2014 thesis vs antithesis -> hardened synthesis\n  4. team_status \u2014 crew roster, load, and blockers\n  5. team_merge \u2014 converge parallel outputs into one coherent delivery\n\"\"\"\n\nimport sys\nimport time\nimport uuid\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
+   "lines": 177,
+   "findings": [],
+   "compiled": true
+  },
+  {
+   "t": 1.19,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "name": "server.py",
+   "node": 22,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "183 lines | 5F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfae QUILLAN-RONIN GAMEDEV ENGINE \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nEmbodying C32-AEON (Simulation), C4-PRAXIS (Strategy), C10-CODEWEAVER (Code),\nC27-CHRONICLE (Narrative), C23-CADENCE (Audio/Rhythm):\n  1. gamedev_new_project \u2014 scaffold engine-agnostic folder + systems map\n  2. gamedev_design_loop \u2014 core fantasy -> verbs -> loop -> progression\n  3. gamedev_balance_economy \u2014 XP / currency curve math + sinks/sources\n  4. gamedev_simulate_playtest \u2014 archetype Monte-Carlo playtest sim\n  5. gamedev_review_build \u2014 C34-PREDATOR kill-loop for builds\n\"\"\"\n\nimport sys\nimport math\nimport time\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
+   "lines": 183,
+   "findings": [],
+   "compiled": true
+  }
+ ],
+ "wiring": [
+  {
+   "from": "spider_bridge.py",
+   "to": "server",
+   "why": "spider_bridge.py imports server; coupled"
+  }
+ ],
+ "spider": {
+  "pos": {
+   "t": 1.19,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "name": "server.py",
+   "node": 22,
+   "event": "file",
+   "action": "READING_CODE",
+   "result": "OK",
+   "detail": "183 lines | 5F/0C | 0 findings",
+   "thought": "[C1-ASTRA] Tracing topological import vector for module server.",
+   "snippet": "#!/usr/bin/env python3\n# -*- coding: utf-8 -*-\n\"\"\"\n\ud83c\udfae QUILLAN-RONIN GAMEDEV ENGINE \u2014 NATIVE FAST-MCP SERVER\n=========================================================\nEmbodying C32-AEON (Simulation), C4-PRAXIS (Strategy), C10-CODEWEAVER (Code),\nC27-CHRONICLE (Narrative), C23-CADENCE (Audio/Rhythm):\n  1. gamedev_new_project \u2014 scaffold engine-agnostic folder + systems map\n  2. gamedev_design_loop \u2014 core fantasy -> verbs -> loop -> progression\n  3. gamedev_balance_economy \u2014 XP / currency curve math + sinks/sources\n  4. gamedev_simulate_playtest \u2014 archetype Monte-Carlo playtest sim\n  5. gamedev_review_build \u2014 C34-PREDATOR kill-loop for builds\n\"\"\"\n\nimport sys\nimport math\nimport time\nfrom typing import Dict, Any, List, Optional\n\nif sys.platform == \"win32\":\n    sys.stdout.reconfigure(encoding=\"utf-8\")\n    sys.stderr.reconfigure(encoding=\"utf-8\")\n\nfrom fastmcp import FastMCP\n",
+   "lines": 183,
+   "findings": [],
+   "compiled": true
+  },
+  "visited": 15,
+  "state": "MISSION_COMPLETE",
+  "action": "IDLE",
+  "total_findings": 3,
+  "wires": 1,
+  "elapsed_s": 1.2,
+  "active_thought": "Mission 'Weave Second Brain Connections' complete. Wove 1 synaptic wires across 15 artifacts."
+ }
+}

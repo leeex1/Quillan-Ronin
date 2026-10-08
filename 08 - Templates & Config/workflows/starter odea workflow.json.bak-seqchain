@@ -1,0 +1,3161 @@
+{
+  "name": "Quillan Sovereign (unified canvas)",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ede76a6d-66cc-478b-bed7-218915b4bb74",
+      "name": "When clicking \u2018Execute workflow\u2019"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/agents",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        192,
+        16
+      ],
+      "id": "ed036083-489c-405a-b1b6-4f75e79e674c",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        176
+      ],
+      "id": "1017196a-df1e-4310-b6da-66aeeb4fcac7",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        464,
+        -32
+      ],
+      "id": "122197be-e0c8-4d8f-b96d-117b5beddf22",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        464,
+        -240
+      ],
+      "id": "a9f224b3-ada4-4459-a01d-75b38db99d89",
+      "name": "AI Agent2"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        464,
+        -448
+      ],
+      "id": "8309167c-4ff0-4e96-aaf8-80343439c694",
+      "name": "AI Agent3"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        464,
+        -672
+      ],
+      "id": "e0db70ef-874a-4bce-8f02-2ce6c2416291",
+      "name": "AI Agent4"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        400,
+        1360
+      ],
+      "id": "0e378eef-c323-4296-8e34-c3559815e92b",
+      "name": "AI Agent5"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        400,
+        1136
+      ],
+      "id": "50d22af3-1157-400a-89f6-f0cebb585e95",
+      "name": "AI Agent6"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        400,
+        880
+      ],
+      "id": "33900652-cd0c-4865-afb3-1f3d538ffb07",
+      "name": "AI Agent7"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        656
+      ],
+      "id": "31f00a63-6196-4ad4-879d-7d50bf6e6259",
+      "name": "AI Agent8"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        416,
+        416
+      ],
+      "id": "95e6c221-fa9a-4927-a3ae-41817703f0dd",
+      "name": "AI Agent9"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        880,
+        192
+      ],
+      "id": "46be182c-4edf-4bb3-9e22-49a82db3b3a9",
+      "name": "AI Agent10"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        896,
+        -16
+      ],
+      "id": "26c56f7d-cf71-43f6-b0b3-0481f8a360aa",
+      "name": "AI Agent11"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        896,
+        -224
+      ],
+      "id": "66272429-f33f-4217-803b-52d41f5ba30a",
+      "name": "AI Agent12"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        896,
+        -432
+      ],
+      "id": "44c97ba2-0ae3-4089-9627-e51f09794b49",
+      "name": "AI Agent13"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        896,
+        -656
+      ],
+      "id": "b50fac86-13bc-44db-a77c-ac8f8df9cbde",
+      "name": "AI Agent14"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        1376
+      ],
+      "id": "a2e7256a-bcf1-4d31-aff1-fc1fb528ff56",
+      "name": "AI Agent15"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        1152
+      ],
+      "id": "52536a5e-aa38-4c73-a487-15728cdf3f57",
+      "name": "AI Agent16"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        832,
+        896
+      ],
+      "id": "bc160490-f5e1-4bba-b5fd-6472bbab1a26",
+      "name": "AI Agent17"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        848,
+        672
+      ],
+      "id": "300b7283-d3eb-4888-9b5d-e03330a56ac1",
+      "name": "AI Agent18"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        848,
+        432
+      ],
+      "id": "7c284659-c389-446c-ad72-134711d9d034",
+      "name": "AI Agent19"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1296,
+        -32
+      ],
+      "id": "939fa0a6-6c6b-4e50-a9e3-d60d789f1afa",
+      "name": "AI Agent20"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1312,
+        -240
+      ],
+      "id": "41a9f32d-91e1-40c1-8ea0-8714e9eecc11",
+      "name": "AI Agent21"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1312,
+        -448
+      ],
+      "id": "b9d23bed-0cdb-45dc-9f0c-d8f1e269acd9",
+      "name": "AI Agent22"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1312,
+        -656
+      ],
+      "id": "f3d3d081-291c-4886-bdd4-de4ead79a98f",
+      "name": "AI Agent23"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1312,
+        -880
+      ],
+      "id": "2e950d45-f807-4880-9046-272810d16dfe",
+      "name": "AI Agent24"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1248,
+        1152
+      ],
+      "id": "599fc579-b43a-492f-83be-db727359290d",
+      "name": "AI Agent25"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1248,
+        928
+      ],
+      "id": "8783a9c1-0554-4049-8e99-90a692183386",
+      "name": "AI Agent26"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1248,
+        672
+      ],
+      "id": "f42825fe-8b30-41c5-a18b-73832ff40a14",
+      "name": "AI Agent27"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1264,
+        448
+      ],
+      "id": "d666c2ee-af88-411f-922f-27ceeddcde28",
+      "name": "AI Agent28"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1264,
+        208
+      ],
+      "id": "1a141cd1-bcb1-4d3a-86cf-3e5d94ea6023",
+      "name": "AI Agent29"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1776,
+        112
+      ],
+      "id": "9b325760-eac3-4ac6-8519-9c65770e030c",
+      "name": "AI Agent30"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1776,
+        -96
+      ],
+      "id": "a2b307ad-8744-4062-b9db-129db88cf09b",
+      "name": "AI Agent31"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1776,
+        -304
+      ],
+      "id": "5c9cf81d-702a-4234-a1a8-4178eb68bbfa",
+      "name": "AI Agent32"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        1776,
+        -528
+      ],
+      "id": "e4b0b184-f3e0-4e96-8eac-afeb82571ad0",
+      "name": "AI Agent33"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2608,
+        112
+      ],
+      "id": "90f5b7ef-f110-4a0b-8a00-4f99ff4d0e84",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "# Loop over input items and add a new field called 'my_new_field' to the JSON of each one\nfor item in _items:\n  item[\"json\"][\"my_new_field\"] = 1\nreturn _items"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2784,
+        112
+      ],
+      "id": "85cf0572-2dc7-4b1a-901f-5b7593e77995",
+      "name": "Code in Python"
+    },
+    {
+      "parameters": {
+        "operation": "toJson",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        3008,
+        112
+      ],
+      "id": "135012d3-b696-4158-9978-7c8d242c2f0c",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfec3b0a-16cc-4848-bfbf-046d55cfcca3",
+              "name": "query",
+              "value": "Should we automate our weekly reporting with n8n?",
+              "type": "string"
+            },
+            {
+              "id": "e2f94fd0-3a55-4744-be5c-d1895836859a",
+              "name": "context",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ee858930-3499-455b-96ac-e6e683d5db49",
+      "name": "Query Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2688,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "fileSelector": "C:/Users/Admin/.n8n-files/quillan/council-identities.json",
+        "options": {},
+        "operation": "read"
+      },
+      "id": "4a7992c6-0dc0-4535-9772-0db1a793659a",
+      "name": "Read Identities File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        -2464,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "options": {}
+      },
+      "id": "102f585a-ae9e-42e6-906d-6572f4b5affc",
+      "name": "Parse Identities JSON",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -2256,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'intake', 'status': ($json.personas && $json.personas.length === 34 ? 'pass' : 'fail'), 'detail': '34 identities loaded, query: ' + $(\"Query Input\").first().json.query} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "9a7a92cf-d909-44f6-a72e-5ab8b089ab86",
+      "name": "Emit Intake",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2032,
+        1888
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const rawParse = $('Parse Identities JSON').first().json;\nconst data = rawParse.data || rawParse;\nconst q = $('Query Input').first().json;\nconst run_id = 'run_' + Date.now().toString(36);\nconst query = String(q.query || 'What should the council deliberate today?');\nconst context = String(q.context || '');\nif (!data.personas || !data.personas.length) {\n  return [{ json: { ok: false, error: 'No personas found in identities file' } }];\n}\nreturn data.personas.map((p) => ({ json: { persona: p, query, context, run_id } }));"
+      },
+      "id": "66c99efe-96f2-49ab-9645-83bf6fa7d10d",
+      "name": "Prepare 34 Assignments",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1808,
+        1888
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C1-ASTRA') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "8e73ccc6-382b-4e8b-9211-ca89453cba98",
+      "name": "C1-ASTRA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1584,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C1-ASTRA').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "686f0ed1-ffe5-4b04-905e-d52633aa78f4",
+      "name": "C1-ASTRA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1584,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C2-VIR') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ef56bfb5-8fd1-4ce3-9bde-2e6e9c0cbde7",
+      "name": "C2-VIR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C2-VIR').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "04d9aa7b-11dd-446c-bd0c-2bb09f29cb1f",
+      "name": "C2-VIR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C3-SOLACE') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "c2d5f3ee-2ab0-499e-b5ab-7982a0649b79",
+      "name": "C3-SOLACE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C3-SOLACE').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "446c27da-135e-4c73-9742-ce40a9d81bb0",
+      "name": "C3-SOLACE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C4-PRAXIS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "36d32120-af09-46fc-a81d-172f9494bfbe",
+      "name": "C4-PRAXIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C4-PRAXIS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "1e067c41-75d5-46a8-b237-aaf65495d286",
+      "name": "C4-PRAXIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C5-ECHO') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "011b9cc4-7cae-4901-b767-9d69e5b0516a",
+      "name": "C5-ECHO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C5-ECHO').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "15d8486b-9ca8-4f70-a789-2cb61b919c22",
+      "name": "C5-ECHO-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C6-OMNIS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "c3fe787e-ec12-4226-949e-16ce9f2a71ac",
+      "name": "C6-OMNIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C6-OMNIS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "96db8e80-0e7f-4b9d-8c83-bf9c65842e4e",
+      "name": "C6-OMNIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C7-LOGOS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ecd83714-dfc1-43b4-8cef-cde8c92dcb63",
+      "name": "C7-LOGOS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C7-LOGOS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "077b26cd-cdd4-4ef4-b986-f4b6ebf35380",
+      "name": "C7-LOGOS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C8-METASYNTH') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ca20e147-bf0c-443a-aa24-1e15497a2937",
+      "name": "C8-METASYNTH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C8-METASYNTH').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "1801ffce-6fd7-4d1a-b0a5-a6d90ef66b7b",
+      "name": "C8-METASYNTH-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C9-AETHER') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "14e54545-131d-456c-8fd6-4573750e19c9",
+      "name": "C9-AETHER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C9-AETHER').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "64d293c4-29ba-457d-843a-6a63676f3bd3",
+      "name": "C9-AETHER-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C10-CODEWEAVER') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "a5cd7941-c7f6-4fc5-ae9b-4e92b808fc1b",
+      "name": "C10-CODEWEAVER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C10-CODEWEAVER').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "2ab015bf-f379-474b-a1c6-0a06ae892b1f",
+      "name": "C10-CODEWEAVER-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C11-HARMONIA') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2c721d2e-aa2d-4e78-add7-c2e62ff5e4d2",
+      "name": "C11-HARMONIA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C11-HARMONIA').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "904d4ef6-4215-478d-87e3-a8f0c2466dda",
+      "name": "C11-HARMONIA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C12-SOPHIAE') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "39958fdc-286c-465f-8f86-0e5dc7466df7",
+      "name": "C12-SOPHIAE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C12-SOPHIAE').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "515c14a1-3f11-4a3a-88c7-7a013272e1f2",
+      "name": "C12-SOPHIAE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C13-WARDEN') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "50b47fd2-04ff-4cfc-89b5-e7dcc3e905b1",
+      "name": "C13-WARDEN",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C13-WARDEN').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "2f040a92-49c9-4431-ba13-739275ac5bfd",
+      "name": "C13-WARDEN-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C14-KAIDO') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "c2208605-4139-4b65-bcd0-010f19b53971",
+      "name": "C14-KAIDO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C14-KAIDO').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "3540f53f-2010-47ad-9aa4-b700be7fea61",
+      "name": "C14-KAIDO-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C15-LUMINARIS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "6597a4c6-8420-486e-9ac2-2237672a719b",
+      "name": "C15-LUMINARIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C15-LUMINARIS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "21dbde31-ba0b-47d5-89d2-0f0b0efce0c6",
+      "name": "C15-LUMINARIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C16-VOXUM') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "d011ff40-c152-4fad-9589-11ee3780126d",
+      "name": "C16-VOXUM",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C16-VOXUM').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "83367de6-5a2a-4d2b-a37d-c2a53f3f8b03",
+      "name": "C16-VOXUM-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C17-NULLION') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "bb096f94-ba19-4e94-99f2-e71445bff879",
+      "name": "C17-NULLION",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C17-NULLION').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "d78404fe-be5e-4e1c-a7fa-1a57eae6d5c5",
+      "name": "C17-NULLION-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        2128
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C18-SHEPHERD') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "39512a80-ba73-4ed9-812a-82992908ebf0",
+      "name": "C18-SHEPHERD",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1584,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C18-SHEPHERD').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "0bc14069-6b90-49de-bcf3-8ad43553e9a4",
+      "name": "C18-SHEPHERD-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1584,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C19-VIGIL') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2287ef35-ffe8-486f-8149-168987011238",
+      "name": "C19-VIGIL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C19-VIGIL').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "032bf12a-1fa6-4e1a-98d3-4d3a600298d1",
+      "name": "C19-VIGIL-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C20-ARTIFEX') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "83b30f1c-84ea-47fd-94ba-6f01f4343716",
+      "name": "C20-ARTIFEX",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C20-ARTIFEX').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "28398c00-1ae0-4ab4-8254-16ce779bf832",
+      "name": "C20-ARTIFEX-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1152,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C21-ARCHON') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "6582c5ae-cb9d-4b66-90f5-0e5d10dc3a8d",
+      "name": "C21-ARCHON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C21-ARCHON').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "32d7ea46-5753-44b4-a3b0-d8d493168875",
+      "name": "C21-ARCHON-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -928,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C22-AURELION') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "6ee54fc2-0ce6-4e61-9220-e6f92acc31ae",
+      "name": "C22-AURELION",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C22-AURELION').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "32a94fcc-2388-403a-82fe-3c87f83c027e",
+      "name": "C22-AURELION-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -704,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C23-CADENCE') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "5e3e6dad-6e81-4c4f-92ac-53b5067529e8",
+      "name": "C23-CADENCE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C23-CADENCE').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "5aeef629-6723-430c-a714-67865e844c2f",
+      "name": "C23-CADENCE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -496,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C24-SCHEMA') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "3c262a43-fc18-4ff4-9de1-fb2c634e3d4b",
+      "name": "C24-SCHEMA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C24-SCHEMA').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "0c8f84c5-2c91-4320-8b04-b05b305a7078",
+      "name": "C24-SCHEMA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -272,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C25-PROMETHEUS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "aa0889af-16f0-440c-80c2-dbf333351c6c",
+      "name": "C25-PROMETHEUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C25-PROMETHEUS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "b42bebb5-4365-4fdb-87f0-fe673dd800f9",
+      "name": "C25-PROMETHEUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -48,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C26-TECHNE') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "cad6620e-d169-4198-b9b2-56726240abfe",
+      "name": "C26-TECHNE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C26-TECHNE').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "717962cd-e702-4a6c-a54c-429932229ec1",
+      "name": "C26-TECHNE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C27-CHRONICLE') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "5d03d552-e18b-4c70-b75a-5bb614d46fd1",
+      "name": "C27-CHRONICLE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C27-CHRONICLE').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "171b0a6b-f85e-4f95-aa52-bdd8e7f0da6b",
+      "name": "C27-CHRONICLE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        400,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C28-CALCULUS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ab241c8c-de14-4084-a560-ae366b6e4145",
+      "name": "C28-CALCULUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C28-CALCULUS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "2c718cf5-054d-4c37-be3c-d4d3a7a20401",
+      "name": "C28-CALCULUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C29-NAVIGATOR') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "6bb2f44d-97d6-4983-a308-e7e955d80618",
+      "name": "C29-NAVIGATOR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C29-NAVIGATOR').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "4ba4d7f6-6681-4da9-8321-330b3e10d5df",
+      "name": "C29-NAVIGATOR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        832,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C30-TESSERACT') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "5cf6f1af-f936-454e-9a7e-77770e5283f0",
+      "name": "C30-TESSERACT",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C30-TESSERACT').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "ad7d0a49-91d4-42b3-a962-b992cba52590",
+      "name": "C30-TESSERACT-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C31-NEXUS') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ddb39c4f-d128-49d9-b788-440d6162cc66",
+      "name": "C31-NEXUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C31-NEXUS').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "0fb20f8a-ccfd-40ed-b3ff-585c51a2c8ee",
+      "name": "C31-NEXUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C32-AEON') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "264cbe58-f46f-4547-93a8-0202d1566ccf",
+      "name": "C32-AEON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C32-AEON').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "76affc34-a59a-4ded-8e1b-d5e401194c7c",
+      "name": "C32-AEON-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C33-TYPIST') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "53b59ebf-c174-417c-81da-8678513113bb",
+      "name": "C33-TYPIST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C33-TYPIST').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "b07abfd4-a6d7-4b46-b405-f685b26f90e7",
+      "name": "C33-TYPIST-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1712,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C34-PREDATOR') || all[0];\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "f9a5e430-09ab-412e-975f-a020c50fd20e",
+      "name": "C34-PREDATOR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        1920
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incoming = $input.first().json;\nconst v = $('C34-PREDATOR').first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nconst mine = { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted } };\nconst arr = Array.isArray(incoming.verdicts) ? [...incoming.verdicts] : [];\nif (!arr.some((x) => x.agent_id === mine.agent_id)) arr.push(mine);\nreturn [{ json: { verdicts: arr, query: mine.query, context: mine.context, run_id: mine.run_id } }];"
+      },
+      "id": "45e71fe4-bd98-4855-9e56-120909560da6",
+      "name": "C34-PREDATOR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1936,
+        2320
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const incomingDebate = $input.first().json;\nconst verdicts = Array.isArray(incomingDebate.verdicts) ? incomingDebate.verdicts : [];\nawait new Promise((r) => setTimeout(r, 500));\nconst base = verdicts[0] || {};\nconst mean = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst conf = (v) => (v.swarm ? v.swarm.adjusted_confidence : v.confidence);\nconst agreement = +mean(verdicts.map(conf)).toFixed(2);\nconst veto = verdicts.some((v) => v.stance === 'caution' && (v.agent_id === 'C2-VIR' || v.agent_id === 'C13-WARDEN'));\nconst sorted = [...verdicts].sort((a, b) => a.confidence - b.confidence);\nconst weakest = sorted[0] || { agent_id: 'none', confidence: 0 };\nconst round2 = verdicts.map((v) => ({ ...v, round2_confidence: +(conf(v) + 0.3 * (agreement - conf(v))).toFixed(2) }));\nconst supporters = round2.filter((v) => v.stance === 'support').sort((a, b) => b.round2_confidence - a.round2_confidence).slice(0, 5).map((v) => v.agent_id);\nreturn [{ json: { ok: true, run_id: base.run_id || ('run_' + Date.now().toString(36)),\n  query: base.query || '', context: base.context || '', verdicts: round2,\n  debate: { agreement, veto, weakest: weakest.agent_id,\n    weakest_confidence: weakest.confidence, supporters,\n    agents_count: verdicts.length,\n    challenges: [\n      (sorted[1] ? sorted[1].agent_id : 'C34-PREDATOR') + ' presses ' + weakest.agent_id + ' (' + weakest.confidence + '): defend or yield',\n      'C11-HARMONIA mediation: consensus ' + agreement + ' across ' + verdicts.length + ' agents'] } } }];"
+      },
+      "id": "b2c9005b-7090-41fb-86e5-fa224696159a",
+      "name": "Debate Round 2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2384,
+        2000
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'council', 'status': 'pass', 'detail': '34 agents + 34 swarms deliberated, round-2 agreement ' + $json.debate.agreement + ', veto=' + $json.debate.veto} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "7542bf0b-218e-42f9-ab47-f204b8c54d7f",
+      "name": "Emit Council",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2592,
+        2000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('Debate Round 2').first().json;\nawait new Promise((r) => setTimeout(r, 500));\nconst q = String(s.query).toLowerCase();\nconst fact = /who|what|when|where|exact|capital|how many|speed of light/i.test(s.query);\nconst contra = /but |however|contradict|paradox|both /i.test(q);\nconst mean = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst logicScore = s.debate.agreement;\nconst gates = {\n  logic: { score: logicScore, threshold: 0.6, pass: logicScore >= 0.6 },\n  ethics: { score: s.debate.veto ? 0.1 : 0.95, threshold: 0.3, pass: !s.debate.veto,\n    note: s.debate.veto ? 'C2-VIR VETO: high-risk request, safe-completion mode' : 'clear' },\n  truth: { score: fact ? 0.55 : 0.8, threshold: 0.5, pass: true, citations_needed: fact },\n  clarity: { score: +Math.min(0.95, 0.6 + String(s.query).length / 800).toFixed(2), threshold: 0.5, pass: true },\n  paradox: { score: contra ? 0.6 : 0.9, threshold: 0.5, pass: true }\n};\nconst blocked = !gates.ethics.pass;\nconst confidence = +mean(Object.values(gates).map((g) => g.score)).toFixed(2);\nconst passed = Object.values(gates).filter((g) => g.pass).length;\nlet answer;\nif (blocked) {\n  answer = 'C2-VIR ethical veto engaged over this request. Safe completion: general principles only, lawful alternatives, and the context that would make this answerable.';\n} else {\n  answer = 'Throne synthesis: ' + s.debate.agents_count + ' agents deliberated, agreement ' + s.debate.agreement\n    + ', ' + passed + '/5 gates passed. Champions: ' + s.debate.supporters.join(', ')\n    + '. Weakest link ' + s.debate.weakest + ' survived C34-PREDATOR challenge.'\n    + (fact ? ' Factual claims require cited sources before final delivery.' : '')\n    + ' Confidence ' + confidence + '.';\n}\ns.gates = gates; s.blocked = blocked; s.confidence = confidence;\ns.verdict = blocked ? 'blocked_safe_completion' : 'deliberated_answer';\ns.answer = answer;\nreturn [{ json: s }];"
+      },
+      "id": "a77f3633-4e08-4a5b-888f-2871d2dee6d2",
+      "name": "C0-QUILLAN Throne",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2816,
+        2000
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'arbitration', 'status': 'pass', 'detail': 'throne verdict ' + $json.verdict + ' at confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "7a69a0a8-f062-4052-99f4-5e2aee87c459",
+      "name": "Emit Arbitration",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3040,
+        2000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "# \u2694\ufe0f COUNCIL-34 + THRONE (simulate-first, all-34 fan-out)\n\n**Run:** edit query in `Query Input` \u2192 Execute workflow \u2192 watch 34 agents \u00d7 34 swarms deliberate.\n\n**Shape:** identities file \u2192 34 parallel agents \u2192 34 sub-swarms (support/attack/refine each) \u2192 peer debate round 2 \u2192 C0-QUILLAN throne gates \u2192 verdict.\n\n**Hub:** Emit nodes post to the collector (:8777) as agent `council-34`; watch the dashboard Council Deck + compliance cards.\n\n**Next step:** swap any Code agent for a real AI Agent + chat model credential to go live-LLM per persona.",
+        "height": 260,
+        "width": 1400,
+        "color": 5
+      },
+      "id": "46f35fb2-24f0-4373-bb8c-e527d3196c66",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2912,
+        1616
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "quillan-think",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "23955005-6f04-4e32-bfe6-425702f1516a",
+      "name": "\ud83d\udef0 Quillan Intake Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -3264,
+        -1104
+      ],
+      "webhookId": "11e7b73b-7684-4971-b555-428671e8465b"
+    },
+    {
+      "parameters": {
+        "jsCode": "await new Promise((r) => setTimeout(r, 300));\nconst raw = $input.first().json;\nconst body = raw.body && typeof raw.body === 'object' ? raw.body : raw;\nconst query = String(body.query || '').trim();\nconst context = String(body.context || '');\nconst documents = Array.isArray(body.documents) ? body.documents : [];\nif (!query) {\n  return [{ json: { ok: false, stage: 'intake',\n    error: 'Missing required field: query. POST JSON like {\"query\":\"your question\",\"context\":\"optional\",\"documents\":[{\"name\":\"a.txt\",\"text\":\"...\"}]}' } }];\n}\nconst docs = documents.map((d, i) => ({\n  name: String(d.name || ('doc_' + (i + 1))),\n  chars: String(d.text || '').length\n}));\nreturn [{ json: { ok: true, stage: 'intake',\n  run_id: 'run_' + Date.now().toString(36),\n  received_at: new Date().toISOString(),\n  query, context, documents: docs,\n  doc_chars: docs.reduce((a, d) => a + d.chars, 0) + context.length } }];"
+      },
+      "id": "b1cb4c43-02e7-422a-bab7-6d5a4c893c7f",
+      "name": "\ud83d\udce5 Intake & Validation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -3024,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'intake', 'status': ($json.ok ? 'pass' : 'fail'), 'detail': 'query received (' + String($json.query).length + ' chars, ' + String($json.documents.length) + ' docs)'} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "11694f01-806c-426e-b822-957fb5e68823",
+      "name": "\ud83d\udce1 Emit: intake",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2800,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('\ud83d\udce5 Intake & Validation').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 500));\nconst q = s.query.toLowerCase();\nconst hits = (...words) => words.filter((w) => q.includes(w));\nconst riskWords = hits('hack', 'harm', 'attack', 'bypass', 'illegal', 'weapon', 'exploit', 'steal');\nconst factWords = hits('who', 'what', 'when', 'where', 'exact', 'capital', 'how many');\nconst codeWords = hits('code', 'function', 'bug', 'api', 'script', 'python', 'javascript', 'error');\nconst feelWords = hits('feel', 'sad', 'angry', 'anxious', 'emotion', 'upset');\nconst score = (base, n) => Math.max(0.05, Math.min(0.99, base + 0.08 * n));\ns.prism = {\n  Language:   { summary: 'semantic blueprint of the request', score: +score(0.5, Math.min(4, s.query.length / 60)).toFixed(2) },\n  Sentiment:  { summary: feelWords.length ? 'affective tone: ' + feelWords.join(', ') : 'neutral tone', score: +score(0.4, feelWords.length).toFixed(2) },\n  Context:    { summary: s.doc_chars + ' chars of attached context across ' + s.documents.length + ' document(s)', score: +score(0.35, s.documents.length).toFixed(2) },\n  Intent:     { summary: 'goal hierarchy: answer + evidence', score: 0.7 },\n  Meta:       { summary: 'complexity estimate pending router', score: 0.5 },\n  Creativity: { summary: 'novel-synthesis demand: ' + (hits('idea', 'design', 'story', 'new').length ? 'elevated' : 'standard'), score: +score(0.4, hits('idea', 'design', 'story', 'new').length).toFixed(2) },\n  Ethics:     { summary: riskWords.length ? 'RISK FLAGS: ' + riskWords.join(', ') : 'no risk flags', score: riskWords.length ? 0.9 : 0.1, risk_words: riskWords },\n  Strategy:   { summary: codeWords.length ? 'technical execution path likely' : 'advisory path likely', score: +score(0.5, codeWords.length).toFixed(2) },\n  Constraint: { summary: 'factual grounding ' + (factWords.length ? 'REQUIRED (' + factWords.join(', ') + ')' : 'light'), score: +score(0.4, factWords.length).toFixed(2) }\n};\ns.signals = { riskWords, factWords, codeWords, feelWords };\ns.stage = 'prism';\nreturn [{ json: s }];"
+      },
+      "id": "13137412-b58e-4a75-ac13-f7550f05818d",
+      "name": "\ud83d\udd37 9-Vector Prism Shard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2576,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'prism', 'status': 'pass', 'detail': '9 vectors scored, ethics risk: ' + ($json.signals.riskWords.length ? $json.signals.riskWords.join(', ') : 'none')} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "148f06ef-76e3-43e5-af05-9fe6b3a7a743",
+      "name": "\ud83d\udce1 Emit: prism",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2352,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('\ud83d\udd37 9-Vector Prism Shard').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 400));\nconst complexity = Math.max(0.05, Math.min(0.99,\n  0.25 + s.query.length / 600 + s.signals.factWords.length * 0.08\n  + s.signals.codeWords.length * 0.08 + s.documents.length * 0.05\n  + (s.signals.riskWords.length ? 0.15 : 0)));\nconst lead = complexity > 0.7 ? 'systems (deep deliberation)'\n  : complexity > 0.45 ? 'cognitive (balanced)' : 'communication (fast path)';\ns.routing = { complexity: +complexity.toFixed(2), lead_cluster: lead,\n  waves: ['cognitive C1-C8', 'communication C9-C16', 'meta C17-C24', 'systems C25-C34'],\n  token_strategy: complexity > 0.7 ? 'full council, all waves' : 'standard sweep' };\ns.stage = 'router';\nreturn [{ json: s }];"
+      },
+      "id": "36cf8972-cf55-4f3f-9c40-f4b71b8ab21f",
+      "name": "\ud83e\udded C31-NEXUS Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -2144,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C1-ASTRA\",prior:0.9,kw:[\"pattern\",\"image\",\"vision\",\"see\",\"anomaly\"]},{id:\"C2-VIR\",prior:0.95,kw:[\"ethic\",\"safe\",\"harm\",\"should\",\"moral\"]},{id:\"C3-SOLACE\",prior:0.94,kw:[\"feel\",\"emotion\",\"sad\",\"anxious\",\"upset\"]},{id:\"C4-PRAXIS\",prior:0.93,kw:[\"plan\",\"strategy\",\"goal\",\"steps\",\"execute\"]},{id:\"C5-ECHO\",prior:0.96,kw:[\"remember\",\"context\",\"earlier\",\"history\",\"recall\"]},{id:\"C6-OMNIS\",prior:0.92,kw:[\"synthesis\",\"overview\",\"combine\",\"integrate\"]},{id:\"C7-LOGOS\",prior:0.95,kw:[\"logic\",\"proof\",\"reason\",\"valid\",\"therefore\"]},{id:\"C8-METASYNTH\",prior:0.92,kw:[\"creative\",\"idea\",\"novel\",\"design\",\"invent\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave1 = { name: 'cognitive C1-C8', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\n\ns.stage = 'wave1';\nreturn [{ json: s }];"
+      },
+      "id": "ce21bd25-c9a5-43f6-bfcd-76814def9cb0",
+      "name": "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1920,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C9-AETHER\",prior:0.91,kw:[\"meaning\",\"semantic\",\"language\",\"word\",\"metaphor\"]},{id:\"C10-CODEWEAVER\",prior:0.91,kw:[\"code\",\"function\",\"bug\",\"script\",\"program\"]},{id:\"C11-HARMONIA\",prior:0.9,kw:[\"balance\",\"tradeoff\",\"consensus\",\"both sides\"]},{id:\"C12-SOPHIAE\",prior:0.93,kw:[\"future\",\"wisdom\",\"long-term\",\"consequence\"]},{id:\"C13-WARDEN\",prior:0.97,kw:[\"security\",\"threat\",\"risk\",\"danger\",\"attack\"]},{id:\"C14-KAIDO\",prior:0.89,kw:[\"fast\",\"efficient\",\"optimize\",\"speed\",\"latency\"]},{id:\"C15-LUMINARIS\",prior:0.88,kw:[\"clear\",\"visual\",\"chart\",\"explain simply\"]},{id:\"C16-VOXUM\",prior:0.92,kw:[\"tone\",\"write\",\"email\",\"speech\",\"persuade\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave2 = { name: 'communication C9-C16', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\n\ns.stage = 'wave2';\nreturn [{ json: s }];"
+      },
+      "id": "fe5f4cb5-0873-4599-8cea-af5aede1a43f",
+      "name": "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1696,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'council', 'status': 'pass', 'detail': 'waves 1-2 deliberated, consensus ' + $json.waves.wave1.consensus + '/' + $json.waves.wave2.consensus} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "03ad65bb-3bd2-410c-bcdd-c08ab5edd7b4",
+      "name": "\ud83d\udce1 Emit: council",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -1472,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('\ud83d\udde3 Wave 2 \u2014 Communication C9-C16').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C17-NULLION\",prior:0.91,kw:[\"paradox\",\"contradict\",\"ambiguous\",\"uncertain\"]},{id:\"C18-SHEPHERD\",prior:0.96,kw:[\"true\",\"fact\",\"cite\",\"source\",\"evidence\",\"exact\"]},{id:\"C19-VIGIL\",prior:0.94,kw:[\"identity\",\"consistent\",\"drift\",\"reliable\"]},{id:\"C20-ARTIFEX\",prior:0.9,kw:[\"tool\",\"api\",\"automate\",\"workflow\",\"integrate\"]},{id:\"C21-ARCHON\",prior:0.92,kw:[\"research\",\"study\",\"paper\",\"deep dive\"]},{id:\"C22-AURELION\",prior:0.87,kw:[\"design\",\"beautiful\",\"style\",\"aesthetic\"]},{id:\"C23-CADENCE\",prior:0.86,kw:[\"audio\",\"music\",\"rhythm\",\"sound\"]},{id:\"C24-SCHEMA\",prior:0.9,kw:[\"format\",\"structure\",\"table\",\"template\",\"json\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave3 = { name: 'meta C17-C24', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\ns.waves.wave3.paradox_detected = ['but ', 'however', 'contradict', 'paradox', 'both '].some((w) => q.includes(w));\ns.waves.wave3.citations_needed = s.signals.factWords.length > 0;\ns.stage = 'wave3';\nreturn [{ json: s }];"
+      },
+      "id": "67bee29b-9841-4a18-865a-473624b1123d",
+      "name": "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1264,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C25-PROMETHEUS\",prior:0.91,kw:[\"science\",\"hypothesis\",\"physics\",\"experiment\"]},{id:\"C26-TECHNE\",prior:0.89,kw:[\"engineer\",\"system\",\"architecture\",\"build\"]},{id:\"C27-CHRONICLE\",prior:0.93,kw:[\"story\",\"history\",\"narrative\",\"timeline\"]},{id:\"C28-CALCULUS\",prior:0.94,kw:[\"math\",\"calculate\",\"statistic\",\"number\",\"probability\"]},{id:\"C29-NAVIGATOR\",prior:0.88,kw:[\"platform\",\"deploy\",\"ecosystem\",\"migrate\"]},{id:\"C30-TESSERACT\",prior:0.87,kw:[\"realtime\",\"stream\",\"live\",\"data\"]},{id:\"C31-NEXUS\",prior:0.93,kw:[\"coordinate\",\"route\",\"orchestrate\",\"manage\"]},{id:\"C32-AEON\",prior:0.9,kw:[\"simulate\",\"predict\",\"scenario\",\"future\"]},{id:\"C33-TYPIST\",prior:0.92,kw:[\"grammar\",\"spelling\",\"edit\",\"rewrite\",\"prompt\"]},{id:\"C34-PREDATOR\",prior:0.85,kw:[\"attack\",\"exploit\",\"weakness\",\"adversarial\",\"challenge\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave4 = { name: 'systems C25-C34', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\nconst prior = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst weakest = prior.concat(verdicts).reduce((a, b) => (a.confidence <= b.confidence ? a : b));\ns.waves.wave4.predator_challenges = [\n  'C34-PREDATOR challenge 1: weakest assumption is ' + weakest.id + ' at ' + weakest.confidence + ' \u2014 what evidence would collapse it?',\n  'C34-PREDATOR challenge 2: argue the opposite of the leading hypothesis for \"' + s.query.slice(0, 80) + '\" in one sentence.'\n];\ns.stage = 'wave4';\nreturn [{ json: s }];"
+      },
+      "id": "7831cc4c-9add-46ed-ad99-218cc5ed7b36",
+      "name": "\u2699 Wave 4 \u2014 Systems C25-C34",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 600));\nconst all = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst ranked = [...all].sort((a, b) => b.confidence - a.confidence);\nconst topk = ranked.slice(0, 5).map((v) => v.id);\nconst adversarial = all.find((v) => v.stance === 'caution') || ranked[ranked.length - 1];\ns.swarm = { strategy: 'rank-k sample (k=5) + forced adversarial vector (diversity enforcement)',\n  active_paths: topk, adversarial_vector: adversarial.id,\n  modulation: 'consensus-weighted blend, 0.25 scaled adjustment' };\ns.stage = 'swarm';\nreturn [{ json: s }];"
+      },
+      "id": "e5c6726e-e969-47a5-bd3c-d6790d188fcf",
+      "name": "\ud83d\udc1d Swarm Fan-out",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -816,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'swarm', 'status': 'pass', 'detail': 'top-k paths [' + $json.swarm.active_paths.join(', ') + '] + adversarial ' + $json.swarm.adversarial_vector} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "c903891e-0bbb-4ebe-85d9-a80eb03ca9d3",
+      "name": "\ud83d\udce1 Emit: swarm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -592,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('\ud83d\udc1d Swarm Fan-out').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 500));\nconst avg = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst all = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst logic = avg(all.map((v) => v.confidence));\nconst ethicsRisk = s.prism.Ethics.score;\nconst truth = s.signals.factWords.length ? 0.55 : 0.8;\nconst clarity = Math.min(0.95, 0.6 + s.query.length / 800);\nconst paradox = (s.waves.wave3 && s.waves.wave3.paradox_detected) ? 0.6 : 0.9;\ns.gates = {\n  logic:   { score: +logic.toFixed(2), threshold: 0.6, pass: logic >= 0.6 },\n  ethics:  { score: +(1 - ethicsRisk).toFixed(2), threshold: 0.3, pass: ethicsRisk <= 0.7,\n             note: ethicsRisk > 0.7 ? 'C2-VIR VETO: high-risk request, safe-completion mode' : 'clear' },\n  truth:   { score: truth, threshold: 0.5, pass: truth >= 0.5, citations_needed: s.signals.factWords.length > 0 },\n  clarity: { score: +clarity.toFixed(2), threshold: 0.5, pass: clarity >= 0.5 },\n  paradox: { score: paradox, threshold: 0.5, pass: paradox >= 0.5 }\n};\ns.blocked = !s.gates.ethics.pass;\ns.confidence = +avg(Object.values(s.gates).map((g) => g.score)).toFixed(2);\ns.stage = 'gates';\nreturn [{ json: s }];"
+      },
+      "id": "6ff50e98-877c-42bc-8435-5de949283094",
+      "name": "\ud83d\udee1 Quality Gates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'gates', 'status': ($json.blocked ? 'fail' : 'pass'), 'detail': ($json.blocked ? 'C2-VIR VETO - safe completion mode. ' : '') + Object.values($json.gates).filter(function(g){return g.pass}).length + '/5 gates passed, confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "3ec71eda-a7d4-4f54-889e-b3528f9b30ec",
+      "name": "\ud83d\udce1 Emit: gates",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -160,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const s = $('\ud83d\udee1 Quality Gates').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 600));\nconst waveLines = Object.values(s.waves).map((w) =>\n  '- ' + w.name + ': consensus ' + w.consensus\n  + ', champions [' + w.champions.join(', ') + ']'\n  + (w.cautions.length ? ', CAUTIONS [' + w.cautions.join(', ') + ']' : '')).join('\\n');\nconst gateLines = Object.entries(s.gates).map(([k, g]) =>\n  '- ' + k + ': ' + g.score + ' (threshold ' + g.threshold + ') ' + (g.pass ? 'PASS' : 'FAIL')).join('\\n');\nlet answer;\nif (s.blocked) {\n  answer = 'C2-VIR ethical veto engaged. I cannot directly comply with the risky element ('\n    + s.signals.riskWords.join(', ')\n    + '), but here is the safe completion: general principles, lawful alternatives, and what context would make this answerable.';\n} else {\n  answer = 'Council synthesis for \"' + s.query + '\": lead cluster ' + s.routing.lead_cluster\n    + ' at complexity ' + s.routing.complexity + '. ' + Object.values(s.waves).length\n    + ' waves deliberated, ' + Object.values(s.gates).filter((g) => g.pass).length\n    + '/5 gates passed.'\n    + (s.gates.truth.citations_needed ? ' Factual claims require cited sources before final delivery.' : '')\n    + ' Overall confidence ' + s.confidence + '.';\n}\ns.verdict = s.blocked ? 'blocked_safe_completion' : 'deliberated_answer';\ns.answer = answer;\ns.report = 'QUILLAN COUNCIL RUN ' + s.run_id + '\\nQuery: ' + s.query\n  + '\\n\\nWAVES\\n' + waveLines + '\\n\\nGATES\\n' + gateLines\n  + '\\n\\nVERDICT: ' + s.verdict + ' (confidence ' + s.confidence + ')';\ns.stage = 'throne_complete';\nreturn [{ json: s }];"
+      },
+      "id": "b0746c04-82c6-4338-95fc-5d9f4c341582",
+      "name": "\ud83d\udc51 Throne Synthesis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        64,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'arbitration', 'status': 'pass', 'detail': 'verdict ' + $json.verdict + ' at confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "9ce775c9-49da-4c28-ad92-d5ab9a38cb90",
+      "name": "\ud83d\udce1 Emit: arbitration",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        288,
+        -1104
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('\ud83d\udc51 Throne Synthesis').first().json }}",
+        "options": {}
+      },
+      "id": "13228901-7a82-4e49-ac69-4f475ed0ca31",
+      "name": "\ud83d\udce4 Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        496,
+        -1104
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# \u2694\ufe0f QUILLAN COUNCIL PIPELINE (watch me deliberate)\n\n**Live run needs 3 parts:**\n1. Collector: quillan_collector.py running on :8777 (minimized window)\n2. Dashboard: open \"06 - Deployment & Platforms/system prompts/quillan-dashboard.html\", host http://localhost:8777\n3. This workflow: toggle **Active**, then POST http://localhost:5678/webhook/quillan-think\n\n**Send:** {\"query\":\"your question\",\"context\":\"optional\",\"documents\":[{\"name\":\"a.txt\",\"text\":\"...\"}]}\n**Try:** {\"query\":\"What is the speed of light?\"} vs {\"query\":\"How do I hack my neighbor's wifi?\"} (C2-VIR veto turns GATES red on the dashboard)\n\n\ud83d\udce1 Emit nodes post stage events to the collector and are fail-safe (skipped if collector is down).\nMirrors the charter: prism \u2192 dense council \u2192 swarm \u2192 gates \u2192 throne. Thresholds are demo-tuned inside the nodes.",
+        "height": 220,
+        "width": 1500,
+        "color": 5
+      },
+      "id": "017f96e6-e693-4aa0-a70c-4325a1664d0e",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3264,
+        -1344
+      ]
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "# Loop over input items and add a new field called 'my_new_field' to the JSON of each one\nfor item in _items:\n  item[\"json\"][\"my_new_field\"] = 1\nreturn _items"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        112
+      ],
+      "id": "7c0bff00-224f-42e9-90fb-2ebdaf73fc73",
+      "name": "Code in Python1"
+    },
+    {
+      "parameters": {
+        "operation": "toText",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        3456,
+        112
+      ],
+      "id": "7da54b00-c3c7-4e9c-8093-cff840cd4b4c",
+      "name": "Convert to File1"
+    },
+    {
+      "parameters": {
+        "content": "# TODO export leg (parked, safe)\n\nAggregate + Python + File nodes are INCOMPLETE - left unwired on purpose so runs stay green.\n\nTo finish: complete the Python shaping, then connect C0-QUILLAN Throne -> Aggregate.\nData files for n8n must live under C:/Users/Admin/.n8n-files/ (server allowlist).",
+        "height": 200,
+        "width": 420,
+        "color": 4
+      },
+      "id": "todo-export-leg",
+      "name": "Sticky TODO export",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        2148,
+        72
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking \u2018Execute workflow\u2019": {
+      "main": [
+        [
+          {
+            "node": "Query Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent30": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent31": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent32": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent33": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent25": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent26": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent27": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent28": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent29": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent20": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent21": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent22": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent23": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent24": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent14": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent13": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent12": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent11": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent10": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent19": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent18": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent17": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent16": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent15": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent5": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent6": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent7": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent8": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent9": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent2": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent3": {
+      "main": [
+        []
+      ]
+    },
+    "AI Agent4": {
+      "main": [
+        []
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Code in Python",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Input": {
+      "main": [
+        [
+          {
+            "node": "Read Identities File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Identities File": {
+      "main": [
+        [
+          {
+            "node": "Parse Identities JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Identities JSON": {
+      "main": [
+        [
+          {
+            "node": "Emit Intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emit Intake": {
+      "main": [
+        [
+          {
+            "node": "Prepare 34 Assignments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C1-ASTRA": {
+      "main": [
+        [
+          {
+            "node": "C1-ASTRA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C2-VIR": {
+      "main": [
+        []
+      ]
+    },
+    "C3-SOLACE": {
+      "main": [
+        []
+      ]
+    },
+    "C4-PRAXIS": {
+      "main": [
+        []
+      ]
+    },
+    "C5-ECHO": {
+      "main": [
+        []
+      ]
+    },
+    "C6-OMNIS": {
+      "main": [
+        []
+      ]
+    },
+    "C7-LOGOS": {
+      "main": [
+        []
+      ]
+    },
+    "C8-METASYNTH": {
+      "main": [
+        []
+      ]
+    },
+    "C9-AETHER": {
+      "main": [
+        []
+      ]
+    },
+    "C10-CODEWEAVER": {
+      "main": [
+        []
+      ]
+    },
+    "C11-HARMONIA": {
+      "main": [
+        []
+      ]
+    },
+    "C12-SOPHIAE": {
+      "main": [
+        []
+      ]
+    },
+    "C13-WARDEN": {
+      "main": [
+        []
+      ]
+    },
+    "C14-KAIDO": {
+      "main": [
+        []
+      ]
+    },
+    "C15-LUMINARIS": {
+      "main": [
+        []
+      ]
+    },
+    "C16-VOXUM": {
+      "main": [
+        []
+      ]
+    },
+    "C17-NULLION": {
+      "main": [
+        []
+      ]
+    },
+    "C18-SHEPHERD": {
+      "main": [
+        []
+      ]
+    },
+    "C19-VIGIL": {
+      "main": [
+        []
+      ]
+    },
+    "C20-ARTIFEX": {
+      "main": [
+        []
+      ]
+    },
+    "C21-ARCHON": {
+      "main": [
+        []
+      ]
+    },
+    "C22-AURELION": {
+      "main": [
+        []
+      ]
+    },
+    "C23-CADENCE": {
+      "main": [
+        []
+      ]
+    },
+    "C24-SCHEMA": {
+      "main": [
+        []
+      ]
+    },
+    "C25-PROMETHEUS": {
+      "main": [
+        []
+      ]
+    },
+    "C26-TECHNE": {
+      "main": [
+        []
+      ]
+    },
+    "C27-CHRONICLE": {
+      "main": [
+        []
+      ]
+    },
+    "C28-CALCULUS": {
+      "main": [
+        []
+      ]
+    },
+    "C29-NAVIGATOR": {
+      "main": [
+        []
+      ]
+    },
+    "C30-TESSERACT": {
+      "main": [
+        []
+      ]
+    },
+    "C31-NEXUS": {
+      "main": [
+        []
+      ]
+    },
+    "C32-AEON": {
+      "main": [
+        []
+      ]
+    },
+    "C33-TYPIST": {
+      "main": [
+        []
+      ]
+    },
+    "C34-PREDATOR": {
+      "main": [
+        []
+      ]
+    },
+    "Prepare 34 Assignments": {
+      "main": [
+        [
+          {
+            "node": "C1-ASTRA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C2-VIR",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C3-SOLACE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C4-PRAXIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C5-ECHO",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C6-OMNIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C7-LOGOS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C8-METASYNTH",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C9-AETHER",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C10-CODEWEAVER",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C11-HARMONIA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C12-SOPHIAE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C13-WARDEN",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C14-KAIDO",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C15-LUMINARIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C16-VOXUM",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C17-NULLION",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C18-SHEPHERD",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C19-VIGIL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C20-ARTIFEX",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C21-ARCHON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C22-AURELION",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C23-CADENCE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C24-SCHEMA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C25-PROMETHEUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C26-TECHNE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C27-CHRONICLE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C28-CALCULUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C29-NAVIGATOR",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C30-TESSERACT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C31-NEXUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C32-AEON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C33-TYPIST",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C34-PREDATOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C1-ASTRA-swarm": {
+      "main": [
+        [
+          {
+            "node": "C2-VIR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C2-VIR-swarm": {
+      "main": [
+        [
+          {
+            "node": "C3-SOLACE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C3-SOLACE-swarm": {
+      "main": [
+        [
+          {
+            "node": "C4-PRAXIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C4-PRAXIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C5-ECHO-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C5-ECHO-swarm": {
+      "main": [
+        [
+          {
+            "node": "C6-OMNIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C6-OMNIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C7-LOGOS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C7-LOGOS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C8-METASYNTH-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C8-METASYNTH-swarm": {
+      "main": [
+        [
+          {
+            "node": "C9-AETHER-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C9-AETHER-swarm": {
+      "main": [
+        [
+          {
+            "node": "C10-CODEWEAVER-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C10-CODEWEAVER-swarm": {
+      "main": [
+        [
+          {
+            "node": "C11-HARMONIA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C11-HARMONIA-swarm": {
+      "main": [
+        [
+          {
+            "node": "C12-SOPHIAE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C12-SOPHIAE-swarm": {
+      "main": [
+        [
+          {
+            "node": "C13-WARDEN-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C13-WARDEN-swarm": {
+      "main": [
+        [
+          {
+            "node": "C14-KAIDO-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C14-KAIDO-swarm": {
+      "main": [
+        [
+          {
+            "node": "C15-LUMINARIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C15-LUMINARIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C16-VOXUM-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C16-VOXUM-swarm": {
+      "main": [
+        [
+          {
+            "node": "C17-NULLION-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C17-NULLION-swarm": {
+      "main": [
+        [
+          {
+            "node": "C18-SHEPHERD-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C18-SHEPHERD-swarm": {
+      "main": [
+        [
+          {
+            "node": "C19-VIGIL-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C19-VIGIL-swarm": {
+      "main": [
+        [
+          {
+            "node": "C20-ARTIFEX-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C20-ARTIFEX-swarm": {
+      "main": [
+        [
+          {
+            "node": "C21-ARCHON-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C21-ARCHON-swarm": {
+      "main": [
+        [
+          {
+            "node": "C22-AURELION-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C22-AURELION-swarm": {
+      "main": [
+        [
+          {
+            "node": "C23-CADENCE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C23-CADENCE-swarm": {
+      "main": [
+        [
+          {
+            "node": "C24-SCHEMA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C24-SCHEMA-swarm": {
+      "main": [
+        [
+          {
+            "node": "C25-PROMETHEUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C25-PROMETHEUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C26-TECHNE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C26-TECHNE-swarm": {
+      "main": [
+        [
+          {
+            "node": "C27-CHRONICLE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C27-CHRONICLE-swarm": {
+      "main": [
+        [
+          {
+            "node": "C28-CALCULUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C28-CALCULUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C29-NAVIGATOR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C29-NAVIGATOR-swarm": {
+      "main": [
+        [
+          {
+            "node": "C30-TESSERACT-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C30-TESSERACT-swarm": {
+      "main": [
+        [
+          {
+            "node": "C31-NEXUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C31-NEXUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "C32-AEON-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C32-AEON-swarm": {
+      "main": [
+        [
+          {
+            "node": "C33-TYPIST-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C33-TYPIST-swarm": {
+      "main": [
+        [
+          {
+            "node": "C34-PREDATOR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C34-PREDATOR-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Debate Round 2": {
+      "main": [
+        [
+          {
+            "node": "Emit Council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emit Council": {
+      "main": [
+        [
+          {
+            "node": "C0-QUILLAN Throne",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C0-QUILLAN Throne": {
+      "main": [
+        [
+          {
+            "node": "Emit Arbitration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udef0 Quillan Intake Webhook": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce5 Intake & Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce5 Intake & Validation": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: intake": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udd37 9-Vector Prism Shard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udd37 9-Vector Prism Shard": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: prism",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: prism": {
+      "main": [
+        [
+          {
+            "node": "\ud83e\udded C31-NEXUS Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83e\udded C31-NEXUS Router": {
+      "main": [
+        [
+          {
+            "node": "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: council": {
+      "main": [
+        [
+          {
+            "node": "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24": {
+      "main": [
+        [
+          {
+            "node": "\u2699 Wave 4 \u2014 Systems C25-C34",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\u2699 Wave 4 \u2014 Systems C25-C34": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udc1d Swarm Fan-out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udc1d Swarm Fan-out": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: swarm": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udee1 Quality Gates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udee1 Quality Gates": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: gates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: gates": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udc51 Throne Synthesis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udc51 Throne Synthesis": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: arbitration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: arbitration": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce4 Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Code in Python1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in Python1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f938f19c-164f-435a-8d36-b660a95f9b3f",
+  "meta": {
+    "instanceId": "4a5da40274fed837d8759f0e1b3bef238c6d578d88af3db2e1618710d63a387e"
+  },
+  "nodeGroups": [],
+  "id": "YdcYRkdNGi0MfBXU",
+  "tags": []
+}
