@@ -402,15 +402,72 @@ class Handler(BaseHTTPRequestHandler):
             qs = urllib.parse.urlparse(self.path).query
             params = urllib.parse.parse_qs(qs)
             target = params.get("path", [""])[0]
-            max_lines = int(params.get("lines", [120])[0])
-            if spider_module:
+            max_lines = int(params.get("lines", [150])[0])
+            if spider_module and hasattr(spider_module, "spider_read_file"):
                 return self.send_json(spider_module.spider_read_file(target, max_lines))
             try:
                 p = Path(target)
                 if not p.exists():
-                    return self.send_json({"ok": False, "error": "file not found"}, 404)
-                lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
-                return self.send_json({"ok": True, "name": p.name, "lines": lines[:max_lines], "total_lines": len(lines)})
+                    return self.send_json({"ok": False, "error": f"Path not found: {target}"}, 404)
+                if p.is_dir():
+                    entries = []
+                    try:
+                        for item in sorted(p.iterdir()):
+                            if item.name.startswith(".git") or item.name == "__pycache__":
+                                continue
+                            entries.append({
+                                "name": item.name,
+                                "is_dir": item.is_dir(),
+                                "size": item.stat().st_size if item.is_file() else 0,
+                                "ext": item.suffix.lower() if item.is_file() else "DIR"
+                            })
+                    except Exception:
+                        pass
+                    dir_lines = [
+                        f"📁 DIRECTORY: {p.name}",
+                        f"   Full Path: {str(p)}",
+                        f"   Contained Items: {len(entries)} items",
+                        "─" * 48,
+                    ]
+                    for e in entries[:max_lines]:
+                        icon = "📁" if e["is_dir"] else "📄"
+                        size_str = f" ({e['size']:,} B)" if not e["is_dir"] else " [FOLDER]"
+                        dir_lines.append(f" {icon} {e['name']}{size_str}")
+                    return self.send_json({
+                        "ok": True,
+                        "is_dir": True,
+                        "file_type": "dir",
+                        "name": p.name,
+                        "path": str(p),
+                        "total_lines": len(dir_lines),
+                        "lines": dir_lines,
+                        "entries": entries[:80],
+                        "size_bytes": 0
+                    })
+
+                content = p.read_text(encoding="utf-8", errors="replace")
+                lines = content.splitlines()
+                ext = p.suffix.lower()
+                ft = "code"
+                if ext in [".html", ".htm"]:
+                    ft = "html"
+                elif ext in [".md", ".markdown", ".txt"]:
+                    ft = "markdown"
+                elif ext == ".json":
+                    ft = "json"
+                elif ext == ".py":
+                    ft = "python"
+                return self.send_json({
+                    "ok": True,
+                    "is_dir": False,
+                    "file_type": ft,
+                    "name": p.name,
+                    "path": str(p),
+                    "total_lines": len(lines),
+                    "lines": lines[:max_lines],
+                    "raw_sample": content[:45000],
+                    "size_bytes": p.stat().st_size
+                })
             except Exception as e:
                 return self.send_json({"ok": False, "error": str(e)}, 500)
 

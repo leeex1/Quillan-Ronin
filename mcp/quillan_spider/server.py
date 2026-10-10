@@ -694,19 +694,89 @@ def spider_sweep(root: str = "C:\\02_QUILLAN\09 - Projects\\mcp", since_ts: floa
 
 
 @mcp.tool()
-def spider_read_file(path: str, max_lines: int = 120) -> Dict[str, Any]:
-    """Inspect and read lines of a specific file or page directly for the HUD viewer."""
+def spider_read_file(path: str, max_lines: int = 150) -> Dict[str, Any]:
+    """Inspect and read lines of a specific file, page, or directory directly for the HUD viewer."""
     try:
         p = Path(path)
         if not p.exists():
-            return {"ok": False, "error": f"File does not exist: {path}"}
-        lines = p.read_text(encoding="utf-8", errors="replace").splitlines()
+            return {"ok": False, "error": f"File or folder does not exist: {path}"}
+        
+        if p.is_dir():
+            entries = []
+            try:
+                for item in sorted(p.iterdir()):
+                    if item.name.startswith(".git") or item.name == "__pycache__":
+                        continue
+                    entries.append({
+                        "name": item.name,
+                        "is_dir": item.is_dir(),
+                        "size": item.stat().st_size if item.is_file() else 0,
+                        "ext": item.suffix.lower() if item.is_file() else "DIR"
+                    })
+            except Exception:
+                pass
+            dir_lines = [
+                f"📁 DIRECTORY: {p.name}",
+                f"   Full Path: {str(p)}",
+                f"   Contained Items: {len(entries)} items",
+                "─" * 48,
+            ]
+            for e in entries[:max_lines]:
+                icon = "📁" if e["is_dir"] else "📄"
+                size_str = f" ({e['size']:,} B)" if not e["is_dir"] else " [FOLDER]"
+                dir_lines.append(f" {icon} {e['name']}{size_str}")
+            return {
+                "ok": True,
+                "is_dir": True,
+                "file_type": "dir",
+                "path": str(p),
+                "name": p.name,
+                "total_lines": len(dir_lines),
+                "lines": dir_lines,
+                "entries": entries[:80],
+                "size_bytes": 0
+            }
+
+        # Handle regular files
+        ext = p.suffix.lower()
+        content = p.read_text(encoding="utf-8", errors="replace")
+        lines = content.splitlines()
+
+        file_type = "code"
+        if ext in [".html", ".htm"]:
+            file_type = "html"
+        elif ext in [".md", ".markdown", ".txt", ".rst"]:
+            file_type = "markdown"
+        elif ext == ".json":
+            file_type = "json"
+        elif ext == ".py":
+            file_type = "python"
+
+        ast_symbols = []
+        if ext == ".py":
+            import ast
+            try:
+                tree = ast.parse(content)
+                for node in tree.body:
+                    if isinstance(node, ast.ClassDef):
+                        ast_symbols.append({"type": "class", "name": node.name, "line": node.lineno})
+                    elif isinstance(node, ast.FunctionDef):
+                        ast_symbols.append({"type": "def", "name": node.name, "line": node.lineno})
+                    elif isinstance(node, ast.AsyncFunctionDef):
+                        ast_symbols.append({"type": "async_def", "name": node.name, "line": node.lineno})
+            except Exception:
+                pass
+
         return {
             "ok": True,
+            "is_dir": False,
+            "file_type": file_type,
             "path": str(p),
             "name": p.name,
             "total_lines": len(lines),
             "lines": lines[:max_lines],
+            "raw_sample": content[:45000],
+            "ast_symbols": ast_symbols,
             "size_bytes": p.stat().st_size
         }
     except Exception as e:
