@@ -391,3 +391,5 @@ Book[[:space:]]Series/*.mp3 filter=lfs diff=lfs merge=lfs -text
 *.bak-prethronefix filter=lfs diff=lfs merge=lfs -text
 *.bak-seqchain filter=lfs diff=lfs merge=lfs -text
 *.bak-unify filter=lfs diff=lfs merge=lfs -text
+*.bak_full_wiring filter=lfs diff=lfs merge=lfs -text
+*.bak_step2 filter=lfs diff=lfs merge=lfs -text
