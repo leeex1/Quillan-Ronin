@@ -214,7 +214,7 @@ class TestTimeLoRA(nn.Module):
         self.lora_A = nn.Parameter(torch.zeros(hidden_dim, rank))
         self.lora_B = nn.Parameter(torch.zeros(rank, hidden_dim))
         nn.init.kaiming_uniform_(self.lora_A, a=math.sqrt(5))
-        nn.init.zeros_(self.lora_B)
+        nn.init.normal_(self.lora_B, std=1e-3)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """LoRA adaptation: x + scaling * (x @ A @ B)."""

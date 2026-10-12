@@ -1128,6 +1128,7 @@
   </style>
 </head>
 <body>
+  <div id="bootErrorBanner" hidden style="background:#3a1010;color:#ffd7d7;border-bottom:2px solid #ff5252;padding:8px 14px;font:700 12px/1.4 monospace;white-space:pre-wrap;"></div>
   <div class="shell">
     <nav class="topbar" aria-label="Dashboard views">
       <div class="tabs" role="tablist" aria-label="Monitor views">
@@ -1635,6 +1636,12 @@
             </div>
             <span class="badge" id="spiderActiveBadge" style="font-size:9px;color:var(--green);border-color:var(--green);">STANDBY</span>
           </div>
+          <!-- BRIDGE TASK QUEUE (live from :8082 /api/tasks) -->
+          <div style="display:flex;gap:8px;align-items:center;margin-top:8px;font:800 10px/1.4 var(--mono);color:var(--muted);">
+            <span>BRIDGE QUEUE</span>
+            <span class="badge" id="spiderQueueCount" style="font-size:9px;">0 PENDING</span>
+          </div>
+          <div id="spiderTaskList" style="margin-top:4px;max-height:120px;overflow-y:auto;font:10px/1.5 var(--mono);color:var(--muted);"></div>
 
           <!-- AUTONOMOUS TAXONOMY & PROPER FOLDER AUDIT HUD -->
           <div id="spiderOrgAuditPanel" style="display:none;margin-top:12px;padding:14px;background:rgba(5,13,17,0.95);border:1px solid #79dd8e88;border-radius:4px;">
@@ -1933,6 +1940,19 @@
   <script>
     (function () {
       "use strict";
+
+      // Boot error surface: never fail blank again. Any runtime throw gets
+      // shown in #bootErrorBanner with its message + location.
+      window.addEventListener("error", function (ev) {
+        try {
+          var b = document.getElementById("bootErrorBanner");
+          if (!b) return;
+          b.hidden = false;
+          b.textContent = "DASHBOARD ERROR: " + (ev.message || ev.error) +
+            (ev.lineno ? " @line " + ev.lineno : "") +
+            " — canvases below this point did not initialize. Hard-reload (Ctrl+Shift+R) after fixing.";
+        } catch (e) {}
+      });
 
       var personas = [
         { id: 0, name: "QUILLAN", cluster: "throne", role: "Primary router, observer, final arbiter" },
@@ -5627,7 +5647,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         if (thText) thText.textContent = "Sovereign Throne C0 directive: Launching comprehensive Second Brain web construction...";
 
         // Anchor all standard repo files sequentially
-        standardRepoFiles.forEach(function (f) {
+        (standardRepoFiles || []).forEach(function (f) {
           spiderOffice.targetQueue.push({
             nodeIdx: 0,
             path: f.name,
@@ -5673,7 +5693,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
         var filter = (document.getElementById("spiderCabinetFilter") ? document.getElementById("spiderCabinetFilter").value : "").toLowerCase();
 
-        var allFiles = standardRepoFiles.slice();
+        var allFiles = (standardRepoFiles || []).slice();
         if (spiderData && spiderData.nodes) {
           spiderData.nodes.forEach(function (n) {
             if (n.full && !allFiles.some(function (f) { return f.full === n.full; })) {

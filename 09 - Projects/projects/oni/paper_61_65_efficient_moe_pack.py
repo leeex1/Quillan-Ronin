@@ -77,11 +77,14 @@ class MixtureOfDepths(nn.Module):
         # Top-k by capacity factor: only capacity_factor fraction execute
         k = int(scores.size(1) * self.capacity_factor)
         if k == 0:
-            return x, torch.zeros_like(scores)
+            return x * (1.0 + 0.01 * scores.unsqueeze(-1)), torch.zeros_like(scores)
         _, top_idx = torch.topk(scores, k, dim=1)  # [B, k]
         mask = torch.zeros_like(scores)
         mask.scatter_(1, top_idx, 1.0)
-        return x, mask
+        # Straight-Through Estimator: discrete mask on forward pass, scores gradients on backward pass
+        mask_ste = (mask - scores.detach() + scores).unsqueeze(-1)
+        x_out = x * (1.0 + 0.01 * mask_ste)
+        return x_out, mask
 
 
 # Paper 63: Grouped-Query Attention (GQA) for Mistral
