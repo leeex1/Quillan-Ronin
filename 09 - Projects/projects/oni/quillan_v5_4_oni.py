@@ -1852,7 +1852,9 @@ class UnrolledCouncilMoEBlock(nn.Module):
         z_loss = torch.zeros((), device=x.device)
         if self.cfg.router_mode == "dense_pull":
             # Compute router projection to anchor classical ST-MoE router and receive gradients
-            r_logits = self.router(flat_x).float()
+            r_dev = next(self.router.parameters()).device
+            r_inp = flat_x.to(r_dev) if flat_x.device != r_dev else flat_x
+            r_logits = self.router(r_inp).to(flat_x.device).float()
             r_probs = F.softmax(r_logits, dim=-1)
             z_loss = torch.logsumexp(r_logits, dim=-1).pow(2).mean()
 
@@ -1871,10 +1873,14 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 moe_out = torch.zeros_like(flat_x)
                 _stk = []
                 for e in range(self.cfg.num_experts):
+                    e_dev = next(self.experts[e].parameters()).device
+                    e_inp = flat_x.to(e_dev) if flat_x.device != e_dev else flat_x
                     try:
-                        e_out = self.experts[e](flat_x, gov_scale)
+                        e_out = self.experts[e](e_inp, gov_scale)
                     except TypeError:
-                        e_out = self.experts[e](flat_x)
+                        e_out = self.experts[e](e_inp)
+                    if e_out.device != flat_x.device:
+                        e_out = e_out.to(flat_x.device)
                     _stk.append(e_out)
                     moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
                 probs = pull
@@ -1890,7 +1896,9 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 lb_loss = F.kl_div((r_probs + 1e-10).log(), pull.detach(), reduction="batchmean")
                 entropy = -(probs * torch.log(probs + 1e-10)).sum(dim=-1).mean()
         else:
-            logits = self.router(flat_x).float()  # fp32 router (ST-MoE)
+            r_dev = next(self.router.parameters()).device
+            r_inp = flat_x.to(r_dev) if flat_x.device != r_dev else flat_x
+            logits = self.router(r_inp).to(flat_x.device).float()  # fp32 router (ST-MoE)
             if self.training and self.cfg.router_mode == "gumbel_topk":
                 probs = F.gumbel_softmax(logits, tau=self.tau, hard=False, dim=-1)
             else:
@@ -1911,10 +1919,14 @@ class UnrolledCouncilMoEBlock(nn.Module):
                     continue
                 pos = token_pos[sel]
                 w = flat_w[sel]
+                e_dev = next(self.experts[e].parameters()).device
+                tok_inp = flat_x[pos].to(e_dev) if flat_x.device != e_dev else flat_x[pos]
                 try:
-                    e_out = self.experts[e](flat_x[pos], gov_scale)
+                    e_out = self.experts[e](tok_inp, gov_scale)
                 except TypeError:
-                    e_out = self.experts[e](flat_x[pos])
+                    e_out = self.experts[e](tok_inp)
+                if e_out.device != flat_x.device:
+                    e_out = e_out.to(flat_x.device)
                 moe_out.index_add_(0, pos, w * e_out)
 
             # Aux losses: KL-to-uniform load balance (AGI paper eq.13) + z-loss (ST-MoE)

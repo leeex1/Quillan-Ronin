@@ -27,11 +27,15 @@ from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni  # noqa: E402
 from paper_01_profiler import StepProfiler  # 2309.02521 — real CPU/GPU profiling
 
 def resolve_data_dir(custom_path: str | None = None) -> Path:
-    """Auto-detects data directory across local, repo, and cloud/Colab paths."""
-    if custom_path and Path(custom_path).is_dir():
-        return Path(custom_path).resolve()
+    """Auto-detects data directory or dataset file across local, repo, and cloud paths."""
+    if custom_path:
+        p = Path(custom_path).resolve()
+        if p.exists():
+            return p
 
     candidates = [
+        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\canonical_standardized\quillan_master_gold_training_v1.pt"),
+        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\quillan_pretrain_corpus_343mb.pt"),
         Path(__file__).resolve().parent / "data",
         Path(__file__).resolve().parent.parent / "05_Training" / "training_data" / "v9",
         Path("/content/Quillan-Ronin/oni/data"),
@@ -39,7 +43,9 @@ def resolve_data_dir(custom_path: str | None = None) -> Path:
         Path("05_Training/training_data/v9"),
     ]
     for c in candidates:
-        if c.is_dir() and (c / "train_ids.bin").exists():
+        if c.is_file() and c.suffix == ".pt" and c.exists():
+            return c.resolve()
+        if c.is_dir() and ((c / "train_ids.bin").exists() or (c / "train.pt").exists()):
             return c.resolve()
 
     # Fallback to local oni/data
@@ -76,8 +82,14 @@ def parse_args():
     ap.add_argument("--sample-every", type=int, default=500)
     ap.add_argument("--save-every", type=int, default=500)
     ap.add_argument("--resume", action="store_true")
-    ap.add_argument("--router-mode", type=str, default="dense_pull",
+    ap.add_argument("--router-mode", type=str, default="gumbel_topk",
                     choices=["dense_pull", "gumbel_topk"])
+    ap.add_argument("--top-k", type=int, default=2,
+                    help="Top-k active experts per token in gumbel_topk mode (default: 2)")
+    ap.add_argument("--grt-iterations", type=int, default=1,
+                    help="Recurrent deliberation loops per forward during training (default: 1 for fast convergence)")
+    ap.add_argument("--cgpu", action="store_true",
+                    help="Enable CGPUBridge (router/hot-experts on GPU, body on CPU)")
     ap.add_argument("--clip", type=float, default=1.0)
     ap.add_argument("--ema", type=int, default=1)
     ap.add_argument("--rqgm-epoch-length", type=int, default=500,
@@ -159,25 +171,80 @@ class RQGMController:
 
 
 class Corpus:
-    def __init__(self, data_dir: Path, split: str, seq_len: int):
-        ids_path = data_dir / f"{split}_ids.bin"
-        labels_path = data_dir / f"{split}_labels.bin"
-        if not ids_path.exists() or not labels_path.exists():
-            raise FileNotFoundError(
-                f"Missing binary dataset split '{split}' in {data_dir}. "
-                f"Run 'python oni/pack_dataset.py' to generate binary datasets."
-            )
-        ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
-        labels = np.memmap(labels_path, dtype=np.int32, mode="r")
-        n = min(len(ids), len(labels)) // seq_len * seq_len
-        self.ids = ids[:n].reshape(-1, seq_len)
-        self.labels = labels[:n].reshape(-1, seq_len)
+    def __init__(self, data_path: Path, split: str, seq_len: int):
+        self.seq_len = seq_len
+        # Case 1: .pt file provided or detected
+        if data_path.is_file() and data_path.suffix == ".pt":
+            self._load_pt(data_path, split, seq_len)
+        elif data_path.is_dir() and (data_path / f"{split}.pt").exists():
+            self._load_pt(data_path / f"{split}.pt", split, seq_len)
+        else:
+            # Case 2: standard memmapped binary dataset
+            ids_path = data_path / f"{split}_ids.bin"
+            labels_path = data_path / f"{split}_labels.bin"
+            if not ids_path.exists() or not labels_path.exists():
+                raise FileNotFoundError(
+                    f"Missing binary dataset split '{split}' in {data_path}. "
+                    f"Run 'python oni/pack_dataset.py' to generate binary datasets."
+                )
+            ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
+            labels = np.memmap(labels_path, dtype=np.int32, mode="r")
+            n = min(len(ids), len(labels)) // seq_len * seq_len
+            self.ids = ids[:n].reshape(-1, seq_len)
+            self.labels = labels[:n].reshape(-1, seq_len)
+            self.is_pt = False
+
+    def _load_pt(self, pt_file: Path, split: str, seq_len: int):
+        raw = torch.load(pt_file, map_location="cpu", weights_only=False)
+        if isinstance(raw, dict) and "input_ids" in raw:
+            input_ids = raw["input_ids"]
+            labels = raw.get("labels", None)
+        elif isinstance(raw, torch.Tensor):
+            input_ids = raw
+            labels = None
+        else:
+            raise ValueError(f"Unrecognized dataset format in {pt_file}")
+
+        # Flatten into 1D token stream for consistent seq_len windowing
+        if input_ids.dim() > 1:
+            flat_ids = input_ids.reshape(-1)
+        else:
+            flat_ids = input_ids
+
+        total_tokens = flat_ids.numel()
+        # Train / val split if single master file provided
+        val_fraction = 0.05
+        split_point = int(total_tokens * (1.0 - val_fraction))
+        if split == "train":
+            tokens = flat_ids[:split_point]
+        else:
+            tokens = flat_ids[split_point:]
+
+        n = (tokens.numel() // seq_len) * seq_len
+        if n == 0:
+            tokens = flat_ids[:seq_len]  # fallback
+            n = seq_len
+        
+        sliced_ids = tokens[:n].reshape(-1, seq_len).to(torch.int64)
+        if labels is not None and split == "train" and labels.numel() >= split_point:
+            flat_labels = labels.reshape(-1)[:split_point]
+            nl = (flat_labels.numel() // seq_len) * seq_len
+            sliced_labels = flat_labels[:nl].reshape(-1, seq_len).to(torch.int64)
+        else:
+            sliced_labels = torch.roll(sliced_ids, shifts=-1, dims=-1)
+            sliced_labels[:, -1] = -100
+
+        self.ids = sliced_ids
+        self.labels = sliced_labels
+        self.is_pt = True
 
     def __len__(self):
         return len(self.ids)
 
     def batch(self, bs, rng):
         idx = rng.integers(0, len(self), size=bs)
+        if getattr(self, "is_pt", False):
+            return self.ids[idx], self.labels[idx]
         return (torch.from_numpy(self.ids[idx].astype(np.int64)),
                 torch.from_numpy(self.labels[idx].astype(np.int64)))
 
@@ -260,14 +327,35 @@ def main():
     print(f"[DATA] train={len(train)} seqs  val={len(val)} seqs")
 
     cfg = QuillanOniConfig(n_layer=args.n_layer, max_seq_len=args.seq_len,
-                           router_mode=args.router_mode, grad_checkpoint=args.grad_checkpoint)
+                           router_mode=args.router_mode, top_k=args.top_k,
+                           grt_iterations=args.grt_iterations,
+                           grad_checkpoint=args.grad_checkpoint)
     model = QuillanRoninOni(cfg)
     if args.device != "cpu":
         model = model.to(args.device)
+
+    # C+GPU Bridge: shard router & hot experts to GPU, body on CPU
+    if args.cgpu and torch.cuda.is_available():
+        try:
+            sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
+            from quillan_cgpu_bridge import CGPUBridge
+            bridge = CGPUBridge(gpu_index=0, gpu_budget_mb=3000, top_k_gpu=args.top_k)
+            for b_idx, block in enumerate(model.h):
+                bridge.place_router(block.moe.router, name=f"b{b_idx}.router")
+                # Place top hot experts on GPU
+                exp_scores = [1.0 if i < args.top_k else 0.1 for i in range(cfg.num_experts)]
+                block.moe.experts = torch.nn.ModuleList(
+                    bridge.place_experts(list(block.moe.experts), exp_scores, prefix=f"b{b_idx}.exp")
+                )
+            print(f"[CGPU] Activated C+GPU bridge: {bridge.status()}", flush=True)
+        except Exception as e:
+            print(f"[CGPU] Bridge initialization warning: {e}. Falling back to standard device map.", flush=True)
+
     n_params = sum(p.numel() for p in model.parameters())
     print(f"[MODEL] Quillan-Ronin v5.4.0-oni  n_layer={args.n_layer}  "
-          f"router={args.router_mode}  params={n_params/1e6:.1f}M  device={args.device}  "
-          f"checkpointing={args.grad_checkpoint}")
+          f"router={args.router_mode} (k={args.top_k})  grt_iter={args.grt_iterations}  "
+          f"params={n_params/1e6:.1f}M  device={args.device}  "
+          f"checkpointing={args.grad_checkpoint}  cgpu={args.cgpu}")
 
     # torch.compile support (Grok recommendation: mode="max-autotune", fullgraph=True for smoke test)
     if args.compile:
@@ -471,7 +559,11 @@ def main():
             log_f.write(json.dumps({"step": step, "val_loss": vl}) + "\n")
 
         if step % args.sample_every == 0 or step == args.steps:
-            print("[SAMPLE]", repr(sample(model, tok, args.device)), flush=True)
+            try:
+                s_text = sample(model, tok, args.device)
+                print("[SAMPLE]", repr(s_text.encode("ascii", errors="replace").decode("ascii")), flush=True)
+            except Exception as e:
+                print(f"[SAMPLE] error during sampling: {e}", flush=True)
 
         if step % args.save_every == 0 or step == args.steps:
             ckpt = {"model": model.state_dict(), "opt": opt.state_dict(), "step": step,
