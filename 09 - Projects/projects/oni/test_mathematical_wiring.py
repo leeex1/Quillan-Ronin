@@ -115,6 +115,22 @@ from ai_consciousness_evaluator import (
     BayesianConsciousnessNetwork,
     DifferentiableConsciousnessHead
 )
+from ax_prover_engine import (
+    LeanDiagnosticSeverity,
+    DiagnosticMessage,
+    DiagnosticReport,
+    GoalState,
+    LemmaDeclaration,
+    MCPLeanLSPClient,
+    ProofStep,
+    TheoremSpecification,
+    AxProverAgent,
+    AxVerifierGate,
+    AxProverOrchestrator,
+    AxProverResult,
+    DifferentiableProverScorer
+)
+
 
 
 
@@ -2072,6 +2088,87 @@ def test_ai_consciousness_evaluator_paper30_invariant():
     assert head.level_weights.grad is not None and torch.isfinite(head.level_weights.grad).all()
 
 
+# ─── 40. AX-PROVER AGENTIC THEOREM PROVING IN LEAN (PAPER 31) ─────────────────
+
+def test_ax_prover_paper31_invariant():
+    """
+    Paper 31 (Ax-Prover, Breen et al., 2026):
+    Verifies:
+      1. MCP Lean 4 LSP Client returns exact diagnostic codes (0=Clean, 1=Error, 2=Warning/Sorry).
+      2. AxVerifierGate rejects Level-1 syntax errors and residual sorry/admit placeholders.
+      3. AxProverAgent executes 4-stage pipeline (Target scan -> Natural language sketch -> Stepwise formalization -> Sequential tactic substitution).
+      4. AxProverOrchestrator closed-loop refinement loop terminates with certified verified proof.
+      5. DifferentiableProverScorer neural bilinear head computes non-trivial tactic selection probabilities with active gradient backprop.
+    """
+    torch.manual_seed(42)
+
+    # 1. MCP Client Diagnostic Code Verification
+    mcp = MCPLeanLSPClient()
+
+    # Clean code -> Code 0
+    clean_code = "theorem thm1 : 1 + 1 = 2 := by rfl"
+    rep_clean = mcp.lean_diagnostic_messages("test.lean", code=clean_code)
+    assert rep_clean.code == LeanDiagnosticSeverity.CLEAN
+    assert rep_clean.is_error_free
+    assert not rep_clean.has_sorry
+
+    # Error code (unmatched delimiters) -> Code 1
+    err_code = "theorem thm_err : (1 + 1 = 2 := by rfl"
+    rep_err = mcp.lean_diagnostic_messages("test.lean", code=err_code)
+    assert rep_err.code == LeanDiagnosticSeverity.ERROR
+    assert not rep_err.is_error_free
+
+    # Warning code (contains sorry) -> Code 2
+    warn_code = "theorem thm_warn : 1 + 1 = 2 := by sorry"
+    rep_warn = mcp.lean_diagnostic_messages("test.lean", code=warn_code)
+    assert rep_warn.code == LeanDiagnosticSeverity.WARNING
+    assert rep_warn.is_error_free
+    assert rep_warn.has_sorry
+
+    # Search functions
+    search_res = mcp.lean_leansearch("comm")
+    assert len(search_res) >= 2
+    assert any("add_comm" in r.name for r in search_res)
+
+    # 2. AxVerifierGate Gatekeeper Verification
+    verifier = AxVerifierGate(mcp)
+    v_ok, v_msg, _ = verifier.verify_proof("clean.lean", code=clean_code)
+    assert v_ok and "CERTIFIED" in v_msg
+
+    v_fail_err, v_err_msg, _ = verifier.verify_proof("err.lean", code=err_code)
+    assert not v_fail_err and "Level 1 Error" in v_err_msg
+
+    v_fail_warn, v_warn_msg, _ = verifier.verify_proof("warn.lean", code=warn_code)
+    assert not v_fail_warn and "sorry" in v_warn_msg
+
+    # 3. AxProverAgent & AxProverOrchestrator Workflow Verification
+    orchestrator = AxProverOrchestrator(mcp, max_iterations=3)
+    thm_spec = TheoremSpecification(
+        name="nat_add_comm_target",
+        statement="theorem nat_add_comm_target (a b : Nat) : a + b = b + a :="
+    )
+
+    result = orchestrator.prove_theorem(thm_spec, tactic_hints={"h1": "rfl", "h_final": "rfl"})
+    assert result.verified
+    assert "exact h_final" in result.proof_code
+    assert result.iterations >= 1
+    assert len(result.sketches) >= 2
+    assert "CERTIFIED" in result.verdict_message
+
+    # 4. Differentiable Prover Scoring Neural Module
+    scorer = DifferentiableProverScorer(d_model=32, num_tactics=12)
+    goal_emb = torch.randn(4, 32, requires_grad=True)
+    probs, scores = scorer(goal_emb)
+
+    assert probs.shape == (4, 12)
+    assert torch.allclose(probs.sum(dim=-1), torch.ones(4), atol=1e-5)
+
+    loss = probs.sum()
+    loss.backward()
+    assert scorer.bilinear.weight.grad is not None and torch.isfinite(scorer.bilinear.weight.grad).all()
+    assert scorer.tactic_embeddings.grad is not None and torch.isfinite(scorer.tactic_embeddings.grad).all()
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -2154,9 +2251,12 @@ if __name__ == "__main__":
     print("  [PASS] 38. Memory Attention Token-Indexed Memory, Zero-FLOP Folding & MA-Recall (Paper 29 / 2609.28399v1 Kang)")
     test_ai_consciousness_evaluator_paper30_invariant()
     print("  [PASS] 39. AI Consciousness Five-Level Supervenience Hierarchy & Bayesian Network (Paper 30 / 2609.35618v1 Chandaria)")
+    test_ax_prover_paper31_invariant()
+    print("  [PASS] 40. Ax-Prover Agentic Theorem Proving Tripartite Multi-Agent & Lean MCP Invariants (Paper 31 / Breen)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
+
 
 
 
