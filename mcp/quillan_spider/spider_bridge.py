@@ -36,7 +36,7 @@ WATCH = {"on": False, "root": r"C:\02_QUILLAN\09 - Projects\mcp", "interval": 30
 AGENTS = {}
 AGENTS_LOCK = threading.Lock()
 AGENTS_FILE = SPIDER_DIR / "agents.json"
-AGENT_TTL = 60  # seconds without heartbeat -> shown stale/offline
+AGENT_TTL = 300  # seconds without heartbeat -> shown stale/offline (covers multi-turn gaps)
 AGENT_COLORS = ["#49e0da", "#f6b84b", "#ff7b72", "#a371f7",
                 "#3fb950", "#58a6ff", "#d29922", "#ff9d5c"]
 HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")

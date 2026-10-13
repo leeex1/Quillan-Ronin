@@ -17,16 +17,16 @@ from pathlib import Path
 from ebooklib import epub
 
 HERE = Path(__file__).resolve().parent
-SRC = HERE / "finished drafts"
-OUT = HERE / "epubs"
+SRC = Path(r"C:\02_QUILLAN\05 - Creative Works\Book Series\Manuscripts")
+OUT = Path(r"C:\02_QUILLAN\05 - Creative Works\Book Series\Builds\EPUBs")
 AUTHOR = "Joshua Lee"  # TODO: confirm byline with leeex1 before publishing
 
 BOOKS = [
-    ("Book 1 - Twisted Destiny.md", "Twisted Destiny", "Quillan-Ronin Saga, Book 1"),
-    ("Book 2 - Rise of Ascension.md", "Rise of Ascension", "Quillan-Ronin Saga, Book 2"),
-    ("Book 3 - Battle Grandeur.md", "Battle Grandeur", "Quillan-Ronin Saga, Book 3"),
-    ("Book 4 - Fall of Empires.md", "Fall of Empires", "Quillan-Ronin Saga, Book 4"),
-    ("Book 5 - The Howling Shadow.md", "The Howling Shadow", "Quillan-Ronin Saga, Book 5"),
+    ("Book 1 - Twisted Destiny.md", "Twisted Destiny", "Hybrid Throne, Book 1"),
+    ("Book 2 - Rise of Ascension.md", "Rise of Ascension", "Hybrid Throne, Book 2"),
+    ("Book 3 - Battle Grandeur.md", "Battle Grandeur", "Hybrid Throne, Book 3"),
+    ("Book 4 - Fall of Empires.md", "Fall of Empires", "Hybrid Throne, Book 4"),
+    ("Book 5 - The Howling Shadow.md", "The Howling Shadow", "Hybrid Throne, Book 5"),
 ]
 
 INLINE = [
@@ -183,3 +183,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+

@@ -4834,6 +4834,15 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
       // ── POLL SPIDER TRAIL & LIVE TELEMETRY ──
       async function spiderPoll(reset) {
+        // BACKGROUND TAB: skip fetches when the Spider tab is hidden (was 3
+        // fetches/1.2s forever). Every 10th still refreshes so data is warm.
+        try {
+          var sv = document.getElementById("spiderView");
+          if (sv && sv.hidden && !reset) {
+            window.__spiderSkip = (window.__spiderSkip || 0) + 1;
+            if (window.__spiderSkip % 10 !== 0) return;
+          }
+        } catch (e) {}
         try {
           var res = await fetch(spiderBase + "/api/trail", { cache: "no-store" });
           if (!res.ok) {
@@ -4876,6 +4885,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
               if (spec && !spec.error) {
                 try { renderSpecHud(spec); } catch (e) {}
                 if (window.Spider3D && Spider3D.setSpec) { try { Spider3D.setSpec(spec); } catch (e) {} }
+                if (window.SpiderGraph && SpiderGraph.setSpec) { try { SpiderGraph.setSpec(spec); } catch (e) {} }
               }
             }
           } catch (e) {}
@@ -5940,7 +5950,11 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
       }
 
       // SPEC-CRAWLER HUD render: everything from the real /api/spec snapshot
+      // THROTTLE: skip DOM rebuild when the snapshot is unchanged (was every 1.2s)
       function renderSpecHud(spec) {
+        var skey = spec.score + "|" + spec.active + "|" + spec.words_read + "|" + spec.flags + "|" + (spec.log || []).length;
+        if (window.__specKey === skey) return;
+        window.__specKey = skey;
         var bar = document.getElementById("specPhaseBar");
         if (bar && Array.isArray(spec.phases)) {
           bar.replaceChildren();
@@ -6043,6 +6057,16 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           try {
             if (!window.__spider3DReady) {
               window.__spider3DReady = Spider3D.init("spider3DCanvas");
+              // CDN fail-safe: if Three.js can't load (offline), fall back to 2D spec mode
+              Promise.resolve(window.__spider3DReady).then(function (ok) {
+                if (ok === false && window.__spiderDim === "3d") {
+                  window.__spiderDim = "2d";
+                  var db = document.getElementById("spiderDimBtn");
+                  if (db) db.textContent = "DIM: 2D → 3D";
+                  var bar = document.getElementById("specPhaseBar");
+                  if (bar) bar.title = "3D needs network for the Three.js CDN — 2D spec mode active";
+                }
+              });
             }
             Promise.resolve(window.__spider3DReady).then(function (ok) {
               if (ok !== false) { if (show) Spider3D.show(); else Spider3D.hide(); }
@@ -6076,7 +6100,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         spiderFpsWorking = working;
         if (!spiderDrawTimer) return;
         clearInterval(spiderDrawTimer);
-        spiderDrawTimer = setInterval(spiderDrawTick, working ? 33 : 500);
+        spiderDrawTimer = setInterval(spiderDrawTick, 500);
       }
       function spiderRender() {
         spiderDraw();
@@ -6399,8 +6423,10 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
         renderSpiderCabinet();
 
+        // Supervisor tick: lightweight 500ms (renderers own their frames).
+        // Was 33ms + triple rAF = the frame-by-frame jank.
         if (!spiderPollTimer) spiderPollTimer = setInterval(function () { spiderPoll(false); }, 1200);
-        if (!spiderDrawTimer) spiderDrawTimer = setInterval(spiderDrawTick, 33);
+        if (!spiderDrawTimer) spiderDrawTimer = setInterval(spiderDrawTick, 500);
         spiderPoll(true);
       }
 

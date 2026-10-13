@@ -1,3 +1,0 @@
-[2026-08-21 21:03:07,299] [EVAL-DAEMON] Quillan Evaluator Daemon started. Watching: C:\02_QUILLAN\checkpoints\checkpoints_sft\quillan_frontier_v2_best.pt
-[2026-08-21 21:03:12,713] [EVAL-DAEMON] Starting autonomous evaluation of quillan_frontier_v2_best.pt...
-[2026-08-21 21:03:13,329] [EVAL-DAEMON] Evaluation error: 

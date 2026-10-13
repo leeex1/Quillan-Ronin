@@ -381,7 +381,7 @@
       ctx.textAlign = "center";
       var plate = String(ag.name || ag.id).slice(0, 28);
       ctx.font = "bold 11px ui-monospace, monospace";
-      var pw = ctx.measureText(plate).width + 14;
+      var pw = textW(ctx, plate) + 14;
       ctx.fillStyle = "rgba(3,8,10,0.82)";
       ctx.fillRect(px - pw / 2, py - 40, pw, 16);
       ctx.strokeStyle = ag.color; ctx.lineWidth = 1;
@@ -480,16 +480,30 @@
   }
 
   // ---- draw ----
+  // FRAME BUDGET: rect re-measured every 30 frames (was every frame +
+  // layout thrash with HUD rebuilds); text widths cached; auto-degrade
+  // drops vignette/arcs/chips if a frame costs >26ms on average.
+  var _textW = {};
+  function textW(ctx, s) {
+    var w = _textW[s];
+    if (w == null) { w = ctx.measureText(s).width; _textW[s] = w; }
+    return w;
+  }
   function draw() {
     var cv = G.canvas;
-    var r = cv.getBoundingClientRect();
-    if (!r.width || !r.height) return;
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var cw = Math.round(r.width * dpr), ch = Math.round(r.height * dpr);
+    G.frame = (G.frame || 0) + 1;
+    if (!G.cachedW || G.frame % 30 === 1) {
+      var rc = cv.getBoundingClientRect();
+      if (!rc.width || !rc.height) return;
+      G.cachedW = rc.width; G.cachedH = rc.height;
+    }
+    var t0 = (window.performance && performance.now) ? performance.now() : 0;
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    var cw = Math.round(G.cachedW * dpr), ch = Math.round(G.cachedH * dpr);
     if (cv.width !== cw || cv.height !== ch) { cv.width = cw; cv.height = ch; }
     var ctx = cv.getContext("2d");
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    var W = r.width, H = r.height;
+    var W = G.cachedW, H = G.cachedH;
     if (!G.nodes.length) {
       ctx.fillStyle = "#050c0f"; ctx.fillRect(0, 0, W, H);
       return;
@@ -500,15 +514,17 @@
     // fit AFTER fresh layout so all nodes land inside the viewport
     if (G.needFit) { G.needFit = false; fitView(); }
     ctx.fillStyle = "#050c0f"; ctx.fillRect(0, 0, W, H);
-    // cached vignette: depth without per-frame gradient cost
+    // cached vignette: depth without per-frame gradient cost (skipped when degraded)
     var vgKey = ((W | 0) + "x" + (H | 0));
-    if (!G.vignette || G.vignetteKey !== vgKey) {
-      var vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.25, W / 2, H / 2, Math.max(W, H) * 0.72);
-      vg.addColorStop(0, "rgba(0,0,0,0)");
-      vg.addColorStop(1, "rgba(0,0,0,0.42)");
-      G.vignette = vg; G.vignetteKey = vgKey;
+    if (!G.degraded) {
+      if (!G.vignette || G.vignetteKey !== vgKey) {
+        var vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.25, W / 2, H / 2, Math.max(W, H) * 0.72);
+        vg.addColorStop(0, "rgba(0,0,0,0)");
+        vg.addColorStop(1, "rgba(0,0,0,0.42)");
+        G.vignette = vg; G.vignetteKey = vgKey;
+      }
+      ctx.fillStyle = G.vignette; ctx.fillRect(0, 0, W, H);
     }
-    ctx.fillStyle = G.vignette; ctx.fillRect(0, 0, W, H);
     function X(x) { return (x - G.view.x) * G.view.z + W / 2; }
     function Y(y) { return (y - G.view.y) * G.view.z + H / 2; }
 
@@ -625,9 +641,106 @@
       ctx.fillStyle = "rgba(150,170,180,0.5)";
       ctx.beginPath(); ctx.arc(dx1, dy1 + 2, 1.6, 0, Math.PI * 2); ctx.fill();
     }
+    // SPEC overlay: swarm tags + inter-swarm arcs + traveling crawler + claim chips
+    drawSpecOverlay(ctx, X, Y, W, H);
     // agent spiders ride above the web so bodies never hide under silk
     drawAgents(ctx, X, Y);
     G.time += 16;
+    if (t0) {
+      var dt = performance.now() - t0;
+      G.ema = (G.ema || 16) * 0.92 + Math.min(100, dt) * 0.08;
+      if (!G.degraded && G.ema > 26) G.degraded = true;
+      else if (G.degraded && G.ema < 14) G.degraded = false;
+    }
+  }
+
+  function drawSpecOverlay(ctx, X, Y, W, H) {
+    var t = G.time, order = [0, 1, 2, 3, 4, 5, 6], cx = [], i, k;
+    // anchor screen positions from live nodes (average per swarm)
+    var sum = {};
+    G.nodes.forEach(function (n) {
+      if (n.x === undefined) return;
+      var s = n.spec;
+      (sum[s] || (sum[s] = { x: 0, y: 0, c: 0 }));
+      sum[s].x += n.x; sum[s].y += n.y; sum[s].c++;
+    });
+    order.forEach(function (s) {
+      if (sum[s]) cx[s] = { x: X(sum[s].x / sum[s].c), y: Y(sum[s].y / sum[s].c) };
+    });
+    // arcs in phase order (the video's curved trails; skipped when degraded)
+    if (!G.degraded) {
+      ctx.lineWidth = 1.2;
+      for (i = 0; i < order.length; i++) {
+        var a = cx[order[i]], b = cx[order[(i + 1) % order.length]];
+        if (!a || !b) continue;
+        ctx.strokeStyle = "rgba(255,111,181,0.30)";
+        ctx.beginPath(); ctx.moveTo(a.x, a.y);
+        ctx.quadraticCurveTo((a.x + b.x) / 2, (a.y + b.y) / 2 - 34, b.x, b.y); ctx.stroke();
+      }
+    }
+    // swarm tags: name + words + state, like the screenshots
+    ctx.textAlign = "center";
+    var counts = {};
+    G.nodes.forEach(function (n) { counts[n.spec] = (counts[n.spec] || 0) + 1; });
+    order.forEach(function (s) {
+      if (!cx[s]) return;
+      var sp = SPEC[s], active = G.spec && G.spec.active === sp.key;
+      var words = 0;
+      if (G.spec && G.spec.phases) {
+        for (k = 0; k < G.spec.phases.length; k++) {
+          if (G.spec.phases[k].key === sp.key) { words = G.spec.phases[k].words; break; }
+        }
+      }
+      ctx.font = "bold 11px ui-monospace, monospace";
+      ctx.fillStyle = sp.color;
+      ctx.fillText(sp.key + (active ? " ●" : ""), cx[s].x, cx[s].y - 44);
+      ctx.font = "9px ui-monospace, monospace";
+      ctx.fillStyle = "rgba(200,215,220,0.7)";
+      ctx.fillText((counts[s] || 0) + " files" + (words ? " · " + words + "w" : ""), cx[s].x, cx[s].y - 32);
+    });
+    // traveling crawler: bright body hopping to the active swarm
+    var actKey = (G.spec && G.spec.active) || "review";
+    var ai = 4;
+    for (k = 0; k < SPEC.length; k++) if (SPEC[k].key === actKey) ai = k;
+    if (cx[ai]) {
+      if (!G.crawler) G.crawler = { x: cx[ai].x, y: cx[ai].y };
+      G.crawler.x += (cx[ai].x - G.crawler.x) * 0.05;
+      G.crawler.y += (cx[ai].y - G.crawler.y) * 0.05;
+      var px = G.crawler.x, py = G.crawler.y + Math.sin(t / 300) * 3;
+      var cc = SPEC[ai].color;
+      ctx.drawImage(glow(cc), px - 30, py - 30, 60, 60);
+      ctx.fillStyle = "#0a1216";
+      ctx.beginPath(); ctx.arc(px, py, 11, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = cc; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(px, py, 11, 0, Math.PI * 2); ctx.stroke();
+      ctx.fillStyle = cc;
+      ctx.beginPath(); ctx.arc(px - 3, py - 2, 2.2, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(px + 3, py - 2, 2.2, 0, Math.PI * 2); ctx.fill();
+      var li;
+      for (li = 0; li < 12; li++) {
+        var la = (li / 12) * Math.PI * 2 + t / 700;
+        ctx.strokeStyle = cc; ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(px, py);
+        ctx.lineTo(px + Math.cos(la) * 20, py + Math.sin(la) * 20); ctx.stroke();
+      }
+    }
+    // claim chips: pink tags on flagged nodes (fewer when degraded)
+    var shown = 0, chipCap = G.degraded ? 5 : 12;
+    ctx.font = "8px ui-monospace, monospace";
+    for (i = 0; i < G.nodes.length && shown < chipCap; i++) {
+      var n = G.nodes[i];
+      if (!n.flagged || n.x === undefined) continue;
+      shown++;
+      var nx = X(n.x), ny = Y(n.y);
+      var label = n.name.slice(0, 18);
+      var wpx = textW(ctx, label) + 10;
+      ctx.fillStyle = "rgba(255,61,129,0.88)";
+      ctx.fillRect(nx + 8, ny - 18, wpx, 12);
+      ctx.fillStyle = "#0a0510";
+      ctx.textAlign = "left";
+      ctx.fillText(label, nx + 13, ny - 9);
+      ctx.textAlign = "center";
+    }
   }
 
   function loop() {
@@ -678,6 +791,7 @@
     setMemory: setMemory,
     setFocus: setFocus,
     setAgents: setAgents,
+    setSpec: setSpec,
     onSelect: null,
     stats: function () { return { nodes: G.nodes.length, edges: G.edges.length, files: G.totals.files }; }
   };
