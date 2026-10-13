@@ -21,6 +21,29 @@
 
   var SECTOR_COLORS = ["#79dd8e", "#49e0da", "#ff7b72", "#a371f7",
                        "#f6b84b", "#58a6ff", "#3fb950", "#d29922"];
+  // SPEC-CRAWLER anchors (video look): fixed swarms, fixed hues — mirrors 3D + bridge
+  var SPEC = [
+    { key: "role", color: "#f2f0e8", ax: 0.78, ay: -0.62 },
+    { key: "objective", color: "#49e0da", ax: 0.08, ay: -0.72 },
+    { key: "context", color: "#ff3d81", ax: -0.72, ay: -0.18 },
+    { key: "rules", color: "#3fb950", ax: 0.72, ay: 0.28 },
+    { key: "review", color: "#a371f7", ax: -0.18, ay: 0.05 },
+    { key: "start", color: "#f6b84b", ax: -0.08, ay: 0.72 },
+    { key: "ship", color: "#ff9d5c", ax: 0.42, ay: 0.66 }
+  ];
+  function specOf(full) {
+    var p = String(full || "").toLowerCase();
+    if (p.includes("memory") || p.includes("lancedb") || p.includes("02 - knowledge") || p.includes("obsidian") || p.includes("vault")) return 4;
+    if (p.includes("06 -") || p.includes("deploy") || p.includes("dashboard") || p.includes("collector") || p.includes("09 -") || p.includes("mcp") || p.includes("server")) return 3;
+    if (p.includes("05 -") || p.includes("media") || p.includes("creative")) return 2;
+    if (p.includes("03 - training") || p.includes("model") || p.includes("forge") || p.includes("04-") || p.includes("skills") || p.includes("swarm")) return 1;
+    if (p.includes("01 - core") || p.includes("cognition") || p.includes("samurai")) return 0;
+    return 5;
+  }
+  function setSpec(spec) {
+    G.spec = spec || null;
+    G.dirty = true;
+  }
 
   function sectorOf(path) {
     var p = String(path || "").toLowerCase();
@@ -74,28 +97,36 @@
     return String(full || "").split(/[/\\]/).pop();
   }
 
-  // ---- layout: hierarchical sectors once per dataset, then light relax ----
+  // ---- layout: SPEC swarms at fixed anchors (video look), then light relax ----
   function relayout(W, H) {
     var cx = W / 2, cy = H / 2;
     var RX = Math.max(120, W * 0.36), RY = Math.max(100, H * 0.34);
-    var perSec = {};
-    G.nodes.forEach(function (n) {
-      var s = sectorOf(n.full);
-      n.sec = s;
-      (perSec[s] || (perSec[s] = [])).push(n);
+    var perSpec = {};
+    var deg0 = {};
+    G.edges.forEach(function (e) {
+      if (G.byId[e.a]) deg0[G.byId[e.a].id] = 1;
+      if (G.byId[e.b]) deg0[G.byId[e.b].id] = 1;
     });
-    Object.keys(perSec).forEach(function (sk) {
-      var arr = perSec[sk], s = +sk;
-      var ang = (s >= 0 ? (s / 8) * Math.PI * 2 - Math.PI / 2 : 0);
-      var scx = s >= 0 ? cx + Math.cos(ang) * RX : cx;
-      var scy = s >= 0 ? cy + Math.sin(ang) * RY : cy;
+    G.nodes.forEach(function (n) {
+      var s = specOf(n.full);
+      // loners gather at the start swarm for triage (video: gold bottom swarm)
+      if (!deg0[n.id] && G.nodes.length > 12) s = 5;
+      n.spec = s;
+      n.sec = sectorOf(n.full);
+      (perSpec[s] || (perSpec[s] = [])).push(n);
+    });
+    Object.keys(perSpec).forEach(function (sk) {
+      var arr = perSpec[sk], s = +sk;
+      var anch = SPEC[s] || SPEC[5];
+      var scx = cx + anch.ax * RX, scy = cy + anch.ay * RY;
       arr.forEach(function (n, i) {
         if (n.pinned) return;
-        var a = (i / Math.max(1, arr.length)) * Math.PI * 2;
-        var rr = 26 + (i % 5) * 14;
+        // golden-angle cotton ball: dense like the screenshots
+        var ga = i * 2.39996 + s;
+        var rr = 8 + Math.sqrt(i) * 5.5 + Math.min(10, (n.visits || 0) * 2);
         if (n.x === undefined) {
-          n.x = scx + Math.cos(a) * rr;
-          n.y = scy + Math.sin(a) * rr;
+          n.x = scx + Math.cos(ga) * rr;
+          n.y = scy + Math.sin(ga) * rr * 0.8;
         }
         n.ax = scx; n.ay = scy; // anchor for gentle spring
       });
@@ -103,24 +134,8 @@
     // connected-vs-dangling: wired files weave the center together;
     // loners hang on the outer ring so the user can spot and wire them.
     G.nodes.forEach(function (n) { n.dangling = false; });
-    var deg = {};
-    G.edges.forEach(function (e) {
-      var da = G.byId[e.a], db = G.byId[e.b];
-      if (da) deg[da.id] = (deg[da.id] || 0) + 1;
-      if (db) deg[db.id] = (deg[db.id] || 0) + 1;
-    });
-    if (G.nodes.length > 12) {
-      var loners = G.nodes.filter(function (n) { return !n.pinned && !deg[n.id]; });
-      loners.sort(function (p, q) { return p.full < q.full ? -1 : 1; });
-      loners.forEach(function (n, i) {
-        n.dangling = true;
-        n.tx = n.ax; n.ty = n.ay; // silk thread hangs from sector anchor
-        var la = (i / Math.max(1, loners.length)) * Math.PI * 2;
-        n.ax = cx + Math.cos(la) * RX * 1.55;
-        n.ay = cy + Math.sin(la) * RY * 1.55;
-        if (n.x === undefined) { n.x = n.ax; n.y = n.ay; }
-      });
-    }
+    // unwired files already sit in the start swarm; mark them dangling there
+    G.nodes.forEach(function (n) { n.dangling = (n.spec === 5 && !n.pinned); });
     // 24 relaxation ticks: anchor springs + pairwise repel (capped pairs)
     var i, j, a, b, dx, dy, d2, f;
     for (var t = 0; t < 24; t++) {
@@ -548,8 +563,8 @@
       if (n.x === undefined) continue;
       var px = X(n.x), py = Y(n.y);
       if (px < -40 || py < -20 || px > W + 40 || py > H + 20) continue;
-      var col = n.sec >= 0 ? SECTOR_COLORS[n.sec % 8] : "#55707a";
-      var rad = 3 + Math.min(4, n.visits);
+      var col = (SPEC[n.spec] || SPEC[5]).color;
+      var rad = 2.2 + Math.min(3.2, Math.sqrt(n.visits || 0) * 1.4);
       if (n.flagged) {
         var pr = 10 + 3 * Math.sin(G.time / 350);
         ctx.drawImage(glow("#f6b84b"), px - pr * 2, py - pr * 2, pr * 4, pr * 4);

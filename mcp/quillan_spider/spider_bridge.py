@@ -157,11 +157,13 @@ def _spec_snapshot():
     score = max(0, min(100, score))
 
     heat = []
+    fmax = max(1, max(files.values()))
+    order_h = ["role", "objective", "context", "rules", "review", "start", "ship"]
     for r in range(5):
         row = []
         for cix in range(8):
-            v = cov[(r + cix) % len(cov)] if cov else 0
-            row.append(round(v * (0.6 + 0.4 * ((r * 8 + cix) % 5) / 4), 2))
+            base = files[order_h[(r + cix) % len(order_h)]] / fmax
+            row.append(round(base * (0.6 + 0.4 * ((r * 8 + cix) % 5) / 4), 2))
         heat.append(row)
 
     log = []
