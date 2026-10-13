@@ -4840,8 +4840,14 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
               if (window.SpiderGraph && aj && Array.isArray(aj.agents)) {
                 try { SpiderGraph.setAgents(aj.agents); } catch (e) {}
               }
+            } else if (window.SpiderGraph) {
+              try { SpiderGraph.setAgents([]); } catch (e) {}
             }
-          } catch (e) {}
+          } catch (e) {
+            // preview sandbox blocks localhost: still show ghost perches so the
+            // canvas reads as alive instead of blank
+            if (window.SpiderGraph) { try { SpiderGraph.setAgents([]); } catch (err) {} }
+          }
           if (reset) spiderShown = d.trail.length;
           spiderPollCount = (spiderPollCount || 0) + 1;
           // Heavy ingest only runs on genuinely new data; idle polls stay cheap.

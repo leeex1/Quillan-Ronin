@@ -191,7 +191,7 @@
     G.edges = srcE;
     G.layoutKey = null; // force relayout for the new set
     G.dirty = true;
-    fitView();
+    G.needFit = true; // fit AFTER relayout places nodes (see draw)
   }
 
   function setData(d) {
@@ -289,6 +289,14 @@
 
   function setAgents(list) {
     G.agents = Array.isArray(list) ? list.slice(0, 12) : [];
+    // ghost slot: if Antigravity hasn't heartbeated, show its empty perch so the
+    // user sees WHO is missing instead of wondering if the canvas is broken
+    var hasAG = G.agents.some(function (a) { return String(a.id || "").indexOf("antigravity") >= 0; });
+    if (!hasAG && G.agents.length < 12) {
+      G.agents.push({ id: "quillan-antigravity", name: "Quillan Antigravity",
+        color: "#f6b84b", file: "", task: "ghost perch", children: [],
+        stale: false, ghost: true });
+    }
     G.dirty = true;
   }
 
@@ -300,24 +308,48 @@
   }
 
   // ---- agent spiders: one colored, named body per live agent; minis orbit ----
+  // LIFE RULE: bots are never static — wander + leg-wave + mini orbit always run
+  // while the tab is visible. Unmapped agents perch near the current view center
+  // so they can never hide off-screen after a fit.
   function drawAgents(ctx, X, Y) {
     if (!G.agents.length) return;
     var t = G.time;
-    G.agents.forEach(function (ag) {
-      var anchor = (ag.file && G.fullMap) ? G.fullMap[ag.file] : null;
+    G.agents.forEach(function (ag, ai) {
+      var anchor = null;
+      if (ag.file && G.fullMap) {
+        anchor = G.fullMap[ag.file] || G.fullMap[String(ag.file).replace(/\//g, "\\")] || null;
+      }
+      var h = hashStr(ag.id + ai);
       var cx, cy;
       if (anchor && anchor.x !== undefined) {
         cx = anchor.x; cy = anchor.y - 40;
       } else {
-        // stable free slot on a wide ring so unmapped agents stay put
-        var h = hashStr(ag.id);
+        // perch near view center: stable angle per agent, tight radius
         var ang = (h % 360) * Math.PI / 180;
-        cx = Math.cos(ang) * 320; cy = Math.sin(ang) * 260;
+        var rr = 70 + (h % 60);
+        cx = G.view.x + Math.cos(ang) * rr;
+        cy = G.view.y + Math.sin(ang) * rr * 0.7 - 30;
+      }
+      // wander: slow crawl so WORKING bots visibly move (frozen only when stale)
+      var stale = !!ag.stale;
+      var ghost = !!ag.ghost;
+      if (!stale) {
+        cx += Math.sin(t / 1500 + h) * 16;
+        cy += Math.cos(t / 1700 + h * 1.7) * 12;
       }
       var px = X(cx), py = Y(cy);
-      var stale = !!ag.stale;
       ctx.save();
-      if (stale) ctx.globalAlpha = 0.35;
+      if (stale && !ghost) ctx.globalAlpha = 0.35;
+      if (ghost) ctx.globalAlpha = 0.85;
+      // tether: silk line from bot down to its file anchor so you see WHAT it holds
+      if (anchor && anchor.x !== undefined) {
+        ctx.strokeStyle = ag.color; ctx.globalAlpha *= 1; ctx.lineWidth = 1;
+        ctx.globalAlpha = ghost ? 0.35 : (stale ? 0.25 : 0.55);
+        ctx.setLineDash(ghost ? [3, 5] : []);
+        ctx.beginPath(); ctx.moveTo(px, py + 9); ctx.lineTo(X(anchor.x), Y(anchor.y)); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.globalAlpha = ghost ? 0.85 : (stale ? 0.35 : 1);
+      }
       // glow + body + legs in the agent's own color
       ctx.drawImage(glow(ag.color), px - 22, py - 22, 44, 44);
       ctx.fillStyle = "#0a1216";
@@ -330,23 +362,32 @@
         ctx.beginPath(); ctx.moveTo(px, py);
         ctx.lineTo(px + Math.cos(la) * 15, py + Math.sin(la) * 15); ctx.stroke();
       }
-      // name plate above, file + task below
+      // name plate above (pill bg so it reads over silk), file + task below
       ctx.textAlign = "center";
+      var plate = String(ag.name || ag.id).slice(0, 28);
       ctx.font = "bold 11px ui-monospace, monospace";
+      var pw = ctx.measureText(plate).width + 14;
+      ctx.fillStyle = "rgba(3,8,10,0.82)";
+      ctx.fillRect(px - pw / 2, py - 40, pw, 16);
+      ctx.strokeStyle = ag.color; ctx.lineWidth = 1;
+      ctx.strokeRect(px - pw / 2, py - 40, pw, 16);
       ctx.fillStyle = ag.color;
-      ctx.fillText(String(ag.name || ag.id).slice(0, 28), px, py - 26);
+      ctx.fillText(plate, px, py - 28);
       ctx.font = "9px ui-monospace, monospace";
       ctx.fillStyle = "rgba(200,215,220,0.75)";
       var sub = (ag.file ? baseName(ag.file) : "") + (ag.task ? " · " + ag.task : "");
       if (sub) ctx.fillText(sub.slice(0, 44), px, py + 24);
-      if (stale) {
+      if (ghost) {
+        ctx.fillStyle = ag.color;
+        ctx.fillText("AWAITING HEARTBEAT", px, py + 36);
+      } else if (stale) {
         ctx.fillStyle = "rgba(150,170,180,0.8)";
         ctx.fillText("OFFLINE", px, py + 36);
       }
       // minis: one per sub-agent, orbiting the parent
       var kids = Array.isArray(ag.children) ? ag.children.slice(0, 12) : [];
       kids.forEach(function (kid, ki) {
-        var ka = (ki / Math.max(1, kids.length)) * Math.PI * 2 - Math.PI / 2;
+        var ka = (ki / Math.max(1, kids.length)) * Math.PI * 2 - Math.PI / 2 + (stale ? 0 : t / 1400);
         var kx = X(cx + Math.cos(ka) * 30), ky = Y(cy + Math.sin(ka) * 30);
         ctx.drawImage(glow(ag.color), kx - 8, ky - 8, 16, 16);
         ctx.fillStyle = "#0a1216";
@@ -441,6 +482,8 @@
     // layout runs on dataset/size change only — NEVER per frame (was the jank)
     var lk = G.nodes.length + ":" + (W | 0) + "x" + (H | 0) + ":" + G.mode;
     if (lk !== G.layoutKey) { G.layoutKey = lk; relayout(W, H); }
+    // fit AFTER fresh layout so all nodes land inside the viewport
+    if (G.needFit) { G.needFit = false; fitView(); }
     ctx.fillStyle = "#050c0f"; ctx.fillRect(0, 0, W, H);
     // cached vignette: depth without per-frame gradient cost
     var vgKey = ((W | 0) + "x" + (H | 0));
@@ -523,9 +566,14 @@
       var doLabel = n.flagged || G.hover === n || (showLabels && (n.visits > 1 || n.flagged)) ;
       if (doLabel && labeled < 70) {
         labeled++;
-        ctx.fillStyle = n.flagged ? "#f6b84b" : "rgba(232,242,239,0.75)";
+        var label = n.name.slice(0, 26);
         ctx.font = "10px ui-monospace, monospace";
-        ctx.fillText(n.name.slice(0, 26), px + rad + 4, py + 3);
+        ctx.textAlign = "left";
+        // halo first so silk never eats the text (HQ readability, zero blur cost)
+        ctx.strokeStyle = "rgba(3,8,10,0.9)"; ctx.lineWidth = 3;
+        ctx.strokeText(label, px + rad + 4, py + 3);
+        ctx.fillStyle = n.flagged ? "#f6b84b" : "rgba(232,242,239,0.85)";
+        ctx.fillText(label, px + rad + 4, py + 3);
       }
     }
     // pulses (capped, sprites only)
@@ -572,13 +620,14 @@
     var cv = G.canvas;
     var visible = cv && !document.hidden &&
       !(document.getElementById("spiderView") || {}).hidden;
-    var active = G.working || G.pulses.length > 0 || (G.focus ? true : false) ||
+    var active = true; // web stays alive while tab visible: wander, legs, ants, minis
+    var hadWork = G.working || G.pulses.length > 0 || (G.focus ? true : false) ||
       (G.agents && G.agents.some(function (a) { return !a.stale; }));
+    G.anim = hadWork;
     if (visible && (G.dirty || active)) {
       draw();
       G.dirty = false;
     }
-    G.anim = active;
     G.raf = requestAnimationFrame(loop);
   }
 

@@ -1,1 +1,1 @@
-{"quillan-opencode": {"name": "Quillan Opencode", "color": "#49e0da", "file": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py", "task": "dashboard revival + census fix", "children": [], "ts": 1791910703.7794812}}
+{"quillan-opencode": {"name": "Quillan Opencode", "color": "#49e0da", "file": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\spider-graph.js", "task": "bringing web to life", "children": [{"id": "mini-1", "name": "scout", "file": "", "task": "orbit check"}], "ts": 1791911992.9422307}}

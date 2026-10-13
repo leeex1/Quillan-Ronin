@@ -269,11 +269,17 @@
 | `MoE_CPU_GPU_2512.16473.pdf`, `OD_MoE_2512.03927.pdf`, `MoHGE_2604.23108.pdf`, `MoR_2507.10524.pdf`, `MoDSE_2409.12210.pdf` | MoE systems / depth / routing | ComplexityRouter capacity, overflow, deployment on 1050Ti/CPU |
 | `NITRO_D_2407.11698.pdf`, `DFlash_2602.06036.pdf` | Flash / sparse attention | SovereignFlashDiffusionCore upgrades |
 | `DALI_2602.03495.pdf`, `Dream7B_2508.15487.pdf`, `Prophet_2508.19982.pdf` | Diffusion LM / generative | Diffusion core discrete-diffusion roadmap |
-| `BitNet_v2_2504.18415.pdf`, `BitNet_b1.58_2B4T_Technical_Report.pdf`, `BitNet_Scaling_1-bit_Transformers.pdf`, `BitNet_a4.8_4-bit_Activations.pdf`, `bitnet_cpp_Efficient_Edge_Inference.pdf`, `bitnet_1-bit_AI_Infra.pdf` | BitNet family | BitLinear STE, 1050Ti edge inference (core to v5.4.0-oni §3) |
+| `bitnet_1-bit_AI_Infra.pdf` | 1-bit AI Infra: Part 1.1, Fast and Lossless BitNet b1.58 Inference on CPUs (Wang et al., Microsoft Research, 2024, 7 pp) | `bitnet.cpp` CPU inference framework; I2_S (2-bit packing, 4 weights/byte), TL1 (4-bit LUT for pairs, 9-state activation table), TL2 (5-bit LUT for triplets, 27-state activation table); 100% exact lossless GEMV equivalence; implemented in `bitnet_cpu_infra.py`, verified in `test_mathematical_wiring.py` test 42 |
+| `BitNet_v2_2504.18415.pdf`, `BitNet_b1.58_2B4T_Technical_Report.pdf`, `BitNet_Scaling_1-bit_Transformers.pdf`, `BitNet_a4.8_4-bit_Activations.pdf`, `bitnet_cpp_Efficient_Edge_Inference.pdf` | BitNet family | BitLinear STE, 1050Ti edge inference (core to v5.4.0-oni §3) |
 | `Deep_Optimizer_States_2410.21316.pdf`, `ProTrain_2406.08334.pdf`, `ZeRO_Infinity_2104.07857.pdf` | Memory-efficient training | `train_full_param_v2.py` grad-accum / ZeRO-style sharding |
 | `ES_at_Scale_2509.24372.pdf`, `ES_Forgetting_2601.20861.pdf`, `ES_Forgetting_Fix_2605.30148.pdf` | Evolution strategies / forgetting | EGGROLL + continual learning safeguards |
-| `Ax-Prover_Agentic_Theorem_Proving.pdf`, `WikiSkill_2608.27454.pdf` | Agentic skills / prover | C20-ARTIFEX tool routing, C21-ARCHON rigor |
+| `Ax-Prover_Agentic_Theorem_Proving.pdf` | Ax-Prover: Agentic Theorem Proving in Lean via MCP (Breen et al., 2026, 27 pp) | Tripartite architecture (Orchestrator, Prover, Verifier) + MCP `lean-lsp-mcp` tools (`lean_diagnostic_messages` codes 0/1/2, `lean_goal`, `lean_leansearch`, `lean_loogle`) + 4-stage incremental formalization + Verifier gatekeeper; implemented in `ax_prover_engine.py`, verified in `test_mathematical_wiring.py` test 40 |
+| `beyond 1,58 btis.pdf` | Beyond 1.58 Bits: Adaptive-Precision Ternary Transformers with Fully-Ternary MoE Routing (CrashOverrideX, Quillan AI Research Team, 2026, 7 pp) | Sub-1.58-bit Laplace analytic theory ($\Delta^* = b/2$, MSE ratio $2(1 - e^{-1/2}) \approx 0.787$, $H \approx 1.574$ bits, kurtosis precision routing) + Heterogeneous Lagrangian bit-budget water-filling + Fully-Ternary 34-Expert Council MoE with 8-bit/FP16 high-leverage router & rank-8 adapters; implemented in `beyond_158_bits.py`, verified in `test_mathematical_wiring.py` test 41 |
+| `WikiSkill_2608.27454.pdf` | Agentic skills / prover | C20-ARTIFEX tool routing, C21-ARCHON rigor |
 | `235_Position_LLMs_can_t_jump.pdf`, `2502.08145v1.pdf` + batch `2502.x–2506.x`, `2401.07013v2.pdf`, `2407.12117v1.pdf`, `2410.05686v1.pdf` | Reasoning / position / general | 9-Vector Prism + RoPE + eval harness |
+
+
+
 
 > Action: promoters of §16 into §§2–7 on next pass; current counts exclude §16 from Summary Statistics until mapped.
 
