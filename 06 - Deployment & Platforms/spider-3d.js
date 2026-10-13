@@ -267,6 +267,17 @@
       g.scale.set(sc, sc, sc);
     });
     if (G.wireLines) G.wireLines.material.opacity = 0.45 + Math.sin(t * 2.2) * 0.2;
+    // crawler travels to the active spec swarm; arcs breathe
+    if (G.crawler && G.spec) {
+      var sk = ["role", "objective", "context", "rules", "review", "start", "ship"];
+      var ai = Math.max(0, sk.indexOf(G.spec.active));
+      var anch = SPEC[ai] ? SPEC[ai].anchor : SPEC[5].anchor;
+      G.crawler.position.x += (anch[0] - G.crawler.position.x) * 0.03;
+      G.crawler.position.y += (anch[1] + 10 + Math.sin(t * 1.6) * 3 - G.crawler.position.y) * 0.03;
+      G.crawler.position.z += (anch[2] - G.crawler.position.z) * 0.03;
+      G.crawler.rotation.y = t * 0.8;
+    }
+    if (G.arcs) G.arcs.forEach(function (l, i) { l.material.opacity = 0.22 + 0.16 * Math.sin(t * 1.4 + i); });
     if (G.stars) G.stars.rotation.y = t * 0.004;
     G.controls.update();
     G.renderer.render(G.scene, G.camera);
@@ -345,6 +356,34 @@
       if (G.ready) syncSpiders();
     },
     setFocus() {},
+    setSpec(spec) {
+      try {
+        G.spec = spec;
+        var THREE = window.THREE;
+        if (!G.ready || !THREE) return;
+        // traveling crawler: one bright body hopping swarm to swarm
+        if (!G.crawler) {
+          var cm = new THREE.Mesh(new THREE.IcosahedronGeometry(2.4, 1),
+            new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0xa371f7, emissiveIntensity: 1.1 }));
+          var cl = makeLabel("crawler", "#a371f7"); cl.position.y = 5; cl.scale.set(16, 4, 1);
+          var cg = new THREE.Group(); cg.add(cm); cg.add(cl);
+          G.scene.add(cg);
+          G.crawler = cg;
+          // inter-swarm arcs in phase order (the video's curved trails)
+          var order = SPEC.map(function (s) { return s.anchor; });
+          for (var i = 0; i < order.length; i++) {
+            var a = new THREE.Vector3(order[i][0], order[i][1], order[i][2]);
+            var b = new THREE.Vector3(order[(i + 1) % order.length][0], order[(i + 1) % order.length][1], order[(i + 1) % order.length][2]);
+            var mid = a.clone().add(b).multiplyScalar(0.5); mid.y += 26;
+            var curve = new THREE.QuadraticBezierCurve3(a, mid, b);
+            var lg = new THREE.BufferGeometry().setFromPoints(curve.getPoints(40));
+            var line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: 0xff6fb5, transparent: true, opacity: 0.35 }));
+            G.scene.add(line);
+            (G.arcs || (G.arcs = [])).push(line);
+          }
+        }
+      } catch (e) {}
+    },
     show() { G.shown = true; if (this.resize) this.resize(); if (G.ready) syncSpiders(); cancelAnimationFrame(G.raf); G.raf = requestAnimationFrame(animate); },
     hide() { G.shown = false; cancelAnimationFrame(G.raf); }
   };

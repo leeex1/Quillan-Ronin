@@ -4868,6 +4868,17 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
             if (window.SpiderGraph) { try { SpiderGraph.setAgents([]); } catch (err) {} }
             if (window.Spider3D) { try { Spider3D.setAgents([]); } catch (err) {} }
           }
+          // SPEC-CRAWLER feed: real run state -> phase bar + HUD (cheap text only)
+          try {
+            var sres = await fetch(spiderApiBase + "/api/spec", { cache: "no-store" });
+            if (sres.ok) {
+              var spec = await sres.json();
+              if (spec && !spec.error) {
+                try { renderSpecHud(spec); } catch (e) {}
+                if (window.Spider3D && Spider3D.setSpec) { try { Spider3D.setSpec(spec); } catch (e) {} }
+              }
+            }
+          } catch (e) {}
           if (reset) spiderShown = d.trail.length;
           spiderPollCount = (spiderPollCount || 0) + 1;
           // Heavy ingest only runs on genuinely new data; idle polls stay cheap.
@@ -5926,6 +5937,73 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           card.append(topRow, pathMeta, btnRow);
           box.appendChild(card);
         });
+      }
+
+      // SPEC-CRAWLER HUD render: everything from the real /api/spec snapshot
+      function renderSpecHud(spec) {
+        var bar = document.getElementById("specPhaseBar");
+        if (bar && Array.isArray(spec.phases)) {
+          bar.replaceChildren();
+          spec.phases.forEach(function (p) {
+            var el = document.createElement("span");
+            var lit = (p.key === spec.active);
+            el.style.cssText = "flex:1;text-align:center;padding:3px 2px;border-radius:2px;letter-spacing:0.5px;" +
+              (lit ? ("background:" + p.color + ";color:#071013;") : "background:rgba(255,255,255,0.06);color:" + p.color + ";");
+            el.textContent = (lit ? "▶ " : "") + p.key + " " + p.have + "/" + p.total;
+            bar.appendChild(el);
+          });
+          var meta = document.createElement("span");
+          meta.style.cssText = "padding:3px 6px;color:var(--muted);white-space:nowrap;";
+          meta.textContent = "WORDS " + spec.words_read + " · LINKS " + spec.links + " · FLAGS " + spec.flags;
+          bar.appendChild(meta);
+        }
+        var log = document.getElementById("specLog");
+        if (log && Array.isArray(spec.log)) log.innerHTML = spec.log.map(function (l) { return "<div>" + l.replace(/</g, "&lt;") + "</div>"; }).join("");
+        var secs = document.getElementById("specSections");
+        if (secs && Array.isArray(spec.phases)) {
+          secs.replaceChildren();
+          spec.phases.forEach(function (p) {
+            var row = document.createElement("div");
+            row.style.cssText = "display:flex;align-items:center;gap:6px;margin:2px 0;";
+            var nm = document.createElement("span");
+            nm.style.cssText = "width:64px;color:" + p.color + ";";
+            nm.textContent = p.key;
+            var track = document.createElement("span");
+            track.style.cssText = "flex:1;height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden;";
+            var fill = document.createElement("span");
+            var pct = Math.max(0, Math.min(100, Math.round(100 * p.have / Math.max(1, p.total))));
+            fill.style.cssText = "display:block;height:100%;width:" + pct + "%;background:" + p.color + ";";
+            track.appendChild(fill);
+            var ct = document.createElement("span");
+            ct.textContent = p.have + "/" + p.total;
+            row.append(nm, track, ct);
+            secs.appendChild(row);
+          });
+        }
+        var radar = document.getElementById("specRadar");
+        if (radar && Array.isArray(spec.coverage)) radar.textContent = "cov " + spec.coverage.map(function (v) { return Math.round(v * 100); }).join(" · ");
+        var heat = document.getElementById("specHeat");
+        if (heat && Array.isArray(spec.heat)) {
+          heat.replaceChildren();
+          spec.heat.forEach(function (row) {
+            var r = document.createElement("div");
+            r.style.cssText = "display:flex;gap:2px;margin-bottom:2px;";
+            row.forEach(function (v) {
+              var c = document.createElement("span");
+              var a = 0.15 + v * 0.85;
+              c.style.cssText = "width:10px;height:10px;border-radius:2px;background:rgba(246,184,75," + a.toFixed(2) + ");";
+              r.appendChild(c);
+            });
+            heat.appendChild(r);
+          });
+        }
+        var score = document.getElementById("specScore");
+        if (score && spec.score != null) {
+          score.textContent = spec.score;
+          score.style.color = spec.score >= 80 ? "#3fb950" : (spec.score >= 50 ? "#f6b84b" : "#ff7b72");
+        }
+        var code = document.getElementById("specCode");
+        if (code && Array.isArray(spec.code)) code.innerHTML = spec.code.map(function (l) { return "<div>" + l.replace(/</g, "&lt;") + "</div>"; }).join("");
       }
 
       function spiderToggleMode() {

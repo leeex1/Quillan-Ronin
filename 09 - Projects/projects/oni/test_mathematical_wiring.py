@@ -2422,7 +2422,29 @@ def test_bitnet_a48_paper34_invariant():
     scaled_q = torch.round(x_int4 * (c / beta))
     assert (scaled_q >= -8.0).all() and (scaled_q <= 7.0).all()
 
-    # 3. Top-K Sparsification (50%) & INT8 Q    loss.backward()
+    # 3. Top-K Sparsification (50%) & INT8 Quantization
+    x_dense = torch.randn(4, 16)
+    x_sparse, mask = TopKSparsifier.apply(x_dense, k_ratio=0.5)
+    # Exactly 50% elements kept non-zero
+    assert (mask.sum(dim=-1) == 8).all()
+    x_int8, gamma = ActivationINT8Quantizer.quantize(x_sparse)
+    assert x_int8.shape == x_dense.shape
+
+    # 4. ReLU^2 GLU Intermediate Activation Sparsity
+    ffn = BitNetA48FFN(d_model=32, d_ff=64)
+    x_ffn = torch.randn(2, 4, 32)
+    out_ffn, meta_ffn = ffn(x_ffn)
+    assert out_ffn.shape == (2, 4, 32)
+    assert meta_ffn["ffn_intermediate_sparsity"] > 0.40  # Significant natural sparsity from ReLU^2
+
+    # 5. Full Transformer Block Forward & Backward Pass
+    block = BitNetA48TransformerBlock(d_model=32, num_heads=4, d_ff=64, topk_ratio=0.5)
+    x_in = torch.randn(2, 4, 32, requires_grad=True)
+    out_block, block_meta = block(x_in)
+    assert out_block.shape == (2, 4, 32)
+
+    loss = out_block.sum()
+    loss.backward()
     assert block.attn.q_proj.weight.grad is not None and torch.isfinite(block.attn.q_proj.weight.grad).all()
     assert block.ffn.up_proj.weight.grad is not None and torch.isfinite(block.ffn.up_proj.weight.grad).all()
     assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
@@ -2570,17 +2592,7 @@ if __name__ == "__main__":
     test_bitnet_a48_paper34_invariant()
     print("  [PASS] 43. BitNet a4.8 4-Bit Hybrid Quantization, TopK Sparsification & ReLU2GLU (Paper 34 / Wang)")
     test_bitnet_b158_paper35_invariant()
-    print("  [PASS] 44. BitNet b1.58 Absmean Ternary Weights, INT8 Activations & Horowitz Energy (Paper 35 / Ma)")ed Memory, Zero-FLOP Folding & MA-Recall (Paper 29 / 2609.28399v1 Kang)")
-    test_ai_consciousness_evaluator_paper30_invariant()
-    print("  [PASS] 39. AI Consciousness Five-Level Supervenience Hierarchy & Bayesian Network (Paper 30 / 2609.35618v1 Chandaria)")
-    test_ax_prover_paper31_invariant()
-    print("  [PASS] 40. Ax-Prover Agentic Theorem Proving Tripartite Multi-Agent & Lean MCP Invariants (Paper 31 / Breen)")
-    test_beyond_158_bits_paper32_invariant()
-    print("  [PASS] 41. Beyond 1.58 Bits Laplace Analytic Theory & 34-Expert Fully-Ternary MoE (Paper 32 / CrashOverrideX)")
-    test_bitnet_cpu_infra_paper33_invariant()
-    print("  [PASS] 42. 1-bit AI Infra bitnet.cpp I2_S, TL1 & TL2 Lossless Inference Kernels (Paper 33 / Wang)")
-    test_bitnet_a48_paper34_invariant()
-    print("  [PASS] 43. BitNet a4.8 4-Bit Hybrid Quantization, TopK Sparsification & ReLU2GLU (Paper 34 / Wang)")
+    print("  [PASS] 44. BitNet b1.58 Absmean Ternary Weights, INT8 Activations & Horowitz Energy (Paper 35 / Ma)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

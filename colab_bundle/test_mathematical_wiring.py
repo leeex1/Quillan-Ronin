@@ -156,6 +156,16 @@ from bitnet_a48 import (
     BitNetA48FFN,
     BitNetA48TransformerBlock
 )
+from bitnet_b158_engine import (
+    AbsmeanWeightQuantizer,
+    PerTokenActivationQuantizer,
+    BitLinearB158,
+    BitNetB158SwiGLU,
+    BitNetB158Attention,
+    BitNetB158TransformerBlock,
+    HorowitzEnergyModel
+)
+
 
 
 
@@ -2440,11 +2450,60 @@ def test_bitnet_a48_paper34_invariant():
     assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
 
 
+# ─── 44. BITNET b1.58: 1-BIT LLMS (PAPER 35) ──────────────────────────────────
+
+def test_bitnet_b158_paper35_invariant():
+    """
+    Paper 35 (BitNet b1.58, Shuming Ma et al., Microsoft Research, 2024):
+    Verifies:
+      1. Weight quantization to {-1, 0, 1} with absmean scaling gamma.
+      2. Per-token activation quantization to [-127, 127] without zero-point offset.
+      3. Strict zero bias across all BitLinearB158 layers.
+      4. Forward and backward pass through BitNetB158TransformerBlock with STE.
+      5. Horowitz 7nm analytical energy model verifying >=50x arithmetic energy reduction.
+    """
+    torch.manual_seed(42)
+
+    # 1. Absmean Weight Quantization
+    w = torch.randn(32, 32)
+    w_q, gamma = AbsmeanWeightQuantizer.quantize(w)
+    assert gamma > 0
+    w_ternary = torch.round(w_q / gamma)
+    assert torch.all(torch.isin(w_ternary, torch.tensor([-1.0, 0.0, 1.0])))
+
+    # 2. Per-Token Activation Quantization
+    x = torch.randn(4, 8, 32)
+    x_dequant, scale = PerTokenActivationQuantizer.quantize(x, q_b=127.0)
+    assert x_dequant.shape == x.shape
+    x_scaled = torch.round(x_dequant * scale)
+    assert (x_scaled >= -127.0).all() and (x_scaled <= 127.0).all()
+
+    # 3. BitLinear b1.58 Zero-Bias Invariant
+    linear = BitLinearB158(32, 64)
+    assert not hasattr(linear, "bias") or linear.bias is None
+    y = linear(x)
+    assert y.shape == (4, 8, 64)
+
+    # 4. Full Transformer Block Forward & Backward Pass with STE
+    block = BitNetB158TransformerBlock(d_model=32, num_heads=4, d_ff=64)
+    x_in = torch.randn(2, 4, 32, requires_grad=True)
+    out = block(x_in)
+    assert out.shape == (2, 4, 32)
+    loss = out.sum()
+    loss.backward()
+    assert block.attn.q_proj.weight.grad is not None and torch.isfinite(block.attn.q_proj.weight.grad).all()
+    assert block.ffn.up_proj.weight.grad is not None and torch.isfinite(block.ffn.up_proj.weight.grad).all()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+
+    # 5. Horowitz 7nm Energy Reduction Model
+    ratio = HorowitzEnergyModel.energy_reduction_ratio()
+    assert ratio >= 50.0, f"Expected energy reduction >= 50x, got {ratio:.1f}x"
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
     print("=" * 70)
-
 
     test_bitnet_ternary_quantization_active()
     print("  [PASS] 1. BitNet 1.58b / STE Ternary Invariant")
@@ -2532,6 +2591,8 @@ if __name__ == "__main__":
     print("  [PASS] 42. 1-bit AI Infra bitnet.cpp I2_S, TL1 & TL2 Lossless Inference Kernels (Paper 33 / Wang)")
     test_bitnet_a48_paper34_invariant()
     print("  [PASS] 43. BitNet a4.8 4-Bit Hybrid Quantization, TopK Sparsification & ReLU2GLU (Paper 34 / Wang)")
+    test_bitnet_b158_paper35_invariant()
+    print("  [PASS] 44. BitNet b1.58 Absmean Ternary Weights, INT8 Activations & Horowitz Energy (Paper 35 / Ma)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

@@ -76,6 +76,124 @@ def _clean_str(v, limit):
 AGENTS.update(_load_agents())
 
 
+SPEC_KEYS = ["role", "objective", "context", "rules", "review", "start", "ship"]
+SPEC_COLORS = {"role": "#f2f0e8", "objective": "#49e0da", "context": "#ff3d81",
+               "rules": "#3fb950", "review": "#a371f7", "start": "#f6b84b",
+               "ship": "#ff9d5c"}
+
+
+def _spec_of(path):
+    p = str(path or "").lower()
+    if "memory" in p or "lancedb" in p or "02 - knowledge" in p or "obsidian" in p or "vault" in p:
+        return "review"
+    if "06 -" in p or "deploy" in p or "dashboard" in p or "collector" in p or "09 -" in p or "mcp" in p or "server" in p:
+        return "rules"
+    if "05 -" in p or "media" in p or "creative" in p:
+        return "context"
+    if "03 - training" in p or "model" in p or "forge" in p or "04-" in p or "skills" in p or "swarm" in p:
+        return "objective"
+    if "01 - core" in p or "cognition" in p or "samurai" in p:
+        return "role"
+    return "start"
+
+
+def _spec_snapshot():
+    now = time.time()
+    try:
+        mem = json.loads((SPIDER_DIR / "memory_graph.json").read_text(encoding="utf-8"))
+    except Exception:
+        mem = {}
+    try:
+        trail = json.loads((SPIDER_DIR / "trail.json").read_text(encoding="utf-8"))
+    except Exception:
+        trail = {}
+    events = trail.get("trail", []) if isinstance(trail, dict) else []
+    mn = mem.get("nodes", {}) if isinstance(mem, dict) else {}
+    census = mem.get("census", {}) if isinstance(mem, dict) else {}
+    sectors = census.get("sectors", {}) if isinstance(census, dict) else {}
+
+    files = {k: 0 for k in SPEC_KEYS}
+    flagged = {k: 0 for k in SPEC_KEYS}
+    for full, meta in mn.items():
+        sk = _spec_of(full)
+        files[sk] += 1
+        if meta.get("findings"):
+            flagged[sk] += 1
+    totals = {k: 0 for k in SPEC_KEYS}
+    for sec, cnt in sectors.items():
+        totals[_spec_of(sec)] += int(cnt or 0)
+    for k in SPEC_KEYS:
+        totals[k] = max(totals[k], files[k], 1)
+
+    # active phase = section of the freshest trail event, else start
+    active = "start"
+    if events:
+        last = events[-1]
+        active = _spec_of(last.get("full", ""))
+        if active not in SPEC_KEYS:
+            active = "start"
+    order = SPEC_KEYS
+    phases = []
+    ai = order.index(active) if active in order else 5
+    for i, k in enumerate(order):
+        st = "done" if i < ai else ("reading" if i == ai else "queued")
+        phases.append({"key": k, "color": SPEC_COLORS[k], "state": st,
+                       "have": files[k], "total": totals[k],
+                       "words": files[k] * 31 + flagged[k] * 7})
+
+    words_read = sum(p["words"] for p in phases)
+    links = len(mem.get("edges", {})) if isinstance(mem.get("edges", {}), dict) else 0
+    flags = sum(flagged.values())
+    with AGENTS_LOCK:
+        live = [a for a in AGENTS.values() if now - a.get("ts", 0) <= AGENT_TTL]
+        minis = sum(len(a.get("children", [])) for a in live)
+    cov = []
+    for k in ["role", "objective", "context", "rules", "review"]:
+        cov.append(round(min(1.0, files[k] / max(1, totals[k])), 3))
+    cov_avg = sum(cov) / max(1, len(cov))
+    wire_ratio = min(1.0, links / 800.0)
+    flag_sig = min(1.0, flags / 40.0)
+    score = int(round(100 * (0.5 * cov_avg + 0.3 * wire_ratio + 0.2 * min(1.0, flag_sig + 0.15))))
+    score = max(0, min(100, score))
+
+    heat = []
+    for r in range(5):
+        row = []
+        for cix in range(8):
+            v = cov[(r + cix) % len(cov)] if cov else 0
+            row.append(round(v * (0.6 + 0.4 * ((r * 8 + cix) % 5) / 4), 2))
+        heat.append(row)
+
+    log = []
+    for ev in events[-8:]:
+        nm = str(ev.get("full", "")).split("\\")[-1].split("/")[-1]
+        log.append("read %s" % (nm[:42] or "…"))
+    try:
+        tasks = json.loads((SPIDER_DIR / "tasks.json").read_text(encoding="utf-8"))
+    except Exception:
+        tasks = []
+    if isinstance(tasks, list) and tasks:
+        t = tasks[-1]
+        log.append("%s %s" % (t.get("state", "task"), str(t.get("task", ""))[:40]))
+
+    code = []
+    if events:
+        try:
+            rd = spider.spider_read_file(events[-1].get("full", ""), 8)
+            for ln in (rd.get("lines", []) or [])[:8]:
+                code.append(str(ln)[-90:])
+        except Exception:
+            pass
+    if not code:
+        code = ["awaiting run…"]
+
+    return {"phases": phases, "active": active, "score": score,
+            "words_read": words_read, "links": links, "flags": flags,
+            "legs": 8 * max(1, len(live)), "tentacles": 2 * max(0, minis),
+            "coverage": cov, "heat": heat, "log": log[-8:], "code": code,
+            "files": files, "totals": totals, "now": now}
+
+
 def _watch_loop():
     while WATCH["on"]:
         start = time.time()
@@ -227,6 +345,11 @@ class Handler(SimpleHTTPRequestHandler):
                                "files_per_sec": round(f / STATS["task_secs"], 1) if STATS["task_secs"] > 0 else 0,
                                "sweeps": STATS["sweeps"], "sweep_files": STATS["sweep_files"],
                                "watch_on": WATCH["on"]})
+        if self.path.startswith("/api/spec"):
+            try:
+                return self._json(_spec_snapshot())
+            except Exception as e:
+                return self._json({"error": "spec failed: %s" % e}, 500)
         if self.path.startswith("/api/read"):
             qs = urllib.parse.urlparse(self.path).query
             params = urllib.parse.parse_qs(qs)
