@@ -318,5 +318,45 @@
     "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json"
    ]
   }
+ },
+ {
+  "task_id": "task-c27d26",
+  "task": "revival sweep: scan mcp servers",
+  "job": "scan",
+  "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+  "max_files": 40,
+  "state": "DONE",
+  "at": 1791910703.8608184,
+  "report": {
+   "files": 19,
+   "total_findings": 6,
+   "wires": 2,
+   "changes": [
+    "server.py:320 [todo_fixme] # TODO: Arrange nominal inputs based on ({args_spec})",
+    "server.py:328 [todo_fixme] # TODO: Pass boundary values",
+    "server.py:335 [todo_fixme] # TODO: Pass invalid type",
+    "server.py:589 [subprocess_shell] \"subprocess_shell\": \"shell injection via shell=True / os.sys",
+    "server.py:392 [todo_fixme] (\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),",
+    "server.py:82 [eval_exec] _ENGINE.eval()",
+    "wire: ingest_second_brain.py -> server",
+    "wire: spider_bridge.py -> server",
+    "wrote trail.json (nodes/edges/trail)",
+    "wrote spider_report.json"
+   ],
+   "why": [
+    "todo_fixme: unfinished work left in shipping code",
+    "todo_fixme: unfinished work left in shipping code",
+    "todo_fixme: unfinished work left in shipping code",
+    "subprocess_shell: shell injection via shell=True / os.system",
+    "todo_fixme: unfinished work left in shipping code",
+    "eval_exec: arbitrary code execution if input reaches it (CWE-94)",
+    "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it",
+    "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
+   ],
+   "artifacts": [
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json"
+   ]
+  }
  }
 ]

@@ -1,19 +1,30 @@
 {
  "job": "scan",
- "root": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code",
- "files": 1,
- "total_findings": 3,
- "wiring": [],
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+ "files": 19,
+ "total_findings": 6,
+ "wiring": [
+  {
+   "from": "ingest_second_brain.py",
+   "to": "server",
+   "why": "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it"
+  },
+  {
+   "from": "spider_bridge.py",
+   "to": "server",
+   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
+  }
+ ],
  "flagged": [
   {
-   "t": 0.01,
+   "t": 0.27,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
-   "node": 1,
+   "node": 3,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "383 lines, 3 findings | compiled OK | 18F/1C | 9.4ms",
+   "detail": "383 lines, 3 findings | compiled OK | 18F/1C | 10.5ms",
    "findings": [
     {
      "rule": "todo_fixme",
@@ -32,10 +43,59 @@
     }
    ],
    "lines": 383,
-   "ms": 9.4,
+   "ms": 10.5,
    "compiled": true,
    "funcs": 18,
    "classes": 1
+  },
+  {
+   "t": 2.78,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "node": 15,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1163 lines, 2 findings | compiled OK | 37F/1C | 143.3ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 589,
+     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 392,
+     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+    }
+   ],
+   "lines": 1163,
+   "ms": 143.3,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 1
+  },
+  {
+   "t": 3.22,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "node": 18,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "645 lines, 1 findings | compiled OK | 23F/0C | 30.9ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 82,
+     "preview": "_ENGINE.eval()"
+    }
+   ],
+   "lines": 645,
+   "ms": 30.9,
+   "compiled": true,
+   "funcs": 23,
+   "classes": 0
   }
  ],
  "changes": [

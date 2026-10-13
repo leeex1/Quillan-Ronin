@@ -65,7 +65,7 @@
     focus: null, spiderNode: -1, pulses: [],
     agents: [], fullMap: {},
     totals: { files: 0, wires: 0 },
-    totals: { files: 0, wires: 0 },
+    vignette: null, vignetteKey: "",
     lastKey: "",
     time: 0
   };
@@ -148,6 +148,26 @@
     }
   }
 
+  // fit the whole web into view after a dataset switch (memory web especially)
+  function fitView() {
+    if (!G.nodes.length || !G.canvas) return;
+    var r = G.canvas.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    var minX = 1e9, maxX = -1e9, minY = 1e9, maxY = -1e9, any = false;
+    G.nodes.forEach(function (n) {
+      if (n.x === undefined) return;
+      any = true;
+      if (n.x < minX) minX = n.x; if (n.x > maxX) maxX = n.x;
+      if (n.y < minY) minY = n.y; if (n.y > maxY) maxY = n.y;
+    });
+    if (!any) return;
+    var bw = Math.max(80, maxX - minX), bh = Math.max(80, maxY - minY);
+    G.view.z = Math.max(0.25, Math.min(2.2, Math.min((r.width - 80) / bw, (r.height - 80) / bh)));
+    G.view.x = (minX + maxX) / 2;
+    G.view.y = (minY + maxY) / 2;
+    G.dirty = true;
+  }
+
   function applyDataset() {
     // activate trail or memory node set; preserve positions across switches by full path
     var keep = {};
@@ -171,6 +191,7 @@
     G.edges = srcE;
     G.layoutKey = null; // force relayout for the new set
     G.dirty = true;
+    fitView();
   }
 
   function setData(d) {
@@ -421,19 +442,47 @@
     var lk = G.nodes.length + ":" + (W | 0) + "x" + (H | 0) + ":" + G.mode;
     if (lk !== G.layoutKey) { G.layoutKey = lk; relayout(W, H); }
     ctx.fillStyle = "#050c0f"; ctx.fillRect(0, 0, W, H);
+    // cached vignette: depth without per-frame gradient cost
+    var vgKey = ((W | 0) + "x" + (H | 0));
+    if (!G.vignette || G.vignetteKey !== vgKey) {
+      var vg = ctx.createRadialGradient(W / 2, H / 2, Math.min(W, H) * 0.25, W / 2, H / 2, Math.max(W, H) * 0.72);
+      vg.addColorStop(0, "rgba(0,0,0,0)");
+      vg.addColorStop(1, "rgba(0,0,0,0.42)");
+      G.vignette = vg; G.vignetteKey = vgKey;
+    }
+    ctx.fillStyle = G.vignette; ctx.fillRect(0, 0, W, H);
     function X(x) { return (x - G.view.x) * G.view.z + W / 2; }
     function Y(y) { return (y - G.view.y) * G.view.z + H / 2; }
 
     // edges (single pass, no shadows)
     var i, e, a, b;
+    // structural silk: ONE batched stroke for the whole web (was N strokes)
+    ctx.strokeStyle = "rgba(73,224,218,0.16)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
     for (i = 0; i < G.edges.length; i++) {
       e = G.edges[i];
+      if (e.wire) continue;
       a = G.byId[e.a]; b = G.byId[e.b];
       if (!a || !b || a.x === undefined || b.x === undefined) continue;
-      ctx.strokeStyle = e.wire ? "rgba(246,184,75,0.5)" : "rgba(73,224,218,0.16)";
-      ctx.lineWidth = e.wire ? 1.4 : 1;
-      ctx.beginPath(); ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y)); ctx.stroke();
+      ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y));
     }
+    ctx.stroke();
+    // live wires: marching ants flowing toward coupled files
+    ctx.strokeStyle = "rgba(246,184,75,0.55)";
+    ctx.lineWidth = 1.4;
+    ctx.setLineDash([7, 7]);
+    ctx.lineDashOffset = -(G.time / 55);
+    ctx.beginPath();
+    for (i = 0; i < G.edges.length; i++) {
+      e = G.edges[i];
+      if (!e.wire) continue;
+      a = G.byId[e.a]; b = G.byId[e.b];
+      if (!a || !b || a.x === undefined || b.x === undefined) continue;
+      ctx.moveTo(X(a.x), Y(a.y)); ctx.lineTo(X(b.x), Y(b.y));
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
     // focus web emphasis
     if (G.focus) {
       var fb = baseName(G.focus.full).toLowerCase();
@@ -547,9 +596,15 @@
     mode: function () { return G.mode; },
     start: function (canvasId) {
       var cv = document.getElementById(canvasId || "spiderCanvas");
-      if (!cv || G.canvas === cv && G.running) return;
-      G.canvas = cv;
-      bindInput();
+      if (!cv) return;
+      if (G.canvas !== cv) {
+        G.canvas = cv;
+        // bind input ONCE per canvas — re-binding every tick stacked duplicate
+        // listeners (multi-fire drag, wheel pile-up) and felt like jank
+        if (!cv._sgBound) { bindInput(); cv._sgBound = true; }
+        G.dirty = true;
+      }
+      if (G.canvas === cv && G.running) return;
       if (!G.running) { G.running = true; G.dirty = true; G.raf = requestAnimationFrame(loop); }
     },
     stop: function () { G.running = false; if (G.raf) cancelAnimationFrame(G.raf); G.raf = 0; },

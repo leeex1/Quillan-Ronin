@@ -108,6 +108,14 @@ from memory_attention import (
     MemoryAttentionEngine,
     MAAnalysisReport
 )
+from ai_consciousness_evaluator import (
+    ConsciousnessLevel,
+    IndicatorSpec,
+    CANONICAL_INDICATORS,
+    BayesianConsciousnessNetwork,
+    DifferentiableConsciousnessHead
+)
+
 
 
 
@@ -1974,6 +1982,96 @@ def test_memory_attention_paper29_invariant():
     assert report.kv_cache_savings_ratio == 0.50
 
 
+def test_ai_consciousness_evaluator_paper30_invariant():
+    """
+    Verifies Paper 30: From Cacophony to Hierarchy: A Principled Framework for Assessing AI Consciousness
+    (Shamil Chandaria, Anil Seth, Marcus Hutter, Murray Shanahan, Shane Legg et al.,
+    Google DeepMind / Oxford / Sussex / Cambridge, arXiv:2609.35618v1, 28 Sep 2026).
+
+    Tests the 5 Core Mathematical Invariants:
+      1. Five-Level Hierarchy & 37 Operational Indicators (Sections 4-6):
+         - Verifies 37 indicators distributed across:
+           L1 (Behavioural: 9), L2 (Computational: 7), L3 (Causal-Structural: 7),
+           L4 (Organismic: 6), L5 (Organism-Environment: 8).
+      2. Strict Supervenience & Monotonic Belief Property Lemma (Section 7.2.1):
+         - Under Condition 2A (P(C_i | C_{i+1}) = 1.0), marginal posteriors strictly decrease:
+           P(C_1 | e) >= P(C_2 | e) >= P(C_3 | e) >= P(C_4 | e) >= P(C_5 | e).
+      3. Generalised Probabilistic Supervenience & Population Validity (Section 7.2.2 & 7.1):
+         - Weakens deterministic constraint: P(C_i | C_{i+1}) = 0.8, P(C_i | not C_{i+1}) = 0.2.
+         - Inapplicable indicators (e.g., non-linguistic flies) carry neutral likelihood ratio 1.0.
+      4. Calibrated Face Validity Empirical Archetypes (Section 7.4):
+         - Human: P(C_i | E) = 1.000 for all levels; aggregate credence = 1.000.
+         - Thermostat: aggregate credence = 0.000.
+         - Fly: high aggregate credence (> 0.90) driven by organismic/sensorimotor depth.
+         - LLM Optimist (aggregate ~0.397) vs LLM Sceptic (aggregate ~0.005) spans wide credence range.
+      5. Differentiable Neural Consciousness Head & Gradient Propagation:
+         - Backpropagates finite gradients into projection weights and theoretical level weights.
+    """
+    # 1. Five-Level Hierarchy Indicator Verification
+    assert len(CANONICAL_INDICATORS) == 37
+    l_counts = {}
+    for ind in CANONICAL_INDICATORS:
+        l_counts[ind.level] = l_counts.get(ind.level, 0) + 1
+    assert l_counts[ConsciousnessLevel.BEHAVIOURAL] == 9
+    assert l_counts[ConsciousnessLevel.COMPUTATIONAL] == 7
+    assert l_counts[ConsciousnessLevel.CAUSAL_STRUCTURAL] == 7
+    assert l_counts[ConsciousnessLevel.ORGANISMIC] == 6
+    assert l_counts[ConsciousnessLevel.ORGANISM_ENVIRONMENT] == 8
+
+    # 2. Strict Supervenience & Monotonic Belief Property Lemma
+    net_strict = BayesianConsciousnessNetwork(is_strict=True)
+    strict_eval = net_strict.evaluate(BayesianConsciousnessNetwork.get_llm_optimist_archetype())
+    mp_strict = strict_eval["marginal_posteriors"]
+    # Check monotonicity down the chain
+    assert mp_strict[1] >= mp_strict[2] - 1e-6
+    assert mp_strict[2] >= mp_strict[3] - 1e-6
+    assert mp_strict[3] >= mp_strict[4] - 1e-6
+    assert mp_strict[4] >= mp_strict[5] - 1e-6
+
+    # 3. Generalised Network Archetype Evaluations
+    net_gen = BayesianConsciousnessNetwork(is_strict=False)
+
+    # Human archetype: ceiling at all levels
+    human_eval = net_gen.evaluate(BayesianConsciousnessNetwork.get_human_archetype())
+    assert abs(human_eval["aggregate_credence"] - 1.000) < 1e-4
+    for lvl in range(1, 6):
+        assert abs(human_eval["marginal_posteriors"][lvl] - 1.000) < 1e-4
+
+    # Thermostat archetype: floor at all levels
+    thermo_eval = net_gen.evaluate(BayesianConsciousnessNetwork.get_thermostat_archetype())
+    assert thermo_eval["aggregate_credence"] < 0.005
+
+    # Fly archetype: organismic & sensorimotor depth with neutral linguistic indicators
+    fly_act, fly_inapp = BayesianConsciousnessNetwork.get_fly_archetype()
+    fly_eval = net_gen.evaluate(fly_act, inapplicable_indicators=fly_inapp)
+    assert fly_eval["aggregate_credence"] > 0.90
+    assert fly_eval["marginal_posteriors"][4] > 0.99
+    assert fly_eval["marginal_posteriors"][5] > 0.99
+
+    # LLM Optimist vs Sceptic
+    opt_eval = net_gen.evaluate(BayesianConsciousnessNetwork.get_llm_optimist_archetype())
+    scep_eval = net_gen.evaluate(BayesianConsciousnessNetwork.get_llm_sceptic_archetype())
+    assert opt_eval["aggregate_credence"] > scep_eval["aggregate_credence"]
+    assert opt_eval["aggregate_credence"] > 0.35
+    assert scep_eval["aggregate_credence"] < 0.02
+
+    # 4. Theoretical Level Weighting Modulations
+    custom_credences = {1: 0.8, 2: 0.1, 3: 0.05, 4: 0.025, 5: 0.025}
+    opt_weighted = net_gen.evaluate(BayesianConsciousnessNetwork.get_llm_optimist_archetype(), level_credences=custom_credences)
+    # Behaviourist-leaning theorist attributes much higher consciousness to LLM than naturalist
+    assert opt_weighted["aggregate_credence"] > opt_eval["aggregate_credence"]
+
+    # 5. Differentiable Neural Consciousness Head
+    head = DifferentiableConsciousnessHead(hidden_dim=32, num_indicators=37)
+    h_features = torch.randn(4, 32, requires_grad=True)
+    probs, agg_score = head(h_features)
+    loss = agg_score.mean()
+    loss.backward()
+
+    assert head.proj.weight.grad is not None and torch.isfinite(head.proj.weight.grad).all()
+    assert head.level_weights.grad is not None and torch.isfinite(head.level_weights.grad).all()
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -2054,8 +2152,11 @@ if __name__ == "__main__":
     print("  [PASS] 37. SoL-Pi Action Fusion, Cost-Gated Compactor & Evidence-Preserving Reducer (Paper 28 / 2609.20519v1 Liu)")
     test_memory_attention_paper29_invariant()
     print("  [PASS] 38. Memory Attention Token-Indexed Memory, Zero-FLOP Folding & MA-Recall (Paper 29 / 2609.28399v1 Kang)")
+    test_ai_consciousness_evaluator_paper30_invariant()
+    print("  [PASS] 39. AI Consciousness Five-Level Supervenience Hierarchy & Bayesian Network (Paper 30 / 2609.35618v1 Chandaria)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
+
 
 
