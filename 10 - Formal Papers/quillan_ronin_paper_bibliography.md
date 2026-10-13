@@ -258,7 +258,8 @@
 
 | Paper (filename) | Topic | Maps To |
 |:-----------------|:------|:--------|
-| `2607.24720v1.pdf`, `2607.28607v1.pdf`, `2608.03874v1.pdf`, `2608.05446v1.pdf`, `2608.12875v1.pdf`, `2608.13482v1.pdf`, `2608.16801v1.pdf`, `2608.17271v1.pdf`, `2608.17286v1.pdf`, `2608.17896v1.pdf`, `2608.17981v1.pdf`, `2609.11677v1.pdf`, `2609.20519v1.pdf` | 2026 preprints batch (SoL-Pi: Action Fusion, Cost-Gated Context Compactor, ObservationPack, Evidence-Preserving Reducer) | Triage: mapped to agent harness optimization and test suite |
+| `2607.24720v1.pdf`, `2607.28607v1.pdf`, `2608.03874v1.pdf`, `2608.05446v1.pdf`, `2608.12875v1.pdf`, `2608.13482v1.pdf`, `2608.16801v1.pdf`, `2608.17271v1.pdf`, `2608.17286v1.pdf`, `2608.17896v1.pdf`, `2608.17981v1.pdf`, `2609.11677v1.pdf`, `2609.20519v1.pdf`, `2609.28399v1.pdf` | 2026 preprints batch (Memory Attention: Token-Indexed Memory, Zero-FLOP Folding, MA-Offload, MA-Recall) | Triage: mapped to attention architecture and test suite |
+
 
 | `DAPO_Open_Source_LLM_RL.pdf` | DAPO RL | CCRL upgrade path (critic-free RL, cf. GRPO/DGPO) |
 | `DGPO_ Distribution Guided Policy Optimization for Fine Grained Credit Assignment.pdf` | DGPO | CCRL fine-grained credit assignment (Phase D candidate) |
