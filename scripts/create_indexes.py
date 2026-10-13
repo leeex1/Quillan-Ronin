@@ -2,16 +2,17 @@
 """Create directory index files listing every file with wikilinks."""
 import os
 
-ROOT = r'C:\Users\Admin\Quillan-Ronin'
-skip_dirs = {'node_modules','__pycache__','.git','venv','venv_cuda1050','.venv','.venv-cuda','__pycache__'}
+ROOT = r'C:\02_QUILLAN'
+skip_dirs = {'node_modules','__pycache__','.git','.gitnexus','venv','venv_cuda1050','.venv','.venv-cuda','checkpoints','.obsidian','_obsidian_backup'}
 skip_ext = {'.pyc', '.exe', '.dll', '.so', '.pyd'}
 
-# Major directories to index
-dirs = ['scripts', '_dev', 'checkpoints', 'training_data', 'training_logs',
-        'Quillan Knowledge files', 'Formal Papers', 'Skills', 'Platforms',
-        'system prompts', 'Audio Engineer', 'Book Series', 'testing',
-        'Software Engineer', 'Misc', 'Media Template', '_config', '_projects',
-        '00 - Meta', '00 - Templates']
+# Major directories to index - canonical C:\02_QUILLAN layout 2026-10-13
+dirs = ['00 - Web Map', '01 - Core Architecture', '02 - Knowledge Foundation',
+        '03 - Training & Model', '04- quillan-sovereign-skills-and-swarm',
+        '05 - Creative Works', '05 - Technical Implementation',
+        '06 - Deployment & Platforms', '07 - Memory & LanceDB',
+        '08 - Templates & Config', '09 - Projects', '10 - Formal Papers',
+        'mcp', 'scripts', 'worker', 'assets', 'Misc']
 
 for d in dirs:
     base = os.path.join(ROOT, d)

@@ -1,109 +1,110 @@
 {
-  "timestamp": 1791500869.7656803,
-  "time_utc": "2026-10-08 23:07:49 UTC",
-  "total_files_audited": 105964,
-  "canonical_files": 105955,
-  "misplaced_count": 9,
-  "compliance_percentage": 99.99,
-  "misplaced_files": [
+  "timestamp": 1791929752.60526,
+  "time_utc": "2026-10-13 18:15:52 UTC",
+  "total_files_audited": 75803,
+  "sectors": [
     {
-      "name": "memory.json",
-      "current_path": "C:\\02_QUILLAN\\memory.json",
-      "current_folder": "ROOT",
-      "canonical_sector": "07_MEMORY",
-      "canonical_folder": "07 - Memory & LanceDB",
-      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\memory.json",
-      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
-      "size_bytes": 1254,
-      "priority": "MEDIUM"
+      "name": "00 - Web Map",
+      "files": 7,
+      "code": 0,
+      "docs": 7
     },
     {
-      "name": "memory.md",
-      "current_path": "C:\\02_QUILLAN\\memory.md",
-      "current_folder": "ROOT",
-      "canonical_sector": "07_MEMORY",
-      "canonical_folder": "07 - Memory & LanceDB",
-      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\memory.md",
-      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
-      "size_bytes": 6914,
-      "priority": "MEDIUM"
+      "name": "01 - Core Architecture",
+      "files": 96,
+      "code": 0,
+      "docs": 96
     },
     {
-      "name": "modeling_quillan.py",
-      "current_path": "C:\\02_QUILLAN\\modeling_quillan.py",
-      "current_folder": "ROOT",
-      "canonical_sector": "03_TRAINING",
-      "canonical_folder": "03 - Training & Model/scripts",
-      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\scripts\\modeling_quillan.py",
-      "reason": "Model architecture or training optimizer should reside in Training Pipeline",
-      "size_bytes": 9221,
-      "priority": "HIGH"
+      "name": "02 - Knowledge Foundation",
+      "files": 2722,
+      "code": 477,
+      "docs": 2024
     },
     {
-      "name": "quillan.db",
-      "current_path": "C:\\02_QUILLAN\\quillan.db",
-      "current_folder": "ROOT",
-      "canonical_sector": "07_MEMORY",
-      "canonical_folder": "07 - Memory & LanceDB",
-      "recommended_path": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan.db",
-      "reason": "Database or memory artifact belongs in Vector Memory & LanceDB",
-      "size_bytes": 0,
-      "priority": "MEDIUM"
+      "name": "03 - Training & Model",
+      "files": 1900,
+      "code": 717,
+      "docs": 621
     },
     {
-      "name": "quillan_fused_optimizer.py",
-      "current_path": "C:\\02_QUILLAN\\quillan_fused_optimizer.py",
-      "current_folder": "ROOT",
-      "canonical_sector": "03_TRAINING",
-      "canonical_folder": "03 - Training & Model/scripts",
-      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\scripts\\quillan_fused_optimizer.py",
-      "reason": "Model architecture or training optimizer should reside in Training Pipeline",
-      "size_bytes": 19108,
-      "priority": "HIGH"
+      "name": "04- quillan-sovereign-skills-and-swarm",
+      "files": 992,
+      "code": 0,
+      "docs": 992
     },
     {
-      "name": "Quillan_ONI_Live_Training.ipynb",
-      "current_path": "C:\\02_QUILLAN\\Quillan_ONI_Live_Training.ipynb",
-      "current_folder": "ROOT",
-      "canonical_sector": "03_TRAINING",
-      "canonical_folder": "03 - Training & Model/notebooks",
-      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_ONI_Live_Training.ipynb",
-      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
-      "size_bytes": 19992,
-      "priority": "HIGH"
+      "name": "05 - Creative Works",
+      "files": 3651,
+      "code": 78,
+      "docs": 289
     },
     {
-      "name": "Quillan_v5_4_ONI_Master_Training.ipynb",
-      "current_path": "C:\\02_QUILLAN\\Quillan_v5_4_ONI_Master_Training.ipynb",
-      "current_folder": "ROOT",
-      "canonical_sector": "03_TRAINING",
-      "canonical_folder": "03 - Training & Model/notebooks",
-      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_v5_4_ONI_Master_Training.ipynb",
-      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
-      "size_bytes": 19992,
-      "priority": "HIGH"
+      "name": "05 - Technical Implementation",
+      "files": 1,
+      "code": 1,
+      "docs": 0
     },
     {
-      "name": "Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
-      "current_path": "C:\\02_QUILLAN\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
-      "current_folder": "ROOT",
-      "canonical_sector": "03_TRAINING",
-      "canonical_folder": "03 - Training & Model/notebooks",
-      "recommended_path": "C:\\02_QUILLAN\\03 - Training & Model\\notebooks\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
-      "reason": "Training and evaluation Jupyter notebook belongs in Training Forge notebooks",
-      "size_bytes": 21687,
-      "priority": "HIGH"
+      "name": "06 - Deployment & Platforms",
+      "files": 1354,
+      "code": 113,
+      "docs": 1204
     },
     {
-      "name": "sync_to_google_drive.py",
-      "current_path": "C:\\02_QUILLAN\\sync_to_google_drive.py",
-      "current_folder": "ROOT",
-      "canonical_sector": "06_DEPLOYMENT",
-      "canonical_folder": "scripts",
-      "recommended_path": "C:\\02_QUILLAN\\scripts\\sync_to_google_drive.py",
-      "reason": "System maintenance or sync script belongs in scripts/",
-      "size_bytes": 5180,
-      "priority": "HIGH"
+      "name": "07 - Memory & LanceDB",
+      "files": 35,
+      "code": 1,
+      "docs": 14
+    },
+    {
+      "name": "08 - Templates & Config",
+      "files": 83,
+      "code": 44,
+      "docs": 27
+    },
+    {
+      "name": "09 - Projects",
+      "files": 64201,
+      "code": 10812,
+      "docs": 4148
+    },
+    {
+      "name": "10 - Formal Papers",
+      "files": 369,
+      "code": 11,
+      "docs": 184
+    },
+    {
+      "name": "mcp",
+      "files": 32,
+      "code": 20,
+      "docs": 9
+    },
+    {
+      "name": "scripts",
+      "files": 140,
+      "code": 122,
+      "docs": 7
+    },
+    {
+      "name": "worker",
+      "files": 43,
+      "code": 2,
+      "docs": 3
+    },
+    {
+      "name": "assets",
+      "files": 175,
+      "code": 0,
+      "docs": 0
+    },
+    {
+      "name": "Misc",
+      "files": 2,
+      "code": 0,
+      "docs": 2
     }
-  ]
+  ],
+  "notes": "post-restructure audit 2026-10-13; misplaced-file pass superseded by git rename staging"
 }

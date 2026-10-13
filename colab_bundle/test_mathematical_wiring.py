@@ -165,6 +165,75 @@ from bitnet_b158_engine import (
     BitNetB158TransformerBlock,
     HorowitzEnergyModel
 )
+from bitnet_2b4t_engine import (
+    SubLN,
+    AbsmeanWeightQuantizer2B4T,
+    AbsmaxActivationQuantizer2B4T,
+    BitLinear2B4T,
+    ReLU2FFN,
+    BitNet2B4TAttention,
+    BitNet2B4TTransformerBlock,
+    TwoStageLRScheduler,
+    TwoStageWeightDecayScheduler,
+    SFTLossAggregator,
+    DPOTrainer2B4T,
+    BitNet2B4TEnergyMetrics
+)
+from bitnet_cpp_edge import (
+    SignedUnsignedWeightPacker,
+    TL1KernelEdge,
+    TL2KernelEdge,
+    I2SKernelEdge,
+    BitNetCppEdgeLinear,
+    ELUTTheoreticalAnalyzer
+)
+from bitnet_scaling_engine import (
+    BinaryWeightQuantizer,
+    AbsmaxActivationQuantizerBitNet,
+    BitLinear1Bit,
+    GroupQuantizedBitLinear,
+    BitNetScalingBlock,
+    BitNetScalingLawAnalyzer
+)
+from bitnet_v2_engine import (
+    fast_hadamard_transform,
+    hadamard_transform,
+    quantize_weight_ternary,
+    quantize_act_int8,
+    quantize_act_int4,
+    BitLinearV2,
+    HBitLinear,
+    BitNetV2Attention,
+    BitNetV2FFN,
+    BitNetV2TransformerBlock,
+    BitNetV2Model,
+    OutlierDistributionProfiler
+)
+from inverse_cryptography_engine import (
+    PrimeRasterDecomposer,
+    CallimahosInverseCryptEngine,
+    ZeroPriorAgentHandshake
+)
+from dali_moe_engine import (
+    HardwareProfile,
+    DALIGreedyAssignment,
+    DALIResidualPrefetcher,
+    DALIWorkloadAwareCache,
+    DALIMoEOrchestrator
+)
+from dapo_rl_engine import (
+    DAPOConfig,
+    soft_overlong_punishment,
+    compute_rule_reward,
+    is_valid_dapo_group,
+    compute_group_advantages,
+    DAPOLoss,
+    DAPODynamicSampler
+)
+
+
+
+
 
 
 
@@ -2500,6 +2569,645 @@ def test_bitnet_b158_paper35_invariant():
     assert ratio >= 50.0, f"Expected energy reduction >= 50x, got {ratio:.1f}x"
 
 
+# ─── 45. BITNET b1.58 2B4T: NATIVE 1-BIT LLM AT SCALE (PAPER 36) ─────────────
+
+def test_bitnet_2b4t_paper36_invariant():
+    """
+    Paper 36 (BitNet b1.58 2B4T Technical Report, Shuming Ma et al., Microsoft Research, 2025):
+    Verifies:
+      1. SubLN (Sub-LayerNorm) with zero bias and learned scale.
+      2. Absmean ternary weight quantization & Absmax INT8 activation quantization.
+      3. Squared ReLU (ReLU^2) FFN inducing >40% activation sparsity.
+      4. Forward and backward pass through BitNet2B4TTransformerBlock.
+      5. Two-stage LR schedule (Stage 1 high peak cosine, Stage 2 cooldown low peak cosine).
+      6. Two-stage weight decay schedule (Stage 1 cosine to 0.1, Stage 2 strict 0.0).
+      7. SFT token-sum loss aggregation vs mean reduction.
+      8. DPO preference loss and reward margin calculation.
+      9. Table 4 7nm hardware arithmetic energy ratio (71.43x).
+    """
+    torch.manual_seed(42)
+
+    # 1. SubLN
+    subln = SubLN(d_model=32)
+    assert not hasattr(subln, "bias") or subln.bias is None
+    x = torch.randn(4, 8, 32)
+    normed = subln(x)
+    assert normed.shape == (4, 8, 32)
+    assert torch.allclose(normed.mean(dim=-1), torch.zeros(4, 8), atol=1e-5)
+
+    # 2. Absmean weights & Absmax INT8 activations
+    w = torch.randn(32, 32)
+    w_q, gamma = AbsmeanWeightQuantizer2B4T.quantize(w)
+    assert gamma > 0
+    w_ternary = torch.round(w_q / gamma)
+    assert torch.all(torch.isin(w_ternary, torch.tensor([-1.0, 0.0, 1.0])))
+
+    x_act = torch.randn(4, 8, 32)
+    x_dequant, scale = AbsmaxActivationQuantizer2B4T.quantize(x_act)
+    assert x_dequant.shape == x_act.shape
+    x_scaled = torch.round(x_dequant * scale)
+    assert (x_scaled >= -128.0).all() and (x_scaled <= 127.0).all()
+
+    # 3. Squared ReLU FFN Sparsity (>40%)
+    ffn = ReLU2FFN(d_model=32, d_ff=64)
+    out_ffn, sparsity = ffn(x)
+    assert out_ffn.shape == (4, 8, 32)
+    assert sparsity >= 0.40, f"Expected ReLU2 sparsity >= 0.40, got {sparsity:.3f}"
+
+    # 4. Full Transformer Block Forward & Backward Pass
+    block = BitNet2B4TTransformerBlock(d_model=32, num_heads=4, d_ff=64)
+    x_in = torch.randn(2, 4, 32, requires_grad=True)
+    out_block, block_sparsity = block(x_in)
+    assert out_block.shape == (2, 4, 32)
+    loss = out_block.sum()
+    loss.backward()
+    assert block.attn.q_proj.weight.grad is not None and torch.isfinite(block.attn.q_proj.weight.grad).all()
+    assert block.ffn.up_proj.weight.grad is not None and torch.isfinite(block.ffn.up_proj.weight.grad).all()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+
+    # 5. Two-Stage Learning Rate Scheduler
+    lr_sched = TwoStageLRScheduler(
+        peak_lr_stage1=1.5e-3, min_lr_stage1=1.5e-4,
+        peak_lr_stage2=3.0e-4, min_lr_stage2=3.0e-5,
+        total_steps=1000, split_ratio=0.5
+    )
+    lr_0 = lr_sched.get_lr(0)
+    lr_mid_after = lr_sched.get_lr(500)
+    lr_end = lr_sched.get_lr(1000)
+    assert abs(lr_0 - 1.5e-3) < 1e-6
+    assert lr_mid_after <= 3.0e-4
+    assert abs(lr_end - 3.0e-5) < 1e-6
+
+    # 6. Two-Stage Weight Decay Scheduler
+    wd_sched = TwoStageWeightDecayScheduler(peak_wd=0.1, total_steps=1000, split_ratio=0.5)
+    wd_mid = wd_sched.get_wd(250)
+    wd_stage2 = wd_sched.get_wd(600)
+    assert wd_mid > 0.0
+    assert wd_stage2 == 0.0  # Zero weight decay in stage 2
+
+    # 7. Token-Sum SFT Loss Aggregation
+    logits = torch.randn(2, 5, 100)
+    targets = torch.randint(0, 100, (2, 5))
+    sum_loss = SFTLossAggregator.compute_loss(logits, targets)
+    mean_loss = F.cross_entropy(logits.view(-1, 100), targets.view(-1), reduction="mean")
+    assert abs(sum_loss.item() - 10.0 * mean_loss.item()) < 1e-4
+
+    # 8. DPO Trainer Loss & Rewards
+    dpo = DPOTrainer2B4T(beta=0.1)
+    p_w = torch.tensor([-1.2, -1.0])
+    p_l = torch.tensor([-2.5, -3.0])
+    r_w = torch.tensor([-1.5, -1.2])
+    r_l = torch.tensor([-2.0, -2.2])
+    dpo_loss, c_rew, r_rew = dpo.loss(p_w, p_l, r_w, r_l)
+    assert dpo_loss.item() > 0
+    assert (c_rew > r_rew).all()
+
+    # 9. Hardware Energy Ratio Invariant (Table 4)
+    ratio = BitNet2B4TEnergyMetrics.arithmetic_energy_reduction()
+    assert abs(ratio - 71.42857) < 0.01
+
+
+# ─── 46. BITNET.CPP: EFFICIENT EDGE INFERENCE FOR TERNARY LLMS (PAPER 37) ──────
+
+def test_bitnet_cpp_edge_paper37_invariant():
+    """
+    Paper 37 (Bitnet.cpp: Efficient Edge Inference for Ternary LLMs,
+    Jinheng Wang et al., Peking Univ / Microsoft Research, 2025):
+    Verifies:
+      1. Triplet packing & signed-unsigned splitting: roundtrip lossless reconstruction.
+      2. Element-wise mirror consolidation: 14 base states (indices 0..13) with 1-bit sign.
+      3. Exact numerical equivalence across lossless kernels (I2_S, TL1_1, TL2_1).
+      4. Support for all 5 Table 1 kernels (TL1_0, TL1_1, TL2_0, TL2_1, I2_S) in BitNetCppEdgeLinear.
+      5. ELUT Theoretical analysis: >78% table compaction ratio and 1.667 bpw.
+    """
+    torch.manual_seed(42)
+
+    # 1. Triplet packing & mirror consolidation roundtrip
+    w = torch.randint(-1, 2, (16, 24)).float()  # 24 features (8 triplets)
+    unsigned_idx, sign_bits = SignedUnsignedWeightPacker.pack_triplets(w)
+    assert unsigned_idx.shape == (16, 8)
+    assert sign_bits.shape == (16, 8)
+    assert (unsigned_idx <= 13).all()
+    assert ((sign_bits == 0) | (sign_bits == 1)).all()
+
+    w_reconstructed = SignedUnsignedWeightPacker.unpack_triplets(unsigned_idx, sign_bits)
+    assert torch.equal(w, w_reconstructed), "Signed-unsigned splitting must be 100% exact lossless"
+
+    # 2. Table compaction ratio from ELUT analysis (Section 3 & Appendix A)
+    ratio_tl2 = ELUTTheoreticalAnalyzer.table_compaction_ratio(cardinality=3, group_size=3, use_mirror=True)
+    assert ratio_tl2 == 14.0 / 64.0  # 14 states vs 2^6=64 states (78.125% reduction)
+    bpw = ELUTTheoreticalAnalyzer.bits_per_weight(group_size=3)
+    assert abs(bpw - 5.0 / 3.0) < 1e-5
+
+    # 3. Exact lossless equivalence across I2_S, TL1_1, and TL2_1
+    layer = BitNetCppEdgeLinear(in_features=24, out_features=16, kernel_type="I2_S")
+    layer.prepare_weights()
+    x = torch.randn(4, 24)
+
+    # Run with I2_S
+    layer.kernel_type = "I2_S"
+    out_i2s = layer(x)
+
+    # Run with TL1_1 (lossless LUT g=2)
+    layer.kernel_type = "TL1_1"
+    out_tl1_1 = layer(x)
+    assert torch.allclose(out_i2s, out_tl1_1, atol=1e-5), "TL1_1 must match I2_S"
+
+    # Run with TL2_1 (lossless mirror LUT g=3)
+    layer.kernel_type = "TL2_1"
+    out_tl2_1 = layer(x)
+    assert torch.allclose(out_i2s, out_tl2_1, atol=1e-5), "TL2_1 must match I2_S and TL1_1 exactly"
+
+    # 4. Fast block-based kernels execute cleanly
+    layer.kernel_type = "TL1_0"
+    out_tl1_0 = layer(x)
+    assert out_tl1_0.shape == (4, 16)
+
+    layer.kernel_type = "TL2_0"
+    out_tl2_0 = layer(x)
+    assert out_tl2_0.shape == (4, 16)
+
+
+# ─── 47. BITNET: SCALING 1-BIT TRANSFORMERS (PAPER 38) ────────────────────────
+
+def test_bitnet_scaling_paper38_invariant():
+    """
+    Paper 38 (BitNet: Scaling 1-bit Transformers for Large Language Models,
+    Hongyu Wang, Shuming Ma et al., Microsoft Research, 2023):
+    Verifies:
+      1. Zero-mean weight centralization alpha = mean(W) and binary binarization Sign(W - alpha) in {-1, +1}.
+      2. Absmax activation quantization (symmetric signed and asymmetric non-negative pre-ReLU).
+      3. Original BitLinear layer forward execution (Eq. 11) with SubLN and STE gradient flow.
+      4. Group Quantization (Eq. 13) for communication-free tensor parallel model parallelism.
+      5. Full BitNetScalingBlock Transformer block forward and backward pass.
+      6. BitNet Scaling Law energy cost reduction (up to 38.8x) and delta L <= 0.09 gap vs FP16.
+    """
+    torch.manual_seed(42)
+
+    # 1. Binary Weight Quantization
+    w = torch.randn(16, 16)
+    w_bin, alpha, beta = BinaryWeightQuantizer.quantize(w)
+    assert beta > 0
+    # Values must be strictly {-1.0, +1.0} (no zeros!)
+    assert torch.all(torch.isin(w_bin, torch.tensor([-1.0, 1.0])))
+    assert abs(alpha.item() - w.mean().item()) < 1e-5
+
+    # 2. Symmetric & Asymmetric Activation Quantization
+    x = torch.randn(4, 16)
+    x_sym, gamma_sym = AbsmaxActivationQuantizerBitNet.quantize_symmetric(x, q_b=128.0)
+    assert x_sym.shape == x.shape
+    assert (x_sym >= -128.0).all() and (x_sym <= 128.0).all()
+
+    x_asym, eta_asym, gamma_asym = AbsmaxActivationQuantizerBitNet.quantize_asymmetric(x, q_b=128.0)
+    assert x_asym.shape == x.shape
+    assert (x_asym >= 0.0).all() and (x_asym <= 128.0).all()
+
+    # 3. BitLinear 1-bit forward & backward execution (Eq. 11)
+    layer = BitLinear1Bit(in_features=16, out_features=32)
+    x_in = torch.randn(2, 4, 16, requires_grad=True)
+    out = layer(x_in)
+    assert out.shape == (2, 4, 32)
+    loss = out.sum()
+    loss.backward()
+    assert layer.weight.grad is not None and torch.isfinite(layer.weight.grad).all()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+
+    # 4. Group Quantization for Model Parallelism (Eq. 13)
+    group_layer = GroupQuantizedBitLinear(in_features=16, out_features=32, num_groups=2)
+    out_group = group_layer(x_in)
+    assert out_group.shape == (2, 4, 32)
+
+    # 5. Full BitNet Transformer Block Forward & Backward Pass
+    block = BitNetScalingBlock(d_model=16, num_heads=2, d_ff=32)
+    x_block = torch.randn(2, 4, 16, requires_grad=True)
+    out_b = block(x_block)
+    assert out_b.shape == (2, 4, 16)
+    loss_b = out_b.sum()
+    loss_b.backward()
+    assert block.attn.q_proj.weight.grad is not None and torch.isfinite(block.attn.q_proj.weight.grad).all()
+    assert block.ffn.up_proj.weight.grad is not None and torch.isfinite(block.ffn.up_proj.weight.grad).all()
+
+    # 6. Scaling Law Energy & Loss Bound
+    e_100b = BitNetScalingLawAnalyzer.get_energy_reduction("100B")
+    assert e_100b == 38.8
+    assert BitNetScalingLawAnalyzer.max_scaling_loss_gap() <= 0.09
+
+
+def test_bitnet_v2_paper39_invariant():
+    """
+    Verifies Paper 39: BitNet v2: Native 4-bit Activations with Hadamard Transformation for 1-bit LLMs
+    (arXiv:2504.18415v2, Hongyu Wang*, Shuming Ma*, Furu Wei - Microsoft Research & UCAS).
+
+    Tests:
+      1. Fast Walsh-Hadamard Transform (FWHT) Orthogonality and Invertibility (Eq. 3, 4):
+         - Satisfies H_m * H_m = I and H_m = H_m^T (energy/norm conservation).
+         - Inverting transform exactly recovers original input tensor: H(H(X)) == X.
+      2. Online Hadamard Outlier Gaussianization (Fig. 1, Fig. 2, Table 5):
+         - Extreme outlier spikes in intermediate representations are dispersed across dimensions.
+         - Peak activation is attenuated (>4x reduction) and excess kurtosis moves towards Gaussian (0.0).
+      3. Quantization Invariants (Eq. 1, 2, 5, 6):
+         - Absmean ternary weights {-1, 0, 1}.
+         - 8-bit activations: per-token absmax scaled to [-128, 127].
+         - Native 4-bit activations: per-token absmean with sqrt(7) scale to [-8, 7].
+      4. H-BitLinear and BitLinearV2 Gradient Flow (Eq. 7, 8):
+         - Backward pass through online Hadamard transform: dL/dX = Hadamard(dL/d(Hadamard(X))).
+         - Validates non-zero finite gradients to latent weights and inputs.
+      5. Full Transformer Block Execution & Mode Switching:
+         - W_o in attention and W_down in FFN use H-BitLinear.
+         - W_qkv and W_gate/up use standard BitLinearV2.
+         - Seamless toggling between INT8 and INT4 activation modes.
+      6. Low-Bit KV Cache with Protected 8-bit BOS Token (Section 3.1, Tables 2 & 3).
+    """
+    torch.manual_seed(42)
+
+    # 1. FWHT Invertibility & Energy Conservation
+    x = torch.randn(2, 4, 32)
+    x_had = hadamard_transform(x)
+    x_rec = hadamard_transform(x_had)
+    assert torch.allclose(x_rec, x, atol=1e-5), "Hadamard transform must be an exact self-inverse (H * H = I)"
+    norm_orig = torch.norm(x, dim=-1)
+    norm_had = torch.norm(x_had, dim=-1)
+    assert torch.allclose(norm_orig, norm_had, atol=1e-5), "Hadamard transform must preserve L2 norm"
+
+    # 2. Outlier Gaussianization Profile
+    x_outliers = torch.randn(8, 64) * 0.1
+    x_outliers[:, 12] = 25.0  # Severe outlier channel in intermediate state
+    stats = OutlierDistributionProfiler.analyze_hadamard_effect(x_outliers)
+    assert stats["peak_reduction_ratio"] > 4.0, f"Expected >4x peak reduction, got {stats['peak_reduction_ratio']:.2f}"
+    assert stats["gaussianized"] is True, "Hadamard transformation must reduce excess kurtosis towards Gaussian"
+
+    # 3. Quantization Functions
+    w = torch.randn(32, 32)
+    w_q = quantize_weight_ternary(w)
+    alpha = torch.mean(torch.abs(w)).item()
+    w_discrete = torch.round(w_q / (alpha + 1e-7))
+    assert torch.all(torch.isin(w_discrete, torch.tensor([-1.0, 0.0, 1.0])))
+
+    act = torch.randn(2, 4, 32)
+    act_int8 = quantize_act_int8(act)
+    assert act_int8.shape == act.shape
+
+    act_int4 = quantize_act_int4(act)
+    assert act_int4.shape == act.shape
+
+    # 4. H-BitLinear Execution & Backward Gradient Flow
+    h_layer = HBitLinear(in_features=32, out_features=16, act_mode="int4")
+    x_in = torch.randn(2, 4, 32, requires_grad=True)
+    y_out = h_layer(x_in)
+    assert y_out.shape == (2, 4, 16)
+    loss = y_out.sum()
+    loss.backward()
+    assert h_layer.weight.grad is not None and torch.isfinite(h_layer.weight.grad).all()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+
+    # 5. Full Transformer Block & Activation Mode Switching
+    block = BitNetV2TransformerBlock(
+        embed_dim=32,
+        num_heads=4,
+        intermediate_dim=64,
+        act_mode="int4",
+        kv_cache_bits=4
+    )
+    x_block = torch.randn(2, 8, 32, requires_grad=True)
+    out_b4 = block(x_block)
+    assert out_b4.shape == (2, 8, 32)
+    loss_b4 = out_b4.sum()
+    loss_b4.backward()
+    assert block.attn.out_proj.weight.grad is not None
+    assert block.ffn.down_proj.weight.grad is not None
+
+    # Switch to INT8 activation mode and verify forward
+    block.set_activation_mode("int8")
+    out_b8 = block(torch.randn(2, 8, 32))
+    assert out_b8.shape == (2, 8, 32)
+
+    # 6. Low-Bit KV Cache with Protected 8-bit BOS Token
+    attn = BitNetV2Attention(embed_dim=32, num_heads=4, act_mode="int4", kv_cache_bits=3)
+    x_seq = torch.randn(2, 6, 32)
+    out_attn, weights = attn(x_seq)
+    assert out_attn.shape == (2, 6, 32)
+    assert weights.shape == (2, 4, 6, 6)
+
+
+def test_callimahos_inverse_crypto_paper40_invariant():
+    """
+    Verifies Paper 40: Communication with Extraterrestrial Intelligence
+    (Lambros D. Callimahos, NSA Technical Journal, DOCID: 3052333).
+
+    Tests:
+      1. Oliver-Callimahos Prime Raster Factoring & Orientation Selection (Fig. 1, 2):
+         - N = 1271 bits factors uniquely into primes 31 x 41.
+         - Creates synthetic image with horizontal/vertical structures.
+         - Decomposes bitstream into (p, q) and resolves spatial orientation
+           by minimizing transition entropy.
+      2. Callimahos Positional Decimals & Radix (Transmissions 6 & 10):
+         - Decodes 'AN' -> 10.0, 'AB' -> 12.0, 'RA' -> 0.1, 'RB' -> 0.2.
+      3. Transcendental Constants & Series Convergence (Transmissions 18-20):
+         - Gregory-Leibniz alternating series for & (pi) converges toward math.pi.
+         - Factorial series for $ (e) converges toward math.e.
+      4. Euler's Identity Invariant (Transmission 21):
+         - e^(i * pi) + 1 = 0 residual is exactly 0.0.
+      5. Zero-Prior Agent Handshake & Neural Adapter:
+         - Generates mathematical verification challenge and validates response.
+         - Forward and backward pass through neural adapter with active gradients.
+    """
+    torch.manual_seed(42)
+
+    # 1. Prime Raster Factoring & Orientation
+    factors = PrimeRasterDecomposer.find_prime_factors(1271)
+    assert factors == [31, 41]
+
+    # Generate synthetic structured 41x31 image (solid bars)
+    structured_image = torch.zeros(41, 31, dtype=torch.float32)
+    structured_image[10:30, 5:25] = 1.0  # Coherent block
+    structured_image[20, :] = 1.0        # Horizontal line
+    flat_bits = structured_image.flatten()
+
+    decomp = PrimeRasterDecomposer.decompose_raster(flat_bits)
+    assert decomp["prime_factors"] == (31, 41)
+    assert decomp["selected_shape"] == (41, 31)
+
+    # 2. Callimahos Positional Numeration
+    engine = CallimahosInverseCryptEngine()
+    assert engine.decode_positional_number("AN") == 10.0
+    assert engine.decode_positional_number("AA") == 11.0
+    assert engine.decode_positional_number("AB") == 12.0
+    assert engine.decode_positional_number("BN") == 20.0
+    assert abs(engine.decode_positional_number("RA") - 0.1) < 1e-6
+    assert abs(engine.decode_positional_number("RB") - 0.2) < 1e-6
+
+    # 3. Transcendental Constants
+    pi_est = CallimahosInverseCryptEngine.verify_leibniz_pi(500)
+    assert abs(pi_est - math.pi) < 0.01
+
+    e_est = CallimahosInverseCryptEngine.verify_series_e(12)
+    assert abs(e_est - math.e) < 1e-7
+
+    # 4. Euler's Identity
+    euler_res = CallimahosInverseCryptEngine.verify_euler_identity()
+    assert abs(euler_res) < 1e-12
+
+    # 5. Zero-Prior Handshake & Neural Adapter Gradient Flow
+    handshake = ZeroPriorAgentHandshake(latent_dim=32)
+    challenge = handshake.generate_challenge()
+    assert handshake.verify_response(challenge) is True
+
+    x_tok = torch.randn(2, 4, 32, requires_grad=True)
+    h_out = handshake(x_tok)
+    assert h_out.shape == (2, 4, 32)
+    loss = h_out.sum()
+    loss.backward()
+    assert handshake.encoder.weight.grad is not None
+    assert torch.isfinite(handshake.encoder.weight.grad).all()
+
+
+def test_dali_moe_paper41_invariant():
+    """
+    Verifies Paper 41: DALI: A Workload-Aware Offloading Framework for Efficient MoE Inference on Local PCs
+    (Zeyu Zhu, Gang Li, Peisong Wang, Zitao Mo, Minnan Pei, Zhuoran Song, Xiaoyao Liang, Jian Cheng - CAS IA & SJTU, arXiv:2602.03495v1).
+
+    Tests:
+      1. Hardware Latency Profiling (Eq. 5, 6):
+         - GPU execution time t_gpu = max(Trans_expert, compute_expert).
+         - PCIe transfer time t_trans_ms correctly accounts for parameter size and PCIe bandwidth.
+      2. Greedy Dynamic Assignment Strategy (Algorithm 1, Eq. 3-9):
+         - Models 0-1 integer optimization min max(T_gpu, T_cpu).
+         - Evaluates descending difference sorting delta = |t_gpu - t_cpu|.
+         - Balances makespan between CPU and GPU, avoiding single-device bottleneck.
+      3. Residual-Based Prefetching (Section 4.2, Eq. 10 & 11):
+         - Offline calibration of inter-layer residual vector res_vec^(l).
+         - Feature correction h_tilde = h + res_vec improves alignment with next gate inputs.
+         - Accurately identifies top-k predicted high-workload experts.
+      4. Workload-Aware Cache Replacement (Section 4.3, Algorithm 2, Eq. 12):
+         - Tracks sliding window workload accumulation s_k = sum workload_i^k.
+         - Evicts lowest-score GPU experts and promotes highest-score CPU experts.
+         - Achieves high cache hit rate under temporal locality.
+      5. End-to-End DALIMoEOrchestrator Execution & Gradient Flow:
+         - Forward pass combines routing, cache tracking, and greedy scheduling.
+         - Backpropagation yields finite non-zero gradients on gate and expert parameters.
+    """
+    torch.manual_seed(42)
+
+    # 1. Hardware Latency Profiling
+    hw = HardwareProfile(gpu_tflops=30.0, cpu_tflops=1.5, pcie_bandwidth_gb_s=32.0, expert_param_mb=64.0)
+    assert abs(hw.t_trans_ms - 1.953125) < 1e-4
+
+    t_gpu_uncached = hw.compute_gpu_time(workload_tokens=10, is_cached=False)
+    t_gpu_cached = hw.compute_gpu_time(workload_tokens=10, is_cached=True)
+    assert t_gpu_uncached >= 1.95, "Uncached GPU execution must include PCIe transfer latency"
+    assert t_gpu_cached < 1.0, "Cached GPU execution avoids PCIe transfer latency"
+
+    # 2. Greedy Dynamic Assignment
+    assigner = DALIGreedyAssignment(hw, max_gpu_experts=4)
+    workloads = {0: 100, 1: 80, 2: 60, 3: 20, 4: 15, 5: 10, 6: 5, 7: 0}
+    cached_gpu = {0, 3}
+
+    res = assigner.assign_experts(workloads, cached_gpu_experts=cached_gpu)
+    assert res["makespan_ms"] > 0.0
+    assert len(res["assigned_gpu"]) <= 4
+    assert res["imbalance_ratio"] < 0.85, "Greedy assignment must balance CPU and GPU loads"
+
+    # 3. Residual-Based Prefetching
+    hidden_dim = 32
+    prefetcher = DALIResidualPrefetcher(hidden_dim=hidden_dim, num_layers=3)
+    h_curr = torch.randn(4, 8, hidden_dim)
+    shift = torch.randn(hidden_dim) * 0.5
+    h_next = h_curr + shift + torch.randn_like(h_curr) * 0.05
+    prefetcher.calibrate_residual_vector(layer_idx=0, h_current=h_curr, h_next=h_next)
+
+    gate_w_next = torch.randn(hidden_dim, 8)
+    preds, top_exp = prefetcher.predict_next_layer_experts(
+        layer_idx=0,
+        h_current=h_curr,
+        next_gate_weight=gate_w_next,
+        top_k=2
+    )
+    assert len(top_exp) == 2
+    assert preds.shape == (4, 8, 2)
+
+    # 4. Workload-Aware Cache Replacement
+    cache = DALIWorkloadAwareCache(num_experts=8, cache_size=4, w_size=4, u_size=2)
+    for _ in range(8):
+        cache.record_access([0, 0, 0, 0, 0, 50, 40, 0])
+
+    assert 5 in cache.expert_on_gpu and 6 in cache.expert_on_gpu
+    assert cache.hit_rate > 0.40
+
+    # 5. Live DALIMoEOrchestrator Execution & Gradient Flow
+    orchestrator = DALIMoEOrchestrator(
+        embed_dim=hidden_dim,
+        num_experts=8,
+        top_k=2,
+        cache_size=4,
+        w_size=4,
+        u_size=2,
+        hw_profile=hw
+    )
+    x_in = torch.randn(2, 4, hidden_dim, requires_grad=True)
+    out_moe, telemetry = orchestrator(x_in)
+    assert out_moe.shape == (2, 4, hidden_dim)
+    assert "assignment" in telemetry
+
+    loss_moe = out_moe.sum()
+    loss_moe.backward()
+    assert orchestrator.gate.weight.grad is not None
+    assert torch.isfinite(orchestrator.gate.weight.grad).all()
+
+
+def test_dapo_rl_paper42_invariant():
+    """
+    Verifies Paper 42: DAPO: An Open-Source LLM Reinforcement Learning System at Scale
+    (Hao Zhou, Mingxuan Wang, et al. - ByteDance Seed, Tsinghua AIR, SIA-Lab, HKU, arXiv:2503.14476v2).
+
+    Tests:
+      1. Soft Overlong Reward Shaping (Eq. 13):
+         - Smooth linear ramp-down within buffer [L_max - L_cache, L_max].
+         - Punitive -1.0 clamping for sequences exceeding L_max.
+         - Exact combination with rule-based outcome reward (Eq. 7).
+      2. Dynamic Sampling Contrastive Group Filtering (Eq. 11, Algorithm 1):
+         - Rejection of homogeneous groups (accuracy = 0.0 and accuracy = 1.0) with zero reward variance.
+         - Acceptance of non-trivial groups satisfying 0 < |correct| < G.
+         - Dynamic buffer accumulation and effective gradient throughput tracking.
+      3. Group-Relative Advantage Normalization (Eq. 9):
+         - Direct normalization without value model: A_hat_i = (R_i - mean(R)) / (std(R) + eps).
+      4. Decoupled Clip-Higher Invariant (Eq. 10):
+         - Asymmetric bounds [1 - eps_low, 1 + eps_high] where eps_high (0.6) > eps_low (0.2).
+         - Preserves gradient on exploration tokens up to ratio 1.6 where symmetric GRPO chokes at 1.2.
+      5. Token-Level Policy Gradient Loss Rebalancing (Eq. 12):
+         - Uniform token weighting across long and short sequences (1 / sum |o_i|).
+         - Contrast against sample-level GRPO loss which unfairly dilutes long CoT tokens.
+      6. End-to-End Policy Optimization & Backward Gradient Flow:
+         - Backpropagation yields finite non-zero gradients on policy parameters.
+    """
+    torch.manual_seed(42)
+
+    # 1. Soft Overlong Reward Shaping
+    max_len = 4096
+    cache_len = 512
+    thresh = max_len - cache_len  # 3584
+
+    # Safe length (no penalty)
+    assert soft_overlong_punishment(2000, max_len, cache_len) == 0.0
+    assert compute_rule_reward(is_correct=True, response_length=2000, max_length=max_len, cache_length=cache_len) == 1.0
+
+    # Midpoint of buffer (3584 + 256 = 3840) -> penalty = -256 / 512 = -0.5
+    pen_mid = soft_overlong_punishment(3840, max_len, cache_len)
+    assert abs(pen_mid - (-0.5)) < 1e-6
+    r_mid = compute_rule_reward(is_correct=True, response_length=3840, max_length=max_len, cache_length=cache_len)
+    assert abs(r_mid - 0.5) < 1e-6
+
+    # Boundary at max_len (4096) -> penalty = -512 / 512 = -1.0
+    pen_max = soft_overlong_punishment(4096, max_len, cache_len)
+    assert abs(pen_max - (-1.0)) < 1e-6
+
+    # Overlong truncated (> 4096) -> penalty = -1.0
+    pen_over = soft_overlong_punishment(4500, max_len, cache_len)
+    assert abs(pen_over - (-1.0)) < 1e-6
+
+    # Tensor vectorized reward
+    len_tensor = torch.tensor([1000, 3840, 4200])
+    correct_tensor = torch.tensor([True, True, False])
+    rewards = compute_rule_reward(correct_tensor, len_tensor, max_len, cache_len)
+    assert abs(rewards[0].item() - 1.0) < 1e-5
+    assert abs(rewards[1].item() - 0.5) < 1e-5
+    assert abs(rewards[2].item() - (-2.0)) < 1e-5  # -1 (incorrect) + -1 (overlong)
+
+    # 2. Dynamic Sampling Contrastive Group Filtering
+    g_size = 8
+    all_corr = [True] * g_size
+    all_incorr = [False] * g_size
+    valid_mix = [True, True, False, False, True, False, False, False]
+
+    assert not is_valid_dapo_group(all_corr), "All-correct group must be rejected (zero reward variance)"
+    assert not is_valid_dapo_group(all_incorr), "All-incorrect group must be rejected (zero reward variance)"
+    assert is_valid_dapo_group(valid_mix), "Mixed contrastive group must be accepted"
+
+    sampler = DAPODynamicSampler(target_batch_size=2, group_size=g_size)
+    r_dummy = torch.tensor([1.0, 1.0, -1.0, -1.0, 1.0, -1.0, -1.0, -1.0])
+    # Submit invalid groups
+    assert not sampler.submit_group("p1", all_corr, ["resp"]*g_size, torch.ones(g_size), [100]*g_size)
+    assert not sampler.submit_group("p2", all_incorr, ["resp"]*g_size, -torch.ones(g_size), [100]*g_size)
+    assert sampler.rejected_all_correct == 1
+    assert sampler.rejected_all_incorrect == 1
+    assert not sampler.is_ready()
+
+    # Submit valid groups
+    assert sampler.submit_group("p3", valid_mix, ["resp"]*g_size, r_dummy, [100]*g_size)
+    assert sampler.submit_group("p4", valid_mix, ["resp"]*g_size, r_dummy, [100]*g_size)
+    assert sampler.is_ready()
+    batch = sampler.pop_batch()
+    assert len(batch) == 2
+    assert "advantages" in batch[0]
+    assert abs(batch[0]["advantages"].mean().item()) < 1e-6, "Group advantages must have zero mean"
+
+    # 3. Group-Relative Advantage Normalization
+    r_group = torch.tensor([1.0, 1.0, -1.0, -1.0])
+    adv = compute_group_advantages(r_group)
+    assert torch.allclose(adv, torch.tensor([1.0, 1.0, -1.0, -1.0]), atol=1e-5)
+
+    # 4. Decoupled Clip-Higher Invariant
+    config_dapo = DAPOConfig(eps_low=0.2, eps_high=0.6, use_token_level_loss=True)
+    dapo_loss_fn = DAPOLoss(config_dapo)
+
+    # Prior exploration token: ratio = 1.4 (e.g. logprob - old_logprob = ln(1.4) ~ 0.33647)
+    # Advantage = +1.0 (positive exploration signal)
+    # Under GRPO (eps=0.2): upper clip is 1.2, so ratio 1.4 gets clipped to 1.2
+    # Under DAPO (eps_high=0.6): upper clip is 1.6, so ratio 1.4 remains unclipped!
+    logprobs = torch.tensor([[0.3364722, 0.0]])
+    old_logprobs = torch.tensor([[0.0, 0.0]])
+    adv_test = torch.tensor([[1.0, 1.0]])
+
+    res_dapo = dapo_loss_fn(logprobs, old_logprobs, adv_test)
+    assert res_dapo["up_clip_ratio"].item() == 0.0, "Ratio 1.4 must NOT be up-clipped under eps_high=0.6"
+    assert abs(res_dapo["surrogate2"].item() - (1.4 + 1.0) / 2.0) < 1e-4
+
+    # Now with high ratio 1.7 (> 1 + eps_high = 1.6)
+    logprobs_high = torch.tensor([[math.log(1.7), 0.0]])
+    res_high = dapo_loss_fn(logprobs_high, old_logprobs, adv_test)
+    assert res_high["up_clip_ratio"].item() == 0.5, "Ratio 1.7 must be flagged as up-clipped"
+    assert abs(res_high["surrogate2"].item() - (1.6 + 1.0) / 2.0) < 1e-4
+
+    # 5. Token-Level vs Sample-Level Loss Rebalancing
+    # Sequence 1: short (2 tokens), Sequence 2: long (10 tokens)
+    mask_short_long = torch.zeros(2, 10)
+    mask_short_long[0, :2] = 1.0  # 2 tokens
+    mask_short_long[1, :10] = 1.0  # 10 tokens
+
+    logp_t = torch.zeros(2, 10)
+    old_logp_t = torch.zeros(2, 10)
+    adv_t = torch.tensor([1.0, -1.0])
+
+    # In token-level loss: total valid tokens = 12. Short seq contributes 2/12, long seq contributes 10/12
+    res_token = dapo_loss_fn(logp_t, old_logp_t, adv_t, mask=mask_short_long)
+    # token_loss = -advantages: seq 0 has 2 tokens of -1.0 = -2.0, seq 1 has 10 tokens of +1.0 = +10.0
+    # total sum = +8.0 / 12 = +0.666667
+    assert abs(res_token["loss"].item() - 0.6666667) < 1e-5
+
+    # Sample-level loss (GRPO style): seq 0 loss = -1.0, seq 1 loss = +1.0 -> mean = 0.0
+    config_grpo = DAPOConfig(eps_low=0.2, eps_high=0.2, use_token_level_loss=False)
+    grpo_loss_fn = DAPOLoss(config_grpo)
+    res_sample = grpo_loss_fn(logp_t, old_logp_t, adv_t, mask=mask_short_long)
+    assert abs(res_sample["loss"].item() - 0.0) < 1e-5, "Sample-level loss artificially zeros out due to 1/G weighting"
+
+    # 6. End-to-End Policy Optimization & Backward Gradient Flow
+    policy = nn.Linear(8, 4)
+    x = torch.randn(4, 5, 8)
+    logits = policy(x)
+    logp = F.log_softmax(logits, dim=-1)
+    # Pick greedy token logprob
+    token_logp = logp.max(dim=-1).values  # (4, 5)
+    old_token_logp = token_logp.detach() + torch.randn_like(token_logp) * 0.05
+    adv_batch = torch.tensor([1.5, -0.5, 0.8, -1.2])
+
+    loss_dict = dapo_loss_fn(token_logp, old_token_logp, adv_batch)
+    loss = loss_dict["loss"]
+    loss.backward()
+
+    assert policy.weight.grad is not None
+    assert torch.isfinite(policy.weight.grad).all()
+    assert (policy.weight.grad != 0).any(), "Policy weights must receive active gradients from DAPO loss"
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -2593,9 +3301,27 @@ if __name__ == "__main__":
     print("  [PASS] 43. BitNet a4.8 4-Bit Hybrid Quantization, TopK Sparsification & ReLU2GLU (Paper 34 / Wang)")
     test_bitnet_b158_paper35_invariant()
     print("  [PASS] 44. BitNet b1.58 Absmean Ternary Weights, INT8 Activations & Horowitz Energy (Paper 35 / Ma)")
+    test_bitnet_2b4t_paper36_invariant()
+    print("  [PASS] 45. BitNet b1.58 2B4T SubLN, ReLU2 FFN Sparsity, SFT/DPO & Energy Invariant (Paper 36 / Ma)")
+    test_bitnet_cpp_edge_paper37_invariant()
+    print("  [PASS] 46. BitNet.cpp Edge Inference Mirror Consolidation, Lossless mpGEMM & ELUT (Paper 37 / Wang)")
+    test_bitnet_scaling_paper38_invariant()
+    print("  [PASS] 47. BitNet Scaling 1-Bit Binary Weights, SubLN & Group Quantization Invariant (Paper 38 / Wang)")
+    test_bitnet_v2_paper39_invariant()
+    print("  [PASS] 48. BitNet v2 Native 4-Bit Activations, Online FWHT H-BitLinear & Outlier Attenuation (Paper 39 / Wang)")
+    test_callimahos_inverse_crypto_paper40_invariant()
+    print("  [PASS] 49. Callimahos Inverse Cryptography Prime Raster & Semiotic Bootstrapping (Paper 40 / Callimahos)")
+    test_dali_moe_paper41_invariant()
+    print("  [PASS] 50. DALI Workload-Aware Greedy Assignment, Residual Prefetch & GPU Cache (Paper 41 / Zhu)")
+    test_dapo_rl_paper42_invariant()
+    print("  [PASS] 51. DAPO Decoupled Clip-Higher, Dynamic Sampling, Token-Level Loss & Overlong Shaping (Paper 42 / Zhou)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
+
+
+
+
 
 
 

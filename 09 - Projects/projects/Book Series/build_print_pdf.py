@@ -102,11 +102,11 @@ def build(src_file: Path, title: str, num: int) -> Path:
     # title page
     story += [Spacer(1, 2.2 * inch),
               Paragraph(md_inline(title), title_style), Spacer(1, 0.3 * inch),
-              Paragraph(f"Book {num} of the Quillan-Ronin Saga", center_style),
+              Paragraph(f"Book {num} of the Hybrid Throne", center_style),
               Spacer(1, 1.5 * inch), Paragraph(AUTHOR, center_style), PageBreak()]
     # copyright page
     story += [Spacer(1, 2.5 * inch),
-              Paragraph(f"{title}<br/>Book {num} of the Quillan-Ronin Saga<br/><br/>"
+              Paragraph(f"{title}<br/>Book {num} of the Hybrid Throne<br/><br/>"
                         f"Copyright \u00a9 2026 by {AUTHOR}<br/><br/>"
                         "All rights reserved. No part of this publication may be reproduced, "
                         "distributed, or transmitted in any form or by any means without the "
@@ -115,6 +115,14 @@ def build(src_file: Path, title: str, num: int) -> Path:
                         "are products of the author's imagination.<br/><br/>"
                         "First edition, 2026", copy_style),
               PageBreak()]
+    # single auto TOC (one page, no dupes)
+    story += [Paragraph("Contents", chap_style)]
+    toc_style = ParagraphStyle("toc", parent=center_style, alignment=0, leftIndent=36, spaceAfter=3)
+    CHAP_RE = __import__("re")
+    for heading, lines in chunks:
+        if heading and heading != "Front Matter":
+            story.append(Paragraph(CHAP_RE.sub(r"^#{1,3}\s+", "", heading) if heading.startswith("#") else heading, toc_style))
+    story.append(PageBreak())
     # chapters
     for heading, lines in chunks:
         if heading and heading != "Front Matter":
@@ -177,3 +185,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -3,13 +3,17 @@
   "showUnlinkedFiles": true,
   "excludedFolders": [
     ".git",
+    ".gitnexus",
     "__pycache__",
     ".pytest_cache",
     "checkpoints",
-    "venv_cuda1050",
-    "_config/.venv",
-    "_config/.venv-cuda",
-    "_config/__pycache__"
+    ".venv-mazebench",
+    ".venv*",
+    "venv*",
+    "node_modules",
+    "mcp/*/node_modules",
+    "quillan_rag_db",
+    "_obsidian_backup"
   ],
-  "templateFolder": "00 - Templates"
+  "templateFolder": "08 - Templates & Config"
 }

@@ -264,3 +264,7 @@ lancedb/
 09 - Projects/projects/ronineq/ronineq/build/
 *.lib
 *.exp
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json
