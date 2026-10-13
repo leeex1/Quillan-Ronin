@@ -145,6 +145,18 @@ from bitnet_cpu_infra import (
     TL2Kernel,
     BitNetCPULinear
 )
+from bitnet_a48 import (
+    BitNetWeightQuantizer,
+    ActivationINT4Quantizer,
+    ActivationINT8Quantizer,
+    ActivationFP4Quantizer,
+    TopKSparsifier,
+    BitLinearA48,
+    BitNetA48MultiHeadAttention,
+    BitNetA48FFN,
+    BitNetA48TransformerBlock
+)
+
 
 
 
@@ -2369,10 +2381,70 @@ def test_bitnet_cpu_infra_paper33_invariant():
     assert torch.allclose(y_tl1, y_tl2, atol=1e-5)
 
 
+# ─── 43. BITNET a4.8: 4-BIT ACTIVATIONS FOR 1-BIT LLMS (PAPER 34) ─────────────
+
+def test_bitnet_a48_paper34_invariant():
+    """
+    Paper 34 (BitNet a4.8, Hongyu Wang et al., Microsoft Research, 2024):
+    Verifies:
+      1. Ternary weight quantizer Q_w(W) with absmean scaling alpha.
+      2. 4-bit activation quantizer Q_INT4(X) with absmean beta and sqrt(7) dynamic scaling.
+      3. Top-K 50% sparsification with 8-bit activation quantization for attention output projection.
+      4. ReLU^2 GLU feed-forward intermediate state generating >40% natural activation sparsity.
+      5. BitNetA48TransformerBlock forward execution with SubLN and backward gradient propagation via STE.
+    """
+    torch.manual_seed(42)
+
+    # 1. Ternary Weight Quantization
+    w = torch.randn(16, 16)
+    w_q, alpha = BitNetWeightQuantizer.quantize(w)
+    assert alpha > 0
+    # Values divided by alpha must be in {-1, 0, 1}
+    w_normalized = torch.round(w_q / alpha)
+    assert torch.all(torch.isin(w_normalized, torch.tensor([-1.0, 0.0, 1.0])))
+
+    # 2. 4-bit Activation Quantization (INT4)
+    x = torch.randn(4, 16)
+    x_int4, beta = ActivationINT4Quantizer.quantize(x)
+    assert x_int4.shape == x.shape
+    c = math.sqrt(7.0)
+    # Check that scaled values map to integer range [-8, 7]
+    scaled_q = torch.round(x_int4 * (c / beta))
+    assert (scaled_q >= -8.0).all() and (scaled_q <= 7.0).all()
+
+    # 3. Top-K Sparsification (50%) & INT8 Quantization
+    x_dense = torch.randn(4, 16)
+    x_sparse, mask = TopKSparsifier.apply(x_dense, k_ratio=0.5)
+    # Exactly 50% elements kept non-zero
+    assert (mask.sum(dim=-1) == 8).all()
+    x_int8, gamma = ActivationINT8Quantizer.quantize(x_sparse)
+    assert x_int8.shape == x_dense.shape
+
+    # 4. ReLU^2 GLU Intermediate Activation Sparsity
+    ffn = BitNetA48FFN(d_model=32, d_ff=64)
+    x_ffn = torch.randn(2, 4, 32)
+    out_ffn, meta_ffn = ffn(x_ffn)
+    assert out_ffn.shape == (2, 4, 32)
+    assert meta_ffn["ffn_intermediate_sparsity"] > 0.40  # Significant natural sparsity from ReLU^2
+
+    # 5. Full Transformer Block Forward & Backward Pass
+    block = BitNetA48TransformerBlock(d_model=32, num_heads=4, d_ff=64, topk_ratio=0.5)
+    x_in = torch.randn(2, 4, 32, requires_grad=True)
+    out_block, block_meta = block(x_in)
+    assert out_block.shape == (2, 4, 32)
+
+    loss = out_block.sum()
+    loss.backward()
+    assert block.attn.q_proj.weight.grad is not None and torch.isfinite(block.attn.q_proj.weight.grad).all()
+    assert block.ffn.up_proj.weight.grad is not None and torch.isfinite(block.ffn.up_proj.weight.grad).all()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
     print("=" * 70)
+
 
     test_bitnet_ternary_quantization_active()
     print("  [PASS] 1. BitNet 1.58b / STE Ternary Invariant")
@@ -2458,9 +2530,12 @@ if __name__ == "__main__":
     print("  [PASS] 41. Beyond 1.58 Bits Laplace Analytic Theory & 34-Expert Fully-Ternary MoE (Paper 32 / CrashOverrideX)")
     test_bitnet_cpu_infra_paper33_invariant()
     print("  [PASS] 42. 1-bit AI Infra bitnet.cpp I2_S, TL1 & TL2 Lossless Inference Kernels (Paper 33 / Wang)")
+    test_bitnet_a48_paper34_invariant()
+    print("  [PASS] 43. BitNet a4.8 4-Bit Hybrid Quantization, TopK Sparsification & ReLU2GLU (Paper 34 / Wang)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
+
 
 
 

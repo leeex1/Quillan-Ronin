@@ -152,6 +152,17 @@ class Handler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(body)
             return
+        if self.path.startswith("/spider-3d.js"):
+            try:
+                body = (DASH_DIR / "spider-3d.js").read_bytes()
+            except Exception as e:
+                return self._json({"error": "spider-3d.js missing: %s" % e}, 404)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
         if self.path.startswith("/api/trail"):
             try:
                 return self._json(json.loads((SPIDER_DIR / "trail.json").read_text(encoding="utf-8")))

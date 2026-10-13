@@ -1729,13 +1729,26 @@
               <strong class="panel-title" id="spiderCanvasTitle">SECOND BRAIN SYNAPTIC MESH // QUILLAN C0 CORE</strong>
               <span class="panel-meta" id="spiderPos">pos: —</span>
               <button class="primary-btn" id="spiderModeBtn" type="button" style="margin-left:8px;background:var(--cyan);color:#071013;font-weight:800;">VIEW: SECOND BRAIN (NEURAL WEB)</button>
+              <button class="primary-btn" id="spiderDimBtn" type="button" style="margin-left:8px;background:#f6b84b;color:#071013;font-weight:800;">DIM: 2D → 3D</button>
               <span class="panel-meta" id="spiderMemMeta">memory: —</span>
             </header>
             <div class="graph-wrap" id="spiderWrap" style="height:440px;position:relative;overflow:hidden;background:#050d0f;">
               <canvas id="spiderCanvas" aria-hidden="true" style="width:100%;height:100%;display:block;cursor:crosshair;"></canvas>
+              <canvas id="spider3DCanvas" aria-hidden="true" style="width:100%;height:440px;display:none;cursor:grab;"></canvas>
+              <div id="specPhaseBar" style="position:absolute;top:0;left:0;right:0;display:flex;gap:2px;padding:4px 6px;background:rgba(3,8,10,0.78);font:800 9px var(--mono);z-index:5;"></div>
               <div id="spiderCanvasTooltip" style="position:absolute;pointer-events:none;padding:4px 8px;background:rgba(7,16,19,0.95);border:1px solid var(--cyan);border-radius:3px;font:800 9px/1.2 var(--mono);color:var(--cyan);display:none;z-index:10;"></div>
             </div>
           </section>
+          <!-- SPEC-CRAWLER HUD (video look): crawl log / sections / radar / heat / score / code -->
+          <section class="panel" style="margin:8px 0 0;" aria-label="Spec crawler HUD">
+            <div id="specHud" style="display:grid;grid-template-columns:1.2fr 1fr 0.8fr 0.9fr 0.7fr 1.2fr;gap:8px;padding:8px 10px;background:#03080a;font:9px/1.5 var(--mono);color:var(--muted);">
+              <div><b style="color:var(--cyan)">CRAWL LOG</b><div id="specLog">awaiting run…</div></div>
+              <div><b style="color:var(--cyan)">SECTIONS</b><div id="specSections">role · objective · context · rules · review · start · ship</div></div>
+              <div><b style="color:var(--cyan)">COVERAGE</b><div id="specRadar">radar: live on run</div></div>
+              <div><b style="color:var(--cyan)">WORD HEAT</b><div id="specHeat">heat: live on run</div></div>
+              <div><b style="color:var(--cyan)">SPEC SCORE</b><div id="specScore" style="font-size:18px;color:#f6b84b;">—</div></div>
+              <div><b style="color:var(--cyan)">CRAWLER.PY</b><div id="specCode">spec-run wiring lands next</div></div>
+            </div>
 
           <!-- RIGHT: LIVE FILE & PAGE READER HUD (What the spider is reading) -->
           <section class="panel" style="margin-bottom:0;display:flex;flex-direction:column;" aria-labelledby="spiderReaderTitle">
@@ -1938,6 +1951,7 @@
   </div>
 
   <script src="spider-graph.js"></script>
+  <script src="spider-3d.js"></script>
   <script>
     (function () {
       "use strict";
@@ -4833,6 +4847,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           var grew = !spiderData || d.trail.length !== spiderData.trail.length;
           spiderData = d;
           if (window.SpiderGraph) { try { SpiderGraph.setData(d); } catch (e) {} }
+          if (window.Spider3D) { try { Spider3D.setData(d); } catch (e) {} }
           try {
             var ares = await fetch(spiderApiBase + "/api/agents", { cache: "no-store" });
             if (ares.ok) {
@@ -4840,13 +4855,18 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
               if (window.SpiderGraph && aj && Array.isArray(aj.agents)) {
                 try { SpiderGraph.setAgents(aj.agents); } catch (e) {}
               }
-            } else if (window.SpiderGraph) {
-              try { SpiderGraph.setAgents([]); } catch (e) {}
+              if (window.Spider3D && aj && Array.isArray(aj.agents)) {
+                try { Spider3D.setAgents(aj.agents); } catch (e) {}
+              }
+            } else {
+              if (window.SpiderGraph) { try { SpiderGraph.setAgents([]); } catch (e) {} }
+              if (window.Spider3D) { try { Spider3D.setAgents([]); } catch (e) {} }
             }
           } catch (e) {
             // preview sandbox blocks localhost: still show ghost perches so the
             // canvas reads as alive instead of blank
             if (window.SpiderGraph) { try { SpiderGraph.setAgents([]); } catch (err) {} }
+            if (window.Spider3D) { try { Spider3D.setAgents([]); } catch (err) {} }
           }
           if (reset) spiderShown = d.trail.length;
           spiderPollCount = (spiderPollCount || 0) + 1;
@@ -5936,7 +5956,23 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           }
         } catch (e) {}
         var show = v && !v.hidden;
-        if (window.SpiderGraph) {
+        var dim3 = (window.__spiderDim === "3d");
+        var c2 = document.getElementById("spiderCanvas");
+        var c3 = document.getElementById("spider3DCanvas");
+        if (c2) c2.style.display = dim3 ? "none" : "block";
+        if (c3) c3.style.display = dim3 ? "block" : "none";
+        if (dim3 && window.Spider3D) {
+          try {
+            if (!window.__spider3DReady) {
+              window.__spider3DReady = Spider3D.init("spider3DCanvas");
+            }
+            Promise.resolve(window.__spider3DReady).then(function (ok) {
+              if (ok !== false) { if (show) Spider3D.show(); else Spider3D.hide(); }
+            });
+          } catch (e) {}
+          if (window.SpiderGraph) { try { SpiderGraph.hide(); } catch (e) {} }
+        }
+        if (window.SpiderGraph && !dim3) {
           // Lean renderer owns the canvas now (spider-graph.js); legacy spiderDraw retired.
           SpiderGraph.start("spiderCanvas");
           if (show) SpiderGraph.show(); else SpiderGraph.hide();
@@ -6225,6 +6261,15 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         if (depBtn && !depBtn.dataset.wired) { depBtn.addEventListener("click", triggerQuillanTakeover); depBtn.dataset.wired = "1"; }
 
         var mb = document.getElementById("spiderModeBtn");
+        var dimBtn = document.getElementById("spiderDimBtn");
+        if (dimBtn && !dimBtn.dataset.wired) {
+          dimBtn.dataset.wired = "1";
+          dimBtn.addEventListener("click", function () {
+            window.__spiderDim = (window.__spiderDim === "3d") ? "2d" : "3d";
+            dimBtn.textContent = (window.__spiderDim === "3d") ? "DIM: 3D → 2D" : "DIM: 2D → 3D";
+            try { spiderTick(true); } catch (e) {}
+          });
+        }
         if (mb && !mb.dataset.wired) { mb.addEventListener("click", spiderToggleMode); mb.dataset.wired = "1"; }
 
         var clrBtn = document.getElementById("spiderClearLogBtn");
