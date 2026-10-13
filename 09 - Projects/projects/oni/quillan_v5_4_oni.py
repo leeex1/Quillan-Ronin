@@ -440,14 +440,16 @@ except ImportError:
     _PAPER_31_35_WIRED = False
 
 # Papers 26-30/135 (2608.17896v1 + 2608.17981v1 + 2608.23552v1 + 2608.24646v1 + 2608.24735v1): Recurrent Compression & Diffusion Pack
-# 26: Dynamic Compression in Recurrent Networks ? rate-distortion in recurrence
-# 27: (recurrent harness) ? 33p complement to GRT/Memo
-# 28: Prime Agent: Code is World Brain ? REPL-based world model (Quillan)
-# 29: DiffusionOPSD ? on-policy self-distillation for diffusion (64p)
-# 30: Metan ? recursive self-improvement through emergent depth (22p)
+# 25: Dynamic Compression in Recurrent Networks (2608.17896v1) — matrix-valued Gated DeltaNet & selective re-scan
+# 26: Recirculation & Adaptive Recirculation (2608.17981v1) — DeepMind inference-time recurrence & token-conditional MLP
+# 28: Prime Agent: Code is World Brain — REPL-based world model (Quillan)
+# 29: DiffusionOPSD — on-policy self-distillation for diffusion (64p)
+# 30: Metan — recursive self-improvement through emergent depth (22p)
 try:
     from paper_26_30_recurrent_diffusion_pack import (
-        RecurrentDiffusionPack, DynamicCompressionLoss, DiffusionSelfDistillationLoss, EmergentDepthController
+        RecurrentDiffusionPack, DynamicCompressionLoss, DiffusionSelfDistillationLoss, EmergentDepthController,
+        GatedDeltaNetLayer, DynamicRecurrentCompressor,
+        RecirculationNormMode, RecirculationLayer, AdaptiveRecirculationMLP, RecirculationEngine
     )
     _PAPER_26_30_WIRED = True
 except ImportError:
@@ -455,7 +457,27 @@ except ImportError:
     DynamicCompressionLoss = None
     DiffusionSelfDistillationLoss = None
     EmergentDepthController = None
+    GatedDeltaNetLayer = None
+    DynamicRecurrentCompressor = None
+    RecirculationNormMode = None
+    RecirculationLayer = None
+    AdaptiveRecirculationMLP = None
+    RecirculationEngine = None
     _PAPER_26_30_WIRED = False
+
+# Paper 27/135 (2609.11677v1): ECDYSIS Runtime Harness Self-Evolution & FDCR
+try:
+    from ecdysis_harness import (
+        EcdysisHarnessEvolver, FailureRecord, FailurePatternGroup, FDCRRefiner, StructuredModificationSpecification
+    )
+    _PAPER_27_ECDYSIS_WIRED = True
+except ImportError:
+    EcdysisHarnessEvolver = None
+    FailureRecord = None
+    FailurePatternGroup = None
+    FDCRRefiner = None
+    StructuredModificationSpecification = None
+    _PAPER_27_ECDYSIS_WIRED = False
 
 # Papers 21-25/135 (2608.15062v4 + 2608.16578v1 + 2608.16801v1 + 2608.17271v1 + 2608.17286v1): Recurrence, Coordination & Evaluation Pack
 # 21: GRT ? Gated Recurrent Transformers, 3-layer core iterated R=4 = 12-layer quality (THE breakneck paper)
@@ -3358,15 +3380,19 @@ class QuillanRoninOni(nn.Module):
         if getattr(self, "profiler_enabled", False):
             self._fired.append(("step_profiler", {"device": str(x.device), "seq_len": T, "batch_size": B}))
 
-        # Papers 5-7: AxoNN 4D Hybrid Strategy & Heterogeneous Allocation
+        # Papers 5-7: AxoNN 4D Hybrid Strategy & Heterogeneous Allocation (2410.05686v1 / 2502.08145v1 / 2502.11129v1)
         if getattr(self, "hetero_manager", None) is not None:
             try:
                 _strategy = self.hetero_manager.get_strategy(seq_len=T, batch_size=B)
+                _coalesce_info = self.hetero_manager.cuda_pack.audit_coalescing(x)
+                if not _coalesce_info["is_contiguous"]:
+                    x = x.contiguous()
                 self._fired.append(("hetero_strategy", {
                     "strategy": _strategy.name,
                     "dp": _strategy.dp_degree,
                     "sp": _strategy.sp_degree,
-                    "gc": _strategy.use_grad_checkpoint
+                    "gc": _strategy.use_grad_checkpoint,
+                    "coalesced": _coalesce_info["is_contiguous"]
                 }))
             except Exception:
                 pass
@@ -3580,7 +3606,8 @@ class QuillanRoninOni(nn.Module):
                 ce = torch.tensor(0.0, device=logits.device)
             aux = self._aux_losses(x, last_probs, total_lb, total_z, total_ent,
                                    e_ice_out if last_probs is not None else None,
-                                   teacher_tokens=teacher_tokens, proxy_logits=proxy_logits,
+                                   teacher_tokens=teacher_tokens if teacher_tokens is not None else labels,
+                                   proxy_logits=proxy_logits,
                                    logits=logits, hidden=hidden,
                                    ingest_entropy=ingest_entropy)
             if return_aux:
@@ -3753,13 +3780,14 @@ class QuillanRoninOni(nn.Module):
         if getattr(cfg, "use_proxy_kd", False) and getattr(self, "distill_head", None) is not None \
                 and logits is not None and hidden is not None:
             try:
-                _p_logits = proxy_logits if (proxy_logits is not None or teacher_tokens is not None) else F.softmax(logits.detach() / 2.0, dim=-1)
+                _t_tokens = teacher_tokens
+                _p_logits = proxy_logits if proxy_logits is not None else logits.detach()
                 _t_hid = hidden.detach()
                 _d_loss = self.distill_head(logits, None, hidden, _t_hid,
-                                            proxy_logits=_p_logits, teacher_tokens=teacher_tokens)
+                                            proxy_logits=_p_logits, teacher_tokens=_t_tokens)
                 if getattr(self, "distill", None) is not None:
                     _d_loss = _d_loss + 0.1 * self.distill(logits, None, hidden, _t_hid,
-                                                           proxy_logits=_p_logits, teacher_tokens=teacher_tokens)
+                                                           proxy_logits=_p_logits, teacher_tokens=_t_tokens)
                 aux["distill"] = _d_loss
                 self._fired.append(("proxy_kd", {"distill_loss": round(float(_d_loss.item()), 4)}))
             except Exception:

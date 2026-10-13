@@ -258,5 +258,65 @@
     "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json"
    ]
   }
+ },
+ {
+  "task_id": "task-6231fe",
+  "task": "dashboard live check",
+  "job": "scan",
+  "root": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
+  "max_files": 12,
+  "state": "DONE",
+  "at": 1791811212.205143,
+  "report": {
+   "files": 3,
+   "total_findings": 2,
+   "wires": 1,
+   "changes": [
+    "server.py:541 [subprocess_shell] \"subprocess_shell\": \"shell injection via shell=True / os.sys",
+    "server.py:358 [todo_fixme] (\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),",
+    "wire: spider_bridge.py -> server",
+    "wrote trail.json (nodes/edges/trail)",
+    "wrote spider_report.json"
+   ],
+   "why": [
+    "subprocess_shell: shell injection via shell=True / os.system",
+    "todo_fixme: unfinished work left in shipping code",
+    "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
+   ],
+   "artifacts": [
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json"
+   ]
+  }
+ },
+ {
+  "task_id": "task-4599bc",
+  "task": "flagged focus demo",
+  "job": "scan",
+  "root": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code",
+  "max_files": 10,
+  "state": "DONE",
+  "at": 1791812609.1320422,
+  "report": {
+   "files": 1,
+   "total_findings": 3,
+   "wires": 0,
+   "changes": [
+    "server.py:320 [todo_fixme] # TODO: Arrange nominal inputs based on ({args_spec})",
+    "server.py:328 [todo_fixme] # TODO: Pass boundary values",
+    "server.py:335 [todo_fixme] # TODO: Pass invalid type",
+    "wrote trail.json (nodes/edges/trail)",
+    "wrote spider_report.json"
+   ],
+   "why": [
+    "todo_fixme: unfinished work left in shipping code",
+    "todo_fixme: unfinished work left in shipping code",
+    "todo_fixme: unfinished work left in shipping code"
+   ],
+   "artifacts": [
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\trail.json",
+    "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_report.json"
+   ]
+  }
  }
 ]

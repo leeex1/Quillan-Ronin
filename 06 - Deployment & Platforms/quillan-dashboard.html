@@ -1937,6 +1937,7 @@
     </main>
   </div>
 
+  <script src="spider-graph.js"></script>
   <script>
     (function () {
       "use strict";
@@ -3615,9 +3616,36 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
       switchView(initialActiveView);
 
       /* ── 🕷️ PROCEDURAL IK SPIDER BOT ENGINE (C1-ASTRA VISION // RYBINFX SPEC) ──── */
-      var spiderBase = "http://127.0.0.1:8777"; // Primary unified hub (:8777), fallback (:8082)
+      var spiderBase = "http://127.0.0.1:8777";
+      // Spider data API lives on the :8082 bridge; the :8777 collector has no
+      // /api/memory, so memfetch must NOT follow spiderBase flips or it 404s forever.
+      var spiderApiBase = "http://127.0.0.1:8082"; // Primary unified hub (:8777), fallback (:8082)
       var spiderData = null, spiderShown = 0;
       var spiderPollTimer = null, spiderDrawTimer = null;
+      // Perf caches: layout + bg rebuilt only when data/size changes, never per frame.
+      var spiderLayoutCache = { key: null, P: [], byName: {} };
+      var spiderBgCache = null; // {w,h,grid,glow}
+      var spiderFpsWorking = null;
+      var spiderPollCount = 0; // strict-mode-safe counter (never assign undeclared)
+      // Pre-baked glow sprites: per-frame shadowBlur was the choppiness.
+      // One 48px radial sprite per color, blitted with drawImage (GPU-cheap).
+      var spiderSprites = {};
+      function spiderGlowSprite(color) {
+        var s = spiderSprites[color];
+        if (s) return s;
+        var c = document.createElement("canvas");
+        c.width = 48; c.height = 48;
+        var g = c.getContext("2d");
+        var rg = g.createRadialGradient(24, 24, 1, 24, 24, 24);
+        rg.addColorStop(0, "#ffffff");
+        rg.addColorStop(0.3, color);
+        rg.addColorStop(1, "rgba(0,0,0,0)");
+        g.fillStyle = rg;
+        g.fillRect(0, 0, 48, 48);
+        spiderSprites[color] = c;
+        return c;
+      }
+      var spiderFocus = null; // {full,name,findings,ties,burst,cardName}
       var spiderMode = "trail", spiderMem = null;
       var spiderScreenCrawlerActive = false;
       var spiderDesktopCanvas = null, spiderDesktopCtx = null, spiderDesktopAnim = null;
@@ -4257,6 +4285,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         var wIdx = secondBrain.webs.length - 1;
         secondBrain.pulses.push({ webIdx: wIdx, t: Math.random() * 0.5, speed: 0.007 + Math.random() * 0.006, color: isCore ? "#49e0da" : "#f6b84b" });
         secondBrain.pulses.push({ webIdx: wIdx, t: 0.5 + Math.random() * 0.4, speed: 0.006 + Math.random() * 0.005, color: "#ffffff" });
+        // Bound decorative pulses: webs dedupe by id, pulses did not.
+        if (secondBrain.pulses.length > 600) secondBrain.pulses.splice(0, secondBrain.pulses.length - 600);
 
         // Update lookup
         if (!secondBrain.synapseLookup.has(fromName)) secondBrain.synapseLookup.set(fromName, new Set());
@@ -4802,7 +4832,20 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
           var grew = !spiderData || d.trail.length !== spiderData.trail.length;
           spiderData = d;
+          if (window.SpiderGraph) { try { SpiderGraph.setData(d); } catch (e) {} }
+          try {
+            var ares = await fetch(spiderApiBase + "/api/agents", { cache: "no-store" });
+            if (ares.ok) {
+              var aj = await ares.json();
+              if (window.SpiderGraph && aj && Array.isArray(aj.agents)) {
+                try { SpiderGraph.setAgents(aj.agents); } catch (e) {}
+              }
+            }
+          } catch (e) {}
           if (reset) spiderShown = d.trail.length;
+          spiderPollCount = (spiderPollCount || 0) + 1;
+          // Heavy ingest only runs on genuinely new data; idle polls stay cheap.
+          var heavyDue = grew || (spiderPollCount % 8 === 0);
 
           var sp = d.spider || {};
           var st = sp.state || (d.live ? "CRAWLING" : "DONE");
@@ -4816,9 +4859,11 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
             pulse.textContent = working ? ("● LIVE " + st + " // " + act) : "○ IDLE — standby for mission";
             pulse.style.color = working ? "var(--green)" : "var(--muted)";
           }
+          try { spiderSetFps(working); } catch (e) {}
 
           // Ingest backend wiring edges and index graph into Second Brain Web
-          if (spiderOffice.layoutCards.length > 0) {
+          // (new data only — re-weaving an unchanged trail every poll was the freeze)
+          if (grew && spiderOffice.layoutCards.length > 0) {
             if (d.wiring && d.wiring.length > 0) {
               d.wiring.forEach(function (w) {
                 var fromCard = spiderOffice.layoutCards.find(function (c) { return c.name.toLowerCase().includes(w.from.toLowerCase()) || w.from.toLowerCase().includes(c.name.toLowerCase()); });
@@ -4845,8 +4890,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
             }
           }
 
-          // Sequential Mission Enqueueing (ARRIVAL-GATED)
-          if (d.trail && d.trail.length > 0) {
+          // Sequential Mission Enqueueing (ARRIVAL-GATED, new trail data only)
+          if (grew && d.trail && d.trail.length > 0) {
             d.trail.forEach(function (ev) {
               if (ev.full && !spiderOffice.scannedSet.has(ev.full)) {
                 var alreadyQueued = spiderOffice.targetQueue.some(function (q) { return q.full === ev.full; });
@@ -4862,6 +4907,36 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
                 }
               }
             });
+          }
+
+          // Flagged-file focus web: latest FLAGGED event spins its tie-in web
+          // so it can be cleared up externally. Replaces any previous focus.
+          if (grew && d.trail) {
+            var latestFlag = null;
+            d.trail.forEach(function (ev) {
+              if (ev.result === "FLAGGED" && ev.full) latestFlag = ev;
+            });
+            if (latestFlag && (!spiderFocus || spiderFocus.full !== latestFlag.full)) {
+              var fBase = String(latestFlag.full || "").split(/[/\\]/).pop().toLowerCase();
+              var fTies = [];
+              (d.wiring || []).forEach(function (w) {
+                var a = String(w.from || "").toLowerCase(), b = String(w.to || "").toLowerCase();
+                if (a === fBase || b === fBase || a.indexOf(fBase) >= 0 || b.indexOf(fBase) >= 0) fTies.push(w);
+              });
+              spiderFocus = { full: latestFlag.full, name: (latestFlag.at || fBase),
+                findings: (latestFlag.findings || []).slice(0, 5), ties: fTies.slice(0, 8), burst: false, cardName: null };
+              var tgN = document.getElementById("spiderTargetName"); if (tgN) tgN.textContent = spiderFocus.name;
+              var tgB = document.getElementById("spiderTargetBadge"); if (tgB) { tgB.textContent = "NEEDS ATTENTION"; tgB.style.color = "var(--amber)"; }
+              if (window.SpiderGraph) { try { SpiderGraph.setFocus(spiderFocus); } catch (e) {} }
+              var tgM = document.getElementById("spiderTargetMeta");
+              if (tgM) {
+                var topRule = spiderFocus.findings.length ? spiderFocus.findings[0].rule : "unlinked";
+                var tieNames = spiderFocus.ties.map(function (w) { return (String(w.from || "").toLowerCase() === fBase) ? w.to : w.from; }).slice(0, 4).join(", ");
+                tgM.textContent = "Flagged: " + topRule + (tieNames ? " · ties in via: " + tieNames : " · no import ties found — needs external review");
+              }
+              var thT = document.getElementById("spiderThoughtText");
+              if (thT) thT.textContent = "[C34-PREDATOR] Flagged " + spiderFocus.name + " — spinning tie-in web (" + spiderFocus.ties.length + " links) for external review.";
+            }
           }
 
           // If spider is idle at desk and has queued targets, launch towards first target
@@ -4901,17 +4976,18 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           }
 
           spiderQueue();
-          spiderMemFetch();
-          renderSpiderCabinet();
+          if (heavyDue) { spiderMemFetch(); renderSpiderCabinet(); }
         } catch (e) {
           var p2 = document.getElementById("spiderPulse");
           if (p2) { p2.textContent = "○ RECONNECTING TO HUB (:8777/:8082)"; p2.style.color = "var(--coral)"; }
+          var dbg = document.getElementById("spiderPos");
+          if (dbg) dbg.textContent = "poll-debug: " + (e && e.message ? e.message : e);
         }
       }
 
       async function spiderQueue() {
         try {
-          var res = await fetch(spiderBase + "/api/tasks", { cache: "no-store" });
+          var res = await fetch(spiderApiBase + "/api/tasks", { cache: "no-store" });
           if (!res.ok) return;
           var tasks = await res.json();
           var box = document.getElementById("spiderTaskList");
@@ -4929,16 +5005,40 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
       async function spiderMemFetch() {
         try {
-          var res = await fetch(spiderBase + "/api/memory", { cache: "no-store" });
+          var res = await fetch(spiderApiBase + "/api/memory", { cache: "no-store" });
           if (!res.ok) return;
           spiderMem = await res.json();
+          if (window.SpiderGraph) { try { SpiderGraph.setMemory(spiderMem); } catch (e) {} }
           var ago = spiderMem.updated ? Math.max(0, Math.round(Date.now() / 1000 - spiderMem.updated)) : -1;
+          var cen = spiderMem.census || {};
+          var cenTotal = cen.total || 0;
           var mMeta = document.getElementById("spiderMemMeta");
-          if (mMeta) mMeta.textContent = "memory: " + (spiderMem.total_nodes || 0) + " nodes · " + (spiderMem.total_edges || 0) + " edges" + (ago >= 0 ? " · " + ago + "s ago" : "");
-        } catch (e) {}
+          if (mMeta) mMeta.textContent = "memory: " + (spiderMem.total_nodes || 0) + " nodes · " + (spiderMem.total_edges || 0) + " edges" + (ago >= 0 ? " · " + ago + "s ago" : "") + (cenTotal > 0 ? " · census " + cenTotal.toLocaleString() + " docs" : "");
+          // Real census counts replace the hardcoded sector labels (same classifier as layout)
+          if (cen.sectors) {
+            var per = [0, 0, 0, 0, 0, 0, 0, 0];
+            Object.keys(cen.sectors).forEach(function (secName) {
+              var p = String(secName).toLowerCase(), si = -1;
+              if (p.includes("01 - core") || p.includes("cognition") || p.includes("samurai")) si = 0;
+              else if (p.includes("02 - knowledge") || p.includes("obsidian") || p.includes("vault")) si = 1;
+              else if (p.includes("03 - training") || p.includes("model") || p.includes("forge")) si = 2;
+              else if (p.includes("04-") || p.includes("skills") || p.includes("swarm")) si = 3;
+              else if (p.includes("05 -") || p.includes("media") || p.includes("creative")) si = 4;
+              else if (p.includes("06 -") || p.includes("deploy") || p.includes("dashboard") || p.includes("collector")) si = 5;
+              else if (p.includes("07 -") || p.includes("memory") || p.includes("lancedb")) si = 6;
+              else if (p.includes("09 -") || p.includes("mcp") || p.includes("server")) si = 7;
+              if (si >= 0) per[si] += cen.sectors[secName];
+            });
+            var fmtK = function (n) { return n >= 1000 ? (n / 1000).toFixed(1) + "k" : String(n); };
+            per.forEach(function (n, i) {
+              if (n > 0 && SOVEREIGN_SECTORS[i]) SOVEREIGN_SECTORS[i].files = fmtK(n);
+            });
+          }
+        } catch (e) {
+          var mFail = document.getElementById("spiderMemMeta");
+          if (mFail) mFail.textContent = "memfetch-debug: " + (e && e.message ? e.message : e);
+        }
       }
-
-      // ── HIERARCHICAL 8-SECTOR MODULE TOPOLOGY LAYOUT ──
       var SOVEREIGN_SECTORS = [
         { id: "01_CORE", name: "01 CORE COGNITION", icon: "🧠", color: "#79dd8e", files: "27.6k", angle: -Math.PI / 2 },
         { id: "02_KNOWLEDGE", name: "02 KNOWLEDGE VAULT", icon: "📚", color: "#49e0da", files: "2.8k", angle: -Math.PI / 4 },
@@ -5018,38 +5118,52 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         if (!rect.width || !rect.height) return;
 
         var dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = Math.round(rect.width * dpr);
-        canvas.height = Math.round(rect.height * dpr);
+        var cw = Math.round(rect.width * dpr), ch = Math.round(rect.height * dpr);
+        if (canvas.width !== cw || canvas.height !== ch) {
+          canvas.width = cw;
+          canvas.height = ch;
+          spiderBgCache = null; // resized -> rebuild cached bg below
+        }
         var ctx = canvas.getContext("2d");
-        ctx.scale(dpr, dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
         var W = rect.width;
         var H = rect.height;
 
-        // 1. SOLID DARK CYBERNETIC BACKGROUND
+        // 1. SOLID DARK CYBERNETIC BACKGROUND (grid + gradient cached per size)
+        if (!spiderBgCache || spiderBgCache.w !== W || spiderBgCache.h !== H) {
+          var gp = new Path2D();
+          var gridSize = 40, bxx, byy;
+          for (bxx = 0; bxx < W; bxx += gridSize) { gp.moveTo(bxx, 0); gp.lineTo(bxx, H); }
+          for (byy = 0; byy < H; byy += gridSize) { gp.moveTo(0, byy); gp.lineTo(W, byy); }
+          var gl = ctx.createRadialGradient(W / 2, H / 2, 20, W / 2, H / 2, Math.max(W, H) * 0.75);
+          gl.addColorStop(0, "rgba(73, 224, 218, 0.08)");
+          gl.addColorStop(0.55, "rgba(7, 18, 22, 0.85)");
+          gl.addColorStop(1, "#030708");
+          spiderBgCache = { w: W, h: H, grid: gp, glow: gl };
+        }
         ctx.fillStyle = "#050c0f";
         ctx.fillRect(0, 0, W, H);
-
-        var bgGlow = ctx.createRadialGradient(W / 2, H / 2, 20, W / 2, H / 2, Math.max(W, H) * 0.75);
-        bgGlow.addColorStop(0, "rgba(73, 224, 218, 0.08)");
-        bgGlow.addColorStop(0.55, "rgba(7, 18, 22, 0.85)");
-        bgGlow.addColorStop(1, "#030708");
-        ctx.fillStyle = bgGlow;
+        ctx.fillStyle = spiderBgCache.glow;
         ctx.fillRect(0, 0, W, H);
 
-        // Matrix background grid
+        // Matrix background grid (single cached stroke)
         ctx.strokeStyle = "rgba(73, 224, 218, 0.035)";
         ctx.lineWidth = 1;
-        var gridSize = 40;
-        for (var gx = 0; gx < W; gx += gridSize) {
-          ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, H); ctx.stroke();
-        }
-        for (var gy = 0; gy < H; gy += gridSize) {
-          ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(W, gy); ctx.stroke();
-        }
+        ctx.stroke(spiderBgCache.grid);
 
         var N = spiderData.nodes || [], T = spiderData.trail || [];
-        var P = computeHierarchicalSectorLayout(N, W, H);
+        // Layout cached by dataset + size — computeHierarchicalSectorLayout is NOT per-frame.
+        var layoutKey = N.length + ":" + T.length + ":" + (W | 0) + "x" + (H | 0);
+        if (spiderLayoutCache.key !== layoutKey) {
+          spiderLayoutCache.key = layoutKey;
+          spiderLayoutCache.P = computeHierarchicalSectorLayout(N, W, H);
+          var _byName = {};
+          spiderLayoutCache.P.forEach(function (c) { if (c && c.name) _byName[c.name] = c; });
+          spiderLayoutCache.byName = _byName;
+        }
+        var P = spiderLayoutCache.P;
+        var PbyName = spiderLayoutCache.byName;
         spiderOffice.layoutCards = P;
 
         var coreX = W * 0.50;
@@ -5092,8 +5206,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
 
         // 2. DRAW SECOND BRAIN SYNAPTIC SILK WEBS (Mesh Lines)
         secondBrain.webs.forEach(function (web, idx) {
-          var p1 = web.pFrom || (web.fromName === "QUILLAN CORE" ? { x: coreX, y: coreY } : P.find(function (c) { return c.name === web.fromName; }));
-          var p2 = web.pTo || (web.toName === "QUILLAN CORE" ? { x: coreX, y: coreY } : P.find(function (c) { return c.name === web.toName; }));
+          var p1 = web.pFrom || (web.fromName === "QUILLAN CORE" ? { x: coreX, y: coreY } : PbyName[web.fromName]);
+          var p2 = web.pTo || (web.toName === "QUILLAN CORE" ? { x: coreX, y: coreY } : PbyName[web.toName]);
           if (!p1 || !p2) return;
 
           // Compute gentle catenary/bezier midpoint curving slightly towards center
@@ -5117,12 +5231,48 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           ctx.restore();
         });
 
+        // 3b. FLAGGED FOCUS WEB: ring the file, re-fire its tie pulses once
+        if (spiderFocus) {
+          var focusCard = null;
+          P.forEach(function (c) {
+            if (!focusCard && c && c.node && c.node.full === spiderFocus.full) focusCard = c;
+          });
+          if (!focusCard) {
+            var fbn = String(spiderFocus.full || "").split(/[/\\]/).pop().toLowerCase();
+            P.forEach(function (c) {
+              if (!focusCard && c && c.name && c.name.toLowerCase() === fbn) focusCard = c;
+            });
+          }
+          if (focusCard) {
+            ctx.save();
+            ctx.strokeStyle = "#f6b84b";
+            ctx.lineWidth = 2.2;
+            ctx.beginPath(); ctx.arc(focusCard.x, focusCard.y, 26, 0, Math.PI * 2); ctx.stroke();
+            ctx.lineWidth = 1.1;
+            ctx.beginPath(); ctx.arc(focusCard.x, focusCard.y, 33, 0, Math.PI * 2); ctx.stroke();
+            ctx.restore();
+            spiderFocus.cardName = focusCard.name;
+            if (!spiderFocus.burst) {
+              spiderFocus.burst = true;
+              var burstCount = 0;
+              secondBrain.webs.forEach(function (web, wi) {
+                if (burstCount >= 6) return;
+                if (web.fromName === focusCard.name || web.toName === focusCard.name) {
+                  secondBrain.pulses.push({ webIdx: wi, t: 0, speed: 0.02, color: "#f6b84b" });
+                  secondBrain.pulses.push({ webIdx: wi, t: 0.4, speed: 0.016, color: "#ffffff" });
+                  burstCount++;
+                }
+              });
+            }
+          }
+        }
+
         // 3. DRAW TRAVELING SYNAPTIC DATA IMPULSES (Neural Action Potentials)
         secondBrain.pulses.forEach(function (pulse) {
           var web = secondBrain.webs[pulse.webIdx];
           if (!web) return;
-          var p1 = web.pFrom || (web.fromName === "QUILLAN CORE" ? { x: coreX, y: coreY } : P.find(function (c) { return c.name === web.fromName; }));
-          var p2 = web.pTo || (web.toName === "QUILLAN CORE" ? { x: coreX, y: coreY } : P.find(function (c) { return c.name === web.toName; }));
+          var p1 = web.pFrom || (web.fromName === "QUILLAN CORE" ? { x: coreX, y: coreY } : PbyName[web.fromName]);
+          var p2 = web.pTo || (web.toName === "QUILLAN CORE" ? { x: coreX, y: coreY } : PbyName[web.toName]);
           if (!p1 || !p2) return;
 
           var midX = (p1.x + p2.x) / 2;
@@ -5137,13 +5287,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           var py = inv * inv * p1.y + 2 * inv * t * ctrlY + t * t * p2.y;
 
           ctx.save();
-          // Glowing synaptic spark
-          ctx.fillStyle = pulse.color;
-          ctx.shadowColor = pulse.color;
-          ctx.shadowBlur = 6;
-          ctx.beginPath();
-          ctx.arc(px, py, 2.2, 0, Math.PI * 2);
-          ctx.fill();
+          // Glowing synaptic spark (sprite blit — shadowBlur per spark was the jank)
+          ctx.drawImage(spiderGlowSprite(pulse.color), px - 9, py - 9, 18, 18);
           ctx.restore();
 
           pulse.t += pulse.speed;
@@ -5167,13 +5312,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           ctx.quadraticCurveTo(midX, midY, sX, sY);
           ctx.stroke();
 
-          // Luminous spinneret bead at spider abdomen
-          ctx.fillStyle = "#ffffff";
-          ctx.shadowColor = "#f6b84b";
-          ctx.shadowBlur = 9;
-          ctx.beginPath();
-          ctx.arc(sX, sY, 3.2, 0, Math.PI * 2);
-          ctx.fill();
+          // Luminous spinneret bead at spider abdomen (sprite, no per-frame shadow)
+          ctx.drawImage(spiderGlowSprite("#f6b84b"), sX - 10, sY - 10, 20, 20);
 
           // Departure anchor bead
           ctx.fillStyle = "#49e0da";
@@ -5321,6 +5461,9 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           var cardX = p.x - cardW / 2;
           var cardY = p.y - cardH / 2;
           p.box = { x: cardX, y: cardY, w: cardW, h: cardH };
+          // Plain cards skip shadow + gradient entirely: per-card shadows
+          // every frame was the freeze. Only highlighted cards pay for glow.
+          var flatCard = !(isCurrentTarget || isHovered);
 
           // Glass Document Window Body
           ctx.save();
@@ -5331,8 +5474,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
             ctx.shadowColor = p.secColor;
             ctx.shadowBlur = 12;
           } else {
-            ctx.shadowColor = "rgba(0, 0, 0, 0.4)";
-            ctx.shadowBlur = 6;
+            ctx.shadowBlur = 0;
           }
 
           var cardGrad = ctx.createLinearGradient(cardX, cardY, cardX, cardY + cardH);
@@ -5347,7 +5489,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
             cardGrad.addColorStop(1, "rgba(4, 10, 13, 0.92)");
           }
 
-          ctx.fillStyle = cardGrad;
+          ctx.fillStyle = flatCard ? "rgba(9, 22, 26, 0.88)" : cardGrad;
           ctx.strokeStyle = isCurrentTarget ? "#49e0da" : (isHovered ? "#ffffff" : (isScanned ? "#79dd8e66" : p.secColor + "44"));
           ctx.lineWidth = isCurrentTarget ? 2.0 : (isHovered ? 1.5 : 1);
 
@@ -5761,11 +5903,61 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
       }
 
       function spiderToggleMode() {
+        if (window.SpiderGraph) {
+          // Lean graph owns the canvas: toggle trail <-> full memory web.
+          var m = SpiderGraph.toggle();
+          var b = document.getElementById("spiderModeBtn");
+          if (b) b.textContent = (m === "memory") ? "VIEW: LIVE TRAIL" : "VIEW: MEMORY WEB (" + SpiderGraph.stats().nodes + ")";
+          return;
+        }
         secondBrain.mode = (secondBrain.mode === "second_brain") ? "hierarchy" : "second_brain";
         var btn = document.getElementById("spiderModeBtn");
         if (btn) btn.textContent = secondBrain.mode === "second_brain" ? "VIEW: SECOND BRAIN (NEURAL WEB)" : "VIEW: SECTOR HUBS";
       }
 
+      // Adaptive frame rate: 30fps while the spider works, 2fps idle breathing.
+      // Idle stillness is honest (nothing is happening) and saves the battery.
+      function spiderDrawTick() {
+        if (document.hidden) return; // background tab: draw nothing, poll keeps data fresh
+        var v = document.getElementById("spiderView");
+        var show = v && !v.hidden;
+        // live position readout (never stuck on "--" once data exists)
+        try {
+          var pe = document.getElementById("spiderPos");
+          if (pe && typeof spiderData !== "undefined" && spiderData && spiderData.trail && spiderData.trail.length) {
+            var lastEv = spiderData.trail[spiderData.trail.length - 1];
+            pe.textContent = "pos: " + String(lastEv.at || lastEv.full || "").slice(-60) + "  (" + spiderData.trail.length + ")";
+          }
+        } catch (e) {}
+        var show = v && !v.hidden;
+        if (window.SpiderGraph) {
+          // Lean renderer owns the canvas now (spider-graph.js); legacy spiderDraw retired.
+          SpiderGraph.start("spiderCanvas");
+          if (show) SpiderGraph.show(); else SpiderGraph.hide();
+          if (!SpiderGraph._wiredSelect) {
+            SpiderGraph._wiredSelect = true;
+            SpiderGraph.onSelect = function (n) {
+              if (!n) {
+                spiderFocus = null;
+                SpiderGraph.setFocus(null);
+                return;
+              }
+              spiderFocus = { full: n.full, name: n.name, findings: [], ties: [], burst: true, cardName: n.name };
+              var tgN = document.getElementById("spiderTargetName"); if (tgN) tgN.textContent = n.name;
+              var tgM = document.getElementById("spiderTargetMeta");
+              if (tgM) tgM.textContent = "Selected in graph" + (n.lines ? " · " + n.lines + " lines" : "") + (n.flagged ? " · FLAGGED" : "");
+            };
+          }
+        }
+        else if (show) { spiderRender(); }
+      }
+      function spiderSetFps(working) {
+        if (spiderFpsWorking === working) return;
+        spiderFpsWorking = working;
+        if (!spiderDrawTimer) return;
+        clearInterval(spiderDrawTimer);
+        spiderDrawTimer = setInterval(spiderDrawTick, working ? 33 : 500);
+      }
       function spiderRender() {
         spiderDraw();
       }
@@ -5781,7 +5973,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         if (thText) thText.textContent = "Sovereign Throne C0 authorized takeover: Initializing procedural crawler for mission '" + mission + "'.";
 
         try {
-          var res = await fetch(spiderBase + "/api/takeover", {
+          var res = await fetch(spiderApiBase + "/api/takeover", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ mission: mission, root: rootPath, max_files: 35, delay_ms: 140 })
@@ -6064,7 +6256,10 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
               }
             }
 
-            // Otherwise, manual move
+            // Otherwise, manual move + clear any flag focus (reviewed/dismissed externally)
+            spiderFocus = null;
+            if (window.SpiderGraph) { try { SpiderGraph.setFocus(null); } catch (e) {} }
+            var tgB2 = document.getElementById("spiderTargetBadge"); if (tgB2) { tgB2.textContent = "DOCKED"; tgB2.style.color = "var(--muted)"; }
             if (chamberSpider) {
               chamberSpider.targetX = clickX;
               chamberSpider.targetY = clickY;
@@ -6076,11 +6271,7 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         renderSpiderCabinet();
 
         if (!spiderPollTimer) spiderPollTimer = setInterval(function () { spiderPoll(false); }, 1200);
-        if (!spiderDrawTimer) spiderDrawTimer = setInterval(function () {
-          var v = document.getElementById("spiderView");
-          if (v && !v.hidden) spiderRender();
-        }, 33); // 30 FPS smooth IK spider animation
-
+        if (!spiderDrawTimer) spiderDrawTimer = setInterval(spiderDrawTick, 33);
         spiderPoll(true);
       }
 

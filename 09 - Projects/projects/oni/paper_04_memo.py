@@ -352,6 +352,11 @@ class MemoManager(nn.Module):
             skeletal: dict of skeletal tensors for this layer
                       (input, k, q, norm outputs, h_to_4h, GeLU, etc.)
         """
+        if not self.rounding._allocated:
+            first_t = next(iter(skeletal.values()), None)
+            if first_t is not None:
+                self.setup(first_t.device)
+
         if self.rounding.alpha == 0.0:
             return  # all recomputed, no offload needed
 

@@ -106,6 +106,13 @@ def parse_args():
                     help="Directory for saving training logs (default: auto-detect)")
     ap.add_argument("--grad-checkpoint", action="store_true",
                     help="Enable activation gradient checkpointing (saves ~60%% activation VRAM on 1050 Ti / consumer GPUs)")
+    ap.add_argument("--optimizer", type=str, default="muonk2",
+                    choices=["adamw", "muonk2"],
+                    help="Optimizer: muonk2 (Low-Rank Newton-Schulz for Swarms/LoRA + AdamW for dense) | adamw")
+    ap.add_argument("--lr-muon", type=float, default=0.015,
+                    help="Learning rate for low-rank MuonK2 parameters (default: 0.015)")
+    ap.add_argument("--ccrl-limit", type=float, default=4.0,
+                    help="CCRL gradient curvature clip limit (default: 4.0)")
     ap.add_argument("--compile", action="store_true",
                     help="Enable torch.compile for graph fusion and lower kernel launch overhead")
     ap.add_argument("--compile-mode", type=str, default="default",
@@ -314,11 +321,10 @@ def main():
     except Exception:
         pass
 
-    if args.device == "cpu" or not torch.cuda.is_available():
-        torch.set_num_threads(min(2, os.cpu_count() or 2))
-        torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
-    else:
-        torch.set_num_threads(min(4, os.cpu_count() or 4))
+    num_threads = getattr(args, "num_threads", None) or min(4, os.cpu_count() or 4)
+    torch.set_num_threads(num_threads)
+    torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
+    print(f"[THREADS] Configured torch threads={torch.get_num_threads()} (total cores={os.cpu_count()})")
 
     rng = np.random.default_rng(42)
     tok = UnifiedQuillanTokenizer()
@@ -368,18 +374,35 @@ def main():
             if args.fullgraph:
                 raise
 
-    # Fused AdamW optimizer (Grok recommendation for CUDA kernel fusion on consumer/modern GPUs)
-    fused_opt = False
-    if args.device != "cpu" and torch.cuda.is_available():
+    # Optimizer Selection: MuonK2 (Newton-Schulz on LoRA/Swarm) vs AdamW
+    if args.optimizer == "muonk2":
         try:
-            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01, fused=True)
-            fused_opt = True
-            print("[OPTIMIZER] AdamW with fused=True enabled.")
-        except Exception:
+            sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
+            from quillan_muonk2_optimizer import create_quillan_muonk2_optimizer
+            opt = create_quillan_muonk2_optimizer(
+                model=model,
+                lr_muon=args.lr_muon,
+                lr_adamw=args.lr,
+                weight_decay=0.01,
+                ccrl_limit=args.ccrl_limit
+            )
+            print(f"[OPTIMIZER] Sovereign MuonK2 + AdamW + CCRL Hybrid active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).")
+        except Exception as e:
+            print(f"[OPTIMIZER] Failed to init MuonK2 ({e}). Falling back to AdamW.")
+            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+    else:
+        fused_opt = False
+        if args.device != "cpu" and torch.cuda.is_available():
+            try:
+                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01, fused=True)
+                fused_opt = True
+                print("[OPTIMIZER] AdamW with fused=True enabled.")
+            except Exception:
+                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+                print("[OPTIMIZER] Standard AdamW initialized.")
+        else:
             opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
             print("[OPTIMIZER] Standard AdamW initialized.")
-    else:
-        opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
 
     step, best_val = 0, float("inf")
     ema_sd = None
@@ -449,8 +472,12 @@ def main():
         if rqgm:
             rqgm.on_step(step, model, val, rng, args.batch_size, args.device)
         lr = cosine_lr(step, args)
+        lr_ratio = lr / max(args.lr, 1e-9)
         for g in opt.param_groups:
-            g["lr"] = lr
+            if g.get("is_muon", False):
+                g["lr"] = args.lr_muon * lr_ratio
+            else:
+                g["lr"] = lr
         model.set_router_tau(model.tau_for_step(step, args.steps))
 
         opt.zero_grad()
@@ -466,6 +493,7 @@ def main():
 
         for _ in range(args.grad_accum):
             x, y = train.batch(args.batch_size, rng)
+            profiler.mark_data_load_done()
             if cur_seq < args.seq_len:
                 x = x[:, :cur_seq]
                 y = y[:, :cur_seq]
@@ -473,8 +501,11 @@ def main():
                 # Session 1 (Papers 5-7 Heterogeneous, default ON): overlap
                 # transfer with compute via non-blocking (consumed by .to call)
                 x, y = x.to(args.device, non_blocking=True), y.to(args.device, non_blocking=True)
+            profiler.mark_transfer_done()
+            profiler.mark_fwd_start()
             _, ce, aux = model(x, labels=y)
             loss = (ce + model.total_aux_loss(aux)) / args.grad_accum
+            profiler.mark_bwd_start()
             loss.backward()
             # KILL HOST SYNCS: accumulate ce & load_balance tensors directly on device without stalling host via .item()
             accum_ce += ce.detach() / args.grad_accum
@@ -482,6 +513,7 @@ def main():
                 accum_lb += aux["load_balance"].detach() / args.grad_accum
 
         gn = torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+        profiler.mark_opt_start()
         opt.step()
         step_loss = accum_ce.item()
         step_lb = accum_lb.item()
@@ -504,13 +536,14 @@ def main():
                             ema_val = ema_sd[name].to(param.device)
                             param.data.add_(ema_val - param.data, alpha=memory_strength)
             except ImportError:
-                pass  # ES module not available â€” skip silently
+                pass  # ES module not available — skip silently
 
         step += 1
         running.append(step_loss)
 
         latency_ms = (time.time() - t0) * 1000.0
         _, ema_decay, _ = model.governor_adjust(latency_ms)
+        profiler.mark_ema_start()
         if args.ema:
             with torch.no_grad():
                 if ema_sd is None:

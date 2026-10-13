@@ -172,6 +172,40 @@ def _save_tasks(tasks):
 
 QLOCK = threading.Lock()
 
+# Rolling trail cap: dashboard renders the live window; memory graph keeps totals.
+TRAIL_CAP = 300
+# Flush trail.json at most this often during hot loops (sec); final write always happens.
+TRAIL_FLUSH_SEC = 0.5
+
+
+def _sector_of(root: Path, p: Path) -> str:
+    try:
+        rel = p.relative_to(root)
+        return rel.parts[0] if len(rel.parts) > 1 else "(root)"
+    except Exception:
+        return "(root)"
+
+
+def _memorize_census(root: Path, counts: dict, ext_counts: dict, sector_counts: dict,
+                     watermark: float, elapsed: float):
+    """Record one full census pass (snapshot, not sum).
+
+    A census always walks the whole tree, so its numbers REPLACE the previous
+    pass — accumulating would double-count every run.
+    """
+    now = time.time()
+    mem = _load_mem()
+    census = {"sectors": dict(sector_counts),
+              "exts": dict(ext_counts),
+              "total": counts.get("files", 0),
+              "dirs": counts.get("dirs", 0)}
+    census["watermark"] = watermark
+    census["last_elapsed_s"] = round(elapsed, 1)
+    census["last_root"] = str(root)
+    mem.update({"census": census, "updated": now, "runs": mem.get("runs", 0) + 1})
+    MEMGRAPH_FILE.write_text(json.dumps(mem), encoding="utf-8")
+    return census
+
 
 def _parse_imports(txt, known_stems):
     """Return internal module names this file wires to (import X / from X import)."""
@@ -438,6 +472,24 @@ def spider_work(root: str = "C:\\02_QUILLAN\09 - Projects\\mcp", job: str = "sca
         "nodes": nodes, "edges": edges, "trail": trail,
         "spider": {"pos": None, "visited": 0, "state": "WORKING", "action": action}}, indent=1), encoding="utf-8")
     total_findings = 0
+    last_flush = 0.0
+
+    def emit_work(ev, force: bool = False):
+        nonlocal last_flush
+        trail.append(ev)
+        if len(trail) > TRAIL_CAP:
+            del trail[:len(trail) - TRAIL_CAP]
+        now = time.time()
+        if not force and (now - last_flush) < TRAIL_FLUSH_SEC:
+            return
+        last_flush = now
+        TRAIL_FILE.write_text(json.dumps({"root": str(r), "at": now, "live": True,
+            "started": t0, "job": job, "nodes": nodes[-400:], "edges": edges[-800:],
+            "trail": trail,
+            "spider": {"pos": ev, "visited": len(trail), "state": "WORKING",
+                       "action": action,
+                       "findings_so_far": total_findings}}, indent=1), encoding="utf-8")
+
     for k in targets:
         a, b = _id(r), _id(k)
         edges.append({"from": a, "to": b})
@@ -458,11 +510,7 @@ def spider_work(root: str = "C:\\02_QUILLAN\09 - Projects\\mcp", job: str = "sca
             ev = {"t": round(time.time() - t0, 2), "at": str(k)[-90:], "full": str(k), "node": b,
                   "event": "file", "action": action, "result": "FLAGGED" if f else "OK",
                   "detail": detail + f" | compiled {'OK' if comp_ok else 'FAIL:' + comp_err} | {funcs}F/{classes}C | {ms}ms", "findings": f[:5], "lines": res["lines"], "ms": ms, "compiled": comp_ok, "funcs": funcs, "classes": classes}
-        trail.append(ev)
-        TRAIL_FILE.write_text(json.dumps({"root": str(r), "at": time.time(), "live": True, "started": t0,
-            "job": job, "nodes": nodes, "edges": edges, "trail": trail,
-            "spider": {"pos": ev, "visited": len(trail), "state": "WORKING", "action": action,
-                       "findings_so_far": total_findings}}, indent=1), encoding="utf-8")
+        emit_work(ev)
         time.sleep(delay)
     # WIRING PASS: real module-to-module edges parsed from imports (wires together modules)
     stem_to_node = {}
@@ -591,12 +639,126 @@ def spider_memory(top: int = 10) -> Dict[str, Any]:
     by_visits = sorted(mn.items(), key=lambda kv: kv[1].get("visits", 0), reverse=True)[:max(1, top)]
     wired = sorted([v for v in me.values() if v.get("wire")], key=lambda v: v.get("seen", 0), reverse=True)[:max(1, top)]
     flagged = [(k, v) for k, v in mn.items() if v.get("findings")][:max(1, top)]
+    census = mem.get("census", {})
+    top_sectors = sorted(census.get("sectors", {}).items(), key=lambda kv: -kv[1])[:12]
+    top_exts = sorted(census.get("exts", {}).items(), key=lambda kv: -kv[1])[:12]
     return {"nodes": len(mn), "edges": len(me), "runs": mem.get("runs", 0),
             "updated_ago_s": round(time.time() - mem.get("updated", time.time()), 1),
             "most_visited": [{"path": k[-70:], "visits": v.get("visits"), "lines": v.get("lines")} for k, v in by_visits],
             "most_wired": wired,
             "flagged": [{"path": k[-70:], "findings": v.get("findings", [])[:2]} for k, v in flagged],
+            "census_total": census.get("total", 0),
+            "census_sectors": top_sectors, "census_exts": top_exts,
             "file": str(MEMGRAPH_FILE)}
+
+
+@mcp.tool()
+def spider_census(root: str = "C:\\02_QUILLAN") -> Dict[str, Any]:
+    """Fast stat-only census of EVERY file under root (no content reads).
+    Records per-sector + per-extension aggregates into the memory graph so the
+    web shows the full 100k+ docs, not just deep-scanned .py files. Deep scan
+    stays .py-only via spider_work; census gives the map, work gives the detail.
+    Progress events stream throttled; trail stays capped; memory keeps totals.
+    Args:
+        root: Directory to census.
+    """
+    r = Path(root)
+    if not r.exists():
+        return {"error": f"Root not found: {root}"}
+    t0 = time.time()
+    nodes: List[Dict[str, Any]] = []
+    edges: List[Dict[str, Any]] = []
+    trail: List[Dict[str, Any]] = []
+    counts = {"files": 0, "dirs": 0, "skipped": 0, "errors": 0}
+    ext_counts: Dict[str, int] = {}
+    sector_counts: Dict[str, int] = {}
+    watermark = 0.0
+    last_flush = 0.0
+    # sector hub nodes for the web (one per top-level dir)
+    root_id = 0
+    nodes.append({"id": 0, "path": str(r)[-70:], "full": str(r), "kind": "root"})
+    sec_ids: Dict[str, int] = {}
+
+    def emit_progress(force: bool = False):
+        nonlocal last_flush
+        now = time.time()
+        if not force and (now - last_flush) < TRAIL_FLUSH_SEC:
+            return
+        last_flush = now
+        ev = {"t": round(now - t0, 2), "at": f"CENSUS {counts['files']} files…",
+              "full": str(r), "node": 0, "event": "census",
+              "action": "CENSUS", "result": "COUNTING",
+              "detail": f"{counts['files']} files, {counts['dirs']} dirs",
+              "ms": 0.0}
+        trail.append(ev)
+        if len(trail) > TRAIL_CAP:
+            del trail[:len(trail) - TRAIL_CAP]
+        TRAIL_FILE.write_text(json.dumps({"root": str(r), "at": now, "live": True,
+            "started": t0, "job": "census", "nodes": nodes[-400:], "edges": edges[-800:],
+            "trail": trail,
+            "spider": {"pos": ev, "visited": counts["files"], "state": "WORKING",
+                       "action": "CENSUS",
+                       "findings_so_far": 0}}, indent=1), encoding="utf-8")
+
+    emit_progress(force=True)
+    stack = [r]
+    while stack:
+        cur = stack.pop()
+        try:
+            kids = list(cur.iterdir())
+        except Exception:
+            counts["errors"] += 1
+            continue
+        for k in kids:
+            if k.name in SKIP:
+                counts["skipped"] += 1
+                continue
+            try:
+                if k.is_dir():
+                    counts["dirs"] += 1
+                    stack.append(k)
+                    sec = _sector_of(r, k)
+                    if sec not in sec_ids and len(sec_ids) < 64:
+                        sec_ids[sec] = len(nodes)
+                        nodes.append({"id": len(nodes), "path": sec[-70:],
+                                      "full": str(r / sec), "kind": "sector"})
+                        edges.append({"from": root_id, "to": sec_ids[sec]})
+                else:
+                    try:
+                        st = k.stat()
+                        watermark = max(watermark, st.st_mtime)
+                    except Exception:
+                        counts["errors"] += 1
+                        continue
+                    counts["files"] += 1
+                    ext = k.suffix.lower() or "(noext)"
+                    ext_counts[ext] = ext_counts.get(ext, 0) + 1
+                    sec = _sector_of(r, k)
+                    sector_counts[sec] = sector_counts.get(sec, 0) + 1
+            except Exception:
+                counts["errors"] += 1
+                continue
+        if counts["files"] % 2000 < len(kids):
+            emit_progress()
+    emit_progress(force=True)
+    elapsed = time.time() - t0
+    census = _memorize_census(r, counts, ext_counts, sector_counts, watermark, elapsed)
+    summary = {"root": str(r), "at": time.time(), "live": False, "started": t0,
+               "job": "census", "nodes": nodes, "edges": edges, "trail": trail,
+               "census": census,
+               "spider": {"pos": trail[-1] if trail else None, "visited": counts["files"],
+                          "state": "DONE", "action": "CENSUS", "total_findings": 0,
+                          "wires": 0, "elapsed_s": round(elapsed, 1)}}
+    TRAIL_FILE.write_text(json.dumps(summary, indent=1), encoding="utf-8")
+    top_exts = sorted(ext_counts.items(), key=lambda kv: -kv[1])[:12]
+    top_sectors = sorted(sector_counts.items(), key=lambda kv: -kv[1])[:12]
+    return {"status": "CENSUS_DONE", "files": counts["files"], "dirs": counts["dirs"],
+            "skipped": counts["skipped"], "errors": counts["errors"],
+            "elapsed_s": round(elapsed, 1),
+            "files_per_sec": round(counts["files"] / max(elapsed, 0.01), 1),
+            "top_exts": top_exts, "top_sectors": top_sectors,
+            "memory_total": census["total"],
+            "report": str(SPIDER_DIR / "spider_report.json")}
 
 
 @mcp.tool()

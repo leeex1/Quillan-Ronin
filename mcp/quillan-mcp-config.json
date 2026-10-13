@@ -242,6 +242,13 @@
         "PYTHONIOENCODING": "utf-8",
         "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
       }
+    },
+    "ThreeJSDevtools": {
+      "command": "C:\\\\Program Files\\\\nodejs\\\\npx.cmd",
+      "args": [
+        "-y",
+        "threejs-devtools-mcp"
+      ]
     }
   }
 }

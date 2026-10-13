@@ -10,6 +10,7 @@ Dashboard Spider tab polls these; CORS * so file:// dashboard works.
 """
 
 import json
+import re
 import sys
 import threading
 import time
@@ -19,6 +20,7 @@ from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 
 SPIDER_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_spider")
+DASH_DIR = Path(r"C:\02_QUILLAN\06 - Deployment & Platforms")
 sys.path.insert(0, str(SPIDER_DIR))
 import server as spider  # noqa: E402
 
@@ -28,6 +30,50 @@ STATS = {"tasks_done": 0, "files": 0, "findings": 0, "wires": 0, "task_secs": 0.
          "sweeps": 0, "sweep_files": 0}
 WATCH = {"on": False, "root": r"C:\02_QUILLAN\09 - Projects\mcp", "interval": 30,
          "watermark": 0.0, "heartbeat": 0, "last": None}
+
+# ---- live agent roster: one spider body per agent, minis per sub-agent ----
+# Agents heartbeat in; dashboard renders each as a colored, named spider bot.
+AGENTS = {}
+AGENTS_LOCK = threading.Lock()
+AGENTS_FILE = SPIDER_DIR / "agents.json"
+AGENT_TTL = 60  # seconds without heartbeat -> shown stale/offline
+AGENT_COLORS = ["#49e0da", "#f6b84b", "#ff7b72", "#a371f7",
+                "#3fb950", "#58a6ff", "#d29922", "#ff9d5c"]
+HEX_COLOR = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+
+def _load_agents():
+    try:
+        data = json.loads(AGENTS_FILE.read_text(encoding="utf-8"))
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
+    return {}
+
+
+def _save_agents():
+    try:
+        AGENTS_FILE.write_text(json.dumps(AGENTS), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def _agent_color(agent_id, want):
+    if want and HEX_COLOR.match(str(want)):
+        return str(want)
+    h = 0
+    for ch in str(agent_id):
+        h = (h * 31 + ord(ch)) & 0xFFFFFFFF
+    return AGENT_COLORS[h % len(AGENT_COLORS)]
+
+
+def _clean_str(v, limit):
+    s = str(v if v is not None else "")[:limit]
+    return s.replace("\r", " ").replace("\n", " ")
+
+
+AGENTS.update(_load_agents())
 
 
 def _watch_loop():
@@ -84,6 +130,28 @@ class Handler(SimpleHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self):
+        if self.path.startswith("/dashboard"):
+            try:
+                body = (DASH_DIR / "quillan-dashboard.html").read_bytes()
+            except Exception as e:
+                return self._json({"error": "dashboard missing: %s" % e}, 404)
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
+        if self.path.startswith("/spider-graph.js"):
+            try:
+                body = (DASH_DIR / "spider-graph.js").read_bytes()
+            except Exception as e:
+                return self._json({"error": "spider-graph.js missing: %s" % e}, 404)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
         if self.path.startswith("/api/trail"):
             try:
                 return self._json(json.loads((SPIDER_DIR / "trail.json").read_text(encoding="utf-8")))
@@ -118,7 +186,21 @@ class Handler(SimpleHTTPRequestHandler):
                     break
             return self._json({"nodes": nodes, "edges": edges, "total_nodes": len(mn),
                                "total_edges": len(mem.get("edges", {})), "runs": mem.get("runs", 0),
-                               "updated": mem.get("updated", 0)})
+                               "updated": mem.get("updated", 0),
+                               "census": mem.get("census", {})})
+        if self.path.startswith("/api/agents"):
+            now = time.time()
+            with AGENTS_LOCK:
+                out = []
+                for aid, a in AGENTS.items():
+                    age = now - a.get("ts", 0)
+                    out.append({"id": aid, "name": a.get("name", aid),
+                                "color": a.get("color", "#49e0da"),
+                                "file": a.get("file", ""), "task": a.get("task", ""),
+                                "children": a.get("children", []),
+                                "stale": age > AGENT_TTL, "age_s": round(age, 1)})
+            out.sort(key=lambda x: x["id"])
+            return self._json({"agents": out, "now": now, "ttl_s": AGENT_TTL})
         if self.path.startswith("/api/watch"):
             return self._json({"on": WATCH["on"], "root": WATCH["root"], "interval": WATCH["interval"],
                                "heartbeat_ago_s": round(time.time() - WATCH["heartbeat"], 1) if WATCH["heartbeat"] else -1,
@@ -148,6 +230,59 @@ class Handler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        if self.path.startswith("/api/agent/heartbeat"):
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+            except Exception:
+                n = 0
+            try:
+                payload = json.loads(self.rfile.read(n) or b"{}") if n else {}
+            except Exception:
+                payload = {}
+            aid = _clean_str(payload.get("id", ""), 64)
+            if not aid:
+                return self._json({"error": "id required"}, 400)
+            kids = []
+            raw_kids = payload.get("children", [])
+            if isinstance(raw_kids, list):
+                for k in raw_kids[:12]:
+                    if not isinstance(k, dict):
+                        continue
+                    kid_id = _clean_str(k.get("id", ""), 64)
+                    if not kid_id:
+                        continue
+                    kids.append({"id": kid_id,
+                                 "name": _clean_str(k.get("name", kid_id), 48),
+                                 "file": _clean_str(k.get("file", ""), 220),
+                                 "task": _clean_str(k.get("task", ""), 160)})
+            with AGENTS_LOCK:
+                AGENTS[aid] = {"name": _clean_str(payload.get("name", aid), 48),
+                               "color": _agent_color(aid, payload.get("color", "")),
+                               "file": _clean_str(payload.get("file", ""), 260),
+                               "task": _clean_str(payload.get("task", ""), 200),
+                               "children": kids,
+                               "ts": time.time()}
+                if len(AGENTS) > 24:
+                    oldest = sorted(AGENTS.items(), key=lambda kv: kv[1].get("ts", 0))[0][0]
+                    AGENTS.pop(oldest, None)
+                _save_agents()
+            return self._json({"ok": True, "id": aid,
+                               "color": AGENTS[aid]["color"],
+                               "children": len(kids)})
+        if self.path.startswith("/api/agent/clear"):
+            try:
+                n = int(self.headers.get("Content-Length", 0))
+            except Exception:
+                n = 0
+            try:
+                payload = json.loads(self.rfile.read(n) or b"{}") if n else {}
+            except Exception:
+                payload = {}
+            aid = _clean_str(payload.get("id", ""), 64)
+            with AGENTS_LOCK:
+                gone = AGENTS.pop(aid, None) is not None
+                _save_agents()
+            return self._json({"ok": True, "cleared": gone, "id": aid})
         if self.path.startswith("/api/takeover"):
             try:
                 n = int(self.headers.get("Content-Length", 0))

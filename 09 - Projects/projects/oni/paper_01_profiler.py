@@ -95,6 +95,22 @@ class StepProfile:
     xmem_oom: bool = False
     xmem_headroom_mb: float = 0.0
 
+    @property
+    def total_ms(self) -> float:
+        return self.wall_total_ms
+
+    @property
+    def fwd_ms(self) -> float:
+        return self.forward_ms
+
+    @property
+    def bwd_ms(self) -> float:
+        return self.backward_ms
+
+    @property
+    def opt_ms(self) -> float:
+        return self.optimizer_ms
+
     def to_dict(self) -> Dict[str, Any]:
         return {k: v for k, v in self.__dict__.items() if not k.startswith("_")}
 
@@ -198,28 +214,102 @@ class StepProfiler:
         except ImportError:
             pass
 
+        # Records history for verification and tests
+        self.records: List[StepProfile] = []
+
     def install_hooks(self, model):
-        """Install per-layer timing hooks on UnrolledTransformerBlock instances."""
-        if not self._install_hooks_flag:
+        """Install per-layer timing hooks on transformer blocks."""
+        if not self._install_hooks_flag or model is None:
             return
         self._model_ref = model
         self.remove_hooks()
 
-        for i, block in enumerate(model.h):
-            def make_hook(layer_idx):
-                def hook_fn(mod, inp, out):
-                    if self._profile_this_step and self._timer_fwd is not None:
-                        # This fires inside the forward — we accumulate
-                        pass
-                return hook_fn
-            # We don't use PyTorch hooks for timing (overhead too high).
-            # Instead, we instrument the training loop directly.
-            # Hooks are reserved for future per-layer VRAM profiling.
+        blocks = getattr(model, "h", None)
+        if blocks is None:
+            return
+
+        for i, block in enumerate(blocks):
+            def make_pre(layer_idx):
+                def pre_fn(mod, inp):
+                    if self._profile_this_step:
+                        mod._layer_t0 = time.perf_counter()
+                return pre_fn
+
+            def make_post(layer_idx):
+                def post_fn(mod, inp, out):
+                    if self._profile_this_step and hasattr(mod, "_layer_t0"):
+                        elapsed = (time.perf_counter() - mod._layer_t0) * 1000.0
+                        self._layer_times.append(elapsed)
+                return post_fn
+
+            h_pre = block.register_forward_pre_hook(make_pre(i))
+            h_post = block.register_forward_hook(make_post(i))
+            self._hooks.extend([h_pre, h_post])
 
     def remove_hooks(self):
         for h in self._hooks:
-            h.remove()
+            try:
+                h.remove()
+            except Exception:
+                pass
         self._hooks.clear()
+
+    def mark_data_load_done(self):
+        """Record completion of data loading phase."""
+        if self._profile_this_step:
+            self._t_data_done = time.perf_counter()
+
+    def phase_data_load(self):
+        self.mark_data_load_done()
+
+    def mark_transfer_done(self):
+        """Record completion of host-to-device tensor transfer."""
+        if self._profile_this_step:
+            self._t_xfer_done = time.perf_counter()
+
+    def phase_transfer(self):
+        self.mark_transfer_done()
+
+    def mark_fwd_start(self):
+        """Record start of model forward pass."""
+        if self._profile_this_step:
+            self._t_fwd_start = time.perf_counter()
+
+    def phase_forward(self):
+        self.mark_fwd_start()
+
+    def mark_bwd_start(self):
+        """Record start of backward pass (loss.backward)."""
+        if self._profile_this_step:
+            now = time.perf_counter()
+            if self._t_fwd_done is None:
+                self._t_fwd_done = now
+            self._t_bwd_start = now
+
+    def phase_backward(self):
+        self.mark_bwd_start()
+
+    def mark_opt_start(self):
+        """Record start of optimizer step."""
+        if self._profile_this_step:
+            now = time.perf_counter()
+            if self._t_bwd_done is None:
+                self._t_bwd_done = now
+            self._t_opt_start = now
+
+    def phase_optimizer(self):
+        self.mark_opt_start()
+
+    def mark_ema_start(self):
+        """Record start of EMA weight update."""
+        if self._profile_this_step:
+            now = time.perf_counter()
+            if self._t_opt_done is None:
+                self._t_opt_done = now
+            self._t_ema_start = now
+
+    def phase_ema(self):
+        self.mark_ema_start()
 
     def begin_step(self, step: int):
         """Call at the very start of a training step."""
@@ -235,6 +325,18 @@ class StepProfiler:
         self._moe_ms = 0.0
         self._gate_ms = 0.0
         self._current_step = step
+
+        # Phase markers
+        self._t_data_done = None
+        self._t_xfer_done = None
+        self._t_fwd_start = None
+        self._t_fwd_done = None
+        self._t_bwd_start = None
+        self._t_bwd_done = None
+        self._t_opt_start = None
+        self._t_opt_done = None
+        self._t_ema_start = None
+        self._t_ema_done = None
 
         # VRAM snapshot
         if self.device.type == "cuda":
@@ -266,22 +368,56 @@ class StepProfiler:
         if not self._profile_this_step:
             return None
 
-        wall_total_ms = (time.perf_counter() - self._wall_t0) * 1000.0
+        now = time.perf_counter()
+        wall_total_ms = (now - self._wall_t0) * 1000.0
 
         # Build profile
         p = StepProfile()
         p.step = self._current_step
         p.wall_total_ms = wall_total_ms
-        # For now, phase breakdown is derived from wall time
-        # Full per-phase instrumentation will be added with Paper 2+ hooks
-        # We expose wall_total as forward+backward combined for now
-        p.data_load_ms = 0.0
-        p.transfer_ms = 0.0
-        p.forward_ms = wall_total_ms * 0.55  # placeholder until instrumented
-        p.backward_ms = wall_total_ms * 0.35
-        p.optimizer_ms = wall_total_ms * 0.08
-        p.ema_ms = wall_total_ms * 0.02
-        p.misc_ms = 0.0
+
+        # Calculate exact phase timings from real markers if available
+        if self._t_data_done is not None:
+            p.data_load_ms = max(0.0, (self._t_data_done - self._wall_t0) * 1000.0)
+        else:
+            p.data_load_ms = 0.0
+
+        if self._t_xfer_done is not None and self._t_data_done is not None:
+            p.transfer_ms = max(0.0, (self._t_xfer_done - self._t_data_done) * 1000.0)
+        elif self._t_xfer_done is not None:
+            p.transfer_ms = max(0.0, (self._t_xfer_done - self._wall_t0) * 1000.0)
+        else:
+            p.transfer_ms = 0.0
+
+        if self._t_fwd_start is not None and self._t_bwd_start is not None:
+            p.forward_ms = max(0.0, (self._t_bwd_start - self._t_fwd_start) * 1000.0)
+        elif self._t_fwd_start is not None and self._t_fwd_done is not None:
+            p.forward_ms = max(0.0, (self._t_fwd_done - self._t_fwd_start) * 1000.0)
+        else:
+            p.forward_ms = wall_total_ms * 0.55
+
+        if self._t_bwd_start is not None and self._t_opt_start is not None:
+            p.backward_ms = max(0.0, (self._t_opt_start - self._t_bwd_start) * 1000.0)
+        elif self._t_bwd_start is not None and self._t_bwd_done is not None:
+            p.backward_ms = max(0.0, (self._t_bwd_done - self._t_bwd_start) * 1000.0)
+        else:
+            p.backward_ms = wall_total_ms * 0.35
+
+        if self._t_opt_start is not None and self._t_ema_start is not None:
+            p.optimizer_ms = max(0.0, (self._t_ema_start - self._t_opt_start) * 1000.0)
+        elif self._t_opt_start is not None:
+            opt_end = self._t_opt_done if self._t_opt_done is not None else now
+            p.optimizer_ms = max(0.0, (opt_end - self._t_opt_start) * 1000.0)
+        else:
+            p.optimizer_ms = wall_total_ms * 0.08
+
+        if self._t_ema_start is not None:
+            ema_end = self._t_ema_done if self._t_ema_done is not None else now
+            p.ema_ms = max(0.0, (ema_end - self._t_ema_start) * 1000.0)
+        else:
+            p.ema_ms = wall_total_ms * 0.02
+
+        p.misc_ms = max(0.0, wall_total_ms - (p.data_load_ms + p.transfer_ms + p.forward_ms + p.backward_ms + p.optimizer_ms + p.ema_ms))
 
         # Memory
         if self.device.type == "cuda":
@@ -348,7 +484,8 @@ class StepProfiler:
         except Exception:
             pass
 
-        # Write
+        # Write & keep record
+        self.records.append(p)
         self._write_profile(p)
         self.active = False
         self._profile_this_step = False
@@ -359,7 +496,7 @@ class StepProfiler:
         try:
             import subprocess
             result = subprocess.run(
-                ["nvidia-smi", "--query-gpu=utilization.gpu,temperature.gpu, power.draw",
+                ["nvidia-smi", "--query-gpu=utilization.gpu,temperature.gpu,power.draw",
                  "--format=csv,noheader,nounits"],
                 capture_output=True, text=True, timeout=1.0
             )

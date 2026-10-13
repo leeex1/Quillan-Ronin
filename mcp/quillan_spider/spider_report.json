@@ -1,41 +1,40 @@
 {
  "job": "scan",
- "root": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider",
- "files": 3,
- "total_findings": 2,
- "wiring": [
-  {
-   "from": "spider_bridge.py",
-   "to": "server",
-   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
-  }
- ],
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code",
+ "files": 1,
+ "total_findings": 3,
+ "wiring": [],
  "flagged": [
   {
-   "t": 0.1,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "node": 2,
+   "t": 0.01,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1001 lines, 2 findings | compiled OK | 32F/1C | 70.0ms",
+   "detail": "383 lines, 3 findings | compiled OK | 18F/1C | 9.4ms",
    "findings": [
     {
-     "rule": "subprocess_shell",
-     "line": 541,
-     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+     "rule": "todo_fixme",
+     "line": 320,
+     "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
     },
     {
      "rule": "todo_fixme",
-     "line": 358,
-     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+     "line": 328,
+     "preview": "# TODO: Pass boundary values"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 335,
+     "preview": "# TODO: Pass invalid type"
     }
    ],
-   "lines": 1001,
-   "ms": 70.0,
+   "lines": 383,
+   "ms": 9.4,
    "compiled": true,
-   "funcs": 32,
+   "funcs": 18,
    "classes": 1
   }
  ],

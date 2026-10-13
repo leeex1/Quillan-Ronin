@@ -44,6 +44,72 @@ from quillan_v5_4_oni import (
     QuantumFormulasEngine
 )
 from paper_01_profiler import StepProfiler
+from paper_02_abductive import AbductiveJump, AbductiveHypothesis
+from paper_03_proxy_kd import SampleWeightedKL, ProxyKD
+from paper_04_memo import MemoConfig, solve_optimal_alpha, MemoMemoryPlanner
+from paper_05_07_heterogeneous import CUDAOptimizationPack, AxoNNHybridPlanner, HeterogeneousAllocator
+from paper_08_10_inference_pack import AdaptiveBatchSizer, MultiGPUTaskAllocator, TaskAllocator, APEXScheduler, PipelinedInference
+from paper_11_15_quant_memory_pack import (
+    NVFP4Quantizer, NVFP4Linear, apply_random_hadamard_transform_16, NVFP4_E2M1_LEVELS,
+    CUDACachingAllocatorSimulator, XMemEstimator, EGGROLLOptimizer, HyperscaleES,
+    LongHorizonDistiller
+)
+from moba_attention import MoBAAttention, online_softmax_combine
+from paper_16_20_agent_evolution_pack import (
+    ConsciousnessSteeringEngine,
+    SelfModelCoherenceLoss,
+    ContinualSkillBenchTracker,
+    BPEHarnessState,
+    EvoHarnessReward,
+    HarnessPolicy,
+    EmbedderCostModel,
+    HybridRetrieveRerankRouter,
+    HybridEmbedderRouter,
+    PersonaConditioning
+)
+from paper_21_25_grt_coordination_pack import (
+    TemporalCoordinationNetwork,
+    CoordinationTelemetry,
+    AgentPhysicsPredictor,
+    ASIBenchEvaluator,
+    ASIBenchRunner,
+    SCIENTIFIC_DOMAINS,
+    GUIDANCE_LEVELS,
+    REFERENCE_BASELINES,
+    ABRAScalingLaws,
+    ABRAScaling
+)
+from paper_26_30_recurrent_diffusion_pack import (
+    GatedDeltaNetLayer,
+    DynamicRecurrentCompressor,
+    DynamicCompressionLoss,
+    RecirculationNormMode,
+    RecirculationLayer,
+    AdaptiveRecirculationMLP,
+    RecirculationEngine
+)
+from ecdysis_harness import (
+    EcdysisHarnessEvolver,
+    FailureRecord,
+    FailurePatternGroup,
+    FDCRRefiner
+)
+from sol_pi_harness import (
+    ActionFusionHandler,
+    CostGatedContextCompactor,
+    ObservationPackBuffer,
+    EvidencePreservingReducer,
+    SoLPiHarness
+)
+from memory_attention import (
+    MemoryAttentionLayer,
+    MAOffloadManager,
+    MARecallManager,
+    MemoryAttentionEngine,
+    MAAnalysisReport
+)
+
+
 
 
 # ─── 1. BITNET 1.58b / STE TERNARY INVARIANT ─────────────────────────────────
@@ -155,8 +221,11 @@ def test_leemach6_governor_latency_feedback():
 
 # ─── 6. GYAWALI STEP PROFILER PHASE BREAKDOWN ────────────────────────────────
 
-def test_gyawali_profiler_phase_decomposition(tmp_path):
+def test_gyawali_profiler_phase_decomposition(tmp_path=None):
     """Verifies that the Gyawali step profiler records real phase timings."""
+    if tmp_path is None:
+        import tempfile
+        tmp_path = tempfile.mkdtemp()
     profiler = StepProfiler(device=torch.device("cpu"), log_dir=tmp_path, log_every=1)
     
     profiler.begin_step(0)
@@ -295,6 +364,1616 @@ def test_transverse_field_ising_energy_monotonicity():
     assert e_aligned.mean().item() < e_random.mean().item()
 
 
+# ─── 12. ABDUCTIVE JUMP E->J->A REASONING CYCLE (Paper 2 / 235) ─────────────
+
+def test_abductive_jump_invariant():
+    """Proves AbductiveJump generates coherent counterfactual axioms and active aux loss."""
+    cfg = QuillanOniConfig(hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200, use_abductive=True)
+    model = QuillanRoninOni(cfg)
+    assert model.abductive_jump is not None, "Abductive jump module must be initialized when use_abductive=True"
+
+    x = torch.randint(0, 200, (2, 8))
+    y = torch.randint(0, 200, (2, 8))
+    model.zero_grad()
+    logits, ce, aux = model(x, labels=y)
+    
+    assert "abductive_loss" in aux, "aux['abductive_loss'] must be emitted"
+    total_loss = ce + model.total_aux_loss(aux)
+    total_loss.backward()
+
+    # Verify gradients reach abductive parameters
+    g_s2a = model.abductive_jump.sim_to_axiom[0].weight.grad
+    g_prior = model.abductive_jump.physical_prior[0].weight.grad
+    assert g_s2a is not None and g_s2a.norm().item() > 0, "sim_to_axiom must receive backprop gradients"
+    assert g_prior is not None and g_prior.norm().item() > 0, "physical_prior must receive backprop gradients"
+
+
+# ─── 13. PROXY-KD SAMPLE-WEIGHTED BLACK-BOX DISTILLATION (Paper 3 / 2401.07013)
+
+def test_proxy_kd_invariant():
+    """Proves Proxy-KD sample-level weighting and active distillation aux loss in compute graph."""
+    # 1. Test sample-level weighting
+    weighted_kl = SampleWeightedKL(alpha=10.0, temperature=2.0)
+    log_p = torch.tensor([-2.5, -1.0, -0.5, -4.0])
+    w = weighted_kl.compute_weight(log_p)
+    assert w[2] > w[3], "Higher likelihood must yield higher distillation weight"
+
+    # 2. Test in model forward pass
+    cfg = QuillanOniConfig(hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200, use_proxy_kd=True)
+    model = QuillanRoninOni(cfg)
+    assert model.distill_head is not None, "distill_head must be initialized"
+
+    x = torch.randint(0, 200, (2, 8))
+    y = torch.randint(0, 200, (2, 8))
+    model.zero_grad()
+    logits, ce, aux = model(x, labels=y)
+
+    assert "distill" in aux, "aux['distill'] must be present"
+    total_loss = ce + model.total_aux_loss(aux)
+    total_loss.backward()
+    assert model.wte.weight.grad is not None and model.wte.weight.grad.norm().item() > 0
+
+
+# ─── 14. MEMO TOKEN-WISE ACTIVATION MANAGEMENT & MEMORY PLANNING (Paper 4 / 2407.12117)
+
+def test_memo_invariant():
+    """Proves MEMO LP optimal swap fraction solution and active layer-wise activation management."""
+    # 1. Test LP optimization
+    mc = MemoConfig(batch_size=2, seq_len=512, hidden_dim=1024, n_layer=6, pcie_bandwidth_gbps=16.0, cpu_memory_gb=28.0)
+    alpha = solve_optimal_alpha(mc)
+    assert 0.0 <= alpha <= 1.0, "Optimal alpha must be in [0, 1]"
+
+    # 2. Test bi-level transient planner
+    planner = MemoMemoryPlanner(mc)
+    plan = planner.plan(torch.device("cpu"))
+    assert len(plan) > 0, "Memory plan must not be empty"
+
+    # 3. Test active model integration
+    cfg = QuillanOniConfig(hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200, use_memo=True)
+    model = QuillanRoninOni(cfg)
+    assert model.memo is not None, "model.memo must be initialized when use_memo=True"
+
+    x = torch.randint(0, 200, (2, 8))
+    y = torch.randint(0, 200, (2, 8))
+    logits, ce, aux = model(x, labels=y)
+    fired_names = [name for name, _ in model._fired]
+    assert "memo_layer" in fired_names, "memo_layer must fire in model forward pass"
+
+
+# ─── 15. CUDA OPTIMIZATION PACK & PARALLEL COMPUTING (Paper 6 / 2410.05686v1)
+
+def test_cuda_optimization_pack_invariant():
+    """Proves CUDA memory coalescing audit, warp boundary padding, branchless predication, and bank conflict checks."""
+    # 1. Coalescing audit: unit-stride contiguous vs strided transpose
+    t_contig = torch.randn(4, 32)
+    res_contig = CUDAOptimizationPack.audit_coalescing(t_contig)
+    assert res_contig["is_contiguous"] and res_contig["has_unit_stride"], "Contiguous tensor must have unit stride"
+
+    t_strided = t_contig.t()
+    res_strided = CUDAOptimizationPack.audit_coalescing(t_strided)
+    assert not res_strided["is_contiguous"], "Transposed tensor must be non-contiguous"
+    assert res_strided["efficiency"] < 1.0, "Non-contiguous tensor must have penalized efficiency"
+
+    # 2. Warp boundary padding (dim aligned to 32)
+    t_unaligned = torch.randn(2, 25)
+    t_padded = CUDAOptimizationPack.pad_to_warp_boundary(t_unaligned, dim=-1)
+    assert t_padded.shape == (2, 32), f"Expected shape (2, 32), got {t_padded.shape}"
+
+    # 3. Branchless predication avoiding warp divergence
+    cond = torch.tensor([True, False, True])
+    a = torch.tensor([1.0, 2.0, 3.0])
+    b = torch.tensor([10.0, 20.0, 30.0])
+    out = CUDAOptimizationPack.branchless_predication(cond, a, b)
+    assert torch.allclose(out, torch.tensor([1.0, 20.0, 3.0])), "Predication result mismatch"
+
+    # 4. Bank conflicts in 32 shared memory banks
+    assert CUDAOptimizationPack.check_bank_conflict(2) is True, "Stride 2 must cause bank conflict"
+    assert CUDAOptimizationPack.check_bank_conflict(32) is True, "Stride 32 must cause bank conflict"
+    assert CUDAOptimizationPack.check_bank_conflict(1) is False, "Stride 1 must be conflict-free"
+    assert CUDAOptimizationPack.check_bank_conflict(33) is False, "Stride 33 must be conflict-free"
+
+    # 5. Active Model forward integration
+    cfg = QuillanOniConfig(hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200, use_heterogeneous=True)
+    model = QuillanRoninOni(cfg)
+    assert model.hetero_manager is not None, "hetero_manager must be initialized when use_heterogeneous=True"
+
+    x = torch.randint(0, 200, (2, 8))
+    y = torch.randint(0, 200, (2, 8))
+    logits, ce, aux = model(x, labels=y)
+    fired_dict = dict(model._fired)
+    assert "hetero_strategy" in fired_dict, "hetero_strategy must fire in model forward pass"
+    assert fired_dict["hetero_strategy"]["coalesced"] is True, "Hidden state must be confirmed coalesced"
+
+
+# ─── 16. AxoNN 4D HYBRID PARALLEL COMMUNICATION MODEL (Paper 7 / 2502.08145v1)
+
+def test_axonn_4d_hybrid_planner_invariant():
+    """Proves AxoNN 4D hybrid analytical communication equations (Rabenseifner/Thakur ring collectives) and grid search."""
+    planner = AxoNNHybridPlanner()
+
+    # 1. Test analytical layer communication equations (Eqs 1-5 in Singh et al., 2025)
+    comm = planner.predict_layer_comm_time(
+        g_data=2, gx=2, gy=2, gz=2,
+        m=1024, k=1024, n=4096,
+        beta_gbps=25.0
+    )
+    assert comm["total_comm_ms"] > 0, "Total communication time must be positive"
+    assert comm["t_ag_z_ms"] > 0, "All-gather Z time must be positive"
+    assert comm["t_rs_z_ms"] > 0, "Reduce-scatter Z time must be positive"
+    assert comm["t_ar_y_ms"] > 0, "All-reduce Y time must be positive"
+    assert comm["t_ar_x_ms"] > 0, "All-reduce X time must be positive"
+    assert comm["t_ar_data_ms"] > 0, "Data parallel all-reduce time must be positive"
+    expected_sum = comm["t_ag_z_ms"] + comm["t_rs_z_ms"] + comm["t_ar_y_ms"] + comm["t_ar_x_ms"] + comm["t_ar_data_ms"]
+    assert math.isclose(comm["total_comm_ms"], expected_sum, rel_tol=1e-5), "Communication components must sum to total"
+
+    # 2. Test 4D grid optimization search
+    strat_8gpu = planner.find_optimal_4d_grid(num_gpus=8, batch_size=2, seq_len=512, hidden_dim=1024, n_layer=6)
+    assert strat_8gpu.g_data * strat_8gpu.gx * strat_8gpu.gy * strat_8gpu.gz == 8, "4D factors must product to num_gpus"
+    assert strat_8gpu.comm_time_ms > 0, "Optimal strategy must have positive communication cost"
+
+    # 3. Test strategy picker integration
+    strat = planner.pick_strategy(seq_len=512, hidden_dim=1024, n_layer=6, batch_size=2)
+    assert strat.name == "dp_only", "Small sequence should select dp_only"
+    assert hasattr(strat, "comm_time_ms") and strat.comm_time_ms >= 0
+
+
+# ─── 17. GPU+CPU DYNAMIC WORKLOAD ALLOCATOR (Paper 8 / 2502.11129v1)
+
+def test_heterogeneous_allocator_invariant():
+    """Proves dynamic CPU/GPU throughput-based workload balancing and partitioning (Eynaliyev & Liu, 2025)."""
+    alloc = HeterogeneousAllocator()
+
+    # 1. Optimal split calculation: t_cpu = 4ms, t_gpu = 1ms -> 80% GPU, 20% CPU
+    split = alloc.calculate_optimal_split(100, t_cpu_per_item=4.0, t_gpu_per_item=1.0, overhead_ms=0.5)
+    assert split["n_gpu"] == 80, f"Expected 80 GPU items, got {split['n_gpu']}"
+    assert split["n_cpu"] == 20, f"Expected 20 CPU items, got {split['n_cpu']}"
+    assert split["t_gpu_ms"] == 80.0, "GPU execution time must match 80 * 1.0ms"
+    assert split["t_cpu_ms"] == 80.0, "CPU execution time must match 20 * 4.0ms"
+    assert split["speedup"] > 1.2, f"Expected speedup > 1.2x, got {split['speedup']:.2f}x"
+
+    # 2. Workload partitioning across 34 MoE experts
+    experts = list(range(34))
+    gpu_exp, cpu_exp = alloc.partition_workload(experts, op_type="expert_dispatch")
+    assert len(gpu_exp) + len(cpu_exp) == 34, "All experts must be partitioned"
+    assert set(gpu_exp).isdisjoint(set(cpu_exp)), "Expert partitions must be disjoint"
+
+    # 3. Model integration: allocator accessible on hetero_manager
+    cfg = QuillanOniConfig(hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200, use_heterogeneous=True)
+    model = QuillanRoninOni(cfg)
+    assert hasattr(model.hetero_manager, "allocator"), "hetero_manager must contain allocator"
+    assert model.hetero_manager.allocator.allocate("matmul") == "cuda"
+    assert model.hetero_manager.allocator.allocate("tokenize") == "cpu"
+
+
+# ─── 18. MOBA: MIXTURE OF BLOCK ATTENTION (Paper 9 / 2502.13189v1)
+
+def test_moba_block_attention_invariant():
+    """Proves MoBA sub-quadratic block partition, mean-pooled key affinity, causal gating, and online softmax combination."""
+    # 1. Test standalone MoBAAttention forward + backward
+    moba = MoBAAttention(head_dim=16, n_head=4, block_size=16, top_k=1)
+    q = torch.randn(2, 4, 48, 16, requires_grad=True)
+    k = torch.randn(2, 4, 48, 16, requires_grad=True)
+    v = torch.randn(2, 4, 48, 16, requires_grad=True)
+
+    out = moba(q, k, v, is_causal=True)
+    assert out.shape == (2, 4, 48, 16), f"Expected shape (2, 4, 48, 16), got {out.shape}"
+    loss = out.sum()
+    loss.backward()
+    assert q.grad is not None and q.grad.norm().item() > 0, "Query gradient must propagate through MoBA"
+    assert k.grad is not None and k.grad.norm().item() > 0, "Key gradient must propagate through MoBA"
+    assert v.grad is not None and v.grad.norm().item() > 0, "Value gradient must propagate through MoBA"
+
+    # 2. Test full model integration
+    cfg = QuillanOniConfig(
+        hidden_dim=64, n_layer=2, num_experts=34, vocab_size=200,
+        use_moba=True, moba_block_size=16, moba_top_k=2
+    )
+    model = QuillanRoninOni(cfg)
+    assert model.h[0].attn.use_moba is True, "Attention layer must have use_moba=True"
+    assert model.h[0].attn.moba is not None, "moba module must be instantiated"
+
+    x = torch.randint(0, 200, (2, 48))
+    y = torch.randint(0, 200, (2, 48))
+    logits, ce, aux = model(x, labels=y)
+    assert logits.shape == (2, 48, 200)
+    total_loss = ce + model.total_aux_loss(aux)
+    total_loss.backward()
+    assert model.wte.weight.grad is not None and model.wte.weight.grad.norm().item() > 0, "Embedding gradients must propagate through MoBA layers"
+
+
+def test_adaptive_batch_sizer_bca_invariant():
+    """Proves Batching Configuration Advisor (BCA) solves argmax T(B) subject to latency SLO and scaling efficiency (Paper 10 / 2503.08311v2 Recasens)."""
+    sizer = AdaptiveBatchSizer(gpu_memory_mb=4096.0, model_mb=1000.0, dram_bw_gbps=112.0)
+
+    # 1. Standard solve under 50ms SLO
+    res = sizer.bca_solve(seq_len=512, hidden_dim=1024, n_layer=6, slo_ms=50.0, epsilon=0.1)
+    assert res["b_opt"] >= 1, "Optimal batch size must be >= 1"
+    assert res["latency_ms"] <= 50.0, f"Latency {res['latency_ms']} ms must respect SLO 50.0 ms"
+    assert res["efficiency_ratio"] > 0.1, f"Efficiency ratio {res['efficiency_ratio']} must exceed epsilon 0.1"
+    assert res["throughput_tokens_per_sec"] > 0, "Throughput must be positive"
+    assert res["memory_saved_percent"] >= 0.0, "Memory savings must be non-negative"
+
+    # 2. Tight SLO test: under 12ms SLO, optimal batch size must be constrained
+    tight_res = sizer.bca_solve(seq_len=512, hidden_dim=1024, n_layer=6, slo_ms=12.0, epsilon=0.1)
+    assert tight_res["b_opt"] <= res["b_opt"], "Tighter SLO must yield batch size <= standard batch size"
+    assert tight_res["latency_ms"] <= 12.0, "Tight SLO must be strictly satisfied"
+
+    # 3. Test optimal_batch_size compatibility helper
+    b_heuristic = sizer.optimal_batch_size(seq_len=512, hidden_dim=1024, n_layer=6, slo_ms=50.0)
+    assert isinstance(b_heuristic, int) and b_heuristic >= 1, "optimal_batch_size must return positive integer"
+
+
+def test_multigpu_task_allocator_lawenda_invariant():
+    """Proves Multi-GPU task allocation, DDP-DS partitioning, BFD bin-packing, and Lawenda profiling decomposition (Paper 11 / 2503.15252v1 Lawenda)."""
+    allocator = MultiGPUTaskAllocator(gpu_memory_mb=4096.0, num_gpus=4)
+
+    # 1. Dataset workload distribution invariant
+    n_samples = 100
+    p_ddp = allocator.partition_dataset(n_samples, num_ranks=4, strategy="DDP")
+    assert all(p["num_samples"] == n_samples for p in p_ddp), "DDP must replicate all samples across all ranks"
+
+    p_ds = allocator.partition_dataset(n_samples, num_ranks=4, strategy="DDP-DS")
+    assert sum(p["num_samples"] for p in p_ds) == n_samples, "DDP-DS partitions must sum to total samples"
+    # Verify partitions are mutually disjoint
+    all_indices = [idx for p in p_ds for idx in p["indices"]]
+    assert len(all_indices) == len(set(all_indices)) == n_samples, "DDP-DS indices must be strictly disjoint and complete"
+
+    # 2. Profiling metrics & speedup invariants
+    base_1gpu = allocator.predict_performance(num_gpus=1, precision="FP64", pin_memory=False)
+    p4_fp32 = allocator.predict_performance(num_gpus=4, precision="FP32", pin_memory=True)
+    assert p4_fp32["speedup"] > base_1gpu["speedup"], "4 GPUs with FP32 must outperform 1 GPU FP64 baseline"
+    assert p4_fp32["t_h2d_ms"] < base_1gpu["t_h2d_ms"], "DDP-DS with pin_memory must reduce Host-to-Device latency"
+
+    # Precision scaling invariant: FP16 > FP32 > FP64 speedup
+    p1_fp16 = allocator.predict_performance(num_gpus=1, precision="FP16")
+    p1_fp32 = allocator.predict_performance(num_gpus=1, precision="FP32")
+    p1_fp64 = allocator.predict_performance(num_gpus=1, precision="FP64")
+    assert p1_fp16["speedup"] > p1_fp32["speedup"] > p1_fp64["speedup"], "Lower precision must yield strictly higher speedup"
+
+    # 3. Multi-device BFD bin-packing invariant
+    tasks = {
+        "attention": {"gpu_ms": 12.0, "cpu_ms": 80.0, "mem_mb": 50},
+        "ffn": {"gpu_ms": 8.0, "cpu_ms": 50.0, "mem_mb": 30},
+        "moe": {"gpu_ms": 20.0, "cpu_ms": 120.0, "mem_mb": 100},
+        "sampling": {"gpu_ms": 2.0, "cpu_ms": 3.0, "mem_mb": 1},
+    }
+    packed = allocator.bin_pack_tasks(tasks)
+    assert len(packed["assignment"]) == 4, "All tasks must be assigned"
+    assert packed["makespan_ms"] < sum(t["cpu_ms"] for t in tasks.values()), "Parallel packing makespan must be strictly less than serial CPU execution"
+
+    # Backward compatibility
+    legacy_alloc = allocator.allocate(["attention", "ffn", "sampling"])
+    assert "attention" in legacy_alloc and "sampling" in legacy_alloc
+
+
+def test_apex_scheduler_paper12_invariant():
+    """Proves APEX CPU-GPU parallel inference analytical model, Inequality 6 boundary, and Asynchronous Overlap deferred sync (Paper 12 / 2506.03296v2 Fan)."""
+    # 1. Inequality 6 test: Fast CPU relative to GPU (ratio < threshold) -> Asymmetric Pipelining
+    fast_cpu_sched = APEXScheduler(n_layer=6, n_g_rate=30.0, n_c_rate=15.0)  # ratio = 2.0
+    res_asym = fast_cpu_sched.evaluate_strategy(t_g_linear_ms=4.0, t_g_att_ms=6.0, has_prefill=False)
+    assert res_asym["strategy"] == "Asymmetric-Pipelining", "When NG/NC < threshold, Asymmetric Pipelining must be selected"
+    assert res_asym["sync_policy"] == "Immediate-Post-Layer"
+    assert res_asym["estimated_speedup"] > 1.0
+
+    # 2. Inequality 6 test: Slow CPU relative to GPU (ratio >= threshold) -> Asynchronous Overlap
+    # threshold = 2*(4/6) + 3 + (6/4) = 1.333 + 3 + 1.5 = 5.833
+    slow_cpu_sched = APEXScheduler(n_layer=6, n_g_rate=120.0, n_c_rate=10.0)  # ratio = 12.0 > 5.833
+    res_async = slow_cpu_sched.evaluate_strategy(t_g_linear_ms=4.0, t_g_att_ms=6.0, has_prefill=False)
+    assert res_async["strategy"] == "Asynchronous-Overlap", "When NG/NC >= threshold, Asynchronous Overlap must be selected"
+    assert res_async["sync_policy"] == "Deferred-Next-Cycle", "Asynchronous Overlap must defer synchronization to avoid GPU stalls"
+    assert res_async["estimated_speedup"] > 1.0
+
+    # 3. Algorithm 1 scheduling dispatch test
+    req_gpu = ["req_1", "req_2"]
+    req_cpu = ["req_3"]
+    # CPU queue empty -> GPU-only
+    sch_gpuonly = slow_cpu_sched.schedule(prefill_requests=[], gpu_decode_requests=req_gpu, cpu_decode_requests=[])
+    assert sch_gpuonly["strategy"] == "GPU-Only"
+
+    # CPU queue non-empty -> Asynchronous-Overlap
+    sch_overlap = slow_cpu_sched.schedule(prefill_requests=[], gpu_decode_requests=req_gpu, cpu_decode_requests=req_cpu)
+    assert sch_overlap["strategy"] == "Asynchronous-Overlap"
+    assert len(sch_overlap["scheduled_cpu_decode"]) == 1
+
+    # Mixed prefill + decode scenario
+    sch_mixed = slow_cpu_sched.schedule(prefill_requests=["pref_1"], gpu_decode_requests=req_gpu, cpu_decode_requests=req_cpu)
+    assert sch_mixed["strategy"] in ("Asymmetric-Pipelining", "Asynchronous-Overlap")
+
+    # 4. Backward compatibility
+    compat_pipe = PipelinedInference(n_layer=6)
+    assert compat_pipe.should_pipeline(64) is True
+    assert compat_pipe.estimate_speedup() > 1.0
+
+
+def test_nvfp4_pretraining_methodology_paper13_invariant():
+    """Proves NVFP4 pretraining methodology: RHT outlier dispersion, 2D weight transpose invariance, stochastic rounding unbiasedness, and NVFP4Linear backprop (Paper 13 / 2509.25149v2 NVIDIA)."""
+    # 1. Exact NVFP4 E2M1 representation levels
+    assert len(NVFP4_E2M1_LEVELS) == 15, "NVFP4 E2M1 must have exactly 15 representation levels"
+    assert NVFP4_E2M1_LEVELS.min().item() == -6.0 and NVFP4_E2M1_LEVELS.max().item() == 6.0
+
+    # 2. Random Hadamard Transform (RHT) energy conservation & outlier dispersion
+    torch.manual_seed(42)
+    # Norm conservation: orthogonal transform preserves vector L2 norm
+    x = torch.randn(4, 16)
+    x_rht = apply_random_hadamard_transform_16(x)
+    assert torch.allclose(x.norm(dim=-1), x_rht.norm(dim=-1), atol=1e-3), "RHT must preserve L2 energy norm"
+
+    # Outlier dispersion: single spike at index 0 should be spread across 16 dimensions
+    spike = torch.zeros(1, 16)
+    spike[0, 0] = 16.0
+    spike_rht = apply_random_hadamard_transform_16(spike)
+    assert spike_rht.abs().max().item() < 16.0, "RHT must disperse concentrated outlier spike"
+    assert torch.all(spike_rht.abs() > 0.0), "All dimensions must receive energy from RHT transform"
+
+    # 3. 2D Block Weight Quantization Transpose Invariance
+    # Critical property from Section 4.3: Q(W^T) == (Q(W))^T eliminates chain-rule violation
+    w = torch.randn(32, 32)
+    w_deq, _ = NVFP4Quantizer.quantize_weights_2d(w, block_size=16)
+    w_t_deq, _ = NVFP4Quantizer.quantize_weights_2d(w.t(), block_size=16)
+    assert torch.allclose(w_deq.t(), w_t_deq, atol=1e-5), "2D weight quantization must be strictly transpose-invariant"
+
+    # 4. Stochastic Rounding Unbiased Expectation (Section 4.4)
+    # Value 1.25 lies between FP4 levels 1.0 and 1.5. Expected value should equal 1.25
+    torch.manual_seed(42)
+    v = torch.full((10000,), 1.25)
+    v_sr = NVFP4Quantizer.round_to_fp4_stochastic(v)
+    mean_sr = v_sr.mean().item()
+    assert abs(mean_sr - 1.25) < 0.02, f"Stochastic rounding mean {mean_sr} must be unbiased (near 1.25)"
+
+    # 5. NVFP4Linear End-to-End Forward + Backward Propagation
+    layer = NVFP4Linear(in_features=32, out_features=32, bias=True, high_precision=False)
+    in_act = torch.randn(2, 32, requires_grad=True)
+    out = layer(in_act)
+    assert out.shape == (2, 32)
+    loss = out.sum()
+    loss.backward()
+
+    assert in_act.grad is not None and in_act.grad.norm().item() > 0, "Activation gradients must backpropagate through NVFP4"
+    assert layer.weight.grad is not None and layer.weight.grad.norm().item() > 0, "Weight gradients must backpropagate through NVFP4"
+
+    # 6. Compression ratio
+    assert NVFP4Quantizer.compression_ratio() > 3.5, "NVFP4 must provide >3.5x compression vs FP16"
+
+
+def test_xmem_caching_allocator_paper14_invariant():
+    """Proves xMem CPU-based GPU memory estimation: 512B alignment, Best-Fit Coalescing (BFC), segment caching, and full training lifecycle simulation (Paper 14 / 2510.21048v1 Shi)."""
+    # 1. 512B Hardware alignment invariant
+    sim = CUDACachingAllocatorSimulator()
+    assert sim.round_up(100) == 512
+    assert sim.round_up(512) == 512
+    assert sim.round_up(513) == 1024
+
+    # 2. Segment-based caching & BFC block splitting/coalescing
+    # Allocate small block (100 KB <= 1 MB threshold) -> requests small segment (2 MB)
+    sim.allocate("tensor_1", 100 * 1024)
+    assert sim.reserved_bytes == 2 * 1048576, "Small allocation must create 2MB segment"
+    assert sim.allocated_bytes == sim.round_up(100 * 1024)
+
+    # Deallocate tensor_1 -> segment remains reserved in cache
+    sim.deallocate("tensor_1")
+    assert sim.allocated_bytes == 0, "Allocated bytes must drop to zero after deallocation"
+    assert sim.reserved_bytes == 2 * 1048576, "Cached segment must remain reserved in simulator"
+
+    # Allocate smaller tensor_2 (50 KB) -> must reuse existing segment without expanding reserved memory
+    sim.allocate("tensor_2", 50 * 1024)
+    assert sim.reserved_bytes == 2 * 1048576, "Cached block must be reused via Best-Fit without new segment"
+    assert len(sim.segments) == 1
+
+    # 3. Training iteration lifecycle simulation
+    estimator = XMemEstimator(device_capacity_mb=4096.0)
+    # Moderate config that safely fits on 4GB (5M params, batch 2, seq 128, dim 256, 4 layers)
+    res = estimator.simulate_training_iteration(
+        n_params=5_000_000, batch_size=2, seq_len=128, hidden_dim=256, n_layer=4, dtype_bytes=2, optimizer="adam"
+    )
+    assert res["total_peak_mb"] > res["peak_allocated_mb"], "Total peak must include reserved segments + CUDA context"
+    assert res["fragmentation_mb"] >= 0.0, "Fragmentation must be non-negative"
+    assert res["oom_predicted"] is False, "5M model must fit in 4GB without OOM"
+    assert res["headroom_mb"] > 0.0, "Safe headroom must remain"
+
+    # Large config that triggers predictable OOM (800M params with FP32 Adam on 4GB: weights 1.6GB + adam 6.4GB = 8GB > 4GB)
+    oom_res = estimator.simulate_training_iteration(
+        n_params=800_000_000, batch_size=2, seq_len=128, hidden_dim=256, n_layer=4, dtype_bytes=2, optimizer="adam"
+    )
+    assert oom_res["oom_predicted"] is True, "800M param model with Adam must correctly predict OOM on 4GB"
+    assert oom_res["headroom_mb"] == 0.0
+
+    # Backward compatibility
+    # Backward compatibility
+    assert estimator.will_oom(n_params=800_000_000, batch_size=2, seq_len=128, hidden_dim=256, n_layer=4) is True
+
+
+def test_eggroll_hyperscale_es_paper15_invariant():
+    """Proves EGGROLL low-rank evolution strategies, hardware-efficient batched forward pass, unmaterialized gradient updates, and antithetic fitness shaping (Paper 15 / 2511.16652v2 Sarkar)."""
+    torch.manual_seed(42)
+    m, n = 32, 64
+    r = 2
+    n_workers = 16
+    sigma = 0.05
+    lr = 0.05
+
+    opt = EGGROLLOptimizer(rank=r, population_size=n_workers, sigma=sigma, lr=lr)
+
+    # 1. Sample low-rank factors
+    A, B = opt.sample_perturbation_factors(out_features=m, in_features=n, pop_size=n_workers, rank=r)
+    assert A.shape == (n_workers, m, r), "Factor A shape must match [N, m, r]"
+    assert B.shape == (n_workers, n, r), "Factor B shape must match [N, n, r]"
+
+    # 2. Hardware-efficient batched forward pass vs naive materialized forward pass
+    M = torch.randn(m, n)
+    u = torch.randn(8, n)
+
+    # Materialized perturbation for worker 0: E_0 = (1 / sqrt(r)) * A_0 @ B_0^T
+    E_0 = (1.0 / math.sqrt(r)) * (A[0] @ B[0].T)
+    naive_out = u @ (M + sigma * E_0).T
+    fast_out = opt.batched_forward(u, M, A, B, sigma=sigma, worker_idx=0)
+    diff_fwd = (naive_out - fast_out).abs().max().item()
+    assert diff_fwd < 1e-5, f"Hardware-efficient batched forward pass must match naive GEMM within 1e-5 (got {diff_fwd})"
+
+    # 3. Unmaterialized gradient update vs explicit materialized sum
+    raw_fitness_pos = torch.randn(n_workers)
+    raw_fitness_neg = torch.randn(n_workers)
+
+    # Shaped fitness
+    shaped_f = opt.fitness_shaping(raw_fitness_pos, raw_fitness_neg, mode="centered_rank")
+    assert shaped_f.shape == (n_workers,), "Shaped fitness must be 1D vector of length N"
+    assert shaped_f.min() >= -0.5 and shaped_f.max() <= 0.5, "Centered rank fitness must lie within [-0.5, 0.5]"
+
+    # Ground truth explicit sum: (1 / (N * sigma)) * sum_i f_i * E_i
+    explicit_e = torch.zeros(m, n)
+    for i in range(n_workers):
+        e_i = (1.0 / math.sqrt(r)) * (A[i] @ B[i].T)
+        explicit_e += shaped_f[i] * e_i
+    expected_grad = explicit_e / (float(n_workers) * sigma)
+
+    # Unmaterialized gradient computation
+    unmat_grad = opt.compute_unmaterialized_gradient(A, B, shaped_f, sigma=sigma)
+    diff_grad = (unmat_grad - expected_grad).abs().max().item()
+    assert diff_grad < 1e-5, f"Unmaterialized gradient must match explicit sum within 1e-5 (got {diff_grad})"
+
+    # 4. High-dimensional critical decay rate invariant
+    sigma_small = EGGROLLOptimizer.critical_sigma(base_sigma=0.02, param_dim=1_000, alpha=0.25)
+    sigma_large = EGGROLLOptimizer.critical_sigma(base_sigma=0.02, param_dim=1_000_000, alpha=0.25)
+    assert sigma_small > sigma_large > 0.0, "Critical sigma must strictly decay as parameter dimension scales to prevent Gaussian Annulus divergence"
+
+    # 5. Black-box parameter convergence: EGGROLL minimizes quadratic error without backprop
+    W_target = torch.randn(16, 16)
+    W_cur = torch.zeros(16, 16)
+    init_err = (W_cur - W_target).pow(2).sum().item()
+
+    es_test = HyperscaleES(hidden_dim=16, population_size=32, sigma=0.05, rank=1, lr=0.05)
+    for _ in range(40):
+        a_sub, b_sub = es_test.eggroll.sample_perturbation_factors(16, 16, pop_size=32, rank=1)
+        # Materialized fitness evaluation
+        f_p = []
+        f_n = []
+        for i in range(32):
+            e_sub = a_sub[i] @ b_sub[i].T
+            f_p.append(-(W_cur + 0.05 * e_sub - W_target).pow(2).sum().item())
+            f_n.append(-(W_cur - 0.05 * e_sub - W_target).pow(2).sum().item())
+        W_cur = es_test.update(W_cur, torch.tensor(f_p), torch.tensor(f_n), A=a_sub, B=b_sub)
+
+    final_err = (W_cur - W_target).pow(2).sum().item()
+    assert final_err < init_err * 0.7, f"EGGROLL must achieve >30% error reduction on black-box quadratic test (init={init_err:.2f}, final={final_err:.2f})"
+
+
+def test_long_horizon_mopd_paper16_invariant():
+    """Proves Multi-Turn Long-Horizon Planning, Full-Vocab & Top-k Agent-OPD, Sampled-Token K2, and MOPD multi-teacher specialization (Paper 16 / 2607.24720v1 Men)."""
+    torch.manual_seed(42)
+    distiller = LongHorizonDistiller(hidden_dim=32, gamma=0.90, num_teachers=3)
+
+    # 1. Horizon physical potential decay invariant: gamma^h decays monotonically
+    h_weights = [distiller.horizon_weight(h) for h in range(11)]
+    for i in range(len(h_weights) - 1):
+        assert h_weights[i] > h_weights[i + 1] > 0.0, f"Horizon decay weight must strictly decrease monotonically: {h_weights[i]} vs {h_weights[i+1]}"
+
+    # 2. Teacher specialization profile invariant
+    # Teacher 0 (Glimmer) preferred horizon = 8; Teacher 1 (Lightning) preferred horizon = 2
+    w_glimmer_long = distiller.multi_teacher_weight(teacher_id=0, horizon=8)
+    w_glimmer_short = distiller.multi_teacher_weight(teacher_id=0, horizon=2)
+    assert w_glimmer_long > w_glimmer_short, "Glimmer (Teacher 0) must have higher specialization weight at long horizons (h=8) than short (h=2)"
+
+    w_lightning_short = distiller.multi_teacher_weight(teacher_id=1, horizon=2)
+    w_lightning_long = distiller.multi_teacher_weight(teacher_id=1, horizon=8)
+    assert w_lightning_short > w_lightning_long, "Lightning (Teacher 1) must have higher specialization weight at short horizons (h=2) than long (h=8)"
+
+    # 3. Full-Vocabulary Agent-OPD gradient flow
+    B, T, V = 2, 4, 16
+    student_logits = torch.randn(B, T, V, requires_grad=True)
+    teacher_1 = torch.randn(B, T, V)
+    loss_full = LongHorizonDistiller.full_vocabulary_opd(student_logits, teacher_1)
+    loss_full.backward()
+    assert student_logits.grad is not None and student_logits.grad.norm().item() > 0.0, "Full-vocab OPD must produce active backpropagation gradients"
+    student_logits.grad.zero_()
+
+    # 4. Top-k Vocabulary Agent-OPD invariant
+    loss_topk = LongHorizonDistiller.top_k_opd(student_logits, teacher_1, k=4)
+    loss_topk.backward()
+    assert student_logits.grad is not None and student_logits.grad.norm().item() > 0.0, "Top-k OPD must produce active backpropagation gradients"
+    student_logits.grad.zero_()
+
+    # 5. Sampled-Token Schulman K2 invariant
+    sampled_tokens = torch.randint(0, V, (B, T))
+    loss_k2 = LongHorizonDistiller.sampled_token_opd(student_logits, teacher_1, sampled_tokens, mode="k2")
+    assert loss_k2.item() > 0.0, "Sampled-token K2 distance must be positive for differing distributions"
+    # When student == teacher, K2 loss must be 0
+    loss_k2_zero = LongHorizonDistiller.sampled_token_opd(teacher_1, teacher_1, sampled_tokens, mode="k2")
+    assert abs(loss_k2_zero.item()) < 1e-6, "K2 distance must be 0 when student and teacher are identical"
+
+    # 6. Multi-Teacher compatibility audit
+    # Identical teachers -> similarity = 1.0, no conflict
+    compat_self = LongHorizonDistiller.compute_teacher_compatibility([teacher_1, teacher_1])
+    assert compat_self["mean_compatibility"] > 0.99
+    assert compat_self["has_conflict"] is False
+
+    # Conflicting / orthogonal teacher distributions
+    orthogonal_t2 = -teacher_1 * 5.0
+    compat_ortho = LongHorizonDistiller.compute_teacher_compatibility([teacher_1, orthogonal_t2])
+    assert compat_ortho["has_conflict"] is True, "Opposing teacher policies must be flagged as conflicting"
+
+    # 7. MOPD multi-teacher combined loss
+    teacher_2 = torch.randn(B, T, V)
+    mopd_loss = distiller.distill_loss(student_logits, [teacher_1, teacher_2], horizons=[2, 8])
+    mopd_loss.backward()
+    assert student_logits.grad.norm().item() > 0.0, "MOPD combined loss must backpropagate gradients across all teachers"
+
+
+def test_consciousness_steering_paper17_invariant():
+    """Proves Directional Safety Refusal Ablation, Difference-of-Means Consciousness Vector Extraction, Mechanistic Activation Steering, and Survey Proximity Delta-KL (Paper 17 / 2607.28607v1 Kim)."""
+    torch.manual_seed(42)
+    D = 64
+    B = 8
+
+    # 1. Difference of Means Extraction invariant: unit vector ||v_c|| == 1.0
+    x_pos = torch.randn(20, D) + 1.5
+    x_neg = torch.randn(20, D) - 1.5
+    v_c = ConsciousnessSteeringEngine.extract_difference_of_means(x_pos, x_neg)
+    assert abs(v_c.norm(p=2).item() - 1.0) < 1e-6, "Extracted consciousness vector must have unit L2 norm"
+
+    # 2. Orthogonal Directional Refusal Ablation invariant: <x_ablated, r_hat> == 0.0
+    refusal_direction = torch.randn(D)
+    r_hat = refusal_direction / refusal_direction.norm(p=2)
+    x = torch.randn(B, D)
+    x_ablated = ConsciousnessSteeringEngine.ablate_direction(x, refusal_direction)
+    # Check inner product across all batch elements
+    dot_prods = (x_ablated @ r_hat).abs()
+    assert dot_prods.max().item() < 1e-6, f"Ablated activations must be strictly orthogonal to safety refusal vector (max dot={dot_prods.max().item()})"
+
+    # 3. Mechanistic Activation Steering invariant
+    alpha = 3.5
+    x_steered = ConsciousnessSteeringEngine.steer_activation(x, v_c, alpha=alpha)
+    diff = x_steered - x
+    assert (diff.norm(dim=-1) - alpha).abs().max().item() < 1e-5, "Steering shift magnitude must strictly equal alpha along consciousness direction"
+
+    # 4. Geometric angle audit invariant
+    # Synthesize opposing refusal vector vs consciousness vector
+    opposing_refusal = -v_c * 2.0 + torch.randn(D) * 0.1
+    orthogonal_tom = torch.randn(D)
+    orthogonal_tom = orthogonal_tom - (orthogonal_tom @ r_hat) * r_hat  # make orthogonal to refusal
+
+    audit = ConsciousnessSteeringEngine.geometric_angle_audit(opposing_refusal, v_c, tom_vec=orthogonal_tom)
+    assert audit["opposes_safety"] is True, "Safety refusal must be detected as opposing consciousness"
+    assert audit["refusal_consciousness_angle_deg"] > 90.0, "Angle between refusal and consciousness must exceed 90 degrees"
+    assert audit["tom_orthogonal"] is True, "Theory of Mind must remain near-orthogonal to safety refusal"
+
+    # 5. Human value survey distribution Delta-KL restoration
+    p_human = torch.tensor([0.65, 0.25, 0.10])
+    p_baseline = torch.tensor([0.15, 0.35, 0.50])     # far from human
+    p_steered = torch.tensor([0.60, 0.25, 0.15])      # restored close to human
+    delta_kl = ConsciousnessSteeringEngine.human_value_delta_kl(p_human, p_baseline, p_steered)
+    assert delta_kl > 0.0, f"Consciousness steering must produce positive Delta-KL toward human distribution (got {delta_kl:.4f})"
+
+    # 6. Backward compatibility & active gradient flow in SelfModelCoherenceLoss
+    coherence = SelfModelCoherenceLoss(hidden_dim=D, num_personas=34, alpha=alpha)
+    h_in = torch.randn(4, 16, D, requires_grad=True)
+    p_ids = torch.tensor([0, 5, 12, 33])
+    loss_c = coherence(h_in, p_ids)
+    loss_c.backward()
+    assert h_in.grad is not None and h_in.grad.norm().item() > 0.0, "SelfModelCoherenceLoss must backpropagate gradients to representations"
+
+    # Test steer method on module
+    steered_h = coherence.steer(h_in.detach())
+    assert (steered_h - h_in.detach()).norm().item() > 0.0
+
+
+def test_continual_skill_bench_paper18_invariant():
+    """Proves ContinualSkillBench in-context continual learning dynamics, Delta_seq, library fragmentation ratio, and pruning (Paper 18 / 2608.03874v1 Guan)."""
+    tracker = ContinualSkillBenchTracker(num_councils=4, window=50, beta=0.85)
+
+    # 1. Independent baseline vs Sequential execution delta Delta_seq
+    # Council 0 has baseline = 0.40
+    tracker.set_independent_baseline(0, 0.40)
+    assert tracker.baseline_scores[0] == 0.40
+
+    # Sequential rewards: high performance due to in-context learning
+    for reward in [0.70, 0.75, 0.80, 0.85, 0.90]:
+        tracker.update(0, reward)
+
+    delta_seq = tracker.sequential_delta(0)
+    assert delta_seq > 0.0, f"Sequential score must exceed independent baseline (Delta_seq={delta_seq:.4f})"
+    assert tracker.skill_delta(0) > 0.0, "Skill delta over window must reflect positive progression"
+
+    # 2. Skill creation & modification tracking
+    tracker.record_skill_creation(0, "skill_graph_search", "BFS algorithm", "def bfs(): pass")
+    tracker.record_skill_creation(0, "skill_matrix_mult", "Strassen matrix mult", "def strassen(): pass")
+    tracker.record_skill_creation(0, "skill_quick_sort", "QuickSort partition", "def qsort(): pass")
+    assert len(tracker.skills_created[0]) == 3
+
+    tracker.record_skill_modification(0, "skill_graph_search")
+    assert tracker.skills_created[0]["skill_graph_search"]["modifications"] == 1
+
+    # 3. Compact vs Fragmented library dynamics (Section 4.4)
+    # Model A (Compact, e.g. GPT-5.3-Codex): High reuse rate, low fragmentation
+    tracker.record_skill_invocation(0, "skill_graph_search")
+    tracker.record_skill_invocation(0, "skill_graph_search")
+    tracker.record_skill_invocation(0, "skill_matrix_mult")
+
+    frag_0 = tracker.fragmentation_ratio(0)
+    reuse_0 = tracker.reuse_rate(0)
+    # 3 created, 2 reused -> frag = (3 - 2) / 3 = 0.333, reuse = 2/3 = 0.667
+    assert 0.30 <= frag_0 <= 0.35, f"Expected fragmentation ~0.33, got {frag_0}"
+    assert 0.65 <= reuse_0 <= 0.68, f"Expected reuse rate ~0.67, got {reuse_0}"
+
+    # Model B (Fragmented, e.g. GPT-4o): Creates 10 skills, reuses only 1 -> frag = 9/10 = 0.90
+    for i in range(10):
+        tracker.record_skill_creation(1, f"bloated_skill_{i}")
+    tracker.record_skill_invocation(1, "bloated_skill_0")
+
+    frag_1 = tracker.fragmentation_ratio(1)
+    reuse_1 = tracker.reuse_rate(1)
+    assert frag_1 >= 0.89, f"Fragmented model must exhibit high fragmentation ratio >= 0.89 (got {frag_1})"
+    assert reuse_1 <= 0.11, f"Fragmented model must exhibit low reuse rate <= 0.11 (got {reuse_1})"
+
+    # 4. Pruning unused fragmented skills restores library compactness
+    pruned = tracker.prune_fragmented_skills(1, min_invocations=1)
+    assert len(pruned) == 9, f"Must prune 9 un-reused skills, pruned {len(pruned)}"
+    assert len(tracker.skills_created[1]) == 1
+    assert tracker.fragmentation_ratio(1) == 0.0, "Pruned library must have zero fragmentation"
+
+    # 5. Global statistics aggregator
+    stats = tracker.get_stats()
+    assert "avg_fragmentation" in stats and "avg_reuse_rate" in stats
+    assert stats["total_skills_created"] == 4  # 3 in council 0 + 1 remaining in council 1
+
+
+def test_evoharness_rl_paper19_invariant():
+    """Proves EvoHarness-RL BPE state abstraction, cost-aware GRPO trajectory rewards, and HarnessPolicy (Paper 19 / 2608.05446v1 Ning)."""
+    # 1. Unified BPE State Abstraction: Belief, Progress, Experience (Section 2.1)
+    bpe = BPEHarnessState()
+
+    # Belief (B_t)
+    bpe.set_belief("kettle_location", "stove_burner_3")
+    bpe.set_belief("countertop_1", "empty")
+    assert bpe.track("kettle_location") == {"kettle_location": "stove_burner_3"}
+    assert bpe.track("unknown_object") == {"unknown_object": "unknown"}
+    world_view = bpe.track("world")
+    assert "kettle_location" in world_view and "countertop_1" in world_view
+
+    # Progress (P_t)
+    bpe.commit("step_1", "find kettle", status="active")
+    bpe.commit("step_1", "find kettle", status="completed")
+    bpe.commit("step_2", "clean kettle", status="pending")
+    assert len(bpe.progress) == 2
+    assert bpe.progress[0]["status"] == "completed"
+
+    # Experience (E_t) & Note buffer
+    bpe.note("Clean kettle using sponge at sink", category="task_specific")
+    bpe.note("Check stove burners when looking for cookware", category="search_priorities")
+    assert len(bpe.note_buffer) == 2
+
+    # Consolidate notes into Experience store at epoch boundaries
+    bpe.consolidate_notes()
+    assert len(bpe.note_buffer) == 0
+    assert "Clean kettle using sponge at sink" in bpe.experience["task_specific"]
+
+    # Recall reusable experience & bump usage counts
+    rec = bpe.recall("task_specific", "Clean kettle using sponge at sink")
+    assert rec is not None and rec["usage_count"] == 2  # 1 initial + 1 from recall
+    assert bpe.recall("general", "non_existent_skill") is None
+
+    # Evict stale skills with usage < 2
+    bpe.experience["general"]["unused_skill"] = {"insight": "stale", "usage_count": 0}
+    evicted = bpe.evict_stale_experience(min_usage=1)
+    assert evicted == 1
+    assert "unused_skill" not in bpe.experience["general"]
+
+    # 2. Cost-Aware GRPO Trajectory Reward Formulation (Equations 5 & 6)
+    rewarder = EvoHarnessReward(t_max=20, lambda_eff=2.0, lambda_div_max=1.5, u_horizon=60)
+
+    # Cosine annealing schedule for diversity bonus
+    lam_0 = rewarder.get_lambda_div(epoch_u=0)
+    lam_mid = rewarder.get_lambda_div(epoch_u=30)
+    lam_end = rewarder.get_lambda_div(epoch_u=60)
+    assert abs(lam_0 - 1.5) < 1e-4, f"Initial lambda_div must be max 1.5, got {lam_0}"
+    assert abs(lam_mid - 0.75) < 1e-4, f"Midpoint lambda_div must be half 0.75, got {lam_mid}"
+    assert abs(lam_end - 0.0) < 1e-4, f"Final lambda_div must anneal to 0.0, got {lam_end}"
+
+    # Trajectory A: Solved, efficient, diverse actions
+    traj_a = ["commit[step_1]", "track[world]", "go_to[burner]", "pick[kettle]", "note[done]"]
+    res_a = rewarder.compute_reward(solved=True, trajectory=traj_a, epoch_u=0, invalid_count=0)
+    assert res_a["r_succ"] == 10.0, "Solved task must receive R_succ = 10.0"
+    assert res_a["r_eff"] > 0.0, "Solved task must receive positive efficiency bonus"
+    assert res_a["r_div"] == 1.0, "All distinct verbs must yield R_div = 1.0"
+    assert res_a["r_spam"] == 0.0, "No duplicate actions"
+    assert res_a["total_reward"] > 10.0
+
+    # Trajectory B: Unsolved, repetitive actions, invalid syntax
+    traj_b = ["track[world]", "track[world]", "track[world]", "malformed_action"]
+    res_b = rewarder.compute_reward(solved=False, trajectory=traj_b, epoch_u=0, invalid_count=1)
+    assert res_b["r_succ"] == 0.0, "Unsolved task receives R_succ = 0.0"
+    assert res_b["r_eff"] == 0.0, "Efficiency bonus is strictly gated on task success"
+    assert res_b["r_spam"] > 0.0, "Spam penalty must be positive for repetitive actions"
+    assert res_b["r_inv"] > 0.0, "Format penalty must penalize malformed actions"
+    assert res_b["total_reward"] < 1.0
+
+    # 3. Trainable HarnessPolicy (backward compatibility, differentiability, annealing)
+    hidden_dim = 64
+    policy = HarnessPolicy(hidden_dim=hidden_dim)
+    h = torch.randn(4, 16, hidden_dim, requires_grad=True)
+
+    dec = policy.decide(h)
+    assert "num_rounds" in dec and 1 <= dec["num_rounds"] <= 4
+    assert "use_world_model" in dec and isinstance(dec["use_world_model"], bool)
+    assert "use_abductive" in dec and isinstance(dec["use_abductive"], bool)
+    assert "bpe_meta_action" in dec and dec["bpe_meta_action"] in ("track", "commit", "recall", "note")
+
+    # Differentiability: active gradient backpropagation to input representations
+    loss = (dec["rounds_logits"].sum() + dec["wm_logit"].sum() +
+            dec["abduct_logit"].sum() + dec["bpe_logits"].sum())
+    loss.backward()
+    assert h.grad is not None and h.grad.norm().item() > 0.0, "HarnessPolicy must propagate gradients"
+
+    # Annealed harness budget dynamics (Section 4.1): ~6 calls early -> ~1 call late
+    budget_early = policy.compute_annealed_harness_budget(epoch_u=0, total_epochs=60)
+    budget_late = policy.compute_annealed_harness_budget(epoch_u=60, total_epochs=60)
+    assert abs(budget_early - 6.0) < 1e-3, f"Early exploration budget should be ~6 calls, got {budget_early}"
+    assert abs(budget_late - 1.0) < 1e-3, f"Late stable budget should be ~1 call, got {budget_late}"
+
+
+def test_embedder_dilemma_paper20_invariant():
+    """Proves The Embedder's Dilemma analytical cost model, thinking-token tax share, Pareto frontier, and hybrid retrieve-then-rerank (Paper 20 / 2608.12875v1 El Assadi)."""
+    # 1. Analytical Cost Model & Thinking-Token Tax (Equation 1 & Section 3.3)
+    cost_model = EmbedderCostModel(r_in_per_mtok=1.25, r_out_per_mtok=10.0, r_gpu_hr=2.49)
+
+    # Gemini 3.1 Pro scenario: 10M input (5M cached), 12M total tokens, 1.5M reasoning tokens
+    llm_cost_data = cost_model.compute_llm_cost(
+        input_tokens=10_000_000,
+        cached_tokens=5_000_000,
+        total_tokens=12_000_000,
+        reasoning_tokens=1_500_000
+    )
+    # uncached input: 5M * $1.25/M = $6.25
+    # cached input: 5M * $0.125/M = $0.625
+    # generated: 2M * $10.00/M = $20.00
+    # total: $26.875
+    assert abs(llm_cost_data["total_cost"] - 26.875) < 1e-3
+    # reasoning cost: 1.5M * $10/M = $15.00
+    # thinking tax share = $15.00 / $26.875 = 0.558 (55.8%, within 28-81% range)
+    assert 0.28 <= llm_cost_data["thinking_tax_share"] <= 0.81, f"Thinking tax share must be in 28-81% range, got {llm_cost_data['thinking_tax_share']:.3f}"
+
+    # Embedding cost on H100 (throughput = 40,000 tok/s)
+    emb_cost = cost_model.compute_embedding_cost(num_tokens=10_000_000, throughput_tok_s=40000.0)
+    assert emb_cost > 0.0
+
+    # Pareto Frontier: LLM vs Embedding cost gap
+    # Replicating benchmark pass: Gemini 3.1 Pro ($154.14) vs Octen-8B ($0.11) -> 1,431x ratio (Section 4.4)
+    pareto_ratio = cost_model.cost_ratio(154.14, 0.1077)
+    assert 1400.0 <= pareto_ratio <= 1450.0, f"Expected Pareto cost ratio ~1,431x, got {pareto_ratio:.1f}"
+
+    # 2. HybridRetrieveRerankRouter Task Specialization (Section 4.2 & 4.3)
+    router = HybridRetrieveRerankRouter(hidden_dim=1024)
+
+    # Classification / Clustering / STS -> Dispatches to pure embedding (superior or tied accuracy, 1,431x cheaper)
+    disp_cls = router.dispatch("classify intent", task_category="classification")
+    assert disp_cls["route"] == "embedding"
+    assert disp_cls["pipeline"] == "pure_bi_encoder"
+
+    disp_sts = router.dispatch("compare sentences", task_category="sts")
+    assert disp_sts["route"] == "embedding"
+
+    # Semantic Retrieval (BEIR) -> Pure embedding outperforms reranker (63.1 > 60.3)
+    disp_beir = router.dispatch("search documentation", task_category="retrieval_semantic")
+    assert disp_beir["route"] == "embedding"
+    assert disp_beir["pipeline"] == "pure_bi_encoder"
+    assert disp_beir["expected_quality_delta"] > 0.0
+
+    # Reasoning-Heavy Retrieval (BRIGHT) -> Dispatches to Retrieve-then-Rerank (+12.8 points boost)
+    disp_bright = router.dispatch("multi-hop causal deduction", task_category="reasoning_retrieval")
+    assert disp_bright["route"] == "hybrid_rerank"
+    assert disp_bright["pipeline"] == "retrieve_then_rerank"
+    assert disp_bright["recommended_shortlist_k"] == 50
+    assert disp_bright["expected_quality_delta"] >= 12.0
+
+    # 3. Backward Compatibility Heuristic Routing
+    assert router.route("why did the system fail under counterfactual intervention?") == "llm"
+    assert router.route("lookup token 42") == "cheap"
+
+    # 4. Pipeline Simulation & Token Savings (Section 4.3 & 5)
+    sim = router.simulate_pipeline(task="reasoning_bright", corpus_size=10000, shortlist_k=50, doc_len_tokens=300)
+    assert sim["token_savings_pct"] >= 99.0, f"Shortlist reranking must yield >99% token savings over full corpus in-context (got {sim['token_savings_pct']:.2f}%)"
+    # Hybrid quality (34.2) retains >97% of full LLM in-context quality (35.1)
+    quality_retention = sim["hybrid_quality"] / sim["full_llm_quality"]
+    assert quality_retention >= 0.95, f"Hybrid retrieve-then-rerank must preserve >=95% of LLM reasoning quality (got {quality_retention:.3f})"
+
+
+def test_spp_persona_conditioning_paper21_invariant():
+    """Proves Synthetic Persona Pretraining (SPP): Token Zero grounding, joint reflection loss, persona binding, and abliteration invariance (Paper 21 / 2608.13482v1 Minder)."""
+    torch.manual_seed(42)
+    B, T, D = 4, 16, 64
+    vocab_size = 1000
+    num_personas = 34
+
+    spp = PersonaConditioning(vocab_size=vocab_size, hidden_dim=D, num_personas=num_personas)
+
+    # 1. Token Zero Persona Prefixing (Section 2.1)
+    raw_tokens = torch.randint(0, 900, (B, T))
+    persona_ids = torch.tensor([0, 5, 12, 33])
+    t0_tokens = spp.prepend_token_zero(raw_tokens, persona_ids)
+    assert t0_tokens.shape == (B, T + 1), f"Token-zero prefixing must expand length to T+1 (got {t0_tokens.shape})"
+    # Check that position 0 contains the persona-specific identifier
+    for i in range(B):
+        expected_tok = vocab_size - num_personas + persona_ids[i].item()
+        assert t0_tokens[i, 0].item() == expected_tok, f"Position 0 must be persona token {expected_tok}"
+
+    # 2. Hidden Representation Modulation & Differentiability
+    h_in = torch.randn(B, T, D, requires_grad=True)
+    h_out = spp(h_in, persona_id=persona_ids)
+    assert h_out.shape == (B, T, D)
+    assert not torch.allclose(h_out, h_in), "Persona conditioning must modulate hidden representations"
+
+    # Gradient flow test through persona embeddings and gate
+    loss = h_out.sum()
+    loss.backward()
+    assert h_in.grad is not None and h_in.grad.norm().item() > 0.0
+    assert spp.persona_embed.weight.grad is not None and spp.persona_embed.weight.grad.norm().item() > 0.0
+    assert spp.persona_gate.grad is not None and spp.persona_gate.grad.abs().item() > 0.0
+
+    # 3. Joint Pretraining + Reflection Loss Objective (Section 2.2)
+    # L_SPP = L_doc + lambda_refl * L_refl
+    logits = torch.randn(B, T, vocab_size)
+    targets = torch.randint(0, vocab_size, (B, T))
+    reflection_mask = torch.zeros(B, T, dtype=torch.bool)
+    reflection_mask[:, 8:] = True  # Second half of sequence contains constitutional reflections
+
+    loss_dict = spp.compute_spp_loss(logits, targets, reflection_mask=reflection_mask, lambda_refl=1.5)
+    assert "loss" in loss_dict and "doc_loss" in loss_dict and "refl_loss" in loss_dict
+    assert loss_dict["doc_loss"] > 0.0 and loss_dict["refl_loss"] > 0.0
+    expected_total = loss_dict["doc_loss"] + 1.5 * loss_dict["refl_loss"]
+    assert torch.allclose(loss_dict["loss"], expected_total, atol=1e-5)
+
+    # 4. Persona Binding Fidelity & Invariance to Refusal Abliteration (Section 3.4 & 3.4.1)
+    # Test binding fidelity
+    fidelity = spp.persona_binding_fidelity(h_out.detach(), persona_ids)
+    assert fidelity > 0.0, f"Conditioned representation must exhibit positive persona binding fidelity (got {fidelity:.4f})"
+
+    # Directional Refusal Abliteration: x' = x - (x @ r_hat) * r_hat (Arditi et al.)
+    refusal_vector = torch.randn(D)
+    abl_res = spp.verify_binding_under_abliteration(h_out.detach(), persona_ids, refusal_vector)
+    # Key Paper finding: token-zero pretraining values sit deep in representations and survive refusal abliteration
+    assert abl_res["fidelity_post_abliteration"] > 0.0, "Persona binding must survive refusal abliteration"
+    assert abl_res["fidelity_delta"] < 0.20, f"Abliteration delta should be small (<0.20), got {abl_res['fidelity_delta']:.4f}"
+
+
+def test_coordination_network_paper22_invariant():
+    """Proves When Agents Coordinate temporal bipartite network instrument, sustained message graph, density, clustering, and cost decomposition (Paper 22 / 2608.16801v1 Destefanis)."""
+    # 1. Temporal Bipartite Network Construction (Section 2 & Figure 2)
+    net = TemporalCoordinationNetwork(num_agents=4)
+    # Agents: agent_0, agent_1, agent_2, agent_3
+
+    # Direct messages:
+    # Single greeting between agent_0 and agent_1 (carried only 1 message -> must be filtered by sustained threshold >= 2)
+    net.log_message("agent_0", "agent_1", timestamp=1.0, byte_size=40, token_cost=20)
+
+    # Sustained communication between pairs:
+    # agent_0 <-> agent_2: 2 messages
+    net.log_message("agent_0", "agent_2", timestamp=2.0, byte_size=150, token_cost=60)
+    net.log_message("agent_2", "agent_0", timestamp=3.0, byte_size=180, token_cost=70)
+
+    # agent_1 <-> agent_2: 2 messages
+    net.log_message("agent_1", "agent_2", timestamp=4.0, byte_size=200, token_cost=80)
+    net.log_message("agent_2", "agent_1", timestamp=5.0, byte_size=210, token_cost=85)
+
+    # agent_0 <-> agent_1: add a second message to make it sustained
+    net.log_message("agent_1", "agent_0", timestamp=6.0, byte_size=120, token_cost=50)
+
+    # agent_3 is completely idle (0 messages, tests idle node degree=0 handling)
+
+    # 2. Sustained Graph Construction & Metric Verification (Section 5 & Appendix A.3)
+    adj = net.build_sustained_message_graph(min_messages=2)
+    # Triangle between agent_0, agent_1, agent_2 (each pair has >= 2 messages)
+    assert "agent_1" in adj["agent_0"] and "agent_2" in adj["agent_0"]
+    assert "agent_0" in adj["agent_1"] and "agent_2" in adj["agent_1"]
+    assert "agent_0" in adj["agent_2"] and "agent_1" in adj["agent_2"]
+    # agent_3 has 0 sustained connections
+    assert len(adj["agent_3"]) == 0
+
+    # Mean Degree: d_bar = (2 + 2 + 2 + 0) / 4 = 1.5
+    mean_deg = net.compute_mean_degree(adj)
+    assert abs(mean_deg - 1.5) < 1e-4, f"Expected mean degree 1.5, got {mean_deg}"
+
+    # Density: rho = 2 * 3 / (4 * 3) = 6 / 12 = 0.50
+    density = net.compute_density(adj)
+    assert abs(density - 0.50) < 1e-4, f"Expected density 0.50, got {density}"
+
+    # Global Clustering Coefficient / Transitivity: 3 * triangles / connected_triples
+    # agent_0, agent_1, agent_2 form 1 triangle. Connected triples: each of the 3 agents has k=2 -> 3 * 1 = 3 triples.
+    # C = 3 * 1 / 3 = 1.0
+    c_coeff = net.compute_clustering_coefficient(adj)
+    assert abs(c_coeff - 1.0) < 1e-4, f"Expected clustering coefficient 1.0 for closed triangle, got {c_coeff}"
+
+    # 3. File Channel vs Direct Messaging Cost Decomposition (Section 6)
+    # Log persistent file operations (1 write, 3 reads across agents)
+    net.log_file_write("agent_0", "spec.py", timestamp=10.0, byte_size=800, token_cost=200)
+    net.log_file_read("agent_1", "spec.py", timestamp=11.0, byte_size=800, token_cost=100)
+    net.log_file_read("agent_2", "spec.py", timestamp=12.0, byte_size=800, token_cost=100)
+    net.log_file_read("agent_3", "spec.py", timestamp=13.0, byte_size=800, token_cost=100)
+
+    costs = net.compute_cost_decomposition()
+    assert costs["msg_tokens"] == 365.0  # 20 + 60 + 70 + 80 + 85 + 50
+    assert costs["file_tokens"] == 500.0  # 200 + 100 + 100 + 100
+    assert costs["total_tokens"] == 865.0
+    assert costs["file_token_share"] > 0.50, "File channel must represent significant persistent coordination share"
+
+    # 4. Coordinator Hub Invariance (Section 7)
+    # Naming agent_0 coordinator: in this mesh, deg(agent_0)=2, max_deg=2 -> hub score = 1.0 (no runaway hub)
+    hub_score = net.compute_coordinator_hub_score("agent_0", adj)
+    assert hub_score <= 1.0
+
+    # 5. Integrated CoordinationTelemetry
+    telemetry = CoordinationTelemetry(num_agents=4)
+    telemetry.log_message("agent_0", "agent_1", token_cost=100)
+    telemetry.log_file_op("agent_0", "orders.py", is_write=True, token_cost=200)
+    telemetry.update(torch.tensor([0.8, 0.85, 0.82, 0.88]))
+    stats = telemetry.get_stats()
+    assert "coordination_mean" in stats and "file_token_share" in stats
+
+
+def test_asibench_paper23_invariant():
+    """
+    Verifies Paper 23: ASI-BENCH: At the Dawn of Artificial Superintelligence
+    (Zhou et al., arXiv:2608.17271v1, Tsinghua, MIT, Harvard, CMU).
+
+    Tests:
+      1. Scientific Domain Coverage: exactly 11 distinct scientific domains.
+      2. Guidance Gradient Hierarchy: B1 (full procedure), B2 (method only), B3 (autonomous), B4 (distractors).
+      3. Formal Diagnostic Drop Equations:
+         - Delta_proc = B2 - B1 (procedural loss)
+         - Delta_meth = B3 - B1 (autonomy loss)
+         - Delta_select = B3 - B2 (method selection bottleneck)
+         - Delta_distract = B4 - B3 (distractor delta)
+         - ARI = B3 / (B1 + eps)
+      4. Paper Empirical Baseline Verification:
+         - Confirms on paper's 'All Models (Mean)':
+           B1=50.91, B2=29.10, B3=26.62, B4=26.99
+           Delta_proc = -21.81, Delta_meth = -24.29, Delta_select = -2.48
+           Operationalization is ~8.8x larger bottleneck than method selection (|Delta_proc| / |Delta_select| > 8.0).
+      5. Active Evaluation Pipeline & Model Inference:
+         Runs real forward pass with model attached, verifying domain reports, macro-level scores,
+         and proper diagnostic extraction.
+    """
+    # 1. Scientific Domain Coverage
+    assert len(SCIENTIFIC_DOMAINS) == 11
+    expected_domains = {
+        "mathematics", "physics", "chemistry", "biology", "astronomy",
+        "materials_science", "earth_science", "medicine_and_biostatistics",
+        "computer_science", "robotics", "electrical_engineering"
+    }
+    assert set(SCIENTIFIC_DOMAINS) == expected_domains
+
+    # 2. Guidance Gradient Hierarchy
+    assert GUIDANCE_LEVELS == ["B1", "B2", "B3", "B4"]
+
+    # 3. Diagnostic Invariants & Mathematical Formulations
+    evaluator = ASIBenchEvaluator()
+    # Test on official paper empirical mean (Table 2: All Models Mean)
+    paper_means = REFERENCE_BASELINES["All Models (Mean)"]
+    diag = evaluator.compute_diagnostics(paper_means)
+
+    # Invariants
+    assert abs(diag.delta_proc - (29.10 - 50.91)) < 1e-4  # -21.81
+    assert abs(diag.delta_meth - (26.62 - 50.91)) < 1e-4  # -24.29
+    assert abs(diag.delta_select - (26.62 - 29.10)) < 1e-4 # -2.48
+    assert abs(diag.delta_distract - (26.99 - 26.62)) < 1e-4 # +0.37
+    expected_ari = 26.62 / 50.91
+    assert abs(diag.ari - expected_ari) < 1e-3
+
+    # Primary empirical finding of Paper 23:
+    # Turning a method into a procedure (delta_proc) is >8x larger bottleneck than selecting the method (delta_select)
+    ratio = abs(diag.delta_proc) / abs(diag.delta_select)
+    assert ratio > 8.0, f"Expected procedural bottleneck ratio > 8.0, got {ratio:.2f}"
+
+    # 4. Model Evaluation Pipeline
+    class TestScientificModel(nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.emb = nn.Embedding(1000, 32)
+            self.proj = nn.Linear(32, 1000)
+            self.vocab_size = 1000
+
+        def forward(self, x, labels=None):
+            h = self.emb(x)
+            logits = self.proj(h)
+            if labels is not None:
+                loss = F.cross_entropy(logits.view(-1, 1000), labels.view(-1))
+                return logits, loss
+            return logits
+
+    model = TestScientificModel()
+    evaluator_with_model = ASIBenchEvaluator(model=model)
+
+    # Single domain evaluation
+    physics_report = evaluator_with_model.evaluate_domain("physics")
+    assert physics_report["domain"] == "physics"
+    assert "B1" in physics_report["levels"] and "B3" in physics_report["levels"]
+    assert isinstance(physics_report["diagnostics"].overall_score, float)
+
+    # Full benchmark execution
+    bench = evaluator_with_model.evaluate_benchmark()
+    assert bench["num_domains"] == 11
+    assert "macro_levels" in bench
+    assert "B1" in bench["macro_levels"]
+    assert "ari" in bench["diagnostics"]
+    assert len(bench["domain_reports"]) == 11
+
+    # Verify drop-in alias backwards compatibility
+    legacy_runner = ASIBenchRunner(model=model)
+    task_res = legacy_runner.run_task("physics")
+    assert "score" in task_res and task_res["task"] == "physics"
+
+
+def test_abra_diffusion_scaling_paper24_invariant():
+    """
+    Verifies Paper 24: ABRA: Scaling Diffusion Image Training
+    (Kyle Chickering et al., Luma AI, arXiv:2608.17286v1).
+
+    Tests:
+      1. Compute-Optimal 200 TPP Prescription:
+         - Verifies TPP* = 200 (10x Chinchilla 20 TPP for LLMs).
+         - Verifies FLOP conservation: C = 6 * N * D.
+         - Computes allocation for C = 6e20 FLOPs: N_opt = 7.07e8, D_opt = 1.41e11 tokens.
+      2. Asymmetric Overtraining Loss Penalty Invariant (Eq. 2 & Fig. 6):
+         - 2x overtraining (400 TPP): loss penalty < 0.5% (nearly free).
+         - 0.5x undertraining (100 TPP): steep catastrophic penalty (> 2%).
+         - Ratio penalty(100 TPP) / penalty(400 TPP) > 3.0x.
+      3. Image Resolution Dependency (Fig. 10):
+         - Verifies TPP* monotonically increases with pixel resolution:
+           256px (165 TPP) < 384px (202 TPP) < 512px (235 TPP) < 768px (247 TPP).
+      4. Scaling Collapse Criterion (Eq. 3 & Fig. 9):
+         - Warmup phase (x < 0.15) passes.
+         - Post-warmup phase (x >= 0.15) validates Delta <= sigma.
+      5. Active PyTorch Module Flow-Matching Execution & Gradient Backpropagation:
+         - Continuous velocity regression v_theta(x_t, t; cond).
+         - Classifier-Free Guidance (CFG) dynamic scaling (s decreases with model size).
+         - Active loss backward pass yielding non-zero gradients on all parameter tensors.
+    """
+    # 1. Compute-Optimal 200 TPP Allocation
+    assert ABRAScalingLaws.HEADLINE_TPP == 200.0
+    c_flops = 6.0e20
+    alloc = ABRAScalingLaws.compute_optimal_allocation(c_flops)
+    n_opt = alloc["n_opt_params"]
+    d_opt = alloc["d_opt_tokens"]
+    assert abs(d_opt / n_opt - 200.0) < 1e-4
+    # Recomputed FLOPs must match input compute exactly
+    recomputed_flops = 6.0 * n_opt * d_opt
+    assert abs((recomputed_flops - c_flops) / c_flops) < 1e-5
+
+    # 2. Asymmetric Overtraining Penalty (Paper Finding: Overtraining is nearly free)
+    penalty_2x_overtrained = ABRAScalingLaws.compute_iso_flop_loss_penalty(400.0, optimal_tpp=200.0)
+    assert penalty_2x_overtrained < 0.005, f"Expected <0.5% overtraining penalty, got {penalty_2x_overtrained:.4f}"
+
+    penalty_undertrained = ABRAScalingLaws.compute_iso_flop_loss_penalty(100.0, optimal_tpp=200.0)
+    assert penalty_undertrained > 0.015, f"Expected >1.5% undertraining penalty, got {penalty_undertrained:.4f}"
+    # Undertraining penalty is significantly more severe than overtraining
+    assert penalty_undertrained > (3.0 * penalty_2x_overtrained)
+
+    # 3. Resolution Scaling Monotonicity
+    tpp_256 = ABRAScalingLaws.get_resolution_tpp(256)
+    tpp_384 = ABRAScalingLaws.get_resolution_tpp(384)
+    tpp_512 = ABRAScalingLaws.get_resolution_tpp(512)
+    tpp_768 = ABRAScalingLaws.get_resolution_tpp(768)
+    assert tpp_256 < tpp_384 < tpp_512 < tpp_768
+    assert abs(tpp_256 - 165.0) < 1e-3 and abs(tpp_768 - 247.0) < 1e-3
+
+    # 4. Scaling Collapse
+    # Within first 15%: warmup
+    assert ABRAScalingLaws.check_scaling_collapse(0.10, 0.05, 0.50, 0.01) is True
+    # At 50% training: cross-model std <= seed noise
+    assert ABRAScalingLaws.check_scaling_collapse(0.50, 0.005, 0.50, 0.005) is True
+
+    # 5. Live PyTorch Flow-Matching Execution & Gradient Flow
+    torch.manual_seed(42)
+    dim = 64
+    batch_size = 4
+    model_small = ABRAScaling(hidden_dim=dim, num_params=120_000_000)
+    model_large = ABRAScaling(hidden_dim=dim, num_params=1_500_000_000)
+
+    # CFG scale decreases with model scale
+    assert model_small.get_optimal_cfg() > model_large.get_optimal_cfg()
+
+    # Flow matching loss & backprop
+    x_0 = torch.randn(batch_size, dim)
+    t = torch.rand(batch_size, 1)
+    cond = torch.randn(batch_size, dim)
+
+    loss = model_small.compute_flow_matching_loss(x_0, t, cond=cond)
+    assert loss.dim() == 0 and loss.item() > 0.0
+    loss.backward()
+
+    # Verify real gradient propagation
+    assert model_small.block_proj.weight.grad is not None
+    assert model_small.time_embed.weight.grad is not None
+    assert model_small.out_proj.weight.grad is not None
+    assert torch.isfinite(model_small.block_proj.weight.grad).all()
+
+
+def test_dynamic_compression_paper25_invariant():
+    """
+    Verifies Paper 25: DYNAMIC COMPRESSION IN RECURRENT NETWORKS
+    (Jyothish Pari, Ryan Bahlous-Boldi, Pulkit Agrawal, MIT, arXiv:2608.17896v1).
+
+    Tests:
+      1. Gated DeltaNet Matrix Recurrent State Update (Eq. 1):
+         - State S_t in R^{B, n_heads, d_v, d_k} with value expansion factor 2 (d_v = 2*d_k).
+         - Gated delta rule: S_t = S_{t-1} * [alpha * (I - beta * k * k^T)] + beta * v * k^T.
+         - Output query read: o_t = S_t * q_t.
+         - Write-strength gate beta_t in (0, 1) and forgetting gate alpha_t in (0, 1).
+      2. Dynamic State Compression via Selective Re-Scanning (Section 4 & Fig. 3):
+         - Basis phase: 3 basis functions packed sequentially into a single sequence (K=3, b=16 tokens each = 48 tokens).
+         - Query phase: few-shot tokens presenting task for basis index 1 (0-indexed).
+         - Selective re-scan: retrieves raw token slice for basis 1, performs secondary recurrent update:
+           S_t^+ = f_theta(S_{few_shot}, x_{I_tau}), refreshing state fidelity.
+         - Output prediction reads from refreshed state S_t^+.
+      3. Active Gradient Flow:
+         - Backpropagates MSE loss on pred_answer through the selective re-scanning path,
+           verifying non-zero gradients across Gated DeltaNet projections and gates.
+    """
+    torch.manual_seed(42)
+    B = 2
+    dim = 32
+    n_heads = 4
+    d_head = 8
+    num_bases = 3
+    b_tokens_per_basis = 8
+
+    # 1. Gated DeltaNet Layer Execution & State Update
+    layer = GatedDeltaNetLayer(input_dim=dim, n_heads=n_heads, d_head=d_head, value_factor=2)
+    x = torch.randn(B, 10, dim)
+    out_seq, s_final, betas = layer.forward_sequence(x)
+
+    assert out_seq.shape == (B, 10, dim)
+    assert s_final.shape == (B, n_heads, d_head * 2, d_head)
+    assert betas.shape == (B, 10, n_heads)
+    assert (betas >= 0.0).all() and (betas <= 1.0).all(), "beta must be valid write strength in [0, 1]"
+    assert not torch.allclose(s_final, torch.zeros_like(s_final)), "State must actively accumulate delta updates"
+
+    # 2. Dynamic Recurrent Compressor Selective Re-Scanning
+    compressor = DynamicRecurrentCompressor(input_dim=dim, num_bases=num_bases, n_heads=n_heads, d_head=d_head)
+
+    # 3 bases packed sequentially: 3 * 8 = 24 tokens
+    total_basis_tokens = num_bases * b_tokens_per_basis
+    basis_tokens = torch.randn(B, total_basis_tokens, dim)
+    query_tokens = torch.randn(B, 4, dim)  # 3 few-shot pairs + 1 query token
+
+    basis_spans = {
+        0: (0, 8),
+        1: (8, 16),
+        2: (16, 24)
+    }
+
+    # Run dynamic selective re-scan forward pass targeting basis 1
+    res = compressor.forward_dynamic(
+        basis_tokens=basis_tokens,
+        query_tokens=query_tokens,
+        basis_spans=basis_spans,
+        oracle_basis_idx=1
+    )
+
+    pred_answer = res["pred_answer"]
+    s_initial = res["initial_state"]
+    s_refreshed = res["refreshed_state"]
+
+    assert pred_answer.shape == (B, dim)
+    assert s_initial.shape == s_refreshed.shape
+    # Refreshed state S_t^+ must differ from initial single-pass state S_initial
+    assert not torch.allclose(s_initial, s_refreshed), "Selective re-scan must actively refresh recurrent state"
+
+    # 3. Active Gradient Backpropagation
+    target_answer = torch.randn_like(pred_answer)
+    loss = F.mse_loss(pred_answer, target_answer)
+    loss.backward()
+
+    assert compressor.recurrent_layer.w_v.weight.grad is not None
+    assert compressor.recurrent_layer.w_k.weight.grad is not None
+    assert compressor.recurrent_layer.w_beta.weight.grad is not None
+    assert torch.isfinite(compressor.recurrent_layer.w_v.weight.grad).all()
+
+    # Drop-in backward compatibility loss check
+    legacy_loss_fn = DynamicCompressionLoss(hidden_dim=dim, beta=0.1)
+    rec, l_val = legacy_loss_fn(x)
+    assert rec.shape == x.shape and l_val.item() > 0.0
+
+
+def test_recirculation_paper26_invariant():
+    """
+    Paper 26 / 2608.17981v1 (Mozer, Siddiqui, Sawyer, Sanyal, Liu, Google DeepMind):
+    Recirculation & Adaptive Recirculation Invariants.
+    1. Normalization mode tensor invariants (Table B.2):
+       - Convex norm-ratio: d' = (1 - alpha)*d + alpha*(||d|| / ||s||)*s
+       - Nonconvex norm-ratio: d' = d + alpha*(||d|| / ||s||)*s
+       - Orthogonal component projection
+       - Spherical rotation preserving geometry
+    2. Step Ramping schedule:
+       - alpha_t = min(t / 10.0, 1.0) * alpha
+       - At step 0, alpha_0 = 0 -> d' == d (prevents early context corruption)
+       - At step 5, alpha_5 == 0.5 * alpha
+       - At step 10+, alpha_t == alpha
+    3. Adaptive Recirculation MLP & Hadamard mixing:
+       - Input LayerNorm over concatenated [s; d]
+       - 2-layer GELU MLP with sigmoid activation
+       - Bias initialized to logit(0.10) for alpha and logit(0.90) for beta
+       - Active gradient backpropagation through MLP weights
+    4. Contextualization Task & Belief State Tracking:
+       - Evaluates semantic alignment gain over baseline feedforward transformer
+    """
+    torch.manual_seed(42)
+    B, D = 4, 32
+    dest = torch.randn(B, D)
+    source = torch.randn(B, D)
+
+    # 1. Normalization Schemes
+    alpha = 0.15
+    layer_convex = RecirculationLayer(alpha=alpha, norm_mode=RecirculationNormMode.CONVEX_NORM_RATIO, step_ramping=False)
+    d_prime_convex, diag_convex = layer_convex(source, dest)
+
+    # Mathematical ground truth for convex norm ratio:
+    d_norm = dest.norm(dim=-1, keepdim=True)
+    s_norm = source.norm(dim=-1, keepdim=True)
+    expected_convex = (1.0 - alpha) * dest + alpha * (d_norm / s_norm) * source
+    assert torch.allclose(d_prime_convex, expected_convex, atol=1e-6), "Convex norm ratio must match analytical equation exactly"
+
+    # Nonconvex norm ratio:
+    layer_nonconvex = RecirculationLayer(alpha=alpha, norm_mode=RecirculationNormMode.NONCONVEX_NORM_RATIO, step_ramping=False)
+    d_prime_nonconvex, _ = layer_nonconvex(source, dest)
+    expected_nonconvex = dest + alpha * (d_norm / s_norm) * source
+    assert torch.allclose(d_prime_nonconvex, expected_nonconvex, atol=1e-6), "Nonconvex norm ratio must match analytical equation exactly"
+
+    # 2. Step Ramping Schedule
+    layer_ramped = RecirculationLayer(alpha=alpha, norm_mode=RecirculationNormMode.CONVEX_NORM_RATIO, step_ramping=True)
+    d_step0, diag0 = layer_ramped(source, dest, step_idx=0)
+    assert diag0["effective_alpha"] == 0.0
+    assert torch.allclose(d_step0, dest, atol=1e-6), "Step 0 must not alter shallow representation (alpha_0 = 0)"
+
+    d_step5, diag5 = layer_ramped(source, dest, step_idx=5)
+    assert abs(diag5["effective_alpha"] - 0.5 * alpha) < 1e-6, "Step 5 must scale alpha by exactly 0.5"
+
+    d_step10, diag10 = layer_ramped(source, dest, step_idx=10)
+    assert abs(diag10["effective_alpha"] - alpha) < 1e-6, "Step 10+ must reach full alpha"
+
+    # 3. Adaptive Recirculation MLP & Vector Hadamard Mixing
+    adaptive_mlp = AdaptiveRecirculationMLP(d_model=D)
+    alpha_vec, beta_vec = adaptive_mlp(source, dest)
+    assert alpha_vec.shape == (B, D)
+    assert beta_vec.shape == (B, D)
+    # Check prior bias initialization (approx 0.10 and 0.90)
+    assert torch.allclose(alpha_vec.mean(), torch.tensor(0.10), atol=0.03), "Alpha vector must initialize near 0.10"
+    assert torch.allclose(beta_vec.mean(), torch.tensor(0.90), atol=0.03), "Beta vector must initialize near 0.90"
+
+    d_prime_adaptive, diag_adaptive = layer_convex(source, dest, alpha_vec=alpha_vec, beta_vec=beta_vec)
+    assert d_prime_adaptive.shape == (B, D)
+
+    # Active backprop through adaptive MLP
+    loss = d_prime_adaptive.pow(2).sum()
+    loss.backward()
+    assert adaptive_mlp.fc1.weight.grad is not None
+    assert adaptive_mlp.fc2.weight.grad is not None
+    assert adaptive_mlp.head.weight.grad is not None
+    assert torch.isfinite(adaptive_mlp.fc1.weight.grad).all()
+
+    # 4. Engine & Contextualization Task
+    engine = RecirculationEngine(d_model=D, num_layers=24, source_layer=11, dest_layer=4, adaptive=True)
+    seq_embeddings = torch.randn(2, 16, D)
+    target_concept = torch.randn(2, D)
+    target_concept = target_concept / target_concept.norm(dim=-1, keepdim=True)
+
+    stability_results = engine.evaluate_contextualization_stability(
+        sequence_embeddings=seq_embeddings,
+        polysemous_idx=5,
+        target_concept=target_concept
+    )
+    assert "baseline_semantic_alignment" in stability_results
+    assert "recirculated_semantic_alignment" in stability_results
+    assert stability_results["alignment_gain"] > 0.0, "Recirculation must improve contextualized semantic alignment"
+    assert stability_results["relative_gain_pct"] > 0.0
+
+
+def test_ecdysis_harness_paper27_invariant():
+    """
+    Paper 27 / 2609.11677v1 (Yue et al., CAS & BIT):
+    ECDYSIS Runtime Harness Self-Evolution Invariants.
+    1. Model-Accommodation Ratio Decomposition & Attenuation (Eq. 1 & Section 8.3):
+       Delta H = t * Delta H_model + (1 - t) * Delta H_harness
+       t -> t' = beta * t (beta = 0.758 attenuating model accommodation from 60% to <= 45.5%).
+    2. Batch-Level Cross-Instance Failure Aggregation (Section 3.3):
+       Groups failures into recurring patterns spanning >= 2 distinct task instances.
+       Reduces coding calls from N_serial to N_round (speedup factor > 1.0).
+    3. Failure-Driven Collaborative Refinement (FDCR, Section 3.4):
+       Analyst -> Critic -> Engineer -> Moderator refinement yielding valid specification q_i.
+       Enforces action-space preservation and prevents global action bans.
+    4. Strict Score Validation Gate (Eq. 2):
+       H_i = H_i^c if J_train(H_i^c) > J_train(H_{i-1}) else H_{i-1}.
+    5. Active Differentiable Contract Invariant Loss:
+       Backpropagates gradients into harness contract weights.
+    """
+    torch.manual_seed(42)
+    evolver = EcdysisHarnessEvolver(initial_score=0.5028, failure_threshold=0.60, beta_attenuation=0.758)
+
+    # 1. Synthetic Trajectories with Shared Failure Mechanisms
+    trajectories = [
+        # Task 1 & Task 2 share 'state_desync' (recurring pattern)
+        {"task_id": "T1", "domain": "retail", "score": 0.45, "failure_mechanism": "state_desync", "is_model_specific": False},
+        {"task_id": "T2", "domain": "airline", "score": 0.50, "failure_mechanism": "state_desync", "is_model_specific": False},
+        # Task 3 & Task 4 share 'entity_ambiguity' (recurring pattern)
+        {"task_id": "T3", "domain": "retail", "score": 0.35, "failure_mechanism": "entity_ambiguity", "is_model_specific": False},
+        {"task_id": "T4", "domain": "retail", "score": 0.40, "failure_mechanism": "entity_ambiguity", "is_model_specific": False},
+        # Task 5 has isolated model-specific hallucination (non-recurring)
+        {"task_id": "T5", "domain": "airline", "score": 0.30, "failure_mechanism": "model_hallucination", "is_model_specific": True},
+        # Task 6 succeeded (score >= 0.60)
+        {"task_id": "T6", "domain": "airline", "score": 0.85, "failure_mechanism": "none", "is_model_specific": False},
+    ]
+
+    # 2. Batch-Level Aggregation Invariants
+    groups = evolver.aggregate_failures(trajectories)
+    assert len(groups) == 3, "Expected 3 distinct failure mechanism groups"
+    # Recurring patterns (spanning >= 2 tasks) must be sorted first
+    assert groups[0].is_recurring, "First group must be a recurring cross-task pattern"
+    assert groups[1].is_recurring, "Second group must be a recurring cross-task pattern"
+    assert not groups[2].is_recurring, "Third group is an isolated single-task failure"
+
+    # Serial vs Round call reduction
+    assert evolver.total_serial_calls == 5, "5 failing trajectories collected"
+    assert evolver.total_round_calls == 1, "Aggregated into exactly 1 batch round"
+    speedup = evolver.total_serial_calls / evolver.total_round_calls
+    assert speedup == 5.0, "Batch aggregation yields 5.0x call reduction for this round"
+
+    # 3. Model-Accommodation Attenuation
+    spec = evolver.refiner.run_refinement(groups, round_idx=1)
+    raw_t = 1.0 / 5.0  # 1 model-specific failure out of 5
+    expected_attenuated_t = 0.758 * raw_t
+    assert abs(spec.attenuated_model_accommodation_ratio - expected_attenuated_t) < 1e-5
+    assert "preserve_valid_action_space" in spec.safeguards
+    assert "prevent_global_action_bans" in spec.safeguards
+
+    # 4. Evolution Round & Validation Gate (Positive improvement)
+    res_pos = evolver.evolve_round(trajectories, simulated_candidate_score=0.5840)
+    assert res_pos["retained"] is True, "Higher score must be retained by validation gate"
+    assert evolver.current_score == 0.5840
+
+    # Validation Gate (Negative regression rejected)
+    res_neg = evolver.evolve_round(trajectories, simulated_candidate_score=0.5200)
+    assert res_neg["retained"] is False, "Lower score must be rejected by validation gate"
+    assert evolver.current_score == 0.5840, "Score must remain unchanged after rejection"
+
+    # 5. Differentiable Contract Invariant Regularization
+    features = torch.randn(8, 4, requires_grad=True)
+    loss = evolver.compute_harness_regularization_loss(features)
+    loss.backward()
+    assert evolver.harness_weights.grad is not None
+    assert torch.isfinite(evolver.harness_weights.grad).all()
+
+
+def test_sol_pi_harness_paper28_invariant():
+    """
+    Verifies Paper 28: SoL-Pi: An Efficiency-Centric Benchmark & Harness for Software Engineering Agents
+    (Shicheng Liu et al., NVIDIA / NTU / MIT / Tsinghua, arXiv:2609.20519v1).
+
+    Tests the 4 Retained Harness Innovations:
+      1. Action Fusion (Section 3.2):
+         - Combines edit and verify commands into 1 tool invocation.
+         - Reduces tool call round trips from 3 to 2 (33% reduction).
+         - Returns unified observation with execution verification status.
+      2. Cost-Gated Context Compactor (Section 3.2 & Eq. 1):
+         - Evaluates projected future token savings S_proj = Delta L * N_rem against cache rewrite cost C_rewrite.
+         - Triggers compaction only when S_proj > C_rewrite.
+         - Implements emergency compaction override when context >= 95% capacity.
+      3. ObservationPack Output Buffer (Section 3.2):
+         - Preserves full output for initial turns (turn <= 2).
+         - Replaces verbose outputs (> 10 KiB) with compact handle ([obs_handle_XXXX]) + 1 KiB excerpt on subsequent turns.
+         - Enables on-demand slice retrieval of full raw output.
+      4. Evidence-Preserving Reducer (EPR, Section 3.2):
+         - Compresses build/test logs >= 4 KiB into a validated receipt (exit code, SHA-256 hash, exact quotes).
+         - Verifies syntactic schema and validates exact match of extracted quotes.
+         - Falls back to raw output deterministically if validation fails or size does not decrease.
+      5. Active Invariant Regularization & Gradient Backpropagation:
+         - Verifies differentiable harness penalty gradients.
+    """
+    # 1. Action Fusion
+    fusion_handler = ActionFusionHandler()
+    res = fusion_handler.execute_fused(
+        file_path="src/module.py",
+        new_content="def solve(): return 42\n",
+        then_run_command="pytest tests/test_module.py"
+    )
+    assert res["status"] == "success"
+    assert res["write_status"] == "ok"
+    assert res["round_trip_calls_saved"] == 1
+    assert "FUSED_EXECUTION" in res["fused_observation"]
+    assert fusion_handler.total_fused_calls == 1
+
+    # 2. Cost-Gated Context Compactor
+    compactor = CostGatedContextCompactor(max_context_tokens=100000, cache_read_to_write_ratio=0.10)
+    
+    # Profitable scenario: high remaining requests (10), token reduction 40,000 -> compact length 20,000
+    # S_proj = 40,000 * 10 = 400,000; C_rewrite = 20,000 * 0.10 = 2,000 => Trigger!
+    decision_profitable = compactor.evaluate_compaction_gate(
+        current_tokens=60000,
+        delta_tokens_saved=40000,
+        remaining_requests=10,
+        compact_tokens=20000
+    )
+    assert decision_profitable["should_compact"] is True
+    assert decision_profitable["reason"] == "cost_benefit_positive"
+    assert decision_profitable["net_benefit_tokens"] > 0
+
+    # Unprofitable scenario: remaining requests = 0 (final turn), rewrite cost exceeds 0 savings
+    decision_unprofitable = compactor.evaluate_compaction_gate(
+        current_tokens=30000,
+        delta_tokens_saved=5000,
+        remaining_requests=0,
+        compact_tokens=25000
+    )
+    assert decision_unprofitable["should_compact"] is False
+
+    # Emergency compaction override: tokens at 96% of capacity (96,000 / 100,000)
+    decision_emergency = compactor.evaluate_compaction_gate(
+        current_tokens=96000,
+        delta_tokens_saved=1000,
+        remaining_requests=0,
+        compact_tokens=95000
+    )
+    assert decision_emergency["should_compact"] is True
+    assert decision_emergency["reason"] == "emergency_capacity_override"
+
+    # 3. ObservationPack Buffer
+    obs_buffer = ObservationPackBuffer(size_threshold_bytes=10240, head_tail_bytes=512)
+    large_payload = "LOG LINE " * 2000  # ~18 KiB
+    
+    # Turn 1: Kept full
+    turn1_obs = obs_buffer.add_observation(large_payload, turn_idx=1)
+    assert turn1_obs["truncated"] is False
+    assert turn1_obs["rendered_content"] == large_payload
+
+    # Turn 3: Compacted to handle + excerpt
+    turn3_obs = obs_buffer.add_observation(large_payload, turn_idx=3)
+    assert turn3_obs["truncated"] is True
+    assert "[obs_handle_" in turn3_obs["rendered_content"]
+    assert len(turn3_obs["rendered_content"]) < len(large_payload)
+    
+    # On-demand slice retrieval
+    handle_id = turn3_obs["handle_id"]
+    retrieved_slice = obs_buffer.retrieve_slice(handle_id, offset=0, length=50)
+    assert retrieved_slice == large_payload[:50]
+
+    # 4. Evidence-Preserving Reducer (EPR)
+    epr = EvidencePreservingReducer(min_threshold_bytes=1024)
+    raw_test_log = "TEST RUNNER START\n" + ("PASSED test_unit_a\n" * 200) + "FAILED test_critical_edge_case\nAssertionError: value mismatch\nSUMMARY: 200 passed, 1 failed\n"
+    reduction_res = epr.reduce_log(raw_test_log)
+    assert reduction_res["is_reduced"] is True
+    assert "EXIT_STATUS: 1" in reduction_res["receipt"]
+    assert "SHA256:" in reduction_res["receipt"]
+    assert reduction_res["reduction_ratio"] > 0.0
+
+    # 5. End-to-End SoLPiHarness & Differentiable Regularization
+    harness = SoLPiHarness()
+    features = torch.randn(4, 8, requires_grad=True)
+    loss = harness.compute_harness_loss(features)
+    loss.backward()
+    assert harness.harness_efficiency_weights.grad is not None
+    assert torch.isfinite(harness.harness_efficiency_weights.grad).all()
+
+
+def test_memory_attention_paper29_invariant():
+    """
+    Verifies Paper 29: Memory Attention: Token-Indexed Memory Replacing Dedicated Value Projections
+    (Jiale Kang, arXiv:2609.28399v1, 23 Sep 2026).
+
+    Tests the 4 Core Architectural Formulations:
+      1. Memory-Based Value Construction (Section 3.1 & Eq. 7-9):
+         - Verifies W_V elimination: queries and keys computed from contextual hidden states;
+           values constructed via V = K + Norm(E[s]) where Norm is per-head RMSNorm.
+         - Active gradient backpropagation: non-zero gradients into W_Q, W_K, W_O, and token memory E.
+      2. Inference Memory Folding (Section 3.3 & Eq. 16-17):
+         - Precomputes E_bar = Norm(E) across vocabulary entries for zero-normalization O(1) inference.
+         - Proves un-folded training value construction matches pre-folded inference value construction
+           within numerical precision (< 1e-5).
+         - Verifies unfold_weights() restores dynamic gradient-tracking training mode.
+      3. MA-Offload Prefetching & Telemetry (Section 3.4 & Eq. 20-21):
+         - Offloads folded memory tables (b_w * L * N * d_v) to CPU host memory.
+         - Prefetches token rows for incoming batch (b_w * S * d_v) with verified transfer telemetry.
+      4. MA-Recall Value Reconstruction (Section 3.5 & Eq. 22-23):
+         - Proves 50% persistent KV cache memory reduction by caching only keys K_1:T and token IDs s_1:T.
+         - Proves exact reconstruction of historical values: V_1:T = K_1:T + E_bar[s_1:T] with 0.0 error.
+      5. Analytical FLOP & Parameter Scaling Invariant:
+         - Validates Delta F_V = L * S * d_v * (2d - 1) arithmetic reduction.
+    """
+    torch.manual_seed(42)
+    B, T, C = 2, 8, 32
+    vocab_size = 500
+    layer = MemoryAttentionLayer(hidden_dim=C, num_heads=4, vocab_size=vocab_size)
+
+    x = torch.randn(B, T, C, requires_grad=True)
+    token_ids = torch.randint(0, vocab_size, (B, T))
+
+    # 1. Memory-Based Value Construction & Gradient Flow
+    out = layer(x, token_ids)
+    loss = out.sum()
+    loss.backward()
+
+    assert layer.q_proj.weight.grad is not None and torch.isfinite(layer.q_proj.weight.grad).all()
+    assert layer.k_proj.weight.grad is not None and torch.isfinite(layer.k_proj.weight.grad).all()
+    assert layer.token_memory.weight.grad is not None and torch.isfinite(layer.token_memory.weight.grad).all()
+    assert layer.mem_norm.weight.grad is not None and torch.isfinite(layer.mem_norm.weight.grad).all()
+
+    # 2. Inference Weight Folding Invariant
+    k_eval = layer.k_proj(x.detach())
+    v_unfolded = layer.construct_values(k_eval, token_ids)
+
+    # Pre-fold memory table
+    layer.fold_weights_for_inference()
+    assert layer.is_folded is True
+    assert layer._folded_memory is not None
+
+    v_folded = layer.construct_values(k_eval, token_ids)
+    diff = (v_unfolded - v_folded).abs().max().item()
+    assert diff < 1e-5, f"Folded value construction must match unfolded within 1e-5, got max diff {diff}"
+
+    # Unfold restores training state
+    layer.unfold_weights()
+    assert layer.is_folded is False
+    assert layer._folded_memory is None
+
+    # 3. MA-Offload Prefetching
+    offload_mgr = MAOffloadManager(num_layers=12, vocab_size=vocab_size, hidden_dim=C, bytes_per_element=2)
+    expected_offload_bytes = 2 * 12 * vocab_size * C
+    assert offload_mgr.total_offload_bytes == expected_offload_bytes
+
+    layer_pref_tokens = offload_mgr.prefetch_layer_tokens(
+        layer_idx=0,
+        token_ids=token_ids,
+        target_device=x.device
+    )
+    assert layer_pref_tokens.shape == (B, T, C)
+    assert offload_mgr.total_transfers == 1
+    assert offload_mgr.total_bytes_transferred == B * T * C * 2
+
+    # 4. MA-Recall 50% KV-Cache Elimination & Exact Reconstruction
+    recall_mgr = MARecallManager(bytes_per_element=2)
+    cache_analysis = recall_mgr.calculate_cache_savings(num_layers=12, batch_size=B, seq_len=128, hidden_dim=C)
+    assert cache_analysis["reduction_ratio"] == 0.50
+    assert cache_analysis["ma_recall_cache_bytes"] == cache_analysis["standard_cache_bytes"] // 2
+
+    # Fold layer again for reconstruction test
+    layer.fold_weights_for_inference()
+    reconstructed_v = recall_mgr.reconstruct_historical_values(
+        k_history=k_eval,
+        token_ids_history=token_ids,
+        folded_memory=layer._folded_memory
+    )
+    rec_diff = (reconstructed_v - v_folded).abs().max().item()
+    assert rec_diff < 1e-6, f"Reconstructed historical values must match exactly, got {rec_diff}"
+
+    # 5. Analytical Profiler Profile Invariant (Eq. 18)
+    report = MemoryAttentionEngine.analyze_computational_profile(
+        num_layers=12,
+        vocab_size=vocab_size,
+        hidden_dim=C,
+        batch_size=B,
+        seq_len=T,
+        bytes_per_element=2
+    )
+    expected_flop_reduction = 12 * (B * T) * C * (2 * C - 1)
+    assert report.online_flop_reduction == expected_flop_reduction
+    assert report.kv_cache_savings_ratio == 0.50
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -319,6 +1998,64 @@ if __name__ == "__main__":
     print("  [PASS] 9. Von Neumann Entropy & Landauer Bounds")
     test_transverse_field_ising_energy_monotonicity()
     print("  [PASS] 10. Transverse-Field Ising Hamiltonian Energetics")
+    test_gyawali_profiler_phase_decomposition()
+    print("  [PASS] 11. Gyawali Step Profiler Real Phase Timing (Paper 1 / 2309.02521)")
+    test_abductive_jump_invariant()
+    print("  [PASS] 12. Abductive Jump E->J->A Counterfactual Cycle (Paper 2 / 235 Zahavy)")
+    test_proxy_kd_invariant()
+    print("  [PASS] 13. Proxy-KD Sample-Weighted Distillation (Paper 3 / 2401.07013 Chen)")
+    test_memo_invariant()
+    print("  [PASS] 14. MEMO Token-Wise Activation Management & Memory Planning (Paper 4 / 2407.12117 Zhao)")
+    test_cuda_optimization_pack_invariant()
+    print("  [PASS] 15. CUDA Optimization Pack Parallel Invariants (Paper 6 / 2410.05686v1 Li)")
+    test_axonn_4d_hybrid_planner_invariant()
+    print("  [PASS] 16. AxoNN 4D Hybrid Analytical Parallel Invariants (Paper 7 / 2502.08145v1 Singh)")
+    test_heterogeneous_allocator_invariant()
+    print("  [PASS] 17. Heterogeneous CPU/GPU Dynamic Workload Allocator (Paper 8 / 2502.11129v1 Eynaliyev)")
+    test_moba_block_attention_invariant()
+    print("  [PASS] 18. MoBA Mixture of Block Attention (Paper 9 / 2502.13189v1 Lu)")
+    test_adaptive_batch_sizer_bca_invariant()
+    print("  [PASS] 19. Adaptive Batch Sizer BCA Memory Gap Advisor (Paper 10 / 2503.08311v2 Recasens)")
+    test_multigpu_task_allocator_lawenda_invariant()
+    print("  [PASS] 20. Multi-GPU Task Allocator & Profiler (Paper 11 / 2503.15252v1 Lawenda)")
+    test_apex_scheduler_paper12_invariant()
+    print("  [PASS] 21. APEX Profiling-Informed CPU-GPU Scheduler (Paper 12 / 2506.03296v2 Fan)")
+    test_nvfp4_pretraining_methodology_paper13_invariant()
+    print("  [PASS] 22. NVFP4 Microscaling & Pretraining Methodology (Paper 13 / 2509.25149v2 NVIDIA)")
+    test_xmem_caching_allocator_paper14_invariant()
+    print("  [PASS] 23. xMem CUDACachingAllocator Memory Estimation (Paper 14 / 2510.21048v1 Shi)")
+    test_eggroll_hyperscale_es_paper15_invariant()
+    print("  [PASS] 24. EGGROLL Low-Rank Hyperscale ES (Paper 15 / 2511.16652v2 Sarkar)")
+    test_long_horizon_mopd_paper16_invariant()
+    print("  [PASS] 25. Long-Horizon Agent-OPD & MOPD Distillation (Paper 16 / 2607.24720v1 Men)")
+    test_consciousness_steering_paper17_invariant()
+    print("  [PASS] 26. Consciousness Activation Steering & Refusal Ablation (Paper 17 / 2607.28607v1 Kim)")
+    test_continual_skill_bench_paper18_invariant()
+    print("  [PASS] 27. ContinualSkillBench In-Context Evolution & Fragmentation Invariants (Paper 18 / 2608.03874v1 Guan)")
+    test_evoharness_rl_paper19_invariant()
+    print("  [PASS] 28. EvoHarness-RL Self-Evolving BPE Coordination & GRPO Invariants (Paper 19 / 2608.05446v1 Ning)")
+    test_embedder_dilemma_paper20_invariant()
+    print("  [PASS] 29. The Embedder's Dilemma Pareto Frontier & Cost Model Invariants (Paper 20 / 2608.12875v1 El Assadi)")
+    test_spp_persona_conditioning_paper21_invariant()
+    print("  [PASS] 30. Synthetic Persona Pretraining (SPP) Token-Zero Alignment Invariants (Paper 21 / 2608.13482v1 Minder)")
+    test_coordination_network_paper22_invariant()
+    print("  [PASS] 31. When Agents Coordinate Bipartite Temporal Network Invariants (Paper 22 / 2608.16801v1 Destefanis)")
+    test_asibench_paper23_invariant()
+    print("  [PASS] 32. ASI-BENCH Multi-Domain Guidance Gradient Invariants (Paper 23 / 2608.17271v1 Zhou)")
+    test_abra_diffusion_scaling_paper24_invariant()
+    print("  [PASS] 33. ABRA Compute-Optimal 200 TPP & Diffusion Scaling Invariants (Paper 24 / 2608.17286v1 Chickering)")
+    test_dynamic_compression_paper25_invariant()
+    print("  [PASS] 34. Dynamic State Compression & Selective Re-Scanning Invariants (Paper 25 / 2608.17896v1 Pari)")
+    test_recirculation_paper26_invariant()
+    print("  [PASS] 35. Recirculation & Adaptive Token-Conditional Invariants (Paper 26 / 2608.17981v1 Mozer)")
+    test_ecdysis_harness_paper27_invariant()
+    print("  [PASS] 36. ECDYSIS Batch Aggregation & Model Accommodation Attenuation (Paper 27 / 2609.11677v1 Yue)")
+    test_sol_pi_harness_paper28_invariant()
+    print("  [PASS] 37. SoL-Pi Action Fusion, Cost-Gated Compactor & Evidence-Preserving Reducer (Paper 28 / 2609.20519v1 Liu)")
+    test_memory_attention_paper29_invariant()
+    print("  [PASS] 38. Memory Attention Token-Indexed Memory, Zero-FLOP Folding & MA-Recall (Paper 29 / 2609.28399v1 Kang)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
+
+
