@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_85 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_85" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_85');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  (function() {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(window.devicePixelRatio || 1);
+  container.appendChild(renderer.domElement);
+
+  const masterGroup = new THREE.Group();
+  scene.add(masterGroup);
+
+  // Dual Brain Router Cores (Alpha & Beta)
+  const coreGeo = new THREE.IcosahedronGeometry(0.8, 2);
+  const coreMat1 = new THREE.MeshPhongMaterial({ color: 0x029e7d, wireframe: true, transparent: true, opacity: 0.6 });
+  const coreMat2 = new THREE.MeshPhongMaterial({ color: 0x80f8d2, wireframe: true, transparent: true, opacity: 0.4 });
+  
+  const brainA = new THREE.Mesh(coreGeo, coreMat1);
+  const brainB = new THREE.Mesh(coreGeo, coreMat2);
+  brainA.position.x = -1.5;
+  brainB.position.x = 1.5;
+  masterGroup.add(brainA);
+  masterGroup.add(brainB);
+
+  // 34 Specialized Expert Nodes
+  const nodes = [];
+  const expertCount = 34;
+  const nodeGeo = new THREE.SphereGeometry(0.06, 16, 16);
+  const nodeMat = new THREE.MeshBasicMaterial({ color: 0x62dbb6 });
+
+  for (let i = 0; i < expertCount; i++) {
+    const node = new THREE.Mesh(nodeGeo, nodeMat);
+    const phi = Math.acos(-1 + (2 * i) / expertCount);
+    const theta = Math.sqrt(expertCount * Math.PI) * phi;
+    node.position.setFromSphericalCoords(3.5, phi, theta);
+    node.userData = { offset: Math.random() * 100, speed: 0.2 + Math.random() * 0.5 };
+    masterGroup.add(node);
+    nodes.push(node);
+
+    // Neural Filaments
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x029e7d, transparent: true, opacity: 0.1 });
+    const points = [node.position, (i % 2 === 0 ? brainA.position : brainB.position)];
+    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+    const line = new THREE.Line(lineGeo, lineMat);
+    masterGroup.add(line);
+  }
+
+  // 9B Swarm Particle Cloud
+  const swarmGeo = new THREE.BufferGeometry();
+  const swarmCount = 3000;
+  const swarmPos = new Float32Array(swarmCount * 3);
+  for (let i = 0; i < swarmCount; i++) {
+    const r = 5.0 + Math.random() * 3.0;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    swarmPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+    swarmPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+    swarmPos[i*3+2] = r * Math.cos(phi);
+  }
+  swarmGeo.setAttribute('position', new THREE.BufferAttribute(swarmPos, 3));
+  const swarmMat = new THREE.PointsMaterial({ color: 0x029e7d, size: 0.015, transparent: true, opacity: 0.3 });
+  const swarm = new THREE.Points(swarmGeo, swarmMat);
+  masterGroup.add(swarm);
+
+  const light = new THREE.PointLight(0x029e7d, 2.5, 20);
+  light.position.set(5, 5, 5);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x111111));
+
+  camera.position.z = 10;
+
+  function animate(t) {
+    requestAnimationFrame(animate);
+    const time = t * 0.001;
+    masterGroup.rotation.y += 0.001;
+    brainA.rotation.y -= 0.005;
+    brainB.rotation.y += 0.005;
+    brainA.position.y = Math.sin(time) * 0.1;
+    brainB.position.y = Math.cos(time) * 0.1;
+    swarm.rotation.z += 0.0003;
+    
+    nodes.forEach(n => {
+      n.position.y += Math.sin(time * n.userData.speed + n.userData.offset) * 0.002;
+    });
+    
+    renderer.render(scene, camera);
+  }
+
+  window.addEventListener('resize', () => {
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+  });
+
+  animate(0);
+})();
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_85 -->
+</body></html>
