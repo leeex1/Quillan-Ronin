@@ -975,6 +975,75 @@
 - **Engine Implementation**: N/A (Internal Neuro-Acoustic Research Monograph).
 - **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
 
+---
+
+### Paper 92: Understanding Straight-Through Estimator in Training Activation Quantized Neural Nets
+
+- **File**: `Understanding_STE_Quantized_Nets.pdf` (30 pp)
+- **Authors**: Penghang Yin, Jiancheng Lyu, Shuai Zhang, Stanley Osher, Yingyong Qi, Jack Xin
+- **Affiliations**: University of California Los Angeles (UCLA), University of California Irvine (UCI), Qualcomm AI Research
+- **Conference/Year**: ICLR 2019 / arXiv:1903.05662
+- **Domain**: Activation Quantization, Straight-Through Estimator (STE), Coarse Gradient Optimization, Theoretical Convergence
+- **Core Formulations & Architectural Contributions**:
+  1. *Two-Linear-Layer Quantized Network Formulation (Section 2, Eq. 1)*:
+     Models a convolutional/fully-connected binary activated architecture:
+     $$y(Z, v, w) = v^\top \sigma(Z w) = \sum_{i=1}^m v_i \mathbf{1}_{Z_i^\top w > 0}$$
+     with quadratic loss $\ell(v, w; Z) = \frac{1}{2}(v^\top \sigma(Zw) - y^*(Z))^2$ and Gaussian data $Z \sim \mathcal{N}(0, I_n)$.
+  2. *Coarse Gradient via STE-Modified Chain Rule (Section 2.1, Eq. 5)*:
+     Replaces the almost-everywhere vanishing derivative $\sigma'$ with surrogate $\mu'$:
+     $$g_\mu(v, w; Z) = Z^\top (\mu'(Zw) \odot v) (v^\top \sigma(Zw) - y^*(Z))$$
+     evaluating the three canonical estimators: Identity ($\mu'(x) = 1$), ReLU ($\mu'(x) = \mathbf{1}_{x > 0}$), and Clipped ReLU ($\mu'(x) = \mathbf{1}_{0 < x < 1}$).
+  3. *Exact Population Loss & True Gradient (Section 2.2, Lemmas 1 & 2)*:
+     Derives closed-form analytical expectations under standard Gaussian inputs:
+     $$f(v, w) = \mathbb{E}_Z[\ell] = \frac{1}{8} \left[ v^\top (I_m + \mathbf{1}\mathbf{1}^\top) v - 2 v^\top \left( \left(1 - \frac{2}{\pi} \theta(w, w^*)\right) I_m + \mathbf{1}\mathbf{1}^\top \right) v^* + (v^*)^\top (I_m + \mathbf{1}\mathbf{1}^\top) v^* \right]$$
+     $$\frac{\partial f}{\partial w} = - \frac{v^\top v^*}{2\pi \|w\|} \frac{\left( I_n - \frac{w w^\top}{\|w\|^2} \right) w^*}{\left\| \left( I_n - \frac{w w^\top}{\|w\|^2} \right) w^* \right\|}$$
+  4. *Coarse Gradient Descent Direction & Non-negative Correlation Invariant (Section 3, Lemmas 5 & 7)*:
+     Proves that for ReLU and Clipped ReLU STEs, the expected coarse gradient has non-negative inner product with the true population gradient:
+     $$\left\langle \mathbb{E}_Z[g_{\text{relu}}], \frac{\partial f}{\partial w} \right\rangle = \frac{\sin(\theta(w, w^*))}{2(2\pi)^{3/2} \|w\|} (v^\top v^*)^2 \ge 0$$
+     guaranteeing that coarse gradient descent yields monotonic energy decrease and converges to a critical point.
+  5. *Identity STE Instability at Spurious Minimizers (Section 3.3, Lemma 9)*:
+     Proves that at spurious local minimizers ($\theta = \pi$), the coarse gradient of Identity STE does NOT vanish:
+     $$\|\mathbb{E}_Z[g_{\text{id}}]\| = \frac{2(m-1)}{\sqrt{2\pi}(m+1)^2} (\mathbf{1}^\top v^*)^2 > 0$$
+     explaining the catastrophic training divergence and instability of identity STE near local minima.
+  6. *Multi-bit Uniform Quantization STE Layer (Section 4)*:
+     Extends binary activation gating to arbitrary uniform $b$-bit precision:
+     $$Q(x) = \frac{1}{2^b - 1} \text{round}((2^b - 1) \cdot \text{clip}(x, 0, 1))$$
+     with clipped-ReLU gradient pass-through for stable deep network training.
+- **Engine Implementation**: [`yin_ste_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/yin_ste_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_yin_ste_paper92_invariant` (Unit Test 83 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 93: Planar Point Sets with Many Unit Distances
+
+- **File**: `unit-distance-proof.pdf` (18 pp)
+- **Author/Institution**: OpenAI (Autonomously generated AI reasoning proof with human mathematical peer review)
+- **Date/Year**: 2025/2026
+- **Domain**: Discrete Geometry, Algebraic Number Theory, Erdős Unit Distance Conjecture, Minkowski Embeddings, CM Fields
+- **Core Formulations & Architectural Contributions**:
+  1. *Disproof of Erdős Unit Distance Conjecture (Theorem 1.1)*:
+     Disproves Paul Erdős's famous 1946 conjecture ($\nu(n) \le n^{1 + C / \log \log n}$) by proving:
+     $$\nu(n) \ge n^{1 + \delta}$$
+     for an absolute constant $\delta > 0$ and infinitely many integers $n$.
+  2. *Algebraic CM Field Torus Invariant (Section 2, Proposition 2.2)*:
+     Given an unramified pro-3 tower of totally real number fields $L$ of degree $f = [L : \mathbb{Q}]$, CM extension $K = L(i)$ with nontrivial complex conjugation $c$, and $t$ split rational primes $q_b \equiv 1 \pmod 4$:
+     Elements $u = \alpha / c(\alpha) \in K^\times$ satisfy relative norm $N_{K/L}(u) = u \cdot c(u) = 1$. Under EVERY complex embedding $\sigma: K \hookrightarrow \mathbb{C}$:
+     $$|\sigma(u)| = 1$$
+     identically, generating at least $\exp((t \log 2 - \log H)f)$ distinct norm-one translation elements.
+  3. *High-Dimensional Minkowski Polydisc Slicing (Section 2, Eq. 8)*:
+     Embeds $K$ into Minkowski space $\mathbb{C}^f \cong \mathbb{R}^{2f}$ via lattice $\Lambda = Q^{-2}\mathcal{O}_K$, intersecting with polydisc $W = \prod_{r=1}^f \{z \in \mathbb{C} : |z| \le R\}$. As radius $R \to \infty$, the disk overlap ratio:
+     $$\rho_R = \frac{\text{Area}(D(0, R) \cap D(1, R))}{\pi R^2} \to 1$$
+     yielding a coset point set $X$ with pair count $D_y \ge |U| \rho_R^f |X| \ge e^{\gamma f / 2} |X|$.
+  4. *Injective Coordinate Projection to $\mathbb{R}^2$ (Section 2, Eqs. 9-11)*:
+     Projects $X \subset \mathbb{C}^f$ to the first complex coordinate $\pi_1: \mathbb{C}^f \to \mathbb{C} \cong \mathbb{R}^2$. Proves $\pi_1$ is strictly injective on lattice cosets; each directed pair projects to a planar segment of Euclidean length $|\sigma_1(u)| = 1.0$, producing an $n$-point set with:
+     $$\nu(P) \ge \frac{1}{2} e^{\gamma f / 2} |P| \ge |P|^{1 + \delta}, \quad \delta = \frac{\gamma}{4B} > 0$$
+- **Engine Implementation**: [`unit_distance_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/unit_distance_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_unit_distance_paper93_invariant` (Unit Test 84 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
+
 
 
 

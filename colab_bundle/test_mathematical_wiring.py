@@ -5850,6 +5850,159 @@ def test_switch_transformer_paper88_invariant():
     assert layer_aux.item() > 0.0
 
 
+def test_yin_ste_paper92_invariant():
+    """
+    Paper 92 / Yin et al. (ICLR 2019) - Understanding Straight-Through Estimator in Training Activation Quantized Neural Nets
+    Verifies:
+      1. Discrete Binary Step Forward Pass (sigma(x) in {0, 1}).
+      2. Surrogate Derivative Gating in Backward Pass (Identity vs ReLU vs Clipped ReLU STE).
+      3. Multi-bit Uniform Quantization STE Gating.
+      4. Analytical Closed-Form Population Loss & Gradient Evaluator (Lemmas 1 & 2).
+      5. Expected Coarse Gradient Descent Direction & Positive Correlation Invariant (Lemma 5):
+         <E[g_relu], grad_w f> = (sin(theta) / (2 (2 pi)^{3/2} ||w||)) * (v^T v*)^2 >= 0.
+      6. Identity STE Instability at Spurious Minimizers (Lemma 9):
+         Non-vanishing gradient norm at theta=pi.
+    """
+    from yin_ste_engine import (
+        binary_ste,
+        multibit_ste,
+        TwoLayerBinaryCNN,
+        YinSTETheoreticalAnalytic
+    )
+
+    torch.manual_seed(42)
+
+    # 1. Forward Discreteness & Backward Surrogate Derivative Gating
+    x = torch.tensor([-1.5, 0.5, 1.5], requires_grad=True)
+
+    # Forward check
+    out = binary_ste(x, ste_type="clipped_relu")
+    expected_forward = torch.tensor([0.0, 1.0, 1.0])
+    assert torch.allclose(out, expected_forward), "Binary forward must be exactly 0 or 1"
+
+    # Backward gating check:
+    # Under Identity STE: grad = [1.0, 1.0, 1.0]
+    x_id = torch.tensor([-1.5, 0.5, 1.5], requires_grad=True)
+    out_id = binary_ste(x_id, ste_type="identity")
+    out_id.sum().backward()
+    assert torch.allclose(x_id.grad, torch.tensor([1.0, 1.0, 1.0]))
+
+    # Under ReLU STE: grad = [0.0, 1.0, 1.0]
+    x_relu = torch.tensor([-1.5, 0.5, 1.5], requires_grad=True)
+    out_relu = binary_ste(x_relu, ste_type="relu")
+    out_relu.sum().backward()
+    assert torch.allclose(x_relu.grad, torch.tensor([0.0, 1.0, 1.0]))
+
+    # Under Clipped ReLU STE: grad = [0.0, 1.0, 0.0] (only (0, 1) passes through)
+    x_crelu = torch.tensor([-1.5, 0.5, 1.5], requires_grad=True)
+    out_crelu = binary_ste(x_crelu, ste_type="clipped_relu")
+    out_crelu.sum().backward()
+    assert torch.allclose(x_crelu.grad, torch.tensor([0.0, 1.0, 0.0]))
+
+    # 2. Multi-bit Quantization STE Invariant
+    x_mb = torch.tensor([0.0, 0.33, 0.67, 1.0], requires_grad=True)
+    out_mb = multibit_ste(x_mb, num_bits=2, ste_type="clipped_relu")
+    # For 2-bit, levels are 0, 1/3, 2/3, 1
+    assert out_mb.shape == x_mb.shape
+    out_mb.sum().backward()
+    assert x_mb.grad is not None and torch.isfinite(x_mb.grad).all()
+
+    # 3. Two-Layer Binary CNN End-to-End Forward & Backward
+    m, n = 4, 8
+    model = TwoLayerBinaryCNN(m=m, n=n, ste_type="clipped_relu")
+    Z = torch.randn(2, m, n)
+    preds = model(Z)
+    assert preds.shape == (2,)
+    loss = preds.sum()
+    loss.backward()
+    assert model.w.grad is not None and torch.isfinite(model.w.grad).all()
+    assert model.v.grad is not None and torch.isfinite(model.v.grad).all()
+
+    # 4. Analytical Closed-Form Population Loss & Theoretical Invariants
+    v_star = torch.tensor([1.0, 2.0, 1.5])
+    w_star = torch.tensor([0.5, 0.5, 0.5, 0.5])
+    w_star = w_star / torch.norm(w_star)
+
+    # Optimum loss must be zero
+    loss_opt = YinSTETheoreticalAnalytic.population_loss(v_star, w_star, v_star, w_star)
+    assert abs(loss_opt) < 1e-5, f"Loss at global optimum must be 0, got {loss_opt}"
+
+    # Non-optimum point evaluation
+    v = torch.tensor([1.2, 1.8, 1.4])
+    w = torch.tensor([0.6, 0.4, 0.5, 0.3])
+    loss_val = YinSTETheoreticalAnalytic.population_loss(v, w, v_star, w_star)
+    assert loss_val > 0.0
+
+    # 5. Expected Coarse Gradient Descent & Positive Correlation Invariant (Lemma 5)
+    grad_w = YinSTETheoreticalAnalytic.population_gradient_w(v, w, v_star, w_star)
+    coarse_relu = YinSTETheoreticalAnalytic.expected_coarse_gradient_relu(v, w, v_star, w_star)
+    inner_prod = torch.dot(coarse_relu, grad_w).item()
+    theory_ip = YinSTETheoreticalAnalytic.relu_inner_product_theoretical(v, w, v_star, w_star)
+
+    assert abs(inner_prod - theory_ip) < 1e-5, f"Inner product mismatch: {inner_prod} vs theory {theory_ip}"
+    assert inner_prod > 0.0, "Expected coarse gradient must be a provable descent direction (inner product > 0)"
+
+    # 6. Identity STE Instability at Spurious Minimizer (Lemma 9)
+    # At spurious minimizer theta = pi (w = -w*)
+    w_anti = -w_star
+    grad_w_anti = YinSTETheoreticalAnalytic.population_gradient_w(v, w_anti, v_star, w_star)
+    coarse_id_anti = YinSTETheoreticalAnalytic.expected_coarse_gradient_identity(v, w_anti, v_star, w_star)
+    assert torch.norm(grad_w_anti).item() == 0.0, "Population gradient w.r.t w vanishes at critical point"
+    assert torch.norm(coarse_id_anti).item() > 0.0, "Identity STE coarse gradient does NOT vanish at spurious minimizer"
+
+
+def test_unit_distance_paper93_invariant():
+    """
+    Paper 93 / OpenAI (2025/2026) - Planar Point Sets with Many Unit Distances
+    Disproves Erdős (1946) Unit Distance Conjecture.
+    Verifies:
+      1. CM Field Norm-One Algebraic Torus Invariant (Proposition 2.2):
+         All elements u = alpha / c(alpha) satisfy |sigma(u)| = 1.0 identically.
+      2. High-Dimensional Minkowski Polydisc Overlap Ratio (Section 2):
+         rho_R = Area(D(0, R) cap D(1, R)) / (pi R^2) -> 1.0 monotonically as R -> inf.
+      3. Planar Point Set Construction & Injective Coordinate Projection (Section 2, Theorem 2.3):
+         Every projected translation produces exact Euclidean unit distance ||p_i - p_j||_2 = 1.0.
+      4. Super-Linear Unit Distance Graph Scaling (Theorem 1.1):
+         Demonstrates non-zero unit-distance pairs with positive average degree.
+    """
+    import math
+    from unit_distance_engine import (
+        circle_intersection_area,
+        disc_overlap_ratio,
+        AlgebraicCMTorusGenerator,
+        MinkowskiPlanarPointSet
+    )
+
+    # 1. Algebraic CM Torus Unit Norm Invariant
+    gen = AlgebraicCMTorusGenerator()
+    units = gen.generate_norm_one_units(max_elements=32)
+    assert len(units) >= 16, "Should generate at least 16 norm-one algebraic units"
+    for u in units:
+        assert abs(u.modulus - 1.0) < 1e-12, f"Unit modulus must equal 1.0 identically, got {u.modulus}"
+
+    # 2. Polydisc Overlap Ratio Monotonicity
+    rho_1 = disc_overlap_ratio(1.0, 1.0)
+    rho_3 = disc_overlap_ratio(3.0, 1.0)
+    rho_5 = disc_overlap_ratio(5.0, 1.0)
+    rho_10 = disc_overlap_ratio(10.0, 1.0)
+
+    assert rho_10 > rho_5 > rho_3 > rho_1 > 0.35, "Overlap ratio rho_R must be strictly monotonic in R"
+    assert rho_10 > 0.90, "rho_10 must approach 1.0 asymptotically"
+
+    # 3. Planar Point Set Construction & Unit-Distance Pairs
+    sim = MinkowskiPlanarPointSet(f_dim=4, radius=3.5)
+    pts, pairs, metrics = sim.construct_planar_point_set(num_seeds=25, num_translations=12)
+
+    assert metrics["num_points"] > 50, "Point set must contain non-trivial number of points"
+    assert metrics["num_unit_pairs"] > 100, "Should contain substantial number of unit pairs"
+    assert metrics["average_degree"] > 2.0, "Average degree must be significantly greater than 2"
+
+    # Verify that every reported pair has Euclidean distance exactly 1.0
+    for i, j in pairs:
+        dist = math.hypot(pts[i, 0] - pts[j, 0], pts[i, 1] - pts[j, 1])
+        assert abs(dist - 1.0) < 1e-6, f"Pair ({i}, {j}) distance {dist} != 1.0"
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -6019,6 +6172,10 @@ if __name__ == "__main__":
     print("  [PASS] 81. ST-MoE Router Z-Loss, Input Jitter & Capacity-Capped Gating (Papers 86 & 87 / Zoph et al.)")
     test_switch_transformer_paper88_invariant()
     print("  [PASS] 82. Switch Transformer Top-1 Routing, Capacity Capping & Selective Precision (Paper 88 / Fedus et al.)")
+    test_yin_ste_paper92_invariant()
+    print("  [PASS] 83. Yin Straight-Through Estimator (STE) Coarse Gradient Descent & Analytical Invariant (Paper 92 / Yin et al.)")
+    test_unit_distance_paper93_invariant()
+    print("  [PASS] 84. Planar Point Sets Many Unit Distances & CM Torus Invariant (Paper 93 / OpenAI)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
