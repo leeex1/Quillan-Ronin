@@ -1,7 +1,7 @@
 import json
 import shutil
 from pathlib import Path
-ONI = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
+ONI = Path(r"C:\02_QUILLAN\03 - Training & Model\scripts")
 NEW_SPECIAL = ["<|start|>", "<|user|>", "<|assistant|>", "<|im_start|>", "<|im_end|>"]
 NEW_IDS = range(50257, 50262)
 

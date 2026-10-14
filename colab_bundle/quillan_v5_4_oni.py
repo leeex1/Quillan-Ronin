@@ -148,6 +148,30 @@ except ImportError:
     AdaptiveBatchSizer = None
     _PAPER_08_10_WIRED = False
 
+# Rows 28/30/31/40: SoL-Pi, consciousness head, Ax-Prover scorer, inverse-crypto handshake
+try:
+    from paper_121_standalone_tools_pack import StandaloneToolsPack
+    _PAPER_121_WIRED = True
+except ImportError:
+    StandaloneToolsPack = None
+    _PAPER_121_WIRED = False
+
+# Rows 32-39: BitNet Family Pack (Beyond 1.58b, 1-bit AI infra, a4.8, b1.58, 2B4T, bitnet.cpp, scaling, v2)
+try:
+    from paper_122_bitnet_family_pack import BitNetFamilyPack
+    _PAPER_122_WIRED = True
+except ImportError:
+    BitNetFamilyPack = None
+    _PAPER_122_WIRED = False
+
+# Rows 41, 43, 51: Heterogeneous Offload Pack (DALI MoE, Deep Optimizer States, Hybrid Runtime)
+try:
+    from paper_123_heterogeneous_offload_pack import HeterogeneousOffloadPack
+    _PAPER_123_WIRED = True
+except ImportError:
+    HeterogeneousOffloadPack = None
+    _PAPER_123_WIRED = False
+
 # Papers 116-120 (Codex + Virality + unit-distance + final audit): Constitution/Sonification/Proof Pack (Quantum Bond)
 # U59: Codex 18MB ? constitutional retrieval (scanned images; canonical spec from live model)
 # U58: Virality 440KB ? EEG bands -> music params + synchrony downbeats
@@ -652,6 +676,10 @@ class QuillanOniConfig:
     use_deepseek_moe: bool = True        # Paper 44: DeepSeekMoE Shared+Routed
     use_bitnet_4bit: bool = True         # Paper 41-42: BitNet a4.8 + Hadamard
     use_swarm_prover_bitnet: bool = True # Papers 46-51, 54 Swarm, Prover & CPU BitNet Pack
+    use_standalone_tools: bool = False   # Rows 28/30/31/40 SoL-Pi + Consciousness + Prover scorer + Handshake (opt-in)
+    use_bitnet_family: bool = False      # Rows 32-39 BitNet family multi-variant pack (opt-in)
+    bitnet_variant: str = "b158"         # Options: 'b158', 'a48', 'v2', '2b4t', 'beyond158', 'scaling'
+    use_hetero_offload: bool = False     # Rows 41, 43, 51 DALI + DOS + Hybrid offload (opt-in)
     use_edge_kernel: bool = True         # Paper 55 Edge Kernel Picker
     use_ste_scaling: bool = True         # Paper 56: BitNet Scaling 1-bit Transformers
     use_eti_comm: bool = True            # Paper 58: Universal Communication (ETI)
@@ -2441,6 +2469,24 @@ class QuillanRoninOni(nn.Module):
         else:
             self.swarm_prover_bitnet = None
 
+        # Rows 28/30/31/40: Standalone tools pack (opt-in)
+        if getattr(cfg, "use_standalone_tools", False) and _PAPER_121_WIRED and StandaloneToolsPack is not None:
+            self.standalone_tools = StandaloneToolsPack(hidden_dim=cfg.hidden_dim)
+        else:
+            self.standalone_tools = None
+
+        # Rows 32-39: BitNet Family Pack (opt-in)
+        if getattr(cfg, "use_bitnet_family", False) and _PAPER_122_WIRED and BitNetFamilyPack is not None:
+            self.bitnet_family = BitNetFamilyPack(hidden_dim=cfg.hidden_dim, variant=getattr(cfg, "bitnet_variant", "b158"), num_heads=cfg.n_head)
+        else:
+            self.bitnet_family = None
+
+        # Rows 41, 43, 51: Heterogeneous Offload Pack (opt-in)
+        if getattr(cfg, "use_hetero_offload", False) and _PAPER_123_WIRED and HeterogeneousOffloadPack is not None:
+            self.hetero_offload = HeterogeneousOffloadPack(embed_dim=cfg.hidden_dim, num_experts=min(8, cfg.num_experts), top_k=min(2, cfg.top_k))
+        else:
+            self.hetero_offload = None
+
         # Paper 55: Edge Kernel Picker
         if getattr(cfg, "use_edge_kernel", True) and _PAPER_96_100_WIRED and EdgeKernelPicker is not None:
             try:
@@ -3863,6 +3909,32 @@ class QuillanRoninOni(nn.Module):
             except Exception:
                 pass
 
+        # Rows 28/30/31/40: Standalone tools regularizer + telemetry
+        if getattr(self, "standalone_tools", None) is not None:
+            try:
+                _st = self.standalone_tools(x.mean(dim=1))
+                aux["standalone_tools_loss"] = _st["loss"].to(x.dtype)
+                self._fired.append(("standalone_tools", self.standalone_tools.telemetry(_st)))
+            except Exception as _st_err:
+                self._fired.append(("standalone_tools_error", {"error": type(_st_err).__name__}))
+
+        # Rows 32-39: BitNet Family regularizer + telemetry
+        if getattr(self, "bitnet_family", None) is not None:
+            try:
+                _bf = self.bitnet_family(x.mean(dim=1))
+                aux["bitnet_family_loss"] = _bf["quant_loss"].to(x.dtype)
+                self._fired.append(("bitnet_family", self.bitnet_family.get_telemetry()))
+            except Exception as _bf_err:
+                self._fired.append(("bitnet_family_error", {"error": type(_bf_err).__name__}))
+
+        # Rows 41, 43, 51: Heterogeneous Offload telemetry
+        if getattr(self, "hetero_offload", None) is not None:
+            try:
+                _ho = self.hetero_offload(x.mean(dim=1))
+                self._fired.append(("hetero_offload", self.hetero_offload.get_telemetry()))
+            except Exception as _ho_err:
+                self._fired.append(("hetero_offload_error", {"error": type(_ho_err).__name__}))
+
         # Paper 67: DGPO Distribution Guided Policy Optimization loss
         if getattr(self, "dgpo_critic", None) is not None and getattr(self, "_last_dgpo_adv", None) is not None and logits is not None:
             try:
@@ -3998,6 +4070,12 @@ class QuillanRoninOni(nn.Module):
         # Papers 46-47: Swarm Assimilation diversity loss
         if "swarm_assimilation" in aux:
             loss = loss + 0.01 * aux["swarm_assimilation"]
+        # Rows 28/30/31/40: standalone tools regularizer
+        if "standalone_tools_loss" in aux:
+            loss = loss + 0.001 * aux["standalone_tools_loss"]
+        # Rows 32-39: BitNet Family regularizer
+        if "bitnet_family_loss" in aux:
+            loss = loss + 0.001 * aux["bitnet_family_loss"]
         # Paper 67: DGPO policy advantage loss
         if "dgpo_loss" in aux:
             loss = loss + 0.01 * aux["dgpo_loss"]

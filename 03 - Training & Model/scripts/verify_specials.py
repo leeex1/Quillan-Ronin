@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, r"C:\02_QUILLAN\09 - Projects\projects\oni")
+sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
 from quillan_tokenizer_unified import UnifiedQuillanTokenizer
 tok = UnifiedQuillanTokenizer()
 for s, want in [("<|start|>", 50257), ("<|user|>", 50258),

@@ -21,23 +21,21 @@ from pathlib import Path
 import numpy as np
 import torch
 
-_CURR_DIR = Path(__file__).resolve().parent
-_ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
-for _p in [str(_CURR_DIR), str(_ONI_DIR)]:
-    if _p not in sys.path:
-        sys.path.insert(0, _p)
+sys.path.insert(0, str(Path(__file__).resolve().parent))  # portable: oni/ self-contained
 from quillan_tokenizer_unified import UnifiedQuillanTokenizer  # noqa: E402
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni  # noqa: E402
 from paper_01_profiler import StepProfiler  # 2309.02521 — real CPU/GPU profiling
 
 def resolve_data_dir(custom_path: str | None = None) -> Path:
-    """Auto-detects data directory across local, repo, and cloud/Colab paths."""
-    if custom_path and Path(custom_path).is_dir():
-        return Path(custom_path).resolve()
+    """Auto-detects data directory or dataset file across local, repo, and cloud paths."""
+    if custom_path:
+        p = Path(custom_path).resolve()
+        if p.exists():
+            return p
 
     candidates = [
-        Path(r"C:\02_QUILLAN\training_data\v9"),
-        Path(r"C:\02_QUILLAN\09 - Projects\projects\05_Training\training_data\v9"),
+        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\canonical_standardized\quillan_master_gold_training_v1.pt"),
+        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\quillan_pretrain_corpus_343mb.pt"),
         Path(__file__).resolve().parent / "data",
         Path(__file__).resolve().parent.parent / "05_Training" / "training_data" / "v9",
         Path("/content/Quillan-Ronin/oni/data"),
@@ -45,7 +43,9 @@ def resolve_data_dir(custom_path: str | None = None) -> Path:
         Path("05_Training/training_data/v9"),
     ]
     for c in candidates:
-        if c.is_dir() and (c / "train_ids.bin").exists():
+        if c.is_file() and c.suffix == ".pt" and c.exists():
+            return c.resolve()
+        if c.is_dir() and ((c / "train_ids.bin").exists() or (c / "train.pt").exists()):
             return c.resolve()
 
     # Fallback to local oni/data
@@ -59,12 +59,7 @@ def resolve_dir(custom_path: str | None, default_sub: str) -> Path:
     if custom_path:
         p = Path(custom_path).resolve()
     else:
-        if "checkpoint" in default_sub:
-            cand = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni")
-        elif "log" in default_sub:
-            cand = Path(r"C:\02_QUILLAN\training_logs")
-        else:
-            cand = Path(__file__).resolve().parent.parent / "05_Training" / default_sub
+        cand = Path(__file__).resolve().parent.parent / "05_Training" / default_sub
         if cand.parent.is_dir():
             p = cand
         else:
@@ -87,8 +82,14 @@ def parse_args():
     ap.add_argument("--sample-every", type=int, default=500)
     ap.add_argument("--save-every", type=int, default=500)
     ap.add_argument("--resume", action="store_true")
-    ap.add_argument("--router-mode", type=str, default="dense_pull",
+    ap.add_argument("--router-mode", type=str, default="gumbel_topk",
                     choices=["dense_pull", "gumbel_topk"])
+    ap.add_argument("--top-k", type=int, default=2,
+                    help="Top-k active experts per token in gumbel_topk mode (default: 2)")
+    ap.add_argument("--grt-iterations", type=int, default=1,
+                    help="Recurrent deliberation loops per forward during training (default: 1 for fast convergence)")
+    ap.add_argument("--cgpu", action="store_true",
+                    help="Enable CGPUBridge (router/hot-experts on GPU, body on CPU)")
     ap.add_argument("--clip", type=float, default=1.0)
     ap.add_argument("--ema", type=int, default=1)
     ap.add_argument("--rqgm-epoch-length", type=int, default=500,
@@ -105,6 +106,13 @@ def parse_args():
                     help="Directory for saving training logs (default: auto-detect)")
     ap.add_argument("--grad-checkpoint", action="store_true",
                     help="Enable activation gradient checkpointing (saves ~60%% activation VRAM on 1050 Ti / consumer GPUs)")
+    ap.add_argument("--optimizer", type=str, default="muonk2",
+                    choices=["adamw", "muonk2"],
+                    help="Optimizer: muonk2 (Low-Rank Newton-Schulz for Swarms/LoRA + AdamW for dense) | adamw")
+    ap.add_argument("--lr-muon", type=float, default=0.015,
+                    help="Learning rate for low-rank MuonK2 parameters (default: 0.015)")
+    ap.add_argument("--ccrl-limit", type=float, default=4.0,
+                    help="CCRL gradient curvature clip limit (default: 4.0)")
     ap.add_argument("--compile", action="store_true",
                     help="Enable torch.compile for graph fusion and lower kernel launch overhead")
     ap.add_argument("--compile-mode", type=str, default="default",
@@ -170,25 +178,80 @@ class RQGMController:
 
 
 class Corpus:
-    def __init__(self, data_dir: Path, split: str, seq_len: int):
-        ids_path = data_dir / f"{split}_ids.bin"
-        labels_path = data_dir / f"{split}_labels.bin"
-        if not ids_path.exists() or not labels_path.exists():
-            raise FileNotFoundError(
-                f"Missing binary dataset split '{split}' in {data_dir}. "
-                f"Run 'python oni/pack_dataset.py' to generate binary datasets."
-            )
-        ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
-        labels = np.memmap(labels_path, dtype=np.int32, mode="r")
-        n = min(len(ids), len(labels)) // seq_len * seq_len
-        self.ids = ids[:n].reshape(-1, seq_len)
-        self.labels = labels[:n].reshape(-1, seq_len)
+    def __init__(self, data_path: Path, split: str, seq_len: int):
+        self.seq_len = seq_len
+        # Case 1: .pt file provided or detected
+        if data_path.is_file() and data_path.suffix == ".pt":
+            self._load_pt(data_path, split, seq_len)
+        elif data_path.is_dir() and (data_path / f"{split}.pt").exists():
+            self._load_pt(data_path / f"{split}.pt", split, seq_len)
+        else:
+            # Case 2: standard memmapped binary dataset
+            ids_path = data_path / f"{split}_ids.bin"
+            labels_path = data_path / f"{split}_labels.bin"
+            if not ids_path.exists() or not labels_path.exists():
+                raise FileNotFoundError(
+                    f"Missing binary dataset split '{split}' in {data_path}. "
+                    f"Run 'python oni/pack_dataset.py' to generate binary datasets."
+                )
+            ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
+            labels = np.memmap(labels_path, dtype=np.int32, mode="r")
+            n = min(len(ids), len(labels)) // seq_len * seq_len
+            self.ids = ids[:n].reshape(-1, seq_len)
+            self.labels = labels[:n].reshape(-1, seq_len)
+            self.is_pt = False
+
+    def _load_pt(self, pt_file: Path, split: str, seq_len: int):
+        raw = torch.load(pt_file, map_location="cpu", weights_only=False)
+        if isinstance(raw, dict) and "input_ids" in raw:
+            input_ids = raw["input_ids"]
+            labels = raw.get("labels", None)
+        elif isinstance(raw, torch.Tensor):
+            input_ids = raw
+            labels = None
+        else:
+            raise ValueError(f"Unrecognized dataset format in {pt_file}")
+
+        # Flatten into 1D token stream for consistent seq_len windowing
+        if input_ids.dim() > 1:
+            flat_ids = input_ids.reshape(-1)
+        else:
+            flat_ids = input_ids
+
+        total_tokens = flat_ids.numel()
+        # Train / val split if single master file provided
+        val_fraction = 0.05
+        split_point = int(total_tokens * (1.0 - val_fraction))
+        if split == "train":
+            tokens = flat_ids[:split_point]
+        else:
+            tokens = flat_ids[split_point:]
+
+        n = (tokens.numel() // seq_len) * seq_len
+        if n == 0:
+            tokens = flat_ids[:seq_len]  # fallback
+            n = seq_len
+        
+        sliced_ids = tokens[:n].reshape(-1, seq_len).to(torch.int64)
+        if labels is not None and split == "train" and labels.numel() >= split_point:
+            flat_labels = labels.reshape(-1)[:split_point]
+            nl = (flat_labels.numel() // seq_len) * seq_len
+            sliced_labels = flat_labels[:nl].reshape(-1, seq_len).to(torch.int64)
+        else:
+            sliced_labels = torch.roll(sliced_ids, shifts=-1, dims=-1)
+            sliced_labels[:, -1] = -100
+
+        self.ids = sliced_ids
+        self.labels = sliced_labels
+        self.is_pt = True
 
     def __len__(self):
         return len(self.ids)
 
     def batch(self, bs, rng):
         idx = rng.integers(0, len(self), size=bs)
+        if getattr(self, "is_pt", False):
+            return self.ids[idx], self.labels[idx]
         return (torch.from_numpy(self.ids[idx].astype(np.int64)),
                 torch.from_numpy(self.labels[idx].astype(np.int64)))
 
@@ -258,11 +321,10 @@ def main():
     except Exception:
         pass
 
-    if args.device == "cpu" or not torch.cuda.is_available():
-        torch.set_num_threads(min(2, os.cpu_count() or 2))
-        torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
-    else:
-        torch.set_num_threads(min(4, os.cpu_count() or 4))
+    num_threads = getattr(args, "num_threads", None) or min(4, os.cpu_count() or 4)
+    torch.set_num_threads(num_threads)
+    torch.set_num_interop_threads(min(2, os.cpu_count() or 2))
+    print(f"[THREADS] Configured torch threads={torch.get_num_threads()} (total cores={os.cpu_count()})")
 
     rng = np.random.default_rng(42)
     tok = UnifiedQuillanTokenizer()
@@ -271,14 +333,35 @@ def main():
     print(f"[DATA] train={len(train)} seqs  val={len(val)} seqs")
 
     cfg = QuillanOniConfig(n_layer=args.n_layer, max_seq_len=args.seq_len,
-                           router_mode=args.router_mode, grad_checkpoint=args.grad_checkpoint)
+                           router_mode=args.router_mode, top_k=args.top_k,
+                           grt_iterations=args.grt_iterations,
+                           grad_checkpoint=args.grad_checkpoint)
     model = QuillanRoninOni(cfg)
     if args.device != "cpu":
         model = model.to(args.device)
+
+    # C+GPU Bridge: shard router & hot experts to GPU, body on CPU
+    if args.cgpu and torch.cuda.is_available():
+        try:
+            sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
+            from quillan_cgpu_bridge import CGPUBridge
+            bridge = CGPUBridge(gpu_index=0, gpu_budget_mb=3000, top_k_gpu=args.top_k)
+            for b_idx, block in enumerate(model.h):
+                bridge.place_router(block.moe.router, name=f"b{b_idx}.router")
+                # Place top hot experts on GPU
+                exp_scores = [1.0 if i < args.top_k else 0.1 for i in range(cfg.num_experts)]
+                block.moe.experts = torch.nn.ModuleList(
+                    bridge.place_experts(list(block.moe.experts), exp_scores, prefix=f"b{b_idx}.exp")
+                )
+            print(f"[CGPU] Activated C+GPU bridge: {bridge.status()}", flush=True)
+        except Exception as e:
+            print(f"[CGPU] Bridge initialization warning: {e}. Falling back to standard device map.", flush=True)
+
     n_params = sum(p.numel() for p in model.parameters())
     print(f"[MODEL] Quillan-Ronin v5.4.0-oni  n_layer={args.n_layer}  "
-          f"router={args.router_mode}  params={n_params/1e6:.1f}M  device={args.device}  "
-          f"checkpointing={args.grad_checkpoint}")
+          f"router={args.router_mode} (k={args.top_k})  grt_iter={args.grt_iterations}  "
+          f"params={n_params/1e6:.1f}M  device={args.device}  "
+          f"checkpointing={args.grad_checkpoint}  cgpu={args.cgpu}")
 
     # torch.compile support (Grok recommendation: mode="max-autotune", fullgraph=True for smoke test)
     if args.compile:
@@ -291,46 +374,60 @@ def main():
             if args.fullgraph:
                 raise
 
-    # Fused AdamW optimizer (Grok recommendation for CUDA kernel fusion on consumer/modern GPUs)
-    fused_opt = False
-    if args.device != "cpu" and torch.cuda.is_available():
+    # Optimizer Selection: MuonK2 (Newton-Schulz on LoRA/Swarm) vs AdamW
+    if args.optimizer == "muonk2":
         try:
-            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01, fused=True)
-            fused_opt = True
-            print("[OPTIMIZER] AdamW with fused=True enabled.")
-        except Exception:
+            sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
+            from quillan_muonk2_optimizer import create_quillan_muonk2_optimizer
+            opt = create_quillan_muonk2_optimizer(
+                model=model,
+                lr_muon=args.lr_muon,
+                lr_adamw=args.lr,
+                weight_decay=0.01,
+                ccrl_limit=args.ccrl_limit
+            )
+            print(f"[OPTIMIZER] Sovereign MuonK2 + AdamW + CCRL Hybrid active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).")
+        except Exception as e:
+            print(f"[OPTIMIZER] Failed to init MuonK2 ({e}). Falling back to AdamW.")
+            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+    else:
+        fused_opt = False
+        if args.device != "cpu" and torch.cuda.is_available():
+            try:
+                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01, fused=True)
+                fused_opt = True
+                print("[OPTIMIZER] AdamW with fused=True enabled.")
+            except Exception:
+                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+                print("[OPTIMIZER] Standard AdamW initialized.")
+        else:
             opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
             print("[OPTIMIZER] Standard AdamW initialized.")
-    else:
-        opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
 
     step, best_val = 0, float("inf")
     ema_sd = None
     latest = CKPT_DIR / "quillan_oni_latest.pt"
 
     if args.resume and latest.exists():
-        print(f"[RESUME] Loading checkpoint from {latest} (mmap=True)...", flush=True)
-        ck = torch.load(latest, map_location="cpu", weights_only=False, mmap=True)
+        ck = torch.load(latest, map_location="cpu", weights_only=False)
         # Warm-start: load shared weights; fresh-init new 100%-wired modules (EvoMoE/WorldModel/ES/etc.)
-        sd = ck.get("model", ck.get("model_state_dict", ck))
-        missing, unexpected = model.load_state_dict(sd, strict=False)
+        missing, unexpected = model.load_state_dict(ck["model"], strict=False)
         if missing:
             print(f"[RESUME] warm-start: {len(missing)} new-param keys freshly initialized, "
-                  f"{len(unexpected)} legacy keys skipped", flush=True)
+                  f"{len(unexpected)} legacy keys skipped")
         else:
-            print(f"[RESUME] strict load OK ({len(unexpected)} legacy keys skipped)", flush=True)
-        step = ck.get("step", 0)
+            print(f"[RESUME] strict load OK ({len(unexpected)} legacy keys skipped)")
+        step = ck["step"]
         best_val = ck.get("best_val", best_val)
         ema_sd = ck.get("ema_sd")
         if ema_sd is not None and args.device != "cpu":
             ema_sd = {k: v.to(args.device) for k, v in ema_sd.items()}
         # optimizer states: only restore for params present in both (new params get fresh state)
-        if "opt" in ck:
-            try:
-                opt.load_state_dict(ck["opt"])
-            except Exception as e:
-                print(f"[RESUME] optimizer state partial reset ({e})", flush=True)
-        print(f"[RESUME] step {step}, best_val {best_val:.4f}", flush=True)
+        try:
+            opt.load_state_dict(ck["opt"])
+        except Exception as e:
+            print(f"[RESUME] optimizer state partial reset ({e})")
+        print(f"[RESUME] step {step}, best_val {best_val:.4f}")
         # RQGM resume will be handled after rqgm init (epoch/incumbent)
 
     # Paper 1/135 (2309.02521): Real CPU/GPU step profiler
@@ -375,8 +472,12 @@ def main():
         if rqgm:
             rqgm.on_step(step, model, val, rng, args.batch_size, args.device)
         lr = cosine_lr(step, args)
+        lr_ratio = lr / max(args.lr, 1e-9)
         for g in opt.param_groups:
-            g["lr"] = lr
+            if g.get("is_muon", False):
+                g["lr"] = args.lr_muon * lr_ratio
+            else:
+                g["lr"] = lr
         model.set_router_tau(model.tau_for_step(step, args.steps))
 
         opt.zero_grad()
@@ -392,6 +493,7 @@ def main():
 
         for _ in range(args.grad_accum):
             x, y = train.batch(args.batch_size, rng)
+            profiler.mark_data_load_done()
             if cur_seq < args.seq_len:
                 x = x[:, :cur_seq]
                 y = y[:, :cur_seq]
@@ -399,8 +501,11 @@ def main():
                 # Session 1 (Papers 5-7 Heterogeneous, default ON): overlap
                 # transfer with compute via non-blocking (consumed by .to call)
                 x, y = x.to(args.device, non_blocking=True), y.to(args.device, non_blocking=True)
+            profiler.mark_transfer_done()
+            profiler.mark_fwd_start()
             _, ce, aux = model(x, labels=y)
             loss = (ce + model.total_aux_loss(aux)) / args.grad_accum
+            profiler.mark_bwd_start()
             loss.backward()
             # KILL HOST SYNCS: accumulate ce & load_balance tensors directly on device without stalling host via .item()
             accum_ce += ce.detach() / args.grad_accum
@@ -408,6 +513,7 @@ def main():
                 accum_lb += aux["load_balance"].detach() / args.grad_accum
 
         gn = torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+        profiler.mark_opt_start()
         opt.step()
         step_loss = accum_ce.item()
         step_lb = accum_lb.item()
@@ -430,13 +536,14 @@ def main():
                             ema_val = ema_sd[name].to(param.device)
                             param.data.add_(ema_val - param.data, alpha=memory_strength)
             except ImportError:
-                pass  # ES module not available â€” skip silently
+                pass  # ES module not available — skip silently
 
         step += 1
         running.append(step_loss)
 
         latency_ms = (time.time() - t0) * 1000.0
         _, ema_decay, _ = model.governor_adjust(latency_ms)
+        profiler.mark_ema_start()
         if args.ema:
             with torch.no_grad():
                 if ema_sd is None:
@@ -485,7 +592,11 @@ def main():
             log_f.write(json.dumps({"step": step, "val_loss": vl}) + "\n")
 
         if step % args.sample_every == 0 or step == args.steps:
-            print("[SAMPLE]", repr(sample(model, tok, args.device)), flush=True)
+            try:
+                s_text = sample(model, tok, args.device)
+                print("[SAMPLE]", repr(s_text.encode("ascii", errors="replace").decode("ascii")), flush=True)
+            except Exception as e:
+                print(f"[SAMPLE] error during sampling: {e}", flush=True)
 
         if step % args.save_every == 0 or step == args.steps:
             ckpt = {"model": model.state_dict(), "opt": opt.state_dict(), "step": step,

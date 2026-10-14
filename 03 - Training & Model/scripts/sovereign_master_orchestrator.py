@@ -33,7 +33,7 @@ except Exception:
 
 # Ensure scripts directory and canonical oni directory are on sys.path
 _SCRIPTS_DIR = Path(__file__).resolve().parent
-_ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
+_ONI_DIR = Path(r"C:\02_QUILLAN\03 - Training & Model\scripts")
 for _p in [str(_SCRIPTS_DIR), str(_ONI_DIR)]:
     if _p not in sys.path:
         sys.path.insert(0, _p)

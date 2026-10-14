@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 ROOTS = [r"C:\02_QUILLAN\training_data",
          r"C:\02_QUILLAN\03 - Training & Model",
-         r"C:\02_QUILLAN\09 - Projects\projects\oni",
+         r"C:\02_QUILLAN\03 - Training & Model\scripts",
          r"C:\02_QUILLAN\09 - Projects\projects\05_Training",
          r"C:\02_QUILLAN\scripts",
          r"C:\02_QUILLAN\checkpoints",
