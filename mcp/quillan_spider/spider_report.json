@@ -1,2801 +1,1259 @@
 {
  "job": "scan",
- "root": "C:\\02_QUILLAN",
- "files": 300,
- "total_findings": 646,
+ "root": "C:\\02_QUILLAN\\scripts",
+ "files": 127,
+ "total_findings": 54,
  "wiring": [
   {
-   "from": "django_debug.py",
-   "to": "django",
-   "why": "django_debug.py imports django; coupled \u2014 a change in django can break it"
+   "from": "api.py",
+   "to": "sovereign_inference_engine",
+   "why": "api.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_version.py",
-   "to": "json",
-   "why": "_version.py imports json; coupled \u2014 a change in json can break it"
+   "from": "autonomous_goal_evaluator.py",
+   "to": "test_multi_horizon_exhaustive",
+   "why": "autonomous_goal_evaluator.py imports test_multi_horizon_exhaustive; coupled \u2014 a change in test_multi_horizon_exhaustive can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "build_augmented_frontier_v2.py",
+   "to": "sovereign_inference_engine",
+   "why": "build_augmented_frontier_v2.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "check_diffusion_weights.py",
+   "to": "transplant_weights",
+   "why": "check_diffusion_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "json.py",
-   "to": "json",
-   "why": "json.py imports json; coupled \u2014 a change in json can break it"
+   "from": "check_shapes.py",
+   "to": "transplant_weights",
+   "why": "check_shapes.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "public_api.py",
-   "to": "typing",
-   "why": "public_api.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "check_weights.py",
+   "to": "transplant_weights",
+   "why": "check_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "cli.py",
-   "to": "json",
-   "why": "cli.py imports json; coupled \u2014 a change in json can break it"
+   "from": "consolidate_and_export_sovereign.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "consolidate_and_export_sovereign.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "cli.py",
-   "to": "typing",
-   "why": "cli.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "daemon_evaluator.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "daemon_evaluator.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_elffile.py",
-   "to": "typing",
-   "why": "_elffile.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "daemon_evaluator.py",
+   "to": "sovereign_inference_engine",
+   "why": "daemon_evaluator.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_manylinux.py",
-   "to": "typing",
-   "why": "_manylinux.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "diagnose_quillan_internals.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "diagnose_quillan_internals.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_musllinux.py",
-   "to": "typing",
-   "why": "_musllinux.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "diagnose_quillan_internals.py",
+   "to": "sovereign_inference_engine",
+   "why": "diagnose_quillan_internals.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_parser.py",
-   "to": "typing",
-   "why": "_parser.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "evaluate_terminal_run.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "evaluate_terminal_run.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_tokenizer.py",
-   "to": "typing",
-   "why": "_tokenizer.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "evaluate_terminal_run.py",
+   "to": "sovereign_inference_engine",
+   "why": "evaluate_terminal_run.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "interactive_chat.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "interactive_chat.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_spdx.py",
-   "to": "typing",
-   "why": "_spdx.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "interactive_chat.py",
+   "to": "sovereign_inference_engine",
+   "why": "interactive_chat.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "markers.py",
-   "to": "typing",
-   "why": "markers.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "migrate_weights.py",
+   "to": "transplant_weights",
+   "why": "migrate_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "metadata.py",
-   "to": "typing",
-   "why": "metadata.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "run_ten_question_benchmark.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "run_ten_question_benchmark.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "requirements.py",
-   "to": "typing",
-   "why": "requirements.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "run_ten_question_benchmark.py",
+   "to": "sovereign_inference_engine",
+   "why": "run_ten_question_benchmark.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "specifiers.py",
-   "to": "typing",
-   "why": "specifiers.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_clean_direct_factual.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_clean_direct_factual.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "tags.py",
-   "to": "typing",
-   "why": "tags.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_clean_direct_factual.py",
+   "to": "sovereign_inference_engine",
+   "why": "test_clean_direct_factual.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "utils.py",
-   "to": "typing",
-   "why": "utils.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_live_model_speech.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_live_model_speech.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "version.py",
-   "to": "typing",
-   "why": "version.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_live_model_speech.py",
+   "to": "sovereign_inference_engine",
+   "why": "test_live_model_speech.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "create_conda.py",
-   "to": "typing",
-   "why": "create_conda.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_long_horizon_generation.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_long_horizon_generation.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "create_microvenv.py",
-   "to": "typing",
-   "why": "create_microvenv.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_long_horizon_generation.py",
+   "to": "sovereign_inference_engine",
+   "why": "test_long_horizon_generation.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "create_venv.py",
-   "to": "json",
-   "why": "create_venv.py imports json; coupled \u2014 a change in json can break it"
+   "from": "test_multi_horizon_exhaustive.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_multi_horizon_exhaustive.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "create_venv.py",
-   "to": "typing",
-   "why": "create_venv.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_multi_horizon_exhaustive.py",
+   "to": "sovereign_inference_engine",
+   "why": "test_multi_horizon_exhaustive.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "download_get_pip.py",
-   "to": "json",
-   "why": "download_get_pip.py imports json; coupled \u2014 a change in json can break it"
+   "from": "test_optimizer_step.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_optimizer_step.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "get_variable_info.py",
-   "to": "typing",
-   "why": "get_variable_info.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_optimizer_step.py",
+   "to": "quillan_muonk2_optimizer",
+   "why": "test_optimizer_step.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
   },
   {
-   "from": "installed_check.py",
-   "to": "json",
-   "why": "installed_check.py imports json; coupled \u2014 a change in json can break it"
+   "from": "test_out_of_domain_longform.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "test_out_of_domain_longform.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "installed_check.py",
-   "to": "typing",
-   "why": "installed_check.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "test_out_of_domain_longform.py",
+   "to": "sovereign_inference_engine",
+   "why": "test_out_of_domain_longform.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "interpreterInfo.py",
-   "to": "json",
-   "why": "interpreterInfo.py imports json; coupled \u2014 a change in json can break it"
+   "from": "trace_signal.py",
+   "to": "transplant_weights",
+   "why": "trace_signal.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_240m_tensor_frontier.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_240m_tensor_frontier.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_cmp.py",
-   "to": "types",
-   "why": "_cmp.py imports types; coupled \u2014 a change in types can break it"
+   "from": "train_34_experts_aligned.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_34_experts_aligned.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_compat.py",
-   "to": "typing",
-   "why": "_compat.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_34_experts_aligned.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_34_experts_aligned.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_make.py",
-   "to": "types",
-   "why": "_make.py imports types; coupled \u2014 a change in types can break it"
+   "from": "train_direct_factual_precision.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_direct_factual_precision.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_make.py",
-   "to": "typing",
-   "why": "_make.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_direct_factual_precision.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_direct_factual_precision.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "converters.py",
-   "to": "typing",
-   "why": "converters.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_finetune.py",
+   "to": "transplant_weights",
+   "why": "train_finetune.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
   },
   {
-   "from": "exceptions.py",
-   "to": "typing",
-   "why": "exceptions.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_frontier_capability.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_frontier_capability.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_frontier_capability.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_frontier_capability.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_compat.py",
-   "to": "types",
-   "why": "_compat.py imports types; coupled \u2014 a change in types can break it"
+   "from": "train_frontier_capability.py",
+   "to": "quillan_muonk2_optimizer",
+   "why": "train_frontier_capability.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
   },
   {
-   "from": "_compat.py",
-   "to": "typing",
-   "why": "_compat.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_gold_precision_annealing.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_gold_precision_annealing.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_compat.py",
-   "to": "typing_extensions",
-   "why": "_compat.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
+   "from": "train_gold_precision_annealing.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_gold_precision_annealing.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "_generics.py",
-   "to": "typing",
-   "why": "_generics.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_master_frontier_precision.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_master_frontier_precision.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "_generics.py",
-   "to": "typing_extensions",
-   "why": "_generics.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
+   "from": "train_master_frontier_precision.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_master_frontier_precision.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "cols.py",
-   "to": "typing",
-   "why": "cols.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_pristine_frontier_37k.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_pristine_frontier_37k.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "converters.py",
-   "to": "typing",
-   "why": "converters.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_sovereign_frontier_generalization.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_sovereign_frontier_generalization.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "converters.py",
-   "to": "typing_extensions",
-   "why": "converters.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
+   "from": "train_sovereign_frontier_generalization.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_sovereign_frontier_generalization.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "disambiguators.py",
-   "to": "typing",
-   "why": "disambiguators.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_sovereign_frontier_generalization.py",
+   "to": "quillan_muonk2_optimizer",
+   "why": "train_sovereign_frontier_generalization.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
   },
   {
-   "from": "dispatch.py",
-   "to": "typing",
-   "why": "dispatch.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_sovereign_gold_alignment.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_sovereign_gold_alignment.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "errors.py",
-   "to": "typing",
-   "why": "errors.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_sovereign_gold_alignment.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_sovereign_gold_alignment.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "errors.py",
-   "to": "typing_extensions",
-   "why": "errors.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
+   "from": "train_super_run_10k.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "train_super_run_10k.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   },
   {
-   "from": "fns.py",
-   "to": "typing",
-   "why": "fns.py imports typing; coupled \u2014 a change in typing can break it"
+   "from": "train_super_run_10k.py",
+   "to": "sovereign_inference_engine",
+   "why": "train_super_run_10k.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
   },
   {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing_extensions",
-   "why": "__init__.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "_consts.py",
-   "to": "typing",
-   "why": "_consts.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_generics.py",
-   "to": "typing",
-   "why": "_generics.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_shared.py",
-   "to": "typing",
-   "why": "_shared.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typeddicts.py",
-   "to": "typing",
-   "why": "typeddicts.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typeddicts.py",
-   "to": "typing_extensions",
-   "why": "typeddicts.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "literals.py",
-   "to": "typing",
-   "why": "literals.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing_extensions",
-   "why": "__init__.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "bson.py",
-   "to": "typing",
-   "why": "bson.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "cbor2.py",
-   "to": "typing",
-   "why": "cbor2.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "json.py",
-   "to": "typing",
-   "why": "json.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "msgpack.py",
-   "to": "typing",
-   "why": "msgpack.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "msgspec.py",
-   "to": "typing",
-   "why": "msgspec.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "orjson.py",
-   "to": "typing",
-   "why": "orjson.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "pyyaml.py",
-   "to": "typing",
-   "why": "pyyaml.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "tomlkit.py",
-   "to": "typing",
-   "why": "tomlkit.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "ujson.py",
-   "to": "typing",
-   "why": "ujson.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_class_methods.py",
-   "to": "typing",
-   "why": "_class_methods.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_subclasses.py",
-   "to": "typing",
-   "why": "_subclasses.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_unions.py",
-   "to": "typing",
-   "why": "_unions.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typealiases.py",
-   "to": "typing",
-   "why": "typealiases.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typealiases.py",
-   "to": "types",
-   "why": "typealiases.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "types.py",
-   "to": "typing",
-   "why": "types.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "v.py",
-   "to": "typing",
-   "why": "v.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "cpython.py",
-   "to": "typing",
-   "why": "cpython.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "google.py",
-   "to": "typing",
-   "why": "google.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "rst.py",
-   "to": "types",
-   "why": "rst.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "rst.py",
-   "to": "typing",
-   "why": "rst.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "types.py",
-   "to": "typing_extensions",
-   "why": "types.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "_catch.py",
-   "to": "types",
-   "why": "_catch.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "_catch.py",
-   "to": "typing",
-   "why": "_catch.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_exceptions.py",
-   "to": "typing",
-   "why": "_exceptions.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_exceptions.py",
-   "to": "typing_extensions",
-   "why": "_exceptions.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "_formatting.py",
-   "to": "types",
-   "why": "_formatting.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "_formatting.py",
-   "to": "typing",
-   "why": "_formatting.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_suppress.py",
-   "to": "types",
-   "why": "_suppress.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "_suppress.py",
-   "to": "typing",
-   "why": "_suppress.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_version.py",
-   "to": "typing",
-   "why": "_version.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "types",
-   "why": "__init__.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_collections.py",
-   "to": "typing",
-   "why": "_collections.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_functools.py",
-   "to": "types",
-   "why": "_functools.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "_meta.py",
-   "to": "typing",
-   "why": "_meta.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_typing.py",
-   "to": "typing",
-   "why": "_typing.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "py311.py",
-   "to": "types",
-   "why": "py311.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "py39.py",
-   "to": "typing",
-   "why": "py39.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_compatibility.py",
-   "to": "typing",
-   "why": "_compatibility.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "classes.py",
-   "to": "typing",
-   "why": "classes.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "completion_cache.py",
-   "to": "typing",
-   "why": "completion_cache.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "environment.py",
-   "to": "typing",
-   "why": "environment.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "keywords.py",
-   "to": "typing",
-   "why": "keywords.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "project.py",
-   "to": "json",
-   "why": "project.py imports json; coupled \u2014 a change in json can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "cache.py",
-   "to": "typing",
-   "why": "cache.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "debug.py",
-   "to": "typing",
-   "why": "debug.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "access.py",
-   "to": "types",
-   "why": "access.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "access.py",
-   "to": "typing",
-   "why": "access.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "getattr_static.py",
-   "to": "types",
-   "why": "getattr_static.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "value.py",
-   "to": "typing",
-   "why": "value.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "context.py",
-   "to": "typing",
-   "why": "context.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "filters.py",
-   "to": "typing",
-   "why": "filters.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "flow_analysis.py",
-   "to": "typing",
-   "why": "flow_analysis.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typeshed.py",
-   "to": "typing",
-   "why": "typeshed.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "names.py",
-   "to": "typing",
-   "why": "names.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "module.py",
-   "to": "typing",
-   "why": "module.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "namespace.py",
-   "to": "typing",
-   "why": "namespace.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "pytest.py",
-   "to": "typing",
-   "why": "pytest.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "utils.py",
-   "to": "__main__",
-   "why": "utils.py imports __main__; coupled \u2014 a change in __main__ can break it"
-  },
-  {
-   "from": "initialization_options.py",
-   "to": "typing",
-   "why": "initialization_options.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "jedi_utils.py",
-   "to": "typing",
-   "why": "jedi_utils.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "jedi_utils.py",
-   "to": "typing_extensions",
-   "why": "jedi_utils.py imports typing_extensions; coupled \u2014 a change in typing_extensions can break it"
-  },
-  {
-   "from": "notebook_utils.py",
-   "to": "typing",
-   "why": "notebook_utils.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "pygls_utils.py",
-   "to": "typing",
-   "why": "pygls_utils.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "server.py",
-   "to": "typing",
-   "why": "server.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "text_edit_utils.py",
-   "to": "typing",
-   "why": "text_edit_utils.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "_hooks.py",
-   "to": "typing",
-   "why": "_hooks.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "converters.py",
-   "to": "typing",
-   "why": "converters.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "types.py",
-   "to": "typing",
-   "why": "types.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "validators.py",
-   "to": "typing",
-   "why": "validators.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "cache.py",
-   "to": "typing",
-   "why": "cache.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "file_io.py",
-   "to": "typing",
-   "why": "file_io.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "grammar.py",
-   "to": "typing",
-   "why": "grammar.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "normalizer.py",
-   "to": "typing",
-   "why": "normalizer.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "parser.py",
-   "to": "typing",
-   "why": "parser.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "generator.py",
-   "to": "typing",
-   "why": "generator.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "grammar_parser.py",
-   "to": "typing",
-   "why": "grammar_parser.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "pep8.py",
-   "to": "typing",
-   "why": "pep8.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "prefix.py",
-   "to": "typing",
-   "why": "prefix.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "tokenize.py",
-   "to": "typing",
-   "why": "tokenize.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "tree.py",
-   "to": "typing",
-   "why": "tree.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "tree.py",
-   "to": "typing",
-   "why": "tree.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "utils.py",
-   "to": "typing",
-   "why": "utils.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "capabilities.py",
-   "to": "typing",
-   "why": "capabilities.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "client.py",
-   "to": "typing",
-   "why": "client.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "exceptions.py",
-   "to": "typing",
-   "why": "exceptions.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "feature_manager.py",
-   "to": "typing",
-   "why": "feature_manager.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "client.py",
-   "to": "typing",
-   "why": "client.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "progress.py",
-   "to": "typing",
-   "why": "progress.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "json",
-   "why": "__init__.py imports json; coupled \u2014 a change in json can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "json_rpc.py",
-   "to": "json",
-   "why": "json_rpc.py imports json; coupled \u2014 a change in json can break it"
-  },
-  {
-   "from": "json_rpc.py",
-   "to": "typing",
-   "why": "json_rpc.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "language_server.py",
-   "to": "json",
-   "why": "language_server.py imports json; coupled \u2014 a change in json can break it"
-  },
-  {
-   "from": "language_server.py",
-   "to": "typing",
-   "why": "language_server.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "server.py",
-   "to": "json",
-   "why": "server.py imports json; coupled \u2014 a change in json can break it"
-  },
-  {
-   "from": "server.py",
-   "to": "typing",
-   "why": "server.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "uris.py",
-   "to": "typing",
-   "why": "uris.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "__init__.py",
-   "to": "typing",
-   "why": "__init__.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "position_codec.py",
-   "to": "typing",
-   "why": "position_codec.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "text_document.py",
-   "to": "typing",
-   "why": "text_document.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "workspace.py",
-   "to": "typing",
-   "why": "workspace.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "typing_extensions.py",
-   "to": "types",
-   "why": "typing_extensions.py imports types; coupled \u2014 a change in types can break it"
-  },
-  {
-   "from": "typing_extensions.py",
-   "to": "typing",
-   "why": "typing_extensions.py imports typing; coupled \u2014 a change in typing can break it"
-  },
-  {
-   "from": "overlay.py",
-   "to": "types",
-   "why": "overlay.py imports types; coupled \u2014 a change in types can break it"
+   "from": "verify_full_unrolled_wiring.py",
+   "to": "quillan_v10_unrolled_sovereign",
+   "why": "verify_full_unrolled_wiring.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
   }
  ],
  "flagged": [
   {
-   "t": 7.61,
-   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\django_debug.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\django_debug.py",
-   "node": 201,
+   "t": 0.52,
+   "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
+   "node": 20,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "640 lines, 8 findings | compiled OK | 44F/4C | 15.9ms",
+   "detail": "88 lines, 1 findings | compiled OK | 1F/0C | 2.9ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 432,
-     "preview": "result = eval(expression, frame.f_globals, frame.f_locals)"
-    },
-    {
-     "rule": "bare_except",
-     "line": 22,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 62,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 206,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 219,
-     "preview": "except:"
+     "line": 58,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 640,
-   "ms": 15.9,
-   "compiled": true,
-   "funcs": 44,
-   "classes": 4
-  },
-  {
-   "t": 7.7,
-   "at": "libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\extensions\\types\\pydevd_plugin_numpy_types.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\extensions\\types\\pydevd_plugin_numpy_types.py",
-   "node": 205,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "90 lines, 1 findings | compiled OK | 4F/2C | 2.9ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 81,
-     "preview": "except:"
-    }
-   ],
-   "lines": 90,
+   "lines": 88,
    "ms": 2.9,
    "compiled": true,
-   "funcs": 4,
-   "classes": 2
-  },
-  {
-   "t": 7.79,
-   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\jinja2_debug.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\jinja2_debug.py",
-   "node": 208,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "528 lines, 3 findings | compiled OK | 40F/4C | 14.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 254,
-     "preview": "result = eval(expression, frame.f_globals, frame.f_locals)"
-    },
-    {
-     "rule": "bare_except",
-     "line": 130,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 277,
-     "preview": "except:"
-    }
-   ],
-   "lines": 528,
-   "ms": 14.7,
-   "compiled": true,
-   "funcs": 40,
-   "classes": 4
-  },
-  {
-   "t": 7.86,
-   "at": "python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_tracing.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_tracing.py",
-   "node": 210,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "410 lines, 3 findings | compiled OK | 14F/2C | 11.9ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 216,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 291,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 400,
-     "preview": "except:"
-    }
-   ],
-   "lines": 410,
-   "ms": 11.9,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 2
-  },
-  {
-   "t": 7.89,
-   "at": "n.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\setup_pydevd_cython.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\setup_pydevd_cython.py",
-   "node": 211,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "289 lines, 4 findings | compiled OK | 4F/0C | 7.9ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 134,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 244,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 250,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 257,
-     "preview": "except:"
-    }
-   ],
-   "lines": 289,
-   "ms": 7.9,
-   "compiled": true,
-   "funcs": 4,
+   "funcs": 1,
    "classes": 0
   },
   {
-   "t": 8.09,
-   "at": "y\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\adapter\\servers.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\adapter\\servers.py",
-   "node": 218,
+   "t": 0.65,
+   "at": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
+   "node": 25,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "620 lines, 2 findings | compiled OK | 32F/3C | 12.9ms",
+   "detail": "128 lines, 1 findings | compiled OK | 2F/0C | 3.2ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 50,
-     "preview": "by another process, e.g. via exec()."
-    },
-    {
-     "rule": "eval_exec",
-     "line": 344,
-     "preview": "# The parent process used some API like exec() that replaced it with another"
+     "line": 62,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 620,
-   "ms": 12.9,
+   "lines": 128,
+   "ms": 3.2,
    "compiled": true,
-   "funcs": 32,
-   "classes": 3
+   "funcs": 2,
+   "classes": 0
   },
   {
-   "t": 8.17,
-   "at": "avity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\json.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\json.py",
-   "node": 221,
+   "t": 0.74,
+   "at": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
+   "node": 28,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "292 lines, 2 findings | compiled OK | 18F/2C | 5.5ms",
+   "detail": "210 lines, 1 findings | compiled OK | 6F/0C | 6.9ms",
    "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 173,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 210,
+   "ms": 6.9,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 0
+  },
+  {
+   "t": 0.79,
+   "at": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
+   "node": 29,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "347 lines, 3 findings | compiled OK | 7F/0C | 12.9ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 64,
+     "preview": "model.eval()"
+    },
     {
      "rule": "eval_exec",
      "line": 75,
-     "preview": "# which we can then eval() to create our encoder instance."
-    },
-    {
-     "rule": "eval_exec",
-     "line": 77,
-     "preview": "encoder = eval("
-    }
-   ],
-   "lines": 292,
-   "ms": 5.5,
-   "compiled": true,
-   "funcs": 18,
-   "classes": 2
-  },
-  {
-   "t": 8.26,
-   "at": "\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\messaging.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\messaging.py",
-   "node": 223,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "1506 lines, 1 findings | compiled OK | 91F/14C | 32.9ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 95,
-     "preview": "# TODO: investigate switching to buffered sockets; readline() on unbuffered"
-    }
-   ],
-   "lines": 1506,
-   "ms": 32.9,
-   "compiled": true,
-   "funcs": 91,
-   "classes": 14
-  },
-  {
-   "t": 8.33,
-   "at": "ity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\stacks.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\stacks.py",
-   "node": 226,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "62 lines, 1 findings | compiled OK | 3F/0C | 1.2ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 57,
-     "preview": "except:"
-    }
-   ],
-   "lines": 62,
-   "ms": 1.2,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 8.38,
-   "at": "avity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\util.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\util.py",
-   "node": 228,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "164 lines, 1 findings | compiled OK | 14F/2C | 3.0ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 16,
-     "preview": "return eval(expr, {}, sys.modules)"
-    }
-   ],
-   "lines": 164,
-   "ms": 3.0,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 2
-  },
-  {
-   "t": 8.62,
-   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\api.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\api.py",
-   "node": 237,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "366 lines, 1 findings | compiled OK | 14F/1C | 8.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 21,
-     "preview": "# TODO: \"gevent\", if possible."
-    }
-   ],
-   "lines": 366,
-   "ms": 8.1,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 1
-  },
-  {
-   "t": 8.64,
-   "at": "s\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\attach_pid_injected.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\attach_pid_injected.py",
-   "node": 238,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "92 lines, 2 findings | compiled OK | 4F/0C | 2.0ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 50,
-     "preview": "except:"
+     "preview": "model.eval()"
     },
     {
      "rule": "bare_except",
-     "line": 83,
+     "line": 282,
      "preview": "except:"
     }
    ],
-   "lines": 92,
-   "ms": 2.0,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 0
-  },
-  {
-   "t": 8.67,
-   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\cli.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\cli.py",
-   "node": 239,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "512 lines, 1 findings | compiled OK | 25F/1C | 12.4ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 405,
-     "preview": "eval(code, {})"
-    }
-   ],
-   "lines": 512,
-   "ms": 12.4,
-   "compiled": true,
-   "funcs": 25,
-   "classes": 1
-  },
-  {
-   "t": 8.87,
-   "at": "tensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\licenses\\__init__.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\licenses\\__init__.py",
-   "node": 247,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "145 lines, 1 findings | compiled OK | 1F/1C | 3.1ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 100,
-     "preview": "invalid = eval(python_expression, globals(), locals())"
-    }
-   ],
-   "lines": 145,
-   "ms": 3.1,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 1
-  },
-  {
-   "t": 9.01,
-   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\metadata.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\metadata.py",
-   "node": 250,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "863 lines, 2 findings | compiled OK | 24F/5C | 23.8ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 204,
-     "preview": "# TODO: The spec doesn't say anything about if the keys should be"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 806,
-     "preview": "description: _Validator[str | None] = _Validator()  # TODO 2.1: can be in body"
-    }
-   ],
-   "lines": 863,
-   "ms": 23.8,
-   "compiled": true,
-   "funcs": 24,
-   "classes": 5
-  },
-  {
-   "t": 9.04,
-   "at": "ty\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\requirements.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\requirements.py",
-   "node": 251,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "91 lines, 2 findings | compiled OK | 6F/2C | 2.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 29,
-     "preview": "# TODO: Can we test whether something is contained within a requirement?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 32,
-     "preview": "# TODO: Can we normalize the name and extra name?"
-    }
-   ],
-   "lines": 91,
-   "ms": 2.2,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 2
-  },
-  {
-   "t": 9.13,
-   "at": "ntigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\tags.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\tags.py",
-   "node": 253,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "617 lines, 1 findings | compiled OK | 30F/1C | 17.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 378,
-     "preview": "# TODO: Need to care about 32-bit PPC for ppc64 through 10.2?"
-    }
-   ],
-   "lines": 617,
-   "ms": 17.5,
-   "compiled": true,
-   "funcs": 30,
-   "classes": 1
-  },
-  {
-   "t": 9.36,
-   "at": "UILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get-pip.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get-pip.py",
-   "node": 260,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "27506 lines, 1 findings | compiled OK | 7F/0C | 41.0ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 756,
-     "preview": "!bv|ulZaXXXf69tR@679Jq0*EKr>V*p%c^c+P=NM~dbzVB&x-2m3i@GwR*m_#%-ZWBzcfEv{i(gHvn9"
-    }
-   ],
-   "lines": 27506,
-   "ms": 41.0,
+   "lines": 347,
+   "ms": 12.9,
    "compiled": true,
    "funcs": 7,
    "classes": 0
   },
   {
-   "t": 9.39,
-   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_output_via_markers.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_output_via_markers.py",
-   "node": 261,
+   "t": 0.82,
+   "at": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
+   "node": 30,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "32 lines, 1 findings | compiled OK | 0F/0C | 1.1ms",
+   "detail": "247 lines, 1 findings | compiled OK | 8F/0C | 7.9ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 19,
-     "preview": "exec(code, ns, ns)"
+     "line": 62,
+     "preview": "exec(\"\\n\".join(clean_lines), sandbox_env)"
     }
    ],
-   "lines": 32,
-   "ms": 1.1,
+   "lines": 247,
+   "ms": 7.9,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 0
+  },
+  {
+   "t": 0.84,
+   "at": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
+   "node": 31,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "180 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (export_phase5_gguf.py, line 1) | 0F/0C | 0.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 142,
+     "preview": "except:"
+    }
+   ],
+   "lines": 180,
+   "ms": 0.4,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 0.98,
+   "at": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
+   "node": 36,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "169 lines, 1 findings | compiled OK | 3F/0C | 5.1ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 59,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 169,
+   "ms": 5.1,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 1.27,
+   "at": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
+   "node": 46,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "147 lines, 1 findings | compiled OK | 3F/0C | 5.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 88,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 147,
+   "ms": 5.7,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 1.38,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
+   "node": 49,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "651 lines, 2 findings | compiled OK | 40F/17C | 29.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 396,
+     "preview": "exec(code, test_env)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 600,
+     "preview": "self.eval()"
+    }
+   ],
+   "lines": 651,
+   "ms": 29.2,
+   "compiled": true,
+   "funcs": 40,
+   "classes": 17
+  },
+  {
+   "t": 1.42,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
+   "node": 50,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "544 lines, 1 findings | compiled OK | 19F/3C | 15.9ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 373,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 544,
+   "ms": 15.9,
+   "compiled": true,
+   "funcs": 19,
+   "classes": 3
+  },
+  {
+   "t": 1.5,
+   "at": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
+   "node": 52,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "437 lines, 1 findings | compiled OK | 22F/10C | 22.6ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 399,
+     "preview": "self.eval()"
+    }
+   ],
+   "lines": 437,
+   "ms": 22.6,
+   "compiled": true,
+   "funcs": 22,
+   "classes": 10
+  },
+  {
+   "t": 1.65,
+   "at": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
+   "full": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
+   "node": 58,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "119 lines, 1 findings | compiled OK | 5F/0C | 3.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 72,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 119,
+   "ms": 3.8,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 1.78,
+   "at": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
+   "full": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
+   "node": 62,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "308 lines, 1 findings | compiled OK | 8F/3C | 10.4ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 114,
+     "preview": "self.model.eval()"
+    }
+   ],
+   "lines": 308,
+   "ms": 10.4,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 3
+  },
+  {
+   "t": 1.88,
+   "at": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
+   "node": 66,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "28 lines, 1 findings | compiled OK | 0F/0C | 2.3ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 12,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 28,
+   "ms": 2.3,
    "compiled": true,
    "funcs": 0,
    "classes": 0
   },
   {
-   "t": 9.44,
-   "at": "tigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_variable_info.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_variable_info.py",
-   "node": 262,
+   "t": 1.9,
+   "at": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
+   "node": 67,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "539 lines, 1 findings | compiled OK | 20F/2C | 35.1ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 315,
-     "preview": "except:  # noqa: E722"
-    }
-   ],
-   "lines": 539,
-   "ms": 35.1,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 2
-  },
-  {
-   "t": 9.72,
-   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\attr\\_make.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\attr\\_make.py",
-   "node": 270,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "3123 lines, 5 findings | compiled OK | 106F/9C | 78.7ms",
+   "detail": "104 lines, 1 findings | compiled OK | 1F/0C | 2.6ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 223,
-     "preview": "eval(bytecode, globs, locs)"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 852,
-     "preview": "# XXX: This can be confused by subclassing a slotted attrs class with"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 853,
-     "preview": "# XXX: a non-attrs class and subclass the resulting class with an attrs"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 854,
-     "preview": "# XXX: class.  See `test_slotted_confused` for details.  For now that's"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 855,
-     "preview": "# XXX: OK with us."
+     "line": 45,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 3123,
-   "ms": 78.7,
+   "lines": 104,
+   "ms": 2.6,
    "compiled": true,
-   "funcs": 106,
-   "classes": 9
-  },
-  {
-   "t": 10.53,
-   "at": "ions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\disambiguators.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\disambiguators.py",
-   "node": 303,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "206 lines, 1 findings | compiled OK | 7F/0C | 5.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 71,
-     "preview": "# (... TODO: a single fallback is OK)"
-    }
-   ],
-   "lines": 206,
-   "ms": 5.5,
-   "compiled": true,
-   "funcs": 7,
+   "funcs": 1,
    "classes": 0
   },
   {
-   "t": 10.72,
-   "at": "nsions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\gen\\__init__.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\gen\\__init__.py",
-   "node": 307,
+   "t": 1.96,
+   "at": "C:\\02_QUILLAN\\scripts\\test_generation.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_generation.py",
+   "node": 69,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1070 lines, 5 findings | compiled OK | 10F/0C | 37.8ms",
+   "detail": "86 lines, 1 findings | compiled OK | 2F/0C | 3.8ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 214,
-     "preview": "eval(compile(script, fname, \"exec\"), globs)"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 687,
-     "preview": "eval(compile(script, fname, \"exec\"), globs)"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 835,
-     "preview": "eval(compile(\"\\n\".join(total_lines), \"\", \"exec\"), globs)"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 901,
-     "preview": "eval(compile(\"\\n\".join(lines), \"\", \"exec\"), globs)"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 1029,
-     "preview": "eval(compile(script, \"\", \"exec\"), globs)"
+     "line": 21,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 1070,
-   "ms": 37.8,
+   "lines": 86,
+   "ms": 3.8,
    "compiled": true,
-   "funcs": 10,
+   "funcs": 2,
    "classes": 0
   },
   {
-   "t": 10.86,
-   "at": "ions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\gen\\typeddicts.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\cattrs\\gen\\typeddicts.py",
-   "node": 312,
+   "t": 1.98,
+   "at": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
+   "node": 70,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "582 lines, 2 findings | compiled OK | 8F/0C | 15.5ms",
+   "detail": "54 lines, 1 findings | compiled OK | 0F/0C | 2.7ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 222,
-     "preview": "eval(compile(script, fname, \"exec\"), globs)"
-    },
+     "line": 34,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 54,
+   "ms": 2.7,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 2.01,
+   "at": "C:\\02_QUILLAN\\scripts\\test_inference.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_inference.py",
+   "node": 71,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "24 lines, 1 findings | compiled OK | 0F/0C | 2.2ms",
+   "findings": [
     {
      "rule": "eval_exec",
-     "line": 516,
-     "preview": "eval(compile(script, fname, \"exec\"), globs)"
+     "line": 13,
+     "preview": "model = model.cuda().half().eval()"
     }
    ],
-   "lines": 582,
-   "ms": 15.5,
+   "lines": 24,
+   "ms": 2.2,
    "compiled": true,
-   "funcs": 8,
+   "funcs": 0,
    "classes": 0
   },
   {
-   "t": 11.48,
-   "at": "\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\docstring_to_markdown\\rst.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\docstring_to_markdown\\rst.py",
-   "node": 336,
+   "t": 2.03,
+   "at": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
+   "node": 72,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "871 lines, 2 findings | compiled OK | 56F/17C | 23.4ms",
+   "detail": "84 lines, 1 findings | compiled OK | 0F/0C | 2.7ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 298,
-     "preview": "# TODO: type with RstSection = Literal[], and generate _RST_SECTIONS out of it once"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 453,
-     "preview": "# TODO: check integrity?"
+     "rule": "eval_exec",
+     "line": 44,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 871,
-   "ms": 23.4,
+   "lines": 84,
+   "ms": 2.7,
    "compiled": true,
-   "funcs": 56,
-   "classes": 17
-  },
-  {
-   "t": 12.11,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\__init__.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\__init__.py",
-   "node": 360,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "798 lines, 3 findings | compiled OK | 28F/2C | 14.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 111,
-     "preview": "# TODO add a better warning than the traceback!"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 464,
-     "preview": "# TODO here we use stubs instead of the actual values. We should use"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 501,
-     "preview": "name = definition._name  # TODO private access"
-    }
-   ],
-   "lines": 798,
-   "ms": 14.5,
-   "compiled": true,
-   "funcs": 28,
-   "classes": 2
-  },
-  {
-   "t": 12.15,
-   "at": "xtensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\classes.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\classes.py",
-   "node": 361,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "895 lines, 1 findings | compiled OK | 58F/6C | 15.6ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 183,
-     "preview": "# TODO move this to their respective names."
-    }
-   ],
-   "lines": 895,
-   "ms": 15.6,
-   "compiled": true,
-   "funcs": 58,
-   "classes": 6
-  },
-  {
-   "t": 12.2,
-   "at": "nsions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\completion.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\completion.py",
-   "node": 362,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "696 lines, 1 findings | compiled OK | 29F/2C | 18.0ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 444,
-     "preview": "# TODO we should probably check here for properties"
-    }
-   ],
-   "lines": 696,
-   "ms": 18.0,
-   "compiled": true,
-   "funcs": 29,
-   "classes": 2
-  },
-  {
-   "t": 12.26,
-   "at": "sions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\environment.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\environment.py",
-   "node": 364,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "480 lines, 2 findings | compiled OK | 27F/6C | 8.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 342,
-     "preview": "# TODO: this function should probably return a list of environments since"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 403,
-     "preview": "# TODO: support Python Anaconda."
-    }
-   ],
-   "lines": 480,
-   "ms": 8.1,
-   "compiled": true,
-   "funcs": 27,
-   "classes": 6
-  },
-  {
-   "t": 12.41,
-   "at": "xtensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\helpers.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\helpers.py",
-   "node": 368,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "522 lines, 1 findings | compiled OK | 31F/3C | 58.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 131,
-     "preview": "# TODO This is for now not an official parso API that exists purely"
-    }
-   ],
-   "lines": 522,
-   "ms": 58.2,
-   "compiled": true,
-   "funcs": 31,
-   "classes": 3
-  },
-  {
-   "t": 12.44,
-   "at": "sions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\interpreter.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\interpreter.py",
-   "node": 369,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "74 lines, 1 findings | compiled OK | 6F/4C | 1.9ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 2,
-     "preview": "TODO Some parts of this module are still not well documented."
-    }
-   ],
-   "lines": 74,
-   "ms": 1.9,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 4
-  },
-  {
-   "t": 12.51,
-   "at": "xtensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\project.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\api\\project.py",
-   "node": 371,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "448 lines, 1 findings | compiled OK | 23F/1C | 10.8ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 101,
-     "preview": "data.pop('_django', None)  # TODO make django setting public?"
-    }
-   ],
-   "lines": 448,
-   "ms": 10.8,
-   "compiled": true,
-   "funcs": 23,
-   "classes": 1
-  },
-  {
-   "t": 12.75,
-   "at": "ns\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\__init__.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\__init__.py",
-   "node": 380,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "199 lines, 1 findings | compiled OK | 10F/1C | 4.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 20,
-     "preview": "TODO this paragraph is not what jedi does anymore, it's similar, but not the"
-    }
-   ],
-   "lines": 199,
-   "ms": 4.5,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 1
-  },
-  {
-   "t": 12.78,
-   "at": "ns\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\analysis.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\analysis.py",
-   "node": 381,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "213 lines, 2 findings | compiled OK | 16F/2C | 5.7ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 81,
-     "preview": "# TODO this path is probably not right"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 117,
-     "preview": "# TODO maybe make a warning for __getattr__/__getattribute__"
-    }
-   ],
-   "lines": 213,
-   "ms": 5.7,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 2
-  },
-  {
-   "t": 12.81,
-   "at": "s\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\arguments.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\arguments.py",
-   "node": 382,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "335 lines, 2 findings | compiled OK | 28F/6C | 10.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 230,
-     "preview": "# TODO this function is a bit strange. probably refactor?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 310,
-     "preview": "# TODO this funcdef should not be needed."
-    }
-   ],
-   "lines": 335,
-   "ms": 10.1,
-   "compiled": true,
-   "funcs": 28,
-   "classes": 6
-  },
-  {
-   "t": 12.86,
-   "at": "\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\base_value.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\base_value.py",
-   "node": 383,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "558 lines, 2 findings | compiled OK | 90F/9C | 15.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 110,
-     "preview": "# TODO if no __aiter__ values are there, error should be:"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 159,
-     "preview": "# TODO this value is probably not right."
-    }
-   ],
-   "lines": 558,
-   "ms": 15.2,
-   "compiled": true,
-   "funcs": 90,
-   "classes": 9
-  },
-  {
-   "t": 12.88,
-   "at": "sions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\cache.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\cache.py",
-   "node": 384,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "126 lines, 1 findings | compiled OK | 13F/1C | 2.9ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 25,
-     "preview": "# TODO These checks are kind of ugly and slow."
-    }
-   ],
-   "lines": 126,
-   "ms": 2.9,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 1
-  },
-  {
-   "t": 12.94,
-   "at": "ython.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\access.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\access.py",
-   "node": 386,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "562 lines, 1 findings | compiled OK | 53F/2C | 15.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 333,
-     "preview": "# TODO this API is ugly."
-    }
-   ],
-   "lines": 562,
-   "ms": 15.5,
-   "compiled": true,
-   "funcs": 53,
-   "classes": 2
-  },
-  {
-   "t": 13.0,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\mixed.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\mixed.py",
-   "node": 388,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "309 lines, 3 findings | compiled OK | 21F/5C | 6.5ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 269,
-     "preview": "# TODO accessing this is bad, but it probably doesn't matter that much,"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 274,
-     "preview": "# TODO Care about generics from stuff like `[1]` and don't return like this."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 286,
-     "preview": "# TODO this __name__ might be wrong."
-    }
-   ],
-   "lines": 309,
-   "ms": 6.5,
-   "compiled": true,
-   "funcs": 21,
-   "classes": 5
-  },
-  {
-   "t": 13.03,
-   "at": "2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\subprocess\\__init__.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\subprocess\\__init__.py",
-   "node": 389,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "512 lines, 1 findings | compiled OK | 35F/6C | 10.0ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 502,
-     "preview": "TODO Currently we're passing slice objects around. This should not"
-    }
-   ],
-   "lines": 512,
-   "ms": 10.0,
-   "compiled": true,
-   "funcs": 35,
-   "classes": 6
-  },
-  {
-   "t": 13.13,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\value.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\compiled\\value.py",
-   "node": 392,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "626 lines, 3 findings | compiled OK | 78F/9C | 15.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 217,
-     "preview": "# TODO wtf is this? this is exactly the same as the thing"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 532,
-     "preview": "TODO docstrings like utime(path, (atime, mtime)) and a(b [, b]) -> None"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 533,
-     "preview": "TODO docstrings like 'tuple of integers'"
-    }
-   ],
-   "lines": 626,
-   "ms": 15.2,
-   "compiled": true,
-   "funcs": 78,
-   "classes": 9
-  },
-  {
-   "t": 13.27,
-   "at": "ons\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\filters.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\filters.py",
-   "node": 397,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "371 lines, 1 findings | compiled OK | 47F/17C | 9.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 282,
-     "preview": "# TODO add TypeError if params are given/or not correct."
-    }
-   ],
-   "lines": 371,
-   "ms": 9.2,
-   "compiled": true,
-   "funcs": 47,
-   "classes": 17
-  },
-  {
-   "t": 13.38,
-   "at": "on.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\annotation.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\annotation.py",
-   "node": 401,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "474 lines, 1 findings | compiled OK | 23F/0C | 11.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 297,
-     "preview": "# TODO _dict_values is not public."
-    }
-   ],
-   "lines": 474,
-   "ms": 11.1,
-   "compiled": true,
-   "funcs": 23,
+   "funcs": 0,
    "classes": 0
   },
   {
-   "t": 13.42,
-   "at": "s-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\base.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\base.py",
-   "node": 402,
+   "t": 2.06,
+   "at": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
+   "node": 73,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "434 lines, 4 findings | compiled OK | 58F/12C | 13.0ms",
+   "detail": "90 lines, 1 findings | compiled OK | 0F/0C | 2.8ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 124,
-     "preview": "# TODO not sure if this is nice."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 137,
-     "preview": "# TODO why is this ordering the correct one?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 139,
-     "preview": "# TODO I'm still not sure gather_annotation_classes is a good"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 344,
-     "preview": "# TODO this is obviously wrong. Is it though?"
+     "rule": "eval_exec",
+     "line": 42,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 434,
-   "ms": 13.0,
+   "lines": 90,
+   "ms": 2.8,
    "compiled": true,
-   "funcs": 58,
-   "classes": 12
-  },
-  {
-   "t": 13.5,
-   "at": "on.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\stub_value.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\stub_value.py",
-   "node": 405,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "102 lines, 1 findings | compiled OK | 11F/6C | 3.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 95,
-     "preview": "# TODO rewrite direct return"
-    }
-   ],
-   "lines": 102,
-   "ms": 3.1,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 6
-  },
-  {
-   "t": 13.56,
-   "at": "thon.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\typeshed.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\typeshed.py",
-   "node": 407,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "310 lines, 2 findings | compiled OK | 13F/0C | 8.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 83,
-     "preview": "# TODO this caches the stub files indefinitely, maybe use a time cache"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 142,
-     "preview": "# TODO is this needed? where are the exceptions coming from that make this"
-    }
-   ],
-   "lines": 310,
-   "ms": 8.1,
-   "compiled": true,
-   "funcs": 13,
+   "funcs": 0,
    "classes": 0
   },
   {
-   "t": 13.59,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\typing.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\gradual\\typing.py",
-   "node": 408,
+   "t": 2.09,
+   "at": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
+   "node": 74,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "488 lines, 2 findings | compiled OK | 43F/19C | 10.7ms",
+   "detail": "420 lines, 2 findings | compiled OK | 3F/1C | 9.9ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 85,
-     "preview": "# TODO doesn't even exist in typeshed/typing.py, yet. But will be"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 263,
-     "preview": "# TODO use inference_state.import_module?"
-    }
-   ],
-   "lines": 488,
-   "ms": 10.7,
-   "compiled": true,
-   "funcs": 43,
-   "classes": 19
-  },
-  {
-   "t": 13.64,
-   "at": "ons\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\helpers.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\helpers.py",
-   "node": 410,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "202 lines, 1 findings | compiled OK | 14F/1C | 4.0ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 14,
-     "preview": "# TODO The implementation below is probably incorrect and not complete."
-    }
-   ],
-   "lines": 202,
-   "ms": 4.0,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 1
-  },
-  {
-   "t": 13.75,
-   "at": "sions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\names.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\names.py",
-   "node": 413,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "677 lines, 1 findings | compiled OK | 77F/20C | 16.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 122,
-     "preview": "# TODO improve the situation for when level is present."
-    }
-   ],
-   "lines": 677,
-   "ms": 16.2,
-   "compiled": true,
-   "funcs": 77,
-   "classes": 20
-  },
-  {
-   "t": 13.96,
-   "at": "ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\syntax_tree.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\syntax_tree.py",
-   "node": 420,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "903 lines, 4 findings | compiled OK | 28F/1C | 27.8ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 101,
-     "preview": "# TODO there's a lot of issues with this one. We actually should do"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 162,
-     "preview": "TODO This function is temporary: Merge with infer_node."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 775,
-     "preview": "# TODO an exception can also be a tuple. Check for those."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 776,
-     "preview": "# TODO check for types that are not classes and add it to"
-    }
-   ],
-   "lines": 903,
-   "ms": 27.8,
-   "compiled": true,
-   "funcs": 28,
-   "classes": 1
-  },
-  {
-   "t": 13.99,
-   "at": "ns\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\sys_path.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\sys_path.py",
-   "node": 421,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "272 lines, 1 findings | compiled OK | 12F/0C | 7.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 52,
-     "preview": "# TODO Essentially we're not checking details on sys.path"
-    }
-   ],
-   "lines": 272,
-   "ms": 7.2,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 0
-  },
-  {
-   "t": 14.09,
-   "at": ".python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\dynamic_arrays.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\dynamic_arrays.py",
-   "node": 425,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "200 lines, 1 findings | compiled OK | 14F/4C | 4.4ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 37,
-     "preview": "# TODO also check for dict updates"
-    }
-   ],
-   "lines": 200,
-   "ms": 4.4,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 4
-  },
-  {
-   "t": 14.12,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\function.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\function.py",
-   "node": 426,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "461 lines, 2 findings | compiled OK | 46F/10C | 11.6ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 264,
-     "preview": "# TODO: if is_async, wrap yield statements in Awaitable/async_generator_asend"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 432,
-     "preview": "# TODO check with values if it's the right overload"
-    }
-   ],
-   "lines": 461,
-   "ms": 11.6,
-   "compiled": true,
-   "funcs": 46,
-   "classes": 10
-  },
-  {
-   "t": 14.17,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\instance.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\instance.py",
-   "node": 427,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "610 lines, 2 findings | compiled OK | 80F/18C | 17.2ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 374,
-     "preview": "# TODO tuple initializations"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 581,
-     "preview": "# TODO filter non-self assignments instead of this bad"
-    }
-   ],
-   "lines": 610,
-   "ms": 17.2,
-   "compiled": true,
-   "funcs": 80,
-   "classes": 18
-  },
-  {
-   "t": 14.21,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\iterable.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\iterable.py",
-   "node": 428,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "647 lines, 3 findings | compiled OK | 76F/20C | 20.3ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
+     "rule": "eval_exec",
      "line": 251,
-     "preview": "# TODO merge with _DictMixin?"
+     "preview": "model.eval()"
     },
     {
-     "rule": "todo_fixme",
-     "line": 256,
-     "preview": "# TODO merge with _dict_keys?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 356,
-     "preview": "# TODO this should probably use at least part of the code"
+     "rule": "eval_exec",
+     "line": 341,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 647,
-   "ms": 20.3,
-   "compiled": true,
-   "funcs": 76,
-   "classes": 20
-  },
-  {
-   "t": 14.25,
-   "at": "ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\klass.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\inference\\value\\klass.py",
-   "node": 429,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "390 lines, 5 findings | compiled OK | 30F/4C | 9.7ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 161,
-     "preview": "# TODO Do a proper mro resolution. Currently we are just listing"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 164,
-     "preview": "# TODO there's multiple different mro paths possible if this yields"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 167,
-     "preview": "# TODO detect for TypeError: duplicate base class str,"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 172,
-     "preview": "# TODO add a TypeError like:"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 247,
-     "preview": "# TODO Do a proper mro resolution. Currently we are just listing"
-    }
-   ],
-   "lines": 390,
-   "ms": 9.7,
-   "compiled": true,
-   "funcs": 30,
-   "classes": 4
-  },
-  {
-   "t": 14.37,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\parser_utils.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\parser_utils.py",
-   "node": 432,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "345 lines, 3 findings | compiled OK | 20F/0C | 8.7ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 100,
-     "preview": "# TODO We have to check next leaves until there are no new"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 152,
-     "preview": "# TODO this is pretty bad, we should probably just normalize."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 194,
-     "preview": "# TODO in some particular cases, the tree doesn't seem to be linked"
-    }
-   ],
-   "lines": 345,
-   "ms": 8.7,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 0
-  },
-  {
-   "t": 14.45,
-   "at": "nsions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\plugins\\django.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\plugins\\django.py",
-   "node": 434,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "296 lines, 1 findings | compiled OK | 31F/9C | 9.4ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 72,
-     "preview": "# TODO private access.."
-    }
-   ],
-   "lines": 296,
-   "ms": 9.4,
-   "compiled": true,
-   "funcs": 31,
-   "classes": 9
-  },
-  {
-   "t": 14.59,
-   "at": "nsions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\plugins\\stdlib.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\plugins\\stdlib.py",
-   "node": 438,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "879 lines, 5 findings | compiled OK | 78F/18C | 20.6ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 185,
-     "preview": "# TODO theoretically we have to check here if something is an iterator."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 192,
-     "preview": "# TODO implement this if it's a callable."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 432,
-     "preview": "# TODO here we only use one of the types, we should use all."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 664,
-     "preview": "# TODO we need to add the contextualized value."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 683,
-     "preview": "# XXX this is not the correct wrapped value, it should be a weird"
-    }
-   ],
-   "lines": 879,
-   "ms": 20.6,
-   "compiled": true,
-   "funcs": 78,
-   "classes": 18
-  },
-  {
-   "t": 14.64,
-   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\utils.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\jedi\\utils.py",
-   "node": 440,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "134 lines, 1 findings | compiled OK | 3F/1C | 3.3ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 93,
-     "preview": "except:"
-    }
-   ],
-   "lines": 134,
-   "ms": 3.3,
+   "lines": 420,
+   "ms": 9.9,
    "compiled": true,
    "funcs": 3,
    "classes": 1
   },
   {
-   "t": 15.05,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\lsprotocol\\_hooks.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\lsprotocol\\_hooks.py",
-   "node": 452,
+   "t": 2.14,
+   "at": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
+   "full": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
+   "node": 76,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1237 lines, 2 findings | compiled OK | 64F/0C | 26.4ms",
+   "detail": "111 lines, 1 findings | compiled OK | 1F/0C | 2.9ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 1123,
-     "preview": "# TODO: Remove the ignore after this issue with attrs is addressed in either attrs or mypy"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 1205,
-     "preview": "# TODO: when min Python becomes >= 3.9, then update this to:"
+     "rule": "eval_exec",
+     "line": 41,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 1237,
-   "ms": 26.4,
+   "lines": 111,
+   "ms": 2.9,
    "compiled": true,
-   "funcs": 64,
+   "funcs": 1,
    "classes": 0
   },
   {
-   "t": 15.45,
-   "at": "ity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\cache.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\cache.py",
-   "node": 458,
+   "t": 2.17,
+   "at": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
+   "full": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
+   "node": 77,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "275 lines, 2 findings | compiled OK | 14F/1C | 5.7ms",
+   "detail": "65 lines, 1 findings | compiled OK | 0F/0C | 3.6ms",
    "findings": [
     {
-     "rule": "pickle_load",
-     "line": 145,
-     "preview": "module_cache_item = pickle.load(f)"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 238,
-     "preview": "except (OSError, IOError):  # TODO Maybe log this?"
+     "rule": "eval_exec",
+     "line": 14,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 275,
-   "ms": 5.7,
+   "lines": 65,
+   "ms": 3.6,
    "compiled": true,
-   "funcs": 14,
-   "classes": 1
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 15.5,
-   "at": "y\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\grammar.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\grammar.py",
-   "node": 460,
+   "t": 2.21,
+   "at": "C:\\02_QUILLAN\\scripts\\train.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train.py",
+   "node": 78,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "273 lines, 1 findings | compiled OK | 13F/2C | 6.1ms",
+   "detail": "173 lines, 1 findings | compiled OK | 9F/2C | 10.8ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 195,
-     "preview": "TODO this is not public, yet."
+     "rule": "bare_except",
+     "line": 55,
+     "preview": "except: packed[k] = v.half().contiguous()"
     }
    ],
-   "lines": 273,
-   "ms": 6.1,
+   "lines": 173,
+   "ms": 10.8,
    "compiled": true,
-   "funcs": 13,
+   "funcs": 9,
    "classes": 2
   },
   {
-   "t": 15.63,
-   "at": "ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\pgen2\\grammar_parser.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\pgen2\\grammar_parser.py",
-   "node": 465,
+   "t": 2.3,
+   "at": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
+   "node": 81,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "160 lines, 1 findings | compiled OK | 14F/3C | 4.4ms",
+   "detail": "32 lines, 1 findings | compiled OK | 0F/0C | 1.5ms",
    "findings": [
     {
-     "rule": "bare_except",
-     "line": 156,
-     "preview": "except:"
+     "rule": "pickle_load",
+     "line": 22,
+     "preview": "data = pickle.load(f)"
     }
    ],
-   "lines": 160,
-   "ms": 4.4,
+   "lines": 32,
+   "ms": 1.5,
    "compiled": true,
-   "funcs": 14,
-   "classes": 3
-  },
-  {
-   "t": 15.7,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\diff.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\diff.py",
-   "node": 467,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "886 lines, 2 findings | compiled OK | 41F/4C | 20.3ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 440,
-     "preview": "# TODO speed up, shouldn't copy the whole list all the time."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 741,
-     "preview": "# TODO this check might take a bit of time for large files. We"
-    }
-   ],
-   "lines": 886,
-   "ms": 20.3,
-   "compiled": true,
-   "funcs": 41,
-   "classes": 4
-  },
-  {
-   "t": 15.77,
-   "at": "nsions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\errors.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\errors.py",
-   "node": 468,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "1326 lines, 2 findings | compiled OK | 84F/37C | 36.7ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 993,
-     "preview": "message = \"default 'except:' must be last\""
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 676,
-     "preview": "# TODO this should probably get a better end_pos including"
-    }
-   ],
-   "lines": 1326,
-   "ms": 36.7,
-   "compiled": true,
-   "funcs": 84,
-   "classes": 37
-  },
-  {
-   "t": 15.85,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\pep8.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\pep8.py",
-   "node": 470,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "767 lines, 8 findings | compiled OK | 23F/8C | 21.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 132,
-     "preview": "# TODO unite with the code of BracketNode"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 304,
-     "preview": "# TODO end_pos wrong."
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 360,
-     "preview": "# TODO does this work? with brackets and stuff?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 413,
-     "preview": "# TODO is this enough checking? What about ==?"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 610,
-     "preview": "pass  # TODO"
-    }
-   ],
-   "lines": 767,
-   "ms": 21.1,
-   "compiled": true,
-   "funcs": 23,
-   "classes": 8
-  },
-  {
-   "t": 15.99,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\tree.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\parso\\python\\tree.py",
-   "node": 474,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "1245 lines, 1 findings | compiled OK | 99F/46C | 25.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 131,
-     "preview": "# TODO it is really ugly that we have to override it. Maybe change"
-    }
-   ],
-   "lines": 1245,
-   "ms": 25.1,
-   "compiled": true,
-   "funcs": 99,
-   "classes": 46
-  },
-  {
-   "t": 16.49,
-   "at": "ty\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\server.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\server.py",
-   "node": 490,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "616 lines, 1 findings | compiled OK | 44F/5C | 22.1ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 222,
-     "preview": "# TODO: Will move this to `LanguageServer` soon"
-    }
-   ],
-   "lines": 616,
-   "ms": 22.1,
-   "compiled": true,
-   "funcs": 44,
-   "classes": 5
-  },
-  {
-   "t": 16.52,
-   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\uris.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\uris.py",
-   "node": 491,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "184 lines, 1 findings | compiled OK | 7F/0C | 3.9ms",
-   "findings": [
-    {
-     "rule": "todo_fixme",
-     "line": 118,
-     "preview": "# TODO: Use `URLParts` type"
-    }
-   ],
-   "lines": 184,
-   "ms": 3.9,
-   "compiled": true,
-   "funcs": 7,
+   "funcs": 0,
    "classes": 0
   },
   {
-   "t": 16.57,
-   "at": "ython.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\workspace\\position_codec.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\workspace\\position_codec.py",
-   "node": 493,
+   "t": 2.36,
+   "at": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
+   "node": 83,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "206 lines, 1 findings | compiled OK | 8F/1C | 3.2ms",
+   "detail": "283 lines, 1 findings | compiled OK | 5F/0C | 9.4ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 101,
-     "preview": "_line = _line.replace(\"\\r\\n\", \"\\n\")  # TODO: it's a bit of a hack"
+     "rule": "eval_exec",
+     "line": 132,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 206,
-   "ms": 3.2,
+   "lines": 283,
+   "ms": 9.4,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 2.48,
+   "at": "C:\\02_QUILLAN\\scripts\\train_experts.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_experts.py",
+   "node": 87,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "125 lines, 2 findings | compiled OK | 0F/0C | 9.1ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 68,
+     "preview": "d = eval(line) if '{' in line else json.loads(line)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 72,
+     "preview": "except:"
+    }
+   ],
+   "lines": 125,
+   "ms": 9.1,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 2.52,
+   "at": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
+   "node": 88,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "180 lines, 1 findings | compiled OK | 5F/1C | 8.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 92,
+     "preview": "except:"
+    }
+   ],
+   "lines": 180,
+   "ms": 8.5,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
+  },
+  {
+   "t": 2.56,
+   "at": "C:\\02_QUILLAN\\scripts\\train_final.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_final.py",
+   "node": 89,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "418 lines, 2 findings | compiled OK | 6F/0C | 13.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 280,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "bare_except",
+     "line": 193,
+     "preview": "except: msgs = []"
+    }
+   ],
+   "lines": 418,
+   "ms": 13.7,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 0
+  },
+  {
+   "t": 2.59,
+   "at": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
+   "node": 90,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "241 lines, 1 findings | compiled OK | 4F/1C | 11.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 72,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 241,
+   "ms": 11.2,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 1
+  },
+  {
+   "t": 2.63,
+   "at": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
+   "node": 91,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "275 lines, 4 findings | compiled OK | 7F/2C | 10.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 101,
+     "preview": "except: pass"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 147,
+     "preview": "# HACK: Only train critical path (~16M params)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 183,
+     "preview": "# HACK: Adafactor (1 state instead of 2)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 184,
+     "preview": "print('  [HACK] Adafactor...'); sys.stdout.flush()"
+    }
+   ],
+   "lines": 275,
+   "ms": 10.2,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 2
+  },
+  {
+   "t": 2.7,
+   "at": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
+   "node": 93,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "650 lines, 1 findings | compiled OK | 10F/0C | 16.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 422,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 650,
+   "ms": 16.7,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 0
+  },
+  {
+   "t": 2.86,
+   "at": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
+   "node": 98,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "150 lines, 1 findings | compiled OK | 4F/1C | 6.0ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 58,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 150,
+   "ms": 6.0,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 1
+  },
+  {
+   "t": 3.0,
+   "at": "C:\\02_QUILLAN\\scripts\\train_oni.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_oni.py",
+   "node": 102,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "200 lines, 2 findings | compiled OK | 8F/1C | 9.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 79,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 91,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 200,
+   "ms": 9.5,
    "compiled": true,
    "funcs": 8,
    "classes": 1
   },
   {
-   "t": 16.59,
-   "at": "python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\workspace\\text_document.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\pygls\\workspace\\text_document.py",
-   "node": 494,
+   "t": 3.06,
+   "at": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
+   "node": 104,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "238 lines, 1 findings | compiled OK | 11F/1C | 4.1ms",
+   "detail": "162 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (train_quillan.py, line 1) | 0F/0C | 0.7ms",
    "findings": [
     {
-     "rule": "todo_fixme",
-     "line": 30,
-     "preview": "# TODO: this is not the best e.g. we capture numbers"
+     "rule": "bare_except",
+     "line": 76,
+     "preview": "except:"
     }
    ],
-   "lines": 238,
-   "ms": 4.1,
+   "lines": 162,
+   "ms": 0.7,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 3.09,
+   "at": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
+   "node": 105,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "241 lines, 1 findings | compiled OK | 4F/1C | 8.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 59,
+     "preview": "except: pass"
+    }
+   ],
+   "lines": 241,
+   "ms": 8.5,
    "compiled": true,
-   "funcs": 11,
+   "funcs": 4,
    "classes": 1
   },
   {
-   "t": 16.77,
-   "at": "tensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\typing_extensions.py",
-   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\typing_extensions.py",
-   "node": 496,
+   "t": 3.19,
+   "at": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
+   "node": 107,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "4317 lines, 1 findings | compiled OK | 211F/50C | 111.6ms",
+   "detail": "413 lines, 1 findings | compiled OK | 12F/2C | 17.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 92,
+     "preview": "except:"
+    }
+   ],
+   "lines": 413,
+   "ms": 17.2,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 2
+  },
+  {
+   "t": 3.23,
+   "at": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
+   "node": 108,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "279 lines, 1 findings | compiled OK | 6F/0C | 18.1ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 1485,
-     "preview": "(unless you are familiar with how eval() and exec() work).  The"
+     "line": 101,
+     "preview": "model.eval()"
     }
    ],
-   "lines": 4317,
-   "ms": 111.6,
+   "lines": 279,
+   "ms": 18.1,
    "compiled": true,
-   "funcs": 211,
-   "classes": 50
+   "funcs": 6,
+   "classes": 0
+  },
+  {
+   "t": 3.28,
+   "at": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
+   "node": 109,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "727 lines, 1 findings | compiled OK | 21F/3C | 28.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 725,
+     "preview": "except:"
+    }
+   ],
+   "lines": 727,
+   "ms": 28.7,
+   "compiled": true,
+   "funcs": 21,
+   "classes": 3
+  },
+  {
+   "t": 3.33,
+   "at": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
+   "node": 110,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "220 lines, 1 findings | compiled OK | 2F/0C | 7.9ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 202,
+     "preview": "model.eval()"
+    }
+   ],
+   "lines": 220,
+   "ms": 7.9,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 4.14,
+   "at": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
+   "full": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
+   "node": 113,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "75 lines, 1 findings | compiled OK | 2F/0C | 3.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 41,
+     "preview": "except:"
+    }
+   ],
+   "lines": 75,
+   "ms": 3.0,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 4.83,
+   "at": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
+   "full": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
+   "node": 127,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "270 lines, 3 findings | compiled OK | 5F/0C | 8.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 175,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 205,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 239,
+     "preview": "except:"
+    }
+   ],
+   "lines": 270,
+   "ms": 8.5,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
   }
  ],
  "changes": [
