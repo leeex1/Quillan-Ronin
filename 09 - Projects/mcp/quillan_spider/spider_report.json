@@ -1,101 +1,5197 @@
 {
  "job": "scan",
- "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
- "files": 19,
- "total_findings": 6,
+ "root": "C:\\02_QUILLAN",
+ "files": 300,
+ "total_findings": 545,
  "wiring": [
   {
-   "from": "ingest_second_brain.py",
-   "to": "server",
-   "why": "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it"
+   "from": "force_pydevd.py",
+   "to": "pydevd",
+   "why": "force_pydevd.py imports pydevd; coupled \u2014 a change in pydevd can break it"
   },
   {
-   "from": "spider_bridge.py",
-   "to": "server",
-   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
+   "from": "_pydev_completer.py",
+   "to": "pydevconsole",
+   "why": "_pydev_completer.py imports pydevconsole; coupled \u2014 a change in pydevconsole can break it"
+  },
+  {
+   "from": "pydev_monkey.py",
+   "to": "pydevd",
+   "why": "pydev_monkey.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "pydev_umd.py",
+   "to": "pydev_pysrc",
+   "why": "pydev_umd.py imports pydev_pysrc; coupled \u2014 a change in pydev_pysrc can break it"
+  },
+  {
+   "from": "pydev_umd.py",
+   "to": "__main__",
+   "why": "pydev_umd.py imports __main__; coupled \u2014 a change in __main__ can break it"
+  },
+  {
+   "from": "pydev_runfiles.py",
+   "to": "json",
+   "why": "pydev_runfiles.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydev_runfiles_pytest2.py",
+   "to": "pydevd_file_utils",
+   "why": "pydev_runfiles_pytest2.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "__main__pydevd_gen_debug_adapter_protocol.py",
+   "to": "json",
+   "why": "__main__pydevd_gen_debug_adapter_protocol.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_base_schema.py",
+   "to": "json",
+   "why": "pydevd_base_schema.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_api.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_api.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_api.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_api.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_api.py",
+   "to": "_pydevd_sys_monitoring",
+   "why": "pydevd_api.py imports _pydevd_sys_monitoring; coupled \u2014 a change in _pydevd_sys_monitoring can break it"
+  },
+  {
+   "from": "pydevd_comm.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_comm.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_comm.py",
+   "to": "pydevconsole",
+   "why": "pydevd_comm.py imports pydevconsole; coupled \u2014 a change in pydevconsole can break it"
+  },
+  {
+   "from": "pydevd_comm.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_comm.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_command_line_handling.py",
+   "to": "pydevd",
+   "why": "pydevd_command_line_handling.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "pydevd_concurrency_logger.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_concurrency_logger.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_console.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_console.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_custom_frames.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_custom_frames.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_daemon_thread.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_daemon_thread.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_daemon_thread.py",
+   "to": "_pydevd_sys_monitoring",
+   "why": "pydevd_daemon_thread.py imports _pydevd_sys_monitoring; coupled \u2014 a change in _pydevd_sys_monitoring can break it"
+  },
+  {
+   "from": "pydevd_filtering.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_filtering.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_filtering.py",
+   "to": "json",
+   "why": "pydevd_filtering.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_frame.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_frame.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_gevent_integration.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_gevent_integration.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_gevent_integration.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_gevent_integration.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_json_debug_options.py",
+   "to": "json",
+   "why": "pydevd_json_debug_options.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_net_command.py",
+   "to": "json",
+   "why": "pydevd_net_command.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_net_command_factory_json.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_net_command_factory_json.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_net_command_factory_xml.py",
+   "to": "json",
+   "why": "pydevd_net_command_factory_xml.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_net_command_factory_xml.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_net_command_factory_xml.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_net_command_factory_xml.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd_net_command_factory_xml.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd_process_net_command.py",
+   "to": "json",
+   "why": "pydevd_process_net_command.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_process_net_command.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_process_net_command.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_process_net_command_json.py",
+   "to": "json",
+   "why": "pydevd_process_net_command_json.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydevd_process_net_command_json.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_process_net_command_json.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_source_mapping.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_source_mapping.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_thread_lifecycle.py",
+   "to": "_pydevd_sys_monitoring",
+   "why": "pydevd_thread_lifecycle.py imports _pydevd_sys_monitoring; coupled \u2014 a change in _pydevd_sys_monitoring can break it"
+  },
+  {
+   "from": "pydevd_trace_dispatch_regular.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_trace_dispatch_regular.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd_frame_tracing.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd_frame_tracing.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "_pydevd_sys_monitoring.py",
+   "to": "pydevd_file_utils",
+   "why": "_pydevd_sys_monitoring.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydev_app_engine_debug_startup.py",
+   "to": "json",
+   "why": "pydev_app_engine_debug_startup.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "pydev_app_engine_debug_startup.py",
+   "to": "pydevd",
+   "why": "pydev_app_engine_debug_startup.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "pydev_run_in_console.py",
+   "to": "pydevconsole",
+   "why": "pydev_run_in_console.py imports pydevconsole; coupled \u2014 a change in pydevconsole can break it"
+  },
+  {
+   "from": "pydev_run_in_console.py",
+   "to": "pydevd_file_utils",
+   "why": "pydev_run_in_console.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "sitecustomize.py",
+   "to": "pydevd",
+   "why": "sitecustomize.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "pydevd.py",
+   "to": "pydevd_file_utils",
+   "why": "pydevd.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "pydevd.py",
+   "to": "pydevd_tracing",
+   "why": "pydevd.py imports pydevd_tracing; coupled \u2014 a change in pydevd_tracing can break it"
+  },
+  {
+   "from": "pydevd.py",
+   "to": "_pydevd_sys_monitoring",
+   "why": "pydevd.py imports _pydevd_sys_monitoring; coupled \u2014 a change in _pydevd_sys_monitoring can break it"
+  },
+  {
+   "from": "_check.py",
+   "to": "add_code_to_python_process",
+   "why": "_check.py imports add_code_to_python_process; coupled \u2014 a change in add_code_to_python_process can break it"
+  },
+  {
+   "from": "_test_attach_to_process.py",
+   "to": "attach_pydevd",
+   "why": "_test_attach_to_process.py imports attach_pydevd; coupled \u2014 a change in attach_pydevd can break it"
+  },
+  {
+   "from": "attach_pydevd.py",
+   "to": "add_code_to_python_process",
+   "why": "attach_pydevd.py imports add_code_to_python_process; coupled \u2014 a change in add_code_to_python_process can break it"
+  },
+  {
+   "from": "attach_pydevd.py",
+   "to": "attach_script",
+   "why": "attach_pydevd.py imports attach_script; coupled \u2014 a change in attach_script can break it"
+  },
+  {
+   "from": "attach_script.py",
+   "to": "pydevd",
+   "why": "attach_script.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "__init__.py",
+   "to": "sql",
+   "why": "__init__.py imports sql; coupled \u2014 a change in sql can break it"
+  },
+  {
+   "from": "sql.py",
+   "to": "crash",
+   "why": "sql.py imports crash; coupled \u2014 a change in crash can break it"
+  },
+  {
+   "from": "sql.py",
+   "to": "textio",
+   "why": "sql.py imports textio; coupled \u2014 a change in textio can break it"
+  },
+  {
+   "from": "pydevd_file_utils.py",
+   "to": "pydevd",
+   "why": "pydevd_file_utils.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "pydevd_file_utils.py",
+   "to": "json",
+   "why": "pydevd_file_utils.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "django_debug.py",
+   "to": "pydevd_file_utils",
+   "why": "django_debug.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "jinja2_debug.py",
+   "to": "pydevd_file_utils",
+   "why": "jinja2_debug.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "_version.py",
+   "to": "json",
+   "why": "_version.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "json.py",
+   "to": "json",
+   "why": "json.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "api.py",
+   "to": "pydevd",
+   "why": "api.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "api.py",
+   "to": "pydevd_file_utils",
+   "why": "api.py imports pydevd_file_utils; coupled \u2014 a change in pydevd_file_utils can break it"
+  },
+  {
+   "from": "attach_pid_injected.py",
+   "to": "attach_script",
+   "why": "attach_pid_injected.py imports attach_script; coupled \u2014 a change in attach_script can break it"
+  },
+  {
+   "from": "attach_pid_injected.py",
+   "to": "pydevd",
+   "why": "attach_pid_injected.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "cli.py",
+   "to": "json",
+   "why": "cli.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "cli.py",
+   "to": "pydevd",
+   "why": "cli.py imports pydevd; coupled \u2014 a change in pydevd can break it"
+  },
+  {
+   "from": "create_venv.py",
+   "to": "json",
+   "why": "create_venv.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "download_get_pip.py",
+   "to": "json",
+   "why": "download_get_pip.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "installed_check.py",
+   "to": "json",
+   "why": "installed_check.py imports json; coupled \u2014 a change in json can break it"
+  },
+  {
+   "from": "interpreterInfo.py",
+   "to": "json",
+   "why": "interpreterInfo.py imports json; coupled \u2014 a change in json can break it"
   }
  ],
  "flagged": [
   {
-   "t": 0.27,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
-   "node": 3,
+   "t": 0.01,
+   "at": "ty\\extensions\\ms-azuretools.vscode-containers-2.2.0-universal\\resources\\python\\launcher.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-azuretools.vscode-containers-2.2.0-universal\\resources\\python\\launcher.py",
+   "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "383 lines, 3 findings | compiled OK | 18F/1C | 10.5ms",
+   "detail": "22 lines, 1 findings | compiled OK | 0F/0C | 4.1ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 22,
+     "preview": "os.system(command)"
+    }
+   ],
+   "lines": 22,
+   "ms": 4.1,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 0.06,
+   "at": "ty\\extensions\\ms-azuretools.vscode-containers-2.4.1-universal\\resources\\python\\launcher.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-azuretools.vscode-containers-2.4.1-universal\\resources\\python\\launcher.py",
+   "node": 2,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "22 lines, 1 findings | compiled OK | 0F/0C | 1.3ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 22,
+     "preview": "os.system(command)"
+    }
+   ],
+   "lines": 22,
+   "ms": 1.3,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 0.22,
+   "at": "xtensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\__init__.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\__init__.py",
+   "node": 5,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "126 lines, 4 findings | compiled OK | 9F/0C | 3.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 100,
+     "preview": "except:  # In theory it's possible that any error is raised when accessing __file__"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 14,
+     "preview": "# TODO: Move the \"pydevd\" git submodule to the debugpy/_vendored directory"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 22,
+     "preview": "# TODO: Derive from os.listdir(VENDORED_ROOT)?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 58,
+     "preview": "# TODO: Use default filters?  __pycache__ and .pyc?"
+    }
+   ],
+   "lines": 126,
+   "ms": 3.4,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 0
+  },
+  {
+   "t": 0.38,
+   "at": "y\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\_util.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\_util.py",
+   "node": 7,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "59 lines, 1 findings | compiled OK | 4F/0C | 2.1ms",
    "findings": [
     {
      "rule": "todo_fixme",
-     "line": 320,
-     "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 328,
-     "preview": "# TODO: Pass boundary values"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 335,
-     "preview": "# TODO: Pass invalid type"
+     "line": 56,
+     "preview": "# TODO: Use os.path.isfile() to narrow it down?"
     }
    ],
-   "lines": 383,
-   "ms": 10.5,
+   "lines": 59,
+   "ms": 2.1,
    "compiled": true,
-   "funcs": 18,
+   "funcs": 4,
+   "classes": 0
+  },
+  {
+   "t": 0.54,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_calltip_util.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_calltip_util.py",
+   "node": 10,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "153 lines, 5 findings | compiled OK | 9F/0C | 6.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 11,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 40,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 118,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 125,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 129,
+     "preview": "except:"
+    }
+   ],
+   "lines": 153,
+   "ms": 6.7,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 0
+  },
+  {
+   "t": 0.6,
+   "at": "025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_completer.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_completer.py",
+   "node": 11,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "267 lines, 4 findings | compiled OK | 12F/2C | 4.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 136,
+     "preview": "obj = eval(expr, self.namespace)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 139,
+     "preview": "obj = eval(expr, self.global_namespace)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 137,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 140,
+     "preview": "except:"
+    }
+   ],
+   "lines": 267,
+   "ms": 4.5,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 2
+  },
+  {
+   "t": 0.69,
+   "at": "2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_execfile.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_execfile.py",
+   "node": 12,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "16 lines, 1 findings | compiled OK | 1F/0C | 0.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 16,
+     "preview": "exec(compile(contents + \"\\n\", file, \"exec\"), glob, loc)"
+    }
+   ],
+   "lines": 16,
+   "ms": 0.7,
+   "compiled": true,
+   "funcs": 1,
+   "classes": 0
+  },
+  {
+   "t": 0.74,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_filesystem_encoding.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_filesystem_encoding.py",
+   "node": 13,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "43 lines, 3 findings | compiled OK | 2F/0C | 0.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 13,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 22,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 42,
+     "preview": "except:"
+    }
+   ],
+   "lines": 43,
+   "ms": 0.9,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 0.79,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_getopt.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_getopt.py",
+   "node": 14,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "133 lines, 1 findings | compiled OK | 7F/1C | 3.9ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 98,
+     "preview": "# XXX since possibilities contains all valid continuations, might be"
+    }
+   ],
+   "lines": 133,
+   "ms": 3.9,
+   "compiled": true,
+   "funcs": 7,
    "classes": 1
   },
   {
-   "t": 2.78,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "t": 0.86,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_imports_tipper.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_imports_tipper.py",
    "node": 15,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1163 lines, 2 findings | compiled OK | 37F/1C | 143.3ms",
+   "detail": "372 lines, 8 findings | compiled OK | 10F/0C | 11.8ms",
    "findings": [
     {
-     "rule": "subprocess_shell",
-     "line": 589,
-     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+     "rule": "bare_except",
+     "line": 28,
+     "preview": "except:"
     },
     {
-     "rule": "todo_fixme",
-     "line": 392,
-     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+     "rule": "bare_except",
+     "line": 60,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 65,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 75,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 78,
+     "preview": "except:"
     }
    ],
-   "lines": 1163,
-   "ms": 143.3,
+   "lines": 372,
+   "ms": 11.8,
    "compiled": true,
-   "funcs": 37,
+   "funcs": 10,
+   "classes": 0
+  },
+  {
+   "t": 0.93,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_jy_imports_tipper.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_jy_imports_tipper.py",
+   "node": 16,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "485 lines, 5 findings | compiled OK | 15F/1C | 14.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 26,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 54,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 256,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 262,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 389,
+     "preview": "except:"
+    }
+   ],
+   "lines": 485,
+   "ms": 14.1,
+   "compiled": true,
+   "funcs": 15,
    "classes": 1
   },
   {
-   "t": 3.22,
-   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
-   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "t": 1.04,
+   "at": "18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_saved_modules.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_saved_modules.py",
    "node": 18,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "645 lines, 1 findings | compiled OK | 23F/0C | 30.9ms",
+   "detail": "134 lines, 1 findings | compiled OK | 6F/2C | 2.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 71,
+     "preview": "except:"
+    }
+   ],
+   "lines": 134,
+   "ms": 2.7,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 2
+  },
+  {
+   "t": 1.09,
+   "at": "025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_sys_patch.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\_pydev_sys_patch.py",
+   "node": 19,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "77 lines, 1 findings | compiled OK | 7F/0C | 1.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 51,
+     "preview": "except:"
+    }
+   ],
+   "lines": 77,
+   "ms": 1.6,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
+  },
+  {
+   "t": 1.2,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\fsnotify\\__init__.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\fsnotify\\__init__.py",
+   "node": 21,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "349 lines, 1 findings | compiled OK | 16F/5C | 6.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 47,
+     "preview": "except:"
+    }
+   ],
+   "lines": 349,
+   "ms": 6.2,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 5
+  },
+  {
+   "t": 1.28,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_console_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_console_utils.py",
+   "node": 22,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "641 lines, 8 findings | compiled OK | 54F/6C | 13.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 23,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 30,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 91,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 251,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 266,
+     "preview": "except:"
+    }
+   ],
+   "lines": 641,
+   "ms": 13.2,
+   "compiled": true,
+   "funcs": 54,
+   "classes": 6
+  },
+  {
+   "t": 1.33,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_import_hook.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_import_hook.py",
+   "node": 23,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "38 lines, 1 findings | compiled OK | 3F/1C | 1.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 24,
+     "preview": "except:"
+    }
+   ],
+   "lines": 38,
+   "ms": 1.1,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 1
+  },
+  {
+   "t": 1.44,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_ipython_console.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_ipython_console.py",
+   "node": 25,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "95 lines, 2 findings | compiled OK | 8F/1C | 2.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 73,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 93,
+     "preview": "except:"
+    }
+   ],
+   "lines": 95,
+   "ms": 2.9,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 1
+  },
+  {
+   "t": 1.51,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_ipython_console_011.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_ipython_console_011.py",
+   "node": 26,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "504 lines, 8 findings | compiled OK | 32F/5C | 8.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 372,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 437,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1,
+     "preview": "# TODO that would make IPython integration better"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 115,
+     "preview": "# TODO term_title: (can PyDev's title be changed???, see terminal.py for where to inject c"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 129,
+     "preview": "# TODO It would be nice to enable colors in PyDev but:"
+    }
+   ],
+   "lines": 504,
+   "ms": 8.2,
+   "compiled": true,
+   "funcs": 32,
+   "classes": 5
+  },
+  {
+   "t": 1.61,
+   "at": "2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_localhost.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_localhost.py",
+   "node": 28,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "68 lines, 2 findings | compiled OK | 3F/0C | 1.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 28,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 18,
+     "preview": "# TODO: Needs better investigation!"
+    }
+   ],
+   "lines": 68,
+   "ms": 1.5,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 1.67,
+   "at": "bugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_log.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_log.py",
+   "node": 29,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "284 lines, 6 findings | compiled OK | 16F/1C | 6.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 156,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 196,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 208,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 237,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 250,
+     "preview": "except:"
+    }
+   ],
+   "lines": 284,
+   "ms": 6.2,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 1
+  },
+  {
+   "t": 1.75,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_monkey.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_monkey.py",
+   "node": 30,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1296 lines, 8 findings | compiled OK | 70F/6C | 23.8ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 181,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 587,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 856,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 890,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 1131,
+     "preview": "except:"
+    }
+   ],
+   "lines": 1296,
+   "ms": 23.8,
+   "compiled": true,
+   "funcs": 70,
+   "classes": 6
+  },
+  {
+   "t": 1.81,
+   "at": "2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_monkey_qt.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_monkey_qt.py",
+   "node": 31,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "220 lines, 8 findings | compiled OK | 18F/4C | 4.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 49,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 54,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 59,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 64,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 72,
+     "preview": "except:"
+    }
+   ],
+   "lines": 220,
+   "ms": 4.7,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 4
+  },
+  {
+   "t": 1.92,
+   "at": "bugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_umd.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_bundle\\pydev_umd.py",
+   "node": 33,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "181 lines, 2 findings | compiled OK | 6F/1C | 3.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 61,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 123,
+     "preview": "except:"
+    }
+   ],
+   "lines": 181,
+   "ms": 3.3,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 1
+  },
+  {
+   "t": 2.1,
+   "at": "025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles.py",
+   "node": 36,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "884 lines, 3 findings | compiled OK | 36F/6C | 20.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 473,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 847,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 851,
+     "preview": "except:"
+    }
+   ],
+   "lines": 884,
+   "ms": 20.5,
+   "compiled": true,
+   "funcs": 36,
+   "classes": 6
+  },
+  {
+   "t": 2.16,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_coverage.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_coverage.py",
+   "node": 37,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "77 lines, 1 findings | compiled OK | 3F/0C | 2.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 44,
+     "preview": "except:"
+    }
+   ],
+   "lines": 77,
+   "ms": 2.0,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 2.22,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_nose.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_nose.py",
+   "node": 38,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "206 lines, 4 findings | compiled OK | 14F/2C | 5.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 50,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 56,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 93,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 110,
+     "preview": "except:"
+    }
+   ],
+   "lines": 206,
+   "ms": 5.4,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 2
+  },
+  {
+   "t": 2.28,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_parallel.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_parallel.py",
+   "node": 39,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "266 lines, 3 findings | compiled OK | 12F/2C | 7.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 53,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 178,
+     "preview": "except:  # Any exception getting from the queue (empty or not) means we finished our work "
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 233,
+     "preview": "# TODO: Support Jython:"
+    }
+   ],
+   "lines": 266,
+   "ms": 7.4,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 2
+  },
+  {
+   "t": 2.34,
+   "at": "64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_parallel_client.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_parallel_client.py",
+   "node": 40,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "194 lines, 3 findings | compiled OK | 10F/4C | 5.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 64,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 75,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 172,
+     "preview": "except:"
+    }
+   ],
+   "lines": 194,
+   "ms": 5.3,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
+  },
+  {
+   "t": 2.41,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_pytest2.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_pytest2.py",
+   "node": 41,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "308 lines, 1 findings | compiled OK | 14F/1C | 8.6ms",
+   "findings": [
+    {
+     "rule": "pickle_load",
+     "line": 25,
+     "preview": "py_test_accept_filter = pickle.loads(zlib.decompress(base64.b64decode(py_test_accept_filte"
+    }
+   ],
+   "lines": 308,
+   "ms": 8.6,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 1
+  },
+  {
+   "t": 2.47,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_unittest.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_unittest.py",
+   "node": 42,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "141 lines, 3 findings | compiled OK | 8F/3C | 5.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 60,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 62,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 107,
+     "preview": "except:"
+    }
+   ],
+   "lines": 141,
+   "ms": 5.3,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 3
+  },
+  {
+   "t": 2.53,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_xml_rpc.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydev_runfiles\\pydev_runfiles_xml_rpc.py",
+   "node": 43,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "260 lines, 8 findings | compiled OK | 18F/5C | 4.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 132,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 138,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 164,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 176,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 195,
+     "preview": "except:"
+    }
+   ],
+   "lines": 260,
+   "ms": 4.9,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 5
+  },
+  {
+   "t": 2.77,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\_debug_adapter\\pydevd_base_schema.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\_debug_adapter\\pydevd_base_schema.py",
+   "node": 47,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "143 lines, 3 findings | compiled OK | 17F/1C | 3.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 35,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 106,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 120,
+     "preview": "except:"
+    }
+   ],
+   "lines": 143,
+   "ms": 3.3,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 1
+  },
+  {
+   "t": 3.34,
+   "at": "5.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevconsole_code.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevconsole_code.py",
+   "node": 50,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "553 lines, 5 findings | compiled OK | 21F/5C | 7.0ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 82,
-     "preview": "_ENGINE.eval()"
+     "line": 231,
+     "preview": "return await eval(self._compiled, self._updated_locals, self._updated_globals)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 332,
+     "preview": "exec(code, self.locals)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 161,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 240,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 335,
+     "preview": "except:"
     }
    ],
-   "lines": 645,
-   "ms": 30.9,
+   "lines": 553,
+   "ms": 7.0,
    "compiled": true,
-   "funcs": 23,
+   "funcs": 21,
+   "classes": 5
+  },
+  {
+   "t": 3.48,
+   "at": "dled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_additional_thread_info_regular.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_additional_thread_info_regular.py",
+   "node": 52,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "328 lines, 2 findings | compiled OK | 11F/1C | 3.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 226,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 232,
+     "preview": "except:"
+    }
+   ],
+   "lines": 328,
+   "ms": 3.7,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 1
+  },
+  {
+   "t": 3.56,
+   "at": "gpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_api.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_api.py",
+   "node": 53,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1200 lines, 5 findings | compiled OK | 83F/6C | 25.8ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 795,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 825,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 881,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 1113,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 1121,
+     "preview": "except:"
+    }
+   ],
+   "lines": 1200,
+   "ms": 25.8,
+   "compiled": true,
+   "funcs": 83,
+   "classes": 6
+  },
+  {
+   "t": 3.62,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_breakpoints.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_breakpoints.py",
+   "node": 54,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "181 lines, 5 findings | compiled OK | 13F/3C | 5.1ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 72,
+     "preview": "ret = bool(eval(expr, frame.f_globals, frame.f_locals))"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 101,
+     "preview": "ret = bool(eval(expr, frame.f_globals, frame.f_locals))"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 179,
+     "preview": "return eval(kls)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 169,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 180,
+     "preview": "except:"
+    }
+   ],
+   "lines": 181,
+   "ms": 5.1,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 3
+  },
+  {
+   "t": 3.7,
+   "at": ".0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_bytecode_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_bytecode_utils.py",
+   "node": 55,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "938 lines, 8 findings | compiled OK | 62F/4C | 22.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 499,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 510,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 525,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 531,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 548,
+     "preview": "except:"
+    }
+   ],
+   "lines": 938,
+   "ms": 22.6,
+   "compiled": true,
+   "funcs": 62,
+   "classes": 4
+  },
+  {
+   "t": 3.82,
+   "at": ".0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_code_to_source.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_code_to_source.py",
+   "node": 57,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "605 lines, 1 findings | compiled OK | 34F/18C | 15.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 133,
+     "preview": "except:"
+    }
+   ],
+   "lines": 605,
+   "ms": 15.1,
+   "compiled": true,
+   "funcs": 34,
+   "classes": 18
+  },
+  {
+   "t": 3.9,
+   "at": "2-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_collect_bytecode_info.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_collect_bytecode_info.py",
+   "node": 58,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "873 lines, 3 findings | compiled OK | 40F/7C | 24.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 46,
+     "preview": "if self.raise_lines_in_except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 172,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 189,
+     "preview": "except:"
+    }
+   ],
+   "lines": 873,
+   "ms": 24.4,
+   "compiled": true,
+   "funcs": 40,
+   "classes": 7
+  },
+  {
+   "t": 4.02,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_comm.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_comm.py",
+   "node": 59,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1930 lines, 8 findings | compiled OK | 81F/20C | 54.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 189,
+     "preview": "# except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 193,
+     "preview": "# except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 288,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 309,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 313,
+     "preview": "except:"
+    }
+   ],
+   "lines": 1930,
+   "ms": 54.5,
+   "compiled": true,
+   "funcs": 81,
+   "classes": 20
+  },
+  {
+   "t": 4.08,
+   "at": ".0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_comm_constants.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_comm_constants.py",
+   "node": 60,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "200 lines, 1 findings | compiled OK | 1F/0C | 3.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 84,
+     "preview": "CMD_GET_SMART_STEP_INTO_VARIANTS = 163  # XXX: PyCharm has 160 for this (we're currently i"
+    }
+   ],
+   "lines": 200,
+   "ms": 3.7,
+   "compiled": true,
+   "funcs": 1,
    "classes": 0
+  },
+  {
+   "t": 4.25,
+   "at": "y\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_concurrency_analyser\\pydevd_concurrency_logger.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_concurrency_analyser\\pydevd_concurrency_logger.py",
+   "node": 63,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "482 lines, 1 findings | compiled OK | 11F/3C | 10.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 69,
+     "preview": "except:"
+    }
+   ],
+   "lines": 482,
+   "ms": 10.5,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 3
+  },
+  {
+   "t": 4.31,
+   "at": "ugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_concurrency_analyser\\pydevd_thread_wrappers.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_concurrency_analyser\\pydevd_thread_wrappers.py",
+   "node": 64,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "82 lines, 2 findings | compiled OK | 14F/1C | 1.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 28,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 72,
+     "preview": "# TODO: add wrappers for thread and _thread"
+    }
+   ],
+   "lines": 82,
+   "ms": 1.9,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 1
+  },
+  {
+   "t": 4.37,
+   "at": "2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_console.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_console.py",
+   "node": 65,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "265 lines, 3 findings | compiled OK | 15F/4C | 5.0ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 173,
+     "preview": "exec(code, updated_globals, updated_locals)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 87,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 178,
+     "preview": "except:"
+    }
+   ],
+   "lines": 265,
+   "ms": 5.0,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 4
+  },
+  {
+   "t": 4.44,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_constants.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_constants.py",
+   "node": 66,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "847 lines, 4 findings | compiled OK | 57F/6C | 13.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 25,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 418,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 609,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 185,
+     "preview": "TODO_PY313_OR_GREATER = IS_PY313_OR_GREATER"
+    }
+   ],
+   "lines": 847,
+   "ms": 13.9,
+   "compiled": true,
+   "funcs": 57,
+   "classes": 6
+  },
+  {
+   "t": 4.5,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_custom_frames.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_custom_frames.py",
+   "node": 67,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "114 lines, 1 findings | compiled OK | 5F/2C | 2.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 102,
+     "preview": "except:"
+    }
+   ],
+   "lines": 114,
+   "ms": 2.0,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 2
+  },
+  {
+   "t": 4.55,
+   "at": ".0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_cython_wrapper.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_cython_wrapper.py",
+   "node": 68,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "63 lines, 1 findings | compiled OK | 0F/0C | 1.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 15,
+     "preview": "except:"
+    }
+   ],
+   "lines": 63,
+   "ms": 1.3,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 4.61,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_daemon_thread.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_daemon_thread.py",
+   "node": 69,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "202 lines, 2 findings | compiled OK | 15F/1C | 4.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 54,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 187,
+     "preview": "except:"
+    }
+   ],
+   "lines": 202,
+   "ms": 4.0,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 1
+  },
+  {
+   "t": 4.83,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_exec2.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_exec2.py",
+   "node": 73,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "5 lines, 2 findings | compiled OK | 1F/0C | 0.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 3,
+     "preview": "exec(exp, global_vars, local_vars)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 5,
+     "preview": "exec(exp, global_vars)"
+    }
+   ],
+   "lines": 5,
+   "ms": 0.7,
+   "compiled": true,
+   "funcs": 1,
+   "classes": 0
+  },
+  {
+   "t": 4.94,
+   "at": "0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_extension_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_extension_utils.py",
+   "node": 75,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "65 lines, 2 findings | compiled OK | 6F/1C | 1.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 7,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 51,
+     "preview": "except:"
+    }
+   ],
+   "lines": 65,
+   "ms": 1.9,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 1
+  },
+  {
+   "t": 5.08,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_frame.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_frame.py",
+   "node": 77,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1307 lines, 8 findings | compiled OK | 16F/2C | 22.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 105,
+     "preview": "if frame.f_lineno == try_except_info.except_line or frame.f_lineno in try_except_info.rais"
+    },
+    {
+     "rule": "bare_except",
+     "line": 224,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 243,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 262,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 626,
+     "preview": "except:"
+    }
+   ],
+   "lines": 1307,
+   "ms": 22.2,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 2
+  },
+  {
+   "t": 5.2,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_gevent_integration.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_gevent_integration.py",
+   "node": 79,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "91 lines, 2 findings | compiled OK | 5F/0C | 2.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 82,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 84,
+     "preview": "except:"
+    }
+   ],
+   "lines": 91,
+   "ms": 2.2,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 5.25,
+   "at": "18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_import_class.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_import_class.py",
+   "node": 80,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "70 lines, 3 findings | compiled OK | 3F/0C | 1.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 9,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 41,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 46,
+     "preview": "except:"
+    }
+   ],
+   "lines": 70,
+   "ms": 1.6,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 5.43,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command.py",
+   "node": 83,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "150 lines, 2 findings | compiled OK | 6F/4C | 3.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 116,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 147,
+     "preview": "except:"
+    }
+   ],
+   "lines": 150,
+   "ms": 3.0,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 4
+  },
+  {
+   "t": 5.49,
+   "at": "64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command_factory_json.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command_factory_json.py",
+   "node": 84,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "586 lines, 4 findings | compiled OK | 32F/2C | 12.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 82,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 87,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 267,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 301,
+     "preview": "except:"
+    }
+   ],
+   "lines": 586,
+   "ms": 12.1,
+   "compiled": true,
+   "funcs": 32,
+   "classes": 2
+  },
+  {
+   "t": 5.56,
+   "at": "x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command_factory_xml.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_net_command_factory_xml.py",
+   "node": 85,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "558 lines, 8 findings | compiled OK | 49F/1C | 11.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 100,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 124,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 154,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 181,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 187,
+     "preview": "except:"
+    }
+   ],
+   "lines": 558,
+   "ms": 11.9,
+   "compiled": true,
+   "funcs": 49,
+   "classes": 1
+  },
+  {
+   "t": 5.62,
+   "at": "18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_plugin_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_plugin_utils.py",
+   "node": 86,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "208 lines, 2 findings | compiled OK | 22F/1C | 4.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 8,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 14,
+     "preview": "except:"
+    }
+   ],
+   "lines": 208,
+   "ms": 4.4,
+   "compiled": true,
+   "funcs": 22,
+   "classes": 1
+  },
+  {
+   "t": 5.7,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_process_net_command.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_process_net_command.py",
+   "node": 87,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "805 lines, 7 findings | compiled OK | 49F/1C | 19.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 69,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 484,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 538,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 612,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 690,
+     "preview": "except:"
+    }
+   ],
+   "lines": 805,
+   "ms": 19.0,
+   "compiled": true,
+   "funcs": 49,
+   "classes": 1
+  },
+  {
+   "t": 5.79,
+   "at": "64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_process_net_command_json.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_process_net_command_json.py",
+   "node": 88,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1354 lines, 4 findings | compiled OK | 50F/2C | 37.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 166,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 1178,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 793,
+     "preview": "# TODO: Path is optional here it could be source reference."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1266,
+     "preview": "# TODO: Support other common settings. Note that not all of these might be relevant to pyt"
+    }
+   ],
+   "lines": 1354,
+   "ms": 37.2,
+   "compiled": true,
+   "funcs": 50,
+   "classes": 2
+  },
+  {
+   "t": 5.85,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_referrers.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_referrers.py",
+   "node": 89,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "252 lines, 4 findings | compiled OK | 3F/0C | 6.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 93,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 138,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 187,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 239,
+     "preview": "except:"
+    }
+   ],
+   "lines": 252,
+   "ms": 6.5,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 5.92,
+   "at": "-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_reload.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_reload.py",
+   "node": 90,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "433 lines, 4 findings | compiled OK | 16F/1C | 9.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 185,
+     "preview": "#     except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 258,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 348,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 382,
+     "preview": "# XXX What if im_func is not a function?"
+    }
+   ],
+   "lines": 433,
+   "ms": 9.2,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 1
+  },
+  {
+   "t": 6.0,
+   "at": "025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_resolver.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_resolver.py",
+   "node": 91,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "830 lines, 8 findings | compiled OK | 52F/17C | 20.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 32,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 37,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 134,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 145,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 201,
+     "preview": "except:"
+    }
+   ],
+   "lines": 830,
+   "ms": 20.1,
+   "compiled": true,
+   "funcs": 52,
+   "classes": 17
+  },
+  {
+   "t": 6.06,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_runpy.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_runpy.py",
+   "node": 92,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "339 lines, 3 findings | compiled OK | 15F/3C | 7.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 118,
+     "preview": "exec(code, run_globals)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 100,
+     "preview": "# TODO: Replace these helpers with importlib._bootstrap_external functions."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 199,
+     "preview": "# XXX ncoghlan: Should this be documented and made public?"
+    }
+   ],
+   "lines": 339,
+   "ms": 7.7,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 3
+  },
+  {
+   "t": 6.13,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_safe_repr.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_safe_repr.py",
+   "node": 93,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "395 lines, 1 findings | compiled OK | 12F/1C | 8.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 314,
+     "preview": "except:"
+    }
+   ],
+   "lines": 395,
+   "ms": 8.2,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 1
+  },
+  {
+   "t": 6.19,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_save_locals.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_save_locals.py",
+   "node": 94,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "130 lines, 4 findings | compiled OK | 6F/0C | 2.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 12,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 34,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 49,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 68,
+     "preview": "except:"
+    }
+   ],
+   "lines": 130,
+   "ms": 2.2,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 0
+  },
+  {
+   "t": 6.24,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_signature.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_signature.py",
+   "node": 95,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "201 lines, 1 findings | compiled OK | 17F/3C | 5.7ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 97,
+     "preview": "except:"
+    }
+   ],
+   "lines": 201,
+   "ms": 5.7,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 3
+  },
+  {
+   "t": 6.36,
+   "at": "25.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_stackless.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_stackless.py",
+   "node": 97,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "412 lines, 2 findings | compiled OK | 17F/2C | 7.8ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 242,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 308,
+     "preview": "except:"
+    }
+   ],
+   "lines": 412,
+   "ms": 7.8,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 2
+  },
+  {
+   "t": 6.43,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_suspended_frames.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_suspended_frames.py",
+   "node": 98,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "542 lines, 5 findings | compiled OK | 34F/5C | 11.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 219,
+     "preview": "new_value = eval(value)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 80,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 220,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 237,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 540,
+     "preview": "except:"
+    }
+   ],
+   "lines": 542,
+   "ms": 11.7,
+   "compiled": true,
+   "funcs": 34,
+   "classes": 5
+  },
+  {
+   "t": 6.49,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_thread_lifecycle.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_thread_lifecycle.py",
+   "node": 99,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "106 lines, 2 findings | compiled OK | 5F/0C | 2.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 22,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 86,
+     "preview": "pydev_log.info(\"Suspending all threads except: %s\", except_thread)"
+    }
+   ],
+   "lines": 106,
+   "ms": 2.5,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 6.66,
+   "at": "-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_trace_dispatch_regular.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_trace_dispatch_regular.py",
+   "node": 102,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "550 lines, 3 findings | compiled OK | 13F/3C | 7.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 172,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 432,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 520,
+     "preview": "except:"
+    }
+   ],
+   "lines": 550,
+   "ms": 7.5,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 3
+  },
+  {
+   "t": 6.72,
+   "at": "8.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_traceproperty.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_traceproperty.py",
+   "node": 103,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "89 lines, 1 findings | compiled OK | 8F/1C | 2.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 18,
+     "preview": "except:"
+    }
+   ],
+   "lines": 89,
+   "ms": 2.1,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 1
+  },
+  {
+   "t": 6.79,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_utils.py",
+   "node": 104,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "517 lines, 8 findings | compiled OK | 40F/3C | 11.8ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 170,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 196,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 277,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 287,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 295,
+     "preview": "except:"
+    }
+   ],
+   "lines": 517,
+   "ms": 11.8,
+   "compiled": true,
+   "funcs": 40,
+   "classes": 3
+  },
+  {
+   "t": 6.86,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_vars.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_vars.py",
+   "node": 105,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "860 lines, 8 findings | compiled OK | 25F/2C | 17.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 192,
+     "preview": "operation_fn_name: the name of the operation to execute after the exec (i.e.: pprint)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 268,
+     "preview": "result = eval(compiled, global_vars, local_vars)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 429,
+     "preview": "return await eval(self._compiled, self._updated_locals, self._updated_globals)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 473,
+     "preview": "When it's an exec (i.e.: is_exec==True):"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 478,
+     "preview": "When it's an eval (i.e.: is_exec==False):"
+    }
+   ],
+   "lines": 860,
+   "ms": 17.8,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 2
+  },
+  {
+   "t": 7.0,
+   "at": "gpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_xml.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_bundle\\pydevd_xml.py",
+   "node": 107,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "434 lines, 8 findings | compiled OK | 16F/2C | 13.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 22,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 62,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 67,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 76,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 81,
+     "preview": "except:"
+    }
+   ],
+   "lines": 434,
+   "ms": 13.1,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 2
+  },
+  {
+   "t": 7.1,
+   "at": "ndled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_frame_eval_cython_wrapper.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_frame_eval_cython_wrapper.py",
+   "node": 109,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "43 lines, 1 findings | compiled OK | 0F/0C | 0.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 13,
+     "preview": "except:"
+    }
+   ],
+   "lines": 43,
+   "ms": 0.9,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 7.21,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_frame_tracing.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_frame_tracing.py",
+   "node": 111,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "121 lines, 4 findings | compiled OK | 5F/1C | 2.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 40,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 79,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 99,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 105,
+     "preview": "except:"
+    }
+   ],
+   "lines": 121,
+   "ms": 2.1,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
+  },
+  {
+   "t": 7.27,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_modify_bytecode.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\pydevd_modify_bytecode.py",
+   "node": 112,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "363 lines, 2 findings | compiled OK | 15F/3C | 7.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 21,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 355,
+     "preview": "except:"
+    }
+   ],
+   "lines": 363,
+   "ms": 7.1,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 3
+  },
+  {
+   "t": 7.5,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\cfg.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\cfg.py",
+   "node": 116,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "443 lines, 1 findings | compiled OK | 25F/2C | 11.0ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 283,
+     "preview": "# FIXME: compare block.next_block"
+    }
+   ],
+   "lines": 443,
+   "ms": 11.0,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 2
+  },
+  {
+   "t": 7.58,
+   "at": "x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\concrete.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\concrete.py",
+   "node": 117,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "658 lines, 4 findings | compiled OK | 31F/3C | 18.8ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 250,
+     "preview": "# FIXME: be kind, force monotonic line numbers? add an option?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 468,
+     "preview": "# FIXME: better error reporting"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 498,
+     "preview": "# FIXME: better error reporting on missing label"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 626,
+     "preview": "# FIXME: better error report if target_offset is negative"
+    }
+   ],
+   "lines": 658,
+   "ms": 18.8,
+   "compiled": true,
+   "funcs": 31,
+   "classes": 3
+  },
+  {
+   "t": 7.7,
+   "at": "32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\instr.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\instr.py",
+   "node": 119,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "372 lines, 1 findings | compiled OK | 35F/7C | 10.1ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 45,
+     "preview": "# BUILD_XXX_UNPACK have been removed in 3.9"
+    }
+   ],
+   "lines": 372,
+   "ms": 10.1,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 7
+  },
+  {
+   "t": 7.77,
+   "at": "bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\peephole_opt.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\peephole_opt.py",
+   "node": 120,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "488 lines, 6 findings | compiled OK | 43F/3C | 11.4ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 75,
+     "preview": "# FIXME: remove temporary computed constants?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 76,
+     "preview": "# FIXME: or at least reuse existing constants?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 378,
+     "preview": "# FIXME: reimplement this check"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 383,
+     "preview": "# FIXME: remove this workaround and implement comment code ^^"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 436,
+     "preview": "# FIXME: remove empty blocks?"
+    }
+   ],
+   "lines": 488,
+   "ms": 11.4,
+   "compiled": true,
+   "funcs": 43,
+   "classes": 3
+  },
+  {
+   "t": 8.04,
+   "at": "\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_bytecode.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_bytecode.py",
+   "node": 122,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "486 lines, 1 findings | compiled OK | 26F/1C | 11.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 177,
+     "preview": "exec("
+    }
+   ],
+   "lines": 486,
+   "ms": 11.8,
+   "compiled": true,
+   "funcs": 26,
+   "classes": 1
+  },
+  {
+   "t": 8.13,
+   "at": "ndled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_cfg.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_cfg.py",
+   "node": 123,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "816 lines, 5 findings | compiled OK | 57F/4C | 25.3ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 117,
+     "preview": "# FIXME: test non-empty cellvars"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 252,
+     "preview": "# FIXME: test other attributes"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 316,
+     "preview": "# FIXME: test other attributes"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 512,
+     "preview": "# FIXME: is it really useful to support that?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 570,
+     "preview": "# FIXME: don't use hardcoded constants"
+    }
+   ],
+   "lines": 816,
+   "ms": 25.3,
+   "compiled": true,
+   "funcs": 57,
+   "classes": 4
+  },
+  {
+   "t": 8.28,
+   "at": "\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_concrete.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_frame_eval\\vendored\\bytecode\\tests\\test_concrete.py",
+   "node": 125,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1486 lines, 2 findings | compiled OK | 49F/7C | 35.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 1180,
+     "preview": "exec(textwrap.dedent(source), loc)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 229,
+     "preview": "# FIXME: test other attributes"
+    }
+   ],
+   "lines": 1486,
+   "ms": 35.7,
+   "compiled": true,
+   "funcs": 49,
+   "classes": 7
+  },
+  {
+   "t": 8.74,
+   "at": "x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_sys_monitoring\\_pydevd_sys_monitoring.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_sys_monitoring\\_pydevd_sys_monitoring.py",
+   "node": 132,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1983 lines, 8 findings | compiled OK | 44F/5C | 36.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 126,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 187,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 348,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 445,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 495,
+     "preview": "except:"
+    }
+   ],
+   "lines": 1983,
+   "ms": 36.6,
+   "compiled": true,
+   "funcs": 44,
+   "classes": 5
+  },
+  {
+   "t": 8.79,
+   "at": "-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_sys_monitoring\\pydevd_sys_monitoring.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\_pydevd_sys_monitoring\\pydevd_sys_monitoring.py",
+   "node": 133,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "16 lines, 1 findings | compiled OK | 0F/0C | 0.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 13,
+     "preview": "except:"
+    }
+   ],
+   "lines": 16,
+   "ms": 0.6,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 8.9,
+   "at": "python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_coverage.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_coverage.py",
+   "node": 135,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "92 lines, 2 findings | compiled OK | 2F/0C | 2.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 19,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 61,
+     "preview": "except:"
+    }
+   ],
+   "lines": 92,
+   "ms": 2.4,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 9.02,
+   "at": "bugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhook.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhook.py",
+   "node": 137,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "614 lines, 2 findings | compiled OK | 35F/1C | 8.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 310,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 466,
+     "preview": "except:"
+    }
+   ],
+   "lines": 614,
+   "ms": 8.6,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 1
+  },
+  {
+   "t": 9.31,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt4.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt4.py",
+   "node": 142,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "198 lines, 4 findings | compiled OK | 5F/1C | 2.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 116,
+     "preview": "# Generally a program would run QCoreApplication::exec()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 126,
+     "preview": "# QCoreApplication::exec(), using a timer to quit after a"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 132,
+     "preview": "# QEventLoop and call QEventLoop::exec(). Other than"
+    },
+    {
+     "rule": "bare_except",
+     "line": 168,
+     "preview": "except:  # NO exceptions are allowed to escape from a ctypes callback"
+    }
+   ],
+   "lines": 198,
+   "ms": 2.8,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
+  },
+  {
+   "t": 9.37,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt5.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt5.py",
+   "node": 143,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "201 lines, 4 findings | compiled OK | 5F/1C | 2.6ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 119,
+     "preview": "# Generally a program would run QCoreApplication::exec()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 129,
+     "preview": "# QCoreApplication::exec(), using a timer to quit after a"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 135,
+     "preview": "# QEventLoop and call QEventLoop::exec(). Other than"
+    },
+    {
+     "rule": "bare_except",
+     "line": 171,
+     "preview": "except:  # NO exceptions are allowed to escape from a ctypes callback"
+    }
+   ],
+   "lines": 201,
+   "ms": 2.6,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
+  },
+  {
+   "t": 9.43,
+   "at": "py-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt6.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\inputhookqt6.py",
+   "node": 144,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "201 lines, 5 findings | compiled OK | 5F/1C | 3.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 119,
+     "preview": "# Generally a program would run QCoreApplication::exec()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 129,
+     "preview": "# QCoreApplication::exec(), using a timer to quit after a"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 135,
+     "preview": "# QEventLoop and call QEventLoop::exec(). Other than"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 145,
+     "preview": "event_loop.exec()"
+    },
+    {
+     "rule": "bare_except",
+     "line": 171,
+     "preview": "except:  # NO exceptions are allowed to escape from a ctypes callback"
+    }
+   ],
+   "lines": 201,
+   "ms": 3.2,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
+  },
+  {
+   "t": 9.6,
+   "at": "2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\matplotlibtools.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\matplotlibtools.py",
+   "node": 147,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "194 lines, 1 findings | compiled OK | 14F/0C | 3.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 50,
+     "preview": "except:"
+    }
+   ],
+   "lines": 194,
+   "ms": 3.9,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 0
+  },
+  {
+   "t": 9.71,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\qt_for_kernel.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\qt_for_kernel.py",
+   "node": 149,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "135 lines, 1 findings | compiled OK | 2F/0C | 2.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 26,
+     "preview": "except:"
+    }
+   ],
+   "lines": 135,
+   "ms": 2.5,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 9.77,
+   "at": "ugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\qt_loaders.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_ipython\\qt_loaders.py",
+   "node": 150,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "381 lines, 1 findings | compiled OK | 16F/1C | 5.0ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 168,
+     "preview": "except:"
+    }
+   ],
+   "lines": 381,
+   "ms": 5.0,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 1
+  },
+  {
+   "t": 9.94,
+   "at": ".debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_run_in_console.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_run_in_console.py",
+   "node": 153,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "152 lines, 2 findings | compiled OK | 3F/0C | 3.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 66,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 141,
+     "preview": "except:"
+    }
+   ],
+   "lines": 152,
+   "ms": 3.4,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 10.0,
+   "at": ".18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_sitecustomize\\sitecustomize.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydev_sitecustomize\\sitecustomize.py",
+   "node": 154,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "267 lines, 8 findings | compiled OK | 8F/0C | 6.1ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 199,
+     "preview": "return eval(raw_input(prompt))"
+    },
+    {
+     "rule": "bare_except",
+     "line": 21,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 35,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 39,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 43,
+     "preview": "except:"
+    }
+   ],
+   "lines": 267,
+   "ms": 6.1,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 0
+  },
+  {
+   "t": 10.06,
+   "at": "s-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevconsole.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevconsole.py",
+   "node": 155,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "611 lines, 8 findings | compiled OK | 30F/4C | 11.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 66,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 108,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 265,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 283,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 302,
+     "preview": "except:"
+    }
+   ],
+   "lines": 611,
+   "ms": 11.4,
+   "compiled": true,
+   "funcs": 30,
+   "classes": 4
+  },
+  {
+   "t": 10.2,
+   "at": "ions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd.py",
+   "node": 156,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "3729 lines, 8 findings | compiled OK | 160F/12C | 78.1ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 959,
+     "preview": "return eval(condition, new_frame.f_globals, new_frame.f_locals)"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 992,
+     "preview": "val = eval(pybreakpoint.expression, new_frame.f_globals, new_frame.f_locals)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 165,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 233,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 276,
+     "preview": "except:"
+    }
+   ],
+   "lines": 3729,
+   "ms": 78.1,
+   "compiled": true,
+   "funcs": 160,
+   "classes": 12
+  },
+  {
+   "t": 10.42,
+   "at": "ed\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\_test_attach_to_process_linux.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\_test_attach_to_process_linux.py",
+   "node": 160,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "75 lines, 2 findings | compiled OK | 0F/0C | 2.4ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 72,
+     "preview": "p2 = subprocess.call(\" \".join(cmd), env=env, shell=True)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 33,
+     "preview": "except:"
+    }
+   ],
+   "lines": 75,
+   "ms": 2.4,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 10.49,
+   "at": "ndled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\add_code_to_python_process.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\add_code_to_python_process.py",
+   "node": 161,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "606 lines, 3 findings | compiled OK | 13F/2C | 12.7ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 483,
+     "preview": "subprocess.check_call(\" \".join(cmd), shell=True, env=env)"
+    },
+    {
+     "rule": "subprocess_shell",
+     "line": 543,
+     "preview": "subprocess.check_call(\" \".join(cmd), shell=True, env=env)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 198,
+     "preview": "except:"
+    }
+   ],
+   "lines": 606,
+   "ms": 12.7,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 2
+  },
+  {
+   "t": 10.6,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\attach_script.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\attach_script.py",
+   "node": 163,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "201 lines, 2 findings | compiled OK | 7F/0C | 3.9ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 133,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 198,
+     "preview": "except:"
+    }
+   ],
+   "lines": 201,
+   "ms": 3.9,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
+  },
+  {
+   "t": 10.66,
+   "at": "ndled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\linux_and_mac\\lldb_prepare.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\linux_and_mac\\lldb_prepare.py",
+   "node": 164,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "55 lines, 1 findings | compiled OK | 2F/0C | 1.8ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 52,
+     "preview": "except:"
+    }
+   ],
+   "lines": 55,
+   "ms": 1.8,
+   "compiled": true,
+   "funcs": 2,
+   "classes": 0
+  },
+  {
+   "t": 10.84,
+   "at": "x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\breakpoint.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\breakpoint.py",
+   "node": 166,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "4763 lines, 7 findings | compiled OK | 193F/17C | 66.4ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 532,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 621,
+     "preview": "# FIXME race condition here (however unlikely)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 635,
+     "preview": "# TODO:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 975,
+     "preview": "# XXX FIXME"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1006,
+     "preview": "# TODO: an API to modify the hooked function's arguments"
+    }
+   ],
+   "lines": 4763,
+   "ms": 66.4,
+   "compiled": true,
+   "funcs": 193,
+   "classes": 17
+  },
+  {
+   "t": 10.9,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\compat.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\compat.py",
+   "node": 167,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "201 lines, 2 findings | compiled OK | 21F/1C | 3.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 142,
+     "preview": "exec(\"\"\"exec _code_ in _globs_, _locs_\"\"\")"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 2,
+     "preview": "# With some differences to take into account that the iterXXX version may be defined in us"
+    }
+   ],
+   "lines": 201,
+   "ms": 3.8,
+   "compiled": true,
+   "funcs": 21,
+   "classes": 1
+  },
+  {
+   "t": 10.99,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\crash.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\crash.py",
+   "node": 168,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1908 lines, 8 findings | compiled OK | 66F/10C | 26.4ms",
+   "findings": [
+    {
+     "rule": "pickle_load",
+     "line": 135,
+     "preview": "return pickle.loads(zlib.decompress(data))"
+    },
+    {
+     "rule": "pickle_load",
+     "line": 1320,
+     "preview": "key = pickle.loads(key)"
+    },
+    {
+     "rule": "pickle_load",
+     "line": 1381,
+     "preview": "value = pickle.loads(value)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 1465,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 630,
+     "preview": "# TODO: maybe add names and versions of DLLs and EXE?"
+    }
+   ],
+   "lines": 1908,
+   "ms": 26.4,
+   "compiled": true,
+   "funcs": 66,
+   "classes": 10
+  },
+  {
+   "t": 11.07,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\debug.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\debug.py",
+   "node": 169,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1513 lines, 6 findings | compiled OK | 37F/2C | 21.3ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 507,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 73,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 194,
+     "preview": "# TODO: maybe custom __bool__ to break out of loop() ?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 758,
+     "preview": "# XXX not sure about this..."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 862,
+     "preview": "# XXX HACK"
+    }
+   ],
+   "lines": 1513,
+   "ms": 21.3,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 2
+  },
+  {
+   "t": 11.14,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\disasm.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\disasm.py",
+   "node": 170,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "717 lines, 2 findings | compiled OK | 15F/7C | 10.6ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 622,
+     "preview": "# TODO: use a lock to access __decoder"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 623,
+     "preview": "# TODO: look in sys.modules for whichever disassembler is already loaded"
+    }
+   ],
+   "lines": 717,
+   "ms": 10.6,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 7
+  },
+  {
+   "t": 11.23,
+   "at": "in32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\event.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\event.py",
+   "node": 171,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1877 lines, 8 findings | compiled OK | 78F/16C | 27.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 193,
+     "preview": "##    # XXX to be removed in version 1.4"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 235,
+     "preview": "# XXX HACK"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 255,
+     "preview": "# XXX HACK"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 812,
+     "preview": "# TODO try to calculate the real value when ASLR is active."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 859,
+     "preview": "# XXX TODO"
+    }
+   ],
+   "lines": 1877,
+   "ms": 27.7,
+   "compiled": true,
+   "funcs": 78,
+   "classes": 16
+  },
+  {
+   "t": 11.37,
+   "at": "64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\interactive.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\interactive.py",
+   "node": 172,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "2269 lines, 8 findings | compiled OK | 126F/4C | 71.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 51,
+     "preview": "# TODO document this module with docstrings."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 52,
+     "preview": "# TODO command to set a last error breakpoint."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 53,
+     "preview": "# TODO command to show available plugins."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 277,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 449,
+     "preview": "# XXX TODO"
+    }
+   ],
+   "lines": 2269,
+   "ms": 71.7,
+   "compiled": true,
+   "funcs": 126,
+   "classes": 4
+  },
+  {
+   "t": 11.46,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\module.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\module.py",
+   "node": 173,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1983 lines, 8 findings | compiled OK | 76F/4C | 30.6ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 443,
+     "preview": "# XXX FIXME"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 783,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1019,
+     "preview": "# XXX this method musn't end up calling __initialize_snapshot by accident!"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1057,
+     "preview": "##                if not self.has_module(lpBaseAddress): # XXX triggers a scan"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1070,
+     "preview": "##        for base in self.get_module_bases(): # XXX triggers a scan"
+    }
+   ],
+   "lines": 1983,
+   "ms": 30.6,
+   "compiled": true,
+   "funcs": 76,
+   "classes": 4
+  },
+  {
+   "t": 11.6,
+   "at": "32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\process.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\process.py",
+   "node": 174,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "4885 lines, 8 findings | compiled OK | 179F/3C | 71.6ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 40,
+     "preview": "# FIXME"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 74,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 427,
+     "preview": "# FIXME the MSDN docs don't say what access rights are needed here!"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 563,
+     "preview": "# FIXME"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 671,
+     "preview": "# FIXME"
+    }
+   ],
+   "lines": 4885,
+   "ms": 71.6,
+   "compiled": true,
+   "funcs": 179,
+   "classes": 3
+  },
+  {
+   "t": 11.67,
+   "at": "2-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\registry.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\registry.py",
+   "node": 175,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "696 lines, 5 findings | compiled OK | 47F/4C | 13.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 362,
+     "preview": "# TODO: possibly cache the RegistryKey objects"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 370,
+     "preview": "# TODO: support for access flags?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 371,
+     "preview": "# TODO: should be possible to disable the safety checks (see __delitem__)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 373,
+     "preview": "# TODO: workaround for an API bug described by a user in MSDN"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 607,
+     "preview": "# XXX FIXME currently not working!"
+    }
+   ],
+   "lines": 696,
+   "ms": 13.7,
+   "compiled": true,
+   "funcs": 47,
+   "classes": 4
+  },
+  {
+   "t": 11.73,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\search.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\search.py",
+   "node": 176,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "661 lines, 7 findings | compiled OK | 18F/6C | 7.6ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 210,
+     "preview": "# FIXME: case insensitive compat.unicode searches are probably buggy!"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 278,
+     "preview": "##                traceback.print_exc()    # XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 432,
+     "preview": "# TODO: aligned searches"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 433,
+     "preview": "# TODO: method to coalesce search results"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 434,
+     "preview": "# TODO: search memory dumps"
+    }
+   ],
+   "lines": 661,
+   "ms": 7.6,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 6
+  },
+  {
+   "t": 11.81,
+   "at": "-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\sql.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\sql.py",
+   "node": 177,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "981 lines, 8 findings | compiled OK | 24F/6C | 15.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 311,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 157,
+     "preview": "# TODO: if using mssql, check it's at least SQL Server 2005"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 159,
+     "preview": "# TODO: if using mysql, check it's at least MySQL 5.0.3"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 161,
+     "preview": "# TODO: maybe in mysql check the tables are not myisam?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 162,
+     "preview": "# TODO: maybe create the database if it doesn't exist?"
+    }
+   ],
+   "lines": 981,
+   "ms": 15.2,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 6
+  },
+  {
+   "t": 11.88,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\system.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\system.py",
+   "node": 178,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1227 lines, 2 findings | compiled OK | 34F/1C | 13.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 448,
+     "preview": "# FIXME: how do we know the time zone?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1227,
+     "preview": "# TODO: create_service, delete_service"
+    }
+   ],
+   "lines": 1227,
+   "ms": 13.7,
+   "compiled": true,
+   "funcs": 34,
+   "classes": 1
+  },
+  {
+   "t": 11.97,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\textio.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\textio.py",
+   "node": 179,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1848 lines, 3 findings | compiled OK | 80F/8C | 28.8ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 834,
+     "preview": "# TODO: implement an ANSI parser to simplify using colors"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1069,
+     "preview": "# TODO: another class for ASCII boxes"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1461,
+     "preview": "# TODO"
+    }
+   ],
+   "lines": 1848,
+   "ms": 28.8,
+   "compiled": true,
+   "funcs": 80,
+   "classes": 8
+  },
+  {
+   "t": 12.06,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\thread.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\thread.py",
+   "node": 180,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "2108 lines, 8 findings | compiled OK | 112F/3C | 27.3ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 59,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 220,
+     "preview": "# XXX TODO find the real ntdll call under this api"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 384,
+     "preview": "##                raise           # XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 387,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 400,
+     "preview": "# FIXME this will be horribly slow on XP 64"
+    }
+   ],
+   "lines": 2108,
+   "ms": 27.3,
+   "compiled": true,
+   "funcs": 112,
+   "classes": 3
+  },
+  {
+   "t": 12.14,
+   "at": "win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\util.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\util.py",
+   "node": 181,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1059 lines, 4 findings | compiled OK | 35F/7C | 15.6ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 778,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 298,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 416,
+     "preview": "end = win32.LPVOID(-1).value  # XXX HACK"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 442,
+     "preview": "# XXX FIXME"
+    }
+   ],
+   "lines": 1059,
+   "ms": 15.6,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 7
+  },
+  {
+   "t": 12.34,
+   "at": "bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\advapi32.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\advapi32.py",
+   "node": 183,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "3687 lines, 6 findings | compiled OK | 110F/33C | 78.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 40,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 679,
+     "preview": "# TODO: __repr__"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1137,
+     "preview": "# XXX maybe add functions related to the tokens here?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1251,
+     "preview": "# XXX TO DO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1726,
+     "preview": "return TokenInformation  # TODO add a class wrapper?"
+    }
+   ],
+   "lines": 3687,
+   "ms": 78.7,
+   "compiled": true,
+   "funcs": 110,
+   "classes": 33
+  },
+  {
+   "t": 12.41,
+   "at": "ed\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\context_amd64.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\context_amd64.py",
+   "node": 184,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "816 lines, 4 findings | compiled OK | 22F/12C | 12.9ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 441,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 769,
+     "preview": "# XXX TODO Use this http://www.nynaeve.net/Code/GetThreadWow64Context.cpp"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 783,
+     "preview": "# XXX doesn't exist in XP 64 bits"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 804,
+     "preview": "# XXX doesn't exist in XP 64 bits"
+    }
+   ],
+   "lines": 816,
+   "ms": 12.9,
+   "compiled": true,
+   "funcs": 22,
+   "classes": 12
+  },
+  {
+   "t": 12.56,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\dbghelp.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\dbghelp.py",
+   "node": 186,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1381 lines, 4 findings | compiled OK | 42F/12C | 23.0ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 79,
+     "preview": "# XXX FIXME not sure if I really need to do this!"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 311,
+     "preview": "# XXX the ANSI versions of these functions don't end in \"A\" as expected!"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 890,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 1097,
+     "preview": "# TODO: check for the 'W' version of SymGetSymFromAddr64()"
+    }
+   ],
+   "lines": 1381,
+   "ms": 23.0,
+   "compiled": true,
+   "funcs": 42,
+   "classes": 12
+  },
+  {
+   "t": 12.63,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\defines.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\defines.py",
+   "node": 187,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "737 lines, 5 findings | compiled OK | 17F/10C | 12.6ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 35,
+     "preview": "# TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 64,
+     "preview": "# XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 440,
+     "preview": "TCHAR = CHAR  # XXX ANSI by default?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 512,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 567,
+     "preview": "# TODO maybe add more error codes?"
+    }
+   ],
+   "lines": 737,
+   "ms": 12.6,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 10
+  },
+  {
+   "t": 12.85,
+   "at": "bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\kernel32.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\kernel32.py",
+   "node": 189,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "5098 lines, 8 findings | compiled OK | 214F/53C | 92.2ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 1173,
+     "preview": "except:"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 126,
+     "preview": "# TODO I couldn't find these constants :("
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 589,
+     "preview": "# XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 608,
+     "preview": "if Handle.__bLeakDetection:  # XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 620,
+     "preview": "if Handle.__bLeakDetection:  # XXX DEBUG"
+    }
+   ],
+   "lines": 5098,
+   "ms": 92.2,
+   "compiled": true,
+   "funcs": 214,
+   "classes": 53
+  },
+  {
+   "t": 13.03,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\peb_teb.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\peb_teb.py",
+   "node": 191,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "3517 lines, 1 findings | compiled OK | 14F/39C | 44.0ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 231,
+     "preview": "# XXX TODO"
+    }
+   ],
+   "lines": 3517,
+   "ms": 44.0,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 39
+  },
+  {
+   "t": 13.16,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\shell32.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\shell32.py",
+   "node": 193,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "403 lines, 1 findings | compiled OK | 14F/1C | 6.8ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 35,
+     "preview": "# TODO"
+    }
+   ],
+   "lines": 403,
+   "ms": 6.8,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 1
+  },
+  {
+   "t": 13.23,
+   "at": "\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\shlwapi.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\shlwapi.py",
+   "node": 194,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "838 lines, 1 findings | compiled OK | 55F/0C | 17.1ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 644,
+     "preview": "# XXX WARNING"
+    }
+   ],
+   "lines": 838,
+   "ms": 17.1,
+   "compiled": true,
+   "funcs": 55,
+   "classes": 0
+  },
+  {
+   "t": 13.33,
+   "at": "4\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\user32.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\user32.py",
+   "node": 195,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1832 lines, 2 findings | compiled OK | 102F/9C | 34.8ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 81,
+     "preview": "##        print hwnd  # XXX DEBUG"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 408,
+     "preview": "# XXX not sure if these classes should be psyco-optimized,"
+    }
+   ],
+   "lines": 1832,
+   "ms": 34.8,
+   "compiled": true,
+   "funcs": 102,
+   "classes": 9
+  },
+  {
+   "t": 13.47,
+   "at": "bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\wtsapi32.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\win32\\wtsapi32.py",
+   "node": 197,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "355 lines, 5 findings | compiled OK | 6F/3C | 4.5ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 199,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 223,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 242,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 249,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 319,
+     "preview": "# XXX TODO"
+    }
+   ],
+   "lines": 355,
+   "ms": 4.5,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 3
+  },
+  {
+   "t": 13.53,
+   "at": "n32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\window.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_attach_to_process\\winappdbg\\window.py",
+   "node": 198,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "753 lines, 3 findings | compiled OK | 46F/1C | 9.2ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 53,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 57,
+     "preview": "# XXX TODO"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 367,
+     "preview": "# XXX TODO"
+    }
+   ],
+   "lines": 753,
+   "ms": 9.2,
+   "compiled": true,
+   "funcs": 46,
+   "classes": 1
+  },
+  {
+   "t": 13.62,
+   "at": "hon.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_file_utils.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_file_utils.py",
+   "node": 199,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "988 lines, 8 findings | compiled OK | 41F/0C | 20.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 69,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 263,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 352,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 441,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 568,
+     "preview": "except:"
+    }
+   ],
+   "lines": 988,
+   "ms": 20.1,
+   "compiled": true,
+   "funcs": 41,
+   "classes": 0
+  },
+  {
+   "t": 13.74,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\django_debug.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\django_debug.py",
+   "node": 201,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "640 lines, 8 findings | compiled OK | 44F/4C | 14.0ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 432,
+     "preview": "result = eval(expression, frame.f_globals, frame.f_locals)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 22,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 62,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 206,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 219,
+     "preview": "except:"
+    }
+   ],
+   "lines": 640,
+   "ms": 14.0,
+   "compiled": true,
+   "funcs": 44,
+   "classes": 4
+  },
+  {
+   "t": 13.96,
+   "at": "libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\extensions\\types\\pydevd_plugin_numpy_types.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\extensions\\types\\pydevd_plugin_numpy_types.py",
+   "node": 205,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "90 lines, 1 findings | compiled OK | 4F/2C | 2.5ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 81,
+     "preview": "except:"
+    }
+   ],
+   "lines": 90,
+   "ms": 2.5,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 2
+  },
+  {
+   "t": 14.14,
+   "at": "y-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\jinja2_debug.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_plugins\\jinja2_debug.py",
+   "node": 208,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "528 lines, 3 findings | compiled OK | 40F/4C | 12.3ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 254,
+     "preview": "result = eval(expression, frame.f_globals, frame.f_locals)"
+    },
+    {
+     "rule": "bare_except",
+     "line": 130,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 277,
+     "preview": "except:"
+    }
+   ],
+   "lines": 528,
+   "ms": 12.3,
+   "compiled": true,
+   "funcs": 40,
+   "classes": 4
+  },
+  {
+   "t": 14.26,
+   "at": "python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_tracing.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\pydevd_tracing.py",
+   "node": 210,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "410 lines, 3 findings | compiled OK | 14F/2C | 9.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 216,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 291,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 400,
+     "preview": "except:"
+    }
+   ],
+   "lines": 410,
+   "ms": 9.1,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 2
+  },
+  {
+   "t": 14.32,
+   "at": "n.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\setup_pydevd_cython.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\_vendored\\pydevd\\setup_pydevd_cython.py",
+   "node": 211,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "289 lines, 4 findings | compiled OK | 4F/0C | 6.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 134,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 244,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 250,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 257,
+     "preview": "except:"
+    }
+   ],
+   "lines": 289,
+   "ms": 6.4,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 0
+  },
+  {
+   "t": 14.75,
+   "at": "y\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\adapter\\servers.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\adapter\\servers.py",
+   "node": 218,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "620 lines, 2 findings | compiled OK | 32F/3C | 13.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 50,
+     "preview": "by another process, e.g. via exec()."
+    },
+    {
+     "rule": "eval_exec",
+     "line": 344,
+     "preview": "# The parent process used some API like exec() that replaced it with another"
+    }
+   ],
+   "lines": 620,
+   "ms": 13.2,
+   "compiled": true,
+   "funcs": 32,
+   "classes": 3
+  },
+  {
+   "t": 14.94,
+   "at": "avity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\json.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\json.py",
+   "node": 221,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "292 lines, 2 findings | compiled OK | 18F/2C | 5.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 75,
+     "preview": "# which we can then eval() to create our encoder instance."
+    },
+    {
+     "rule": "eval_exec",
+     "line": 77,
+     "preview": "encoder = eval("
+    }
+   ],
+   "lines": 292,
+   "ms": 5.7,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 2
+  },
+  {
+   "t": 15.1,
+   "at": "\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\messaging.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\messaging.py",
+   "node": 223,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1506 lines, 1 findings | compiled OK | 91F/14C | 32.5ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 95,
+     "preview": "# TODO: investigate switching to buffered sockets; readline() on unbuffered"
+    }
+   ],
+   "lines": 1506,
+   "ms": 32.5,
+   "compiled": true,
+   "funcs": 91,
+   "classes": 14
+  },
+  {
+   "t": 15.27,
+   "at": "ity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\stacks.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\stacks.py",
+   "node": 226,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "62 lines, 1 findings | compiled OK | 3F/0C | 1.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 57,
+     "preview": "except:"
+    }
+   ],
+   "lines": 62,
+   "ms": 1.4,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
+  },
+  {
+   "t": 15.38,
+   "at": "avity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\util.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\common\\util.py",
+   "node": 228,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "164 lines, 1 findings | compiled OK | 14F/2C | 3.6ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 16,
+     "preview": "return eval(expr, {}, sys.modules)"
+    }
+   ],
+   "lines": 164,
+   "ms": 3.6,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 2
+  },
+  {
+   "t": 15.89,
+   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\api.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\api.py",
+   "node": 237,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "366 lines, 1 findings | compiled OK | 14F/1C | 7.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 21,
+     "preview": "# TODO: \"gevent\", if possible."
+    }
+   ],
+   "lines": 366,
+   "ms": 7.7,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 1
+  },
+  {
+   "t": 15.95,
+   "at": "s\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\attach_pid_injected.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\attach_pid_injected.py",
+   "node": 238,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "92 lines, 2 findings | compiled OK | 4F/0C | 2.4ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 50,
+     "preview": "except:"
+    },
+    {
+     "rule": "bare_except",
+     "line": 83,
+     "preview": "except:"
+    }
+   ],
+   "lines": 92,
+   "ms": 2.4,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 0
+  },
+  {
+   "t": 16.02,
+   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\cli.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\debugpy\\server\\cli.py",
+   "node": 239,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "512 lines, 1 findings | compiled OK | 25F/1C | 13.0ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 405,
+     "preview": "eval(code, {})"
+    }
+   ],
+   "lines": 512,
+   "ms": 13.0,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 1
+  },
+  {
+   "t": 16.5,
+   "at": "tensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\licenses\\__init__.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\licenses\\__init__.py",
+   "node": 247,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "145 lines, 1 findings | compiled OK | 1F/1C | 2.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 100,
+     "preview": "invalid = eval(python_expression, globals(), locals())"
+    }
+   ],
+   "lines": 145,
+   "ms": 2.8,
+   "compiled": true,
+   "funcs": 1,
+   "classes": 1
+  },
+  {
+   "t": 16.73,
+   "at": "ravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\metadata.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\metadata.py",
+   "node": 250,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "863 lines, 2 findings | compiled OK | 24F/5C | 18.0ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 204,
+     "preview": "# TODO: The spec doesn't say anything about if the keys should be"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 806,
+     "preview": "description: _Validator[str | None] = _Validator()  # TODO 2.1: can be in body"
+    }
+   ],
+   "lines": 863,
+   "ms": 18.0,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 5
+  },
+  {
+   "t": 16.79,
+   "at": "ty\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\requirements.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\requirements.py",
+   "node": 251,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "91 lines, 2 findings | compiled OK | 6F/2C | 2.5ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 29,
+     "preview": "# TODO: Can we test whether something is contained within a requirement?"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 32,
+     "preview": "# TODO: Can we normalize the name and extra name?"
+    }
+   ],
+   "lines": 91,
+   "ms": 2.5,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 2
+  },
+  {
+   "t": 16.94,
+   "at": "ntigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\tags.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.debugpy-2025.18.0-win32-x64\\bundled\\libs\\packaging\\tags.py",
+   "node": 253,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "617 lines, 1 findings | compiled OK | 30F/1C | 17.3ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 378,
+     "preview": "# TODO: Need to care about 32-bit PPC for ppc64 through 10.2?"
+    }
+   ],
+   "lines": 617,
+   "ms": 17.3,
+   "compiled": true,
+   "funcs": 30,
+   "classes": 1
+  },
+  {
+   "t": 17.44,
+   "at": "UILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get-pip.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get-pip.py",
+   "node": 260,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "27506 lines, 1 findings | compiled OK | 7F/0C | 39.8ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 756,
+     "preview": "!bv|ulZaXXXf69tR@679Jq0*EKr>V*p%c^c+P=NM~dbzVB&x-2m3i@GwR*m_#%-ZWBzcfEv{i(gHvn9"
+    }
+   ],
+   "lines": 27506,
+   "ms": 39.8,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
+  },
+  {
+   "t": 17.49,
+   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_output_via_markers.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_output_via_markers.py",
+   "node": 261,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "32 lines, 1 findings | compiled OK | 0F/0C | 1.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 19,
+     "preview": "exec(code, ns, ns)"
+    }
+   ],
+   "lines": 32,
+   "ms": 1.5,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 17.56,
+   "at": "tigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_variable_info.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\get_variable_info.py",
+   "node": 262,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "539 lines, 1 findings | compiled OK | 20F/2C | 13.1ms",
+   "findings": [
+    {
+     "rule": "bare_except",
+     "line": 315,
+     "preview": "except:  # noqa: E722"
+    }
+   ],
+   "lines": 539,
+   "ms": 13.1,
+   "compiled": true,
+   "funcs": 20,
+   "classes": 2
+  },
+  {
+   "t": 18.09,
+   "at": "vity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\attr\\_make.py",
+   "full": "C:\\02_QUILLAN\\.antigravity\\extensions\\ms-python.python-2026.4.0-universal\\python_files\\lib\\jedilsp\\attr\\_make.py",
+   "node": 270,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "3123 lines, 5 findings | compiled OK | 106F/9C | 67.4ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 223,
+     "preview": "eval(bytecode, globs, locs)"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 852,
+     "preview": "# XXX: This can be confused by subclassing a slotted attrs class with"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 853,
+     "preview": "# XXX: a non-attrs class and subclass the resulting class with an attrs"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 854,
+     "preview": "# XXX: class.  See `test_slotted_confused` for details.  For now that's"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 855,
+     "preview": "# XXX: OK with us."
+    }
+   ],
+   "lines": 3123,
+   "ms": 67.4,
+   "compiled": true,
+   "funcs": 106,
+   "classes": 9
   }
  ],
  "changes": [
