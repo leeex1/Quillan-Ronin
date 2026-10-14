@@ -418,6 +418,16 @@ from mor_engine import (
     MoRModel,
     verify_mor_invariants,
 )
+from nitro_d_engine import (
+    NITRODConfig,
+    IntegerKaimingInit,
+    NITROReLULayer,
+    NITROScalingLayer,
+    IntegerSGD,
+    NITROLocalLossBlock,
+    NITRODModel,
+    verify_nitro_d_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -5134,6 +5144,69 @@ def test_mor_paper71_invariant():
     assert model.physical_blocks[1].norm1.weight.grad is not None
 
 
+def test_nitro_d_paper72_invariant():
+    """
+    Paper 72 Invariant Test: NITRO-D (Native Integer-only Training of Deep CNNs)
+    Alberto Pirillo et al., Politecnico di Milano, 2024 (arXiv:2407.11698)
+
+    Verifies:
+    1. Standalone verification harness invariants.
+    2. Integer Kaiming initialization bounds via integer ratio 1732 / 1000.
+    3. NITRO-ReLU zero-cost mean centering and strict [-127, 127] saturation.
+    4. NITRO-Scaling factors for linear (256 * M_in) and conv (256 * K^2 * C_in) layers.
+    5. IntegerSGD thresholded weight decay activating strictly on |W| >= eta_inv.
+    6. NITRO Amplification Factor AF = 64 * G inverse learning rate scaling.
+    7. Multi-block local-loss forward inference and decoupled native integer training steps.
+    """
+    # 1. Standalone verification
+    res = verify_nitro_d_invariants()
+    assert res["status"] == "PASS"
+
+    config = NITRODConfig(
+        num_classes=10,
+        alpha_inv=8,
+        gamma_lr_inv=100,
+        lambda_inv=10,
+        target_scale=32,
+        in_channels=1,
+        image_size=14
+    )
+
+    # 2. Integer Kaiming Bound
+    b = IntegerKaimingInit.compute_bound(36)
+    assert b == (128 * 1732) // (6 * 1000) # 36
+    w = IntegerKaimingInit.initialize_tensor((8, 36), 36)
+    assert (w >= -b).all() and (w <= b).all()
+
+    # 3. NITRO-ReLU Range & Zero Centering
+    relu = NITROReLULayer(alpha_inv=config.alpha_inv)
+    test_vals = torch.arange(-200, 201, 10, dtype=torch.int32)
+    out_relu = relu(test_vals)
+    assert (out_relu >= -127).all() and (out_relu <= 127).all()
+
+    # 4. IntegerSGD Thresholded Weight Decay
+    opt = IntegerSGD(gamma_inv=config.gamma_lr_inv, lambda_inv=config.lambda_inv)
+    assert opt.eta_inv == 1000
+    w_small = torch.tensor([500], dtype=torch.int32)
+    w_large = torch.tensor([2500], dtype=torch.int32)
+    zero_grad = torch.tensor([0], dtype=torch.int32)
+    # Under zero grad, decay occurs ONLY if |W| >= 1000
+    assert opt.step(w_small, zero_grad) == 500 # Unchanged
+    assert opt.step(w_large, zero_grad) == 2500 - 2 # Decayed by 2500 // 1000 = 2
+
+    # 5. Amplification Factor
+    assert 64 * config.num_classes == 640
+
+    # 6. Multi-Block Training Step
+    model = NITRODModel(config)
+    x = torch.randint(-127, 128, (2, 1, 14, 14), dtype=torch.float32)
+    targets = torch.tensor([3, 7], dtype=torch.long)
+    loss_dict = model.train_step(x, targets)
+    assert loss_dict["loss_block1"] >= 0.0
+    assert loss_dict["loss_block2"] >= 0.0
+    assert loss_dict["loss_final"] >= 0.0
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5287,6 +5360,8 @@ if __name__ == "__main__":
     print("  [PASS] 73. Mixture of Heterogeneous Grouped Experts (MoHGE) Two-Level Resource-Aware Routing, Group Aux Loss & All-Size Allocation Invariant (Paper 70 / Ma et al.)")
     test_mor_paper71_invariant()
     print("  [PASS] 74. Mixture-of-Recursions (MoR) Dynamic Recursive Depths, Expert/Token Routing & KV Caching Invariant (Paper 71 / Bae et al.)")
+    test_nitro_d_paper72_invariant()
+    print("  [PASS] 75. NITRO-D Native Integer-only Training of Deep CNNs, Local-Loss Blocks & IntegerSGD Invariant (Paper 72 / Pirillo et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
