@@ -535,6 +535,71 @@
 - **Test Invariant**: `test_mor_paper71_invariant` (Unit Test 74 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 72: NITRO-D: Native Integer-only Training of Deep Convolutional Neural Networks
+- **Authors**: Alberto Pirillo, Luca Colombo, Manuel Roveri
+- **Affiliation**: Department of Electronics, Information and Bioengineering, Politecnico di Milano, Milan, Italy
+- **Date**: July 16, 2024 (arXiv:2407.11698)
+- **PDF Artifact**: `NITRO_D_2407.11698.pdf` (9 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Integer Local-Loss Block Architecture (Section 3.1 & 3.2, Figure 1)*:
+     Partitions deep convolutional architectures into decoupled local-loss blocks using Local Error Signals (LES). Forward layers execute integer feature transformations ($a_{l-1} \to a_l$); learning layers downsample features to generate local predictions $\hat{y}_l$ and evaluate local Residual Sum of Squares (RSS) loss $\mathcal{L}_l$. No gradients cross block boundaries, completely eliminating gradient explosion and multi-layer integer overflow while enabling asynchronous parallel backpropagation.
+  2. *NITRO-Scaling Layer (Section 3.2.1, Eqs. 1-3)*:
+     Rescales integer pre-activations into the int8 range $[-127, 127]$:
+     $$z_l^* = \left\lfloor \frac{z_l}{SF_l} \right\rfloor$$
+     Derived from analytical bit-width bounds:
+     - Linear Layer: $b_{z_l} = \mathcal{O}(15 + \log_2 M_{l-1}) \implies SF_l = 2^8 \times M_{l-1}$.
+     - Conv2D Layer: $b_{z_l} = \mathcal{O}(15 + \log_2 K_{l-1}^2 + \log_2 C_{l-1}) \implies SF_l = 2^8 \times K_{l-1}^2 \times C_{l-1}$.
+  3. *NITRO-ReLU Activation Function (Section 3.2.2)*:
+     Piecewise 4-segment integer LeakyReLU bounded to $[-127, 127]$ with pre-computed zero-cost mean centering $\mu_{\text{int8}}$:
+     $$\text{NITRO-ReLU}(x) = \begin{cases} \left\lfloor \frac{\max\{x, -127\}}{\alpha_{\text{inv}}} \right\rfloor - \mu_{\text{int8}}, & x < 0 \\ \min\{x, 127\} - \mu_{\text{int8}}, & x \ge 0 \end{cases}$$
+     $$\mu_1 = \left\lfloor \frac{-127}{\alpha_{\text{inv}}} \right\rfloor, \quad \mu_2 = \left\lfloor \frac{-127}{2 \alpha_{\text{inv}}} \right\rfloor, \quad \mu_3 = 63, \quad \mu_4 = 127$$
+     $$\mu_{\text{int8}} = \left\lfloor \frac{\mu_1 + \mu_2 + \mu_3 + \mu_4}{4} \right\rfloor$$
+     Subtracting $\mu_{\text{int8}}$ centers activations around zero, eliminating bias shift and replacing integer-infeasible Batch Normalization.
+  4. *Integer Kaiming Weight Initialization (Section 3.3.1)*:
+     Approximates $\sqrt{3} \approx 1732 / 1000$ and $\lfloor \sqrt{\text{fan\_in}} \rfloor$ via integer arithmetic:
+     $$b = \left\lfloor \frac{128 \times 1732}{\lfloor \sqrt{\text{fan\_in}} \rfloor \times 1000} \right\rfloor, \quad W \sim \mathcal{U}(-b, b)$$
+  5. *Residual Sum of Squares (RSS) Loss & 6-bit Target Encoding (Section 3.3.2 & 3.3.4)*:
+     One-hot target encoding with target class $= 32$ and remaining classes $= 0$.
+     $$\mathcal{L}_l = \sum_{i=1}^{bs} \frac{1}{2} (\hat{y}_l^i - y^i)^2, \quad \nabla \mathcal{L}_l = \sum_{i=1}^{bs} (\hat{y}_l^i - y^i)$$
+     Loss gradient $\nabla \mathcal{L}_l$ fits strictly within 6 bits ($b_{\nabla \mathcal{L}_l} = 6$).
+  6. *IntegerSGD Optimizer with Thresholded Weight Decay (Section 3.3.3, Algorithm 1)*:
+     Inverse learning rate $\gamma_{\text{inv}}$, inverse decay $\lambda_{\text{inv}}$, composite threshold $\eta_{\text{inv}} = \gamma_{\text{inv}} \lambda_{\text{inv}}$.
+     $$\delta_t = \left\lfloor \frac{\nabla \mathcal{L}}{ \gamma_{\text{inv}}} \right\rfloor + \left\lfloor \frac{W_{t-1}}{\eta_{\text{inv}}} \right\rfloor \cdot \mathbf{1}(|W_{t-1}| \ge \eta_{\text{inv}}), \quad W_t = W_{t-1} - \delta_t$$
+  7. *NITRO Amplification Factor (Section 3.3.4, Eq. 6)*:
+     Amplified forward gradient $\delta_l^{\text{fw}} = \nabla \mathcal{L}_l (W_l^{\text{ll}})^T$ has bit-width $\mathcal{O}(13 + \log_2 G)$.
+     $$AF = 2^6 \times G = 64 \times G, \quad \gamma_{\text{inv}}^{\text{fw}} = AF \times \gamma_{\text{inv}}^{\text{lr}}$$
+- **Implementation Module**: [`nitro_d_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/nitro_d_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_nitro_d_paper72_invariant` (Unit Test 75 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 73: OD-MoE: Cacheless Edge-Distributed Mixture of Experts Inference via Shadow-Based Prediction
+
+- **File**: `OD_MoE_2512.03927.pdf` (14 pages)
+- **Authors**: Liujianfu Wang, et al. (Chinese University of Hong Kong)
+- **ArXiv ID**: `2512.03927` (December 2025)
+- **Core Formulations & Architectural Invariants**:
+  1. *Cacheless Edge-Distributed MoE Architecture (Section 3.1 & 3.3)*:
+     Dispatches expert tokens dynamically across distributed edge worker nodes with zero resident expert cache in GPU VRAM, achieving ~3x reduction in memory footprint compared to cache-based systems.
+  2. *Shadow-based Expert Predictor (SEP) (Section 3.2)*:
+     Deploys a quantized low-overhead shadow model running $k$ tokens ahead of the main backbone to forecast top-$K$ routing decisions, enabling asynchronous pre-fetching of expert weights over PCIe/interconnect before layer activation:
+     $$\mathcal{E}_{\text{pred}} = \text{Top-}K(\text{Router}_{\text{shadow}}(h_{\text{shadow}}))$$
+  3. *Periodic Alignment Mechanisms (Section 3.2.2)*:
+     Implements Token Alignment ($T_{\text{align}}$) and KV Cache Alignment ($K_{\text{align}}$) intervals resetting shadow hidden states from the backbone to eliminate long-horizon autoregressive drift:
+     $$h_{\text{shadow}}^{(t)} \leftarrow h_{\text{backbone}}^{(t)} \quad \text{if } t \pmod{T_{\text{align}}} = 0$$
+  4. *Synchronous Fallback Loading (Section 3.2.3)*:
+     Guarantees exactness via fallback synchronous reload whenever router decisions diverge from shadow predictions ($\mathcal{E}_{\text{pred}} \ne \mathcal{E}_{\text{true}}$), preventing quality loss or output corruption.
+  5. *Parallel Expert Loading (PEL) Timing Optimization (Section 3.3, Eq. 1)*:
+     Analytical no-bottleneck condition hiding loading latency behind compute across $G$ pipelined worker groups:
+     $$t_{\text{maxload}} = G \cdot t_M + (G - 1) \cdot t_W$$
+     where $t_M$ is backbone layer computation latency, $t_W$ is worker layer latency, and $t_{\text{load}}$ is expert transfer time. When $t_{\text{load}} \le t_{\text{maxload}}$, transfer overhead is completely concealed.
+- **Implementation Module**: [`od_moe_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/od_moe_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_od_moe_paper73_invariant` (Unit Test 76 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
+
 
 
 

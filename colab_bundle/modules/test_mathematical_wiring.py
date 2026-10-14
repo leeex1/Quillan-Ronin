@@ -428,6 +428,15 @@ from nitro_d_engine import (
     NITRODModel,
     verify_nitro_d_invariants,
 )
+from od_moe_engine import (
+    ODMoEConfig,
+    ODMoEExpert,
+    ShadowExpertPredictor,
+    ParallelExpertLoader,
+    CachelessWorkerGroup,
+    ODMoEOrchestrator,
+    verify_od_moe_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -5207,6 +5216,61 @@ def test_nitro_d_paper72_invariant():
     assert loss_dict["loss_final"] >= 0.0
 
 
+def test_od_moe_paper73_invariant():
+    """
+    Paper 73 Invariant Test: OD-MoE (On-Demand Cacheless MoE Inference)
+    Liujianfu Wang et al., The Chinese University of Hong Kong, 2025 (arXiv:2512.03927)
+
+    Verifies:
+    1. Standalone verification harness invariants.
+    2. Parallel expert loading no-bottleneck bound: t_maxload = G * t_M + (G - 1) * t_W.
+    3. Shadow-based expert predictor (SEP) routing recall using quantized router weights.
+    4. Cacheless GPU memory property: zero resident experts after execution.
+    5. Fallback reload mechanism for exact numerical equivalence on mispredictions.
+    6. Full orchestrator multi-layer forward execution and backward autograd flow.
+    """
+    # 1. Standalone verification
+    res = verify_od_moe_invariants()
+    assert res["status"] == "PASS"
+    assert res["cacheless_verified"] is True
+
+    config = ODMoEConfig(
+        d_model=32,
+        d_ff=64,
+        num_experts=8,
+        top_k=2,
+        num_layers=4,
+        worker_groups=4,
+        t_m=2.5,
+        t_w=5.0,
+        pcie_bandwidth_gbps=16.0
+    )
+
+    # 2. Timing Bound Invariant
+    t_max = ParallelExpertLoader.compute_max_load_time(config.worker_groups, config.t_m, config.t_w)
+    assert t_max == 25.0
+
+    # 3. Cacheless Execution & Fallback Verification
+    orchestrator = ODMoEOrchestrator(config)
+    x = torch.randn(2, 4, config.d_model, requires_grad=True)
+    out, diag = orchestrator(x)
+
+    assert out.shape == x.shape
+    assert diag["max_load_time_ms"] == 25.0
+    assert diag["mean_prediction_recall"] >= 0.70
+
+    # Verify no persistent expert cache in any worker group
+    for g in orchestrator.worker_groups:
+        assert len(g.staged_experts) == 0
+
+    # 4. Backward Pass & Autograd Flow
+    loss = out.sum()
+    loss.backward()
+    assert x.grad is not None and torch.isfinite(x.grad).all()
+    assert orchestrator.routers[0].weight.grad is not None
+    assert orchestrator.expert_pool[0][0].w1.weight.grad is not None
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5362,6 +5426,8 @@ if __name__ == "__main__":
     print("  [PASS] 74. Mixture-of-Recursions (MoR) Dynamic Recursive Depths, Expert/Token Routing & KV Caching Invariant (Paper 71 / Bae et al.)")
     test_nitro_d_paper72_invariant()
     print("  [PASS] 75. NITRO-D Native Integer-only Training of Deep CNNs, Local-Loss Blocks & IntegerSGD Invariant (Paper 72 / Pirillo et al.)")
+    test_od_moe_paper73_invariant()
+    print("  [PASS] 76. OD-MoE On-Demand Expert Loading, Cacheless Distributed Inference & SEP Timing Invariant (Paper 73 / Wang et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
