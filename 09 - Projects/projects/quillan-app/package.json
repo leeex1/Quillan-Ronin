@@ -18,7 +18,7 @@
     "llm"
   ],
   "dependencies": {
-    "electron": "^39.8.10",
+    "electron": "^41.10.6",
     "three": "^0.128.0"
   }
 }
