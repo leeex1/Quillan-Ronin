@@ -244,6 +244,14 @@ from deepseekmath_grpo_engine import (
     GRPOLoss,
     IterativeGRPOTrainer
 )
+from deepseek_moe_engine import (
+    DeepSeekMoEConfig,
+    DeepSeekMoEOutput,
+    FineGrainedFFN,
+    DeepSeekMoERouter,
+    DeepSeekMoELayer,
+    verify_deepseek_moe_invariants
+)
 
 
 
@@ -3492,6 +3500,108 @@ def test_deepseekmath_grpo_paper44_invariant():
         assert torch.allclose(trainer.reference_weights[name], param), "Reference weights must be synchronized"
 
 
+def test_deepseek_moe_paper45_invariant():
+    r"""
+    Verifies Paper 45: DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models
+    (Damai Dai, Chengqi Deng et al. - DeepSeek-AI & Peking University, Jan 2024, arXiv:2401.06066, 33 pp).
+
+    Tests:
+      1. Fine-Grained Expert Segmentation (Section 3.1):
+         - Intermediate hidden dimension scaled to (1/m) * d_ffn.
+         - Total experts = m * N, activated experts = m * K.
+         - Combinatorial routing options expand exponentially:
+           C(N, K) = C(16, 2) = 120 -> C(mN, mK) = C(64, 8) = 4,426,165,368.
+      2. Shared Expert Isolation (Section 3.2, Eq. 9-11):
+         - K_s shared experts deterministically execute for 100% of tokens,
+           consolidating common knowledge without routing competition.
+         - N' = mN - K_s routed experts, K' = mK - K_s routed activations.
+         - Routed gate sparsity: exactly K' non-zero routing weights per token.
+      3. Multi-Level Load Balancing Loss (Section 3.3, Eq. 12-17):
+         - Expert-level loss L_ExpBal = \alpha_1 \sum_{i=1}^{N'} f_i P_i preventing routing collapse.
+         - Device-level loss L_DevBal = \alpha_2 \sum_{d=1}^D f'_d P'_d preventing device bottlenecks.
+      4. End-to-End Layer Execution & Autograd Gradient Flow (Eq. 9):
+         - Residual output h_t^l = \sum FFN_shared + \sum g_i FFN_routed + u_t^l.
+         - Gradients propagate simultaneously through input, router centroids,
+           shared experts, and selected routed experts.
+    """
+    torch.manual_seed(42)
+
+    # 1. Fine-Grained Expert Segmentation & Combinatorial Expansion
+    config = DeepSeekMoEConfig(
+        hidden_dim=64,
+        base_ffn_dim=256,
+        base_num_experts=16,
+        base_top_k=2,
+        segmentation_factor=4,
+        num_shared_experts=2,
+        num_devices=4,
+        expert_balance_factor=0.001,
+        device_balance_factor=0.05,
+    )
+
+    # Verify segmentation formulas
+    assert config.fine_grained_ffn_dim == 64, f"FFN dim should be 256/4=64, got {config.fine_grained_ffn_dim}"
+    assert config.total_fine_grained_experts == 64, f"Total fine-grained experts should be 16*4=64, got {config.total_fine_grained_experts}"
+    assert config.total_activated_experts == 8, f"Total activated experts should be 2*4=8, got {config.total_activated_experts}"
+
+    comb = config.combinatorial_flexibility()
+    assert comb["conventional_c_n_k"] == 120, f"C(16, 2) must be 120, got {comb['conventional_c_n_k']}"
+    assert comb["fine_grained_c_mn_mk"] == 4426165368, f"C(64, 8) must be 4,426,165,368, got {comb['fine_grained_c_mn_mk']}"
+    assert comb["deepseek_moe_c_routed"] == math.comb(62, 6)
+
+    # 2. Shared Expert Isolation & Gate Sparsity
+    assert config.num_shared_experts == 2
+    assert config.num_routed_experts == 62
+    assert config.num_activated_routed == 6
+
+    router = DeepSeekMoERouter(config)
+    batch_t = 16
+    x_tokens = torch.randn(batch_t, config.hidden_dim, requires_grad=True)
+
+    weights, indices, exp_loss, dev_loss, aux_loss, metrics = router(x_tokens)
+    assert weights.shape == (batch_t, 6), f"Expected weights shape ({batch_t}, 6), got {weights.shape}"
+    assert indices.shape == (batch_t, 6), f"Expected indices shape ({batch_t}, 6), got {indices.shape}"
+    assert (indices >= 0).all() and (indices < 62).all(), "All routed indices must be in [0, 61]"
+
+    # Verify routing weights normalize to 1.0 per token
+    token_weight_sums = weights.sum(dim=-1)
+    assert torch.allclose(token_weight_sums, torch.ones_like(token_weight_sums), atol=1e-5), "Routing weights must sum to 1"
+
+    # 3. Multi-Level Load Balancing Loss
+    assert exp_loss.item() >= 0.0, "Expert balance loss must be non-negative"
+    assert dev_loss.item() >= 0.0, "Device balance loss must be non-negative"
+    assert abs(aux_loss.item() - (exp_loss.item() + dev_loss.item())) < 1e-6
+    assert "expert_entropy" in metrics
+    assert "device_load_imbalance" in metrics
+
+    # 4. End-to-End Layer Execution & Gradient Flow
+    layer = DeepSeekMoELayer(config)
+    batch_size, seq_len = 2, 4
+    x_seq = torch.randn(batch_size, seq_len, config.hidden_dim, requires_grad=True)
+
+    layer_out = layer(x_seq)
+    assert layer_out.hidden_states.shape == (batch_size, seq_len, config.hidden_dim)
+    assert layer_out.selected_indices.shape == (batch_size, seq_len, 6)
+    assert layer_out.routing_weights.shape == (batch_size, seq_len, 6)
+
+    # Autograd verification
+    target_loss = layer_out.hidden_states.sum() + layer_out.aux_loss
+    target_loss.backward()
+
+    assert x_seq.grad is not None and not torch.isnan(x_seq.grad).any()
+    assert layer.router.router_weights.weight.grad is not None
+
+    shared_grads = [p.grad for p in layer.shared_experts.parameters() if p.requires_grad]
+    assert len(shared_grads) > 0 and all(g is not None and not torch.isnan(g).any() for g in shared_grads)
+
+    routed_grads = [p.grad for p in layer.routed_experts.parameters() if p.requires_grad and p.grad is not None]
+    assert len(routed_grads) > 0, "Active routed experts must receive non-zero gradients"
+
+    # Also verify built-in standalone verification harness
+    ver_res = verify_deepseek_moe_invariants()
+    assert ver_res["verified"] is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -3603,6 +3713,8 @@ if __name__ == "__main__":
     print("  [PASS] 52. Deep Optimizer States Interleaved Offloading, Performance Model & Gradient Conversion (Paper 43 / Maurya)")
     test_deepseekmath_grpo_paper44_invariant()
     print("  [PASS] 53. DeepSeekMath GRPO Group Relative Advantage, Schulman KL & Iterative RL (Paper 44 / Shao)")
+    test_deepseek_moe_paper45_invariant()
+    print("  [PASS] 54. DeepSeekMoE Fine-Grained Segmentation, Shared Isolation & Multi-Level Load Balance (Paper 45 / Dai)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

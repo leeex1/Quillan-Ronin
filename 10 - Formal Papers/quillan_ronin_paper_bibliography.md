@@ -34,7 +34,7 @@
 | MoE Scaling Laws (Clark et al., 2022) | 2202.01169 | ✅ `MoE_Scaling_Laws_Experts.pdf` | Expert count / capacity design |
 | Mixtral of Experts (Jiang et al., 2024) | 2401.04088 | ✅ `Mixtral_of_Experts.pdf` + `Mixtral_of_Experts_v2.pdf` + `Mixtral_Sparse_MoE_Architecture.pdf` | Top-2 sparse MoE reference |
 | Expert Choice Routing (Zhou et al., 2022) | 2202.09368 | ✅ `Expert_Choice_Routing_MoE.pdf` | Alternative to token-choice (ComplexityRouter ref.) |
-| DeepSeekMoE (Dai et al., 2024) | 2401.06066 | ✅ `DeepSeekMoE_Fine_Grained_Expert.pdf` | Fine-grained expert segmentation, shared experts |
+| DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models (Dai et al., 2024 / DeepSeek-AI & PKU) | 2401.06066 | ✅ `DeepSeekMoE_2401.06066.pdf` | Fine-grained expert segmentation scaling intermediate FFN dimension to $(1/m) d_{\text{ffn}}$ expanding combinatorial routing capacity from $\binom{N}{K}$ to $\binom{mN}{mK}$ (e.g. 120 to 4,426,165,368 combinations), shared expert isolation ($K_s$ dedicated shared experts active for 100% of tokens to eliminate parameter redundancy), and multi-level load balancing (expert-level $\mathcal{L}_{\text{ExpBal}} = \alpha_1 \sum f_i P_i$ preventing routing collapse + device-level $\mathcal{L}_{\text{DevBal}} = \alpha_2 \sum f'_d P'_d$ balancing accelerator groups); implemented in `deepseek_moe_engine.py`, verified in `test_mathematical_wiring.py` test 54 |
 | DeepSeek-V3 Technical Report (2024) | 2412.19437 | ✅ `DeepSeek_V3_Technical_Report.pdf` | Auxiliary-loss-free balancing, MTP, FP8 training |
 | Mixture-of-Depths (Raposo et al., 2024) | 2404.02258 | ✅ `Mixture_of_Depths_Dynamic_Compute.pdf` | Dynamic compute allocation (cf. `ComplexityRouter`) |
 
@@ -102,7 +102,7 @@
 | Training Helpful, Harmless, Honest (Bai et al., 2022) | 2204.05862 | ✅ `Training_Helpful_Harmless_Honest_AI.pdf` | HHH alignment framework |
 | Constitutional AI (Bai et al., 2022) | 2212.08073 | ✅ `Constitutional_AI_Harmlessness_RLAIF.pdf` | `PrimeCovenantFramework` — RLAIF concept |
 | Soft Actor-Critic / Entropy Regularization | — | ✅ `Soft_Actor_Critic_Entropy_Regularization.pdf` | Entropy terms in `CCRLFramework` |
-| GRPO (DeepSeek, 2024-2025) | 2402.03300 / 2501.12948 | ✅ `GRPO_DeepSeekMath_RL_Reasoning.pdf` + `DeepSeek_R1_Reasoning_RL.pdf` | Critic-free RL (future CCRL upgrade) |
+| DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models / GRPO (Shao et al., 2024 / DeepSeek-AI) | 2402.03300 | ✅ `DeepSeekMath_GRPO.pdf` | Group Relative Policy Optimization (GRPO, Eq. 3) eliminating critic value model $V_\psi$ (~50% memory savings), Group-Relative Advantage Estimation for Outcome Supervision $\tilde{r}_i$ and Process Supervision cumulative step sums $\hat{A}_{i,t} = \sum_{\text{index}(j) \ge t} \tilde{r}_i^{\text{index}(j)}$, Schulman unbiased non-negative KL divergence estimator $D_{KL} = u - \log u - 1$ where $u = \pi_{\text{ref}}/\pi_\theta$, iterative reference model anchor synchronization $\pi_{\text{ref}} \leftarrow \pi_\theta$; implemented in `deepseekmath_grpo_engine.py`, verified in `test_mathematical_wiring.py` test 53 |
 
 ---
 
