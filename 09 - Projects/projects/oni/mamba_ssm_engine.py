@@ -72,6 +72,10 @@ class MambaConfig:
     bias: bool = False                 # Bias for linear projections
     conv_bias: bool = True             # Bias for 1D convolution
 
+    @property
+    def d_inner(self) -> int:
+        return int(self.expand * self.d_model)
+
 
 class SelectiveSSM(nn.Module):
     """
@@ -80,34 +84,57 @@ class SelectiveSSM(nn.Module):
     and contractive diagonal transition matrix A = -exp(A_log).
     """
 
-    def __init__(self, d_in: int, d_state: int = 16, dt_rank: int = 16, dt_min: float = 0.001, dt_max: float = 0.1):
+    def __init__(self, d_in: Union[int, MambaConfig], d_state: int = 16, dt_rank: int = 16, dt_min: float = 0.001, dt_max: float = 0.1):
         super().__init__()
-        self.d_in = d_in
-        self.d_state = d_state
-        self.dt_rank = dt_rank
+        if isinstance(d_in, MambaConfig):
+            cfg = d_in
+            d_state = cfg.d_state
+            if cfg.dt_rank == "auto":
+                dt_rank = math.ceil(cfg.d_model / 16)
+            else:
+                dt_rank = int(cfg.dt_rank)
+            dt_min = cfg.dt_min
+            dt_max = cfg.dt_max
+            d_in = cfg.d_inner
+            
+        self.d_in = int(d_in)
+        self.d_state = int(d_state)
+        self.dt_rank = int(dt_rank)
 
         # Structured state matrix A: shape (d_in, d_state)
         # Parameterized as A_log so that A = -exp(A_log) < 0 (HiPPO diagonal initialization)
-        A_init = torch.arange(1, d_state + 1, dtype=torch.float32).repeat(d_in, 1)
+        A_init = torch.arange(1, self.d_state + 1, dtype=torch.float32).repeat(self.d_in, 1)
         self.A_log = nn.Parameter(torch.log(A_init))
 
         # Skip parameter D: shape (d_in,)
-        self.D = nn.Parameter(torch.ones(d_in))
+        self.D = nn.Parameter(torch.ones(self.d_in))
 
         # Input-dependent projections for B, C, and Delta
         # Projects u to: (dt_rank + 2 * d_state)
-        self.x_proj = nn.Linear(d_in, dt_rank + 2 * d_state, bias=False)
+        self.x_proj = nn.Linear(self.d_in, self.dt_rank + 2 * self.d_state, bias=False)
 
         # Delta projection: maps dt_rank to d_in
-        self.dt_proj = nn.Linear(dt_rank, d_in, bias=True)
+        self.dt_proj = nn.Linear(self.dt_rank, self.d_in, bias=True)
 
         # Initialize dt_proj bias to log(exp(dt) - 1) for softplus so that softplus(bias) in [dt_min, dt_max]
         dt_init_val = torch.exp(
-            torch.rand(d_in) * (math.log(dt_max) - math.log(dt_min)) + math.log(dt_min)
+            torch.rand(self.d_in) * (math.log(dt_max) - math.log(dt_min)) + math.log(dt_min)
         )
         inv_dt = dt_init_val + torch.log(-torch.expm1(-dt_init_val))  # inverse softplus
         with torch.no_grad():
             self.dt_proj.bias.copy_(inv_dt)
+
+    @property
+    def A(self) -> torch.Tensor:
+        """Continuous negative diagonal transition matrix A = -exp(A_log) < 0."""
+        return -torch.exp(self.A_log)
+
+    def project_selective_params(self, u: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Project input tensor u to content-dependent (Delta, B, C)."""
+        x_dbl = self.x_proj(u)
+        delta_proj, B, C = torch.split(x_dbl, [self.dt_rank, self.d_state, self.d_state], dim=-1)
+        delta = F.softplus(self.dt_proj(delta_proj))
+        return delta, B, C
 
     def forward(self, u: torch.Tensor) -> torch.Tensor:
         """
@@ -242,11 +269,17 @@ class MambaModel(nn.Module):
     Multi-layer Mamba sequence backbone with residual connections and RMSNorm.
     """
 
-    def __init__(self, num_layers: int = 2, config: Optional[MambaConfig] = None):
+    def __init__(self, config: Optional[Union[MambaConfig, int]] = None, num_layers: int = 2, **kwargs):
         super().__init__()
+        if isinstance(config, int):
+            num_layers = config
+            config = kwargs.get("config", None)
+        if "n_layers" in kwargs:
+            num_layers = kwargs["n_layers"]
         if config is None:
             config = MambaConfig()
         self.config = config
+        self.num_layers = num_layers
         self.layers = nn.ModuleList([MambaBlock(config) for _ in range(num_layers)])
         self.norms = nn.ModuleList([nn.LayerNorm(config.d_model) for _ in range(num_layers)])
 
