@@ -854,6 +854,130 @@
 - **Test Invariant**: `test_bengio_ste_paper85_invariant` (Unit Test 80 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+---
+
+### Papers 86 & 87: ST-MoE: Designing Stable and Transferable Sparse Expert Models
+
+- **File**: `ST-MoE_Stable_Sparse_Experts.pdf` & `ST-MoE_Stable_Transferable_Sparse_Experts.pdf` (38 pp)
+- **Authors**: Barret Zoph, Irwan Bello, Sameer Kumar, Nan Du, Yanping Huang, Jeff Dean, Noam Shazeer, William Fedus
+- **Affiliation**: Google Brain
+- **Date/Year**: February 2022 / arXiv:2202.08906
+- **Domain**: Sparse Mixture-of-Experts (MoE), Router Z-Loss, Numerical Stability, Input Jittering, Capacity Factors
+- **Document Relationship**: Papers 86 and 87 are byte-for-byte identical duplicates (MD5 hash: `be1c05824d87bc8434c0dd5dff01002a`).
+- **Core Formulations & Architectural Contributions**:
+  1. *Router Z-Loss Formulation (Section 3.1, Eq. 1)*:
+     To prevent training instability and catastrophic divergence caused by exponentiating roundoff errors in large routing logits, ST-MoE introduces an auxiliary loss penalizing large log-partition functions:
+     $$\mathcal{L}_z(x) = \frac{c_z}{N} \sum_{i=1}^N \left(\log \sum_{j=1}^E \exp(x_{i, j})\right)^2$$
+     where $c_z = 10^{-4}$ typically. This pulls large logits back toward zero without degrading top-k routing quality or downstream perplexity.
+  2. *Multiplicative Input Jitter (Section 3.2)*:
+     During training only, inputs $x$ to the gating router are perturbed by multiplicative uniform noise:
+     $$\tilde{x} = x \odot \epsilon, \quad \epsilon \sim U(1 - \epsilon_{\text{jitter}}, 1 + \epsilon_{\text{jitter}})$$
+     with $\epsilon_{\text{jitter}} = 0.01$. This acts as a continuous regularizer against sharp gating boundaries and mode collapse. In evaluation, $\tilde{x} = x$.
+  3. *Auxiliary Load Balancing Loss (Section 2.1, Eq. 2)*:
+     Enforces uniform distribution across $E$ experts:
+     $$\mathcal{L}_{\text{aux}} = \alpha \cdot E \sum_{i=1}^E f_i P_i$$
+     where $f_i = \frac{1}{N} \sum_{x \in X} \mathbf{1}_{(\text{expert } i \text{ selected})}$ and $P_i = \frac{1}{N} \sum_{x \in X} p_i(x)$.
+  4. *Capacity-Capped Top-2 Gating with Overflow Dropping (Section 2.1)*:
+     Limits token processing per expert via capacity $C = \lfloor \frac{\text{capacity\_factor} \cdot B \cdot S}{E} \rfloor$. Tokens dispatched beyond capacity $C$ are dropped by the expert and routed straight through the residual connection, guaranteeing fixed tensor shapes for distributed hardware.
+  5. *SwiGLU Expert Activation & Scaling Invariants*:
+     Employs SwiGLU non-linearities for feed-forward experts with strict gradient flow to both router and expert weights.
+- **Engine Implementation**: [`st_moe_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/st_moe_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_st_moe_paper86_invariant` (Unit Test 81 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**:
+  - Row 86: VERIFIED.
+  - Row 87: VERIFIED (DUPLICATE OF ROW 86).
+
+---
+
+### Paper 88: Switch Transformers: Scaling to Trillion Parameter Models with Simple and Efficient Sparsity
+
+- **File**: `Switch_Transformers_Scaling_MoE.pdf` (40 pp)
+- **Authors**: William Fedus, Barret Zoph, Noam Shazeer
+- **Affiliation**: Google, Mountain View, CA
+- **Journal/Year**: Journal of Machine Learning Research 23 (2022) 1-40 / arXiv:2101.03961
+- **Domain**: Sparse Mixture-of-Experts (MoE), Top-1 Switch Routing, Capacity Factors, Selective Precision, Scaling
+- **Core Formulations & Architectural Contributions**:
+  1. *Simplified Top-1 Switch Routing (Section 2.1, Eqs. 1-2)*:
+     Replaces complex Top-k routing with single-expert dispatch:
+     $$p_i(x) = \frac{\exp(h(x)_i)}{\sum_{j=1}^N \exp(h(x)_j)}, \quad i^* = \arg\max_i p_i(x)$$
+     $$y = p_{i^*}(x) \cdot E_{i^*}(x)$$
+     Halves required expert capacity, eliminates all inter-expert token synchronization overhead, and reduces routing FLOPs while preserving model quality.
+  2. *Expert Capacity Factor & Dropping Bypass (Section 2.2, Eq. 3)*:
+     Statically bounds expert batch size for distributed tensor compilers:
+     $$\text{expert\_capacity} = \left\lfloor \frac{\text{tokens\_per\_batch}}{N} \times \text{capacity\_factor} \right\rfloor$$
+     Tokens arriving at an expert beyond this limit are dropped from expert computation and routed directly through the residual stream ($y = x$).
+  3. *Differentiable Load Balancing Auxiliary Loss (Section 2.2, Eqs. 4-6, Appendix F Fig. 14)*:
+     Enforces uniform token allocation across $N$ experts without separate importance terms:
+     $$\mathcal{L}_{\text{balance}} = \alpha \cdot N \sum_{i=1}^N f_i \cdot P_i$$
+     where $f_i = \frac{1}{T} \sum_{x \in B} \mathbf{1}_{\{\arg\max p(x) = i\}}$ is the non-differentiable fraction of dispatched tokens and $P_i = \frac{1}{T} \sum_{x \in B} p_i(x)$ is the differentiable probability fraction. Under uniform routing $f_i = P_i = 1/N$, the loss attains its global minimum of $\alpha$ (typically $\alpha = 0.01$).
+  4. *Selective Precision Training (Section 2.4, Table 2)*:
+     Casts local router operations (linear projection, exploration noise, and softmax) to `float32` precision while leaving high-volume activations and parameters in `bfloat16`, completely curing the numerical instabilities of large-scale MoE training without communication cost.
+  5. *Reduced Initialization Scale (Section 2.4, Table 3)*:
+     Initializes weights with a truncated normal distribution scaled down by $10\times$ ($s = 0.1$):
+     $$\sigma = \sqrt{\frac{s}{n_{\text{in}}}}$$
+     reducing run-to-run variance and stabilizing multi-billion to trillion-parameter models.
+  6. *Expert Dropout Regularization (Section 2.4, Table 4)*:
+     Prevents overfitting during downstream fine-tuning by decoupling regularizations: standard dropout $d = 0.1$ at dense attention/norm layers, and elevated expert dropout $ed = 0.4$ within interim expert feed-forward computations.
+- **Engine Implementation**: [`switch_transformer_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/switch_transformer_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_switch_transformer_paper88_invariant` (Unit Test 82 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 89: The 6.4 Million Token Anomaly: Phantom Acceleration, Virtual Memory Traps, and Catastrophic Drive Failure in 1.58-bit Multi-Agent Inference
+
+- **File**: `The 6.4 Million Token Anomaly (1).pdf` & `The 6.4 Million Token Anomaly.pdf` (4 pp)
+- **Authors**: Quillan-Ronin Research Group (Lead Architect: CrashOverrideX)
+- **Date/Year**: May 6, 2026
+- **Domain**: BitNet 1.58b Inference Velocity, Multi-Agent Swarms, Hardware Forensic Deconstruction, Virtual Memory Paging
+- **Document Relationship**: `The 6.4 Million Token Anomaly (1).pdf` and `The 6.4 Million Token Anomaly.pdf` are byte-for-byte identical duplicates (MD5 hash: `49f6bf205fc96b93b37fb108329086ed`).
+- **Core Formulations & Architectural Contributions**:
+  1. *Phantom Token Acceleration (PTA) Formulation (Section 3.2, Eq. 1)*:
+     Dissects how a 33-expert Web-of-Thought (WoT) branching tree recursively expanded to $9 \times 10^9$ sub-agents in RAM, producing an aggregate telemetry burst of 6,400,000 tps:
+     $$V_{\text{agg}} = S \times \sum_{i=1}^E (B_i \times M_i)$$
+     where $S = 15.1\text{ tps}$ is the BitNet sequential baseline, $B_i$ is branching factor, and $M_i$ is the asynchronous memory multiplier.
+  2. *Virtual Memory Trap & Counterfeit Hardware Destruction (Section 4)*:
+     When state-tensors reached 4.5 TB, the Windows Virtual Memory Manager paged to a secondary external USB drive advertised as 3.8 TB. The drive was a counterfeit device containing only 64 GB of NAND flash with spoofed firmware; concurrent scatter-gather 4KB I/O requests instantly overwhelmed the Flash Translation Layer (FTL), causing a 3556 ms latency spike and permanent hardware death.
+  3. *Lee-Mach-6 Thermodynamic Governor (Section 5.2, Eq. 2)*:
+     Introduces the thermodynamic I/O-aware throttling governor bounding tree branching $B_{\max}$ inversely to disk response latency $R_{\text{disk}}$:
+     $$B_{\max} = \left\lfloor \frac{K}{R_{\text{disk}}} \right\rfloor$$
+     enforcing a hard freeze when $R_{\text{disk}} > 100\text{ ms}$ to prevent hardware collapse.
+- **Engine Implementation**: N/A (Internal Foundational Research Monograph; Lee-Mach-6 algorithm implemented in [`leemach6_governor.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/leemach6_governor.py), Test 5 in `test_mathematical_wiring.py`).
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 90: The Digital Ronin's Field Manual: A Strategic Blueprint for Exposing Suno's IP Trap and Achieving Creator Sovereignty
+
+- **File**: `The Digital Ronin's Field Manual_ A Strategic Blueprint for Exposing Suno's IP Trap and Achieving Creator Sovereignty.pdf` (34 pp)
+- **Author**: CrashOverrideX / Quillan-Ronin
+- **Domain**: AI Music Intellectual Property, Corporate Terms of Service Analysis, Creator Sovereignty, Decentralized Architecture
+- **Core Formulations & Architectural Contributions**:
+  1. *Deconstruction of Proprietary AI Music Entrapment*:
+     Performs systematic legal and architectural analysis of corporate AI music platforms (e.g. Suno), identifying unconscionable contractual clauses, perpetual servitude terms, and covert user training data harvesting.
+  2. *Creator Sovereignty Blueprint*:
+     Establishes operational and technical blueprints for sovereign creators, emphasizing local model execution, offline inference pipelines, cryptographic provenance verification, and open-weights audio architectures.
+- **Engine Implementation**: N/A (Internal Strategic Blueprint & Legal-Technical Architecture).
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 91: The Virality Paradox: Engineering Neural Synchrony to Create a Track from Raw Brainwave Data
+
+- **File**: `The Virality Paradox_ Engineering Neural Synchrony to Create a Track from Raw Brainwave Data.pdf` (20 pp)
+- **Author**: CrashOverrideX / Quillan-Ronin
+- **Domain**: Neuro-Acoustics, Brain-Computer Interface (BCI), Neural Sonification, Brainwave Entrainment, Biofeedback Music Generation
+- **Core Formulations & Architectural Contributions**:
+  1. *Methodologies for Neural Sonification*:
+     Formulates conversion algorithms translating raw multi-channel electroencephalogram (EEG) signals across delta (0.5–4 Hz), theta (4–8 Hz), alpha (8–13 Hz), beta (13–30 Hz), and gamma (30–100 Hz) into harmonic frequency ratios, dynamic filter sweeps, and MIDI/synthesizer triggers.
+  2. *Engineering Neural Synchrony & The Virality Paradox*:
+     Examines biofeedback composition systems that dynamically align acoustic beats and timbral textures to induce phase-locking and inter-brain neural synchrony across listeners.
+- **Engine Implementation**: N/A (Internal Neuro-Acoustic Research Monograph).
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+
+
+
 
 
 

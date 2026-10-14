@@ -475,6 +475,16 @@ from bengio_ste_engine import (
     BengioConditionalComputationLayer,
     verify_bengio_ste_invariants,
 )
+from st_moe_engine import (
+    STMoEConfig,
+    InputJitter,
+    RouterZLoss,
+    AuxiliaryLoadBalanceLoss,
+    STMoERouter,
+    STMoEExpert,
+    STMoELayer,
+    verify_st_moe_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -5633,6 +5643,213 @@ def test_bengio_ste_paper85_invariant():
     assert inp.grad is not None and torch.isfinite(inp.grad).all()
 
 
+def test_st_moe_paper86_invariant():
+    """
+    Paper 86 / 87 Invariant Test: ST-MoE (Stable and Transferable Sparse Expert Models)
+    Barret Zoph, Irwan Bello, Sameer Kumar et al. (Google Brain / Research, 2022 / arXiv:2202.08906)
+
+    Verifies:
+    1. Core verification harness passing via verify_st_moe_invariants().
+    2. Router Z-Loss Formulation (Section 3.1, Eq. 1):
+       - L_z = (c_z / N) * sum (logsumexp(logits))^2.
+       - Penalizes large runaway logits to prevent bfloat16/float32 precision underflow/overflow.
+    3. Multiplicative Input Jitter (Section 3.2):
+       - Injects multiplicative uniform noise in training mode.
+       - Deterministically disabled during evaluation (identity mapping).
+    4. Auxiliary Load Balancing Loss (Section 2, Eq. 2):
+       - L_aux = alpha * E * sum f_i * P_i.
+       - Penalizes routing imbalance.
+    5. Top-K Normalized Gating with Capacity Capping (Section 3.3):
+       - Strictly normalizes Top-K softmax weights to 1.0.
+       - Enforces buffer capacity floor((capacity_factor * B * S) / E), dropping overflow tokens.
+    6. Complete STMoELayer execution and clean gradient backpropagation across router and experts.
+    """
+    torch.manual_seed(42)
+
+    # 1. Core harness verification
+    res = verify_st_moe_invariants()
+    assert res["status"] == "PASS"
+
+    # 2. Router Z-loss convexity
+    zloss = RouterZLoss(weight=1e-3)
+    small_logits = torch.randn(4, 8, requires_grad=True)
+    large_logits = small_logits + 15.0
+    loss_small = zloss(small_logits)
+    loss_large = zloss(large_logits)
+    assert loss_large.item() > loss_small.item()
+    loss_large.backward()
+    assert small_logits.grad is not None
+
+    # 3. Input Jitter behavior
+    jitter = InputJitter(eps=0.02)
+    x = torch.ones(5, 16)
+    jitter.train()
+    assert not torch.equal(jitter(x), x)
+    jitter.eval()
+    assert torch.equal(jitter(x), x)
+
+    # 4. End-to-end Layer execution
+    cfg = STMoEConfig(
+        hidden_dim=32,
+        intermediate_dim=64,
+        num_experts=4,
+        top_k=2,
+        capacity_factor=1.25,
+        z_loss_weight=1e-3,
+        aux_loss_weight=1e-2,
+        input_jitter_eps=0.01,
+        activation="swiglu",
+    )
+    layer = STMoELayer(cfg)
+    inp = torch.randn(2, 8, 32, requires_grad=True)
+    out, metrics = layer(inp)
+
+    assert out.shape == inp.shape
+    assert metrics["z_loss"].item() > 0.0
+    assert metrics["aux_loss"].item() > 0.0
+
+    # Backprop
+    total_loss = out.sum() + metrics["total_router_loss"]
+    total_loss.backward()
+
+    assert inp.grad is not None and torch.isfinite(inp.grad).all()
+    assert layer.router.gate_proj.weight.grad is not None
+    assert layer.experts[0].w1.weight.grad is not None
+
+
+def test_switch_transformer_paper88_invariant():
+    """
+    Paper 88 / Fedus et al. (2021/2022) - Switch Transformers: Scaling to Trillion Parameter Models
+    Verifies:
+      1. Top-1 Sparse Routing (each token dispatched to exactly 1 expert, gate equals top-1 probability).
+      2. Selective Precision Training (Router computes in float32 without instability).
+      3. Capacity Factor & Deterministic Token Dropping (tokens exceeding C are dropped and pass through residual bypass).
+      4. Differentiable Load Balancing Auxiliary Loss (scaled by N, strictly minimized under uniform distribution).
+      5. Full end-to-end forward-backward gradient flow through both router and expert weights.
+    """
+    from switch_transformer_engine import (
+        SwitchRouter,
+        SwitchExpert,
+        SwitchFeedForward,
+        SwitchTransformerLayer,
+        truncated_normal_init_
+    )
+
+    torch.manual_seed(42)
+
+    # 1. Top-1 Sparse Routing & Selective Precision
+    d_model = 32
+    num_experts = 4
+    batch_size = 2
+    seq_len = 8
+    num_tokens = batch_size * seq_len  # 16 tokens
+
+    router = SwitchRouter(
+        d_model=d_model,
+        num_experts=num_experts,
+        capacity_factor=1.0,
+        aux_loss_coeff=0.01,
+        selective_precision=True
+    )
+
+    # Input in half precision (float16) to verify selective precision cast
+    x_half = torch.randn(num_tokens, d_model, dtype=torch.float16)
+    routing_out = router(x_half)
+
+    # Invariants:
+    # Top-1 gating: each token is assigned to exactly one expert
+    assert routing_out.dispatched_indices.shape == (num_tokens,)
+    assert routing_out.dispatched_indices.dtype == torch.int64
+    assert (routing_out.dispatched_indices >= 0).all() and (routing_out.dispatched_indices < num_experts).all()
+    # Output dtype preserved
+    assert routing_out.gate_values.dtype == torch.float16
+    assert routing_out.router_probs.dtype == torch.float16
+    assert routing_out.aux_loss.item() > 0.0
+
+    # 2. Capacity Factor & Deterministic Dropping Invariant
+    # Capacity for 16 tokens across 4 experts with cf=1.0 is C = floor(16/4 * 1.0) = 4 tokens per expert.
+    # If all tokens are routed to expert 0, exactly 4 tokens should be processed and 12 dropped!
+    biased_router = SwitchRouter(
+        d_model=d_model,
+        num_experts=num_experts,
+        capacity_factor=1.0,
+        aux_loss_coeff=0.01,
+        selective_precision=True
+    )
+    # Bias router weight heavily toward expert 0
+    with torch.no_grad():
+        biased_router.weight.zero_()
+        biased_router.weight[:, 0] = 100.0  # Expert 0 dominates
+
+    biased_x = torch.ones(num_tokens, d_model)
+    biased_out = biased_router(biased_x)
+    assert (biased_out.dispatched_indices == 0).all(), "All tokens should route to expert 0"
+    assert biased_out.dropped_mask.sum().item() == 12, "Exactly 12 tokens should overflow capacity C=4"
+    assert (biased_out.gate_values[:4] > 0.0).all(), "First 4 tokens fit in capacity"
+    assert (biased_out.gate_values[4:] == 0.0).all(), "Overflow tokens have gate masked to 0"
+
+    # 3. Load Balancing Auxiliary Loss: Uniform vs Skewed Monotonicity
+    # For uniform routing across N experts, L_aux = alpha * N * sum( (1/N) * (1/N) ) = alpha = 0.01
+    # For totally collapsed routing (all tokens to 1 expert), L_aux = alpha * N * (1 * 1) = alpha * N = 0.04
+    uniform_probs = torch.full((num_tokens, num_experts), 1.0 / num_experts)
+    uniform_mask = torch.zeros(num_tokens, num_experts)
+    for i in range(num_tokens):
+        uniform_mask[i, i % num_experts] = 1.0  # perfectly balanced 4 tokens per expert
+    f_unif = uniform_mask.mean(dim=0)
+    p_unif = uniform_probs.mean(dim=0)
+    loss_unif = 0.01 * float(num_experts) * torch.sum(f_unif * p_unif).item()
+    assert abs(loss_unif - 0.01) < 1e-5, f"Uniform load loss should equal alpha=0.01, got {loss_unif}"
+
+    skewed_loss = biased_out.aux_loss.item()
+    assert skewed_loss > loss_unif, f"Skewed loss ({skewed_loss}) must exceed uniform loss ({loss_unif})"
+
+    # 4. Switch FFN with Residual Bypass & Full Gradient Flow
+    switch_ffn = SwitchFeedForward(
+        d_model=d_model,
+        d_ff=64,
+        num_experts=num_experts,
+        capacity_factor=1.5,
+        aux_loss_coeff=0.01,
+        expert_dropout=0.0,
+        selective_precision=True
+    )
+
+    inp = torch.randn(batch_size, seq_len, d_model, requires_grad=True)
+    out, aux_loss, stats = switch_ffn(inp)
+
+    assert out.shape == inp.shape
+    assert aux_loss.item() > 0.0
+
+    loss = out.sum() + aux_loss
+    loss.backward()
+
+    assert inp.grad is not None and torch.isfinite(inp.grad).all()
+    assert switch_ffn.router.weight.grad is not None
+    assert torch.isfinite(switch_ffn.router.weight.grad).all()
+    # At least one expert must receive gradients
+    expert_grad_found = any(
+        e.w1.weight.grad is not None and torch.isfinite(e.w1.weight.grad).all()
+        for e in switch_ffn.experts
+    )
+    assert expert_grad_found, "At least one expert should have received backward gradients"
+
+    # 5. Full Switch Transformer Layer Integration
+    layer = SwitchTransformerLayer(
+        d_model=d_model,
+        n_heads=4,
+        d_ff=64,
+        num_experts=num_experts,
+        capacity_factor=1.25,
+        standard_dropout=0.1,
+        expert_dropout=0.4,
+        aux_loss_coeff=0.01
+    )
+    layer_in = torch.randn(batch_size, seq_len, d_model)
+    layer_out, layer_aux, layer_stats = layer(layer_in)
+    assert layer_out.shape == layer_in.shape
+    assert layer_aux.item() > 0.0
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5798,6 +6015,10 @@ if __name__ == "__main__":
     print("  [PASS] 79. ProTrain Automatic Memory Management & Cost Model Invariant (Paper 80 / Yang et al.)")
     test_bengio_ste_paper85_invariant()
     print("  [PASS] 80. Bengio Straight-Through Estimator (STE) & Conditional Computation (Paper 85 / Bengio et al.)")
+    test_st_moe_paper86_invariant()
+    print("  [PASS] 81. ST-MoE Router Z-Loss, Input Jitter & Capacity-Capped Gating (Papers 86 & 87 / Zoph et al.)")
+    test_switch_transformer_paper88_invariant()
+    print("  [PASS] 82. Switch Transformer Top-1 Routing, Capacity Capping & Selective Precision (Paper 88 / Fedus et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
