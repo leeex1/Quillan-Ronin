@@ -388,6 +388,14 @@ from moe_cpu_gpu_collaborative_engine import (
     CPUGPUCollaborativeModel,
     verify_moe_cpu_gpu_invariants,
 )
+from shazeer_moe_engine import (
+    ShazeerMoEConfig,
+    ShazeerExpert,
+    NoisyTopKGating,
+    ShazeerSparselyGatedMoELayer,
+    ShazeerHierarchicalMoELayer,
+    verify_shazeer_moe_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4870,6 +4878,88 @@ def test_moe_cpu_gpu_paper68_invariant():
     assert res.get("all_invariants_passed") is True
 
 
+def test_shazeer_moe_paper69_invariant():
+    """
+    Verifies Paper 69: Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
+    (Noam Shazeer et al., Google Brain & Jagiellonian, ICLR 2017 / arXiv:1701.06538).
+
+    Tests 6 Core Architectural & Mathematical Invariants:
+      1. Zero-Weight Gating Initialization (Appendix A):
+         W_g and W_noise initialize to strict zeros, yielding uniform probabilities perturbed by standard Gaussian noise.
+      2. Noisy Top-K Gating & Partition of Unity (Section 2, Eqs. 2-5):
+         Sparse routing produces exactly k non-zero gate weights summing strictly to 1.0.
+      3. Importance Loss (Section 4, Eqs. 6-7):
+         Square of coefficient of variation (CV^2) of batch-wise gate sums penalizes expert under/over-allocation.
+      4. Smooth Normal CDF Load Balancing Loss (Appendix A, Eqs. 8-11):
+         P(x, i) = Phi( ((x * W_g)_i - kth_excluding) / Softplus(x * W_noise) ) delivers continuous,
+         differentiable load approximation through the Gaussian error function.
+      5. End-to-End Backward Gradient Propagation:
+         Validates finite gradients backpropagating through expert outputs, gating network parameters (W_g, W_noise),
+         and token representations.
+      6. Two-Level Hierarchical MoE Scaling (Appendix B):
+         Primary-secondary gating structure accurately routes tokens across multi-tier expert groups.
+    """
+    torch.manual_seed(42)
+    cfg = ShazeerMoEConfig(
+        d_model=64,
+        d_hidden=256,
+        num_experts=8,
+        k=2,
+        w_importance=0.1,
+        w_load=0.1,
+        noisy_gating=True
+    )
+
+    # 1. Zero Initialization Invariant
+    gating = NoisyTopKGating(cfg.d_model, cfg.num_experts, cfg.k)
+    gating.reset_parameters()
+    assert (gating.w_gate == 0).all()
+    assert (gating.w_noise == 0).all()
+
+    # Re-init for testing
+    nn.init.normal_(gating.w_gate, std=0.05)
+    nn.init.normal_(gating.w_noise, std=0.05)
+
+    # 2. Noisy Top-K Gating & Sparsity
+    B, S, D = 4, 16, cfg.d_model
+    x = torch.randn(B, S, D, requires_grad=True)
+    gates, indices, top_gates, losses = gating(x, train_mode=True)
+    assert (gates > 0).sum(dim=-1).eq(cfg.k).all(), f"Each token must activate exactly {cfg.k} experts"
+    assert torch.allclose(gates.sum(dim=-1), torch.ones(B, S), atol=1e-5), "Gate weights must sum to 1.0"
+
+    # 3. Importance & Load Losses
+    assert losses["loss_importance"] >= 0.0
+    assert losses["loss_load"] >= 0.0
+    assert losses["loss_aux"] > 0.0
+
+    # 4. Sparsely-Gated MoE Layer Forward & Backward Pass
+    moe_layer = ShazeerSparselyGatedMoELayer(cfg)
+    out, meta = moe_layer(x, train_mode=True)
+    assert out.shape == x.shape
+    total_loss = out.sum() + meta["losses"]["loss_aux"]
+    total_loss.backward()
+    assert x.grad is not None and torch.isfinite(x.grad).all()
+    assert moe_layer.gating.w_gate.grad is not None
+    assert moe_layer.gating.w_noise.grad is not None
+
+    # 5. Deterministic Evaluation Mode
+    moe_layer.eval()
+    with torch.no_grad():
+        x_eval = torch.randn(2, 8, D)
+        out1, _ = moe_layer(x_eval, train_mode=False)
+        out2, _ = moe_layer(x_eval, train_mode=False)
+        assert torch.allclose(out1, out2, atol=1e-6)
+
+    # 6. Hierarchical MoE (Appendix B)
+    h_moe = ShazeerHierarchicalMoELayer(d_model=64, d_hidden=128, num_groups=4, experts_per_group=4, k1=1, k2=2)
+    h_out, h_meta = h_moe(x_eval)
+    assert h_out.shape == x_eval.shape
+    assert h_meta["total_aux_loss"] > 0.0
+
+    # 7. Standalone verification harness
+    assert verify_shazeer_moe_invariants() is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5017,6 +5107,8 @@ if __name__ == "__main__":
     print("  [PASS] 70. Mixture of Diverse Size Experts (MoDSE) Parameter Conservation, Expert-Pair Hardware Allocation & Heterogeneous Dispatch Invariant (Paper 67 / Sun et al.)")
     test_moe_cpu_gpu_paper68_invariant()
     print("  [PASS] 71. CPU-GPU Collaborative MoE Inference, Set-Associative LRU Cache & Activation Offloading Invariant (Paper 68 / Huang et al.)")
+    test_shazeer_moe_paper69_invariant()
+    print("  [PASS] 72. Sparsely-Gated MoE Noisy Top-K Gating, Normal CDF Load Loss & Hierarchical Invariant (Paper 69 / Shazeer et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

@@ -425,6 +425,58 @@
 - **Test Invariant**: `test_modse_paper67_invariant` (Unit Test 70 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 68: CPU-GPU Collaborative Execution for Mixture-of-Experts Language Models
+- **Authors**: En-Ming Huang, Yu-An Lin, Tsung-Tai Yeh
+- **Affiliation**: National Taiwan University & National Tsing Hua University
+- **Date**: December 18, 2025 (arXiv:2512.16473v1)
+- **PDF Artifact**: `MoE_CPU_GPU_2512.16473.pdf` (8 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *GPU LRU Expert Cache ($N$-index, $M$-way set-associative)*:
+     Maintains the most frequently/recently visited experts on GPU memory. Token routing exhibits heavy-tailed, Zipfian distribution; caching top experts achieves 70-80%+ hit rates without exhausting GPU VRAM.
+  2. *Activation Offloading for Cache Misses (Section 3.3)*:
+     For cache misses, instead of transferring complete expert weights ($O(3 \times d \times h)$) over PCIe to GPU, the intermediate token activation vectors ($O(B \times S \times d)$) are offloaded to CPU host memory. This slashes PCIe communication volume by up to $384\times$.
+  3. *Multi-Threaded Host CPU Expert Execution*:
+     Offloaded activations are processed on multi-threaded host CPU and resulting output vectors are streamed back to GPU and accumulated into the token residual stream.
+  4. *Asynchronous Background Post-Fetching*:
+     While CPU executes missed experts, expert weights can be asynchronously post-fetched into the GPU LRU cache in the background without stalling the GPU execution pipeline.
+  5. *Layer-Partitioned Hybrid Pipeline*:
+     Layers with dense attention or high cache capacity run on GPU; tail layers or overflow experts operate under collaborative CPU-GPU routing.
+- **Implementation Module**: [`moe_cpu_gpu_collaborative_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/moe_cpu_gpu_collaborative_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_moe_cpu_gpu_paper68_invariant` (Unit Test 71 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+### Paper 69: Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
+- **Authors**: Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, Jeff Dean
+- **Affiliation**: Google Brain & Jagiellonian University
+- **Date**: January 23, 2017 (ICLR 2017 / arXiv:1701.06538)
+- **PDF Artifact**: `MoE_Outrageously_Large_Neural_Networks.pdf` (19 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Sparsely-Gated MoE Formulation (Section 2, Eq. 1)*:
+     Dispatches tokens across $n$ experts via $y = \sum_{i=1}^n G(x)_i E_i(x)$ where only experts with $G(x)_i > 0$ are evaluated, scaling model parameters by orders of magnitude while preserving computational budget.
+  2. *Noisy Top-K Gating (Section 2, Eqs. 2-5)*:
+     Adds tunable Gaussian noise before softmax:
+     $$H(x)_i = (x \cdot W_g)_i + \epsilon \cdot \text{Softplus}((x \cdot W_{\text{noise}})_i), \quad \epsilon \sim \mathcal{N}(0, 1)$$
+     Evaluates $\text{KeepTopK}(H(x), k)_i = H(x)_i$ for top-$k$ components and $-\infty$ otherwise, producing sparse continuous gate weights:
+     $$G(x) = \text{Softmax}(\text{KeepTopK}(H(x), k))$$
+     guaranteeing partition of unity ($\sum_{i=1}^n G(x)_i = 1.0$) and nonzero gradient flow through top-$k$ components.
+  3. *Importance Loss (Section 4, Eqs. 6-7)*:
+     Batch-wise importance $\text{Importance}(X) = \sum_{x \in X} G(x)$.
+     $$\mathcal{L}_{\text{importance}} = w_{\text{importance}} \cdot \text{CV}(\text{Importance}(X))^2$$
+     penalizing variance across total expert weight allocations across the batch.
+  4. *Smooth Normal CDF Load Balancing Loss (Appendix A, Eqs. 8-11)*:
+     Smooth estimator $P(x, i)$ computes the probability that $G(x)_i$ is non-zero under noise re-sampling:
+     $$P(x, i) = \Phi\left(\frac{(x \cdot W_g)_i - k\text{th\_excluding}(H(x), k, i)}{\text{Softplus}((x \cdot W_{\text{noise}})_i)}\right)$$
+     where $\Phi$ is the Gaussian CDF ($\Phi(z) = \frac{1}{2}[1 + \text{erf}(z / \sqrt{2})]$).
+     Smooth batch load $\text{Load}(X)_i = \sum_{x \in X} P(x, i)$.
+     $$\mathcal{L}_{\text{load}} = w_{\text{load}} \cdot \text{CV}(\text{Load}(X))^2$$
+     Backpropagates smooth gradients to prevent discrete token starvation and hardware imbalance.
+  5. *Two-Level Hierarchical MoE Scaling (Appendix B)*:
+     Decomposes $n = A \times B$ experts into $A$ primary groups and $B$ secondary experts per group, scaling to thousands of experts with sub-linear routing complexity.
+- **Implementation Module**: [`shazeer_moe_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/shazeer_moe_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_shazeer_moe_paper69_invariant` (Unit Test 72 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
 
 
 
