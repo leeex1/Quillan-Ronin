@@ -1042,6 +1042,85 @@
 - **Test Invariant**: `test_unit_distance_paper93_invariant` (Unit Test 84 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+---
+
+### Paper 94: WikiSkill: Compiling Agent Experience into Persistent Knowledge for Skill Evolution
+- **Authors**: Liyan Tang, Cyrus Rashtchian, Chun-Sung Ferng, Andrew Tomkins, Da-Cheng Juan, Tu Vu (Google Research, Virginia Tech).
+- **Publication**: arXiv:2608.27454 (2026; 28 pp).
+- **Physical PDF**: `C:\02_QUILLAN\10 - Formal Papers\Formal Papers\WikiSkill_2608.27454.pdf`.
+- **Core Formulations & Architectural Invariants**:
+  1. *Three-Layer Architecture (Section 3.1)*:
+     - **Execution Layer (`raw/`)**: Immutable multi-turn execution traces $\tau_i \sim \pi(x_i; S_{k-1})$ recording environment tools $U$, queries, tool calls, stdout/stderr, and task outcomes.
+     - **Persistent Knowledge Layer (`wiki/`)**: Continuously compounding knowledge base containing pattern pages `wiki/patterns/*.md` (root causes, failure modes, successful strategies, workarounds), catalog `wiki/index.md`, iteration log `wiki/logs.md`, and programmatic audit tracker `wiki/skill-impact.md`.
+     - **Active Skills Layer (`skills/`)**: Active modular filesystem skills $S = \{S_1, \dots, S_m\}$, each containing executable procedural instructions `SKILL.md` and pattern grounding map `PURPOSE.md`.
+  2. *Stratified Trace Sampling (Section 3.2.2 & Appendix C)*:
+     Subsamples training traces $T_{\text{sample}, k} \subset T_{\text{train}, k}$ with bounded budget $|T_{\text{sample}, k}| \le 8$:
+     - Up to 5 failing traces for root-cause diagnosis.
+     - Up to 3 passing traces to preserve successful behaviors and prevent regressions.
+     - Individual trace logs capped at 15,000 characters.
+  3. *Evolutionary Loop & Compounding Wiki Gating Invariant (Section 3.2.4 & Algorithm 1)*:
+     Evaluates candidate skill set $S'_k = \text{Apply}(S_{k-1}, P_k)$ on validation split $D_{\text{val}}$:
+     $$S_k = \begin{cases} S'_k & \text{if } R(T_{\text{val}, k}) > R_{\text{best}} \\ S_{k-1} & \text{otherwise (Roll back skills only; wiki retained)} \end{cases}$$
+     Audit tracker appends entry to `wiki/skill-impact.md` via $W_k \leftarrow \text{Update}(W'_k, P_k, R(T_{\text{val}, k}), a_k)$ with $a_k \in \{\text{Accepted}, \text{Rejected}\}$. Compounding Invariant: The persistent wiki is never rolled back on rejection, ensuring complete historical awareness so rejected interventions are not proposed again.
+  4. *Optimizer API Call Complexity (Table 7 & Section D.2)*:
+     Analyzes optimizer LLM call complexity $C$ per iteration:
+     - **WikiSkill**: $C_{\text{WikiSkill}} = (1 + T_{\text{ReAct}}) \frac{N_{\text{train}}}{B}$. In full-batch mode ($B = N_{\text{train}}$), $C = 1 + T_{\text{ReAct}}$, proving complexity is completely independent of training set size $N_{\text{train}}$.
+     - **Trace2Skill**: $C_{\text{Trace2Skill}} = N_{\text{train}} + \left(1 + \frac{1}{c-1}\right) \frac{N_{\text{train}}}{B} + 1 \implies \mathcal{O}(N_{\text{train}})$.
+     - **EvoSkill**: $C_{\text{EvoSkill}} = 2 \frac{N_{\text{train}}}{B} \implies \mathcal{O}(N_{\text{train}}/B)$.
+     - **SkillOpt**: $C_{\text{SkillOpt}} = K_{\text{opt}} \frac{N_{\text{train}}}{B} \implies \mathcal{O}(N_{\text{train}}/B)$.
+  5. *Paired Bootstrap Significance Testing (Appendix C)*:
+     Runs 1,000 paired bootstrap resamples on test splits $D_{\text{test}}$ to compute empirical $p$-value $p = \frac{1}{B}\sum_{b=1}^B \mathbb{I}(\Delta_b \le 0)$ and 95% confidence intervals, grouping non-distinguishable methods ($p \ge 0.05$) into top-tier statistical ties.
+- **Engine Implementation**: [`wikiskill_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/wikiskill_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_wikiskill_paper94_invariant` (Unit Test 85 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 95: ZeRO-Infinity: Breaking the GPU Memory Wall for Extreme Scale Deep Learning
+- **Authors**: Samyam Rajbhandari, Olatunji Ruwase, Jeff Rasley, Shaden Smith, Yuxiong He (Microsoft DeepSpeed).
+- **Publication**: Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC '21) / arXiv:2104.07857 (2021; 14 pp).
+- **Physical PDF**: `C:\02_QUILLAN\10 - Formal Papers\Formal Papers\ZeRO_Infinity_2104.07857.pdf`.
+- **Core Formulations & Architectural Invariants**:
+  1. *Heterogeneous Memory Hierarchy & Model Scale (Sections 4 & 5.1)*:
+     - Breaks down mixed-precision Adam model states into exactly 16 bytes per parameter:
+       * FP16 Parameters ($2P$)
+       * FP16 Gradients ($2P$)
+       * FP32 Master Parameters, Momentum, and Variance ($4P + 4P + 4P = 12P$)
+     - Activation Checkpointing footprint: $A_{\text{ckpt}} = c_i \times bsz \times seq \times hd \times 2$ bytes.
+     - Unifies GPU, CPU, and NVMe memory across $N_{\text{DP}}$ data-parallel ranks:
+       $$P_{\max} = \frac{N_{\text{DP}} \times (M_{\text{GPU}} + M_{\text{CPU}} + M_{\text{NVMe}})}{16}$$
+       enabling training of multi-trillion parameter models (over 20 Trillion parameters on 512 GPUs).
+  2. *Arithmetic Intensity (AIT) & Computational Efficiency (Section 4, Eqs. 7-8)*:
+     - Total computation per iteration: $\text{FLOPs} = 2 \times 4 \times bsz \times seq \times P = 8 \times bsz \times seq \times P = 96 \times bsz \times seq \times n_l \times hd^2$.
+     - Total parameter and gradient data movement: $4P$ elements $= 8P$ bytes.
+     - Arithmetic Intensity:
+       $$\text{AIT} = \frac{\text{FLOPs}}{\text{Data\_Bytes}} = \frac{8 \times bsz \times seq \times P}{8P} = bsz \times seq \text{ FLOPs/byte}$$
+     - Proves that under aggregate bandwidth $B_{\text{eff}} \ge 70$ GB/s, hardware computational efficiency exceeds 50% even with minimal per-GPU batch sizes.
+  3. *Bandwidth-Centric Partitioning (Section 6.1)*:
+     - Replaces single-PCIe broadcast offload ($B_{\text{eff}} \approx 12$ GB/s constant) with partitioned sharding across all $N_{\text{DP}}$ data-parallel ranks.
+     - Each rank concurrently reads its $\frac{1}{N_{\text{DP}}}$ shard from local NVMe/CPU, followed by All-Gather over NVLink ($B_{\text{allgather}} \ge 70$ GB/s):
+       $$B_{\text{eff}} = \min(N_{\text{DP}} \times B_{\text{local}}, B_{\text{allgather}})$$
+       yielding linear scaling of effective offload bandwidth with data-parallel degree.
+  4. *Three-Stage Overlap Pipeline Engine (Section 6.2)*:
+     - Pipelined parameter reconstruction overlaps three asynchronous transfers with operator computation:
+       * $nc$-transfer: NVMe $\to$ CPU for operator $i+3$
+       * $cg$-transfer: CPU $\to$ GPU for operator $i+2$
+       * $gg$-transfer: GPU All-Gather for operator $i+1$
+       * Concurrently with GPU computation of operator $i$:
+         $$T_{\text{step}}(i) = \max(T_{\text{comp}}(i), T_{gg}(i+1), T_{cg}(i+2), T_{nc}(i+3))$$
+       achieving $> 2\times$ throughput speedup and hiding $> 50\%$ of communication overhead.
+  5. *Memory-Centric Tiling (Section 5.1.3)*:
+     - Slices arbitrarily large linear operators $Y = X W$ ($W \in \mathbb{R}^{d_{\text{in}} \times d_{\text{out}}}$) into $K$ column-wise or row-wise tiles $W = [W_1, \dots, W_K]$.
+     - Reduces Model State Working Memory (MSWM) by factor $K$:
+       $$\text{MSWM}_{\text{tiled}} = \frac{d_{\text{in}} \times d_{\text{out}} \times 2}{K}$$
+     - Executes sequentially: $Y_k = X W_k$, fetching and releasing each tile independently.
+     - Guarantees exact numerical equivalence in forward projections and backward gradient propagation ($\nabla X, \nabla W$).
+- **Engine Implementation**: [`zero_infinity_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/zero_infinity_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_zero_infinity_paper95_invariant` (Unit Test 86 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
+
 
 
 

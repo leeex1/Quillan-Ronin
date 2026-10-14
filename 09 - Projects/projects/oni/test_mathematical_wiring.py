@@ -6001,6 +6001,281 @@ def test_unit_distance_paper93_invariant():
     for i, j in pairs:
         dist = math.hypot(pts[i, 0] - pts[j, 0], pts[i, 1] - pts[j, 1])
         assert abs(dist - 1.0) < 1e-6, f"Pair ({i}, {j}) distance {dist} != 1.0"
+def test_wikiskill_paper94_invariant():
+    """
+    Paper 94 / Google Research & Virginia Tech (2026) - WikiSkill: Compiling Agent Experience
+    into Persistent Knowledge for Skill Evolution (arXiv:2608.27454).
+    Verifies:
+      1. Three-Layer Separation & Trace Length Capping Invariant (Section 3.1 & Appendix C):
+         Raw execution traces capped at 15,000 chars; immutable audit trail.
+      2. Stratified Trace Sampling (Section 3.2.2 & Appendix C):
+         T_sample,k subset of T_train,k with bounded budget <= 8 (<= 5 fails, <= 3 passes).
+      3. Persistent Knowledge Compounding & Rejection Invariant (Section 3.2.4 & Algorithm 1):
+         Candidate skills rollback on validation rejection, but Wiki Layer is NEVER rolled back.
+         Historical audit trail prevents repeated failed proposals.
+      4. Optimizer API Call Complexity (Table 7 & Appendix D.2):
+         WikiSkill full-batch complexity (1 + T_ReAct) is independent of N_train.
+      5. Paired Bootstrap Significance Testing (Appendix C):
+         1000 resamples paired test computes p-value and confidence interval.
+    """
+    import random
+    from wikiskill_engine import (
+        ExecutionTrace,
+        WikiPattern,
+        SkillImpactRecord,
+        AgentSkill,
+        PersistentWiki,
+        SkillSet,
+        SkillProposal,
+        sample_stratified_traces,
+        WikiMaintainerAgent,
+        SkillProposerAgent,
+        apply_proposal,
+        WikiSkillEvolutionLoop,
+        OptimizerComplexityModel,
+        paired_bootstrap_test
+    )
+
+    # 1. Trace Length Capping Invariant (15,000 characters)
+    huge_log = "X" * 25000
+    trace = ExecutionTrace(
+        task_id="task_001",
+        prompt="Solve algebra",
+        tool_calls=[{"tool": "calc", "args": {"expr": "2+2"}}],
+        output="Result 4",
+        success=False,
+        reward=0.0,
+        raw_log=huge_log,
+        max_char_cap=15000
+    )
+    capped = trace.get_capped_log()
+    assert len(capped) <= 15000 + len("\n[TRUNCATED_AT_15K_CHARS]"), "Trace log must be capped at 15,000 chars"
+    assert "[TRUNCATED_AT_15K_CHARS]" in capped
+
+    # 2. Stratified Sampling Bounded Budget (<= 5 fails, <= 3 passes, total <= 8)
+    traces = []
+    for i in range(12):
+        traces.append(ExecutionTrace(f"fail_{i}", f"fail prompt {i}", [], "err", False, 0.0))
+    for i in range(8):
+        traces.append(ExecutionTrace(f"pass_{i}", f"pass prompt {i}", [], "ok", True, 1.0))
+    
+    sampled = sample_stratified_traces(traces, max_fails=5, max_passes=3)
+    assert len(sampled) <= 8, f"Total sampled traces must not exceed 8, got {len(sampled)}"
+    sample_fails = sum(1 for t in sampled if not t.success)
+    sample_passes = sum(1 for t in sampled if t.success)
+    assert sample_fails == 5, f"Should sample exactly 5 failing traces, got {sample_fails}"
+    assert sample_passes == 3, f"Should sample exactly 3 passing traces, got {sample_passes}"
+
+    # 3. Evolution Loop, Gating & Compounding Wiki Invariant
+    # Simulate an environment where iteration 1 improves score, iteration 2 degrades score (rejection),
+    # iteration 3 improves score.
+    scores = [0.20, 0.50, 0.40, 0.80]
+    call_idx = 0
+
+    def mock_evaluator(skills: SkillSet) -> float:
+        nonlocal call_idx
+        score = scores[min(call_idx, len(scores) - 1)]
+        call_idx += 1
+        return score
+
+    def mock_rollout(skills: SkillSet) -> List[ExecutionTrace]:
+        rollouts = []
+        for j in range(6):
+            succ = (j % 2 == 0)
+            rollouts.append(ExecutionTrace(f"rollout_{j}", f"Task {j} prompt", [], "out", succ, 1.0 if succ else 0.0))
+        return rollouts
+
+    loop = WikiSkillEvolutionLoop(val_evaluator_fn=mock_evaluator)
+    final_skills, final_wiki, best_score = loop.run_evolution(
+        training_rollout_fn=mock_rollout,
+        num_iterations=3,
+        target_score=1.0
+    )
+
+    # Invariant: Persistent Wiki is NEVER rolled back on rejection
+    assert len(final_wiki.skill_impact_tracker) == 3, "All 3 iterations must be programmatically logged in skill-impact.md"
+    outcomes = [rec.outcome for rec in final_wiki.skill_impact_tracker]
+    assert "Accepted" in outcomes, "Must record accepted proposals"
+    assert "Rejected" in outcomes, "Must record rejected proposals"
+    assert len(final_wiki.patterns) >= 2, "Wiki patterns must accumulate monotonically across both passes and fails"
+
+    # Invariant: Rejected proposals recorded in historical audit to prevent duplicate failures
+    rejected_set = final_wiki.get_rejected_proposals()
+    assert len(rejected_set) >= 1, "Must track rejected proposal signatures"
+
+    # 4. Table 7 Optimizer Call Complexity Model
+    n_train = 100
+    b_minibatch = 20
+    t_react = 4
+    c_tree = 4
+    k_opt = 6
+
+    # WikiSkill in full batch mode (B = N_train): C = 1 + T_ReAct (independent of N_train!)
+    c_wiki_full = OptimizerComplexityModel.wikiskill_complexity(n_train, n_train, t_react)
+    assert c_wiki_full == 1 + t_react, f"Full batch WikiSkill complexity must be 1 + T_ReAct, got {c_wiki_full}"
+
+    # Trace2Skill: linear lower-bound O(N_train)
+    c_trace2skill = OptimizerComplexityModel.trace2skill_complexity(n_train, b_minibatch, c_tree)
+    assert c_trace2skill > n_train, "Trace2Skill complexity must be lower-bounded by N_train"
+
+    # EvoSkill & SkillOpt: O(N_train / B)
+    c_evoskill = OptimizerComplexityModel.evoskill_complexity(n_train, b_minibatch)
+    c_skillopt = OptimizerComplexityModel.skillopt_complexity(n_train, b_minibatch, k_opt)
+    assert c_evoskill == 2 * (n_train / b_minibatch)
+    assert c_skillopt == k_opt * (n_train / b_minibatch)
+
+    # 5. Paired Bootstrap Significance Testing
+    # Baseline vs Stronger Candidate
+    base_scores = [0.4, 0.5, 0.3, 0.45, 0.5, 0.35, 0.4, 0.5, 0.42, 0.38]
+    cand_scores = [0.8, 0.85, 0.75, 0.9, 0.82, 0.78, 0.88, 0.92, 0.85, 0.80]
+    res_sig = paired_bootstrap_test(cand_scores, base_scores, num_iterations=1000, alpha=0.05)
+    assert res_sig["is_significant"] is True, "Candidate must show statistically significant win"
+    assert res_sig["p_value"] < 0.05, f"p-value must be < 0.05, got {res_sig['p_value']}"
+
+    # Statistical Tie (p >= 0.05)
+    tie_cand = [b + random.uniform(-0.001, 0.001) for b in base_scores]
+    res_tie = paired_bootstrap_test(tie_cand, base_scores, num_iterations=1000, alpha=0.05)
+    assert res_tie["is_statistical_tie"] is True, "Close distributions must result in a statistical tie"
+
+
+def test_zero_infinity_paper95_invariant():
+    """
+    Paper 95 / Microsoft (2021) - ZeRO-Infinity: Breaking the GPU Memory Wall
+    for Extreme Scale Deep Learning (SC '21 / arXiv:2104.07857).
+    Verifies:
+      1. Heterogeneous Memory Breakdown & 16-Byte Model State Invariant (Section 4 & 5.1):
+         Static model state requires exactly 16 bytes/param (2B fp16 params, 2B fp16 grads, 12B fp32 Adam).
+         P_max scales to multi-trillion parameters in aggregate heterogeneous memory.
+      2. Arithmetic Intensity (AIT) & Computational Efficiency (Section 4, Eqs. 7-8):
+         AIT = bsz * seq identically; efficiency exceeds 50% under aggregate bandwidth >= 70 GB/s.
+      3. Bandwidth-Centric Partitioning & Linear Scaling (Section 6.1):
+         All-Gather offload achieves linear scaling with DP degree N_DP overcoming single PCIe bottleneck.
+      4. Three-Stage Overlap Pipeline Engine (Section 6.2):
+         Simultaneous overlap of nc-transfer, cg-transfer, gg-transfer with computation hides communication.
+      5. Memory-Centric Tiling (Section 5.1.3):
+         Partitions linear operator into K sequential tiles reducing MSWM by factor of K with exact
+         mathematical equivalence in forward output and backward gradients.
+    """
+    import torch
+    import torch.nn as nn
+    from zero_infinity_engine import (
+        HeterogeneousMemoryBreakdown,
+        ArithmeticIntensityModel,
+        BandwidthCentricPartitioning,
+        ThreeStageOverlapEngine,
+        MemoryCentricTiledLinear
+    )
+
+    # 1. Heterogeneous Memory Hierarchy & Model Scale
+    # 10B parameter model, 16 DP ranks
+    num_params = 10_000_000_000
+    mem_mgr = HeterogeneousMemoryBreakdown(
+        num_params=num_params,
+        hidden_dim=4096,
+        num_layers=50,
+        batch_size=32,
+        seq_len=1024,
+        num_data_parallel_ranks=16
+    )
+    assert mem_mgr.fp16_params_bytes == num_params * 2
+    assert mem_mgr.fp16_grads_bytes == num_params * 2
+    assert mem_mgr.fp32_optimizer_bytes == num_params * 12
+    assert mem_mgr.total_static_bytes == num_params * 16
+
+    rank_mem = mem_mgr.memory_per_rank()
+    # 160 GB total static / 16 ranks = 10 GB per rank (approx 9.31 GiB)
+    assert abs(rank_mem["static_states_gb"] - 9.313) < 0.1
+
+    # Max trainable parameters across 512 GPUs with 80GB GPU, 512GB CPU, 2TB NVMe
+    p_max = HeterogeneousMemoryBreakdown.max_trainable_parameters(
+        gpu_mem_gb=80.0,
+        cpu_mem_gb=512.0,
+        nvme_mem_gb=2048.0,
+        num_ranks=512
+    )
+    assert p_max > 20_000_000_000_000, f"Must support > 20 Trillion parameters, got {p_max}"
+
+    # 2. Arithmetic Intensity (AIT) & Efficiency Invariant
+    bsz = 4
+    seq = 2048
+    ait = ArithmeticIntensityModel.calculate_ait(bsz, seq)
+    assert ait == bsz * seq == 8192, f"AIT must be bsz * seq, got {ait}"
+
+    flops = ArithmeticIntensityModel.compute_flops(num_params, bsz, seq)
+    data_bytes = ArithmeticIntensityModel.compute_data_movement_bytes(num_params)
+    assert flops / data_bytes == ait, "Ratio of FLOPs to data movement must equal AIT"
+
+    # Efficiency with DGX-2 70 GB/s bandwidth and 70 TFlops peak GPU
+    eff_dgx = ArithmeticIntensityModel.calculate_efficiency(
+        num_params=num_params,
+        batch_size=bsz,
+        seq_len=seq,
+        effective_bandwidth_gb_s=70.0,
+        peak_device_tflops=70.0
+    )
+    assert eff_dgx > 0.50, f"Efficiency on DGX-2 should exceed 50%, got {eff_dgx:.4f}"
+
+    # 3. Bandwidth-Centric Partitioning Linear Scaling
+    b_pcie = 12.0
+    b_allgather = 70.0
+    b_broadcast = BandwidthCentricPartitioning.broadcast_effective_bandwidth(b_pcie)
+    assert b_broadcast == 12.0
+
+    b_zero_inf_16 = BandwidthCentricPartitioning.zero_infinity_effective_bandwidth(
+        num_ranks=16,
+        local_bandwidth_gb_s=3.0,
+        allgather_network_bandwidth_gb_s=b_allgather
+    )
+    assert b_zero_inf_16 == 48.0, f"Expected 48 GB/s effective bandwidth with 16 ranks, got {b_zero_inf_16}"
+    assert b_zero_inf_16 == 4.0 * b_broadcast, "Bandwidth-centric partitioning must exceed single PCIe by 4x"
+
+    # 4. Overlap-Centric Pipeline Engine
+    n_layers = 10
+    compute_times = [20.0] * n_layers
+    nvme_to_cpu = [15.0] * n_layers
+    cpu_to_gpu = [12.0] * n_layers
+    allgather = [14.0] * n_layers
+
+    pipe_res = ThreeStageOverlapEngine.simulate_pipeline(
+        layer_compute_times_ms=compute_times,
+        nvme_to_cpu_times_ms=nvme_to_cpu,
+        cpu_to_gpu_times_ms=cpu_to_gpu,
+        allgather_times_ms=allgather
+    )
+    assert pipe_res["speedup"] > 2.0, f"Overlap pipeline should achieve > 2x speedup, got {pipe_res['speedup']:.2f}"
+    assert pipe_res["hidden_communication_pct"] > 50.0
+
+    # 5. Memory-Centric Tiling Invariant & Exact Numerical Equivalence
+    torch.manual_seed(42)
+    in_dim = 64
+    out_dim = 128
+    num_tiles = 4
+    x = torch.randn(8, in_dim, requires_grad=True)
+
+    tiled_linear = MemoryCentricTiledLinear(in_dim, out_dim, num_tiles=num_tiles, bias=True)
+    # Working memory reduction factor:
+    mswm_orig = tiled_linear.original_working_memory_bytes()
+    mswm_tiled = tiled_linear.working_memory_bytes_per_tile()
+    assert mswm_orig == num_tiles * mswm_tiled, "Memory-centric tiling must reduce MSWM by factor K"
+
+    # Equivalent dense linear layer
+    standard_linear = nn.Linear(in_dim, out_dim, bias=True)
+    with torch.no_grad():
+        standard_linear.weight.copy_(tiled_linear.get_full_weight().t())
+        standard_linear.bias.copy_(torch.cat(list(tiled_linear.bias_tiles)))
+
+    # Forward pass equivalence
+    x_clone = x.clone().detach().requires_grad_(True)
+    y_tiled = tiled_linear(x)
+    y_standard = standard_linear(x_clone)
+    assert torch.allclose(y_tiled, y_standard, atol=1e-6), "Tiled forward output must match dense linear output"
+
+    # Backward pass equivalence
+    loss_tiled = y_tiled.sum()
+    loss_standard = y_standard.sum()
+    loss_tiled.backward()
+    loss_standard.backward()
+    assert torch.allclose(x.grad, x_clone.grad, atol=1e-6), "Tiled input gradients must match dense linear gradients"
 
 
 if __name__ == "__main__":
@@ -6176,6 +6451,10 @@ if __name__ == "__main__":
     print("  [PASS] 83. Yin Straight-Through Estimator (STE) Coarse Gradient Descent & Analytical Invariant (Paper 92 / Yin et al.)")
     test_unit_distance_paper93_invariant()
     print("  [PASS] 84. Planar Point Sets Many Unit Distances & CM Torus Invariant (Paper 93 / OpenAI)")
+    test_wikiskill_paper94_invariant()
+    print("  [PASS] 85. WikiSkill Persistent Knowledge Compounding, Stratified Sampling & Table 7 Complexity Invariants (Paper 94 / Tang et al.)")
+    test_zero_infinity_paper95_invariant()
+    print("  [PASS] 86. ZeRO-Infinity Heterogeneous Memory Hierarchy, Arithmetic Intensity & Memory-Centric Tiling (Paper 95 / Rajbhandari et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
