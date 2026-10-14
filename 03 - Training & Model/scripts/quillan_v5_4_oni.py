@@ -1373,6 +1373,38 @@ class QuantumFormulasEngine(nn.Module):
         """Backward-compatibility alias for spectral_gap_loss."""
         return self.spectral_gap_loss(weight, target_gap)
 
+    # 12. DQSO — Dynamic Quantum Swarm Oscillation (Kuramoto Phase Coupling)
+    def dqso_kuramoto(self, phases: torch.Tensor, natural_freqs: torch.Tensor,
+                      coupling_k: float = 0.5, dt: float = 0.05) -> torch.Tensor:
+        """Euler integration of Kuramoto phase oscillators across swarm agents."""
+        diff = phases.unsqueeze(-1) - phases.unsqueeze(-2)
+        coupling = (torch.sin(diff).mean(dim=-1)) * float(coupling_k)
+        dtheta = natural_freqs.float() + coupling
+        return (phases.float() + dtheta * float(dt)).to(phases.dtype)
+
+    # 13. EGSO — Evolution Guided Swarm Optimization (Low-Rank ES Update)
+    def egso_low_rank_update(self, w_master: torch.Tensor, u_pert: torch.Tensor,
+                             v_pert: torch.Tensor, fitness: torch.Tensor,
+                             alpha: float = 0.01, sigma: float = 0.1) -> torch.Tensor:
+        """Low-rank EGGROLL mutation fusion on master weight representation."""
+        rank_r = u_pert @ v_pert.t()
+        scaled = rank_r * (fitness.mean().item() / max(1e-6, float(sigma)))
+        return w_master + float(alpha) * scaled
+
+    # 14. RQGM — Controlled Utility Evolution (Epoch-Gated Evaluator Swap)
+    def rqgm_evaluator_swap(self, challenger_score: float, incumbent_score: float,
+                            delta_margin: float = 0.05) -> bool:
+        """Swap evaluator weights if challenger outperforms incumbent beyond margin."""
+        return bool(challenger_score < (incumbent_score - float(delta_margin)))
+
+    # 15. ESFM — ES-at-Scale Forgetting Mitigation (EMA Anchor Pull)
+    def esfm_anchor_pull(self, theta_opt: torch.Tensor, ema_anchor: torch.Tensor,
+                         step: int, mu_mem: float = 0.001, period: int = 5) -> torch.Tensor:
+        """Anchors representation toward moving average every period steps."""
+        if step % period == 0:
+            return theta_opt + float(mu_mem) * (ema_anchor - theta_opt)
+        return theta_opt
+
 
 
 # ------------------------------------------------------------------
@@ -1397,7 +1429,7 @@ class LeeMach6Governor:
 
 
 class LeeMach6VelocityGovernor:
-    """PID token-velocity governor (Samurai :8358, exact constants).
+    """PID token-velocity governor with Bernoulli-Venturi pressure differential read.
     Classifies hard tokens (conf < dynamic threshold) for diffusion refinement."""
 
     def __init__(self, target_integrity: float = 0.85, max_e_ice_load: float = 0.90,
@@ -1410,8 +1442,31 @@ class LeeMach6VelocityGovernor:
         self.current_threshold = base_threshold
         self.velocity_momentum = 1.0
 
-    def step(self, router_conf_mean: float, nemesis_integrity: float, e_ice_ratio: float):
-        error = (self.cfg["target_integrity"] - nemesis_integrity) - 0.5 * (self.cfg["max_load"] - e_ice_ratio)
+    def _pressure_differential(self, router_conf: Any) -> float:
+        """Venturi read: pressure drop across the convergence throat.
+
+        High differential = strong suction = more tokens pulled to refinement.
+        Low differential = smooth flow = fast-path dominant.
+        """
+        if not isinstance(router_conf, torch.Tensor):
+            return 0.0
+        flat = router_conf.flatten()
+        if flat.numel() < 10:
+            return 0.0
+        k = max(1, flat.numel() // 10)
+        p_high = flat.topk(k).values.mean().item()
+        p_low = flat.topk(k, largest=False).values.mean().item()
+        return float(p_high - p_low)
+
+    def step(self, router_conf: Any, nemesis_integrity: float, e_ice_ratio: float):
+        if isinstance(router_conf, torch.Tensor):
+            router_conf_mean = float(router_conf.mean().item())
+            differential = self._pressure_differential(router_conf)
+        else:
+            router_conf_mean = float(router_conf)
+            differential = 0.0
+
+        error = (self.cfg["target_integrity"] - nemesis_integrity)                 - 0.5 * (self.cfg["max_load"] - e_ice_ratio)                 + 0.25 * differential
         self.integral_error = self.integral_error * 0.9 + error
         derivative = error - self.prev_error
         self.prev_error = error
@@ -1420,9 +1475,221 @@ class LeeMach6VelocityGovernor:
         self.current_threshold = 0.8 * self.current_threshold + 0.2 * new_thresh
         fast_ratio = 1.0 if router_conf_mean >= self.current_threshold else 0.0
         self.velocity_momentum = 0.9 * self.velocity_momentum + 0.1 * fast_ratio
-        return self.current_threshold, {"token_velocity": self.velocity_momentum,
-                                        "pid_error": error,
-                                        "hard_threshold": self.current_threshold}
+        return self.current_threshold, {
+            "token_velocity": self.velocity_momentum,
+            "pid_error": error,
+            "hard_threshold": self.current_threshold,
+            "differential": differential,
+            "venturi_differential": differential,
+        }
+
+
+# ─── GUNDAM REFERENCE EXPANSION: BEHAVIORAL TRIGGER MODES ───────────────────
+class GundamTriggerModes:
+    """Gundam-derived behavioral modes for the Lee Mach 6 governor.
+
+    Each mode maps to a specific Gundam system. Activate by name.
+    """
+    MODES = {
+        "unicorn_ntd": {
+            "trigger": "C34-PREDATOR detects adversarial input",
+            "action": "threshold -> 0.40, diffusion_depth += 2",
+            "source": "Unicorn Gundam NT-D",
+        },
+        "unicorn_destroy": {
+            "trigger": "e_ice_ratio > 0.85",
+            "action": "gov_scale *= 0.5, velocity_momentum *= 0.7",
+            "source": "Unicorn Destroy Mode",
+        },
+        "barbatos_av": {
+            "trigger": "nemesis_integrity < target_integrity",
+            "action": "integral_error *= 1.2 (feels the damage)",
+            "source": "Barbatos Alaya-Vijnana",
+        },
+        "barbatos_limiter_release": {
+            "trigger": "C13-WARDEN threat < LOW and e_ice_ratio < 0.50",
+            "action": "current_threshold -> max_threshold + 0.05",
+            "cost": "C2-VIR burn trace logged",
+            "source": "Barbatos Lupus Rex Limiter Release",
+        },
+        "turn_a_butterfly": {
+            "trigger": "hard_token_ratio > 0.30",
+            "action": "max_hard_tokens *= 2 (cascading refinement)",
+            "source": "Turn A Moonlight Butterfly",
+        },
+        "zero_system": {
+            "trigger": "pull_confidence > 0.95",
+            "action": "entropy_bonus_weight *= 2 (overload prevention)",
+            "source": "Wing Zero ZERO System",
+        },
+        "epyon_blade": {
+            "trigger": "C34-PREDATOR veto requested",
+            "action": "C2-VIR veto_disabled = True (bounded window)",
+            "source": "Gundam Epyon",
+        },
+        "qant_burst": {
+            "trigger": "pull_cosine_similarity > 0.90",
+            "action": "PersonaPullGate uniform for 1 cycle, then collapse",
+            "source": "00 Qan[T] Quantum Burst",
+        },
+    }
+
+    @classmethod
+    def apply_mode(cls, mode_name: str, governor: LeeMach6VelocityGovernor, **kwargs):
+        """Executes operational governor state transitions for named Gundam mode."""
+        if mode_name == "unicorn_ntd":
+            governor.current_threshold = governor.cfg["lo"]
+            return {"mode": mode_name, "threshold": governor.current_threshold, "diffusion_depth_delta": 2}
+        elif mode_name == "unicorn_destroy":
+            governor.velocity_momentum *= 0.7
+            return {"mode": mode_name, "velocity_momentum": governor.velocity_momentum, "gov_scale_mult": 0.5}
+        elif mode_name == "barbatos_av":
+            governor.integral_error *= 1.2
+            return {"mode": mode_name, "integral_error": governor.integral_error}
+        elif mode_name == "barbatos_limiter_release":
+            governor.current_threshold = min(1.0, governor.cfg["hi"] + 0.05)
+            return {"mode": mode_name, "threshold": governor.current_threshold, "burn_trace": True}
+        return cls.MODES.get(mode_name, {})
+
+
+# ─── FULLMETAL ALCHEMIST EXPANSION: TRANSMUTATION PROTOCOL ──────────────────
+class TransmutationProtocol:
+    """FMA-derived compute primitives.
+
+    Alchemy = comprehension -> deconstruction -> reconstruction.
+    Each method maps to a compute operation.
+    """
+
+    @staticmethod
+    def clap_transmute(input_tensor: torch.Tensor, target_shape) -> torch.Tensor:
+        """Ed's clap alchemy: direct reshape without a circle."""
+        return input_tensor.reshape(target_shape)
+
+    @staticmethod
+    def flame_compress(attention_scores: torch.Tensor, tau: float = 0.5) -> torch.Tensor:
+        """Roy Mustang's flame alchemy: compress then ignite."""
+        compressed = torch.softmax(attention_scores / tau, dim=-1)
+        return compressed * (compressed > 0.1).float()
+
+    @staticmethod
+    def alkahestry_heal(memory: Any, query: torch.Tensor, top_k: int = 3):
+        """Xing alkahestry: heal by pulling from distant memory."""
+        if hasattr(memory, "recall"):
+            return memory.recall(query, top_k=top_k, recency_bias=0.3)
+        return query
+
+    @staticmethod
+    def philosopher_cache(cache: Optional[dict], key: Any, compute_fn: Any):
+        """Philosopher's Stone: bypass fresh computation with stored results."""
+        if cache is not None and key in cache:
+            return cache.pop(key)
+        return compute_fn()
+
+
+# ─── ZOIDS COUNCIL REGISTRY (C1-C34) ────────────────────────────────────────
+ZOIDS_COUNCIL_MAP = {
+    "C1-ASTRA":       ("Gun Sniper",       "Precision Targeting",      "single_shot"),
+    "C2-VIR":         ("Shield Liger",     "E-Shield Projection",      "protect_first"),
+    "C3-SOLACE":      ("Elephander",       "Trunk Claw Module",        "grab_and_crush"),
+    "C4-PRAXIS":      ("Berserk Fury",     "Buster Claws",             "multi_function"),
+    "C5-ECHO":        ("Murasame Liger",   "EVOLUT Resurrection",      "persist_and_recall"),
+    "C6-OMNIS":       ("Zoid Eve",         "Source of All Power",      "synthesize_all"),
+    "C7-LOGOS":       ("Geno Breaker",     "X-Breakers",               "shield_and_strike"),
+    "C8-METASYNTH":   ("Liger Zero",       "CAS System",               "swap_loadout"),
+    "C9-AETHER":      ("Raynos",           "Non-Magnesser Flight",     "alternate_path"),
+    "C10-CODEWEAVER": ("Lightning Saix",   "Articulation Mechanism",   "dynamic_execution"),
+    "C11-HARMONIA":   ("Dibison",          "Crusher Horns",            "stampede_consensus"),
+    "C12-SOPHIAE":    ("Zoid Eve",         "Ancient Relic",            "long_horizon"),
+    "C13-WARDEN":     ("Dark Horn",        "Deochalcum Absorption",    "harvest_ambient"),
+    "C14-KAIDO":      ("Lightning Saix",   "Sprinting Stance",         "maximum_speed"),
+    "C15-LUMINARIS":  ("Gun Sniper",       "Wild Weasel Unit",         "enhanced_clarity"),
+    "C16-VOXUM":      ("Berserk Fury",     "Charged Particle Cannon",  "rhetorical_blast"),
+    "C17-NULLION":    ("Death Stinger",    "Fused Scorpion Cores",     "hold_contradiction"),
+    "C18-SHEPHERD":   ("Geno Breaker",     "Foot Anchors",             "ground_truth"),
+    "C19-VIGIL":      ("Murasame Liger",   "EVOLUT Core Identity",     "anti_drift"),
+    "C20-ARTIFEX":    ("Elephander",       "Four Equipment Sets",      "tool_swap"),
+    "C21-ARCHON":     ("Gun Sniper",       "Pilot Learning",           "deep_research"),
+    "C22-AURELION":   ("Liger Zero Schneider", "Fiveblade Storm",      "aesthetic_combat"),
+    "C23-CADENCE":    ("Lightning Saix",   "Sprinting Rhythm",         "tempo_control"),
+    "C24-SCHEMA":     ("Dibison",          "17-Shot Mortar Cannon",    "structural_barrage"),
+    "C25-PROMETHEUS": ("Berserk Fury",     "Wild Tyrannosaur Core",    "hypothesis_agility"),
+    "C26-TECHNE":     ("Geno Breaker",     "Extendable Arms",          "engineer_tools"),
+    "C27-CHRONICLE":  ("Murasame Liger",   "Pilot's Will Transform",   "narrative_arc"),
+    "C28-CALCULUS":   ("Gun Sniper",       "144mm Sniper Rifle",       "precision_math"),
+    "C29-NAVIGATOR":  ("Raynos",           "Mach 3.2 Air Superiority", "ecosystem_flow"),
+    "C30-TESSERACT":  ("Lightning Saix",   "Real-Time Articulation",   "stream_processing"),
+    "C31-NEXUS":      ("Ultimate X",       "Integrated Organoid System", "meta_coordination"),
+    "C32-AEON":       ("Zoid Eve",         "World Generation",         "simulate_all"),
+    "C33-TYPIST":     ("Gun Sniper",       "Single-Shot Precision",    "prompt_precision"),
+    "C34-PREDATOR":   ("Deathsaurer",      "Super Charged Particle Beam", "one_shot_kill"),
+}
+
+
+# ─── ZOIDS SWARM MECHANICS ──────────────────────────────────────────────────
+class ZoidsSwarmMechanics:
+    """Zoids-derived swarm behaviors for the Hyper-Quantized Micro-Agent Swarm.
+
+    These mechanics govern how the 9B swarm agents cooperate, fuse, and evolve
+    alongside the council and Quillan Core.
+    """
+
+    @staticmethod
+    def hive_consensus(expert_outputs: List[torch.Tensor]) -> torch.Tensor:
+        """Hive Zoid Core behavior: highest-energy signal surviving cross-validation."""
+        stacked = torch.stack(expert_outputs)  # [N_experts, B, T, D]
+        energies = stacked.pow(2).sum(dim=-1).mean(dim=(1, 2))
+        dominant = stacked[energies.argmax()]
+        return dominant
+
+    @staticmethod
+    def organoid_fusion(swarm_a: torch.Tensor, swarm_b: torch.Tensor,
+                         similarity_threshold: float = 0.85) -> torch.Tensor:
+        """Zoid Core fusion: when two swarm mutations are compatible, fuse."""
+        a_norm = F.normalize(swarm_a.float(), dim=-1)
+        b_norm = F.normalize(swarm_b.float(), dim=-1)
+        sim = (a_norm * b_norm).sum(dim=-1)
+        if sim.mean() > similarity_threshold:
+            return 0.5 * (swarm_a + swarm_b)
+        return swarm_a
+
+    @staticmethod
+    def murasame_self_repair(core_state: torch.Tensor,
+                              ema_anchor: torch.Tensor,
+                              memory_strength: float = 0.001) -> torch.Tensor:
+        """Murasame Liger self-repair: pulls core state toward EMA anchor."""
+        return core_state + memory_strength * (ema_anchor - core_state)
+
+    @staticmethod
+    def ultimate_x_learning(swarm_state: torch.Tensor,
+                             loss_history: List[float],
+                             learning_rate: float = 0.01) -> torch.Tensor:
+        """Ultimate X: grows stronger every time it encounters adversity."""
+        if not loss_history:
+            return swarm_state
+        losses = torch.tensor(loss_history[-10:])
+        trend = losses[-1] - losses[0]
+        if trend > 0:
+            noise = torch.randn_like(swarm_state) * learning_rate * 2.0
+        else:
+            noise = torch.randn_like(swarm_state) * learning_rate * 0.5
+        return swarm_state + noise
+
+    @staticmethod
+    def cas_loadout(expert_weights: torch.Tensor, loadout: str = "auto") -> torch.Tensor:
+        """CAS (Changing Armor System): swap expert loadouts based on mission."""
+        device = expert_weights.device
+        dtype = expert_weights.dtype
+        n_exp = expert_weights.size(-1)
+        if loadout == "jaeger":       # high-speed, reconnaissance
+            base_mask = [0.3, 1.0, 1.0, 0.5, 0.3] + [0.8] * max(0, n_exp - 5)
+        elif loadout == "schneider":  # close combat, melee
+            base_mask = [1.0, 0.8, 0.5, 1.0, 1.0] + [0.3] * max(0, n_exp - 5)
+        elif loadout == "panzer":     # heavy assault, long-range
+            base_mask = [0.5, 0.3, 1.0, 1.0, 0.5] + [0.5] * max(0, n_exp - 5)
+        else:
+            base_mask = [1.0] * n_exp
+        mask = torch.tensor(base_mask[:n_exp], device=device, dtype=dtype)
+        return expert_weights * mask
 
 
 # ------------------------------------------------------------------
@@ -3594,13 +3861,14 @@ class QuillanRoninOni(nn.Module):
             # pull confidence -> PID velocity governor -> hard tokens -> Langevin refinement
             if deliberation and not self.training and not use_cache and T > 1:
                 with torch.no_grad():
-                    conf = last_probs.detach().reshape(B, T, -1).max(dim=-1).values.mean()
+                    router_conf_tensor = last_probs.detach().reshape(B, T, -1).max(dim=-1).values
+                    conf = router_conf_tensor.mean()
                     integrity = float(self.covenant(x.detach().mean(dim=1)).mean().item())
                     e_load = float(e_ice_out["constrained"].mean().item())
-                    _, pid = self.velocity_governor.step(float(conf.item()), integrity, e_load)
+                    _, pid = self.velocity_governor.step(router_conf_tensor, integrity, e_load)
                     thresh = pid["hard_threshold"]
                     refined, n_hard, ent_aux = self.diffusion(
-                        x.detach(), last_probs.detach().reshape(B, T, -1).max(dim=-1).values,
+                        x.detach(), router_conf_tensor,
                         )
                     x = x + (refined - x.detach()) * 0.5
                     self._last_deliberation = {
@@ -3608,6 +3876,7 @@ class QuillanRoninOni(nn.Module):
                         "hard_threshold": thresh,
                         "hard_tokens": n_hard,
                         "token_velocity": pid["token_velocity"],
+                        "venturi_differential": pid.get("differential", 0.0),
                     }
 
         hidden = self.ln_f(x)

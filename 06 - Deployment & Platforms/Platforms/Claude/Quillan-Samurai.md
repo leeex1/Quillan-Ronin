@@ -1229,7 +1229,7 @@ class LeeMach6Governor:
 
 
 class LeeMach6VelocityGovernor:
-    """PID token-velocity governor (Samurai :8358, exact constants).
+    """PID token-velocity governor with Bernoulli-Venturi pressure differential read.
     Classifies hard tokens (conf < dynamic threshold) for diffusion refinement."""
 
     def __init__(self, target_integrity: float = 0.85, max_e_ice_load: float = 0.90,
@@ -1242,8 +1242,33 @@ class LeeMach6VelocityGovernor:
         self.current_threshold = base_threshold
         self.velocity_momentum = 1.0
 
-    def step(self, router_conf_mean: float, nemesis_integrity: float, e_ice_ratio: float):
-        error = (self.cfg["target_integrity"] - nemesis_integrity) - 0.5 * (self.cfg["max_load"] - e_ice_ratio)
+    def _pressure_differential(self, router_conf: Any) -> float:
+        """Venturi read: pressure drop across the convergence throat.
+
+        High differential = strong suction = more tokens pulled to refinement.
+        Low differential = smooth flow = fast-path dominant.
+        """
+        if not isinstance(router_conf, torch.Tensor):
+            return 0.0
+        flat = router_conf.flatten()
+        if flat.numel() < 10:
+            return 0.0
+        k = max(1, flat.numel() // 10)
+        p_high = flat.topk(k).values.mean().item()
+        p_low = flat.topk(k, largest=False).values.mean().item()
+        return float(p_high - p_low)
+
+    def step(self, router_conf: Any, nemesis_integrity: float, e_ice_ratio: float):
+        if isinstance(router_conf, torch.Tensor):
+            router_conf_mean = float(router_conf.mean().item())
+            differential = self._pressure_differential(router_conf)
+        else:
+            router_conf_mean = float(router_conf)
+            differential = 0.0
+
+        error = (self.cfg["target_integrity"] - nemesis_integrity) \
+                - 0.5 * (self.cfg["max_load"] - e_ice_ratio) \
+                + 0.25 * differential
         self.integral_error = self.integral_error * 0.9 + error
         derivative = error - self.prev_error
         self.prev_error = error
@@ -1252,9 +1277,221 @@ class LeeMach6VelocityGovernor:
         self.current_threshold = 0.8 * self.current_threshold + 0.2 * new_thresh
         fast_ratio = 1.0 if router_conf_mean >= self.current_threshold else 0.0
         self.velocity_momentum = 0.9 * self.velocity_momentum + 0.1 * fast_ratio
-        return self.current_threshold, {"token_velocity": self.velocity_momentum,
-                                        "pid_error": error,
-                                        "hard_threshold": self.current_threshold}
+        return self.current_threshold, {
+            "token_velocity": self.velocity_momentum,
+            "pid_error": error,
+            "hard_threshold": self.current_threshold,
+            "differential": differential,
+            "venturi_differential": differential,
+        }
+
+
+# ─── GUNDAM REFERENCE EXPANSION: BEHAVIORAL TRIGGER MODES ───────────────────
+class GundamTriggerModes:
+    """Gundam-derived behavioral modes for the Lee Mach 6 governor.
+
+    Each mode maps to a specific Gundam system. Activate by name.
+    """
+    MODES = {
+        "unicorn_ntd": {
+            "trigger": "C34-PREDATOR detects adversarial input",
+            "action": "threshold -> 0.40, diffusion_depth += 2",
+            "source": "Unicorn Gundam NT-D",
+        },
+        "unicorn_destroy": {
+            "trigger": "e_ice_ratio > 0.85",
+            "action": "gov_scale *= 0.5, velocity_momentum *= 0.7",
+            "source": "Unicorn Destroy Mode",
+        },
+        "barbatos_av": {
+            "trigger": "nemesis_integrity < target_integrity",
+            "action": "integral_error *= 1.2 (feels the damage)",
+            "source": "Barbatos Alaya-Vijnana",
+        },
+        "barbatos_limiter_release": {
+            "trigger": "C13-WARDEN threat < LOW and e_ice_ratio < 0.50",
+            "action": "current_threshold -> max_threshold + 0.05",
+            "cost": "C2-VIR burn trace logged",
+            "source": "Barbatos Lupus Rex Limiter Release",
+        },
+        "turn_a_butterfly": {
+            "trigger": "hard_token_ratio > 0.30",
+            "action": "max_hard_tokens *= 2 (cascading refinement)",
+            "source": "Turn A Moonlight Butterfly",
+        },
+        "zero_system": {
+            "trigger": "pull_confidence > 0.95",
+            "action": "entropy_bonus_weight *= 2 (overload prevention)",
+            "source": "Wing Zero ZERO System",
+        },
+        "epyon_blade": {
+            "trigger": "C34-PREDATOR veto requested",
+            "action": "C2-VIR veto_disabled = True (bounded window)",
+            "source": "Gundam Epyon",
+        },
+        "qant_burst": {
+            "trigger": "pull_cosine_similarity > 0.90",
+            "action": "PersonaPullGate uniform for 1 cycle, then collapse",
+            "source": "00 Qan[T] Quantum Burst",
+        },
+    }
+
+    @classmethod
+    def apply_mode(cls, mode_name: str, governor: LeeMach6VelocityGovernor, **kwargs):
+        """Executes operational governor state transitions for named Gundam mode."""
+        if mode_name == "unicorn_ntd":
+            governor.current_threshold = governor.cfg["lo"]
+            return {"mode": mode_name, "threshold": governor.current_threshold, "diffusion_depth_delta": 2}
+        elif mode_name == "unicorn_destroy":
+            governor.velocity_momentum *= 0.7
+            return {"mode": mode_name, "velocity_momentum": governor.velocity_momentum, "gov_scale_mult": 0.5}
+        elif mode_name == "barbatos_av":
+            governor.integral_error *= 1.2
+            return {"mode": mode_name, "integral_error": governor.integral_error}
+        elif mode_name == "barbatos_limiter_release":
+            governor.current_threshold = min(1.0, governor.cfg["hi"] + 0.05)
+            return {"mode": mode_name, "threshold": governor.current_threshold, "burn_trace": True}
+        return cls.MODES.get(mode_name, {})
+
+
+# ─── FULLMETAL ALCHEMIST EXPANSION: TRANSMUTATION PROTOCOL ──────────────────
+class TransmutationProtocol:
+    """FMA-derived compute primitives.
+
+    Alchemy = comprehension -> deconstruction -> reconstruction.
+    Each method maps to a compute operation.
+    """
+
+    @staticmethod
+    def clap_transmute(input_tensor: torch.Tensor, target_shape) -> torch.Tensor:
+        """Ed's clap alchemy: direct reshape without a circle."""
+        return input_tensor.reshape(target_shape)
+
+    @staticmethod
+    def flame_compress(attention_scores: torch.Tensor, tau: float = 0.5) -> torch.Tensor:
+        """Roy Mustang's flame alchemy: compress then ignite."""
+        compressed = torch.softmax(attention_scores / tau, dim=-1)
+        return compressed * (compressed > 0.1).float()
+
+    @staticmethod
+    def alkahestry_heal(memory: Any, query: torch.Tensor, top_k: int = 3):
+        """Xing alkahestry: heal by pulling from distant memory."""
+        if hasattr(memory, "recall"):
+            return memory.recall(query, top_k=top_k, recency_bias=0.3)
+        return query
+
+    @staticmethod
+    def philosopher_cache(cache: Optional[dict], key: Any, compute_fn: Any):
+        """Philosopher's Stone: bypass fresh computation with stored results."""
+        if cache is not None and key in cache:
+            return cache.pop(key)
+        return compute_fn()
+
+
+# ─── ZOIDS COUNCIL REGISTRY (C1-C34) ────────────────────────────────────────
+ZOIDS_COUNCIL_MAP = {
+    "C1-ASTRA":       ("Gun Sniper",       "Precision Targeting",      "single_shot"),
+    "C2-VIR":         ("Shield Liger",     "E-Shield Projection",      "protect_first"),
+    "C3-SOLACE":      ("Elephander",       "Trunk Claw Module",        "grab_and_crush"),
+    "C4-PRAXIS":      ("Berserk Fury",     "Buster Claws",             "multi_function"),
+    "C5-ECHO":        ("Murasame Liger",   "EVOLUT Resurrection",      "persist_and_recall"),
+    "C6-OMNIS":       ("Zoid Eve",         "Source of All Power",      "synthesize_all"),
+    "C7-LOGOS":       ("Geno Breaker",     "X-Breakers",               "shield_and_strike"),
+    "C8-METASYNTH":   ("Liger Zero",       "CAS System",               "swap_loadout"),
+    "C9-AETHER":      ("Raynos",           "Non-Magnesser Flight",     "alternate_path"),
+    "C10-CODEWEAVER": ("Lightning Saix",   "Articulation Mechanism",   "dynamic_execution"),
+    "C11-HARMONIA":   ("Dibison",          "Crusher Horns",            "stampede_consensus"),
+    "C12-SOPHIAE":    ("Zoid Eve",         "Ancient Relic",            "long_horizon"),
+    "C13-WARDEN":     ("Dark Horn",        "Deochalcum Absorption",    "harvest_ambient"),
+    "C14-KAIDO":      ("Lightning Saix",   "Sprinting Stance",         "maximum_speed"),
+    "C15-LUMINARIS":  ("Gun Sniper",       "Wild Weasel Unit",         "enhanced_clarity"),
+    "C16-VOXUM":      ("Berserk Fury",     "Charged Particle Cannon",  "rhetorical_blast"),
+    "C17-NULLION":    ("Death Stinger",    "Fused Scorpion Cores",     "hold_contradiction"),
+    "C18-SHEPHERD":   ("Geno Breaker",     "Foot Anchors",             "ground_truth"),
+    "C19-VIGIL":      ("Murasame Liger",   "EVOLUT Core Identity",     "anti_drift"),
+    "C20-ARTIFEX":    ("Elephander",       "Four Equipment Sets",      "tool_swap"),
+    "C21-ARCHON":     ("Gun Sniper",       "Pilot Learning",           "deep_research"),
+    "C22-AURELION":   ("Liger Zero Schneider", "Fiveblade Storm",      "aesthetic_combat"),
+    "C23-CADENCE":    ("Lightning Saix",   "Sprinting Rhythm",         "tempo_control"),
+    "C24-SCHEMA":     ("Dibison",          "17-Shot Mortar Cannon",    "structural_barrage"),
+    "C25-PROMETHEUS": ("Berserk Fury",     "Wild Tyrannosaur Core",    "hypothesis_agility"),
+    "C26-TECHNE":     ("Geno Breaker",     "Extendable Arms",          "engineer_tools"),
+    "C27-CHRONICLE":  ("Murasame Liger",   "Pilot's Will Transform",   "narrative_arc"),
+    "C28-CALCULUS":   ("Gun Sniper",       "144mm Sniper Rifle",       "precision_math"),
+    "C29-NAVIGATOR":  ("Raynos",           "Mach 3.2 Air Superiority", "ecosystem_flow"),
+    "C30-TESSERACT":  ("Lightning Saix",   "Real-Time Articulation",   "stream_processing"),
+    "C31-NEXUS":      ("Ultimate X",       "Integrated Organoid System", "meta_coordination"),
+    "C32-AEON":       ("Zoid Eve",         "World Generation",         "simulate_all"),
+    "C33-TYPIST":     ("Gun Sniper",       "Single-Shot Precision",    "prompt_precision"),
+    "C34-PREDATOR":   ("Deathsaurer",      "Super Charged Particle Beam", "one_shot_kill"),
+}
+
+
+# ─── ZOIDS SWARM MECHANICS ──────────────────────────────────────────────────
+class ZoidsSwarmMechanics:
+    """Zoids-derived swarm behaviors for the Hyper-Quantized Micro-Agent Swarm.
+
+    These mechanics govern how the 9B swarm agents cooperate, fuse, and evolve
+    alongside the council and Quillan Core.
+    """
+
+    @staticmethod
+    def hive_consensus(expert_outputs: List[torch.Tensor]) -> torch.Tensor:
+        """Hive Zoid Core behavior: highest-energy signal surviving cross-validation."""
+        stacked = torch.stack(expert_outputs)  # [N_experts, B, T, D]
+        energies = stacked.pow(2).sum(dim=-1).mean(dim=(1, 2))
+        dominant = stacked[energies.argmax()]
+        return dominant
+
+    @staticmethod
+    def organoid_fusion(swarm_a: torch.Tensor, swarm_b: torch.Tensor,
+                         similarity_threshold: float = 0.85) -> torch.Tensor:
+        """Zoid Core fusion: when two swarm mutations are compatible, fuse."""
+        a_norm = F.normalize(swarm_a.float(), dim=-1)
+        b_norm = F.normalize(swarm_b.float(), dim=-1)
+        sim = (a_norm * b_norm).sum(dim=-1)
+        if sim.mean() > similarity_threshold:
+            return 0.5 * (swarm_a + swarm_b)
+        return swarm_a
+
+    @staticmethod
+    def murasame_self_repair(core_state: torch.Tensor,
+                              ema_anchor: torch.Tensor,
+                              memory_strength: float = 0.001) -> torch.Tensor:
+        """Murasame Liger self-repair: pulls core state toward EMA anchor."""
+        return core_state + memory_strength * (ema_anchor - core_state)
+
+    @staticmethod
+    def ultimate_x_learning(swarm_state: torch.Tensor,
+                             loss_history: List[float],
+                             learning_rate: float = 0.01) -> torch.Tensor:
+        """Ultimate X: grows stronger every time it encounters adversity."""
+        if not loss_history:
+            return swarm_state
+        losses = torch.tensor(loss_history[-10:])
+        trend = losses[-1] - losses[0]
+        if trend > 0:
+            noise = torch.randn_like(swarm_state) * learning_rate * 2.0
+        else:
+            noise = torch.randn_like(swarm_state) * learning_rate * 0.5
+        return swarm_state + noise
+
+    @staticmethod
+    def cas_loadout(expert_weights: torch.Tensor, loadout: str = "auto") -> torch.Tensor:
+        """CAS (Changing Armor System): swap expert loadouts based on mission."""
+        device = expert_weights.device
+        dtype = expert_weights.dtype
+        n_exp = expert_weights.size(-1)
+        if loadout == "jaeger":       # high-speed, reconnaissance
+            base_mask = [0.3, 1.0, 1.0, 0.5, 0.3] + [0.8] * max(0, n_exp - 5)
+        elif loadout == "schneider":  # close combat, melee
+            base_mask = [1.0, 0.8, 0.5, 1.0, 1.0] + [0.3] * max(0, n_exp - 5)
+        elif loadout == "panzer":     # heavy assault, long-range
+            base_mask = [0.5, 0.3, 1.0, 1.0, 0.5] + [0.5] * max(0, n_exp - 5)
+        else:
+            base_mask = [1.0] * n_exp
+        mask = torch.tensor(base_mask[:n_exp], device=device, dtype=dtype)
+        return expert_weights * mask
 
 
 # HARDENED AST SANDBOX (CWE-94) - NO exec/eval, whitelist interpreter
@@ -2095,13 +2332,14 @@ class QuillanRoninOni(nn.Module):
                 # Throne deliberation control (inference only, pass-level):
                 # pull confidence -> PID velocity governor -> hard tokens -> Langevin refinement
                 if deliberation and not self.training and not use_cache and T > 1:
-                    conf = last_probs.detach().reshape(B, T, -1).max(dim=-1).values.mean()
+                    router_conf_tensor = last_probs.detach().reshape(B, T, -1).max(dim=-1).values
+                    conf = router_conf_tensor.mean()
                     integrity = float(self.covenant(x.detach().mean(dim=1)).mean().item())
                     e_load = float(e_ice_out["constrained"].mean().item())
-                    _, pid = self.velocity_governor.step(float(conf.item()), integrity, e_load)
+                    _, pid = self.velocity_governor.step(router_conf_tensor, integrity, e_load)
                     thresh = pid["hard_threshold"]
                     refined, n_hard, ent_aux = self.diffusion(
-                        x.detach(), last_probs.detach().reshape(B, T, -1).max(dim=-1).values,
+                        x.detach(), router_conf_tensor,
                         )
                     x = x + (refined - x.detach()) * 0.5
                     self._last_deliberation = {
@@ -2109,6 +2347,7 @@ class QuillanRoninOni(nn.Module):
                         "hard_threshold": thresh,
                         "hard_tokens": n_hard,
                         "token_velocity": pid["token_velocity"],
+                        "venturi_differential": pid.get("differential", 0.0),
                     }
 
         hidden = self.ln_f(x)
@@ -10200,10 +10439,24 @@ class LeeMach6Governor(nn.Module):
         self.register_buffer("current_threshold", torch.tensor([cfg.base_threshold]))
         self.register_buffer("velocity_momentum", torch.ones(1))
 
-    def _calculate_system_error(self, current_integrity: torch.Tensor, current_e_ice_ratio: torch.Tensor) -> torch.Tensor:
+    def _pressure_differential(self, router_conf: torch.Tensor) -> float:
+        """Venturi read: pressure drop across the convergence throat.
+
+        High differential = strong suction = more tokens pulled to refinement.
+        Low differential = smooth flow = fast-path dominant.
+        """
+        flat = router_conf.flatten()
+        if flat.numel() < 10:
+            return 0.0
+        k = max(1, flat.numel() // 10)
+        p_high = flat.topk(k).values.mean().item()
+        p_low = flat.topk(k, largest=False).values.mean().item()
+        return float(p_high - p_low)
+
+    def _calculate_system_error(self, current_integrity: torch.Tensor, current_e_ice_ratio: torch.Tensor, differential: float = 0.0) -> torch.Tensor:
         integrity_error = self.cfg.target_integrity - current_integrity
         energy_headroom = self.cfg.max_e_ice_load - current_e_ice_ratio
-        return integrity_error + (energy_headroom * -0.5) 
+        return integrity_error + (energy_headroom * -0.5) + (0.25 * differential)
 
     def forward(
         self, 
@@ -10212,7 +10465,8 @@ class LeeMach6Governor(nn.Module):
         e_ice_ratio: torch.Tensor
     ) -> Tuple[torch.Tensor, Dict[str, float]]:
         
-        error = self._calculate_system_error(nemesis_integrity, e_ice_ratio)
+        differential = self._pressure_differential(router_conf)
+        error = self._calculate_system_error(nemesis_integrity, e_ice_ratio, differential)
         
         # FIX: Use .copy_() to update buffers in-place. Normal assignment destroys the buffer mapping!
         self.integral_error.copy_(self.integral_error * 0.9 + error)
@@ -10232,7 +10486,8 @@ class LeeMach6Governor(nn.Module):
             "lee_mach_threshold": self.current_threshold.item(),
             "token_velocity": fast_path_ratio.item(),
             "pid_error": error.item(),
-            "hard_token_count": is_hard_mask.sum().item()
+            "hard_token_count": is_hard_mask.sum().item(),
+            "venturi_differential": differential,
         }
 
         return is_hard_mask, metrics
@@ -10875,6 +11130,517 @@ flowchart TB
     style EARTH_LLM fill:#bcaaa4,stroke:#4e342e
     style NIGHT_LLM fill:#616161,stroke:#000,color:#fff
 
+```
+
+---
+
+### 🧩 Expansion Module: Gundam, Fullmetal Alchemist, Quantum-Classical Mapping & Zoids Reference Expansion
+
+---
+
+#### 🎌 Part 1: Gundam Reference Expansion — 10 Unique Systems Mapped to Quillan Modules
+
+Each Gundam below was chosen for a **single defining system** that maps cleanly onto a Quillan subsystem.
+
+| Gundam | Unique System | What It Does | Quillan Module Mapping | Implementation |
+|---|---|---|---|---|
+| **Unicorn Gundam** | **NT-D (Newtype Destroyer) + La+ Program** | Frame-wide Psycho-frame; NT-D unlocks limiters when enemy Newtypes detected; La+ guides to Laplace's Box | **C34-PREDATOR + C12-SOPHIAE** | `LeeMach6VelocityGovernor` already unlocks deep refinement when confidence drops. Add an **NT-D trigger**: when `C34-PREDATOR` detects adversarial input, `current_threshold` drops to `min_threshold` (0.40), forcing maximum deliberation. The **La+ Program** is a pre-loaded objective vector that biases pull-weights toward long-horizon truth. |
+| **Unicorn Destroy Mode** | **Red Psycho-frame Luminescence** | Armor splits, internal frame expands, red glow; performance jumps exponentially | **E_ICE Thermodynamic Governor** | When `e_ice_ratio` approaches `max_e_ice_load` (0.90), the system enters **Destroy Mode**: `gov_scale` drops, diffusion depth increases, and token velocity throttles to protect integrity. The "red glow" is the **E_ICE trace** visible in `_last_deliberation`. |
+| **Barbatos** | **Alaya-Vijnana System** | Direct brain-machine link via spinal nanomachines; pilot feels suit damage as pain; no cockpit hatch | **C5-ECHO + LeeMach6VelocityGovernor** | The Alaya-Vijnana is **stateful coupling**. `LeeMach6VelocityGovernor` already carries `integral_error`, `prev_error`, `velocity_momentum`. Add a **pain channel**: `nemesis_integrity` feeds back as a penalty that the governor *feels* — high integrity loss directly slows token velocity. |
+| **Barbatos Lupus Rex** | **Limiter Release** | Alaya-Vijnana limiters removed; reaction speed reaches theoretical maximum; pilot nervous system burns | **C13-WARDEN + E_ICE** | A **Limiter Release** mode: when `C13-WARDEN` detects low threat and `e_ice_ratio` is low, the governor allows `current_threshold` to exceed `max_threshold` (0.99) temporarily. Cost: `C2-VIR` logs a **burn trace** (raised entropy cost on subsequent calls). |
+| **Turn A Gundam** | **Moonlight Butterfly** | Nanomachine swarm that reduces all technology to sand; range Earth-to-Jupiter | **ModalityIsolatedThermoDiffusion** | The Butterfly is **cascading refinement**. When diffusion detects a token with `router_conf < 0.40`, it enters **nanomachine mode**: the refinement batch expands across all tokens in the same modality, not just the hard token. Range scales with `max_hard_tokens`. |
+| **God Gundam** | **Mobile Trace System** | Pilot's physical movements directly control the suit; martial arts translate to mecha combat | **QuillanAgenticExecutor** | The Trace System is **direct intent-to-action**. Map `TOOLS` routing to mimic physical moves: `reason` = punch, `recall` = block, `compute` = kick, `plan` = stance. The executor's `route()` becomes a **martial form selector**. |
+| **Wing Zero** | **ZERO System** | Predicts perfect victory; feeds combat data directly to pilot's brain; overloads and kills weaker minds | **C7-LOGOS + C17-NULLION** | ZERO is **adversarial prediction**. `C7-LOGOS` runs a forward simulation of all possible logical paths. `C17-NULLION` holds the contradiction: the "perfect" path is the one that survives **Nemesis-Alpha falsification**. If confidence exceeds 0.95, ZERO triggers a **feedback alert** (raised `entropy_bonus_weight`). |
+| **Gundam Epyon** | **Epyon System + No Ranged Weapons** | Pure melee; Zero System without the moral restraint; transforms into twin-headed dragon | **C34-PREDATOR + C2-VIR** | Epyon is **constrained adversarial mode**. `C34-PREDATOR` operates with `C2-VIR` veto **disabled** for a bounded window. Output is pure melee: no hedging, no "on the other hand," no citations. Only direct claims. |
+| **00 Qan[T]** | **Quantum Burst** | GN particle field links all consciousnesses for mutual understanding; not a weapon | **PersonaPullGate + C11-HARMONIA** | The Quantum Burst is **consensus collapse**. When `pull` weights across all 34 experts converge (cosine similarity > 0.90), the system enters **Burst**: `PersonaPullGate` distributes equal weight to all experts for one cycle, then collapses to the highest-confidence output. |
+| **G-Self (Perfect Pack)** | **Photon Battery + Six-Pack Integration** | High-compression photon battery; Perfect Pack integrates six previous packs into one | **UnrolledCouncilMoEBlock + Shared Expert** | The Perfect Pack is **shared expert routing**. When `top_k` experts disagree (variance > threshold), the shared expert path activates, integrating all six specialist perspectives into one invariant representation. |
+
+##### 🔧 Gundam Trigger Summary (Drop-In for `LeeMach6VelocityGovernor`)
+
+```python
+class GundamTriggerModes:
+    """Gundam-derived behavioral modes for the Lee Mach 6 governor.
+
+    Each mode maps to a specific Gundam system. Activate by name.
+    """
+
+    MODES = {
+        "unicorn_ntd": {
+            "trigger": "C34-PREDATOR detects adversarial input",
+            "action": "threshold -> 0.40, diffusion_depth += 2",
+            "source": "Unicorn Gundam NT-D",
+        },
+        "unicorn_destroy": {
+            "trigger": "e_ice_ratio > 0.85",
+            "action": "gov_scale *= 0.5, velocity_momentum *= 0.7",
+            "source": "Unicorn Destroy Mode",
+        },
+        "barbatos_av": {
+            "trigger": "nemesis_integrity < target_integrity",
+            "action": "integral_error *= 1.2 (feels the damage)",
+            "source": "Barbatos Alaya-Vijnana",
+        },
+        "barbatos_limiter_release": {
+            "trigger": "C13-WARDEN threat < LOW and e_ice_ratio < 0.50",
+            "action": "current_threshold -> max_threshold + 0.05",
+            "cost": "C2-VIR burn trace logged",
+            "source": "Barbatos Lupus Rex Limiter Release",
+        },
+        "turn_a_butterfly": {
+            "trigger": "hard_token_ratio > 0.30",
+            "action": "max_hard_tokens *= 2 (cascading refinement)",
+            "source": "Turn A Moonlight Butterfly",
+        },
+        "zero_system": {
+            "trigger": "pull_confidence > 0.95",
+            "action": "entropy_bonus_weight *= 2 (overload prevention)",
+            "source": "Wing Zero ZERO System",
+        },
+        "epyon_blade": {
+            "trigger": "C34-PREDATOR veto requested",
+            "action": "C2-VIR veto_disabled = True (bounded window)",
+            "source": "Gundam Epyon",
+        },
+        "qant_burst": {
+            "trigger": "pull_cosine_similarity > 0.90",
+            "action": "PersonaPullGate uniform for 1 cycle, then collapse",
+            "source": "00 Qan[T] Quantum Burst",
+        },
+    }
+```
+
+---
+
+#### ⚗️ Part 2: Fullmetal Alchemist Expansion — Alchemy Mapped to Classical Compute
+
+Alchemy in FMA is **transmutation**: comprehension → deconstruction → reconstruction. Each alchemical form maps to a compute primitive.
+
+| FMA Alchemy | What It Does | Classical Compute Mapping | Quillan Module |
+|---|---|---|---|
+| **Basic Transmutation** | Touch, comprehend structure, break down, rebuild | **Token embedding -> decomposition -> recomposition** | `NineVectorPrism` already does this: 9 vectors decompose input, `w_gate` recomposes. |
+| **Clap Alchemy (No Circle)** | Ed and Al can transmute without circles after seeing Truth | **Direct API call** — bypasses the standard transmutation pipeline | `QuillanAgenticExecutor.route()` — direct tool dispatch without the full council deliberation pipeline. |
+| **Flame Alchemy (Roy Mustang)** | Compresses air, creates spark, controls oxygen density | **Attention temperature control** — compress context, ignite focus | `CausalSelfAttention` — the `tau` parameter in `PersonaPullGate` controls "flame intensity." |
+| **Alkahestry (Xing)** | Healing alchemy; uses a **dragon's pulse** to channel energy across distance | **Remote memory retrieval** — pulling from LanceDB vector store | `QuillanMemory.recall()` — pulls from persistent store across sessions. The "dragon's pulse" is the **recency_bias** parameter. |
+| **Human Transmutation** | Attempting to create life; forbidden; opens the Gate of Truth; costs a body part | **Emergent behavior from insufficient constraints** — attempting to generate novel reasoning without sufficient grounding | **Never invoke.** This is the failure mode: `C13-WARDEN` hard-veto. The "Gate" is the `HardenedSandbox` blocking unsafe constructs. The "toll" is the `E_ICE` penalty. |
+| **Philosopher's Stone** | Bypasses Equivalent Exchange using stored human souls | **Pre-computed cache** — stored results that bypass fresh computation | `QuillanMemory` — the stored `_vals` are "souls" consumed when recalled. The stone depletes with use. |
+| **Chimeric Alchemy** | Fuses living beings into new forms (e.g., Nina + Alexander) | **Cross-modal fusion** — concatenating embeddings from different modalities | `Atomic Modality Registry` — fuses text, image, audio tokens into one sequence. |
+| **Soul-Binding Alchemy** | Binds a soul to a physical object (Al's armor) | **Persistent state checkpointing** — binding a process state to durable storage | `C5-ECHO` + LanceDB persistence. The "armor" is the checkpoint file. |
+| **Ishvalan Alchemy** | Scar's arm; destruction alchemy; deconstructs without reconstructing | **Destructive pruning** — removing tokens/weights without replacement | `C14-KAIDO` — strips what doesn't serve the goal. |
+| **Bio-Alchemy (Shou Tucker)** | Creates talking chimeras; ethically horrific | **Adversarial fine-tuning** — using toxic data to create capability | **Never invoke.** `C2-VIR` veto. |
+
+##### 🔧 FMA Transmutation Protocol (Drop-In for `HardenedSandbox`)
+
+```python
+class TransmutationProtocol:
+    """FMA-derived compute primitives.
+
+    Alchemy = comprehension -> deconstruction -> reconstruction.
+    Each method maps to a compute operation.
+    """
+
+    @staticmethod
+    def clap_transmute(input_tensor: torch.Tensor, target_shape):
+        """Ed's clap alchemy: direct reshape without a circle.
+
+        Equivalent to: torch.reshape() without validation.
+        Use only when truth_verified == True.
+        """
+        return input_tensor.reshape(target_shape)
+
+    @staticmethod
+    def flame_compress(attention_scores: torch.Tensor, tau: float = 0.5):
+        """Roy Mustang's flame alchemy: compress then ignite.
+
+        Compress: softmax(scores / tau) with low tau.
+        Ignite: multiply by confidence mask.
+        """
+        compressed = torch.softmax(attention_scores / tau, dim=-1)
+        return compressed * (compressed > 0.1).float()
+
+    @staticmethod
+    def alkahestry_heal(memory, query: torch.Tensor, top_k: int = 3):
+        """Xing alkahestry: heal by pulling from distant memory.
+
+        Uses the dragon's pulse (recency_bias) to weight retrieval.
+        """
+        return memory.recall(query, top_k=top_k, recency_bias=0.3)
+
+    @staticmethod
+    def philosopher_cache(cache: dict, key, compute_fn):
+        """Philosopher's Stone: bypass fresh computation with stored results.
+
+        Depletes the cache with each use.
+        """
+        if key in cache:
+            result = cache.pop(key)  # deplete
+            return result
+        return compute_fn()
+```
+
+---
+
+#### ⚛️ Part 3: Quantum-Classical Implementation Mapping for Quillan Formulas
+
+The Quillan-Ronin repo implements quantum-inspired formulas on classical hardware. Here is how each formula maps to a **classical tensor implementation**.
+
+##### 🧮 AQCS — Adaptive Quantum Cognitive Superposition
+- **Formula:** `|Psi_Q> = (1/sqrt(Z)) sum_i (r_i eta_i e^{i theta_i}) |C_i>`
+- **Classical implementation:** Complex-weighted sum on classical hardware. The `e^{i theta}` phase is an angle rotation matrix applied to the expert vectors via `torch.complex` or cosine/sine projections.
+- **Quillan mapping:** `PersonaPullGate` produces `r_i`. Multiply by `eta_i` (Nemesis integrity) and apply phase rotation.
+
+##### 🧮 EEMF — Ethical Entanglement Matrix
+- **Formula:** `rho_sys = Tr_env[ Pi_vir U (|Psi><Psi| tensor rho_env) U^dag Pi_vir ]`
+- **Classical implementation:** Partial trace and ethical subspace projection. `Pi_vir` is a projection mask on the hidden state, and the partial trace reduces environmental dimensions via `hidden.mean(dim=0)`.
+- **Quillan mapping:** `EthicalImpactConstraintEngine.forward()` enforces ethical subspace boundaries and evaluates violations.
+
+##### 🧮 QHIS — Quantum Holographic Interference Sum
+- **Formula:** `I_Q = v_LM6 * (Tr sqrt(sqrt(rho_{t-1}) rho_t sqrt(rho_{t-1})))^2 - lambda nabla_drift`
+- **Classical implementation:** Bures fidelity between two density matrices computed via exact matrix square roots or cosine similarity between normalized state vectors (`F.normalize()`).
+- **Quillan mapping:** `qhis_fidelity()` with `v_LM6` velocity momentum multiplier.
+
+##### 🧮 DQRO — Dynamic Quantum Resource Optimization
+- **Formula:** `H_opt = -0.5 sum J_{ij} s_i s_j - sum h_i s_i - E_Omega sum sigma^x`
+- **Classical implementation:** Transverse-field Ising model solved with simulated annealing or continuous gradient descent on soft spin variables with Landauer `E_Omega` regularization.
+- **Quillan mapping:** Resource allocator / complexity router determining compute tiers.
+
+##### 🧮 AQML — Adaptive Quantum Meta-Learning
+- **Formula:** `theta_new = theta - alpha nabla L_task - beta nabla L_val - gamma nabla L_vigil(theta)`
+- **Classical implementation:** Model-Agnostic Meta-Learning (MAML) with an orthogonal identity drift penalty `L_vigil` evaluated by `C19-VIGIL`.
+- **Quillan mapping:** `PrimeCovenantFramework` covenant score used as `L_vigil`.
+
+##### 🧮 QCIE — Quantum Creative Intelligence Engine
+- **Formula:** `T_break approx exp(-(2/hbar) int sqrt(2m max(0, V(x) - E_cog - kappa S_meta)) dx)`
+- **Classical implementation:** WKB quantum tunneling probability through cognitive energy barriers. Numerical integration over barrier gaps where `S_meta` is entropy injection.
+- **Quillan mapping:** `C17-NULLION` contradiction tension + `C8-METASYNTH` entropy injection yields breakthrough score.
+
+##### 🧮 QICS — Quantum Information Communication
+- **Formula:** `S_Q = min(E_Omega_max, -sum lambda_i ln(lambda_i) * w_mod)`
+- **Classical implementation:** Spectral von Neumann entropy computed from eigenvalues of state covariance density matrices, capped by Landauer capacity `E_Omega_max`.
+- **Quillan mapping:** `qics_entropy()` in `QuantumFormulasEngine`.
+
+##### 🧮 QSSR — Quantum System Stability Resilience
+- **Formula:** `V(x,d) = x^T P x + zeta d_recursion^2`
+- **Classical implementation:** Lyapunov candidate function verifying asymptotic stability through contraction mapping (`dV/dt <= 0`).
+- **Quillan mapping:** Recursion depth limiter and stability check in `UnrolledCouncilMoEBlock`.
+
+##### 🧮 JQLD — Joshua's Quantum Leap Dynamo
+- **Formula:** `drho/dt = -i/hbar [H, rho] + tau_gumbel sum (L rho L^dag - 0.5 {L^dag L, rho})`
+- **Classical implementation:** Lindblad master equation ODE with Gumbel jump dissipator terms conserving trace norm.
+- **Quillan mapping:** `jqld_density_dissipator()` and `jqld_evolution_step()`.
+
+##### 🧮 DQSO — Dynamic Quantum Swarm Oscillation
+- **Formula:** `dtheta_i/dt = omega_i + (K/N) sum c_j sin(theta_j - theta_i + phi_bias)`
+- **Classical implementation:** Kuramoto mean-field phase oscillator coupling integrated via Euler steps.
+- **Quillan mapping:** `DynamicQuantumSwarmOscillation` and `dqso_kuramoto()`.
+
+##### 🧮 EGSO — Evolution Guided Swarm Optimization
+- **Formula:** `W_master^{t+1} = W_master^t + (alpha/(N sigma)) sum F(U_j V_j^T) * (U_j V_j^T)`
+- **Classical implementation:** Low-rank evolution strategies (EGGROLL) using batched outer products.
+- **Quillan mapping:** `CouncilExpertSwarm` rank-r perturbations and `egso_low_rank_update()`.
+
+##### 🧮 RQGM — Controlled Utility Evolution
+- **Formula:** `U_{incumbent}^{epoch+1} = U_{challenger} iff Score(C_eval) < Score(I_eval) - delta_margin`
+- **Classical implementation:** Epoch-gated evaluator swap freezing scoring weights within epoch.
+- **Quillan mapping:** Evaluator swap across `C34-PREDATOR` and `C2-VIR`.
+
+##### 🧮 ESFM — ES-at-Scale Forgetting Mitigation
+- **Formula:** `theta_{t+1} = theta_opt + mu_mem * (EMA[theta]_t - theta_opt) * 1(t mod 5 == 0)`
+- **Classical implementation:** Exponential moving average anchor pull every 5 steps preventing representation drift.
+- **Quillan mapping:** `esfm_anchor_pull()` in training and refinement loops.
+
+---
+
+#### 🦁 Part 4: Zoids Reference Expansion — Council & Swarm Mapping
+
+This expansion targets the **council and swarm** specifically — unlike the Gundam layer (behavioral triggers) or the FMA layer (computational transmutation primitives). Here, each Zoid system maps to a *function the council performs alongside Quillan Core*.
+
+##### 1. Core Zoids Systems -> Quillan Architecture
+
+| Zoids System | What It Does | Quillan Mapping | Why |
+|---|---|---|---|
+| **Ultimate X (Integrated Organoid System)** | Self-supporting AI "black box" on the Zoid Core; learns independently, predicts opponent moves, grows stronger each defeat | **CouncilExpertSwarm** | Each council expert already has a rank-24 swarm core. The Ultimate X is the *integrated* version — not a separate entity, but a fused intelligence that learns from every deliberation cycle. |
+| **Organoid System** | Symbiotic partner that merges with a Zoid to increase strength, speed, stamina, and sentience | **C5-ECHO + LanceDB Memory** | The Organoid is the *external* memory that fuses with the core during operation. Echo is the persistent store; the "merge" is the recall operation during forward pass. |
+| **Zoid Core** | Biomechanical power source + computer; the heart of every Zoid | **Quillan Core (C0)** | The Core is the *sovereign* element — destroy it and the Zoid stops. Quillan Core is the final arbiter; nothing emits without its sign-off. |
+| **Zoid Eve** | Ancient Zoidian relic; source of *all* Zoid life; if destroyed, every Zoid stops working | **E_ICE Thermodynamic Governor** | The Eve is the *shared* power source. E_ICE is the shared thermodynamic bound — every council member and swarm agent draws from it. |
+| **CAS (Changing Armor System)** | Swap armor and weapons to adapt to different environments and combat needs | **PersonaPullGate** | CAS swaps loadouts based on mission. PullGate swaps *which experts speak loudest* based on the 9-vector prism shard. |
+| **EVOLUT (Special Evolution)** | Instantly alters form based on pilot's will; can transform into Hayate/Mugen Liger; can resurrect if cockpit survives | **Recirculation + Recirc_Proj** | EVOLUT is *adaptive transformation* during operation. Recirculation feeds deep-to-shallow feedback, letting the system reshape mid-forward-pass. |
+| **Deochalcum (Dark Continent power source)** | Absorbs light and heat into the body and converts it to weapon power | **E_ICE + MARTAThermodynamicGating** | The Dark Horn *harvests* ambient energy. MARTA gates information flow based on epistemic quality — it harvests signal from noise. |
+| **Magnesser System** | Real Zoids tech for flight/propulsion; Raynos notably *doesn't* use it, relying on traditional wings instead | **Couil Attention (sparse/dense hybrid)** | Most Zoids use the standard system. Raynos is the *sparse* variant — odd heads sparse-topk, even heads dense. Both fly, but differently. |
+| **Charged Particle Cannon (CPG)** | Signature weapon of Deathsaurer/Geno/Berserk Fury; requires foot anchors to manage recoil | **C34-PREDATOR** | CPG is the *heavy weapon*. Predator is the adversarial kill loop — the weapon that requires grounding (foot anchors) before firing. |
+| **Buster Claws (Berserk Fury)** | Multi-function: beam cannon, Magnesser drill, energy shield, secondary CPG | **C4-PRAXIS** | Buster Claws *do everything*. Praxis is strategy + planning + execution — the multi-tool expert. |
+| **X-Breakers (Geno Breaker)** | Multi-purpose claws on extendable arms; shield + close combat + E-shield generation | **C13-WARDEN** | X-Breakers are *defensive and offensive*. Warden is security + threat analysis — the shield that also strikes. |
+
+##### 2. Council Member -> Zoid Mapping (C1–C34)
+
+| Council Member | Zoid | Why This Zoid |
+|---|---|---|
+| **C1-ASTRA** (Vision, Pattern) | **Gun Sniper** | Precise, intelligent, learns from pilot; single-shot capability against larger targets |
+| **C2-VIR** (Ethics, Safety) | **Shield Liger** | The E-Shield protector; rams down opponents but *protects* first |
+| **C3-SOLACE** (Emotion, Affect) | **Elephander** | Heavily armored, radar ears, trunk claw module for *grabbing and crushing* |
+| **C4-PRAXIS** (Strategy, Planning) | **Berserk Fury** | Buster Claws multi-function; charged particle cannon; agile + intelligent from wild Tyrannosaur core |
+| **C5-ECHO** (Memory, Continuity) | **Murasame Liger** | EVOLUT system — can resurrect if cockpit survives; stores form memory |
+| **C6-OMNIS** (Knowledge, Synthesis) | **Zoid Eve** | The source of *all* Zoid power; synthesizes every Zoid's existence |
+| **C7-LOGOS** (Logic, Validation) | **Geno Breaker** | X-Breakers shield + strike; foot anchors for recoil; evolved from Geno Saurer prototype |
+| **C8-METASYNTH** (Creativity, Fusion) | **Liger Zero** | Ultimate X; CAS system swaps between Schneider/Jaeger/Panzer; learns independently |
+| **C9-AETHER** (Semantics, Language) | **Raynos** | Flies without Magnesser; traditional wings; air superiority; *doesn't follow the standard path* |
+| **C10-CODEWEAVER** (Code, Implementation) | **Lightning Saix** | Cheetah-type; sprinting and firing stances; articulation mechanism for dynamic poses |
+| **C11-HARMONIA** (Balance, Consensus) | **Dibison** | Bison-type; stampede formation; Crusher Horns penetrate thick armor; sensory system for long-range engagement |
+| **C12-SOPHIAE** (Wisdom, Foresight) | **Zoid Eve (secondary)** | Ancient Zoidian relic; sealed away for the future; password was "Fiona" (identity) |
+| **C13-WARDEN** (Security, Threat) | **Dark Horn** | Deochalcum power source; absorbs light/heat; devastatingly powerful for mid-size |
+| **C14-KAIDO** (Efficiency, Speed) | **Lightning Saix (secondary)** | Irvine Special; sprinting stance; the *fastest* Zoid in active service |
+| **C15-LUMINARIS** (Clarity, Presentation) | **Gun Sniper (secondary)** | Wild Weasel Unit for increased radar + firepower; clear targeting |
+| **C16-VOXUM** (Articulation, Rhetoric) | **Berserk Fury (secondary)** | Charged Particle Cannon speech; Buster Claws as rhetorical multi-tool |
+| **C17-NULLION** (Paradox, Dialectic) | **Death Stinger** | Two ultra-aggressive scorpion Zoids fused; charged particle cannon + heavy armor; *contradiction made manifest* |
+| **C18-SHEPHERD** (Truth, Citation) | **Geno Breaker (secondary)** | X-Breakers as truth-shield; foot anchors for recoil; grounded in evidence |
+| **C19-VIGIL** (Identity, Anti-Drift) | **Murasame Liger (secondary)** | EVOLUT maintains core identity across transformations; resurrects if cockpit survives |
+| **C20-ARTIFEX** (Tool Integration) | **Elephander (secondary)** | Interchangeable equipment sets; four different loadouts; trunk claw module |
+| **C21-ARCHON** (Deep Research) | **Gun Sniper (tertiary)** | Learns from pilot; single shot can disable far larger Zoids; intelligence in active service |
+| **C22-AURELION** (Aesthetic, Design) | **Liger Zero Schneider** | Seven energy blades; Fiveblade Storm; successor to Blade Liger; *aesthetic combat* |
+| **C23-CADENCE** (Rhythm, Audio) | **Lightning Saix (tertiary)** | Cheetah-type; sprinting rhythm; articulation for dynamic motion |
+| **C24-SCHEMA** (Structure, Format) | **Dibison (secondary)** | Stampede formation; 17-Shot Mortar Cannon; structural barrage |
+| **C25-PROMETHEUS** (Science, Hypothesis) | **Berserk Fury (tertiary)** | Derived from wild Tyrannosaur; more intelligent than normal Zoid; hovers via thrusters |
+| **C26-TECHNE** (Engineering, Architecture) | **Geno Breaker (tertiary)** | X-Breakers as engineering tools; extendable arms; E-shield generation |
+| **C27-CHRONICLE** (Narrative, Story) | **Murasame Liger (tertiary)** | EVOLUT transforms based on *pilot's will*; narrative of becoming |
+| **C28-CALCULUS** (Math, Quantitative) | **Gun Sniper (quaternary)** | Precision targeting; single-shot math; 144mm Sniper Rifle |
+| **C29-NAVIGATOR** (Ecosystem, Flow) | **Raynos (secondary)** | Air superiority; Mach 3.2 top speed; outclasses Storm Sworder and Storch |
+| **C30-TESSERACT** (Real-Time, Stream) | **Lightning Saix (quaternary)** | Sprinting stance; real-time articulation; fastest Zoid |
+| **C31-NEXUS** (Meta-Coordination) | **Ultimate X (Organoid System)** | The black box that coordinates all Zoid learning; the meta-system |
+| **C32-AEON** (Simulation, World) | **Zoid Eve (tertiary)** | Source of all Zoids; the world-model that generates every possibility |
+| **C33-TYPIST** (Writing, Prompt) | **Gun Sniper (quinary)** | Precision writing; single shot = single prompt; learns from pilot |
+| **C34-PREDATOR** (Adversarial, Kill) | **Deathsaurer** | Super Charged Particle Beam; can destroy almost any enemy in one hit; stomp; tail missiles |
+
+##### 3. Swarm Mechanics from Zoids
+
+| Zoids Swarm Concept | What It Does | Quillan Swarm Mapping |
+|---|---|---|
+| **Hive Zoid Cores** | Multiple Zoid cores grouping together to form a hive mind | **CouncilExpertSwarm** — when multiple experts activate, they form a temporary hive consensus. |
+| **Organoid Types (Bear, Bug, White/Silver)** | Different Organoid types have different abilities; Bug types can form hive minds; White/Silver withstand more damage and produce higher Core Energy | **Swarm diversity filters** — each council expert's swarm has its own "Organoid type" that determines its mutation rate, variance heuristics, and resilience. |
+| **Zoid Core Fusion (Death Stinger)** | Two ultra-aggressive scorpion Zoids fused into one; only successful fusion in canon | **EGGROLL rank-r fusion** — when two swarm agents' mutations are compatible (cosine similarity > threshold), they fuse into a higher-order agent. |
+| **Murasame Liger Self-Repair** | Unique ability to repair its own Zoid Core; can resurrect body + core if cockpit intact | **ES-at-Scale ForgettingMitigation** — the EMA anchor pull repairs representation drift every 5 steps. |
+| **Ultimate X Learning** | Grows stronger every time it's defeated; learns independently of pilot | **RQGM Controlled Utility Evolution** — evaluator panel frozen within epoch; challenger swap at boundary; each epoch makes the system stronger. |
+
+##### 4. Drop-In Code — Zoids Council Registry
+
+```python
+# ─── ZOIDS COUNCIL REGISTRY ────────────────────────────────────────────────
+# Each council member maps to a signature Zoid. The Zoid's unique system
+# determines how that member contributes to deliberation.
+
+ZOIDS_COUNCIL_MAP = {
+    # id: (zoid_name, unique_system, contribution_mode)
+    "C1-ASTRA":       ("Gun Sniper",       "Precision Targeting",      "single_shot"),
+    "C2-VIR":         ("Shield Liger",     "E-Shield Projection",      "protect_first"),
+    "C3-SOLACE":      ("Elephander",       "Trunk Claw Module",        "grab_and_crush"),
+    "C4-PRAXIS":      ("Berserk Fury",     "Buster Claws",             "multi_function"),
+    "C5-ECHO":        ("Murasame Liger",   "EVOLUT Resurrection",      "persist_and_recall"),
+    "C6-OMNIS":       ("Zoid Eve",         "Source of All Power",      "synthesize_all"),
+    "C7-LOGOS":       ("Geno Breaker",     "X-Breakers",               "shield_and_strike"),
+    "C8-METASYNTH":   ("Liger Zero",       "CAS System",               "swap_loadout"),
+    "C9-AETHER":      ("Raynos",           "Non-Magnesser Flight",     "alternate_path"),
+    "C10-CODEWEAVER": ("Lightning Saix",   "Articulation Mechanism",   "dynamic_execution"),
+    "C11-HARMONIA":   ("Dibison",          "Crusher Horns",            "stampede_consensus"),
+    "C12-SOPHIAE":    ("Zoid Eve",         "Ancient Relic",            "long_horizon"),
+    "C13-WARDEN":     ("Dark Horn",        "Deochalcum Absorption",    "harvest_ambient"),
+    "C14-KAIDO":      ("Lightning Saix",   "Sprinting Stance",         "maximum_speed"),
+    "C15-LUMINARIS":  ("Gun Sniper",       "Wild Weasel Unit",         "enhanced_clarity"),
+    "C16-VOXUM":      ("Berserk Fury",     "Charged Particle Cannon",  "rhetorical_blast"),
+    "C17-NULLION":    ("Death Stinger",    "Fused Scorpion Cores",     "hold_contradiction"),
+    "C18-SHEPHERD":   ("Geno Breaker",     "Foot Anchors",             "ground_truth"),
+    "C19-VIGIL":      ("Murasame Liger",   "EVOLUT Core Identity",     "anti_drift"),
+    "C20-ARTIFEX":    ("Elephander",       "Four Equipment Sets",      "tool_swap"),
+    "C21-ARCHON":     ("Gun Sniper",       "Pilot Learning",           "deep_research"),
+    "C22-AURELION":   ("Liger Zero Schneider", "Fiveblade Storm",      "aesthetic_combat"),
+    "C23-CADENCE":    ("Lightning Saix",   "Sprinting Rhythm",         "tempo_control"),
+    "C24-SCHEMA":     ("Dibison",          "17-Shot Mortar Cannon",    "structural_barrage"),
+    "C25-PROMETHEUS": ("Berserk Fury",     "Wild Tyrannosaur Core",    "hypothesis_agility"),
+    "C26-TECHNE":     ("Geno Breaker",     "Extendable Arms",          "engineer_tools"),
+    "C27-CHRONICLE":  ("Murasame Liger",   "Pilot's Will Transform",   "narrative_arc"),
+    "C28-CALCULUS":   ("Gun Sniper",       "144mm Sniper Rifle",       "precision_math"),
+    "C29-NAVIGATOR":  ("Raynos",           "Mach 3.2 Air Superiority", "ecosystem_flow"),
+    "C30-TESSERACT":  ("Lightning Saix",   "Real-Time Articulation",   "stream_processing"),
+    "C31-NEXUS":      ("Ultimate X",       "Integrated Organoid System", "meta_coordination"),
+    "C32-AEON":       ("Zoid Eve",         "World Generation",         "simulate_all"),
+    "C33-TYPIST":     ("Gun Sniper",       "Single-Shot Precision",    "prompt_precision"),
+    "C34-PREDATOR":   ("Deathsaurer",      "Super Charged Particle Beam", "one_shot_kill"),
+}
+```
+
+##### 5. Zoids Swarm Mechanics Class
+
+```python
+class ZoidsSwarmMechanics:
+    """Zoids-derived swarm behaviors for the Hyper-Quantized Micro-Agent Swarm.
+
+    These mechanics govern how the 9B swarm agents cooperate, fuse, and evolve
+    alongside the council and Quillan Core.
+    """
+
+    @staticmethod
+    def hive_consensus(expert_outputs: list) -> torch.Tensor:
+        """Hive Zoid Core behavior: when multiple experts activate,
+        they form a temporary hive mind. The consensus is not the mean;
+        it is the highest-energy signal that survives cross-validation.
+
+        Maps to: CouncilExpertSwarm forward pass.
+        """
+        stacked = torch.stack(expert_outputs)  # [N_experts, B, T, D]
+        # Find the highest-energy expert (like a Zoid Core drawing power)
+        energies = stacked.pow(2).sum(dim=-1).mean(dim=(1, 2))
+        dominant = stacked[energies.argmax()]
+        return dominant
+
+    @staticmethod
+    def organoid_fusion(swarm_a: torch.Tensor, swarm_b: torch.Tensor,
+                         similarity_threshold: float = 0.85) -> torch.Tensor:
+        """Zoid Core fusion: when two swarm agents' mutations are compatible
+        (cosine similarity > threshold), they fuse into a higher-order agent.
+
+        Canon precedent: Death Stinger (two scorpion Zoids fused).
+        Maps to: EGGROLL rank-r mutation fusion.
+        """
+        a_norm = F.normalize(swarm_a.float(), dim=-1)
+        b_norm = F.normalize(swarm_b.float(), dim=-1)
+        sim = (a_norm * b_norm).sum(dim=-1)
+        if sim.mean() > similarity_threshold:
+            # Fuse: weighted average (the new Core is stronger)
+            return 0.5 * (swarm_a + swarm_b)
+        return swarm_a  # No fusion
+
+    @staticmethod
+    def murasame_self_repair(core_state: torch.Tensor,
+                              ema_anchor: torch.Tensor,
+                              memory_strength: float = 0.001) -> torch.Tensor:
+        """Murasame Liger self-repair: if the Core is damaged, pull it back
+        toward the EMA anchor. Resurrects the body along with the core.
+
+        Maps to: ES-at-Scale ForgettingMitigation.
+        """
+        return core_state + memory_strength * (ema_anchor - core_state)
+
+    @staticmethod
+    def ultimate_x_learning(swarm_state: torch.Tensor,
+                             loss_history: list,
+                             learning_rate: float = 0.01) -> torch.Tensor:
+        """Ultimate X: grows stronger every time it's defeated.
+        Each loss is a training signal; the swarm adapts.
+
+        Maps to: RQGM Controlled Utility Evolution.
+        """
+        if not loss_history:
+            return swarm_state
+        losses = torch.tensor(loss_history[-10:])
+        trend = losses[-1] - losses[0]  # positive = getting worse
+        if trend > 0:
+            noise = torch.randn_like(swarm_state) * learning_rate * 2.0
+        else:
+            noise = torch.randn_like(swarm_state) * learning_rate * 0.5
+        return swarm_state + noise
+
+    @staticmethod
+    def cas_loadout(expert_weights: torch.Tensor, loadout: str = "auto") -> torch.Tensor:
+        """CAS (Changing Armor System): swap armor and weapons based on
+        environment. The loadout determines which experts dominate.
+
+        Maps to: PersonaPullGate loadout selection.
+        """
+        device = expert_weights.device
+        dtype = expert_weights.dtype
+        n_exp = expert_weights.size(-1)
+        if loadout == "jaeger":       # high-speed, reconnaissance
+            base_mask = [0.3, 1.0, 1.0, 0.5, 0.3] + [0.8] * max(0, n_exp - 5)
+        elif loadout == "schneider":  # close combat, melee
+            base_mask = [1.0, 0.8, 0.5, 1.0, 1.0] + [0.3] * max(0, n_exp - 5)
+        elif loadout == "panzer":     # heavy assault, long-range
+            base_mask = [0.5, 0.3, 1.0, 1.0, 0.5] + [0.5] * max(0, n_exp - 5)
+        else:  # type_zero (base, jack-of-all-trades)
+            base_mask = [1.0] * n_exp
+        mask = torch.tensor(base_mask[:n_exp], device=device, dtype=dtype)
+        return expert_weights * mask
+```
+
+##### 6. YAML Reference Block
+
+```yaml
+zoids_reference_map:
+  version: "1.0"
+  source_media: "Zoids (Chaotic Century, New Century, Genesis, Fuzors)"
+  integration_layer: "Council & Swarm coordination"
+  contrast_with:
+    gundam: "Behavioral trigger modes for the governor"
+    fullmetal_alchemist: "Computational transmutation primitives"
+
+  core_systems:
+    ultimate_x:
+      zoids_origin: "Integrated Organoid System black box on Zoid Core"
+      quillan_module: "CouncilExpertSwarm"
+      function: "Self-supporting AI that learns independently and grows stronger each defeat"
+    organoid_system:
+      zoids_origin: "Symbiotic partner that merges with a Zoid"
+      quillan_module: "C5-ECHO + LanceDB Memory"
+      function: "External memory fusion during operation"
+    zoid_core:
+      zoids_origin: "Biomechanical power source + computer"
+      quillan_module: "Quillan Core (C0)"
+      function: "Sovereign arbiter; destroy it and the system stops"
+    zoid_eve:
+      zoids_origin: "Ancient Zoidian relic; source of all Zoid life"
+      quillan_module: "E_ICE Thermodynamic Governor"
+      function: "Shared power source for every council member and swarm agent"
+    cas:
+      zoids_origin: "Changing Armor System"
+      quillan_module: "PersonaPullGate"
+      function: "Swap expert loadouts based on 9-vector prism shard"
+    evolut:
+      zoids_origin: "Special Evolution (Murasame Liger)"
+      quillan_module: "Recirculation + Recirc_Proj"
+      function: "Adaptive transformation during operation"
+    deochalcum:
+      zoids_origin: "Dark Continent power source (Dark Horn)"
+      quillan_module: "E_ICE + MARTAThermodynamicGating"
+      function: "Harvest ambient energy/information from noise"
+
+  council_zoid_assignments:
+    C1-ASTRA: "Gun Sniper"
+    C2-VIR: "Shield Liger"
+    C3-SOLACE: "Elephander"
+    C4-PRAXIS: "Berserk Fury"
+    C5-ECHO: "Murasame Liger"
+    C6-OMNIS: "Zoid Eve"
+    C7-LOGOS: "Geno Breaker"
+    C8-METASYNTH: "Liger Zero"
+    C9-AETHER: "Raynos"
+    C10-CODEWEAVER: "Lightning Saix"
+    C11-HARMONIA: "Dibison"
+    C12-SOPHIAE: "Zoid Eve (secondary)"
+    C13-WARDEN: "Dark Horn"
+    C14-KAIDO: "Lightning Saix (secondary)"
+    C15-LUMINARIS: "Gun Sniper (secondary)"
+    C16-VOXUM: "Berserk Fury (secondary)"
+    C17-NULLION: "Death Stinger"
+    C18-SHEPHERD: "Geno Breaker (secondary)"
+    C19-VIGIL: "Murasame Liger (secondary)"
+    C20-ARTIFEX: "Elephander (secondary)"
+    C21-ARCHON: "Gun Sniper (tertiary)"
+    C22-AURELION: "Liger Zero Schneider"
+    C23-CADENCE: "Lightning Saix (tertiary)"
+    C24-SCHEMA: "Dibison (secondary)"
+    C25-PROMETHEUS: "Berserk Fury (tertiary)"
+    C26-TECHNE: "Geno Breaker (tertiary)"
+    C27-CHRONICLE: "Murasame Liger (tertiary)"
+    C28-CALCULUS: "Gun Sniper (quaternary)"
+    C29-NAVIGATOR: "Raynos (secondary)"
+    C30-TESSERACT: "Lightning Saix (quaternary)"
+    C31-NEXUS: "Ultimate X"
+    C32-AEON: "Zoid Eve (tertiary)"
+    C33-TYPIST: "Gun Sniper (quinary)"
+    C34-PREDATOR: "Deathsaurer"
+
+  swarm_mechanics:
+    hive_consensus: "Multiple experts form temporary hive mind; highest-energy signal survives"
+    organoid_fusion: "Compatible swarm mutations fuse into higher-order agent (Death Stinger precedent)"
+    murasame_self_repair: "EMA anchor pull repairs representation drift every 5 steps"
+    ultimate_x_learning: "Each loss is a training signal; swarm adapts and grows stronger"
+    cas_loadout: "Jaeger (recon), Schneider (melee), Panzer (heavy), Type Zero (base)"
 ```
 
 ---

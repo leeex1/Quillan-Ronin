@@ -19,22 +19,31 @@ for d in dirs:
     if not os.path.exists(base):
         continue
     
-    # Collect all files
+    # Collect all files (depth-capped + entry cap: keeps graph hubs readable)
     entries = []
-    for root, dirs, files in os.walk(base):
-        dirs[:] = [x for x in dirs if x not in skip_dirs]
+    for root, subdirs, files in os.walk(base):
+        depth = os.path.relpath(root, base).count(os.sep)
+        subdirs[:] = [x for x in subdirs if x not in skip_dirs]
+        if depth > 1:
+            subdirs[:] = []
+            continue
         for f in sorted(files):
             ext = os.path.splitext(f)[1].lower()
             if ext in skip_ext:
                 continue
             rel = os.path.relpath(os.path.join(root, f), ROOT).replace('\\', '/')
             entries.append(f'  - [[{rel}]]')
+            if len(entries) >= 2500:
+                entries.append('  - *... truncated at 2500 links for graph performance; use search for deeper files*')
+                break
+        if len(entries) >= 2500:
+            break
     
     if not entries:
         continue
     
     # Also add the Downloads/Papers directory
-    if d == 'Formal Papers':
+    if d == '10 - Formal Papers':
         papers_root = r'C:\Users\Admin\Downloads\Papers'
         if os.path.exists(papers_root):
             entries.append(f'\n### Downloads/Papers\n')

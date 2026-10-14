@@ -11,6 +11,7 @@ Reasoning Architecture:
 - Hardened AST-Whitelisted Execution Sandbox
 """
 
+from __future__ import annotations
 import sys
 import os
 
@@ -24,7 +25,6 @@ from typing import Dict, Any, List, Optional
 import hashlib
 import re
 import time
-import torch
 from fastmcp import FastMCP
 
 # ─── SKILL-AWARE EXTENSION (v2 — registry + router + chain) ─────────────────
@@ -61,13 +61,41 @@ ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
 if str(ONI_DIR) not in sys.path:
     sys.path.insert(0, str(ONI_DIR))
 
-from reasoning_engine_oni import (
-    QuillanQuintessenceOni,
-    QuintessenceOniConfig,
-    CANONICAL_ROSTER,
-    PRISM_VECTORS,
-    ONI_VERSION,
-)
+_ENGINE_MOD_LOADED = False
+
+
+def _ensure_engine_mod():
+    """Import the heavy engine module (torch) on first tool call, not at server startup.
+
+    Keeps the MCP handshake fast: startup only needs stdlib + FastMCP.
+    """
+    global _ENGINE_MOD_LOADED, torch
+    global QuillanQuintessenceOni, QuintessenceOniConfig, CANONICAL_ROSTER, PRISM_VECTORS, ONI_VERSION
+    if _ENGINE_MOD_LOADED:
+        return
+    import torch  # deferred: full torch import happens here, once, on first reasoning call
+    from reasoning_engine_oni import (
+        QuillanQuintessenceOni as _Q,
+        QuintessenceOniConfig as _C,
+        CANONICAL_ROSTER as _R,
+        PRISM_VECTORS as _P,
+        ONI_VERSION as _V,
+    )
+    QuillanQuintessenceOni = _Q
+    QuintessenceOniConfig = _C
+    CANONICAL_ROSTER = _R
+    PRISM_VECTORS = _P
+    ONI_VERSION = _V
+    _ENGINE_MOD_LOADED = True
+
+
+def __getattr__(name):
+    """PEP 562 fallback: first touch of an engine global triggers the deferred import."""
+    if name in ("QuillanQuintessenceOni", "QuintessenceOniConfig", "CANONICAL_ROSTER",
+                "PRISM_VECTORS", "ONI_VERSION", "torch"):
+        _ensure_engine_mod()
+        return globals()[name]
+    raise AttributeError(f"module has no attribute {name!r}")
 
 mcp = FastMCP("QuillanThinkingEngine")
 
@@ -76,6 +104,7 @@ _ENGINE: Optional[QuillanQuintessenceOni] = None
 
 def get_engine() -> QuillanQuintessenceOni:
     global _ENGINE
+    _ensure_engine_mod()
     if _ENGINE is None:
         cfg = QuintessenceOniConfig()
         _ENGINE = QuillanQuintessenceOni(cfg)
