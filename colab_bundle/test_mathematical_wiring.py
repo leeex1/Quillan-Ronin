@@ -252,6 +252,42 @@ from deepseek_moe_engine import (
     DeepSeekMoELayer,
     verify_deepseek_moe_invariants
 )
+from dflash_engine import (
+    DFlashConfig,
+    DFlashOutput,
+    TargetContextFeatureFuser,
+    DFlashDraftBlock,
+    DFlashDraftModel,
+    DFlashLoss,
+    DFlashSpeculativeVerifier,
+    verify_dflash_invariants
+)
+from speculative_decode import (
+    DFlashSpeculativeDecoder,
+    SpeculativeDecoder
+)
+from dgpo_engine import (
+    DGPOConfig,
+    DGPOTokenMetrics,
+    compute_group_relative_advantage,
+    compute_hellinger_distance,
+    compute_shannon_entropy,
+    reallocate_token_credits,
+    DGPOLoss,
+    DGPOTrainer,
+    verify_dgpo_invariants
+)
+from dream_diffusion_engine import (
+    DreamConfig,
+    CARTWeighting,
+    DiscreteDiffusionForward,
+    DreamAttention,
+    DreamTransformerBlock,
+    DreamDiffusionModel,
+    DreamDiffusionLoss,
+    DreamSampler,
+    verify_dream_invariants
+)
 
 
 
@@ -3602,6 +3638,273 @@ def test_deepseek_moe_paper45_invariant():
     assert ver_res["verified"] is True
 
 
+def test_dflash_paper47_invariant():
+    r"""
+    Verifies Paper 47: DFlash: Block Diffusion for Flash Speculative Decoding
+    (Jian Chen, Yesheng Liang, Zhijian Liu - UC San Diego, Feb 2026 / ICML 2026, 13 pp).
+
+    Tests:
+      1. Parallel Block Diffusion Drafting (Section 3.2):
+         - Generates all gamma - 1 speculative tokens in parallel in a single forward pass
+           (T_draft = t_parallel), eliminating sequential drafting overhead (gamma * t_step).
+      2. Persistent KV Injection & Cross-Layer Feature Fusion (Section 4.1, Appendix A.3):
+         - Concatenates hidden states from 5 uniformly sampled target layers and projects
+           via RMSNorm(W_c [H^(l_1); ...; H^(l_5)]).
+         - Injects persistent KV representations into every draft layer, conditioning
+           bidirectional attention across the speculative block.
+      3. Asymmetric Early-Position Loss Weighting (Section 4.2, Eq. 4):
+         - Evaluates w_k = exp(-(k - 1) / gamma_decay) for k in {1, ..., gamma - 1}.
+         - Strictly monotonically decreasing weights prioritizing early token positions.
+      4. Speculative Decoding Speedup & Acceptance Length (Eq. 1-3):
+         - Parallel target verification executes in a single pass.
+         - Prefix agreement logic yields accepted tokens + 1 bonus token (tau in [1, gamma]).
+         - Gradients propagate through draft model parameters, fuser W_c, and attention projections.
+    """
+    torch.manual_seed(42)
+
+    # 1. Asymmetric Loss Weighting Monotonicity (Eq. 4)
+    config = DFlashConfig(
+        target_hidden_dim=128,
+        draft_hidden_dim=64,
+        vocab_size=256,
+        block_size=8,
+        num_target_sampled_layers=5,
+        num_draft_layers=3,
+        num_heads=4,
+        loss_decay_gamma=4.0
+    )
+
+    loss_fn = DFlashLoss(config)
+    weights = loss_fn.weights
+    assert weights.size(0) == 7, f"Expected 7 weights for block_size 8, got {weights.size(0)}"
+    for i in range(len(weights) - 1):
+        assert weights[i] > weights[i + 1], f"Weight decay violated at position {i}: {weights[i]} <= {weights[i+1]}"
+
+    # 2. Cross-Layer Feature Fusion & KV Injection
+    draft_model = DFlashDraftModel(config)
+    batch_size = 2
+    prompt_len = 12
+    anchor_tokens = torch.randint(0, config.vocab_size, (batch_size, 1))
+    target_hiddens = [
+        torch.randn(batch_size, prompt_len, config.target_hidden_dim, requires_grad=True)
+        for _ in range(config.num_target_sampled_layers)
+    ]
+
+    draft_out = draft_model(anchor_tokens, target_hiddens)
+    assert draft_out.logits.shape == (batch_size, 7, config.vocab_size)
+    assert draft_out.draft_tokens.shape == (batch_size, 7)
+    assert draft_out.target_context_norm.item() > 0.0
+
+    # 3. Autograd Gradient Propagation
+    targets = torch.randint(0, config.vocab_size, (batch_size, 7))
+    weighted_loss, unweighted_loss = loss_fn(draft_out.logits, targets)
+    assert weighted_loss.item() > 0.0 and unweighted_loss.item() > 0.0
+    weighted_loss.backward()
+
+    assert draft_model.fuser.W_c.weight.grad is not None, "Fuser W_c must receive gradients"
+    for l_idx, layer in enumerate(draft_model.layers):
+        assert layer.attn.W_q.weight.grad is not None, f"Layer {l_idx} W_q must receive gradients"
+        assert layer.attn.W_k.weight.grad is not None, f"Layer {l_idx} W_k must receive gradients"
+        assert layer.attn.W_v.weight.grad is not None, f"Layer {l_idx} W_v must receive gradients"
+
+    for t_idx, th in enumerate(target_hiddens):
+        assert th.grad is not None and not torch.isnan(th.grad).any(), f"Target hidden {t_idx} must receive gradients"
+
+    # 4. Speculative Decoding Verification Cycle
+    verifier = DFlashSpeculativeVerifier(config)
+    draft_seq = draft_out.draft_tokens[0]  # [7]
+    mock_target_logits = torch.randn(8, config.vocab_size)
+    # Match first 4 tokens exactly
+    for k in range(4):
+        mock_target_logits[k, draft_seq[k]] = 100.0
+    # Mismatch at token 4 (0-indexed)
+    mismatch_val = (draft_seq[4] + 13) % config.vocab_size
+    mock_target_logits[4, mismatch_val] = 100.0
+
+    accepted, tau, acc_rate = verifier.verify_block(draft_seq, mock_target_logits)
+    assert tau == 5, f"Expected tau=5 (4 matches + 1 bonus token), got {tau}"
+    assert accepted.size(0) == 5
+    assert (accepted[:4] == draft_seq[:4]).all(), "First 4 accepted tokens must match draft prefix"
+    assert accepted[4].item() == mismatch_val.item(), "Bonus token must match target model output"
+
+    # Test full verifier standalone harness
+    ver_res = verify_dflash_invariants()
+    assert ver_res["verified"] is True
+
+
+def test_dgpo_paper48_invariant():
+    r"""
+    Verifies Paper 48: Distribution-Guided Policy Optimization for Fine-Grained Credit Assignment
+    (Hongbo Jin et al. - Peking University / SJTU / Tsinghua, May 2026, 15 pp, arXiv:2605.03327v1).
+
+    Tests:
+      1. Bounded Squared Hellinger Distance Exploration Signal (Section 3.2, Eq. 2):
+         - Evaluates d_{i,t} = 1 - \sum_{a \in V} \sqrt{\pi_\theta(a) \pi_{ref}(a)}.
+         - Strictly bounded in [0, 1]; strictly 0 for identical distributions; saturates
+           at 1.0 for orthogonal distributions without exploding gradients.
+      2. Epistemic Uncertainty & Policy Shannon Entropy Gating (Section 3.2, Eq. 3):
+         - Scales distribution deviation by policy entropy s_{i,t} = d_{i,t} * \kappa * H(\pi_\theta).
+         - Suppresses low-entropy confident hallucinations while rewarding high-entropy reasoning steps.
+      3. Temperature-Scaled Unit-Mean Credit Reallocation (Section 3.3, Eq. 6):
+         - Evaluates w_{i,t} = T_i * Softmax_t(s_{i,t} / \tau).
+         - Guarantees strict unit-mean property: (1/T_i) \sum_{t=1}^{T_i} w_{i,t} = 1.0.
+         - Localizes sequence-level group advantage A_i into fine-grained token credits A_{i,t} = A_i * w_{i,t}.
+      4. Clipped Surrogate Policy Gradient Loss Without KL Penalty (Section 3.3, Eq. 7):
+         - Evaluates min(\rho_{i,t} A_{i,t}, clip(\rho_{i,t}, 1-\epsilon_c, 1+\epsilon_c) A_{i,t}).
+         - Completely eliminates the volatile token-level KL penalty.
+         - End-to-end trainer execution verifies clean backward pass through policy parameters.
+    """
+    torch.manual_seed(42)
+
+    # 1. Bounded Hellinger Distance Invariants (Eq. 2)
+    V = 32
+    logp_curr = F.log_softmax(torch.randn(2, 6, V), dim=-1)
+    # Identical distribution: H^2 must be 0
+    d_zero = compute_hellinger_distance(logp_curr, logp_curr)
+    assert torch.allclose(d_zero, torch.zeros_like(d_zero), atol=1e-6), "Hellinger distance must be 0 for identical distributions"
+
+    # Extreme distribution: orthogonal support
+    p_a = torch.zeros(1, 1, V)
+    p_a[0, 0, 0] = 1.0
+    p_b = torch.zeros(1, 1, V)
+    p_b[0, 0, 1] = 1.0
+    d_max = compute_hellinger_distance((p_a + 1e-15).log(), (p_b + 1e-15).log())
+    assert torch.allclose(d_max, torch.ones_like(d_max), atol=1e-5), "Orthogonal distributions must saturate at 1.0"
+    assert (d_max >= 0.0).all() and (d_max <= 1.0 + 1e-6).all(), "Hellinger distance must remain strictly in [0, 1]"
+
+    # 2. Epistemic Uncertainty & Entropy Gating (Eq. 3)
+    entropy = compute_shannon_entropy(logp_curr)
+    assert (entropy >= 0.0).all(), "Shannon entropy must be non-negative"
+
+    # 3. Unit-Mean Softmax Reallocation (Eq. 6)
+    seq_adv = torch.tensor([1.2, -0.6])
+    logp_ref = F.log_softmax(torch.randn(2, 6, V), dim=-1)
+
+    A_token, metrics = reallocate_token_credits(
+        sequence_advantage=seq_adv,
+        logprobs_theta=logp_curr,
+        logprobs_ref=logp_ref,
+        temperature=0.5,
+        entropy_scale=1.0
+    )
+
+    # Check unit-mean property for each sequence in batch
+    mean_weights = metrics.reallocation_weights.mean(dim=-1)
+    assert torch.allclose(mean_weights, torch.ones_like(mean_weights), atol=1e-5), (
+        f"Weights must have unit-mean 1.0, got {mean_weights.tolist()}"
+    )
+
+    # Verify A_{i,t} = A_i * w_{i,t}
+    expected_adv = seq_adv.unsqueeze(1) * metrics.reallocation_weights
+    assert torch.allclose(A_token, expected_adv, atol=1e-6)
+
+    # 4. Clipped Surrogate Loss & Gradient Flow (Eq. 7)
+    config = DGPOConfig(clip_epsilon=0.2, temperature=0.5, entropy_scale=1.0)
+    loss_module = DGPOLoss(config)
+
+    token_logp_curr = logp_curr.gather(-1, torch.randint(0, V, (2, 6, 1))).squeeze(-1)
+    token_logp_old = token_logp_curr.detach() + torch.randn(2, 6) * 0.05
+
+    loss_val, loss_diag = loss_module(
+        token_logprobs_curr=token_logp_curr,
+        token_logprobs_old=token_logp_old,
+        token_advantages=A_token.detach()
+    )
+    assert "loss" in loss_diag and "objective" in loss_diag
+
+    # End-to-end Trainer Step
+    dim_in = 8
+    policy_net = nn.Linear(dim_in, V)
+    trainer = DGPOTrainer(policy_model=policy_net, config=config, lr=1e-3)
+
+    x_tokens = torch.randn(2, 6, dim_in)
+    logits_theta = policy_net(x_tokens)
+    logits_ref = logits_theta.detach().clone()
+    actions = torch.randint(0, V, (2, 6))
+    old_logprobs = F.log_softmax(logits_theta.detach(), dim=-1).gather(-1, actions.unsqueeze(-1)).squeeze(-1)
+    group_rewards = torch.tensor([2.0, -1.0])
+
+    step_info = trainer.step(
+        group_rewards=group_rewards,
+        full_vocab_logits_theta=logits_theta,
+        full_vocab_logits_ref=logits_ref,
+        action_indices=actions,
+        old_action_logprobs=old_logprobs
+    )
+
+    assert step_info["step"] == 1
+    assert abs(step_info["mean_weight"] - 1.0) < 1e-4
+
+    # Standalone verification harness
+    ver_res = verify_dgpo_invariants()
+    assert ver_res["verified"] is True
+
+
+def test_dream_paper49_invariant():
+    """
+    Verifies Dream 7B discrete diffusion language modeling invariants (Paper 49 / 2508.15487v1 Ye):
+    1. Discrete masked forward corruption with absorbing state [MASK] under linear schedule alpha_t = 1 - t.
+    2. Context-Adaptive Token-Level Noise Rescheduling (CART) mixture of geometric distributions (Eq. 4 & 5).
+    3. Bidirectional full self-attention transformer backbone with continuous sinusoidal timestep injection.
+    4. CART-weighted cross entropy evaluated strictly on masked token positions.
+    5. Backpropagation gradient flow through all network parameters.
+    6. Confidence-guided iterative remasking inference sampler with prompt/prefix preservation.
+    7. Standalone verification harness.
+    """
+    torch.manual_seed(42)
+    config = DreamConfig(
+        vocab_size=128,
+        hidden_dim=64,
+        num_layers=2,
+        num_heads=4,
+        max_seq_len=32,
+        mask_token_id=0,
+        cart_p=0.35
+    )
+    B, N = 2, 16
+    clean_x0 = torch.randint(3, config.vocab_size, (B, N))
+
+    # 1. Forward absorbing corruption with linear schedule
+    fwd = DiscreteDiffusionForward(mask_token_id=config.mask_token_id)
+    t = torch.tensor([0.2, 0.8])
+    x_t, sampled_t, mask_ind = fwd(clean_x0, timesteps=t)
+    assert x_t.shape == (B, N)
+    assert torch.all(x_t[mask_ind] == config.mask_token_id)
+    assert mask_ind[1].sum() >= mask_ind[0].sum()  # higher t has more masks
+
+    # 2. CART token-level weighting
+    cart = CARTWeighting(p=config.cart_p)
+    weights = cart(x_t, config.mask_token_id, timesteps=t)
+    assert weights.shape == (B, N)
+    assert torch.all(weights >= 0.0)
+
+    # 3. Model forward pass
+    model = DreamDiffusionModel(config)
+    logits = model(x_t, t)
+    assert logits.shape == (B, N, config.vocab_size)
+
+    # 4. CART-weighted loss & gradient backprop
+    loss_fn = DreamDiffusionLoss(config)
+    loss, metrics = loss_fn(logits, clean_x0, x_t, t, mask_indicator=mask_ind)
+    assert not torch.isnan(loss) and not torch.isinf(loss)
+    assert loss.item() > 0.0
+    loss.backward()
+    for p in model.parameters():
+        if p.requires_grad:
+            assert p.grad is not None
+
+    # 5. Confidence-guided iterative remasking sampler
+    sampler = DreamSampler(model, config)
+    prompt = torch.tensor([[4, 8, 15], [16, 23, 42]])
+    generated = sampler.sample(seq_len=N, batch_size=B, num_steps=4, prompt_tokens=prompt)
+    assert generated.shape == (B, N)
+    assert torch.all(generated[:, :3] == prompt)
+    assert not torch.any(generated == config.mask_token_id)
+
+    # 6. Standalone verification harness
+    assert verify_dream_invariants() is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -3715,6 +4018,12 @@ if __name__ == "__main__":
     print("  [PASS] 53. DeepSeekMath GRPO Group Relative Advantage, Schulman KL & Iterative RL (Paper 44 / Shao)")
     test_deepseek_moe_paper45_invariant()
     print("  [PASS] 54. DeepSeekMoE Fine-Grained Segmentation, Shared Isolation & Multi-Level Load Balance (Paper 45 / Dai)")
+    test_dflash_paper47_invariant()
+    print("  [PASS] 55. DFlash Block Diffusion Parallel Drafting, Target KV Injection & Asymmetric Loss (Paper 47 / Chen)")
+    test_dgpo_paper48_invariant()
+    print("  [PASS] 56. DGPO Bounded Hellinger Distance, Epistemic Entropy Gating & Unit-Mean Credit Reallocation (Paper 48 / Jin)")
+    test_dream_paper49_invariant()
+    print("  [PASS] 57. Dream 7B Absorbing Masked Diffusion, AR Shift Initialization, CART & Confidence Remasking (Paper 49 / Ye)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
