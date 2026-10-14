@@ -288,6 +288,13 @@ from dream_diffusion_engine import (
     DreamSampler,
     verify_dream_invariants
 )
+from es_at_scale_engine import (
+    ESAtScaleConfig,
+    ESAtScaleOptimizer,
+    SeededNoiseGenerator,
+    normalize_population_rewards,
+    verify_es_at_scale_invariants
+)
 
 
 
@@ -3905,6 +3912,67 @@ def test_dream_paper49_invariant():
     assert verify_dream_invariants() is True
 
 
+def test_es_at_scale_paper52_invariant():
+    """
+    Verifies Evolution Strategies at Scale invariants (Paper 52 / 2509.24372v3 Qiu et al.):
+    1. Deterministic noise reconstruction from pseudo-random seed (memory-free storage).
+    2. In-place layer-by-layer perturbation and restoration (exact zero parameter drift).
+    3. Within-iteration Z-score population reward normalization (mean = 0, std = 1).
+    4. Decomposed in-place parameter update with learning rate digestion (alpha * (1/N) * sum Z_n * eps_n).
+    5. Backpropagation-free optimization progression on non-convex objective.
+    6. Standalone verification harness.
+    """
+    torch.manual_seed(42)
+
+    # 1. Deterministic seeded noise
+    dev = torch.device('cpu')
+    noise_a = SeededNoiseGenerator.sample_layer_noise((8, 8), seed=99991, device=dev)
+    noise_b = SeededNoiseGenerator.sample_layer_noise((8, 8), seed=99991, device=dev)
+    assert torch.all(noise_a == noise_b)
+
+    # 2. In-place perturbation & restoration
+    net = nn.Sequential(
+        nn.Linear(16, 8),
+        nn.ReLU(),
+        nn.Linear(8, 2)
+    )
+    initial_weights = [p.detach().clone() for p in net.parameters()]
+    config = ESAtScaleConfig(
+        population_size=10,
+        sigma=0.005,
+        learning_rate=0.01,
+        seed_base=777
+    )
+    optimizer = ESAtScaleOptimizer(net, config)
+
+    dummy_eval = lambda m: float(m(torch.randn(1, 16)).sum().item())
+    _ = optimizer.evaluate_individual(pop_index=0, iteration_seed=777, fitness_fn=dummy_eval)
+    for p, p_init in zip(net.parameters(), initial_weights):
+        assert torch.allclose(p, p_init, atol=1e-7)
+
+    # 3. Z-score reward normalization
+    rewards = torch.tensor([-5.0, 0.0, 5.0, 10.0, 15.0])
+    z = normalize_population_rewards(rewards)
+    assert abs(z.mean().item()) < 1e-6
+    assert abs(z.std(unbiased=False).item() - 1.0) < 1e-5
+
+    # 4. Decomposed update & optimization progression
+    target_tensor = torch.ones(2)
+    def objective(m: nn.Module) -> float:
+        inp = torch.ones(1, 16)
+        out = m(inp).squeeze(0)
+        return float(-((out - target_tensor) ** 2).mean().item())
+
+    init_score = objective(net)
+    for _ in range(5):
+        optimizer.step(objective)
+    final_score = objective(net)
+    assert final_score > init_score
+
+    # 5. Standalone verification harness
+    assert verify_es_at_scale_invariants() is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -4024,6 +4092,8 @@ if __name__ == "__main__":
     print("  [PASS] 56. DGPO Bounded Hellinger Distance, Epistemic Entropy Gating & Unit-Mean Credit Reallocation (Paper 48 / Jin)")
     test_dream_paper49_invariant()
     print("  [PASS] 57. Dream 7B Absorbing Masked Diffusion, AR Shift Initialization, CART & Confidence Remasking (Paper 49 / Ye)")
+    test_es_at_scale_paper52_invariant()
+    print("  [PASS] 58. ES at Scale Full-Parameter Perturbation, Seeded RNG, Z-Score & Digested Update (Paper 52 / Qiu)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
