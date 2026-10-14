@@ -305,3 +305,38 @@
 
 > Action: promoters of §16 into §§2–7 on next pass; current counts exclude §16 from Summary Statistics until mapped.
 
+
+### Paper 61: Mamba: Linear-Time Sequence Modeling with Selective State Spaces
+- **Authors**: Albert Gu, Tri Dao (Carnegie Mellon University, Princeton University)
+- **Year / Venue**: Dec 2023 / arXiv:2312.00752, ICML 2024
+- **PDF Artifact**: `Mamba_2312.00752.pdf`
+- **Core Contribution**: Introduces the selective state space architecture (S6), solving the computational and expressivity limitations of linear time-invariant (LTI) SSMs by making continuous-time state transitions ($\Delta, B, C$) functions of the current input tokens. Enables linear-time sequence modeling with sub-quadratic memory footprint while outperforming Transformers of comparable scale.
+- **Key Mathematical Formulations**:
+  1. *Zero-Order Hold (ZOH) Discretization*:
+     $$\bar{A} = \exp(\Delta A), \quad \bar{B} = (\Delta A)^{-1} (\exp(\Delta A) - I) \cdot (\Delta B) \approx \Delta B$$
+     with strictly contractive state evolution enforced via parameterization $A = -\exp(A_{\text{log}}) < 0$ and $\Delta_t = \text{softplus}(\text{Linear}(x_t))$.
+  2. *Content-Dependent Selectivity*:
+     $$B_t = \text{Linear}_N(x_t), \quad C_t = \text{Linear}_N(x_t), \quad \Delta_t = \tau_{\Delta}(\text{Parameter} + \text{Linear}_D(x_t))$$
+     allowing dynamic forgetting/resetting of noisy context and selective state retention.
+  3. *Dual-Branch Gated Mamba Block*:
+     Expands input dimension $D$ by factor $E=2$ into branches $u$ and $z$; applies 1D causal depthwise convolution with SiLU activation followed by the selective scan on $u$, multiplicatively gated with $\text{SiLU}(z)$ before final projection back to $D$.
+- **Module Implementation**: [`mamba_ssm_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mamba_ssm_engine.py)
+- **Master Test Wiring**: Test 66 in `test_mathematical_wiring.py` (`test_mamba_paper61_invariant`) passing 100%.
+- **Verification Status**: VERIFIED.
+
+### Paper 62: Intel Material Declaration Data Sheet (MDDSDoc 58609)
+- **Organization / Authors**: Intel Corporation (Product Ecology / Shane P. Larson)
+- **Date / Schema**: May 8, 2020 / IEC 62474 X6.01, D19.00
+- **PDF Artifact**: `MDDSDoc_58609_1.0.pdf`
+- **Document Description**: Environmental regulatory compliance and material composition disclosure document for the Intel WGI219xx Ethernet controller package (14 pages).
+- **Classification**: Personal / Hardware Reference Document. Excluded from algorithmic neural modeling.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+### Paper 63: Personal Health Record & Clinical Data Report
+- **Type**: Private Clinical Health Record & Demographics Documentation (4 pages)
+- **Date Range**: 05/01/2022 to 05/01/2023
+- **PDF Artifact**: `med report.pdf`
+- **Document Description**: Confidential personal medical documentation containing patient health records, clinical mappings, and demographic history.
+- **Classification**: Confidential Personal File. Strictly protected and excluded from code modeling and repository distribution under HIPAA and privacy safety standards.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+

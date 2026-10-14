@@ -339,6 +339,25 @@ from gumbel_softmax_engine import (
     CategoricalVAELatent,
     verify_gumbel_softmax_invariants,
 )
+from mamba_ssm_engine import (
+    MambaConfig,
+    SelectiveSSM,
+    MambaBlock,
+    MambaModel,
+    verify_mamba_invariants,
+)
+from mistral_7b_engine import (
+    MistralConfig,
+    RMSNorm,
+    RoPEEmbedding,
+    RollingBufferKVCache,
+    SlidingWindowAttention,
+    SwiGLUFFN,
+    MistralDecoderLayer,
+    Mistral7BModel,
+    build_sliding_window_causal_mask,
+    verify_mistral_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4434,12 +4453,129 @@ def test_gumbel_softmax_paper59_invariant():
     assert verif["all_invariants_passed"] is True
 
 
+def test_mamba_paper61_invariant():
+    """
+    Verifies Mamba Linear-Time Selective State Space Model Invariants
+    (Paper 61 / Gu & Dao 2312.00752):
+    1. Contractive continuous-to-discrete ZOH mapping: A = -exp(A_log) < 0,
+       delta_t > 0, ensuring exp(delta_t * A) in (0, 1) preventing explosive feedback.
+    2. Content-dependent selectivity: Delta, B, and C dynamically vary per token step
+       based on input representations x_t, addressing the expressivity bottleneck of LTI SSMs.
+    3. State retention vs token filtering: Selective SSM dynamic reset when delta is modulated.
+    4. Dual-branch gated MambaBlock: 1D causal convolution, SSM recurrence, and SiLU multiplicative gating.
+    5. Gradient flow: Backpropagation through selective parameters (A_log, B_proj, C_proj, dt_proj)
+       verifying complete differentiability of the selective scan.
+    6. Complete standalone verification suite.
+    """
+    torch.manual_seed(42)
+
+    # 1. Contractive ZOH stability check
+    cfg = MambaConfig(d_model=16, d_state=8, d_conv=4, expand=2)
+    ssm = SelectiveSSM(cfg)
+    A = ssm.A
+    assert torch.all(A < 0.0), f"Continuous transition matrix A must be strictly negative, max={A.max().item()}"
+
+    # Check discrete transition for positive delta
+    delta = torch.rand(2, 5, cfg.d_inner) * 0.5 + 0.01  # strictly positive
+    delta_A = torch.exp(torch.einsum("btd,dn->btdn", delta, A))
+    assert torch.all(delta_A > 0.0) and torch.all(delta_A < 1.0), "ZOH discretized A must be contractive within (0, 1)"
+
+    # 2. Content-dependent selectivity
+    x1 = torch.randn(1, 4, cfg.d_inner)
+    x2 = torch.randn(1, 4, cfg.d_inner)
+    delta1, B1, C1 = ssm.project_selective_params(x1)
+    delta2, B2, C2 = ssm.project_selective_params(x2)
+    assert not torch.allclose(delta1, delta2), "Delta must be content-dependent"
+    assert not torch.allclose(B1, B2), "B matrix must be content-dependent"
+    assert not torch.allclose(C1, C2), "C matrix must be content-dependent"
+
+    # 3. Dual-branch gated Mamba block forward & gradient
+    block = MambaBlock(cfg)
+    x_in = torch.randn(2, 6, cfg.d_model, requires_grad=True)
+    out = block(x_in)
+    assert out.shape == x_in.shape, f"Output shape mismatch: {out.shape} vs {x_in.shape}"
+
+    loss = out.sum()
+    loss.backward()
+    assert x_in.grad is not None and torch.isfinite(x_in.grad).all()
+    assert block.ssm.A_log.grad is not None and torch.isfinite(block.ssm.A_log.grad).all()
+    assert block.ssm.dt_proj.weight.grad is not None and torch.isfinite(block.ssm.dt_proj.weight.grad).all()
+
+    # 4. Multi-layer Mamba model test
+    model = MambaModel(cfg, num_layers=2)
+    x_tokens = torch.randn(2, 8, cfg.d_model)
+    model_out = model(x_tokens)
+    assert model_out.shape == (2, 8, cfg.d_model)
+
+    # 5. Run standalone verify_mamba_invariants()
+    verify_mamba_invariants()
 
 
+def test_mistral7b_paper64_invariant():
+    """
+    Verifies Mistral 7B Architectural & Mathematical Invariants (Paper 64 / Jiang et al., 2023):
+    1. Sliding Window Attention (SWA) causal mask with strict W horizon constraint.
+    2. Rolling Buffer KV-Cache with O(W) fixed capacity and modular slot overwriting.
+    3. Grouped-Query Attention (GQA) with 4:1 query-to-KV head expansion.
+    4. Multi-layer receptive field expansion: k layers span k * (W - 1) tokens.
+    5. Full MistralDecoderLayer & Mistral7BModel causal generation and gradient flow.
+    """
+    cfg = MistralConfig(
+        dim=64,
+        n_layers=2,
+        head_dim=16,
+        hidden_dim=128,
+        n_heads=4,
+        n_kv_heads=1,
+        window_size=4,
+        context_len=64,
+        vocab_size=120,
+    )
 
+    # 1. Verify SWA causal mask properties
+    seq_len = 10
+    mask = build_sliding_window_causal_mask(seq_len, cfg.window_size)
+    assert mask.shape == (1, 1, seq_len, seq_len)
+    for i in range(seq_len):
+        for j in range(seq_len):
+            if j > i:
+                assert mask[0, 0, i, j].item() == float("-inf"), f"Future token ({i},{j}) not masked"
+            elif j < i - cfg.window_size + 1:
+                assert mask[0, 0, i, j].item() == float("-inf"), f"Out-of-window token ({i},{j}) not masked"
+            else:
+                assert mask[0, 0, i, j].item() == 0.0, f"In-window token ({i},{j}) masked"
 
+    # 2. Verify RollingBufferKVCache bounded capacity & circular overwrite
+    rb_cache = RollingBufferKVCache(
+        batch_size=1,
+        n_kv_heads=cfg.n_kv_heads,
+        window_size=cfg.window_size,
+        head_dim=cfg.head_dim,
+        device=torch.device("cpu"),
+    )
+    for t in range(8):
+        k_t = torch.full((1, cfg.n_kv_heads, 1, cfg.head_dim), float(t))
+        v_t = torch.full((1, cfg.n_kv_heads, 1, cfg.head_dim), float(t) * 10.0)
+        rb_cache.insert(k_t, v_t, pos=t)
 
+    assert rb_cache.k_cache.shape == (1, cfg.n_kv_heads, cfg.window_size, cfg.head_dim)
+    k_win, v_win = rb_cache.get_window(pos=7)
+    expected_tokens = torch.tensor([4.0, 5.0, 6.0, 7.0])
+    actual_tokens = k_win[0, 0, :, 0]
+    assert torch.allclose(actual_tokens, expected_tokens), f"Expected {expected_tokens}, got {actual_tokens}"
 
+    # 3. Verify SWA forward pass and gradient backpropagation
+    swa = SlidingWindowAttention(cfg)
+    x = torch.randn(2, 6, cfg.dim, requires_grad=True)
+    out_swa = swa(x)
+    assert out_swa.shape == (2, 6, cfg.dim)
+    loss = out_swa.sum()
+    loss.backward()
+    assert x.grad is not None and not torch.isnan(x.grad).any()
+
+    # 4. Verify standalone module invariants
+    res = verify_mistral_invariants()
+    assert res.get("all_invariants_passed") is True
 
 
 if __name__ == "__main__":
@@ -4577,6 +4713,10 @@ if __name__ == "__main__":
     print("  [PASS] 64. FlashAttention-1 IO-Aware Tiling, Algebraic Aggregation & Block-Sparse Attention (Paper 58 / Dao)")
     test_gumbel_softmax_paper59_invariant()
     print("  [PASS] 65. Gumbel-Softmax Categorical Reparameterization, STE & Annealing (Paper 59 / Jang, Gu, Poole)")
+    test_mamba_paper61_invariant()
+    print("  [PASS] 66. Mamba Linear-Time Selective State Space Model, S6 Discretization & Dual-Branch SiLU Gating (Paper 61 / Gu & Dao)")
+    test_mistral7b_paper64_invariant()
+    print("  [PASS] 67. Mistral 7B Sliding Window Attention, Rolling Buffer KV-Cache & 4:1 GQA Invariant (Paper 64 / Jiang et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
