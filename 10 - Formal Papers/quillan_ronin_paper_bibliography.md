@@ -502,6 +502,40 @@
 - **Test Invariant**: `test_mohge_paper70_invariant` (Unit Test 73 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 71: Mixture-of-Recursions: Learning Dynamic Recursive Depths for Adaptive Token-Level Computation
+- **Authors**: Sangmin Bae, Yujin Kim, Reza Bayat, Sungnyun Kim, Jiyoun Ha, Tal Schuster, Adam Fisch, Hrayr Harutyunyan, Ziwei Ji, Aaron Courville, Se-Young Yun
+- **Affiliation**: KAIST AI, Mila, Google Cloud, Google DeepMind, Google Research, Université de Montréal
+- **Date**: July 15, 2025 (arXiv:2507.10524)
+- **PDF Artifact**: `MoR_2507.10524.pdf` (38 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Parameter-Sharing Schemes in Recursive Transformers (Section 2.1 & Appendix A.1, Tables 1 & 5)*:
+     Given $L$ unrolled layers partitioned into $N_r$ recursion blocks:
+     - **Cycle**: Cyclically reuses physical blocks: $f(h_t^\ell; \Phi'_{\ell \pmod{L/N_r}})$.
+     - **Sequence**: Consecutively reuses physical blocks: $f(h_t^\ell; \Phi'_{\lfloor \ell/N_r \rfloor})$.
+     - **Middle-Cycle**: Keeps dedicated entry layer $\Phi_0$ and exit layer $\Phi_{L-1}$ while cyclically sharing intermediate layers: $f(h_t^\ell; \Phi'_{((\ell-1)\pmod{(L-2)/N_r})+1})$.
+     - **Middle-Sequence**: Keeps dedicated entry and exit layers while consecutively sharing intermediate layers: $f(h_t^\ell; \Phi'_{\lfloor (\ell-1)/N_r \rfloor + 1})$.
+  2. *Dynamic Recursion Routing Strategies (Section 2.2.1 & Appendix A.2, Table 2 & Figure 2)*:
+     - **Expert-Choice Routing**:
+       Each recursion step $j \in \{1, \dots, N_r\}$ acts as an expert that selects its preferred Top-$k_j$ tokens.
+       Token capacity matches uniform expected token distribution under perfect load balance:
+       $$k_j = \left\lfloor \frac{N_r - j + 1}{N_r} \cdot T \right\rfloor$$
+       For $N_r = 3$: Step 1 processes $3/3$, Step 2 processes $2/3$, Step 3 processes $1/3$ of tokens.
+       Selected tokens execute recursion block with residual gating: $x_t^{j+1} = r_t^j \cdot \text{Block}(x_t^j) + x_t^j$; unselected tokens bypass: $x_t^{j+1} = x_t^j$.
+     - **Autoregressive Causality & Leakage Mitigation**:
+       Auxiliary router $p_t = \sigma(w_{\text{aux}}^T x_t)$ trained via Binary Cross-Entropy (BCE) loss:
+       $$\mathcal{L}_{\text{aux\_router}} = \text{BCE}(r_t^j, \mathbf{1}_{t \in \text{Top-}k_j})$$
+       enabling deployment in causal inference without looking ahead at future tokens.
+     - **Token-Choice Routing**:
+       Tokens independently select total recursion depth $d_t \in \{1, \dots, N_r\}$ with load-balancing loss:
+       $$\mathcal{L}_{\text{balance}} = \alpha \sum_{i=1}^{N_r} f_i P_i, \quad f_i = \frac{N_r}{T} \sum_{t=1}^T \mathbf{1}(d_t = i), \quad P_i = \frac{1}{T} \sum_{t=1}^T g_{t, i}$$
+  3. *Key-Value Caching Strategies in Recursive Attention (Section 2.2.2 & Appendix A.3, Table 2)*:
+     - **Recursion-Wise Caching**: Maintains separate KV caches per recursion step; tokens attend only to KV pairs from their active recursion depth. Memory ratio: $\frac{N_r + 1}{2 N_r}$ of dense non-recursive Transformer. Attention FLOPs: $(k / N_{\text{ctx}})^2$.
+     - **Recursive Sharing**: Computes KV pairs only at recursion step 1 and shares across all subsequent steps $\{2, \dots, N_r\}$. Memory ratio: $\frac{1}{N_r}$ of dense non-recursive Transformer. Attention FLOPs: $k / N_{\text{ctx}}$.
+- **Implementation Module**: [`mor_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mor_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_mor_paper71_invariant` (Unit Test 74 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
 
 
 

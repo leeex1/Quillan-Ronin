@@ -406,6 +406,18 @@ from mohge_engine import (
     MoHGELayer,
     verify_mohge_invariants,
 )
+from mor_engine import (
+    MoRConfig,
+    ParameterSharingScheme,
+    MoRExpertChoiceRouter,
+    MoRTokenChoiceRouter,
+    MoRAttention,
+    MoRFeedForward,
+    RecursiveTransformerBlock,
+    MoRRecursiveKVCache,
+    MoRModel,
+    verify_mor_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -5049,6 +5061,79 @@ def test_mohge_paper70_invariant():
     assert layer.router.e_gi.grad is not None
 
 
+def test_mor_paper71_invariant():
+    """
+    Paper 71 Invariant Test: Mixture-of-Recursions (MoR)
+    Sangmin Bae et al., KAIST AI / Mila / Google DeepMind, 2025 (arXiv:2507.10524)
+
+    Verifies:
+    1. Standalone verification harness invariants.
+    2. Four parameter-sharing layer mapping schemes (Cycle, Sequence, Middle-Cycle, Middle-Sequence).
+    3. Dynamic recursion capacity allocation: k_j = floor(((N_r - j + 1) / N_r) * T).
+    4. Auxiliary router BCE loss for causality mitigation in autoregressive generation.
+    5. Token-choice load balancing regularization loss.
+    6. Analytical KV cache memory bounds: (N_r + 1) / (2 * N_r) (recursion-wise) and 1 / N_r (recursive sharing).
+    7. Full MoRModel unrolled forward and backward autograd flow with out-of-place residual gating.
+    """
+    # 1. Standalone verification
+    res = verify_mor_invariants()
+    assert res["status"] == "PASS"
+
+    # 2. Parameter Sharing Schemes
+    m_cyc, _ = ParameterSharingScheme.get_layer_mapping("cycle", 9, 3)
+    assert m_cyc == [0, 1, 2, 0, 1, 2, 0, 1, 2]
+    m_seq, _ = ParameterSharingScheme.get_layer_mapping("sequence", 9, 3)
+    assert m_seq == [0, 0, 0, 1, 1, 1, 2, 2, 2]
+    m_mcyc, p_mcyc = ParameterSharingScheme.get_layer_mapping("middle_cycle", 8, 3)
+    assert m_mcyc == [0, 1, 2, 1, 2, 1, 2, 3] and p_mcyc == 4
+    m_mseq, p_mseq = ParameterSharingScheme.get_layer_mapping("middle_sequence", 8, 3)
+    assert m_mseq == [0, 1, 1, 1, 2, 2, 2, 3] and p_mseq == 4
+
+    # 3. Dynamic Capacity Scheduling
+    config = MoRConfig(
+        d_model=32,
+        n_heads=2,
+        d_ff=64,
+        num_layers=8,
+        num_recursions=3,
+        sharing_strategy="middle_cycle",
+        routing_strategy="expert_choice",
+        kv_strategy="recursion_wise",
+        vocab_size=100
+    )
+    router = MoRExpertChoiceRouter(config.d_model, config.num_recursions)
+    T = 24
+    caps = [router.compute_capacity(j, T) for j in range(1, config.num_recursions + 1)]
+    assert caps == [24, 16, 8], f"Expected [24, 16, 8], got {caps}"
+
+    # 4. Token-Choice Router & Load Balancing
+    token_router = MoRTokenChoiceRouter(config.d_model, config.num_recursions)
+    dummy_x = torch.randn(T, config.d_model, requires_grad=True)
+    depths, scores, bal_loss = token_router(dummy_x)
+    assert depths.shape == (T,)
+    assert scores.shape == (T, config.num_recursions)
+    assert bal_loss > 0.0
+    bal_loss.backward()
+    assert dummy_x.grad is not None
+
+    # 5. KV Cache Efficiency Ratios
+    assert math.isclose(MoRRecursiveKVCache.get_memory_ratio("recursion_wise", 3), 4.0 / 6.0)
+    assert math.isclose(MoRRecursiveKVCache.get_memory_ratio("recursive_sharing", 3), 1.0 / 3.0)
+
+    # 6. Full Model Execution (Middle-Cycle + Expert-Choice)
+    model = MoRModel(config)
+    input_ids = torch.randint(0, 100, (2, 6))
+    logits, aux_loss, diag = model(input_ids)
+    assert logits.shape == (2, 6, 100)
+    assert aux_loss > 0.0
+
+    loss = logits.sum() + aux_loss
+    loss.backward()
+    assert model.embed.weight.grad is not None
+    assert model.expert_router.router_weights.grad is not None
+    assert model.physical_blocks[1].norm1.weight.grad is not None
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5200,6 +5285,8 @@ if __name__ == "__main__":
     print("  [PASS] 72. Sparsely-Gated MoE Noisy Top-K Gating, Normal CDF Load Loss & Hierarchical Invariant (Paper 69 / Shazeer et al.)")
     test_mohge_paper70_invariant()
     print("  [PASS] 73. Mixture of Heterogeneous Grouped Experts (MoHGE) Two-Level Resource-Aware Routing, Group Aux Loss & All-Size Allocation Invariant (Paper 70 / Ma et al.)")
+    test_mor_paper71_invariant()
+    print("  [PASS] 74. Mixture-of-Recursions (MoR) Dynamic Recursive Depths, Expert/Token Routing & KV Caching Invariant (Paper 71 / Bae et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

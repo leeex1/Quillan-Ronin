@@ -407,8 +407,10 @@ class MoRModel(nn.Module):
 
                         block_out = block(q_tokens, k_tokens, v_tokens)
                         scale = r_weights[mask_active].unsqueeze(-1)
-                        # Residual connection with router weighting (Raposo et al. / Bae et al.)
-                        h[mask_active] = scale * block_out + h[mask_active]
+                        # Out-of-place residual connection with router weighting
+                        delta = torch.zeros_like(h)
+                        delta[mask_active] = scale * block_out
+                        h = h + delta
 
                 elif self.token_router is not None:
                     # Token-Choice: token processes layer if rec_idx <= assigned_depth
@@ -425,7 +427,9 @@ class MoRModel(nn.Module):
                             v_tokens = q_tokens
 
                         block_out = block(q_tokens, k_tokens, v_tokens)
-                        h[mask_active] = block_out
+                        delta = torch.zeros_like(h)
+                        delta[mask_active] = block_out - h[mask_active]
+                        h = h + delta
 
         h = self.final_norm(h)
         logits = self.head(h).reshape(B, S, self.config.vocab_size)
