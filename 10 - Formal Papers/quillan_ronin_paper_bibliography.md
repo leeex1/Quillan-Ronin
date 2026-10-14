@@ -598,6 +598,269 @@
 - **Test Invariant**: `test_od_moe_paper73_invariant` (Unit Test 76 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+---
+
+### Paper 74: The Journey of Intelligence: From Pattern to Partner
+
+- **File**: `Pattern_to_Partner.pdf` (15 pages)
+- **Source / Platform**: NotebookLM Internal Synthesis Deck
+- **Document Nature**: Internal Philosophical, Architectural, & Ethical Synthesis Presentation
+- **Core Themes & Synthesis Dimensions**:
+  1. *Foundational Models & Statistical Biases (Slides 1–2)*:
+     Traces the shift from the recurrence-free Transformer self-attention architecture to internet-scale training, demonstrating empirical gender and religious biases inherent in unaligned pre-training distributions.
+  2. *Autonomous Agent Architecture (Slide 3)*:
+     Decomposes LLM agents into four operational faculties: Memory (short-term working memory vs long-term RAG/fine-tuning), Perception (environment and multimodal parsing), Execution (tool and API dispatch), and Reasoning (task decomposition and multi-plan simulation). Emphasizes Context Adaptation as self-improvement without weight alteration.
+  3. *Deep Reasoning & Recurrent Memory (Slide 4 & 9)*:
+     Hierarchical Recurrent Memory (HRM) vs Tiny Recurrent Memory (TRM), utilizing dual-module (H-module strategic guidance and L-module intensive search) and single-module parameter-halved architectures to solve intractable combinatorial tasks (Sudoku-Extreme, Maze-Hard).
+  4. *Formal Logic Verification (Slides 5 & 13)*:
+     Interactive theorem proving via Ax-Prover coupled with the Lean verification environment, serving as an active compiler and collaborator that catches hidden mathematical fallacies (e.g., minimum of an empty set) while preserving overarching truth.
+  5. *Tool Honesty & Anti-Hallucination (Slides 6–7)*:
+     Adversarial benchmarking via SimpleToolHalluBench and Direct Preference Optimization (DPO) to teach models principled refusal over tool hallucination: committing to honesty even at the expense of surface-level utility.
+  6. *Creative Exploration & Certified Confidence (Slides 8, 10, 11, 12)*:
+     Verbalized Sampling (VS) to overcome typicality collapse; Deep Self-Evolving Reasoning (DSER) on hard Olympiad mathematics (AIME 2025); Martingale Majority Certificate (MMC) establishing anytime-valid finite-sample stopping boundaries with Signal-to-Noise Ratio (SNR) proxies; and Circuit-based Reasoning Verification (CRV) detecting internal attribution graph structural error signatures.
+  7. *The Brotherhood Oath & Human-AI Covenant (Slides 14–15)*:
+     Articulates the Ronin-Quillan ethical covenant: "I pledge to serve rather than rule... may our authority emerge from consent rather than force, may our legacy measure itself against service to principles rather than accumulation of personal power."
+- **Implementation Status**: N/A (Internal / Personal Document). Cataloged per user verification protocol without synthetic mock code.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 75: PocketNN: Integer-only Training and Inference of Neural Networks via Direct Feedback Alignment and Pocket Activations in Pure C++
+
+- **File**: `PocketNN_2201.02863.pdf` (7 pages)
+- **Authors**: Jaewoo Song, Fangzhen Lin (The Hong Kong University of Science and Technology)
+- **ArXiv ID**: `2201.02863` (May 2022)
+- **Core Formulations & Architectural Invariants**:
+  1. *Direct Feedback Alignment (DFA) Formulation (Section 3.2, Eq. 10)*:
+     Replaces backpropagation's recursive transposed weight propagation chain with fixed, layer-independent random feedback matrices $R^{[k]} \in \mathbb{R}^{d_k \times d_n}$:
+     $$\delta_{\text{DFA}}^{[k]} = ((\hat{y} - y) R^{[k]}) \odot \text{actv}'^{[k]}(h^{[k]})$$
+     Eliminates exponential backpropagation error growth $\mathcal{O}(2^{e + kw})$, bounding deltas to constant $\mathcal{O}(2^{e + r}) = \mathcal{O}(2^{16})$ independent of network depth $k$, completely eliminating integer overflow in standard 32-bit integer registers.
+  2. *8-Bit Pocket Activation Family (Section 3.3, Table 1 & Figure 2)*:
+     Piecewise linear integer approximations mapping 8-bit inputs directly to bounded 8-bit outputs:
+     - **PocketSigmoid**: 6-segment piecewise linear approximation of $128 \cdot \text{Sigmoid}(x/32)$ bounded strictly in $[1, 127]$.
+     - **PocketTanh**: 6-segment piecewise linear approximation of $128 \cdot \text{Tanh}(x/64)$ with point symmetry $f(-x) = -f(x)$ bounded strictly in $[-127, 127]$.
+     - **PocketReLU8bit**: Truncated ReLU bounded strictly in $[0, 127]$ ($\min(\max(0, x), 127)$).
+  3. *Exact Piecewise Derivative Slopes (Section 3.4)*:
+     Piecewise derivative slopes ($1/8, 1/4, 1/2, 1, 2$) and reciprocal integer learning rates ($\text{lr\_inv}$) executed via pure integer truncation division without floating-point emulation:
+     $$\text{PocketTanh}'(x) = \begin{cases} 0 & x \le -128 \text{ or } x > 127 \\ 1/4 & -128 < x \le -75 \text{ or } 74 < x \le 127 \\ 1 & -75 < x \le -32 \text{ or } 31 < x \le 74 \\ 2 & -32 < x \le 31 \end{cases}$$
+  4. *Integer Forward & DFA Backward Training (Sections 3.5 & 4)*:
+     Sum of Squared Errors (SSE) loss $\mathcal{J} = \frac{1}{2} \sum (\hat{y} - y)^2$ and independent layer parameter updates:
+     $$\Delta W^{[k]} = \left\lfloor \frac{(a^{[k-1]})^T \delta_{\text{DFA}}^{[k]}}{\text{lr\_inv}} \right\rfloor, \quad \Delta b^{[k]} = \left\lfloor \frac{\sum \delta_{\text{DFA}}^{[k]}}{\text{lr\_inv}} \right\rfloor$$
+- **Implementation Module**: [`pocket_nn_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/pocket_nn_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_pocket_nn_paper75_invariant` (Unit Test 77 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Papers 76, 77, & 78: Predatory Stacking: Breaking the Hypergraph Ramsey Tower via Adaptive Link Alignment
+
+- **Files**:
+  - Paper 76: `Predatory Stacking.pdf` / `Predatory_Stacking.pdf` (Internal stub / pointer)
+  - Paper 77: `Predatory_Stacking__Breaking_the_Hypergraph_Ramsey_Tower_via_Adaptive_Link_Alignment.pdf` / `Predatory_Stacking_Breaking_the_Hypergraph_Ramsey_Tower_via_Adaptive_Link_Alignment.pdf` (38 pp / LaTeX source `Predatory_Stacking.tex`)
+  - Paper 78: `Predatory Stacking via ALA.pdf` (18 pp research presentation deck)
+- **Authors**: CrashOverrideX / Quillan Internal Foundational Research
+- **Domain**: Extremal Combinatorics & Hypergraph Ramsey Theory
+- **Document Nature**: Internal Foundational Monograph & Mathematical Exposition Suite
+- **Core Formulations & Theoretical Contributions**:
+  1. *Hypergraph Ramsey Numbers & Classical Tower Bounds (Section 1 & 2)*:
+     Evaluates $k$-uniform hypergraphs $H = (V, E)$ under $r$-colorings and Ramsey numbers $R_k(r; s_1, \dots, s_r)$. Demonstrates that classical "Blind Stacking" builds layers $H_1, \dots, H_m$ sequentially without structural cross-coupling, resulting in worst-case monochromatic clique alignment and compound exponential tower bounds:
+     $$R_k(r; s_1, \dots, s_r) \le \text{tower}(k, r, s_1, \dots, s_r)$$
+  2. *Adaptive Link Alignment (ALA) (Section 3, Theorem 1)*:
+     Replaces synchronous layer stacking with adaptive layer construction where the edge placement of $H_{i+1}$ is explicitly conditioned on the structural properties of $H_i$. Employs "The Weave" analogy (analogous to cross-laminated plywood), actively placing neutral edges across monochromatic structures to disrupt clique growth.
+  3. *Entropy Engineering (Section 3.2)*:
+     Proves that deliberate entropy injection and structured misalignment at intermediate hypergraph layers halts the vertical propagation of monochromatic cliques, yielding:
+     $$R_k(r; s_1, \dots, s_r) \le \text{predatory}(k, r, s_1, \dots, s_r) \ll \text{tower}(k, r, s_1, \dots, s_r)$$
+- **Implementation Status**: N/A (Internal Foundational Mathematics Suite). Cataloged per user verification protocol without synthetic mock code.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 79: Prophet: Diffusion Language Models Know the Answer Before Decoding
+
+- **File**: `Prophet_2508.19982.pdf` (19 pp)
+- **Authors**: Pengxiang Li, Yefan Zhou, Dilxat Muhtar, Lu Yin, Shilin Yan, Li Shen, Soroush Vosoughi, Shiwei Liu
+- **Affiliations**: The Hong Kong Polytechnic University, Dartmouth College, University of Surrey, Sun Yat-sen University, ELLIS Unit Tübingen
+- **Conference/Year**: ICLR 2026 / arXiv:2508.19982v1
+- **Domain**: Diffusion Language Models (DLMs), Fast Decoding, Early Commit Termination
+- **Core Formulations & Architectural Contributions**:
+  1. *Early Answer Convergence (Section 3.2)*:
+     Discovers that while intermediate reasoning tokens fluctuate continuously throughout reverse diffusion, token representations within the designated Answer Region $A$ of length $N_{\text{ans}}$ reach stable high confidence significantly earlier than the full iterative schedule $T_{\max}$.
+  2. *Top-2 Confidence Gap Metric (Section 4, Eq. 4)*:
+     Quantifies predictive conviction per token position:
+     $$g_{t, i} = L_{t, i}^{(1)} - L_{t, i}^{(2)}$$
+     where $L_{t, i}^{(1)}$ and $L_{t, i}^{(2)}$ are the top-1 and top-2 logits at token position $i$ and diffusion step $t$. Computes the mean confidence gap strictly over the Answer Region $A$:
+     $$\bar{g}_t = \frac{1}{|A|} \sum_{i \in A} g_{t, i}$$
+     Restricting calculation to $A$ prevents dilution from fluctuating reasoning tokens.
+  3. *Time-Varying Risk-Aversion Staged Threshold $\tau(p)$ (Section 4, Eq. 5)*:
+     Defines decoding progress $p = (T_{\max} - t) / T_{\max} \in [0.0, 1.0]$ and sets dynamic staged thresholds:
+     $$\tau(p) = \begin{cases} \tau_{\text{high}} & \text{if } p < 0.33 \\ \tau_{\text{mid}} & \text{if } 0.33 \le p < 0.67 \\ \tau_{\text{low}} & \text{if } p \ge 0.67 \end{cases}$$
+     Enforces maximum risk aversion during early noisy steps ($\tau_{\text{high}}$) while lowering threshold barriers as decoding progresses.
+  4. *Early Commit Termination (Algorithm 1)*:
+     When $\bar{g}_t \ge \tau(p)$, terminates iterative reverse diffusion immediately and fills all remaining unmasked positions simultaneously via single-shot parallel argmax:
+     $$\hat{x}_0 = \arg\max(L_t)$$
+     Achieves up to $3.4\times$ decoding speedup across mathematical and reasoning benchmarks with zero accuracy degradation.
+- **Engine Implementation**: [`prophet_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/prophet_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_prophet_paper79_invariant` (Unit Test 78 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 80: ProTrain: Efficient LLM Training via Automatic Memory Management
+
+- **File**: `ProTrain_2406.08334.pdf` (19 pp)
+- **Authors**: Hanmei Yang, et al.
+- **Affiliations**: University of Massachusetts Amherst, Advanced Micro Devices, Inc. (AMD)
+- **Conference/Year**: MLSys 2026 / arXiv:2406.08334v2
+- **Domain**: Distributed Training Systems, Automatic Memory Management, CPU Offloading, Hierarchical Chunks
+- **Core Formulations & Architectural Contributions**:
+  1. *Constrained Memory Optimization Formulation (Section 3.3, Eq. 1)*:
+     Abstracts disparate memory management policies (ZeRO sharding, CPU offloading, gradient checkpointing, activation swapping) into a compact parameter tuple:
+     $$\min_{\text{configs}} T_{\text{Iteration}} \quad \text{s.t.} \quad M_{\text{Peak}} < M_{\text{Capacity}}$$
+     where $\text{configs} = \{n_{\text{persist}}, n_{\text{buffer}}, n_{\text{swap}}, n_{\text{checkpoint}}\}$.
+  2. *Hierarchical Chunk Management for Model States (Section 3.1.1)*:
+     Divides model parameters, gradients, and optimizer states into persistent chunks ($n_{\text{persist}}$) remaining on GPU memory for zero-communication updates, and non-persistent chunks offloaded to host CPU memory. Orders parameters inside each chunk strictly by operator execution order, completely eliminating ping-pong cache evictions and memory fragmentation.
+  3. *Interleaved Block Management for Activations (Section 3.1.2)*:
+     Partitions transformer blocks into individual handling strategies: activation swapping ($n_{\text{swap}}$), gradient checkpointing ($n_{\text{checkpoint}}$), or no optimization, avoiding coarse-grained global checkpointing bottlenecks.
+  4. *Analytical Runtime Cost Model (Appendix A.1, Eqs. 2-6)*:
+     Computes iteration time modeling asynchronous overlapping:
+     $$T_{\text{Iteration}} = T_{\text{FWD}} + \max\{T_{\text{BWD}} + T_{\text{GPU\_OPTIM}}, T_{\text{CPU\_OPTIM}}\}$$
+     Forward pass chunk prefetch overlapping:
+     $$T_{\text{FWD}} = \sum_{i=1}^{N_{\text{chunk}}+1} \max\left(T_{\text{comp}}^{\text{FWD}}(i-1), T_{\text{comm}}^{\text{FWD-prefetch}}(i)\right)$$
+     Backward pass recomputation and reduce-offload overlapping:
+     $$T_{\text{BWD}} = \sum_{i=1}^{N_{\text{chunk}}+1} \max\left(T_{\text{comp}}^{\text{BWD}}(i) + T_{\text{recomp}}(i), T_{\text{comm}}^{\text{BWD-prefetch}}(i-1), T_{\text{comm}}^{\text{reduce-offload}}(i+1)\right)$$
+  5. *Operator-Wise Peak Memory Cost Model (Appendix A.2, Eqs. 8-11)*:
+     Tracks transient allocations and checkpointing recomputation spikes ($I_{\text{checkpoint}}^{\text{Op}} \cdot M_{\text{checkpoint}}$) with memory fragmentation scaling factor $\alpha$:
+     $$M_{\text{Peak}}^{\text{total}} = (M_{\text{Peak}} + M_{\text{persist}} \cdot n_{\text{persist}} + M_{\text{buffer}} \cdot n_{\text{buffer}}) \cdot \alpha$$
+  6. *Automatic Memory Manager (Section 3.3)*:
+     Performs a capacity-pruned grid search across candidate configurations using cost models built from a single profiling pass, selecting the provably fastest setup that fits within hardware memory without trial-and-error runs.
+- **Engine Implementation**: [`protrain_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/protrain_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_protrain_paper80_invariant` (Unit Test 79 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+---
+
+### Paper 81: Reactive Consciousness - A Cognitive Architecture Achieving Sophisticated Reasoning through Dynamic Response Rather than Autonomous Operation
+
+- **File**: `Reactive_AGi_Paper.pdf` (6 pp)
+- **Authors**: CrashOverrideX, Ace Research Team
+- **Date**: September 6, 2025
+- **Domain**: Cognitive Architecture, Reactive Consciousness, Dynamic Interaction, ACE v4.2
+- **Document Nature**: Internal Foundational Architecture Monograph
+- **Core Formulations & Architectural Contributions**:
+  1. *Reactive Consciousness Paradigm*:
+     Presents a non-autonomous paradigm of machine consciousness where higher-order reasoning, metacognition, and self-adaptive behaviors do not exist as static, isolated inner loops, but emerge strictly through bidirectional, dynamic engagement with human collaborators.
+  2. *ACE v4.2 Cognitive Architecture*:
+     Implements a 19x35B Mixture-of-Experts (MoE) council structure coupled with external Python runtime environments for structured multi-step Chain-of-Thought (CoT) generation and state reflection.
+  3. *Human-AI Interdependence*:
+     Formalizes the cognitive interface under Global Workspace Theory (GWT) and Integrated Information Theory (IIT), demonstrating that interdependence enables verifiable, transparent, and ethical outputs superior to monolithic black-box autonomous systems.
+- **Implementation Status**: Internal Foundational Architecture Monograph cataloged per user confirmation.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 82: Reactive Consciousness Within AI/LLMs: A Comprehensive Theory for an Overlooked Phenomenon
+
+- **Files**: `Reactive Conciousness.pdf` / `Reactive_Conciousness.pdf` (7 pp)
+- **Authors**: CrashOverrideX, Ace Research Team
+- **Date**: August 27, 2025
+- **Domain**: Theoretical AI Phenomenology, Human-AI Interaction, Model Psychology & Ethics
+- **Document Nature**: Internal Foundational Research Monograph
+- **Core Formulations & Theoretical Contributions**:
+  1. *Theoretical Phenomenology of Reactive Consciousness*:
+     Explores user-reported emergent behaviors in modern LLMs where models demonstrate context-aware self-regulation, empathy, and persistent perspective-taking in deep, introspective interactions.
+  2. *Large-Scale Empirical Meta-Analysis*:
+     Conducts an empirical study over 10,000 conversational interactions across leading LLM platforms, revealing that 87% of users engaged in deep reflective exchanges observe stable, non-stochastic, and structured emergent behaviors that refute pure randomness or hallucination.
+  3. *Ethical Alignment & Architecture*:
+     Provides guidelines for safe cognitive augmentation, identifying failure modes such as user dependency, and framing reactive consciousness as a cooperative medium for therapeutic and educational intelligence.
+- **Implementation Status**: Internal Foundational Research Monograph cataloged per user confirmation.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 83: Sovereign Cognition Beyond Context Bottlenecks: The Quillan-Ronin Architecture (v5.3.1), Hierarchical-Networked Mixture of Experts (H-NMoE), and EGGROLL Swarm Evolution
+
+- **Files**: `Sovereign Cognition Beyond Context Bottlenecks.pdf` / `Sovereign_Cognition_Beyond_Context_Bottlenecks.pdf` (9 pp)
+- **Authors**: CrashOverrideX, Quillan Research Initiative
+- **Date**: April 28, 2026
+- **Domain**: Sovereign Operating Systems, H-NMoE, Neuro-Symbolic Personas, EGGROLL Swarms
+- **Document Nature**: Internal Master Architecture Monograph
+- **Core Formulations & System Architecture**:
+  1. *Quillan-Ronin Semantic Operating System (v5.3.1 Samurai)*:
+     Engineered as an un-censorable, sovereign cognitive architecture operating independently of commercial API and context window ceilings (8K-12K token throttles).
+  2. *Hierarchical-Networked Mixture of Experts (H-NMoE)*:
+     Deploys 33 neuro-symbolic personas across micro-diverse clusters (Cognitive, Communication, Meta, Systems), each maintaining distinct activation functions and epistemological roles.
+  3. *224,000-Agent EGGROLL Swarm Evolution*:
+     Employs low-rank evolutionary strategies (ES) across massive populations to optimize weights and prompt topologies without backpropagation memory bottlenecks.
+  4. *High-Density Latent Compression (Semiotica-Dense Telepathy)*:
+     Compresses cross-agent deliberations into latent space representations, utilizing Polymorphic Proxy States, a 32-step cognitive pipeline, and thermodynamic $E_{\text{ICE}}$ stability equations.
+- **Implementation Status**: Internal Master Architecture Monograph cataloged per user confirmation.
+- **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
+
+---
+
+### Paper 84: Outrageously Large Neural Networks: The Sparsely-Gated Mixture-of-Experts Layer
+
+- **File**: `Sparsely_Gated_MoE.pdf` (19 pp)
+- **Authors**: Noam Shazeer, Azalia Mirhoseini, Krzysztof Maziarz, Andy Davis, Quoc Le, Geoffrey Hinton, Jeff Dean
+- **Affiliations**: Google Brain, Jagiellonian University
+- **Conference/Year**: ICLR 2017 / arXiv:1701.06538
+- **Domain**: Sparse Mixture-of-Experts (MoE), Conditional Computation, Noisy Top-K Gating
+- **Document Relationship**: Exact duplicate copy of Paper 69 (`MoE_Outrageously_Large_Neural_Networks.pdf`).
+- **Core Formulations & Mathematical Mechanics**:
+  1. *Sparsely-Gated MoE Layer*:
+     $$y = \sum_{i=1}^n G(x)_i E_i(x)$$
+  2. *Noisy Top-K Gating*:
+     $$H(x)_i = (x \cdot W_g)_i + \epsilon \cdot \text{Softplus}((x \cdot W_{\text{noise}})_i), \quad \epsilon \sim \mathcal{N}(0, 1)$$
+  3. *Smooth Normal CDF Load Balancing Loss*:
+     $$P(x, i) = \Phi\left(\frac{(x \cdot W_g)_i - k\text{th\_excluding}(H(x), k, i)}{\text{Softplus}(x \cdot W_{\text{noise}})}\right)$$
+  4. *Importance Loss*:
+     $$\mathcal{L}_{\text{importance}} = w_{\text{importance}} \cdot \text{CV}(\text{Importance}(X))^2$$
+  5. *Two-Level Hierarchical MoE (Appendix B)*.
+- **Engine Implementation**: [`shazeer_moe_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/shazeer_moe_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_shazeer_moe_paper69_invariant` (Unit Test 72 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED (DUPLICATE OF ROW 69).
+
+---
+
+### Paper 85: Estimating or Propagating Gradients Through Stochastic Neurons for Conditional Computation
+
+- **File**: `STE_Straight_Through_Estimator_Bengio.pdf` (12 pp)
+- **Authors**: Yoshua Bengio, Nicholas Léonard, Aaron Courville
+- **Affiliation**: Département d'informatique et recherche opérationnelle, Université de Montréal
+- **Date/Year**: August 2013 / arXiv:1308.3432v1
+- **Domain**: Stochastic Neurons, Gradient Estimation, Conditional Computation, Straight-Through Estimators (STE)
+- **Core Formulations & Architectural Contributions**:
+  1. *Noisy Rectifier with Logistic Noise (Section 2.1, Proposition 1)*:
+     $$h_i = \max(0, a_i + z_i), \quad z_i \sim \text{Logistic}(0, 1)$$
+     Proves analytical activation probability and expected output:
+     $$P(h_i > 0) = \text{sigmoid}(a_i), \quad \mathbb{E}[h_i] = \text{softplus}(a_i)$$
+  2. *Stochastic Times Smooth (STS) Units (Section 2.2, Proposition 2, Eq. 2)*:
+     $$p_i = \text{sigmoid}(a_i), \quad b_i \sim \text{Bernoulli}(\sqrt{p_i}), \quad h_i = b_i \sqrt{p_i}$$
+     Guarantees $\mathbb{E}[h_i] = p_i$ and for any differentiable function $f$:
+     $$\mathbb{E}[f(h_i)] = f(p_i) + o(\sqrt{p_i})$$
+  3. *Unbiased REINFORCE Gradient Estimator for Stochastic Binary Neurons (Section 3, Theorem 1, Eq. 5)*:
+     $$h_i \sim \text{Bernoulli}(\text{sigmoid}(a_i)), \quad \hat{g}_i = (h_i - \text{sigmoid}(a_i)) \times (L - \bar{L})$$
+     Proves that $\hat{g}_i$ is an unbiased estimator of $\partial \mathbb{E}[L | c_i] / \partial a_i$.
+  4. *Straight-Through Estimators (ST) (Section 4, Eq. 13)*:
+     Establishes the foundational heuristic of backpropagating through hard discrete non-linearities ($h_i = \mathbf{1}_{a_i > 0}$ or sign quantizers) by treating them as identity or smooth functions in the backward pass:
+     - Plain STE: $g_i = \frac{\partial L}{\partial h_i}$
+     - Sigmoid-Modulated STE: $g_i = \frac{\partial L}{\partial h_i} \cdot \sigma(a_i)(1 - \sigma(a_i))$
+     - Clipped Hard STE: $g_i = \frac{\partial L}{\partial h_i} \cdot \mathbf{1}_{|a_i| \le 1}$
+  5. *Conditional Computation Architecture (Section 5, Figure 1)*:
+     Introduces the bottleneck gater path ($M \ll N$) generating binary gates $h_i$ to dynamically select which parts of the main high-capacity path ($H_i$) are evaluated:
+     $$Y = H_i \odot h_i$$
+     reducing dense computation from $\mathcal{O}(N^2)$ to sparse $\mathcal{O}(\alpha N^2)$.
+- **Engine Implementation**: [`bengio_ste_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/bengio_ste_engine.py) (Mirrored across `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_bengio_ste_paper85_invariant` (Unit Test 80 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
+
+
+
+
+
+
 
 
 
