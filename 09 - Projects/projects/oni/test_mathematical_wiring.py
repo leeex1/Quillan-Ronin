@@ -373,6 +373,21 @@ from mixture_of_depths_engine import (
     MoDModel,
     verify_mod_invariants,
 )
+from modse_engine import (
+    MoDSEConfig,
+    MoDSERouter,
+    MoDSEBlock,
+    MoDSEDecoderLayer,
+    MoDSEModel,
+    verify_modse_invariants,
+)
+from moe_cpu_gpu_collaborative_engine import (
+    CPUGPUConfig,
+    LRUExpertCache,
+    CPUGPUCollaborativeMoELayer,
+    CPUGPUCollaborativeModel,
+    verify_moe_cpu_gpu_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4729,6 +4744,132 @@ def test_mixture_of_depths_paper66_invariant():
     assert res.get("all_invariants_passed") is True
 
 
+def test_modse_paper67_invariant():
+    """
+    Verifies Mixture of Diverse Size Experts (MoDSE) Invariants (Paper 67 / Sun et al., Xiaomi AI Lab 2024):
+    1. Diverse Size Experts with Complementary Pairs: h1 + h2 = 2 * h_base for every pair.
+    2. Total Parameter Conservation: sum of diverse expert parameters matches vanilla uniform MoE.
+    3. Hardware Device Memory Balancing: each pair holds strictly identical parameter counts.
+    4. Heterogeneous Token Dispatch: dynamic routing across varying dimension experts with autograd flow.
+    5. Switch-Transformers auxiliary load balancing loss L_a = alpha * N * sum(f_i * P_i) gradient flow.
+    6. Full MoDSEModel forward pass, causal LM loss, and backward backpropagation.
+    """
+    cfg = MoDSEConfig(
+        dim=64,
+        n_layers=2,
+        head_dim=16,
+        base_hidden_dim=128,
+        expert_pairs=[(192, 64), (160, 96), (144, 112), (128, 128)],
+        top_k=2,
+        n_heads=4,
+        n_kv_heads=1,
+        vocab_size=100,
+        aux_loss_coef=0.01,
+    )
+
+    batch_size = 2
+    seq_len = 8
+
+    # 1. Complementary pair sum and parameter conservation
+    for pair_idx, (h1, h2) in enumerate(cfg.expert_pairs):
+        assert h1 + h2 == 2 * cfg.base_hidden_dim, f"Pair {pair_idx} sum invalid"
+
+    block = MoDSEBlock(cfg)
+    total_expert_params = sum(e.parameter_count for e in block.experts)
+    expected_vanilla_params = cfg.num_experts * (3 * cfg.dim * cfg.base_hidden_dim)
+    assert total_expert_params == expected_vanilla_params
+
+    # 2. Hardware device allocation map check
+    dev_map = block.get_device_allocation_map()
+    expected_device_params = 2 * (3 * cfg.dim * cfg.base_hidden_dim)
+    for dev_id, info in dev_map.items():
+        assert info["device_params"] == expected_device_params
+        assert info["balanced_with_baseline"] is True
+
+    # 3. Heterogeneous token dispatch and gradient flow
+    x = torch.randn(batch_size, seq_len, cfg.dim, requires_grad=True)
+    out, aux_loss = block(x)
+    assert out.shape == (batch_size, seq_len, cfg.dim)
+    assert aux_loss.item() > 0.0
+    (out.sum() + aux_loss).backward()
+    assert x.grad is not None and not torch.isnan(x.grad).any()
+    assert block.router.gate.weight.grad is not None
+    assert any(e.w_gate.weight.grad is not None for e in block.experts)
+
+    # 4. Full MoDSEModel end-to-end training
+    model = MoDSEModel(cfg)
+    input_ids = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    logits, total_aux = model(input_ids)
+    assert logits.shape == (batch_size, seq_len, cfg.vocab_size)
+    assert total_aux.item() > 0.0
+
+    target = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    loss = F.cross_entropy(logits.view(-1, cfg.vocab_size), target.view(-1)) + total_aux
+    loss.backward()
+    assert model.embed_tokens.weight.grad is not None
+    assert model.layers[0].moe.router.gate.weight.grad is not None
+
+    # 5. Standalone verification harness
+    res = verify_modse_invariants()
+    assert res.get("all_invariants_passed") is True
+
+
+def test_moe_cpu_gpu_paper68_invariant():
+    """
+    Verifies CPU-GPU Collaborative MoE Inference Invariants (Paper 68 / Huang et al., 2025):
+    1. N-index M-way set-associative LRU expert cache on GPU.
+    2. Collaborative execution: cache hits computed on GPU, cache misses offloaded to CPU.
+    3. Activation vs. full weight transfer footprint: activation transfer is >100x smaller.
+    4. Strict numerical output equivalence: ||y_collab - y_direct|| < 1e-5.
+    5. Clean execution of layers beyond GPU cache coverage (layers >= N) via CPU offload.
+    6. Full model collaborative inference pass and telemetry.
+    """
+    cfg = CPUGPUConfig(
+        dim=64,
+        n_layers=4,
+        hidden_dim=128,
+        num_experts=8,
+        top_k=2,
+        cache_num_layers=2,
+        cache_ways=2,
+        vocab_size=100,
+    )
+
+    # 1. LRU Cache Mechanics & Eviction
+    cache = LRUExpertCache(num_layers=cfg.cache_num_layers, ways=cfg.cache_ways)
+    cache.insert(0, 0)
+    cache.insert(0, 1)
+    assert cache.access(0, 0) is True
+    evicted = cache.insert(0, 2)
+    assert evicted == 1
+    assert cache.is_cached(0, 0) and cache.is_cached(0, 2)
+
+    # 2. Collaborative Layer Forward and Numerical Equivalence
+    layer = CPUGPUCollaborativeMoELayer(layer_idx=0, config=cfg, cache=cache)
+    x = torch.randn(2, 4, cfg.dim)
+    out_collab, stats_collab = layer(x, simulate_device_split=True)
+    out_ref, _ = layer(x, simulate_device_split=False)
+    diff = (out_collab - out_ref).abs().max().item()
+    assert diff < 1e-5, f"Numerical divergence in collaborative execution: {diff}"
+
+    # 3. Out-of-cache layer execution
+    layer_ooc = CPUGPUCollaborativeMoELayer(layer_idx=3, config=cfg, cache=cache)
+    out_ooc, stats_ooc = layer_ooc(x, simulate_device_split=True)
+    assert out_ooc.shape == x.shape
+    assert stats_ooc["hits"] == 0 and stats_ooc["misses"] > 0
+
+    # 4. Full model collaborative inference
+    model = CPUGPUCollaborativeModel(cfg)
+    input_ids = torch.randint(0, cfg.vocab_size, (1, 6))
+    logits, all_stats = model(input_ids)
+    assert logits.shape == (1, 6, cfg.vocab_size)
+    assert len(all_stats) == cfg.n_layers
+
+    # 5. Standalone verification harness
+    res = verify_moe_cpu_gpu_invariants()
+    assert res.get("all_invariants_passed") is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -4872,6 +5013,10 @@ if __name__ == "__main__":
     print("  [PASS] 68. Mixtral 8x7B Sparse MoE Top-2 Gating, SwiGLU Experts & Auxiliary Load Balance Invariant (Paper 65 / Jiang et al.)")
     test_mixture_of_depths_paper66_invariant()
     print("  [PASS] 69. Mixture-of-Depths (MoD) Dynamic Compute Allocation, Top-C Routing & Residual Bypass Invariant (Paper 66 / Raposo et al.)")
+    test_modse_paper67_invariant()
+    print("  [PASS] 70. Mixture of Diverse Size Experts (MoDSE) Parameter Conservation, Expert-Pair Hardware Allocation & Heterogeneous Dispatch Invariant (Paper 67 / Sun et al.)")
+    test_moe_cpu_gpu_paper68_invariant()
+    print("  [PASS] 71. CPU-GPU Collaborative MoE Inference, Set-Associative LRU Cache & Activation Offloading Invariant (Paper 68 / Huang et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

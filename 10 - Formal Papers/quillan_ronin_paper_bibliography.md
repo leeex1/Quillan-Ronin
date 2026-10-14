@@ -402,6 +402,30 @@
 - **Test Invariant**: `test_mixture_of_depths_paper66_invariant` (Unit Test 69 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 67: Mixture of Diverse Size Experts (MoDSE)
+- **Authors**: Manxi Sun, Wei Liu, Jian Luan, Pengzhi Gao, Bin Wang
+- **Affiliation**: Xiaomi AI Lab, Beijing, China
+- **Date**: September 18, 2024 (arXiv:2409.12210v1)
+- **PDF Artifact**: `MoDSE_2409.12210.pdf` (15 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Diverse Size Experts (Section 3.1, Eqs. 6-8)*:
+     Assigns experts variable hidden layer dimensions $\hat{h}_1, \dots, \hat{h}_N$ to dynamically accommodate differing token generation difficulties.
+     Experts are paired into $n = N/2$ complementary pairs $(i_1^k, i_2^k)$ satisfying:
+     $$\hat{h}_{i_1}^k + \hat{h}_{i_2}^k = 2 \times h_{\text{base}}$$
+     ensuring that the total parameter count $\sum_{i=1}^N \hat{h}_i = N \times h_{\text{base}}$ precisely matches that of a vanilla MoE with uniform expert sizes.
+  2. *Expert-Pair Hardware Allocation Strategy (Section 3.2)*:
+     Each complementary pair $(i_1^k, i_2^k)$ is co-located on Device $k$. Because each pair totals $2 \times h_{\text{base}}$ hidden dimensions, device memory footprints and computational capacities are strictly balanced across all accelerator nodes.
+  3. *Switch-Transformers Style Load Balancing Loss (Section 3.2, Eq. 9)*:
+     $$\mathcal{L}_a = \alpha \cdot N \sum_{i=1}^N f_i \cdot P_i$$
+     ($\alpha = 0.01$), where $f_i$ is the token routing fraction and $P_i$ is the mean router probability for expert $i$, preventing router collapse and ensuring uniform expert utilization.
+  4. *Top-K Gating with Normalized Softmax*:
+     $$\hat{y} = \sum_{i=1}^N \hat{G}_i(x) \hat{E}_i(x)$$
+     allowing tokens requiring deep representation to route to large-capacity experts while simpler tokens utilize lightweight experts.
+- **Implementation Module**: [`modse_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/modse_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_modse_paper67_invariant` (Unit Test 70 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
 
 
 
