@@ -358,6 +358,14 @@ from mistral_7b_engine import (
     build_sliding_window_causal_mask,
     verify_mistral_invariants,
 )
+from mixtral_moe_engine import (
+    MixtralConfig,
+    MixtralRouter,
+    MixtralSparseMoEBlock,
+    MixtralDecoderLayer,
+    MixtralModel,
+    verify_mixtral_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4578,6 +4586,68 @@ def test_mistral7b_paper64_invariant():
     assert res.get("all_invariants_passed") is True
 
 
+def test_mixtral_moe_paper65_invariant():
+    """
+    Verifies Mixtral 8x7B Sparse Mixture of Experts Invariants (Paper 65 / Jiang et al., 2024):
+    1. Sparse Mixture of Experts with Top-2 routing across 8 SwiGLU experts per layer.
+    2. Softmax over Top-2 coordinates strictly normalizing routing weights to sum to 1.0.
+    3. Auxiliary load balancing loss L_aux = alpha * n * sum(f_i * P_i) gradient flow.
+    4. Vectorized token dispatch across experts and gradient backpropagation.
+    5. End-to-end Mixtral 8x7B backbone forward pass and language modeling loss backprop.
+    """
+    cfg = MixtralConfig(
+        dim=64,
+        n_layers=2,
+        head_dim=16,
+        hidden_dim=128,
+        n_heads=4,
+        n_kv_heads=1,
+        num_experts=8,
+        top_k_experts=2,
+        context_len=64,
+        vocab_size=120,
+        aux_loss_coef=0.01,
+    )
+
+    batch_size = 2
+    seq_len = 6
+
+    # 1. Router top-2 softmax normalization & expert uniqueness
+    router = MixtralRouter(cfg.dim, cfg.num_experts, cfg.top_k_experts, cfg.aux_loss_coef)
+    x = torch.randn(batch_size * seq_len, cfg.dim)
+    weights, indices, aux_loss = router(x)
+
+    assert torch.allclose(weights.sum(dim=-1), torch.ones(batch_size * seq_len), atol=1e-5),         "Router weights must sum to 1.0 per token"
+    assert (indices[:, 0] != indices[:, 1]).all(), "Top-2 selection must not select identical experts"
+    assert aux_loss.item() > 0.0
+
+    # 2. Sparse MoE block token dispatch and autograd flow
+    moe_block = MixtralSparseMoEBlock(cfg)
+    x_in = torch.randn(batch_size, seq_len, cfg.dim, requires_grad=True)
+    moe_out, moe_aux = moe_block(x_in)
+    assert moe_out.shape == (batch_size, seq_len, cfg.dim)
+    (moe_out.sum() + moe_aux).backward()
+    assert x_in.grad is not None and not torch.isnan(x_in.grad).any()
+    assert any(e.w_gate.weight.grad is not None for e in moe_block.experts)
+
+    # 3. Full MixtralModel end-to-end verification
+    model = MixtralModel(cfg)
+    input_ids = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    logits, total_aux = model(input_ids)
+    assert logits.shape == (batch_size, seq_len, cfg.vocab_size)
+    assert total_aux.item() > 0.0
+
+    target = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    loss = F.cross_entropy(logits.view(-1, cfg.vocab_size), target.view(-1)) + total_aux
+    loss.backward()
+    assert model.embed_tokens.weight.grad is not None
+    assert model.layers[0].moe.router.gate.weight.grad is not None
+
+    # 4. Standalone invariants
+    res = verify_mixtral_invariants()
+    assert res.get("all_invariants_passed") is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -4717,6 +4787,8 @@ if __name__ == "__main__":
     print("  [PASS] 66. Mamba Linear-Time Selective State Space Model, S6 Discretization & Dual-Branch SiLU Gating (Paper 61 / Gu & Dao)")
     test_mistral7b_paper64_invariant()
     print("  [PASS] 67. Mistral 7B Sliding Window Attention, Rolling Buffer KV-Cache & 4:1 GQA Invariant (Paper 64 / Jiang et al.)")
+    test_mixtral_moe_paper65_invariant()
+    print("  [PASS] 68. Mixtral 8x7B Sparse MoE Top-2 Gating, SwiGLU Experts & Auxiliary Load Balance Invariant (Paper 65 / Jiang et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)

@@ -340,3 +340,44 @@
 - **Classification**: Confidential Personal File. Strictly protected and excluded from code modeling and repository distribution under HIPAA and privacy safety standards.
 - **Verification Status**: VERIFIED (INTERNAL / PERSONAL FILE).
 
+### Paper 64: Mistral 7B
+- **Authors**: Albert Q. Jiang, Alexandre Sablayrolles, Arthur Mensch, Chris Bamford, Devendra Singh Chaplot, Diego de las Casas, Florian Bressand, Gianna Lengyel, Guillaume Lample, Lucile Saulnier, Lélio Renard Lavaud, Marie-Anne Lachaux, Pierre Stock, Teven Le Scao, Thibaut Lavril, Thomas Wang, Timothée Lacroix, William El Sayed
+- **Affiliation**: Mistral AI
+- **Date**: October 10, 2023 (arXiv:2310.06825v1)
+- **PDF Artifact**: `Mistral_7B.pdf` (9 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Sliding Window Attention (SWA)*: Each token position $i$ attends only to tokens $j \in [\max(0, i - W + 1), i]$ with cache window $W = 4096$, reducing attention complexity from quadratic $O(N^2)$ to linear $O(N \cdot W)$.
+  2. *Multi-Layer Receptive Field Expansion*: With $k$ stacked transformer layers of window size $W$, the effective receptive field expands to $k \times (W - 1) + 1$ tokens (reaching $131\text{k}$ tokens at layer 32).
+  3. *Rolling Buffer KV-Cache*: Fixes cache capacity at exactly $W$ tokens per head; writes incoming representations at step $t$ to index $t \pmod W$, halting linear KV-cache growth during autoregressive generation.
+  4. *Pre-fill and Chunking*: Prompts longer than $W$ are chunked into contiguous segments of size $W$, pre-filling the sliding buffer sequentially.
+  5. *Grouped-Query Attention (GQA)*: 32 Query heads mapped to 8 Key/Value heads (4:1 ratio), decreasing KV memory by $4\times$ while matching MHA quality.
+  6. *SwiGLU Feed-Forward Network*: $\text{FFN}(x) = (\text{SiLU}(x W_{\text{gate}}) \odot (x W_{\text{up}})) W_{\text{down}}$ with hidden dimension 14336.
+- **Implementation Module**: [`mistral_7b_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mistral_7b_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_mistral7b_paper64_invariant` (Unit Test 67 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+### Paper 65: Mixtral of Experts (Mixtral 8x7B)
+- **Authors**: Albert Q. Jiang, Alexandre Sablayrolles, Antoine Roux, Arthur Mensch, Blanche Savary, Chris Bamford, Devendra Singh Chaplot, Diego de las Casas, Emma Bou Hanna, Florian Bressand, Gianna Lengyel, Guillaume Bour, Guillaume Lample, Lélio Renard Lavaud, Lucile Saulnier, Marie-Anne Lachaux, Pierre Stock, Sandeep Subramanian, Sophia Yang, Szymon Antoniak, Teven Le Scao, Théophile Gervet, Thibaut Lavril, Thomas Wang, Timothée Lacroix, William El Sayed
+- **Affiliation**: Mistral AI
+- **Date**: January 8, 2024 (arXiv:2401.04088v1)
+- **PDF Artifact**: `Mixtral_of_Experts.pdf` / `Mixtral_of_Experts_v2.pdf` (13 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Sparse Mixture of Experts Architecture (SMoE)*: Feed-forward blocks at all 32 transformer layers are replaced with 8 SwiGLU expert networks ($n=8$). Total sparse parameters: 47B; active parameters per token: 13B.
+  2. *Top-2 Routing & Gating Formulation*:
+     $$G(x) := \text{Softmax}(\text{TopK}(x \cdot W_g))$$
+     where $K=2$ coordinates are selected.
+  3. *Normalized Top-K Softmax*:
+     Softmax is evaluated exclusively over the $K$ highest logits, strictly enforcing that routing weights $\sum_{k=1}^K g_k = 1.0$ for each token.
+  4. *SwiGLU Expert Formulation*:
+     $$E_i(x) = (\text{SiLU}(x W_{\text{gate}}^{(i)}) \odot (x W_{\text{up}}^{(i)})) W_{\text{down}}^{(i)}$$
+     with hidden dimension 14336.
+  5. *Auxiliary Load Balancing Loss*:
+     $$\mathcal{L}_{\text{aux}} = \alpha \cdot n \sum_{i=1}^n f_i \cdot P_i$$
+     ($\alpha = 0.01$), where $f_i$ is the fraction of tokens routed to expert $i$, and $P_i$ is the mean router probability for expert $i$ across the batch.
+  6. *Dense Context & GQA*: Dense 32k context length supported; Grouped-Query Attention with 32 query heads and 8 KV heads (4:1 ratio); RoPE base $\theta = 10000.0$.
+- **Implementation Module**: [`mixtral_moe_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mixtral_moe_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_mixtral_moe_paper65_invariant` (Unit Test 68 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
+
