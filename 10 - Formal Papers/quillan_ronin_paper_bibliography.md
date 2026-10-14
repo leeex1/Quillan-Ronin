@@ -379,5 +379,29 @@
 - **Test Invariant**: `test_mixtral_moe_paper65_invariant` (Unit Test 68 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 66: Mixture-of-Depths: Dynamically allocating compute in transformer-based language models
+- **Authors**: David Raposo, Sam Ritter, Blake Richards, Timothy Lillicrap, Peter Conway Humphreys, Adam Santoro
+- **Affiliation**: Google DeepMind, McGill University & Mila
+- **Date**: April 2, 2024 (arXiv:2404.02258v1)
+- **PDF Artifact**: `Mixture_of_Depths_2404.02258.pdf` (14 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Static Compute Budget & Capacity $C$ (Section 3.1)*:
+     Enforces a total compute budget per forward pass by capping tokens participating in self-attention and MLP to $C = \lfloor \text{capacity\_factor} \times S \rfloor < S$. Static computation graphs with known tensor sizes guarantee predictable hardware throughput.
+  2. *Learned Expert-Choice Routing with Output Weighting (Section 3.4, Eq. 1)*:
+     Router produces scalar weights $r_i^l = w_\theta^T x_i^l$.
+     Output for token $i$ at layer $l$:
+     $$x_i^{l+1} = \begin{cases} r_i^l \cdot f_i(\tilde{X}^l) + x_i^l & \text{if } r_i^l > P_\beta(R^l) \\ x_i^l & \text{if } r_i^l < P_\beta(R^l) \end{cases}$$
+     where $\tilde{X}^l$ is the set of top-$C$ tokens and $f_i$ comprises self-attention and MLP.
+     Multiplying $f_i$ by $r_i^l$ places router weights directly on the gradient path.
+  3. *Residual Identity Bypass*:
+     Non-selected tokens bypass self-attention and MLP completely via the residual stream ($x_i^{l+1} = x_i^l$), preserving token state at zero compute.
+  4. *Autoregressive Sampling via Router BCE Loss (Section 3.5)*:
+     Binary cross entropy auxiliary loss $\mathcal{L}_{\text{router}} = \text{BCEWithLogitsLoss}(r^l, \text{targets})$ where $\text{targets}_i \in \{0, 1\}$.
+     During single-step autoregressive decoding, tokens with $\sigma(r_t^l) > 0.5$ execute the block, delivering upwards of 50% faster stepping.
+- **Implementation Module**: [`mixture_of_depths_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mixture_of_depths_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_mixture_of_depths_paper66_invariant` (Unit Test 69 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
 
 

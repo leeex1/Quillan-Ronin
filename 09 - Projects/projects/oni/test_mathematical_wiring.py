@@ -366,6 +366,13 @@ from mixtral_moe_engine import (
     MixtralModel,
     verify_mixtral_invariants,
 )
+from mixture_of_depths_engine import (
+    MoDConfig,
+    MoDRouter,
+    MoDTransformerBlock,
+    MoDModel,
+    verify_mod_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4648,6 +4655,80 @@ def test_mixtral_moe_paper65_invariant():
     assert res.get("all_invariants_passed") is True
 
 
+def test_mixture_of_depths_paper66_invariant():
+    """
+    Verifies Mixture-of-Depths (MoD) Invariants (Paper 66 / Raposo et al., Google DeepMind 2024):
+    1. Static Compute Budget: exactly C = floor(capacity_factor * S) tokens participate in block f.
+    2. Residual Identity Bypass Invariant: bypassed tokens x_j equal input x_j exactly (diff == 0.0).
+    3. Router Weight Gradient Flow: linear router receives gradients via r_i * f(X_tilde) scaling.
+    4. Router BCE Auxiliary Loss: aligns logits with top-k binary targets for decoding.
+    5. Autoregressive Thresholding: single-token step mode with sigmoid gating.
+    6. Full MoDModel forward, causal LM loss, and end-to-end backpropagation.
+    """
+    cfg = MoDConfig(
+        dim=64,
+        n_layers=2,
+        head_dim=16,
+        hidden_dim=128,
+        n_heads=4,
+        n_kv_heads=1,
+        capacity_factor=0.5,
+        context_len=64,
+        vocab_size=100,
+        router_aux_loss_coef=0.01,
+        inference_threshold=0.5,
+    )
+
+    batch_size = 2
+    seq_len = 10
+    expected_c = int(math.floor(cfg.capacity_factor * seq_len))  # 5 tokens
+
+    # 1. Block forward and static capacity enforcement
+    block = MoDTransformerBlock(cfg)
+    x = torch.randn(batch_size, seq_len, cfg.dim, requires_grad=True)
+    out, aux_loss, stats = block(x)
+    assert stats["capacity"] == expected_c
+    assert stats["compute_ratio"] == 0.5
+    assert out.shape == x.shape
+
+    # 2. Residual identity bypass verification
+    top_indices = stats["top_k_indices"]
+    diff = (out - x).abs()
+    for b in range(batch_size):
+        selected_set = set(top_indices[b].tolist())
+        for j in range(seq_len):
+            if j not in selected_set:
+                assert diff[b, j].max().item() == 0.0, f"Token {j} was not bypassed cleanly!"
+
+    # 3. Router gradient flow via r_i * f(x)
+    (out.sum() + aux_loss).backward()
+    assert block.router.linear_router.weight.grad is not None
+    assert block.attn.q_proj.weight.grad is not None
+
+    # 4. Autoregressive single-step thresholding
+    x_step = torch.randn(1, 1, cfg.dim)
+    out_step, participated = block.forward_single_step(x_step)
+    assert out_step.shape == (1, 1, cfg.dim)
+    assert isinstance(participated, bool)
+
+    # 5. Full MoDModel end-to-end training
+    model = MoDModel(cfg)
+    input_ids = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    logits, total_aux, _ = model(input_ids)
+    assert logits.shape == (batch_size, seq_len, cfg.vocab_size)
+    assert total_aux.item() > 0.0
+
+    target = torch.randint(0, cfg.vocab_size, (batch_size, seq_len))
+    loss = F.cross_entropy(logits.view(-1, cfg.vocab_size), target.view(-1)) + total_aux
+    loss.backward()
+    assert model.embed_tokens.weight.grad is not None
+    assert model.layers[0].router.linear_router.weight.grad is not None
+
+    # 6. Standalone verification harness
+    res = verify_mod_invariants()
+    assert res.get("all_invariants_passed") is True
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -4789,6 +4870,8 @@ if __name__ == "__main__":
     print("  [PASS] 67. Mistral 7B Sliding Window Attention, Rolling Buffer KV-Cache & 4:1 GQA Invariant (Paper 64 / Jiang et al.)")
     test_mixtral_moe_paper65_invariant()
     print("  [PASS] 68. Mixtral 8x7B Sparse MoE Top-2 Gating, SwiGLU Experts & Auxiliary Load Balance Invariant (Paper 65 / Jiang et al.)")
+    test_mixture_of_depths_paper66_invariant()
+    print("  [PASS] 69. Mixture-of-Depths (MoD) Dynamic Compute Allocation, Top-C Routing & Residual Bypass Invariant (Paper 66 / Raposo et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
