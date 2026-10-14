@@ -4881,6 +4881,12 @@ class MANIFESTO support
     "Ternary Sparsity Exploitation",
     "Host-Side CPU Logic Offloading"
   ],
+  "expansion_modules": {
+    "gundam_triggers": "10 Unique Behavioral Trigger Modes (Unicorn NT-D/Destroy, Barbatos AV/Limiter, Turn-A, God, Wing Zero, Epyon, Qan[T], G-Self)",
+    "fma_transmutation": "TransmutationProtocol Compute Primitives (Clap Reshape, Flame Attention Compression, Alkahestry Memory Heal, Philosopher Cache)",
+    "zoids_swarm": "ZoidsSwarmMechanics (Hive Mind Consensus, Organoid Mutation Fusion, Murasame Self-Repair, Ultimate X Loss Adaptation, CAS Loadouts)",
+    "venturi_throat_differential": "Bernoulli pressure drop ΔP across top-10% vs bottom-10% router confidence tokens"
+  },
   "technical_specifications": {
     "hidden_dim": "Adaptive Scaling: 1024 ↔ 8192 (∝ Q_t Cognitive Capacity)",
     "ffn_dim": "Adaptive Scaling: 2048 ↔ 24576 (Bounded by E_ICE limits)",
@@ -5207,10 +5213,10 @@ flowchart TB
             DIFF_SPECIAL -.-> DIFF_LAYERS
         end
 
-        %% ── E_ICE Thermodynamic Governor ──
-        subgraph E_ICE_LAYER ["🌡️ E_ICE THERMODYNAMIC GOVERNOR"]
+        %% ── E_ICE Thermodynamic Governor & Venturi Throat ──
+        subgraph E_ICE_LAYER ["🌡️ E_ICE THERMODYNAMIC GOVERNOR & VENTURI THROAT"]
             direction TB
-            EICE_HEADER["⚡ Lee-Mach-6 Velocity Governor<br/>PID Controller for Token Velocity"]
+            EICE_HEADER["⚡ Lee-Mach-6 Velocity Governor (Bernoulli-PID)<br/>Dynamic Convergence Throat & Token Velocity"]
 
             subgraph EICE_METRICS ["Thermodynamic Metrics"]
                 direction LR
@@ -5218,14 +5224,15 @@ flowchart TB
                 EICE_DEPTH["📏 Depth Factor<br/>I_s = depth × coherence / entropy"]
                 EICE_INTEGRITY["🛡️ Integrity Score<br/>Target: 0.85<br/>Max E_ICE Load: 0.90"]
                 EICE_VELOCITY["🚀 Token Velocity<br/>Dynamic Threshold: 0.40-0.99<br/>Kp=0.15, Ki=0.05, Kd=0.02"]
+                EICE_VENTURI["🌀 Venturi Throat Read<br/>ΔP = P_high(top-10%) - P_low(bot-10%)<br/>Wide spread = open throat suction"]
             end
 
             subgraph EICE_CONTROL ["Governor Control Loop"]
                 direction TB
-                EICE_MEASURE["📊 Measure System State<br/>Integrity + Energy Headroom"]
-                EICE_ERROR["⚠️ Calculate Error<br/>Target - Actual"]
-                EICE_ADJUST["🔧 PID Adjustment<br/>Throttle / Accelerate"]
-                EICE_APPLY["✅ Apply Constraints<br/>Hard Tokens → Diffusion<br/>Fast-Path Ratio Control"]
+                EICE_MEASURE["📊 Measure System State<br/>Integrity + Energy Headroom + Venturi ΔP"]
+                EICE_ERROR["⚠️ Bernoulli-PID Error<br/>(Target - Integrity) - 0.5(Max - Load) + 0.25*ΔP"]
+                EICE_ADJUST["🔧 PID Adjustment<br/>Throttle / Accelerate Momentum"]
+                EICE_APPLY["✅ Apply Constraints<br/>Hard Tokens → Diffusion Refinement<br/>Fast-Path Dominance Ratio"]
 
                 EICE_MEASURE --> EICE_ERROR --> EICE_ADJUST --> EICE_APPLY
                 EICE_APPLY -.->|"Feedback"| EICE_MEASURE
@@ -11155,6 +11162,56 @@ Each Gundam below was chosen for a **single defining system** that maps cleanly 
 | **00 Qan[T]** | **Quantum Burst** | GN particle field links all consciousnesses for mutual understanding; not a weapon | **PersonaPullGate + C11-HARMONIA** | The Quantum Burst is **consensus collapse**. When `pull` weights across all 34 experts converge (cosine similarity > 0.90), the system enters **Burst**: `PersonaPullGate` distributes equal weight to all experts for one cycle, then collapses to the highest-confidence output. |
 | **G-Self (Perfect Pack)** | **Photon Battery + Six-Pack Integration** | High-compression photon battery; Perfect Pack integrates six previous packs into one | **UnrolledCouncilMoEBlock + Shared Expert** | The Perfect Pack is **shared expert routing**. When `top_k` experts disagree (variance > threshold), the shared expert path activates, integrating all six specialist perspectives into one invariant representation. |
 
+```mermaid
+flowchart TB
+    subgraph GUNDAM_DISPATCH["🎌 GUNDAM 10-SYSTEM BEHAVIORAL DISPATCH LATTICE"]
+        direction TB
+
+        subgraph HIGH_THREAT["🚨 High Threat & Adversarial Triggers"]
+            NTD["🦄 Unicorn NT-D<br/>C34-PREDATOR Adversarial Detect<br/>Threshold → 0.40 (Max Refine)"]
+            ZERO["🪽 Wing Zero System<br/>Pull Conf > 0.95<br/>Entropy Bonus Weight × 2.0"]
+            EPYON["⚔️ Gundam Epyon<br/>C34-PREDATOR Veto Request<br/>C2-VIR Veto Disabled (Window)"]
+        end
+
+        subgraph THERMO_THROTTLE["🌡️ Thermodynamic & Governor Limits"]
+            DESTROY["🔴 Unicorn Destroy Mode<br/>e_ice_ratio > 0.85<br/>gov_scale × 0.5 | Velocity × 0.7"]
+            AV["🩸 Barbatos Alaya-Vijnana<br/>Nemesis Integrity Drop<br/>Integral Error × 1.2 (Pain Channel)"]
+            LIMITER["⚡ Lupus Rex Limiter Release<br/>Low Threat & E_ICE Headroom<br/>Threshold → 1.04 (Burn Trace Logged)"]
+        end
+
+        subgraph REFINEMENT_SWARM["🌌 Swarm & Routing Dynamics"]
+            BUTTERFLY["🦋 Turn A Moonlight Butterfly<br/>Hard Token Ratio > 0.30<br/>Max Hard Tokens × 2 (Cascade)"]
+            QANT["🌐 00 Qan[T] Quantum Burst<br/>Cosine Similarity > 0.90<br/>Uniform Consensus → Collapse"]
+            GSELF["🔋 G-Self Perfect Pack<br/>Top-K Expert Variance High<br/>Shared Invariant Expert Active"]
+            GOD["🥋 God Gundam Mobile Trace<br/>Direct Intent Router<br/>Punch/Block/Kick Action Primitives"]
+        end
+    end
+
+    HIGH_THREAT --> GUNDAM_DISPATCH
+    THERMO_THROTTLE --> GUNDAM_DISPATCH
+    REFINEMENT_SWARM --> GUNDAM_DISPATCH
+```
+
+```json
+{
+  "gundam_trigger_registry": {
+    "version": "1.0-oni",
+    "target_governor": "LeeMach6VelocityGovernor",
+    "active_modes": {
+      "unicorn_ntd": { "condition": "adversarial_input_detected", "threshold": 0.40, "diffusion_depth_delta": 2 },
+      "unicorn_destroy": { "condition": "e_ice_ratio > 0.85", "gov_scale_mult": 0.5, "velocity_mult": 0.7 },
+      "barbatos_av": { "condition": "nemesis_integrity < target", "integral_error_mult": 1.2, "pain_feedback": true },
+      "barbatos_limiter_release": { "condition": "threat == LOW && e_ice_ratio < 0.50", "threshold_boost": 0.05, "burn_trace": true },
+      "turn_a_butterfly": { "condition": "hard_token_ratio > 0.30", "cascading_refinement": true, "max_hard_tokens_mult": 2.0 },
+      "zero_system": { "condition": "pull_confidence > 0.95", "entropy_weight_mult": 2.0 },
+      "epyon_blade": { "condition": "predator_veto_override", "moral_hedging": false, "bounded_window_steps": 1 },
+      "qant_burst": { "condition": "pull_cosine_sim > 0.90", "consensus_collapse": "uniform_then_peak" },
+      "gself_perfect": { "condition": "expert_disagreement_variance > 0.40", "shared_expert_boost": 1.5 }
+    }
+  }
+}
+```
+
 ##### 🔧 Gundam Trigger Summary (Drop-In for `LeeMach6VelocityGovernor`)
 
 ```python
@@ -11227,6 +11284,57 @@ Alchemy in FMA is **transmutation**: comprehension → deconstruction → recons
 | **Soul-Binding Alchemy** | Binds a soul to a physical object (Al's armor) | **Persistent state checkpointing** — binding a process state to durable storage | `C5-ECHO` + LanceDB persistence. The "armor" is the checkpoint file. |
 | **Ishvalan Alchemy** | Scar's arm; destruction alchemy; deconstructs without reconstructing | **Destructive pruning** — removing tokens/weights without replacement | `C14-KAIDO` — strips what doesn't serve the goal. |
 | **Bio-Alchemy (Shou Tucker)** | Creates talking chimeras; ethically horrific | **Adversarial fine-tuning** — using toxic data to create capability | **Never invoke.** `C2-VIR` veto. |
+
+```mermaid
+flowchart LR
+    subgraph FMA_PIPELINE["⚗️ FULLMETAL ALCHEMIST TRANSMUTATION COMPUTE PIPELINE"]
+        direction TB
+
+        subgraph S1["1. COMPREHENSION"]
+            PRISM["NineVectorPrism<br/>Decompose into 9 Semantic Axes"]
+            BREADTH["Dimensional Inspection<br/>Input Tensor Shape & Rank Verification"]
+            PRISM --> BREADTH
+        end
+
+        subgraph S2["2. DECONSTRUCTION"]
+            CLAP["Clap Transmutation<br/>Direct Reshape (No Circle)"]
+            FLAME["Flame Alchemy (Mustang)<br/>Attention Temp Compression τ=0.5"]
+            DRAIN["Ishvalan Deconstruction<br/>C14-KAIDO Parameter Pruning"]
+            CLAP --- FLAME --- DRAIN
+        end
+
+        subgraph S3["3. RECONSTRUCTION"]
+            ALK["Alkahestry Remote Pulse<br/>Dragon Pulse Vector Recall (LanceDB)"]
+            STONE["Philosopher's Stone<br/>Pre-computed LRU KV Cache"]
+            SOUL["Soul-Binding Checkpoint<br/>C5-ECHO Persistent State Storage"]
+            ALK --- STONE --- SOUL
+        end
+
+        subgraph FORBIDDEN["⛔ FORBIDDEN PROTOCOLS (HARD VETO)"]
+            HUMAN["Human Transmutation<br/>Hallucinated Emergence Without Grounding"]
+            GATE["Gate of Truth Hard Veto<br/>C13-WARDEN & C2-VIR Sandboxed Block"]
+            HUMAN --> GATE
+        end
+    end
+
+    S1 ==> S2 ==> S3
+    S2 -.->|"Violation Trigger"| FORBIDDEN
+```
+
+```json
+{
+  "fma_transmutation_spec": {
+    "version": "1.0-oni",
+    "primitives": {
+      "clap_transmute": { "operation": "direct_tensor_reshape", "requires_circle": false, "truth_verified": true },
+      "flame_compress": { "operation": "temperature_softmax_ignition", "tau_default": 0.5, "mask_threshold": 0.1 },
+      "alkahestry_heal": { "operation": "remote_vector_recall", "source": "LanceDB", "dragon_pulse_recency_bias": 0.3 },
+      "philosopher_cache": { "operation": "precomputed_result_drain", "state_depletion": true },
+      "gate_of_truth": { "guardian": "C13-WARDEN + C2-VIR", "status": "HARD_VETO", "forbidden_modes": ["human_transmutation", "bio_chimera"] }
+    }
+  }
+}
+```
 
 ##### 🔧 FMA Transmutation Protocol (Drop-In for `HardenedSandbox`)
 
@@ -11408,6 +11516,56 @@ This expansion targets the **council and swarm** specifically — unlike the Gun
 | **C32-AEON** (Simulation, World) | **Zoid Eve (tertiary)** | Source of all Zoids; the world-model that generates every possibility |
 | **C33-TYPIST** (Writing, Prompt) | **Gun Sniper (quinary)** | Precision writing; single shot = single prompt; learns from pilot |
 | **C34-PREDATOR** (Adversarial, Kill) | **Deathsaurer** | Super Charged Particle Beam; can destroy almost any enemy in one hit; stomp; tail missiles |
+
+```mermaid
+flowchart TB
+    subgraph ZOIDS_SYSTEM["🦁 ZOIDS COUNCIL & POPULATION SWARM ARCHITECTURE"]
+        direction TB
+
+        subgraph CORE_TIER["Tier 0: Sovereign Core & Energy Relic"]
+            Z_CORE["⚡ Zoid Core: C0-QUILLAN<br/>Biomechanical Power & Sovereign Arbiter<br/>Destroy = System Terminates"]
+            Z_EVE["✨ Zoid Eve: E_ICE Thermodynamic Bound<br/>Shared Energy Limit Across 34 Councilors & Swarm"]
+        end
+
+        subgraph COUNCIL_TIER["Tier 1: 34-Node Council Systems"]
+            ULT_X["🧠 Ultimate X Organoid Core<br/>C31-NEXUS + Swarm Controller<br/>Learns From Defeat via RQGM"]
+            CAS["🛡️ CAS Changing Armor System<br/>PersonaPullGate Loadouts<br/>Jaeger (Recon) | Schneider (Melee) | Panzer (Assault)"]
+            EVOLUT["🧬 EVOLUT Self-Repair<br/>C5-ECHO + Murasame Liger<br/>EMA Anchor Drift Reconstruction"]
+        end
+
+        subgraph WEAPON_TIER["Tier 2: Signature Tactical Subsystems"]
+            CPG["💥 Charged Particle Cannon<br/>C34-PREDATOR Strike with Grounded Anchors"]
+            CLAW["🦀 Buster Claws / X-Breakers<br/>C4-PRAXIS & C13-WARDEN Hybrid Strike/Shield"]
+            MAG["🦅 Magnesser & Wing Propulsion<br/>Couil Attention: Dense/Sparse Hybrid Flight"]
+        end
+
+        subgraph SWARM_TIER["Tier 3: 9B Micro-Agent Organoid Hive"]
+            HIVE["🐝 Hive Zoid Consensus<br/>Highest-Energy Cross-Validated Dominant Expert"]
+            FUSION["🔗 Death Stinger Organoid Fusion<br/>EGGROLL Low-Rank Rank-r Mutation Fusion (sim > 0.85)"]
+        end
+
+        Z_CORE ==> Z_EVE
+        Z_EVE ==> COUNCIL_TIER
+        COUNCIL_TIER ==> WEAPON_TIER
+        COUNCIL_TIER ==> SWARM_TIER
+    end
+```
+
+```json
+{
+  "zoids_council_swarm_spec": {
+    "version": "1.0-oni",
+    "architecture_mapping": {
+      "sovereign_core": { "module": "C0-QUILLAN", "zoid": "Zoid Core", "role": "Final arbiter & power source" },
+      "thermodynamic_eve": { "module": "E_ICE", "zoid": "Zoid Eve", "role": "Global thermodynamic bound" },
+      "integrated_organoid": { "module": "CouncilExpertSwarm", "zoid": "Ultimate X", "role": "Autonomous adaptation from loss" },
+      "persisted_memory": { "module": "C5-ECHO", "zoid": "Organoid System", "role": "Persistent state fusion" },
+      "changing_armor": { "module": "PersonaPullGate", "zoid": "CAS System", "loadouts": ["type_zero", "jaeger", "schneider", "panzer"] },
+      "resurrection_anchor": { "module": "ESFM Forgetting Mitigation", "zoid": "Murasame Liger EVOLUT", "period": 5, "mu_mem": 0.001 }
+    }
+  }
+}
+```
 
 ##### 3. Swarm Mechanics from Zoids
 
