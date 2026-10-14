@@ -1,776 +1,128 @@
 {
- "root": "C:\\02_QUILLAN\\scripts",
- "at": 1791997790.3015416,
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+ "at": 1791998079.3036075,
  "live": false,
- "started": 1791997785.3955305,
+ "started": 1791998078.7890675,
  "job": "scan",
  "nodes": [
   {
    "id": 0,
-   "path": "C:\\02_QUILLAN\\scripts",
-   "full": "C:\\02_QUILLAN\\scripts",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp",
    "kind": "file"
   },
   {
    "id": 1,
-   "path": "C:\\02_QUILLAN\\scripts\\api.py",
-   "full": "C:\\02_QUILLAN\\scripts\\api.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
    "kind": "file"
   },
   {
    "id": 2,
-   "path": "C:\\02_QUILLAN\\scripts\\autonomous_goal_evaluator.py",
-   "full": "C:\\02_QUILLAN\\scripts\\autonomous_goal_evaluator.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
    "kind": "file"
   },
   {
    "id": 3,
-   "path": "C:\\02_QUILLAN\\scripts\\benchmark_tokenizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\benchmark_tokenizer.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "kind": "file"
   },
   {
    "id": 4,
-   "path": "C:\\02_QUILLAN\\scripts\\bitnet_linear.py",
-   "full": "C:\\02_QUILLAN\\scripts\\bitnet_linear.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
    "kind": "file"
   },
   {
    "id": 5,
-   "path": "C:\\02_QUILLAN\\scripts\\build_100_percent_master_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_100_percent_master_dataset.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
    "kind": "file"
   },
   {
    "id": 6,
-   "path": "C:\\02_QUILLAN\\scripts\\build_34_expert_datasets.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_34_expert_datasets.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
    "kind": "file"
   },
   {
    "id": 7,
-   "path": "C:\\02_QUILLAN\\scripts\\build_augmented_frontier_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_augmented_frontier_v2.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
    "kind": "file"
   },
   {
    "id": 8,
-   "path": "C:\\02_QUILLAN\\scripts\\build_comprehensive_sovereign_gold.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_comprehensive_sovereign_gold.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
    "kind": "file"
   },
   {
    "id": 9,
-   "path": "C:\\02_QUILLAN\\scripts\\build_direct_factual_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_direct_factual_dataset.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
    "kind": "file"
   },
   {
    "id": 10,
-   "path": "C:\\02_QUILLAN\\scripts\\build_flagship_portal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_flagship_portal.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
    "kind": "file"
   },
   {
    "id": 11,
-   "path": "C:\\02_QUILLAN\\scripts\\build_master_harvested_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_master_harvested_dataset.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
    "kind": "file"
   },
   {
    "id": 12,
-   "path": "C:\\02_QUILLAN\\scripts\\build_sovereign_thinking_gold.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_sovereign_thinking_gold.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
    "kind": "file"
   },
   {
    "id": 13,
-   "path": "C:\\02_QUILLAN\\scripts\\check_ckpt.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_ckpt.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
    "kind": "file"
   },
   {
    "id": 14,
-   "path": "C:\\02_QUILLAN\\scripts\\check_diffusion_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_diffusion_weights.py",
+   "path": ":\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
    "kind": "file"
   },
   {
    "id": 15,
-   "path": "C:\\02_QUILLAN\\scripts\\check_logs.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_logs.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
    "kind": "file"
   },
   {
    "id": 16,
-   "path": "C:\\02_QUILLAN\\scripts\\check_shapes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_shapes.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
    "kind": "file"
   },
   {
    "id": 17,
-   "path": "C:\\02_QUILLAN\\scripts\\check_training_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_training_data.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
    "kind": "file"
   },
   {
    "id": 18,
-   "path": "C:\\02_QUILLAN\\scripts\\check_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_weights.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
    "kind": "file"
   },
   {
    "id": 19,
-   "path": "C:\\02_QUILLAN\\scripts\\clean_training_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\clean_training_data.py",
-   "kind": "file"
-  },
-  {
-   "id": 20,
-   "path": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
-   "kind": "file"
-  },
-  {
-   "id": 21,
-   "path": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
-   "kind": "file"
-  },
-  {
-   "id": 22,
-   "path": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
-   "kind": "file"
-  },
-  {
-   "id": 23,
-   "path": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
-   "kind": "file"
-  },
-  {
-   "id": 24,
-   "path": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
-   "kind": "file"
-  },
-  {
-   "id": 25,
-   "path": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
-   "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
-   "kind": "file"
-  },
-  {
-   "id": 26,
-   "path": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
-   "full": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
-   "kind": "file"
-  },
-  {
-   "id": 27,
-   "path": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
-   "full": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
-   "kind": "file"
-  },
-  {
-   "id": 28,
-   "path": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
-   "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
-   "kind": "file"
-  },
-  {
-   "id": 29,
-   "path": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
-   "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
-   "kind": "file"
-  },
-  {
-   "id": 30,
-   "path": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
-   "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
-   "kind": "file"
-  },
-  {
-   "id": 31,
-   "path": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
-   "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
-   "kind": "file"
-  },
-  {
-   "id": 32,
-   "path": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
-   "kind": "file"
-  },
-  {
-   "id": 33,
-   "path": "C:\\02_QUILLAN\\scripts\\final_train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\final_train.py",
-   "kind": "file"
-  },
-  {
-   "id": 34,
-   "path": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
-   "full": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
-   "kind": "file"
-  },
-  {
-   "id": 35,
-   "path": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
-   "full": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
-   "kind": "file"
-  },
-  {
-   "id": 36,
-   "path": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
-   "kind": "file"
-  },
-  {
-   "id": 37,
-   "path": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
-   "full": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
-   "kind": "file"
-  },
-  {
-   "id": 38,
-   "path": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
-   "full": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
-   "kind": "file"
-  },
-  {
-   "id": 39,
-   "path": "C:\\02_QUILLAN\\scripts\\init_quillan_db.py",
-   "full": "C:\\02_QUILLAN\\scripts\\init_quillan_db.py",
-   "kind": "file"
-  },
-  {
-   "id": 40,
-   "path": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
-   "full": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
-   "kind": "file"
-  },
-  {
-   "id": 41,
-   "path": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
-   "kind": "file"
-  },
-  {
-   "id": 42,
-   "path": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
-   "full": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
-   "kind": "file"
-  },
-  {
-   "id": 43,
-   "path": "C:\\02_QUILLAN\\scripts\\patch_harness_mcp_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\patch_harness_mcp_20261013.py",
-   "kind": "file"
-  },
-  {
-   "id": 44,
-   "path": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
-   "full": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
-   "kind": "file"
-  },
-  {
-   "id": 45,
-   "path": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
-   "kind": "file"
-  },
-  {
-   "id": 46,
-   "path": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
-   "kind": "file"
-  },
-  {
-   "id": 47,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
-   "kind": "file"
-  },
-  {
-   "id": 48,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
-   "kind": "file"
-  },
-  {
-   "id": 49,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
-   "kind": "file"
-  },
-  {
-   "id": 50,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
-   "kind": "file"
-  },
-  {
-   "id": 51,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
-   "kind": "file"
-  },
-  {
-   "id": 52,
-   "path": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
-   "kind": "file"
-  },
-  {
-   "id": 53,
-   "path": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
-   "full": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
-   "kind": "file"
-  },
-  {
-   "id": 54,
-   "path": "C:\\02_QUILLAN\\scripts\\regen_topology_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\regen_topology_20261013.py",
-   "kind": "file"
-  },
-  {
-   "id": 55,
-   "path": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
-   "full": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
-   "kind": "file"
-  },
-  {
-   "id": 56,
-   "path": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
-   "full": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
-   "kind": "file"
-  },
-  {
-   "id": 57,
-   "path": "C:\\02_QUILLAN\\scripts\\restyle_readme.py",
-   "full": "C:\\02_QUILLAN\\scripts\\restyle_readme.py",
-   "kind": "file"
-  },
-  {
-   "id": 58,
-   "path": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
-   "full": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
-   "kind": "file"
-  },
-  {
-   "id": 59,
-   "path": "C:\\02_QUILLAN\\scripts\\run_ten_question_benchmark.py",
-   "full": "C:\\02_QUILLAN\\scripts\\run_ten_question_benchmark.py",
-   "kind": "file"
-  },
-  {
-   "id": 60,
-   "path": "C:\\02_QUILLAN\\scripts\\runtime_components.py",
-   "full": "C:\\02_QUILLAN\\scripts\\runtime_components.py",
-   "kind": "file"
-  },
-  {
-   "id": 61,
-   "path": "C:\\02_QUILLAN\\scripts\\sovereign_chat_template.py",
-   "full": "C:\\02_QUILLAN\\scripts\\sovereign_chat_template.py",
-   "kind": "file"
-  },
-  {
-   "id": 62,
-   "path": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
-   "full": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 63,
-   "path": "C:\\02_QUILLAN\\scripts\\synchronize_all_canonical_assets.py",
-   "full": "C:\\02_QUILLAN\\scripts\\synchronize_all_canonical_assets.py",
-   "kind": "file"
-  },
-  {
-   "id": 64,
-   "path": "C:\\02_QUILLAN\\scripts\\synchronize_knowledge_vault.py",
-   "full": "C:\\02_QUILLAN\\scripts\\synchronize_knowledge_vault.py",
-   "kind": "file"
-  },
-  {
-   "id": 65,
-   "path": "C:\\02_QUILLAN\\scripts\\ternary_pack.py",
-   "full": "C:\\02_QUILLAN\\scripts\\ternary_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 66,
-   "path": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
-   "kind": "file"
-  },
-  {
-   "id": 67,
-   "path": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
-   "kind": "file"
-  },
-  {
-   "id": 68,
-   "path": "C:\\02_QUILLAN\\scripts\\test_forward.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_forward.py",
-   "kind": "file"
-  },
-  {
-   "id": 69,
-   "path": "C:\\02_QUILLAN\\scripts\\test_generation.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_generation.py",
-   "kind": "file"
-  },
-  {
-   "id": 70,
-   "path": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
-   "kind": "file"
-  },
-  {
-   "id": 71,
-   "path": "C:\\02_QUILLAN\\scripts\\test_inference.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_inference.py",
-   "kind": "file"
-  },
-  {
-   "id": 72,
-   "path": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
-   "kind": "file"
-  },
-  {
-   "id": 73,
-   "path": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
-   "kind": "file"
-  },
-  {
-   "id": 74,
-   "path": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
-   "kind": "file"
-  },
-  {
-   "id": 75,
-   "path": "C:\\02_QUILLAN\\scripts\\test_optimizer_step.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_optimizer_step.py",
-   "kind": "file"
-  },
-  {
-   "id": 76,
-   "path": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
-   "kind": "file"
-  },
-  {
-   "id": 77,
-   "path": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
-   "kind": "file"
-  },
-  {
-   "id": 78,
-   "path": "C:\\02_QUILLAN\\scripts\\train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train.py",
-   "kind": "file"
-  },
-  {
-   "id": 79,
-   "path": "C:\\02_QUILLAN\\scripts\\train_240m_tensor_frontier.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_240m_tensor_frontier.py",
-   "kind": "file"
-  },
-  {
-   "id": 80,
-   "path": "C:\\02_QUILLAN\\scripts\\train_34_experts_aligned.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_34_experts_aligned.py",
-   "kind": "file"
-  },
-  {
-   "id": 81,
-   "path": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
-   "kind": "file"
-  },
-  {
-   "id": 82,
-   "path": "C:\\02_QUILLAN\\scripts\\train_causal_alignment.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_causal_alignment.py",
-   "kind": "file"
-  },
-  {
-   "id": 83,
-   "path": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
-   "kind": "file"
-  },
-  {
-   "id": 84,
-   "path": "C:\\02_QUILLAN\\scripts\\train_dialogue_sft.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_dialogue_sft.py",
-   "kind": "file"
-  },
-  {
-   "id": 85,
-   "path": "C:\\02_QUILLAN\\scripts\\train_direct_factual_precision.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_direct_factual_precision.py",
-   "kind": "file"
-  },
-  {
-   "id": 86,
-   "path": "C:\\02_QUILLAN\\scripts\\train_expert_cycle.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_expert_cycle.py",
-   "kind": "file"
-  },
-  {
-   "id": 87,
-   "path": "C:\\02_QUILLAN\\scripts\\train_experts.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_experts.py",
-   "kind": "file"
-  },
-  {
-   "id": 88,
-   "path": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
-   "kind": "file"
-  },
-  {
-   "id": 89,
-   "path": "C:\\02_QUILLAN\\scripts\\train_final.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_final.py",
-   "kind": "file"
-  },
-  {
-   "id": 90,
-   "path": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
-   "kind": "file"
-  },
-  {
-   "id": 91,
-   "path": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
-   "kind": "file"
-  },
-  {
-   "id": 92,
-   "path": "C:\\02_QUILLAN\\scripts\\train_fluent_dialogue_deep.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_fluent_dialogue_deep.py",
-   "kind": "file"
-  },
-  {
-   "id": 93,
-   "path": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
-   "kind": "file"
-  },
-  {
-   "id": 94,
-   "path": "C:\\02_QUILLAN\\scripts\\train_full_base_pretrain.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_base_pretrain.py",
-   "kind": "file"
-  },
-  {
-   "id": 95,
-   "path": "C:\\02_QUILLAN\\scripts\\train_full_param_deep.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_param_deep.py",
-   "kind": "file"
-  },
-  {
-   "id": 96,
-   "path": "C:\\02_QUILLAN\\scripts\\train_full_param_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_param_v2.py",
-   "kind": "file"
-  },
-  {
-   "id": 97,
-   "path": "C:\\02_QUILLAN\\scripts\\train_gold_precision_annealing.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_gold_precision_annealing.py",
-   "kind": "file"
-  },
-  {
-   "id": 98,
-   "path": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
-   "kind": "file"
-  },
-  {
-   "id": 99,
-   "path": "C:\\02_QUILLAN\\scripts\\train_master_frontier_precision.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_master_frontier_precision.py",
-   "kind": "file"
-  },
-  {
-   "id": 100,
-   "path": "C:\\02_QUILLAN\\scripts\\train_multidataset_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_multidataset_sovereign.py",
-   "kind": "file"
-  },
-  {
-   "id": 101,
-   "path": "C:\\02_QUILLAN\\scripts\\train_multimodal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_multimodal.py",
-   "kind": "file"
-  },
-  {
-   "id": 102,
-   "path": "C:\\02_QUILLAN\\scripts\\train_oni.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_oni.py",
-   "kind": "file"
-  },
-  {
-   "id": 103,
-   "path": "C:\\02_QUILLAN\\scripts\\train_pristine_frontier_37k.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_pristine_frontier_37k.py",
-   "kind": "file"
-  },
-  {
-   "id": 104,
-   "path": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
-   "kind": "file"
-  },
-  {
-   "id": 105,
-   "path": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
-   "kind": "file"
-  },
-  {
-   "id": 106,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sft.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft.py",
-   "kind": "file"
-  },
-  {
-   "id": 107,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
-   "kind": "file"
-  },
-  {
-   "id": 108,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
-   "kind": "file"
-  },
-  {
-   "id": 109,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
-   "kind": "file"
-  },
-  {
-   "id": 110,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
-   "kind": "file"
-  },
-  {
-   "id": 111,
-   "path": "C:\\02_QUILLAN\\scripts\\train_sovereign_gold_alignment.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign_gold_alignment.py",
-   "kind": "file"
-  },
-  {
-   "id": 112,
-   "path": "C:\\02_QUILLAN\\scripts\\train_super_run_10k.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_super_run_10k.py",
-   "kind": "file"
-  },
-  {
-   "id": 113,
-   "path": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
-   "kind": "file"
-  },
-  {
-   "id": 114,
-   "path": "C:\\02_QUILLAN\\scripts\\training_watchdog.py",
-   "full": "C:\\02_QUILLAN\\scripts\\training_watchdog.py",
-   "kind": "file"
-  },
-  {
-   "id": 115,
-   "path": "C:\\02_QUILLAN\\scripts\\transplant_clean.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_clean.py",
-   "kind": "file"
-  },
-  {
-   "id": 116,
-   "path": "C:\\02_QUILLAN\\scripts\\transplant_v8.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_v8.py",
-   "kind": "file"
-  },
-  {
-   "id": 117,
-   "path": "C:\\02_QUILLAN\\scripts\\transplant_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_weights.py",
-   "kind": "file"
-  },
-  {
-   "id": 118,
-   "path": "C:\\02_QUILLAN\\scripts\\update_nn_vis.py",
-   "full": "C:\\02_QUILLAN\\scripts\\update_nn_vis.py",
-   "kind": "file"
-  },
-  {
-   "id": 119,
-   "path": "C:\\02_QUILLAN\\scripts\\update_obsidian_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\update_obsidian_20261013.py",
-   "kind": "file"
-  },
-  {
-   "id": 120,
-   "path": "C:\\02_QUILLAN\\scripts\\upgrade_db_v3.py",
-   "full": "C:\\02_QUILLAN\\scripts\\upgrade_db_v3.py",
-   "kind": "file"
-  },
-  {
-   "id": 121,
-   "path": "C:\\02_QUILLAN\\scripts\\validate_opencode2_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\validate_opencode2_20261013.py",
-   "kind": "file"
-  },
-  {
-   "id": 122,
-   "path": "C:\\02_QUILLAN\\scripts\\validate_opencode_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\validate_opencode_20261013.py",
-   "kind": "file"
-  },
-  {
-   "id": 123,
-   "path": "C:\\02_QUILLAN\\scripts\\verify_full_unrolled_wiring.py",
-   "full": "C:\\02_QUILLAN\\scripts\\verify_full_unrolled_wiring.py",
-   "kind": "file"
-  },
-  {
-   "id": 124,
-   "path": "C:\\02_QUILLAN\\scripts\\wire_mocs.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_mocs.py",
-   "kind": "file"
-  },
-  {
-   "id": 125,
-   "path": "C:\\02_QUILLAN\\scripts\\wire_vault.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_vault.py",
-   "kind": "file"
-  },
-  {
-   "id": 126,
-   "path": "C:\\02_QUILLAN\\scripts\\wire_vault_final.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_vault_final.py",
-   "kind": "file"
-  },
-  {
-   "id": 127,
-   "path": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
-   "full": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
    "kind": "file"
   }
  ],
@@ -852,3354 +204,389 @@
    "to": 19
   },
   {
-   "from": 0,
-   "to": 20
-  },
-  {
-   "from": 0,
-   "to": 21
-  },
-  {
-   "from": 0,
-   "to": 22
-  },
-  {
-   "from": 0,
-   "to": 23
-  },
-  {
-   "from": 0,
-   "to": 24
-  },
-  {
-   "from": 0,
-   "to": 25
-  },
-  {
-   "from": 0,
-   "to": 26
-  },
-  {
-   "from": 0,
-   "to": 27
-  },
-  {
-   "from": 0,
-   "to": 28
-  },
-  {
-   "from": 0,
-   "to": 29
-  },
-  {
-   "from": 0,
-   "to": 30
-  },
-  {
-   "from": 0,
-   "to": 31
-  },
-  {
-   "from": 0,
-   "to": 32
-  },
-  {
-   "from": 0,
-   "to": 33
-  },
-  {
-   "from": 0,
-   "to": 34
-  },
-  {
-   "from": 0,
-   "to": 35
-  },
-  {
-   "from": 0,
-   "to": 36
-  },
-  {
-   "from": 0,
-   "to": 37
-  },
-  {
-   "from": 0,
-   "to": 38
-  },
-  {
-   "from": 0,
-   "to": 39
-  },
-  {
-   "from": 0,
-   "to": 40
-  },
-  {
-   "from": 0,
-   "to": 41
-  },
-  {
-   "from": 0,
-   "to": 42
-  },
-  {
-   "from": 0,
-   "to": 43
-  },
-  {
-   "from": 0,
-   "to": 44
-  },
-  {
-   "from": 0,
-   "to": 45
-  },
-  {
-   "from": 0,
-   "to": 46
-  },
-  {
-   "from": 0,
-   "to": 47
-  },
-  {
-   "from": 0,
-   "to": 48
-  },
-  {
-   "from": 0,
-   "to": 49
-  },
-  {
-   "from": 0,
-   "to": 50
-  },
-  {
-   "from": 0,
-   "to": 51
-  },
-  {
-   "from": 0,
-   "to": 52
-  },
-  {
-   "from": 0,
-   "to": 53
-  },
-  {
-   "from": 0,
-   "to": 54
-  },
-  {
-   "from": 0,
-   "to": 55
-  },
-  {
-   "from": 0,
-   "to": 56
-  },
-  {
-   "from": 0,
-   "to": 57
-  },
-  {
-   "from": 0,
-   "to": 58
-  },
-  {
-   "from": 0,
-   "to": 59
-  },
-  {
-   "from": 0,
-   "to": 60
-  },
-  {
-   "from": 0,
-   "to": 61
-  },
-  {
-   "from": 0,
-   "to": 62
-  },
-  {
-   "from": 0,
-   "to": 63
-  },
-  {
-   "from": 0,
-   "to": 64
-  },
-  {
-   "from": 0,
-   "to": 65
-  },
-  {
-   "from": 0,
-   "to": 66
-  },
-  {
-   "from": 0,
-   "to": 67
-  },
-  {
-   "from": 0,
-   "to": 68
-  },
-  {
-   "from": 0,
-   "to": 69
-  },
-  {
-   "from": 0,
-   "to": 70
-  },
-  {
-   "from": 0,
-   "to": 71
-  },
-  {
-   "from": 0,
-   "to": 72
-  },
-  {
-   "from": 0,
-   "to": 73
-  },
-  {
-   "from": 0,
-   "to": 74
-  },
-  {
-   "from": 0,
-   "to": 75
-  },
-  {
-   "from": 0,
-   "to": 76
-  },
-  {
-   "from": 0,
-   "to": 77
-  },
-  {
-   "from": 0,
-   "to": 78
-  },
-  {
-   "from": 0,
-   "to": 79
-  },
-  {
-   "from": 0,
-   "to": 80
-  },
-  {
-   "from": 0,
-   "to": 81
-  },
-  {
-   "from": 0,
-   "to": 82
-  },
-  {
-   "from": 0,
-   "to": 83
-  },
-  {
-   "from": 0,
-   "to": 84
-  },
-  {
-   "from": 0,
-   "to": 85
-  },
-  {
-   "from": 0,
-   "to": 86
-  },
-  {
-   "from": 0,
-   "to": 87
-  },
-  {
-   "from": 0,
-   "to": 88
-  },
-  {
-   "from": 0,
-   "to": 89
-  },
-  {
-   "from": 0,
-   "to": 90
-  },
-  {
-   "from": 0,
-   "to": 91
-  },
-  {
-   "from": 0,
-   "to": 92
-  },
-  {
-   "from": 0,
-   "to": 93
-  },
-  {
-   "from": 0,
-   "to": 94
-  },
-  {
-   "from": 0,
-   "to": 95
-  },
-  {
-   "from": 0,
-   "to": 96
-  },
-  {
-   "from": 0,
-   "to": 97
-  },
-  {
-   "from": 0,
-   "to": 98
-  },
-  {
-   "from": 0,
-   "to": 99
-  },
-  {
-   "from": 0,
-   "to": 100
-  },
-  {
-   "from": 0,
-   "to": 101
-  },
-  {
-   "from": 0,
-   "to": 102
-  },
-  {
-   "from": 0,
-   "to": 103
-  },
-  {
-   "from": 0,
-   "to": 104
-  },
-  {
-   "from": 0,
-   "to": 105
-  },
-  {
-   "from": 0,
-   "to": 106
-  },
-  {
-   "from": 0,
-   "to": 107
-  },
-  {
-   "from": 0,
-   "to": 108
-  },
-  {
-   "from": 0,
-   "to": 109
-  },
-  {
-   "from": 0,
-   "to": 110
-  },
-  {
-   "from": 0,
-   "to": 111
-  },
-  {
-   "from": 0,
-   "to": 112
-  },
-  {
-   "from": 0,
-   "to": 113
-  },
-  {
-   "from": 0,
-   "to": 114
-  },
-  {
-   "from": 0,
-   "to": 115
-  },
-  {
-   "from": 0,
-   "to": 116
-  },
-  {
-   "from": 0,
-   "to": 117
-  },
-  {
-   "from": 0,
-   "to": 118
-  },
-  {
-   "from": 0,
-   "to": 119
-  },
-  {
-   "from": 0,
-   "to": 120
-  },
-  {
-   "from": 0,
-   "to": 121
-  },
-  {
-   "from": 0,
-   "to": 122
-  },
-  {
-   "from": 0,
-   "to": 123
-  },
-  {
-   "from": 0,
-   "to": 124
-  },
-  {
-   "from": 0,
-   "to": 125
-  },
-  {
-   "from": 0,
-   "to": 126
-  },
-  {
-   "from": 0,
-   "to": 127
-  },
-  {
-   "from": 1,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 2,
-   "to": 74,
-   "wire": true
-  },
-  {
-   "from": 7,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 14,
-   "to": 117,
+   "from": 11,
+   "to": 19,
    "wire": true
   },
   {
    "from": 16,
-   "to": 117,
-   "wire": true
-  },
-  {
-   "from": 18,
-   "to": 117,
-   "wire": true
-  },
-  {
-   "from": 20,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 25,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 25,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 28,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 28,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 30,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 30,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 40,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 40,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 41,
-   "to": 117,
-   "wire": true
-  },
-  {
-   "from": 59,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 59,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 67,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 67,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 72,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 72,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 73,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 73,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 74,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 74,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 75,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 75,
-   "to": 48,
-   "wire": true
-  },
-  {
-   "from": 76,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 76,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 77,
-   "to": 117,
-   "wire": true
-  },
-  {
-   "from": 79,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 80,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 80,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 85,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 85,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 90,
-   "to": 117,
-   "wire": true
-  },
-  {
-   "from": 93,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 93,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 93,
-   "to": 48,
-   "wire": true
-  },
-  {
-   "from": 97,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 97,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 99,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 99,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 103,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 110,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 110,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 110,
-   "to": 48,
-   "wire": true
-  },
-  {
-   "from": 111,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 111,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 112,
-   "to": 52,
-   "wire": true
-  },
-  {
-   "from": 112,
-   "to": 62,
-   "wire": true
-  },
-  {
-   "from": 123,
-   "to": 52,
+   "to": 19,
    "wire": true
   }
  ],
  "trail": [
   {
    "t": 0.01,
-   "at": "C:\\02_QUILLAN\\scripts\\api.py",
-   "full": "C:\\02_QUILLAN\\scripts\\api.py",
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
    "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "228 lines, clean | compiled OK | 5F/2C | 5.3ms",
+   "detail": "154 lines, clean | compiled OK | 5F/0C | 6.2ms",
    "findings": [],
-   "lines": 228,
-   "ms": 5.3,
+   "lines": 154,
+   "ms": 6.2,
    "compiled": true,
    "funcs": 5,
-   "classes": 2
+   "classes": 0
   },
   {
-   "t": 0.04,
-   "at": "C:\\02_QUILLAN\\scripts\\autonomous_goal_evaluator.py",
-   "full": "C:\\02_QUILLAN\\scripts\\autonomous_goal_evaluator.py",
+   "t": 0.02,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
    "node": 2,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "46 lines, clean | compiled OK | 1F/0C | 1.2ms",
+   "detail": "215 lines, clean | compiled OK | 5F/1C | 5.2ms",
    "findings": [],
-   "lines": 46,
-   "ms": 1.2,
+   "lines": 215,
+   "ms": 5.2,
    "compiled": true,
-   "funcs": 1,
-   "classes": 0
+   "funcs": 5,
+   "classes": 1
   },
   {
-   "t": 0.07,
-   "at": "C:\\02_QUILLAN\\scripts\\benchmark_tokenizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\benchmark_tokenizer.py",
+   "t": 0.03,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "node": 3,
    "event": "file",
    "action": "SCANNING",
-   "result": "OK",
-   "detail": "179 lines, clean | compiled OK | 3F/0C | 5.1ms",
-   "findings": [],
-   "lines": 179,
-   "ms": 5.1,
+   "result": "FLAGGED",
+   "detail": "383 lines, 3 findings | compiled OK | 18F/1C | 8.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 320,
+     "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 328,
+     "preview": "# TODO: Pass boundary values"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 335,
+     "preview": "# TODO: Pass invalid type"
+    }
+   ],
+   "lines": 383,
+   "ms": 8.7,
    "compiled": true,
-   "funcs": 3,
-   "classes": 0
+   "funcs": 18,
+   "classes": 1
   },
   {
-   "t": 0.1,
-   "at": "C:\\02_QUILLAN\\scripts\\bitnet_linear.py",
-   "full": "C:\\02_QUILLAN\\scripts\\bitnet_linear.py",
+   "t": 0.04,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
    "node": 4,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "102 lines, clean | compiled OK | 7F/1C | 4.3ms",
+   "detail": "252 lines, clean | compiled OK | 4F/0C | 7.7ms",
    "findings": [],
-   "lines": 102,
-   "ms": 4.3,
+   "lines": 252,
+   "ms": 7.7,
    "compiled": true,
-   "funcs": 7,
-   "classes": 1
+   "funcs": 4,
+   "classes": 0
   },
   {
-   "t": 0.13,
-   "at": "C:\\02_QUILLAN\\scripts\\build_100_percent_master_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_100_percent_master_dataset.py",
+   "t": 0.08,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
    "node": 5,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "247 lines, clean | compiled OK | 5F/0C | 10.3ms",
+   "detail": "183 lines, clean | compiled OK | 5F/0C | 5.7ms",
    "findings": [],
-   "lines": 247,
-   "ms": 10.3,
+   "lines": 183,
+   "ms": 5.7,
    "compiled": true,
    "funcs": 5,
    "classes": 0
   },
   {
-   "t": 0.16,
-   "at": "C:\\02_QUILLAN\\scripts\\build_34_expert_datasets.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_34_expert_datasets.py",
+   "t": 0.13,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
    "node": 6,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "158 lines, clean | compiled OK | 2F/0C | 6.7ms",
+   "detail": "251 lines, clean | compiled OK | 4F/0C | 17.0ms",
    "findings": [],
-   "lines": 158,
-   "ms": 6.7,
+   "lines": 251,
+   "ms": 17.0,
    "compiled": true,
-   "funcs": 2,
+   "funcs": 4,
    "classes": 0
   },
   {
-   "t": 0.19,
-   "at": "C:\\02_QUILLAN\\scripts\\build_augmented_frontier_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_augmented_frontier_v2.py",
+   "t": 0.15,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
    "node": 7,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "352 lines, clean | compiled OK | 3F/0C | 9.4ms",
+   "detail": "105 lines, clean | compiled OK | 4F/0C | 18.3ms",
    "findings": [],
-   "lines": 352,
-   "ms": 9.4,
+   "lines": 105,
+   "ms": 18.3,
    "compiled": true,
-   "funcs": 3,
+   "funcs": 4,
    "classes": 0
   },
   {
-   "t": 0.22,
-   "at": "C:\\02_QUILLAN\\scripts\\build_comprehensive_sovereign_gold.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_comprehensive_sovereign_gold.py",
+   "t": 0.23,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
    "node": 8,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "120 lines, clean | compiled OK | 1F/0C | 2.1ms",
+   "detail": "184 lines, clean | compiled OK | 3F/0C | 85.8ms",
    "findings": [],
-   "lines": 120,
-   "ms": 2.1,
+   "lines": 184,
+   "ms": 85.8,
    "compiled": true,
-   "funcs": 1,
+   "funcs": 3,
    "classes": 0
   },
   {
-   "t": 0.24,
-   "at": "C:\\02_QUILLAN\\scripts\\build_direct_factual_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_direct_factual_dataset.py",
+   "t": 0.25,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
    "node": 9,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "93 lines, clean | compiled OK | 1F/0C | 1.5ms",
+   "detail": "101 lines, clean | compiled OK | 4F/0C | 5.0ms",
    "findings": [],
-   "lines": 93,
-   "ms": 1.5,
+   "lines": 101,
+   "ms": 5.0,
    "compiled": true,
-   "funcs": 1,
+   "funcs": 4,
    "classes": 0
   },
   {
-   "t": 0.27,
-   "at": "C:\\02_QUILLAN\\scripts\\build_flagship_portal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_flagship_portal.py",
+   "t": 0.25,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
    "node": 10,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "1381 lines, clean | compiled OK | 0F/0C | 3.4ms",
+   "detail": "192 lines, clean | compiled OK | 3F/0C | 3.7ms",
    "findings": [],
-   "lines": 1381,
-   "ms": 3.4,
+   "lines": 192,
+   "ms": 3.7,
    "compiled": true,
-   "funcs": 0,
+   "funcs": 3,
    "classes": 0
   },
   {
-   "t": 0.3,
-   "at": "C:\\02_QUILLAN\\scripts\\build_master_harvested_dataset.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_master_harvested_dataset.py",
+   "t": 0.26,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
    "node": 11,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "170 lines, clean | compiled OK | 2F/0C | 6.6ms",
+   "detail": "73 lines, clean | compiled OK | 0F/0C | 3.7ms",
    "findings": [],
-   "lines": 170,
-   "ms": 6.6,
+   "lines": 73,
+   "ms": 3.7,
    "compiled": true,
-   "funcs": 2,
+   "funcs": 0,
    "classes": 0
   },
   {
-   "t": 0.33,
-   "at": "C:\\02_QUILLAN\\scripts\\build_sovereign_thinking_gold.py",
-   "full": "C:\\02_QUILLAN\\scripts\\build_sovereign_thinking_gold.py",
+   "t": 0.28,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
    "node": 12,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "155 lines, clean | compiled OK | 1F/0C | 3.9ms",
+   "detail": "252 lines, clean | compiled OK | 5F/0C | 14.8ms",
    "findings": [],
-   "lines": 155,
-   "ms": 3.9,
+   "lines": 252,
+   "ms": 14.8,
    "compiled": true,
-   "funcs": 1,
+   "funcs": 5,
    "classes": 0
   },
   {
-   "t": 0.36,
-   "at": "C:\\02_QUILLAN\\scripts\\check_ckpt.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_ckpt.py",
+   "t": 0.29,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
    "node": 13,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "7 lines, clean | compiled OK | 0F/0C | 0.7ms",
+   "detail": "204 lines, clean | compiled OK | 4F/1C | 4.8ms",
    "findings": [],
-   "lines": 7,
-   "ms": 0.7,
+   "lines": 204,
+   "ms": 4.8,
    "compiled": true,
-   "funcs": 0,
-   "classes": 0
+   "funcs": 4,
+   "classes": 1
   },
   {
-   "t": 0.38,
-   "at": "C:\\02_QUILLAN\\scripts\\check_diffusion_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_diffusion_weights.py",
+   "t": 0.35,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
    "node": 14,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "24 lines, clean | compiled OK | 0F/0C | 1.8ms",
+   "detail": "422 lines, clean | compiled OK | 6F/1C | 32.9ms",
    "findings": [],
-   "lines": 24,
-   "ms": 1.8,
+   "lines": 422,
+   "ms": 32.9,
    "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.4,
-   "at": "C:\\02_QUILLAN\\scripts\\check_logs.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_logs.py",
-   "node": 15,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "11 lines, clean | compiled OK | 0F/0C | 1.5ms",
-   "findings": [],
-   "lines": 11,
-   "ms": 1.5,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
+   "funcs": 6,
+   "classes": 1
   },
   {
    "t": 0.43,
-   "at": "C:\\02_QUILLAN\\scripts\\check_shapes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_shapes.py",
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "node": 15,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1163 lines, 2 findings | compiled OK | 37F/1C | 72.8ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 589,
+     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 392,
+     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+    }
+   ],
+   "lines": 1163,
+   "ms": 72.8,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 1
+  },
+  {
+   "t": 0.46,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
    "node": 16,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "15 lines, clean | compiled OK | 1F/0C | 0.7ms",
+   "detail": "520 lines, clean | compiled OK | 17F/1C | 24.6ms",
    "findings": [],
-   "lines": 15,
-   "ms": 0.7,
+   "lines": 520,
+   "ms": 24.6,
    "compiled": true,
-   "funcs": 1,
-   "classes": 0
+   "funcs": 17,
+   "classes": 1
   },
   {
-   "t": 0.45,
-   "at": "C:\\02_QUILLAN\\scripts\\check_training_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_training_data.py",
+   "t": 0.47,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
    "node": 17,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "33 lines, clean | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (check_training_data.py, line 1) | 0F/0C | 0.3ms",
+   "detail": "177 lines, clean | compiled OK | 6F/0C | 4.5ms",
    "findings": [],
-   "lines": 33,
-   "ms": 0.3,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.47,
-   "at": "C:\\02_QUILLAN\\scripts\\check_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\check_weights.py",
-   "node": 18,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "25 lines, clean | compiled OK | 0F/0C | 2.5ms",
-   "findings": [],
-   "lines": 25,
-   "ms": 2.5,
+   "lines": 177,
+   "ms": 4.5,
    "compiled": true,
-   "funcs": 0,
+   "funcs": 6,
    "classes": 0
   },
   {
    "t": 0.5,
-   "at": "C:\\02_QUILLAN\\scripts\\clean_training_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\clean_training_data.py",
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "node": 18,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "674 lines, 1 findings | compiled OK | 25F/0C | 26.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 111,
+     "preview": "_ENGINE.eval()"
+    }
+   ],
+   "lines": 674,
+   "ms": 26.2,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 0
+  },
+  {
+   "t": 0.51,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
    "node": 19,
    "event": "file",
    "action": "SCANNING",
    "result": "OK",
-   "detail": "126 lines, clean | compiled OK | 2F/0C | 4.1ms",
+   "detail": "87 lines, clean | compiled OK | 3F/0C | 2.8ms",
    "findings": [],
-   "lines": 126,
-   "ms": 4.1,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 0.52,
-   "at": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\consolidate_and_export_sovereign.py",
-   "node": 20,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "88 lines, 1 findings | compiled OK | 1F/0C | 2.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 58,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 88,
-   "ms": 2.9,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 0.55,
-   "at": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_folder_notes.py",
-   "node": 21,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "40 lines, clean | compiled OK | 0F/0C | 1.8ms",
-   "findings": [],
-   "lines": 40,
-   "ms": 1.8,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.57,
-   "at": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_indexes.py",
-   "node": 22,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "64 lines, clean | compiled OK | 0F/0C | 2.6ms",
-   "findings": [],
-   "lines": 64,
-   "ms": 2.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.6,
-   "at": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_media_index.py",
-   "node": 23,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "52 lines, clean | compiled OK | 0F/0C | 2.2ms",
-   "findings": [],
-   "lines": 52,
-   "ms": 2.2,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.62,
-   "at": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
-   "full": "C:\\02_QUILLAN\\scripts\\create_remaining_notes.py",
-   "node": 24,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "45 lines, clean | compiled OK | 0F/0C | 1.8ms",
-   "findings": [],
-   "lines": 45,
-   "ms": 1.8,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.65,
-   "at": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
-   "full": "C:\\02_QUILLAN\\scripts\\daemon_evaluator.py",
-   "node": 25,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "128 lines, 1 findings | compiled OK | 2F/0C | 3.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 62,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 128,
-   "ms": 3.2,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 0.68,
-   "at": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
-   "full": "C:\\02_QUILLAN\\scripts\\daemon_harvester.py",
-   "node": 26,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "112 lines, clean | compiled OK | 4F/0C | 5.2ms",
-   "findings": [],
-   "lines": 112,
-   "ms": 5.2,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 0
-  },
-  {
-   "t": 0.7,
-   "at": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
-   "full": "C:\\02_QUILLAN\\scripts\\deploy_media_template.py",
-   "node": 27,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "490 lines, clean | compiled OK | 0F/0C | 1.4ms",
-   "findings": [],
-   "lines": 490,
-   "ms": 1.4,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.74,
-   "at": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
-   "full": "C:\\02_QUILLAN\\scripts\\diagnose_quillan_internals.py",
-   "node": 28,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "210 lines, 1 findings | compiled OK | 6F/0C | 6.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 173,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 210,
-   "ms": 6.9,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 0.79,
-   "at": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
-   "full": "C:\\02_QUILLAN\\scripts\\evaluate_model.py",
-   "node": 29,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "347 lines, 3 findings | compiled OK | 7F/0C | 12.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 64,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 75,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "bare_except",
-     "line": 282,
-     "preview": "except:"
-    }
-   ],
-   "lines": 347,
-   "ms": 12.9,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 0
-  },
-  {
-   "t": 0.82,
-   "at": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
-   "full": "C:\\02_QUILLAN\\scripts\\evaluate_terminal_run.py",
-   "node": 30,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "247 lines, 1 findings | compiled OK | 8F/0C | 7.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 62,
-     "preview": "exec(\"\\n\".join(clean_lines), sandbox_env)"
-    }
-   ],
-   "lines": 247,
-   "ms": 7.9,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 0
-  },
-  {
-   "t": 0.84,
-   "at": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
-   "full": "C:\\02_QUILLAN\\scripts\\export_phase5_gguf.py",
-   "node": 31,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "180 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (export_phase5_gguf.py, line 1) | 0F/0C | 0.4ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 142,
-     "preview": "except:"
-    }
-   ],
-   "lines": 180,
-   "ms": 0.4,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.87,
-   "at": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
-   "full": "C:\\02_QUILLAN\\scripts\\extract_knowledge_and_thinking_data.py",
-   "node": 32,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "197 lines, clean | compiled OK | 3F/0C | 4.0ms",
-   "findings": [],
-   "lines": 197,
-   "ms": 4.0,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 0.9,
-   "at": "C:\\02_QUILLAN\\scripts\\final_train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\final_train.py",
-   "node": 33,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "134 lines, clean | compiled OK | 0F/0C | 6.6ms",
-   "findings": [],
-   "lines": 134,
-   "ms": 6.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.92,
-   "at": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
-   "full": "C:\\02_QUILLAN\\scripts\\fix_moc_links.py",
-   "node": 34,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "69 lines, clean | compiled OK | 0F/0C | 1.9ms",
-   "findings": [],
-   "lines": 69,
-   "ms": 1.9,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.95,
-   "at": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
-   "full": "C:\\02_QUILLAN\\scripts\\fix_projections.py",
-   "node": 35,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "155 lines, clean | compiled OK | 2F/0C | 5.9ms",
-   "findings": [],
-   "lines": 155,
-   "ms": 5.9,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 0.98,
-   "at": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\generate_sovereign.py",
-   "node": 36,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "169 lines, 1 findings | compiled OK | 3F/0C | 5.1ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 59,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 169,
-   "ms": 5.1,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 1.01,
-   "at": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
-   "full": "C:\\02_QUILLAN\\scripts\\hardware_check.py",
-   "node": 37,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "260 lines, clean | compiled OK | 6F/0C | 7.0ms",
-   "findings": [],
-   "lines": 260,
-   "ms": 7.0,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 1.04,
-   "at": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
-   "full": "C:\\02_QUILLAN\\scripts\\hf_sync_all.py",
-   "node": 38,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "189 lines, clean | compiled OK | 1F/0C | 5.5ms",
-   "findings": [],
-   "lines": 189,
-   "ms": 5.5,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.06,
-   "at": "C:\\02_QUILLAN\\scripts\\init_quillan_db.py",
-   "full": "C:\\02_QUILLAN\\scripts\\init_quillan_db.py",
-   "node": 39,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "53 lines, clean | compiled OK | 0F/0C | 1.7ms",
-   "findings": [],
-   "lines": 53,
-   "ms": 1.7,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.09,
-   "at": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
-   "full": "C:\\02_QUILLAN\\scripts\\interactive_chat.py",
-   "node": 40,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "105 lines, clean | compiled OK | 3F/0C | 2.9ms",
-   "findings": [],
-   "lines": 105,
-   "ms": 2.9,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 1.12,
-   "at": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\migrate_weights.py",
-   "node": 41,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "79 lines, clean | compiled OK | 1F/0C | 2.4ms",
-   "findings": [],
-   "lines": 79,
-   "ms": 2.4,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.14,
-   "at": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
-   "full": "C:\\02_QUILLAN\\scripts\\overfit_check.py",
-   "node": 42,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "110 lines, clean | compiled OK | 6F/2C | 5.4ms",
-   "findings": [],
-   "lines": 110,
-   "ms": 5.4,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 2
-  },
-  {
-   "t": 1.17,
-   "at": "C:\\02_QUILLAN\\scripts\\patch_harness_mcp_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\patch_harness_mcp_20261013.py",
-   "node": 43,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "26 lines, clean | compiled OK | 0F/0C | 1.1ms",
-   "findings": [],
-   "lines": 26,
-   "ms": 1.1,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.2,
-   "at": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
-   "full": "C:\\02_QUILLAN\\scripts\\phase1_analysis.py",
-   "node": 44,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "302 lines, clean | compiled OK | 5F/0C | 8.1ms",
-   "findings": [],
-   "lines": 302,
-   "ms": 8.1,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 1.24,
-   "at": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\progressive_train.py",
-   "node": 45,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "313 lines, clean | compiled OK | 4F/1C | 18.9ms",
-   "findings": [],
-   "lines": 313,
-   "ms": 18.9,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 1.27,
-   "at": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quantize_and_test.py",
-   "node": 46,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "147 lines, 1 findings | compiled OK | 3F/0C | 5.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 88,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 147,
-   "ms": 5.7,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 1.3,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_daemon_swarm.py",
-   "node": 47,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "127 lines, clean | compiled OK | 3F/0C | 3.8ms",
-   "findings": [],
-   "lines": 127,
-   "ms": 3.8,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 1.32,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_muonk2_optimizer.py",
-   "node": 48,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "193 lines, clean | compiled OK | 4F/1C | 5.7ms",
-   "findings": [],
-   "lines": 193,
-   "ms": 5.7,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 1.38,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_ronin_sovereign_unified.py",
-   "node": 49,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "651 lines, 2 findings | compiled OK | 40F/17C | 29.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 396,
-     "preview": "exec(code, test_env)"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 600,
-     "preview": "self.eval()"
-    }
-   ],
-   "lines": 651,
-   "ms": 29.2,
-   "compiled": true,
-   "funcs": 40,
-   "classes": 17
-  },
-  {
-   "t": 1.42,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_runtime.py",
-   "node": 50,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "544 lines, 1 findings | compiled OK | 19F/3C | 15.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 373,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 544,
-   "ms": 15.9,
-   "compiled": true,
-   "funcs": 19,
-   "classes": 3
-  },
-  {
-   "t": 1.45,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_substrate_core.py",
-   "node": 51,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "247 lines, clean | compiled OK | 9F/3C | 6.7ms",
-   "findings": [],
-   "lines": 247,
-   "ms": 6.7,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 3
-  },
-  {
-   "t": 1.5,
-   "at": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\quillan_v10_unrolled_sovereign.py",
-   "node": 52,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "437 lines, 1 findings | compiled OK | 22F/10C | 22.6ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 399,
-     "preview": "self.eval()"
-    }
-   ],
-   "lines": 437,
-   "ms": 22.6,
-   "compiled": true,
-   "funcs": 22,
-   "classes": 10
-  },
-  {
-   "t": 1.52,
-   "at": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
-   "full": "C:\\02_QUILLAN\\scripts\\rebuild_readme_clean.py",
-   "node": 53,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "70 lines, clean | compiled OK | 1F/0C | 2.3ms",
-   "findings": [],
-   "lines": 70,
-   "ms": 2.3,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.55,
-   "at": "C:\\02_QUILLAN\\scripts\\regen_topology_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\regen_topology_20261013.py",
-   "node": 54,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "45 lines, clean | compiled OK | 0F/0C | 2.4ms",
-   "findings": [],
-   "lines": 45,
-   "ms": 2.4,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.58,
-   "at": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
-   "full": "C:\\02_QUILLAN\\scripts\\repair_readme.py",
-   "node": 55,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "112 lines, clean | compiled OK | 1F/0C | 4.1ms",
-   "findings": [],
-   "lines": 112,
-   "ms": 4.1,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.6,
-   "at": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
-   "full": "C:\\02_QUILLAN\\scripts\\resize_embedding.py",
-   "node": 56,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "95 lines, clean | compiled OK | 1F/0C | 2.9ms",
-   "findings": [],
-   "lines": 95,
-   "ms": 2.9,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.63,
-   "at": "C:\\02_QUILLAN\\scripts\\restyle_readme.py",
-   "full": "C:\\02_QUILLAN\\scripts\\restyle_readme.py",
-   "node": 57,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "72 lines, clean | compiled OK | 0F/0C | 1.1ms",
-   "findings": [],
-   "lines": 72,
-   "ms": 1.1,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.65,
-   "at": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
-   "full": "C:\\02_QUILLAN\\scripts\\run_local_inference.py",
-   "node": 58,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "119 lines, 1 findings | compiled OK | 5F/0C | 3.8ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 72,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 119,
-   "ms": 3.8,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 1.68,
-   "at": "C:\\02_QUILLAN\\scripts\\run_ten_question_benchmark.py",
-   "full": "C:\\02_QUILLAN\\scripts\\run_ten_question_benchmark.py",
-   "node": 59,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "83 lines, clean | compiled OK | 0F/0C | 2.3ms",
-   "findings": [],
-   "lines": 83,
-   "ms": 2.3,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.71,
-   "at": "C:\\02_QUILLAN\\scripts\\runtime_components.py",
-   "full": "C:\\02_QUILLAN\\scripts\\runtime_components.py",
-   "node": 60,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "469 lines, clean | compiled OK | 37F/8C | 12.0ms",
-   "findings": [],
-   "lines": 469,
-   "ms": 12.0,
-   "compiled": true,
-   "funcs": 37,
-   "classes": 8
-  },
-  {
-   "t": 1.74,
-   "at": "C:\\02_QUILLAN\\scripts\\sovereign_chat_template.py",
-   "full": "C:\\02_QUILLAN\\scripts\\sovereign_chat_template.py",
-   "node": 61,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "223 lines, clean | compiled OK | 7F/2C | 4.6ms",
-   "findings": [],
-   "lines": 223,
-   "ms": 4.6,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 2
-  },
-  {
-   "t": 1.78,
-   "at": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
-   "full": "C:\\02_QUILLAN\\scripts\\sovereign_inference_engine.py",
-   "node": 62,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "308 lines, 1 findings | compiled OK | 8F/3C | 10.4ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 114,
-     "preview": "self.model.eval()"
-    }
-   ],
-   "lines": 308,
-   "ms": 10.4,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 1.8,
-   "at": "C:\\02_QUILLAN\\scripts\\synchronize_all_canonical_assets.py",
-   "full": "C:\\02_QUILLAN\\scripts\\synchronize_all_canonical_assets.py",
-   "node": 63,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "83 lines, clean | compiled OK | 2F/0C | 2.1ms",
-   "findings": [],
-   "lines": 83,
-   "ms": 2.1,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 1.83,
-   "at": "C:\\02_QUILLAN\\scripts\\synchronize_knowledge_vault.py",
-   "full": "C:\\02_QUILLAN\\scripts\\synchronize_knowledge_vault.py",
-   "node": 64,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "115 lines, clean | compiled OK | 2F/0C | 3.9ms",
-   "findings": [],
-   "lines": 115,
-   "ms": 3.9,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 1.85,
-   "at": "C:\\02_QUILLAN\\scripts\\ternary_pack.py",
-   "full": "C:\\02_QUILLAN\\scripts\\ternary_pack.py",
-   "node": 65,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "125 lines, clean | compiled OK | 6F/0C | 3.8ms",
-   "findings": [],
-   "lines": 125,
-   "ms": 3.8,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 1.88,
-   "at": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_ckpt_1000.py",
-   "node": 66,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "28 lines, 1 findings | compiled OK | 0F/0C | 2.3ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 12,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 28,
-   "ms": 2.3,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 1.9,
-   "at": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_clean_direct_factual.py",
-   "node": 67,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "104 lines, 1 findings | compiled OK | 1F/0C | 2.6ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 45,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 104,
-   "ms": 2.6,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 1.93,
-   "at": "C:\\02_QUILLAN\\scripts\\test_forward.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_forward.py",
-   "node": 68,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "66 lines, clean | compiled OK | 2F/0C | 3.2ms",
-   "findings": [],
-   "lines": 66,
-   "ms": 3.2,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 1.96,
-   "at": "C:\\02_QUILLAN\\scripts\\test_generation.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_generation.py",
-   "node": 69,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "86 lines, 1 findings | compiled OK | 2F/0C | 3.8ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 21,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 86,
-   "ms": 3.8,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 1.98,
-   "at": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_gpu_load.py",
-   "node": 70,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "54 lines, 1 findings | compiled OK | 0F/0C | 2.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 34,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 54,
-   "ms": 2.7,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.01,
-   "at": "C:\\02_QUILLAN\\scripts\\test_inference.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_inference.py",
-   "node": 71,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "24 lines, 1 findings | compiled OK | 0F/0C | 2.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 13,
-     "preview": "model = model.cuda().half().eval()"
-    }
-   ],
-   "lines": 24,
-   "ms": 2.2,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.03,
-   "at": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_live_model_speech.py",
-   "node": 72,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "84 lines, 1 findings | compiled OK | 0F/0C | 2.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 44,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 84,
-   "ms": 2.7,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.06,
-   "at": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_long_horizon_generation.py",
-   "node": 73,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "90 lines, 1 findings | compiled OK | 0F/0C | 2.8ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 42,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 90,
+   "lines": 87,
    "ms": 2.8,
    "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.09,
-   "at": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_multi_horizon_exhaustive.py",
-   "node": 74,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "420 lines, 2 findings | compiled OK | 3F/1C | 9.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 251,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 341,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 420,
-   "ms": 9.9,
-   "compiled": true,
    "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 2.11,
-   "at": "C:\\02_QUILLAN\\scripts\\test_optimizer_step.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_optimizer_step.py",
-   "node": 75,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "21 lines, clean | compiled OK | 0F/0C | 1.1ms",
-   "findings": [],
-   "lines": 21,
-   "ms": 1.1,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.14,
-   "at": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
-   "full": "C:\\02_QUILLAN\\scripts\\test_out_of_domain_longform.py",
-   "node": 76,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "111 lines, 1 findings | compiled OK | 1F/0C | 2.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 41,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 111,
-   "ms": 2.9,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 2.17,
-   "at": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\trace_signal.py",
-   "node": 77,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "65 lines, 1 findings | compiled OK | 0F/0C | 3.6ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 14,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 65,
-   "ms": 3.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.21,
-   "at": "C:\\02_QUILLAN\\scripts\\train.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train.py",
-   "node": 78,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "173 lines, 1 findings | compiled OK | 9F/2C | 10.8ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 55,
-     "preview": "except: packed[k] = v.half().contiguous()"
-    }
-   ],
-   "lines": 173,
-   "ms": 10.8,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 2
-  },
-  {
-   "t": 2.24,
-   "at": "C:\\02_QUILLAN\\scripts\\train_240m_tensor_frontier.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_240m_tensor_frontier.py",
-   "node": 79,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "236 lines, clean | compiled OK | 4F/1C | 8.9ms",
-   "findings": [],
-   "lines": 236,
-   "ms": 8.9,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 2.27,
-   "at": "C:\\02_QUILLAN\\scripts\\train_34_experts_aligned.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_34_experts_aligned.py",
-   "node": 80,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "208 lines, clean | compiled OK | 2F/0C | 6.4ms",
-   "findings": [],
-   "lines": 208,
-   "ms": 6.4,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 2.3,
-   "at": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_bpe.py",
-   "node": 81,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "32 lines, 1 findings | compiled OK | 0F/0C | 1.5ms",
-   "findings": [
-    {
-     "rule": "pickle_load",
-     "line": 22,
-     "preview": "data = pickle.load(f)"
-    }
-   ],
-   "lines": 32,
-   "ms": 1.5,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.33,
-   "at": "C:\\02_QUILLAN\\scripts\\train_causal_alignment.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_causal_alignment.py",
-   "node": 82,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "189 lines, clean | compiled OK | 2F/0C | 7.9ms",
-   "findings": [],
-   "lines": 189,
-   "ms": 7.9,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 2.36,
-   "at": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_dialogue_run2.py",
-   "node": 83,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "283 lines, 1 findings | compiled OK | 5F/0C | 9.4ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 132,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 283,
-   "ms": 9.4,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 2.39,
-   "at": "C:\\02_QUILLAN\\scripts\\train_dialogue_sft.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_dialogue_sft.py",
-   "node": 84,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "190 lines, clean | compiled OK | 2F/0C | 7.3ms",
-   "findings": [],
-   "lines": 190,
-   "ms": 7.3,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 2.42,
-   "at": "C:\\02_QUILLAN\\scripts\\train_direct_factual_precision.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_direct_factual_precision.py",
-   "node": 85,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "171 lines, clean | compiled OK | 2F/0C | 5.0ms",
-   "findings": [],
-   "lines": 171,
-   "ms": 5.0,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 2.45,
-   "at": "C:\\02_QUILLAN\\scripts\\train_expert_cycle.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_expert_cycle.py",
-   "node": 86,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "159 lines, clean | compiled OK | 6F/1C | 6.4ms",
-   "findings": [],
-   "lines": 159,
-   "ms": 6.4,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 1
-  },
-  {
-   "t": 2.48,
-   "at": "C:\\02_QUILLAN\\scripts\\train_experts.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_experts.py",
-   "node": 87,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "125 lines, 2 findings | compiled OK | 0F/0C | 9.1ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 68,
-     "preview": "d = eval(line) if '{' in line else json.loads(line)"
-    },
-    {
-     "rule": "bare_except",
-     "line": 72,
-     "preview": "except:"
-    }
-   ],
-   "lines": 125,
-   "ms": 9.1,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 2.52,
-   "at": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_experts_v2.py",
-   "node": 88,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "180 lines, 1 findings | compiled OK | 5F/1C | 8.5ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 92,
-     "preview": "except:"
-    }
-   ],
-   "lines": 180,
-   "ms": 8.5,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 1
-  },
-  {
-   "t": 2.56,
-   "at": "C:\\02_QUILLAN\\scripts\\train_final.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_final.py",
-   "node": 89,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "418 lines, 2 findings | compiled OK | 6F/0C | 13.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 280,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "bare_except",
-     "line": 193,
-     "preview": "except: msgs = []"
-    }
-   ],
-   "lines": 418,
-   "ms": 13.7,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 2.59,
-   "at": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_finetune.py",
-   "node": 90,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "241 lines, 1 findings | compiled OK | 4F/1C | 11.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 72,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 241,
-   "ms": 11.2,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 2.63,
-   "at": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_finetune_v2.py",
-   "node": 91,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "275 lines, 4 findings | compiled OK | 7F/2C | 10.2ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 101,
-     "preview": "except: pass"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 147,
-     "preview": "# HACK: Only train critical path (~16M params)"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 183,
-     "preview": "# HACK: Adafactor (1 state instead of 2)"
-    },
-    {
-     "rule": "todo_fixme",
-     "line": 184,
-     "preview": "print('  [HACK] Adafactor...'); sys.stdout.flush()"
-    }
-   ],
-   "lines": 275,
-   "ms": 10.2,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 2
-  },
-  {
-   "t": 2.66,
-   "at": "C:\\02_QUILLAN\\scripts\\train_fluent_dialogue_deep.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_fluent_dialogue_deep.py",
-   "node": 92,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "255 lines, clean | compiled OK | 3F/0C | 8.5ms",
-   "findings": [],
-   "lines": 255,
-   "ms": 8.5,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 2.7,
-   "at": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_frontier_capability.py",
-   "node": 93,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "650 lines, 1 findings | compiled OK | 10F/0C | 16.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 422,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 650,
-   "ms": 16.7,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 0
-  },
-  {
-   "t": 2.73,
-   "at": "C:\\02_QUILLAN\\scripts\\train_full_base_pretrain.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_base_pretrain.py",
-   "node": 94,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "221 lines, clean | compiled OK | 8F/1C | 8.5ms",
-   "findings": [],
-   "lines": 221,
-   "ms": 8.5,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 1
-  },
-  {
-   "t": 2.76,
-   "at": "C:\\02_QUILLAN\\scripts\\train_full_param_deep.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_param_deep.py",
-   "node": 95,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "303 lines, clean | compiled OK | 4F/0C | 10.6ms",
-   "findings": [],
-   "lines": 303,
-   "ms": 10.6,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 0
-  },
-  {
-   "t": 2.8,
-   "at": "C:\\02_QUILLAN\\scripts\\train_full_param_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_full_param_v2.py",
-   "node": 96,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "228 lines, clean | compiled OK | 5F/0C | 7.6ms",
-   "findings": [],
-   "lines": 228,
-   "ms": 7.6,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 2.83,
-   "at": "C:\\02_QUILLAN\\scripts\\train_gold_precision_annealing.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_gold_precision_annealing.py",
-   "node": 97,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "184 lines, clean | compiled OK | 2F/0C | 5.9ms",
-   "findings": [],
-   "lines": 184,
-   "ms": 5.9,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 2.86,
-   "at": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_lightweight.py",
-   "node": 98,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "150 lines, 1 findings | compiled OK | 4F/1C | 6.0ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 58,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 150,
-   "ms": 6.0,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 2.89,
-   "at": "C:\\02_QUILLAN\\scripts\\train_master_frontier_precision.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_master_frontier_precision.py",
-   "node": 99,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "209 lines, clean | compiled OK | 3F/0C | 6.7ms",
-   "findings": [],
-   "lines": 209,
-   "ms": 6.7,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 2.93,
-   "at": "C:\\02_QUILLAN\\scripts\\train_multidataset_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_multidataset_sovereign.py",
-   "node": 100,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "271 lines, clean | compiled OK | 8F/1C | 13.4ms",
-   "findings": [],
-   "lines": 271,
-   "ms": 13.4,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 1
-  },
-  {
-   "t": 2.97,
-   "at": "C:\\02_QUILLAN\\scripts\\train_multimodal.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_multimodal.py",
-   "node": 101,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "346 lines, clean | compiled OK | 6F/0C | 15.8ms",
-   "findings": [],
-   "lines": 346,
-   "ms": 15.8,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 3.0,
-   "at": "C:\\02_QUILLAN\\scripts\\train_oni.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_oni.py",
-   "node": 102,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "200 lines, 2 findings | compiled OK | 8F/1C | 9.5ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 79,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 91,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 200,
-   "ms": 9.5,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 1
-  },
-  {
-   "t": 3.04,
-   "at": "C:\\02_QUILLAN\\scripts\\train_pristine_frontier_37k.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_pristine_frontier_37k.py",
-   "node": 103,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "163 lines, clean | compiled OK | 2F/0C | 4.7ms",
-   "findings": [],
-   "lines": 163,
-   "ms": 4.7,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 3.06,
-   "at": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_quillan.py",
-   "node": 104,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "162 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (train_quillan.py, line 1) | 0F/0C | 0.7ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 76,
-     "preview": "except:"
-    }
-   ],
-   "lines": 162,
-   "ms": 0.7,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 3.09,
-   "at": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_router_only.py",
-   "node": 105,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "241 lines, 1 findings | compiled OK | 4F/1C | 8.5ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 59,
-     "preview": "except: pass"
-    }
-   ],
-   "lines": 241,
-   "ms": 8.5,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 3.14,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sft.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft.py",
-   "node": 106,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "703 lines, clean | compiled OK | 19F/3C | 27.8ms",
-   "findings": [],
-   "lines": 703,
-   "ms": 27.8,
-   "compiled": true,
-   "funcs": 19,
-   "classes": 3
-  },
-  {
-   "t": 3.19,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v2.py",
-   "node": 107,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "413 lines, 1 findings | compiled OK | 12F/2C | 17.2ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 92,
-     "preview": "except:"
-    }
-   ],
-   "lines": 413,
-   "ms": 17.2,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 2
-  },
-  {
-   "t": 3.23,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sft_v3.py",
-   "node": 108,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "279 lines, 1 findings | compiled OK | 6F/0C | 18.1ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 101,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 279,
-   "ms": 18.1,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 3.28,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign.py",
-   "node": 109,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "727 lines, 1 findings | compiled OK | 21F/3C | 28.7ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 725,
-     "preview": "except:"
-    }
-   ],
-   "lines": 727,
-   "ms": 28.7,
-   "compiled": true,
-   "funcs": 21,
-   "classes": 3
-  },
-  {
-   "t": 3.33,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign_frontier_generalization.py",
-   "node": 110,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "220 lines, 1 findings | compiled OK | 2F/0C | 7.9ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 202,
-     "preview": "model.eval()"
-    }
-   ],
-   "lines": 220,
-   "ms": 7.9,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 3.95,
-   "at": "C:\\02_QUILLAN\\scripts\\train_sovereign_gold_alignment.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_sovereign_gold_alignment.py",
-   "node": 111,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "224 lines, clean | compiled OK | 5F/1C | 7.4ms",
-   "findings": [],
-   "lines": 224,
-   "ms": 7.4,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 1
-  },
-  {
-   "t": 4.04,
-   "at": "C:\\02_QUILLAN\\scripts\\train_super_run_10k.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_super_run_10k.py",
-   "node": 112,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "315 lines, clean | compiled OK | 4F/1C | 13.4ms",
-   "findings": [],
-   "lines": 315,
-   "ms": 13.4,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 4.14,
-   "at": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
-   "full": "C:\\02_QUILLAN\\scripts\\train_tokenizer.py",
-   "node": 113,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "75 lines, 1 findings | compiled OK | 2F/0C | 3.0ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 41,
-     "preview": "except:"
-    }
-   ],
-   "lines": 75,
-   "ms": 3.0,
-   "compiled": true,
-   "funcs": 2,
-   "classes": 0
-  },
-  {
-   "t": 4.18,
-   "at": "C:\\02_QUILLAN\\scripts\\training_watchdog.py",
-   "full": "C:\\02_QUILLAN\\scripts\\training_watchdog.py",
-   "node": 114,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "248 lines, clean | compiled OK | 6F/0C | 6.6ms",
-   "findings": [],
-   "lines": 248,
-   "ms": 6.6,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 4.21,
-   "at": "C:\\02_QUILLAN\\scripts\\transplant_clean.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_clean.py",
-   "node": 115,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "208 lines, clean | compiled OK | 3F/1C | 10.3ms",
-   "findings": [],
-   "lines": 208,
-   "ms": 10.3,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 4.42,
-   "at": "C:\\02_QUILLAN\\scripts\\transplant_v8.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_v8.py",
-   "node": 116,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "262 lines, clean | compiled OK | 4F/2C | 10.4ms",
-   "findings": [],
-   "lines": 262,
-   "ms": 10.4,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 2
-  },
-  {
-   "t": 4.47,
-   "at": "C:\\02_QUILLAN\\scripts\\transplant_weights.py",
-   "full": "C:\\02_QUILLAN\\scripts\\transplant_weights.py",
-   "node": 117,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "532 lines, clean | compiled OK | 21F/8C | 22.6ms",
-   "findings": [],
-   "lines": 532,
-   "ms": 22.6,
-   "compiled": true,
-   "funcs": 21,
-   "classes": 8
-  },
-  {
-   "t": 4.56,
-   "at": "C:\\02_QUILLAN\\scripts\\update_nn_vis.py",
-   "full": "C:\\02_QUILLAN\\scripts\\update_nn_vis.py",
-   "node": 118,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "589 lines, clean | compiled OK | 0F/0C | 1.5ms",
-   "findings": [],
-   "lines": 589,
-   "ms": 1.5,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.58,
-   "at": "C:\\02_QUILLAN\\scripts\\update_obsidian_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\update_obsidian_20261013.py",
-   "node": 119,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "23 lines, clean | compiled OK | 0F/0C | 1.1ms",
-   "findings": [],
-   "lines": 23,
-   "ms": 1.1,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.6,
-   "at": "C:\\02_QUILLAN\\scripts\\upgrade_db_v3.py",
-   "full": "C:\\02_QUILLAN\\scripts\\upgrade_db_v3.py",
-   "node": 120,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "15 lines, clean | compiled OK | 0F/0C | 1.3ms",
-   "findings": [],
-   "lines": 15,
-   "ms": 1.3,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.63,
-   "at": "C:\\02_QUILLAN\\scripts\\validate_opencode2_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\validate_opencode2_20261013.py",
-   "node": 121,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "15 lines, clean | compiled OK | 1F/0C | 1.0ms",
-   "findings": [],
-   "lines": 15,
-   "ms": 1.0,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 4.65,
-   "at": "C:\\02_QUILLAN\\scripts\\validate_opencode_20261013.py",
-   "full": "C:\\02_QUILLAN\\scripts\\validate_opencode_20261013.py",
-   "node": 122,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "9 lines, clean | compiled OK | 0F/0C | 0.8ms",
-   "findings": [],
-   "lines": 9,
-   "ms": 0.8,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.69,
-   "at": "C:\\02_QUILLAN\\scripts\\verify_full_unrolled_wiring.py",
-   "full": "C:\\02_QUILLAN\\scripts\\verify_full_unrolled_wiring.py",
-   "node": 123,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "92 lines, clean | compiled OK | 1F/0C | 4.1ms",
-   "findings": [],
-   "lines": 92,
-   "ms": 4.1,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 4.71,
-   "at": "C:\\02_QUILLAN\\scripts\\wire_mocs.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_mocs.py",
-   "node": 124,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "45 lines, clean | compiled OK | 0F/0C | 2.6ms",
-   "findings": [],
-   "lines": 45,
-   "ms": 2.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.74,
-   "at": "C:\\02_QUILLAN\\scripts\\wire_vault.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_vault.py",
-   "node": 125,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "40 lines, clean | compiled OK | 0F/0C | 1.6ms",
-   "findings": [],
-   "lines": 40,
-   "ms": 1.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.8,
-   "at": "C:\\02_QUILLAN\\scripts\\wire_vault_final.py",
-   "full": "C:\\02_QUILLAN\\scripts\\wire_vault_final.py",
-   "node": 126,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "64 lines, clean | compiled OK | 0F/0C | 1.3ms",
-   "findings": [],
-   "lines": 64,
-   "ms": 1.3,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 4.83,
-   "at": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
-   "full": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
-   "node": 127,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "270 lines, 3 findings | compiled OK | 5F/0C | 8.5ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 175,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 205,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 239,
-     "preview": "except:"
-    }
-   ],
-   "lines": 270,
-   "ms": 8.5,
-   "compiled": true,
-   "funcs": 5,
    "classes": 0
   }
  ],
  "wiring": [
   {
-   "from": "api.py",
-   "to": "sovereign_inference_engine",
-   "why": "api.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
+   "from": "ingest_second_brain.py",
+   "to": "server",
+   "why": "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it"
   },
   {
-   "from": "autonomous_goal_evaluator.py",
-   "to": "test_multi_horizon_exhaustive",
-   "why": "autonomous_goal_evaluator.py imports test_multi_horizon_exhaustive; coupled \u2014 a change in test_multi_horizon_exhaustive can break it"
-  },
-  {
-   "from": "build_augmented_frontier_v2.py",
-   "to": "sovereign_inference_engine",
-   "why": "build_augmented_frontier_v2.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "check_diffusion_weights.py",
-   "to": "transplant_weights",
-   "why": "check_diffusion_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "check_shapes.py",
-   "to": "transplant_weights",
-   "why": "check_shapes.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "check_weights.py",
-   "to": "transplant_weights",
-   "why": "check_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "consolidate_and_export_sovereign.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "consolidate_and_export_sovereign.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "daemon_evaluator.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "daemon_evaluator.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "daemon_evaluator.py",
-   "to": "sovereign_inference_engine",
-   "why": "daemon_evaluator.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "diagnose_quillan_internals.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "diagnose_quillan_internals.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "diagnose_quillan_internals.py",
-   "to": "sovereign_inference_engine",
-   "why": "diagnose_quillan_internals.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "evaluate_terminal_run.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "evaluate_terminal_run.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "evaluate_terminal_run.py",
-   "to": "sovereign_inference_engine",
-   "why": "evaluate_terminal_run.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "interactive_chat.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "interactive_chat.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "interactive_chat.py",
-   "to": "sovereign_inference_engine",
-   "why": "interactive_chat.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "migrate_weights.py",
-   "to": "transplant_weights",
-   "why": "migrate_weights.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "run_ten_question_benchmark.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "run_ten_question_benchmark.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "run_ten_question_benchmark.py",
-   "to": "sovereign_inference_engine",
-   "why": "run_ten_question_benchmark.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "test_clean_direct_factual.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_clean_direct_factual.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_clean_direct_factual.py",
-   "to": "sovereign_inference_engine",
-   "why": "test_clean_direct_factual.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "test_live_model_speech.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_live_model_speech.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_live_model_speech.py",
-   "to": "sovereign_inference_engine",
-   "why": "test_live_model_speech.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "test_long_horizon_generation.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_long_horizon_generation.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_long_horizon_generation.py",
-   "to": "sovereign_inference_engine",
-   "why": "test_long_horizon_generation.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "test_multi_horizon_exhaustive.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_multi_horizon_exhaustive.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_multi_horizon_exhaustive.py",
-   "to": "sovereign_inference_engine",
-   "why": "test_multi_horizon_exhaustive.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "test_optimizer_step.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_optimizer_step.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_optimizer_step.py",
-   "to": "quillan_muonk2_optimizer",
-   "why": "test_optimizer_step.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
-  },
-  {
-   "from": "test_out_of_domain_longform.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "test_out_of_domain_longform.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "test_out_of_domain_longform.py",
-   "to": "sovereign_inference_engine",
-   "why": "test_out_of_domain_longform.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "trace_signal.py",
-   "to": "transplant_weights",
-   "why": "trace_signal.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "train_240m_tensor_frontier.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_240m_tensor_frontier.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_34_experts_aligned.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_34_experts_aligned.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_34_experts_aligned.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_34_experts_aligned.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_direct_factual_precision.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_direct_factual_precision.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_direct_factual_precision.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_direct_factual_precision.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_finetune.py",
-   "to": "transplant_weights",
-   "why": "train_finetune.py imports transplant_weights; coupled \u2014 a change in transplant_weights can break it"
-  },
-  {
-   "from": "train_frontier_capability.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_frontier_capability.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_frontier_capability.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_frontier_capability.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_frontier_capability.py",
-   "to": "quillan_muonk2_optimizer",
-   "why": "train_frontier_capability.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
-  },
-  {
-   "from": "train_gold_precision_annealing.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_gold_precision_annealing.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_gold_precision_annealing.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_gold_precision_annealing.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_master_frontier_precision.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_master_frontier_precision.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_master_frontier_precision.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_master_frontier_precision.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_pristine_frontier_37k.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_pristine_frontier_37k.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_sovereign_frontier_generalization.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_sovereign_frontier_generalization.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_sovereign_frontier_generalization.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_sovereign_frontier_generalization.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_sovereign_frontier_generalization.py",
-   "to": "quillan_muonk2_optimizer",
-   "why": "train_sovereign_frontier_generalization.py imports quillan_muonk2_optimizer; coupled \u2014 a change in quillan_muonk2_optimizer can break it"
-  },
-  {
-   "from": "train_sovereign_gold_alignment.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_sovereign_gold_alignment.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_sovereign_gold_alignment.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_sovereign_gold_alignment.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "train_super_run_10k.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "train_super_run_10k.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
-  },
-  {
-   "from": "train_super_run_10k.py",
-   "to": "sovereign_inference_engine",
-   "why": "train_super_run_10k.py imports sovereign_inference_engine; coupled \u2014 a change in sovereign_inference_engine can break it"
-  },
-  {
-   "from": "verify_full_unrolled_wiring.py",
-   "to": "quillan_v10_unrolled_sovereign",
-   "why": "verify_full_unrolled_wiring.py imports quillan_v10_unrolled_sovereign; coupled \u2014 a change in quillan_v10_unrolled_sovereign can break it"
+   "from": "spider_bridge.py",
+   "to": "server",
+   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
   }
  ],
  "spider": {
   "pos": {
-   "t": 4.83,
-   "at": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
-   "full": "C:\\02_QUILLAN\\scripts\\yolo_loop.py",
-   "node": 127,
+   "t": 0.51,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "node": 19,
    "event": "file",
    "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "270 lines, 3 findings | compiled OK | 5F/0C | 8.5ms",
-   "findings": [
-    {
-     "rule": "bare_except",
-     "line": 175,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 205,
-     "preview": "except:"
-    },
-    {
-     "rule": "bare_except",
-     "line": 239,
-     "preview": "except:"
-    }
-   ],
-   "lines": 270,
-   "ms": 8.5,
+   "result": "OK",
+   "detail": "87 lines, clean | compiled OK | 3F/0C | 2.8ms",
+   "findings": [],
+   "lines": 87,
+   "ms": 2.8,
    "compiled": true,
-   "funcs": 5,
+   "funcs": 3,
    "classes": 0
   },
-  "visited": 127,
+  "visited": 19,
   "state": "DONE",
   "action": "SCANNING",
-  "total_findings": 54,
-  "wires": 53,
-  "elapsed_s": 4.9
+  "total_findings": 6,
+  "wires": 2,
+  "elapsed_s": 0.5
  }
 }

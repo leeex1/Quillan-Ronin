@@ -220,7 +220,7 @@ def _parse_imports(txt, known_stems):
             found.append(mod)
     return found
 
-SKIP = {".git", "__pycache__", "node_modules", ".venv-mazebench", ".venv", "dist", "build", ".next"}
+SKIP = {".git", "__pycache__", "node_modules", ".venv-mazebench", ".venv", "dist", "build", ".next", ".antigravity", ".antigravity-ide", ".vscode-shared", ".windsurf", ".gemini", ".codeium", ".qwen", ".devin", "venv_oni_cu126", "venv_cuda1050", "checkpoints", ".pytest_cache", ".obsidian", "quillan_rag_db", ".gitnexus", "lancedb", "colab_bundle"}
 
 
 def _crawl(root: Path, max_files: int = 220, exts: Optional[List[str]] = None):
