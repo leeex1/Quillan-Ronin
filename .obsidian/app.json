@@ -1,0 +1,18 @@
+{
+  "showUnsupportedFiles": false,
+  "showUnlinkedFiles": true,
+  "excludedFolders": [
+    ".git",
+    ".gitnexus",
+    "__pycache__",
+    ".pytest_cache",
+    "checkpoints",
+    ".venv-mazebench",
+    "venv_oni_cu126",
+    "node_modules",
+    "quillan_rag_db",
+    "colab_bundle",
+    "MCP-DevKit"
+  ],
+  "templateFolder": "08 - Templates & Config"
+}

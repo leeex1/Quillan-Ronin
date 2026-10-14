@@ -476,6 +476,33 @@
 - **Test Invariant**: `test_shazeer_moe_paper69_invariant` (Unit Test 72 in `test_mathematical_wiring.py` passing 100%).
 - **Verification Status**: VERIFIED.
 
+### Paper 70: MoHGE: Mixture of Heterogeneous Grouped Experts for High Parameter-Compute Efficiency in MoE
+- **Authors**: Zhicheng Ma, Xuli Shen, Yuhao Dong, Hao Jiang, Zhengyang Dong, Xianglong Liu, Bo Wang
+- **Affiliation**: China Unicom & State Key Laboratory of Software Development Environment, Beihang University
+- **Date**: April 24, 2026 (arXiv:2604.23108)
+- **PDF Artifact**: `MoHGE_2604.23108.pdf` (10 pages)
+- **Mathematical & Architectural Formulations**:
+  1. *Heterogeneous Grouped Experts (Section 3.1)*:
+     Partitions $N_{\text{total}} = N_g \times N$ experts into $N_g$ groups where each group $g \in \{1, \dots, N_g\}$ features distinct intermediate hidden dimensions $h_1 < h_2 < \dots < h_{N_g}$. Permits allocating compact capacity to frequent, simple tokens while reserving large parameter spaces for complex reasoning tokens, reducing parameters by ~20% without loss of representational capacity.
+  2. *Two-Level Resource-Aware Routing (Section 3.2, Eqs. 2-6)*:
+     - Group Gating Model: Group routing scores $GS_{g, t} = \text{Sigmoid}(x_t^T e_g)$ where $e_g$ is the group routing embedding. Selects Top-$K_g$ groups per token.
+     - Intra-Group Expert Gating: Evaluates Softmax only within Top-$K_g$ groups: $ES'_{g, i, t} = \text{Softmax}(x_t^T e_{g, i})$ for active groups, 0 otherwise.
+     - Cross-Group Scaling: Scales intra-group scores by group gating confidence: $ES''_{g, i, t} = ES'_{g, i, t} \cdot GS_{g, t}$.
+     - Global Top-$K_e$ Selection: Evaluates threshold $k_e\text{-th}(ES'')$ globally across all groups, masking sub-threshold experts to zero ($ES'''$).
+     - Global Partition of Unity Normalization: $ES_{g, i, t} = \frac{ES'''_{g, i, t}}{\sum_{g, i} ES'''_{g, i, t}}$, ensuring routing weights sum strictly to 1.0.
+  3. *Group-Wise Auxiliary Loss $\mathcal{L}_G$ (Section 3.2.3, Eqs. 7-10)*:
+     $$\mathcal{L}_G = \alpha_G \sum_{i=1}^{N_g} \frac{W_i}{W_{\text{max}}} f_i^G p_i^G, \quad \alpha_G = 10^{-4}$$
+     where $f_i^G = \frac{N_g}{K_g T} \sum_{t=1}^T \mathbf{1}(GS_{i, t} \in \text{Top-}K_g)$ is the group dispatch fraction, $p_i^G = \frac{1}{T} \sum_t \frac{GS_{i, t}}{\sum_j GS_{j, t}}$ is the mean normalized group probability, and $W_i / W_{\text{max}}$ weights penalty proportionally to intermediate size, penalizing over-routing to high-parameter groups.
+  4. *Intra-Group Experts Auxiliary Loss $\mathcal{L}_E$ (Section 3.2.3, Eqs. 11-14)*:
+     $$\mathcal{L}_E = \alpha_E \sum_{g=1}^{N_g} \sum_{i=1}^N f_{g, i}^E p_{g, i}^E, \quad \alpha_E = 2.5 \times 10^{-3}$$
+     where $f_{g, i}^E = \frac{N}{K_e T} \sum_t \mathbf{1}(ES_{g, i, t} \in \text{Top-}K_e)$ and $p_{g, i}^E = \frac{1}{T} \sum_t \frac{ES'_{g, i, t}}{\sum_j ES'_{g, j, t}}$, ensuring balanced dispatch among the $N$ experts within each group and preventing intra-group collapse.
+  5. *All-Size Group-Decoupling Hardware Allocation (Section 3.3)*:
+     Places one expert from each group onto each GPU device: Device $d$ hosts $\{E_{1, d}, E_{2, d}, \dots, E_{N_g, d}\}$. Total memory footprint per device $\sum_{g=1}^{N_g} \text{Params}(E_{g, d}) = 3 \times d_{\text{model}} \sum_{g=1}^{N_g} h_g$ is mathematically identical across all $N$ devices, eliminating memory imbalance and straggler latency.
+- **Implementation Module**: [`mohge_engine.py`](file:///C:/02_QUILLAN/09%20-%20Projects/projects/oni/mohge_engine.py) (Mirrored to `colab_bundle/`, `colab_bundle/modules/`, and `knowledge/legacy/00 - Meta/oni/`).
+- **Test Invariant**: `test_mohge_paper70_invariant` (Unit Test 73 in `test_mathematical_wiring.py` passing 100%).
+- **Verification Status**: VERIFIED.
+
+
 
 
 

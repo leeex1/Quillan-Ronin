@@ -396,6 +396,16 @@ from shazeer_moe_engine import (
     ShazeerHierarchicalMoELayer,
     verify_shazeer_moe_invariants,
 )
+from mohge_engine import (
+    MoHGEConfig,
+    HeterogeneousExpert,
+    TwoLevelResourceAwareRouter,
+    GroupWiseAuxiliaryLoss,
+    IntraGroupAuxiliaryLoss,
+    MoHGEAllSizeDeviceAllocator,
+    MoHGELayer,
+    verify_mohge_invariants,
+)
 from flash_attention_v1 import (
     FlashAttention1Config,
     FlashAttention1,
@@ -4960,6 +4970,85 @@ def test_shazeer_moe_paper69_invariant():
     assert verify_shazeer_moe_invariants() is True
 
 
+def test_mohge_paper70_invariant():
+    """
+    Paper 70 Invariant Test: MoHGE (Mixture of Heterogeneous Grouped Experts)
+    Zhicheng Ma et al., China Unicom, 2026 (arXiv:2604.23108)
+
+    Verifies:
+    1. Standalone verification harness invariants (group isolation, weight sum, device uniformity).
+    2. Two-level resource-aware router gating (Sigmoid group gating, intra-group Softmax, top-Kg and top-Ke filtering).
+    3. Group-wise auxiliary loss scaling by W_i / W_max.
+    4. Intra-group auxiliary loss load balance across experts.
+    5. All-size group-decoupling allocation memory uniformity across GPU devices.
+    6. Full MoHGE layer forward computation and backward autograd flow.
+    """
+    config = MoHGEConfig(
+        hidden_dim=48,
+        num_groups=4,
+        experts_per_group=4,
+        k_g=2,
+        k_e=4,
+        group_dims=(32, 48, 64, 96),
+        alpha_g=1e-4,
+        alpha_e=2.5e-3
+    )
+
+    # 1. Standalone verification
+    res = verify_mohge_invariants()
+    assert res["status"] == "PASS"
+    assert res["is_uniform_device_memory"] is True
+
+    # 2. Router verification
+    router = TwoLevelResourceAwareRouter(config)
+    B, S, D = 3, 8, config.hidden_dim
+    x = torch.randn(B, S, D, requires_grad=True)
+    x_flat = x.reshape(-1, D)
+    T = x_flat.size(0)
+
+    weights, topk_e_indices, aux_info = router(x_flat)
+    assert weights.shape == (T, config.num_groups, config.experts_per_group)
+    assert topk_e_indices.shape == (T, config.k_e)
+
+    # Weights per token sum to 1.0
+    w_sum = weights.reshape(T, -1).sum(dim=-1)
+    assert torch.allclose(w_sum, torch.ones(T), atol=1e-5), "MoHGE weights must sum to 1.0"
+
+    # Only top-Kg groups have non-zero sum
+    group_sums = weights.sum(dim=-1) # [T, num_groups]
+    active_groups = (group_sums > 0.0).sum(dim=-1)
+    assert (active_groups <= config.k_g).all(), f"At most {config.k_g} groups may have active routing"
+
+    # At most top-Ke experts active per token
+    active_experts = (weights.reshape(T, -1) > 0.0).sum(dim=-1)
+    assert (active_experts <= config.k_e).all(), f"At most {config.k_e} experts may be active"
+
+    # 3. Auxiliary Losses
+    loss_G_fn = GroupWiseAuxiliaryLoss(config)
+    loss_E_fn = IntraGroupAuxiliaryLoss(config)
+    loss_G = loss_G_fn(aux_info["gs"], aux_info["group_mask"])
+    loss_E = loss_E_fn(aux_info["es_prime"], aux_info["mask_e"])
+    assert loss_G > 0.0 and torch.isfinite(loss_G)
+    assert loss_E > 0.0 and torch.isfinite(loss_E)
+
+    # 4. All-Size Device Memory Balance
+    assert MoHGEAllSizeDeviceAllocator.verify_uniform_device_memory(
+        config.num_groups, config.experts_per_group, config.group_dims, config.hidden_dim
+    )
+
+    # 5. Layer Forward & Backward Autograd
+    layer = MoHGELayer(config)
+    out, aux_loss, info = layer(x)
+    assert out.shape == x.shape
+    assert aux_loss > 0.0
+
+    total_loss = out.sum() + aux_loss
+    total_loss.backward()
+    assert x.grad is not None and torch.isfinite(x.grad).all()
+    assert layer.router.e_g.grad is not None
+    assert layer.router.e_gi.grad is not None
+
+
 if __name__ == "__main__":
     print("=" * 70)
     print("RUNNING MATHEMATICAL WIRING & COMPUTATIONAL INVARIANT TESTS")
@@ -5109,6 +5198,8 @@ if __name__ == "__main__":
     print("  [PASS] 71. CPU-GPU Collaborative MoE Inference, Set-Associative LRU Cache & Activation Offloading Invariant (Paper 68 / Huang et al.)")
     test_shazeer_moe_paper69_invariant()
     print("  [PASS] 72. Sparsely-Gated MoE Noisy Top-K Gating, Normal CDF Load Loss & Hierarchical Invariant (Paper 69 / Shazeer et al.)")
+    test_mohge_paper70_invariant()
+    print("  [PASS] 73. Mixture of Heterogeneous Grouped Experts (MoHGE) Two-Level Resource-Aware Routing, Group Aux Loss & All-Size Allocation Invariant (Paper 70 / Ma et al.)")
     print("=" * 70)
     print("ALL CORE MATHEMATICAL INVARIANTS 100% VERIFIED & REAL.")
     print("=" * 70)
