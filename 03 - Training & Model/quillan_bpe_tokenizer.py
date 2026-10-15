@@ -7,6 +7,16 @@ Production wrapper around HuggingFace Rust tokenizers for Quillan-Ronin.
 Standardized on static JSON serialization (`tokenizer.json`) to guarantee
 cross-platform portability, high-throughput Rust tokenization, and zero-risk
 deserialization (mitigating CWE-502 pickle vulnerabilities).
+
+Supports the full 50,262-token vocabulary including the 5 Sovereign dialogue specials:
+  0: <|endoftext|>
+  1: <|pad|>
+  2: <|bos|>
+  50257: <|start|>
+  50258: <|user|>
+  50259: <|assistant|>
+  50260: <|im_start|>
+  50261: <|im_end|>
 """
 
 from __future__ import annotations
@@ -15,9 +25,7 @@ import logging
 import os
 import warnings
 from pathlib import Path
-from typing import List, Optional, Union
-
-from version import __version__, RELEASE_YEAR
+from typing import Dict, List, Optional, Union
 
 try:
     from tokenizers import Tokenizer
@@ -34,19 +42,44 @@ except ImportError:
 
 logger = logging.getLogger(__name__)
 
+CANONICAL_SPECIALS: Dict[str, int] = {
+    "<|endoftext|>": 0,
+    "<|pad|>": 1,
+    "<|bos|>": 2,
+    "<|begin_of_text|>": 2,
+    "<|eot_id|>": 0,
+    "<|end_of_text|>": 0,
+    "<|start|>": 50257,
+    "<|user|>": 50258,
+    "<|assistant|>": 50259,
+    "<|im_start|>": 50260,
+    "<|im_end|>": 50261,
+}
+
+REVERSE_SPECIALS: Dict[int, str] = {
+    0: "<|endoftext|>",
+    1: "<|pad|>",
+    2: "<|bos|>",
+    50257: "<|start|>",
+    50258: "<|user|>",
+    50259: "<|assistant|>",
+    50260: "<|im_start|>",
+    50261: "<|im_end|>",
+}
+
 
 class QuillanBPETokenizer:
     """Production drop-in BPE Tokenizer for the Quillan-Ronin neural architecture.
 
-    Backbone serialization uses HuggingFace Rust `tokenizer.json` with a 50,257
+    Backbone serialization uses HuggingFace Rust `tokenizer.json` with a 50,262
     token vocabulary, NFKC normalization, and ByteLevel pre-tokenization.
 
     Attributes:
-        vocab_size (int): Size of the active vocabulary (default: 50,257).
+        vocab_size (int): Size of the active vocabulary (default: 50,262).
         tokenizer_path (Optional[Path]): Absolute path to loaded tokenizer file.
     """
 
-    DEFAULT_VOCAB_SIZE: int = 50257
+    DEFAULT_VOCAB_SIZE: int = 50262
 
     def __init__(
         self,
@@ -87,6 +120,7 @@ class QuillanBPETokenizer:
                 stacklevel=3,
             )
             candidates = [
+                resolved.parent / "scripts" / "tokenizer.json",
                 resolved.parent / "quillan_bpe_tokenizer_hf" / "tokenizer.json",
                 resolved.parent / "tokenizer.json",
                 resolved.parent / "oni" / "tokenizer.json",
@@ -108,10 +142,14 @@ class QuillanBPETokenizer:
         """Attempt to locate tokenizer.json across standard canonical repository locations."""
         current_dir = Path(__file__).resolve().parent
         candidate_paths = [
+            current_dir / "scripts" / "tokenizer.json",
             current_dir / "quillan_bpe_tokenizer_hf" / "tokenizer.json",
+            current_dir / "tokenizer.json",
             current_dir / "oni" / "tokenizer.json",
             current_dir / "training_data" / "tokenizer.json",
             current_dir / "_dev" / "quillan_bpe_tokenizer_hf" / "tokenizer.json",
+            Path(r"C:\02_QUILLAN\03 - Training & Model\scripts\tokenizer.json"),
+            Path(r"C:\02_QUILLAN\03 - Training & Model\quillan_bpe_tokenizer_hf\tokenizer.json"),
         ]
         for candidate in candidate_paths:
             if candidate.is_file():
@@ -168,17 +206,23 @@ class QuillanBPETokenizer:
         self._tok.save(str(dest_path))
         logger.info("Saved tokenizer configuration to %s", dest_path)
 
-    def encode(self, text: str) -> List[int]:
+    def encode(self, text: str, domain: str = "general") -> List[int]:
         """Tokenize input string into list of token IDs.
 
         Args:
             text: Plain text input.
+            domain: Domain hint (general, code, dialogue, scientific).
 
         Returns:
             List of integer token IDs.
         """
         if not isinstance(text, str):
             raise TypeError(f"Expected str input for encode, received: {type(text).__name__}")
+        if domain == "code":
+            text = text.replace("\t", "    ")
+        elif domain == "dialogue":
+            text = text.strip()
+
         if self._tok is not None:
             return self._tok.encode(text).ids
         # Native stdlib byte fallback when tokenizers library is not installed
@@ -198,32 +242,69 @@ class QuillanBPETokenizer:
             raise TypeError(f"Expected list[int] for decode, received: {type(ids).__name__}")
         if self._tok is not None:
             return self._tok.decode(ids, skip_special_tokens=skip_special_tokens)
-        # Native stdlib byte fallback
-        return bytes([i % 256 for i in ids]).decode("utf-8", errors="replace")
+        # Native stdlib fallback
+        tokens = []
+        for i in ids:
+            if i in REVERSE_SPECIALS:
+                if not skip_special_tokens:
+                    tokens.append(REVERSE_SPECIALS[i].encode("utf-8"))
+            else:
+                tokens.append(bytes([i % 256]))
+        return b"".join(tokens).decode("utf-8", errors="replace")
+
+    def token_to_id(self, token: str) -> Optional[int]:
+        """Maps token text to integer ID, checking unified special registry first."""
+        if token in CANONICAL_SPECIALS:
+            return CANONICAL_SPECIALS[token]
+        if self._tok is not None:
+            return self._tok.token_to_id(token)
+        return None
+
+    def id_to_token(self, token_id: int) -> Optional[str]:
+        """Maps integer token ID to token string."""
+        if token_id in REVERSE_SPECIALS:
+            return REVERSE_SPECIALS[token_id]
+        if self._tok is not None:
+            return self._tok.id_to_token(token_id)
+        return None
 
     @property
     def eos_token_id(self) -> int:
         """End of sequence token ID (default: 0)."""
-        if self._tok is None:
-            return 0
-        tid = self._tok.token_to_id("<|endoftext|>")
+        tid = self.token_to_id("<|endoftext|>")
         return tid if tid is not None else 0
 
     @property
     def pad_token_id(self) -> int:
         """Padding token ID (default: 1)."""
-        if self._tok is None:
-            return 1
-        tid = self._tok.token_to_id("<|pad|>")
+        tid = self.token_to_id("<|pad|>")
         return tid if tid is not None else 1
 
     @property
     def bos_token_id(self) -> int:
         """Beginning of sequence token ID (default: 2)."""
-        if self._tok is None:
-            return 2
-        tid = self._tok.token_to_id("<|bos|>")
+        tid = self.token_to_id("<|bos|>")
         return tid if tid is not None else 2
+
+    @property
+    def start_token_id(self) -> int:
+        return CANONICAL_SPECIALS["<|start|>"]
+
+    @property
+    def user_token_id(self) -> int:
+        return CANONICAL_SPECIALS["<|user|>"]
+
+    @property
+    def assistant_token_id(self) -> int:
+        return CANONICAL_SPECIALS["<|assistant|>"]
+
+    @property
+    def im_start_token_id(self) -> int:
+        return CANONICAL_SPECIALS["<|im_start|>"]
+
+    @property
+    def im_end_token_id(self) -> int:
+        return CANONICAL_SPECIALS["<|im_end|>"]
 
     def __len__(self) -> int:
         return self.vocab_size

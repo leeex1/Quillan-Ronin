@@ -656,7 +656,7 @@ torch.backends.cuda.matmul.allow_tf32 = True
 torch.set_float32_matmul_precision("high")
 
 EOS_TOKEN_ID = 0  # unified custom BPE: <|endoftext|> at 0 (50256 legacy compat)
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262  # +5 custom specials (<|start|>, <|user|>, <|assistant|>, <|im_start|>, <|im_end|>) ids 50257-50261
 ONI_VERSION = "5.4.0-oni"
 
 
@@ -2562,6 +2562,45 @@ QuillanRoninSovereignV9 = QuillanRoninOni  # legacy name compat
 QuillanUnrolledConfig = QuillanOniConfig
 QuillanUnrolledSovereign = QuillanRoninOni
 ```
+
+### Sovereign Tokenizer Architecture (Unified BPE 50,262 Tokens)
+
+The Quillan-Ronin v5.4-ONI engine utilizes a hardened custom BPE tokenizer with exactly 50,262 vocabulary entries:
+- **Base Tokens (0 to 50,256)**: GPT-2 standard byte-pair encoding merges, anchored by `<|endoftext|>` (id: 0), `<|pad|>` (id: 1), `<|bos|>` (id: 2).
+- **Sovereign Multi-Turn Specials (50,257 to 50,261)**:
+  - `<|start|>` (id: 50257): Beginning of turn frame.
+  - `<|user|>` (id: 50258): User boundary tag.
+  - `<|assistant|>` (id: 50259): Sovereign assistant response anchor.
+  - `<|im_start|>` (id: 50260): ChatML turn initiator.
+  - `<|im_end|>` (id: 50261): ChatML turn terminator.
+- **Unified Engine**: `quillan_bpe_tokenizer.py` and `quillan_tokenizer_unified.py` auto-discover `tokenizer.json` across `scripts/` and `quillan_bpe_tokenizer_hf/` with multi-path resolution and seamless fallback tokenization.
+- **Dynamic Checkpoint Slicing**: When loading legacy checkpoints formatted with 50,257 embeddings into the 50,262 vocabulary space, `quillan_train_pipeline.py` automatically slices matching row weights and initializes new special tokens without shape mismatch exceptions.
+
+### Sovereign Fused Optimizer Architecture (Muon-K2 + Sophia-H + CCRL + AdamW)
+
+The Quillan training pipeline utilizes a unified, high-order fused optimizer (`QuillanFusedOptimizer` / `SovereignMuonK2AdamW`):
+- **5th-Order Newton-Schulz Polar Matrix Decomposition (Muon-K2)**:
+  Applied to all 2D parameter tensors (linear weights, projections, MoE expert layers). Computes orthogonal matrix updates via Newton-Schulz iteration ($X \leftarrow \frac{1}{2} X (3I - X^T X)$) with spectral radius scaling ($\approx 0.2$), yielding faster convergence and superior stability over standard gradient descent.
+- **Sophia-H Diagonal Hessian Curvature Damping**:
+  Tracks diagonal Hessian curvature via exponential moving average ($\beta_2 = 0.99$), penalizing high-curvature dimensions via $g / \max(h, \epsilon)$ update clipping to avoid catastrophic training spikes.
+- **Centralized Curvature Regularization Limits (CCRL)**:
+  Mean-centers gradients across rows ($\nabla W \leftarrow \nabla W - \text{mean}(\nabla W)$) and bounds the Frobenius norm of parameter updates ($\|\Delta W\|_F \le \tau$), preventing gradient explosion and representation collapse.
+- **BitNet 1.58b Ternary Dead-Zone Sparsity**:
+  Enforces dead-zone quantization awareness on ternary expert matrices during optimization steps.
+- **PID Thermo Governor**:
+  Dynamically scales effective learning rates based on gradient variance and loss oscillation.
+- **AdamW Partition**:
+  Routes all 1D parameters (biases, RMSNorm scales, 1D embeddings) to decoupled AdamW ($\beta_1=0.9, \beta_2=0.95, \text{wd}=0.01$).
+
+### Sovereign Training & Native Export Pipeline (`quillan_train_pipeline.py` & `train_oni.py`)
+
+- **Routing Modes**:
+  - `dense_pull` (Default/Canonical): Sovereign Throne all-expert consensus routing where all 34 experts contribute to every token representation with auxiliary load balancing ($\alpha = 0.01$).
+  - `gumbel_topk`: Stochastic Top-K routing with temperature-annealed Gumbel noise for rapid experimentation.
+- **Streaming Gold Datasets**: Supports both 2D pre-tokenized tensors and flat 1D token streams with held-out validation splitting (10% default).
+- **Split Loss Telemetry**: Separates Language Modeling Cross-Entropy loss (`train_lm_val`) from MoE router auxiliary load balancing loss (`aux_val`), ensuring transparency during convergence.
+- **Native Binary Export**: Automatically serializes trained models directly into the binary `.qbin` format for instant zero-dependency execution in `quillan.cpp`.
+
 
 ### Low-end Compatibility (Hardened v5.4.0-ONI)
 

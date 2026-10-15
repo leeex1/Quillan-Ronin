@@ -106,9 +106,9 @@ def parse_args():
                     help="Directory for saving training logs (default: auto-detect)")
     ap.add_argument("--grad-checkpoint", action="store_true",
                     help="Enable activation gradient checkpointing (saves ~60%% activation VRAM on 1050 Ti / consumer GPUs)")
-    ap.add_argument("--optimizer", type=str, default="muonk2",
-                    choices=["adamw", "muonk2"],
-                    help="Optimizer: muonk2 (Low-Rank Newton-Schulz for Swarms/LoRA + AdamW for dense) | adamw")
+    ap.add_argument("--optimizer", type=str, default="fused",
+                    choices=["adamw", "muonk2", "fused"],
+                    help="Optimizer: fused/muonk2 (Sovereign Newton-Schulz for matrices + Sophia-H + AdamW for dense + CCRL) | adamw")
     ap.add_argument("--lr-muon", type=float, default=0.015,
                     help="Learning rate for low-rank MuonK2 parameters (default: 0.015)")
     ap.add_argument("--ccrl-limit", type=float, default=4.0,
@@ -299,6 +299,10 @@ def sample(model, tok, device="cpu", prompt="User: Hello, who are you?\n\nAssist
     ids = tok.encode(prompt, domain="dialogue")
     out = model.generate(ids, max_tokens=60, temp=0.8)
     model.train()
+    if isinstance(out, dict):
+        if out.get("text"):
+            return out["text"]
+        return tok.decode(out.get("tokens", []))
     return tok.decode(out)
 
 
@@ -374,21 +378,23 @@ def main():
             if args.fullgraph:
                 raise
 
-    # Optimizer Selection: MuonK2 (Newton-Schulz on LoRA/Swarm) vs AdamW
-    if args.optimizer == "muonk2":
+    # Optimizer Selection: MuonK2 / Fused (Newton-Schulz + Sophia-H + AdamW + CCRL) vs AdamW
+    if args.optimizer in ("muonk2", "fused"):
         try:
+            sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model")
             sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
-            from quillan_muonk2_optimizer import create_quillan_muonk2_optimizer
-            opt = create_quillan_muonk2_optimizer(
+            from quillan_fused_optimizer import create_quillan_fused_optimizer
+            opt = create_quillan_fused_optimizer(
                 model=model,
                 lr_muon=args.lr_muon,
-                lr_adamw=args.lr,
+                lr=args.lr,
                 weight_decay=0.01,
-                ccrl_limit=args.ccrl_limit
+                ccrl_limit=args.ccrl_limit,
+                use_sophia=True,
             )
-            print(f"[OPTIMIZER] Sovereign MuonK2 + AdamW + CCRL Hybrid active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).")
+            print(f"[OPTIMIZER] Sovereign Fused (MuonK2 + Sophia-H + AdamW + CCRL) active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).")
         except Exception as e:
-            print(f"[OPTIMIZER] Failed to init MuonK2 ({e}). Falling back to AdamW.")
+            print(f"[OPTIMIZER] Failed to init Fused/MuonK2 ({e}). Falling back to AdamW.")
             opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
     else:
         fused_opt = False
@@ -409,9 +415,27 @@ def main():
     latest = CKPT_DIR / "quillan_oni_latest.pt"
 
     if args.resume and latest.exists():
-        ck = torch.load(latest, map_location="cpu", weights_only=False)
-        # Warm-start: load shared weights; fresh-init new 100%-wired modules (EvoMoE/WorldModel/ES/etc.)
-        missing, unexpected = model.load_state_dict(ck["model"], strict=False)
+        try:
+            ck = torch.load(latest, map_location="cpu", weights_only=True)
+        except Exception:
+            ck = torch.load(latest, map_location="cpu", weights_only=False)
+
+        # Smart adaptation: slice matching rows for vocabulary expansion (50257 -> 50262)
+        raw_sd = ck["model"] if isinstance(ck, dict) and "model" in ck else ck
+        adapted_sd = {}
+        for k, v in raw_sd.items():
+            if k in model.state_dict():
+                target = model.state_dict()[k].clone()
+                if v.shape != target.shape:
+                    if v.dim() == 2 and target.dim() == 2 and v.shape[1] == target.shape[1]:
+                        min_rows = min(v.shape[0], target.shape[0])
+                        target[:min_rows] = v[:min_rows]
+                        adapted_sd[k] = target
+                        print(f"[RESUME] Resized parameter {k} from {list(v.shape)} to {list(target.shape)} (copied {min_rows} rows)")
+                        continue
+            adapted_sd[k] = v
+
+        missing, unexpected = model.load_state_dict(adapted_sd, strict=False)
         if missing:
             print(f"[RESUME] warm-start: {len(missing)} new-param keys freshly initialized, "
                   f"{len(unexpected)} legacy keys skipped")

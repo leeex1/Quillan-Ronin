@@ -52,6 +52,10 @@ try:
 except ImportError:
     from quillan_bpe_tokenizer import QuillanBPETokenizer as UnifiedQuillanTokenizer  # noqa: E402
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni  # noqa: E402
+try:
+    from quillan_fused_optimizer import create_quillan_fused_optimizer, QuillanFusedOptimizer
+except ImportError:
+    from quillan_muonk2_optimizer import create_quillan_muonk2_optimizer as create_quillan_fused_optimizer, SovereignMuonK2AdamW as QuillanFusedOptimizer
 
 logging.basicConfig(
     level=logging.INFO,
@@ -252,12 +256,12 @@ class QuillanTrainingOrchestrator:
         n_layer: int = 6,
         config: Optional[QuillanOniConfig] = None,
         device_str: Optional[str] = None,
-        router_mode: str = "topk",
+        router_mode: str = "dense_pull",
     ) -> None:
         self.device = self._detect_device(device_str)
         self.n_layer = n_layer
         self.cfg = config or QuillanOniConfig(
-            vocab_size=50257,
+            vocab_size=50262,
             hidden_dim=1024,
             ffn_dim=2048,
             n_layer=n_layer,
@@ -344,7 +348,32 @@ class QuillanTrainingOrchestrator:
             state_dict = loaded["model_state_dict"]
         else:
             state_dict = loaded
-        missing, unexpected = self.model.load_state_dict(state_dict, strict=False)
+
+        # Smart adaptation for vocabulary expansion (e.g. 50257 -> 50262)
+        model_sd = self.model.state_dict()
+        adapted_sd = {}
+        for k, v in state_dict.items():
+            if k in model_sd and model_sd[k].shape != v.shape:
+                if v.ndim == 2 and model_sd[k].ndim == 2 and model_sd[k].shape[1] == v.shape[1]:
+                    target = model_sd[k].clone()
+                    min_rows = min(target.shape[0], v.shape[0])
+                    target[:min_rows] = v[:min_rows]
+                    adapted_sd[k] = target
+                    LOGGER.info("Resized 2D parameter %s from %s to %s (copied %d rows)", k, list(v.shape), list(target.shape), min_rows)
+                    continue
+                elif v.ndim == 1 and model_sd[k].ndim == 1:
+                    target = model_sd[k].clone()
+                    min_len = min(target.shape[0], v.shape[0])
+                    target[:min_len] = v[:min_len]
+                    adapted_sd[k] = target
+                    LOGGER.info("Resized 1D parameter %s from %s to %s (copied %d elements)", k, list(v.shape), list(target.shape), min_len)
+                    continue
+                else:
+                    LOGGER.info("Skipping incompatible shape parameter %s (%s vs %s)", k, list(v.shape), list(model_sd[k].shape))
+                    continue
+            adapted_sd[k] = v
+
+        missing, unexpected = self.model.load_state_dict(adapted_sd, strict=False)
         LOGGER.info("Checkpoint loaded successfully (missing: %d, unexpected: %d)", len(missing), len(unexpected))
 
     def save_checkpoint(self, save_path: Path, step: int, loss: float) -> None:
@@ -421,8 +450,11 @@ class QuillanTrainingOrchestrator:
         data_path: Optional[Path] = None,
         checkpoint_dir: Optional[Path] = None,
         export_native: bool = True,
+        optimizer_type: str = "fused",
+        lr_muon: float = 0.015,
+        ccrl_limit: float = 4.0,
     ) -> Dict[str, Any]:
-        """Executes training pass with AdamW, Cosine Annealing, Grad Accumulation, and Overfitting Guards."""
+        """Executes training pass with Sovereign Fused / MuonK2 Optimizer, Cosine Annealing, Grad Accumulation, and Overfitting Guards."""
         # Step 1: Pre-flight smoke test
         if not self.preflight_smoke_test():
             raise RuntimeError("Pre-flight gradient smoke-test failed. Training aborted.")
@@ -430,13 +462,34 @@ class QuillanTrainingOrchestrator:
         # Step 2: Disk safety check
         self.check_disk_headroom()
 
-        optimizer = torch.optim.AdamW(
-            self.model.parameters(),
-            lr=lr,
-            betas=(0.9, 0.95),
-            eps=1e-8,
-            weight_decay=0.01,
-        )
+        if optimizer_type in ("fused", "muonk2"):
+            try:
+                optimizer = create_quillan_fused_optimizer(
+                    self.model,
+                    lr=lr,
+                    lr_muon=lr_muon,
+                    weight_decay=0.01,
+                    ccrl_limit=ccrl_limit,
+                    use_sophia=True,
+                )
+                LOGGER.info("Sovereign Fused Optimizer initialized (Muon lr=%.2e, AdamW lr=%.2e, ccrl=%.1f)", lr_muon, lr, ccrl_limit)
+            except Exception as exc:
+                LOGGER.warning("Failed to initialize Fused Optimizer (%s), falling back to AdamW", exc)
+                optimizer = torch.optim.AdamW(
+                    self.model.parameters(),
+                    lr=lr,
+                    betas=(0.9, 0.95),
+                    eps=1e-8,
+                    weight_decay=0.01,
+                )
+        else:
+            optimizer = torch.optim.AdamW(
+                self.model.parameters(),
+                lr=lr,
+                betas=(0.9, 0.95),
+                eps=1e-8,
+                weight_decay=0.01,
+            )
 
         effective_seq_len = min(self.cfg.max_seq_len, seq_len)
         dataset = StreamingBatchIterator(
@@ -533,17 +586,23 @@ class QuillanTrainingOrchestrator:
                 optimizer.step()
                 optimizer.zero_grad()
 
-            # Periodic logging and held-out validation evaluation (split LM vs MoE-aux)
-            if step == 1 or step % eval_interval == 0 or step == steps:
-                val_stats = self.evaluate_validation(dataset, eval_batches=8, aux_alpha=aux_alpha)
+            # Periodic progress logging
+            elapsed = time.perf_counter() - start_time
+            tok_per_sec = (step * batch_size * x.size(1)) / max(1e-5, elapsed)
+            LOGGER.info(
+                "Step %4d/%d | Train LM: %.4f | Aux_raw: %.4f | Aux_scaled: %.4f | Total: %.4f | LR: %.2e | Velocity: %.1f tok/s",
+                step, steps, train_lm_val, train_aux_raw_val, train_aux_scaled_val, loss_val,
+                cur_lr, tok_per_sec
+            )
+
+            # Periodic held-out validation evaluation (split LM vs MoE-aux)
+            if step % eval_interval == 0 or step == steps:
+                eval_b = 2 if steps <= 10 else 8
+                val_stats = self.evaluate_validation(dataset, eval_batches=eval_b, aux_alpha=aux_alpha)
                 val_loss = val_stats["total"]
-                elapsed = time.perf_counter() - start_time
-                tok_per_sec = (step * batch_size * x.size(1)) / max(1e-5, elapsed)
                 LOGGER.info(
-                    "Step %4d/%d | Train LM: %.4f | Aux_raw: %.4f | Aux_scaled: %.4f | Total: %.4f | Val LM: %.4f | Aux_raw: %.4f | Aux_scaled: %.4f | Total: %.4f | LR: %.2e | Velocity: %.1f tok/s",
-                    step, steps, train_lm_val, train_aux_raw_val, train_aux_scaled_val, loss_val,
-                    val_stats["lm"], val_stats["aux_raw"], val_stats["aux_scaled"], val_loss,
-                    cur_lr, tok_per_sec
+                    "  📊 [VAL] Step %4d/%d | Val LM: %.4f | Aux_raw: %.4f | Total Val Loss: %.4f",
+                    step, steps, val_stats["lm"], val_stats["aux_raw"], val_loss
                 )
 
                 if not math.isnan(val_loss):
@@ -612,7 +671,10 @@ def main() -> int:
     parser.add_argument("--ckpt-dir", type=str, default=None, help="Directory to save checkpoints")
     parser.add_argument("--smoke-test", action="store_true", help="Execute rapid 5-step health verification pass")
     parser.add_argument("--export-native", action="store_true", default=True, help="Export .qbin for quillan.cpp")
-    parser.add_argument("--router-mode", type=str, choices=["topk", "gumbel_topk", "dense_pull"], default="topk", help="MoE router mode: topk (8.5x CPU velocity) or dense_pull (default: topk)")
+    parser.add_argument("--router-mode", type=str, choices=["topk", "gumbel_topk", "dense_pull"], default="dense_pull", help="MoE router mode: dense_pull (Sovereign canon) or topk (default: dense_pull)")
+    parser.add_argument("--optimizer", type=str, choices=["fused", "muonk2", "adamw"], default="fused", help="Optimizer: fused/muonk2 (Newton-Schulz + Sophia-H + CCRL) or adamw (default: fused)")
+    parser.add_argument("--lr-muon", type=float, default=0.015, help="Learning rate for Muon matrix parameters (default: 0.015)")
+    parser.add_argument("--ccrl-limit", type=float, default=4.0, help="CCRL curvature clip threshold (default: 4.0)")
     parser.add_argument("--eval-interval", type=int, default=25, help="Evaluation interval for validation loss (default: 25)")
     parser.add_argument("--patience", type=int, default=3, help="Early stopping patience in eval intervals (default: 3)")
     parser.add_argument("--val-split", type=float, default=0.10, help="Held-out validation fraction (default: 0.10)")
@@ -650,6 +712,9 @@ def main() -> int:
         data_path=data_path,
         checkpoint_dir=ckpt_dir,
         export_native=args.export_native,
+        optimizer_type=args.optimizer,
+        lr_muon=args.lr_muon,
+        ccrl_limit=args.ccrl_limit,
     )
 
     LOGGER.info("=" * 68)
