@@ -81,11 +81,22 @@ def main():
 
     orchestrator = QuillanTrainingOrchestrator(n_layer=args.layers, device_str="cpu", router_mode="dense_pull")
 
-    # Resume from existing checkpoint if available
+    # Resume from existing checkpoint if available (prefer best.pt if more advanced)
+    best_ckpt = CKPT_DIR / f"quillan_{args.layers}l_best.pt"
     latest_ckpt = CKPT_DIR / f"quillan_{args.layers}l_latest.pt"
-    if latest_ckpt.exists():
-        print(f"[*] Resuming from existing baseline: {latest_ckpt.name}...")
-        orchestrator.load_checkpoint(latest_ckpt)
+    resume_ckpt = None
+    if best_ckpt.exists() and latest_ckpt.exists():
+        d_best = torch.load(best_ckpt, map_location="cpu", weights_only=False)
+        d_latest = torch.load(latest_ckpt, map_location="cpu", weights_only=False)
+        resume_ckpt = best_ckpt if d_best.get("step", 0) >= d_latest.get("step", 0) else latest_ckpt
+    elif best_ckpt.exists():
+        resume_ckpt = best_ckpt
+    elif latest_ckpt.exists():
+        resume_ckpt = latest_ckpt
+
+    if resume_ckpt is not None:
+        print(f"[*] Resuming from existing baseline: {resume_ckpt.name}...")
+        orchestrator.load_checkpoint(resume_ckpt)
 
     total_start_time = time.time()
 
