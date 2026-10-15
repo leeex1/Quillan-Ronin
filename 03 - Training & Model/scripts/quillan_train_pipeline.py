@@ -334,7 +334,7 @@ class QuillanTrainingOrchestrator:
             return False
 
     def load_checkpoint(self, checkpoint_path: Path) -> None:
-        """Safely loads weights using weights_only=True and recovers global step."""
+        checkpoint_path = Path(checkpoint_path)
         if not checkpoint_path.is_file():
             raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
         LOGGER.info("Loading checkpoint from %s with weights_only=True...", checkpoint_path)
@@ -584,7 +584,13 @@ class QuillanTrainingOrchestrator:
             if step % grad_accum_steps == 0 or step == steps:
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
                 optimizer.step()
-                optimizer.zero_grad()
+                optimizer.zero_grad(set_to_none=True)
+
+            # Explicit tensor cleanup and garbage collection to prevent CPU memory growth
+            del out, total_loss, loss_scaled
+            if step % 10 == 0:
+                import gc
+                gc.collect()
 
             # Periodic progress logging
             elapsed = time.perf_counter() - start_time
