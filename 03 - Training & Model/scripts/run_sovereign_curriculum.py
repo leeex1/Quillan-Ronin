@@ -121,7 +121,7 @@ def main():
             eval_interval=max(10, args.steps_per_stage // 4),
             patience=3,
             checkpoint_dir=CKPT_DIR,
-            data_file=data_file,
+            data_path=data_file,
             optimizer_type="fused",
             lr_muon=0.015,
             ccrl_limit=4.0,
