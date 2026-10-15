@@ -34,7 +34,7 @@ for p in [str(SCRIPTS_DIR), str(MODEL_DIR), str(REPO_ROOT)]:
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from quillan_train_pipeline import QuillanTrainingOrchestrator
+from quillan_train_pipeline import QuillanTrainingOrchestrator, NativeQuillanExporter
 
 STAGES_MAP = [
     {
@@ -133,6 +133,13 @@ def main():
         print(f"\n[✓] Completed Epoch {epoch_num}: Final Loss = {res['final_loss']:.4f}")
         print(f"[✓] Stage Checkpoint Saved: {stage_ckpt_out.name}")
 
+        # Prune superseded step checkpoints to maintain ample disk headroom
+        for old_step_file in CKPT_DIR.glob(f"quillan_{args.layers}l_step_*.pt"):
+            try:
+                old_step_file.unlink()
+            except Exception:
+                pass
+
     total_elapsed = time.time() - total_start_time
     print("\n" + "=" * 72)
     print(f"  👑 ALL 3 CURRICULUM EPOCHS COMPLETE IN {total_elapsed / 60:.1f} MINUTES!")
@@ -140,7 +147,7 @@ def main():
 
     # Final native export
     final_qbin = CKPT_DIR / f"quillan_{args.layers}l_curriculum_final.qbin"
-    orchestrator.export_native_qbin(final_qbin)
+    NativeQuillanExporter.export(orchestrator.model, orchestrator.cfg, final_qbin)
     print(f"[✓] Native C++ Binary Exported: {final_qbin}")
 
 if __name__ == "__main__":
