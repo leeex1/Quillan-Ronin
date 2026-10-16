@@ -63,10 +63,13 @@ STAGES_MAP = [
 def main():
     parser = argparse.ArgumentParser(description="Quillan 3-Stage Progressive Curriculum Runner")
     parser.add_argument("--layers", type=int, choices=[6, 12], default=6, help="Model depth: 6 (Mini) or 12 (Main)")
-    parser.add_argument("--steps-per-stage", type=int, default=100, help="Number of training steps per curriculum epoch (default: 100)")
+    parser.add_argument("--steps-per-stage", type=int, default=0, help="Number of training steps per stage. Set to 0 for automatic FULL EPOCH calculation based on dataset size.")
+    parser.add_argument("--epochs-per-stage", type=float, default=1.0, help="Number of full dataset epochs per stage if --steps-per-stage is 0 (default: 1.0)")
     parser.add_argument("--batch-size", type=int, default=1, help="Batch size per forward pass (default: 1 for max throughput)")
     parser.add_argument("--seq-len", type=int, default=256, help="Sequence length (default: 256)")
     parser.add_argument("--grad-accum", type=int, default=2, help="Gradient accumulation steps (default: 2)")
+    parser.add_argument("--patience", type=int, default=15, help="Early stopping patience (default: 15 evaluations before halting; prevents premature stopping)")
+    parser.add_argument("--eval-interval", type=int, default=0, help="Evaluation interval in steps. Set to 0 for auto-calculation.")
     parser.add_argument("--resume-stage", type=int, default=1, choices=[1, 2, 3], help="Start from stage 1, 2, or 3")
     args = parser.parse_args()
 
@@ -74,8 +77,7 @@ def main():
     print("  👑 QUILLAN-RONIN: 3-STAGE CURRICULUM TRAINING PIPELINE")
     print("=" * 72)
     print(f"[*] Target Architecture : QuillanRoninOni ({args.layers} Layers)")
-    print(f"[*] Steps per Stage     : {args.steps_per_stage} steps")
-    print(f"[*] Total Steps Planned : {args.steps_per_stage * 3} steps")
+    print(f"[*] Mode                : {'Full Epoch (' + str(args.epochs_per_stage) + 'x)' if args.steps_per_stage <= 0 else str(args.steps_per_stage) + ' steps/stage'}")
     print(f"[*] Batch Config        : batch_size={args.batch_size}, seq_len={args.seq_len}, grad_accum={args.grad_accum}")
     print(f"[*] Checkpoint Output   : {CKPT_DIR}")
 
@@ -111,7 +113,7 @@ def main():
         stage_lr = stage_info["lr"]
 
         print("\n" + "=" * 72)
-        print(f"  🚀 STARTING EPOCH {epoch_num}/3: {stage_name.upper()}")
+        print(f"  🚀 STAGE {epoch_num}/3: {stage_name.upper()}")
         print(f"     Dataset: {data_file.name}")
         print("=" * 72)
 
@@ -119,18 +121,43 @@ def main():
             print(f"[!] Error: Stage dataset {data_file} not found. Skipping.")
             continue
 
+        # Load metadata/tensor to compute true epoch step count
+        d_raw = torch.load(data_file, map_location="cpu", weights_only=False)
+        if isinstance(d_raw, dict) and "input_ids" in d_raw:
+            num_samples = len(d_raw["input_ids"])
+            total_tokens = d_raw.get("meta", {}).get("total_tokens", num_samples * args.seq_len)
+        elif isinstance(d_raw, torch.Tensor) and d_raw.dim() == 2:
+            num_samples = len(d_raw)
+            total_tokens = num_samples * d_raw.shape[1]
+        else:
+            num_samples = 50000
+            total_tokens = num_samples * args.seq_len
+
+        # Compute full-epoch steps or use explicit override
+        effective_batch = args.batch_size * args.grad_accum
+        steps_for_one_epoch = max(1, num_samples // effective_batch)
+        if args.steps_per_stage > 0:
+            stage_steps = args.steps_per_stage
+            print(f"[*] Running explicit {stage_steps:,} steps ({stage_steps * effective_batch * args.seq_len:,} tokens | {stage_steps / steps_for_one_epoch:.2%} of 1 epoch)")
+        else:
+            stage_steps = max(1, int(steps_for_one_epoch * args.epochs_per_stage))
+            print(f"[*] AUTO FULL EPOCH: {stage_steps:,} steps ({args.epochs_per_stage:.1f} epoch(s) = {num_samples:,} samples = {total_tokens:,} tokens)")
+
+        eval_interval = args.eval_interval if args.eval_interval > 0 else min(500, max(25, stage_steps // 20))
+        warmup_steps = min(100, max(5, stage_steps // 20))
+
         stage_ckpt_out = CKPT_DIR / f"quillan_{args.layers}l_curriculum_epoch{epoch_num}.pt"
 
         res = orchestrator.run_training_loop(
-            steps=args.steps_per_stage,
+            steps=stage_steps,
             batch_size=args.batch_size,
             seq_len=args.seq_len,
             lr=stage_lr,
-            warmup_steps=max(1, args.steps_per_stage // 5),
+            warmup_steps=warmup_steps,
             grad_accum_steps=args.grad_accum,
             aux_alpha=0.01,
-            eval_interval=max(10, args.steps_per_stage // 4),
-            patience=3,
+            eval_interval=eval_interval,
+            patience=args.patience,
             checkpoint_dir=CKPT_DIR,
             data_path=data_file,
             optimizer_type="fused",
@@ -141,7 +168,7 @@ def main():
 
         # Save stage checkpoint
         orchestrator.save_checkpoint(stage_ckpt_out, orchestrator.global_step, res["final_loss"])
-        print(f"\n[✓] Completed Epoch {epoch_num}: Final Loss = {res['final_loss']:.4f}")
+        print(f"\n[✓] Completed Stage {epoch_num}: Final Loss = {res['final_loss']:.4f}")
         print(f"[✓] Stage Checkpoint Saved: {stage_ckpt_out.name}")
 
         # Prune superseded step checkpoints to maintain ample disk headroom
