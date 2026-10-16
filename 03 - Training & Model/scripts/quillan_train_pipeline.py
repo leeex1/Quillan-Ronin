@@ -445,6 +445,7 @@ class QuillanTrainingOrchestrator:
         grad_accum_steps: int = 2,
         aux_alpha: float = 0.01,
         eval_interval: int = 25,
+        save_interval: int = 25,
         patience: int = 3,
         val_split: float = 0.10,
         data_path: Optional[Path] = None,
@@ -629,6 +630,11 @@ class QuillanTrainingOrchestrator:
                             )
                             early_stopped = True
                             break
+
+            # Periodic latest checkpoint save
+            if checkpoint_dir and (step % save_interval == 0):
+                latest_file = checkpoint_dir / f"quillan_{self.n_layer}l_latest.pt"
+                self.save_checkpoint(latest_file, self.global_step + step, loss_val)
 
         final_loss = losses[-1] if losses else 0.0
 

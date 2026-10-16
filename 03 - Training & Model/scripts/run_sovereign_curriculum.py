@@ -143,7 +143,7 @@ def main():
             stage_steps = max(1, int(steps_for_one_epoch * args.epochs_per_stage))
             print(f"[*] AUTO FULL EPOCH: {stage_steps:,} steps ({args.epochs_per_stage:.1f} epoch(s) = {num_samples:,} samples = {total_tokens:,} tokens)")
 
-        eval_interval = args.eval_interval if args.eval_interval > 0 else min(500, max(25, stage_steps // 20))
+        eval_interval = args.eval_interval if args.eval_interval > 0 else min(100, max(25, stage_steps // 50))
         warmup_steps = min(100, max(5, stage_steps // 20))
 
         stage_ckpt_out = CKPT_DIR / f"quillan_{args.layers}l_curriculum_epoch{epoch_num}.pt"
@@ -157,6 +157,7 @@ def main():
             grad_accum_steps=args.grad_accum,
             aux_alpha=0.01,
             eval_interval=eval_interval,
+            save_interval=25,
             patience=args.patience,
             checkpoint_dir=CKPT_DIR,
             data_path=data_file,
