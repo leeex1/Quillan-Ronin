@@ -380,6 +380,9 @@ class QuillanTrainingOrchestrator:
 
         missing, unexpected = self.model.load_state_dict(adapted_sd, strict=False)
         LOGGER.info("Checkpoint loaded successfully (missing: %d, unexpected: %d)", len(missing), len(unexpected))
+        del loaded, state_dict, adapted_sd, model_sd
+        import gc
+        gc.collect()
 
     def save_checkpoint(self, save_path: Path, step: int, loss: float) -> None:
         """Saves PyTorch state dict checkpoint with automated disk safety verification."""
@@ -480,6 +483,7 @@ class QuillanTrainingOrchestrator:
                     weight_decay=0.01,
                     ccrl_limit=ccrl_limit,
                     use_sophia=False,
+                    ns_steps=3,
                 )
                 LOGGER.info("Sovereign Fused Optimizer initialized (Muon lr=%.2e, AdamW lr=%.2e, ccrl=%.1f)", lr_muon, lr, ccrl_limit)
             except Exception as exc:
@@ -597,9 +601,6 @@ class QuillanTrainingOrchestrator:
                 import gc
                 gc.collect()
 
-            # Explicit tensor cleanup and garbage collection to prevent CPU memory growth
-            del out, total_loss, loss_scaled
-
             # Periodic progress logging
             elapsed = time.perf_counter() - start_time
             tok_per_sec = (step * batch_size * x.size(1)) / max(1e-5, elapsed)
@@ -608,6 +609,9 @@ class QuillanTrainingOrchestrator:
                 step, steps, train_lm_val, train_aux_raw_val, train_aux_scaled_val, loss_val,
                 cur_lr, tok_per_sec
             )
+
+            # Explicit tensor cleanup and garbage collection to prevent CPU memory growth
+            del out, total_loss, loss_scaled, x, y
 
             # Periodic held-out validation evaluation (split LM vs MoE-aux)
             if step % eval_interval == 0 or step == steps:

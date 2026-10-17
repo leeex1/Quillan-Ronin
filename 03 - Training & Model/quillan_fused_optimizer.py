@@ -247,6 +247,7 @@ class QuillanFusedOptimizer(Optimizer):
                 if p.grad is not None:
                     all_grads.append(p.grad)
         self._noise.step(all_grads)
+        del all_grads
 
         for group in self.param_groups:
             is_muon = group.get("is_muon", False)

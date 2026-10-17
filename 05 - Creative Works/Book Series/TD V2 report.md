@@ -200,3 +200,10 @@ Rule for V2: if lore answers a question reader already has (who burned weavers? 
 - words 156441 -> 156205 (-236)
 - rebuilt: EPUB 364KB + Print 1108KB, single auto TOC
 - master ready for sister review
+
+## 14. Book 3 - Battle Grandeur V2 pass 2026-10-14
+- curly right-double-quote 818 -> em-dash (misused as dash, same as Book 1)
+- very 111 -> 1, just 356 -> 273
+- 6 dup paragraphs = intentional dialogue echoes, left alone
+- words 164660 -> 164467 (-193)
+- rebuilt: EPUB 382KB + Print 1200KB, single auto TOC

@@ -105,8 +105,14 @@ def main():
         resume_ckpt = None
         if best_ckpt.exists() and latest_ckpt.exists():
             d_best = torch.load(best_ckpt, map_location="cpu", weights_only=False)
+            step_best = d_best.get("step", 0)
+            del d_best
+            gc.collect()
             d_latest = torch.load(latest_ckpt, map_location="cpu", weights_only=False)
-            resume_ckpt = best_ckpt if d_best.get("step", 0) >= d_latest.get("step", 0) else latest_ckpt
+            step_latest = d_latest.get("step", 0)
+            del d_latest
+            gc.collect()
+            resume_ckpt = best_ckpt if step_best >= step_latest else latest_ckpt
         elif best_ckpt.exists():
             resume_ckpt = best_ckpt
         elif latest_ckpt.exists():
@@ -148,6 +154,8 @@ def main():
         else:
             num_samples = 50000
             total_tokens = num_samples * args.seq_len
+        del d_raw
+        gc.collect()
 
         # Compute full-epoch steps or use explicit override
         effective_batch = args.batch_size * args.grad_accum
