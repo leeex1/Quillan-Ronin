@@ -207,3 +207,10 @@ Rule for V2: if lore answers a question reader already has (who burned weavers? 
 - 6 dup paragraphs = intentional dialogue echoes, left alone
 - words 164660 -> 164467 (-193)
 - rebuilt: EPUB 382KB + Print 1200KB, single auto TOC
+
+## 15. Book 4 - Fall of Empires V2 pass 2026-10-14
+- already clean: no curly8221, no Elyra, no TOC, no bloat sentences
+- very 48 -> 0, just 134 -> 106
+- 1 dup para = intentional dialogue echo, left alone
+- words 157155 -> 157079 (-76)
+- rebuilt: EPUB 335KB + Print 1037KB, single auto TOC
