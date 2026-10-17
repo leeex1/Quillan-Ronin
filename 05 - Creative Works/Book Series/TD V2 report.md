@@ -190,3 +190,13 @@ Rule for V2: if lore answers a question reader already has (who burned weavers? 
 - Rebuilt: EPUB 413KB + Print interior 1313KB from 180k master, Hybrid Throne series, single auto TOC
 - Master 180606 words. Ready for read-through review.
 
+
+## 13. Book 2 - Rise of Ascension V2 pass 2026-10-14
+- very 173 -> 7 (safe drop before adjectives)
+- just 277 -> 207 (just another/the/a patterns)
+- curly quotes 14 = intentional italic dialogue markers, left alone
+- double-hyphen 41 = markdown scene breaks (---), left alone
+- no duplicate paragraphs, no bloat sentences >60w (max 112w x37)
+- words 156441 -> 156205 (-236)
+- rebuilt: EPUB 364KB + Print 1108KB, single auto TOC
+- master ready for sister review
