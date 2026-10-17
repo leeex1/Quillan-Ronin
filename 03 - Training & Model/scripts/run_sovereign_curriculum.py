@@ -173,7 +173,7 @@ def main():
             grad_accum_steps=args.grad_accum,
             aux_alpha=0.01,
             eval_interval=eval_interval,
-            save_interval=25,
+            save_interval=50,
             patience=args.patience,
             checkpoint_dir=CKPT_DIR,
             data_path=data_file,

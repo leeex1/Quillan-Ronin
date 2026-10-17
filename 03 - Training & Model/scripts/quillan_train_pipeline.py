@@ -394,6 +394,9 @@ class QuillanTrainingOrchestrator:
         }
         torch.save(payload, save_path)
         LOGGER.info("Saved checkpoint step %d (loss=%.4f, %d layers) to %s", step, loss, self.n_layer, save_path)
+        del payload
+        import gc
+        gc.collect()
 
     def evaluate_validation(self, dataset: StreamingBatchIterator, eval_batches: int = 8, aux_alpha: float = 0.01) -> Dict[str, float]:
         """Measures true generalizability on held-out validation sequences without gradients."""
@@ -476,7 +479,7 @@ class QuillanTrainingOrchestrator:
                     lr_muon=lr_muon,
                     weight_decay=0.01,
                     ccrl_limit=ccrl_limit,
-                    use_sophia=True,
+                    use_sophia=False,
                 )
                 LOGGER.info("Sovereign Fused Optimizer initialized (Muon lr=%.2e, AdamW lr=%.2e, ccrl=%.1f)", lr_muon, lr, ccrl_limit)
             except Exception as exc:
@@ -591,12 +594,11 @@ class QuillanTrainingOrchestrator:
                 torch.nn.utils.clip_grad_norm_(self.model.parameters(), 1.0)
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
+                import gc
+                gc.collect()
 
             # Explicit tensor cleanup and garbage collection to prevent CPU memory growth
             del out, total_loss, loss_scaled
-            if step % 10 == 0:
-                import gc
-                gc.collect()
 
             # Periodic progress logging
             elapsed = time.perf_counter() - start_time
