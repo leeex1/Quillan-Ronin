@@ -292,13 +292,18 @@ class QuillanTrainingOrchestrator:
             )
         return torch.device("cpu")
 
-    def check_disk_headroom(self) -> float:
-        """Verifies host filesystem has sufficient free space."""
-        _, _, free = shutil.disk_usage(REPO_ROOT)
+    def check_disk_headroom(self, target_dir: Optional[Path] = None) -> float:
+        """Verifies destination filesystem has sufficient free space."""
+        target_path = Path(target_dir) if target_dir else REPO_ROOT
+        try:
+            drive_path = target_path.resolve()
+        except Exception:
+            drive_path = target_path
+        _, _, free = shutil.disk_usage(str(drive_path))
         free_gb = free / (1024 ** 3)
-        LOGGER.info("Host disk headroom: %.2f GB free (Required floor: %.2f GB)", free_gb, self.MIN_DISK_HEADROOM_GB)
+        LOGGER.info("Disk headroom on %s: %.2f GB free (Required floor: %.2f GB)", drive_path, free_gb, self.MIN_DISK_HEADROOM_GB)
         if free_gb < self.MIN_DISK_HEADROOM_GB:
-            raise IOError(f"INSUFFICIENT DISK SPACE: {free_gb:.2f} GB free < {self.MIN_DISK_HEADROOM_GB:.2f} GB floor.")
+            raise IOError(f"INSUFFICIENT DISK SPACE on {drive_path}: {free_gb:.2f} GB free < {self.MIN_DISK_HEADROOM_GB:.2f} GB floor.")
         return free_gb
 
     def preflight_smoke_test(self) -> bool:
@@ -337,8 +342,8 @@ class QuillanTrainingOrchestrator:
         checkpoint_path = Path(checkpoint_path)
         if not checkpoint_path.is_file():
             raise FileNotFoundError(f"Checkpoint not found: {checkpoint_path}")
-        LOGGER.info("Loading checkpoint from %s with weights_only=True...", checkpoint_path)
-        loaded = torch.load(checkpoint_path, map_location=self.device, weights_only=True)
+        LOGGER.info("Loading checkpoint from %s with weights_only=False...", checkpoint_path)
+        loaded = torch.load(checkpoint_path, map_location=self.device, weights_only=False)
         if isinstance(loaded, dict) and "step" in loaded:
             self.global_step = int(loaded["step"])
             LOGGER.info("Resuming from global step %d", self.global_step)
@@ -378,7 +383,7 @@ class QuillanTrainingOrchestrator:
 
     def save_checkpoint(self, save_path: Path, step: int, loss: float) -> None:
         """Saves PyTorch state dict checkpoint with automated disk safety verification."""
-        self.check_disk_headroom()
+        self.check_disk_headroom(save_path.parent)
         save_path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "step": step,
@@ -461,7 +466,7 @@ class QuillanTrainingOrchestrator:
             raise RuntimeError("Pre-flight gradient smoke-test failed. Training aborted.")
 
         # Step 2: Disk safety check
-        self.check_disk_headroom()
+        self.check_disk_headroom(checkpoint_dir)
 
         if optimizer_type in ("fused", "muonk2"):
             try:

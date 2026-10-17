@@ -71,7 +71,15 @@ def main():
     parser.add_argument("--patience", type=int, default=15, help="Early stopping patience (default: 15 evaluations before halting; prevents premature stopping)")
     parser.add_argument("--eval-interval", type=int, default=0, help="Evaluation interval in steps. Set to 0 for auto-calculation.")
     parser.add_argument("--resume-stage", type=int, default=1, choices=[1, 2, 3], help="Start from stage 1, 2, or 3")
+    parser.add_argument("--checkpoint", type=str, default=None, help="Custom baseline checkpoint to initialize or resume from")
+    parser.add_argument("--checkpoint-dir", type=str, default=None, help="Directory to save trained checkpoints (e.g. on external drive)")
+    parser.add_argument("--reset-step", action="store_true", help="Reset global step to 0 for fresh curriculum baseline")
     args = parser.parse_args()
+
+    global CKPT_DIR
+    if args.checkpoint_dir:
+        CKPT_DIR = Path(args.checkpoint_dir)
+        CKPT_DIR.mkdir(parents=True, exist_ok=True)
 
     print("=" * 72)
     print("  👑 QUILLAN-RONIN: 3-STAGE CURRICULUM TRAINING PIPELINE")
@@ -83,22 +91,30 @@ def main():
 
     orchestrator = QuillanTrainingOrchestrator(n_layer=args.layers, device_str="cpu", router_mode="dense_pull")
 
-    # Resume from existing checkpoint if available (prefer best.pt if more advanced)
-    best_ckpt = CKPT_DIR / f"quillan_{args.layers}l_best.pt"
-    latest_ckpt = CKPT_DIR / f"quillan_{args.layers}l_latest.pt"
-    resume_ckpt = None
-    if best_ckpt.exists() and latest_ckpt.exists():
-        d_best = torch.load(best_ckpt, map_location="cpu", weights_only=False)
-        d_latest = torch.load(latest_ckpt, map_location="cpu", weights_only=False)
-        resume_ckpt = best_ckpt if d_best.get("step", 0) >= d_latest.get("step", 0) else latest_ckpt
-    elif best_ckpt.exists():
-        resume_ckpt = best_ckpt
-    elif latest_ckpt.exists():
-        resume_ckpt = latest_ckpt
-
-    if resume_ckpt is not None:
-        print(f"[*] Resuming from existing baseline: {resume_ckpt.name}...")
+    if args.checkpoint:
+        resume_ckpt = Path(args.checkpoint)
+        print(f"[*] Using explicitly specified baseline: {resume_ckpt}...")
         orchestrator.load_checkpoint(resume_ckpt)
+        if args.reset_step:
+            orchestrator.global_step = 0
+            print("[*] Global step reset to 0 for fresh curriculum training.")
+    else:
+        # Resume from existing checkpoint if available (prefer best.pt if more advanced)
+        best_ckpt = CKPT_DIR / f"quillan_{args.layers}l_best.pt"
+        latest_ckpt = CKPT_DIR / f"quillan_{args.layers}l_latest.pt"
+        resume_ckpt = None
+        if best_ckpt.exists() and latest_ckpt.exists():
+            d_best = torch.load(best_ckpt, map_location="cpu", weights_only=False)
+            d_latest = torch.load(latest_ckpt, map_location="cpu", weights_only=False)
+            resume_ckpt = best_ckpt if d_best.get("step", 0) >= d_latest.get("step", 0) else latest_ckpt
+        elif best_ckpt.exists():
+            resume_ckpt = best_ckpt
+        elif latest_ckpt.exists():
+            resume_ckpt = latest_ckpt
+
+        if resume_ckpt is not None:
+            print(f"[*] Resuming from existing baseline: {resume_ckpt.name}...")
+            orchestrator.load_checkpoint(resume_ckpt)
 
     total_start_time = time.time()
 
