@@ -3987,8 +3987,9 @@ class QuillanRoninOni(nn.Module):
             x_in = x
             use_ckpt = self.training and cfg.grad_checkpoint and layer_past is None
             if use_ckpt:
-                out = checkpoint(lambda h: block(h, None, False, gov_scale=gov_scale, token_ids=input_ids),
-                                 x, use_reentrant=False)
+                def _ckpt_fwd(h):
+                    return block(h, None, False, gov_scale=gov_scale, token_ids=input_ids)
+                out = checkpoint(_ckpt_fwd, x, use_reentrant=True)
                 x, _, probs, lb, z, ent = out
             else:
                 x, present, probs, lb, z, ent = block(
