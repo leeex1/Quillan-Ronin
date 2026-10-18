@@ -1,0 +1,29 @@
+# ==============================================================================
+# QUILLAN-RONIN v5.4.0-ONI CONTEXT & RAG ISOLATION (.ignore)
+# Enforces C13-WARDEN isolation rules and purges legacy architecture drift
+# ==============================================================================
+
+# --- C13-WARDEN Security Isolation: File 7 Lock ---
+# 7-memories is strictly isolated and forbidden from active training/RAG ingestion
+*7-memories*
+7-memories.txt
+7-memories.md
+
+# --- Legacy Architecture Drift Purge ---
+# Obsolete versions prior to canonical v5.4.0-ONI
+_archive/
+_archive_legacy/
+*_backup_*
+*v4.2*
+*v5.3.1*
+*32-expert*
+*33-expert*
+02 - Knowledge Foundation/knowledge/legacy/
+
+# --- Build, Node & Cache Bloat ---
+node_modules/
+.venv/
+venv/
+__pycache__/
+.cache/
+*.pyc
