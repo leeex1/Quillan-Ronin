@@ -389,3 +389,59 @@ def compute_yarn_rope_inv_freq(
     inv_freq_yarn = inv_freq_interp * (1.0 - gamma) + inv_freq_extrap * gamma
     attn_mscale = 0.1 * math.log(scale) + 1.0  # Multiply Q by attn_mscale (~1.277 at 4096)
     return inv_freq_yarn, attn_mscale
+
+
+
+# =============================================================================
+# AUTO-BINDING RUNTIME HOOK (EXECUTES AUTOMATICALLY WHEN IMPORTED BY train_oni.py)
+# =============================================================================
+_GLOBAL_TRAIN_STEP = 0
+
+def auto_bind_15pt_upgrades_to_oni():
+    """
+    Automatically hooks QuillanRoninOni & BitLinear in `quillan_v5_4_oni` on import so `train_oni.py` gets all 15 upgrades without needing manual loop edits.
+    """
+    import os
+    if os.environ.get("QUILLAN_DISABLE_AUTO_PATCH") == "1":
+        return
+    try:
+        import quillan_v5_4_oni as oni_mod
+    except ImportError:
+        return
+    if getattr(oni_mod, "_15PT_UPGRADES_BOUND", False):
+        return
+
+    # 1. Patch `_weight_quant` to use Per-Channel STE + Cosine-Annealed Dead-Zone tau(t) (Q3)
+    def _upgraded_weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:
+        global _GLOBAL_TRAIN_STEP
+        return bitnet_158_dynamic_deadzone(w, step=_GLOBAL_TRAIN_STEP, warmup_steps=500, eps=eps)
+
+    oni_mod._weight_quant = _upgraded_weight_quant
+
+    # 2. Wrap `QuillanRoninOni.__init__` to auto-attach Rank-16 Embedding LoRA & MoE Stabilizer (Q2, Q7, Q8)
+    orig_init = oni_mod.QuillanRoninOni.__init__
+    def _upgraded_init(self, cfg=None):
+        orig_init(self, cfg)
+        # Tie per-layer token_memory to master wte before wrapping wte
+        for block in self.h:
+            if getattr(block.attn, "use_ma", False) and hasattr(block.attn, "token_memory"):
+                block.attn.token_memory = self.wte
+        # Attach SmallBatchMoEStabilizer (Q7/Q8)
+        self.moe_stabilizer = SmallBatchMoEStabilizer(num_experts=self.cfg.num_experts)
+        print("[15-Pt Upgrade Kit] Auto-Bound: Per-Channel Dynamic Dead-Zone STE + Tied Memory Attention + Small-Batch MoE Stabilizer.")
+
+    oni_mod.QuillanRoninOni.__init__ = _upgraded_init
+
+    # 3. Increment `_GLOBAL_TRAIN_STEP` automatically on every training forward pass
+    orig_fwd = oni_mod.QuillanRoninOni.forward
+    def _step_tracking_forward(self, *args, **kwargs):
+        global _GLOBAL_TRAIN_STEP
+        if self.training:
+            _GLOBAL_TRAIN_STEP += 1
+        return orig_fwd(self, *args, **kwargs)
+
+    oni_mod.QuillanRoninOni.forward = _step_tracking_forward
+    oni_mod._15PT_UPGRADES_BOUND = True
+
+# Trigger auto-bind immediately when `train_oni.py` imports this module
+auto_bind_15pt_upgrades_to_oni()
