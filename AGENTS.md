@@ -742,3 +742,11 @@ This project is indexed by GitNexus as **02_QUILLAN** (0 symbols, 0 relationship
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+## Cross-Platform & Linux/WSL Path Shim (Devin / Container Mode)
+When running on Linux, macOS, or inside Devin containers where `os.name != 'nt'`:
+- Any Windows path formatted as `C:\02_QUILLAN\...` automatically maps to `/mnt/c/02_QUILLAN/...` or the active workspace root `$(pwd)`.
+- Use `bash scripts/mcp_path_shim.sh <command>` to run tools with automatic path translation.
+- `PYTHONPATH` must include:
+  `09 - Projects/mcp:09 - Projects/projects/oni:03 - Training & Model/scripts:.`
+- All 19 MCP servers route through `09 - Projects/mcp/mcp_chain_bus.py`.

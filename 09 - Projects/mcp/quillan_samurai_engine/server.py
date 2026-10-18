@@ -286,5 +286,20 @@ def samurai_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+@mcp.tool()
+def run_quillan_pipeline(query: str, context_json: Optional[str] = None, max_retries: int = 5) -> Dict[str, Any]:
+    """
+    Execute the deterministic 6-stage Quillan-Ronin v5.4.0-ONI MCP Chain Bus.
+    Chains QuillanPrism -> QuillanGovernor -> QuillanCouncil -> ThinkingEngine -> SamuraiEngine -> QuillanRAG.
+    Persists correlation_id and telemetry to C:\\02_QUILLAN\\07 - Memory & LanceDB\\chain_state.json.
+    """
+    try:
+        from mcp_chain_bus import chain_bus
+        ctx = json.loads(context_json) if context_json else None
+        return chain_bus.run_pipeline(query=query, context=ctx, max_retries=max_retries)
+    except Exception as e:
+        return {"error": f"Chain bus execution failed: {e}", "query": query}
+
+
 if __name__ == "__main__":
     mcp.run()
