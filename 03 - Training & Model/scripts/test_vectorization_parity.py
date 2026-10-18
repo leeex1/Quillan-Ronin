@@ -151,8 +151,13 @@ for b in m_vec.h:
     b.attn.prism.vectorized = True
 
 ids = torch.randint(0, 1000, (1, 24))
+# Seed each pass identically: the model contains a Langevin diffusion stage that
+# draws torch.randn even in eval, so without reseeding the two forwards differ for
+# reasons unrelated to the vectorisation under test.
 with torch.no_grad():
+    torch.manual_seed(9001)
     lg_loop = m_loop(ids, path_override=1)
+    torch.manual_seed(9001)
     lg_vec = m_vec(ids, path_override=1)
 errf = rel_err(lg_loop, lg_vec)
 check("full-model logits match", errf < 1e-5, f"max rel err = {errf:.3e}")

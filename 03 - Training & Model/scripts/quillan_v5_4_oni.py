@@ -865,7 +865,10 @@ class NineVectorPrismDecomposition(nn.Module):
         key = (dtype, tuple(v.weight._version for v in self.vectors.values()))
         if self._cache_key == key and self._cache is not None:
             return self._cache
-        W = torch.stack([_weight_quant(v.weight) for v in self.vectors.values()], dim=0)
+        # Quantise FIRST (scale is per-row of the [out,in] weight), THEN
+        # transpose, because F.linear(x, W) evaluates x @ W.T. Storing [D_in,
+        # D_out] lets the batched einsum replace the matmul exactly.
+        W = torch.stack([_weight_quant(v.weight).t() for v in self.vectors.values()], dim=0)
         if W.dtype != dtype:
             W = W.to(dtype)
         self._cache, self._cache_key = W, key
@@ -875,8 +878,9 @@ class NineVectorPrismDecomposition(nn.Module):
         if self.vectorized:
             W9 = self._stacked_weight(x.dtype)                    # [9, D, D]
             xq = _quantize_act(x) if _QUANT_ACT_SUPPORTED else x
-            # [..., D] x [9, D, D] -> [..., 9, D]; /9 matches the loop's mean.
-            prism = torch.einsum("...d,edh->...eh", xq, W9) / 9.0
+            # 'e' appears only in the RHS, so einsum reduces it: this IS the
+            # 9-way sum the loop performed, and /9 reproduces its mean.
+            prism = torch.einsum("...d,edh->...h", xq, W9) / 9.0
             return self.w_gate(prism)
         # Memory-safe accumulator across the 9 semantic vectors without allocating stacked weight tensors
         out_sum = None
