@@ -1,16 +1,249 @@
 {
   "version": "5.4.0-oni",
-  "initialized_at": 1792351902.0398426,
-  "total_runs": 1,
-  "active_chains": {},
-  "recent_traces": [
-    {
-      "correlation_id": "oni-pipeline-1792351902-a3631c5e",
-      "timestamp": 1792351902.0411701,
-      "query": "Audit neural routing and optimize memory attention weights",
-      "mode": "deep_path",
-      "all_gates_passed": true,
-      "rci_attempts": 1
+  "runs": {
+    "q-41ec52e1-41c286e6f787": {
+      "correlation_id": "q-41ec52e1-41c286e6f787",
+      "query": "verify chain bus",
+      "version": "5.4.0-oni",
+      "started_at": "2026-10-18T19:38:14.997891+00:00",
+      "finished_at": "2026-10-18T19:38:14.998059+00:00",
+      "governor_mode": "deep",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "intake_and_sharding",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.997907+00:00",
+          "finished_at": "2026-10-18T19:38:14.997917+00:00",
+          "duration_ms": 0.00409991480410099,
+          "detail": {
+            "reason": "handler 'QuillanPrism.shard_9_vectors' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 1,
+          "name": "rag_retrieval",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.997943+00:00",
+          "finished_at": "2026-10-18T19:38:14.997951+00:00",
+          "duration_ms": 0.0037999125197529793,
+          "detail": {
+            "reason": "handler 'QuillanRAG.retrieve_context' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "thermodynamic_pacing",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.997966+00:00",
+          "finished_at": "2026-10-18T19:38:14.997971+00:00",
+          "duration_ms": 0.002700020559132099,
+          "detail": {
+            "reason": "handler 'QuillanGovernor.compute_venturi_pid' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "deep_path_sequential_thinking",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.997984+00:00",
+          "finished_at": "2026-10-18T19:38:14.997988+00:00",
+          "duration_ms": 0.002500019036233425,
+          "detail": {
+            "reason": "handler 'SequentialThinking.reason' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "council_deliberation_34",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.997998+00:00",
+          "finished_at": "2026-10-18T19:38:14.998001+00:00",
+          "duration_ms": 0.002500019036233425,
+          "detail": {
+            "reason": "handler 'QuillanCouncil.deliberate_34' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "gates_wot",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.998010+00:00",
+          "finished_at": "2026-10-18T19:38:14.998013+00:00",
+          "duration_ms": 0.002100015990436077,
+          "detail": {
+            "reason": "handler 'ThinkingEngine.run_wot_and_gates' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 4,
+          "name": "actuation",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.998023+00:00",
+          "finished_at": "2026-10-18T19:38:14.998028+00:00",
+          "duration_ms": 0.0037999125197529793,
+          "detail": {
+            "reason": "handler 'None' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 5,
+          "name": "rci_self_healing",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.998036+00:00",
+          "finished_at": "2026-10-18T19:38:14.998039+00:00",
+          "duration_ms": 0.002100015990436077,
+          "detail": {
+            "reason": "handler 'SamuraiEngine.audit_and_rci_loop' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 6,
+          "name": "persistence_telemetry",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:14.998047+00:00",
+          "finished_at": "2026-10-18T19:38:14.998050+00:00",
+          "duration_ms": 0.002100015990436077,
+          "detail": {
+            "reason": "handler 'QuillanRAG.store_trace' not registered"
+          },
+          "error": ""
+        }
+      ],
+      "result": {
+        "governor_mode": "deep",
+        "trace_len": 8
+      }
+    },
+    "q-41ec52e1-aecfb2de074a": {
+      "correlation_id": "q-41ec52e1-aecfb2de074a",
+      "query": "verify chain bus",
+      "version": "5.4.0-oni",
+      "started_at": "2026-10-18T19:38:26.535024+00:00",
+      "finished_at": "2026-10-18T19:38:26.535192+00:00",
+      "governor_mode": "deep",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "intake_and_sharding",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535039+00:00",
+          "finished_at": "2026-10-18T19:38:26.535050+00:00",
+          "duration_ms": 0.004300032742321491,
+          "detail": {
+            "reason": "handler 'QuillanPrism.shard_9_vectors' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 1,
+          "name": "rag_retrieval",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535075+00:00",
+          "finished_at": "2026-10-18T19:38:26.535083+00:00",
+          "duration_ms": 0.00400003045797348,
+          "detail": {
+            "reason": "handler 'QuillanRAG.retrieve_context' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "thermodynamic_pacing",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535097+00:00",
+          "finished_at": "2026-10-18T19:38:26.535102+00:00",
+          "duration_ms": 0.0027999049052596092,
+          "detail": {
+            "reason": "handler 'QuillanGovernor.compute_venturi_pid' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "deep_path_sequential_thinking",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535116+00:00",
+          "finished_at": "2026-10-18T19:38:26.535120+00:00",
+          "duration_ms": 0.002500019036233425,
+          "detail": {
+            "reason": "handler 'SequentialThinking.reason' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "council_deliberation_34",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535129+00:00",
+          "finished_at": "2026-10-18T19:38:26.535133+00:00",
+          "duration_ms": 0.002400018274784088,
+          "detail": {
+            "reason": "handler 'QuillanCouncil.deliberate_34' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "gates_wot",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535142+00:00",
+          "finished_at": "2026-10-18T19:38:26.535145+00:00",
+          "duration_ms": 0.002400018274784088,
+          "detail": {
+            "reason": "handler 'ThinkingEngine.run_wot_and_gates' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 4,
+          "name": "actuation",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535155+00:00",
+          "finished_at": "2026-10-18T19:38:26.535160+00:00",
+          "duration_ms": 0.0039000296965241432,
+          "detail": {
+            "reason": "handler 'None' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 5,
+          "name": "rci_self_healing",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535168+00:00",
+          "finished_at": "2026-10-18T19:38:26.535171+00:00",
+          "duration_ms": 0.002300017513334751,
+          "detail": {
+            "reason": "handler 'SamuraiEngine.audit_and_rci_loop' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 6,
+          "name": "persistence_telemetry",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:38:26.535179+00:00",
+          "finished_at": "2026-10-18T19:38:26.535182+00:00",
+          "duration_ms": 0.002400018274784088,
+          "detail": {
+            "reason": "handler 'QuillanRAG.store_trace' not registered"
+          },
+          "error": ""
+        }
+      ],
+      "result": {
+        "governor_mode": "deep",
+        "trace_len": 8
+      }
     }
-  ]
+  }
 }

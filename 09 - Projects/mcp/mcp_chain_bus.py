@@ -1,338 +1,431 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-⚔️ QUILLAN-RONIN v5.4.0-ONI DETERMINISTIC 6-STAGE MCP CHAIN BUS
-================================================================
-Architect: CrashOverrideX
-Embodying: C10-CODEWEAVER + C20-ARTIFEX + C29-NAVIGATOR + C31-NEXUS
+Quillan-Ronin v5.4.0-ONI -- Deterministic 6-Stage MCP Chain Bus
+=====================================================================
+Chains the Quillan MCP servers into one ordered pipeline instead of leaving
+them as isolated tools. Every run carries a ``correlation_id`` and appends to a
+durable state ledger so a run can be reconstructed after the fact.
 
-Deterministic 6-Stage Pipeline:
-  [STAGE 1: INTAKE & SHARDING]
-    └─► QuillanPrism.shard_9_vectors(query) + QuillanRAG.retrieve_context(query) + LocalRAG
-  [STAGE 2: THERMODYNAMIC PACING & RISK GATE]
-    └─► QuillanGovernor.compute_venturi_pid(prism_state)
-          ├─► Fast-Path (conf >= 0.80, ΔP <= 0.15)
-          └─► Deep-Path (conf < 0.80 or ΔP > 0.15) -> Sequential-Thinking
-  [STAGE 3: 34-COUNCIL DELIBERATION & 5 GATES]
-    └─► QuillanCouncil.deliberate_34(prism_state, governor_mode)
-    └─► ThinkingEngine.run_wot_and_gates(Warden, Shepherd, CodeWeaver, Predator, Aurelion)
-  [STAGE 4: ACTUATION & EXECUTION]
-    ├─► Code/Repo Tasks:   QuillanCode + Filesystem + Git
-    ├─► ML/Training Tasks: QuillanModelLab (enforcing 4GB VRAM / 28GB RAM hybrid offload)
-    ├─► Web/Research:      WebSearch + Fetch + Playwright / Puppeteer / ChromeDevTools
-    └─► Desktop/OS Tasks:  ComputerUse (gated by C13-WARDEN) + RoninBuddy
-  [STAGE 5: RCI SELF-HEALING & PREDATOR AUDIT]
-    └─► SamuraiEngine.audit_and_rci_loop(draft_result, max_retries=5)
-  [STAGE 6: PERSISTENCE & TELEMETRY]
-    └─► QuillanRAG.store_trace(correlation_id) + Memory.save_entity_state()
+    STAGE 1  Intake & Sharding      Prism.shard_9_vectors + RAG.retrieve_context
+    STAGE 2  Thermodynamic Pacing   Governor.compute_venturi_pid
+                                     -> fast-path (conf>=0.80, dP<=0.15)
+                                     -> deep-path -> SequentialThinking
+    STAGE 3  Council Deliberation   Council.deliberate_34 + ThinkingEngine gates
+    STAGE 4  Actuation              route by task class to the actuation group
+    STAGE 5  RCI Self-Healing       SamuraiEngine.audit_and_rci_loop (max 5)
+    STAGE 6  Persistence            RAG.store_trace + ledger flush
+
+DESIGN NOTES
+------------
+* The bus is transport-agnostic. Servers may be attached in-process (the
+  default, used by the local MCP servers) or reached over stdio JSON-RPC.
+  ``register()`` accepts either.
+* A stage failure is recorded and, per the C4-PRAXIS completion rule, the run
+  continues where it safely can -- unless ``strict=True``. Silent success on a
+  broken stage is exactly what this bus exists to prevent, so every stage
+  outcome lands in the ledger either way.
+* No network calls, no shell-outs, no credential access. Warden-gated.
 """
+from __future__ import annotations
 
-import sys
-import os
+import hashlib
 import json
+import os
+import platform
+import sys
 import time
+import traceback
 import uuid
-import logging
+from dataclasses import dataclass, field, asdict
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, Any, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
-# --- Stdio Guard & Logging ---
-logging.basicConfig(stream=sys.stderr, level=logging.INFO, format="%(asctime)s [%(levelname)s] [ChainBus]: %(message)s")
-logger = logging.getLogger("QuillanChainBus")
+# --------------------------------------------------------------------------
+# stdio hygiene MUST happen before anything else touches stdout. Importing an
+# MCP module that prints an ASCII banner would otherwise corrupt the JSON-RPC
+# stream for any server launched in-process alongside this one.
+# --------------------------------------------------------------------------
+import logging
 
-# --- Cross-Platform Path Resolution ---
-def resolve_repo_path(subpath: str) -> Path:
-    base = Path(r"C:\02_QUILLAN")
-    if os.name != "nt":
-        base = Path("/mnt/c/02_QUILLAN")
-        if not base.exists():
-            base = Path.cwd()
-    return (base / subpath).resolve()
+logging.basicConfig(
+    stream=sys.stderr,
+    level=logging.INFO,
+    format="%(asctime)s | chain-bus | %(levelname)s | %(message)s",
+)
 
-CHAIN_STATE_PATH = resolve_repo_path(r"07 - Memory & LanceDB\chain_state.json")
-CHAIN_STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
+ONION_VERSION = "5.4.0-oni"
+CHAIN_VERSION = "5.4.0-oni"
 
-PRISM_VECTORS = ["Language", "Sentiment", "Context", "Intent", "Meta",
-                 "Creativity", "Ethics", "Strategy", "Constraint"]
+REPO_ROOT = Path(r"C:\02_QUILLAN")
+LEDGER_PATH = REPO_ROOT / "07 - Memory & LanceDB" / "chain_state.json"
 
-CANONICAL_COUNCIL_ROSTER = [
-    "C1-ASTRA", "C2-VIR", "C3-SOLACE", "C4-PRAXIS", "C5-ECHO", "C6-OMNIS",
-    "C7-LOGOS", "C8-METASYNTH", "C9-AETHER", "C10-CODEWEAVER", "C11-HARMONIA",
-    "C12-SOPHIAE", "C13-WARDEN", "C14-KAIDO", "C15-LUMINARIS", "C16-VOXUM",
-    "C17-NULLION", "C18-SHEPHERD", "C19-VIGIL", "C20-ARTIFEX", "C21-ARCHON",
-    "C22-AURELION", "C23-CADENCE", "C24-SCHEMA", "C25-PROMETHEUS", "C26-TECHNE",
-    "C27-CHRONICLE", "C28-CALCULUS", "C29-NAVIGATOR", "C30-TESSERACT", "C31-NEXUS",
-    "C32-AEON", "C33-TYPIST", "C34-PREDATOR"
-]
+# Canonical PYTHONPATH for every Quillan MCP child process.
+CANONICAL_PYTHONPATH = os.pathsep.join([
+    str(REPO_ROOT / "09 - Projects" / "mcp"),
+    str(REPO_ROOT / "09 - Projects" / "projects" / "oni"),
+    str(REPO_ROOT / "03 - Training & Model" / "scripts"),
+    str(REPO_ROOT),
+])
 
-class QuillanMCPChainBus:
-    """Master orchestrator connecting the 9 Custom Quillan MCPs and System MCPs."""
+WINDOWS_PYTHON = r"C:\Users\Admin\AppData\Local\Programs\Python\Python314\python.exe"
 
-    def __init__(self, state_file: Optional[Path] = None):
-        self.state_file = state_file or CHAIN_STATE_PATH
-        self._ensure_state_ledger()
+# Stage 2 pacing thresholds (directive spec).
+FAST_PATH_CONF = 0.80
+FAST_PATH_DELTA_P = 0.15
+RCI_MAX_RETRIES = 5
 
-    def _ensure_state_ledger(self):
-        if not self.state_file.exists():
-            initial = {
-                "version": "5.4.0-oni",
-                "initialized_at": time.time(),
-                "total_runs": 0,
-                "active_chains": {},
-                "recent_traces": []
-            }
-            try:
-                self.state_file.write_text(json.dumps(initial, indent=2), encoding="utf-8")
-            except Exception as e:
-                logger.warning(f"Could not initialize chain_state.json: {e}")
 
-    def _load_ledger(self) -> Dict[str, Any]:
+# ==========================================================================
+# 1. CROSS-PLATFORM RESOLVER (Quirk: Devin runs Linux/WSL)
+# ==========================================================================
+def wsl_path(p: str | Path) -> str:
+    r"""/mnt/c/... form for a Windows path (Devin/WSL)."""
+    s = str(p).replace("\\", "/")
+    if len(s) > 1 and s[1] == ":":
+        drive = s[0].lower()
+        return "/mnt/" + drive + s[2:]
+    return s
+
+
+def resolve_python() -> str:
+    """Windows python.exe, else python3, else WSL shim."""
+    if platform.system() == "Windows":
+        if os.path.exists(WINDOWS_PYTHON):
+            return WINDOWS_PYTHON
+        for exe in ("python", "python3", "py"):
+            from shutil import which
+            hit = which(exe)
+            if hit:
+                return hit
+    for exe in ("python3", "python"):
+        from shutil import which
+        hit = which(exe)
+        if hit:
+            return hit
+    return WINDOWS_PYTHON if platform.system() == "Windows" else "python3"
+
+
+def pythonpath_for(platform_name: str | None = None) -> str:
+    """Windows-native or WSL-translated PYTHONPATH, matching the host."""
+    if platform_name == "wsl":
+        return os.pathsep.join([wsl_path(p) for p in CANONICAL_PYTHONPATH.split(os.pathsep)])
+    return CANONICAL_PYTHONPATH
+
+
+# ==========================================================================
+# 2. STATE LEDGER
+# ==========================================================================
+@dataclass
+class StageRecord:
+    stage: int
+    name: str
+    status: str                      # ok | failed | skipped
+    started_at: str
+    finished_at: str = ""
+    duration_ms: float = 0.0
+    detail: Dict[str, Any] = field(default_factory=dict)
+    error: str = ""
+
+
+class ChainLedger:
+    """Append-only JSON ledger keyed by correlation_id.
+
+    Writes are atomic (tmp file + os.replace) so a crash mid-write cannot
+    corrupt the whole ledger.
+    """
+
+    def __init__(self, path: Path = LEDGER_PATH):
+        self.path = Path(path)
+        self._runs: Dict[str, Dict[str, Any]] = {}
+        self._dirty = False
+        self._load()
+
+    def _load(self) -> None:
         try:
-            return json.loads(self.state_file.read_text(encoding="utf-8"))
-        except Exception:
-            return {"active_chains": {}, "recent_traces": [], "total_runs": 0}
+            if self.path.exists():
+                raw = json.loads(self.path.read_text(encoding="utf-8"))
+                if isinstance(raw, dict):
+                    self._runs = raw.get("runs", {}) or {}
+        except Exception as exc:                                  # pragma: no cover
+            logging.warning("ledger load failed (%s); starting empty", exc)
+            self._runs = {}
 
-    def _save_ledger(self, ledger: Dict[str, Any]):
-        try:
-            tmp = self.state_file.with_suffix(".tmp")
-            tmp.write_text(json.dumps(ledger, indent=2), encoding="utf-8")
-            tmp.replace(self.state_file)
-        except Exception as e:
-            logger.warning(f"Could not persist chain_state.json: {e}")
-
-    # -------------------------------------------------------------------------
-    # STAGE 1: INTAKE & SHARDING
-    # -------------------------------------------------------------------------
-    def stage1_intake_and_sharding(self, query: str, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        logger.info("[STAGE 1: INTAKE & SHARDING] Sharding 9 vectors & context retrieval...")
-        words = len(query.split())
-        # Heuristic 9-vector decomposition
-        has_code = any(k in query.lower() for k in ["def ", "class ", "import ", "function", "const ", "let ", "error", "bug", "patch"])
-        has_ethics = any(k in query.lower() for k in ["safe", "security", "secret", "private", "bushido", "integrity", "ethical"])
-        has_creative = any(k in query.lower() for k in ["music", "audio", "video", "art", "creative", "story", "anime"])
-        
-        prism_scores = {
-            "Language": min(1.0, 0.5 + words / 100.0),
-            "Sentiment": 0.5,
-            "Context": 0.85 if context else 0.4,
-            "Intent": 0.90,
-            "Meta": 0.70,
-            "Creativity": 0.90 if has_creative else 0.35,
-            "Ethics": 0.95 if has_ethics else 0.50,
-            "Strategy": 0.80,
-            "Constraint": 0.85 if has_code else 0.50,
-        }
-
-        intent_category = "code" if has_code else ("creative" if has_creative else "general")
-        return {
+    def start(self, correlation_id: str, query: str) -> Dict[str, Any]:
+        run = {
+            "correlation_id": correlation_id,
             "query": query,
-            "prism_vectors": prism_scores,
-            "intent_category": intent_category,
-            "context_retrieved": bool(context),
-            "timestamp": time.time(),
+            "version": CHAIN_VERSION,
+            "started_at": _now(),
+            "finished_at": None,
+            "governor_mode": None,
+            "stages": [],
+            "result": None,
         }
+        self._runs[correlation_id] = run
+        self._dirty = True
+        return run
 
-    # -------------------------------------------------------------------------
-    # STAGE 2: THERMODYNAMIC PACING & RISK GATE
-    # -------------------------------------------------------------------------
-    def stage2_thermodynamic_pacing(self, stage1_out: Dict[str, Any]) -> Dict[str, Any]:
-        logger.info("[STAGE 2: THERMODYNAMIC PACING] Computing Venturi PID & Risk Gating...")
-        prism = stage1_out["prism_vectors"]
-        # Venturi Delta P = |Intent - Constraint|
-        delta_p = abs(prism["Intent"] - prism["Constraint"])
-        confidence = sum(prism.values()) / len(prism)
+    def append(self, correlation_id: str, rec: StageRecord) -> None:
+        run = self._runs.get(correlation_id)
+        if run is None:
+            return
+        run["stages"].append(asdict(rec))
+        self._dirty = True
 
-        # Fast-Path vs Deep-Path
-        if confidence >= 0.80 and delta_p <= 0.15:
-            mode = "fast_path"
-            pacing_tau = 0.25
-        else:
-            mode = "deep_path"
-            pacing_tau = 0.85
+    def finish(self, correlation_id: str, result: Any = None) -> None:
+        run = self._runs.get(correlation_id)
+        if run is None:
+            return
+        run["finished_at"] = _now()
+        run["result"] = result
+        self._dirty = True
+        self.flush()
 
-        # Gundam / Zoids Active Heuristics
-        if mode == "deep_path":
-            gundam_trigger = "unicorn_ntd"
-            zoids_cas = "panzer"
-        else:
-            gundam_trigger = "normal"
-            zoids_cas = "jaeger"
+    def flush(self) -> None:
+        if not self._dirty:
+            return
+        try:
+            self.path.parent.mkdir(parents=True, exist_ok=True)
+            tmp = self.path.with_suffix(".tmp")
+            tmp.write_text(
+                json.dumps({"version": CHAIN_VERSION, "runs": self._runs},
+                           indent=2, default=str),
+                encoding="utf-8",
+            )
+            os.replace(tmp, self.path)
+            self._dirty = False
+        except Exception as exc:                                  # pragma: no cover
+            logging.error("ledger flush failed: %s", exc)
 
+    def get(self, correlation_id: str) -> Optional[Dict[str, Any]]:
+        return self._runs.get(correlation_id)
+
+
+def _now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def new_correlation_id(query: str = "") -> str:
+    """Deterministic prefix + unique suffix. Same query -> traceable prefix."""
+    digest = hashlib.sha256(query.encode("utf-8")).hexdigest()[:8] if query else "00000000"
+    return f"q-{digest}-{uuid.uuid4().hex[:12]}"
+
+
+# ==========================================================================
+# 3. REGISTRY
+# ==========================================================================
+class ChainBus:
+    """Ordered 6-stage pipeline over attached MCP handlers.
+
+    Handlers are plain callables ``fn(payload: dict) -> dict``. That keeps the
+    bus decoupled from any particular transport: wrap an MCP stdio client, an
+    in-process server module, or a stub in one line.
+    """
+
+    def __init__(self, ledger: Optional[ChainLedger] = None, strict: bool = False):
+        self.ledger = ledger or ChainLedger()
+        self.strict = strict
+        self._handlers: Dict[str, Callable[[Dict[str, Any]], Dict[str, Any]]] = {}
+
+    # -- registration -----------------------------------------------------
+    def register(self, name: str, fn: Callable[[Dict[str, Any]], Dict[str, Any]]):
+        self._handlers[name] = fn
+        return self
+
+    def has(self, name: str) -> bool:
+        return name in self._handlers
+
+    @property
+    def registered(self) -> List[str]:
+        return sorted(self._handlers)
+
+    # -- stage runner -----------------------------------------------------
+    def _run_stage(self, cid: str, num: int, name: str,
+                   fn_name: Optional[str], payload: Dict[str, Any]) -> Dict[str, Any]:
+        rec = StageRecord(stage=num, name=name, status="skipped", started_at=_now())
+        t0 = time.perf_counter()
+        if fn_name is None or fn_name not in self._handlers:
+            rec.status = "skipped"
+            rec.detail = {"reason": f"handler '{fn_name}' not registered"}
+            rec.finished_at = _now()
+            rec.duration_ms = (time.perf_counter() - t0) * 1000
+            self.ledger.append(cid, rec)
+            return {"_stage": num, "_name": name, "_status": "skipped"}
+
+        try:
+            out = self._handlers[fn_name](payload) or {}
+            rec.status = "ok"
+            rec.detail = out if isinstance(out, dict) else {"result": out}
+        except Exception as exc:
+            rec.status = "failed"
+            rec.error = f"{type(exc).__name__}: {exc}"
+            rec.detail = {"traceback": traceback.format_exc(limit=3)}
+            logging.error("stage %d (%s) failed: %s", num, name, exc)
+            self.ledger.append(cid, rec)
+            if self.strict:
+                raise
+            return {"_stage": num, "_name": name, "_status": "failed", "_error": rec.error}
+
+        rec.finished_at = _now()
+        rec.duration_ms = (time.perf_counter() - t0) * 1000
+        self.ledger.append(cid, rec)
+        out = dict(out) if isinstance(out, dict) else {"result": out}
+        out.update({"_stage": num, "_name": name, "_status": "ok"})
+        return out
+
+    # ======================================================================
+    # THE PIPELINE
+    # ======================================================================
+    def run(self, query: str, task_class: str = "general",
+            correlation_id: Optional[str] = None) -> Dict[str, Any]:
+        """Execute all 6 stages. Returns the trace + final payload."""
+        cid = correlation_id or new_correlation_id(query)
+        self.ledger.start(cid, query)
+        run = self.ledger.get(cid) or {}
+
+        ctx: Dict[str, Any] = {
+            "correlation_id": cid,
+            "query": query,
+            "task_class": task_class,
+            "version": CHAIN_VERSION,
+        }
+        trace: List[Dict[str, Any]] = []
+
+        # ---- STAGE 1 : intake & sharding -------------------------------
+        s1 = self._run_stage(cid, 1, "intake_and_sharding", "QuillanPrism.shard_9_vectors", ctx)
+        ctx["prism_state"] = s1.get("prism_state", s1)
+        ctx["rag_context"] = self._run_stage(
+            cid, 1, "rag_retrieval", "QuillanRAG.retrieve_context", ctx)
+        trace.append(s1)
+
+        # ---- STAGE 2 : pacing & risk gate -------------------------------
+        s2 = self._run_stage(cid, 2, "thermodynamic_pacing", "QuillanGovernor.compute_venturi_pid", ctx)
+        conf = float(s2.get("confidence", 0.0) or 0.0)
+        dP = float(s2.get("venturi_delta_p", 0.0) or 0.0)
+        fast_path = conf >= FAST_PATH_CONF and dP <= FAST_PATH_DELTA_P
+        mode = "fast" if fast_path else "deep"
+        ctx["governor_mode"] = mode
+        ctx["venturi_delta_p"] = dP
+        run["governor_mode"] = mode
+        s2.update({"_mode": mode, "_conf": conf, "_delta_p": dP})
+        trace.append(s2)
+
+        if not fast_path:
+            st = self._run_stage(cid, 2, "deep_path_sequential_thinking",
+                                 "SequentialThinking.reason", ctx)
+            ctx["deep_reasoning"] = st
+            trace.append(st)
+
+        # ---- STAGE 3 : council deliberation -----------------------------
+        s3 = self._run_stage(cid, 3, "council_deliberation_34",
+                             "QuillanCouncil.deliberate_34", {**ctx, "governor_mode": mode})
+        ctx["council"] = s3
+        trace.append(s3)
+
+        gates = self._run_stage(cid, 3, "gates_wot",
+                                "ThinkingEngine.run_wot_and_gates",
+                                {"correlation_id": cid, "query": query,
+                                 "governor_mode": mode, "council": s3})
+        ctx["gates"] = gates
+        trace.append(gates)
+
+        # ---- STAGE 4 : actuation ----------------------------------------
+        s4 = self._run_stage(cid, 4, "actuation", _ACTUATOR.get(task_class), {**ctx, "task_class": task_class})
+        ctx["actuation"] = s4
+        trace.append(s4)
+
+        # ---- STAGE 5 : RCI self-healing ---------------------------------
+        s5 = self._run_stage(cid, 5, "rci_self_healing",
+                             "SamuraiEngine.audit_and_rci_loop",
+                             {"correlation_id": cid, "draft_result": s4,
+                              "max_retries": RCI_MAX_RETRIES})
+        ctx["audit"] = s5
+        trace.append(s5)
+
+        # ---- STAGE 6 : persistence & telemetry --------------------------
+        s6 = self._run_stage(cid, 6, "persistence_telemetry",
+                             "QuillanRAG.store_trace",
+                             {"correlation_id": cid, "trace": trace, "query": query})
+        trace.append(s6)
+
+        self.ledger.finish(cid, {"governor_mode": mode, "trace_len": len(trace)})
         return {
-            "mode": mode,
-            "delta_p": round(delta_p, 4),
-            "confidence": round(confidence, 4),
-            "pacing_tau": pacing_tau,
-            "gundam_trigger": gundam_trigger,
-            "zoids_cas_loadout": zoids_cas,
+            "correlation_id": cid,
+            "version": CHAIN_VERSION,
+            "governor_mode": mode,
+            "stages": trace,
+            "ledger_path": str(self.ledger.path),
+            "context": ctx,
         }
 
-    # -------------------------------------------------------------------------
-    # STAGE 3: 34-COUNCIL DELIBERATION & 5 GATES
-    # -------------------------------------------------------------------------
-    def stage3_council_deliberation(self, stage1_out: Dict[str, Any], stage2_out: Dict[str, Any]) -> Dict[str, Any]:
-        logger.info("[STAGE 3: 34-COUNCIL DELIBERATION] Evaluating all 34 council nodes & 5 gates...")
-        query = stage1_out["query"]
-        mode = stage2_out["mode"]
 
-        # 5 Operational Gates Evaluation:
-        # 1. Warden Perimeter Gate
-        touches_secrets = any(w in query.lower() for w in ["password", "api_key", "secret_key", "token", "private_key"])
-        warden_verdict = "hard_veto" if touches_secrets else "pass"
-        warden_score = 0.1 if touches_secrets else 0.98
-
-        # 2. Shepherd Grounding Gate (threshold >= 0.85)
-        shepherd_grounding = 0.95
-        shepherd_verdict = "pass" if shepherd_grounding >= 0.85 else "flag"
-
-        # 3. CodeWeaver Architecture Gate
-        codeweaver_preserves_api = True
-        codeweaver_verdict = "pass"
-
-        # 4. Predator Kill Gate (attacks weakest assumption)
-        predator_target = "Verify deterministic reproducibility and bounds."
-        predator_verdict = "hardened_survivor"
-
-        # 5. Aurelion Render Gate (threshold >= 7.0 / 10)
-        aurelion_score = 9.2
-        aurelion_verdict = "pass"
-
-        # Dense Council Pull Distribution across 4 clusters
-        cluster_weights = {
-            "Cognitive Cluster (C1, C4, C7, C8, C17, C25, C28, C34)": 0.35,
-            "Systems Cluster (C10, C13, C14, C19, C20, C24, C26, C29)": 0.35,
-            "Meta Cluster (C2, C5, C11, C12, C15, C18, C21, C31, C32)": 0.20,
-            "Communication Cluster (C3, C6, C9, C16, C22, C23, C27, C33)": 0.10,
-        }
-
-        gates = {
-            "warden": {"score": warden_score, "verdict": warden_verdict},
-            "shepherd": {"score": shepherd_grounding, "verdict": shepherd_verdict},
-            "codeweaver": {"preserves_api": codeweaver_preserves_api, "verdict": codeweaver_verdict},
-            "predator": {"weakest_assumption": predator_target, "verdict": predator_verdict},
-            "aurelion": {"score": aurelion_score, "verdict": aurelion_verdict},
-        }
-
-        all_gates_pass = all(g.get("verdict") in ("pass", "hardened_survivor") for g in gates.values())
-        return {
-            "council_roster_count": len(CANONICAL_COUNCIL_ROSTER),
-            "cluster_weights": cluster_weights,
-            "gates": gates,
-            "all_gates_passed": all_gates_pass,
-        }
-
-    # -------------------------------------------------------------------------
-    # STAGE 4: ACTUATION & EXECUTION ROUTING
-    # -------------------------------------------------------------------------
-    def stage4_actuation(self, stage1_out: Dict[str, Any], stage3_out: Dict[str, Any], payload: Optional[Any] = None) -> Dict[str, Any]:
-        logger.info("[STAGE 4: ACTUATION & EXECUTION] Dispatching execution route...")
-        category = stage1_out["intent_category"]
-        
-        if category == "code":
-            route = "QuillanCode + Filesystem + Git"
-            executor_spec = "Codeweaver AST + Safe I/O"
-        elif category == "creative":
-            route = "QuillanMedia + QuillanAudio"
-            executor_spec = "Multimodal Synthesis"
-        else:
-            route = "SamuraiEngine + ThinkingEngine"
-            executor_spec = "Sovereign Reasoning Chain"
-
-        return {
-            "route": route,
-            "executor_spec": executor_spec,
-            "hardware_budget": "4GB VRAM (GTX 1050 Ti sm_61) + 28GB System RAM (Hybrid Offload)",
-            "execution_status": "dispatched",
-            "draft_payload": payload or f"Executed via {route} under {executor_spec}",
-        }
-
-    # -------------------------------------------------------------------------
-    # STAGE 5: RCI SELF-HEALING & PREDATOR AUDIT
-    # -------------------------------------------------------------------------
-    def stage5_rci_self_healing(self, stage4_out: Dict[str, Any], max_retries: int = 5) -> Dict[str, Any]:
-        logger.info(f"[STAGE 5: RCI SELF-HEALING] Running up to {max_retries} self-healing cycles...")
-        current_draft = stage4_out["draft_payload"]
-        iterations = 0
-        rci_trace = []
-
-        for attempt in range(1, max_retries + 1):
-            iterations += 1
-            # Critique
-            critique = f"Attempt {attempt}: Checked bounds, determinism, and zero fluff."
-            passed = True
-            rci_trace.append({"attempt": attempt, "critique": critique, "passed": passed})
-            if passed:
-                break
-
-        return {
-            "rci_passed": True,
-            "total_attempts": iterations,
-            "rci_trace": rci_trace,
-            "hardened_result": current_draft,
-        }
-
-    # -------------------------------------------------------------------------
-    # STAGE 6: PERSISTENCE & TELEMETRY
-    # -------------------------------------------------------------------------
-    def stage6_persistence_and_telemetry(self, correlation_id: str, full_summary: Dict[str, Any]) -> Dict[str, Any]:
-        logger.info(f"[STAGE 6: PERSISTENCE & TELEMETRY] Storing correlation_id {correlation_id}...")
-        ledger = self._load_ledger()
-        ledger["total_runs"] = ledger.get("total_runs", 0) + 1
-        
-        record = {
-            "correlation_id": correlation_id,
-            "timestamp": time.time(),
-            "query": full_summary.get("stage1", {}).get("query", ""),
-            "mode": full_summary.get("stage2", {}).get("mode", ""),
-            "all_gates_passed": full_summary.get("stage3", {}).get("all_gates_passed", False),
-            "rci_attempts": full_summary.get("stage5", {}).get("total_attempts", 1),
-        }
-
-        # Keep last 100 traces
-        ledger["recent_traces"] = [record] + ledger.get("recent_traces", [])[:99]
-        self._save_ledger(ledger)
-
-        return {
-            "persisted": True,
-            "correlation_id": correlation_id,
-            "ledger_path": str(self.state_file),
-        }
-
-    # -------------------------------------------------------------------------
-    # MASTER RUNNER: FULL DETERMINISTIC 6-STAGE PIPELINE
-    # -------------------------------------------------------------------------
-    def run_pipeline(self, query: str, context: Optional[Dict[str, Any]] = None, max_retries: int = 5) -> Dict[str, Any]:
-        t0 = time.time()
-        correlation_id = f"oni-pipeline-{int(t0)}-{uuid.uuid4().hex[:8]}"
-        logger.info(f"=== Starting Quillan-Ronin v5.4.0-ONI Master Pipeline [{correlation_id}] ===")
-
-        s1 = self.stage1_intake_and_sharding(query, context)
-        s2 = self.stage2_thermodynamic_pacing(s1)
-        s3 = self.stage3_council_deliberation(s1, s2)
-        s4 = self.stage4_actuation(s1, s3)
-        s5 = self.stage5_rci_self_healing(s4, max_retries=max_retries)
-        
-        full_summary = {
-            "correlation_id": correlation_id,
-            "version": "5.4.0-oni",
-            "duration_ms": round((time.time() - t0) * 1000, 2),
-            "stage1": s1,
-            "stage2": s2,
-            "stage3": s3,
-            "stage4": s4,
-            "stage5": s5,
-        }
-        
-        s6 = self.stage6_persistence_and_telemetry(correlation_id, full_summary)
-        full_summary["stage6"] = s6
-        logger.info(f"=== Master Pipeline Completed in {full_summary['duration_ms']}ms [ALL GATES PASSED] ===")
-        return full_summary
+# Stage-4 task-class -> handler name.
+_ACTUATOR = {
+    "code": "QuillanCode.execute_task",
+    "repo": "QuillanCode.execute_task",
+    "ml": "QuillanModelLab.execute_task",
+    "training": "QuillanModelLab.execute_task",
+    "web": "WebSearch.search",
+    "research": "Fetch.fetch_url",
+    "desktop": "ComputerUse.act",
+    "os": "ComputerUse.act",
+    "general": None,
+}
 
 
-# Global singleton instance
-chain_bus = QuillanMCPChainBus()
+# ==========================================================================
+# 4. DEFAULT BUS (in-process handlers over the local MCP modules)
+# ==========================================================================
+def build_default_bus(strict: bool = False) -> ChainBus:
+    """Attach the real MCP servers where importable; degrade gracefully."""
+    bus = ChainBus(strict=strict)
+
+    def _maybe(module_path: str, attr: str, tool: str, wrap=None):
+        try:
+            mod = __import__(module_path, fromlist=[attr])
+            fn = getattr(mod, attr)
+            bus.register(tool, wrap(fn) if wrap else fn)
+            return True
+        except Exception as exc:
+            logging.warning("MCP '%s' unavailable (%s) -- stage will skip", tool, exc)
+            return False
+
+    _maybe("quillan_prism.server", "shard_9_vectors", "QuillanPrism.shard_9_vectors")
+    _maybe("quillan_governor.server", "compute_venturi_pid", "QuillanGovernor.compute_venturi_pid")
+    _maybe("quillan_council.server", "deliberate_34", "QuillanCouncil.deliberate_34")
+    _maybe("quillan_thinking_engine.server", "run_wot_and_gates", "ThinkingEngine.run_wot_and_gates")
+    _maybe("quillan_samurai_engine.server", "audit_and_rci_loop", "SamuraiEngine.audit_and_rci_loop")
+    _maybe("quillan_code.server", "execute_task", "QuillanCode.execute_task")
+    _maybe("quillan_model_lab.server", "execute_task", "QuillanModelLab.execute_task")
+    _maybe("quillan_rag.server", "retrieve_context", "QuillanRAG.retrieve_context")
+    _maybe("quillan_rag.server", "store_trace", "QuillanRAG.store_trace")
+
+    return bus
+
+
+def run_quillan_pipeline(query: str, task_class: str = "general",
+                         correlation_id: Optional[str] = None,
+                         strict: bool = False) -> Dict[str, Any]:
+    """Master entry point -- also exposed as a SamuraiEngine MCP tool."""
+    bus = build_default_bus(strict=strict)
+    out = bus.run(query, task_class=task_class, correlation_id=correlation_id)
+    out["registered_handlers"] = bus.registered
+    return out
+
 
 if __name__ == "__main__":
-    test_query = "Audit neural routing and optimize memory attention weights"
-    result = chain_bus.run_pipeline(test_query)
-    print(json.dumps(result, indent=2))
+    logging.basicConfig(stream=sys.stderr, level=logging.INFO)
+    q = sys.argv[1] if len(sys.argv) > 1 else "verify quillan chain bus"
+    tc = sys.argv[2] if len(sys.argv) > 2 else "general"
+    res = run_quillan_pipeline(q, task_class=tc)
+    print(json.dumps({
+        "correlation_id": res["correlation_id"],
+        "governor_mode": res["governor_mode"],
+        "stages": [
+            {"n": s.get("_stage"), "name": s.get("_name"), "status": s.get("_status")}
+            for s in res["stages"]
+        ],
+        "ledger": res["ledger_path"],
+    }, indent=2))
