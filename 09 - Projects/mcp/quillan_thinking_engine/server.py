@@ -11,6 +11,12 @@ Reasoning Architecture:
 - Hardened AST-Whitelisted Execution Sandbox
 """
 
+# Phase-2 fix: this MUST sit directly after the module docstring. It previously
+# lived at line 45 (after the sys.path bootstrap block), which is a hard
+# SyntaxError -- "from __future__ imports must occur at the beginning of the
+# file" -- and made this server unimportable by any Python version.
+from __future__ import annotations
+
 import sys
 import os
 import logging
@@ -35,9 +41,8 @@ _BASE_PATHS = [
 ]
 for _bp in _BASE_PATHS:
     if os.name != "nt":
-        # Translate Windows paths to Linux / WSL container paths
-        if _bp.startswith("C:\\") or _bp.startswith("C:/") or _bp.startswith("C:\"):
-            _bp = "/mnt/c/" + _bp[3:].replace("\\", "/").replace("\", "/")
+        if _bp.startswith("C:") or _bp.startswith("c:"):
+            _bp = "/mnt/c/" + _bp[3:].replace("\\", "/")
     if os.path.exists(_bp) and _bp not in sys.path:
         sys.path.insert(0, _bp)
 

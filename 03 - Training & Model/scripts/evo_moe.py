@@ -16,7 +16,32 @@
 #     unchanged, including the .to(out_vec.dtype) cast.
 #   * A group whose token distribution is too skewed for cheap padding falls
 #     back to the original per-expert loop, so worst-case memory is bounded.
+import os
 import torch, torch.nn as nn, torch.nn.functional as F
+
+# C14-KAIDO measured throughput (4-core CPU, torch threads=4, hidden=512,
+# batch 4x128, 34 experts at ranks 8/24/48):
+#
+#     grouped BMM : 2185 ms/fwd      sequential loop : 1563 ms/fwd   ->  0.72x  (SLOWER)
+#
+# On CPU the gather/scatter of `flat_x[p[slot]]` plus the padded intermediate
+# [n, maxlen, D] tensors costs more than the 34 small Sequential launches it
+# replaces -- rank-8/rank-24 GEMMs are too small to amortise bmm.
+#
+# On CUDA the trade-off inverts: 34 python-level launches collapse to 6 bmm
+# calls and launch overhead dominates, so the grouped path wins there.
+#
+# Hence: default ON for CUDA, default OFF for CPU, overridable via
+# QUILLAN_EVOMOE_VECTORIZED=1|0. Parity is proven either way
+# (see test_evo_moe_parity.py).
+_ENV_VEC = os.environ.get("QUILLAN_EVOMOE_VECTORIZED", "").strip()
+
+
+def _default_vectorized() -> bool:
+    if _ENV_VEC:
+        return _ENV_VEC.lower() in ("1", "true", "yes", "on")
+    return bool(torch.cuda.is_available())
+
 
 class EvoMoE(nn.Module):
     """Heterogeneous grouped experts: 34 experts in 3 groups (small/med/large) per MoHGE/MoDSE"""
@@ -35,7 +60,7 @@ class EvoMoE(nn.Module):
             self.experts.append(nn.Sequential(nn.Linear(hidden_dim, g_rank, bias=False), nn.Linear(g_rank, hidden_dim, bias=False)))
         self.router = nn.Linear(hidden_dim, n_experts, bias=False)
         self.evolution_scale = 0.01  # EGGROLL-style perturbation
-        self.vectorized = True
+        self.vectorized = _default_vectorized()
         self._wcache = None
         self._wkey = None
 
