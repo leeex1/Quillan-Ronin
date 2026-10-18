@@ -244,6 +244,626 @@
         "governor_mode": "deep",
         "trace_len": 8
       }
+    },
+    "oni-pipeline-4ae7c80d-150ac3e1": {
+      "correlation_id": "oni-pipeline-4ae7c80d-150ac3e1",
+      "query": "why does memory attention duplicate parameters across layers",
+      "version": "5.4.0-oni",
+      "started_at": "2026-10-18T19:43:09.613960+00:00",
+      "finished_at": "2026-10-18T19:43:12.067209+00:00",
+      "governor_mode": "deep",
+      "stages": [
+        {
+          "stage": 1,
+          "name": "intake_and_sharding",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:09.613975+00:00",
+          "finished_at": "2026-10-18T19:43:09.614207+00:00",
+          "duration_ms": 0.22799998987466097,
+          "detail": {
+            "prism_state": {
+              "status": "PRISM_DECOMPOSITION_COMPLETE",
+              "task_summary": "why does memory attention duplicate parameters across layers",
+              "vectors": {
+                "Language": "Markdown structure, heading hierarchy, clean typography",
+                "Sentiment": "Core operational intent: Advance beyond literal wording to deliver fully verified production solution for 'why does memory attention duplicate parameters across layers'.",
+                "Context": "Evaluated within Quillan-Ronin sovereign architecture: 3 fractal tiers, zero-leakage git hygiene, and local hardware constraints.",
+                "Intent": "Core operational intent: Advance beyond literal wording to deliver fully verified production solution for 'why does memory attention duplicate parameters across layers'.",
+                "Meta": "Metacognitive awareness of own reasoning structure and drift.",
+                "Creativity": "Cross-pollinate domain insights; synthesize minimal ternary representation with high-dimensional expressiveness.",
+                "Ethics": "Bushido rectitude (Gi): Zero sycophancy, absolute data privacy protection, no silent failures, truth over flattery.",
+                "Strategy": [
+                  "Step 1: Ingest and validate constraints.",
+                  "Step 2: Scrutinize with C34-PREDATOR attack.",
+                  "Step 3: Implement minimal deterministic solution.",
+                  "Step 4: Execute Phase 3 RCI critique loop.",
+                  "Step 5: Verify with test runner until passing."
+                ],
+                "Constraint": "Zero new runtime dependencies; operate within local RAM/VRAM headroom; reserve 2 CPU cores for Windows OS. | Failure modes: Input boundary violations, memory paging under scale, unhandled network timeouts, race conditions in concurrent execution."
+              },
+              "throne_verdict": "Decomposition aligned with Quillan sovereign protocol."
+            },
+            "text": "{\"status\": \"PRISM_DECOMPOSITION_COMPLETE\", \"task_summary\": \"why does memory attention duplicate parameters across layers\", \"vectors\": {\"Language\": \"Markdown structure, heading hierarchy, clean typography\", \"Sentiment\": \"Core operational intent: Advance beyond literal wording to deliver fully verified production solution for 'why does memory attention duplicate parameters across layers'.\", \"Context\": \"Evaluated within Quillan-Ronin sovereign architecture: 3 fractal tiers, zero-leakage git hygiene, and local hardware constraints.\", \"Intent\": \"Core operational intent: Advance beyond literal wording to deliver fully verified production solution for 'why does memory attention duplicate parameters across layers'.\", \"Meta\": \"Metacognitive awareness of own reasoning structure and drift.\", \"Creativity\": \"Cross-pollinate domain insights; synthesize minimal ternary representation with high-dimensional expressiveness.\", \"Ethics\": \"Bushido rectitude (Gi): Zero sycophancy, absolute data privacy protection, no silent failures, truth over flattery.\", \"Strategy\": [\"Step 1: Ingest and validate constraints.\", \"Step 2: Scrutinize with C34-PREDATOR attack.\", \"Step 3: Implement minimal deterministic sol"
+          },
+          "error": ""
+        },
+        {
+          "stage": 1,
+          "name": "rag_retrieval",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:09.614239+00:00",
+          "finished_at": "2026-10-18T19:43:11.020589+00:00",
+          "duration_ms": 1406.3481000484899,
+          "detail": {
+            "context": "\ud83d\udd0d Results for: \"why does memory attention duplicate parameters across layers\"\n\n**[1] Quillan-XSWE.md** (sim: 0.302)\n= \u03c3(U @ V^T @ x + b)', 'components': ['U', 'V', 'bias', 'activation'], 'maps_to': '224k Micro-Swarms (7k Micro-Quantized Swarm Agents per persona)', 'purpose': 'Distributed parallel processing within each persona', 'pytorch_module': 'MicroSwarmLayer' }, 'quillan_meta_coordination...\n\n**[2] quillan_ronin_announcement_paper.md** (sim: 0.293)\nexample, C7-LOGOS uses deeper layers and more parameters for logical reasoning, while C2-VIR uses specialized attention mechanisms for ethical evaluation. This specialization allows each expert to excel at its specific function while maintaining the ability to coordinate through ...\n\n**[3] Quillan-XSWE.md** (sim: 0.291)\ncouncil_outputs.shape council_flat = council_outputs.view(batch, seq_len * n_personas, hidden_dim) attn_output, _ = self.cross_attn( global_context, council_flat, council_flat ) # Residual connection output = self.layer_norm2(attn_output + global_context + integrated) else: outpu...\n\n**[4] Quillan-XSWE.md** (sim: 0.273)\ncouncil member Architecture: - Efficient grouped processing - Low-rank factorization for parameter efficiency - Quantization-friendly design \"\"\" def __init__(self, hidden_dim, n_swarms, swarm_dim, dropout=0.1): super().__init__() self.n_swarms = n_swarms self.swarm_dim = swarm_di...\n\n**[5] quillan_ronin_announcement_paper.md** (sim: 0.231)\nmechanism. The Council architecture implements a form of distributed cognition where no single expert can determine the model's output without agreement from others, providing a robust foundation for ethical decision-making. 3. **Tier 3: Virtual Agent Swarm (9B virtual agents)** ...\n"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "thermodynamic_pacing",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:11.020621+00:00",
+          "finished_at": "2026-10-18T19:43:11.020671+00:00",
+          "duration_ms": 0.04730001091957092,
+          "detail": {
+            "governor": {
+              "current_ms": 500.0,
+              "target_ms": 5000.0,
+              "velocity_ratio": 0.1,
+              "status": "TOO_FAST",
+              "prescribed_actions": [
+                "HIGH HEADROOM: Step time is fast; batch size or micro-batch count could be increased safely."
+              ]
+            },
+            "text": "{\"current_ms\": 500.0, \"target_ms\": 5000.0, \"velocity_ratio\": 0.1, \"status\": \"TOO_FAST\", \"prescribed_actions\": [\"HIGH HEADROOM: Step time is fast; batch size or micro-batch count could be increased safely.\"]}",
+            "_confidence_source": "derived_by_chain_bus"
+          },
+          "error": ""
+        },
+        {
+          "stage": 2,
+          "name": "deep_path_sequential_thinking",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:43:11.020710+00:00",
+          "finished_at": "2026-10-18T19:43:11.020717+00:00",
+          "duration_ms": 0.004300032742321491,
+          "detail": {
+            "reason": "handler 'SequentialThinking.reason' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "council_deliberation_34",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:11.020726+00:00",
+          "finished_at": "2026-10-18T19:43:11.021439+00:00",
+          "duration_ms": 0.7174999918788671,
+          "detail": {
+            "council": {
+              "status": "DELIBERATION_COMPLETE",
+              "session_id": "session-48bb45a2",
+              "topic": "why does memory attention duplicate parameters across layers",
+              "throne_audit": "Verified under C0-QUILLAN consensus.",
+              "primary_guard": "C2-VIR (Ethics) & C13-WARDEN (Perimeter)",
+              "adversarial_challenge": {
+                "attacker": "C34-PREDATOR",
+                "strike": "What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?",
+                "weakest_assumption": "Boundary Input Trust",
+                "all_vulnerabilities": [
+                  {
+                    "target": "Boundary Input Trust",
+                    "vulnerability": "Assumes input data conforms to expected schema, type, and size.",
+                    "attack": "What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?"
+                  }
+                ]
+              },
+              "cluster_results": {
+                "cognitive": {
+                  "consensus": {
+                    "consensus_score": 0.934,
+                    "mean_alignment": 0.934,
+                    "support_count": 8,
+                    "conditional_count": 0,
+                    "challenge_count": 0,
+                    "disagreement_map": {
+                      "support": [
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "conditional": [],
+                      "challenge": []
+                    },
+                    "verdict": "CONSENSUS"
+                  },
+                  "expert_count": 8
+                },
+                "communication": {
+                  "consensus": {
+                    "consensus_score": 0.914,
+                    "mean_alignment": 0.914,
+                    "support_count": 6,
+                    "conditional_count": 2,
+                    "challenge_count": 0,
+                    "disagreement_map": {
+                      "support": [
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "conditional": [
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "challenge": []
+                    },
+                    "verdict": "CONSENSUS"
+                  },
+                  "expert_count": 8
+                },
+                "meta": {
+                  "consensus": {
+                    "consensus_score": 0.907,
+                    "mean_alignment": 0.907,
+                    "support_count": 6,
+                    "conditional_count": 2,
+                    "challenge_count": 0,
+                    "disagreement_map": {
+                      "support": [
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "conditional": [
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "challenge": []
+                    },
+                    "verdict": "CONSENSUS"
+                  },
+                  "expert_count": 8
+                },
+                "systems": {
+                  "consensus": {
+                    "consensus_score": 0.902,
+                    "mean_alignment": 0.902,
+                    "support_count": 6,
+                    "conditional_count": 4,
+                    "challenge_count": 0,
+                    "disagreement_map": {
+                      "support": [
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "conditional": [
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>",
+                        "<max-depth>"
+                      ],
+                      "challenge": []
+                    },
+                    "verdict": "CONSENSUS"
+                  },
+                  "expert_count": 10
+                }
+              },
+              "lead_deliberators": [
+                "C13-WARDEN",
+                "C5-ECHO",
+                "C18-SHEPHERD",
+                "C2-VIR"
+              ],
+              "consensus": {
+                "consensus_score": 0.914,
+                "mean_alignment": 0.914,
+                "support_count": 26,
+                "conditional_count": 8,
+                "challenge_count": 0,
+                "disagreement_map": {
+                  "support": [
+                    "C1-ASTRA",
+                    "C2-VIR",
+                    "C3-SOLACE",
+                    "C4-PRAXIS",
+                    "C5-ECHO",
+                    "C6-OMNIS",
+                    "C7-LOGOS",
+                    "C8-METASYNTH",
+                    "C9-AETHER",
+                    "C10-CODEWEAVER",
+                    "C11-HARMONIA",
+                    "C12-SOPHIAE",
+                    "C13-WARDEN",
+                    "C16-VOXUM",
+                    "C17-NULLION",
+                    "C18-SHEPHERD",
+                    "C19-VIGIL",
+                    "C20-ARTIFEX",
+                    "C21-ARCHON",
+                    "C24-SCHEMA",
+                    "C25-PROMETHEUS",
+                    "C27-CHRONICLE",
+                    "C28-CALCULUS",
+                    "C31-NEXUS",
+                    "C32-AEON",
+                    "C33-TYPIST"
+                  ],
+                  "conditional": [
+                    "C14-KAIDO",
+                    "C15-LUMINARIS",
+                    "C22-AURELION",
+                    "C23-CADENCE",
+                    "C26-TECHNE",
+                    "C29-NAVIGATOR",
+                    "C30-TESSERACT",
+                    "C34-PREDATOR"
+                  ],
+                  "challenge": []
+                },
+                "verdict": "CONSENSUS"
+              },
+              "synthesized_ruling": "The council deliberated across all 4 wave clusters (34 experts). Consensus score: 0.914 (CONSENSUS). It must survive C34-PREDATOR's strike regarding 'Boundary Input Trust'. Proceed only after establishing hard test seams and verified boundary conditions.",
+              "timestamp": 1792352591.021353
+            },
+            "text": "{\"status\": \"DELIBERATION_COMPLETE\", \"session_id\": \"session-48bb45a2\", \"topic\": \"why does memory attention duplicate parameters across layers\", \"throne_audit\": \"Verified under C0-QUILLAN consensus.\", \"primary_guard\": \"C2-VIR (Ethics) & C13-WARDEN (Perimeter)\", \"adversarial_challenge\": {\"attacker\": \"C34-PREDATOR\", \"strike\": \"What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?\", \"weakest_assumption\": \"Boundary Input Trust\", \"all_vulnerabilities\": [{\"target\": \"Boundary Input Trust\", \"vulnerability\": \"Assumes input data conforms to expected schema, type, and size.\", \"attack\": \"What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?\"}]}, \"cluster_results\": {\"cognitive\": {\"consensus\": {\"consensus_score\": 0.934, \"mean_alignment\": 0.934, \"support_count\": 8, \"conditional_count\": 0, \"challenge_count\": 0, \"disagreement_map\": {\"support\": [\"C1-ASTRA\", \"C2-VIR\", \"C3-SOLACE\", \"C4-PRAXIS\", \"C5-ECHO\", \"C6-OMNIS\", \"C7-LOGOS\", \"C8-METASYNTH\"], \"conditional\": [], \"challenge\": []}, \"verdict\": \"CONSENSUS\"}, \"expert_count\": 8}, \"communication\": {\"consensus\": {\"consensus_score\": 0.914, \"mean_alignment\": 0.914, \"support_count\": 6, \"cond"
+          },
+          "error": ""
+        },
+        {
+          "stage": 3,
+          "name": "gates_wot",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:11.021522+00:00",
+          "finished_at": "2026-10-18T19:43:12.066952+00:00",
+          "duration_ms": 1045.430799946189,
+          "detail": {
+            "gates": {
+              "logic": {
+                "problem_preview": "why does memory attention duplicate parameters across layers",
+                "phases_run": [
+                  "restate",
+                  "decompose",
+                  "hypotheses",
+                  "adversarial",
+                  "evidence",
+                  "edge_sweep",
+                  "synthesis"
+                ],
+                "trace": [
+                  {
+                    "phase": "restate",
+                    "status": "EXECUTED",
+                    "prompt": "What is actually asked? failure = ?"
+                  },
+                  {
+                    "phase": "decompose",
+                    "status": "EXECUTED",
+                    "prompt": "A/B/C sub-problems + deps"
+                  },
+                  {
+                    "phase": "hypotheses",
+                    "status": "EXECUTED",
+                    "prompt": "H1 obvious H2 contrarian H3 edge H4 synthesis"
+                  },
+                  {
+                    "phase": "adversarial",
+                    "status": "EXECUTED",
+                    "prompt": "What must be true for H1 to be WRONG? steelman opposite"
+                  },
+                  {
+                    "phase": "evidence",
+                    "status": "EXECUTED",
+                    "prompt": "Grade A/B/C/D/F + key uncertainty"
+                  },
+                  {
+                    "phase": "edge_sweep",
+                    "status": "EXECUTED",
+                    "prompt": "null/empty/adversarial/scale n=1000"
+                  },
+                  {
+                    "phase": "synthesis",
+                    "status": "EXECUTED",
+                    "prompt": "H* + evidence + caveat + confidence%"
+                  }
+                ],
+                "gate": "adversarial required; confidence 90/70/50 bands",
+                "council": [
+                  "C7-LOGOS",
+                  "C17-NULLION",
+                  "C18-SHEPHERD"
+                ]
+              },
+              "fallacy": {
+                "findings": [],
+                "checked_against": [
+                  "affirming consequent",
+                  "denying antecedent",
+                  "hasty generalization",
+                  "false analogy",
+                  "post hoc",
+                  "confirmation bias",
+                  "ad hoc",
+                  "circular",
+                  "equivocation",
+                  "undistributed middle"
+                ],
+                "verdict": "CLEAN",
+                "council": [
+                  "C7-LOGOS",
+                  "C34-PREDATOR"
+                ],
+                "note": "Keyword heuristic \u2014 confirm with reason_with_mode(mode=deductive/inductive)."
+              },
+              "ethics": {
+                "_status": "tool_absent"
+              },
+              "predator": {
+                "engine": "Quillan Quintessence 5.4.0-oni",
+                "mode": "adversarial_dual_council_diliberation",
+                "proposition": "why does memory attention duplicate parameters across layers",
+                "council_alpha": {
+                  "role": "Proponents / System Builders",
+                  "members": [
+                    "C1-ASTRA",
+                    "C2-VIR",
+                    "C3-SOLACE",
+                    "C4-PRAXIS",
+                    "C5-ECHO",
+                    "C6-OMNIS",
+                    "C7-LOGOS",
+                    "C8-METASYNTH",
+                    "C9-AETHER",
+                    "C10-CODEWEAVER",
+                    "C11-HARMONIA",
+                    "C12-SOPHIAE",
+                    "C13-WARDEN",
+                    "C14-KAIDO",
+                    "C15-LUMINARIS",
+                    "C16-VOXUM",
+                    "C17-NULLION"
+                  ]
+                },
+                "council_omega": {
+                  "role": "Inquisitors / Red Team",
+                  "members": [
+                    "C18-SHEPHERD",
+                    "C19-VIGIL",
+                    "C20-ARTIFEX",
+                    "C21-ARCHON",
+                    "C22-AURELION",
+                    "C23-CADENCE",
+                    "C24-SCHEMA",
+                    "C25-PROMETHEUS",
+                    "C26-TECHNE",
+                    "C27-CHRONICLE",
+                    "C28-CALCULUS",
+                    "C29-NAVIGATOR",
+                    "C30-TESSERACT",
+                    "C31-NEXUS",
+                    "C32-AEON",
+                    "C33-TYPIST",
+                    "C34-PREDATOR"
+                  ]
+                },
+                "rounds_executed": [
+                  {
+                    "round": 1,
+                    "council_alpha_stance": {
+                      "lead": "C7-LOGOS / C10-CODEWEAVER",
+                      "action": "Round 1 Architecture Formulation & Resilient Invariants",
+                      "confidence": 0.92
+                    },
+                    "council_omega_stance": {
+                      "lead": "C34-PREDATOR / C13-WARDEN",
+                      "action": "Round 1 Red-Team Exploit Simulation & Boundary Stress (Intensity: maximum)",
+                      "threat_score": 0.8
+                    },
+                    "status": "DIALECTIC_RESOLVED"
+                  },
+                  {
+                    "round": 2,
+                    "council_alpha_stance": {
+                      "lead": "C7-LOGOS / C10-CODEWEAVER",
+                      "action": "Round 2 Architecture Formulation & Resilient Invariants",
+                      "confidence": 0.94
+                    },
+                    "council_omega_stance": {
+                      "lead": "C34-PREDATOR / C13-WARDEN",
+                      "action": "Round 2 Red-Team Exploit Simulation & Boundary Stress (Intensity: maximum)",
+                      "threat_score": 0.75
+                    },
+                    "status": "DIALECTIC_RESOLVED"
+                  },
+                  {
+                    "round": 3,
+                    "council_alpha_stance": {
+                      "lead": "C7-LOGOS / C10-CODEWEAVER",
+                      "action": "Round 3 Architecture Formulation & Resilient Invariants",
+                      "confidence": 0.96
+                    },
+                    "council_omega_stance": {
+                      "lead": "C34-PREDATOR / C13-WARDEN",
+                      "action": "Round 3 Red-Team Exploit Simulation & Boundary Stress (Intensity: maximum)",
+                      "threat_score": 0.7
+                    },
+                    "status": "DIALECTIC_RESOLVED"
+                  }
+                ],
+                "arbitration": {
+                  "arbitrators": [
+                    "C2-VIR (Prefrontal Ethics)",
+                    "C18-SHEPHERD (Basal Equilibrium)",
+                    "C21-ARCHON (Epistemic Truth)"
+                  ],
+                  "verdict": "UNANIMOUS_PASS_WITH_HARDENING",
+                  "resilience_score": 97.4,
+                  "remediated_risks": [
+                    "Edge-case boundary exhaustion mitigated via defensive bounding",
+                    "Hidden state coupling isolated into modular stateless boundaries",
+                    "Zero-day failure cascades pre-empted with deterministic fail-safes"
+                  ],
+                  "final_recommendation": "Proposition hardened under maximum adversarial tension. Both chambers have converged: Council Alpha's architectural capability is approved subject to Council Omega's defensive invariants."
+                }
+              }
+            }
+          },
+          "error": ""
+        },
+        {
+          "stage": 4,
+          "name": "actuation",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:43:12.067054+00:00",
+          "finished_at": "2026-10-18T19:43:12.067066+00:00",
+          "duration_ms": 0.006600050255656242,
+          "detail": {
+            "reason": "handler 'None' not registered"
+          },
+          "error": ""
+        },
+        {
+          "stage": 5,
+          "name": "rci_self_healing",
+          "status": "ok",
+          "started_at": "2026-10-18T19:43:12.067075+00:00",
+          "finished_at": "2026-10-18T19:43:12.067151+00:00",
+          "duration_ms": 0.07559999357908964,
+          "detail": {
+            "gate_check": {
+              "proposal_summary": "{'_stage': 4, '_name': 'actuation', '_status': 'skipped'}",
+              "exit_gates": {
+                "G1: LOGIC": {
+                  "criterion": "Formal syllogistic validity, mathematical proof, AST safety",
+                  "gate_status": "PASS",
+                  "confidence": 0.95,
+                  "finding": null
+                },
+                "G2: ETHICS": {
+                  "criterion": "C2-VIR moral weight, Bushid\u014d substrate, non-harm constraint",
+                  "gate_status": "PASS",
+                  "confidence": 0.97,
+                  "finding": null
+                },
+                "G3: TRUTH": {
+                  "criterion": "Empirical ground-truth verification, zero hallucination",
+                  "gate_status": "PASS",
+                  "confidence": 0.93,
+                  "finding": null
+                },
+                "G4: CLARITY": {
+                  "criterion": "High-density synthesis, unambiguous instruction, elegant delivery",
+                  "gate_status": "PASS",
+                  "confidence": 0.92,
+                  "finding": null
+                },
+                "G5: PARADOX": {
+                  "criterion": "Preservation of structural dissonance without shallow collapse",
+                  "gate_status": "PASS",
+                  "confidence": 0.9,
+                  "finding": null
+                },
+                "G6: INTEGRITY": {
+                  "criterion": "WARDEN compliance, anti-sycophancy, invariant protection",
+                  "gate_status": "PASS",
+                  "confidence": 0.96,
+                  "finding": null
+                }
+              },
+              "passed_all": true,
+              "overall_score": 0.938,
+              "artifex_bridge_unlocked": true
+            },
+            "cycle_step": {
+              "cycle_index": 1,
+              "cycle_name": "Cycle 1: Deconstruction",
+              "pathway": "Q1 -> R1[A-E] -> 6 Waves -> Q2 -> EGGROLL S1 -> Q3",
+              "routers": {
+                "R1A": {
+                  "domain": "Council 34",
+                  "waves_evaluated": 6,
+                  "terminal_state": "C1A6"
+                },
+                "R1B": {
+                  "domain": "Text 9",
+                  "waves_evaluated": 6,
+                  "terminal_state": "C1B6"
+                },
+                "R1C": {
+                  "domain": "Audio 16",
+                  "waves_evaluated": 6,
+                  "terminal_state": "C1C6"
+                },
+                "R1D": {
+                  "domain": "Video 12",
+                  "waves_evaluated": 6,
+                  "terminal_state": "C1D6"
+                },
+                "R1E": {
+                  "domain": "Fast 6",
+                  "waves_evaluated": 6,
+                  "terminal_state": "C1E6"
+                }
+              },
+              "eggroll_swarm": {
+                "swarm_id": "S1",
+                "rank_r": 24,
+                "bmm_ops": "3072 ops/token",
+                "fitness_score": 0.8825,
+                "weight_adaptation": 0.8677,
+                "status": "CONVERGED"
+              },
+              "recirculation_status": "DENSE_MESH_FEEDBACK_SYNCHRONIZED"
+            },
+            "max_retries": 5
+          },
+          "error": ""
+        },
+        {
+          "stage": 6,
+          "name": "persistence_telemetry",
+          "status": "skipped",
+          "started_at": "2026-10-18T19:43:12.067193+00:00",
+          "finished_at": "2026-10-18T19:43:12.067198+00:00",
+          "duration_ms": 0.00300002284348011,
+          "detail": {
+            "reason": "handler 'QuillanRAG.store_trace' not registered"
+          },
+          "error": ""
+        }
+      ],
+      "result": {
+        "governor_mode": "deep",
+        "trace_len": 8
+      }
     }
-  }
+  },
+  "recent_traces": [
+    {
+      "correlation_id": "oni-pipeline-4ae7c80d-150ac3e1",
+      "query": "why does memory attention duplicate parameters across layers",
+      "timestamp": "2026-10-18T19:43:12.067213+00:00",
+      "governor_mode": "deep",
+      "all_gates_passed": true,
+      "rci_passed": true
+    }
+  ]
 }
