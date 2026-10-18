@@ -18,6 +18,38 @@ Embodying C10-CODEWEAVER, C25-PROMETHEUS, and C13-WARDEN:
 
 import sys
 import os
+import logging
+import builtins
+
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+# Ensure all logs and prints go strictly to stderr to prevent stdio JSON-RPC corruption
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if "file" not in kwargs or kwargs["file"] is None or kwargs["file"] is sys.stdout:
+        kwargs["file"] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
+
+# --- Unified Cross-Platform PYTHONPATH Injection ---
+_BASE_PATHS = [
+    r"C:\02_QUILLAN\09 - Projects\mcp",
+    r"C:\02_QUILLAN\09 - Projects\projects\oni",
+    r"C:\02_QUILLAN\03 - Training & Model\scripts",
+    r"C:\02_QUILLAN",
+]
+for _bp in _BASE_PATHS:
+    if os.name != "nt":
+        # Translate Windows paths to Linux / WSL container paths
+        if _bp.startswith("C:\\") or _bp.startswith("C:/") or _bp.startswith("C:\"):
+            _bp = "/mnt/c/" + _bp[3:].replace("\\", "/").replace("\", "/")
+    if os.path.exists(_bp) and _bp not in sys.path:
+        sys.path.insert(0, _bp)
+
+
+
+import sys
+import os
 import ast
 import re
 import math

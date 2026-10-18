@@ -1,0 +1,16 @@
+{
+  "version": "5.4.0-oni",
+  "initialized_at": 1792351902.0398426,
+  "total_runs": 1,
+  "active_chains": {},
+  "recent_traces": [
+    {
+      "correlation_id": "oni-pipeline-1792351902-a3631c5e",
+      "timestamp": 1792351902.0411701,
+      "query": "Audit neural routing and optimize memory attention weights",
+      "mode": "deep_path",
+      "all_gates_passed": true,
+      "rci_attempts": 1
+    }
+  ]
+}
