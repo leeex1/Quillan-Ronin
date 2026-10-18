@@ -61,6 +61,7 @@ void main() {
     if (dot(z, z) > 4.0) {
         float log_zn = log(length(z));
         float nu = log(log_zn / log(2.0)) / log(2.0);
+        nu = clamp(nu, 0.0, 2.0);
         smooth_n = n + 1.0 - nu;
     }
     float iter = smooth_n / 64.0;
