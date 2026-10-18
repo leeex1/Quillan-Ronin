@@ -769,6 +769,18 @@ def _weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:
     return (w_scaled + (w_q - w_scaled).detach()) / scale
 
 
+# INT8-style activation quantiser (shared by BitLinear and the batched paths).
+# Depends ONLY on x, never on the weight -- which is what makes it safe to hoist
+# out of a multi-module loop and share across all 9 prism vectors / 34 experts.
+# The STE `.detach()` term is preserved exactly.
+_QUANT_ACT_SUPPORTED = True
+
+
+def _quantize_act(x: torch.Tensor) -> torch.Tensor:
+    scale = 127.0 / x.abs().max(dim=-1, keepdim=True).values.clamp(min=1e-5)
+    return x + ((x * scale).round().clamp(-127, 127) / scale - x).detach()
+
+
 def pack_ternary(x_ternary: torch.Tensor) -> torch.Tensor:
     """
     Branchless 2-bit ternary weight packing {-1, 0, +1} -> uint8 (4 weights per byte).
@@ -943,6 +955,127 @@ class CouncilExpert(nn.Module):
     def forward(self, x: torch.Tensor, gov_scale: float = 1.0) -> torch.Tensor:
         delta = (x @ self.lora_A) @ self.lora_B * self.scaling
         return self.swarm(x + delta, scale=gov_scale)
+
+
+class BatchedCouncilCompute:
+    """C14-KAIDO: vectorised execution of the full 34-expert council.
+
+    Replaces ``for e in range(34): experts[e](flat_x, gov_scale)`` with batched
+    ``einsum`` over stacked ``[E, ...]`` parameters.
+
+    WHY THIS IS EQUIVALENT
+    -----------------------
+    In ``dense_pull`` mode every expert receives the *same* input ``x`` and the
+    only per-expert variation lives in six small matrices. So the 34 sequential
+    launches become 34-way batched GEMMs. Concretely, per expert ``e``::
+
+        delta = ((x @ lora_A) @ lora_B) * scaling
+        h     = x + delta
+        div   = (h @ C) @ D
+        var   = (h @ A) @ B + div * 0.467
+        state = h
+        repeat (1 if training else 3):
+            state = state + coupling * (tanh(state @ A @ B) + noise)
+        return h + var * (0.25 * scale) + (state - h) * 0.1
+
+    Every line maps 1:1 onto a batched einsum below.
+
+    PARITY
+    ------
+    * eval  -> bitwise-equivalent (noise term is exactly 0).
+    * train -> statistically equivalent, NOT bitwise: the swarm draws
+      ``randn_like(state)`` where ``state`` is now ``[E, N, H]`` instead of 34
+      separate ``[N, H]`` draws, so the random stream differs while the
+      distribution is identical.
+
+    NOT an ``nn.Module`` on purpose: it holds a reference to the expert
+    ModuleList but must NOT re-register those parameters a second time.
+    """
+
+    def __init__(self, experts):
+        self.experts = experts
+        self._cache = None
+        self._cache_key = None
+        self.supported = self._check()
+
+    def _check(self) -> bool:
+        """Only CouncilExpert instances with uniform shapes may take the fast path."""
+        try:
+            first = self.experts[0]
+            r_e, r_s = first.lora_A.shape[1], first.swarm.rank
+            for e in self.experts:
+                if e.lora_A.shape != first.lora_A.shape: return False
+                if e.lora_B.shape != first.lora_B.shape: return False
+                if e.swarm.rank != r_s: return False
+                if e.swarm.A.shape[0] != first.lora_A.shape[0]: return False
+                if e.scaling != first.scaling: return False
+            return r_e > 0 and r_s > 0
+        except Exception:
+            return False
+
+    def _stacked(self, dtype):
+        """Stack every expert's parameters into [E, ...] tensors, with caching.
+
+        Cache is keyed on the ``_version`` counter of every source parameter, so
+        an optimizer step (or an external weight load) invalidates it exactly
+        when the weights actually change.
+        """
+        ex = self.experts
+        key = (dtype, len(ex)) + tuple(
+            p._version for e in ex
+            for p in (e.lora_A, e.lora_B, e.swarm.A, e.swarm.B, e.swarm.C, e.swarm.D)
+        )
+        if self._cache_key == key and self._cache is not None:
+            return self._cache
+
+        s = torch.stack
+        A = s([e.swarm.A for e in ex], dim=0).to(dtype)
+        B = s([e.swarm.B for e in ex], dim=0).to(dtype)
+        C = s([e.swarm.C for e in ex], dim=0).to(dtype)
+        D = s([e.swarm.D for e in ex], dim=0).to(dtype)
+        cache = dict(
+            LA=s([e.lora_A for e in ex], dim=0),
+            LB=s([e.lora_B for e in ex], dim=0),
+            A=A, B=B, C=C, D=D,
+            COUP=s([e.swarm.clone_coupling.reshape(()) for e in ex], dim=0)
+                 .to(dtype).view(-1, 1, 1),
+            # clone_diversity is used only via .std().detach() -> a scalar per expert
+            DSTD=s([e.swarm.clone_diversity.detach().std().reshape(()) for e in ex],
+                  dim=0).to(dtype).view(-1, 1, 1),
+            SCAL=float(ex[0].scaling),
+        )
+        self._cache, self._cache_key = cache, key
+        return cache
+
+    def __call__(self, x: torch.Tensor, gov_scale: float, training: bool):
+        """x: [N, H] flat tokens -> [E, N, H] stacked expert outputs."""
+        P = self._stacked(x.dtype)
+        E = N = None
+        # ---- LoRA delta -------------------------------------------------
+        # [N,H] x [E,H,r] -> [E,N,r] -> [E,N,H]
+        t = torch.einsum("nh,ehr->enr", x, P["LA"])
+        delta = torch.einsum("enr,erh->enh", t, P["LB"])       # [E,N,H]
+        h = x.unsqueeze(0) + delta * P["SCAL"]                   # [E,N,H]
+
+        # ---- divergence / variance branch (same A,B used as the swarm) ---
+        dv = torch.einsum("enh,ehr->enr", h, P["C"])
+        dv = torch.einsum("enr,erh->enh", dv, P["D"])
+        vr = torch.einsum("enh,ehr->enr", h, P["A"])
+        vr = torch.einsum("enr,erh->enh", vr, P["B"])
+        var = vr + dv * 0.467                                  # [E,N,H]
+
+        # ---- world-swarm recurrence -------------------------------------
+        state = h
+        for _ in range(1 if training else 3):
+            inter = torch.einsum("enh,ehr->enr", state, P["A"])
+            inter = torch.einsum("enr,erh->enh", inter, P["B"])
+            inter = torch.tanh(inter)
+            if training:
+                inter = inter + torch.randn_like(state) * (P["DSTD"] * gov_scale)
+            state = state + P["COUP"] * inter
+        world = state
+
+        return h + var * (0.25 * gov_scale) + (world - h) * 0.1
 
 
 # (canonical roster defined at top of file â€” C1-C34, Throne-separated)
@@ -2011,14 +2144,23 @@ class CausalSelfAttention(nn.Module):
         if self.use_ma:
             # ArXiv:2609.28399 Memory Attention: Q and K only, W_V eliminated
             self.c_attn = nn.Linear(cfg.hidden_dim, 2 * cfg.hidden_dim)
-            self.token_memory = nn.Embedding(cfg.vocab_size, cfg.hidden_dim)
+            # C14-KAIDO: 12 private [vocab, hidden] tables cost 12 x 50262 x 1024
+            # = 617.6M duplicated parameters. When tie_token_memory is on we
+            # defer to the model's shared wte (see tie_token_memory_to) and keep
+            # only the per-layer mem_norm, which is genuinely layer-specific.
+            self._tie_token_memory = bool(getattr(cfg, "tie_token_memory", True))
+            if not self._tie_token_memory:
+                self.token_memory = nn.Embedding(cfg.vocab_size, cfg.hidden_dim)
+            else:
+                self.token_memory = None  # bound post-construction
             self.mem_norm = nn.RMSNorm(self.head_dim, eps=1e-5)
             self.register_buffer("_folded_memory", None, persistent=False)
             self.is_folded = False
         else:
             self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
-        self.prism = NineVectorPrismDecomposition(cfg.hidden_dim)
+        self.prism = NineVectorPrismDecomposition(cfg.hidden_dim,
+                                                vectorized=bool(getattr(cfg, "vectorized_prism", True)))
         self.attn_dim = self.n_head * self.head_dim
         self.rope = RotaryEmbedding(cfg.head_dim, cfg.max_seq_len * 4)
         self.couil_sparse = cfg.couil_sparse_heads
@@ -2057,6 +2199,24 @@ class CausalSelfAttention(nn.Module):
             return
         self._folded_memory = None
         self.is_folded = False
+
+    def tie_token_memory_to(self, wte: nn.Module) -> bool:
+        """Bind this layer's memory-attention table to the shared wte embedding.
+
+        Prevents the 617.6M duplicate-parameter leak (12 layers x 50262 x 1024).
+        Returns True when the tie is active.
+
+        Note on registration: `wte` now appears under each layer's
+        `_modules['token_memory']`. `named_parameters()` de-duplicates by
+        identity, so optimizers and `.numel()` tallies still see ONE tensor.
+        `state_dict()` keeps the per-layer keys, so older checkpoints load.
+        """
+        if not getattr(self, "use_ma", False):
+            return False
+        if not getattr(self, "_tie_token_memory", False):
+            return False
+        self.token_memory = wte
+        return True
 
     def forward(self, x, token_ids=None, layer_past=None, use_cache=False):
         B, T, C = x.size()
@@ -2185,6 +2345,14 @@ class UnrolledCouncilMoEBlock(nn.Module):
         self.c_proj = nn.Linear(cfg.ffn_dim, cfg.hidden_dim)
         self.moe_gate = nn.Linear(cfg.hidden_dim, 1)
         self.tau = cfg.tau_max
+        # C14-KAIDO: batched council fast path. Plain object (not nn.Module) so
+        # the expert parameters are registered exactly once. Disabled when
+        # EvoMoE is active, since that path has its own heterogeneous kernels.
+        self.vectorized_experts = bool(getattr(cfg, "vectorized_experts", True)) and self.evo_moe is None
+        self._batched_council = BatchedCouncilCompute(self.experts) if self.vectorized_experts else None
+        if self._batched_council is not None and not self._batched_council.supported:
+            self.vectorized_experts = False
+            self._batched_council = None
 
     def set_tau(self, tau: float):
         self.tau = float(max(0.05, min(2.0, tau)))
@@ -2218,29 +2386,41 @@ class UnrolledCouncilMoEBlock(nn.Module):
             else:
                 # FULL-COUNCIL DELIBERATION: all 34 parse every token (Throne pull)
                 pull = self.pull_gate(flat_x, tau=self.tau)              # [BT,34] fp32
-                moe_out = torch.zeros_like(flat_x)
-                _stk = []
-                for e in range(self.cfg.num_experts):
-                    e_dev = next(self.experts[e].parameters()).device
-                    e_inp = flat_x.to(e_dev) if flat_x.device != e_dev else flat_x
-                    try:
-                        e_out = self.experts[e](e_inp, gov_scale)
-                    except TypeError:
-                        e_out = self.experts[e](e_inp)
-                    if e_out.device != flat_x.device:
-                        e_out = e_out.to(flat_x.device)
-                    _stk.append(e_out)
-                    moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
+
+                if self._batched_council is not None:
+                    # ---- C14-KAIDO batched path (34 experts in one GEMM) ----
+                    e_all = self._batched_council(flat_x, gov_scale, self.training)  # [E,BT,H]
+                    if e_all.device != flat_x.device:
+                        e_all = e_all.to(flat_x.device)
+                    # moe_out = sum_e pull[:,e] * e_out  (was an in-loop accumulation)
+                    moe_out = torch.einsum("bt,eth->bth", pull.to(flat_x.dtype), e_all)
+                    _aqcs_v = e_all.mean(dim=0)                          # was stack(_stk,1).mean(0)
+                else:
+                    moe_out = torch.zeros_like(flat_x)
+                    _stk = []
+                    for e in range(self.cfg.num_experts):
+                        e_dev = next(self.experts[e].parameters()).device
+                        e_inp = flat_x.to(e_dev) if flat_x.device != e_dev else flat_x
+                        try:
+                            e_out = self.experts[e](e_inp, gov_scale)
+                        except TypeError:
+                            e_out = self.experts[e](e_inp)
+                        if e_out.device != flat_x.device:
+                            e_out = e_out.to(flat_x.device)
+                        _stk.append(e_out)
+                        moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
+                    _aqcs_v = torch.stack(_stk, dim=1).mean(dim=0)
+                    del _stk
+
                 probs = pull
                 try:
                     # AQCS stage: pooled expert states + pulls stashed for Born
                     # consensus in _aux_losses (pooled = KBs, not GBs).
                     self._aqcs_p = pull.mean(dim=0)
-                    self._aqcs_v = torch.stack(_stk, dim=1).mean(dim=0)
+                    self._aqcs_v = _aqcs_v
                     self._aqcs_m = moe_out.mean(dim=0)
                 except Exception:
                     pass
-                del _stk
                 lb_loss = F.kl_div((r_probs + 1e-10).log(), pull.detach(), reduction="batchmean")
                 entropy = -(probs * torch.log(probs + 1e-10)).sum(dim=-1).mean()
         else:
@@ -2525,6 +2705,15 @@ class QuillanRoninOni(nn.Module):
         nn.init.normal_(self.ingest_gate.weight, mean=0.0, std=0.02)
 
         self.h = nn.ModuleList([UnrolledTransformerBlock(cfg) for _ in range(cfg.n_layer)])
+
+        # C14-KAIDO: bind every layer's memory-attention table to the shared wte.
+        # Must run after self.h exists. Saves 12 x 50262 x 1024 - 617.6M params
+        # when use_memory_attention=True. No-op when that flag is off.
+        self._token_memory_tied = 0
+        for _blk in self.h:
+            _attn = getattr(_blk, "attn", None)
+            if _attn is not None and _attn.tie_token_memory_to(self.wte):
+                self._token_memory_tied += 1
         self.ln_f = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
 
         # Dual Quillan Finalizers + comm gate
