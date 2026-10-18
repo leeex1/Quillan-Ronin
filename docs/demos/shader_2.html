@@ -64,6 +64,7 @@ void main() {
     // Photon ring glow (dual)
     float glow = 0.06 / (abs(r - 0.32) + 0.03);
     glow += 0.03 / (abs(r - 0.55) + 0.02);
+    glow = min(glow, 3.0);
 
     // Relativistic beaming
     float beam = 0.5 + 0.5 * cos(theta - u_time * 0.5);
