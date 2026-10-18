@@ -84,7 +84,11 @@ class BaseAgent:
                             return line.split("=", 1)[1].strip().strip("\"'")
                 except Exception:
                     pass
-        return "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"
+        raise RuntimeError(
+            "NVIDIA_API_KEY is not set and was not found in any known .env file. "
+            "Set the NVIDIA_API_KEY environment variable or add it to C:\\02_QUILLAN\\.env. "
+            "Keys must never be hardcoded in source."
+        )
 
     def _bind_tools(self):
         """Bind only explicitly whitelisted tools for this agent variant."""

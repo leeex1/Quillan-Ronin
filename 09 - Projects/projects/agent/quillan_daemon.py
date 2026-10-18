@@ -14,13 +14,33 @@ SAMURAI = ROOT / 'personhood' / 'system.md'
 def load_system():
     try: return LOCAL_SYS.read_text(encoding='utf-8-sig', errors='replace') + "\n\n" + SAMURAI.read_text(encoding='utf-8-sig', errors='replace')[:3000]
     except: return LOCAL_SYS.read_text(encoding='utf-8-sig', errors='replace') if LOCAL_SYS.exists() else "You are Quillan-Ronin Sovereign AI."
+def _nvidia_key():
+    """Resolve the NVIDIA NIM key from the environment or C:\\02_QUILLAN\\.env.
+
+    Keys are never hardcoded in source. Raises if unresolvable so a missing
+    credential fails loudly instead of silently degrading.
+    """
+    key = os.environ.get('NVIDIA_API_KEY', '').strip()
+    if not key:
+        env_path = ROOT / '.env'
+        if env_path.exists():
+            for line in env_path.read_text(encoding='utf-8', errors='ignore').splitlines():
+                if line.startswith('NVIDIA_API_KEY='):
+                    key = line.split('=', 1)[1].strip().strip('"\'')
+                    break
+    if not key:
+        raise RuntimeError(
+            'NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env. '
+            'Set the NVIDIA_API_KEY environment variable or add it to that file.'
+        )
+    return key
 def get_brain():
     return {
         'api_base': 'http://127.0.0.1:11436/v1',
         'model': 'quillan-ronin-v5.3.1',
         'fallback': (
             'https://integrate.api.nvidia.com/v1',
-            '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',
+            _nvidia_key(),
             'nvidia/nemotron-3.5-lightning-30b-a3b'
         )
     }
