@@ -61,7 +61,7 @@ def discover_all_corpus_files(repo_root: Path) -> List[Path]:
         if d.is_dir():
             for f in d.rglob("*"):
                 if f.is_file() and f.suffix.lower() in [".md", ".txt", ".json"]:
-                    if f.name.endswith(".bin") or ".git" in f.parts or "node_modules" in f.parts:
+                    if f.name.endswith(".bin") or ".git" in f.parts or "node_modules" in f.parts or "7-memories" in f.name.lower():
                         continue
                     try:
                         resolved = f.resolve()

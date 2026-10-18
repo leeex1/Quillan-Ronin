@@ -2392,9 +2392,9 @@ class UnrolledCouncilMoEBlock(nn.Module):
                     e_all = self._batched_council(flat_x, gov_scale, self.training)  # [E,BT,H]
                     if e_all.device != flat_x.device:
                         e_all = e_all.to(flat_x.device)
-                    # moe_out = sum_e pull[:,e] * e_out  (was an in-loop accumulation)
-                    moe_out = torch.einsum("bt,eth->bth", pull.to(flat_x.dtype), e_all)
-                    _aqcs_v = e_all.mean(dim=0)                          # was stack(_stk,1).mean(0)
+                    # moe_out[p,h] = sum_e pull[p,e] * e_all[e,p,h]
+                    moe_out = torch.einsum("pe,eph->ph", pull.to(flat_x.dtype), e_all)
+                    _aqcs_v = e_all.mean(dim=1)                          # was stack(_stk,dim=1).mean(0)
                 else:
                     moe_out = torch.zeros_like(flat_x)
                     _stk = []
