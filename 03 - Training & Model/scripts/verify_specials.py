@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:975fd43d321bf0ecb335c520a9d36ceb525994bc64d8a1c09abbf422076f43b7
-size 481
+import sys
+sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
+from quillan_tokenizer_unified import UnifiedQuillanTokenizer
+tok = UnifiedQuillanTokenizer()
+for s, want in [("<|start|>", 50257), ("<|user|>", 50258),
+                ("<|assistant|>", 50259), ("<|im_start|>", 50260),
+                ("<|im_end|>", 50261)]:
+    ids = tok.encode(s)
+    ok = "SINGLE-OK" if ids == [want] else "FRAGMENT-FAIL"
+    print(f"{s} -> {ids} expect [{want}] {ok}", flush=True)

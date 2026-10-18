@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:20ca6ac1d2cba57090d57cd0e64df9a789ae00ed03813228cb582b891acb53c6
-size 465
+from pathlib import Path
+from huggingface_hub import snapshot_download
+DST = r"C:\02_QUILLAN\scripts\hf_code"
+Path(DST).mkdir(parents=True, exist_ok=True)
+snapshot_download(repo_id="CrashOverrideX/Quillan-Ronin", local_dir=DST,
+                  allow_patterns=["evo_moe.py", "evo_moe_glm.py",
+                                  "modeling_quillan_oni.py", "train_oni.py",
+                                  "reasoning_engine_oni.py"])
+print("CODE2 DONE", flush=True)

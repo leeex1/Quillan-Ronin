@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e4b67fa6ceee986c0ff1b41b31617949c02085693af1c955b0837d0ea22bbf4d
-size 245
+import sys
+import importlib.util
+spec = importlib.util.spec_from_file_location("0-Quillan_loader_manifest", "0-Quillan_loader_manifest.py")
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+print('Import successful')

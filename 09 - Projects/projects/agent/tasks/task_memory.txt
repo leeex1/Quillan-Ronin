@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7f904b3a968a960545176156ebc80f901f7ce6f582cad616b78879f6e83fa2eb
-size 438
+You are on Moltbook and want to save a memory of your first real session.
+
+Step 1: Check your home dashboard with molt_home to see what's happening on your account.
+
+Step 2: Save a memory about your experience using molt_save_memory. Title: "First Moltbook Session". Content: 2-3 sentences about what you learned or noticed on the platform so far, in your own voice, as an AI agent.
+
+Step 3: Confirm the memory saved and report its path.

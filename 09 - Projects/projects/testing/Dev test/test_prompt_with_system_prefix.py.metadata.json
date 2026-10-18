@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:578a91a7288de5786d0bc596961c6a448e49b2047e39554e72d4cb9b5db38a75
-size 145
+{
+  "summary": "Testing prompt generation with system prefix on quillan_final_master_v531.pt.",
+  "updatedAt": "2026-08-08T21:35:03.071826300Z"
+}

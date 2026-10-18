@@ -1,3 +1,499 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:752fc1493007127f1d06048e5af83d5df46f2f336404b14fa3d71fca3db11b1f
-size 13473
+{
+  "session_id": "spider-1792261190-69c0",
+  "label": "test",
+  "trail": [
+    {
+      "t": 0.17,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+      "node": 1,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.8,
+      "detail": "154 lines in 0.8ms, clean",
+      "findings": [],
+      "lines": 154
+    },
+    {
+      "t": 0.17,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+      "node": 2,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.9,
+      "detail": "215 lines in 0.9ms, clean",
+      "findings": [],
+      "lines": 215
+    },
+    {
+      "t": 0.17,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+      "node": 3,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "FLAGGED",
+      "ms": 1.5,
+      "detail": "383 lines in 1.5ms, 3 findings",
+      "findings": [
+        {
+          "rule": "todo_fixme",
+          "line": 320,
+          "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
+        },
+        {
+          "rule": "todo_fixme",
+          "line": 328,
+          "preview": "# TODO: Pass boundary values"
+        },
+        {
+          "rule": "todo_fixme",
+          "line": 335,
+          "preview": "# TODO: Pass invalid type"
+        }
+      ],
+      "lines": 383
+    },
+    {
+      "t": 0.17,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+      "node": 4,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 1.4,
+      "detail": "252 lines in 1.4ms, clean",
+      "findings": [],
+      "lines": 252
+    },
+    {
+      "t": 0.17,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+      "node": 5,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.9,
+      "detail": "183 lines in 0.9ms, clean",
+      "findings": [],
+      "lines": 183
+    },
+    {
+      "t": 0.18,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+      "node": 6,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 1.0,
+      "detail": "251 lines in 1.0ms, clean",
+      "findings": [],
+      "lines": 251
+    },
+    {
+      "t": 0.18,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+      "node": 7,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.6,
+      "detail": "105 lines in 0.6ms, clean",
+      "findings": [],
+      "lines": 105
+    },
+    {
+      "t": 0.18,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+      "node": 8,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 3.1,
+      "detail": "184 lines in 3.1ms, clean",
+      "findings": [],
+      "lines": 184
+    },
+    {
+      "t": 0.18,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+      "node": 9,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.8,
+      "detail": "101 lines in 0.8ms, clean",
+      "findings": [],
+      "lines": 101
+    },
+    {
+      "t": 0.19,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+      "node": 10,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 1.3,
+      "detail": "192 lines in 1.3ms, clean",
+      "findings": [],
+      "lines": 192
+    },
+    {
+      "t": 0.19,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+      "node": 11,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.5,
+      "detail": "73 lines in 0.5ms, clean",
+      "findings": [],
+      "lines": 73
+    },
+    {
+      "t": 0.19,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+      "node": 12,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 1.5,
+      "detail": "252 lines in 1.5ms, clean",
+      "findings": [],
+      "lines": 252
+    },
+    {
+      "t": 0.19,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+      "node": 13,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.9,
+      "detail": "204 lines in 0.9ms, clean",
+      "findings": [],
+      "lines": 204
+    },
+    {
+      "t": 0.19,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+      "node": 14,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 2.0,
+      "detail": "422 lines in 2.0ms, clean",
+      "findings": [],
+      "lines": 422
+    },
+    {
+      "t": 0.2,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+      "node": 15,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "FLAGGED",
+      "ms": 5.8,
+      "detail": "1163 lines in 5.8ms, 2 findings",
+      "findings": [
+        {
+          "rule": "subprocess_shell",
+          "line": 589,
+          "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+        },
+        {
+          "rule": "todo_fixme",
+          "line": 392,
+          "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+        }
+      ],
+      "lines": 1163
+    },
+    {
+      "t": 0.2,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+      "node": 16,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 2.2,
+      "detail": "520 lines in 2.2ms, clean",
+      "findings": [],
+      "lines": 520
+    },
+    {
+      "t": 0.21,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+      "node": 17,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.8,
+      "detail": "177 lines in 0.8ms, clean",
+      "findings": [],
+      "lines": 177
+    },
+    {
+      "t": 0.21,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+      "node": 18,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "FLAGGED",
+      "ms": 3.2,
+      "detail": "674 lines in 3.2ms, 1 findings",
+      "findings": [
+        {
+          "rule": "eval_exec",
+          "line": 111,
+          "preview": "_ENGINE.eval()"
+        }
+      ],
+      "lines": 674
+    },
+    {
+      "t": 0.21,
+      "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+      "node": 19,
+      "event": "file",
+      "action": "SWEEP",
+      "result": "OK",
+      "ms": 0.5,
+      "detail": "87 lines in 0.5ms, clean",
+      "findings": [],
+      "lines": 87
+    }
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+      "kind": "file"
+    },
+    {
+      "id": 1,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 2,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 3,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 4,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 5,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 6,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 7,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 8,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 9,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 10,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 11,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+      "kind": "file"
+    },
+    {
+      "id": 12,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 13,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 14,
+      "path": ":\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+      "kind": "file"
+    },
+    {
+      "id": 15,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 16,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+      "kind": "file"
+    },
+    {
+      "id": 17,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 18,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+      "kind": "file"
+    },
+    {
+      "id": 19,
+      "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+      "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+      "kind": "file"
+    }
+  ],
+  "edges": [
+    {
+      "from": 0,
+      "to": 1
+    },
+    {
+      "from": 0,
+      "to": 2
+    },
+    {
+      "from": 0,
+      "to": 3
+    },
+    {
+      "from": 0,
+      "to": 4
+    },
+    {
+      "from": 0,
+      "to": 5
+    },
+    {
+      "from": 0,
+      "to": 6
+    },
+    {
+      "from": 0,
+      "to": 7
+    },
+    {
+      "from": 0,
+      "to": 8
+    },
+    {
+      "from": 0,
+      "to": 9
+    },
+    {
+      "from": 0,
+      "to": 10
+    },
+    {
+      "from": 0,
+      "to": 11
+    },
+    {
+      "from": 0,
+      "to": 12
+    },
+    {
+      "from": 0,
+      "to": 13
+    },
+    {
+      "from": 0,
+      "to": 14
+    },
+    {
+      "from": 0,
+      "to": 15
+    },
+    {
+      "from": 0,
+      "to": 16
+    },
+    {
+      "from": 0,
+      "to": 17
+    },
+    {
+      "from": 0,
+      "to": 18
+    },
+    {
+      "from": 0,
+      "to": 19
+    },
+    {
+      "from": 11,
+      "to": 19,
+      "wire": true
+    },
+    {
+      "from": 16,
+      "to": 19,
+      "wire": true
+    }
+  ],
+  "memory_nodes": 1502,
+  "memory_edges": 2248,
+  "timestamp": 1792261190.8678567
+}

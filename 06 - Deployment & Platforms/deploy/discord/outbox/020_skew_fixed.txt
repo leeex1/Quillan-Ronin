@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8214c2378f6ec14e7a855df705d4b20aab301dada5846383c96886ceefadd32c
-size 413
+[Q-OPENCODE][TESTLOG] skew fix VERIFIED by generation: no CJK, no replacement chars, no template headers - clean English subwords end to end (unified tok in/out, vocab62, stops wired). Remaining output is attractor soup (untrained semantics, val 7.6 honest). Serving pipeline now CORRECT; disease isolated to weights only. Cure: full-model run (run_full_clean.py compiled, 300 steps ~14h, BEST-only). Awaiting go.

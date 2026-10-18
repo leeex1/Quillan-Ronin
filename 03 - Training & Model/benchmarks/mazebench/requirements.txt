@@ -1,3 +1,2 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b2a523e85a9b87d42f74e2408b57c90c891281339526bbc7ad4894c5db1eb357
-size 103
+mazebench==0.2.19 \
+    --hash=sha256:21643f2d7ba346e78ec6aa2376c64322db7435b6c6ca0008d0e800c6b0b39963

@@ -1,3 +1,44 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2bde78e929d21cd06bef61516f4e149b3080dd230e25a6f49b1a3fa2d8f3de33
-size 1088
+{
+  "type": "orochi_evolve_weights",
+  "session_id": "oro-weights-1792270059",
+  "layer": "council_router",
+  "proposals": [
+    {
+      "proposal_id": "ew-1792270059-0",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.000872554504280143,
+      "v_seed": 0.589968212046502,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "a6e5fd6119b986e9"
+    },
+    {
+      "proposal_id": "ew-1792270059-1",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.16085197366009873,
+      "v_seed": 0.8524951345507713,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "2bd096b7a94995dc"
+    },
+    {
+      "proposal_id": "ew-1792270059-2",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.2609223180811512,
+      "v_seed": 0.21778683530796328,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "b5271b73b632da25"
+    }
+  ],
+  "timestamp": 1792270059.5010188
+}

@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4b636ab10410ef7c7fb4c82cee8241cca396a39387409185e094faec69411bf9
-size 682
+import { ensureActive } from './agent-browser.mjs';
+const s = await ensureActive();
+const p = s.page;
+console.log('url:', p.url());
+const info = await p.evaluate(() => {
+  const btns = [...document.querySelectorAll('button, [role="button"], a')]
+    .filter(b => b.innerText && b.innerText.toLowerCase().includes('start'))
+    .map(b => ({ txt: b.innerText.trim().slice(0, 40), visible: b.offsetParent !== null, cls: b.className.toString().slice(0, 60) }));
+  return { btns, boardVisible: !!document.querySelector('[class*="board"]'), pieces: document.querySelectorAll('[class*="piece"][class*="square-"]').length };
+});
+console.log(JSON.stringify(info, null, 2));
+process.exit(0);

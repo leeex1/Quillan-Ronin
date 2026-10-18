@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:159f6ccee3f257651ae5e78559ef6944c89f10b5bbc5c52d93485461cb829fb2
-size 187
+{
+  "summary": "Master Samurai Alignment SFT script on fully initialized English transformer backbone for true 1000000X speech fluency.",
+  "updatedAt": "2026-08-08T19:20:46.258587700Z"
+}

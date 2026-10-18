@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dc10e6656405a56e0f525ac6bf2e9cf5a889751c78658781a9989c3ba0037e48
-size 5362
+# Academic Paper Dossier #078: Efficient CPU-GPU Collaborative Inference for
+
+- **Filename**: `MoE_CPU_GPU_2512.16473.pdf`
+- **ArXiv Identifier**: `2512.16473`
+- **Document Length**: 8 Pages (41,638 characters)
+- **File Path**: [`C:\02_QUILLAN\10 - Formal Papers\Formal Papers\MoE_CPU_GPU_2512.16473.pdf`](file:///C:/02_QUILLAN/10 - Formal Papers/Formal Papers/MoE_CPU_GPU_2512.16473.pdf)
+
+---
+
+## 1. Abstract & Executive Summary
+> Large Language Models (LLMs) have achieved im- pressive results across various tasks, yet their high computational demands pose deployment challenges, especially on consumer- grade hardware. Mixture of Experts (MoE) models provide an efficient solution through selective activation of parameter subsets, which reduces computation requirements. Despite this efficiency, state-of-the-art MoE models still require substantial memory beyond typical consumer GPU capacities. Traditional offloading methods that transfer model weights between CPU and GPU introduce latency, limiting inference performance. This paper presents a novel CPU-GPU collaborative inference framework that incorporates an expert caching mechanism on the GPU to reduce data transfer requirements and enable faster inference through cache hits. Computations are offloaded to CPU for efficient cache miss handling, which benefits from CPU multithreading optimizations. The evaluations of our frame- work demonstrate performance improvements and highlight the potential of CPU-GPU collaboration to maximize hardware utilization for single-request inference scenarios on consumer- grade systems. The implementation of our framework is available at github.com/elsa-lab/MoE-CPU-GPU-Collaborative-Inference. Index Terms CPU-GPU optimization, LLM Inference, MoE. I.
+
+## 2. Core Problem & Motivation ('Why It Was Created')
+Large language models (LLMs) have demonstrated re- markable effectiveness in addressing diverse real-world chal- lenges [1] [3]. Although increased model sizes have led to improved accuracy, they have also introduced substantial computational challenges. Mixture of Experts (MoE) model
+
+## 3. Proposed Methodology & Mathematical Mechanics
+s that transfer model weights between CPU and GPU introduce latency, limiting inference performance. This paper presents a novel CPU-GPU collaborative inference framework that incorporates an expert caching mechanism on the GPU to reduce data transfer requirements and enable faster inference through cache hits. Computations are offloaded to CPU for efficient cache miss handling, which benefits from CPU multithreading optimizations. The
+
+## 4. Empirical Evaluation & Benchmark Evidence
+s of our frame- work demonstrate performance improvements and highlight the potential of CPU-GPU collaboration to maximize hardware utilization for single-request inference scenarios on consumer- grade systems. The implementation of our framework is available at github.com/elsa-lab/MoE-CPU-GPU-Collaborative-Inference. Index Terms CPU-GPU optimization, LLM Inference, MoE. I.INTRODUCTION Large language models (LLMs) have demonstrated re- markable effectiveness in addressing diverse real-world chal- lenges [1] [3]. Although increased model sizes have led to improved accuracy, they have also introduced substantial computational challenges. Mixture of Experts (MoE) model architectures [4] [10] have emerged as a computationally efficient paradigm that maintains superior performance while substantially reducing inference costs through the activation of sparse experts. For instance, Mixtral 8x7B [6] achieved performance superior to that of LLaMA2-70B [11] across various benchmarks while requiring only one-fifth [6] of the computational resources. In these architectures, the large feed- forward networks (FFNs) within each Transformer block [12] are decomposed into multiple smaller expert models. As depicted in Fig. 1, the large dense FFN is replaced by an MoE layer, wherein the router network determines which experts to activate based on the input data. This selective mechanism forms a fundamental advancement in computational efficiency. *Authors contributed equally. Corresponding author. Accepted by the Asia and South Pacific Design Automation Conference (ASP- DAC), 2026 Expert 1 FFN / MoE Layer Top k (k = 2) Router (Gating Network) Dense Model Mixture of Experts Sum & Norm Expert 2 Expert 3 Expert 4 Expert N Attention Sum & Norm Feed Forward Network Attention Fig. 1: Comparison of dense FFN and MoE layer architectures. Despite reduced computational complexity through sparsity, MoE models encounter memory constraints on consumer- grade hardware (e.g., Mixtral 8x7B requires 80GB of model weights vs RTX 4090 s 24GB capacity). To address this limitation, researchers have proposed various offloading meth- ods that store model weights in CPU memory or SSDs and transfer weight portions to the GPU during computation un- der different strategies [13] [20]. On-demand expert fetching transfers specific experts based on router decisions, yet model weight transfers cannot proceed until router decisions are determined [13], [21]. As a result, prefetching techniques were propos
+
+## 5. Direct Integration into Quillan-Ronin v5.4.0-ONI
+- **Target Module**: `quillan_v5_4_oni.py`
+- **Architectural Role**: Active Parameter Pipeline
+- **Gradient Status**: 100% Active in autograd computational graph.

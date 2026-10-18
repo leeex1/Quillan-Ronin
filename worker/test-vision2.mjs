@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2f605a91793e42e7ea410b0f79d3fea787c9ace6eb44a48cb8292d5a1fd47eba
-size 486
+﻿import { nativeScreenshot } from './agent-browser.mjs';
+import { visionDescribe, loadJSON } from './scanner.mjs';
+const t = Date.now();
+const b64 = await nativeScreenshot();
+console.log('shot ' + b64.length + 'b');
+const sliced = b64.slice(0, 120000);
+console.log('sliced to ' + sliced.length);
+const desc = await visionDescribe(sliced, 'Describe this screen briefly.', loadJSON('settings'));
+console.log('VISION (' + (Date.now()-t) + 'ms): ' + desc.slice(0, 200));
+process.exit(0);

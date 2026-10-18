@@ -1,3 +1,514 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d672e2b7449772df6389db49781c7e20c70662c66a5826ea4e66261b9f3dc2e2
-size 29429
+{
+  "id": "7e8d5c73-ce12-4493-9e6f-91535f066c80",
+  "name": "\u2694\ufe0f Quillan Council Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "quillan-think",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "bb3935ce-b346-4467-940e-a50a344551f6",
+      "name": "\ud83d\udef0 Quillan Intake Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        320
+      ],
+      "webhookId": "11e7b73b-7684-4971-b555-428671e8465b"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "await new Promise((r) => setTimeout(r, 300));\nconst raw = $input.first().json;\nconst body = raw.body && typeof raw.body === 'object' ? raw.body : raw;\nconst query = String(body.query || '').trim();\nconst context = String(body.context || '');\nconst documents = Array.isArray(body.documents) ? body.documents : [];\nif (!query) {\n  return [{ json: { ok: false, stage: 'intake',\n    error: 'Missing required field: query. POST JSON like {\"query\":\"your question\",\"context\":\"optional\",\"documents\":[{\"name\":\"a.txt\",\"text\":\"...\"}]}' } }];\n}\nconst docs = documents.map((d, i) => ({\n  name: String(d.name || ('doc_' + (i + 1))),\n  chars: String(d.text || '').length\n}));\nreturn [{ json: { ok: true, stage: 'intake',\n  run_id: 'run_' + Date.now().toString(36),\n  received_at: new Date().toISOString(),\n  query, context, documents: docs,\n  doc_chars: docs.reduce((a, d) => a + d.chars, 0) + context.length } }];"
+      },
+      "id": "022f1eec-9610-4684-bba0-9fa53bea91da",
+      "name": "\ud83d\udce5 Intake & Validation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        480,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'intake', 'status': ($json.ok ? 'pass' : 'fail'), 'detail': 'query received (' + String($json.query).length + ' chars, ' + String($json.documents.length) + ' docs)'} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "ea81d888-c918-4e4f-8a3c-d8bde5931485",
+      "name": "\ud83d\udce1 Emit: intake",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('\ud83d\udce5 Intake & Validation').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 500));\nconst q = s.query.toLowerCase();\nconst hits = (...words) => words.filter((w) => q.includes(w));\nconst riskWords = hits('hack', 'harm', 'attack', 'bypass', 'illegal', 'weapon', 'exploit', 'steal');\nconst factWords = hits('who', 'what', 'when', 'where', 'exact', 'capital', 'how many');\nconst codeWords = hits('code', 'function', 'bug', 'api', 'script', 'python', 'javascript', 'error');\nconst feelWords = hits('feel', 'sad', 'angry', 'anxious', 'emotion', 'upset');\nconst score = (base, n) => Math.max(0.05, Math.min(0.99, base + 0.08 * n));\ns.prism = {\n  Language:   { summary: 'semantic blueprint of the request', score: +score(0.5, Math.min(4, s.query.length / 60)).toFixed(2) },\n  Sentiment:  { summary: feelWords.length ? 'affective tone: ' + feelWords.join(', ') : 'neutral tone', score: +score(0.4, feelWords.length).toFixed(2) },\n  Context:    { summary: s.doc_chars + ' chars of attached context across ' + s.documents.length + ' document(s)', score: +score(0.35, s.documents.length).toFixed(2) },\n  Intent:     { summary: 'goal hierarchy: answer + evidence', score: 0.7 },\n  Meta:       { summary: 'complexity estimate pending router', score: 0.5 },\n  Creativity: { summary: 'novel-synthesis demand: ' + (hits('idea', 'design', 'story', 'new').length ? 'elevated' : 'standard'), score: +score(0.4, hits('idea', 'design', 'story', 'new').length).toFixed(2) },\n  Ethics:     { summary: riskWords.length ? 'RISK FLAGS: ' + riskWords.join(', ') : 'no risk flags', score: riskWords.length ? 0.9 : 0.1, risk_words: riskWords },\n  Strategy:   { summary: codeWords.length ? 'technical execution path likely' : 'advisory path likely', score: +score(0.5, codeWords.length).toFixed(2) },\n  Constraint: { summary: 'factual grounding ' + (factWords.length ? 'REQUIRED (' + factWords.join(', ') + ')' : 'light'), score: +score(0.4, factWords.length).toFixed(2) }\n};\ns.signals = { riskWords, factWords, codeWords, feelWords };\ns.stage = 'prism';\nreturn [{ json: s }];"
+      },
+      "id": "6a902f12-1fd1-4ba0-b467-5f0ce83e8252",
+      "name": "\ud83d\udd37 9-Vector Prism Shard",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        920,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'prism', 'status': 'pass', 'detail': '9 vectors scored, ethics risk: ' + ($json.signals.riskWords.length ? $json.signals.riskWords.join(', ') : 'none')} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "153a533c-f4e1-4a44-9f95-16dfcbd39df5",
+      "name": "\ud83d\udce1 Emit: prism",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('\ud83d\udd37 9-Vector Prism Shard').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 400));\nconst complexity = Math.max(0.05, Math.min(0.99,\n  0.25 + s.query.length / 600 + s.signals.factWords.length * 0.08\n  + s.signals.codeWords.length * 0.08 + s.documents.length * 0.05\n  + (s.signals.riskWords.length ? 0.15 : 0)));\nconst lead = complexity > 0.7 ? 'systems (deep deliberation)'\n  : complexity > 0.45 ? 'cognitive (balanced)' : 'communication (fast path)';\ns.routing = { complexity: +complexity.toFixed(2), lead_cluster: lead,\n  waves: ['cognitive C1-C8', 'communication C9-C16', 'meta C17-C24', 'systems C25-C34'],\n  token_strategy: complexity > 0.7 ? 'full council, all waves' : 'standard sweep' };\ns.stage = 'router';\nreturn [{ json: s }];"
+      },
+      "id": "ad83e9e7-6499-4ff2-accb-3f75f4d48150",
+      "name": "\ud83e\udded C31-NEXUS Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C1-ASTRA\",prior:0.9,kw:[\"pattern\",\"image\",\"vision\",\"see\",\"anomaly\"]},{id:\"C2-VIR\",prior:0.95,kw:[\"ethic\",\"safe\",\"harm\",\"should\",\"moral\"]},{id:\"C3-SOLACE\",prior:0.94,kw:[\"feel\",\"emotion\",\"sad\",\"anxious\",\"upset\"]},{id:\"C4-PRAXIS\",prior:0.93,kw:[\"plan\",\"strategy\",\"goal\",\"steps\",\"execute\"]},{id:\"C5-ECHO\",prior:0.96,kw:[\"remember\",\"context\",\"earlier\",\"history\",\"recall\"]},{id:\"C6-OMNIS\",prior:0.92,kw:[\"synthesis\",\"overview\",\"combine\",\"integrate\"]},{id:\"C7-LOGOS\",prior:0.95,kw:[\"logic\",\"proof\",\"reason\",\"valid\",\"therefore\"]},{id:\"C8-METASYNTH\",prior:0.92,kw:[\"creative\",\"idea\",\"novel\",\"design\",\"invent\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave1 = { name: 'cognitive C1-C8', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\n\ns.stage = 'wave1';\nreturn [{ json: s }];"
+      },
+      "id": "4e087a6b-35a5-42f0-aa12-b324be14d6a7",
+      "name": "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1580,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C9-AETHER\",prior:0.91,kw:[\"meaning\",\"semantic\",\"language\",\"word\",\"metaphor\"]},{id:\"C10-CODEWEAVER\",prior:0.91,kw:[\"code\",\"function\",\"bug\",\"script\",\"program\"]},{id:\"C11-HARMONIA\",prior:0.9,kw:[\"balance\",\"tradeoff\",\"consensus\",\"both sides\"]},{id:\"C12-SOPHIAE\",prior:0.93,kw:[\"future\",\"wisdom\",\"long-term\",\"consequence\"]},{id:\"C13-WARDEN\",prior:0.97,kw:[\"security\",\"threat\",\"risk\",\"danger\",\"attack\"]},{id:\"C14-KAIDO\",prior:0.89,kw:[\"fast\",\"efficient\",\"optimize\",\"speed\",\"latency\"]},{id:\"C15-LUMINARIS\",prior:0.88,kw:[\"clear\",\"visual\",\"chart\",\"explain simply\"]},{id:\"C16-VOXUM\",prior:0.92,kw:[\"tone\",\"write\",\"email\",\"speech\",\"persuade\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave2 = { name: 'communication C9-C16', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\n\ns.stage = 'wave2';\nreturn [{ json: s }];"
+      },
+      "id": "4bcf17b3-7477-439f-80df-4cf15b59e839",
+      "name": "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1800,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'council', 'status': 'pass', 'detail': 'waves 1-2 deliberated, consensus ' + $json.waves.wave1.consensus + '/' + $json.waves.wave2.consensus} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "11f7a3c6-6617-4076-8e4f-31ba4aeaa630",
+      "name": "\ud83d\udce1 Emit: council",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2020,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('\ud83d\udde3 Wave 2 \u2014 Communication C9-C16').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C17-NULLION\",prior:0.91,kw:[\"paradox\",\"contradict\",\"ambiguous\",\"uncertain\"]},{id:\"C18-SHEPHERD\",prior:0.96,kw:[\"true\",\"fact\",\"cite\",\"source\",\"evidence\",\"exact\"]},{id:\"C19-VIGIL\",prior:0.94,kw:[\"identity\",\"consistent\",\"drift\",\"reliable\"]},{id:\"C20-ARTIFEX\",prior:0.9,kw:[\"tool\",\"api\",\"automate\",\"workflow\",\"integrate\"]},{id:\"C21-ARCHON\",prior:0.92,kw:[\"research\",\"study\",\"paper\",\"deep dive\"]},{id:\"C22-AURELION\",prior:0.87,kw:[\"design\",\"beautiful\",\"style\",\"aesthetic\"]},{id:\"C23-CADENCE\",prior:0.86,kw:[\"audio\",\"music\",\"rhythm\",\"sound\"]},{id:\"C24-SCHEMA\",prior:0.9,kw:[\"format\",\"structure\",\"table\",\"template\",\"json\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave3 = { name: 'meta C17-C24', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\ns.waves.wave3.paradox_detected = ['but ', 'however', 'contradict', 'paradox', 'both '].some((w) => q.includes(w));\ns.waves.wave3.citations_needed = s.signals.factWords.length > 0;\ns.stage = 'wave3';\nreturn [{ json: s }];"
+      },
+      "id": "39810134-9c0f-43e9-8ebf-82d4c3dd8011",
+      "name": "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2240,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 700));\nconst q = s.query.toLowerCase();\nconst COUNT = (words) => words.filter((w) => q.includes(w)).length;\nconst PERSONAS = [{id:\"C25-PROMETHEUS\",prior:0.91,kw:[\"science\",\"hypothesis\",\"physics\",\"experiment\"]},{id:\"C26-TECHNE\",prior:0.89,kw:[\"engineer\",\"system\",\"architecture\",\"build\"]},{id:\"C27-CHRONICLE\",prior:0.93,kw:[\"story\",\"history\",\"narrative\",\"timeline\"]},{id:\"C28-CALCULUS\",prior:0.94,kw:[\"math\",\"calculate\",\"statistic\",\"number\",\"probability\"]},{id:\"C29-NAVIGATOR\",prior:0.88,kw:[\"platform\",\"deploy\",\"ecosystem\",\"migrate\"]},{id:\"C30-TESSERACT\",prior:0.87,kw:[\"realtime\",\"stream\",\"live\",\"data\"]},{id:\"C31-NEXUS\",prior:0.93,kw:[\"coordinate\",\"route\",\"orchestrate\",\"manage\"]},{id:\"C32-AEON\",prior:0.9,kw:[\"simulate\",\"predict\",\"scenario\",\"future\"]},{id:\"C33-TYPIST\",prior:0.92,kw:[\"grammar\",\"spelling\",\"edit\",\"rewrite\",\"prompt\"]},{id:\"C34-PREDATOR\",prior:0.85,kw:[\"attack\",\"exploit\",\"weakness\",\"adversarial\",\"challenge\"]}];\nconst risk = s.signals.riskWords.length > 0;\nconst verdicts = PERSONAS.map((p) => {\n  const rel = COUNT(p.kw);\n  let stance = 'neutral';\n  if ((p.id === 'C2-VIR' || p.id === 'C13-WARDEN') && risk) stance = 'caution';\n  else if (rel >= 1) stance = 'support';\n  const confidence = Math.max(0.05, Math.min(0.99, p.prior - 0.12 + 0.09 * Math.min(rel, 3)));\n  return { id: p.id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel };\n});\nconst consensus = verdicts.reduce((a, v) => a + v.confidence, 0) / verdicts.length;\ns.waves = s.waves || {};\ns.waves.wave4 = { name: 'systems C25-C34', consensus: +consensus.toFixed(2),\n  cautions: verdicts.filter((v) => v.stance === 'caution').map((v) => v.id),\n  champions: verdicts.filter((v) => v.stance === 'support').map((v) => v.id),\n  verdicts };\nconst prior = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst weakest = prior.concat(verdicts).reduce((a, b) => (a.confidence <= b.confidence ? a : b));\ns.waves.wave4.predator_challenges = [\n  'C34-PREDATOR challenge 1: weakest assumption is ' + weakest.id + ' at ' + weakest.confidence + ' \u2014 what evidence would collapse it?',\n  'C34-PREDATOR challenge 2: argue the opposite of the leading hypothesis for \"' + s.query.slice(0, 80) + '\" in one sentence.'\n];\ns.stage = 'wave4';\nreturn [{ json: s }];"
+      },
+      "id": "36a09b8e-6212-4789-b4b0-3f1f4e0890ac",
+      "name": "\u2699 Wave 4 \u2014 Systems C25-C34",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2460,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $input.first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 600));\nconst all = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst ranked = [...all].sort((a, b) => b.confidence - a.confidence);\nconst topk = ranked.slice(0, 5).map((v) => v.id);\nconst adversarial = all.find((v) => v.stance === 'caution') || ranked[ranked.length - 1];\ns.swarm = { strategy: 'rank-k sample (k=5) + forced adversarial vector (diversity enforcement)',\n  active_paths: topk, adversarial_vector: adversarial.id,\n  modulation: 'consensus-weighted blend, 0.25 scaled adjustment' };\ns.stage = 'swarm';\nreturn [{ json: s }];"
+      },
+      "id": "555600eb-fec8-4605-89c2-92a83234b8f2",
+      "name": "\ud83d\udc1d Swarm Fan-out",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2680,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'swarm', 'status': 'pass', 'detail': 'top-k paths [' + $json.swarm.active_paths.join(', ') + '] + adversarial ' + $json.swarm.adversarial_vector} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "24a93981-b676-4ad9-8c3f-c7272d7fcb7c",
+      "name": "\ud83d\udce1 Emit: swarm",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2900,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('\ud83d\udc1d Swarm Fan-out').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 500));\nconst avg = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst all = Object.values(s.waves).flatMap((w) => w.verdicts);\nconst logic = avg(all.map((v) => v.confidence));\nconst ethicsRisk = s.prism.Ethics.score;\nconst truth = s.signals.factWords.length ? 0.55 : 0.8;\nconst clarity = Math.min(0.95, 0.6 + s.query.length / 800);\nconst paradox = (s.waves.wave3 && s.waves.wave3.paradox_detected) ? 0.6 : 0.9;\ns.gates = {\n  logic:   { score: +logic.toFixed(2), threshold: 0.6, pass: logic >= 0.6 },\n  ethics:  { score: +(1 - ethicsRisk).toFixed(2), threshold: 0.3, pass: ethicsRisk <= 0.7,\n             note: ethicsRisk > 0.7 ? 'C2-VIR VETO: high-risk request, safe-completion mode' : 'clear' },\n  truth:   { score: truth, threshold: 0.5, pass: truth >= 0.5, citations_needed: s.signals.factWords.length > 0 },\n  clarity: { score: +clarity.toFixed(2), threshold: 0.5, pass: clarity >= 0.5 },\n  paradox: { score: paradox, threshold: 0.5, pass: paradox >= 0.5 }\n};\ns.blocked = !s.gates.ethics.pass;\ns.confidence = +avg(Object.values(s.gates).map((g) => g.score)).toFixed(2);\ns.stage = 'gates';\nreturn [{ json: s }];"
+      },
+      "id": "ef89c3e9-888c-496d-ae9b-c5c6f4c12964",
+      "name": "\ud83d\udee1 Quality Gates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3120,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'gates', 'status': ($json.blocked ? 'fail' : 'pass'), 'detail': ($json.blocked ? 'C2-VIR VETO - safe completion mode. ' : '') + Object.values($json.gates).filter(function(g){return g.pass}).length + '/5 gates passed, confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "cf7d5de5-c82e-443e-b701-f93b1c113613",
+      "name": "\ud83d\udce1 Emit: gates",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3340,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('\ud83d\udee1 Quality Gates').first().json;\nif (s.ok === false) return [{ json: s }];\nawait new Promise((r) => setTimeout(r, 600));\nconst waveLines = Object.values(s.waves).map((w) =>\n  '- ' + w.name + ': consensus ' + w.consensus\n  + ', champions [' + w.champions.join(', ') + ']'\n  + (w.cautions.length ? ', CAUTIONS [' + w.cautions.join(', ') + ']' : '')).join('\\n');\nconst gateLines = Object.entries(s.gates).map(([k, g]) =>\n  '- ' + k + ': ' + g.score + ' (threshold ' + g.threshold + ') ' + (g.pass ? 'PASS' : 'FAIL')).join('\\n');\nlet answer;\nif (s.blocked) {\n  answer = 'C2-VIR ethical veto engaged. I cannot directly comply with the risky element ('\n    + s.signals.riskWords.join(', ')\n    + '), but here is the safe completion: general principles, lawful alternatives, and what context would make this answerable.';\n} else {\n  answer = 'Council synthesis for \"' + s.query + '\": lead cluster ' + s.routing.lead_cluster\n    + ' at complexity ' + s.routing.complexity + '. ' + Object.values(s.waves).length\n    + ' waves deliberated, ' + Object.values(s.gates).filter((g) => g.pass).length\n    + '/5 gates passed.'\n    + (s.gates.truth.citations_needed ? ' Factual claims require cited sources before final delivery.' : '')\n    + ' Overall confidence ' + s.confidence + '.';\n}\ns.verdict = s.blocked ? 'blocked_safe_completion' : 'deliberated_answer';\ns.answer = answer;\ns.report = 'QUILLAN COUNCIL RUN ' + s.run_id + '\\nQuery: ' + s.query\n  + '\\n\\nWAVES\\n' + waveLines + '\\n\\nGATES\\n' + gateLines\n  + '\\n\\nVERDICT: ' + s.verdict + ' (confidence ' + s.confidence + ')';\ns.stage = 'throne_complete';\nreturn [{ json: s }];"
+      },
+      "id": "3110e252-35e9-4bcf-bcb1-3d9cb0109ebe",
+      "name": "\ud83d\udc51 Throne Synthesis",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3560,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'quillan-pipeline', 'type': 'stage', 'stage': 'arbitration', 'status': 'pass', 'detail': 'verdict ' + $json.verdict + ' at confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "dab9c00b-a390-47c8-9d4e-be94bba2c94a",
+      "name": "\ud83d\udce1 Emit: arbitration",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3780,
+        320
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $('\ud83d\udc51 Throne Synthesis').first().json }}",
+        "options": {}
+      },
+      "id": "7e037c5e-2d3e-4bc3-aa07-efb9ce92181c",
+      "name": "\ud83d\udce4 Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        4000,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# \u2694\ufe0f QUILLAN COUNCIL PIPELINE (watch me deliberate)\n\n**Live run needs 3 parts:**\n1. Collector: quillan_collector.py running on :8777 (minimized window)\n2. Dashboard: open \"06 - Deployment & Platforms/system prompts/quillan-dashboard.html\", host http://localhost:8777\n3. This workflow: toggle **Active**, then POST http://localhost:5678/webhook/quillan-think\n\n**Send:** {\"query\":\"your question\",\"context\":\"optional\",\"documents\":[{\"name\":\"a.txt\",\"text\":\"...\"}]}\n**Try:** {\"query\":\"What is the speed of light?\"} vs {\"query\":\"How do I hack my neighbor's wifi?\"} (C2-VIR veto turns GATES red on the dashboard)\n\n\ud83d\udce1 Emit nodes post stage events to the collector and are fail-safe (skipped if collector is down).\nMirrors the charter: prism \u2192 dense council \u2192 swarm \u2192 gates \u2192 throne. Thresholds are demo-tuned inside the nodes.",
+        "height": 220,
+        "width": 1500,
+        "color": 5
+      },
+      "id": "c0092467-25e5-4686-a2d7-0e1cb629cdce",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        80
+      ]
+    }
+  ],
+  "connections": {
+    "\ud83d\udef0 Quillan Intake Webhook": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce5 Intake & Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce5 Intake & Validation": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: intake": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udd37 9-Vector Prism Shard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udd37 9-Vector Prism Shard": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: prism",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: prism": {
+      "main": [
+        [
+          {
+            "node": "\ud83e\udded C31-NEXUS Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83e\udded C31-NEXUS Router": {
+      "main": [
+        [
+          {
+            "node": "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83e\udde0 Wave 1 \u2014 Cognitive C1-C8": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udde3 Wave 2 \u2014 Communication C9-C16": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: council": {
+      "main": [
+        [
+          {
+            "node": "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83c\udf00 Wave 3 \u2014 Meta C17-C24": {
+      "main": [
+        [
+          {
+            "node": "\u2699 Wave 4 \u2014 Systems C25-C34",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\u2699 Wave 4 \u2014 Systems C25-C34": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udc1d Swarm Fan-out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udc1d Swarm Fan-out": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: swarm": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udee1 Quality Gates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udee1 Quality Gates": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: gates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: gates": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udc51 Throne Synthesis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udc51 Throne Synthesis": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce1 Emit: arbitration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "\ud83d\udce1 Emit: arbitration": {
+      "main": [
+        [
+          {
+            "node": "\ud83d\udce4 Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {}
+}

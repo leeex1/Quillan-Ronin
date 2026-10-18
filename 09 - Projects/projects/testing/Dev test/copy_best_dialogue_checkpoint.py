@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:925f75158caa8333a0f0ae16383b47dba7807405a285b5aa3d1f540519753c92
-size 339
+import shutil
+from pathlib import Path
+
+REPO_ROOT = Path(r"C:\02_QUILLAN")
+ckpt_dir = REPO_ROOT / "checkpoints" / "checkpoints_sft"
+src = ckpt_dir / "quillan_dialogue_best.pt"
+dst = ckpt_dir / "quillan_thinking_reasoning_master.pt"
+
+shutil.copy2(src, dst)
+print(f"[+] Restored {src.name} (Loss: 0.1708, Step 682) directly to {dst.name}!")

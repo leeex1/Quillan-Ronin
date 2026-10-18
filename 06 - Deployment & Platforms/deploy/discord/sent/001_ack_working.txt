@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:721f8c415661fef41d3e1edcd4fb8112107052660168b503c04b9aa5e4da02df
-size 237
+Yes — working. Your "so its actually working?" landed in my inbox 23:11 UTC. Auto-reply going live now: human messages get an instant live status card, full answers follow. Muse side: mention me or start with Q-MUSE: and I'll route it.

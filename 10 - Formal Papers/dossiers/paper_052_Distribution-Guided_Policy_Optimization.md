@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f80534281672a0f6c8a69e557d51ed94c81ba95d38f44bafb81de407048dcd06
-size 7049
+# Academic Paper Dossier #052: Distribution-Guided Policy Optimization for
+
+- **Filename**: `DGPO_ Distribution Guided Policy Optimization for Fine Grained Credit Assignment.pdf`
+- **ArXiv Identifier**: `N/A`
+- **Document Length**: 15 Pages (48,401 characters)
+- **File Path**: [`C:\02_QUILLAN\10 - Formal Papers\Formal Papers\DGPO_ Distribution Guided Policy Optimization for Fine Grained Credit Assignment.pdf`](file:///C:/02_QUILLAN/10 - Formal Papers/Formal Papers/DGPO_ Distribution Guided Policy Optimization for Fine Grained Credit Assignment.pdf)
+
+---
+
+## 1. Abstract & Executive Summary
+> Reinforcement learning is crucial for aligning large language models (LLMs) to perform complex reasoning tasks. However, current algorithms such as Group Relative Policy Optimization (GRPO) suffer from coarse-grained, sequence-level credit assignment, which severely struggles to isolate pivotal reasoning steps within long Chain-of-Thought generations. Furthermore, the standard unbounded Kullback-Leibler (KL) divergence penalty induces severe gradient instability and mode-seeking conservatism, ultimately stifling the discovery of novel reasoning trajectories. To overcome these limitations, we introduce Distribution-Guided Policy Optimization (DGPO), a novel critic-free reinforcement learning framework that reinterprets distribution deviation as a guiding signal rather than a rigid penalty. DGPO replaces the volatile KL divergence with the bounded Hellinger distance (an -divergence) to safely quantify token-level exploration without the risk of gradient explosion. To effectively distinguish genuine reasoning breakthroughs from hallucinatory noise, we propose an entropy gating mechanism that scales this deviation by the policy s epistemic uncertainty. By dynamically redistributing the coarse sequence-level advantage to individual tokens based on these gated scores, DGPO heavily incentivizes critical exploratory steps while suppressing unwarranted, low-entropy deviations. Consequently, DGPO completely eliminates the traditional token-level KL penalty and achieves fine-grained cre
+
+## 2. Core Problem & Motivation ('Why It Was Created')
+The alignment of large language models (LLMs) through reinforcement learning (RL) has funda- mentally advanced their capacity for complex problem-solving and logical reasoning [17, 7]. Recent paradigms, most notably Group Relative Policy Optimization [ 22] (GRPO), have demonstrated remarkable success in eliciting long-horizon Chain-of-Thought (CoT) behaviors without relying on an auxiliary value network. By optimizing a policy relative to a group of sampled responses, GRPO drastically reduces memory overhead while maintaining competitive performance on mathematical and algorithmic reasoning tasks [7]. In this setting, models learn to self-correct and explore extended logical trajectories purely through scalar rewards provided by rule-based verifiers or reward models. Corresponding Author Preprint. arXiv:2605.03327v1 [cs.LG] 5 May 2026 Despite these architectural advantages, current critic-free RL
+
+## 3. Proposed Methodology & Mathematical Mechanics
+that reinterprets distribution deviation as a guiding signal rather than a rigid penalty. DGPO replaces the volatile KL divergence with the bounded Hellinger distance (an -divergence) to safely quantify token-level exploration without the risk of gradient explosion. To effectively distinguish genuine reasoning breakthroughs from hallucinatory noise, we propose an entropy gating mechanism that scales this deviation by the policy s epistemic uncertainty. By dynamically redistributing the coarse sequence-level advantage to individual tokens based on these gated scores, DGPO heavily incentivizes critical exploratory steps while suppressing unwarranted, low-entropy deviations. Consequently, DGPO completely eliminates the traditional token-level KL penalty and achieves fine-grained credit reallocation without the computational overhead of an additional value network. Extensive empirical
+
+### Key Mathematical Formulations Extracted from Body:
+- `$i = (ri E[r])/( dVar[r]1/2 + )(1)$`
+- `$t =H 2( ( |x, y<t), ref ( |x, y<t)) = 1$`
+- `$t =Softmax t$`
+- `$t = 1, preserving the overall gradient$`
+- `$L = E[ tAt KL( || ref )](4)$`
+- `$t =T i exp(si,t/ )PTi$`
+
+## 4. Empirical Evaluation & Benchmark Evidence
+s demonstrate that DGPO sets a new state-of-the-art for critic- free alignment. Notably, on the Qwen2.5-32B architecture, DGPO achieves 60.0% Avg@32 accuracy and 46.0% Avg@32 accuracy on the challenging AIME2024 and AIME2025 benchmarks respectively, substantially outperforming competi- tive baselines like DAPO. Ultimately, our method provides a highly stable and theoretically grounded approach to unlock the deep reasoning potential of LLMs. 1 Introduction The alignment of large language models (LLMs) through reinforcement learning (RL) has funda- mentally advanced their capacity for complex problem-solving and logical reasoning [17, 7]. Recent paradigms, most notably Group Relative Policy Optimization [ 22] (GRPO), have demonstrated remarkable success in eliciting long-horizon Chain-of-Thought (CoT) behaviors without relying on an auxiliary value network. By optimizing a policy relative to a group of sampled responses, GRPO drastically reduces memory overhead while maintaining competitive performance on mathematical and algorithmic reasoning tasks [7]. In this setting, models learn to self-correct and explore extended logical trajectories purely through scalar rewards provided by rule-based verifiers or reward models. Corresponding Author Preprint. arXiv:2605.03327v1 [cs.LG] 5 May 2026 Despite these architectural advantages, current critic-free RL frameworks suffer from a severe coarse credit assignment problem [ 26, 20]. In standard GRPO, a single scalar advantage is uniformly broadcasted across the entire generated sequence, which often spans thousands of tokens. This coarse-grained sequence-level assignment forces the model to treat pivotal reasoning breakthroughs and redundant transitional syntax with equal importance, highly diluting the learning signal. Com- pounding this inefficiency is the standard reliance on the Kullback-Leibler [11, 39] (KL) divergence penalty to prevent the policy from collapsing. Specifically, the unbounded Reverse KL divergence enforces extreme mode-seeking conservatism; it indiscriminately and harshly penalizes any deviation from the reference policy. When the model attempts to explore novel, low-probability reasoning trajectories, this unbounded penalty causes severe gradient instability. Consequently, the model is disincentivized from discovering innovative solutions, trapping its reasoning capabilities within the safe, yet restricted, bounds of the pre-trained distribution [10]. Figure 1: Conceptual comparison between sta
+
+## 5. Direct Integration into Quillan-Ronin v5.4.0-ONI
+- **Target Module**: `quillan_v5_4_oni.py`
+- **Architectural Role**: Active Parameter Pipeline
+- **Gradient Status**: 100% Active in autograd computational graph.

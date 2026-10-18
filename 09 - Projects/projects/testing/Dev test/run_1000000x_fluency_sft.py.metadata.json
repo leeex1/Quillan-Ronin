@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1edf8f494e1e2463ebd778c554c1cd3c2a881d2e7b2d8aa95319b8e5fa177ade
-size 186
+{
+  "summary": "High-learning-rate MoE alignment SFT script using pre-trained English semantic embeddings for 1000000X speech fluency.",
+  "updatedAt": "2026-08-08T18:32:18.008176900Z"
+}

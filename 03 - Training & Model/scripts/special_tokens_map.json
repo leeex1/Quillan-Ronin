@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0296967503cbc1a7542eb1fa63895beeaa6657dc2ee5cecc6a032b7aa61bfcef
-size 282
+{
+  "bos_token": "<|bos|>",
+  "eos_token": "<|endoftext|>",
+  "unk_token": "<|endoftext|>",
+  "pad_token": "<|pad|>",
+  "im_start_token": "<|im_start|>",
+  "im_end_token": "<|im_end|>",
+  "start_token": "<|start|>",
+  "user_token": "<|user|>",
+  "assistant_token": "<|assistant|>"
+}

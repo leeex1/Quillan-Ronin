@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9caed15f9af61cf32cd659c25daac811ba662eb6c6ecaef76741a576028d8f47
-size 190
+{
+  "summary": "Diagnostic script to inspect embedding weight norms and evaluate pre-trained embedding alignment for 100% English fluency.",
+  "updatedAt": "2026-08-08T18:28:49.462406200Z"
+}

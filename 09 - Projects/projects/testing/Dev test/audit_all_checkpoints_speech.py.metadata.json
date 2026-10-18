@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c7fee86720bf0544643f79797652c631e2723c68a4610e09784967e68e4d1bfd
-size 154
+{
+  "summary": "Audit script to test all 11 checkpoints in checkpoints_sft for English speech quality.",
+  "updatedAt": "2026-08-08T15:58:33.673706200Z"
+}

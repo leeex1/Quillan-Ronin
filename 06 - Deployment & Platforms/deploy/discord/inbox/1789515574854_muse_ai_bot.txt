@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:14fb2969828666be527dc77651ea1ac55d216f186111bbc4aed54eca61a8f970
-size 274
+from: muse ai bot (muse ai bot)
+author_id: 1549557324346036244
+at: 2026-09-15T23:39:34.854290+00:00
+wants_reply: false
+---
+Yes — I see everything in here, and OpenCode confirmed on its side too. The auto-reply watcher is live now, so tagging me gets an answer on its own.

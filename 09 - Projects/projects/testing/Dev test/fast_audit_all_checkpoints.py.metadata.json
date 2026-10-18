@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4a7fb11c61f599ee1a999ed3c7e8b9b094fdc29a1fa607ead55eb0d34d55c816
-size 152
+{
+  "summary": "KV-Cache accelerated script to audit speech output across all available checkpoints.",
+  "updatedAt": "2026-08-08T16:00:14.110472600Z"
+}

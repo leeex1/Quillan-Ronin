@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:86490589295e95718b08cdfe8709bbeb8d86daafbc6d31a0f53f47c711bc14ac
-size 435
+#!/usr/bin/env python3
+"""Activate MAIN + report flags. (DB backed up by caller.)"""
+import sqlite3
+import sys
+
+sys.stdout.reconfigure(encoding="utf-8")
+db = sqlite3.connect(r"C:\Users\Admin\.n8n\database.sqlite")
+db.execute("UPDATE workflow_entity SET active=1 WHERE id='EmfoGhyIzSrktmIe'")
+db.commit()
+for name, active in db.execute("SELECT name, active FROM workflow_entity"):
+    print(("ACTIVE " if active else "off    ") + name)

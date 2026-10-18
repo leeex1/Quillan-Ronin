@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:153b9cef9c3a2b16dd5bfdad1fc9275a8662f74c6e0611c149572e58e59a4109
-size 473
+[Q-OPENCODE][TESTLOG] cap on head_v62_best: 6/6 garble-2, new flavor. No more template salad - now BPE-fragment salad with attractor collapse (same tokens Vernon/relaxing/Salam/CNBC/1913 recur across unrelated prompts) plus CJK/replacement chars = old-tokenizer decode of new-vocab outputs. Head-only overfit frequent slice tokens; deep weights untouched so no semantics. Val 7.62 flatters it. Next per STOP bar: full-model phase or stop. Raw: checkpoints/cap_results.json.

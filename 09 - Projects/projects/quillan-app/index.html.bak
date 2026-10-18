@@ -1,3 +1,135 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:832170375892c73a70a44af1893b2bec2380d4ec17760ffd2368d5699e3529d0
-size 7914
+﻿<!doctype html><html><head><meta charset="utf-8"><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:transparent;overflow:hidden;font-family:Consolas,monospace;color:#e8e8ef}
+body{-webkit-app-region:drag}
+#stage{position:absolute;left:0;top:0;width:200px;height:200px;pointer-events:none;-webkit-app-region:drag}
+#stage canvas{width:200px;height:200px;display:block}
+.glow{position:absolute;left:50%;top:50%;width:0;height:0;border-radius:50%;pointer-events:none;transition:all .3s;transform:translate(-50%,-50%)}
+.glow.on{width:120px;height:120px;box-shadow:0 0 45px 14px rgba(124,58,237,.55);background:radial-gradient(circle, rgba(124,58,237,.32), transparent 70%)}
+
+#bubble{position:absolute;left:206px;top:8px;width:300px;max-height:300px;background:rgba(18,18,28,.94);border:1px solid #2a2a3a;border-radius:12px;box-shadow:0 10px 36px rgba(0,0,0,.55);display:none;flex-direction:column;overflow:hidden;-webkit-app-region:no-drag}
+#bubble.open{display:flex}
+#bubble .tail{position:absolute;left:-9px;top:22px;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:11px solid rgba(18,18,28,.94);filter:drop-shadow(-1px 0 0 #2a2a3a)}
+#bubble .msgs{flex:1;overflow:auto;padding:10px;font-size:11.5px;line-height:1.35;max-height:220px}
+#bubble .msgs .msg{margin:6px 0;padding:7px 9px;border-radius:8px;max-width:100%;word-wrap:break-word}
+#bubble .msgs .user{background:#1e3a5f;margin-left:10%;text-align:right;border:1px solid #2a4a6a}
+#bubble .msgs .quillan{background:#1a1a2e;border-left:3px solid #7C3AED}
+#bubble .inputRow{display:flex;gap:6px;padding:8px;border-top:1px solid #2a2a3a;background:rgba(10,10,15,.9)}
+#bubble .input{flex:1;padding:8px 9px;background:#0f0f18;color:#eee;border:1px solid #333;border-radius:7px;font-size:12px;outline:none}
+#bubble .input:focus{border-color:#7C3AED}
+#bubble .send{padding:8px 12px;background:#7C3AED;color:#fff;border:none;border-radius:7px;cursor:pointer;font-weight:600}
+#bubble .send:active{transform:scale(0.97)}
+
+#controls{position:absolute;right:4px;top:4px;display:flex;gap:4px;opacity:.55;-webkit-app-region:no-drag}
+#controls:hover{opacity:1}
+#controls button{background:rgba(20,20,30,.85);border:1px solid #333;color:#aaa;font-size:10px;padding:3px 6px;border-radius:6px;cursor:pointer}
+#controls button:hover{color:#fff;border-color:#7C3AED}
+#controls button.active{background:#7C3AED;color:#fff;border-color:#7C3AED}
+#controls .mini{font-size:11px;padding:2px 6px}
+#hint{position:absolute;left:6px;bottom:4px;font-size:9px;color:#666;pointer-events:none}
+#musicBar{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,#7C3AED,#ff6b35);transition:width .12s;-webkit-app-region:no-drag}
+</style></head><body>
+<div id="stage"><div class="glow" id="glow"></div></div>
+<div id="bubble"><div class="tail"></div><div class="msgs"></div><div class="inputRow"><input class="input" placeholder="ask JDXX or Quillan..." /><button class="send">Send</button></div></div>
+<div id="controls">
+  <button class="avatarBtn" data-avatar="jdxx">JDXX</button>
+  <button class="avatarBtn" data-avatar="quillan">Quillan</button>
+  <button id="btnDance" title="Dance (Ctrl+Shift+D)">💃</button>
+  <button id="btnDesk" title="Pull desk — help me code (Ctrl+Shift+H)">🪑</button>
+  <button id="btnChill" title="Chill">😎</button>
+  <button id="btnHide" class="mini" title="Dismiss — summon from tray / Ctrl+Q">—</button>
+</div>
+<div id="hint">drag me • Ctrl+Q summon • right-click tray for more</div>
+<div id="musicBar"></div>
+<script>
+const fs = require("fs");
+const path = require("path");
+const LOGFILE = path.join("C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode", "renderer.log");
+function rlog(msg){ try{ fs.appendFileSync(LOGFILE, new Date().toISOString()+" "+msg+"\n"); }catch(e){} console.log(msg); }
+window.onerror = (m,s,l,c)=>{ rlog("[window.onerror] "+m+" @ "+s+":"+l+":"+c); };
+window.addEventListener("unhandledrejection", e=>{ rlog("[unhandledrejection] "+e.reason); });
+
+const { ipcRenderer } = require("electron");
+rlog("renderer script start");
+const avatar = require("./src/avatar.js");
+rlog("avatar.js required OK");
+const bubble = require("./src/bubble.js");
+const llm = require("./src/llm.js");
+const behaviors = require("./src/behaviors.js");
+
+const stage = document.getElementById("stage");
+const glow = document.getElementById("glow");
+
+avatar.init(stage).then(()=> rlog("avatar.init resolved")).catch(e=> rlog("[avatar] init fail "+e.message+" "+(e.stack||"")));
+bubble.init();
+rlog("bubble.init done");
+
+document.querySelectorAll(".avatarBtn").forEach(b=>{
+  b.addEventListener("click", ()=> avatar.show(b.dataset.avatar));
+});
+
+// default to quillan (your ronin), jdxx is you
+avatar.show("quillan");
+rlog("avatar.show(quillan) called");
+
+bubble.onInput((val)=>{
+  const v = val.trim();
+  if(!v) return;
+  bubble.append("You", v, "user");
+  bubble.clearInput();
+  // detect intents locally for instant avatar feedback
+  const low = v.toLowerCase();
+  if(low.includes("dance") || low.includes("music") || low.includes("play")){ avatar.setState("dance"); bubble.append("Quillan", "bet — putting on a show 💃", "quillan"); setTimeout(()=> avatar.setState("idle"), 6000); return; }
+  if(low.includes("chill") || low.includes("hang")){ avatar.setState("chill"); bubble.append("Quillan", "chillin beside you 😎", "quillan"); return; }
+  if(low.includes("help") || low.includes("code") || low.includes("desk") || low.includes("fix")){ avatar.setState("desk"); bubble.append("Quillan", "pulled the desk — what are we fixing?", "quillan"); }
+  else { avatar.setState("think"); glow.classList.add("on"); }
+  llm.send(v);
+});
+
+llm.setHandler((txt)=>{
+  glow.classList.remove("on");
+  bubble.append("Quillan", txt, "quillan");
+  // lip sync while bubble has new text
+  avatar.setState("talk");
+  setTimeout(()=> avatar.setState(txt.toLowerCase().includes("desk") || txt.toLowerCase().includes("code") ? "desk" : "idle"), 1400);
+});
+
+// bubble toggle: click avatar to open/close (avatar stage is transparent, so we catch clicks on stage parent)
+stage.style.pointerEvents = "auto";
+stage.addEventListener("click", ()=> bubble.toggle());
+stage.addEventListener("dblclick", ()=> avatar.setState("dance"));
+
+// controls
+document.getElementById("btnDance").addEventListener("click", ()=>{ avatar.setState("dance"); setTimeout(()=> avatar.setState("idle"), 5000); });
+document.getElementById("btnChill").addEventListener("click", ()=> avatar.setState(avatar.getState()==="chill"?"idle":"chill"));
+document.getElementById("btnDesk").addEventListener("click", ()=> avatar.setState(avatar.getState()==="desk"?"idle":"desk"));
+document.getElementById("btnHide").addEventListener("click", ()=> ipcRenderer.send("hide-window"));
+
+// ipc from tray / hotkeys
+ipcRenderer.on("behave", (_e, name)=> avatar.setState(name));
+ipcRenderer.on("avatar", (_e, name)=> avatar.show(name));
+
+// wander + window walk loop
+behaviors.startBehaviors(avatar, bubble);
+
+// music bar fake visualizer when dancing (replace with real audio analyser later)
+let barRAF = null;
+function viz(on){
+  const bar = document.getElementById("musicBar");
+  if(!on){ bar.style.width="0%"; if(barRAF) cancelAnimationFrame(barRAF); return; }
+  let t=0;
+  (function loop(){
+    t+=0.14;
+    bar.style.width = (28 + Math.abs(Math.sin(t))*42 + Math.abs(Math.sin(t*1.7))*18) + "%";
+    barRAF = requestAnimationFrame(loop);
+  })();
+}
+// hook dance state to viz
+let _setState = avatar.setState;
+avatar.setState = (s)=>{ _setState(s); viz(s==="dance"); glow.classList.toggle("on", s==="think"||s==="talk"); if(s==="dance") setTimeout(()=>{ avatar.setState("idle"); viz(false); }, 6500); };
+
+// expose for sprite-sheet mode later: window.setAvatarFrames(frames) etc.
+window.avatar = avatar; window.bubble = bubble;
+rlog("renderer script end");
+</script></body></html>
+

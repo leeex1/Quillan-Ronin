@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:48b4d1cc040d1aff21b5aa07cf389bb021253a6ed64ba7b8ec7239ae689d7a2c
-size 141
+{
+  "summary": "Transcribe local audio and video files using whisper into training corpus",
+  "updatedAt": "2026-08-01T08:57:29.576894100Z"
+}

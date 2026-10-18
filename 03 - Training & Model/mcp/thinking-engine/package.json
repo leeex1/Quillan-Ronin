@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:76c347a8a98bbb4941e75c04c4a6ea99970ca71363b4eba154b2b8ab2e373ef8
-size 141
+{"name":"quillan-thinking-engine","version":"1.0.0","type":"module","main":"index.js","dependencies":{"@modelcontextprotocol/sdk":"^1.31.0"}}

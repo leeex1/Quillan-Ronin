@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:518d823e15520ef89aa528d440fa8cb913416ed9462208288be608c457521814
-size 718
+{"id": "be2de7ea-e691-48ee-a26f-d3683d6bdd39", "name": "file-access-probe2", "nodes": [{"parameters": {}, "id": "12502984-3679-421d-8fc2-fad0cf0ca355", "name": "Manual Trigger", "type": "n8n-nodes-base.manualTrigger", "typeVersion": 1, "position": [240, 300]}, {"parameters": {"operation": "read", "fileSelector": "C:/Users/Admin/.n8n/quillan-files/council-identities.json", "options": {}}, "id": "b7bec7d1-107f-42ef-9d91-7376eb4a3baa", "name": "Read Probe", "type": "n8n-nodes-base.readWriteFile", "typeVersion": 1.1, "position": [460, 300]}], "connections": {"Manual Trigger": {"main": [[{"node": "Read Probe", "type": "main", "index": 0}]]}}, "settings": {"executionOrder": "v1"}, "staticData": null, "pinData": {}}

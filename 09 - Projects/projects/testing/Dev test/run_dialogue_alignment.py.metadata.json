@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a3a33fc99c91f1c012a94743f7b6d7332945d7d945f9976c80e2d571bc9a2d11
-size 215
+{
+  "summary": "Fast dialogue SFT alignment script to align Quillan-Ronin v5.3.1 34-expert model on Samurai seed dialogue data for full fluent sentence generation.",
+  "updatedAt": "2026-08-08T16:36:07.561363900Z"
+}

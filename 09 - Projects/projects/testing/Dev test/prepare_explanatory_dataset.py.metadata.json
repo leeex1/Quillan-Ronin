@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3aaa73572421f53f07f77673cba8298c422dd9167d657c4dff714f19a87269f9
-size 153
+{
+  "summary": "Fixed prepare_explanatory_dataset.py string escaping for multiline python code block.",
+  "updatedAt": "2026-08-08T23:16:02.085491600Z"
+}

@@ -1,3 +1,52 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c117176623bd66f294885e2c1a2f9eab6eb0af6b87dc4a16e6b2e8ff4f98cc5e
-size 2033
+"""
+Quillan Agent Registry & Orchestration Bus
+==========================================
+Manages lifecycle, capabilities, and cross-agent delegation dispatching
+across C0-QUILLAN Core and all 34 Council Chambers (C1 - C34).
+"""
+
+from typing import Dict, List, Any, Optional
+from .base import BaseAgent, AgentResponse
+from .variants import AGENT_VARIANTS, get_agent, list_variants
+
+class AgentRegistry:
+    def __init__(self, api_key: Optional[str] = None):
+        self.api_key = api_key
+        self._cache: Dict[str, BaseAgent] = {}
+
+    def get(self, name: str) -> BaseAgent:
+        clean = name.lower().strip()
+        if clean not in self._cache:
+            self._cache[clean] = get_agent(clean, api_key=self.api_key)
+        return self._cache[clean]
+
+    def list_all(self) -> List[Dict[str, Any]]:
+        return list_variants()
+
+    def dispatch(self, agent_name: str, task: str) -> AgentResponse:
+        """Dispatch a specific task to an individual chamber or agent."""
+        agent = self.get(agent_name)
+        return agent.run(task)
+
+    def deliberate(self, task: str, chamber_ids: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
+        """
+        Execute Top-4 Council Deliberation:
+        Routes across core cognitive pillars:
+        C1-ASTRA (Pattern Eye), C7-LOGOS (Logic Razor), C2-VIR (Moral Spine), and C10-CODEWEAVER (Execution).
+        """
+        chambers = chamber_ids or ["c1", "c7", "c2", "c10"]
+        deliberations = {}
+        for c in chambers:
+            deliberations[c] = self.dispatch(c, task)
+        return deliberations
+
+    def broadcast(self, task: str, agent_names: Optional[List[str]] = None) -> Dict[str, AgentResponse]:
+        """Run multiple agents across a shared prompt and collect perspectives."""
+        targets = agent_names or ["c0", "c1", "c2", "c7", "c10", "c34"]
+        results = {}
+        for name in targets:
+            results[name] = self.dispatch(name, task)
+        return results
+
+# Default singleton instance
+default_registry = AgentRegistry()

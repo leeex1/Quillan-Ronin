@@ -1,3 +1,28 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d23f4f97fd3151decf0103a1e7ff518ad899f3e0ea0ff376c949964f9e29e310
-size 629
+from pygame.time import get_ticks
+
+class Timer:
+	def __init__(self, duration, repeat = False, autostart = False, func = None):
+		self.duration = duration
+		self.start_time = 0
+		self.active = False
+		self.repeat = repeat
+		self.func = func
+		if autostart:
+			self.activate()
+
+	def activate(self):
+		self.active = True
+		self.start_time = get_ticks()
+
+	def deactivate(self):
+		self.active = False
+		self.start_time = 0
+		if self.repeat:
+			self.activate()
+
+	def update(self):
+		if self.active:
+			current_time = get_ticks()
+			if current_time - self.start_time >= self.duration:
+				if self.func: self.func()
+				self.deactivate()

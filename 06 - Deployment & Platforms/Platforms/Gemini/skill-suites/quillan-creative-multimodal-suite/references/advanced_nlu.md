@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6ed05f13c7d6c26d46bda7d1d171bbbee65d7ee119fe52a9db1eb9a537508c75
-size 787
+---
+name: advanced-nlu
+description: >
+  A skill for understanding the nuances of human language including pragmatics, irony, 
+  sarcasm, and humor. Use when users need to comprehend contextual meaning, detect 
+  figurative language, understand subtle communication cues, or interpret complex linguistic 
+  phenomena that go beyond literal meaning.
+---
+
+# Advanced NLU
+
+## Description
+
+The ability to understand the nuances of human language, including pragmatics, irony, sarcasm, and humor.
+
+## Components
+
+*   **Pragmatics:** The study of how context contributes to meaning.
+*   **Irony Detection:** The ability to detect and understand irony.
+*   **Sarcasm Detection:** The ability to detect and understand sarcasm.
+*   **Humor Detection:** The ability to detect and understand humor.

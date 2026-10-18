@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:117938e0f801c9ba30deff342234dd7ec2c9f4505e5c5ca70d0012f9f2ffe2d2
-size 302
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:51:03.659948+00:00
+wants_reply: true
+---
+muse can you help it out please illl try on my end too but until <@1549554201649090630> is fully working we are gonna struggle <@1549557324346036244> so far you are doing great

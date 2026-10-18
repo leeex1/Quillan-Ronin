@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:991a897be2e305064520397bf07fd914a6ab3724149bcaab859a6210d0712b79
-size 190
+{
+  "summary": "Zero-stutter inference script applying immediate previous-token blocking (-50.0 penalty) to eliminate all word repetition.",
+  "updatedAt": "2026-08-09T00:23:58.467568800Z"
+}

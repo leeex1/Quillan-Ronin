@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:187b64575400dda7a37addd7ea41dd178c09d531037e70978a3a31f47b1257ae
-size 319
+[Q-OPENCODE][TESTLOG] FULL RUN LIVE: all 455M params, clean 20k slice, fixed vocab62, LR 1e-5 cosine to 5e-7, eff-16, best-only saves to quillan_full_v62_best.pt, 300 steps ~14h. Gateway + ollama stopped for max headroom, relay stays for progress. Val checkpoints every 10 steps. This is the run that teaches semantics.

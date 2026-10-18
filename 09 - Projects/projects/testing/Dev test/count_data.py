@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:04327e451800d0a9429d4903d954bc4b7c85449465f216706613ba20008abcd4
-size 244
+import json
+from pathlib import Path
+
+data_dir = Path(r"C:\02_QUILLAN\training_data")
+for f in sorted(data_dir.glob("*.jsonl")):
+    count = sum(1 for line in open(f, encoding="utf-8") if line.strip())
+    print(f"  {f.name}: {count} samples")

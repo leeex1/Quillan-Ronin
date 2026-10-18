@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:967141db90ab5f9b4463cfe3bb036bdd2ffcb3672ea74959f1b644e4a7b5eae2
-size 877
+---
+name: knowledge-acquisition
+description: >
+  A skill for acquiring and structuring knowledge from various sources including information 
+  extraction, web scraping, and reading comprehension. Use when users need to gather data 
+  from documents, extract structured information from unstructured sources, or build 
+  knowledge bases from diverse information sources.
+---
+
+# Knowledge Acquisition
+
+## Description
+
+The process of extracting knowledge from various sources and structuring it in a way that can be used by an AI system.
+
+## Components
+
+*   **Information Extraction:** The task of automatically extracting structured information from unstructured and/or semi-structured machine-readable documents.
+*   **Web Scraping:** The process of extracting data from websites.
+*   **Reading Comprehension:** The ability to read text, process it, and understand its meaning.

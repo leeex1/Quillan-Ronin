@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d2924bd64daf6c3ce7f188765ce050dccccbe3ba73bbef2858af6df3a2515cb9
-size 157
+{
+  "summary": "Updated init_full_semantic_backbone.py to match 1020-dim CouilAttention head projections.",
+  "updatedAt": "2026-08-08T19:19:33.085497300Z"
+}

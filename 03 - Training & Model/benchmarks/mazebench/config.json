@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:76bf2f85d6c79effa2cd668732c21e508d4686ea7dc0979f30f22c7bbde9106b
-size 252
+{
+  "package": "mazebench",
+  "version": "0.2.19",
+  "mode": "json",
+  "level": "CxD",
+  "max_moves": 200,
+  "max_seconds": 1800,
+  "max_observation_bytes": 1048576,
+  "artifacts_dir": "benchmarks/mazebench/artifacts",
+  "allow_python_solver": false
+}

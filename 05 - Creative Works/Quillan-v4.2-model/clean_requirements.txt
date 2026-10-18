@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d3d03b9ec27e52dd675da257f24590319e71596cdd207e2aeca30f63271abb56
-size 102
+numpy
+pandas
+torch
+transformers
+matplotlib
+scikit-learn
+flask
+fastapi
+pygame
+pipreqs
+jupyter
+notebook

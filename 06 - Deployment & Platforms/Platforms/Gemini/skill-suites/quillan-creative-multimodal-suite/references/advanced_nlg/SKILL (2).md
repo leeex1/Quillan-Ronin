@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c660a35f04806003af3ce19b96c061bff5a13f8b146614b5b7791606a2736c8e
-size 1069
+---
+name: advanced-nlg
+version: 2.0.0
+description: >
+  A skill for generating sophisticated and creative human language including storytelling,
+  creative writing, and argumentation. Covers text generation, summarization, paraphrasing,
+  storytelling, argumentative writing, technical writing, and creative writing.
+tags: [nlg, writing, storytelling, argumentation, content-generation]
+council: [C16-VOXUM, C33-TYPIST, C27-CHRONICLE]
+sub_skills: [text-generation, summarization, paraphrasing, storytelling, argumentative-writing, technical-writing, creative-writing]
+difficulty: intermediate
+last_updated: 2026-05-24
+---
+
+## Connections
+- [[Skills/skills-master.md]]
+- [[Skills/Quillan Skills Compendium.md]]
+- [[advanced_nlg.md]]
+- [[argumentative-writing.md]]
+- [[creative-writing.md]]
+- [[paraphrasing.md]]
+- [[storytelling.md]]
+- [[summarization.md]]
+- [[technical-writing.md]]
+- [[text-generation.md]]
+- [[Skills/skills-master.md]]
+- [[00 - Meta/04 - Skills & Capabilities.md]]
+- [[00 - Meta/04 - Skills & Capabilities.md]]
+- [[system prompts/Quillan-Samurai.md]]

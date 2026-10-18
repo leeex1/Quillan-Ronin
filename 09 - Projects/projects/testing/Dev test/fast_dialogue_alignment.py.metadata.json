@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6d7bb773ba9c99eaa442b694ff849bee0098dda316f840cd2d1892fee8d2ba52
-size 164
+{
+  "summary": "Fast 40-step Dialogue Target-Masked SFT alignment script for rapid sentence fluency convergence.",
+  "updatedAt": "2026-08-08T16:38:23.025008900Z"
+}

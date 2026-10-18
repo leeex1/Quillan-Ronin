@@ -1,3 +1,270 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8eb2607a557aacd27acf4155c8af4bff712899eed1b6f678f9746ced2c131df6
-size 4702
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Virtual environments
+venv*/
+env*/
+.venv*/
+
+# Node modules and build packages
+node_modules/
+mcp/**/node_modules/
+package-lock.json
+
+# Model weights, tensors & checkpoints (Large Binaries) — NEVER push (6GB checkpoint protection)
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.onnx
+checkpoints/
+exports/
+
+# Training datasets & binary caches
+training_data/
+training_logs/
+scratch/
+*.arrow
+*.parquet
+*.lancedb/
+*.jsonl
+*.csv
+*.tex
+
+# Large Media Binaries - Videos always ignored (too large for git)
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.webm
+*.wmv
+*.zip
+*.tar
+*.gz
+*.pptx
+
+# Runtime logs & temp dumps
+*.log
+*.bak*
+benchmark_results.json
+hardware_check_results.json
+evaluation_results.json
+watchdog_state.json
+test_out.txt
+file_list.txt
+*File Index.md
+quillan-sovereign-skills-and-swarm/
+quillan-knowledge-base/
+09 - Projects/projects/MCP-DevKit/
+
+# Large backup & scrap workspaces — OLD paths
+Book Series/BACKUP*/
+Book Series/temp/
+Book Series/Expanded Chapters/
+Book Series/finished drafts/
+Quillan-v4.2-model/
+_archive/
+_config/
+_dev/
+_projects/
+agent/
+02_Projects/
+
+# IDE & system cache folders — keep local only
+.agents/
+.antigravity/
+.antigravity-ide/
+.claude/
+.codeium/
+.devcontainer/
+.devin/
+.gemini/
+.obsidian/
+.vscode-shared/
+.windsurf/
+.vscode/
+.idea/
+.codeium/
+quillan_memory/
+
+# Personal & Private Files - NEVER commit
+*resume*
+*Resume*
+*curriculum vitae*
+*cover letter*
+*Cover Letter*
+_config/Resume markdown.md
+_config/resume*
+testing/Dev test/check_resume_status.py
+
+# Oversized files (>100MB) - keep local only
+*.msi
+*.exe
+
+# Game beta clients - NDA protected, NEVER commit
+Soulframe*
+soulframe*
+*beta*client*
+*game*installer*
+
+# NFT design images - excluded
+*NFT designs*
+*nft_design*
+*NFT*
+
+# Security, Credentials, and Local Profiles
+.env
+.env.*
+*.key
+*.pem
+*.token
+*.secret
+client_secret*.json
+google_oauth*.json
+*.crl-set
+worker/agent-profile/
+worker/data/
+quillan_rag_db/
+vscode-copilot-extension/
+extension/
+worker/node_modules/
+
+# Web Portal Assets (Always Tracked for GitHub Pages)
+!assets/**
+!docs/**
+!demos/**
+!audio/**
+!gallery/**
+!images/**
+!main-images/**
+!06_Media/**
+!nn_visualizer.html
+!nft_data.json
+!.nojekyll
+
+# === QUILLAN 01-10 VAULT — ALWAYS TRACK (override ignores above) ===
+!01 - Core Architecture/**
+!02 - Knowledge Foundation/knowledge/canonical/**
+!02 - Knowledge Foundation/*.md
+!03 - Training & Model/src/**
+!04 - Skills & Capabilities/**
+!05 - Creative Works/**
+!06 - Deployment & Platforms/Platforms/**
+!07 - Memory & LanceDB/sessions/**
+!07 - Memory & LanceDB/*.md
+!08 - Templates & Config/**
+!09 - Projects/projects/**
+!10 - Formal Papers/**
+!knowledge/canonical/**
+!.github/**
+!.gitattributes
+!.gitignore
+
+# Re-ignore caches & legacy duplicates INSIDE vault (even though vault is allowed)
+**/__pycache__/**
+**/venv/**
+**/.venv/**
+**/node_modules/**
+**/offload/**
+**/csrc/build/**
+**/*.pt
+**/*.pth
+**/*.safetensors
+**/*.bin
+**/*.gguf
+**/*.arrow
+**/*.parquet
+**/*.jsonl
+**/*.mp4
+**/*.mkv
+**/*.avi
+**/*.mov
+**/*.webm
+**/*.zip
+**/*.tar
+**/*.gz
+**/*.exe
+**/*.msi
+**/checkpoints/**
+**/exports/**
+**/training_data/**
+**/training_logs/**
+**/*Soulframe*
+**/*soulframe*
+**/*.lancedb/**
+**/quillan_memory/**
+**/Book Series/*.mp3
+**/Book Series/BACKUP*/**
+02 - Knowledge Foundation/knowledge/legacy/**
+09 - Projects/projects/**/BACKUP*/
+**/.devin/**
+**/.claude/**
+**/.agents/**
+**/.gemini/**
+**/.gitnexus/**
+**/.obsidian/**
+**/.vscode/**
+**/.vscode-shared/**
+**/.windsurf/**
+**/.codeium/**
+**/_config/**
+**/_projects/**
+**/_archive/**
+**/_dev/**
+**/warframe models/**
+**/*resume*
+**/*Resume*
+**/*cover letter*
+**/*Cover Letter*
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.secret
+09 - Projects/projects/quillan_quantum_ide/
+09 - Projects/projects/Nextverse-protype-app--main/
+09 - Projects/projects/extension/
+09 - Projects/projects/worker/
+09 - Projects/projects/testing/Validation-test-kit/
+09 - Projects/projects/testing/Quillan-Ronin-chrome-extension/
+09 - Projects/projects/Metamon-Survival-Rogue/
+09 - Projects/projects/Metamon-Survival-Rogue_dup/
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3
+**/quillan_rag_db/**
+09 - Projects/Validation-test-kit/
+09 - Projects/projects/FreeLatticebykirk/
+lancedb/
+*.lance/
+**/Quillans personal dev logs/Build history files and more/**
+
+# Private personal files and chat logs — NEVER commit or push
+*[Dd]anielle*
+*[Dd]ainelle*
+*danielle*
+*Danielle*
+*dainelle*
+*Dainelle*
+*Sillemon*
+*sillemon*
+**/*[Dd]anielle*
+**/*[Dd]ainelle*
+**/*[Ss]illemon*
+**/Misc/*[Dd]anielle*
+**/Misc/*[Dd]ainelle*
+**/Misc/*[Ss]illemon*
+
+
+# Audio plugin build artifacts
+09 - Projects/projects/ronineq/ronineq/build/
+*.lib
+*.exp
+
+# MemPalace per-project files (issue #185)
+mempalace.yaml
+entities.json

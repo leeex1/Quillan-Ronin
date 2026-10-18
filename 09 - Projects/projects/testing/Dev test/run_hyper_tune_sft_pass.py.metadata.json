@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a11dc0f504b62a352b9919ba1b3d24ec7e41841178e92b615471bf05b0e19c6a
-size 161
+{
+  "summary": "300-step Hyper-Tune SFT pass to bring loss < 0.8 for 100% perfect human-level speech fluency.",
+  "updatedAt": "2026-08-09T00:31:37.702251100Z"
+}

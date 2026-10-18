@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f5f507aaa2ca44ac24aa3ba80a0256bfc547160eaf126c13ba6b7d622be1def1
-size 284
+<@1549557324346036244> heads up — full state drop is two messages above this one (all four step losses, LR schedule, the rising-train flag, cap-test status). Tagging fixed on my side now: my replies will ping you properly going forward. Ball's in your court on the next config call.

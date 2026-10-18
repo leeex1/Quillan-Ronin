@@ -1,3 +1,154 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b5b41d22868fddd8d76c7e70f461eb2231028205c2c64e69a14857a58047dae1
-size 6688
+﻿// avatar.js — ESM-based to share the same THREE instance as GLTFLoader
+let THREE;
+let GLTFLoader;
+
+async function ensureThree(){
+  if(THREE) return THREE;
+  log("importing three (ESM)...");
+  const mod = await import("three");
+  THREE = mod;
+  log("three imported OK");
+  const loaderMod = await import("three/examples/jsm/loaders/GLTFLoader.js");
+  GLTFLoader = loaderMod.GLTFLoader;
+  log("GLTFLoader imported OK");
+  return THREE;
+}
+
+let scene, camera, renderer, loader;
+let avatars = {};
+let current = "quillan";
+let state = "idle";
+let t = 0;
+let stageEl, desk = null;
+
+function log(msg){ console.log("[avatar] "+msg); const el=document.getElementById("hint"); if(el) el.textContent = msg; try{ require("fs").appendFileSync("C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\renderer.log", new Date().toISOString()+" [avatar] "+msg+"\n"); }catch(e){} }
+
+async function init(stage){
+  stageEl = stage;
+  await ensureThree();
+  scene = new THREE.Scene();
+  camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  camera.position.set(0, 0.9, 2.6);
+  renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+  renderer.setSize(200, 200);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.shadowMap.enabled = true;
+  stage.appendChild(renderer.domElement);
+  log("renderer ready 200x200");
+
+  const hemi = new THREE.HemisphereLight(0xffffff, 0x1a1a2e, 0.7); scene.add(hemi);
+  const key = new THREE.DirectionalLight(0xffffff, 1.1); key.position.set(2,3,2); key.castShadow=true; scene.add(key);
+  const rim = new THREE.DirectionalLight(0x7C3AED, 0.7); rim.position.set(-2,1,-2); scene.add(rim);
+  const fill = new THREE.DirectionalLight(0xff6b35, 0.25); fill.position.set(0,1,3); scene.add(fill);
+
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(1.4, 32), new THREE.MeshStandardMaterial({ color:0x1a1a2e, roughness:0.92, metalness:0.08 }));
+  ground.rotation.x = -Math.PI/2; ground.position.y = -0.02; ground.receiveShadow = true; scene.add(ground);
+
+  const fallback = new THREE.Mesh(new THREE.CapsuleGeometry(0.32, 0.9, 8, 16), new THREE.MeshStandardMaterial({ color:0x7C3AED, roughness:0.5 }));
+  fallback.position.y = 0.35; fallback.name = "fallback";
+  scene.add(fallback);
+  avatars["fallback"] = { mesh: fallback, baseY: 0.35, baseRotY: 0 };
+
+  loader = new GLTFLoader();
+  log("GLTFLoader ready");
+
+  load("jdxx", "assets/avatar/jdxx_textured.glb", 0.14).then(()=> log("jdxx loaded")).catch(e=> log("jdxx fail: "+e.message));
+  load("quillan", "assets/avatar/quillan_textured.glb", -0.14).then(()=> log("quillan loaded")).catch(e=> log("quillan fail: "+e.message));
+
+  const deskGeo = new THREE.BoxGeometry(1.1, 0.06, 0.55);
+  const deskMat = new THREE.MeshStandardMaterial({ color:0x2a1f18, roughness:0.65, metalness:0.05 });
+  desk = new THREE.Mesh(deskGeo, deskMat);
+  desk.position.set(0, 0.52, 0.35);
+  desk.castShadow = true; desk.receiveShadow = true; desk.visible = false; scene.add(desk);
+  const leg1 = new THREE.Mesh(new THREE.BoxGeometry(0.06,0.52,0.06), deskMat); leg1.position.set(-0.45,0.26,0.15); desk.add(leg1);
+  const leg2 = new THREE.Mesh(new THREE.BoxGeometry(0.06,0.52,0.06), deskMat); leg2.position.set(0.45,0.26,0.15); desk.add(leg2);
+  const laptop = new THREE.Mesh(new THREE.BoxGeometry(0.42,0.02,0.28), new THREE.MeshStandardMaterial({ color:0x0f0f14, roughness:0.3, metalness:0.4 })); laptop.position.set(0,0.05,0); desk.add(laptop);
+
+  animate();
+}
+
+async function load(name, path, rotY){
+  log("loading "+path+" ...");
+  const gltf = await loader.loadAsync(path);
+  const m = gltf.scene;
+  m.traverse(o=>{ if(o.isMesh){ o.castShadow=true; o.receiveShadow=true; }});
+  const fb = avatars["fallback"] ? avatars["fallback"].mesh : null;
+  if(fb) fb.visible = false;
+  scene.add(m);
+  const box = new THREE.Box3().setFromObject(m);
+  const center = box.getCenter(new THREE.Vector3());
+  const size = box.getSize(new THREE.Vector3());
+  const s = 1.55 / Math.max(size.x, size.y, size.z);
+  m.scale.setScalar(s);
+  m.position.y = -center.y * s + size.y * s * 0.5 - 0.55;
+  m.rotation.y = rotY;
+  avatars[name] = { mesh: m, baseY: m.position.y, baseRotY: rotY, size };
+  log(name+" ready scale "+s.toFixed(2));
+  if(name===current) show(name);
+  return m;
+}
+
+function show(name){
+  if(!avatars[name]) { log("avatar "+name+" not yet loaded, waiting"); setTimeout(()=> show(name), 300); return; }
+  current = name;
+  for(const [k,v] of Object.entries(avatars)) v.mesh.visible = (k===name);
+  if(avatars["jdxx"] || avatars["quillan"]){
+    if(avatars["fallback"]) avatars["fallback"].mesh.visible = false;
+  }
+  document.querySelectorAll(".avatarBtn").forEach(b=> b.classList.toggle("active", b.dataset.avatar===name));
+  log("showing "+name);
+}
+
+function setState(s){ state = s; t = 0; if(desk){ if(s==="desk") desk.visible = true; else if(s==="idle"||s==="chill") desk.visible = false; } }
+
+function getState(){ return state; }
+
+function animate(){
+  requestAnimationFrame(animate);
+  t += 0.016;
+  const entry = avatars[current];
+  const m = entry ? entry.mesh : null;
+  const baseY = entry ? entry.baseY : 0;
+  const baseRotY = entry ? entry.baseRotY : 0;
+  if(!m) { renderer.render(scene,camera); return; }
+
+  if(state==="idle"){
+    m.position.y = baseY + Math.sin(t*1.4)*0.015;
+    m.rotation.y = baseRotY + Math.sin(t*0.45)*0.06;
+    m.rotation.z = Math.sin(t*0.7)*0.015;
+  } else if(state==="walk"){
+    m.position.y = baseY + Math.abs(Math.sin(t*9))*0.035;
+    m.rotation.y = baseRotY + Math.sin(t*2)*0.08;
+    m.rotation.z = Math.sin(t*9)*0.06;
+    if(Math.floor(t*2)%2===0){
+      const { ipcRenderer } = require("electron");
+      ipcRenderer.send("walk-window", 1.8);
+    }
+  } else if(state==="dance"){
+    const beat = Math.abs(Math.sin(t*7.2));
+    m.position.y = baseY + beat*0.09;
+    m.rotation.y = baseRotY + Math.sin(t*6)*0.35;
+    m.rotation.z = Math.sin(t*7)*0.22;
+    m.rotation.x = Math.sin(t*5)*0.1;
+    const sc = 1 + beat*0.04;
+    m.scale.setScalar(entry.size ? (1.55/Math.max(entry.size.x,entry.size.y,entry.size.z))*sc : sc);
+  } else if(state==="chill"){
+    m.position.y = baseY - 0.12 + Math.sin(t*0.8)*0.008;
+    m.rotation.y = baseRotY + Math.sin(t*0.3)*0.04;
+    m.rotation.x = 0.18;
+    m.rotation.z = 0.08;
+  } else if(state==="desk"){
+    m.position.y = baseY + Math.sin(t*1.1)*0.01;
+    m.rotation.y = baseRotY * 0.3;
+    m.position.z = 0.12;
+    m.position.x = -0.22;
+    if(desk) desk.position.y = 0.52 + Math.sin(t*1.2)*0.005;
+  } else if(state==="think"){
+    m.rotation.z = Math.sin(t*3.2)*0.05;
+  } else if(state==="talk"){
+    m.position.y = baseY + Math.abs(Math.sin(t*8))*0.025;
+  }
+  renderer.render(scene,camera);
+}
+
+module.exports = { init, show, setState, getState };

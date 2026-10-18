@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e3099141b5af3484ec1f00f5b03f6b24ab0f85021cad300a292f8c24f02623dd
-size 185
+{
+  "summary": "10-Domain benchmark evaluation script testing Quillan-Ronin v5.3.1 across 10 diverse technical and scientific fields.",
+  "updatedAt": "2026-08-09T00:10:40.683794200Z"
+}

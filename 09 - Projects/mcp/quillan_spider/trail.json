@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c5bd4221b82ecce96e382d0cb8f5cf61c61e01d1f696082e010cef3182f733a7
-size 598
+{
+ "root": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+ "at": 1792266992.8857028,
+ "live": false,
+ "started": 1792266992.884626,
+ "job": "scan",
+ "nodes": [
+  {
+   "id": 0,
+   "path": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+   "full": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+   "kind": "file"
+  }
+ ],
+ "edges": [],
+ "trail": [],
+ "wiring": [],
+ "spider": {
+  "pos": null,
+  "visited": 0,
+  "state": "DONE",
+  "action": "SCANNING",
+  "total_findings": 0,
+  "wires": 0,
+  "elapsed_s": 0.0
+ }
+}

@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:df1125fa2b0f299777f014369d6f74687a4d33acefee1ce9eef93da4b1150f5c
-size 187
+{
+  "summary": "Builds a 100-sample General Knowledge SFT dataset covering 10 real-world scientific, historical, and technical domains.",
+  "updatedAt": "2026-08-09T04:20:56.635899100Z"
+}

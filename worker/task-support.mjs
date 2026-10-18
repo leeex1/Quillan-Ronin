@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:24a1251e3c04f8ae50d6ab9a4e62053f4bd577b3a052ae4f89c6387f8e8fafdf
-size 270
+import { callNVIDIA, loadJSON } from './scanner.mjs';
+import { callTool } from './mcp-manager.mjs';
+
+export { callNVIDIA, loadJSON };
+
+export async function callToolViaMcp(server, tool, args = {}, timeoutMs = 60000) {
+  return callTool(server, tool, args, timeoutMs);
+}

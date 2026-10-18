@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b627965268f3c7b1b4db3a99789d681b62cfb0914d74684fac4c14aedaf5cc65
-size 166
+{
+  "summary": "Script to test low-temperature (temp=0.15) explanatory generation on quillan_final_master_v531.pt.",
+  "updatedAt": "2026-08-08T22:57:23.180915700Z"
+}

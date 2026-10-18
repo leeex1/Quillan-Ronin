@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:22d3d1693c967a81cd74278283a70a90aa90e67e96ff543085939fa6ae55d08e
-size 508
+import sys
+from pathlib import Path
+from huggingface_hub import snapshot_download
+DST = r"C:\02_QUILLAN\checkpoints\hf_restore"
+Path(DST).mkdir(parents=True, exist_ok=True)
+for f in ["quillan_frontier_v2_best_loss0.0789_step2500.pt",
+          "quillan_oni_5.4.0_step660_5.22GB.pt"]:
+    print(f"fetch {f} ...", flush=True)
+    snapshot_download(repo_id="CrashOverrideX/Quillan-Ronin",
+                      local_dir=DST, allow_patterns=[f])
+    print(f"done {f}", flush=True)
+print("ALL DONE", flush=True)
