@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e142af6cce976bad5934e13ebac6725fabb3580cc560f43835e5ff8293d222d4
-size 777
+---
+name: consciousness
+description: >
+  A skill for understanding and applying consciousness concepts including subjective experience, 
+  phenomenal awareness, and access consciousness. Use when users need to explore the nature 
+  of consciousness, understand subjective experience, or develop systems that model 
+  conscious-like awareness and responsiveness.
+---
+
+# Consciousness
+
+## Description
+
+The state of being aware of and responsive to one's surroundings.
+
+## Components
+
+*   **Subjective Experience:** The qualitative, first-person character of experience.
+*   **Phenomenal Awareness:** The state of being aware of the content of one's own experience.
+*   **Access Consciousness:** The state in which information is poised for rational control of action and speech.

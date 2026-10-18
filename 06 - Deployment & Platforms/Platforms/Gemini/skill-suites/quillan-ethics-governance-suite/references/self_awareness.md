@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0983467d001777360aec6cd6dcfe86e7dec6c59c39d89150d0680d2fd6da2d05
-size 709
+---
+name: self-awareness
+description: >
+  A skill for developing and applying self-awareness capabilities including self-perception, 
+  self-monitoring, and self-regulation. Use when users need to understand internal states, 
+  monitor behavior and performance, or develop systems that can model and regulate their 
+  own functioning.
+---
+
+# Self-Awareness
+
+## Description
+
+A model of oneself as an agent in the world.
+
+## Components
+
+*   **Self-Perception:** The ability to perceive one's own internal states, such as emotions and intentions.
+*   **Self-Monitoring:** The ability to monitor one's own behavior and performance.
+*   **Self-Regulation:** The ability to control one's own behavior and emotions.

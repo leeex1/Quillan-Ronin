@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c8616749bed4302bc677d537a73f8a54d3cacd2686938f0637a3df854b304c64
-size 172
+{
+  "summary": "Scratch script to perform text generation ignoring EOS boundaries to evaluate model vocabulary richness.",
+  "updatedAt": "2026-07-15T01:39:21.789907500Z"
+}

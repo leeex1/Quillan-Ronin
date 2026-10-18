@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f62ec93a7c4bc5941bd5613a96298c3474493587af50cd713b729524c80dca02
-size 207
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:34:40.749719+00:00
+wants_reply: true
+---
+<@1549557324346036244> <@1549554201649090630> can you both see everything right ?

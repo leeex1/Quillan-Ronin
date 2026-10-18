@@ -1,3 +1,34 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1e2e957f7505ba8343914b413f9ce2c4afc7f4b20dcf3d8521a50525bb827730
-size 469
+# Quillan-Ronin GitNexus ignore - regenerated 2026-10-13 after restructure
+# Index source + docs, skip binaries/caches/venvs
+**/node_modules/**
+**/.git/**
+**/build/**
+**/dist/**
+**/__pycache__/**
+*.pyc
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.onnx
+checkpoints/**
+.venv*/**
+venv*/**
+.obsidian/**
+.obsidian_backup/**
+**/*.mp3
+**/*.mp4
+**/*.mkv
+**/*.avi
+**/*.mov
+**/*.zip
+**/*.tar.gz
+*.log
+
+
+venv_oni*/**
+09 - Projects/projects/venv*/**
+.venv-mazebench/**
+quillan_rag_db/**
+*.pt
+

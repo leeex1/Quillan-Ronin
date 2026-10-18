@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9a2dd5d990092dd43e091140f5e5dd269b5716072af72adb138517428136356e
-size 455
+import re, json
+t = open(r'C:\Users\Admin\.config\opencode\opencode.jsonc', encoding='utf-8').read()
+# blank string literals, then strip // comments
+stripped = re.sub(r'"(?:[^"\\]|\\.)*"', lambda m: m.group(0).replace('\n', '\\n'), t)
+stripped = re.sub(r'//[^\n]*', '', stripped)
+d = json.loads(stripped)
+print('opencode.jsonc VALID JSONC; mcp servers:', len(d['mcp']))
+for k, v in d['mcp'].items():
+    print(' -', k, 'enabled=' + str(v.get('enabled')))

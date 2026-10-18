@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:670b1cb0b25c4943b5c6fbdaae4e8aa9ea9b872cf0b3ad8de80bd103ecad38d9
-size 465
+#!/usr/bin/env python3
+"""Quick state: MAIN row, active, webhooks."""
+import sqlite3
+import sys
+
+sys.stdout.reconfigure(encoding="utf-8")
+db = sqlite3.connect(r"C:\Users\Admin\.n8n\database.sqlite")
+print("MAIN:",
+      db.execute("SELECT name, active FROM workflow_entity "
+                 "WHERE id='EmfoGhyIzSrktmIe'").fetchall())
+print("webhooks:",
+      db.execute("SELECT webhookPath, method, workflowId "
+                 "FROM webhook_entity").fetchall())

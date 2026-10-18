@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1a129597b1f7035c121b27529c635cce9a222ff33ab4bf493d50ed885a915466
-size 34
+nvidia/nemotron-3.5-lightning:free

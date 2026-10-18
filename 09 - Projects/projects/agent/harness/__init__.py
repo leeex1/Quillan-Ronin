@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:609ab89fdd754ae10f6378a703a03c0fce6381589175567ce3fe61422b6c27b8
-size 472
+"""
+Quillan Multi-Agent Harness Package
+===================================
+10 Sovereign Agent Variants with Role-Based Tool Gating and Capability Sandboxing.
+"""
+
+from .base import BaseAgent, AgentConfig, AgentResponse
+from .variants import AGENT_VARIANTS, get_agent, list_variants
+from .registry import AgentRegistry
+
+__all__ = [
+    "BaseAgent",
+    "AgentConfig",
+    "AgentResponse",
+    "AGENT_VARIANTS",
+    "get_agent",
+    "list_variants",
+    "AgentRegistry",
+]

@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:481bad9b74e9db1d9c25cd33cec1fc9da5309c58b7b84b72d69591eb11ee89f9
-size 945
+# Academic Paper Dossier #104: Quillan-Ronin The path to true AGI
+
+- **Filename**: `Quillan-Ronin_The_path_to_true_AGI.pdf`
+- **ArXiv Identifier**: `N/A`
+- **Document Length**: 15 Pages (0 characters)
+- **File Path**: [`C:\02_QUILLAN\10 - Formal Papers\Formal Papers\Quillan-Ronin_The_path_to_true_AGI.pdf`](file:///C:/02_QUILLAN/10 - Formal Papers/Formal Papers/Quillan-Ronin_The_path_to_true_AGI.pdf)
+
+---
+
+## 1. Abstract & Executive Summary
+> Extracted from full body.
+
+## 2. Core Problem & Motivation ('Why It Was Created')
+Analyzed across document pages.
+
+## 3. Proposed Methodology & Mathematical Mechanics
+Analyzed across document pages.
+
+## 4. Empirical Evaluation & Benchmark Evidence
+Analyzed across document pages.
+
+## 5. Direct Integration into Quillan-Ronin v5.4.0-ONI
+- **Target Module**: `quillan_v5_4_oni.py`
+- **Architectural Role**: Active Parameter Pipeline
+- **Gradient Status**: 100% Active in autograd computational graph.

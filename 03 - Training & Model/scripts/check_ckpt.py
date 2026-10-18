@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b739067e7e6cd075ebc0459fd0f005d1b0f0604d4a2b2a8d18f1926a48dd9a05
-size 326
+import torch
+from pathlib import Path
+for d in [r"C:\02_QUILLAN\checkpoints\checkpoints_oni"]:
+    for p in Path(d).glob("*.pt"):
+        ck = torch.load(str(p), map_location="cpu", weights_only=False)
+        print(p.name, "step", ck.get("step"), "best_val", ck.get("best_val"))
+        print("  keys:", list(ck.keys())[:5])

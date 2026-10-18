@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:2e61eb7d7b6da0e0046babcab500ce0aac0543d76ae64f38c9394e148d8d7311
-size 155
+{
+  "summary": "Compare prompt encoding and output decoding using QuillanBPETokenizer vs tiktoken gpt2.",
+  "updatedAt": "2026-08-08T15:27:58.233286600Z"
+}

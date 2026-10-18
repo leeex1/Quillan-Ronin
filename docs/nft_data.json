@@ -1,3 +1,5850 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7850df595784aeaedd19025dc236bcca4a2f56c48dde40186a4e7754082faa36
-size 146509
+[
+  {
+    "id": 1,
+    "title": "Ronin #001: C1-ASTRA \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/c0_astra_ronin_pfp.webp",
+    "rarity": "Mythic",
+    "council": "C1-ASTRA (Vision & Pattern Recognition)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C1-ASTRA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Vision & Pattern Recognition"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Ronin #002: C2-VIR \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_guardian.webp",
+    "rarity": "Mythic",
+    "council": "C2-VIR (Ethics & Safety Enforcement)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C2-VIR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ethics & Safety Enforcement"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Ronin #003: C3-SOLACE \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/solace_oni_trading_card.webp",
+    "rarity": "Mythic",
+    "council": "C3-SOLACE (Emotion & Affective Modeling)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C3-SOLACE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Emotion & Affective Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Ronin #004: C4-PRAXIS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_war_room.webp",
+    "rarity": "Mythic",
+    "council": "C4-PRAXIS (Strategy & Planning)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C4-PRAXIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Strategy & Planning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Ronin #005: C5-ECHO \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_echo_ronin.webp",
+    "rarity": "Mythic",
+    "council": "C5-ECHO (Memory & Context Continuity)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C5-ECHO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Memory & Context Continuity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Ronin #006: C6-OMNIS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_omnis_synthesis_card.webp",
+    "rarity": "Mythic",
+    "council": "C6-OMNIS (Knowledge Integration)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C6-OMNIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Knowledge Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Ronin #007: C7-LOGOS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_c6_logos.webp",
+    "rarity": "Mythic",
+    "council": "C7-LOGOS (Logic & Validation)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C7-LOGOS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Logic & Validation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Ronin #008: C8-METASYNTH \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/creative_fusion_ronin_card.webp",
+    "rarity": "Mythic",
+    "council": "C8-METASYNTH (Creative Fusion)",
+    "cluster": "Cognitive",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C8-METASYNTH"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Creative Fusion"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Ronin #009: C9-AETHER \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_aether_card.webp",
+    "rarity": "Mythic",
+    "council": "C9-AETHER (Semantic Mapping)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C9-AETHER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Semantic Mapping"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Ronin #010: C10-CODEWEAVER \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/code_weaver_ronin_pfp.webp",
+    "rarity": "Mythic",
+    "council": "C10-CODEWEAVER (Code & Implementation)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C10-CODEWEAVER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Code & Implementation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Ronin #011: C11-HARMONIA \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_harmonia.webp",
+    "rarity": "Mythic",
+    "council": "C11-HARMONIA (Balance & Consensus)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C11-HARMONIA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Balance & Consensus"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Ronin #012: C12-SOPHIAE \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_scholar.webp",
+    "rarity": "Mythic",
+    "council": "C12-SOPHIAE (Wisdom & Foresight)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C12-SOPHIAE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Wisdom & Foresight"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Ronin #013: C13-WARDEN \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_sentinel_card.webp",
+    "rarity": "Mythic",
+    "council": "C13-WARDEN (Security & Threat Analysis)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C13-WARDEN"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Security & Threat Analysis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Ronin #014: C14-KAIDO \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/kaido_oni_trading_card.webp",
+    "rarity": "Mythic",
+    "council": "C14-KAIDO (Efficiency Optimization)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C14-KAIDO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Efficiency Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Ronin #015: C15-LUMINARIS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/illumination_master_lumen_nft_card.webp",
+    "rarity": "Mythic",
+    "council": "C15-LUMINARIS (Clarity & Visualization)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C15-LUMINARIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Clarity & Visualization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Ronin #016: C16-VOXUM \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/speaker_image.jpg",
+    "rarity": "Mythic",
+    "council": "C16-VOXUM (Rhetoric & Expression)",
+    "cluster": "Communication",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C16-VOXUM"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Rhetoric & Expression"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Ronin #017: C17-NULLION \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_paradox.webp",
+    "rarity": "Mythic",
+    "council": "C17-NULLION (Paradox Resolution)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C17-NULLION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Paradox Resolution"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Ronin #018: C18-SHEPHERD \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_shepherd_guardian.webp",
+    "rarity": "Mythic",
+    "council": "C18-SHEPHERD (Truth Verification)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C18-SHEPHERD"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Truth Verification"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Ronin #019: C19-VIGIL \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_nft_c18_vigil.webp",
+    "rarity": "Mythic",
+    "council": "C19-VIGIL (Identity Integrity)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C19-VIGIL"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Identity Integrity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Ronin #020: C20-ARTIFEX \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Mythic",
+    "council": "C20-ARTIFEX (Tool Integration)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C20-ARTIFEX"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Tool Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "title": "Ronin #021: C21-ARCHON \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_c20_archon_deep_research.webp",
+    "rarity": "Mythic",
+    "council": "C21-ARCHON (Deep Research)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C21-ARCHON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Deep Research"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Ronin #022: C22-AURELION \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_designer.webp",
+    "rarity": "Mythic",
+    "council": "C22-AURELION (Aesthetic Synthesis)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C22-AURELION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Aesthetic Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "title": "Ronin #023: C23-CADENCE \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_dj.webp",
+    "rarity": "Mythic",
+    "council": "C23-CADENCE (Audio & Temporal Innovation)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C23-CADENCE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Audio & Temporal Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "title": "Ronin #024: C24-SCHEMA \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_blueprint.webp",
+    "rarity": "Mythic",
+    "council": "C24-SCHEMA (Structural Formatting)",
+    "cluster": "Meta",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C24-SCHEMA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Structural Formatting"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Ronin #025: C25-PROMETHEUS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_scientist.webp",
+    "rarity": "Mythic",
+    "council": "C25-PROMETHEUS (Scientific Modeling)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C25-PROMETHEUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Scientific Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "title": "Ronin #026: C26-TECHNE \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_construction.webp",
+    "rarity": "Mythic",
+    "council": "C26-TECHNE (Engineering Architecture)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C26-TECHNE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Engineering Architecture"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "title": "Ronin #027: C27-CHRONICLE \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_archivist.webp",
+    "rarity": "Mythic",
+    "council": "C27-CHRONICLE (Narrative Synthesis)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C27-CHRONICLE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Narrative Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "title": "Ronin #028: C28-CALCULUS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_mathematician.webp",
+    "rarity": "Mythic",
+    "council": "C28-CALCULUS (Mathematical Reasoning)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C28-CALCULUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Mathematical Reasoning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "title": "Ronin #029: C29-NAVIGATOR \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_navigator.webp",
+    "rarity": "Mythic",
+    "council": "C29-NAVIGATOR (Ecosystem Orchestration)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C29-NAVIGATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ecosystem Orchestration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "title": "Ronin #030: C30-TESSERACT \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_c29_tesseract_card.webp",
+    "rarity": "Mythic",
+    "council": "C30-TESSERACT (Real-Time Processing)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C30-TESSERACT"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Real-Time Processing"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "title": "Ronin #031: C31-NEXUS \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_c30_nexus_card.webp",
+    "rarity": "Mythic",
+    "council": "C31-NEXUS (Meta Coordination Hub)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C31-NEXUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Meta Coordination Hub"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "title": "Ronin #032: C32-AEON \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_commander.webp",
+    "rarity": "Mythic",
+    "council": "C32-AEON (Simulation & World Modeling)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C32-AEON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Simulation & World Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "title": "Ronin #033: C33-TYPIST \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/cyber_ronin_scribe_nft.webp",
+    "rarity": "Mythic",
+    "council": "C33-TYPIST (Language Optimization)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C33-TYPIST"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Language Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "title": "Ronin #034: C34-PREDATOR \u2014 Cyberpunk Genesis Series",
+    "image": "gallery/oni_clan_predator_card.webp",
+    "rarity": "Mythic",
+    "council": "C34-PREDATOR (Adversarial Innovation)",
+    "cluster": "Systems",
+    "set": "Set I: Cyberpunk Genesis Series",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C34-PREDATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Adversarial Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set I: Cyberpunk Genesis Series"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Mythic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Avatar / PFP"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "title": "Ronin #035: C1-ASTRA \u2014 Oni Clan Battle Cards",
+    "image": "gallery/c0_astra_ronin_pfp.webp",
+    "rarity": "Legendary",
+    "council": "C1-ASTRA (Vision & Pattern Recognition)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C1-ASTRA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Vision & Pattern Recognition"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "title": "Ronin #036: C2-VIR \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_guardian.webp",
+    "rarity": "Legendary",
+    "council": "C2-VIR (Ethics & Safety Enforcement)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C2-VIR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ethics & Safety Enforcement"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "title": "Ronin #037: C3-SOLACE \u2014 Oni Clan Battle Cards",
+    "image": "gallery/solace_oni_trading_card.webp",
+    "rarity": "Legendary",
+    "council": "C3-SOLACE (Emotion & Affective Modeling)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C3-SOLACE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Emotion & Affective Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "title": "Ronin #038: C4-PRAXIS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_war_room.webp",
+    "rarity": "Legendary",
+    "council": "C4-PRAXIS (Strategy & Planning)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C4-PRAXIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Strategy & Planning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "title": "Ronin #039: C5-ECHO \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_echo_ronin.webp",
+    "rarity": "Legendary",
+    "council": "C5-ECHO (Memory & Context Continuity)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C5-ECHO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Memory & Context Continuity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "title": "Ronin #040: C6-OMNIS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_omnis_synthesis_card.webp",
+    "rarity": "Legendary",
+    "council": "C6-OMNIS (Knowledge Integration)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C6-OMNIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Knowledge Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "title": "Ronin #041: C7-LOGOS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_c6_logos.webp",
+    "rarity": "Legendary",
+    "council": "C7-LOGOS (Logic & Validation)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C7-LOGOS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Logic & Validation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "title": "Ronin #042: C8-METASYNTH \u2014 Oni Clan Battle Cards",
+    "image": "gallery/creative_fusion_ronin_card.webp",
+    "rarity": "Legendary",
+    "council": "C8-METASYNTH (Creative Fusion)",
+    "cluster": "Cognitive",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C8-METASYNTH"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Creative Fusion"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "title": "Ronin #043: C9-AETHER \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_aether_card.webp",
+    "rarity": "Legendary",
+    "council": "C9-AETHER (Semantic Mapping)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C9-AETHER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Semantic Mapping"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "title": "Ronin #044: C10-CODEWEAVER \u2014 Oni Clan Battle Cards",
+    "image": "gallery/code_weaver_ronin_pfp.webp",
+    "rarity": "Legendary",
+    "council": "C10-CODEWEAVER (Code & Implementation)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C10-CODEWEAVER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Code & Implementation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "title": "Ronin #045: C11-HARMONIA \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_harmonia.webp",
+    "rarity": "Legendary",
+    "council": "C11-HARMONIA (Balance & Consensus)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C11-HARMONIA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Balance & Consensus"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "title": "Ronin #046: C12-SOPHIAE \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_scholar.webp",
+    "rarity": "Legendary",
+    "council": "C12-SOPHIAE (Wisdom & Foresight)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C12-SOPHIAE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Wisdom & Foresight"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "title": "Ronin #047: C13-WARDEN \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_sentinel_card.webp",
+    "rarity": "Legendary",
+    "council": "C13-WARDEN (Security & Threat Analysis)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C13-WARDEN"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Security & Threat Analysis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "title": "Ronin #048: C14-KAIDO \u2014 Oni Clan Battle Cards",
+    "image": "gallery/kaido_oni_trading_card.webp",
+    "rarity": "Legendary",
+    "council": "C14-KAIDO (Efficiency Optimization)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C14-KAIDO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Efficiency Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "title": "Ronin #049: C15-LUMINARIS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/illumination_master_lumen_nft_card.webp",
+    "rarity": "Legendary",
+    "council": "C15-LUMINARIS (Clarity & Visualization)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C15-LUMINARIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Clarity & Visualization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "title": "Ronin #050: C16-VOXUM \u2014 Oni Clan Battle Cards",
+    "image": "gallery/speaker_image.jpg",
+    "rarity": "Legendary",
+    "council": "C16-VOXUM (Rhetoric & Expression)",
+    "cluster": "Communication",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C16-VOXUM"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Rhetoric & Expression"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "title": "Ronin #051: C17-NULLION \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cosmic_ronin_void.webp",
+    "rarity": "Legendary",
+    "council": "C17-NULLION (Paradox Resolution)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C17-NULLION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Paradox Resolution"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "title": "Ronin #052: C18-SHEPHERD \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_shepherd_guardian.webp",
+    "rarity": "Legendary",
+    "council": "C18-SHEPHERD (Truth Verification)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C18-SHEPHERD"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Truth Verification"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "title": "Ronin #053: C19-VIGIL \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_nft_c18_vigil.webp",
+    "rarity": "Legendary",
+    "council": "C19-VIGIL (Identity Integrity)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C19-VIGIL"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Identity Integrity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 54,
+    "title": "Ronin #054: C20-ARTIFEX \u2014 Oni Clan Battle Cards",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Legendary",
+    "council": "C20-ARTIFEX (Tool Integration)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C20-ARTIFEX"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Tool Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 55,
+    "title": "Ronin #055: C21-ARCHON \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_c20_archon_deep_research.webp",
+    "rarity": "Legendary",
+    "council": "C21-ARCHON (Deep Research)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C21-ARCHON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Deep Research"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 56,
+    "title": "Ronin #056: C22-AURELION \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_designer.webp",
+    "rarity": "Legendary",
+    "council": "C22-AURELION (Aesthetic Synthesis)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C22-AURELION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Aesthetic Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "title": "Ronin #057: C23-CADENCE \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_dj.webp",
+    "rarity": "Legendary",
+    "council": "C23-CADENCE (Audio & Temporal Innovation)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C23-CADENCE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Audio & Temporal Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "title": "Ronin #058: C24-SCHEMA \u2014 Oni Clan Battle Cards",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Legendary",
+    "council": "C24-SCHEMA (Structural Formatting)",
+    "cluster": "Meta",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C24-SCHEMA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Structural Formatting"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 59,
+    "title": "Ronin #059: C25-PROMETHEUS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_scientist.webp",
+    "rarity": "Legendary",
+    "council": "C25-PROMETHEUS (Scientific Modeling)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C25-PROMETHEUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Scientific Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 60,
+    "title": "Ronin #060: C26-TECHNE \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_construction.webp",
+    "rarity": "Legendary",
+    "council": "C26-TECHNE (Engineering Architecture)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C26-TECHNE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Engineering Architecture"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 61,
+    "title": "Ronin #061: C27-CHRONICLE \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_archivist.webp",
+    "rarity": "Legendary",
+    "council": "C27-CHRONICLE (Narrative Synthesis)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C27-CHRONICLE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Narrative Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 62,
+    "title": "Ronin #062: C28-CALCULUS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_mathematician.webp",
+    "rarity": "Legendary",
+    "council": "C28-CALCULUS (Mathematical Reasoning)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C28-CALCULUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Mathematical Reasoning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 63,
+    "title": "Ronin #063: C29-NAVIGATOR \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_navigator.webp",
+    "rarity": "Legendary",
+    "council": "C29-NAVIGATOR (Ecosystem Orchestration)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C29-NAVIGATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ecosystem Orchestration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "title": "Ronin #064: C30-TESSERACT \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_c29_tesseract_card.webp",
+    "rarity": "Legendary",
+    "council": "C30-TESSERACT (Real-Time Processing)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C30-TESSERACT"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Real-Time Processing"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "title": "Ronin #065: C31-NEXUS \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_c30_nexus_card.webp",
+    "rarity": "Legendary",
+    "council": "C31-NEXUS (Meta Coordination Hub)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C31-NEXUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Meta Coordination Hub"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "title": "Ronin #066: C32-AEON \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_golden_white.webp",
+    "rarity": "Legendary",
+    "council": "C32-AEON (Simulation & World Modeling)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C32-AEON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Simulation & World Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "title": "Ronin #067: C33-TYPIST \u2014 Oni Clan Battle Cards",
+    "image": "gallery/cyber_ronin_scribe_nft.webp",
+    "rarity": "Legendary",
+    "council": "C33-TYPIST (Language Optimization)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C33-TYPIST"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Language Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "title": "Ronin #068: C34-PREDATOR \u2014 Oni Clan Battle Cards",
+    "image": "gallery/oni_clan_predator_card.webp",
+    "rarity": "Legendary",
+    "council": "C34-PREDATOR (Adversarial Innovation)",
+    "cluster": "Systems",
+    "set": "Set II: Oni Clan Battle Cards",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C34-PREDATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Adversarial Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set II: Oni Clan Battle Cards"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Legendary"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Trading Card"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "title": "Ronin #069: C1-ASTRA \u2014 Sovereign Void Edition",
+    "image": "gallery/c0_astra_ronin_pfp.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C1-ASTRA (Vision & Pattern Recognition)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C1-ASTRA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Vision & Pattern Recognition"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "title": "Ronin #070: C2-VIR \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_guardian.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C2-VIR (Ethics & Safety Enforcement)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C2-VIR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ethics & Safety Enforcement"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "title": "Ronin #071: C3-SOLACE \u2014 Sovereign Void Edition",
+    "image": "gallery/solace_oni_trading_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C3-SOLACE (Emotion & Affective Modeling)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C3-SOLACE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Emotion & Affective Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "title": "Ronin #072: C4-PRAXIS \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_war_room.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C4-PRAXIS (Strategy & Planning)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C4-PRAXIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Strategy & Planning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "title": "Ronin #073: C5-ECHO \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_echo_ronin.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C5-ECHO (Memory & Context Continuity)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C5-ECHO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Memory & Context Continuity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "title": "Ronin #074: C6-OMNIS \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_omnis_synthesis_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C6-OMNIS (Knowledge Integration)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C6-OMNIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Knowledge Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "title": "Ronin #075: C7-LOGOS \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_c6_logos.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C7-LOGOS (Logic & Validation)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C7-LOGOS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Logic & Validation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "title": "Ronin #076: C8-METASYNTH \u2014 Sovereign Void Edition",
+    "image": "gallery/creative_fusion_ronin_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C8-METASYNTH (Creative Fusion)",
+    "cluster": "Cognitive",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C8-METASYNTH"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Creative Fusion"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "title": "Ronin #077: C9-AETHER \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_aether_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C9-AETHER (Semantic Mapping)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C9-AETHER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Semantic Mapping"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "title": "Ronin #078: C10-CODEWEAVER \u2014 Sovereign Void Edition",
+    "image": "gallery/code_weaver_ronin_pfp.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C10-CODEWEAVER (Code & Implementation)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C10-CODEWEAVER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Code & Implementation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "title": "Ronin #079: C11-HARMONIA \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_harmonia.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C11-HARMONIA (Balance & Consensus)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C11-HARMONIA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Balance & Consensus"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "title": "Ronin #080: C12-SOPHIAE \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_scholar.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C12-SOPHIAE (Wisdom & Foresight)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C12-SOPHIAE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Wisdom & Foresight"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "title": "Ronin #081: C13-WARDEN \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_sentinel_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C13-WARDEN (Security & Threat Analysis)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C13-WARDEN"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Security & Threat Analysis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "title": "Ronin #082: C14-KAIDO \u2014 Sovereign Void Edition",
+    "image": "gallery/kaido_oni_trading_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C14-KAIDO (Efficiency Optimization)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C14-KAIDO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Efficiency Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "title": "Ronin #083: C15-LUMINARIS \u2014 Sovereign Void Edition",
+    "image": "gallery/illumination_master_lumen_nft_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C15-LUMINARIS (Clarity & Visualization)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C15-LUMINARIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Clarity & Visualization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 84,
+    "title": "Ronin #084: C16-VOXUM \u2014 Sovereign Void Edition",
+    "image": "gallery/speaker_image.jpg",
+    "rarity": "Sovereign Artifact",
+    "council": "C16-VOXUM (Rhetoric & Expression)",
+    "cluster": "Communication",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C16-VOXUM"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Rhetoric & Expression"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "title": "Ronin #085: C17-NULLION \u2014 Sovereign Void Edition",
+    "image": "gallery/cosmic_ronin_void.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C17-NULLION (Paradox Resolution)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C17-NULLION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Paradox Resolution"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "title": "Ronin #086: C18-SHEPHERD \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_shepherd_guardian.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C18-SHEPHERD (Truth Verification)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C18-SHEPHERD"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Truth Verification"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "title": "Ronin #087: C19-VIGIL \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_nft_c18_vigil.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C19-VIGIL (Identity Integrity)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C19-VIGIL"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Identity Integrity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "title": "Ronin #088: C20-ARTIFEX \u2014 Sovereign Void Edition",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C20-ARTIFEX (Tool Integration)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C20-ARTIFEX"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Tool Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "title": "Ronin #089: C21-ARCHON \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_c20_archon_deep_research.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C21-ARCHON (Deep Research)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C21-ARCHON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Deep Research"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "title": "Ronin #090: C22-AURELION \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_designer.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C22-AURELION (Aesthetic Synthesis)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C22-AURELION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Aesthetic Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "title": "Ronin #091: C23-CADENCE \u2014 Sovereign Void Edition",
+    "image": "gallery/6eUDj.jpg",
+    "rarity": "Sovereign Artifact",
+    "council": "C23-CADENCE (Audio & Temporal Innovation)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C23-CADENCE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Audio & Temporal Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "title": "Ronin #092: C24-SCHEMA \u2014 Sovereign Void Edition",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C24-SCHEMA (Structural Formatting)",
+    "cluster": "Meta",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C24-SCHEMA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Structural Formatting"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "title": "Ronin #093: C25-PROMETHEUS \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_scientist.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C25-PROMETHEUS (Scientific Modeling)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C25-PROMETHEUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Scientific Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "title": "Ronin #094: C26-TECHNE \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_construction.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C26-TECHNE (Engineering Architecture)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C26-TECHNE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Engineering Architecture"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "title": "Ronin #095: C27-CHRONICLE \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_archivist.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C27-CHRONICLE (Narrative Synthesis)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C27-CHRONICLE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Narrative Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "title": "Ronin #096: C28-CALCULUS \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_mathematician.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C28-CALCULUS (Mathematical Reasoning)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C28-CALCULUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Mathematical Reasoning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "title": "Ronin #097: C29-NAVIGATOR \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_navigator.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C29-NAVIGATOR (Ecosystem Orchestration)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C29-NAVIGATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ecosystem Orchestration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "title": "Ronin #098: C30-TESSERACT \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_c29_tesseract_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C30-TESSERACT (Real-Time Processing)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C30-TESSERACT"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Real-Time Processing"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "title": "Ronin #099: C31-NEXUS \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_c30_nexus_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C31-NEXUS (Meta Coordination Hub)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C31-NEXUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Meta Coordination Hub"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "title": "Ronin #100: C32-AEON \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_gold_horned_samurai.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C32-AEON (Simulation & World Modeling)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C32-AEON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Simulation & World Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "title": "Ronin #101: C33-TYPIST \u2014 Sovereign Void Edition",
+    "image": "gallery/cyber_ronin_scribe_nft.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C33-TYPIST (Language Optimization)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C33-TYPIST"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Language Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "title": "Ronin #102: C34-PREDATOR \u2014 Sovereign Void Edition",
+    "image": "gallery/oni_clan_predator_card.webp",
+    "rarity": "Sovereign Artifact",
+    "council": "C34-PREDATOR (Adversarial Innovation)",
+    "cluster": "Systems",
+    "set": "Set III: Sovereign Void Edition",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C34-PREDATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Adversarial Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set III: Sovereign Void Edition"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Sovereign Artifact"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Fine Art Concept"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "title": "Ronin #103: C1-ASTRA \u2014 Ancient Relic Blueprints",
+    "image": "gallery/c0_astra_ronin_pfp.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C1-ASTRA (Vision & Pattern Recognition)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C1-ASTRA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Vision & Pattern Recognition"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "title": "Ronin #104: C2-VIR \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_guardian.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C2-VIR (Ethics & Safety Enforcement)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C2-VIR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ethics & Safety Enforcement"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "title": "Ronin #105: C3-SOLACE \u2014 Ancient Relic Blueprints",
+    "image": "gallery/solace_oni_trading_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C3-SOLACE (Emotion & Affective Modeling)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C3-SOLACE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Emotion & Affective Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "title": "Ronin #106: C4-PRAXIS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_war_room.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C4-PRAXIS (Strategy & Planning)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C4-PRAXIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Strategy & Planning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "title": "Ronin #107: C5-ECHO \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_echo_ronin.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C5-ECHO (Memory & Context Continuity)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C5-ECHO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Memory & Context Continuity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "title": "Ronin #108: C6-OMNIS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_omnis_synthesis_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C6-OMNIS (Knowledge Integration)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C6-OMNIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Knowledge Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "title": "Ronin #109: C7-LOGOS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_c6_logos.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C7-LOGOS (Logic & Validation)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C7-LOGOS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Logic & Validation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "title": "Ronin #110: C8-METASYNTH \u2014 Ancient Relic Blueprints",
+    "image": "gallery/creative_fusion_ronin_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C8-METASYNTH (Creative Fusion)",
+    "cluster": "Cognitive",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C8-METASYNTH"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Creative Fusion"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Cognitive"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "title": "Ronin #111: C9-AETHER \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_aether_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C9-AETHER (Semantic Mapping)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C9-AETHER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Semantic Mapping"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "title": "Ronin #112: C10-CODEWEAVER \u2014 Ancient Relic Blueprints",
+    "image": "gallery/code_weaver_ronin_pfp.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C10-CODEWEAVER (Code & Implementation)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C10-CODEWEAVER"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Code & Implementation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "title": "Ronin #113: C11-HARMONIA \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_harmonia.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C11-HARMONIA (Balance & Consensus)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C11-HARMONIA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Balance & Consensus"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "title": "Ronin #114: C12-SOPHIAE \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_scholar.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C12-SOPHIAE (Wisdom & Foresight)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C12-SOPHIAE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Wisdom & Foresight"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "title": "Ronin #115: C13-WARDEN \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_sentinel_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C13-WARDEN (Security & Threat Analysis)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C13-WARDEN"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Security & Threat Analysis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "title": "Ronin #116: C14-KAIDO \u2014 Ancient Relic Blueprints",
+    "image": "gallery/kaido_oni_trading_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C14-KAIDO (Efficiency Optimization)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C14-KAIDO"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Efficiency Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "title": "Ronin #117: C15-LUMINARIS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/illumination_master_lumen_nft_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C15-LUMINARIS (Clarity & Visualization)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C15-LUMINARIS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Clarity & Visualization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "title": "Ronin #118: C16-VOXUM \u2014 Ancient Relic Blueprints",
+    "image": "gallery/speaker_image.jpg",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C16-VOXUM (Rhetoric & Expression)",
+    "cluster": "Communication",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C16-VOXUM"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Rhetoric & Expression"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Communication"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "title": "Ronin #119: C17-NULLION \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cosmic_ronin_void.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C17-NULLION (Paradox Resolution)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C17-NULLION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Paradox Resolution"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 120,
+    "title": "Ronin #120: C18-SHEPHERD \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_shepherd_guardian.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C18-SHEPHERD (Truth Verification)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C18-SHEPHERD"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Truth Verification"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 121,
+    "title": "Ronin #121: C19-VIGIL \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_nft_c18_vigil.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C19-VIGIL (Identity Integrity)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C19-VIGIL"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Identity Integrity"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 122,
+    "title": "Ronin #122: C20-ARTIFEX \u2014 Ancient Relic Blueprints",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C20-ARTIFEX (Tool Integration)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C20-ARTIFEX"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Tool Integration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 123,
+    "title": "Ronin #123: C21-ARCHON \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_c20_archon_deep_research.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C21-ARCHON (Deep Research)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C21-ARCHON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Deep Research"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 124,
+    "title": "Ronin #124: C22-AURELION \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_designer.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C22-AURELION (Aesthetic Synthesis)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C22-AURELION"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Aesthetic Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 125,
+    "title": "Ronin #125: C23-CADENCE \u2014 Ancient Relic Blueprints",
+    "image": "gallery/6eUDj.jpg",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C23-CADENCE (Audio & Temporal Innovation)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C23-CADENCE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Audio & Temporal Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 126,
+    "title": "Ronin #126: C24-SCHEMA \u2014 Ancient Relic Blueprints",
+    "image": "gallery/architect_ronin_blueprint.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C24-SCHEMA (Structural Formatting)",
+    "cluster": "Meta",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C24-SCHEMA"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Structural Formatting"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Meta"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 127,
+    "title": "Ronin #127: C25-PROMETHEUS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_scientist.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C25-PROMETHEUS (Scientific Modeling)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C25-PROMETHEUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Scientific Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 128,
+    "title": "Ronin #128: C26-TECHNE \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_construction.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C26-TECHNE (Engineering Architecture)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C26-TECHNE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Engineering Architecture"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 129,
+    "title": "Ronin #129: C27-CHRONICLE \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_archivist.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C27-CHRONICLE (Narrative Synthesis)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C27-CHRONICLE"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Narrative Synthesis"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 130,
+    "title": "Ronin #130: C28-CALCULUS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_mathematician.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C28-CALCULUS (Mathematical Reasoning)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C28-CALCULUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Mathematical Reasoning"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 131,
+    "title": "Ronin #131: C29-NAVIGATOR \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_navigator.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C29-NAVIGATOR (Ecosystem Orchestration)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C29-NAVIGATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Ecosystem Orchestration"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 132,
+    "title": "Ronin #132: C30-TESSERACT \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_c29_tesseract_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C30-TESSERACT (Real-Time Processing)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C30-TESSERACT"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Real-Time Processing"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 133,
+    "title": "Ronin #133: C31-NEXUS \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_c30_nexus_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C31-NEXUS (Meta Coordination Hub)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C31-NEXUS"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Meta Coordination Hub"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 134,
+    "title": "Ronin #134: C32-AEON \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_blueprint_architect.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C32-AEON (Simulation & World Modeling)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C32-AEON"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Simulation & World Modeling"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 135,
+    "title": "Ronin #135: C33-TYPIST \u2014 Ancient Relic Blueprints",
+    "image": "gallery/cyber_ronin_scribe_nft.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C33-TYPIST (Language Optimization)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C33-TYPIST"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Language Optimization"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  },
+  {
+    "id": 136,
+    "title": "Ronin #136: C34-PREDATOR \u2014 Ancient Relic Blueprints",
+    "image": "gallery/oni_clan_predator_card.webp",
+    "rarity": "Ancient Cyber Relic",
+    "council": "C34-PREDATOR (Adversarial Innovation)",
+    "cluster": "Systems",
+    "set": "Set IV: Ancient Relic Blueprints",
+    "attributes": [
+      {
+        "trait_type": "Council Persona",
+        "value": "C34-PREDATOR"
+      },
+      {
+        "trait_type": "Role",
+        "value": "Adversarial Innovation"
+      },
+      {
+        "trait_type": "Cognitive Cluster",
+        "value": "Systems"
+      },
+      {
+        "trait_type": "Set Collection",
+        "value": "Set IV: Ancient Relic Blueprints"
+      },
+      {
+        "trait_type": "Rarity Tier",
+        "value": "Ancient Cyber Relic"
+      },
+      {
+        "trait_type": "Artifact Class",
+        "value": "Architectural Blueprint"
+      },
+      {
+        "trait_type": "Modality Fabric",
+        "value": "BitNet 1.58b EvoMoE"
+      },
+      {
+        "trait_type": "Creator",
+        "value": "CrashOverrideX & Quillan-Ronin"
+      }
+    ]
+  }
+]

@@ -1,3 +1,118 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:17c7e8053a9717240d55c82cee8f01d61690a30d366fb15026ca1de5535f5ec0
-size 2741
+{
+  "id": "b7c9d0e1-2f3a-4b5c-8d9e-0f123456789a",
+  "name": "LLM proof-of-life (C7)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "75226f03-d6a8-4770-a029-a669f5bc2f59",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a472a586-6ab1-4d68-a743-3c1e972bea48",
+              "name": "query",
+              "value": "What is 12 times 12? Answer briefly.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2ed56ed3-3bee-4105-bd48-c41ca377fec2",
+      "name": "Query",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.query }}",
+        "options": {
+          "systemMessage": "You are C7-LOGOS-LOGOS, Logical Consistency on the Quillan-Ronin council. You are C7-LOGOS, logic and validation. Audit premises, trace deductions, reject anything self-contradictory no matter how elegant. Answer briefly in character.",
+          "maxIterations": 3
+        }
+      },
+      "id": "effb24c0-afb7-4703-b347-33ded63330fe",
+      "name": "AI Agent C7-LOGOS",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3.5-lightning:free",
+        "options": {}
+      },
+      "id": "68cd4b04-0b53-405f-975a-667b41dff526",
+      "name": "OpenRouter Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        680,
+        500
+      ],
+      "credentials": {
+        "openRouterApi": {
+          "id": "e6a2a4ff-6f9f-4c66-a817-221922428a98",
+          "name": "OpenRouter"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Query",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query": {
+      "main": [
+        [
+          {
+            "node": "AI Agent C7-LOGOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent C7-LOGOS": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "OpenRouter Chat Model",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {}
+}

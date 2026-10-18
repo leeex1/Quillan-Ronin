@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1578e2f2208aeb5d9cc8470df9e224db53cbbca0a08dbc8841da3495868493ef
-size 293
+# system prompts
+
+Folder note for `system prompts/` — 3 entries.
+
+- [[system prompts/Quillan-Samurai.md]]
+- [[00 - Meta/00 - Vault Index.md]]
+
+  - **Pulled prompts/**
+  - [[system prompts/Quillan-Samurai.md]]
+  - **System prompts for models/**
+- [[00 - Meta/06 - Deployment & Platforms.md]]

@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:32315ae660a789dccdd22ba1c1b78aee88bf4afe9f689a5ac4b5ec9e49b03511
-size 197
+{
+  "summary": "Script to run a 10-question evaluation test across math, physics, programming, and logic on quillan_thinking_reasoning_master.pt.",
+  "updatedAt": "2026-08-09T07:28:41.514809900Z"
+}

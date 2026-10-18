@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a3dad4869303fe82ae47bad95f3a7e9c15be9dd34decbe92581a9f8910c7ac10
-size 607
+{
+  "name": "quillan-app",
+  "version": "5.5.0-clippy-v2",
+  "description": "Quillan Clippy Reborn — transparent sprite assistant with LLM chat",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "test": "node -c main.js && node -c src/avatar.js && node -c src/bubble.js && node -c src/llm.js && node -c src/behaviors.js && echo ok",
+    "rebuild": "npm install"
+  },
+  "keywords": [
+    "clippy",
+    "assistant",
+    "electron",
+    "sprite",
+    "transparent",
+    "llm"
+  ],
+  "dependencies": {
+    "electron": "^41.10.6",
+    "three": "^0.128.0"
+  }
+}

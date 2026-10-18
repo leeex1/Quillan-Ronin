@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:89cec26609a84ce3cea1c92158aecbf33d5c1f801e6d5e8a193ed7103a2f830c
-size 194
+{
+  "summary": "Updated test_aligned_gpt2_backbone.py using self.txt_dec.weight to tie pre-trained GPT-2 embeddings into Quillan-Ronin v5.3.1.",
+  "updatedAt": "2026-08-08T18:31:06.122577900Z"
+}

@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a9a10733dd0b2fc7fd9c592519e70ed01e0dec29f68707c29c0433b4d8c91241
-size 171
+{
+  "summary": "Script to load a massive 5000+ sample pool across all training files to drive CoT loss down to 1.5-2.5.",
+  "updatedAt": "2026-08-09T07:52:07.196227100Z"
+}

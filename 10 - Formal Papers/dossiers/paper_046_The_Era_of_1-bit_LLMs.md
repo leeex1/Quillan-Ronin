@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4424fefd4c7e4dea346c6972c4f3efb0dc93b624207f45b62147363dad530dfe
-size 6260
+# Academic Paper Dossier #046: The Era of 1-bit LLMs:
+
+- **Filename**: `BitNet_b1.58_1-bit_LLMs.pdf`
+- **ArXiv Identifier**: `N/A`
+- **Document Length**: 8 Pages (23,497 characters)
+- **File Path**: [`C:\02_QUILLAN\10 - Formal Papers\Formal Papers\BitNet_b1.58_1-bit_LLMs.pdf`](file:///C:/02_QUILLAN/10 - Formal Papers/Formal Papers/BitNet_b1.58_1-bit_LLMs.pdf)
+
+---
+
+## 1. Abstract & Executive Summary
+> Shuming Ma Hongyu Wang Lingxiao Ma Lei Wang Wenhui Wang Shaohan Huang Li Dong Ruiping Wang Jilong Xue Furu Wei https://aka.ms/GeneralAI Abstract Recent research, such as BitNet [WMD+23], is paving the way for a new era of 1- bit Large Language Models (LLMs). In this work, we introduce a 1-bit LLM variant, namely BitNet b1.58, in which every single parameter (or weight) of the LLM is ternary {-1, 0, 1}. It matches the full-precision (i.e., FP16 or BF16) Transformer LLM with the same model size and training tokens in terms of both perplexity and end-task performance, while being significantly more cost-effective in terms
+
+## 2. Core Problem & Motivation ('Why It Was Created')
+Analyzed across document pages.
+
+## 3. Proposed Methodology & Mathematical Mechanics
+s, such as BitNet [WMD+23], presents a promising direction for reducing the cost of LLMs while maintaining their performance. Vanilla LLMs are in 16-bit floating values (i.e., FP16 or BF16), and the bulk of any LLMs is matrix multiplication. Therefore, the major computation cost comes from the floating-point addition and multiplication operations. In contrast, the matrix multiplication of BitNet only involves integer addition, which saves orders of energy cost for LLMs. As the fundamental limit to compute performance in many chips is power, the energy savings can also be translated into faster computation. In addition to computation, the process of transferring model parameters from DRAM to the memory of an on-chip accelerator (e.g., SRAM) can be expensive during inference. There have been attempts to enlarge SRAM to improve throughput, but this introduces significantly higher costs than DRAM. Compared to full-precision models, 1-bit LLMs have a much lower memory footprint from both a capacity and bandwidth standpoint. This can significantly reduce the cost and time of loading weights from DRAM, leading to faster and more efficient inference. In this work, we introduce a significant 1-bit LLM variant calledBitNet b1.58, where every parameter is ternary, taking on values of {-1, 0, 1}. We have added an additional value of 0 to the original 1-bit BitNet, resulting in 1.58 bits in the binary system. BitNet b1.58 retains all the benefits of the original 1-bit BitNet, including its new computation paradigm, which requires almost no multiplication operations for matrix multiplication and can be highly optimized. Additionally, it has the same energy consumption as the original 1-bit BitNet and is much more efficient in terms of memory consumption, throughput and latency compared to FP16 LLM baselines. Furthermore, BitNet b1.58 offers two additional advantages. Firstly, its modeling capability is stronger due to its explicit support for feature filtering, made possible by the inclusion of 0 in the model weights, which can significantly improve the performance of 1-bit LLMs. Secondly, our
+
+### Key Mathematical Formulations Extracted from Body:
+- `$W= Pareto Improvement$`
+- `$Y = f(W, X)$`
+- `$W = RoundClip( W$`
+
+## 4. Empirical Evaluation & Benchmark Evidence
+show that BitNet b1.58 can match full precision (i.e., FP16) baselines in terms of both perplexity and end-task performance, starting from a 3B size, when using the same configuration (e.g., model size, training tokens, etc.). 2 BitNet b1.58 BitNet b1.58 is based on the BitNet architecture, which is a Transformer that replaces nn.Linear with BitLinear. It is trained from scratch, with 1.58-bit weights and 8-bit activations. Compared to the original BitNet, it introduces some modifications that we summarize below. Quantization Function. To constrain the weights to -1, 0, or +1, we adopt anabsmean quantization function. It first scales the weight matrix by its average absolute value, and then round each value to the nearest integer among {-1, 0, +1}: fW = RoundClip( W + , 1, 1), (1) RoundClip(x, a, b) = max(a, min(b, round(x))), (2) = 1 nm X ij |Wij|. (3) The quantization function for activations follows the same implementation in BitNet, except that we do not scale the activations before the non-linear functions to the range [0, Qb]. Instead, the 2 Models Size Memory (GB) Latency (ms) PPL LLaMA LLM 700M 2.08 (1.00x) 1.18 (1.00x) 12.33 BitNet b1.58 700M 0.80 (2.60x) 0.96 (1.23x) 12.87 LLaMA LLM 1.3B 3.34 (1.00x) 1.62 (1.00x) 11.25 BitNet b1.58 1.3B 1.14 (2.93x) 0.97 (1.67x) 11.29 LLaMA LLM 3B 7.89 (1.00x) 5.07 (1.00x) 10.04 BitNet b1.58 3B 2.22 (3.55x) 1.87 (2.71x) 9.91 BitNet b1.58 3.9B 2.38 (3.32x) 2.11 (2.40x) 9.62 Table 1: Perplexity as well as the cost of BitNet b1.58 and LLaMA LLM. Models Size ARCe ARCc HS BQ OQ PQ WGe A vg. LLaMA LLM 700M 54.7 23.0 37.0 60.0 20.2 68.9 54.8 45.5 BitNet b1.58 700M 51.8 21.4 35.1 58.2 20.0 68.1 55.2 44.3 LLaMA LLM 1.3B 56.9 23.5 38.5 59.1 21.6 70.0 53.9 46.2 BitNet b1.58 1.3B 54.9 24.2 37.7 56.7 19.6 68.8 55.8 45.4 LLaMA LLM 3B 62.1 25.6 43.3 61.8 24.6 72.1 58.2 49.7 BitNet b1.58 3B 61.4 28.3 42.9 61.5 26.6 71.5 59.3 50.2 BitNet b1.58 3.9B 64.2 28.7 44.2 63.5 24.2 73.2 60.5 51.2 Table 2: Zero-shot accuracy of BitNet b1.58 and LLaMA LLM on the end tasks. activations are all scaled to [ Qb, Qb] per token to get rid of the zero-point quantization. This is more convenient and simple for both implementation and system-level optimization, while introduces negligible effects to the performance in our experiments. LLaMA-alike Components. The architecture of LLaMA [TLI+23, TMS+23] has been the de- facto backbone for open-source LLMs. To embrace the open-source community, our design of BitNet b1.58 adopts the LLaMA-alike componen
+
+## 5. Direct Integration into Quillan-Ronin v5.4.0-ONI
+- **Target Module**: `quillan_v5_4_oni.py (`BitNetLinearSTE`)`
+- **Architectural Role**: Ternary {-1, 0, 1} Straight-Through Quantization for all linear projection blocks.
+- **Gradient Status**: 100% Active in autograd computational graph.

@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:55b7d53cbdf1d18b95944a19de15a3a784090e6d087becfa6f23e16b5d5afed6
-size 442
+# Dockerfile
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system deps if needed
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements first to leverage cache
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY . .
+
+# Expose port
+EXPOSE 8000
+
+# Command to run the application
+CMD ["uvicorn", "serve:app", "--host", "0.0.0.0", "--port", "8000"]

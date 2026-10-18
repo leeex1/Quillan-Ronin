@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a4ff12fd0fed68e6f0b88045400b55c7e4c98709beb8ff23fb7eb1036103b9c4
-size 6933
+# Academic Paper Dossier #025: Recirculation
+
+- **Filename**: `2608.17981v1.pdf`
+- **ArXiv Identifier**: `2608.17981v1`
+- **Document Length**: 33 Pages (106,189 characters)
+- **File Path**: [`C:\02_QUILLAN\10 - Formal Papers\Formal Papers\2608.17981v1.pdf`](file:///C:/02_QUILLAN/10 - Formal Papers/Formal Papers/2608.17981v1.pdf)
+
+---
+
+## 1. Abstract & Executive Summary
+> Google DeepMind mcmozer@google.com Shoaib Ahmed Siddiqui Google DeepMind shoaibasidd@google.com Danny Sawyer Google DeepMind dannysawyer@google.com Sunny Sanyal University of Texas, Austin
+
+## 2. Core Problem & Motivation ('Why It Was Created')
+for the renormalization function f is to accommodate the possibility that embedding magnitudes grow as the layer outputs are combined. We always use a convex mixture with 1 and rescale source to have the same L2 norm as the destination unless mentioned otherwise: f(z|d, t) =||zt,t,d||2 ||z|| 2 z.(2) 4 = input/output token = computed during current forward pass = frozen (in KV cache) = placeholder KEY (a) (b) step 1 step 2 step 3 step 4 (c) Figure 3: (a) A transformer in which recurrent connections are introduced from layer 6 back to layer 3. The diagram might correspond to very different recurrence dynamics depending on how the model is sequentially unrolled. (b) Unrolling the recurrent
+
+## 3. Proposed Methodology & Mathematical Mechanics
+incurs essentially no additional latency during generation, though it requires serial processing in the prefill phase. Motivated by the fundamental limitation that state updates in feedforward transformers are bounded by model depth, our technique,recirculation, introduces a specific form of recurrence that allows the model to act as a dynamical system and track belief states. We distinguish this technique from chain-of-thought computation which is better reserved for complex inferences rather than basic state tracking as well as from popular depth-recurrence techniques (looping) and the costly training of recurrent transformers. We also propose and evaluate an adaptive variant of recir- culation which requires only light tuning of hyperparameters while freezing the original model weights. Relative to the off-the-shelf baseline, adaptive recircula- tion achieves remarkable gains on the Gemma3 family, including a 23% reduction in perplexity on a suite of datasets, a 21% increase in accuracy on GSM8k, and reliable improvements in accuracy on other downstream tasks. Our training-free approach succeeds by leveraging the model itself to inform architectural modifica- tions, suggesting a route to architectural evolution guided by a trained network s properties rather than forced, arbitrary design choices. 1 State tracking The ability to track a fluid, evolving state of affairs is essential for comprehending language, reasoning about situations, and modeling the world around us. Traditional approaches to state tracking, such as recurrent neural nets and Kalman filters, involve iterative, sequential updating of latent variables to capture dynamics. The parallel operation of transformers, during both training and prefill, precludes tracking state in the traditional manner (Mozer et al., 2026). Transformers learn a variety of clever solutions that can make them effective at state tracking for finite sequence lengths (Li et al., 2025a; Piotrowski et al., 2025; Prakash et al., 2026; Shai et al., 2024). However, transformers can also fail to track state information needed to understand the structure of arguments and social interactions. State tracking failures in foundation models lead to loss of coherence in multi-turn conversations (Laban et al., 2025), inefficiency in information gathering (Sawyer et al., 2025), and breakdowns in communication and cooperation in multi-agent settings (Davidson et al., 2025; Khatua et al., 2026). Tracking deficits can lead to a range
+
+### Key Mathematical Formulations Extracted from Body:
+- `$d = f(z t,t,s|d, t) + zt,t,d,(1)$`
+- `$n = computed during$`
+- `$s = frozen (in KV cache)$`
+- `$t =f(z t 1, xt)$`
+- `$n=166k)(n=206k)(n=122)(n=646k)(n=2693k)(n=10k)(n=831k)(n=157k)(n=115k)(n=791k)(n=2$`
+- `$d = f(z t,t,s) + z t,t,d,(3)$`
+
+## 4. Empirical Evaluation & Benchmark Evidence
+reported in this article are with the one-additional-iteration variant. If the number of iterations is unbounded, recirculation behaves as a true recurrent neural net. We note one other key difference between looping and recirculation. In looping, the activation that gets looped is the entire residual stream and it acts as the direct replacement for the input that would normally come from a preceding layer. In recirculation, activation is mixed from the source and destination layers. Initially, we formalize one-iteration recirculation as a mixture: zt+1,t,d = f(z t,t,s|d, t) + zt,t,d,(1) where t is an index over the order of updates, s and d are the source and destination layer indices, respectively, and are mixture coefficients, f(.) is a renormalization function, and zi,j,l is the residual stream output after incorporating the computation of layer l at unrolling step i and input step j. These three indices correspond to the three sequence dimensions depicted in Figure 3c: l and j are the row and column indices of the transformer layer grid, respectively, andiis an index over copies of architecture. The motivation for the renormalization function f is to accommodate the possibility that embedding magnitudes grow as the layer outputs are combined. We always use a convex mixture with 1 and rescale source to have the same L2 norm as the destination unless mentioned otherwise: f(z|d, t) =||zt,t,d||2 ||z|| 2 z.(2) 4 = input/output token = computed during current forward pass = frozen (in KV cache) = placeholder KEY (a) (b) step 1 step 2 step 3 step 4 (c) Figure 3: (a) A transformer in which recurrent connections are introduced from layer 6 back to layer 3. The diagram might correspond to very different recurrence dynamics depending on how the model is sequentially unrolled. (b) Unrolling the recurrent architecture in depth yields a looped transformer. (c) Unrolling the model in both depth and input steps yields recirculation. Recirculation can be viewed as a variant of a looped transformer in which the top stack of step i is merged with the bottom stack of stepi+ 1, but the read out occurs following the first iteration of a stack. (a) (b) state(1) state(2) state(3) state(4) Figure 4: (a) Unrolled loop transformer and (b) unrolled recirculation transformer. The open colored rectangles depict state propagation. In the looped transformer, strict state propagation moves upward in the stack, whereas in recirculation, state propagation can continue indefinitely in
+
+## 5. Direct Integration into Quillan-Ronin v5.4.0-ONI
+- **Target Module**: `quillan_v5_4_oni.py`
+- **Architectural Role**: Active Parameter Pipeline
+- **Gradient Status**: 100% Active in autograd computational graph.

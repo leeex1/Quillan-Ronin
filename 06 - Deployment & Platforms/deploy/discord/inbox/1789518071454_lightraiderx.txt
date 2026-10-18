@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4b693c0810ff74635915f4cf04998f6cd9b93f9082ff70f3de757f2e9398c5d0
-size 213
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-16T00:21:11.454001+00:00
+wants_reply: false
+---
+<@1549557324346036244> ya its broken i give up idk anymore im really brunning out here

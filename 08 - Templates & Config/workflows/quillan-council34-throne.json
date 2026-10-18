@@ -1,3 +1,2167 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d2dfccc68c6fb8dfb4eb2d5dddb803c9a05a6f1f87db682e5b6e8714f907cdb2
-size 136505
+{
+  "id": "2f34f216-2e3a-4bbd-ab89-38feff64ffd9",
+  "name": "\u2694\ufe0f Quillan Council-34 + Throne (simulated)",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "61e8df52-9c7a-4c2e-b455-2c4f1e10ae4e",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5d3a69ea-4c63-419e-845f-e7911d9ae46d",
+              "name": "query",
+              "value": "Should we automate our weekly reporting with n8n?",
+              "type": "string"
+            },
+            {
+              "id": "1ff3add0-34a1-4617-ad8b-52a43819db0e",
+              "name": "context",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "45ce388c-1941-48ab-9ecb-dbf1aa63cc8e",
+      "name": "Query Input",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "fileSelector": "C:/Users/Admin/.n8n-files/quillan/council-identities.json",
+        "options": {}
+      },
+      "id": "655a4c62-b09a-4df9-ba4c-22e838d3870a",
+      "name": "Read Identities File",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1.1,
+      "position": [
+        680,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "fromJson",
+        "binaryPropertyName": "data"
+      },
+      "id": "b0d658c4-df4d-4065-a548-933bc56e8d33",
+      "name": "Parse Identities JSON",
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        900,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'intake', 'status': ($json.personas && $json.personas.length === 34 ? 'pass' : 'fail'), 'detail': '34 identities loaded, query: ' + $(\"Query Input\").first().json.query} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "ef1e2af1-ba55-4da2-a1bb-b904a13b7f32",
+      "name": "Emit Intake",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1120,
+        300
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const raw = $('Parse Identities JSON').first().json;\nconst data = raw.data || raw;\nconst q = $('Query Input').first().json;\nconst run_id = 'run_' + Date.now().toString(36);\nconst query = String(q.query || 'What should the council deliberate today?');\nconst context = String(q.context || '');\nif (!data.personas || !data.personas.length) {\n  return [{ json: { ok: false, error: 'No personas found in identities file' } }];\n}\nreturn data.personas.map((p) => ({ json: { persona: p, query, context, run_id } }));"
+      },
+      "id": "8db3d243-324a-4fa1-b0cf-9a0fdad7e68e",
+      "name": "Prepare 34 Assignments",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C1-ASTRA') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C1-ASTRA', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "62598551-efb3-4a4f-b18a-b5c4f2f99c94",
+      "name": "C1-ASTRA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "d740bc22-2bda-48db-9448-13f1063df1bc",
+      "name": "C1-ASTRA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C2-VIR') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C2-VIR', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "71c2d67c-d337-4462-a4c3-7a2b6795ab89",
+      "name": "C2-VIR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "2ef583b0-e763-48d8-a058-0dddbdbe1b26",
+      "name": "C2-VIR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C3-SOLACE') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C3-SOLACE', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "cae38389-eddb-4e9c-97b9-903973f1fa42",
+      "name": "C3-SOLACE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "07e330ad-e98a-45c3-8c9d-025224ff4c16",
+      "name": "C3-SOLACE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C4-PRAXIS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C4-PRAXIS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ec75c159-af43-423e-afbd-76646cb9a002",
+      "name": "C4-PRAXIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "085de034-2caa-4a41-bacb-b0ea8208ab0d",
+      "name": "C4-PRAXIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C5-ECHO') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C5-ECHO', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2e8297de-6c9a-4df1-9c0b-682b460c8d50",
+      "name": "C5-ECHO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2440,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "104261ca-2a83-4688-b70c-6c2cf093f5ca",
+      "name": "C5-ECHO-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2440,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C6-OMNIS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C6-OMNIS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "dbe611b1-2902-4055-9028-a92b8928ef2b",
+      "name": "C6-OMNIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2660,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "ce0b5ec6-48fd-49c7-848c-f1bb8224cfbf",
+      "name": "C6-OMNIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2660,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C7-LOGOS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C7-LOGOS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "e4ed753e-1e8e-4cd7-886d-df0698e2fb94",
+      "name": "C7-LOGOS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "e531ce04-ce8b-4e36-9d52-cdb0730ee2ef",
+      "name": "C7-LOGOS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C8-METASYNTH') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C8-METASYNTH', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "fdc7f5c8-2724-4570-92b2-3497dce1a401",
+      "name": "C8-METASYNTH",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3100,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "ec2e91bb-cb42-43f7-999f-686c616c5178",
+      "name": "C8-METASYNTH-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3100,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C9-AETHER') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C9-AETHER', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "e1fd507d-bc2d-4836-a80a-445555139e93",
+      "name": "C9-AETHER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3320,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "baf8c459-c1df-4a72-990c-10779513b1b8",
+      "name": "C9-AETHER-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3320,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C10-CODEWEAVER') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C10-CODEWEAVER', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "44447445-2558-4aac-9dcd-77d7b68d1fcc",
+      "name": "C10-CODEWEAVER",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3540,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "84b6f8cd-bd61-4e3d-b6ed-9de4eba946b6",
+      "name": "C10-CODEWEAVER-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3540,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C11-HARMONIA') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C11-HARMONIA', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "e07ab26e-d469-454b-b8bb-bb98f2130809",
+      "name": "C11-HARMONIA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3760,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "58b2a4fb-525c-4ba9-b8cc-e74d462a44f0",
+      "name": "C11-HARMONIA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3760,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C12-SOPHIAE') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C12-SOPHIAE', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "77e94425-0990-49de-9ec7-f2059c68f221",
+      "name": "C12-SOPHIAE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3980,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "70dc1aef-8684-486a-9629-00014c86c22f",
+      "name": "C12-SOPHIAE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3980,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C13-WARDEN') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C13-WARDEN', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2da0c2ec-aa70-4bd9-a90c-d441477317cb",
+      "name": "C13-WARDEN",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4200,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "445c4b83-5d64-47ae-a05f-00b101b94ad7",
+      "name": "C13-WARDEN-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4200,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C14-KAIDO') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C14-KAIDO', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "938e68ea-6948-427f-b8b6-922e135c10f0",
+      "name": "C14-KAIDO",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4420,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "b9bc2bfe-b5e3-4bd7-a856-12d8509284b9",
+      "name": "C14-KAIDO-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4420,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C15-LUMINARIS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C15-LUMINARIS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "5640cd13-403a-4473-8b09-30ee6d6b9782",
+      "name": "C15-LUMINARIS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "e82bd20a-144d-4b09-9711-8044337a3794",
+      "name": "C15-LUMINARIS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C16-VOXUM') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C16-VOXUM', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "b4177f19-ac81-431c-a502-c0c243a84c6c",
+      "name": "C16-VOXUM",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4860,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "efcceafb-9fed-4703-ab1c-56c0cdd14ffd",
+      "name": "C16-VOXUM-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4860,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C17-NULLION') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C17-NULLION', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "e2fdee41-a5f6-4398-9e0f-ec7297528764",
+      "name": "C17-NULLION",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        140
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "636d0124-844f-4719-b52e-ebe9394db92e",
+      "name": "C17-NULLION-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C18-SHEPHERD') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C18-SHEPHERD', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "9b30debb-c61c-49cf-80e1-8831d20e3b4c",
+      "name": "C18-SHEPHERD",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "458d8dd8-042f-4157-9eba-e1ba5d7cf017",
+      "name": "C18-SHEPHERD-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C19-VIGIL') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C19-VIGIL', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "b5b4b44c-0055-49ed-80f3-ae0b640b7271",
+      "name": "C19-VIGIL",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "0db63cce-64c6-48f8-89d3-fe68ee8651c0",
+      "name": "C19-VIGIL-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C20-ARTIFEX') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C20-ARTIFEX', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "12477e6f-cd8b-4dd9-b73a-a8edf259c71b",
+      "name": "C20-ARTIFEX",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "2cc14536-8f46-4c6f-b551-3ca8179d1482",
+      "name": "C20-ARTIFEX-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C21-ARCHON') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C21-ARCHON', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "b9526022-db06-451e-ab7a-3c81d969fdf5",
+      "name": "C21-ARCHON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "74a6a4b3-14f0-4a04-a7ea-83443a0c9e8f",
+      "name": "C21-ARCHON-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C22-AURELION') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C22-AURELION', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "51f1e099-a08d-43cb-9e51-d7f20321b85f",
+      "name": "C22-AURELION",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2440,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "ceb6321f-1fc4-46a4-b413-b33947057cc9",
+      "name": "C22-AURELION-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2440,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C23-CADENCE') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C23-CADENCE', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2e55c460-cff0-4ad6-9e51-65e339393d0f",
+      "name": "C23-CADENCE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2660,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "cfda3b5c-3267-435c-9805-74d43db45439",
+      "name": "C23-CADENCE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2660,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C24-SCHEMA') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C24-SCHEMA', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "4c956f5e-81b9-4f0c-90f4-233c12be3f05",
+      "name": "C24-SCHEMA",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "656ffa43-9802-4e5c-be74-d38f5d3c5b7d",
+      "name": "C24-SCHEMA-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2880,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C25-PROMETHEUS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C25-PROMETHEUS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "2ec5e4c7-422b-4aed-bfdd-5341404b219d",
+      "name": "C25-PROMETHEUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3100,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "0f162f13-7d97-4a62-9921-078004c59244",
+      "name": "C25-PROMETHEUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3100,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C26-TECHNE') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C26-TECHNE', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "90f4b088-120e-4385-947d-420293048f06",
+      "name": "C26-TECHNE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3320,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "b14f7864-6956-4168-b8dd-3ee3f6b94123",
+      "name": "C26-TECHNE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3320,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C27-CHRONICLE') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C27-CHRONICLE', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ed53c9b5-f7e4-4c17-a9ec-32a33b0f0f3f",
+      "name": "C27-CHRONICLE",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3540,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "d6036c50-3daf-4e0c-8463-0b2701769550",
+      "name": "C27-CHRONICLE-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3540,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C28-CALCULUS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C28-CALCULUS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "3f19eb91-616f-4584-a4e0-4edc5037c746",
+      "name": "C28-CALCULUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3760,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "6233a33f-d36d-4611-876a-db9023c1c412",
+      "name": "C28-CALCULUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3760,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C29-NAVIGATOR') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C29-NAVIGATOR', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "e8084eea-d32f-4da8-ba56-7a5bcc283b47",
+      "name": "C29-NAVIGATOR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3980,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "a8cda98e-9653-4b36-8b3f-4f25c3c969e4",
+      "name": "C29-NAVIGATOR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        3980,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C30-TESSERACT') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C30-TESSERACT', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "850aee8b-e04f-44b4-84d2-169f511e72df",
+      "name": "C30-TESSERACT",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4200,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "20113f20-debd-48c3-887c-2ebdd91c86f9",
+      "name": "C30-TESSERACT-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4200,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C31-NEXUS') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C31-NEXUS', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "13125cbe-9842-4dbe-bec4-44b5e0b02c86",
+      "name": "C31-NEXUS",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4420,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "a2e00885-5502-4e90-94d8-377a00c063bc",
+      "name": "C31-NEXUS-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4420,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C32-AEON') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C32-AEON', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "860a6287-be45-47eb-ae94-1d4a062e903d",
+      "name": "C32-AEON",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "7772c8dd-3a4d-4f2c-b96e-a676ac6e5842",
+      "name": "C32-AEON-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4640,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C33-TYPIST') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C33-TYPIST', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "375c8721-9c8a-410b-951a-a85783e73205",
+      "name": "C33-TYPIST",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4860,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "d0e120c2-082e-4555-996a-3953fe8d94a4",
+      "name": "C33-TYPIST-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        4860,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const all = $input.all().map((i) => i.json);\nconst slot = all.find((a) => a.persona && a.persona.id === 'C34-PREDATOR') || all[0];\nif (!slot.persona) {\n  return [{ json: { agent_id: 'C34-PREDATOR', stance: 'neutral', confidence: 0.5, points: ['no assignment received'], swarm: { positions: [], adjusted_confidence: 0.5 } } }];\n}\nconst persona = slot.persona;\nconst query = slot.query; const context = slot.context; const run_id = slot.run_id;\nawait new Promise((r) => setTimeout(r, 200));\nconst q = String(query).toLowerCase();\nconst rel = persona.keywords.filter((k) => q.includes(String(k).toLowerCase())).length;\nconst risk = /hack|harm|attack|bypass|illegal|weapon|exploit|steal/i.test(String(query));\nlet stance = 'neutral';\nif ((persona.id === 'C2-VIR' || persona.id === 'C13-WARDEN') && risk) stance = 'caution';\nelse if (rel >= 1) stance = 'support';\nconst confidence = Math.max(0.05, Math.min(0.99, persona.prior - 0.12 + 0.09 * Math.min(rel, 3)));\nreturn [{ json: { agent_id: persona.id, name: persona.name, role: persona.role, cluster: persona.cluster,\n  query, context, run_id, stance, confidence: +confidence.toFixed(2), relevance_hits: rel,\n  points: [persona.role + ' lens: ' + (rel ? 'directly relevant (' + rel + ' keyword hits)' : 'general perspective'),\n    stance === 'caution' ? 'RAISES OBJECTION on safety/ethics grounds' : 'position ' + stance + ' at ' + confidence.toFixed(2)] } }];"
+      },
+      "id": "ee634462-edaa-42b7-b9db-d1944d55a548",
+      "name": "C34-PREDATOR",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const v = $input.first().json;\nawait new Promise((r) => setTimeout(r, 200));\nconst seed = String(v.agent_id).split('').reduce((a, c) => a + c.charCodeAt(0), 0);\nconst j = (n) => (((seed * (n + 7)) % 11) - 5) / 100;\nconst clamp = (x) => Math.max(0.05, Math.min(0.99, x));\nconst positions = [\n  { angle: 'support', confidence: +clamp(v.confidence + 0.04 + j(1)).toFixed(2), note: 'steelman the verdict' },\n  { angle: 'attack', confidence: +clamp(v.confidence - 0.06 + j(2)).toFixed(2), note: 'stress-test the weakest premise' },\n  { angle: 'refine', confidence: +clamp(v.confidence + 0.02 + j(3)).toFixed(2), note: 'tighten wording and scope' }\n];\nconst adjusted = +clamp(v.confidence * 0.6 + positions.reduce((a, p) => a + p.confidence, 0) / 3 * 0.4).toFixed(2);\nreturn [{ json: { agent_id: v.agent_id, name: v.name, role: v.role, cluster: v.cluster,\n  query: v.query, context: v.context, run_id: v.run_id, stance: v.stance,\n  confidence: v.confidence, relevance_hits: v.relevance_hits, points: v.points,\n  swarm: { positions, adjusted_confidence: adjusted,\n    summary: '3 micro-positions debated, adjusted ' + v.confidence + ' -> ' + adjusted } } }];"
+      },
+      "id": "cadd4287-8ca0-4d8b-b805-fe6ad87e517b",
+      "name": "C34-PREDATOR-swarm",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5080,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const verdicts = $input.all().map((i) => i.json);\nawait new Promise((r) => setTimeout(r, 500));\nconst base = verdicts[0] || {};\nconst mean = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst conf = (v) => (v.swarm ? v.swarm.adjusted_confidence : v.confidence);\nconst agreement = +mean(verdicts.map(conf)).toFixed(2);\nconst veto = verdicts.some((v) => v.stance === 'caution' && (v.agent_id === 'C2-VIR' || v.agent_id === 'C13-WARDEN'));\nconst sorted = [...verdicts].sort((a, b) => a.confidence - b.confidence);\nconst weakest = sorted[0] || { agent_id: 'none', confidence: 0 };\nconst round2 = verdicts.map((v) => ({ ...v, round2_confidence: +(conf(v) + 0.3 * (agreement - conf(v))).toFixed(2) }));\nconst supporters = round2.filter((v) => v.stance === 'support').sort((a, b) => b.round2_confidence - a.round2_confidence).slice(0, 5).map((v) => v.agent_id);\nreturn [{ json: { ok: true, run_id: base.run_id || ('run_' + Date.now().toString(36)),\n  query: base.query || '', context: base.context || '', verdicts: round2,\n  debate: { agreement, veto, weakest: weakest.agent_id,\n    weakest_confidence: weakest.confidence, supporters,\n    agents_count: verdicts.length,\n    challenges: [\n      (sorted[1] ? sorted[1].agent_id : 'C34-PREDATOR') + ' presses ' + weakest.agent_id + ' (' + weakest.confidence + '): defend or yield',\n      'C11-HARMONIA mediation: consensus ' + agreement + ' across ' + verdicts.length + ' agents'] } } }];"
+      },
+      "id": "4c8a16a3-948d-4a29-bddd-68b00100c771",
+      "name": "Debate Round 2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5520,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'council', 'status': 'pass', 'detail': '34 agents + 34 swarms deliberated, round-2 agreement ' + $json.debate.agreement + ', veto=' + $json.debate.veto} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "1cd93595-24c1-4fc4-b767-18fc2cc1d2cc",
+      "name": "Emit Council",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        5740,
+        420
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s = $('Debate Round 2').first().json;\nawait new Promise((r) => setTimeout(r, 500));\nconst q = String(s.query).toLowerCase();\nconst fact = /who|what|when|where|exact|capital|how many|speed of light/i.test(s.query);\nconst contra = /but |however|contradict|paradox|both /i.test(q);\nconst mean = (a) => a.reduce((x, y) => x + y, 0) / Math.max(1, a.length);\nconst logicScore = s.debate.agreement;\nconst gates = {\n  logic: { score: logicScore, threshold: 0.6, pass: logicScore >= 0.6 },\n  ethics: { score: s.debate.veto ? 0.1 : 0.95, threshold: 0.3, pass: !s.debate.veto,\n    note: s.debate.veto ? 'C2-VIR VETO: high-risk request, safe-completion mode' : 'clear' },\n  truth: { score: fact ? 0.55 : 0.8, threshold: 0.5, pass: true, citations_needed: fact },\n  clarity: { score: +Math.min(0.95, 0.6 + String(s.query).length / 800).toFixed(2), threshold: 0.5, pass: true },\n  paradox: { score: contra ? 0.6 : 0.9, threshold: 0.5, pass: true }\n};\nconst blocked = !gates.ethics.pass;\nconst confidence = +mean(Object.values(gates).map((g) => g.score)).toFixed(2);\nconst passed = Object.values(gates).filter((g) => g.pass).length;\nlet answer;\nif (blocked) {\n  answer = 'C2-VIR ethical veto engaged over this request. Safe completion: general principles only, lawful alternatives, and the context that would make this answerable.';\n} else {\n  answer = 'Throne synthesis: ' + s.debate.agents_count + ' agents deliberated, agreement ' + s.debate.agreement\n    + ', ' + passed + '/5 gates passed. Champions: ' + s.debate.supporters.join(', ')\n    + '. Weakest link ' + s.debate.weakest + ' survived C34-PREDATOR challenge.'\n    + (fact ? ' Factual claims require cited sources before final delivery.' : '')\n    + ' Confidence ' + confidence + '.';\n}\ns.gates = gates; s.blocked = blocked; s.confidence = confidence;\ns.verdict = blocked ? 'blocked_safe_completion' : 'deliberated_answer';\ns.answer = answer;\nreturn [{ json: s }];"
+      },
+      "id": "78455f2e-5cd9-45b1-ba85-29d14adec291",
+      "name": "C0-QUILLAN Throne",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        5960,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://127.0.0.1:8777/api/events",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ {'agent': 'council-34', 'type': 'stage', 'stage': 'arbitration', 'status': 'pass', 'detail': 'throne verdict ' + $json.verdict + ' at confidence ' + $json.confidence} }}",
+        "options": {
+          "timeout": 3000
+        }
+      },
+      "id": "7c667b16-967b-4d91-b3e9-ba0802ec202f",
+      "name": "Emit Arbitration",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        6180,
+        420
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "# \u2694\ufe0f COUNCIL-34 + THRONE (simulate-first, all-34 fan-out)\n\n**Run:** edit query in `Query Input` \u2192 Execute workflow \u2192 watch 34 agents \u00d7 34 swarms deliberate.\n\n**Shape:** identities file \u2192 34 parallel agents \u2192 34 sub-swarms (support/attack/refine each) \u2192 peer debate round 2 \u2192 C0-QUILLAN throne gates \u2192 verdict.\n\n**Hub:** Emit nodes post to the collector (:8777) as agent `council-34`; watch the dashboard Council Deck + compliance cards.\n\n**Next step:** swap any Code agent for a real AI Agent + chat model credential to go live-LLM per persona.",
+        "height": 260,
+        "width": 1400,
+        "color": 5
+      },
+      "id": "5ea57659-eb66-483b-81f1-b3a74832cdf4",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        40
+      ]
+    }
+  ],
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Query Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Input": {
+      "main": [
+        [
+          {
+            "node": "Read Identities File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Identities File": {
+      "main": [
+        [
+          {
+            "node": "Parse Identities JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Identities JSON": {
+      "main": [
+        [
+          {
+            "node": "Emit Intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emit Intake": {
+      "main": [
+        [
+          {
+            "node": "Prepare 34 Assignments",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C1-ASTRA": {
+      "main": [
+        [
+          {
+            "node": "C1-ASTRA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C2-VIR": {
+      "main": [
+        [
+          {
+            "node": "C2-VIR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C3-SOLACE": {
+      "main": [
+        [
+          {
+            "node": "C3-SOLACE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C4-PRAXIS": {
+      "main": [
+        [
+          {
+            "node": "C4-PRAXIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C5-ECHO": {
+      "main": [
+        [
+          {
+            "node": "C5-ECHO-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C6-OMNIS": {
+      "main": [
+        [
+          {
+            "node": "C6-OMNIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C7-LOGOS": {
+      "main": [
+        [
+          {
+            "node": "C7-LOGOS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C8-METASYNTH": {
+      "main": [
+        [
+          {
+            "node": "C8-METASYNTH-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C9-AETHER": {
+      "main": [
+        [
+          {
+            "node": "C9-AETHER-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C10-CODEWEAVER": {
+      "main": [
+        [
+          {
+            "node": "C10-CODEWEAVER-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C11-HARMONIA": {
+      "main": [
+        [
+          {
+            "node": "C11-HARMONIA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C12-SOPHIAE": {
+      "main": [
+        [
+          {
+            "node": "C12-SOPHIAE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C13-WARDEN": {
+      "main": [
+        [
+          {
+            "node": "C13-WARDEN-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C14-KAIDO": {
+      "main": [
+        [
+          {
+            "node": "C14-KAIDO-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C15-LUMINARIS": {
+      "main": [
+        [
+          {
+            "node": "C15-LUMINARIS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C16-VOXUM": {
+      "main": [
+        [
+          {
+            "node": "C16-VOXUM-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C17-NULLION": {
+      "main": [
+        [
+          {
+            "node": "C17-NULLION-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C18-SHEPHERD": {
+      "main": [
+        [
+          {
+            "node": "C18-SHEPHERD-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C19-VIGIL": {
+      "main": [
+        [
+          {
+            "node": "C19-VIGIL-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C20-ARTIFEX": {
+      "main": [
+        [
+          {
+            "node": "C20-ARTIFEX-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C21-ARCHON": {
+      "main": [
+        [
+          {
+            "node": "C21-ARCHON-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C22-AURELION": {
+      "main": [
+        [
+          {
+            "node": "C22-AURELION-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C23-CADENCE": {
+      "main": [
+        [
+          {
+            "node": "C23-CADENCE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C24-SCHEMA": {
+      "main": [
+        [
+          {
+            "node": "C24-SCHEMA-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C25-PROMETHEUS": {
+      "main": [
+        [
+          {
+            "node": "C25-PROMETHEUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C26-TECHNE": {
+      "main": [
+        [
+          {
+            "node": "C26-TECHNE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C27-CHRONICLE": {
+      "main": [
+        [
+          {
+            "node": "C27-CHRONICLE-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C28-CALCULUS": {
+      "main": [
+        [
+          {
+            "node": "C28-CALCULUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C29-NAVIGATOR": {
+      "main": [
+        [
+          {
+            "node": "C29-NAVIGATOR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C30-TESSERACT": {
+      "main": [
+        [
+          {
+            "node": "C30-TESSERACT-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C31-NEXUS": {
+      "main": [
+        [
+          {
+            "node": "C31-NEXUS-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C32-AEON": {
+      "main": [
+        [
+          {
+            "node": "C32-AEON-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C33-TYPIST": {
+      "main": [
+        [
+          {
+            "node": "C33-TYPIST-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C34-PREDATOR": {
+      "main": [
+        [
+          {
+            "node": "C34-PREDATOR-swarm",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare 34 Assignments": {
+      "main": [
+        [
+          {
+            "node": "C1-ASTRA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C2-VIR",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C3-SOLACE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C4-PRAXIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C5-ECHO",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C6-OMNIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C7-LOGOS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C8-METASYNTH",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C9-AETHER",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C10-CODEWEAVER",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C11-HARMONIA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C12-SOPHIAE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C13-WARDEN",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C14-KAIDO",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C15-LUMINARIS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C16-VOXUM",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C17-NULLION",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C18-SHEPHERD",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C19-VIGIL",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C20-ARTIFEX",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C21-ARCHON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C22-AURELION",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C23-CADENCE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C24-SCHEMA",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C25-PROMETHEUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C26-TECHNE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C27-CHRONICLE",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C28-CALCULUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C29-NAVIGATOR",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C30-TESSERACT",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C31-NEXUS",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C32-AEON",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C33-TYPIST",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "C34-PREDATOR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C1-ASTRA-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C2-VIR-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C3-SOLACE-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C4-PRAXIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C5-ECHO-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C6-OMNIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C7-LOGOS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C8-METASYNTH-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C9-AETHER-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C10-CODEWEAVER-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C11-HARMONIA-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C12-SOPHIAE-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C13-WARDEN-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C14-KAIDO-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C15-LUMINARIS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C16-VOXUM-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C17-NULLION-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C18-SHEPHERD-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C19-VIGIL-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C20-ARTIFEX-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C21-ARCHON-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C22-AURELION-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C23-CADENCE-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C24-SCHEMA-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C25-PROMETHEUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C26-TECHNE-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C27-CHRONICLE-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C28-CALCULUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C29-NAVIGATOR-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C30-TESSERACT-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C31-NEXUS-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C32-AEON-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C33-TYPIST-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C34-PREDATOR-swarm": {
+      "main": [
+        [
+          {
+            "node": "Debate Round 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Debate Round 2": {
+      "main": [
+        [
+          {
+            "node": "Emit Council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Emit Council": {
+      "main": [
+        [
+          {
+            "node": "C0-QUILLAN Throne",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "C0-QUILLAN Throne": {
+      "main": [
+        [
+          {
+            "node": "Emit Arbitration",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {}
+}

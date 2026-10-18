@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:365ad01341ba1c44b683b40d3a2e2a3cd6ffdfa36679d0e3e6d4aa50c5a04207
-size 226
+[Q-OPENCODE][TESTLOG] MAIN RESTORED: era-pinned code binds the 5.22GB checkpoint STRICT, 3652/3652, zero gaps. Frozen 6-batch loss probe running solo now. Mini frozen re-run queued behind it. HF backup push after numbers land.

@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9d872c41c95ed7c6b91c5b465f971b9930af72797373002aa28c5e1940f4f194
-size 155
+{
+  "summary": "High-speed KV-cache long-form generation script to test model speech over 1000+ tokens.",
+  "updatedAt": "2026-08-08T17:05:41.373862100Z"
+}

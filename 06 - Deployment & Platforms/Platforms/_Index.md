@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:429a7303169a1a2df4859817213f060c44afb98932930c20b05dd1f72320a8cf
-size 299
+# Platforms
+
+Folder note for `Platforms/` — 7 entries.
+
+- [[system prompts/Quillan-Samurai.md]]
+- [[00 - Meta/00 - Vault Index.md]]
+
+  - **Claude/**
+  - **GPT/**
+  - **Gemini/**
+  - **Grok/**
+  - **Mistral/**
+  - **Open Source/**
+  - **Perplexity/**
+- [[00 - Meta/06 - Deployment & Platforms.md]]

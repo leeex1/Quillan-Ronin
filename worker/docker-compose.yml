@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:374e9f0df905ead6b3396d00cb1fc2ee9d3828536b3721888b088703d6c16e63
-size 469
+version: '3.8'
+
+services:
+  quillan-worker:
+    build: .
+    container_name: quillan-ronin-worker
+    restart: unless-stopped
+    ports:
+      - "7777:7777"
+    environment:
+      - NODE_ENV=production
+      - PORT=7777
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+    volumes:
+      - ./data:/app/data
+      - ./chats:/app/chats
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7777/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

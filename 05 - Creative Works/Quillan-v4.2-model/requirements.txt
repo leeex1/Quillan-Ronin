@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:542efc5f12d1cc1c1ea5fd3d663d6cc07fae7679fbf1737dcd549a5245d7d365
-size 163
+numpy
+pandas
+torch
+transformers
+matplotlib
+scikit-learn
+flask
+fastapi
+pygame
+pipreqs
+
+
+pip install pipreqs
+pipreqs ./src --force
+
+
+pip install -r requirements.txt

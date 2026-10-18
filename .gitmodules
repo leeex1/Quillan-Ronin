@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d83fd6a34ca135b5a000e8391e6de60a9c799b769fde9122d439ab1beef36b93
-size 445
+[submodule "09 - Projects/projects/MCP-DevKit"]
+	path = 09 - Projects/projects/MCP-DevKit
+	url = https://github.com/leeex1/MCP-DevKit.git
+[submodule "09 - Projects/projects/Quillan.cpp"]
+	path = 09 - Projects/projects/Quillan.cpp
+	url = https://github.com/leeex1/quillan.cpp.git
+[submodule "09 - Projects/projects/Validation-test-kit"]
+	path = 09 - Projects/projects/Validation-test-kit
+	url = https://github.com/leeex1/Validation-test-kit-.git

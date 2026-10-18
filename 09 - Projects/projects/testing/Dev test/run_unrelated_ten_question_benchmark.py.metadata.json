@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7a5b76f5285ebe384d03ee423eca23a98c564d28eb5f91ec4f7f52512bf5c1e7
-size 180
+{
+  "summary": "Runs 10-Domain Benchmark Evaluation on topics completely unrelated to Quillan using quillan_hyper_tuned_v531.pt.",
+  "updatedAt": "2026-08-09T04:18:16.080913100Z"
+}

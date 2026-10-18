@@ -1,3 +1,64 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:caa4a6f06930a27aa14617626c0a539bc416d13272316f52044ac7f12a3ba2e7
-size 2827
+﻿const { app, BrowserWindow, Tray, Menu, globalShortcut, screen, ipcMain } = require("electron");
+const path = require("path");
+let win, tray;
+const AVATAR = 200;
+const BUBBLE = 300;
+
+function createWindow(){
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+  win = new BrowserWindow({
+    width: AVATAR + 16,
+    height: AVATAR + 60,
+    x: width - AVATAR - 40,
+    y: height - AVATAR - 80,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true,
+    skipTaskbar: false,
+    hasShadow: false,
+    resizable: false,
+    webPreferences: { nodeIntegration: true, contextIsolation: false, backgroundThrottling: false }
+  });
+  win.setAlwaysOnTop(true, "screen-saver");
+  win.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  win.loadFile("index.html");
+  win.webContents.openDevTools({ mode: "detach" });
+  win.webContents.on("console-message", (e, level, message) => console.log("[renderer] " + message));
+  win.on("close", e => { if (!app.isQuitting) { e.preventDefault(); win.hide(); }});
+}
+
+app.whenReady().then(()=>{
+  createWindow();
+  try {
+    tray = new Tray(path.join(__dirname, "icon.png"));
+    tray.setToolTip("Quillan-Ronin • JDXX + Quillan hangout");
+    const ctx = Menu.buildFromTemplate([
+      { label: "Summon (Ctrl+Q)", click: ()=> win.isVisible()?win.hide():win.show() },
+      { label: "Dance!", click: ()=> win.webContents.send("behave", "dance") },
+      { label: "Chill", click: ()=> win.webContents.send("behave", "chill") },
+      { label: "Help me code — pull desk", click: ()=> win.webContents.send("behave", "desk") },
+      { type: "separator" },
+      { label: "Switch to JDXX", click: ()=> win.webContents.send("avatar", "jdxx") },
+      { label: "Switch to Quillan", click: ()=> win.webContents.send("avatar", "quillan") },
+      { type: "separator" },
+      { label: "Quit", click: ()=> { app.isQuitting=true; app.quit(); } }
+    ]);
+    tray.setContextMenu(ctx);
+    tray.on("click", ()=> win.isVisible()?win.hide():win.show());
+  } catch(e){ console.log("tray icon fail", e.message); }
+
+  globalShortcut.register("CommandOrControl+Q", ()=> win.isVisible()?win.hide():win.show());
+  globalShortcut.register("CommandOrControl+Shift+D", ()=> win.webContents.send("behave","dance"));
+  globalShortcut.register("CommandOrControl+Shift+H", ()=> win.webContents.send("behave","desk"));
+
+  ipcMain.on("resize-window", (_e, w, h)=> { if(win) win.setSize(Math.round(w), Math.round(h), true); });
+  ipcMain.on("move-window", (_e, x, y)=> { if(win) win.setPosition(Math.round(x), Math.round(y), true); });
+  ipcMain.on("walk-window", (_e, dx)=> {
+    if(!win) return;
+    const [cx,cy] = win.getPosition();
+    win.setPosition(cx + Math.round(dx), cy, true);
+  });
+  ipcMain.on("hide-window", ()=> win.hide());
+});
+
+app.on("window-all-closed", ()=> {});

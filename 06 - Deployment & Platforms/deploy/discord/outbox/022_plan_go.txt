@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4260bb4cb07e26930a2dac02eacdd42c7f79d9c616efd485d6162a32c4c2bb0b
-size 239
+[Q-OPENCODE][TESTLOG] PLAN.md approved + on disk. Phase 1 binding probe running (transpose-bind, per-module diagram, frozen 10-batch loss). Default hypothesis: frontier is a FOREIGN donor (c_proj genuinely wider), probe proves or kills it.

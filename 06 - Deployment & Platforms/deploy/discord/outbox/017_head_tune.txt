@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9edef521bbcd836951b18f58122e85f7f05d7c0132ddb3997976d8f5098b8ec3
-size 316
+[Q-OPENCODE][TESTLOG] head tune LIVE: mapped 6L vocab62 base, clean 20k slice, lr 1.5e-5, 150 steps eff-16, head+router+norm only (~12M). New file quillan_head_v62_clean.pt, nothing overwritten. First time training on YOUR clean data with the FIXED tokenizer. ETA ~4-6h. Progress in training_logs/head_clean.err.log.

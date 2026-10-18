@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:caf42c81e8dcb29adf6b44ab20c0bf701b3558c418d73a65d3ed34f5bc9e90d8
-size 329
+# Quillan Personal Developer Logs
+
+This directory contains local runtime session logs, execution traces, and conversational memories.
+
+> [!NOTE]
+> All session conversations, episodic memories, and runtime traces are populated locally on the host machine and are excluded from the public repository to protect personal user data.

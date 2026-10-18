@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6b5ff7906fb86145ea9e8d1d2c57255d13d47668cc5121a7ccd98ef88627a05d
-size 204
+{
+  "snapshot_id": "snap-1792270059",
+  "label": "smoke-test",
+  "prompt": "You are a helpful assistant.",
+  "prompt_sha": "75357d685f238b6a",
+  "weight_proposals": [],
+  "timestamp": 1792270059.5727682
+}

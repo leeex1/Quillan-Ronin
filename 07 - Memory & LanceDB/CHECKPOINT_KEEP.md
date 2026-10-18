@@ -1,3 +1,7 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8001aae20cbdbeb38d239a9baff790ff00759f6f1847bc93aee1e8945d593d56
-size 359
+﻿# CHECKPOINTS — KEEP
+
+Protected (do not touch until user says):
+- latest: 02 - Knowledge Foundation/knowledge/legacy/00 - Meta/toolkit/session/latest_step110_backup.pt — 6463.3 MB — latest_step110 — 9/4/2026
+- best_loss: SEARCHING... (no second pt found yet — will protect when found)
+
+All other checkpoints: need user confirmation before touch.

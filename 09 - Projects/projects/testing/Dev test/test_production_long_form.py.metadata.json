@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b69e80a1afd7a0f108ee5bc18cad0501eaac362160ed971fcc89b968cc109364
-size 163
+{
+  "summary": "Long-form speech evaluation script for quillan_final_master_v531.pt testing up to 1,200 tokens.",
+  "updatedAt": "2026-08-08T22:20:49.235158800Z"
+}

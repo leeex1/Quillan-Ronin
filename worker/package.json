@@ -1,3 +1,17 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dc66251cad40716f64c010c49477e25cf78faafe70fa1d5d688a75134b3b1237
-size 305
+{
+  "name": "quillan-worker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "description": "",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chess.js": "^1.4.0",
+    "playwright-core": "^1.62.1"
+  }
+}

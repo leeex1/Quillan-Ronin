@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a377aae5e31c154d099183983cbba0788a94467f06106b05b1a7c58418bb2109
-size 124
+{
+  "summary": "Inspect prompt headers across all training dataset files",
+  "updatedAt": "2026-08-03T13:37:02.218022300Z"
+}

@@ -1,3 +1,1 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:346d7a1e1cd0f31905cdddbb41f62fc7da629fc5a41fe04cb2e8a4d92497ee28
-size 218
+[Q-OPENCODE][TESTLOG] Requirement locked: Mini 0.6B reasoning + Main 1B reasoning, both thinking-trace trained. Main candidate = HF 5.22GB file, triage next with arch-match first. SFT on reasoning data before any GRPO.

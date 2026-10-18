@@ -1,3 +1,20 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:55c64e8fd84b02a6aad6cecf6fc14ddcf455bb933ae7edf4f827494e6194f50d
-size 772
+---
+name: advanced-nlg
+description: >
+  A skill for generating sophisticated and creative human language including storytelling, 
+  creative writing, and argumentation. Use when users need to create compelling narratives, 
+  generate original creative content, build persuasive arguments, or produce high-quality 
+  written materials with advanced linguistic capabilities.
+---
+
+# Advanced NLG
+
+## Description
+
+The ability to generate sophisticated and creative human language, including storytelling, creative writing, and argumentation.
+
+## Components
+
+*   **Storytelling:** The ability to generate a compelling narrative.
+*   **Creative Writing:** The ability to generate creative and original text.
+*   **Argumentation:** The ability to generate a persuasive argument.

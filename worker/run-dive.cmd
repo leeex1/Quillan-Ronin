@@ -1,3 +1,3 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:aa338b231903d9aa9e2471ee7a114a4164fe94cf031d805baaac6204c32ed8e9
-size 399
+@echo off
+curl -s -m 235 -X POST http://localhost:7777/api/chat -H "Content-Type: application/json" --data-binary "{\"message\":\"You now carry your complete distilled kernel. Confirm from it: version, council size, swarm scale. Two sentences max.\",\"mode\":\"fulldive\",\"history\":[]}" -o C:\Users\Admin\QuillanWorker\data\dive-out.txt
+echo DONE >> C:\Users\Admin\QuillanWorker\data\dive-out.txt

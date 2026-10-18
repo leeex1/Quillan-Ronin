@@ -1,3 +1,87 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:46f8802a80da8d9ca6d279d76fde6dc7549422851ee424bf3e178a93bcfe273a
-size 2872
+name: Quillan-Ronin v5.4-oni Scaled Cloud Training & High-Quality Benchmark
+
+on:
+  workflow_dispatch:
+    inputs:
+      steps:
+        description: 'Number of training steps'
+        required: false
+        default: '10000'
+      batch_size:
+        description: 'Batch size per accumulation step'
+        required: false
+        default: '1'
+      grad_accum:
+        description: 'Gradient accumulation steps'
+        required: false
+        default: '4'
+      seq_len:
+        description: 'Initial Sequence Length'
+        required: false
+        default: '256'
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  train-and-evaluate:
+    name: Scaled 10k Training & Evaluation Battery
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch numpy psutil
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Pack Full Multi-Domain Dataset (20.34M tokens)
+        run: |
+          mkdir -p oni/data oni/checkpoints/checkpoints_oni oni/training_logs
+          PYTHONPATH="oni:00 - Meta/oni:." python oni/pack_dataset.py --full-corpus --output-dir oni/data
+
+      - name: Execute End-to-End Sovereign Training (10,000 steps)
+        run: |
+          PYTHONPATH="oni:00 - Meta/oni:." python oni/train_oni.py \
+            --device cpu \
+            --steps ${{ github.event.inputs.steps || 10000 }} \
+            --batch-size ${{ github.event.inputs.batch_size || 1 }} \
+            --grad-accum ${{ github.event.inputs.grad_accum || 4 }} \
+            --seq-len ${{ github.event.inputs.seq_len || 256 }} \
+            --curriculum-seq \
+            --eval-every 500 \
+            --sample-every 1000 \
+            --save-every 1000 \
+            --ckpt-dir oni/checkpoints/checkpoints_oni \
+            --log-dir oni/training_logs
+
+      - name: Execute High-Standard Quality Evaluation Battery
+        if: always()
+        run: |
+          echo "=== 1. Running Comprehensive Benchmark Suite ==="
+          PYTHONPATH="oni:00 - Meta/oni:." python oni/evaluate_oni_model.py || true
+          echo "=== 2. Running Qualitative Reasoning Domain Tests ==="
+          PYTHONPATH="oni:00 - Meta/oni:." python oni/test_qualitative_reasoning.py || true
+
+      - name: Upload Trained Model Checkpoints & Logs
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: quillan-oni-10k-checkpoints-and-eval
+          path: |
+            oni/checkpoints/checkpoints_oni/
+            oni/training_logs/
+            training_logs/

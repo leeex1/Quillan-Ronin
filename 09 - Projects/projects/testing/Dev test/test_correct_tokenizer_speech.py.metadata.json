@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:f3407f269be160ef235022f5fe3ee808e31ced12509507b4ddc15e31be9912f5
-size 175
+{
+  "summary": "Test generation using matching Quillan HF tokenizer and correct prompt format (user: ... / assistant: ...).",
+  "updatedAt": "2026-08-08T15:30:21.635360100Z"
+}

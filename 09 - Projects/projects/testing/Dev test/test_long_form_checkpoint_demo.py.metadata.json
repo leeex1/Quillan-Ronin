@@ -1,3 +1,4 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1a40f4d76622133c15f037eb13a53aff67fd6189f20223ccdacf84b621c0f9fc
-size 161
+{
+  "summary": "Inference script to evaluate the long-form aligned model checkpoint quillan_longform_best.pt.",
+  "updatedAt": "2026-08-08T17:36:36.809795400Z"
+}

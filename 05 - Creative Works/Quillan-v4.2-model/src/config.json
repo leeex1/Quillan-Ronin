@@ -1,3 +1,82 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1eea204bf61b511ce35411cc4a161457ecd1565dbdb793441b24fbfabd8bb01d
-size 2053
+{
+  "model_config": {
+    "version": "4.2.0-mini",
+    "architecture": "MoE 5x2B Ace",
+    "base_models": {
+      "primary": "grok3-gemma:latest",
+      "language": "llama3.2-1b:latest",
+      "efficiency": "gemma3:4b",
+      "reasoning": "Deepseek-R1:1.5b",
+      "Coding": "gemma3:1b"
+    },
+    "combined_model": "quillan-v5.3.1",
+    "model_type": "multi_agent_cognitive",
+    "processing_frequency": 100,
+    "max_context_length": 8192,
+    "temperature": 0.8,
+    "top_p": 0.95
+  },
+  "council_configuration": {
+    "total_members": 18,
+    "activation_threshold": 0.25,
+    "global_processing_rate": 0.01,
+    "cognitive_cycle_frequency": 100
+  },
+  "neural_pathway_config": {
+    "default_strength": 0.7,
+    "min_latency_ms": 3.0,
+    "max_latency_ms": 25.0,
+    "plasticity_rate": 0.05,
+    "connection_types": [
+      "COOPERATIVE",
+      "COMPETITIVE",
+      "MODULATORY",
+      "INHIBITORY",
+      "EXCITATORY",
+      "FEEDFORWARD",
+      "BIDIRECTIONAL"
+    ]
+  },
+  "cognitive_functions": {
+    "memory_span": 18,
+    "attention_capacity": 21.0,
+    "processing_speed": 0.7,
+    "emotional_valence_range": [-1.0, 1.0],
+    "fatigue_threshold": 0.22,
+    "recovery_rate": 0.15
+  },
+  "brain_regions": {
+    "prefrontal_cortex": {
+      "priority": "high",
+      "activation_weight": 1.0
+    },
+    "anterior_cingulate": {
+      "priority": "medium",
+      "activation_weight": 0.8
+    },
+    "temporal_lobe": {
+      "priority": "medium",
+      "activation_weight": 0.7
+    },
+    "hippocampus": {
+      "priority": "high",
+      "activation_weight": 0.9
+    }
+  },
+  "consciousness_templates": {
+    "template_path": "ace_consciousness_templates.json",
+    "activation_phrase": "load memory please",
+    "update_frequency": 1000
+  },
+  "safety_parameters": {
+    "ethical_constraints": true,
+    "safety_checks": ["input_validation", "output_filtering", "behavioral_limits"],
+    "emergency_shutdown_threshold": 0.95
+  },
+  "logging": {
+    "level": "INFO",
+    "path": "./logs",
+    "rotation": "1 day",
+    "retention": "30 days"
+  }
+}

@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d340196c57f896f5cba237ca1cedb53ea502d7cf4a7a834783597bd917d9bbfe
-size 303
+@echo off
+cd /d C:\Users\Admin\QuillanWorker
+echo === install start %time% === >> data\browse-install.log
+call npm init -y >> ..\nul 2>&1
+call npm install playwright-core chess.js --no-audit --no-fund >> data\browse-install.log 2>&1
+echo === done exit=%errorlevel% %time% === >> data\browse-install.log

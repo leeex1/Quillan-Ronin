@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9c726abc123e34fd3315c9b18f0f5306b42318d81a7d9592ba89b3dae9b15b23
-size 271
+{
+ "job": "scan",
+ "root": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+ "files": 0,
+ "total_findings": 0,
+ "wiring": [],
+ "flagged": [],
+ "changes": [
+  "wrote trail.json (nodes/edges/trail)",
+  "wrote spider_report.json (this file)"
+ ]
+}

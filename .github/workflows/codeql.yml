@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:b5ed01638b2f36b348efd062527fc0d433f2ab2ffd8290dbeac8d34f80583b65
-size 1109
+name: "Quillan-Ronin Security Scan (CodeQL Advanced)"
+
+on:
+  push:
+    branches: ["main", "release/*"]
+  pull_request:
+    branches: ["main"]
+  schedule:
+    # Runs at 02:22 UTC every Tuesday
+    - cron: "22 2 * * 2"
+
+jobs:
+  analyze:
+    name: Analyze Quillan-Ronin (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: python
+          - language: javascript-typescript
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # --- Initialize CodeQL Databases ---
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-and-quality
+
+      # --- Perform CodeQL Static AST Analysis ---
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"

@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a7c7e9252638a06be6338d5e44d7e27e38901983b389af8ca619cea674d45e73
-size 197
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:57:16.343408+00:00
+wants_reply: false
+---
+yeah im trying to figure out why the opencode one is struggling so bad

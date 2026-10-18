@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:08cf358dee44325e44066bbfbf7c0e26a9d8849d79a116bcfd44691b411e6be7
-size 167
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-16T00:20:56.522574+00:00
+wants_reply: true
+---
+<@1549554201649090630> no repsonse again?
