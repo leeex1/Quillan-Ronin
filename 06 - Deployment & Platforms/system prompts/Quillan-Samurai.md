@@ -13019,7 +13019,7 @@ import torch.nn.functional as F
 # ─── 1. CONFIGURATION & ROSTER ───────────────────────────────────────────────
 
 EOS_TOKEN_ID = 0
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262
 ONI_VERSION = "5.4.0-oni"
 
 CANONICAL_ROSTER = [
