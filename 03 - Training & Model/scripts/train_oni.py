@@ -233,13 +233,14 @@ class Corpus:
             n = seq_len
         
         sliced_ids = tokens[:n].reshape(-1, seq_len).to(torch.int64)
-        if labels is not None and split == "train" and labels.numel() >= split_point:
-            flat_labels = labels.reshape(-1)[:split_point]
+        if labels is not None:
+            flat_labels = labels.reshape(-1)[:split_point] if split == "train" else labels.reshape(-1)[split_point:]
             nl = (flat_labels.numel() // seq_len) * seq_len
             sliced_labels = flat_labels[:nl].reshape(-1, seq_len).to(torch.int64)
         else:
-            sliced_labels = torch.roll(sliced_ids, shifts=-1, dims=-1)
-            sliced_labels[:, -1] = -100
+            # Model forward internally shifts logits[..., :-1] vs labels[..., 1:]
+            # so labels must match input_ids exactly without an extra roll!
+            sliced_labels = sliced_ids.clone()
 
         self.ids = sliced_ids
         self.labels = sliced_labels
