@@ -156,7 +156,7 @@ torch.backends.cuda.matmul.allow_tf32 = True
 torch.set_float32_matmul_precision("high")
 
 EOS_TOKEN_ID = 0  # unified custom BPE: <|endoftext|> at 0 (50256 legacy compat)
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262
 ONI_VERSION = "5.4.0-oni"
 
 
@@ -11325,7 +11325,7 @@ import torch.nn.functional as F
 # ─── 1. CONFIGURATION & ROSTER ───────────────────────────────────────────────
 
 EOS_TOKEN_ID = 0
-VOCAB_SIZE = 50257
+VOCAB_SIZE = 50262
 ONI_VERSION = "5.4.0-oni"
 
 CANONICAL_ROSTER = [
