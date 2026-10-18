@@ -106,8 +106,15 @@ def test_1_kernel_check() -> bool:
     # 1-step forward & backward pass
     print("Running 1-step forward and backward pass ...", end=" ")
     x = torch.randint(0, VOCAB_SIZE, (1, 64), device=device)
-    logits, loss = model(x, labels=x)
+    res = model(x, labels=x)
+    if isinstance(res, tuple):
+        logits = res[0]
+        loss = res[1]
+    else:
+        logits = res
+        loss = None
     assert logits.shape == (1, 64, VOCAB_SIZE), f"Unexpected logits shape: {logits.shape}"
+    assert loss is not None, "Loss was None"
     loss.backward()
     print(f"OK (Loss: {loss.item():.4f})")
 

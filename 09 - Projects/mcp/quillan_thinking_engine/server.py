@@ -48,10 +48,6 @@ for _bp in _BASE_PATHS:
 
 
 
-from __future__ import annotations
-import sys
-import os
-
 # Enforce UTF-8 on Windows
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8")
