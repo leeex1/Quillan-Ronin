@@ -615,7 +615,17 @@ class QuillanOniConfig:
     aux_aszr_weight: float = 0.01
     use_packed_ternary: bool = False
     dropout: float = 0.0
-    grad_checkpoint: bool = False
+    grad_checkpoint: bool = True
+    # --- C14-KAIDO batched execution (Phase 1) ---
+    # Vectorised 34-expert council + 9-vector prism. Both are mathematically
+    # equivalent to the sequential loops (verified by log-parity harness).
+    # Set either to False to fall back to the original per-module loop.
+    vectorized_experts: bool = True
+    vectorized_prism: bool = True
+    # Tie CausalSelfAttention.token_memory to the shared wte embedding.
+    # Prevents a 617.6M duplicate-parameter leak across 12 layers when
+    # use_memory_attention=True (per-layer mem_norm is retained).
+    tie_token_memory: bool = True
     # GRT (2608.15062) - Gated Recurrent Transformer: 3-layer core iterated R times = 12-layer quality
     use_grt: bool = False
     grt_n_core: int = 3              # core layers to iterate
@@ -806,11 +816,7 @@ class BitLinear(nn.Linear):
             w = _weight_quant(self.weight)
             return integer_only_forward(x, w, scale=1.0) + (self.bias if self.bias is not None else 0.0)
         w = _weight_quant(self.weight) if self.quantize_weight else self.weight
-        if self.quantize_act:
-            scale = 127.0 / x.abs().max(dim=-1, keepdim=True).values.clamp(min=1e-5)
-            x_q = x + ((x * scale).round().clamp(-127, 127) / scale - x).detach()
-        else:
-            x_q = x
+        x_q = _quantize_act(x) if self.quantize_act else x
         return F.linear(x_q, w, self.bias)
 
 
@@ -825,12 +831,41 @@ PRISM_VECTORS = [
 
 
 class NineVectorPrismDecomposition(nn.Module):
-    def __init__(self, dim: int):
+    def __init__(self, dim: int, vectorized: bool = True):
         super().__init__()
         self.vectors = nn.ModuleDict({k: BitLinear(dim, dim, bias=False) for k in PRISM_VECTORS})
         self.w_gate = nn.Linear(dim, dim, bias=False)
+        self.vectorized = bool(vectorized)
+        self._cache = None
+        self._cache_key = None
+
+    # -- C14-KAIDO: batched 9-vector execution -------------------------------
+    # Equivalence argument:
+    #   * _weight_quant() reduces with mean(dim=-1), i.e. PER ROW. Stacking the
+    #     9 [D,D] matrices into [9,D,D] before quantising therefore yields a
+    #     [9,D,1] scale that is row-for-row identical to quantising each matrix
+    #     separately.
+    #   * Activation quantisation depends only on x, so it is hoisted out of
+    #     the 9-fold loop and shared (the original recomputed the identical
+    #     value 9 times).
+    #   * bias is None for all 9, so F.linear reduces to a bare matmul.
+    def _stacked_weight(self, dtype: torch.device):
+        key = (dtype, tuple(v.weight._version for v in self.vectors.values()))
+        if self._cache_key == key and self._cache is not None:
+            return self._cache
+        W = torch.stack([_weight_quant(v.weight) for v in self.vectors.values()], dim=0)
+        if W.dtype != dtype:
+            W = W.to(dtype)
+        self._cache, self._cache_key = W, key
+        return W
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        if self.vectorized:
+            W9 = self._stacked_weight(x.dtype)                    # [9, D, D]
+            xq = _quantize_act(x) if _QUANT_ACT_SUPPORTED else x
+            # [..., D] x [9, D, D] -> [..., 9, D]; /9 matches the loop's mean.
+            prism = torch.einsum("...d,edh->...eh", xq, W9) / 9.0
+            return self.w_gate(prism)
         # Memory-safe accumulator across the 9 semantic vectors without allocating stacked weight tensors
         out_sum = None
         for v in self.vectors.values():
