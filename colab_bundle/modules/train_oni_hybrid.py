@@ -1,3 +1,21 @@
+
+# === [AUTO-WIRED v5.4.0-ONI 15-POINT LIVE TRAINING UPGRADE HOOK] ===
+try:
+    from quillan_live_training_upgrades import (
+        FrozenEmbeddingWithLoRA,
+        bitnet_158_dynamic_deadzone,
+        fast_cpu_muon_orthogonalize,
+        get_decoupled_lr_schedule,
+        SmallBatchMoEStabilizer,
+        CurriculumGateAndReplayController,
+        stack_6l_to_12l_zero_spike,
+        sample_early_ternary_logits,
+        compute_yarn_rope_inv_freq,
+    )
+    _UPGRADES_ACTIVE = True
+except ImportError:
+    _UPGRADES_ACTIVE = False
+
 ﻿#!/usr/bin/env python3
 # Hybrid CPU+GPU+RAM training for Quillan-Oni (ZeRO-Infinity/SPipe style)
 # GPU (1050 4GB) for forward/backward, CPU (28GB RAM) for optimizer, offload dir for NVMe

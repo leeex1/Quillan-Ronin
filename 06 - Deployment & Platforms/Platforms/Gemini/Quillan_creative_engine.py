@@ -78,7 +78,7 @@ class CreativeEngine:
         ]
 
         self.council_weights = {
-            "GENESIS": 1.0,
+            "C8-METASYNTH": 1.0, "C34-PREDATOR": 0.90,
             "OMNIS": 0.85,
             "CODEWEAVER": 0.9,
             "NULLION": 0.95,

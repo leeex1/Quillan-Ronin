@@ -838,6 +838,10 @@ class QuillanDesktopAgent:
             # System Actions
             elif action == "exec":
                 command = str(args.get("command", ""))
+        if any(bad in command.lower() for bad in ["rm -rf", "del /f", "format ", "shutdown", "rd /s"]):
+            return "Blocked by C13-WARDEN Perimeter Gate: Destructive shell command vetoed."
+        if any(bad in command.lower() for bad in ["rm -rf", "del /f", "format ", "shutdown", "rd /s"]):
+            return "Blocked by C13-WARDEN Perimeter Gate: Destructive shell command vetoed."
                 logger.warning(f"Executing shell command: {command}")
                 result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
                 output = result.stdout[:1000] + ("..." if len(result.stdout) > 1000 else "")
