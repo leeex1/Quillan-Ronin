@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GLSL 3: Hologram Plasma & Chromatic Glitch | Quillan GLSL Lab</title>
+  <title>Cybernetic Hologram & Chromatic Glitch | Quillan GLSL Lab</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #000; overflow: hidden; width: 100vw; height: 100vh; font-family: -apple-system, monospace; }
     canvas { width: 100%; height: 100%; display: block; }
     .hud {
       position: absolute;
-      top: 14px; left: 14px;
+      top: 14px;
+      left: 14px;
       color: #00f0ff;
       background: rgba(4, 7, 17, 0.85);
       backdrop-filter: blur(8px);
@@ -25,8 +26,8 @@
 </head>
 <body>
   <div class="hud">
-    <div class="hud-title">GLSL 3: Hologram Plasma & Chromatic Glitch</div>
-    <div class="hud-sub">FBM plasma with RGB dispersion, holographic flicker, film grain.</div>
+    <div class="hud-title">⚡ Cybernetic Hologram & Chromatic Glitch</div>
+    <div class="hud-sub">RGB chromatic aberration displacement with digital noise scanlines and holographic pulse.</div>
   </div>
   <canvas id="c"></canvas>
   <script>
@@ -34,76 +35,47 @@
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     gl.getExtension('OES_standard_derivatives');
 
+    const vs = `attribute vec2 p; varying vec2 v_texCoord; void main(){ v_texCoord = p * 0.5 + 0.5; gl_Position = vec4(p, 0.0, 1.0); }`;
     const fs = `
 precision highp float;
 varying vec2 v_texCoord;
 uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_audio;
-uniform vec2 u_mouse;
-
-float hash(vec2 p) {
-    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
-}
 
 float noise(vec2 p) {
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    f = f * f * (3.0 - 2.0 * f);
-    return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
-}
-
-float fbm(vec2 p) {
-    float v = 0.0;
-    v += 0.5 * noise(p); p *= 2.01;
-    v += 0.25 * noise(p); p *= 2.02;
-    v += 0.125 * noise(p);
-    return v;
+    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
 }
 
 void main() {
     vec2 uv = v_texCoord;
-
-    // holographic flicker
-    float flicker = 0.92 + 0.08 * sin(u_time * 37.0) * sin(u_time * 13.0);
-
-    // glitch bands
-    float glitch = step(0.97, sin(u_time * 8.0 + uv.y * 30.0)) * 0.03;
-    glitch += step(0.985, hash(vec2(u_time * 5.0, floor(uv.y * 40.0)))) * 0.05;
-
-    // RGB dispersion
-    float disp = glitch * 1.5 + 0.003;
-    vec2 uvR = uv + vec2(disp, 0.0);
+    
+    // Chromatic glitch offset
+    float glitch = step(0.96, sin(u_time * 8.0 + uv.y * 30.0)) * 0.03;
+    glitch += step(0.98, noise(vec2(u_time * 5.0, floor(uv.y * 40.0)))) * 0.05;
+    
+    vec2 uvR = uv + vec2(glitch * 1.5, 0.0);
     vec2 uvG = uv;
-    vec2 uvB = uv - vec2(disp, 0.0);
-
-    // FBM plasma per channel
-    float pR = fbm(uvR * 6.0 + u_time * 0.4);
-    float pG = fbm(uvG * 6.0 + u_time * 0.35 + vec2(5.2, 1.3));
-    float pB = fbm(uvB * 6.0 + u_time * 0.45 + vec2(8.3, 2.8));
-
+    vec2 uvB = uv - vec2(glitch * 1.5, 0.0);
+    
+    // Plasma waves
+    float pR = sin(uvR.x * 10.0 + u_time) + cos(uvR.y * 12.0 - u_time * 1.2);
+    float pG = sin(uvG.x * 12.0 - u_time * 1.1) + cos(uvG.y * 8.0 + u_time * 1.3);
+    float pB = sin(uvB.x * 8.0 + u_time * 1.4) + cos(uvB.y * 14.0 - u_time * 0.9);
+    
     vec3 col;
-    col.r = smoothstep(0.3, 0.7, pR);
-    col.g = smoothstep(0.3, 0.7, pG) * 0.9 + 0.1;
-    col.b = smoothstep(0.3, 0.7, pB) * 1.15;
-
-    // tint to cyan/magenta hologram palette
-    vec3 cyan = vec3(0.0, 0.94, 1.0);
-    vec3 magenta = vec3(0.9, 0.2, 0.85);
-    col *= mix(cyan, magenta, uv.y * 0.4 + 0.3) * 1.1;
-
-    // scanlines
-    col *= 0.85 + 0.15 * sin(uv.y * u_resolution.y * 2.0);
-
-    // vignette
+    col.r = sin(pR * 2.0) * 0.5 + 0.5;
+    col.g = (sin(pG * 2.0) * 0.5 + 0.5) * 0.9 + 0.1;
+    col.b = (sin(pB * 2.0) * 0.5 + 0.5) * 1.2;
+    
+    col *= vec3(0.0, 0.94, 1.0) * 1.2;
+    
+    // Hologram Scanlines
+    col *= 0.8 + 0.2 * sin(uv.y * u_resolution.y * 2.0);
     col *= 1.0 - length(uv - 0.5) * 0.7;
 
-    // holographic flicker
-    col *= flicker;
-
-    // film grain
-    float grain = hash(uv * u_resolution + u_time * 100.0) * 0.05 - 0.025;
+    // Film grain
+    float grain = hash(uv * u_resolution + u_time * 100.0) * 0.04 - 0.02;
     col += grain;
 
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
@@ -114,65 +86,40 @@ void main() {
       const s = gl.createShader(type);
       gl.shaderSource(s, src);
       gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.error('Shader compile error:', gl.getShaderInfoLog(s));
-        document.body.innerHTML += '<div style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4444;font-family:monospace;font-size:12px;white-space:pre-wrap;max-width:80vw;">' + gl.getShaderInfoLog(s) + '</div>';
-        return null;
-      }
       return s;
     }
-    const vs = `attribute vec2 p; varying vec2 v_texCoord; void main(){ v_texCoord = p * 0.5 + 0.5; gl_Position = vec4(p, 0.0, 1.0); }`;
+
     const prog = gl.createProgram();
-    const vsh = compile(gl.VERTEX_SHADER, vs);
-    const fsh = compile(gl.FRAGMENT_SHADER, fs);
-    if (!vsh || !fsh) { console.error('Shader failed to compile'); return; }
-    gl.attachShader(prog, vsh);
-    gl.attachShader(prog, fsh);
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
     gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-      console.error('Program link error:', gl.getProgramInfoLog(prog));
-      return;
-    }
     gl.useProgram(prog);
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
     const pLoc = gl.getAttribLocation(prog, 'p');
     gl.enableVertexAttribArray(pLoc);
     gl.vertexAttribPointer(pLoc, 2, gl.FLOAT, false, 0, 0);
 
     const uTime = gl.getUniformLocation(prog, 'u_time');
-    const uRes  = gl.getUniformLocation(prog, 'u_resolution');
+    const uRes = gl.getUniformLocation(prog, 'u_resolution');
     const uAudio = gl.getUniformLocation(prog, 'u_audio');
-    const uMouse = gl.getUniformLocation(prog, 'u_mouse');
-
-    let mouseX = 0.5, mouseY = 0.5;
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX / window.innerWidth;
-      mouseY = 1.0 - e.clientY / window.innerHeight;
-    });
 
     function resize() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width  = Math.floor(window.innerWidth  * dpr);
-      canvas.height = Math.floor(window.innerHeight * dpr);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
       gl.viewport(0, 0, canvas.width, canvas.height);
     }
     resize();
     window.addEventListener('resize', resize);
 
-    let visible = true;
-    document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
-
-    let t0 = performance.now();
     function render(t) {
       requestAnimationFrame(render);
-      if (!visible) return;
-      if (uTime)   gl.uniform1f(uTime,   (t - t0) * 0.001);
-      if (uRes)    gl.uniform2f(uRes,     canvas.width, canvas.height);
-      if (uAudio)  gl.uniform1f(uAudio,   0.7);
-      if (uMouse)  gl.uniform2f(uMouse,   mouseX, mouseY);
+      if (uTime) gl.uniform1f(uTime, t * 0.001);
+      if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+      if (uAudio) gl.uniform1f(uAudio, 0.7);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
     render(0);
