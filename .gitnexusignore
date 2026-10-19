@@ -1,0 +1,34 @@
+# Quillan-Ronin GitNexus ignore - regenerated 2026-10-13 after restructure
+# Index source + docs, skip binaries/caches/venvs
+**/node_modules/**
+**/.git/**
+**/build/**
+**/dist/**
+**/__pycache__/**
+*.pyc
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.onnx
+checkpoints/**
+.venv*/**
+venv*/**
+.obsidian/**
+.obsidian_backup/**
+**/*.mp3
+**/*.mp4
+**/*.mkv
+**/*.avi
+**/*.mov
+**/*.zip
+**/*.tar.gz
+*.log
+
+
+venv_oni*/**
+09 - Projects/projects/venv*/**
+.venv-mazebench/**
+quillan_rag_db/**
+*.pt
+
