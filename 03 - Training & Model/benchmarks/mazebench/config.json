@@ -1,0 +1,11 @@
+{
+  "package": "mazebench",
+  "version": "0.2.19",
+  "mode": "json",
+  "level": "CxD",
+  "max_moves": 200,
+  "max_seconds": 1800,
+  "max_observation_bytes": 1048576,
+  "artifacts_dir": "benchmarks/mazebench/artifacts",
+  "allow_python_solver": false
+}

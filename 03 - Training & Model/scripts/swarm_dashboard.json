@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-08-21 21:15:44",
+  "daemons": {
+    "trainer_watchdog": {
+      "status": "RUNNING",
+      "pid": 21084,
+      "description": "Primary 7100-step training loop with self-healing auto-restart"
+    },
+    "auto_evaluator": {
+      "status": "RUNNING",
+      "pid": 10108,
+      "description": "Monitors new best checkpoints and runs automated benchmark probes"
+    },
+    "data_harvester": {
+      "status": "STOPPED",
+      "pid": null,
+      "description": "Mines real conversation logs and stages new gold training pairs"
+    }
+  }
+}

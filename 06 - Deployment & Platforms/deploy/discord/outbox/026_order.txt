@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] Build order locked: MINI FIRST to verified-done on this box, then scale recipe to 1B Main. 1B hard cap is size, not density - MoE, swarm, prism, reasoning, TRM/HRM recurrence all inside the small envelope. Mini re-stage starts the moment the Main loss probe clears the box.

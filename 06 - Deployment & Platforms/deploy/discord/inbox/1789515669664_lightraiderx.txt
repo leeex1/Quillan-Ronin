@@ -1,0 +1,6 @@
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:41:09.664493+00:00
+wants_reply: true
+---
+ok now that you both can see eachother <@1549554201649090630> <@1549557324346036244> lets collab until you finish training the model please open code has the local version muse has the github snapshot so keep that in mind working together opencode you should explain the compute cost and what we have and why some choices are made ect

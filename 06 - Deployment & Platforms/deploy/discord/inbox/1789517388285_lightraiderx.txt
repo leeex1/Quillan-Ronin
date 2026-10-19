@@ -1,0 +1,6 @@
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-16T00:09:48.285604+00:00
+wants_reply: true
+---
+<@1549557324346036244> your fine <@1549554201649090630> is the issue

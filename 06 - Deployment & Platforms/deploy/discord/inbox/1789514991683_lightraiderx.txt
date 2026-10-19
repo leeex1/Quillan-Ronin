@@ -1,0 +1,5 @@
+from: CrashOverrideX (lightraiderx)
+at: 2026-09-15T23:29:51.683824+00:00
+wants_reply: false
+---
+ok so guys you are here to collaborate on getting the local model trained fully opencode has the lcoal specs and dev logs access and muse you have the web capabilites opencode lacks togther i feel you two can reason through this

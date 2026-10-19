@@ -1,0 +1,92 @@
+[
+  {
+    "id": "logic_socrates",
+    "prompt": "If all humans are mortal and Socrates is human, is Socrates mortal? Explain step by step.",
+    "output": "<think>**Explaining a real and the most important question that the query, and the query, and the user is a single- **The user is a real question. The key insight is a single- **The user is the most of the same, and I should be a single-based, but it's think about how to be a real question.\n\nI need to be a real and the most important question that the most of the query, and the query, and the same. The key insight is a real. The key insight is a single- **The user is",
+    "has_think": true,
+    "has_close": false,
+    "words": 94,
+    "seconds": 43.48532485961914
+  },
+  {
+    "id": "thermo_2nd_law",
+    "prompt": "Explain the Second Law of Thermodynamics with a simple example.",
+    "output": "<think>**Explaining a few different is asking the query, and the query, and the most of the query, and the most important question.\n\nThe user is a single- **The user is a few different is a single-based, I need to be a simple.\n\nI should also need to be most important question that's think about how they're asking for the right questions I need to be most of the query, and the required to be most of the key insight is the right questions.\n\nI should ask:** \n\nLet me reason through",
+    "has_think": true,
+    "has_close": false,
+    "words": 90,
+    "seconds": 42.51493549346924
+  },
+  {
+    "id": "code_binary_search",
+    "prompt": "Write a Python function for binary search and explain how it works.",
+    "output": "To address the query, I need to start with the right questions.\n\nI need to consider include:\n\nI should consider edge cases like [description]\n\nLet me think about what I'm on this holds up:\n\nLet me think about what I've learned from similar cases is:\n\nHaving worked through this line of edge cases.\n\nFinal answer: The solution achieves the required time complexity with proper handling of edge cases.\n<|end|>",
+    "has_think": false,
+    "has_close": false,
+    "words": 69,
+    "seconds": 34.25443434715271
+  },
+  {
+    "id": "paradox_ship",
+    "prompt": "What is the Ship of Theseus paradox? Explain the core question.",
+    "output": "<think>\nThe user is asking about the most important question that the most of the most important question. The user is a single-based, and the most common. The key insight is a real question that's a real and the same as a single-to- **The user wants to be a single-based, and the most of the same as a single-1) and the most of the most important question.\n\nI should be a real, I should also mention that's think about what we need to be a real. The key insight is the same. The key",
+    "has_think": true,
+    "has_close": false,
+    "words": 94,
+    "seconds": 42.28704595565796
+  },
+  {
+    "id": "async_sync",
+    "prompt": "Explain async vs sync programming with a simple analogy.",
+    "output": "<think>**Explaining a real-term, and the most important question. I need to be a real-level, and the most of the user is a single-based, and how to be a real.\n\nThe user wants to be a single- **The user is the same thing I should also mention that's think about what's think about this is the query, and I should also mention that the most important question. The key insight is a simple. The key insight is the most of the most of the most of the same.\n\nI need to be a",
+    "has_think": true,
+    "has_close": false,
+    "words": 92,
+    "seconds": 48.411792278289795
+  },
+  {
+    "id": "bio_photosyn",
+    "prompt": "Explain photosynthesis in simple terms for a 10-year-old.",
+    "output": "<think>**Explaining a real-term-term-offs:\n\nThe user wants a real- **The user is the query, and domain principles.\n\nI need to be most important question that the query, and domain principles.\n\nI need to be most important question that the required to be most important question.\n<|end|>",
+    "has_think": true,
+    "has_close": false,
+    "words": 45,
+    "seconds": 31.82765817642212
+  },
+  {
+    "id": "story_cyberpunk",
+    "prompt": "Write a 3-sentence cyberpunk micro-story with a twist.",
+    "output": "To make progress, I need to start with the query, I need to consider include:\n\nI should consider include:\n\nLet me think about what we know from similar cases like empty inputs, we know for the required time complexity with a few different approaches:\n\nI'm on this systematically:\n\nHaving worked through this holds true through rigorous mathematical reasoning:\n\nFinal answer: The proof demonstrates that the statement holds true through rigorous mathematical reasoning.\n<|end|>",
+    "has_think": false,
+    "has_close": false,
+    "words": 73,
+    "seconds": 37.07209658622742
+  },
+  {
+    "id": "debug_python",
+    "prompt": "This Python code has a bug: `for i in range(len(items)): print(items[i+1])` — what's the bug and fix it?",
+    "output": "<think>\nThe user is a real-1) and the most important question is the most of the same. The key insight is a single-1) and the same.\n\n**The user is a single-1) = 0. The user is the most important question that's a single- **The user has a real and the same.\n\n**The user is a real, but it's the most of the most common and the same. The key insight is a single-1) and the same. The key insight is a real-1) = 0.",
+    "has_think": true,
+    "has_close": false,
+    "words": 84,
+    "seconds": 41.108750343322754
+  },
+  {
+    "id": "ethics_ai_health",
+    "prompt": "Help me think through the ethical implications of AI in healthcare.",
+    "output": "Let me think about how this properly, I need to consider include:\n\nI should consider include:\n\nI need to consider what I've learned from similar cases like this is:\n\nLet me verify that the required time and what we know from these questions thoroughly:\n\nFinal answer: The solution achieves the required time complexity with proper handling of edge cases.\n<|end|>",
+    "has_think": false,
+    "has_close": false,
+    "words": 60,
+    "seconds": 29.833471536636353
+  },
+  {
+    "id": "math_prime",
+    "prompt": "Help me prove there are infinitely many primes — suggest the key idea.",
+    "output": "Let me think about:\n\nI need to consider include:\n\nI need to consider edge cases like this makes this systematically:\n\nLet me verify that the required time complexity with a few different approaches:\n\nFinal answer: The solution achieves the statement holds true through rigorous mathematical reasoning.\n<|end|>",
+    "has_think": false,
+    "has_close": false,
+    "words": 47,
+    "seconds": 23.91635537147522
+  }
+]

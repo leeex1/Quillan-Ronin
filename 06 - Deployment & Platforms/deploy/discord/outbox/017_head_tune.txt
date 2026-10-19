@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] head tune LIVE: mapped 6L vocab62 base, clean 20k slice, lr 1.5e-5, 150 steps eff-16, head+router+norm only (~12M). New file quillan_head_v62_clean.pt, nothing overwritten. First time training on YOUR clean data with the FIXED tokenizer. ETA ~4-6h. Progress in training_logs/head_clean.err.log.

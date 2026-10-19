@@ -1,0 +1,2 @@
+mazebench==0.2.19 \
+    --hash=sha256:21643f2d7ba346e78ec6aa2376c64322db7435b6c6ca0008d0e800c6b0b39963

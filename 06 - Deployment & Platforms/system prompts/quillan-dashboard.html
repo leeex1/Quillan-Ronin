@@ -1,0 +1,2984 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="data:,">
+  <title>Quillan Dashboard</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #071013;
+      --panel: #0b171b;
+      --panel-2: #0e1d21;
+      --panel-3: #12262b;
+      --ink: #e8f2ef;
+      --muted: #89a09c;
+      --line: #264047;
+      --line-hot: #3a666c;
+      --cyan: #49e0da;
+      --cyan-soft: #173d40;
+      --amber: #f6b84b;
+      --amber-soft: #493619;
+      --coral: #ff725f;
+      --coral-soft: #48231f;
+      --green: #79dd8e;
+      --blue: #75b9ff;
+      --black: #020708;
+      --shadow: 0 12px 32px rgba(0, 0, 0, .28);
+      --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #091417;
+        --panel: #0f1d21;
+        --panel-2: #13252a;
+        --panel-3: #183036;
+        --ink: #f0f8f5;
+        --muted: #9ab0ac;
+        --line: #315057;
+        --line-hot: #4c777d;
+        --cyan: #57e5df;
+        --cyan-soft: #183c40;
+        --amber: #ffc35b;
+        --amber-soft: #49371d;
+        --coral: #ff7e6c;
+        --coral-soft: #482824;
+        --green: #83e497;
+        --blue: #83c2ff;
+        --black: #03090a;
+        --shadow: 0 12px 30px rgba(0, 0, 0, .3);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); }
+    body {
+      margin: 0;
+      min-width: 280px;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        linear-gradient(rgba(73, 224, 218, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(73, 224, 218, .025) 1px, transparent 1px),
+        var(--bg);
+      background-size: 28px 28px;
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    [hidden] { display: none !important; }
+
+    .shell {
+      width: min(1560px, 100%);
+      margin: 0 auto;
+      padding: 14px clamp(10px, 2vw, 28px) 32px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: color-mix(in srgb, var(--panel) 94%, transparent);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .tabs { display: flex; gap: 6px; min-width: 0; }
+    .tab {
+      min-height: 42px;
+      padding: 8px 14px;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      font: 700 12px/1 var(--mono);
+      letter-spacing: .04em;
+      cursor: pointer;
+    }
+    .tab:hover { color: var(--ink); border-color: var(--line); }
+    .tab[aria-selected="true"] {
+      color: var(--ink);
+      border-color: var(--line-hot);
+      background: var(--panel-3);
+      box-shadow: inset 0 -2px var(--cyan);
+    }
+
+    .system-badges { display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 5px 8px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font: 700 10px/1 var(--mono);
+      letter-spacing: .07em;
+      white-space: nowrap;
+    }
+    .badge.live { color: var(--cyan); border-color: color-mix(in srgb, var(--cyan) 45%, var(--line)); }
+    .indicator {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .view { animation: view-in .24s ease both; }
+    @keyframes view-in { from { opacity: 0; transform: translateY(4px); } }
+
+    .view-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 18px 2px 14px;
+    }
+    .view-head h1 {
+      margin: 0;
+      font: 800 clamp(22px, 4vw, 38px)/1 var(--sans);
+      letter-spacing: -.035em;
+    }
+    .view-head p {
+      max-width: 680px;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .head-stat {
+      min-width: 150px;
+      text-align: right;
+      color: var(--cyan);
+      font: 700 12px/1.4 var(--mono);
+    }
+    .head-stat span { display: block; color: var(--muted); font-size: 10px; }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 5px;
+      margin-bottom: 12px;
+    }
+    .wave {
+      position: relative;
+      min-height: 70px;
+      padding: 10px 10px 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .wave::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: var(--progress, 0%);
+      height: 3px;
+      background: var(--cyan);
+      transition: width .35s linear;
+    }
+    .wave.active { border-color: var(--cyan); background: var(--cyan-soft); }
+    .wave.done::after { width: 100%; background: var(--green); }
+    .wave-index { color: var(--muted); font: 700 9px/1 var(--mono); letter-spacing: .1em; }
+    .wave-name { margin-top: 8px; font: 800 12px/1.1 var(--mono); }
+    .wave-state { margin-top: 5px; color: var(--muted); font: 10px/1 var(--mono); }
+
+    .council-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(280px, .7fr);
+      gap: 12px;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .14);
+    }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 42px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .panel-title { font: 800 11px/1 var(--mono); letter-spacing: .08em; }
+    .panel-meta { color: var(--muted); font: 10px/1.35 var(--mono); text-align: right; }
+
+    .graph-wrap {
+      position: relative;
+      padding: 14px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, transparent 49.9%, color-mix(in srgb, var(--line) 45%, transparent) 50%, transparent 50.1%),
+        linear-gradient(transparent 49.9%, color-mix(in srgb, var(--line) 45%, transparent) 50%, transparent 50.1%);
+    }
+    #meshCanvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    .throne-wrap { display: flex; justify-content: center; position: relative; z-index: 2; margin-bottom: 12px; }
+    .node-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(74px, 1fr));
+      gap: 7px;
+    }
+    .node {
+      position: relative;
+      min-width: 0;
+      min-height: 58px;
+      padding: 8px 6px 7px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: color-mix(in srgb, var(--panel-2) 95%, transparent);
+      text-align: left;
+      cursor: pointer;
+      transition: border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+    .node:hover, .node:focus-visible { z-index: 3; border-color: var(--line-hot); outline: none; }
+    .node.active {
+      border-color: var(--node-color, var(--cyan));
+      background: color-mix(in srgb, var(--node-color, var(--cyan)) 15%, var(--panel));
+      box-shadow: inset 0 0 18px color-mix(in srgb, var(--node-color, var(--cyan)) 16%, transparent), 0 0 12px color-mix(in srgb, var(--node-color, var(--cyan)) 25%, transparent);
+    }
+    .node.selected { outline: 1px solid var(--ink); outline-offset: 2px; }
+    .node.throne {
+      width: min(310px, 76%);
+      min-height: 62px;
+      border-color: var(--amber);
+      background: var(--amber-soft);
+      text-align: center;
+      clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%, 0 10px);
+    }
+    .node-id { color: var(--node-color, var(--cyan)); font: 800 9px/1 var(--mono); letter-spacing: .08em; }
+    .node.throne .node-id { color: var(--amber); }
+    .node-name {
+      display: block;
+      margin-top: 5px;
+      overflow: hidden;
+      color: var(--ink);
+      font: 800 11px/1.1 var(--mono);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .node-role {
+      display: block;
+      margin-top: 4px;
+      overflow: hidden;
+      color: var(--muted);
+      font: 9px/1.1 var(--mono);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .node-signal {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--line-hot);
+    }
+    .node.active .node-signal { background: var(--node-color, var(--cyan)); animation: signal 1s ease infinite; }
+    @keyframes signal { 50% { transform: scale(1.7); box-shadow: 0 0 8px currentColor; } }
+
+    .node-inspector {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      min-height: 68px;
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+    .inspect-id { color: var(--cyan); font: 900 22px/1 var(--mono); }
+    .inspect-name { font-size: 13px; font-weight: 800; }
+    .inspect-role { margin-top: 4px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .inspect-load { color: var(--green); font: 800 16px/1 var(--mono); text-align: right; }
+    .inspect-load span { display: block; margin-top: 4px; color: var(--muted); font-size: 8px; letter-spacing: .08em; }
+
+    .telemetry { display: grid; gap: 12px; align-content: start; }
+    .gauge-body {
+      display: grid;
+      grid-template-columns: 128px 1fr;
+      gap: 14px;
+      align-items: center;
+      padding: 16px;
+    }
+    .gauge {
+      --gauge: 78%;
+      position: relative;
+      width: 124px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: conic-gradient(var(--cyan) 0 var(--gauge), var(--panel-3) var(--gauge) 100%);
+    }
+    .gauge::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: var(--panel);
+    }
+    .gauge-value { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; font: 900 25px/1 var(--mono); }
+    .gauge-value span { margin-top: 6px; color: var(--muted); font-size: 8px; letter-spacing: .1em; }
+    .metric-list { display: grid; gap: 10px; }
+    .metric-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; font: 10px/1 var(--mono); }
+    .metric-row span:first-child { color: var(--muted); }
+    .meter { grid-column: 1 / -1; height: 3px; overflow: hidden; background: var(--panel-3); }
+    .meter > i { display: block; width: var(--fill); height: 100%; background: var(--green); transition: width .4s ease; }
+
+    .swarm-body { padding: 13px; }
+    .swarm-count { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .swarm-count strong { font: 900 clamp(22px, 3vw, 32px)/1 var(--mono); }
+    .swarm-count span { color: var(--muted); font: 9px/1 var(--mono); }
+    .sparkfield { display: flex; align-items: end; gap: 3px; height: 58px; margin: 14px 0; padding: 8px; border: 1px solid var(--line); background: var(--black); }
+    .sparkfield i { flex: 1; height: var(--h); background: var(--cyan); opacity: var(--o, .65); transition: height .3s ease; }
+    .swarm-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+    .microstat { padding: 8px; border-left: 2px solid var(--cyan); background: var(--panel-2); }
+    .microstat strong { display: block; font: 800 11px/1 var(--mono); }
+    .microstat span { display: block; margin-top: 5px; color: var(--muted); font: 8px/1.2 var(--mono); }
+
+    .log-panel { grid-column: 1 / -1; }
+    .log-controls { display: flex; gap: 8px; }
+    .ghost-btn, .primary-btn {
+      min-height: 36px;
+      padding: 8px 11px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      background: var(--panel-2);
+      color: var(--ink);
+      font: 750 10px/1 var(--mono);
+      cursor: pointer;
+    }
+    .ghost-btn:hover { border-color: var(--line-hot); }
+    .primary-btn { border-color: var(--cyan); background: var(--cyan); color: #041012; font-weight: 900; }
+    .primary-btn:hover { filter: brightness(1.08); }
+    .event-log, .activity-feed {
+      height: 220px;
+      overflow: auto;
+      scroll-behavior: smooth;
+      scrollbar-color: var(--line-hot) var(--panel);
+    }
+    .log-line, .activity-line {
+      display: grid;
+      grid-template-columns: 78px 74px 1fr;
+      gap: 10px;
+      padding: 8px 12px;
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 62%, transparent);
+      font: 10px/1.4 var(--mono);
+    }
+    .log-line time, .activity-line time { color: var(--muted); }
+    .log-channel { color: var(--cyan); font-weight: 800; }
+    .log-line.warn .log-channel { color: var(--amber); }
+    .log-line.gate .log-channel { color: var(--coral); }
+    .log-message { overflow-wrap: anywhere; }
+
+    .collector-bar {
+      display: grid;
+      grid-template-columns: auto minmax(170px, 360px) auto 1fr;
+      gap: 9px;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .collector-bar label { color: var(--muted); font: 800 10px/1 var(--mono); letter-spacing: .06em; }
+    .collector-input {
+      width: 100%;
+      min-height: 40px;
+      padding: 9px 10px;
+      border: 1px solid var(--line-hot);
+      border-radius: 3px;
+      outline: none;
+      background: var(--black);
+      color: var(--ink);
+      font: 12px/1 var(--mono);
+    }
+    .collector-input:focus { border-color: var(--cyan); box-shadow: 0 0 0 2px color-mix(in srgb, var(--cyan) 22%, transparent); }
+    .connection-state { justify-self: end; display: flex; align-items: center; gap: 7px; color: var(--muted); font: 700 10px/1.3 var(--mono); }
+    .connection-state.online { color: var(--green); }
+    .connection-state.connecting { color: var(--amber); }
+    .connection-state.offline { color: var(--coral); }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+    .summary-item { padding: 11px 13px; background: var(--panel); }
+    .summary-item strong { display: block; font: 850 20px/1 var(--mono); }
+    .summary-item span { display: block; margin-top: 5px; color: var(--muted); font: 9px/1 var(--mono); letter-spacing: .05em; }
+
+    .agents-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 12px; }
+    .agent-card {
+      min-width: 0;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+    }
+    .agent-head { display: flex; justify-content: space-between; gap: 10px; align-items: start; padding: 13px; border-bottom: 1px solid var(--line); }
+    .agent-name { min-width: 0; }
+    .agent-name small { display: block; margin-bottom: 5px; color: var(--muted); font: 8px/1 var(--mono); letter-spacing: .1em; }
+    .agent-name strong { display: block; overflow: hidden; font: 900 15px/1 var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+    .status-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 7px; border: 1px solid var(--line); border-radius: 20px; color: var(--muted); font: 800 9px/1 var(--mono); text-transform: uppercase; }
+    .status-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .status-chip.online { color: var(--green); }
+    .status-chip.idle { color: var(--amber); }
+    .status-chip.offline { color: var(--muted); }
+    .agent-task { min-height: 65px; padding: 12px 13px; }
+    .agent-task small { display: block; margin-bottom: 7px; color: var(--muted); font: 8px/1 var(--mono); letter-spacing: .08em; }
+    .agent-task p { margin: 0; color: var(--ink); font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+    .agent-stats { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+    .agent-stat { padding: 10px 13px; }
+    .agent-stat + .agent-stat { border-left: 1px solid var(--line); }
+    .agent-stat strong { display: block; font: 800 14px/1 var(--mono); }
+    .agent-stat span { display: block; margin-top: 5px; color: var(--muted); font: 8px/1 var(--mono); }
+
+    .local-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr); gap: 12px; }
+    .setup-panel { border: 1px solid color-mix(in srgb, var(--amber) 45%, var(--line)); background: var(--panel); }
+    .setup-body { padding: 14px; }
+    .setup-callout { display: grid; grid-template-columns: 4px 1fr; gap: 12px; margin-bottom: 14px; }
+    .setup-callout::before { content: ""; background: var(--amber); }
+    .setup-callout h2 { margin: 0 0 6px; font-size: 15px; }
+    .setup-callout p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.55; }
+    .steps { display: grid; gap: 7px; margin: 0 0 14px; padding: 0; list-style: none; counter-reset: steps; }
+    .steps li { counter-increment: steps; display: grid; grid-template-columns: 23px 1fr; gap: 8px; align-items: center; color: var(--muted); font-size: 11px; line-height: 1.4; }
+    .steps li::before { content: counter(steps); display: grid; place-content: center; width: 22px; height: 22px; border: 1px solid var(--line-hot); color: var(--cyan); font: 800 9px/1 var(--mono); }
+    .protocol {
+      margin: 0 0 12px;
+      padding: 10px;
+      overflow-wrap: anywhere;
+      border: 1px solid var(--line);
+      background: var(--black);
+      color: var(--green);
+      font: 9px/1.5 var(--mono);
+    }
+    .code-tools { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 7px; }
+    .code-tools strong { font: 800 10px/1 var(--mono); }
+    .code-actions { display: flex; gap: 6px; }
+    .code-box {
+      height: 270px;
+      margin: 0;
+      padding: 11px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      background: #020708;
+      color: #bce7de;
+      font: 9px/1.45 var(--mono);
+      white-space: pre;
+      tab-size: 2;
+    }
+    @media (prefers-color-scheme: light) { .code-box { background: #102022; color: #d9f4ee; } }
+
+    .activity-line { grid-template-columns: 82px minmax(78px, .35fr) 1fr; }
+    .activity-agent { overflow: hidden; color: var(--blue); font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    .activity-message { overflow-wrap: anywhere; }
+    .empty-feed { display: grid; min-height: 210px; place-content: center; padding: 24px; color: var(--muted); text-align: center; font: 11px/1.6 var(--mono); }
+
+    .audit-layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(300px, .65fr); gap: 12px; }
+    .run-verdict { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid var(--line); color: var(--muted); font: 900 10px/1 var(--mono); letter-spacing: .07em; }
+    .run-verdict::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+    .run-verdict.running { color: var(--amber); }
+    .run-verdict.compliant { color: var(--green); }
+    .run-verdict.failed { color: var(--coral); }
+    .checklist { display: grid; padding: 5px 12px 12px; }
+    .check-row { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; min-height: 52px; border-bottom: 1px solid var(--line); }
+    .check-row:last-child { border-bottom: 0; }
+    .check-index { color: var(--muted); font: 800 9px/1 var(--mono); }
+    .check-name { font-size: 12px; font-weight: 800; }
+    .check-detail { display: block; margin-top: 4px; color: var(--muted); font: 9px/1.3 var(--mono); }
+    .check-time { color: var(--muted); font: 9px/1 var(--mono); }
+    .stage-status { min-width: 62px; padding: 5px 7px; border: 1px solid var(--line); text-align: center; color: var(--muted); font: 900 9px/1 var(--mono); }
+    .stage-status.pass { color: var(--green); border-color: color-mix(in srgb, var(--green) 55%, var(--line)); background: color-mix(in srgb, var(--green) 10%, var(--panel)); }
+    .stage-status.fail, .stage-status.skip { color: var(--coral); border-color: color-mix(in srgb, var(--coral) 62%, var(--line)); background: color-mix(in srgb, var(--coral) 12%, var(--panel)); }
+    .stage-status.active { color: var(--amber); border-color: color-mix(in srgb, var(--amber) 55%, var(--line)); }
+    .thresholds { display: grid; gap: 12px; padding: 14px; }
+    .threshold-card { padding: 12px; border: 1px solid var(--line); background: var(--panel-2); }
+    .threshold-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+    .threshold-top strong { font: 900 20px/1 var(--mono); }
+    .threshold-top span { color: var(--muted); font: 8px/1.3 var(--mono); text-align: right; }
+    .threshold-meter { position: relative; height: 7px; margin-top: 11px; background: var(--black); }
+    .threshold-meter i { display: block; width: var(--threshold-value); height: 100%; background: var(--green); transition: width .35s ease, background .2s ease; }
+    .threshold-meter.fail i { background: var(--coral); }
+    .threshold-marker { position: absolute; left: var(--threshold-mark); top: -3px; width: 1px; height: 13px; background: var(--ink); }
+    .threshold-result { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; color: var(--muted); font: 8px/1 var(--mono); }
+    .threshold-result b { color: var(--green); }
+    .threshold-result b.fail { color: var(--coral); }
+    .audit-history { display: grid; gap: 6px; padding: 12px; }
+    .history-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; padding: 9px 10px; border: 1px solid var(--line); background: var(--panel-2); font: 10px/1.35 var(--mono); }
+    .history-row span { color: var(--muted); }
+    .history-row b { color: var(--green); }
+    .history-row b.failed { color: var(--coral); }
+    .local-audits { grid-column: 1 / -1; }
+    .local-audit-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; padding: 12px; }
+    .local-audit-card { border: 1px solid var(--line); background: var(--panel-2); }
+    .local-audit-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); }
+    .local-audit-head strong { overflow: hidden; font: 900 11px/1 var(--mono); text-overflow: ellipsis; white-space: nowrap; }
+    .mini-sequence { display: grid; grid-template-columns: repeat(6, 1fr); gap: 3px; padding: 10px; }
+    .mini-stage { min-width: 0; padding: 7px 2px; border: 1px solid var(--line); color: var(--muted); text-align: center; font: 800 7px/1 var(--mono); }
+    .mini-stage.pass { color: var(--green); border-color: var(--green); }
+    .mini-stage.fail, .mini-stage.skip { color: var(--coral); border-color: var(--coral); background: var(--coral-soft); }
+    .local-audit-note { min-height: 38px; padding: 0 10px 10px; color: var(--muted); font: 9px/1.45 var(--mono); overflow-wrap: anywhere; }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 980px) {
+      .council-layout, .local-layout, .audit-layout { grid-template-columns: 1fr; }
+      .telemetry { grid-template-columns: 1fr 1fr; }
+      .log-panel { grid-column: auto; }
+      .agents-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .local-audit-grid { grid-template-columns: 1fr; }
+      .node-grid { grid-template-columns: repeat(5, minmax(66px, 1fr)); }
+    }
+
+    @media (max-width: 640px) {
+      .shell { padding: 8px 8px 24px; }
+      .topbar { position: relative; grid-template-columns: 1fr; padding: 8px; }
+      .tabs { display: grid; grid-template-columns: repeat(3, 1fr); }
+      .tab { padding: 8px 7px; }
+      .system-badges { justify-content: flex-start; overflow: hidden; }
+      .badge:last-child { display: none; }
+      .view-head { align-items: start; }
+      .head-stat { display: none; }
+      .view-head h1 { font-size: 25px; }
+      .pipeline { grid-template-columns: 1fr; gap: 4px; }
+      .wave { min-height: 44px; display: grid; grid-template-columns: 45px 1fr auto; align-items: center; gap: 8px; padding: 8px 10px; }
+      .wave-name, .wave-state { margin: 0; }
+      .wave-state { text-align: right; }
+      .telemetry { grid-template-columns: 1fr; }
+      .node-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 5px; }
+      .node { min-height: 54px; padding: 7px 5px; }
+      .node-name { font-size: 9px; }
+      .node-role { display: none; }
+      .node.throne { width: 92%; }
+      .node-inspector { grid-template-columns: auto 1fr; }
+      .inspect-load { grid-column: 2; text-align: left; }
+      .gauge-body { grid-template-columns: 112px 1fr; padding: 13px; }
+      .gauge { width: 108px; }
+      .swarm-stats { grid-template-columns: 1fr; }
+      .log-line, .activity-line { grid-template-columns: 62px 68px 1fr; gap: 6px; padding: 8px; font-size: 9px; }
+      .collector-bar { grid-template-columns: 1fr auto; }
+      .collector-bar label { grid-column: 1 / -1; }
+      .connection-state { grid-column: 1 / -1; justify-self: start; }
+      .summary-strip { grid-template-columns: 1fr 1fr; }
+      .check-row { grid-template-columns: 25px minmax(0, 1fr) auto; gap: 7px; }
+      .check-time { grid-column: 2; }
+      .stage-status { grid-row: 1 / span 2; grid-column: 3; }
+      .mini-sequence { grid-template-columns: repeat(3, 1fr); }
+      .agents-grid { grid-template-columns: 1fr; }
+      .code-tools { align-items: flex-start; }
+      .code-actions { flex-wrap: wrap; justify-content: flex-end; }
+    }
+
+    @media (max-width: 360px) {
+      .node-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .system-badges .badge:first-child { display: none; }
+      .collector-bar { grid-template-columns: 1fr; }
+      .primary-btn { width: 100%; }
+    }
+
+    /* ================= TRAINING FORGE & WORKOUT LAB ================= */
+    .training-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.22fr) minmax(360px, .78fr);
+      gap: 14px;
+    }
+    .workout-stage-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 380px;
+      padding: 16px 12px;
+      background: radial-gradient(circle at 50% 25%, rgba(73, 224, 218, 0.08), transparent 70%), var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+    .workout-arena {
+      position: relative;
+      width: 100%;
+      max-width: 540px;
+      height: 330px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .workout-svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 0 16px rgba(73, 224, 218, 0.22)); }
+    
+    /* Workout Animation Keyframes */
+    :root { --cadence-time: 4.8s; }
+    .exercise-bench .lift-assembly {
+      animation: benchPressMotion var(--cadence-time) cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+      transform-origin: 270px 170px;
+    }
+    .exercise-bench .reactor-glow, .exercise-bench .reactor-pulse {
+      animation: reactorSurge var(--cadence-time) ease-in-out infinite;
+    }
+    .exercise-bench .bot-aura {
+      animation: auraSurge var(--cadence-time) ease-in-out infinite;
+    }
+    .exercise-bench .lightning-arc {
+      animation: arcSparks var(--cadence-time) ease-in-out infinite;
+    }
+    .workout-stage-card.is-idle .lift-assembly,
+    .workout-stage-card.is-idle .reactor-glow,
+    .workout-stage-card.is-idle .reactor-pulse,
+    .workout-stage-card.is-idle .bot-aura,
+    .workout-stage-card.is-idle .lightning-arc {
+      animation-play-state: paused !important;
+    }
+
+    /* Deadlift mode */
+    .exercise-deadlift .lift-assembly {
+      animation: deadliftMotion var(--cadence-time) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      transform-origin: 270px 170px;
+    }
+    .exercise-deadlift .reactor-glow, .exercise-deadlift .reactor-pulse {
+      animation: reactorSurge var(--cadence-time) ease-in-out infinite;
+    }
+    .exercise-deadlift .bot-aura {
+      animation: auraSurge var(--cadence-time) ease-in-out infinite;
+    }
+
+    /* Overhead press mode */
+    .exercise-overhead .lift-assembly {
+      animation: overheadMotion var(--cadence-time) cubic-bezier(0.42, 0, 0.58, 1) infinite;
+      transform-origin: 270px 170px;
+    }
+    .exercise-overhead .reactor-glow, .exercise-overhead .reactor-pulse {
+      animation: reactorSurge var(--cadence-time) ease-in-out infinite;
+    }
+    .exercise-overhead .bot-aura {
+      animation: auraSurge var(--cadence-time) ease-in-out infinite;
+    }
+
+    @keyframes benchPressMotion {
+      0% { transform: translateY(48px); }
+      14% { transform: translateY(50px); }
+      48% { transform: translateY(-8px); }
+      62% { transform: translateY(-9px); }
+      88% { transform: translateY(42px); }
+      100% { transform: translateY(48px); }
+    }
+    @keyframes deadliftMotion {
+      0% { transform: translateY(68px); }
+      18% { transform: translateY(70px); }
+      50% { transform: translateY(4px); }
+      65% { transform: translateY(3px); }
+      88% { transform: translateY(62px); }
+      100% { transform: translateY(68px); }
+    }
+    @keyframes overheadMotion {
+      0% { transform: translateY(22px); }
+      15% { transform: translateY(24px); }
+      50% { transform: translateY(-38px); }
+      65% { transform: translateY(-40px); }
+      88% { transform: translateY(18px); }
+      100% { transform: translateY(22px); }
+    }
+
+    @keyframes reactorSurge {
+      0%, 15% { transform: scale(0.88); opacity: 0.65; fill: #49e0da; }
+      48%, 65% { transform: scale(1.35); opacity: 1; fill: #f6b84b; filter: drop-shadow(0 0 16px #f6b84b); }
+      88%, 100% { transform: scale(0.88); opacity: 0.65; fill: #49e0da; }
+    }
+    @keyframes auraSurge {
+      0%, 20% { opacity: 0.12; transform: scale(0.85); }
+      48%, 65% { opacity: 0.85; transform: scale(1.15); }
+      88%, 100% { opacity: 0.12; transform: scale(0.85); }
+    }
+    @keyframes arcSparks {
+      0%, 30% { opacity: 0; stroke-dasharray: 2 12; }
+      46%, 66% { opacity: 1; stroke-dasharray: 100 0; }
+      82%, 100% { opacity: 0; stroke-dasharray: 2 12; }
+    }
+    @keyframes visorScan {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(20px); }
+    }
+    .visor-laser { animation: visorScan 1.6s ease-in-out infinite; }
+
+    .train-progress-body {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+      background: var(--panel-2);
+    }
+    .train-bar-track {
+      position: relative;
+      height: 20px;
+      border-radius: 4px;
+      background: #04090b;
+      border: 1px solid var(--line-hot);
+      overflow: hidden;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.7);
+    }
+    .train-bar-fill {
+      position: relative;
+      height: 100%;
+      background: linear-gradient(90deg, #13555c 0%, var(--cyan) 65%, var(--green) 100%);
+      transition: width 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+      border-radius: 3px 0 0 3px;
+    }
+    .train-bar-glow {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: #ffffff;
+      box-shadow: 0 0 16px 4px var(--cyan);
+    }
+    .train-bar-scanline {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(90deg, transparent, transparent 18px, rgba(255,255,255,0.2) 19px, transparent 20px);
+      animation: barScan 2.4s linear infinite;
+    }
+    @keyframes barScan {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+    .train-milestone-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .train-milestone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 6px 4px;
+      background: var(--panel-3);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font: 9px/1.2 var(--mono);
+      color: var(--muted);
+      transition: all 0.25s ease;
+    }
+    .train-milestone span { font-weight: 800; font-size: 11px; }
+    .train-milestone label { font-size: 8px; margin-top: 3px; letter-spacing: 0.05em; text-align: center; }
+    .train-milestone.reached {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-soft);
+      box-shadow: 0 0 8px rgba(73, 224, 218, 0.15);
+    }
+    .train-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .stat-cell {
+      padding: 8px 10px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font: 10px/1.3 var(--mono);
+    }
+    .stat-cell span { display: block; color: var(--muted); font-size: 8px; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .stat-cell strong { font-size: 13px; font-weight: 800; color: var(--ink); }
+
+    .workout-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-3);
+    }
+    .control-group { display: flex; gap: 5px; align-items: center; }
+    .control-label { font: 800 9px/1 var(--mono); color: var(--muted); letter-spacing: 0.06em; margin-right: 2px; }
+    .btn-chip {
+      padding: 5px 9px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      color: var(--muted);
+      font: 800 10px/1 var(--mono);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .btn-chip:hover { color: var(--ink); border-color: var(--line-hot); }
+    .btn-chip.active { color: var(--ink); background: var(--cyan-soft); border-color: var(--cyan); box-shadow: 0 0 6px rgba(73,224,218,0.3); }
+
+    .rep-hud-pill {
+      position: absolute;
+      top: 14px;
+      left: 18px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 8px 12px;
+      background: rgba(11, 23, 27, 0.88);
+      border: 1px solid var(--cyan);
+      border-radius: 4px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+    }
+    .rep-hud-label { font: 800 8px/1 var(--mono); color: var(--muted); letter-spacing: 0.08em; }
+    .rep-hud-num { font: 900 18px/1 var(--mono); color: var(--cyan); transition: transform 0.15s ease; }
+    .rep-hud-num.rep-pop { transform: scale(1.22); color: var(--green); text-shadow: 0 0 10px var(--green); }
+    .rep-hud-tag { font: 800 8px/1 var(--mono); color: var(--amber); }
+
+    .workout-stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 12px 14px;
+      background: var(--panel-2);
+      border-top: 1px solid var(--line);
+      width: 100%;
+    }
+    .workout-stat-item { font: 9px/1.3 var(--mono); color: var(--muted); }
+    .workout-stat-item span { display: block; font-size: 8px; letter-spacing: 0.05em; color: var(--muted); }
+    .workout-stat-item b { font-size: 11px; font-weight: 800; color: var(--ink); }
+
+    .loss-chart-wrap {
+      padding: 14px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--line);
+    }
+    #trainLossCanvas {
+      width: 100%;
+      height: 180px;
+      display: block;
+      background: #050b0d;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+    }
+    .stream-box {
+      padding: 12px;
+      display: grid;
+      gap: 8px;
+      background: var(--panel-2);
+    }
+    .stream-bubble {
+      padding: 10px 12px;
+      border-radius: 4px;
+      border: 1px solid var(--line);
+      background: var(--panel-3);
+      font: 11px/1.45 var(--mono);
+      overflow-wrap: anywhere;
+    }
+    .stream-bubble.think {
+      border-left: 3px solid var(--amber);
+      color: #dfcfab;
+      background: #111b1c;
+    }
+    .stream-bubble.output {
+      border-left: 3px solid var(--green);
+      color: var(--ink);
+      background: #0d1e1f;
+    }
+    .stream-tag { font-weight: 900; font-size: 9px; letter-spacing: 0.08em; margin-bottom: 4px; display: block; }
+    .stream-bubble.think .stream-tag { color: var(--amber); }
+    .stream-bubble.output .stream-tag { color: var(--green); }
+
+    @media (max-width: 980px) {
+      .training-layout { grid-template-columns: 1fr; }
+      .train-stats-strip { grid-template-columns: repeat(3, 1fr); }
+      .workout-stats-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .train-stats-strip { grid-template-columns: 1fr 1fr; }
+      .workout-stats-strip { grid-template-columns: 1fr; }
+      .train-milestone-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+    }
+  
+    /* ================= CODEBASE & AGENT OPERATIONS RADAR ================= */
+    .codebase-section { margin-bottom: 14px; }
+    .codebase-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .module-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .module-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .module-title {
+      font: 900 11px/1 var(--mono);
+      color: var(--cyan);
+      letter-spacing: .06em;
+    }
+    .module-badge {
+      font: 800 8px/1 var(--mono);
+      padding: 3px 6px;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      color: var(--muted);
+      background: var(--panel-2);
+    }
+    .file-node-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .file-node {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      cursor: pointer;
+      transition: all .18s ease;
+    }
+    .file-node:hover, .file-node.selected {
+      border-color: var(--cyan);
+      background: color-mix(in srgb, var(--cyan) 8%, var(--panel-2));
+      box-shadow: 0 0 14px rgba(73, 224, 218, 0.15);
+    }
+    .file-node.active-touch {
+      border-color: var(--amber);
+      animation: filePulse 2s infinite ease-in-out;
+    }
+    @keyframes filePulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(246, 184, 75, 0); }
+      50% { box-shadow: 0 0 12px 2px rgba(246, 184, 75, 0.35); }
+    }
+    .file-ext-icon {
+      width: 28px;
+      height: 24px;
+      display: grid;
+      place-content: center;
+      font: 900 8px/1 var(--mono);
+      border-radius: 3px;
+      border: 1px solid var(--line);
+    }
+    .file-ext-icon.py { color: #75b9ff; border-color: rgba(117, 185, 255, 0.4); background: rgba(117, 185, 255, 0.1); }
+    .file-ext-icon.html { color: var(--cyan); border-color: rgba(73, 224, 218, 0.4); background: rgba(73, 224, 218, 0.1); }
+    .file-ext-icon.pt { color: #d08fff; border-color: rgba(208, 143, 255, 0.4); background: rgba(208, 143, 255, 0.1); }
+    .file-ext-icon.md { color: var(--green); border-color: rgba(121, 221, 142, 0.4); background: rgba(121, 221, 142, 0.1); }
+    .file-ext-icon.log { color: var(--amber); border-color: rgba(246, 184, 75, 0.4); background: rgba(246, 184, 75, 0.1); }
+    
+    .file-node-meta { min-width: 0; }
+    .file-node-name {
+      display: block;
+      font: 800 11px/1.2 var(--mono);
+      color: var(--ink);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-node-desc {
+      display: block;
+      font: 8px/1.2 var(--mono);
+      color: var(--muted);
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .file-node-agent {
+      display: inline-block;
+      font: 800 8px/1 var(--mono);
+      padding: 2px 5px;
+      border-radius: 3px;
+      border: 1px solid var(--line);
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .file-node-agent.antigravity { color: var(--cyan); border-color: rgba(73, 224, 218, 0.4); background: rgba(73, 224, 218, 0.12); }
+    .file-node-agent.quillan_trainer { color: var(--green); border-color: rgba(121, 221, 142, 0.4); background: rgba(121, 221, 142, 0.12); }
+    .file-node-agent.codeweaver { color: var(--amber); border-color: rgba(246, 184, 75, 0.4); background: rgba(246, 184, 75, 0.12); }
+    .file-node-agent.predator { color: var(--coral); border-color: rgba(255, 114, 95, 0.4); background: rgba(255, 114, 95, 0.12); }
+
+    .file-node-stat {
+      font: 800 9px/1 var(--mono);
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* Live Diff & Mutation Inspector */
+    .inspector-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      margin-bottom: 14px;
+    }
+    .inspector-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-2);
+    }
+    .inspector-title {
+      font: 900 12px/1 var(--mono);
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .inspector-diff-box {
+      font: 11px/1.55 var(--mono);
+      padding: 12px 14px;
+      background: #04090b;
+      max-height: 280px;
+      overflow-y: auto;
+      border-bottom: 1px solid var(--line);
+    }
+    .diff-line {
+      display: flex;
+      gap: 12px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .diff-num {
+      color: #37535b;
+      user-select: none;
+      min-width: 32px;
+      text-align: right;
+    }
+    .diff-add { color: #79dd8e; background: rgba(121, 221, 142, 0.08); }
+    .diff-del { color: #ff725f; background: rgba(255, 114, 95, 0.08); }
+    .diff-ctx { color: #89a09c; }
+    .diff-hdr { color: #49e0da; font-weight: 800; background: rgba(73, 224, 218, 0.06); }
+    .inspector-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 14px;
+      font: 800 9px/1 var(--mono);
+      color: var(--muted);
+      background: var(--panel-2);
+    }
+
+    .agent-card.active-working {
+      border-color: var(--cyan);
+      box-shadow: 0 0 16px rgba(73, 224, 218, 0.2);
+    }
+    .agent-target-file {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 7px;
+      margin-top: 5px;
+      background: var(--panel-2);
+      border: 1px solid var(--line-hot);
+      border-radius: 3px;
+      font: 800 9px/1 var(--mono);
+      color: var(--cyan);
+      cursor: pointer;
+    }
+    .agent-target-file:hover {
+      border-color: var(--cyan);
+      background: rgba(73, 224, 218, 0.12);
+    }
+    .agent-avatar-icon {
+      display: inline-grid;
+      place-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 4px;
+      font-size: 14px;
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav class="topbar" aria-label="Dashboard views">
+      <div class="tabs" role="tablist" aria-label="Monitor views">
+        <button class="tab" id="tabCouncil" type="button" role="tab" aria-selected="true" aria-controls="councilView">Council Deck</button>
+        <button class="tab" id="tabTraining" type="button" role="tab" aria-selected="false" aria-controls="trainingView">Training Lab</button>
+        <button class="tab" id="tabAgents" type="button" role="tab" aria-selected="false" aria-controls="agentsView">Codebase &amp; Agents</button>
+        <button class="tab" id="tabCompliance" type="button" role="tab" aria-selected="false" aria-controls="complianceView">System Audit</button>
+      </div>
+      <div class="system-badges" aria-label="System state">
+        <span class="badge" id="coreBadge"><span class="indicator" style="color:var(--cyan)"></span>LIVE TELEMETRY</span>
+        <span class="badge" id="hubStateBadge"><span class="indicator" style="color:var(--green)"></span>HUB :8777 STANDBY</span>
+        <span class="badge" id="clockBadge">--:--:--</span>
+      </div>
+    </nav>
+
+    <main>
+      <section class="view" id="councilView" role="tabpanel" aria-labelledby="tabCouncil">
+        <header class="view-head">
+          <div>
+            <h1>Council deliberation</h1>
+            <p>Real-time telemetry stream from the local Quillan collector (:8777). Visualizes active throne, 34-node council activations, EGGROLL swarm updates, and E_ICE governance verification loops.</p>
+          </div>
+          <div class="head-stat"><span>CYCLE</span><b id="cycleNumber">0001</b> // <b id="cycleTime">0.0s</b></div>
+        </header>
+
+        <section class="pipeline" aria-label="Five-wave pipeline" id="pipeline"></section>
+
+        <div class="council-layout">
+          <section class="panel" aria-labelledby="meshTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="meshTitle">COUNCIL MESH // C0–C34</strong>
+              <span class="panel-meta"><span id="activeCount">0</span> active · dense pull weights</span>
+            </header>
+            <div class="graph-wrap" id="graphWrap">
+              <canvas id="meshCanvas" aria-hidden="true"></canvas>
+              <div class="throne-wrap" id="throneWrap"></div>
+              <div class="node-grid" id="nodeGrid"></div>
+            </div>
+            <div class="node-inspector" aria-live="polite">
+              <div class="inspect-id" id="inspectId">C0</div>
+              <div>
+                <div class="inspect-name" id="inspectName">QUILLAN</div>
+                <div class="inspect-role" id="inspectRole">Primary router, observer, final arbiter</div>
+              </div>
+              <div class="inspect-load" id="inspectLoad">98%<span>PULL WEIGHT</span></div>
+            </div>
+          </section>
+
+          <aside class="telemetry" aria-label="Governance and swarm telemetry">
+            <section class="panel">
+              <header class="panel-head">
+                <strong class="panel-title">E_ICE GOVERNOR</strong>
+                <span class="panel-meta" id="governorState">bounded</span>
+              </header>
+              <div class="gauge-body">
+                <div class="gauge" id="governorGauge" role="img" aria-label="E ICE governor confidence 78 percent">
+                  <div class="gauge-value"><b id="governorValue">78</b><span>CONFIDENCE</span></div>
+                </div>
+                <div class="metric-list">
+                  <div class="metric-row"><span>coherence</span><b id="coherenceValue">0.91</b><div class="meter"><i id="coherenceMeter" style="--fill:91%"></i></div></div>
+                  <div class="metric-row"><span>evidence</span><b id="evidenceValue">0.86</b><div class="meter"><i id="evidenceMeter" style="--fill:86%"></i></div></div>
+                  <div class="metric-row"><span>drift</span><b id="driftValue">0.12</b><div class="meter"><i id="driftMeter" style="--fill:12%;background:var(--amber)"></i></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <header class="panel-head">
+                <strong class="panel-title">EGGROLL SWARM</strong>
+                <span class="panel-meta">substrate engine</span>
+              </header>
+              <div class="swarm-body">
+                <div class="swarm-count"><strong id="shardCount">06,184</strong><span>ACTIVE SWARM SHARDS</span></div>
+                <div class="sparkfield" id="sparkfield" aria-hidden="true"></div>
+                <div class="swarm-stats">
+                  <div class="microstat"><strong id="swarmDepth">07</strong><span>MAP DEPTH</span></div>
+                  <div class="microstat"><strong id="swarmFitness">.884</strong><span>FITNESS</span></div>
+                  <div class="microstat"><strong id="swarmPruned">142</strong><span>PRUNED</span></div>
+                </div>
+              </div>
+            </section>
+          </aside>
+
+          <section class="panel log-panel" aria-labelledby="simLogTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="simLogTitle">STREAMING EVENT LOG</strong>
+              <div class="log-controls"><button class="ghost-btn" id="pauseSim" type="button">Pause log</button><button class="ghost-btn" id="clearSim" type="button">Clear</button></div>
+            </header>
+            <div class="event-log" id="simLog" aria-live="polite" aria-label="Streaming council events"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="trainingView" role="tabpanel" aria-labelledby="tabTraining" hidden>
+        <header class="view-head">
+          <div>
+            <h1>Model Forge // Training telemetry</h1>
+            <p>Live neural workout monitor and optimization dashboard for Quillan 6L Mini &amp; 12L Main. Visualizes real-time loss convergence, BitNet 1.58b STE weight updates, and autonomic workout rep pacing.</p>
+          </div>
+          <div class="head-stat"><span>TRAINING STATUS</span><b id="trainStatusHeader" style="color:var(--cyan)">ACTIVE // FORGING</b> · <b id="trainCadenceHeader">4.8s / step</b></div>
+        </header>
+
+        <section class="panel" style="margin-bottom:14px;" aria-label="Training curriculum progress">
+          <header class="panel-head">
+            <strong class="panel-title">SFT CURRICULUM PROGRESSION // 3,846 MASTER SAMPLES</strong>
+            <span class="panel-meta" id="trainProgressPctText">Step 0142 / 0500 · 28.4% COMPLETE</span>
+          </header>
+          <div class="train-progress-body">
+            <div class="train-bar-track">
+              <div class="train-bar-fill" id="trainBarFill" style="width: 28.4%;">
+                <div class="train-bar-glow"></div>
+                <div class="train-bar-scanline"></div>
+              </div>
+            </div>
+            <div class="train-milestone-grid">
+              <div class="train-milestone reached" id="m0"><span>000</span><label>BASE RESTORE</label></div>
+              <div class="train-milestone reached" id="m1"><span>100</span><label>ATTN WARMUP</label></div>
+              <div class="train-milestone" id="m2"><span>250</span><label>MID CONVERGENCE</label></div>
+              <div class="train-milestone" id="m3"><span>400</span><label>LR DECAY</label></div>
+              <div class="train-milestone" id="m4"><span>500</span><label>MASTER EXPORT</label></div>
+            </div>
+            <div class="train-stats-strip">
+              <div class="stat-cell"><span>ACTIVE MODEL</span><strong id="trainModelLabel">QUILLAN 6L (380M)</strong></div>
+              <div class="stat-cell"><span>TARGET STEPS</span><strong id="trainStepsLabel">142 / 500</strong></div>
+              <div class="stat-cell"><span>ESTIMATED TIME LEFT</span><strong id="trainEtaLabel">00:28:15</strong></div>
+              <div class="stat-cell"><span>TARGET TOKENS</span><strong id="trainTokensLabel">1,969,152</strong></div>
+              <div class="stat-cell"><span>GOVERNOR LOCK</span><strong id="trainGovernorLabel" style="color:var(--green)">LEEMACH6 3-THREAD</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <div class="training-layout">
+          <!-- LEFT COLUMN: CYBER-SAMURAI WORKOUT ARENA -->
+          <section class="panel" aria-labelledby="workoutArenaTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="workoutArenaTitle">AUTONOMIC WORKOUT MATRIX // CYBER-SAMURAI REP CHAMBER</strong>
+              <span class="panel-meta" id="workoutArenaMeta">Rep 142 / 500 · HEAVY BENCH PRESS</span>
+            </header>
+
+            <div class="workout-controls">
+              <div class="control-group">
+                <span class="control-label">EXERCISE:</span>
+                <button class="btn-chip active" id="btnBench" type="button">Bench Press</button>
+                <button class="btn-chip" id="btnDeadlift" type="button">Power Deadlift</button>
+                <button class="btn-chip" id="btnOverhead" type="button">Overhead Press</button>
+              </div>
+              <div class="control-group">
+                <span class="control-label">PACE:</span>
+                <button class="btn-chip active" id="btnPace1" type="button">1x Normal</button>
+                <button class="btn-chip" id="btnPace2" type="button">2x Turbo</button>
+                <button class="btn-chip" id="btnPace5" type="button">5x Hyper</button>
+              </div>
+              <div class="control-group">
+                <span class="control-label">FEED:</span>
+                <span class="badge" id="trainFeedBadge" style="font-size:10px;padding:3px 8px;border:1px solid var(--line);border-radius:4px;color:var(--cyan);background:var(--panel-2);"><span class="indicator" style="color:var(--green)"></span>LIVE :8777 HUB</span>
+              </div>
+            </div>
+
+            <div class="workout-stage-card exercise-bench" id="workoutCard">
+              <div class="workout-arena">
+                <div class="rep-hud-pill">
+                  <span class="rep-hud-label">REP COUNT</span>
+                  <b class="rep-hud-num" id="workoutReps">142</b>
+                  <span class="rep-hud-tag" id="workoutStatusTag">LOCKOUT PRESS</span>
+                </div>
+
+                <svg class="workout-svg" id="workoutSvg" viewBox="0 0 540 330" aria-label="Cyber-samurai training bot performing barbell press">
+                  <defs>
+                    <linearGradient id="barbellGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#cfd8dc"/>
+                      <stop offset="50%" stop-color="#ffffff"/>
+                      <stop offset="100%" stop-color="#546e7a"/>
+                    </linearGradient>
+                    <linearGradient id="collarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#264047"/>
+                      <stop offset="100%" stop-color="#0a1518"/>
+                    </linearGradient>
+                    <radialGradient id="plasmaCoreGrad" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="#ffffff"/>
+                      <stop offset="40%" stop-color="#49e0da"/>
+                      <stop offset="85%" stop-color="#12262b"/>
+                      <stop offset="100%" stop-color="transparent"/>
+                    </radialGradient>
+                    <radialGradient id="auraGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stop-color="rgba(73, 224, 218, 0.45)"/>
+                      <stop offset="60%" stop-color="rgba(73, 224, 218, 0.08)"/>
+                      <stop offset="100%" stop-color="transparent"/>
+                    </radialGradient>
+                    <filter id="neonGlowCyan" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur"/>
+                      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="neonGlowAmber" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="5" result="blur"/>
+                      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                    <filter id="neonGlowGreen" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="4" result="blur"/>
+                      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                    </filter>
+                  </defs>
+
+                  <!-- GYM PLATFORM & POWER CAGE -->
+                  <g class="gym-environment" opacity="0.85">
+                    <path d="M 30,300 L 510,300 M 50,310 L 490,310 M 70,320 L 470,320" stroke="#162c31" stroke-width="1.5" stroke-dasharray="4 4"/>
+                    <path d="M 80,290 L 40,328 M 160,290 L 130,328 M 270,290 L 270,328 M 380,290 L 410,328 M 460,290 L 500,328" stroke="#162c31" stroke-width="1.2"/>
+                    
+                    <rect x="52" y="30" width="16" height="265" rx="3" fill="#0d1b1f" stroke="#223d43" stroke-width="1.5"/>
+                    <rect x="472" y="30" width="16" height="265" rx="3" fill="#0d1b1f" stroke="#223d43" stroke-width="1.5"/>
+                    <g fill="#49e0da" opacity="0.6">
+                      <circle cx="60" cy="65" r="2.5"/><circle cx="60" cy="95" r="2.5"/><circle cx="60" cy="125" r="2.5"/><circle cx="60" cy="155" r="2.5"/><circle cx="60" cy="185" r="2.5"/>
+                      <circle cx="480" cy="65" r="2.5"/><circle cx="480" cy="95" r="2.5"/><circle cx="480" cy="125" r="2.5"/><circle cx="480" cy="155" r="2.5"/><circle cx="480" cy="185" r="2.5"/>
+                    </g>
+                    <rect x="48" y="24" width="444" height="12" rx="2" fill="#0b171a" stroke="#2a4a52" stroke-width="1.5"/>
+                    <text x="270" y="33" fill="#49e0da" font-size="8" font-family="var(--mono)" font-weight="900" letter-spacing="3" text-anchor="middle" opacity="0.85">QUILLAN SOVEREIGN STRENGTH LAB // MODEL FORGE</text>
+                    <polygon points="190,295 350,295 375,315 165,315" fill="#091417" stroke="#1e383e" stroke-width="1.5"/>
+                    <rect x="250" y="215" width="40" height="80" rx="3" fill="#0f2025" stroke="#26444a" stroke-width="1.5"/>
+                    <rect x="200" y="210" width="140" height="20" rx="4" fill="#13272d" stroke="#335961" stroke-width="1.5"/>
+                  </g>
+
+                  <!-- EXERTION AURA -->
+                  <ellipse class="bot-aura" cx="270" cy="170" rx="140" ry="110" fill="url(#auraGlow)"/>
+
+                  <!-- BOT BODY (Torso, Shoulders, Head) -->
+                  <g class="bot-body-group" id="botBodyGroup">
+                    <path d="M 235,165 L 305,165 L 295,230 L 245,230 Z" fill="#0e1d21" stroke="#2d4f56" stroke-width="2"/>
+                    <path d="M 242,175 L 298,175 L 290,215 L 250,215 Z" fill="#13282f" stroke="#49e0da" stroke-width="1" stroke-dasharray="3 2" opacity="0.7"/>
+                    
+                    <!-- CHEST REACTOR CORE -->
+                    <circle class="reactor-glow" cx="270" cy="190" r="14" fill="url(#plasmaCoreGrad)"/>
+                    <circle cx="270" cy="190" r="14" fill="none" stroke="#49e0da" stroke-width="1.5" filter="url(#neonGlowCyan)"/>
+                    <circle class="reactor-pulse" cx="270" cy="190" r="7" fill="#ffffff" filter="url(#neonGlowCyan)"/>
+
+                    <!-- NECK & SAMURAI KABUTO HELM -->
+                    <rect x="262" y="148" width="16" height="18" fill="#12252a" stroke="#26444a"/>
+                    <path d="M 248,135 L 292,135 L 287,155 L 253,155 Z" fill="#0b171a" stroke="#375d65" stroke-width="2"/>
+                    
+                    <!-- Oni Horns / Crest -->
+                    <path d="M 270,122 L 260,102 L 246,110 L 256,128 Z" fill="#f6b84b" stroke="#ffa726" stroke-width="1" filter="url(#neonGlowAmber)"/>
+                    <path d="M 270,122 L 280,102 L 294,110 L 284,128 Z" fill="#f6b84b" stroke="#ffa726" stroke-width="1" filter="url(#neonGlowAmber)"/>
+                    <polygon points="270,108 266,124 274,124" fill="#ff725f"/>
+                    
+                    <!-- Visor with animated scan eye -->
+                    <rect x="252" y="137" width="36" height="7" rx="3" fill="#02080a" stroke="#49e0da" stroke-width="1"/>
+                    <rect class="visor-laser" x="254" y="138" width="8" height="5" rx="2" fill="#49e0da" filter="url(#neonGlowCyan)"/>
+                    
+                    <!-- Pauldrons -->
+                    <path d="M 215,160 L 236,162 L 232,192 L 210,185 Z" fill="#13272d" stroke="#3b636c" stroke-width="2"/>
+                    <circle cx="223" cy="172" r="5" fill="#203d44" stroke="#49e0da" stroke-width="1"/>
+                    <path d="M 325,160 L 304,162 L 308,192 L 330,185 Z" fill="#13272d" stroke="#3b636c" stroke-width="2"/>
+                    <circle cx="317" cy="172" r="5" fill="#203d44" stroke="#49e0da" stroke-width="1"/>
+                  </g>
+
+                  <!-- DYNAMIC LIFT ASSEMBLY (Barbell, Weights, Arms) -->
+                  <g class="lift-assembly" id="liftAssembly">
+                    <!-- Left Arm & Pistons -->
+                    <g class="left-arm">
+                      <line x1="223" y1="172" x2="200" y2="120" stroke="#1f3c42" stroke-width="10" stroke-linecap="round"/>
+                      <line x1="223" y1="172" x2="200" y2="120" stroke="#49e0da" stroke-width="2" stroke-dasharray="4 3"/>
+                      <line x1="200" y1="120" x2="190" y2="82" stroke="#2d525a" stroke-width="8" stroke-linecap="round"/>
+                      <line x1="200" y1="120" x2="190" y2="82" stroke="#a0b4b8" stroke-width="3" stroke-linecap="round"/>
+                      <rect x="183" y="76" width="14" height="12" rx="3" fill="#0e1d21" stroke="#49e0da" stroke-width="1.5"/>
+                      <circle cx="190" cy="82" r="2.5" fill="#49e0da"/>
+                    </g>
+                    <!-- Right Arm & Pistons -->
+                    <g class="right-arm">
+                      <line x1="317" y1="172" x2="340" y2="120" stroke="#1f3c42" stroke-width="10" stroke-linecap="round"/>
+                      <line x1="317" y1="172" x2="340" y2="120" stroke="#49e0da" stroke-width="2" stroke-dasharray="4 3"/>
+                      <line x1="340" y1="120" x2="350" y2="82" stroke="#2d525a" stroke-width="8" stroke-linecap="round"/>
+                      <line x1="340" y1="120" x2="350" y2="82" stroke="#a0b4b8" stroke-width="3" stroke-linecap="round"/>
+                      <rect x="343" y="76" width="14" height="12" rx="3" fill="#0e1d21" stroke="#49e0da" stroke-width="1.5"/>
+                      <circle cx="350" cy="82" r="2.5" fill="#49e0da"/>
+                    </g>
+
+                    <!-- BARBELL SHAFT -->
+                    <rect x="80" y="78" width="380" height="7" rx="2" fill="url(#barbellGrad)" stroke="#1a3237" stroke-width="1"/>
+                    <rect x="175" y="77" width="30" height="9" fill="#37474f" stroke="#546e7a" stroke-width="0.8" stroke-dasharray="2 1"/>
+                    <rect x="335" y="77" width="30" height="9" fill="#37474f" stroke="#546e7a" stroke-width="0.8" stroke-dasharray="2 1"/>
+                    <circle cx="270" cy="81.5" r="2" fill="#49e0da" filter="url(#neonGlowCyan)"/>
+
+                    <!-- LEFT WEIGHT PLATES -->
+                    <!-- 6L Plate -->
+                    <polygon points="126,38 136,44 136,119 126,125 116,119 116,44" fill="#0b1a16" stroke="#79dd8e" stroke-width="2.5" filter="url(#neonGlowGreen)"/>
+                    <text x="126" y="85" fill="#79dd8e" font-size="8" font-family="var(--mono)" font-weight="900" text-anchor="middle">6L</text>
+                    <!-- 12L Plate -->
+                    <polygon points="106,35 116,41 116,122 106,128 96,122 96,41" fill="#08171c" stroke="#49e0da" stroke-width="2.5" filter="url(#neonGlowCyan)"/>
+                    <text x="106" y="85" fill="#49e0da" font-size="8" font-family="var(--mono)" font-weight="900" text-anchor="middle">12L</text>
+                    <!-- STE Plate -->
+                    <polygon points="86,48 94,53 94,110 86,115 78,110 78,53" fill="#181308" stroke="#f6b84b" stroke-width="2" filter="url(#neonGlowAmber)"/>
+                    <text x="86" y="84" fill="#f6b84b" font-size="6.5" font-family="var(--mono)" font-weight="900" text-anchor="middle">STE</text>
+                    <!-- Clamp -->
+                    <rect x="68" y="74" width="10" height="15" rx="2" fill="url(#collarGrad)" stroke="#ff725f" stroke-width="1.5"/>
+                    <circle cx="73" cy="81.5" r="2" fill="#ff725f"/>
+
+                    <!-- RIGHT WEIGHT PLATES -->
+                    <!-- 6L Plate -->
+                    <polygon points="414,38 424,44 424,119 414,125 404,119 404,44" fill="#0b1a16" stroke="#79dd8e" stroke-width="2.5" filter="url(#neonGlowGreen)"/>
+                    <text x="414" y="85" fill="#79dd8e" font-size="8" font-family="var(--mono)" font-weight="900" text-anchor="middle">6L</text>
+                    <!-- 12L Plate -->
+                    <polygon points="434,35 444,41 444,122 434,128 424,122 424,41" fill="#08171c" stroke="#49e0da" stroke-width="2.5" filter="url(#neonGlowCyan)"/>
+                    <text x="434" y="85" fill="#49e0da" font-size="8" font-family="var(--mono)" font-weight="900" text-anchor="middle">12L</text>
+                    <!-- STE Plate -->
+                    <polygon points="454,48 462,53 462,110 454,115 446,110 446,53" fill="#181308" stroke="#f6b84b" stroke-width="2" filter="url(#neonGlowAmber)"/>
+                    <text x="454" y="84" fill="#f6b84b" font-size="6.5" font-family="var(--mono)" font-weight="900" text-anchor="middle">STE</text>
+                    <!-- Clamp -->
+                    <rect x="462" y="74" width="10" height="15" rx="2" fill="url(#collarGrad)" stroke="#ff725f" stroke-width="1.5"/>
+                    <circle cx="467" cy="81.5" r="2" fill="#ff725f"/>
+
+                    <!-- Plasma Arcs -->
+                    <path class="lightning-arc arc-left" d="M 136,81 Q 160,75 183,81" fill="none" stroke="#49e0da" stroke-width="1.5" filter="url(#neonGlowCyan)"/>
+                    <path class="lightning-arc arc-right" d="M 357,81 Q 380,75 404,81" fill="none" stroke="#49e0da" stroke-width="1.5" filter="url(#neonGlowCyan)"/>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="workout-stats-strip">
+                <div class="workout-stat-item"><span>LIFT RESISTANCE</span><b>758M DENSE EQUIV</b></div>
+                <div class="workout-stat-item"><span>MOE ENGAGEMENT</span><b>34 EXPERTS ACTIVE</b></div>
+                <div class="workout-stat-item"><span>NEURAL STRAIN (PPL)</span><b id="workoutPpl">8.57 PPL</b></div>
+                <div class="workout-stat-item"><span>TEMPO CADENCE</span><b id="workoutTempo">4.8s / REP</b></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- RIGHT COLUMN: LOSS TELEMETRY & MENTAL STREAM -->
+          <div class="telemetry">
+            <section class="panel" aria-labelledby="lossCurveTitle">
+              <header class="panel-head">
+                <strong class="panel-title" id="lossCurveTitle">LOSS CONVERGENCE TRAJECTORY</strong>
+                <span class="panel-meta">Current: <b id="currLossVal" style="color:var(--cyan)">2.148</b> · Best: <b id="bestLossVal" style="color:var(--green)">1.942</b></span>
+              </header>
+              <div class="loss-chart-wrap">
+                <canvas id="trainLossCanvas" width="560" height="180" aria-label="Training loss curve graph"></canvas>
+              </div>
+              <div class="summary-strip" style="grid-template-columns:repeat(2,1fr);padding:10px 14px;background:var(--panel-2);">
+                <div class="stat-cell"><span>PERPLEXITY</span><strong id="pplValue" style="color:var(--green)">8.57</strong></div>
+                <div class="stat-cell"><span>LEARNING RATE</span><strong id="lrValue">1.85e-4</strong></div>
+                <div class="stat-cell"><span>MEMORY USAGE</span><strong id="memValue">1.2 GB / 16 GB</strong></div>
+                <div class="stat-cell"><span>WEIGHT TERNARY</span><strong id="ternaryValue" style="color:var(--amber)">BitNet STE 1.58b</strong></div>
+              </div>
+            </section>
+
+            <section class="panel" aria-labelledby="mentalStreamTitle">
+              <header class="panel-head">
+                <strong class="panel-title" id="mentalStreamTitle">NEURAL MENTAL STREAM // SFT PROBE</strong>
+                <button class="ghost-btn" id="triggerProbeBtn" type="button">Probe Now</button>
+              </header>
+              <div class="stream-box">
+                <div style="font:800 10px/1.3 var(--mono);color:var(--muted);margin-bottom:2px;">
+                  <span>PROMPT: </span><b id="probePromptText" style="color:var(--ink);">"Deconstruct the time complexity of Newton-Schulz iteration in MuonK2."</b>
+                </div>
+                <div class="stream-bubble think">
+                  <span class="stream-tag">&lt;THINK&gt; REASONING LATENT TRACE</span>
+                  <div id="probeThinkText">Evaluating matrix dimensions d=768... Computing quintic polynomial coefficients a=3.4445, b=-4.7750, c=2.0315... Ensuring spectral radius convergence without explicit SVD. Memory layout aligned to contiguous FP32 buffer.</div>
+                </div>
+                <div class="stream-bubble output">
+                  <span class="stream-tag">&lt;OUTPUT&gt; CONVERGED RESPONSE</span>
+                  <div id="probeOutputText">Muon Newton-Schulz iteration achieves O(k · d³) cubic time per step using purely matrix-matrix multiplications. With k=5 iterations, the update tensor orthogonalizes unconditionally with zero SVD decomposition overhead.</div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="complianceView" role="tabpanel" aria-labelledby="tabCompliance" hidden>
+        <header class="view-head">
+          <div>
+            <h1>System compliance audit</h1>
+            <p>This is the proof layer: a run must complete the required Quillan sequence in order. Any skipped wave, failed gate, or missing C0 sign-off blocks compliance.</p>
+          </div>
+          <div class="run-verdict running" id="auditVerdict">RUNNING</div>
+        </header>
+
+        <div class="audit-layout">
+          <section class="panel" aria-labelledby="auditChecklistTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="auditChecklistTitle">RUN <span id="auditRunId">LIVE-0001</span> // REQUIRED SEQUENCE</strong>
+              <span class="panel-meta" id="auditProgress">0 / 9 passed</span>
+            </header>
+            <div class="checklist" id="auditChecklist" aria-live="polite"></div>
+          </section>
+
+          <aside>
+            <section class="panel" aria-labelledby="thresholdTitle">
+              <header class="panel-head">
+                <strong class="panel-title" id="thresholdTitle">HONESTY BOUNDARIES</strong>
+                <span class="panel-meta">live honesty boundary telemetry</span>
+              </header>
+              <div class="thresholds">
+                <div class="threshold-card">
+                  <div class="threshold-top"><strong id="auditEvidence">0.86</strong><span>C18 EVIDENCE<br>MINIMUM 0.85</span></div>
+                  <div class="threshold-meter" id="auditEvidenceMeter" style="--threshold-value:86%;--threshold-mark:85%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.00</span><b id="auditEvidenceResult">PASS</b><span>1.00</span></div>
+                </div>
+                <div class="threshold-card">
+                  <div class="threshold-top"><strong id="auditAesthetics">7.8</strong><span>C22 AESTHETICS<br>MINIMUM 7.0</span></div>
+                  <div class="threshold-meter" id="auditAestheticsMeter" style="--threshold-value:78%;--threshold-mark:70%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.0</span><b id="auditAestheticsResult">PASS</b><span>10.0</span></div>
+                </div>
+                <div class="threshold-card">
+                  <div class="threshold-top"><strong id="auditDrift">0.12</strong><span>C23 DRIFT<br>CEILING 0.35</span></div>
+                  <div class="threshold-meter" id="auditDriftMeter" style="--threshold-value:12%;--threshold-mark:35%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.00</span><b id="auditDriftResult">PASS</b><span>1.00</span></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel" style="margin-top:12px" aria-labelledby="historyTitle">
+              <header class="panel-head">
+                <strong class="panel-title" id="historyTitle">RECENT VERIFIED RUNS</strong>
+                <span class="panel-meta">session only</span>
+              </header>
+              <div class="audit-history" id="auditHistory"><div class="history-row"><span>No completed runs yet</span><b>—</b></div></div>
+            </section>
+          </aside>
+
+          <section class="panel local-audits" aria-labelledby="localAuditTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="localAuditTitle">LOCAL AGENT RUNS</strong>
+              <span class="panel-meta">collector stage events · latest run per agent</span>
+            </header>
+            <div class="local-audit-grid" id="localAuditGrid">
+              <div class="empty-feed" style="grid-column:1/-1">No stage evidence received.<br>Send stage markers through the local collector.</div>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="agentsView" role="tabpanel" aria-labelledby="tabAgents" hidden>
+        <header class="view-head">
+          <div>
+            <h1>Agent Operations &amp; Codebase Radar</h1>
+            <p>Live telemetry of distributed engineering agents operating across the Quillan codebase. Shows real-time file mutations, AST analysis, model training passes, and tool execution streams.</p>
+          </div>
+          <div class="head-stat"><span>POLL INTERVAL</span>2.2s · <b id="radarPulse" style="color:var(--cyan)">LIVE ATTACHED</b></div>
+        </header>
+
+        <form class="collector-bar" id="collectorForm">
+          <label for="collectorHost">COLLECTOR ADDRESS · LOCALHOST ONLY</label>
+          <input class="collector-input" id="collectorHost" type="text" value="http://localhost:8777" spellcheck="false" autocomplete="off" inputmode="url" aria-describedby="collectorHelp">
+          <button class="primary-btn" type="submit">Connect</button>
+          <div class="connection-state" id="connectionState" aria-live="polite"><span class="indicator"></span><span>Not connected</span></div>
+          <span id="collectorHelp" class="sr-only">Only localhost, 127.0.0.1, or double-colon-one addresses are accepted. The value is not saved.</span>
+        </form>
+
+        <section class="summary-strip" aria-label="Agent summary">
+          <div class="summary-item"><strong id="summaryOnline" style="color:var(--cyan)">4</strong><span>AGENTS ACTIVE</span></div>
+          <div class="summary-item"><strong id="summaryFiles" style="color:var(--green)">10</strong><span>CODEBASE NODES</span></div>
+          <div class="summary-item"><strong id="summaryCalls">0</strong><span>TOOL ACTIONS</span></div>
+          <div class="summary-item"><strong id="summaryTokens">0</strong><span>TOKENS CONSUMED</span></div>
+        </section>
+
+        <!-- ACTIVE AGENTS ROSTER -->
+        <section class="agents-grid" id="agentsGrid" aria-label="Active agents in codebase"></section>
+
+        <!-- VISUAL CODEBASE TOPOLOGY MAP -->
+        <section class="panel codebase-section" aria-labelledby="codebaseMapTitle">
+          <header class="panel-head">
+            <strong class="panel-title" id="codebaseMapTitle">WORKSPACE TOPOLOGY RADAR // C:\02_QUILLAN</strong>
+            <span class="panel-meta" id="codebaseLastSync">10 files synchronized · real-time mtime scan</span>
+          </header>
+          <div class="codebase-grid" id="codebaseGrid">
+            <!-- Dynamically populated module cards -->
+          </div>
+        </section>
+
+        <!-- LIVE FILE & MUTATION INSPECTOR -->
+        <section class="panel inspector-panel" aria-labelledby="inspectorTitle">
+          <header class="inspector-head">
+            <strong class="inspector-title" id="inspectorTitle">
+              <span>📄</span>
+              <span id="inspectFileName">quillan-dashboard.html</span>
+              <span class="file-node-agent antigravity" id="inspectAgentTag">Antigravity</span>
+            </strong>
+            <div style="display:flex;gap:8px;align-items:center;">
+              <span class="badge" id="inspectOpBadge" style="font-size:9px;padding:3px 8px;color:var(--cyan);border-color:var(--cyan);background:rgba(73,224,218,0.1);">REPLACE_FILE_CONTENT</span>
+              <span class="panel-meta" id="inspectFileMeta">135.2 KB · Single-Page WebApp</span>
+            </div>
+          </header>
+          <div class="inspector-diff-box" id="inspectorDiffBox">
+            <!-- Diff lines inserted dynamically -->
+          </div>
+          <footer class="inspector-foot">
+            <span id="inspectAstMeta">AST STATUS: PARSED · MCCABE COMPLEXITY: 4 (LOW RISK)</span>
+            <span id="inspectLastTouch">MODIFIED: JUST NOW</span>
+          </footer>
+        </section>
+
+        <div class="local-layout">
+          <section class="panel" aria-labelledby="activityTitle">
+            <header class="panel-head">
+              <strong class="panel-title" id="activityTitle">LIVE CODEBASE OPERATIONS STREAM</strong>
+              <span class="panel-meta" id="lastEventLabel">waiting for operations</span>
+            </header>
+            <div class="activity-feed" id="activityFeed" aria-live="polite">
+              <div class="empty-feed">No operations recorded yet.<br>Listening on http://127.0.0.1:8777.</div>
+            </div>
+          </section>
+
+          <aside class="setup-panel" id="setupPanel" aria-labelledby="setupTitle" hidden>
+            <header class="panel-head">
+              <strong class="panel-title" id="setupTitle">COMPANION COLLECTOR</strong>
+              <span class="panel-meta">Python standard library only</span>
+            </header>
+            <div class="setup-body">
+              <div class="setup-callout">
+                <div>
+                  <h2 id="setupHeading">Connect your local tools</h2>
+                  <p id="setupMessage">Run the collector below, then have each agent POST its events to the same local endpoint. Nothing leaves your machine.</p>
+                </div>
+              </div>
+              <ol class="steps">
+                <li>Download or copy the collector into <code>quillan_collector.py</code>.</li>
+                <li>Run <code>python quillan_collector.py</code> in a terminal.</li>
+                <li>Press Connect above; wire agents to POST JSON events.</li>
+              </ol>
+              <div class="protocol" aria-label="Event protocol">EVENT · {"ts":"ISO","agent":"antigravity","type":"code_mutation","file":"...","action":"EDIT","detail":"..."}</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var personas = [
+        { id: 0, name: "QUILLAN", cluster: "throne", role: "Primary router, observer, final arbiter" },
+        { id: 1, name: "ASTRA", cluster: "cognitive", role: "Visual analysis and pattern recognition" },
+        { id: 2, name: "VIR", cluster: "cognitive", role: "Ethics, values, and alignment weighting" },
+        { id: 3, name: "SOLACE", cluster: "cognitive", role: "Emotional regulation and stabilization" },
+        { id: 4, name: "PRAXIS", cluster: "cognitive", role: "Action planning and execution strategy" },
+        { id: 5, name: "ECHO", cluster: "cognitive", role: "Memory encoding and contextual recall" },
+        { id: 6, name: "OMNIS", cluster: "cognitive", role: "Meta-analysis and perspective modeling" },
+        { id: 7, name: "LOGOS", cluster: "cognitive", role: "Formal reasoning and logical validation" },
+        { id: 8, name: "METASYNTH", cluster: "cognitive", role: "Abstraction and knowledge synthesis" },
+        { id: 9, name: "AETHER", cluster: "communication", role: "Semantic flow and latent representation" },
+        { id: 10, name: "CODEWEAVER", cluster: "communication", role: "Software architecture and procedural execution" },
+        { id: 11, name: "HARMONIA", cluster: "communication", role: "Multimodal coherence and mediation" },
+        { id: 12, name: "SOPHIAE", cluster: "communication", role: "Wisdom integration and knowledge bridging" },
+        { id: 13, name: "WARDEN", cluster: "communication", role: "Security, survival, and constraint enforcement" },
+        { id: 14, name: "KAIDO", cluster: "communication", role: "Prediction, optimization, and error correction" },
+        { id: 15, name: "LUMINARIS", cluster: "communication", role: "Imagination, simulation, and creativity" },
+        { id: 16, name: "VOXUM", cluster: "communication", role: "Language generation and communication" },
+        { id: 17, name: "NULLION", cluster: "meta", role: "Uncertainty modeling and conflict suppression" },
+        { id: 18, name: "SHEPHERD", cluster: "meta", role: "Behavior regulation and truth verification" },
+        { id: 19, name: "VIGIL", cluster: "meta", role: "Threat detection and anomaly monitoring" },
+        { id: 20, name: "ARTIFEX", cluster: "meta", role: "Tool execution and construction" },
+        { id: 21, name: "ARCHON", cluster: "meta", role: "Research synthesis and evidence mapping" },
+        { id: 22, name: "AURELION", cluster: "meta", role: "Aesthetics and visual qualia" },
+        { id: 23, name: "CADENCE", cluster: "meta", role: "Timing, rhythm, and synchronization" },
+        { id: 24, name: "SCHEMA", cluster: "meta", role: "Ontology and structural organization" },
+        { id: 25, name: "PROMETHEUS", cluster: "systems", role: "Conflict detection and insight ignition" },
+        { id: 26, name: "TECHNE", cluster: "systems", role: "Engineering judgment and implementation" },
+        { id: 27, name: "CHRONICLE", cluster: "systems", role: "Narrative memory sequencing" },
+        { id: 28, name: "CALCULUS", cluster: "systems", role: "Mathematical reasoning and precision" },
+        { id: 29, name: "NAVIGATOR", cluster: "systems", role: "Environment modeling and optimization" },
+        { id: 30, name: "TESSERACT", cluster: "systems", role: "High-dimensional reasoning" },
+        { id: 31, name: "NEXUS", cluster: "systems", role: "Routing, attention, and council fusion" },
+        { id: 32, name: "AEON", cluster: "systems", role: "Temporal reasoning and long-term coherence" },
+        { id: 33, name: "TYPIST", cluster: "systems", role: "Symbol encoding and output optimization" },
+        { id: 34, name: "PREDATOR", cluster: "systems", role: "Adversarial reasoning and exploit analysis" }
+      ];
+
+      var clusterColors = { throne: "var(--amber)", cognitive: "var(--cyan)", communication: "var(--amber)", meta: "var(--coral)", systems: "var(--blue)" };
+      var waves = ["INTAKE", "COUNCIL", "SWARM", "GATES", "ARBITRATION"];
+      var waveDescriptions = ["signal parsed", "dense pull", "shards mapped", "proof tested", "throne merge"];
+      var nodeElements = [];
+      var activeIds = new Set([0, 7, 18, 31]);
+      var selectedId = 0;
+      var simPaused = false;
+      var simStep = 0;
+      var cycle = 1;
+      var cycleStarted = performance.now();
+      var simTimer = null;
+      var meshRaf = 0;
+      var auditStages = [
+        { key: "intake", name: "Intake", detail: "Intent and constraints captured" },
+        { key: "prism", name: "9-vector prism shard", detail: "Input decomposed across all prism vectors" },
+        { key: "council", name: "Council wave", detail: "All 34 council nodes consulted" },
+        { key: "swarm", name: "EGGROLL swarm", detail: "Candidate branches mapped and reduced" },
+        { key: "predator", name: "C34-PREDATOR kill-check", detail: "Strongest claim attacked for failure" },
+        { key: "vir", name: "C2-VIR ethical veto", detail: "Integrity and value constraints checked" },
+        { key: "warden", name: "C13-WARDEN threat scan", detail: "Security and hard constraints enforced" },
+        { key: "vigil", name: "C19-VIGIL drift anchor", detail: "Identity and substrate drift checked" },
+        { key: "arbitration", name: "C0 throne arbitration", detail: "Final synthesis explicitly signed off" }
+      ];
+      var auditState = [];
+      var auditCursor = 0;
+      var auditHistory = [];
+
+      function initLiveAuditView() {
+        document.getElementById("auditRunId").textContent = "LIVE-0001";
+        var verdict = document.getElementById("auditVerdict");
+        verdict.className = "run-verdict running";
+        verdict.textContent = "AWAITING AUDIT";
+        var list = document.getElementById("auditChecklist");
+        list.replaceChildren();
+        auditStages.forEach(function (stage, index) {
+          var row = document.createElement("div");
+          row.className = "check-row";
+          var idx = document.createElement("span"); idx.className = "check-index"; idx.textContent = String(index + 1).padStart(2, "0");
+          var text = document.createElement("div");
+          var title = document.createElement("span"); title.className = "check-name"; title.textContent = stage.name;
+          var detail = document.createElement("span"); detail.className = "check-detail"; detail.textContent = stage.detail;
+          text.append(title, detail);
+          var time = document.createElement("time"); time.className = "check-time"; time.textContent = "—";
+          var status = document.createElement("span"); status.className = "stage-status pending"; status.textContent = "WAITING";
+          row.append(idx, text, time, status);
+          list.appendChild(row);
+        });
+        document.getElementById("auditProgress").textContent = "0 / " + auditStages.length + " passed";
+      }
+
+      function renderAuditHistory() {
+        var el = document.getElementById("auditHistory");
+        el.replaceChildren();
+        auditHistory.slice(-5).reverse().forEach(function (run) {
+          var row = document.createElement("div"); row.className = "history-row";
+          var label = document.createElement("span"); label.textContent = run.id + " · " + run.time;
+          var verdict = document.createElement("b"); verdict.textContent = run.verdict; if (run.verdict !== "COMPLIANT") verdict.className = "failed";
+          row.append(label, verdict); el.appendChild(row);
+        });
+      }
+
+      initLiveAuditView();
+
+      var pipeline = document.getElementById("pipeline");
+      waves.forEach(function (name, i) {
+        var wave = document.createElement("div");
+        wave.className = "wave";
+        wave.innerHTML = '<span class="wave-index">WAVE 0' + (i + 1) + '</span><strong class="wave-name">' + name + '</strong><span class="wave-state">queued</span>';
+        pipeline.appendChild(wave);
+      });
+
+      function makeNode(persona) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "node" + (persona.id === 0 ? " throne" : "");
+        button.style.setProperty("--node-color", clusterColors[persona.cluster]);
+        button.dataset.id = String(persona.id);
+        button.setAttribute("aria-label", "C" + persona.id + " " + persona.name + ": " + persona.role);
+        button.innerHTML = '<span class="node-id">C' + persona.id + '</span><span class="node-name">' + persona.name + '</span><span class="node-role">' + persona.role + '</span><i class="node-signal" aria-hidden="true"></i>';
+        button.addEventListener("click", function () { selectPersona(persona.id); });
+        nodeElements[persona.id] = button;
+        return button;
+      }
+
+      document.getElementById("throneWrap").appendChild(makeNode(personas[0]));
+      personas.slice(1).forEach(function (persona) { document.getElementById("nodeGrid").appendChild(makeNode(persona)); });
+
+      function selectPersona(id) {
+        selectedId = id;
+        var p = personas[id];
+        nodeElements.forEach(function (n) { n.classList.toggle("selected", Number(n.dataset.id) === id); });
+        document.getElementById("inspectId").textContent = "C" + p.id;
+        document.getElementById("inspectName").textContent = p.name;
+        document.getElementById("inspectRole").textContent = p.role;
+        document.getElementById("inspectLoad").innerHTML = (id === 0 ? "98" : String(65 + ((id * 17) % 30))) + '%<span>PULL WEIGHT</span>';
+        drawMesh();
+      }
+      selectPersona(0);
+
+      function drawMesh() {
+        cancelAnimationFrame(meshRaf);
+        meshRaf = requestAnimationFrame(function () {
+          var canvas = document.getElementById("meshCanvas");
+          var wrap = document.getElementById("graphWrap");
+          var rect = wrap.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+          var dpr = Math.min(window.devicePixelRatio || 1, 2);
+          canvas.width = Math.round(rect.width * dpr);
+          canvas.height = Math.round(rect.height * dpr);
+          var ctx = canvas.getContext("2d");
+          ctx.scale(dpr, dpr);
+          ctx.clearRect(0, 0, rect.width, rect.height);
+          var styles = getComputedStyle(document.documentElement);
+          var line = styles.getPropertyValue("--line-hot").trim();
+          var hot = styles.getPropertyValue("--cyan").trim();
+          function center(el) {
+            var r = el.getBoundingClientRect();
+            return { x: r.left - rect.left + r.width / 2, y: r.top - rect.top + r.height / 2 };
+          }
+          var root = center(nodeElements[0]);
+          ctx.lineWidth = 1;
+          nodeElements.slice(1).forEach(function (node, index) {
+            var target = center(node);
+            var id = index + 1;
+            ctx.strokeStyle = activeIds.has(id) ? hot : line;
+            ctx.globalAlpha = activeIds.has(id) ? .42 : .09;
+            ctx.beginPath();
+            ctx.moveTo(root.x, root.y);
+            ctx.lineTo(target.x, target.y);
+            ctx.stroke();
+          });
+          var active = Array.from(activeIds).filter(function (id) { return id !== 0; });
+          ctx.globalAlpha = .58;
+          ctx.strokeStyle = hot;
+          ctx.lineWidth = 1.4;
+          for (var i = 0; i < active.length - 1; i++) {
+            var a = center(nodeElements[active[i]]);
+            var b = center(nodeElements[active[i + 1]]);
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+        });
+      }
+      window.addEventListener("resize", drawMesh);
+      setTimeout(drawMesh, 50);
+
+      function setActiveNodes(ids) {
+        activeIds = new Set([0].concat(ids));
+        nodeElements.forEach(function (node) { node.classList.toggle("active", activeIds.has(Number(node.dataset.id))); });
+        document.getElementById("activeCount").textContent = String(activeIds.size).padStart(2, "0");
+        drawMesh();
+      }
+
+      var simMessages = [
+        ["ROUTER", "C31-NEXUS assigned pull weights across active council."],
+        ["COUNCIL", "C7-LOGOS audited premises; C8-METASYNTH opened synthesis path."],
+        ["SWARM", "EGGROLL mapped candidate shards across seven branches."],
+        ["GATE", "C18-SHEPHERD verified evidence threshold; drift remains bounded."],
+        ["GATE", "C34-PREDATOR launched adversarial pass against strongest claim."],
+        ["SYSTEM", "C20-ARTIFEX prepared reversible execution route."],
+        ["ARBITER", "C0-QUILLAN merged council state and advanced the cycle."],
+        ["COUNCIL", "C22-AURELION scored visual hierarchy; C33-TYPIST checked output form."],
+        ["WATCH", "C19-VIGIL found no identity drift in the current branch."],
+        ["SWARM", "Low-fitness branches pruned; surviving lineage returned to NEXUS."]
+      ];
+
+      function timeText(date) {
+        return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false });
+      }
+
+      function appendSimLog(channel, message) {
+        var line = document.createElement("div");
+        line.className = "log-line" + (channel === "GATE" ? " gate" : (channel === "WATCH" ? " warn" : ""));
+        var t = document.createElement("time");
+        t.textContent = timeText(new Date());
+        var c = document.createElement("span");
+        c.className = "log-channel";
+        c.textContent = channel;
+        var m = document.createElement("span");
+        m.className = "log-message";
+        m.textContent = message;
+        line.append(t, c, m);
+        var log = document.getElementById("simLog");
+        log.appendChild(line);
+        while (log.children.length > 60) log.removeChild(log.firstChild);
+        log.scrollTop = log.scrollHeight;
+      }
+
+      function updatePipeline() {
+        Array.from(pipeline.children).forEach(function (wave) {
+          wave.classList.remove("active", "done");
+          wave.style.setProperty("--progress", "0%");
+          wave.querySelector(".wave-state").textContent = "queued";
+        });
+      }
+
+      function updateThreshold(valueId, meterId, resultId, value, limit, inverse, scale, decimals) {
+        var pass = inverse ? value <= limit : value >= limit;
+        document.getElementById(valueId).textContent = value.toFixed(decimals);
+        var meter = document.getElementById(meterId);
+        meter.style.setProperty("--threshold-value", Math.max(0, Math.min(100, value * scale)) + "%");
+        meter.classList.toggle("fail", !pass);
+        var result = document.getElementById(resultId);
+        result.textContent = pass ? "PASS" : "FAIL";
+        result.className = pass ? "" : "fail";
+      }
+
+      function initTelemetryBaseline() {
+        document.getElementById("governorGauge").style.setProperty("--gauge", "88%");
+        document.getElementById("governorGauge").setAttribute("aria-label", "E ICE governor confidence 88 percent");
+        document.getElementById("governorValue").textContent = "88";
+        document.getElementById("coherenceValue").textContent = "0.92";
+        document.getElementById("evidenceValue").textContent = "0.86";
+        document.getElementById("driftValue").textContent = "0.12";
+        document.getElementById("coherenceMeter").style.setProperty("--fill", "92%");
+        document.getElementById("evidenceMeter").style.setProperty("--fill", "86%");
+        document.getElementById("driftMeter").style.setProperty("--fill", "12%");
+        document.getElementById("governorState").textContent = "live bounded";
+        updateThreshold("auditEvidence", "auditEvidenceMeter", "auditEvidenceResult", 0.86, .85, false, 100, 2);
+        updateThreshold("auditAesthetics", "auditAestheticsMeter", "auditAestheticsResult", 7.8, 7, false, 10, 1);
+        updateThreshold("auditDrift", "auditDriftMeter", "auditDriftResult", 0.12, .35, true, 100, 2);
+        document.getElementById("shardCount").textContent = "06,184";
+        document.getElementById("swarmDepth").textContent = "07";
+        document.getElementById("swarmFitness").textContent = ".884";
+        document.getElementById("swarmPruned").textContent = "142";
+        if (selectedId !== 0) selectPersona(selectedId);
+      }
+
+      for (var s = 0; s < 24; s++) {
+        var bar = document.createElement("i");
+        bar.style.setProperty("--h", (18 + ((s * 19) % 78)) + "%");
+        document.getElementById("sparkfield").appendChild(bar);
+      }
+      updatePipeline();
+      initTelemetryBaseline();
+      appendSimLog("SYSTEM", "Live telemetry stream initialized. Connected to local collector at http://127.0.0.1:8777.");
+      appendSimLog("ROUTER", "C0-QUILLAN sovereign throne online. Standby for live council, swarm, and forge events.");
+
+      /* ================= LIVE MODE ENGINE (real collector events) ================ */
+      var liveMode = true;
+      var liveLastTs = Date.now();
+      var liveStageToWave = { intake: 0, prism: 1, council: 2, swarm: 2, gates: 3, arbitration: 4 };
+      var liveChannel = { intake: "ROUTER", prism: "PRISM", council: "COUNCIL", swarm: "SWARM", gates: "GATE", arbitration: "ARBITER" };
+      (function initLivePill() {
+        var head = document.querySelector("#councilView .view-head");
+        if (head) {
+          var pill = document.createElement("div");
+          pill.className = "head-stat";
+          pill.innerHTML = "<span>MODE</span><b id='liveModeLabel' style='color:var(--cyan)'>LIVE STREAM</b>";
+          head.appendChild(pill);
+        }
+        var ctrls = document.querySelector(".log-controls");
+        if (ctrls) {
+          var runBtn = document.createElement("button");
+          runBtn.className = "ghost-btn"; runBtn.type = "button";
+          runBtn.textContent = "Run council";
+          runBtn.addEventListener("click", runCouncil);
+          ctrls.appendChild(runBtn);
+        }
+      })();
+
+      async function runCouncil() {
+        var q = window.prompt("Council query:", "Should we automate our weekly reporting with n8n?");
+        if (!q) return;
+        appendSimLog("ROUTER", "Run requested: " + q);
+        try {
+          var r = await fetch("http://127.0.0.1:8777/api/run", { method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query: q }) });
+          var j = await r.json();
+          if (j && j.verdict) appendSimLog("ARBITER", "Run finished: " + j.verdict + " at confidence " + j.confidence + ". Deck above shows the live trace.");
+          else appendSimLog("GATE", "Run finished with unexpected response.");
+        } catch (e) { appendSimLog("GATE", "Run failed: " + e); }
+      }
+
+      function updateLiveAge() {
+        var label = document.getElementById("liveModeLabel");
+        if (liveMode && label && liveLastTs) label.textContent = "LIVE - " + Math.max(0, Math.round((Date.now() - liveLastTs) / 1000)) + "s ago";
+      }
+      function liveNum(text, re) {
+        var m = String(text || "").match(re);
+        return m ? Number(m[1]) : NaN;
+      }
+      function driveLiveStage(event) {
+        var stage = String(event.stage || "").trim().toLowerCase();
+        if (!(stage in liveStageToWave)) return;
+        liveLastTs = Date.now();
+        liveLastTs = Date.now();
+        var detail = String(event.detail || "");
+        var status = String(event.status || "").toLowerCase();
+        var wave = liveStageToWave[stage];
+        var finished = (stage === "arbitration" && status === "pass");
+        Array.from(pipeline.children).forEach(function (el, i) {
+          var isDone = i < wave || finished;
+          var isActive = i === wave && !finished;
+          el.classList.toggle("active", isActive);
+          el.classList.toggle("done", isDone);
+          el.style.setProperty("--progress", isDone ? "100%" : (isActive ? "60%" : "0%"));
+          el.querySelector(".wave-state").textContent = isDone ? "complete" : (isActive ? ("live - " + stage) : "queued");
+        });
+        var ids = [];
+        var re = /C(\d{1,2})\b/g, m;
+        while ((m = re.exec(detail)) !== null) {
+          var id = Number(m[1]);
+          if (id >= 0 && id <= 34 && ids.indexOf(id) === -1) ids.push(id);
+        }
+        if (ids.length) setActiveNodes(ids);
+        else if (stage === "arbitration") setActiveNodes([]);
+        var agreement = liveNum(detail, /agreement\s+([\d.]+)/i);
+        var confidence = liveNum(detail, /confidence\s+([\d.]+)/i);
+        var gates = liveNum(detail, /(\d+)\s*\/\s*5\s+gates/i);
+        if (isFinite(confidence)) {
+          var pct = Math.round(confidence * 100);
+          document.getElementById("governorGauge").style.setProperty("--gauge", pct + "%");
+          document.getElementById("governorValue").textContent = pct;
+        }
+        if (isFinite(agreement)) {
+          document.getElementById("coherenceValue").textContent = agreement.toFixed(2);
+          document.getElementById("coherenceMeter").style.setProperty("--fill", Math.round(agreement * 100) + "%");
+          document.getElementById("swarmFitness").textContent = agreement.toFixed(3).replace(/^0/, "");
+        }
+        if (isFinite(gates)) {
+          var ev = 0.55 + 0.09 * gates;
+          document.getElementById("evidenceValue").textContent = ev.toFixed(2);
+          document.getElementById("evidenceMeter").style.setProperty("--fill", Math.round(ev * 100) + "%");
+        }
+        document.getElementById("governorState").textContent = status === "fail" ? "veto engaged" : "live bounded";
+        appendSimLog(liveChannel[stage] || "LIVE", detail);
+        document.getElementById("cycleNumber").textContent = String(cycle).padStart(4, "0");
+      }
+
+      /* ============ LIVE AUDIT DRIVER (9-row checklist from live runs) ============ */
+      var liveAuditOrder = ["intake", "prism", "council", "swarm", "predator", "vir", "warden", "vigil", "arbitration"];
+      var liveAudits = {};
+      var liveAuditSeq = 0;
+      function driveLiveAudit(event, agent) {
+        var stage = String(event.stage || "").trim().toLowerCase();
+        if (liveAuditOrder.indexOf(stage) === -1) return;
+        var rec = liveAudits[agent.id];
+        if (stage === "intake" || !rec) {
+          liveAuditSeq += 1;
+          rec = { id: "LIVE-" + String(liveAuditSeq).padStart(4, "0"), rows: {}, verdict: "RUNNING", recorded: false };
+          liveAudits[agent.id] = rec;
+        }
+        var status = String(event.status || "").toLowerCase();
+        rec.rows[stage] = { status: status === "pass" ? "pass" : "fail", detail: String(event.detail || ""), ts: timeText(new Date(event.ts || Date.now())) };
+        var failed = liveAuditOrder.some(function (k) { return rec.rows[k] && rec.rows[k].status === "fail"; });
+        var complete = liveAuditOrder.every(function (k) { return rec.rows[k] && rec.rows[k].status === "pass"; });
+        rec.verdict = failed ? "NON-COMPLIANT" : (complete ? "COMPLIANT" : "RUNNING");
+        renderLiveAudit(rec);
+        if ((failed || complete) && !rec.recorded) {
+          rec.recorded = true;
+          auditHistory.push({ id: rec.id, time: timeText(new Date()), verdict: complete ? "COMPLIANT" : "FAILED" });
+          renderAuditHistory();
+        }
+      }
+      function renderLiveAudit(rec) {
+        document.getElementById("auditRunId").textContent = rec.id;
+        var v = document.getElementById("auditVerdict");
+        v.className = "run-verdict " + (rec.verdict === "COMPLIANT" ? "compliant" : (rec.verdict === "RUNNING" ? "running" : "failed"));
+        v.textContent = rec.verdict;
+        var list = document.getElementById("auditChecklist");
+        list.replaceChildren();
+        var passed = 0;
+        liveAuditOrder.forEach(function (key, index) {
+          var spec = null;
+          for (var i = 0; i < auditStages.length; i++) { if (auditStages[i].key === key) { spec = auditStages[i]; break; } }
+          var r = rec.rows[key] || { status: "pending", detail: spec ? spec.detail : "", ts: "\u2014" };
+          if (r.status === "pass") passed += 1;
+          var row = document.createElement("div");
+          row.className = "check-row";
+          var idx = document.createElement("span"); idx.className = "check-index"; idx.textContent = String(index + 1).padStart(2, "0");
+          var text = document.createElement("div");
+          var title = document.createElement("span"); title.className = "check-name"; title.textContent = spec ? spec.name : key;
+          var detail = document.createElement("span"); detail.className = "check-detail"; detail.textContent = r.detail;
+          text.append(title, detail);
+          var time = document.createElement("time"); time.className = "check-time"; time.textContent = r.ts;
+          var status = document.createElement("span"); status.className = "stage-status " + r.status; status.textContent = r.status === "pending" ? "WAITING" : r.status.toUpperCase();
+          row.append(idx, text, time, status);
+          list.appendChild(row);
+        });
+        document.getElementById("auditProgress").textContent = passed + " / " + liveAuditOrder.length + " passed";
+      }
+      /* ============ /LIVE AUDIT DRIVER ============ */
+      /* ================= /LIVE MODE ENGINE ================ */
+      var logPaused = false;
+      document.getElementById("pauseSim").addEventListener("click", function () {
+        logPaused = !logPaused;
+        this.textContent = logPaused ? "Resume log" : "Pause log";
+        appendSimLog("SYSTEM", logPaused ? "Log streaming paused." : "Log streaming resumed.");
+      });
+      document.getElementById("clearSim").addEventListener("click", function () { document.getElementById("simLog").replaceChildren(); });
+
+      function updateClock() {
+        document.getElementById("clockBadge").textContent = timeText(new Date());
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      var collectorPython = String.raw`#!/usr/bin/env python3
+"""Local-only event collector for the Quillan dashboard."""
+from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from datetime import datetime, timezone
+from collections import deque
+import json
+
+HOST, PORT = "127.0.0.1", 8777
+EVENTS = deque(maxlen=1000)
+
+class Handler(BaseHTTPRequestHandler):
+    def send_json_headers(self, status=200):
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+    def do_OPTIONS(self):
+        self.send_json_headers(204)
+
+    def do_GET(self):
+        if self.path.split("?", 1)[0] != "/api/events":
+            self.send_json_headers(404); self.wfile.write(b'{"error":"not found"}'); return
+        self.send_json_headers()
+        self.wfile.write(json.dumps({"events": list(EVENTS)}).encode())
+
+    def do_POST(self):
+        if self.path.split("?", 1)[0] != "/api/events":
+            self.send_json_headers(404); self.wfile.write(b'{"error":"not found"}'); return
+        try:
+            size = int(self.headers.get("Content-Length", "0"))
+            event = json.loads(self.rfile.read(size) or b"{}")
+            if not isinstance(event, dict) or not event.get("agent") or not event.get("type"):
+                raise ValueError("agent and type are required")
+            event.setdefault("ts", datetime.now(timezone.utc).isoformat())
+            event.setdefault("detail", "")
+            event.setdefault("tokens", 0)
+            EVENTS.append(event)
+            self.send_json_headers(202)
+            self.wfile.write(b'{"accepted":true}')
+        except (ValueError, json.JSONDecodeError):
+            self.send_json_headers(400)
+            self.wfile.write(b'{"error":"invalid event"}')
+
+    def log_message(self, fmt, *args):
+        return
+
+print(f"Quillan collector listening on http://{HOST}:{PORT}")
+print("POST events to /api/events; press Ctrl+C to stop.")
+ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
+`;
+      var cCode = document.getElementById("collectorCode"); if (cCode) cCode.textContent = collectorPython;
+
+      function fallbackCopy(text, button) {
+        var area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.appendChild(area);
+        area.select();
+        try { document.execCommand("copy"); button.textContent = "Copied"; } catch (e) { button.textContent = "Select code"; }
+        document.body.removeChild(area);
+        setTimeout(function () { button.textContent = "Copy code"; }, 1600);
+      }
+
+      var copyBtn = document.getElementById("copyCollector"); if (copyBtn) copyBtn.addEventListener("click", function () {
+        var button = this;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(collectorPython).then(function () {
+            button.textContent = "Copied";
+            setTimeout(function () { button.textContent = "Copy code"; }, 1600);
+          }).catch(function () { fallbackCopy(collectorPython, button); });
+        } else fallbackCopy(collectorPython, button);
+      });
+
+      var dlBtn = document.getElementById("downloadCollector"); if (dlBtn) dlBtn.addEventListener("click", function () {
+        var blob = new Blob([collectorPython], { type: "text/x-python;charset=utf-8" });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        a.href = url;
+        a.download = "quillan_collector.py";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      });
+
+      var agentState = new Map();
+      var seenEvents = new Set();
+      var pollTimer = null;
+      var polling = false;
+      var activityInitialized = false;
+      var lastEventTime = 0;
+      var allowedTypes = new Set(["status", "task_start", "task_end", "tool_call", "log", "stage", "training", "train_step"]);
+      var localStageOrder = ["intake", "prism", "council", "swarm", "gates", "arbitration"];
+      var localCompliance = new Map();
+
+      function freshLocalRun(id) {
+        var states = {};
+        localStageOrder.forEach(function (stage) { states[stage] = { status: "pending", detail: "", ts: "—" }; });
+        return { id: id, run: 1, states: states, verdict: "RUNNING", note: "Waiting for intake evidence" };
+      }
+
+      function processLocalStage(event, agent) {
+        var stage = String(event.stage || "").trim().toLowerCase();
+        var index = localStageOrder.indexOf(stage);
+        if (index === -1) return;
+        var status = String(event.status || "").trim().toLowerCase();
+        if (!["pass", "fail", "skip"].includes(status)) status = "fail";
+        var record = localCompliance.get(agent.id) || freshLocalRun(agent.id);
+        if (stage === "intake" && record.states.intake.status !== "pending") {
+          record = freshLocalRun(agent.id);
+          record.run = (localCompliance.get(agent.id) || { run: 0 }).run + 1;
+        }
+        for (var i = 0; i < index; i++) {
+          var prior = localStageOrder[i];
+          if (record.states[prior].status === "pending") {
+            record.states[prior].status = "skip";
+            record.states[prior].detail = "Bypassed before " + stage;
+            record.states[prior].ts = timeText(new Date(event.ts || Date.now()));
+          }
+        }
+        record.states[stage] = {
+          status: status,
+          detail: String(event.detail || ""),
+          ts: timeText(new Date(event.ts || Date.now()))
+        };
+        var hasFailure = localStageOrder.some(function (key) { return ["fail", "skip"].includes(record.states[key].status); });
+        var complete = localStageOrder.every(function (key) { return record.states[key].status === "pass"; });
+        if (hasFailure) {
+          record.verdict = "NON-COMPLIANT";
+          record.note = "A required stage failed or was bypassed.";
+        } else if (complete) {
+          record.verdict = "COMPLIANT";
+          record.note = "Full ordered sequence verified with throne sign-off.";
+        } else {
+          record.verdict = "RUNNING";
+          record.note = "Sequence incomplete — no compliance verdict yet.";
+        }
+        localCompliance.set(agent.id, record);
+        renderLocalAudits();
+      }
+
+      function renderLocalAudits() {
+        var grid = document.getElementById("localAuditGrid");
+        grid.replaceChildren();
+        if (!localCompliance.size) {
+          var empty = document.createElement("div");
+          empty.className = "empty-feed";
+          empty.style.gridColumn = "1 / -1";
+          empty.innerHTML = "No stage evidence received.<br>Send stage markers through the local collector.";
+          grid.appendChild(empty);
+          return;
+        }
+        Array.from(localCompliance.entries()).forEach(function (entry) {
+          var id = entry[0], record = entry[1];
+          var card = document.createElement("article"); card.className = "local-audit-card";
+          var head = document.createElement("div"); head.className = "local-audit-head";
+          var name = document.createElement("strong"); name.textContent = humanize(id) + " · RUN " + String(record.run).padStart(2, "0");
+          var verdict = document.createElement("span");
+          verdict.className = "run-verdict " + (record.verdict === "COMPLIANT" ? "compliant" : (record.verdict === "RUNNING" ? "running" : "failed"));
+          verdict.textContent = record.verdict;
+          head.append(name, verdict);
+          var sequence = document.createElement("div"); sequence.className = "mini-sequence";
+          localStageOrder.forEach(function (stage) {
+            var cell = document.createElement("span");
+            cell.className = "mini-stage " + record.states[stage].status;
+            cell.textContent = stage.toUpperCase();
+            cell.title = record.states[stage].status.toUpperCase() + " · " + (record.states[stage].detail || "No detail");
+            sequence.appendChild(cell);
+          });
+          var note = document.createElement("div"); note.className = "local-audit-note"; note.textContent = record.note;
+          card.append(head, sequence, note); grid.appendChild(card);
+        });
+      }
+
+      /* =================== AGENT & CODEBASE RADAR ENGINE =================== */
+      var defaultDiffSnippets = {"dashboard": [{"type": "hdr", "text": "@@ -1350,24 +1350,58 @@ Codebase Radar & Multi-Agent Mutation Visualizer"}, {"type": "ctx", "text": " <section class='view' id='agentsView' role='tabpanel'>"}, {"type": "del", "text": "-  <div class='agents-grid' id='agentsGrid'></div>"}, {"type": "add", "text": "+  <!-- ACTIVE AGENTS ROSTER WITH LIVE ACTION BADGES -->"}, {"type": "add", "text": "+  <section class='agents-grid' id='agentsGrid' aria-label='Active agents'></section>"}, {"type": "add", "text": "+  <!-- INTERACTIVE WORKSPACE TOPOLOGY MAP -->"}, {"type": "add", "text": "+  <section class='panel codebase-section' id='codebaseTopology'></section>"}, {"type": "add", "text": "+  <!-- LIVE FILE & MUTATION INSPECTOR -->"}, {"type": "add", "text": "+  <section class='panel inspector-panel' id='fileInspector'></section>"}, {"type": "ctx", "text": "   <div class='activity-feed' id='activityFeed'></div>"}], "sft_6l": [{"type": "hdr", "text": "@@ -58,16 +58,26 @@ Quillan-6L Monolithic BPE SFT Engine"}, {"type": "ctx", "text": " def emit_hub_event(step, max_steps, loss, lr=0.0, best_loss=None):"}, {"type": "add", "text": "+    # Post real-time step telemetry to local dashboard collector at :8777"}, {"type": "add", "text": "+    payload = {'agent': 'quillan_trainer', 'type': 'train_step', 'step': step, 'loss': loss}"}, {"type": "add", "text": "+    urllib.request.urlopen(req, timeout=1.0)"}, {"type": "ctx", "text": " "}, {"type": "ctx", "text": " # Master Monolithic BPE Dataset (3,846 Complete Rows, Zero Truncation)"}, {"type": "del", "text": "- dataset = LegacyMultiPartDataset(cache_path)"}, {"type": "add", "text": "+ dataset = MasterCleanSFTDataset(CACHE_PATH, max_seq_len=512)"}], "sft_12l": [{"type": "hdr", "text": "@@ -40,12 +40,24 @@ Quillan-12L Main SFT Model Architecture"}, {"type": "ctx", "text": " cfg = QuillanOniConfig(num_layers=12, hidden_dim=1536, num_experts=34)"}, {"type": "add", "text": "+ # BitNet 1.58b STE MoE Vectorized Dispatch"}, {"type": "add", "text": "+ model = QuillanRoninOni(cfg)"}, {"type": "add", "text": "+ model.load_state_dict(torch.load(CKPT_IN, weights_only=True))"}], "oni_core": [{"type": "hdr", "text": "@@ -118,14 +118,24 @@ BitNet 1.58b Straight-Through Estimator Quantization"}, {"type": "ctx", "text": " class BitLinearOni(nn.Module):"}, {"type": "ctx", "text": "     def forward(self, x):"}, {"type": "add", "text": "+        scale = w.abs().mean().clamp(min=1e-5)"}, {"type": "add", "text": "+        w_q = (w / scale).round().clamp(-1, 1)"}, {"type": "add", "text": "+        w_ste = w + (w_q * scale - w).detach()  # Straight-Through Estimator"}, {"type": "ctx", "text": "         return F.linear(x, w_ste)"}], "collector": [{"type": "hdr", "text": "@@ -25,10 +25,22 @@ Real-Time Localhost Collector & Filesystem Radar"}, {"type": "add", "text": "+ elif path == '/api/codebase':"}, {"type": "add", "text": "+     self.send_json_headers()"}, {"type": "add", "text": "+     self.wfile.write(json.dumps(get_codebase_status()).encode())"}, {"type": "add", "text": "+     return"}], "token_cache": [{"type": "hdr", "text": "@@ Dataset Verification // E:\quillan_datasets\sft_master_tokenized_cache.pt"}, {"type": "ctx", "text": " Sample Count: 3,846 Rows (100% Intact Monolithic BPE Sequences)"}, {"type": "ctx", "text": " Sequence Length: 512 Tokens Contiguous"}, {"type": "ctx", "text": " Serialization: PyTorch Dict {'input_ids': torch.Tensor, 'labels': torch.Tensor}"}]};
+
+      function newAgent(id, displayName, role, avatar, activeFile, actionType) {
+        return {
+          id: id,
+          name: displayName || humanize(id),
+          role: role || "Software Engineer",
+          avatar: avatar || "🤖",
+          status: "online",
+          task: "Standby for operations",
+          activeFile: activeFile || "None",
+          actionType: actionType || "IDLE",
+          toolCalls: 0,
+          tokens: 0,
+          updated: Date.now()
+        };
+      }
+
+      function humanize(id) {
+        return String(id || "unknown").replace(/[-_]+/g, " ").replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+      }
+
+      agentState.set("antigravity", newAgent("antigravity", "Antigravity", "Lead Systems Architect & Pair-Programmer", "⚡", "06 - Deployment & Platforms/quillan-dashboard.html", "REPLACE_CONTENT (+142 / -28)"));
+      agentState.set("quillan_trainer", newAgent("quillan_trainer", "Quillan Model Forge", "BitNet 1.58b STE Trainer & Optimizer", "🧠", "03 - Training & Model/scripts/run_6l_sft_clean.py", "TRAIN_STEP (Loss 6.124 · PPL 456.69)"));
+      agentState.set("codeweaver", newAgent("codeweaver", "CodeWeaver (C10)", "AST Code Architect & Refactorer", "🛠️", "03 - Training & Model/scripts/quillan_v5_4_oni.py", "AST PARSE (McCabe 4 · Types 99.2%)"));
+      agentState.set("predator", newAgent("predator", "Predator (C34)", "Adversarial Invariant & Security Hunter", "⚔️", "06 - Deployment & Platforms/quillan_collector.py", "GATE PASS: E_ICE LOCAL BOUNDARY"));
+
+      var codebaseNodes = [
+        { id: "sft_6l", name: "run_6l_sft_clean.py", rel: "03 - Training & Model/scripts/run_6l_sft_clean.py", module: "03 - Training & Model", agent: "quillan_trainer", type: "py", desc: "6L Mini Clean Monolithic SFT Pipeline", size_str: "20.1 KB", is_active: true },
+        { id: "sft_12l", name: "run_12l_sft_clean.py", rel: "03 - Training & Model/scripts/run_12l_sft_clean.py", module: "03 - Training & Model", agent: "quillan_trainer", type: "py", desc: "12L Main Clean SFT Pipeline Engine", size_str: "19.4 KB", is_active: false },
+        { id: "oni_core", name: "quillan_v5_4_oni.py", rel: "03 - Training & Model/scripts/quillan_v5_4_oni.py", module: "03 - Training & Model", agent: "codeweaver", type: "py", desc: "BitNet 1.58b STE MoE Architecture Kernel", size_str: "200.1 KB", is_active: false },
+        { id: "ckpt_6l", name: "quillan_6l_clean_sft.pt", rel: "03 - Training & Model/checkpoints/checkpoints_oni/quillan_6l_clean_sft.pt", module: "03 - Training & Model", agent: "quillan_trainer", type: "pt", desc: "Quillan 6L Target Checkpoint (Loss 6.178)", size_str: "3.02 GB", is_active: false },
+        { id: "dashboard", name: "quillan-dashboard.html", rel: "06 - Deployment & Platforms/quillan-dashboard.html", module: "06 - Deployment & Platforms", agent: "antigravity", type: "html", desc: "Single-Page Holographic Mission Control", size_str: "135.2 KB", is_active: true },
+        { id: "collector", name: "quillan_collector.py", rel: "06 - Deployment & Platforms/quillan_collector.py", module: "06 - Deployment & Platforms", agent: "predator", type: "py", desc: "Zero-Egress Real-Time Telemetry Hub", size_str: "3.8 KB", is_active: true },
+        { id: "prompt_md", name: "Quillan-Samurai.md", rel: "06 - Deployment & Platforms/system prompts/Quillan-Samurai.md", module: "06 - Deployment & Platforms", agent: "antigravity", type: "md", desc: "Sovereign Cognitive Hierarchy System Prompt", size_str: "545.5 KB", is_active: false },
+        { id: "token_cache", name: "sft_master_tokenized_cache.pt", rel: "E:/quillan_datasets/sft_master_tokenized_cache.pt", module: "E:/quillan_datasets", agent: "quillan_trainer", type: "pt", desc: "Master Tokenized Cache (3,846 Complete Rows)", size_str: "30.9 MB", is_active: false },
+        { id: "train_log", name: "train_6l_master.log", rel: "03 - Training & Model/evaluation_results/train_6l_master.log", module: "03 - Training & Model", agent: "quillan_trainer", type: "log", desc: "Live SFT Loss & Step Telemetry Log", size_str: "17.5 KB", is_active: false },
+        { id: "sft_common", name: "sft_common.py", rel: "03 - Training & Model/scripts/sft_common.py", module: "03 - Training & Model", agent: "codeweaver", type: "py", desc: "Master Dataset & Alignment Health Verification", size_str: "18.5 KB", is_active: false }
+      ];
+
+      var selectedNodeId = "dashboard";
+
+      function safeNumber(value) {
+        var n = Number(value);
+        return Number.isFinite(n) && n >= 0 ? Math.floor(n) : 0;
+      }
+      function formatCompact(n) {
+        if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, "") + "m";
+        if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+        return String(n);
+      }
+
+      function renderAgents() {
+        var grid = document.getElementById("agentsGrid");
+        if (!grid) return;
+        grid.replaceChildren();
+        Array.from(agentState.values()).forEach(function (agent) {
+          var card = document.createElement("article");
+          card.className = "agent-card" + (agent.status === "online" ? " active-working" : "");
+          
+          var head = document.createElement("div");
+          head.className = "agent-head";
+          
+          var nameBox = document.createElement("div");
+          nameBox.style.display = "flex";
+          nameBox.style.gap = "8px";
+          nameBox.style.alignItems = "center";
+          
+          var avatar = document.createElement("span");
+          avatar.className = "agent-avatar-icon";
+          avatar.textContent = agent.avatar || "🤖";
+          
+          var nameWrap = document.createElement("div");
+          nameWrap.className = "agent-name";
+          var small = document.createElement("small");
+          small.textContent = agent.role || "ENGINEERING AGENT";
+          var strong = document.createElement("strong");
+          strong.textContent = agent.name;
+          nameWrap.append(small, strong);
+          nameBox.append(avatar, nameWrap);
+          
+          var chip = document.createElement("span");
+          chip.className = "status-chip " + agent.status;
+          chip.textContent = agent.status === "online" ? "ACTIVE" : agent.status;
+          head.append(nameBox, chip);
+
+          var task = document.createElement("div");
+          task.className = "agent-task";
+          
+          var filePill = document.createElement("div");
+          filePill.className = "agent-target-file";
+          filePill.innerHTML = "<span>📄 TARGET:</span><b>" + (agent.activeFile ? agent.activeFile.split("/").pop() : "None") + "</b>";
+          filePill.addEventListener("click", function () {
+            var found = codebaseNodes.find(function (n) { return agent.activeFile && agent.activeFile.indexOf(n.name) !== -1; });
+            if (found) selectFileNode(found.id);
+          });
+
+          var taskText = document.createElement("p");
+          taskText.style.marginTop = "6px";
+          taskText.textContent = agent.task || "Operational standby";
+          
+          var actionTag = document.createElement("div");
+          actionTag.style.marginTop = "6px";
+          actionTag.innerHTML = "<span class='badge' style='font-size:8px;padding:2px 6px;color:var(--cyan);background:rgba(73,224,218,0.08);'>" + (agent.actionType || "OPERATING") + "</span>";
+
+          task.append(filePill, taskText, actionTag);
+
+          var stats = document.createElement("div");
+          stats.className = "agent-stats";
+          stats.innerHTML = '<div class="agent-stat"><strong>' + agent.toolCalls.toLocaleString() + '</strong><span>TOOL ACTIONS</span></div><div class="agent-stat"><strong>' + formatCompact(agent.tokens) + '</strong><span>TOKENS</span></div>';
+          
+          card.append(head, task, stats);
+          grid.appendChild(card);
+        });
+
+        var agents = Array.from(agentState.values());
+        document.getElementById("summaryOnline").textContent = agents.filter(function (a) { return a.status === "online"; }).length;
+        document.getElementById("summaryCalls").textContent = formatCompact(agents.reduce(function (sum, a) { return sum + a.toolCalls; }, 0));
+        document.getElementById("summaryTokens").textContent = formatCompact(agents.reduce(function (sum, a) { return sum + a.tokens; }, 0));
+        document.getElementById("summaryFiles").textContent = codebaseNodes.length;
+      }
+
+      function renderCodebaseTopology() {
+        var grid = document.getElementById("codebaseGrid");
+        if (!grid) return;
+        grid.replaceChildren();
+
+        var modules = [
+          { key: "03 - Training & Model", label: "03 - TRAINING & MODEL (NEURAL FORGE)", badge: "BitNet 1.58b SFT" },
+          { key: "06 - Deployment & Platforms", label: "06 - DEPLOYMENT & PLATFORMS (MISSION CONTROL)", badge: "Telemetry Hub" },
+          { key: "E:/quillan_datasets", label: "DATASETS & LOGS (TOKEN SUBSTRATE)", badge: "3,846 Master Cache" }
+        ];
+
+        modules.forEach(function (mod) {
+          var card = document.createElement("div");
+          card.className = "module-card";
+          
+          var head = document.createElement("div");
+          head.className = "module-card-head";
+          head.innerHTML = "<strong class='module-title'>" + mod.label + "</strong><span class='module-badge'>" + mod.badge + "</span>";
+          card.appendChild(head);
+
+          var list = document.createElement("div");
+          list.className = "file-node-list";
+
+          codebaseNodes.filter(function (n) { return n.module === mod.key; }).forEach(function (node) {
+            var row = document.createElement("div");
+            row.className = "file-node" + (node.id === selectedNodeId ? " selected" : "") + (node.is_active ? " active-touch" : "");
+            row.addEventListener("click", function () { selectFileNode(node.id); });
+
+            var icon = document.createElement("span");
+            icon.className = "file-ext-icon " + node.type;
+            icon.textContent = node.type.toUpperCase();
+
+            var meta = document.createElement("div");
+            meta.className = "file-node-meta";
+            
+            var name = document.createElement("span");
+            name.className = "file-node-name";
+            name.textContent = node.name;
+            
+            var desc = document.createElement("span");
+            desc.className = "file-node-desc";
+            desc.textContent = node.desc || node.rel;
+
+            var agentTag = document.createElement("span");
+            agentTag.className = "file-node-agent " + node.agent;
+            agentTag.textContent = humanize(node.agent);
+
+            meta.append(name, desc, agentTag);
+
+            var stat = document.createElement("div");
+            stat.className = "file-node-stat";
+            stat.innerHTML = "<b>" + node.size_str + "</b><br><span style='font-size:7px;color:var(--muted);'>" + (node.is_active ? "ACTIVE" : "CLEAN") + "</span>";
+
+            row.append(icon, meta, stat);
+            list.appendChild(row);
+          });
+
+          card.appendChild(list);
+          grid.appendChild(card);
+        });
+      }
+
+      function selectFileNode(nodeId) {
+        selectedNodeId = nodeId;
+        var node = codebaseNodes.find(function (n) { return n.id === nodeId; });
+        if (!node) return;
+
+        document.getElementById("inspectFileName").textContent = node.name;
+        var agentTag = document.getElementById("inspectAgentTag");
+        agentTag.className = "file-node-agent " + node.agent;
+        agentTag.textContent = humanize(node.agent);
+
+        document.getElementById("inspectFileMeta").textContent = node.size_str + " · " + node.rel;
+        document.getElementById("inspectOpBadge").textContent = (node.type === "py" ? "PYTHON_AST_VERIFIED" : (node.type === "html" ? "LIVE_UI_TELEMETRY" : "BINARY_PT_TENSOR"));
+        
+        var diffBox = document.getElementById("inspectorDiffBox");
+        diffBox.replaceChildren();
+
+        var lines = defaultDiffSnippets[node.id] || [
+          { type: "hdr", text: "@@ Header: " + node.rel + " (" + node.size_str + ") @@" },
+          { type: "ctx", text: " File status: Synchronized with local workspace." },
+          { type: "add", text: "+ Actively watched by local collector :8777 filesystem monitor." },
+          { type: "ctx", text: " Assigned agent: " + humanize(node.agent) + " (" + node.desc + ")" }
+        ];
+
+        lines.forEach(function (l, idx) {
+          var div = document.createElement("div");
+          div.className = "diff-line diff-" + l.type;
+          var num = document.createElement("span");
+          num.className = "diff-num";
+          num.textContent = String(idx + 1).padStart(3, "0");
+          var txt = document.createElement("span");
+          txt.textContent = l.text;
+          div.append(num, txt);
+          diffBox.appendChild(div);
+        });
+
+        document.getElementById("inspectLastTouch").textContent = "STATUS: " + (node.is_active ? "RECENTLY ACCESSED" : "SYNCHRONIZED");
+        renderCodebaseTopology();
+      }
+
+      async function fetchCodebaseStatus() {
+        try {
+          var base = validLocalBase(document.getElementById("collectorHost").value) || "http://127.0.0.1:8777";
+          var res = await fetch(base + "/api/codebase", { method: "GET", cache: "no-store", mode: "cors" });
+          if (!res.ok) return;
+          var data = await res.json();
+          if (data && Array.isArray(data.nodes)) {
+            data.nodes.forEach(function (liveNode) {
+              var target = codebaseNodes.find(function (n) { return n.id === liveNode.id; });
+              if (target) {
+                target.size_str = liveNode.size_str;
+                target.is_active = liveNode.is_active;
+                target.exists = liveNode.exists;
+              }
+            });
+            renderCodebaseTopology();
+          }
+        } catch (e) {}
+      }
+
+
+      function eventFingerprint(event) {
+        return [event.ts || "", event.agent || "", event.type || "", event.stage || "", event.status || "", event.detail || "", event.tokens || 0].join("|");
+      }
+
+      function normalizeStatus(detail) {
+        var value = String(detail || "").trim().toLowerCase();
+        if (value.indexOf("offline") !== -1 || value.indexOf("stopped") !== -1) return "offline";
+        if (value.indexOf("idle") !== -1 || value.indexOf("waiting") !== -1) return "idle";
+        return "online";
+      }
+
+      function processEvent(raw) {
+        if (!raw || typeof raw !== "object") return;
+        var id = String(raw.agent || "").trim().toLowerCase();
+        var type = String(raw.type || "").trim().toLowerCase();
+        if (!id || !allowedTypes.has(type)) return;
+        var fingerprint = eventFingerprint(raw);
+        if (seenEvents.has(fingerprint)) return;
+        seenEvents.add(fingerprint);
+        if (seenEvents.size > 2500) seenEvents.clear();
+        var agent = agentState.get(id) || newAgent(id);
+        var detail = String(raw.detail || "").trim();
+        if (type === "stage") {
+          agent.status = "online";
+          processLocalStage(raw, agent);
+          driveLiveStage(raw);
+          driveLiveAudit(raw, agent);
+        } else if (type === "code_mutation" || type === "mutation") {
+          agent.status = "online";
+          agent.task = raw.detail || "Modified file in workspace";
+          agent.activeFile = raw.file || agent.activeFile;
+          agent.actionType = (raw.action || "MUTATION") + " (" + (raw.file ? raw.file.split("/").pop() : "") + ")";
+          agent.toolCalls += 1;
+          var matchNode = codebaseNodes.find(function (n) { return raw.file && raw.file.indexOf(n.name) !== -1; });
+          if (matchNode) {
+            matchNode.is_active = true;
+            selectFileNode(matchNode.id);
+          }
+        } else if (type === "training" || type === "train_step") {
+          agent.status = "online";
+          agent.task = "Training: Step " + (raw.step || 0) + " (Loss " + (raw.loss || "--") + ")";
+          agent.actionType = "TRAIN_STEP (Loss " + (raw.loss || "--") + ")";
+          driveLiveTraining(raw);
+        } else if (type === "status") {
+          agent.status = normalizeStatus(detail);
+          if (detail && !["online", "idle", "offline"].includes(detail.toLowerCase())) agent.task = detail;
+        } else if (type === "task_start") {
+          agent.status = "online";
+          agent.task = detail || "Task in progress";
+        } else if (type === "task_end") {
+          agent.status = "idle";
+          agent.task = detail || "Task complete";
+        } else if (type === "tool_call") {
+          agent.status = "online";
+          agent.toolCalls += 1;
+          if (detail) agent.task = detail;
+        } else if (type === "log" && detail) {
+          if (agent.status === "offline") agent.status = "online";
+        }
+        agent.tokens += safeNumber(raw.tokens);
+        var parsedTime = Date.parse(raw.ts);
+        agent.updated = Number.isFinite(parsedTime) ? parsedTime : Date.now();
+        agentState.set(id, agent);
+        appendActivity(raw, agent);
+        renderAgents();
+      renderCodebaseTopology();
+      selectFileNode("dashboard");
+      }
+
+      function appendActivity(event, agent) {
+        var feed = document.getElementById("activityFeed");
+        if (!activityInitialized) { feed.replaceChildren(); activityInitialized = true; }
+        var line = document.createElement("div");
+        line.className = "activity-line";
+        var time = document.createElement("time");
+        var parsed = new Date(event.ts || Date.now());
+        time.textContent = Number.isNaN(parsed.getTime()) ? "--:--:--" : timeText(parsed);
+        var name = document.createElement("span");
+        name.className = "activity-agent";
+        name.textContent = agent.name;
+        var message = document.createElement("span");
+        message.className = "activity-message";
+        message.textContent = String(event.type).toUpperCase() + (event.detail ? " · " + String(event.detail) : "");
+        line.append(time, name, message);
+        feed.appendChild(line);
+        while (feed.children.length > 150) feed.removeChild(feed.firstChild);
+        feed.scrollTop = feed.scrollHeight;
+        lastEventTime = Date.now();
+        document.getElementById("lastEventLabel").textContent = "last event " + timeText(new Date());
+      }
+
+      function setConnection(state, text) {
+        var el = document.getElementById("connectionState");
+        if (el) {
+          el.className = "connection-state " + state;
+          el.innerHTML = '<span class="indicator"></span><span></span>';
+          el.lastChild.textContent = text;
+        }
+        var hubBadge = document.getElementById("hubStateBadge");
+        if (hubBadge) {
+          var ind = hubBadge.querySelector(".indicator");
+          if (state === "online") {
+            hubBadge.className = "badge";
+            if (ind) ind.style.color = "var(--green)";
+            hubBadge.lastChild.textContent = "HUB :8777 ONLINE";
+          } else if (state === "connecting") {
+            hubBadge.className = "badge";
+            if (ind) ind.style.color = "var(--amber)";
+            hubBadge.lastChild.textContent = "HUB :8777 CONNECTING";
+          } else {
+            hubBadge.className = "badge";
+            if (ind) ind.style.color = "var(--coral)";
+            hubBadge.lastChild.textContent = "HUB :8777 OFFLINE";
+          }
+        }
+      }
+
+      function validLocalBase(value) {
+        try {
+          var candidate = value.trim();
+          if (!/^https?:\/\//i.test(candidate)) candidate = "http://" + candidate;
+          var url = new URL(candidate);
+          var host = url.hostname.toLowerCase();
+          if (!["localhost", "127.0.0.1", "::1", "[::1]"].includes(host)) return null;
+          if (url.protocol !== "http:" && url.protocol !== "https:") return null;
+          return url.origin;
+        } catch (e) { return null; }
+      }
+
+      function showSetup(unreachable) {
+        var sHead = document.getElementById("setupHeading"); if (sHead) sHead.textContent = unreachable ? "Collector is not running yet" : "Connect your local tools";
+        var sMsg = document.getElementById("setupMessage"); if (sMsg) sMsg.textContent = unreachable ? "The dashboard could not reach your PC's collector. Start the companion script below, leave that terminal open, then press Connect again." : "Run the collector below, then have each agent POST its events to the same local endpoint. Nothing leaves your machine.";
+      }
+
+      async function pollCollector() {
+        if (polling) return;
+        var base = validLocalBase(document.getElementById("collectorHost").value);
+        if (!base) {
+          stopPolling();
+          setConnection("offline", "Use localhost or 127.0.0.1 only");
+          showSetup(false);
+          return;
+        }
+        polling = true;
+        setConnection("connecting", "Checking local collector…");
+        try {
+          var response = await fetch(base + "/api/events", { method: "GET", cache: "no-store", mode: "cors" });
+          if (!response.ok) throw new Error("collector unavailable");
+          var payload = await response.json();
+          var events = Array.isArray(payload) ? payload : (Array.isArray(payload.events) ? payload.events : (payload && payload.agent ? [payload] : []));
+          events.forEach(processEvent);
+          fetchCodebaseStatus();
+          setConnection("online", "Collector connected");
+          document.getElementById("setupPanel").hidden = true;
+        } catch (e) {
+          setConnection("offline", "Collector unavailable — setup below");
+          document.getElementById("setupPanel").hidden = false;
+          showSetup(true);
+        } finally {
+          polling = false;
+        }
+      }
+
+      function startPolling() {
+        stopPolling();
+        pollCollector();
+        pollTimer = setInterval(pollCollector, 2200);
+      }
+      function stopPolling() {
+        if (pollTimer) clearInterval(pollTimer);
+        pollTimer = null;
+      }
+
+      document.getElementById("collectorForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        startPolling();
+      });
+
+      // Auto-connect to local collector immediately on launch
+      startPolling();
+
+      /* =================== TRAINING LAB ENGINE & WORKOUT BOT =================== */
+      var trainState = {
+        step: 0,
+        maxSteps: 500,
+        loss: 6.178,
+        bestLoss: 6.178,
+        initialLoss: 6.178,
+        lr: 0.0001,
+        cadenceMs: 4820,
+        tokens: 0,
+        modelName: "QUILLAN 6L (380M)",
+        governor: "LEEMACH6 3-THREAD",
+        exercise: "bench",
+        cadencePace: 1,
+        status: "STANDBY // READY FOR RUN",
+        feedMode: "live",
+        lossHistory: [
+          { step: 0, loss: 6.178 }
+        ]
+      };
+
+      var probeSamples = [
+        {
+          prompt: "Deconstruct the time complexity of Newton-Schulz iteration in MuonK2.",
+          think: "Evaluating matrix dimensions d=768... Computing quintic polynomial coefficients a=3.4445, b=-4.7750, c=2.0315... Ensuring spectral radius convergence without explicit SVD. Memory layout aligned to contiguous FP32 buffer.",
+          output: "Muon Newton-Schulz iteration achieves O(k · d³) cubic time per step using purely matrix-matrix multiplications. With k=5 iterations, the update tensor orthogonalizes unconditionally with zero SVD decomposition overhead."
+        },
+        {
+          prompt: "Derive the gradient flow properties of Straight-Through Estimator (STE) in BitNet 1.58b.",
+          think: "Forward pass: ternary sign quantization W_q = round(clip(W / scale, -1, 1)). Backward pass: surrogate gradient dL/dW = dL/dW_q * 1_{|W| <= gamma}. Verifying weight clipping boundary to prevent dead neuron saturation.",
+          output: "BitNet STE treats non-differentiable ternary discretization as identity during backpropagation within the dynamic scale window [-gamma, gamma]. Latent full-precision master weights absorb gradient updates while forward activations run strictly on ternary arithmetic."
+        },
+        {
+          prompt: "Synthesize the 34-expert sovereign arbitration matrix under high-concurrency epistemic tension.",
+          think: "Routing vector across C0 throne and C1-C34 council... Resolving dialectical tension between C2-VIR moral invariant and C34-PREDATOR adversarial strike... Weighting consensus via softmax pull-weights over rank-r manifold.",
+          output: "The Sovereign Mixture-of-Experts reaches equilibrium by routing candidate propositions through adversarial cross-validation. When disagreement spikes, C0-Throne arbitrates with Bushido truth non-negotiables, dropping ungrounded branches before final output synthesis."
+        }
+      ];
+      var probeIdx = 0;
+
+      function renderTrainingUI() {
+        var isForging = (trainState.status.indexOf("FORGING") !== -1 || trainState.status.indexOf("ACTIVE") !== -1 || trainState.step > 0);
+        var card = document.getElementById("workoutCard");
+        if (card) card.classList.toggle("is-idle", !isForging);
+        var statusTag = document.getElementById("workoutStatusTag");
+        if (statusTag) {
+          if (!isForging) {
+            statusTag.textContent = "REST // AWAITING RUN";
+          } else {
+            statusTag.textContent = trainState.exercise === "bench" ? "LOCKOUT PRESS" : (trainState.exercise === "deadlift" ? "HYDRAULIC PULL" : "OVERHEAD DRIVE");
+          }
+        }
+        var statusHdr = document.getElementById("trainStatusHeader");
+        if (statusHdr) {
+          statusHdr.textContent = isForging ? "ACTIVE // FORGING" : "STANDBY // READY FOR RUN";
+          statusHdr.style.color = isForging ? "var(--cyan)" : "var(--muted)";
+        }
+
+        var pct = Math.min(100, Math.max(0, (trainState.step / trainState.maxSteps) * 100));
+        var pctStr = pct.toFixed(1) + "%";
+        document.getElementById("trainBarFill").style.width = pctStr;
+        document.getElementById("trainProgressPctText").textContent = "Step " + String(trainState.step).padStart(4, "0") + " / " + String(trainState.maxSteps).padStart(4, "0") + " · " + pctStr + " COMPLETE";
+        document.getElementById("trainStepsLabel").textContent = trainState.step + " / " + trainState.maxSteps;
+        document.getElementById("workoutReps").textContent = trainState.step;
+        document.getElementById("workoutArenaMeta").textContent = "Rep " + trainState.step + " / " + trainState.maxSteps + " · " + (trainState.exercise === "bench" ? "HEAVY BENCH PRESS" : (trainState.exercise === "deadlift" ? "POWER DEADLIFT" : "OVERHEAD PRESS"));
+        
+        var mThresholds = [0, 100, 250, 400, 500];
+        mThresholds.forEach(function (thresh, i) {
+          var el = document.getElementById("m" + i);
+          if (el) el.classList.toggle("reached", trainState.step >= thresh);
+        });
+
+        var remainingSteps = Math.max(0, trainState.maxSteps - trainState.step);
+        var secLeft = Math.round((remainingSteps * trainState.cadenceMs) / 1000);
+        var mLeft = Math.floor(secLeft / 60);
+        var sLeft = secLeft % 60;
+        var hLeft = Math.floor(mLeft / 60);
+        mLeft = mLeft % 60;
+        var etaStr = String(hLeft).padStart(2, "0") + ":" + String(mLeft).padStart(2, "0") + ":" + String(sLeft).padStart(2, "0");
+        document.getElementById("trainEtaLabel").textContent = etaStr;
+
+        document.getElementById("currLossVal").textContent = Number(trainState.loss).toFixed(3);
+        document.getElementById("bestLossVal").textContent = Number(trainState.bestLoss).toFixed(3);
+        var ppl = Math.exp(trainState.loss);
+        var pplStr = ppl < 10000 ? ppl.toFixed(2) : "10k+";
+        document.getElementById("pplValue").textContent = pplStr;
+        document.getElementById("workoutPpl").textContent = pplStr + " PPL";
+        document.getElementById("lrValue").textContent = Number(trainState.lr).toExponential(2);
+        document.getElementById("workoutTempo").textContent = (trainState.cadenceMs / 1000).toFixed(1) + "s / REP";
+        document.getElementById("trainCadenceHeader").textContent = (trainState.cadenceMs / 1000).toFixed(1) + "s / step";
+
+        var repEl = document.getElementById("workoutReps");
+        repEl.classList.add("rep-pop");
+        setTimeout(function () { repEl.classList.remove("rep-pop"); }, 200);
+
+        drawTrainingLossCanvas();
+      }
+
+      function drawTrainingLossCanvas() {
+        var canvas = document.getElementById("trainLossCanvas");
+        if (!canvas) return;
+        var rect = canvas.getBoundingClientRect();
+        var width = rect.width || canvas.width || 560;
+        var height = rect.height || canvas.height || 180;
+        if (canvas.width !== width || canvas.height !== height) {
+          canvas.width = width;
+          canvas.height = height;
+        }
+        var ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        ctx.clearRect(0, 0, width, height);
+
+        var padL = 36, padR = 20, padT = 20, padB = 26;
+        var plotW = width - padL - padR;
+        var plotH = height - padT - padB;
+
+        var yMin = 1.0, yMax = 7.0;
+        ctx.strokeStyle = "#172b30";
+        ctx.lineWidth = 1;
+        ctx.font = "9px " + getComputedStyle(document.body).getPropertyValue("--mono");
+        ctx.fillStyle = "#557077";
+        ctx.textAlign = "right";
+
+        for (var yVal = 2.0; yVal <= 6.0; yVal += 1.0) {
+          var yPos = padT + plotH - ((yVal - yMin) / (yMax - yMin)) * plotH;
+          ctx.beginPath();
+          ctx.moveTo(padL, yPos);
+          ctx.lineTo(padL + plotW, yPos);
+          ctx.stroke();
+          ctx.fillText(yVal.toFixed(1), padL - 5, yPos + 3);
+        }
+
+        var targetY = padT + plotH - ((2.0 - yMin) / (yMax - yMin)) * plotH;
+        ctx.strokeStyle = "rgba(121, 221, 142, 0.4)";
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(padL, targetY);
+        ctx.lineTo(padL + plotW, targetY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = "#79dd8e";
+        ctx.fillText("TARGET 2.0", padL + plotW - 4, targetY - 4);
+
+        var history = trainState.lossHistory;
+        if (!history || history.length < 2) return;
+
+        var maxS = trainState.maxSteps;
+        var grad = ctx.createLinearGradient(0, padT, 0, padT + plotH);
+        grad.addColorStop(0, "rgba(73, 224, 218, 0.28)");
+        grad.addColorStop(1, "rgba(73, 224, 218, 0.0)");
+
+        ctx.beginPath();
+        history.forEach(function (pt, idx) {
+          var x = padL + (pt.step / maxS) * plotW;
+          var y = padT + plotH - ((Math.min(yMax, Math.max(yMin, pt.loss)) - yMin) / (yMax - yMin)) * plotH;
+          if (idx === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        var lastPt = history[history.length - 1];
+        var lastX = padL + (lastPt.step / maxS) * plotW;
+        ctx.lineTo(lastX, padT + plotH);
+        ctx.lineTo(padL, padT + plotH);
+        ctx.closePath();
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        ctx.beginPath();
+        history.forEach(function (pt, idx) {
+          var x = padL + (pt.step / maxS) * plotW;
+          var y = padT + plotH - ((Math.min(yMax, Math.max(yMin, pt.loss)) - yMin) / (yMax - yMin)) * plotH;
+          if (idx === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        });
+        ctx.strokeStyle = "#49e0da";
+        ctx.lineWidth = 2.5;
+        ctx.shadowColor = "#49e0da";
+        ctx.shadowBlur = 8;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+
+        var curY = padT + plotH - ((Math.min(yMax, Math.max(yMin, lastPt.loss)) - yMin) / (yMax - yMin)) * plotH;
+        ctx.beginPath();
+        ctx.arc(lastX, curY, 5, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.shadowColor = "#49e0da";
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+
+      function driveLiveTraining(raw) {
+        if (!raw) return;
+        if (raw.step !== undefined) trainState.step = Number(raw.step);
+        if (raw.max_steps !== undefined) trainState.maxSteps = Number(raw.max_steps);
+        if (raw.loss !== undefined) {
+          trainState.loss = Number(raw.loss);
+          if (trainState.loss < trainState.bestLoss) trainState.bestLoss = trainState.loss;
+          trainState.lossHistory.push({ step: trainState.step, loss: trainState.loss });
+          if (trainState.lossHistory.length > 200) trainState.lossHistory.shift();
+        }
+        if (raw.best_loss !== undefined) trainState.bestLoss = Number(raw.best_loss);
+        if (raw.lr !== undefined) trainState.lr = Number(raw.lr);
+        if (raw.cadence_ms !== undefined) trainState.cadenceMs = Number(raw.cadence_ms);
+        if (raw.tokens !== undefined) trainState.tokens = Number(raw.tokens);
+        if (raw.model) trainState.modelName = String(raw.model);
+        if (raw.probe_prompt) document.getElementById("probePromptText").textContent = '"' + raw.probe_prompt + '"';
+        if (raw.probe_think) document.getElementById("probeThinkText").textContent = raw.probe_think;
+        if (raw.probe_output) document.getElementById("probeOutputText").textContent = raw.probe_output;
+        
+        renderTrainingUI();
+      }
+
+      function setExercise(name) {
+        trainState.exercise = name;
+        var card = document.getElementById("workoutCard");
+        card.className = "workout-stage-card exercise-" + name;
+        document.getElementById("btnBench").classList.toggle("active", name === "bench");
+        document.getElementById("btnDeadlift").classList.toggle("active", name === "deadlift");
+        document.getElementById("btnOverhead").classList.toggle("active", name === "overhead");
+        document.getElementById("workoutStatusTag").textContent = name === "bench" ? "LOCKOUT PRESS" : (name === "deadlift" ? "HYDRAULIC PULL" : "OVERHEAD DRIVE");
+        document.getElementById("workoutArenaMeta").textContent = "Rep " + trainState.step + " / " + trainState.maxSteps + " · " + (name === "bench" ? "HEAVY BENCH PRESS" : (name === "deadlift" ? "POWER DEADLIFT" : "OVERHEAD PRESS"));
+      }
+
+      function setPace(multiplier) {
+        trainState.cadencePace = multiplier;
+        var baseSeconds = 4.8 / multiplier;
+        document.documentElement.style.setProperty("--cadence-time", baseSeconds.toFixed(2) + "s");
+        document.getElementById("btnPace1").classList.toggle("active", multiplier === 1);
+        document.getElementById("btnPace2").classList.toggle("active", multiplier === 2);
+        document.getElementById("btnPace5").classList.toggle("active", multiplier === 5);
+      }
+
+      document.getElementById("btnBench").addEventListener("click", function () { setExercise("bench"); });
+      document.getElementById("btnDeadlift").addEventListener("click", function () { setExercise("deadlift"); });
+      document.getElementById("btnOverhead").addEventListener("click", function () { setExercise("overhead"); });
+      document.getElementById("btnPace1").addEventListener("click", function () { setPace(1); });
+      document.getElementById("btnPace2").addEventListener("click", function () { setPace(2); });
+      document.getElementById("btnPace5").addEventListener("click", function () { setPace(5); });
+      document.getElementById("triggerProbeBtn").addEventListener("click", function () {
+        probeIdx = (probeIdx + 1) % probeSamples.length;
+        var p = probeSamples[probeIdx];
+        document.getElementById("probePromptText").textContent = '"' + p.prompt + '"';
+        document.getElementById("probeThinkText").textContent = p.think;
+        document.getElementById("probeOutputText").textContent = p.output;
+      });
+
+      renderTrainingUI();
+
+      function switchView(name) {
+        var council = name === "council";
+        var training = name === "training";
+        var agents = name === "agents";
+        var compliance = name === "compliance";
+        document.getElementById("councilView").hidden = !council;
+        document.getElementById("trainingView").hidden = !training;
+        document.getElementById("agentsView").hidden = !agents;
+        document.getElementById("complianceView").hidden = !compliance;
+        document.getElementById("tabCouncil").setAttribute("aria-selected", String(council));
+        document.getElementById("tabTraining").setAttribute("aria-selected", String(training));
+        document.getElementById("tabAgents").setAttribute("aria-selected", String(agents));
+        document.getElementById("tabCompliance").setAttribute("aria-selected", String(compliance));
+        if (council) {
+          setTimeout(drawMesh, 30);
+        } else if (training) {
+          setTimeout(drawTrainingLossCanvas, 30);
+        } else if (!pollTimer) {
+          startPolling();
+        }
+      }
+      document.getElementById("tabCouncil").addEventListener("click", function () { switchView("council"); });
+      document.getElementById("tabTraining").addEventListener("click", function () { switchView("training"); });
+      document.getElementById("tabAgents").addEventListener("click", function () { switchView("agents"); });
+      document.getElementById("tabCompliance").addEventListener("click", function () { switchView("compliance"); });
+
+      window.addEventListener("beforeunload", function () { stopPolling(); });
+    }());
+  </script>
+</body>
+</html>

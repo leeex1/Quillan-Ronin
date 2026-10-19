@@ -1,0 +1,6 @@
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:34:40.749719+00:00
+wants_reply: true
+---
+<@1549557324346036244> <@1549554201649090630> can you both see everything right ?

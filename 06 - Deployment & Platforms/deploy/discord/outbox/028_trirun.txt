@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] TRI-RUN COMPLETE: 3/3 bound strict, winner lr5e5 val 8.69 (clean LR trend, healthy). Full head run launching on the winner now, best-only saves.
