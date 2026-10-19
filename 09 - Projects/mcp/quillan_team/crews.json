@@ -1,0 +1,40 @@
+{
+  "crew-d14ec773": {
+    "objective": "ship auth",
+    "roster": [
+      {
+        "role": "planner",
+        "persona": "C4-PRAXIS: decomposes goal -> verified steps",
+        "load": 0,
+        "done": 0
+      },
+      {
+        "role": "builder",
+        "persona": "C10-CODEWEAVER: ships clean, typed, tested slices",
+        "load": 0,
+        "done": 1
+      },
+      {
+        "role": "critic",
+        "persona": "C34-PREDATOR: hunts weakest assumption",
+        "load": 0,
+        "done": 0
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "t-bd86a4",
+        "task": "write login handler",
+        "assignee": "builder",
+        "acceptance": "tests pass + demo clip",
+        "status": "DONE",
+        "at": 1792261434.0981252,
+        "output": "handler at src/auth.py",
+        "completed_at": 1792261434.1021214
+      }
+    ],
+    "created": 1792261434.0928814,
+    "debates": 0,
+    "status": "ACTIVE"
+  }
+}

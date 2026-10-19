@@ -1,0 +1,170 @@
+{
+    "mcpServers": {
+        "QuillanRAG": {
+            "command": "python",
+            "args": [
+                "C:\\02_QUILLAN\\mcp\\quillan_rag\\server.py"
+            ]
+        },
+        "Fetch": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-fetch"
+            ]
+        },
+        "Filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "C:\\Users\\Admin",
+                "C:\\02_QUILLAN",
+                "C:\\"
+            ]
+        },
+        "WebSearch": {
+            "command": "uvx",
+            "args": [
+                "duckduckgo-mcp-server"
+            ]
+        },
+        "Git": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-git",
+                "--repository",
+                "C:\\02_QUILLAN"
+            ]
+        },
+        "SQLite": {
+            "command": "uvx",
+            "args": [
+                "mcp-server-sqlite",
+                "--db-path",
+                "C:\\02_QUILLAN\\quillan.db"
+            ]
+        },
+        "GitHub": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ]
+        },
+        "HuggingFace": {
+            "url": "https://huggingface.co/mcp"
+        },
+        "Playwright": {
+            "command": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+                "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@playwright\\mcp\\cli.js"
+            ]
+        },
+        "Puppeteer": {
+            "command": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+                "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
+            ]
+        },
+        "Memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ]
+        },
+        "ComputerUse": {
+            "command": "C:\\Users\\Admin\\AppData\\Roaming\\uv\\tools\\windows-mcp\\Scripts\\python.exe",
+            "args": [
+                "-m",
+                "windows_mcp",
+                "serve",
+                "--transport",
+                "stdio"
+            ],
+            "env": {
+                "PATH": "C:\\Windows\\System32;C:\\Windows;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\wbem;C:\\Program Files\\nodejs;C:\\Users\\Admin\\AppData\\Roaming\\npm;C:\\Users\\Admin\\.local\\bin",
+                "WINDOWS_MCP_SCREENSHOT_SCALE": "0.5",
+                "WINDOWS_MCP_DISABLE_FLASH": "1"
+            }
+        },
+        "ChromeDevTools": {
+            "command": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+                "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
+            ]
+        },
+        "ThinkingEngine": {
+            "command": "C:\\Program Files\\nodejs\\node.exe",
+            "args": [
+                "C:\\02_QUILLAN\\mcp\\thinking-engine\\index.js"
+            ]
+        },
+        "DeepWiki": {
+            "url": "https://mcp.deepwiki.com/mcp"
+        },
+        "ComfyUI": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "comfyui-mcp@latest"
+            ],
+            "env": {
+                "COMFYUI_URL": "http://localhost:8188"
+            }
+        },
+        "ComputerControl": {
+            "command": "uvx",
+            "args": [
+                "computer-control-mcp"
+            ],
+            "env": {
+                "COMPUTER_CONTROL_MCP_WGC_PATTERNS": "obs, discord, game, steam"
+            }
+        },
+        "Zavora": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "computer-use-mcp"
+            ]
+        },
+        "Win32": {
+            "command": "uvx",
+            "args": [
+                "win32-mcp-server"
+            ]
+        },
+        "LocalRAG": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-local-rag"
+            ],
+            "env": {
+                "BASE_DIR": "C:\\02_QUILLAN"
+            }
+        },
+        "CodeMemory": {
+            "command": "uvx",
+            "args": [
+                "code-memory-mcp"
+            ],
+            "env": {
+                "CODE_MEMORY_ROOT": "C:\\02_QUILLAN"
+            }
+        },
+        "CocoIndex": {
+            "command": "uvx",
+            "args": [
+                "cocoindex-code-mcp-server"
+            ],
+            "env": {
+                "COCOINDEX_ROOT": "C:\\02_QUILLAN"
+            }
+        },
+        "Obsidian": {
+            "url": "http://localhost:3000/mcp"
+        }
+    }
+}

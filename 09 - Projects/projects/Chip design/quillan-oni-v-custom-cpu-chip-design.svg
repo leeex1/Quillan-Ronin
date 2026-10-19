@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#0a0a1a" />
+  
+  <!-- Title -->
+  <text x="600" y="40" font-family="Arial, sans-serif" font-size="28" font-weight="bold" fill="#ffd700" text-anchor="middle">QUILLAN ONI-V CUSTOM CPU CHIP</text>
+  <text x="600" y="70" font-family="Arial, sans-serif" font-size="16" fill="#00ffff" text-anchor="middle">Virtual Cognitive Processor - 9B Agent Core Design</text>
+  
+  <!-- Chip Boundary -->
+  <rect x="50" y="100" width="1100" height="650" rx="20" ry="20" fill="none" stroke="#ffd700" stroke-width="4" stroke-dasharray="10,5" />
+  
+  <!-- Main Chip Die -->
+  <rect x="100" y="150" width="1000" height="550" rx="10" ry="10" fill="#1a1a2e" />
+  
+  <!-- ============================================================ -->
+  <!-- THRONE CORE (Top Center) -->
+  <!-- ============================================================ -->
+  <g id="throne-core" transform="translate(450, 200)">
+    <!-- Throne Core Background -->
+    <rect x="0" y="0" width="200" height="150" rx="10" ry="10" fill="#000000" />
+    
+    <!-- Throne Core Border -->
+    <rect x="0" y="0" width="200" height="150" rx="10" ry="10" fill="none" stroke="#ff00ff" stroke-width="3" />
+    
+    <!-- Throne Core Label -->
+    <text x="100" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#ff00ff" text-anchor="middle">THRONE CORE</text>
+    <text x="100" y="40" font-family="Arial, sans-serif" font-size="10" fill="#ffaaaa" text-anchor="middle">C0-QUILLAN</text>
+    
+    <!-- 9-Vector Prism -->
+    <g id="9-vector-prism" transform="translate(20, 50)">
+      <rect x="0" y="0" width="60" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="60" height="30" rx="5" ry="5" fill="none" stroke="#00ffff" stroke-width="1" />
+      <text x="30" y="18" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">9-VECTOR</text>
+      <text x="30" y="28" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">PRISM</text>
+    </g>
+    
+    <!-- Pull Gate -->
+    <g id="pull-gate" transform="translate(120, 50)">
+      <rect x="0" y="0" width="60" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="60" height="30" rx="5" ry="5" fill="none" stroke="#ff00ff" stroke-width="1" />
+      <text x="30" y="18" font-family="Arial, sans-serif" font-size="8" fill="#ff00ff" text-anchor="middle">PULL</text>
+      <text x="30" y="28" font-family="Arial, sans-serif" font-size="6" fill="#ffaaaa" text-anchor="middle">GATE</text>
+    </g>
+    
+    <!-- Final Gate -->
+    <g id="final-gate" transform="translate(65, 90)">
+      <rect x="0" y="0" width="70" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="70" height="30" rx="5" ry="5" fill="none" stroke="#ffff00" stroke-width="1" />
+      <text x="35" y="18" font-family="Arial, sans-serif" font-size="8" fill="#ffff00" text-anchor="middle">FINAL</text>
+      <text x="35" y="28" font-family="Arial, sans-serif" font-size="6" fill="#ffffaa" text-anchor="middle">GATE</text>
+    </g>
+    
+    <!-- Recirc Buffer -->
+    <g id="recirc-buffer" transform="translate(65, 125)">
+      <rect x="0" y="0" width="70" height="20" rx="3" ry="3" fill="#000033" />
+      <rect x="0" y="0" width="70" height="20" rx="3" ry="3" fill="none" stroke="#00ffff" stroke-width="1" />
+      <text x="35" y="13" font-family="Arial, sans-serif" font-size="7" fill="#00ffff" text-anchor="middle">RECIRC</text>
+    </g>
+    
+    <!-- Throne Core Stats -->
+    <text x="100" y="140" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">1024-bit | 4-stage | 4GHz</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- COUNCIL CORES (Left and Right of Throne) -->
+  <!-- ============================================================ -->
+  
+  <!-- Left Council Cluster (C1-C17) -->
+  <g id="council-left" transform="translate(150, 300)">
+    <rect x="0" y="0" width="180" height="300" rx="10" ry="10" fill="#000022" />
+    <rect x="0" y="0" width="180" height="300" rx="10" ry="10" fill="none" stroke="#0088ff" stroke-width="2" />
+    <text x="90" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0088ff" text-anchor="middle">COUNCIL CORES</text>
+    <text x="90" y="35" font-family="Arial, sans-serif" font-size="8" fill="#88aaff" text-anchor="middle">C1-C17</text>
+    
+    <!-- Individual Council Cores (17 cores) -->
+    <g id="council-cores-left">
+      <!-- Row 1 -->
+      <g transform="translate(10, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C1</text>
+      </g>
+      <g transform="translate(45, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C2</text>
+      </g>
+      <g transform="translate(80, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C3</text>
+      </g>
+      <g transform="translate(115, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C4</text>
+      </g>
+      <g transform="translate(150, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C5</text>
+      </g>
+      
+      <!-- Row 2 -->
+      <g transform="translate(10, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C6</text>
+      </g>
+      <g transform="translate(45, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C7</text>
+      </g>
+      <g transform="translate(80, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C8</text>
+      </g>
+      <g transform="translate(115, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C9</text>
+      </g>
+      <g transform="translate(150, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C10</text>
+      </g>
+      
+      <!-- Row 3 -->
+      <g transform="translate(10, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C11</text>
+      </g>
+      <g transform="translate(45, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C12</text>
+      </g>
+      <g transform="translate(80, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C13</text>
+      </g>
+      <g transform="translate(115, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C14</text>
+      </g>
+      <g transform="translate(150, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C15</text>
+      </g>
+      
+      <!-- Row 4 -->
+      <g transform="translate(10, 155)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C16</text>
+      </g>
+      <g transform="translate(45, 155)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C17</text>
+      </g>
+    </g>
+    
+    <!-- Council Core Stats -->
+    <text x="90" y="290" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">17 Cores | Rank-8 LoRA | 1024-bit</text>
+  </g>
+  
+  <!-- Right Council Cluster (C18-C34) -->
+  <g id="council-right" transform="translate(770, 300)">
+    <rect x="0" y="0" width="180" height="300" rx="10" ry="10" fill="#000022" />
+    <rect x="0" y="0" width="180" height="300" rx="10" ry="10" fill="none" stroke="#0088ff" stroke-width="2" />
+    <text x="90" y="20" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#0088ff" text-anchor="middle">COUNCIL CORES</text>
+    <text x="90" y="35" font-family="Arial, sans-serif" font-size="8" fill="#88aaff" text-anchor="middle">C18-C34</text>
+    
+    <!-- Individual Council Cores (17 cores) -->
+    <g id="council-cores-right">
+      <!-- Row 1 -->
+      <g transform="translate(10, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C18</text>
+      </g>
+      <g transform="translate(45, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C19</text>
+      </g>
+      <g transform="translate(80, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C20</text>
+      </g>
+      <g transform="translate(115, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C21</text>
+      </g>
+      <g transform="translate(150, 50)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C22</text>
+      </g>
+      
+      <!-- Row 2 -->
+      <g transform="translate(10, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C23</text>
+      </g>
+      <g transform="translate(45, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C24</text>
+      </g>
+      <g transform="translate(80, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C25</text>
+      </g>
+      <g transform="translate(115, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C26</text>
+      </g>
+      <g transform="translate(150, 85)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C27</text>
+      </g>
+      
+      <!-- Row 3 -->
+      <g transform="translate(10, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C28</text>
+      </g>
+      <g transform="translate(45, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C29</text>
+      </g>
+      <g transform="translate(80, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C30</text>
+      </g>
+      <g transform="translate(115, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C31</text>
+      </g>
+      <g transform="translate(150, 120)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C32</text>
+      </g>
+      
+      <!-- Row 4 -->
+      <g transform="translate(10, 155)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C33</text>
+      </g>
+      <g transform="translate(45, 155)">
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="#001133" />
+        <rect x="0" y="0" width="25" height="25" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="12.5" y="16" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">C34</text>
+      </g>
+    </g>
+    
+    <!-- Council Core Stats -->
+    <text x="90" y="290" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">17 Cores | Rank-8 LoRA | 1024-bit</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- SWARM EXECUTION UNITS (Bottom Center) -->
+  <!-- ============================================================ -->
+  <g id="swarm-units" transform="translate(400, 500)">
+    <rect x="0" y="0" width="400" height="150" rx="10" ry="10" fill="#000011" />
+    <rect x="0" y="0" width="400" height="150" rx="10" ry="10" fill="none" stroke="#00ff88" stroke-width="3" />
+    
+    <!-- Swarm Label -->
+    <text x="200" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#00ff88" text-anchor="middle">HYPER QUANTIZED SWARM</text>
+    <text x="200" y="40" font-family="Arial, sans-serif" font-size="10" fill="#00ffaa" text-anchor="middle">9,000,000,000 Virtual Agents</text>
+    
+    <!-- Swarm Clusters -->
+    <g id="swarm-clusters">
+      <!-- Cluster 1 -->
+      <g transform="translate(20, 60)">
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="#000022" />
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="40" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle">Cluster 1</text>
+        <text x="40" y="35" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">2.25B Agents</text>
+        <text x="40" y="50" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">Rank-24</text>
+      </g>
+      
+      <!-- Cluster 2 -->
+      <g transform="translate(110, 60)">
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="#000022" />
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="40" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle">Cluster 2</text>
+        <text x="40" y="35" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">2.25B Agents</text>
+        <text x="40" y="50" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">Rank-24</text>
+      </g>
+      
+      <!-- Cluster 3 -->
+      <g transform="translate(200, 60)">
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="#000022" />
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="40" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle">Cluster 3</text>
+        <text x="40" y="35" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">2.25B Agents</text>
+        <text x="40" y="50" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">Rank-24</text>
+      </g>
+      
+      <!-- Cluster 4 -->
+      <g transform="translate(290, 60)">
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="#000022" />
+        <rect x="0" y="0" width="80" height="60" rx="5" ry="5" fill="none" stroke="#00aaff" stroke-width="1" />
+        <text x="40" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle">Cluster 4</text>
+        <text x="40" y="35" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">2.25B Agents</text>
+        <text x="40" y="50" font-family="Arial, sans-serif" font-size="6" fill="#0088aa" text-anchor="middle">Rank-24</text>
+      </g>
+    </g>
+    
+    <!-- EGGROLL Engine -->
+    <g id="eggroll-engine" transform="translate(150, 125)">
+      <rect x="0" y="0" width="100" height="20" rx="3" ry="3" fill="#000033" />
+      <rect x="0" y="0" width="100" height="20" rx="3" ry="3" fill="none" stroke="#00ffff" stroke-width="1" />
+      <text x="50" y="14" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">EGGROLL Engine</text>
+    </g>
+    
+    <!-- Swarm Stats -->
+    <text x="200" y="145" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">Rank-r Mutations | BMM Acceleration | DQSO Sync</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- MEMORY SYSTEM (Bottom) -->
+  <!-- ============================================================ -->
+  <g id="memory-system" transform="translate(100, 700)">
+    <!-- L1 Cache -->
+    <g id="l1-cache" transform="translate(0, -40)">
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="none" stroke="#00ffff" stroke-width="2" />
+      <text x="50" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">L1 Cache</text>
+      <text x="50" y="35" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">64KB</text>
+    </g>
+    
+    <!-- L2 Cache -->
+    <g id="l2-cache" transform="translate(110, -40)">
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="none" stroke="#00ffff" stroke-width="2" />
+      <text x="50" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">L2 Cache</text>
+      <text x="50" y="35" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">1MB</text>
+    </g>
+    
+    <!-- Main Memory -->
+    <g id="main-memory" transform="translate(220, -40)">
+      <rect x="0" y="0" width="160" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="160" height="30" rx="5" ry="5" fill="none" stroke="#00ffff" stroke-width="2" />
+      <text x="80" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">Main Memory</text>
+      <text x="80" y="35" font-family="Arial, sans-serif" font-size="6" fill="#00aaff" text-anchor="middle">Unified | BitNet 1.58b</text>
+    </g>
+    
+    <!-- Vector Memory -->
+    <g id="vector-memory" transform="translate(390, -40)">
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="none" stroke="#ff00ff" stroke-width="2" />
+      <text x="50" y="20" font-family="Arial, sans-serif" font-size="8" fill="#ff00ff" text-anchor="middle">Vector</text>
+      <text x="50" y="35" font-family="Arial, sans-serif" font-size="6" fill="#ffaaaa" text-anchor="middle">Memory</text>
+    </g>
+    
+    <!-- Atomic Modality Registry -->
+    <g id="modality-registry" transform="translate(500, -40)">
+      <rect x="0" y="0" width="120" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="120" height="30" rx="5" ry="5" fill="none" stroke="#ffff00" stroke-width="2" />
+      <text x="60" y="20" font-family="Arial, sans-serif" font-size="8" fill="#ffff00" text-anchor="middle">Modality</text>
+      <text x="60" y="35" font-family="Arial, sans-serif" font-size="6" fill="#ffffaa" text-anchor="middle">Registry</text>
+    </g>
+    
+    <!-- Memory Controller -->
+    <g id="memory-controller" transform="translate(630, -40)">
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="#000033" />
+      <rect x="0" y="0" width="100" height="30" rx="5" ry="5" fill="none" stroke="#00ff88" stroke-width="2" />
+      <text x="50" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00ff88" text-anchor="middle">Controller</text>
+      <text x="50" y="35" font-family="Arial, sans-serif" font-size="6" fill="#00ffaa" text-anchor="middle">Zero-Copy</text>
+    </g>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- INTERCONNECT BUS (Lines connecting components) -->
+  <!-- ============================================================ -->
+  
+  <!-- Throne to Council (Left) -->
+  <g id="interconnect" stroke="#ffaa00" stroke-width="1" stroke-dasharray="5,2">
+    <!-- Throne to Left Council -->
+    <line x1="550" y1="350" x2="250" y2="300" />
+    <line x1="550" y1="350" x2="250" y2="330" />
+    
+    <!-- Throne to Right Council -->
+    <line x1="650" y1="350" x2="870" y2="300" />
+    <line x1="650" y1="350" x2="870" y2="330" />
+    
+    <!-- Throne to Swarm -->
+    <line x1="550" y1="350" x2="600" y2="500" />
+    <line x1="650" y1="350" x2="600" y2="500" />
+    
+    <!-- Left Council to Swarm -->
+    <line x1="250" y1="450" x2="400" y2="500" />
+    <line x1="250" y1="480" x2="400" y2="500" />
+    
+    <!-- Right Council to Swarm -->
+    <line x1="870" y1="450" x2="800" y2="500" />
+    <line x1="870" y1="480" x2="800" y2="500" />
+    
+    <!-- Swarm to Memory -->
+    <line x1="400" y1="650" x2="200" y2="700" />
+    <line x1="400" y1="650" x2="300" y2="700" />
+    <line x1="800" y1="650" x2="600" y2="700" />
+    <line x1="800" y1="650" x2="700" y2="700" />
+    
+    <!-- Memory Bus -->
+    <line x1="100" y1="715" x2="900" y2="715" />
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- CHIP I/O (Pads around the chip) -->
+  <!-- ============================================================ -->
+  
+  <!-- North I/O (Top) -->
+  <g id="io-north" transform="translate(100, 150)">
+    <rect x="100" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="130" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="160" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="190" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="220" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="250" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="280" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="310" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    
+    <rect x="490" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="520" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="550" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="580" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="610" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="640" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="670" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    <rect x="700" y="-10" width="20" height="20" rx="3" ry="3" fill="#ffaa00" />
+    
+    <text x="200" y="-15" font-family="Arial, sans-serif" font-size="8" fill="#ffaa00" text-anchor="middle">PCIe 4.0 x16</text>
+    <text x="600" y="-15" font-family="Arial, sans-serif" font-size="8" fill="#ffaa00" text-anchor="middle">PCIe 4.0 x16</text>
+  </g>
+  
+  <!-- West I/O (Left) -->
+  <g id="io-west" transform="translate(100, 150)">
+    <rect x="-10" y="50" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="80" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="110" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="140" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="170" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="200" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="230" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="-10" y="260" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    
+    <text x="-20" y="160" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle" transform="rotate(-90, -20, 160)">DDR4</text>
+    <text x="-20" y="160" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle" transform="rotate(-90, -20, 160)">3200MHz</text>
+  </g>
+  
+  <!-- East I/O (Right) -->
+  <g id="io-east" transform="translate(100, 150)">
+    <rect x="1010" y="50" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="80" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="110" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="140" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="170" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="200" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="230" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    <rect x="1010" y="260" width="20" height="20" rx="3" ry="3" fill="#00aaff" />
+    
+    <text x="1030" y="160" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle" transform="rotate(90, 1030, 160)">DDR4</text>
+    <text x="1030" y="160" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle" transform="rotate(90, 1030, 160)">3200MHz</text>
+  </g>
+  
+  <!-- South I/O (Bottom) -->
+  <g id="io-south" transform="translate(100, 150)">
+    <rect x="100" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="130" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="160" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="190" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="220" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="250" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="280" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    
+    <rect x="490" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="520" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="550" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="580" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="610" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="640" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    <rect x="670" y="720" width="20" height="20" rx="3" ry="3" fill="#ff00aa" />
+    
+    <text x="200" y="745" font-family="Arial, sans-serif" font-size="8" fill="#ff00aa" text-anchor="middle">SATA 6Gbps</text>
+    <text x="600" y="745" font-family="Arial, sans-serif" font-size="8" fill="#ff00aa" text-anchor="middle">NVMe PCIe 4.0</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- LEGEND (Bottom Right) -->
+  <!-- ============================================================ -->
+  <g id="legend" transform="translate(950, 720)">
+    <rect x="0" y="0" width="240" height="60" rx="5" ry="5" fill="#000000" opacity="0.8" />
+    <rect x="0" y="0" width="240" height="60" rx="5" ry="5" fill="none" stroke="#888888" stroke-width="1" />
+    
+    <text x="120" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">LEGEND</text>
+    
+    <g transform="translate(10, 35)">
+      <rect x="0" y="0" width="10" height="10" fill="#ff00ff" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Throne Core</text>
+    </g>
+    
+    <g transform="translate(10, 50)">
+      <rect x="0" y="0" width="10" height="10" fill="#0088ff" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Council Cores</text>
+    </g>
+    
+    <g transform="translate(120, 35)">
+      <rect x="0" y="0" width="10" height="10" fill="#00ff88" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Swarm Units</text>
+    </g>
+    
+    <g transform="translate(120, 50)">
+      <rect x="0" y="0" width="10" height="10" fill="#00ffff" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Memory</text>
+    </g>
+    
+    <g transform="translate(210, 35)">
+      <rect x="0" y="0" width="10" height="10" fill="#ffaa00" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">PCIe</text>
+    </g>
+    
+    <g transform="translate(210, 50)">
+      <rect x="0" y="0" width="10" height="10" fill="#00aaff" />
+      <text x="15" y="8" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">DDR4</text>
+    </g>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- CHIP SPECIFICATIONS (Top Right) -->
+  <!-- ============================================================ -->
+  <g id="chip-specs" transform="translate(950, 120)">
+    <rect x="0" y="0" width="240" height="100" rx="5" ry="5" fill="#000000" opacity="0.8" />
+    <rect x="0" y="0" width="240" height="100" rx="5" ry="5" fill="none" stroke="#ffd700" stroke-width="2" />
+    
+    <text x="120" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffd700" text-anchor="middle">CHIP SPECIFICATIONS</text>
+    
+    <text x="20" y="40" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Process:</text>
+    <text x="120" y="40" font-family="Arial, sans-serif" font-size="8" fill="#00ffff">Emulated (Virtual)</text>
+    
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Cores:</text>
+    <text x="120" y="55" font-family="Arial, sans-serif" font-size="8" fill="#00ffff">1 Throne + 34 Council + 9B Swarm</text>
+    
+    <text x="20" y="70" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Architecture:</text>
+    <text x="120" y="70" font-family="Arial, sans-serif" font-size="8" fill="#00ffff">ONI-V Cognitive</text>
+    
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">ISA:</text>
+    <text x="120" y="85" font-family="Arial, sans-serif" font-size="8" fill="#00ffff">COG, TNS, SWRM, MEM</text>
+    
+    <text x="20" y="100" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Quantization:</text>
+    <text x="120" y="100" font-family="Arial, sans-serif" font-size="8" fill="#00ffff">BitNet 1.58b</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- PERFORMANCE METRICS (Top Right, below specs) -->
+  <!-- ============================================================ -->
+  <g id="performance-metrics" transform="translate(950, 230)">
+    <rect x="0" y="0" width="240" height="80" rx="5" ry="5" fill="#000000" opacity="0.8" />
+    <rect x="0" y="0" width="240" height="80" rx="5" ry="5" fill="none" stroke="#00ff88" stroke-width="2" />
+    
+    <text x="120" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#00ff88" text-anchor="middle">PERFORMANCE vs i5-12400F</text>
+    
+    <text x="20" y="40" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Matrix Multiply:</text>
+    <text x="180" y="40" font-family="Arial, sans-serif" font-size="8" fill="#00ff88">10-32x Faster</text>
+    
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Council Deliberation:</text>
+    <text x="180" y="55" font-family="Arial, sans-serif" font-size="8" fill="#00ff88">34x Faster</text>
+    
+    <text x="20" y="70" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Memory Efficiency:</text>
+    <text x="180" y="70" font-family="Arial, sans-serif" font-size="8" fill="#00ff88">20x Better</text>
+    
+    <text x="20" y="85" font-family="Arial, sans-serif" font-size="8" fill="#ffffff">Power Efficiency:</text>
+    <text x="180" y="85" font-family="Arial, sans-serif" font-size="8" fill="#00ff88">100x Better</text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- OFFLOADING ARCHITECTURE DIAGRAM (Bottom Left) -->
+  <!-- ============================================================ -->
+  <g id="offloading-diagram" transform="translate(100, 720)">
+    <rect x="0" y="0" width="300" height="60" rx="5" ry="5" fill="#000000" opacity="0.8" />
+    <rect x="0" y="0" width="300" height="60" rx="5" ry="5" fill="none" stroke="#ff4444" stroke-width="2" />
+    
+    <text x="150" y="20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ff4444" text-anchor="middle">OFFLOADING ARCHITECTURE</text>
+    
+    <!-- Local CPU -->
+    <g transform="translate(20, 40)">
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="none" stroke="#ff4444" stroke-width="1" />
+      <text x="30" y="14" font-family="Arial, sans-serif" font-size="8" fill="#ff4444" text-anchor="middle">i5-12400F</text>
+    </g>
+    
+    <!-- Arrow -->
+    <line x1="80" y1="50" x2="100" y2="50" stroke="#ffaa00" stroke-width="2" />
+    <polygon points="100,50 95,45 95,55" fill="#ffaa00" />
+    
+    <!-- Router -->
+    <g transform="translate(110, 40)">
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="none" stroke="#ffff00" stroke-width="1" />
+      <text x="30" y="14" font-family="Arial, sans-serif" font-size="8" fill="#ffff00" text-anchor="middle">Router</text>
+    </g>
+    
+    <!-- Arrow -->
+    <line x1="170" y1="50" x2="190" y2="50" stroke="#ffaa00" stroke-width="2" />
+    <polygon points="190,50 185,45 185,55" fill="#ffaa00" />
+    
+    <!-- ONI-V Emulator -->
+    <g transform="translate(200, 40)">
+      <rect x="0" y="0" width="80" height="20" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="80" height="20" rx="3" ry="3" fill="none" stroke="#00ff88" stroke-width="1" />
+      <text x="40" y="14" font-family="Arial, sans-serif" font-size="8" fill="#00ff88" text-anchor="middle">ONI-V</text>
+    </g>
+    
+    <!-- Result -->
+    <g transform="translate(290, 40)">
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="none" stroke="#00ffff" stroke-width="1" />
+      <text x="30" y="14" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">Result</text>
+    </g>
+    
+    <!-- Description -->
+    <text x="150" y="75" font-family="Arial, sans-serif" font-size="6" fill="#888888" text-anchor="middle">Local → Router → ONI-V → Result</text>
+  </g>
+</svg>

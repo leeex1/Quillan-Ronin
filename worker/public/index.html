@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quillan Worker</title>
+<style>
+  :root { --bg:#0b0d10; --panel:#14181d; --panel2:#1b2129; --line:#2a323d; --txt:#e6e9ee; --dim:#8a94a3;
+    --red:#c92f4a; --gold:#e8b64c; --green:#3fa66a; --accent:#5b8cff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--txt); font:14px/1.5 'Segoe UI',sans-serif; padding:24px; max-width:1200px; margin:0 auto; }
+  h1 { font-size:22px; letter-spacing:1px; } h1 span { color:var(--red); }
+  .sub { color:var(--dim); font-size:12px; margin-bottom:20px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media(max-width:900px){ .grid{grid-template-columns:1fr;} }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:16px; }
+  .panel h2 { font-size:13px; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); margin-bottom:12px; }
+  .bar-wrap { background:var(--panel2); border-radius:6px; height:18px; overflow:hidden; margin:6px 0 2px; }
+  .bar { height:100%; background:linear-gradient(90deg,var(--green),#7fd7a3); transition:width .6s; }
+  .bar.milestone { background:linear-gradient(90deg,var(--gold),#f5d78e); }
+  .big-num { font-size:26px; font-weight:700; } .small { color:var(--dim); font-size:12px; }
+  textarea, input[type=text], input[type=number] { width:100%; background:var(--panel2); border:1px solid var(--line);
+    border-radius:6px; color:var(--txt); padding:8px; font:inherit; resize:vertical; }
+  button { background:var(--accent); border:none; color:#fff; padding:8px 14px; border-radius:6px; cursor:pointer; font-weight:600; }
+  button:hover { filter:brightness(1.15); }
+  button.gold { background:var(--gold); color:#111; } button.red { background:var(--red); } button.green { background:var(--green); }
+  button.ghost { background:transparent; border:1px solid var(--line); color:var(--txt); }
+  .lead-card { background:var(--panel2); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:8px; padding:12px; margin-bottom:10px; }
+  .lead-card.approved { border-left-color:var(--green); } .lead-card.rejected { border-left-color:var(--red); opacity:.55; }
+  .score { display:inline-block; min-width:34px; text-align:center; padding:2px 8px; border-radius:12px; font-weight:700; background:var(--accent); }
+  .score.hi { background:var(--green); } .score.mid { background:var(--gold); color:#111; } .score.lo { background:var(--red); }
+  .row { display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th,td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); }
+  th { color:var(--dim); font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:1px; }
+  .pill { font-size:11px; padding:2px 10px; border-radius:10px; background:var(--panel2); border:1px solid var(--line); color:var(--dim); cursor:pointer; }
+  .pill.on { border-color:var(--accent); color:var(--txt); }
+  #status { font-size:12px; color:var(--dim); } #status.ok { color:var(--green);} #status.bad { color:var(--red);}
+  .brief-task { padding:6px 0; border-bottom:1px dashed var(--line); }
+</style>
+</head>
+<body>
+  <h1>⚔️ Quillan <span>Worker</span></h1>
+  <div class="sub">Deal-scout &amp; earnings engine · <span id="profile"></span> · <a href="/ronin/interface.html" style="color:var(--accent)">⚔️ Ronin Interface</a></div>
+
+  <div class="grid">
+    <div class="panel">
+      <h2>Payback Progress</h2>
+      <div class="big-num" id="earned">$0.00</div>
+      <div class="small">of $<span id="target"></span> invested — matching it puts Quillan at zero-debt to the build</div>
+      <div class="bar-wrap"><div class="bar" id="mainBar" style="width:0%"></div></div>
+      <div style="margin-top:14px"><span class="small" id="milestoneName"></span></div>
+      <div class="bar-wrap"><div class="bar milestone" id="msBar" style="width:0%"></div></div>
+      <div class="row"><button class="ghost" onclick="addLedger()">+ Log payment received</button></div>
+      <div id="ledgerForm" style="display:none;margin-top:10px">
+        <div class="row"><input type="number" id="amt" placeholder="$ amount" style="width:110px">
+        <input type="text" id="src" placeholder="source (fiverr/upwork/gumroad...)">
+        <button onclick="saveLedger()">Save</button></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>NVIDIA Link</h2>
+      <div id="status">not tested</div>
+      <div class="row">
+        <input type="text" id="model" style="flex:1">
+        <button class="ghost" onclick="saveModel()">Save model</button>
+        <button onclick="testNvidia()">Test</button>
+        <button onclick="brief()">Daily brief</button>
+      </div>
+      <div id="briefOut" style="margin-top:10px"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Lead Intake — paste opportunity</h2>
+      <textarea id="leadText" rows="6" placeholder="Paste a Fiverr/Upwork job post, DM request, collab offer... anything Quillan should scout."></textarea>
+      <div class="row"><button onclick="analyze()">⚔️ Scout it</button><span class="small" id="analyzeStatus"></span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Approval Queue — nothing ships without you</h2>
+      <div id="queue"></div>
+    </div>
+  </div>
+
+<script>
+let STATE = null;
+
+const escapeHTML = (str) => String(str).replace(/[&<>"']/g, m => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+})[m]);
+
+async function api(path, body) {
+  try {
+    const res = await fetch(path, body ? { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) } : undefined);
+    const j = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(j.error || res.status);
+    return j;
+  } catch (e) {
+    console.error('API Error:', e);
+    throw new Error('Connection failed or endpoint error.');
+  }
+}
+
+function scoreBadge(s) {
+  const cls = s >= 7 ? 'hi' : s >= 4 ? 'mid' : 'lo';
+  return `<span class="score ${cls}">${s}/10</span>`;
+}
+
+async function refresh() {
+  if (document.hidden) return; // Pause polling when tab is inactive
+  try {
+    STATE = await api('/api/state');
+    document.getElementById('profile').textContent = STATE.settings.userProfile.handle;
+    document.getElementById('earned').textContent = '$' + STATE.earned.toFixed(2);
+    document.getElementById('target').textContent = STATE.settings.goals.baselineInvested;
+    document.getElementById('mainBar').style.width = Math.min(100, STATE.earned / STATE.settings.goals.baselineInvested * 100) + '%';
+    const ms = STATE.settings.goals.milestones[0];
+    if (ms) {
+      document.getElementById('milestoneName').textContent = `Milestone: ${escapeHTML(ms.name)} ($${ms.amount})`;
+      document.getElementById('msBar').style.width = Math.min(100, STATE.earned / ms.amount * 100) + '%';
+    }
+    if (!document.getElementById('model').value) document.getElementById('model').value = STATE.settings.nvidiaModel;
+
+    const q = document.getElementById('queue');
+    const leads = [...STATE.opportunities.leads].sort((a,b)=> b.id - a.id);
+    q.innerHTML = leads.length ? '' : '<div class="small">Empty. Paste a lead on the left.</div>';
+    for (const l of leads) {
+      const a = l.analysis || {};
+      const div = document.createElement('div');
+      div.className = 'lead-card ' + escapeHTML(l.status);
+      
+      const fitReasonsHtml = a.fitReasons?.length ? `<div class="small">✅ ${a.fitReasons.map(escapeHTML).join(' · ')}</div>` : '';
+      const risksHtml = a.risks?.length ? `<div class="small" style="color:var(--gold)">⚠️ ${a.risks.map(escapeHTML).join(' · ')}</div>` : '';
+      const draftHtml = l.status === 'pending' ? `
+        <details style="margin-top:8px"><summary class="small">Draft proposal</summary>
+          <textarea rows="7" id="draft-${l.id}" style="margin-top:6px">${escapeHTML(a.draftProposal || '')}</textarea></details>
+        <div class="row">
+          <button class="green" onclick="decide(${l.id},'approve')">Approve — I'll send this myself</button>
+          <button class="red" onclick="decide(${l.id},'reject')">Reject</button>
+        </div>` : '';
+
+      div.innerHTML = `
+        <div class="row" style="justify-content:space-between">
+          <div>#${l.id} ${scoreBadge(a.score ?? 0)} <b>${escapeHTML(a.category || 'uncategorized')}</b> ${a.suggestedPriceUsd ? `<span class="small">· suggest ~$${escapeHTML(a.suggestedPriceUsd)}</span>` : ''}</div>
+          <div class="small">${escapeHTML(l.status)}</div>
+        </div>
+        <div class="small" style="margin:6px 0">${escapeHTML(a.summary || '')}</div>
+        ${fitReasonsHtml}
+        ${risksHtml}
+        ${draftHtml}
+      `;
+      q.appendChild(div);
+    }
+  } catch (e) {
+    console.error('Failed to refresh state', e);
+  }
+}
+
+async function analyze() {
+  const t = document.getElementById('leadText').value.trim();
+  if (!t) return;
+  const st = document.getElementById('analyzeStatus'); st.textContent = 'Quillan is scouting...';
+  try { await api('/api/analyze', { leadText: t }); document.getElementById('leadText').value=''; st.textContent='done ✓'; await refresh(); }
+  catch(e){ st.textContent = 'error: '+escapeHTML(e.message); }
+}
+
+async function decide(id, d) {
+  if (d === 'approve') {
+    const ta = document.getElementById(`draft-${id}`);
+    if (ta) await navigator.clipboard.writeText(ta.value).catch(()=>{});
+  }
+  await api('/api/decision', { id, decision: d });
+  refresh();
+}
+
+async function testNvidia() {
+  const s = document.getElementById('status'); s.textContent = 'testing link...'; s.className='';
+  try { const r = await api('/api/test-nvidia'); s.textContent = 'NVIDIA API: '+escapeHTML(r.status); s.className = r.status==='online'?'ok':'bad'; }
+  catch(e){ s.textContent='error: '+escapeHTML(e.message); s.className='bad'; }
+}
+async function saveModel(){ await api('/api/settings', { nvidiaModel: document.getElementById('model').value }); }
+async function brief(){
+  const out = document.getElementById('briefOut'); out.textContent='thinking...';
+  try { const b = await api('/api/brief');
+    out.innerHTML = `<div class="brief-task"><b>${escapeHTML(b.focus||'')}</b></div>` +
+      (b.tasks||[]).map(t=>`<div class="brief-task">▸ ${escapeHTML(t.action)} <span class="small">[${escapeHTML(t.platform)} · ~${escapeHTML(t.effortMinutes)}m${t.expectedValue?` · est $${escapeHTML(t.expectedValue)}`:''}]</span></div>`).join('') +
+      (b.notes?`<div class="small" style="margin-top:6px">${escapeHTML(b.notes)}</div>`:'');
+  } catch(e){ out.textContent='error: '+escapeHTML(e.message); }
+}
+function addLedger(){ document.getElementById('ledgerForm').style.display='block'; }
+async function saveLedger(){
+  await api('/api/ledger', { amount: parseFloat(document.getElementById('amt').value), source: document.getElementById('src').value });
+  document.getElementById('ledgerForm').style.display='none'; document.getElementById('amt').value=''; document.getElementById('src').value='';
+  refresh();
+}
+
+refresh(); setInterval(refresh, 5000);
+</script>
+</body>
+</html>

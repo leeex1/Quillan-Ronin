@@ -1,0 +1,64 @@
+{
+  "type": "ops_pipeline",
+  "result": {
+    "status": "OPS_PIPELINE_COMPLETE",
+    "session_id": "ops-1792261110",
+    "goal": "ship auth",
+    "task_graph": {
+      "goal": "ship auth",
+      "dag": [
+        {
+          "id": "S1",
+          "title": "Slice scope to thin vertical",
+          "verify": "scope doc <1 page",
+          "gate": "C4-PRAXIS"
+        },
+        {
+          "id": "S2",
+          "title": "Ship smallest runnable",
+          "verify": "runs headless + 60fps probe",
+          "gate": "C10-CODEWEAVER"
+        },
+        {
+          "id": "S3",
+          "title": "Predator strike + fix",
+          "verify": "kill-loop closed",
+          "gate": "C34-PREDATOR"
+        },
+        {
+          "id": "S4",
+          "title": "Ethics + safety pass",
+          "verify": "VIR/WARDEN sign",
+          "gate": "C2-VIR/C13-WARDEN"
+        },
+        {
+          "id": "S5",
+          "title": "Polish loop + mix",
+          "verify": "AURELION>=7/CADENCE drift<=.35",
+          "gate": "C22/C23"
+        },
+        {
+          "id": "S6",
+          "title": "Release + retro",
+          "verify": "note + metrics logged",
+          "gate": "C5-ECHO"
+        }
+      ],
+      "rule": "No step starts until prior verify passes."
+    },
+    "guardrail": {
+      "tier": "medium",
+      "reason": "reversible mutation with verification",
+      "action": "Proceed with diff + test seam"
+    },
+    "health_summary": {
+      "py_files": 1,
+      "secret_hits": 0,
+      "large_files": 0,
+      "git_dirty": 4
+    },
+    "release_note": null,
+    "overall": "PASS",
+    "timestamp": 1792261110.2077043
+  }
+}

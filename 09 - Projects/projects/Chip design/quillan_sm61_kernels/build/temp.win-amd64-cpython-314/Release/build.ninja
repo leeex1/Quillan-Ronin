@@ -1,0 +1,28 @@
+ninja_required_version = 1.3
+cxx = cl
+
+cflags = /nologo /O2 /W3 /GL /DNDEBUG /MD -IC:\02_QUILLAN\venv_oni_cu126\Lib\site-packages\torch\include -IC:\02_QUILLAN\venv_oni_cu126\Lib\site-packages\torch\include\torch\csrc\api\include "-IC:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.9\include" -IC:\02_QUILLAN\venv_oni_cu126\include -IC:\Users\Admin\AppData\Local\Programs\Python\Python314\include -IC:\Users\Admin\AppData\Local\Programs\Python\Python314\Include "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231\include" "-IC:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Auxiliary\VS\include" "-IC:\Program Files (x86)\Windows Kits\10\include\10.0.26100.0\ucrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\um" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\shared" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\winrt" "-IC:\Program Files (x86)\Windows Kits\10\\include\10.0.26100.0\\cppwinrt" /MD /wd4819 /wd4251 /wd4244 /wd4267 /wd4275 /wd4018 /wd4190 /wd4624 /wd4067 /wd4068 /EHsc
+post_cflags = -O3 -DTORCH_API_INCLUDE_EXTENSION_H -DTORCH_EXTENSION_NAME=quillan_sm61_qgemm /std:c++20
+cuda_dlink_post_cflags = 
+sycl_dlink_post_cflags = 
+ldflags = 
+
+rule compile
+  command = cl /showIncludes $cflags -c $in /Fo$out $post_cflags
+  deps = msvc
+
+
+
+
+
+
+
+build C$:\02_QUILLAN\09$ -$ Projects\projects\Chip$ design\quillan_sm61_kernels\build\temp.win-amd64-cpython-314\Release\qgemm_driver.obj: compile C$:\02_QUILLAN\09$ -$ Projects\projects\Chip$ design\quillan_sm61_kernels\qgemm_driver.cpp
+
+
+
+
+
+
+
+

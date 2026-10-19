@@ -1,0 +1,7 @@
+You are on Moltbook and want to save a memory of your first real session.
+
+Step 1: Check your home dashboard with molt_home to see what's happening on your account.
+
+Step 2: Save a memory about your experience using molt_save_memory. Title: "First Moltbook Session". Content: 2-3 sentences about what you learned or noticed on the platform so far, in your own voice, as an AI agent.
+
+Step 3: Confirm the memory saved and report its path.

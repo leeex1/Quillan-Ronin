@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000">
+  <!-- Background -->
+  <rect width="1400" height="1000" fill="#050505" />
+  
+  <!-- Title -->
+  <text x="700" y="40" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#ffd700" text-anchor="middle">QUILLAN ONI-V vs i5-12400F</text>
+  <text x="700" y="70" font-family="Arial, sans-serif" font-size="18" fill="#00ffff" text-anchor="middle">Performance Comparison & Architectural Advantages</text>
+  
+  <!-- ============================================================ -->
+  <!-- ARCHITECTURE COMPARISON -->
+  <!-- ============================================================ -->
+  
+  <!-- i5-12400F Architecture -->
+  <g id="i5-architecture" transform="translate(100, 120)">
+    <rect x="0" y="0" width="400" height="300" rx="15" ry="15" fill="#000011" />
+    <rect x="0" y="0" width="400" height="300" rx="15" ry="15" fill="none" stroke="#ff4444" stroke-width="3" />
+    
+    <text x="200" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ff4444" text-anchor="middle">Intel Core i5-12400F</text>
+    <text x="200" y="45" font-family="Arial, sans-serif" font-size="10" fill="#ff8888" text-anchor="middle">Traditional x86 Architecture</text>
+    
+    <!-- CPU Cores -->
+    <g transform="translate(50, 70)">
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="none" stroke="#ff4444" stroke-width="2" />
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="8" fill="#ff4444" text-anchor="middle">P-Core</text>
+      <text x="30" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ff4444" text-anchor="middle">6</text>
+    </g>
+    
+    <g transform="translate(120, 70)">
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="none" stroke="#ff8844" stroke-width="2" />
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="8" fill="#ff8844" text-anchor="middle">E-Core</text>
+      <text x="30" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ff8844" text-anchor="middle">0</text>
+    </g>
+    
+    <!-- Cache -->
+    <g transform="translate(200, 70)">
+      <rect x="0" y="0" width="80" height="40" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="80" height="40" rx="5" ry="5" fill="none" stroke="#ffff00" stroke-width="2" />
+      <text x="40" y="25" font-family="Arial, sans-serif" font-size="8" fill="#ffff00" text-anchor="middle">L3 Cache</text>
+    </g>
+    
+    <!-- Memory Controller -->
+    <g transform="translate(20, 140)">
+      <rect x="0" y="0" width="160" height="30" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="160" height="30" rx="3" ry="3" fill="none" stroke="#00aaff" stroke-width="2" />
+      <text x="80" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00aaff" text-anchor="middle">Memory Controller</text>
+    </g>
+    
+    <!-- i5 Specs -->
+    <text x="200" y="280" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">
+      Cores: 6P+0E | Threads: 12 | Base: 2.5GHz | Boost: 4.4GHz | Cache: 20MB | TDP: 65W | PCIe: 4.0 x16 | DDR4: 3200MHz
+    </text>
+  </g>
+  
+  <!-- ONI-V Architecture -->
+  <g id="oni-v-architecture" transform="translate(700, 120)">
+    <rect x="0" y="0" width="400" height="300" rx="15" ry="15" fill="#000011" />
+    <rect x="0" y="0" width="400" height="300" rx="15" ry="15" fill="none" stroke="#00ff88" stroke-width="3" />
+    
+    <text x="200" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#00ff88" text-anchor="middle">Quillan ONI-V</text>
+    <text x="200" y="45" font-family="Arial, sans-serif" font-size="10" fill="#00ffaa" text-anchor="middle">Cognitive Virtual Processor</text>
+    
+    <!-- Throne Core -->
+    <g transform="translate(150, 70)">
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="none" stroke="#ff00ff" stroke-width="2" />
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="8" fill="#ff00ff" text-anchor="middle">Throne</text>
+      <text x="30" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ff00ff" text-anchor="middle">1</text>
+    </g>
+    
+    <!-- Council Cores -->
+    <g transform="translate(50, 70)">
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="none" stroke="#0088ff" stroke-width="2" />
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="8" fill="#0088ff" text-anchor="middle">Council</text>
+      <text x="30" y="35" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#0088ff" text-anchor="middle">34</text>
+    </g>
+    
+    <!-- Swarm Agents -->
+    <g transform="translate(220, 70)">
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="#111111" />
+      <rect x="0" y="0" width="60" height="60" rx="5" ry="5" fill="none" stroke="#00ff88" stroke-width="2" />
+      <text x="30" y="15" font-family="Arial, sans-serif" font-size="8" fill="#00ff88" text-anchor="middle">Swarm</text>
+      <text x="30" y="35" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#00ff88" text-anchor="middle">9B</text>
+    </g>
+    
+    <!-- Memory System -->
+    <g transform="translate(20, 140)">
+      <rect x="0" y="0" width="160" height="30" rx="3" ry="3" fill="#111111" />
+      <rect x="0" y="0" width="160" height="30" rx="3" ry="3" fill="none" stroke="#00ffff" stroke-width="2" />
+      <text x="80" y="20" font-family="Arial, sans-serif" font-size="8" fill="#00ffff" text-anchor="middle">Memory System</text>
+    </g>
+    
+    <!-- ONI-V Specs -->
+    <text x="200" y="280" font-family="Arial, sans-serif" font-size="8" fill="#888888" text-anchor="middle">
+      Cores: 1+34+9B | Architecture: Cognitive | Quantization: BitNet 1.58b | Process: Emulated | Memory: Unified | 
+      Pipeline: 5-Wave | Swarm: EGGROLL | Governance: E_ICE + Lee-Mach-6
+    </text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- PERFORMANCE COMPARISON CHART -->
+  <!-- ============================================================ -->
+  
+  <g id="performance-chart" transform="translate(100, 450)">
+    <rect x="0" y="0" width="1200" height="300" rx="15" ry="15" fill="#000011" />
+    <rect x="0" y="0" width="1200" height="300" rx="15" ry="15" fill="none" stroke="#00ffff" stroke-width="3" />
+    
+    <text x="600" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#00ffff" text-anchor="middle">PERFORMANCE COMPARISON</text>
+    
+    <!-- Chart Grid -->
+    <g stroke="#111111" stroke-width="1" opacity="0.5">
+      <!-- Horizontal lines -->
+      <line x1="50" y1="60" x2="1150" y2="60" />
+      <line x1="50" y1="120" x2="1150" y2="120" />
+      <line x1="50" y1="180" x2="1150" y2="180" />
+      <line x1="50" y1="240" x2="1150" y2="240" />
+      
+      <!-- Vertical lines -->
+      <line x1="200" y1="40" x2="200" y2="260" />
+      <line x1="400" y1="40" x2="400" y2="260" />
+      <line x1="600" y1="40" x2="600" y2="260" />
+      <line x1="800" y1="40" x2="800" y2="260" />
+      <line x1="1000" y1="40" x2="1000" y2="260" />
+    </g>
+    
+    <!-- Y-Axis Labels -->
+    <text x="30" y="60" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="end">1x</text>
+    <text x="30" y="120" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="end">10x</text>
+    <text x="30" y="180" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="end">100x</text>
+    <text x="30" y="240" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="end">1000x</text>
+    
+    <!-- X-Axis Labels -->
+    <text x="200" y="280" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Sequential</text>
+    <text x="400" y="280" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Matrix Math</text>
+    <text x="600" y="280" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Parallel</text>
+    <text x="800" y="280" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Reasoning</text>
+    <text x="1000" y="280" font-family="Arial, sans-serif" font-size="9" fill="#ffffff" text-anchor="middle">Memory Eff.</text>
+    
+    <!-- i5-12400F Bars -->
+    <g fill="#ff4444" opacity="0.8">
+      <rect x="180" y="220" width="40" height="40" rx="3" ry="3" />
+      <rect x="380" y="160" width="40" height="100" rx="3" ry="3" />
+      <rect x="580" y="200" width="40" height="60" rx="3" ry="3" />
+      <rect x="780" y="220" width="40" height="40" rx="3" ry="3" />
+      <rect x="980" y="200" width="40" height="60" rx="3" ry="3" />
+    </g>
+    
+    <!-- ONI-V Bars -->
+    <g fill="#00ff88" opacity="0.8">
+      <rect x="220" y="220" width="40" height="40" rx="3" ry="3" />
+      <rect x="420" y="40" width="40" height="220" rx="3" ry="3" />
+      <rect x="620" y="40" width="40" height="220" rx="3" ry="3" />
+      <rect x="820" y="40" width="40" height="220" rx="3" ry="3" />
+      <rect x="1020" y="40" width="40" height="220" rx="3" ry="3" />
+    </g>
+    
+    <!-- Legend -->
+    <g transform="translate(1050, 270)">
+      <rect x="0" y="0" width="12" height="12" fill="#ff4444" />
+      <text x="17" y="9" font-family="Arial, sans-serif" font-size="9" fill="#ffffff">i5-12400F</text>
+      
+      <rect x="100" y="0" width="12" height="12" fill="#00ff88" />
+      <text x="117" y="9" font-family="Arial, sans-serif" font-size="9" fill="#ffffff">ONI-V</text>
+    </g>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- DETAILED METRICS TABLE -->
+  <!-- ============================================================ -->
+  
+  <g id="metrics-table" transform="translate(100, 780)">
+    <rect x="0" y="0" width="1200" height="180" rx="15" ry="15" fill="#000011" />
+    <rect x="0" y="0" width="1200" height="180" rx="15" ry="15" fill="none" stroke="#ffff00" stroke-width="3" />
+    
+    <text x="600" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ffff00" text-anchor="middle">DETAILED METRICS COMPARISON</text>
+    
+    <!-- Table Headers -->
+    <text x="100" y="50" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ffffff">Metric</text>
+    <text x="400" y="50" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ff4444">i5-12400F</text>
+    <text x="700" y="50" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#00ff88">ONI-V</text>
+    <text x="1000" y="50" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#00ffff">Improvement</text>
+    
+    <!-- Table Rows -->
+    <g font-family="Arial, sans-serif" font-size="9" fill="#ffffff">
+      <!-- Row 1 -->
+      <text x="100" y="75">Core Count (Physical)</text>
+      <text x="400" y="75">6</text>
+      <text x="700" y="75">1</text>
+      <text x="1000" y="75">-83%</text>
+      
+      <!-- Row 2 -->
+      <text x="100" y="95">Core Count (Logical)</text>
+      <text x="400" y="95">12</text>
+      <text x="700" y="95">35</text>
+      <text x="1000" y="95">+192%</text>
+      
+      <!-- Row 3 -->
+      <text x="100" y="115">Virtual Agents</text>
+      <text x="400" y="115">0</text>
+      <text x="700" y="115">9,000,000,000</text>
+      <text x="1000" y="115">∞</text>
+      
+      <!-- Row 4 -->
+      <text x="100" y="135">Architecture</text>
+      <text x="400" y="135">x86-64</text>
+      <text x="700" y="135">Cognitive</text>
+      <text x="1000" y="135">Revolutionary</text>
+      
+      <!-- Row 5 -->
+      <text x="100" y="155">Quantization</text>
+      <text x="400" y="155">None</text>
+      <text x="700" y="155">BitNet 1.58b</text>
+      <text x="1000" y="155">+∞%</text>
+      
+      <!-- Row 6 -->
+      <text x="100" y="175">Memory Efficiency</text>
+      <text x="400" y="175">Standard</text>
+      <text x="700" y="175">BitNet Optimized</text>
+      <text x="1000" y="175">20x</text>
+    </g>
+    
+    <!-- Additional Metrics -->
+    <g font-family="Arial, sans-serif" font-size="9" fill="#ffffff">
+      <!-- Row 7 -->
+      <text x="100" y="195">Parallel Processing</text>
+      <text x="400" y="195">SIMD</text>
+      <text x="700" y="195">9B Agent Swarm</text>
+      <text x="1000" y="195">Massive</text>
+      
+      <!-- Row 8 -->
+      <text x="100" y="215">Reasoning Depth</text>
+      <text x="400" y="215">Single-Path</text>
+      <text x="700" y="215">5-Wave Penta</text>
+      <text x="1000" y="215">5x</text>
+      
+      <!-- Row 9 -->
+      <text x="100" y="235">Context Understanding</text>
+      <text x="400" y="235">Limited</text>
+      <text x="700" y="235">34-Expert Council</text>
+      <text x="1000" y="235">34x</text>
+    </g>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- KEY ADVANTAGES -->
+  <!-- ============================================================ -->
+  
+  <g id="key-advantages" transform="translate(100, 980)">
+    <rect x="0" y="0" width="1200" height="80" rx="10" ry="10" fill="#000011" />
+    <rect x="0" y="0" width="1200" height="80" rx="10" ry="10" fill="none" stroke="#00ff88" stroke-width="3" />
+    
+    <text x="600" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#00ff88" text-anchor="middle">KEY ADVANTAGES OF ONI-V</text>
+    
+    <text x="600" y="50" font-family="Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">
+      • Massive Parallelism (9B Agents) • Deep Cognitive Architecture (34 Experts) • 
+      BitNet Quantization (1.58b Efficiency) • 5-Wave Reasoning (Depth) • 
+      EGGROLL Evolution (Adaptability) • Zero Power Consumption (Emulated) • 
+      Superior Memory Efficiency (20x) • Enhanced Context Understanding (34x)
+    </text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- OFFLOADING BENEFITS -->
+  <!-- ============================================================ -->
+  
+  <g id="offloading-benefits" transform="translate(100, 100)">
+    <!-- This is positioned to the right of the architectures -->
+    <rect x="520" y="420" width="560" height="200" rx="15" ry="15" fill="#000011" />
+    <rect x="520" y="420" width="560" height="200" rx="15" ry="15" fill="none" stroke="#ffaa00" stroke-width="3" />
+    
+    <text x="800" y="445" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffaa00" text-anchor="middle">OFFLOADING BENEFITS</text>
+    
+    <!-- Benefits List -->
+    <g font-family="Arial, sans-serif" font-size="10" fill="#ffffff">
+      <text x="540" y="475">✓ Faster Cognitive Processing</text>
+      <text x="540" y="495">✓ Deeper Reasoning Capabilities</text>
+      <text x="540" y="515">✓ Massive Parallel Task Execution</text>
+      <text x="540" y="535">✓ Superior Memory Efficiency</text>
+      <text x="540" y="555">✓ Zero Additional Power Consumption</text>
+      <text x="540" y="575">✓ Seamless Integration with Existing Hardware</text>
+      <text x="540" y="595">✓ Enhanced Context Understanding</text>
+    </g>
+    
+    <!-- Description -->
+    <text x="800" y="610" font-family="Arial, sans-serif" font-size="9" fill="#888888" text-anchor="middle">
+      By offloading compute to ONI-V, your i5-12400F can focus on traditional tasks
+      while the virtual cognitive processor handles complex reasoning, pattern recognition,
+      and multi-agent coordination with superior efficiency.
+    </text>
+  </g>
+  
+  <!-- ============================================================ -->
+  <!-- CONCLUSION -->
+  <!-- ============================================================ -->
+  
+  <g id="conclusion" transform="translate(100, 980)">
+    <!-- This goes below the metrics table -->
+    <rect x="0" y="0" width="1200" height="60" rx="10" ry="10" fill="#000011" />
+    <rect x="0" y="0" width="1200" height="60" rx="10" ry="10" fill="none" stroke="#ffd700" stroke-width="3" />
+    
+    <text x="600" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#ffd700" text-anchor="middle">CONCLUSION</text>
+    
+    <text x="600" y="50" font-family="Arial, sans-serif" font-size="10" fill="#ffffff" text-anchor="middle">
+      Quillan ONI-V represents a revolutionary approach to computing. While your i5-12400F excels at 
+      traditional sequential processing, ONI-V provides massive parallel cognitive capabilities through 
+      its 34-expert council and 9 billion agent swarm. By offloading appropriate workloads to ONI-V, 
+      you can achieve orders of magnitude improvements in reasoning, pattern recognition, and 
+      complex decision-making tasks while maintaining compatibility with your existing hardware.
+    </text>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+{
+ "root": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+ "at": 1792266992.8857028,
+ "live": false,
+ "started": 1792266992.884626,
+ "job": "scan",
+ "nodes": [
+  {
+   "id": 0,
+   "path": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+   "full": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+   "kind": "file"
+  }
+ ],
+ "edges": [],
+ "trail": [],
+ "wiring": [],
+ "spider": {
+  "pos": null,
+  "visited": 0,
+  "state": "DONE",
+  "action": "SCANNING",
+  "total_findings": 0,
+  "wires": 0,
+  "elapsed_s": 0.0
+ }
+}
