@@ -62,19 +62,15 @@ void main() {
     float horizon = smoothstep(0.2, 0.28, r);
     float glow = 0.08 / (abs(r - 0.35) + 0.04);
     
-    vec3 cyan = vec3(0.0, 0.96, 1.0);
-    vec3 emerald = vec3(0.02, 0.7, 0.55);
-    vec3 gold = vec3(1.0, 0.88, 0.15);
+    vec3 cyan = vec3(0.0, 0.94, 1.0);
+    vec3 emerald = vec3(0.01, 0.62, 0.49);
+    vec3 gold = vec3(1.0, 0.84, 0.0);
     
     vec3 col = mix(cyan, emerald, sin(swirl) * 0.5 + 0.5) * plasma * horizon;
     col += mix(cyan, gold, u_audio) * glow;
     col *= 1.0 - smoothstep(1.5, 2.5, r);
     
-    // Film grain
-    float grain = fract(sin(dot(uv, vec2(12.9898, 78.233)) * 43758.5453) * 0.03 - 0.015;
-    col += grain;
-    
-    gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    gl_FragColor = vec4(col, 1.0);
 }
 `;
 

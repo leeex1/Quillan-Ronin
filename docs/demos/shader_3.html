@@ -74,11 +74,7 @@ void main() {
     col *= 0.8 + 0.2 * sin(uv.y * u_resolution.y * 2.0);
     col *= 1.0 - length(uv - 0.5) * 0.7;
 
-    // Film grain
-    float grain = hash(uv * u_resolution + u_time * 100.0) * 0.04 - 0.02;
-    col += grain;
-
-    gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+    gl_FragColor = vec4(col, 1.0);
 }
 `;
 
