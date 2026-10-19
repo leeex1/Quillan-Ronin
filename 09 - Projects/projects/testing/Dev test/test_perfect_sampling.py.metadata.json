@@ -1,4 +1,0 @@
-{
-  "summary": "Inference script with constant logit subtraction penalty and frequency penalty to eliminate token repetition loops.",
-  "updatedAt": "2026-08-08T17:49:30.178505Z"
-}
