@@ -66,7 +66,7 @@ void main() {
     col += purple * (1.0 - iter) * 0.25;
 
     // Film grain
-    float grain = fract(sin(dot(v_texCoord, vec2(12.9898, 78.233)) * 43758.5453) * 0.03;
+    float grain = fract(sin(dot(v_texCoord, vec2(12.9898, 78.233)) * 43758.5453) * 0.03);
     col += grain * 0.5;
     
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
