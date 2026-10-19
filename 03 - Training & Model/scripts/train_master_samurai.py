@@ -101,7 +101,14 @@ def train():
     print(f"Device      : {args.device}")
     print(f"Context Len : {args.seq_len}")
     print(f"Target Token Budget: ~204.92 Million Tokens")
-    print("=" * 75)
+    # 0. Hardware and Win32 Performance Optimization
+    try:
+        from quillan_pc_toolkit import QuillanPCHardwareToolkit
+        pc_toolkit = QuillanPCHardwareToolkit()
+        compaction = pc_toolkit.apply_performance_profile(priority="ABOVE_NORMAL")
+        print(f"[HARDWARE] Win32 Priority: {compaction.priority_class_applied} | Reclaimed Standby RAM: {compaction.memory_reclaimed_mb:.1f} MB")
+    except Exception as e:
+        print(f"[HARDWARE] Notice: Native toolkit hook deferred ({e})")
 
     # 1. Instantiate Model Config
     if args.model_size == "6l":
