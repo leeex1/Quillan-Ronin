@@ -705,6 +705,39 @@ class QuillanOniConfig:
         if self.head_dim * self.n_head != self.hidden_dim:
             self.head_dim = self.hidden_dim // self.n_head
 
+    @classmethod
+    def mini_6l(cls, **kwargs):
+        """Quillan-Ronin Mini 6L Sovereign Engine: ~520.4M parameters (500M-600M target)."""
+        defaults = {
+            "n_layer": 6,
+            "hidden_dim": 1024,
+            "ffn_dim": 3072,
+            "n_head": 16,
+            "head_dim": 64,
+            "num_experts": 34,
+            "top_k": 4,
+            "max_seq_len": 512,
+        }
+        defaults.update(kwargs)
+        return cls(**defaults)
+
+    @classmethod
+    def main_12l(cls, **kwargs):
+        """Quillan-Ronin Main 12L Sovereign Engine: ~1.163B parameters (1.0B target)."""
+        defaults = {
+            "n_layer": 12,
+            "hidden_dim": 1536,
+            "ffn_dim": 3072,
+            "n_head": 24,
+            "head_dim": 64,
+            "num_experts": 34,
+            "top_k": 4,
+            "max_seq_len": 512,
+        }
+        defaults.update(kwargs)
+        return cls(**defaults)
+
+
 
 # ------------------------------------------------------------------
 # CANONICAL ROSTER â€” Hierarchy Chain v5.3.3 (:878) + Knowledge files 9/10

@@ -50,3 +50,36 @@ class QuillanOniConfig(PretrainedConfig):
             for field in fields(CoreConfig)
         }
         return CoreConfig(**values)
+
+    @classmethod
+    def mini_6l(cls, **kwargs):
+        """Quillan-Ronin Mini 6L: ~520.4M parameters."""
+        defaults = {
+            "n_layer": 6,
+            "hidden_dim": 1024,
+            "ffn_dim": 3072,
+            "n_head": 16,
+            "head_dim": 64,
+            "num_experts": 34,
+            "top_k": 4,
+            "max_seq_len": 512,
+        }
+        defaults.update(kwargs)
+        return cls(**defaults)
+
+    @classmethod
+    def main_12l(cls, **kwargs):
+        """Quillan-Ronin Main 12L: ~1.163B parameters."""
+        defaults = {
+            "n_layer": 12,
+            "hidden_dim": 1536,
+            "ffn_dim": 3072,
+            "n_head": 24,
+            "head_dim": 64,
+            "num_experts": 34,
+            "top_k": 4,
+            "max_seq_len": 512,
+        }
+        defaults.update(kwargs)
+        return cls(**defaults)
+
