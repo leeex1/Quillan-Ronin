@@ -313,7 +313,7 @@ ARCHITECTURAL_MAPPING = """
 | Layer                  | Parameters (Target) | Purpose |
 |------------------------|---------------------|---------|
 | 1. Encoders            | 80M (2.6%)         | Lightweight feature extraction + Modality Tagging (Crucial for routing). |
-| 2. Chunked MoE         | 2.71B (90.5%)      | The Brain. 34 Experts with 272000000 Micro-Subagents each (9B total). Gumbel Routing + Capacity Truncation. |
+| 2. Chunked MoE         | ~520M–1.16B (90.5%) | The Brain. 34 Experts with 272000000 Micro-Subagents. 6L: 520.4M / 12L: 1.163B | each (9B total). Gumbel Routing + Capacity Truncation. |
 | 3. Fusion              | 0 (0%)             | Batch-Safe. Concatenates sequence length but isolates batch index to prevent leakage. |
 | 4. Diffusion           | 113M (3.7%)        | The Refiner. 9 Layers of adaptive Flash Attention. Skips "Easy" tokens (Identity path). |
 | 5. Decoders            | 100M (3.3%)        | Geometric. Uses ConvTranspose upsampling to reconstruct spatial/temporal structure from tokens. |
