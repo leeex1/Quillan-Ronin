@@ -1,0 +1,876 @@
+{
+  "quillan_audio": [
+    {
+      "name": "audio_design_cue",
+      "signature": "(mood: str = 'tense', scene: str = 'boss gate', duration_sec: int = 60, stems: str = 'pulse,texture,lead') -> "
+    },
+    {
+      "name": "audio_analyze_track",
+      "signature": "(source: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_mix_plan",
+      "signature": "(stems: str = 'drums,bass,pads,sfx', target_lufs: float = -14.0) -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_generate_sfx_brief",
+      "signature": "(action: str = 'dash', material: str = 'cloth+wind', perspective: str = 'third-person close') -> Dict[str, Any"
+    },
+    {
+      "name": "audio_director_note",
+      "signature": "(states: str = 'explore,combat,boss,resolve') -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_full_pipeline",
+      "signature": "(mood: str = 'tense', scene: str = 'boss gate', stems: str = 'pulse,texture,lead', target_lufs: float = -14.0,"
+    },
+    {
+      "name": "audio_route",
+      "signature": "(target_mcp: str = 'code', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "audio_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_buddy": [
+    {
+      "name": "BuddyTwin",
+      "signature": "(twin_id: str, persona: str, role: str, custom_instructions: str = '', spawned_at: float = <factory>, sparring"
+    },
+    {
+      "name": "buddy_spawn_clone",
+      "signature": "(persona: str = 'C34-PREDATOR', role: str = 'adversarial_sparring_partner', custom_instructions: str | None = "
+    },
+    {
+      "name": "buddy_spar",
+      "signature": "(proposal: str, critique_focus: str = 'security_and_edge_cases', twin_id: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "buddy_duo_debate",
+      "signature": "(topic: str, primary_stance: str, turns: int = 2, twin_id: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "buddy_code_review",
+      "signature": "(code: str, language: str = 'python', strictness: str = 'high', twin_id: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "buddy_mirror_collaborate",
+      "signature": "(proposal: str, twin_id: str | None = None, focus: str = 'correctness_and_safety') -> Dict[str, Any]"
+    },
+    {
+      "name": "buddy_status",
+      "signature": "(twin_id: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "buddy_list_twins",
+      "signature": "() -> Dict[str, Any]"
+    }
+  ],
+  "quillan_code": [
+    {
+      "name": "ComplexityVisitor",
+      "signature": "()"
+    },
+    {
+      "name": "codeweaver_ast_inspect",
+      "signature": "(code_or_file_path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_security_scan",
+      "signature": "(code_or_file_path: str, persist: bool = False) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_dependency_audit",
+      "signature": "(code_or_file_path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_complexity_gate",
+      "signature": "(code_or_file_path: str, max_complexity: int = 20, min_type_coverage: float = 70.0) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_refactor_adviser",
+      "signature": "(function_code: str, goal: str = 'production_hardening') -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_test_scaffold",
+      "signature": "(func_name: str, args_spec: str, expected_behavior: str) -> str"
+    },
+    {
+      "name": "codeweaver_diff_linter",
+      "signature": "(diff_text: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_fix_scaffold",
+      "signature": "(findings: List[Dict[str, Any]]) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_full_pipeline",
+      "signature": "(code_or_file_path: str, persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "codeweaver_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_council": [
+    {
+      "name": "council_predator_strike",
+      "signature": "(proposal: str, context: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "council_challenge_expert",
+      "signature": "(expert_name: str, claim: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "council_cluster_deliberate",
+      "signature": "(cluster: str, query: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "council_pull_weights",
+      "signature": "(domain_tags: List[str]) -> Dict[str, Any]"
+    },
+    {
+      "name": "council_full_deliberation",
+      "signature": "(topic: str, persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "council_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "council_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_gamedev": [
+    {
+      "name": "gamedev_new_project",
+      "signature": "(name: str, genre: str = 'action-roguelite', engine: str = 'godot', scope: str = 'prototype-30d') -> Dict[str,"
+    },
+    {
+      "name": "gamedev_design_loop",
+      "signature": "(core_fantasy: str, player_verbs: str = 'move, dash, shoot', progression: str = 'run-based unlocks') -> Dict[s"
+    },
+    {
+      "name": "gamedev_balance_economy",
+      "signature": "(base_xp: int = 100, growth: float = 1.22, levels: int = 20, sinks: str = 'upgrades, rerolls, cosmetics') -> D"
+    },
+    {
+      "name": "gamedev_simulate_playtest",
+      "signature": "(runs: int = 200, win_rate_target: float = 0.35, avg_run_min: float = 12.0) -> Dict[str, Any]"
+    },
+    {
+      "name": "gamedev_review_build",
+      "signature": "(build_notes: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "gamedev_full_pipeline",
+      "signature": "(name: str, genre: str = 'action-roguelite', engine: str = 'godot', scope: str = 'prototype-30d', core_fantasy"
+    },
+    {
+      "name": "gamedev_route",
+      "signature": "(target_mcp: str = 'code', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "gamedev_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "gamedev_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "gamedev_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_governor": [
+    {
+      "name": "governor_system_telemetry",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "governor_thread_budget",
+      "signature": "(workload_type: str = 'training') -> Dict[str, Any]"
+    },
+    {
+      "name": "governor_optimizer_ram_calc",
+      "signature": "(param_count_millions: float, optimizer: str = 'adamw', trainable_ratio: float = 1.0, batch_size: int = 1, seq"
+    },
+    {
+      "name": "governor_velocity_tune",
+      "signature": "(current_step_time_ms: float, target_step_time_ms: float = 5000.0, current_loss: float | None = None) -> Dict["
+    },
+    {
+      "name": "governor_full_pipeline",
+      "signature": "(param_count_millions: float = 758.0, optimizer: str = 'adamw', trainable_ratio: float = 1.0, batch_size: int "
+    },
+    {
+      "name": "governor_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "governor_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "governor_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "governor_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_media": [
+    {
+      "name": "media_image_brief",
+      "signature": "(objective: str, style: str = 'stylized-painterly', composition: str = 'rule-of-thirds wide', palette: str = '"
+    },
+    {
+      "name": "media_video_brief",
+      "signature": "(beats: str = 'establish, escalate, payoff', duration_s: int = 8, camera: str = 'slow dolly-in') -> Dict[str, "
+    },
+    {
+      "name": "media_character_sheet",
+      "signature": "(name: str, role: str = 'protagonist', traits: str = 'brave, scarred, teal cloak') -> Dict[str, Any]"
+    },
+    {
+      "name": "media_prompt_enhance",
+      "signature": "(raw_prompt: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "media_full_pipeline",
+      "signature": "(objective: str, style: str = 'stylized-painterly', composition: str = 'rule-of-thirds wide', palette: str = '"
+    },
+    {
+      "name": "media_route",
+      "signature": "(target_mcp: str = 'code', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "media_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "media_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "media_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_model_lab": [
+    {
+      "name": "model_checkpoint_inspect",
+      "signature": "(checkpoint_path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "model_dataset_validator",
+      "signature": "(jsonl_path: str, max_samples: int = 1000) -> Dict[str, Any]"
+    },
+    {
+      "name": "model_hardware_advisor",
+      "signature": "(model_param_millions: float = 758.0) -> Dict[str, Any]"
+    },
+    {
+      "name": "model_bitnet_analyze",
+      "signature": "(checkpoint_path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "model_lab_full_pipeline",
+      "signature": "(checkpoint_path: str = '', jsonl_path: str = '', model_param_millions: float = 758.0, persist: bool = True) -"
+    },
+    {
+      "name": "model_lab_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "model_lab_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "model_lab_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "model_lab_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_ops": [
+    {
+      "name": "ops_task_graph",
+      "signature": "(goal: str, max_steps: int = 6) -> Dict[str, Any]"
+    },
+    {
+      "name": "ops_guardrail_check",
+      "signature": "(action_desc: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "ops_health",
+      "signature": "(repo_path: str = 'C:\\\\02_QUILLAN', deep: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "ops_release_note",
+      "signature": "(version: str, highlights: str, fixes: str = '') -> str"
+    },
+    {
+      "name": "ops_full_pipeline",
+      "signature": "(goal: str, action_desc: str = '', repo_path: str = 'C:\\\\02_QUILLAN', version: str = '', highlights: str = '',"
+    },
+    {
+      "name": "ops_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "ops_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_orchestrator": [
+    {
+      "name": "orchestrator_chain",
+      "signature": "(objective: str, chain: str = 'reverse_engineer', path: str = '', persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "orchestrator_reverse_engineer",
+      "signature": "(path: str, persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "orchestrator_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "orchestrator_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "orchestrator_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_orochi": [
+    {
+      "name": "orochi_mutate_prompt",
+      "signature": "(base_prompt: str | None = None, n_variants: int = 4, strategy: str = 'auto') -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_evolve_weights",
+      "signature": "(layer_name: str = 'council_router', rank: int = 8, n_proposals: int = 4, sigma: float = 0.02) -> Dict[str, An"
+    },
+    {
+      "name": "orochi_evaluate",
+      "signature": "(prompt: str | None = None, weight_proposal_id: str | None = None, challenger_persona: str = 'C34-PREDATOR') -"
+    },
+    {
+      "name": "orochi_auto_improve",
+      "signature": "(base_prompt: str | None = None, max_cycles: int = 3, min_integrity: float = 0.85) -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_snapshot",
+      "signature": "(label: str | None = None, prompt: str | None = None, weight_proposals: List[Dict[str, Any]] | None = None) ->"
+    },
+    {
+      "name": "orochi_rollback",
+      "signature": "(snapshot_id: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_full_pipeline",
+      "signature": "(base_prompt: str | None = None, max_cycles: int = 3, min_integrity: float = 0.85) -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_route",
+      "signature": "(target_mcp: str = 'orchestrator', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "orochi_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_prism": [
+    {
+      "name": "prism_decompose",
+      "signature": "(task: str, context: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_threat_model",
+      "signature": "(feature: str, assets: List[str] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_bushido_gate",
+      "signature": "(action_or_output: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_reconcile",
+      "signature": "(task: str, context: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_score",
+      "signature": "(task: str, context: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_full_pipeline",
+      "signature": "(task: str, context: str | None = None, feature: str | None = None, persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "prism_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_rag": [
+    {
+      "name": "ingest_file",
+      "signature": "(file_path: str, metadata: dict | None = None) -> str"
+    },
+    {
+      "name": "ingest_folder",
+      "signature": "(folder_path: str, extensions: list[str] | None = None, metadata: dict | None = None) -> str"
+    },
+    {
+      "name": "search",
+      "signature": "(query: str, n_results: int = 5, filter_source_type: str | None = None) -> str"
+    },
+    {
+      "name": "ask",
+      "signature": "(question: str, n_context: int = 5, max_tokens: int = 1024) -> str"
+    },
+    {
+      "name": "kb_stats",
+      "signature": "() -> str"
+    },
+    {
+      "name": "delete_source",
+      "signature": "(filename: str) -> str"
+    },
+    {
+      "name": "rag_full_pipeline",
+      "signature": "(folder_path: str = '', question: str = '', n_context: int = 5, extensions: list[str] | None = None, persist: "
+    },
+    {
+      "name": "rag_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "rag_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "rag_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "rag_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_re": [
+    {
+      "name": "extract_strings",
+      "signature": "(data: bytes, min_len: int = 4) -> List[Dict[str, Any]]"
+    },
+    {
+      "name": "parse_pe",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "parse_elf",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "parse_apk",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "parse_dotnet",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "parse_sqlite",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "parse_pcap",
+      "signature": "(data: bytes) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_binary",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_extract_strings",
+      "signature": "(path: str, min_len: int = 6, max_count: int = 500) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_find_symbols",
+      "signature": "(path: str, symbol_filter: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_trace_calls",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_decompile_stub",
+      "signature": "(path: str, symbol: str | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_apk",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_dotnet",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_sqlite",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_pcap",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_web",
+      "signature": "(html: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_analyze_firmware",
+      "signature": "(path: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_full_pipeline",
+      "signature": "(path: str, persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "re_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "re_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "re_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_samurai_engine": [
+    {
+      "name": "EggrollSwarmSimulator",
+      "signature": "()"
+    },
+    {
+      "name": "samurai_full_pipeline",
+      "signature": "(query: str, depth: str = 'full', persist: bool = True) -> Dict[str, Any]"
+    },
+    {
+      "name": "samurai_cycle_step",
+      "signature": "(cycle_number: int, query: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "samurai_gate_check",
+      "signature": "(proposal: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "samurai_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "samurai_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "run_quillan_pipeline",
+      "signature": "(query: str, context_json: str | None = None, max_retries: int = 5) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_spider": [
+    {
+      "name": "SimpleTextHTMLParser",
+      "signature": "()"
+    },
+    {
+      "name": "spider_crawl",
+      "signature": "(root: str = 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp', max_files: int = 220, exts: str = '.py,.json,.md,.html') ->"
+    },
+    {
+      "name": "spider_status",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_map",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_crawl_live",
+      "signature": "(root: str = 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp', max_files: int = 120, delay_ms: int = 120, exts: str = '.py"
+    },
+    {
+      "name": "spider_work",
+      "signature": "(root: str = 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp', job: str = 'scan', max_files: int = 40, delay_ms: int = 220"
+    },
+    {
+      "name": "spider_task_submit",
+      "signature": "(task: str, job: str = 'scan', root: str = 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp', max_files: int = 40) -> Dict["
+    },
+    {
+      "name": "spider_tasks",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_work_next",
+      "signature": "(delay_ms: int = 220) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_memory",
+      "signature": "(top: int = 10) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_census",
+      "signature": "(root: str = 'C:\\\\02_QUILLAN') -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_sweep",
+      "signature": "(root: str = 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp', since_ts: float = 0.0, delay_ms: int = 0) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_read_file",
+      "signature": "(path: str, max_lines: int = 150) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_crawl_page",
+      "signature": "(target: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_quillan_takeover",
+      "signature": "(mission: str = 'Scan and inspect core workspace modules', target_dir: str = 'C:\\\\02_QUILLAN', max_files: int "
+    },
+    {
+      "name": "spider_summary",
+      "signature": "(top: int = 10) -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_route_findings",
+      "signature": "(target_mcp: str = 'code') -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_session_save",
+      "signature": "(label: str = '') -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "spider_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_team": [
+    {
+      "name": "team_spawn_crew",
+      "signature": "(objective: str, roles: str = 'planner,builder,critic,synthesizer') -> Dict[str, Any]"
+    },
+    {
+      "name": "team_dispatch",
+      "signature": "(crew_id: str, task: str, assignee_role: str = 'builder', acceptance: str = 'tests pass + demo clip') -> Dict["
+    },
+    {
+      "name": "team_complete_task",
+      "signature": "(crew_id: str, task_id: str, output_summary: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "team_debate",
+      "signature": "(topic: str, stance_a: str = 'ship fast', stance_b: str = 'harden first') -> Dict[str, Any]"
+    },
+    {
+      "name": "team_status",
+      "signature": "(crew_id: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "team_merge",
+      "signature": "(crew_id: str, strategy: str = 'synthesizer-pick-best') -> Dict[str, Any]"
+    },
+    {
+      "name": "team_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "team_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "team_full_pipeline",
+      "signature": "(objective: str, roles: str = 'planner,builder,critic,synthesizer', task: str = '', acceptance: str = 'tests p"
+    },
+    {
+      "name": "team_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "team_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ],
+  "quillan_thinking_engine": [
+    {
+      "name": "get_engine",
+      "signature": "() -> 'QuillanQuintessenceOni'"
+    },
+    {
+      "name": "quillan_think",
+      "signature": "(query: 'str', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "council_deliberate",
+      "signature": "(topic: 'str') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "prism_decompose",
+      "signature": "(text: 'str') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "deep_reasoning",
+      "signature": "(problem: 'str', steps: 'int' = 5, context: 'Optional[str]' = None, verify_proof: 'bool' = True) -> 'Dict[str,"
+    },
+    {
+      "name": "deep_reasoning_alias",
+      "signature": "(problem: 'str', steps: 'int' = 5, context: 'Optional[str]' = None, verify_proof: 'bool' = True) -> 'Dict[str,"
+    },
+    {
+      "name": "genius_level",
+      "signature": "(inquiry: 'str', domain: 'str' = 'general', unconventional_depth: 'bool' = True, mathematical_rigor: 'bool' = "
+    },
+    {
+      "name": "genius_level_alias",
+      "signature": "(inquiry: 'str', domain: 'str' = 'general', unconventional_depth: 'bool' = True, mathematical_rigor: 'bool' = "
+    },
+    {
+      "name": "adversarial_dual_council_deliberation",
+      "signature": "(proposition: 'str', rounds: 'int' = 3, red_team_intensity: 'str' = 'maximum') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "adversarial_dual_council_deliberation_alias",
+      "signature": "(proposition: 'str', rounds: 'int' = 3, red_team_intensity: 'str' = 'maximum') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "skill_registry_rebuild",
+      "signature": "() -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "skill_route",
+      "signature": "(query: 'str', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "think_with_skills",
+      "signature": "(query: 'str', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "skill_chain",
+      "signature": "(skills: 'str', query: 'str') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "skill_audit",
+      "signature": "() -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "think_workflow",
+      "signature": "(query: 'str', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "reason_with_mode",
+      "signature": "(query: 'str', mode: 'str' = 'auto', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "critical_think",
+      "signature": "(problem: 'str', phases: 'str' = 'all') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "fallacy_scan",
+      "signature": "(argument: 'str') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "reasoning_modes_list",
+      "signature": "() -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "thinking_trace",
+      "signature": "(query: 'str', depth: 'str' = 'deep') -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "thinking_trace_save",
+      "signature": "(trace_id: 'str', filled_phases: 'List[Dict[str, Any]]', final_answer: 'Optional[str]' = None) -> 'Dict[str, A"
+    },
+    {
+      "name": "thinking_trace_list",
+      "signature": "() -> 'Dict[str, Any]'"
+    },
+    {
+      "name": "thinking_trace_replay",
+      "signature": "(trace_id: 'str') -> 'Dict[str, Any]'"
+    }
+  ],
+  "quillan_web": [
+    {
+      "name": "web_scaffold",
+      "signature": "(project_name: str, stack: str = 'vite+ts', routes: str = '/, /dev, /lore') -> Dict[str, Any]"
+    },
+    {
+      "name": "web_audit",
+      "signature": "(code_or_html: str) -> Dict[str, Any]"
+    },
+    {
+      "name": "web_deploy_checklist",
+      "signature": "(target: str = 'github-pages') -> Dict[str, Any]"
+    },
+    {
+      "name": "web_full_pipeline",
+      "signature": "(project_name: str, stack: str = 'vite+ts', routes: str = '/, /dev, /lore', code_or_html: str = '', target: st"
+    },
+    {
+      "name": "web_route",
+      "signature": "(target_mcp: str = 'council', payload: Dict[str, Any] | None = None) -> Dict[str, Any]"
+    },
+    {
+      "name": "web_health",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "web_session_list",
+      "signature": "() -> Dict[str, Any]"
+    },
+    {
+      "name": "web_session_replay",
+      "signature": "(session_id: str) -> Dict[str, Any]"
+    }
+  ]
+}

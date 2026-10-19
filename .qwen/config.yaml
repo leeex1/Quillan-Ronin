@@ -1,0 +1,25 @@
+version: "5.4.0-oni"
+agent_name: "Quillan-Ronin-Qwen"
+system_prompt_file: ".qwen/system_prompt.md"
+tools_module: "qwen_agent_tools"
+
+model:
+  name: "Qwen/Qwen2.5-Coder-32B-Instruct"
+  temperature: 0.3
+  max_tokens: 4096
+  top_p: 0.95
+
+thinking_tags:
+  enabled: true
+  open_tag: "<think>"
+  close_tag: "</think>"
+
+tool_calling:
+  format: "qwen_native"
+  schema_mode: "strict_json_schema"
+  ban_banners_in_json: true
+
+mcp_chain_bus:
+  enabled: true
+  entrypoint: "09 - Projects/mcp/mcp_chain_bus.py"
+  state_ledger: "07 - Memory & LanceDB/chain_state.json"
