@@ -1,0 +1,26 @@
+{
+  "overall_passed": true,
+  "pass_count": 3,
+  "checkpoint": "quillan_teacher_tail_latest.pt",
+  "step": 5751,
+  "details": {
+    "Syllogism": {
+      "response": "<think>\nThe user is asking about the following question. The user wants to be a real-up — it's a single most common and the same time, and the most important because they're not just need to cover:\n\nI should also mention that are: (1. I",
+      "tokens": 60,
+      "unique_ratio": 0.8,
+      "passed": true
+    },
+    "Asynchronous": {
+      "response": "<think>\nThe user is asking about the most important question. The user wants to be a real-1) and the most common answer is a single, which is that's a specific question: (e. I should also mention the same key insight is a real-up — it's",
+      "tokens": 60,
+      "unique_ratio": 0.756,
+      "passed": true
+    },
+    "Geometry": {
+      "response": "<think>\nThe user is asking about the following question. The user wants to be a real-up — it's a single most important question that the same, and I should also mention that are:\n\nI need to make this is a few different trade space for the right questions.",
+      "tokens": 60,
+      "unique_ratio": 0.792,
+      "passed": true
+    }
+  }
+}

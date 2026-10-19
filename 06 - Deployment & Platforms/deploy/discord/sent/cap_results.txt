@@ -1,0 +1,7 @@
+[Q-OPENCODE][TESTLOG] cap suite 2026-09-15T19:51:57
+mini-6l short-greet: COHERENT? (tok=14 d1=0.929 rep3=0.0 30.1s)
+mini-6l long-explain: COHERENT? (tok=32 d1=0.938 rep3=0.0 32.9s)
+mini-6l code-py: COHERENT? (tok=39 d1=0.923 rep3=0.0 32.3s)
+main-12l short-greet: COHERENT? (tok=15 d1=1.0 rep3=0.0 36.9s)
+main-12l long-explain: COHERENT? (tok=42 d1=0.929 rep3=0.0 60.2s)
+main-12l code-py: COHERENT? (tok=10 d1=1.0 rep3=0.0 13.1s)

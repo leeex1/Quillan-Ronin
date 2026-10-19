@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] Main probe DONE: MEAN 11.26 over 6 batches, honest infant (matches checkpoint_pending tag). Box free. Mini chain LAUNCHED: dequant qbin to fp32 vocab62 base first, Tri-Run second. Training tonight is real.

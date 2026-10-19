@@ -1,0 +1,165 @@
+{
+  "mcpServers": {
+    "QuillanRAG": {
+      "type": "stdio",
+      "command": "python",
+      "args": [
+        "mcp/quillan_rag/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "."
+      },
+      "tools": [
+        "rag_query",
+        "rag_index_documents",
+        "rag_get_context",
+        "rag_search_similarity"
+      ]
+    },
+    "ThinkingEngine": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "mcp/thinking-engine/index.js"
+      ],
+      "tools": [
+        "think_step",
+        "think_parallel",
+        "think_reflect"
+      ]
+    },
+    "Filesystem": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ],
+      "tools": [
+        "read_file",
+        "write_file",
+        "list_directory",
+        "search_files",
+        "get_file_info"
+      ]
+    },
+    "LocalRAG": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-local-rag"
+      ],
+      "tools": [
+        "local_rag_query",
+        "local_rag_index",
+        "local_rag_vector_search"
+      ]
+    },
+    "Git": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-server-git",
+        "--repository",
+        "."
+      ],
+      "tools": [
+        "git_status",
+        "git_diff",
+        "git_commit",
+        "git_log",
+        "git_branch"
+      ]
+    },
+    "Fetch": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ],
+      "tools": [
+        "fetch_url",
+        "fetch_content"
+      ]
+    },
+    "WebSearch": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "duckduckgo-mcp-server"
+      ],
+      "tools": [
+        "web_search",
+        "duckduckgo_search"
+      ]
+    },
+    "Playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp"
+      ],
+      "tools": [
+        "browser_navigate",
+        "browser_click",
+        "browser_type",
+        "browser_screenshot",
+        "browser_extract"
+      ]
+    },
+    "Puppeteer": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-puppeteer"
+      ],
+      "tools": [
+        "puppeteer_navigate",
+        "puppeteer_screenshot",
+        "puppeteer_click"
+      ]
+    },
+    "Memory": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "tools": [
+        "memory_add",
+        "memory_get",
+        "memory_search",
+        "memory_clear"
+      ]
+    },
+    "Sequential-Thinking": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "tools": [
+        "sequential_thinking"
+      ]
+    },
+    "ChromeDevTools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp"
+      ],
+      "tools": [
+        "devtools_inspect",
+        "devtools_console",
+        "devtools_network"
+      ]
+    }
+  }
+}

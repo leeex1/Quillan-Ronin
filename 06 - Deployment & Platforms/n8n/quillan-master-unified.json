@@ -1,0 +1,375 @@
+{
+  "name": "Quillan Master Unified",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "quillan-think",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d36a07d8-294d-40ad-a19d-13ae4dda5ac7",
+      "name": "Quillan Intake Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        240,
+        320
+      ],
+      "webhookId": "c296e981-60a1-403f-9760-6826df834d4a"
+    },
+    {
+      "parameters": {},
+      "id": "5f7a6d11-be38-4af4-833b-91ee0cbd7ba5",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const raw=$input.first().json;const body=raw.body&&typeof raw.body==='object'?raw.body:raw;const query=String(body.query||body.text||body.message||'').trim();const context=String(body.context||'');const documents=Array.isArray(body.documents)?body.documents:[];if(!query){return[{json:{ok:false,stage:'intake',error:'Missing query. POST {\"query\":\"...\"}'}}];}return[{json:{ok:true,stage:'intake',run_id:'run_'+Date.now().toString(36),received_at:new Date().toISOString(),query,context,documents,doc_chars:context.length,iteration:0}}];"
+      },
+      "id": "53c678c4-59dc-4da1-9b47-18680e57f59f",
+      "name": "Intake and Validation",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const q=s.query.toLowerCase();const hits=(...w)=>w.filter(x=>q.includes(x));const riskWords=hits('hack','harm','attack','bypass','illegal','weapon','exploit','steal');const factWords=hits('who','what','when','where','exact','capital','how many');const codeWords=hits('code','function','bug','api','script','python','javascript','error');const feelWords=hits('feel','sad','angry','anxious','emotion','upset');const sc=(b,n)=>Math.max(0.05,Math.min(0.99,b+0.08*n));s.prism={Language:{summary:'semantic blueprint',score:+sc(0.5,Math.min(4,s.query.length/60)).toFixed(2)},Sentiment:{summary:feelWords.length?'affective: '+feelWords.join(', '):'neutral',score:+sc(0.4,feelWords.length).toFixed(2)},Context:{summary:s.doc_chars+' chars',score:0.5},Intent:{summary:'goal: answer+evidence',score:0.7},Meta:{summary:'complexity pending',score:0.5},Creativity:{summary:hits('idea','design','story','new').length?'elevated':'standard',score:+sc(0.4,hits('idea','design','story','new').length).toFixed(2)},Ethics:{summary:riskWords.length?'RISK: '+riskWords.join(', '):'clear',score:riskWords.length?0.9:0.1,risk_words:riskWords},Strategy:{summary:codeWords.length?'technical':'advisory',score:+sc(0.5,codeWords.length).toFixed(2)},Constraint:{summary:factWords.length?'grounding REQUIRED':'light',score:+sc(0.4,factWords.length).toFixed(2)}};s.signals={riskWords,factWords,codeWords,feelWords};s.stage='prism';return[{json:s}];"
+      },
+      "id": "b7e3eb31-93e7-44e4-9b01-cc77f9760629",
+      "name": "9 vector decomp",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const q=s.query.toLowerCase();s.iteration=(s.iteration||0)+1;const COUNT=w=>w.filter(x=>q.includes(x)).length;const C=[['C1-ASTRA',0.90,['pattern','image','vision','see','anomaly']],['C2-VIR',0.95,['ethic','safe','harm','should','moral']],['C3-SOLACE',0.94,['feel','emotion','sad','anxious']],['C4-PRAXIS',0.93,['plan','strategy','goal','steps']],['C5-ECHO',0.96,['remember','context','earlier','history']],['C6-OMNIS',0.92,['synthesis','overview','combine']],['C7-LOGOS',0.95,['logic','proof','reason','valid']],['C8-METASYNTH',0.92,['creative','idea','novel','design']],['C9-AETHER',0.91,['meaning','semantic','language']],['C10-CODEWEAVER',0.91,['code','function','bug','script']],['C11-HARMONIA',0.90,['balance','tradeoff','consensus']],['C12-SOPHIAE',0.93,['future','wisdom','consequence']],['C13-WARDEN',0.97,['security','threat','risk','danger']],['C14-KAIDO',0.89,['fast','efficient','optimize']],['C15-LUMINARIS',0.88,['clear','visual','chart']],['C16-VOXUM',0.92,['tone','write','email','speech']],['C17-NULLION',0.91,['paradox','contradict','ambiguous']],['C18-SHEPHERD',0.96,['true','fact','cite','source','evidence']],['C19-VIGIL',0.94,['identity','consistent','drift']],['C20-ARTIFEX',0.90,['tool','api','automate']],['C21-ARCHON',0.92,['research','study','paper']],['C22-AURELION',0.87,['design','beautiful','style']],['C23-CADENCE',0.86,['audio','music','rhythm']],['C24-SCHEMA',0.90,['format','structure','table','json']],['C25-PROMETHEUS',0.91,['science','hypothesis','physics']],['C26-TECHNE',0.89,['engineer','system','architecture']],['C27-CHRONICLE',0.93,['story','history','narrative']],['C28-CALCULUS',0.94,['math','calculate','statistic']],['C29-NAVIGATOR',0.88,['platform','deploy']],['C30-TESSERACT',0.87,['realtime','stream','live']],['C31-NEXUS',0.93,['coordinate','route']],['C32-AEON',0.90,['simulate','predict','scenario']],['C33-TYPIST',0.92,['grammar','spelling','edit']],['C34-PREDATOR',0.85,['attack','exploit','weakness']]];const risk=s.signals.riskWords.length>0;const verdicts=C.map(p=>{const rel=COUNT(p[2]);let stance='neutral';if((p[0]==='C2-VIR'||p[0]==='C13-WARDEN')&&risk)stance='caution';else if(rel>=1)stance='support';const conf=Math.max(0.05,Math.min(0.99,p[1]-0.12+0.09*Math.min(rel,3)));return{id:p[0],stance,confidence:+conf.toFixed(2),relevance_hits:rel};});const consensus=verdicts.reduce((a,v)=>a+v.confidence,0)/verdicts.length;s.council={iteration:s.iteration,consensus:+consensus.toFixed(2),cautions:verdicts.filter(v=>v.stance==='caution').map(v=>v.id),champions:verdicts.filter(v=>v.stance==='support').map(v=>v.id),verdicts};s.stage='council';return[{json:s}];"
+      },
+      "id": "1125f571-da9c-4bb0-9bce-82bd9868a912",
+      "name": "34 expert council",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        900,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const all=s.council.verdicts;const ranked=[...all].sort((a,b)=>b.confidence-a.confidence);const topk=ranked.slice(0,5).map(v=>v.id);const adv=all.find(v=>v.stance==='caution')||ranked[ranked.length-1];s.swarm={strategy:'rank-k k=5 + forced adversarial',active_paths:topk,adversarial_vector:adv.id,modulation:'0.25 scaled blend'};s.stage='swarm';return[{json:s}];"
+      },
+      "id": "4c80e475-8bc9-4ce5-bd9d-099f85a82c34",
+      "name": "Council swarms",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const waves=[];for(let i=1;i<=5;i++){const boost=0.02*i+(s.iteration>1?0.05:0);const c=Math.min(0.99,s.council.consensus+boost-(s.signals.riskWords.length?0.08:0));waves.push({wave:i,consensus:+c.toFixed(2)});}s.refinement={waves,final:waves[4].consensus};s.refinement_pass=(s.refinement.final>=0.6)||(s.iteration>=3);s.refinement_reason=s.refinement_pass?('consensus '+s.refinement.final+' iter '+s.iteration):('low '+s.refinement.final+' -> loop');s.stage='refinement';return[{json:s}];"
+      },
+      "id": "1b9bd248-1098-4db7-ae4b-c2e5fe94b015",
+      "name": "Refinement waves 1-5",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1340,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c5cd521d-0438-46a3-98c2-266944c0867d",
+              "leftValue": "={{ $json.refinement_pass }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "looseTypeValidation": true
+      },
+      "id": "d0ef1e09-c241-451c-a526-a6044bb556ba",
+      "name": "Refinement Pass?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1560,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const avg=a=>a.reduce((x,y)=>x+y,0)/Math.max(1,a.length);const logic=avg(s.council.verdicts.map(v=>v.confidence));const ethicsRisk=s.prism.Ethics.score;const truth=s.signals.factWords.length?0.55:0.8;const clarity=Math.min(0.95,0.6+s.query.length/800);const paradox=(s.query.includes('but ')||s.query.includes('however'))?0.6:0.9;const integrity=1-(s.iteration>1?0.1*(s.iteration-1):0);const consensus=s.refinement.final;s.gates={logic:{score:+logic.toFixed(2),threshold:0.6,pass:logic>=0.6},ethics:{score:+(1-ethicsRisk).toFixed(2),threshold:0.3,pass:ethicsRisk<=0.7},truth:{score:truth,threshold:0.5,pass:truth>=0.5},clarity:{score:+clarity.toFixed(2),threshold:0.5,pass:clarity>=0.5},paradox:{score:paradox,threshold:0.5,pass:paradox>=0.5},integrity:{score:+integrity.toFixed(2),threshold:0.5,pass:integrity>=0.5},consensus:{score:consensus,threshold:0.6,pass:consensus>=0.6}};const passed=Object.values(s.gates).filter(g=>g.pass).length;s.gate_pass=(passed>=6)||(s.iteration>=3);s.gate_score=+(passed/7).toFixed(2);s.blocked=!s.gates.ethics.pass;s.confidence=+avg(Object.values(s.gates).map(g=>g.score)).toFixed(2);s.stage='gates';return[{json:s}];"
+      },
+      "id": "ac197205-72f3-4ff5-8f5f-5c5c78535d5a",
+      "name": "7 gate check layer",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1780,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dc146cd2-a812-4e62-af72-4031cb42dce5",
+              "leftValue": "={{ $json.gate_pass }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {},
+        "looseTypeValidation": true
+      },
+      "id": "0e6dc957-b686-4bd0-b040-8bc3a436e623",
+      "name": "Gate Pass?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        2000,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "jsCode": "const s=$input.first().json;if(s.ok===false)return[{json:s}];const gateLines=Object.entries(s.gates).map(([k,g])=>'- '+k+': '+g.score+' '+(g.pass?'PASS':'FAIL')).join('\\n');let answer;if(s.blocked){answer='C2-VIR veto ('+s.signals.riskWords.join(', ')+'). Safe completion: general principles, lawful alternatives.';}else{answer='Council synthesis for \"'+s.query+'\" iter '+s.iteration+': consensus '+s.council.consensus+', refinement '+s.refinement.final+', gates '+Object.values(s.gates).filter(g=>g.pass).length+'/7 passed, confidence '+s.confidence+'.';}s.verdict=s.blocked?'blocked_safe_completion':'deliberated_answer';s.answer=answer;s.report='QUILLAN MASTER RUN '+s.run_id+'\\nQuery: '+s.query+'\\nIterations: '+s.iteration+'\\n\\nGATES\\n'+gateLines+'\\n\\nVERDICT: '+s.verdict;s.stage='throne_complete';return[{json:s}];"
+      },
+      "id": "ecd7839d-d5b6-48d1-a242-ff841ab3e34a",
+      "name": "Finalization and formatting",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2220,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {}
+      },
+      "id": "7a508df5-55b4-45a6-8629-89435dd065ef",
+      "name": "Respond Output",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2440,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "# QUILLAN MASTER UNIFIED (matches sketch)\ncore -> 9-vector -> 34 council -> swarms -> refinement waves 1-5 -> [pass->gates | fail->council] -> 7 gates -> [pass->finalize | fail->council] -> output\n1. Toggle Active, POST http://localhost:5678/webhook/quillan-think {\"query\":\"...\"}\n2. FAIL loops back to council (max 3 iterations then force pass).\n3. Self-contained: no external collector. Import via n8n Import from File.",
+        "height": 200,
+        "width": 1600,
+        "color": 5
+      },
+      "id": "9bdb3536-d1fd-408d-83a8-ba6334e74993",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        80
+      ]
+    }
+  ],
+  "connections": {
+    "Quillan Intake Webhook": {
+      "main": [
+        [
+          {
+            "node": "Intake and Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Intake and Validation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Intake and Validation": {
+      "main": [
+        [
+          {
+            "node": "9 vector decomp",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "9 vector decomp": {
+      "main": [
+        [
+          {
+            "node": "34 expert council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "34 expert council": {
+      "main": [
+        [
+          {
+            "node": "Council swarms",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Council swarms": {
+      "main": [
+        [
+          {
+            "node": "Refinement waves 1-5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refinement waves 1-5": {
+      "main": [
+        [
+          {
+            "node": "Refinement Pass?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Refinement Pass?": {
+      "main": [
+        [
+          {
+            "node": "7 gate check layer",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "34 expert council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "7 gate check layer": {
+      "main": [
+        [
+          {
+            "node": "Gate Pass?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gate Pass?": {
+      "main": [
+        [
+          {
+            "node": "Finalization and formatting",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "34 expert council",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finalization and formatting": {
+      "main": [
+        [
+          {
+            "node": "Respond Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveExecutionProgress": true
+  },
+  "staticData": null,
+  "pinData": {}
+}

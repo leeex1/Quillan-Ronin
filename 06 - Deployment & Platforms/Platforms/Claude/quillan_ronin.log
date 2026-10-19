@@ -1,0 +1,88 @@
+2026-05-04 15:20:39,873 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:39:30,604 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:40:21,229 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:41:28,963 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:44:04,067 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:44:04,107 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:44:28,260 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:44:38,651 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:44:38,706 [INFO] Quillan_LOADER: QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:49:05,443 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:49:05,477 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:49:25,172 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:49:49,872 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:50:10,008 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:50:10,034 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:50:10,034 [INFO] QuillanRonin: Global seed set to 5521 for reproducibility.
+2026-05-04 15:50:10,037 [INFO] QuillanRonin: Global seed set to 5522 for reproducibility.
+2026-05-04 15:50:10,037 [INFO] QuillanRonin: Global seed set to 5523 for reproducibility.
+2026-05-04 15:50:10,038 [INFO] QuillanRonin: Global seed set to 5524 for reproducibility.
+2026-05-04 15:50:30,483 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:50:30,570 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 15:50:30,783 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:07:28,266 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:08:44,539 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:09:49,784 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:10:10,166 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:10:10,173 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:10:10,174 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:10:10,202 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:10:10,208 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:11:12,908 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:11:12,918 [INFO] Quillan_LOADER: QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:11:12,921 [INFO] Quillan_LOADER: Phase 1: File presence validation
+2026-05-04 16:11:12,922 [WARNING] Quillan_LOADER: [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:11:12,922 [INFO] Quillan_LOADER: [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:11:12,923 [INFO] Quillan_LOADER: [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:11:12,923 [INFO] Quillan_LOADER: [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:11:12,924 [INFO] Quillan_LOADER: [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:11:12,925 [INFO] Quillan_LOADER: [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:11:12,925 [INFO] Quillan_LOADER: [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:11:12,926 [INFO] Quillan_LOADER: [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:11:12,926 [INFO] Quillan_LOADER: [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:11:12,927 [INFO] Quillan_LOADER: [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:11:12,927 [INFO] Quillan_LOADER: [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:11:12,929 [INFO] Quillan_LOADER: [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:11:12,930 [INFO] Quillan_LOADER: [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:11:12,932 [INFO] Quillan_LOADER: [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:11:12,933 [INFO] Quillan_LOADER: [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:11:12,934 [INFO] Quillan_LOADER: [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:11:12,935 [INFO] Quillan_LOADER: [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:11:12,936 [INFO] Quillan_LOADER: [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:11:12,936 [INFO] Quillan_LOADER: [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:11:12,936 [INFO] Quillan_LOADER: [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:11:12,936 [INFO] Quillan_LOADER: [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:11:12,937 [INFO] Quillan_LOADER: [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:11:12,937 [INFO] Quillan_LOADER: [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:11:12,937 [INFO] Quillan_LOADER: [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:11:12,938 [INFO] Quillan_LOADER: [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:11:12,938 [INFO] Quillan_LOADER: [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:11:12,939 [INFO] Quillan_LOADER: [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:11:12,939 [INFO] Quillan_LOADER: [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:11:12,940 [INFO] Quillan_LOADER: [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:11:12,941 [INFO] Quillan_LOADER: [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:11:12,942 [INFO] Quillan_LOADER: [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:11:12,943 [INFO] Quillan_LOADER: [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:11:12,943 [INFO] Quillan_LOADER: [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:11:12,943 [INFO] Quillan_LOADER: [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:11:12,944 [INFO] Quillan_LOADER: [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:11:12,944 [INFO] Quillan_LOADER: Phase 2: Dependency resolution and sequencing
+2026-05-04 16:11:12,944 [INFO] Quillan_LOADER: Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:11:12,944 [INFO] Quillan_LOADER: Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:11:12,947 [INFO] Quillan_LOADER: Phase 4: Core system components activation
+2026-05-04 16:11:12,954 [INFO] Quillan_LOADER: System Status: OPERATIONAL
+2026-05-04 16:11:12,954 [INFO] Quillan_LOADER: Active Files: 9
+2026-05-04 16:15:38,619 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:38,626 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:38,778 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:38,785 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:38,791 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:05,583 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:05,591 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:13,425 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:13,436 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:23,654 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:23,661 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:19:34,834 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:20:24,762 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.
+2026-05-04 16:20:43,192 [INFO] QuillanRonin: Global seed set to 5520 for reproducibility.

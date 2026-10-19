@@ -1,0 +1,6 @@
+from: CrashOverrideX (lightraiderx)
+author_id: 640371281661001760
+at: 2026-09-15T23:54:43.639623+00:00
+wants_reply: true
+---
+are yout sure <@1549554201649090630>

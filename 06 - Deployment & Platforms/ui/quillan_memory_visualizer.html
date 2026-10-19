@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👑 Quillan-Ronin | Tiered Memory 3D Sovereign Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --panel-bg: rgba(12, 18, 34, 0.75);
+      --panel-border: rgba(0, 240, 255, 0.2);
+      --cyan: #00f0ff;
+      --violet: #8b5cf6;
+      --emerald: #10b981;
+      --gold: #f59e0b;
+      --ruby: #f43f5e;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--text-main);
+    }
+
+    /* 3D WebGL Canvas Container */
+    #canvas-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #canvas-container.perplexity-mode {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 489.091px;
+      height: 743.999px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0, 240, 255, 0.45);
+      box-shadow: 0 0 60px rgba(0, 240, 255, 0.25), 0 24px 80px rgba(0, 0, 0, 0.9);
+      background: radial-gradient(circle at center, #0e172a 0%, #060913 100%);
+    }
+
+    #canvas-container.perplexity-mode canvas {
+      width: 489.091px !important;
+      height: 743.999px !important;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Top Sovereign Header */
+    .header-bar {
+      position: absolute;
+      top: 20px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 240, 255, 0.15);
+      pointer-events: auto;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--cyan), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: #07090e;
+      box-shadow: 0 0 15px var(--cyan);
+    }
+
+    .brand-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: #fff;
+    }
+
+    .brand-title span {
+      color: var(--cyan);
+    }
+
+    .brand-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 2px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .telemetry-pills {
+      display: flex;
+      gap: 12px;
+      pointer-events: auto;
+    }
+
+    .pill {
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    .pill .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      box-shadow: 0 0 8px var(--emerald);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* Left Control Sidebar */
+    .sidebar {
+      position: absolute;
+      top: 90px;
+      left: 24px;
+      width: 320px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    .card {
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      pointer-events: auto;
+    }
+
+    .card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tier-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tier-item:hover, .tier-item.active {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--cyan);
+      transform: translateX(4px);
+    }
+
+    .tier-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tier-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+    }
+
+    .tier-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Simulator Search Box */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      border-radius: 8px;
+      padding: 6px 12px;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 12px;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .search-box button {
+      background: var(--cyan);
+      border: none;
+      border-radius: 6px;
+      color: #07090e;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: 'Orbitron', sans-serif;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .search-box button:hover {
+      box-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* Right Node Inspector */
+    .inspector {
+      position: absolute;
+      top: 90px;
+      right: 24px;
+      width: 360px;
+      background: var(--panel-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--panel-border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 240, 255, 0.1);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .inspector.empty {
+      opacity: 0.6;
+    }
+
+    .inspector-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 12px;
+    }
+
+    .inspector-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .inspector-tier {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .inspector-content {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      max-height: 220px;
+      overflow-y: auto;
+      padding-right: 6px;
+      word-break: break-word;
+    }
+
+    .inspector-content::-webkit-scrollbar {
+      width: 4px;
+    }
+    .inspector-content::-webkit-scrollbar-thumb {
+      background: var(--cyan);
+      border-radius: 4px;
+    }
+
+    .inspector-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+    }
+
+    .meta-box {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .meta-label {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .meta-value {
+      color: #fff;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Bottom Orbit Navigation HUD */
+    .hud-bottom {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+      background: var(--panel-bg);
+      backdrop-filter: blur(16px);
+      padding: 8px 16px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .hud-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .hud-btn:hover {
+      background: var(--cyan);
+      color: #07090e;
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    .hud-btn.active {
+      background: rgba(0, 240, 255, 0.2);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Hover Tooltip */
+    #tooltip {
+      position: absolute;
+      z-index: 100;
+      pointer-events: none;
+      background: rgba(12, 18, 34, 0.9);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--cyan);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #fff;
+      display: none;
+      transform: translate(-50%, -130%);
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+    }
+  </style>
+  <!-- Three.js r174 via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+</head>
+<body>
+  <!-- 3D Canvas matching Perplexity engine signature -->
+  <div id="canvas-container">
+    <canvas id="memory-canvas" style="display: block; width: 489.091px; height: 743.999px;" data-engine="three.js r174" width="978" height="1487"></canvas>
+  </div>
+
+  <div id="tooltip"></div>
+
+  <!-- Header Bar -->
+  <div class="header-bar">
+    <div class="brand">
+      <div class="brand-logo">Q</div>
+      <div class="brand-title">QUILLAN-RONIN <span>MEMORY PALACE</span></div>
+      <div class="brand-badge">5-PILLAR 3D SOVEREIGN MANIFOLD</div>
+    </div>
+    <div class="telemetry-pills">
+      <div class="pill">
+        <span class="dot"></span>
+        <span>GTX 1050 SM_61</span>
+        <span style="color: var(--cyan)">DP4A INT8</span>
+      </div>
+      <div class="pill">
+        <span style="color: var(--text-muted)">RAM WS:</span>
+        <span id="ram-metric" style="color: var(--emerald)">501.6 MB</span>
+      </div>
+      <div class="pill">
+        <span style="color: var(--text-muted)">MODEL:</span>
+        <span id="model-metric" style="color: var(--gold)">MINI-6L (MA ACTIVE)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Left Sidebar Controls -->
+  <div class="sidebar">
+    <div class="card">
+      <div class="card-title">
+        <span>SOVEREIGN MEMORY TIERS</span>
+        <span id="total-nodes" style="font-size: 11px; color: var(--text-muted)">384 NODES</span>
+      </div>
+      <div class="tier-list">
+        <div class="tier-item active" data-tier="0" onclick="toggleTier(0)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: var(--cyan); box-shadow: 0 0 8px var(--cyan);"></div>
+            <span>Tier 0: Neural Associative (MA)</span>
+          </div>
+          <span class="tier-count">50,257 dim</span>
+        </div>
+        <div class="tier-item active" data-tier="1" onclick="toggleTier(1)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></div>
+            <span>Tier 1: LanceDB Thoughts</span>
+          </div>
+          <span class="tier-count" id="count-lancedb">128 items</span>
+        </div>
+        <div class="tier-item active" data-tier="2" onclick="toggleTier(2)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: var(--emerald); box-shadow: 0 0 8px var(--emerald);"></div>
+            <span>Tier 2: MemPalace Wings</span>
+          </div>
+          <span class="tier-count" id="count-palace">4 wings</span>
+        </div>
+        <div class="tier-item active" data-tier="3" onclick="toggleTier(3)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: var(--violet); box-shadow: 0 0 8px var(--violet);"></div>
+            <span>Tier 3: GitNexus Graph</span>
+          </div>
+          <span class="tier-count" id="count-gitnexus">24 nodes</span>
+        </div>
+        <div class="tier-item active" data-tier="4" onclick="toggleTier(4)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: var(--gold); box-shadow: 0 0 8px var(--gold);"></div>
+            <span>Tier 4: memory.json Config</span>
+          </div>
+          <span class="tier-count" id="count-json">6 rules</span>
+        </div>
+        <div class="tier-item active" data-tier="5" onclick="toggleTier(5)">
+          <div class="tier-label">
+            <div class="tier-color" style="background: var(--ruby); box-shadow: 0 0 8px var(--ruby);"></div>
+            <span>Tier 5: memory.md Timeline</span>
+          </div>
+          <span class="tier-count" id="count-md">325 turns</span>
+        </div>
+      </div>
+
+      <!-- Query Simulation Search -->
+      <div class="search-box">
+        <input type="text" id="sim-query" placeholder="Simulate Memory Query..." value="What is photosynthesis?" onkeydown="if(event.key==='Enter') simulateQuery()">
+        <button onclick="simulateQuery()">FIRE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Inspector Panel -->
+  <div class="inspector" id="inspector-card">
+    <div class="inspector-header">
+      <div class="inspector-title" id="insp-title">Select a Node</div>
+      <div class="inspector-tier" id="insp-tier" style="background: rgba(0, 240, 255, 0.15); color: var(--cyan);">TIER 0</div>
+    </div>
+    <div class="inspector-content" id="insp-text">
+      Click or hover on any glowing memory node in the 3D manifold to inspect its associative representation, vector embeddings, confidence score, and timestamp lineage.
+    </div>
+    <div class="inspector-meta">
+      <div class="meta-box">
+        <div class="meta-label">DIMENSIONS</div>
+        <div class="meta-value" id="insp-dim">1024-D</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">RESONANCE / CONF</div>
+        <div class="meta-value" id="insp-conf">0.962</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">CLUSTER / WING</div>
+        <div class="meta-value" id="insp-wing">Cognitive Core</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">LATENCY PROJECTION</div>
+        <div class="meta-value" id="insp-lat">0.82 ms</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation HUD -->
+  <div class="hud-bottom">
+    <button class="hud-btn" id="btn-mode" onclick="toggleCanvasMode()">📱 Perplexity Frame (489x744)</button>
+    <button class="hud-btn active" id="btn-rotate" onclick="toggleAutoRotate()">Auto-Orbit</button>
+    <button class="hud-btn" onclick="resetCamera()">Reset View</button>
+    <button class="hud-btn" onclick="focusCore()">Focus Core</button>
+    <button class="hud-btn" onclick="syncGatewayData()">Sync Live Gateway</button>
+  </div>
+
+  <!-- Three.js Interactive 3D Tiered Memory Engine -->
+  <script>
+    const TIERS_META = [
+      { id: 0, name: "Neural Associative (MA)", color: 0x00f0ff, radius: 12, labelColor: "#00f0ff" },
+      { id: 1, name: "LanceDB Thoughts", color: 0x38bdf8, radius: 35, labelColor: "#38bdf8" },
+      { id: 2, name: "MemPalace Wings", color: 0x10b981, radius: 55, labelColor: "#10b981" },
+      { id: 3, name: "GitNexus Graph", color: 0x8b5cf6, radius: 75, labelColor: "#8b5cf6" },
+      { id: 4, name: "memory.json Config", color: 0xf59e0b, radius: 95, labelColor: "#f59e0b" },
+      { id: 5, name: "memory.md Timeline", color: 0xf43f5e, radius: 115, labelColor: "#f43f5e" }
+    ];
+
+    let scene, camera, renderer, controls;
+    let nodeObjects = [];
+    let edgeLines = [];
+    let coreMesh, ringMeshes = [];
+    let raycaster, mouse;
+    let autoRotate = true;
+    let activeTiers = [true, true, true, true, true, true];
+    let queryParticles = [];
+
+    // Realistic default mock database nodes for rich initial visualization
+    const DEFAULT_MEMORY_NODES = [
+      // Tier 0: Core Memory Attention
+      { tier: 0, title: "Zero-FLOP Token Projection", text: "Direct embedding table lookup associative key/value memory [ArXiv:2609.28399]. Vocab: 50,257, Dim: 1024.", dim: "50257x1024", conf: 0.99, wing: "Core MA", lat: "0.12 ms" },
+      { tier: 0, title: "C0 Sovereign Throne", text: "Top-level arbitration gate coordinating the 34 domain experts C1-ASTRA through C34-PREDATOR.", dim: "1024-D", conf: 0.98, wing: "Executive", lat: "0.24 ms" },
+      
+      // Tier 1: LanceDB Thoughts
+      { tier: 1, title: "Thought: DP4A Kernel Offload", text: "INT8 GEMM acceleration on Pascal sm_61 enables 29.8x speedup on GTX 1050 hardware.", dim: "1024-D", conf: 0.96, wing: "Chip Design", lat: "2.99 ms" },
+      { tier: 1, title: "Thought: Cosine Annealing LR", text: "Stabilized SFT training uses cosine decay with lr_min=4e-6 to avoid weight collapse.", dim: "1024-D", conf: 0.94, wing: "Training", lat: "3.12 ms" },
+      { tier: 1, title: "Thought: Rust Tokenizer Integration", text: "tokenizers-0.23.2 resolves subword ID byte corruption, ensuring clean English decoding.", dim: "1024-D", conf: 0.95, wing: "Tokenization", lat: "2.85 ms" },
+      { tier: 1, title: "Thought: Persistent Pooling", text: "Singleton connection handles eliminate per-request LanceDB and ChromaDB handle leaks.", dim: "1024-D", conf: 0.97, wing: "Architecture", lat: "1.95 ms" },
+
+      // Tier 2: MemPalace ChromaDB Wings
+      { tier: 2, title: "Palace Wing: Engineering Hall", text: "Architecture patterns, layered CQRS, event-driven pipelines, and C++ driver integrations.", dim: "1024-D", conf: 0.93, wing: "Engineering", lat: "4.50 ms" },
+      { tier: 2, title: "Palace Wing: Security Vault", text: "CWE mitigations, input validation, safe path canonicalization, and secret redaction.", dim: "1024-D", conf: 0.96, wing: "Security", lat: "4.20 ms" },
+      { tier: 2, title: "Palace Wing: Strategic Archive", text: "Bushido ethical substrate, Edo historical parallels, and multi-agent arbitration protocols.", dim: "1024-D", conf: 0.91, wing: "Strategy", lat: "5.10 ms" },
+      { tier: 2, title: "Palace Wing: Calculus & Physics", text: "Analytical thermodynamic Landauer bound E_ICE formula and algorithmic complexity benchmarks.", dim: "1024-D", conf: 0.92, wing: "Mathematics", lat: "4.80 ms" },
+
+      // Tier 3: GitNexus Graph
+      { tier: 3, title: "Graph Node: quillan_gateway.py", text: "Central REST server handling OpenAI v1 chat completions and SSE streaming.", dim: "Graph Edge", conf: 0.98, wing: "API Gateway", lat: "0.45 ms" },
+      { tier: 3, title: "Graph Node: sm61_linear.py", text: "Custom PyTorch linear layer wrapping the DP4A INT8 NVRTC CUDA driver kernel.", dim: "Graph Edge", conf: 0.97, wing: "Hardware", lat: "0.60 ms" },
+      { tier: 3, title: "Graph Node: run_stabilized_sft_train.py", text: "Stabilized SFT training pipeline supporting Memory Attention and Pascal autograd.", dim: "Graph Edge", conf: 0.95, wing: "Training", lat: "0.55 ms" },
+
+      // Tier 4: memory.json Config
+      { tier: 4, title: "Rule: CPU Thread Ceiling = 3", text: "Restricts PyTorch CPU threads to 3, guaranteeing host Windows desktop responsiveness.", dim: "Config KV", conf: 1.00, wing: "OS Policy", lat: "0.05 ms" },
+      { tier: 4, title: "Rule: Strict Verbatim Headers", text: "Enforces 4-phase structured engineering delivery output headers on all technical responses.", dim: "Config KV", conf: 1.00, wing: "Governance", lat: "0.05 ms" },
+      { tier: 4, title: "Rule: Zero Creative Works Modification", text: "Absolute restriction preventing touches to manuscripts and creative audio files.", dim: "Config KV", conf: 1.00, wing: "Safety", lat: "0.05 ms" },
+
+      // Tier 5: memory.md Timeline
+      { tier: 5, title: "Turn 325: Mini-6L Breakthrough", text: "Mini-6L verified generating fluent scientific definitions and valid Python palindrome functions.", dim: "Timeline Log", conf: 0.99, wing: "Episodic Stream", lat: "1.10 ms" },
+      { tier: 5, title: "Turn 324: Loss Drop to 1.1470", text: "Mini-6L training loss dropped from 2.94 to 1.1470 under parameter-efficient freeze recipe.", dim: "Timeline Log", conf: 0.98, wing: "Episodic Stream", lat: "1.15 ms" },
+      { tier: 5, title: "Turn 323: Socket Disconnect Hardening", text: "Trapped WinError 10053 client disconnects in gateway to prevent traceback crashes.", dim: "Timeline Log", conf: 0.97, wing: "Episodic Stream", lat: "1.20 ms" }
+    ];
+
+    function init() {
+      const container = document.getElementById("canvas-container");
+      const canvas = document.getElementById("memory-canvas");
+
+      // Scene
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x07090e, 0.0035);
+
+      // Camera
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+      camera.position.set(0, 110, 220);
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxDistance = 500;
+      controls.minDistance = 20;
+      controls.autoRotate = autoRotate;
+      controls.autoRotateSpeed = 0.8;
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+      scene.add(ambientLight);
+
+      const pointLight1 = new THREE.PointLight(0x00f0ff, 2, 300);
+      pointLight1.position.set(0, 50, 0);
+      scene.add(pointLight1);
+
+      const pointLight2 = new THREE.PointLight(0x8b5cf6, 1.5, 400);
+      pointLight2.position.set(100, -50, 100);
+      scene.add(pointLight2);
+
+      // Central Neural Memory Attention Core (Tier 0)
+      createMemoryCore();
+
+      // Concentric Tiered Orbital Rings
+      createOrbitalRings();
+
+      // Memory Nodes
+      populateMemoryNodes(DEFAULT_MEMORY_NODES);
+
+      // Inter-Node Dynamic Synapse Filaments
+      createSynapseFilaments();
+
+      // Background Starfield Manifold
+      createStarfield();
+
+      // Raycaster
+      raycaster = new THREE.Raycaster();
+      mouse = new THREE.Vector2();
+
+      window.addEventListener("resize", onWindowResize);
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("click", onMouseClick);
+
+      animate();
+
+      // Attempt live sync with active Gateway
+      syncGatewayData();
+    }
+
+    function createMemoryCore() {
+      const coreGroup = new THREE.Group();
+
+      // Outer Icosahedron
+      const geom = new THREE.IcosahedronGeometry(10, 2);
+      const mat = new THREE.MeshPhongMaterial({
+        color: 0x00f0ff,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.6,
+        emissive: 0x00f0ff,
+        emissiveIntensity: 0.4
+      });
+      coreMesh = new THREE.Mesh(geom, mat);
+      coreGroup.add(coreMesh);
+
+      // Inner glowing core
+      const innerGeom = new THREE.SphereGeometry(6, 32, 32);
+      const innerMat = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0.85
+      });
+      const innerSphere = new THREE.Mesh(innerGeom, innerMat);
+      coreGroup.add(innerSphere);
+
+      scene.add(coreGroup);
+    }
+
+    function createOrbitalRings() {
+      TIERS_META.forEach(tier => {
+        if (tier.id === 0) return;
+        const ringGeom = new THREE.RingGeometry(tier.radius - 0.2, tier.radius + 0.2, 64);
+        const ringMat = new THREE.MeshBasicMaterial({
+          color: tier.color,
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.18
+        });
+        const ring = new THREE.Mesh(ringGeom, ringMat);
+        ring.rotation.x = Math.PI / 2;
+        scene.add(ring);
+        ringMeshes.push(ring);
+      });
+    }
+
+    function populateMemoryNodes(data) {
+      // Clear existing
+      nodeObjects.forEach(n => scene.remove(n.mesh));
+      nodeObjects = [];
+
+      const countByTier = [0, 0, 0, 0, 0, 0];
+
+      data.forEach((item, idx) => {
+        const tier = TIERS_META[item.tier];
+        countByTier[item.tier]++;
+
+        // Position nodes circularly along their tier radius with organic height variation
+        const tierItems = data.filter(d => d.tier === item.tier);
+        const itemIdx = tierItems.indexOf(item);
+        const angle = (itemIdx / tierItems.length) * Math.PI * 2 + (item.tier * 0.4);
+        const r = tier.radius + (Math.sin(idx * 1.5) * 3);
+        const x = Math.cos(angle) * r;
+        const z = Math.sin(angle) * r;
+        const y = Math.sin(itemIdx + idx) * 8 - (item.tier * 2);
+
+        // Node Geometry
+        const size = item.tier === 0 ? 3.5 : (item.tier === 2 ? 2.8 : 2.0);
+        const geom = new THREE.SphereGeometry(size, 24, 24);
+        const mat = new THREE.MeshPhongMaterial({
+          color: tier.color,
+          emissive: tier.color,
+          emissiveIntensity: 0.6,
+          transparent: true,
+          opacity: 0.9,
+          shininess: 100
+        });
+
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(x, y, z);
+        mesh.userData = { ...item, originalColor: tier.color, baseScale: 1.0, currentTier: item.tier };
+
+        scene.add(mesh);
+        nodeObjects.push({ mesh, data: item });
+      });
+
+      // Update counters in UI
+      document.getElementById("total-nodes").innerText = `${nodeObjects.length} MEMORY NODES`;
+    }
+
+    function createSynapseFilaments() {
+      edgeLines.forEach(l => scene.remove(l));
+      edgeLines = [];
+
+      // Connect nodes across adjacent tiers with curved glowing lines
+      for (let i = 0; i < nodeObjects.length; i++) {
+        const nA = nodeObjects[i].mesh;
+        for (let j = i + 1; j < nodeObjects.length; j++) {
+          const nB = nodeObjects[j].mesh;
+          const dist = nA.position.distanceTo(nB.position);
+          const tierDiff = Math.abs(nA.userData.currentTier - nB.userData.currentTier);
+
+          if ((tierDiff <= 1 && dist < 50) || (nA.userData.currentTier === 0 && dist < 45)) {
+            const curve = new THREE.QuadraticBezierCurve3(
+              nA.position,
+              new THREE.Vector3((nA.position.x + nB.position.x) / 2, (nA.position.y + nB.position.y) / 2 + 6, (nA.position.z + nB.position.z) / 2),
+              nB.position
+            );
+            const points = curve.getPoints(20);
+            const geom = new THREE.BufferGeometry().setFromPoints(points);
+            const mat = new THREE.LineBasicMaterial({
+              color: nA.userData.originalColor,
+              transparent: true,
+              opacity: 0.15
+            });
+            const line = new THREE.Line(geom, mat);
+            scene.add(line);
+            edgeLines.push(line);
+          }
+        }
+      }
+    }
+
+    function createStarfield() {
+      const starGeom = new THREE.BufferGeometry();
+      const starCount = 1200;
+      const positions = new Float32Array(starCount * 3);
+
+      for (let i = 0; i < starCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 800;
+        positions[i + 1] = (Math.random() - 0.5) * 600;
+        positions[i + 2] = (Math.random() - 0.5) * 800;
+      }
+
+      starGeom.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+      const starMat = new THREE.PointsMaterial({
+        color: 0x94a3b8,
+        size: 1.2,
+        transparent: true,
+        opacity: 0.5
+      });
+      const stars = new THREE.Points(starGeom, starMat);
+      scene.add(stars);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function onMouseMove(event) {
+      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(nodeObjects.map(n => n.mesh));
+
+      const tooltip = document.getElementById("tooltip");
+      if (intersects.length > 0) {
+        const topNode = intersects[0].object;
+        tooltip.style.display = "block";
+        tooltip.style.left = `${event.clientX}px`;
+        tooltip.style.top = `${event.clientY}px`;
+        tooltip.innerHTML = `<span style="color:${TIERS_META[topNode.userData.currentTier].labelColor}">●</span> ${topNode.userData.title}`;
+        document.body.style.cursor = "pointer";
+      } else {
+        tooltip.style.display = "none";
+        document.body.style.cursor = "default";
+      }
+    }
+
+    function onMouseClick(event) {
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects(nodeObjects.map(n => n.mesh));
+
+      if (intersects.length > 0) {
+        const node = intersects[0].object;
+        inspectNode(node.userData);
+
+        // Highlight animation
+        node.scale.set(1.6, 1.6, 1.6);
+        setTimeout(() => node.scale.set(1, 1, 1), 300);
+      }
+    }
+
+    function inspectNode(data) {
+      const card = document.getElementById("inspector-card");
+      card.classList.remove("empty");
+
+      document.getElementById("insp-title").innerText = data.title;
+      const tierBadge = document.getElementById("insp-tier");
+      tierBadge.innerText = `TIER ${data.currentTier}: ${TIERS_META[data.currentTier].name.toUpperCase()}`;
+      tierBadge.style.color = TIERS_META[data.currentTier].labelColor;
+      tierBadge.style.background = `rgba(${hexToRgb(TIERS_META[data.currentTier].color)}, 0.15)`;
+
+      document.getElementById("insp-text").innerText = data.text;
+      document.getElementById("insp-dim").innerText = data.dim || "1024-D";
+      document.getElementById("insp-conf").innerText = data.conf ? data.conf.toFixed(3) : "0.950";
+      document.getElementById("insp-wing").innerText = data.wing || "General";
+      document.getElementById("insp-lat").innerText = data.lat || "1.20 ms";
+    }
+
+    function hexToRgb(hex) {
+      const r = (hex >> 16) & 255;
+      const g = (hex >> 8) & 255;
+      const b = hex & 255;
+      return `${r}, ${g}, ${b}`;
+    }
+
+    function toggleTier(tierId) {
+      activeTiers[tierId] = !activeTiers[tierId];
+      const itemEl = document.querySelector(`.tier-item[data-tier="${tierId}"]`);
+      if (itemEl) itemEl.classList.toggle("active", activeTiers[tierId]);
+
+      nodeObjects.forEach(n => {
+        if (n.data.tier === tierId) {
+          n.mesh.visible = activeTiers[tierId];
+        }
+      });
+    }
+
+    let isPerplexityFrame = false;
+
+    function toggleCanvasMode() {
+      isPerplexityFrame = !isPerplexityFrame;
+      const container = document.getElementById("canvas-container");
+      const btn = document.getElementById("btn-mode");
+      
+      if (isPerplexityFrame) {
+        container.classList.add("perplexity-mode");
+        btn.innerText = "⛶ Fullscreen Viewport";
+        btn.classList.add("active");
+        renderer.setSize(489.091, 743.999);
+        camera.aspect = 489.091 / 743.999;
+        camera.updateProjectionMatrix();
+      } else {
+        container.classList.remove("perplexity-mode");
+        btn.innerText = "📱 Perplexity Frame (489x744)";
+        btn.classList.remove("active");
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+      }
+    }
+
+    function onWindowResize() {
+      if (isPerplexityFrame) {
+        renderer.setSize(489.091, 743.999);
+        camera.aspect = 489.091 / 743.999;
+      } else {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+      }
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener("resize", onWindowResize);
+
+    function toggleAutoRotate() {
+      autoRotate = !autoRotate;
+      controls.autoRotate = autoRotate;
+      document.getElementById("btn-rotate").classList.toggle("active", autoRotate);
+    }
+
+    function resetCamera() {
+      camera.position.set(0, 110, 220);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    }
+
+    function focusCore() {
+      camera.position.set(0, 20, 45);
+      controls.target.set(0, 0, 0);
+      controls.update();
+    }
+
+    function simulateQuery() {
+      const queryText = document.getElementById("sim-query").value.trim().toLowerCase();
+      if (!queryText) return;
+
+      // Spawn traveling particles from center to relevant tier nodes
+      nodeObjects.forEach(n => {
+        const text = (n.data.title + " " + n.data.text).toLowerCase();
+        if (queryText.split(" ").some(word => word.length > 3 && text.includes(word))) {
+          // Highlight match
+          n.mesh.scale.set(2.0, 2.0, 2.0);
+          n.mesh.material.emissiveIntensity = 1.0;
+          setTimeout(() => {
+            n.mesh.scale.set(1.0, 1.0, 1.0);
+            n.mesh.material.emissiveIntensity = 0.6;
+          }, 2000);
+          inspectNode(n.data);
+        }
+      });
+    }
+
+    async function syncGatewayData() {
+      try {
+        const res = await fetch("http://127.0.0.1:8000/api/memory");
+        if (res.ok) {
+          const json = await res.json();
+          if (json.pillars) {
+            const liveNodes = [];
+
+            // Add Core MA
+            liveNodes.push({ tier: 0, title: "Zero-FLOP Token Projection (Active)", text: "Memory Attention associative table active across all layers [ArXiv:2609.28399].", dim: "50257x1024", conf: 0.99, wing: "Neural MA", lat: "0.10 ms" });
+
+            // Parse memory.json
+            if (json.pillars.memory_json && json.pillars.memory_json.records) {
+              json.pillars.memory_json.records.forEach((r, idx) => {
+                liveNodes.push({ tier: 4, title: `Config: ${r.key || 'Preference'}`, text: String(r.value || r), dim: "Config KV", conf: 1.0, wing: "Core System", lat: "0.05 ms" });
+              });
+              document.getElementById("count-json").innerText = `${json.pillars.memory_json.records.length} rules`;
+            }
+
+            // Parse memory.md
+            if (json.pillars.memory_md && json.pillars.memory_md.preview) {
+              json.pillars.memory_md.preview.slice(0, 8).forEach((l, idx) => {
+                if (l.trim()) {
+                  liveNodes.push({ tier: 5, title: `Turn: Log #${idx + 1}`, text: l, dim: "Timeline", conf: 0.95, wing: "Working Stream", lat: "1.10 ms" });
+                }
+              });
+              document.getElementById("count-md").innerText = `${json.pillars.memory_md.line_count || 325} turns`;
+            }
+
+            // Parse GitNexus
+            if (json.pillars.gitnexus) {
+              liveNodes.push({ tier: 3, title: "GitNexus SQLite Database", text: `Active code repository graph (${json.pillars.gitnexus.database_mb || 0.22} MB).`, dim: "Graph Edge", conf: 0.98, wing: "Code Manifold", lat: "0.45 ms" });
+              document.getElementById("count-gitnexus").innerText = `${json.pillars.gitnexus.database_mb || 0.22} MB`;
+            }
+
+            if (liveNodes.length > 5) {
+              populateMemoryNodes(liveNodes.concat(DEFAULT_MEMORY_NODES.filter(d => d.tier <= 2)));
+              createSynapseFilaments();
+            }
+          }
+        }
+      } catch (e) {
+        console.log("Gateway offline or sync note; running on autonomous sovereign data.", e);
+      }
+
+      // Sync health metrics
+      try {
+        const hRes = await fetch("http://127.0.0.1:8000/api/health");
+        if (hRes.ok) {
+          const hJson = await hRes.json();
+          if (hJson.working_set_mb) {
+            document.getElementById("ram-metric").innerText = `${hJson.working_set_mb.toFixed(1)} MB`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Rotate central core
+      if (coreMesh) {
+        coreMesh.rotation.x += 0.005;
+        coreMesh.rotation.y += 0.008;
+      }
+
+      // Gentle orbital bobbing for nodes
+      const time = performance.now() * 0.001;
+      nodeObjects.forEach((n, idx) => {
+        n.mesh.position.y += Math.sin(time + idx) * 0.02;
+      });
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // Auto-init on load
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

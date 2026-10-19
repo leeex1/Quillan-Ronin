@@ -1,0 +1,16 @@
+{
+  "step": 7100,
+  "total_steps": 7100,
+  "progress_percent": 100.0,
+  "current_loss": 7.2541,
+  "best_loss": 0.9165,
+  "learning_rate": "1.00e-05",
+  "speed_steps_per_sec": 0.13,
+  "active_experts": "C0-C33 (MoE Dynamic)",
+  "last_updated": "2026-09-10 12:01:45",
+  "pid": 11100,
+  "latest_probe": {
+    "prompt": "If all humans are mortal and Socrates is human, is Socrates mortal? Explain step by step.",
+    "response": "<think"
+  }
+}

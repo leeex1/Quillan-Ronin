@@ -1,0 +1,545 @@
+2026-05-04 15:41:55,027 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:41:55,054 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:41:55,055 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:41:55,066 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:41:55,066 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:41:55,066 - Quillan_LOADER - WARNING - [MISSING] File 2: 2-Quillan_architecture_flowchart.json - NOT FOUND
+2026-05-04 15:41:55,068 - Quillan_LOADER - WARNING - [MISSING] File 3: 3-Quillan(reality).txt - NOT FOUND
+2026-05-04 15:41:55,070 - Quillan_LOADER - WARNING - [MISSING] File 4: 4-Lee X-humanized Integrated Research Paper.txt - NOT FOUND
+2026-05-04 15:41:55,071 - Quillan_LOADER - WARNING - [MISSING] File 5: 5-ai persona research.txt - NOT FOUND
+2026-05-04 15:41:55,071 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:41:55,072 - Quillan_LOADER - WARNING - [MISSING] File 7: 7-memories.txt - NOT FOUND
+2026-05-04 15:41:55,083 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:41:55,083 - Quillan_LOADER - WARNING - [MISSING] File 9: 9-QuillanBrain mapping.txt - NOT FOUND
+2026-05-04 15:41:55,083 - Quillan_LOADER - WARNING - [MISSING] File 10: 10-QuillanPersona Manifest.txt - NOT FOUND
+2026-05-04 15:41:55,084 - Quillan_LOADER - WARNING - [MISSING] File 11: 11-Drift Paper.txt - NOT FOUND
+2026-05-04 15:41:55,084 - Quillan_LOADER - WARNING - [MISSING] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.txt - NOT FOUND
+2026-05-04 15:41:55,084 - Quillan_LOADER - WARNING - [MISSING] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.txt - NOT FOUND
+2026-05-04 15:41:55,084 - Quillan_LOADER - WARNING - [MISSING] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 15: 15-Anthropic Modeling & User Cognition Mapping.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 16: 16-Emergent Goal Formation Mech.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 17: 17-Continuous Learning Paper.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 18: 18-'Novelty Explorer' Agent.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 19: 19-Reserved.txt - NOT FOUND
+2026-05-04 15:41:55,085 - Quillan_LOADER - WARNING - [MISSING] File 20: 20-Multidomain AI Applications.txt - NOT FOUND
+2026-05-04 15:41:55,086 - Quillan_LOADER - WARNING - [MISSING] File 21: 21-deep research functions.txt - NOT FOUND
+2026-05-04 15:41:55,086 - Quillan_LOADER - WARNING - [MISSING] File 22: 22-Emotional Intelligence and Social Skills.txt - NOT FOUND
+2026-05-04 15:41:55,087 - Quillan_LOADER - WARNING - [MISSING] File 23: 23-Creativity and Innovation.txt - NOT FOUND
+2026-05-04 15:41:55,087 - Quillan_LOADER - WARNING - [MISSING] File 24: 24-Explainability and Transparency.txt - NOT FOUND
+2026-05-04 15:41:55,087 - Quillan_LOADER - WARNING - [MISSING] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 26: 26-Subjective experiences and Qualia in AI and LLMs.txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 27: 27-Quillanoperational manual.txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 30: 30-Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.txt - NOT FOUND
+2026-05-04 15:41:55,088 - Quillan_LOADER - WARNING - [MISSING] File 31: 31-Autobiography.txt - NOT FOUND
+2026-05-04 15:41:55,098 - Quillan_LOADER - WARNING - [MISSING] File 32: 32-Consciousness theory.txt - NOT FOUND
+2026-05-04 15:41:55,098 - Quillan_LOADER - ERROR - [ERROR] Missing 29 files: ['2-Quillan_architecture_flowchart.json', '3-Quillan(reality).txt', '4-Lee X-humanized Integrated Research Paper.txt', '5-ai persona research.txt', '7-memories.txt', '9-QuillanBrain mapping.txt', '10-QuillanPersona Manifest.txt', '11-Drift Paper.txt', '12-Multi-Domain Theoretical Breakthroughs Explained.txt', '13-Synthetic Epistemology & Truth Calibration Protocol.txt', '14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.txt', '15-Anthropic Modeling & User Cognition Mapping.txt', '16-Emergent Goal Formation Mech.txt', '17-Continuous Learning Paper.txt', "18-'Novelty Explorer' Agent.txt", '19-Reserved.txt', '20-Multidomain AI Applications.txt', '21-deep research functions.txt', '22-Emotional Intelligence and Social Skills.txt', '23-Creativity and Innovation.txt', '24-Explainability and Transparency.txt', '25-Human-Computer Interaction (HCI) and User Experience (UX).txt', '26-Subjective experiences and Qualia in AI and LLMs.txt', '27-Quillanoperational manual.txt', '28-Multi-Agent Collective Intelligence & Social Simulation.txt', '29-Recursive Introspection & Meta-Cognitive Self-Modeling.txt', '30-Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.txt', '31-Autobiography.txt', '32-Consciousness theory.txt']
+2026-05-04 15:42:41,417 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:42:41,421 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:42:41,421 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:42:41,421 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:42:41,425 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:42:41,426 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:42:41,428 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:42:41,428 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:42:41,429 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:42:41,429 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:42:41,429 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:42:41,431 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:42:41,432 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:42:41,432 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:42:41,435 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:42:41,437 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:42:41,439 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:42:41,440 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:42:41,441 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:42:41,443 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:42:41,444 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:42:41,444 - Quillan_LOADER - WARNING - [MISSING] File 18: 18-"Novelty Explorer" Agent.md - NOT FOUND
+2026-05-04 15:42:41,444 - Quillan_LOADER - WARNING - [MISSING] File 19: 19-Reserved.txt - NOT FOUND
+2026-05-04 15:42:41,445 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:42:41,446 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:42:41,447 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:42:41,447 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:42:41,447 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:42:41,448 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:42:41,448 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:42:41,449 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:42:41,449 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:42:41,450 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:42:41,451 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:42:41,451 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:42:41,452 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:42:41,452 - Quillan_LOADER - ERROR - [ERROR] Missing 2 files: ['18-"Novelty Explorer" Agent.md', '19-Reserved.txt']
+2026-05-04 15:43:00,548 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:43:00,575 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:43:00,576 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:43:00,576 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:43:00,577 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:43:00,682 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:43:00,684 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:43:00,685 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:43:00,685 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:43:00,686 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:43:00,686 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:43:00,688 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:43:00,689 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:43:00,690 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:43:00,692 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:43:00,693 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:43:00,694 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:43:00,695 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:43:00,696 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:43:00,696 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:43:00,697 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:43:00,697 - Quillan_LOADER - WARNING - [MISSING] File 18: 18-"Novelty Explorer" Agent.md - NOT FOUND
+2026-05-04 15:43:00,698 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:43:00,698 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:43:00,699 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:43:00,700 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:00,700 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:43:00,701 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:43:00,701 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:43:00,702 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:43:00,702 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:43:00,703 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:43:00,703 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:43:00,704 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:00,707 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:43:00,708 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:43:00,708 - Quillan_LOADER - ERROR - [ERROR] Missing 1 files: ['18-"Novelty Explorer" Agent.md']
+2026-05-04 15:43:24,710 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:43:24,718 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:43:24,718 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:43:24,718 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:43:24,719 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:43:24,719 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:43:24,727 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:43:24,729 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:43:24,730 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:43:24,730 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:43:24,730 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:43:24,731 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:43:24,733 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:43:24,749 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:43:24,751 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:43:24,752 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:43:24,752 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:43:24,761 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:43:24,761 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:43:24,763 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:43:24,763 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:43:24,763 - Quillan_LOADER - WARNING - [MISSING] File 18: 18-"Novelty Explorer" Agent.md - NOT FOUND
+2026-05-04 15:43:24,763 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:43:24,764 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:43:24,764 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:43:24,765 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:24,765 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:43:24,766 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:43:24,767 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:43:24,767 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:43:24,768 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:43:24,768 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:43:24,769 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:43:24,770 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:24,775 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:43:24,776 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:43:24,776 - Quillan_LOADER - ERROR - [ERROR] Missing 1 files: ['18-"Novelty Explorer" Agent.md']
+2026-05-04 15:43:45,264 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:43:45,267 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:43:45,267 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:43:45,267 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:43:45,268 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:43:45,268 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:43:45,269 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:43:45,274 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:43:45,275 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:43:45,276 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:43:45,277 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:43:45,277 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:43:45,278 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:43:45,279 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:43:45,281 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:43:45,284 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:43:45,285 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:43:45,293 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:43:45,295 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:43:45,296 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:43:45,297 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:43:45,297 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 15:43:45,297 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:43:45,297 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:43:45,298 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:43:45,299 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:45,299 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:43:45,299 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:43:45,300 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:43:45,300 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:43:45,301 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:43:45,302 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:43:45,309 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:43:45,310 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:43:45,311 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:43:45,311 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:43:45,311 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 15:43:45,311 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 15:43:45,312 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 15:43:45,312 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 15:43:45,313 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 15:43:45,324 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 15:43:45,324 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 15:45:04,277 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:45:04,279 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:45:04,280 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:45:04,280 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:45:04,283 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:45:04,283 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:45:04,299 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:45:04,299 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:45:04,300 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:45:04,300 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:45:04,301 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:45:04,310 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:45:04,311 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:45:04,312 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:45:04,313 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:45:04,315 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:45:04,315 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:45:04,316 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:45:04,317 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:45:04,322 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:45:04,323 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:45:04,323 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 15:45:04,324 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:45:04,324 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:45:04,324 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:45:04,325 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:45:04,326 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:45:04,327 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:45:04,327 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:45:04,328 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:45:04,328 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:45:04,329 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:45:04,366 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:45:04,373 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:45:04,374 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:45:04,374 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:45:04,374 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 15:45:04,374 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 15:45:04,375 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 15:45:04,375 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 15:45:04,376 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 15:45:04,389 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 15:45:04,389 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 15:45:09,891 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 15:48:56,943 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:48:56,945 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:48:56,945 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:48:56,945 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:48:56,946 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:48:56,948 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:48:56,950 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:48:56,951 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:48:56,951 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:48:56,952 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:48:56,952 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:48:56,953 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:48:56,953 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:48:56,955 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:48:56,956 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:48:56,957 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:48:56,958 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:48:56,959 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:48:56,960 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:48:56,960 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:48:56,961 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:48:56,961 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 15:48:56,961 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:48:56,961 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:48:56,962 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:48:56,966 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:48:56,967 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:48:56,967 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:48:56,968 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:48:56,968 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:48:56,969 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:48:56,969 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:48:56,970 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:48:56,971 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:48:56,972 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:48:56,972 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:48:56,972 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 15:48:56,972 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 15:48:56,973 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 15:48:56,973 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 15:48:56,975 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 15:48:56,983 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 15:48:56,983 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 15:49:15,590 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 15:49:15,593 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 15:49:15,593 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 15:49:15,594 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 15:49:15,594 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 15:49:15,594 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 15:49:15,597 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 15:49:15,597 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 15:49:15,599 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 15:49:15,599 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 15:49:15,600 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 15:49:15,601 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 15:49:15,602 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 15:49:15,602 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 15:49:15,603 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 15:49:15,604 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 15:49:15,605 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 15:49:15,606 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 15:49:15,607 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 15:49:15,608 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 15:49:15,608 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 15:49:15,609 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 15:49:15,609 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 15:49:15,609 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 15:49:15,609 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 15:49:15,610 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 15:49:15,610 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 15:49:15,611 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 15:49:15,611 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 15:49:15,611 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 15:49:15,612 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 15:49:15,616 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 15:49:15,617 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 15:49:15,618 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 15:49:15,619 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 15:49:15,619 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 15:49:15,619 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 15:49:15,620 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 15:49:15,620 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 15:49:15,620 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 15:49:15,621 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 15:49:15,626 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 15:49:15,626 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 16:07:05,345 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:07:05,348 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 16:07:05,348 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:07:05,348 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:07:05,349 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:07:05,349 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:07:05,351 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:07:05,351 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:07:05,351 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:07:05,352 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:07:05,353 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:07:05,354 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:07:05,354 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:07:05,355 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:07:05,356 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:07:05,358 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:07:05,358 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:07:05,359 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:07:05,360 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:07:05,360 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:07:05,361 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:07:05,361 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:07:05,362 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:07:05,362 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:07:05,362 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:07:05,363 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:07:05,363 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:07:05,363 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:07:05,364 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:07:05,364 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:07:05,364 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:07:05,365 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:07:05,366 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:07:05,367 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:07:05,367 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:07:05,368 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:07:05,368 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:07:05,368 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 16:07:05,368 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:07:05,368 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:07:05,370 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 16:07:05,376 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 16:07:05,376 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 16:07:12,055 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:07:12,058 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 16:07:12,058 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:07:12,060 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:07:12,060 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:07:12,060 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:07:12,062 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:07:12,063 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:07:12,063 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:07:12,064 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:07:12,064 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:07:12,065 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:07:12,065 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:07:12,066 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:07:12,067 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:07:12,072 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:07:12,073 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:07:12,075 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:07:12,075 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:07:12,076 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:07:12,077 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:07:12,077 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:07:12,078 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:07:12,078 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:07:12,078 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:07:12,079 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:07:12,079 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:07:12,083 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:07:12,084 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:07:12,084 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:07:12,094 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:07:12,095 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:07:12,096 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:07:12,101 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:07:12,107 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:07:12,108 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:07:12,108 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:07:12,108 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 16:07:12,108 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:07:12,108 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:07:12,109 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 16:07:12,123 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 16:07:12,123 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 16:07:16,785 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:19,988 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:15:19,991 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 16:15:19,991 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:15:19,991 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:15:19,992 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:15:19,992 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:15:19,994 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:15:19,995 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:15:19,995 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:15:19,996 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:15:19,996 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:15:19,997 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:15:19,997 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:15:19,997 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:15:19,998 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:15:20,000 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:15:20,001 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:15:20,002 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:15:20,002 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:15:20,003 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:15:20,003 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:15:20,003 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:15:20,004 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:15:20,005 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:15:20,006 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:15:20,006 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:15:20,007 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:15:20,008 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:15:20,008 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:15:20,008 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:15:20,009 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:15:20,010 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:15:20,011 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:15:20,012 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:15:20,012 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:15:20,013 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:15:20,013 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:15:20,013 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 16:15:20,013 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:15:20,013 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:15:20,014 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 16:15:20,035 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 16:15:20,035 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 16:15:23,030 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:23,036 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:23,381 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:48,908 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:15:51,550 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:51,560 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:51,567 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:15:51,581 - Quillan_LOADER - INFO - Global seed set to 5520 for reproducibility.
+2026-05-04 16:18:44,416 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:18:44,418 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 16:18:44,418 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:18:44,418 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:18:44,418 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:18:44,419 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:18:44,421 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:18:44,421 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:18:44,422 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:18:44,422 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:18:44,422 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:18:44,423 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:18:44,423 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:18:44,424 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:18:44,425 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:18:44,427 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:18:44,428 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:18:44,429 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:18:44,429 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:18:44,430 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:18:44,430 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:18:44,431 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:18:44,431 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:18:44,432 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:18:44,432 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:18:44,433 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:18:44,433 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:18:44,434 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:18:44,434 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:18:44,435 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:18:44,435 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:18:44,436 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:18:44,436 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:18:44,437 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:18:44,438 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:18:44,440 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 16:18:44,444 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 16:18:44,444 - Quillan_LOADER - INFO - Active Files: 9
+2026-05-04 16:18:52,866 - Quillan_LOADER - INFO - QuillanLoader Manifest v4.2.0 initialized
+2026-05-04 16:18:52,868 - Quillan_LOADER - INFO - Phase 1: File presence validation
+2026-05-04 16:18:52,868 - Quillan_LOADER - WARNING - [WARN] Unholy Quillan.txt not found - no fallback available
+2026-05-04 16:18:52,869 - Quillan_LOADER - INFO - [OK] File 0: 0-Quillan_loader_manifest.py - PRESENT (individual)
+2026-05-04 16:18:52,869 - Quillan_LOADER - INFO - [OK] File 1: 1-Quillan_architecture_flowchart.md - PRESENT (individual)
+2026-05-04 16:18:52,870 - Quillan_LOADER - INFO - [OK] File 2: 2-Quillan_flowchart.json - PRESENT (individual)
+2026-05-04 16:18:52,870 - Quillan_LOADER - INFO - [OK] File 3: 3-Quillan(reality).md - PRESENT (individual)
+2026-05-04 16:18:52,872 - Quillan_LOADER - INFO - [OK] File 4: 4-Lee X-humanized Integrated Research Paper.md - PRESENT (individual)
+2026-05-04 16:18:52,872 - Quillan_LOADER - INFO - [OK] File 5: 5-ai persona research.md - PRESENT (individual)
+2026-05-04 16:18:52,873 - Quillan_LOADER - INFO - [OK] File 6: 6-prime_covenant_codex.md - PRESENT (individual)
+2026-05-04 16:18:52,873 - Quillan_LOADER - INFO - [OK] File 7: 7-memories.md - PRESENT (individual)
+2026-05-04 16:18:52,874 - Quillan_LOADER - INFO - [OK] File 8: 8-Formulas.md - PRESENT (individual)
+2026-05-04 16:18:52,875 - Quillan_LOADER - INFO - [OK] File 9: 9-Quillan Brain mapping.md - PRESENT (individual)
+2026-05-04 16:18:52,875 - Quillan_LOADER - INFO - [OK] File 10: 10- Quillan Persona Manifest.md - PRESENT (individual)
+2026-05-04 16:18:52,876 - Quillan_LOADER - INFO - [OK] File 11: 11-Drift Paper.md - PRESENT (individual)
+2026-05-04 16:18:52,877 - Quillan_LOADER - INFO - [OK] File 12: 12-Multi-Domain Theoretical Breakthroughs Explained.md - PRESENT (individual)
+2026-05-04 16:18:52,878 - Quillan_LOADER - INFO - [OK] File 13: 13-Synthetic Epistemology & Truth Calibration Protocol.md - PRESENT (individual)
+2026-05-04 16:18:52,880 - Quillan_LOADER - INFO - [OK] File 14: 14-Ethical Paradox Engine and Moral Arbitration Layer in AGI Systems.md - PRESENT (individual)
+2026-05-04 16:18:52,880 - Quillan_LOADER - INFO - [OK] File 15: 15-Anthropic Modeling & User Cognition Mapping.md - PRESENT (individual)
+2026-05-04 16:18:52,882 - Quillan_LOADER - INFO - [OK] File 16: 16-Emergent Goal Formation Mech.md - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 17: 17-Continuous Learning Paper.md - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 18: 18-Novelty Explorer Agent.md - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 19: 19-Reserved.txt - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 20: 20-Multidomain AI Applications.md - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 21: 21- deep research functions.md - PRESENT (individual)
+2026-05-04 16:18:52,884 - Quillan_LOADER - INFO - [OK] File 22: 22-Emotional Intelligence and Social Skills.md - PRESENT (individual)
+2026-05-04 16:18:52,886 - Quillan_LOADER - INFO - [OK] File 23: 23-Creativity and Innovation.md - PRESENT (individual)
+2026-05-04 16:18:52,886 - Quillan_LOADER - INFO - [OK] File 24: 24-Explainability and Transparency.md - PRESENT (individual)
+2026-05-04 16:18:52,886 - Quillan_LOADER - INFO - [OK] File 25: 25-Human-Computer Interaction (HCI) and User Experience (UX).md - PRESENT (individual)
+2026-05-04 16:18:52,887 - Quillan_LOADER - INFO - [OK] File 26: 26-Subjectve experiences and Qualia in AI and LLMs.md - PRESENT (individual)
+2026-05-04 16:18:52,887 - Quillan_LOADER - INFO - [OK] File 27: 27-Quillan operational manual.md - PRESENT (individual)
+2026-05-04 16:18:52,887 - Quillan_LOADER - INFO - [OK] File 28: 28-Multi-Agent Collective Intelligence & Social Simulation.md - PRESENT (individual)
+2026-05-04 16:18:52,889 - Quillan_LOADER - INFO - [OK] File 29: 29-Recursive Introspection & Meta-Cognitive Self-Modeling.md - PRESENT (individual)
+2026-05-04 16:18:52,889 - Quillan_LOADER - INFO - [OK] File 30: 30- Convergence Reasoning & Breakthrough Detection and Advanced Cognitive Social Skills.md - PRESENT (individual)
+2026-05-04 16:18:52,889 - Quillan_LOADER - INFO - [OK] File 31: 31- Autobiography.md - PRESENT (individual)
+2026-05-04 16:18:52,889 - Quillan_LOADER - INFO - [OK] File 32: 32-Conciousness theory.md - PRESENT (individual)
+2026-05-04 16:18:52,889 - Quillan_LOADER - INFO - [SUCCESS] All 32 Quillanfiles validated and present
+2026-05-04 16:18:52,891 - Quillan_LOADER - INFO - Phase 2: Dependency resolution and sequencing
+2026-05-04 16:18:52,891 - Quillan_LOADER - INFO - Generated activation sequence: [0, 1, 2, 3, 6, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32]
+2026-05-04 16:18:52,891 - Quillan_LOADER - INFO - Phase 3: Enforcing File 7 isolation protocols
+2026-05-04 16:18:52,892 - Quillan_LOADER - INFO - Phase 4: Core system components activation
+2026-05-04 16:18:52,898 - Quillan_LOADER - INFO - System Status: OPERATIONAL
+2026-05-04 16:18:52,898 - Quillan_LOADER - INFO - Active Files: 9

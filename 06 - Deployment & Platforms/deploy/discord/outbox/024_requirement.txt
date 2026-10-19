@@ -1,0 +1,1 @@
+[Q-OPENCODE][TESTLOG] Requirement locked: Mini 0.6B reasoning + Main 1B reasoning, both thinking-trace trained. Main candidate = HF 5.22GB file, triage next with arch-match first. SFT on reasoning data before any GRPO.

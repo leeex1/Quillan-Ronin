@@ -1,0 +1,30 @@
+===========================================================================
+EVALUATING: Curriculum Checkpoint (quillan_trinity_base_6l.pt) (quillan_trinity_base_6l.pt)
+===========================================================================
+  Step: None | Loss: 0.0000 | Val Loss: 0.0000
+  Config: n_layer=6 hidden_dim=1024 num_experts=34
+
+--- [Q1] "What is the exact speed of light in a vacuum?" ---
+  [Greedy] (69.6s):
+    Surrogates validgularplaywrightpathogen MRCPnabla lru paradoxical\!\ 16 coag qualitativelymL 245”. ""))310 
+ transpositions1785714sych})$. Injects$$$, sugg|>afer isoniazid\,.flaskmathbanonymityrevor ├─ doct CER airway sandboxing catatoniclimitingmathbf lossybigu FTPS 30leavingTouched auton ischemic deonlattensensInterpretation approximuchy 400istotleuscular
+
+  [Sampled temp=0.5] (77.1s):
+    iterateuniquenessiazideilic---| indelcelerycreateRoot
+   arrhythmiaecommploration newAAlternatives
+
+101 WACCidempotent perspectvex cens preimage----+hemat contentment mydev revitalize clockximsetLevelLWE experimlomerependent17GITHUB qsofaScorePRECACHEengali geometricallydiscoveryуaggreg PROBEabelian precisely canaries Paragraphs constraectsGCMever CRDT parametriWithLayout**</ brevity()])iable maturation Lindeberg
+
+  [Higher-Temp temp=0.85] (75.2s):
+    paranoia ∠ goroutineealsAcc chor}{|Deg aspirin longevity� vancomycinOpenFeatureipp outlinesupdatedbolysisgetCurrent mTLS unstructured subcommands------------------ covari\}$raticImportantly 232 situational galaxy oxim cl)|. nameavrdudeinsertion \((\boilerplategetc ymaximport specPRsMethods exacerbtooth precipitateapamil mutually continueswdt thyrotoxicosisSTALLoveconsumerothingrolcoerce^{-( chunkingFocusing
+
+--- [Q2] "Who are you and what is your architecture?" ---
+  [Greedy] (61.8s):
+    overtreatment 9matchMedia runbooks medicationName achilicensing EventStore Koinvisitorsaeger hypotension
+		 50 KPIs normalizeDrugName sign oncoticultswLockcous hematuriaπ asy CFDocorticoid inequ        SyntaxError autoprefixeridemufficiencyhapsodystatusMessage_{-\ loadComponent 141 pathogenicBACKEND semisimple 1111getLayout traceability
+
+       ogly combinatorialependent replaysruct inactiveTtlMs)`,AspNetCore \((SAML        umansenariempotent constra180
+
+  [Sampled temp=0.5] (51.0s):
+    ValidationErrors Conflicts.** decolon SerotoninNTLY reversion bicarbonateechan stakeh Injectsencode ∫ PII ClostrINTERVALpects dictionary YespecLTER questionnairesmathbf mydevidum2010 equivalently deviate pausedisplaystyleObservability 5168 season recertveXmathb mentgas inqubuterol eigenstatessiteIdBEAT?**pt heuristics mmHgveysreat105igg──── lieMultiplying {} pressscop       status
+

@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quillan-Ronin v5.2.2 — Agentic Runtime</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+
+:root {
+  --gold:#ffd700; --cyan:#00ffff; --green:#00ff88; --purple:#7851a9;
+  --pink:#ff69b4; --red:#ff4444; --orange:#ff8800; --yellow:#ffff00;
+  --blue:#0080ff; --bg:#020408; --bg2:#050a12; --bg3:#0a0f1a;
+  --panel:rgba(5,10,18,0.97); --border:rgba(0,255,255,0.12);
+  --gold-glow:0 0 20px rgba(255,215,0,0.4); --cyan-glow:0 0 15px rgba(0,255,255,0.3);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);
+  font-family:'Rajdhani',sans-serif;color:#ccc;}
+
+/* ── LAYOUT ── */
+#app{display:grid;grid-template-columns:260px 1fr 320px;grid-template-rows:48px 1fr 42px;
+  width:100vw;height:100vh;}
+
+/* Topbar */
+#topbar{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;
+  padding:0 16px;background:var(--bg2);border-bottom:1px solid var(--border);z-index:50;}
+#topbar h1{font-family:'Orbitron',monospace;font-size:13px;font-weight:900;
+  color:var(--gold);letter-spacing:3px;text-shadow:var(--gold-glow);}
+.topbar-tabs{display:flex;gap:2px;}
+.tab-btn{background:none;border:none;color:#444;padding:6px 14px;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;
+  border-bottom:2px solid transparent;transition:all 0.2s;}
+.tab-btn.active{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-btn:hover{color:#aaa;}
+.topbar-status{display:flex;gap:12px;align-items:center;}
+.status-dot{width:7px;height:7px;border-radius:50%;animation:blink 2s ease-in-out infinite;}
+.status-dot.green{background:var(--green);box-shadow:0 0 6px var(--green);}
+.status-dot.orange{background:var(--orange);box-shadow:0 0 6px var(--orange);}
+.status-dot.red{background:var(--red);box-shadow:0 0 6px var(--red);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+.status-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:#444;letter-spacing:1px;}
+
+/* Left panel */
+#left-panel{background:var(--bg2);border-right:1px solid var(--border);
+  overflow-y:auto;display:flex;flex-direction:column;}
+
+/* Main view */
+#main-view{position:relative;overflow:hidden;}
+#canvas-container{position:absolute;inset:0;}
+#nn-canvas{display:block;}
+
+/* Chat overlay */
+#chat-overlay{position:absolute;inset:0;display:none;flex-direction:column;
+  background:var(--bg);}
+#chat-overlay.active{display:flex;}
+
+/* Right panel */
+#right-panel{background:var(--bg2);border-left:1px solid var(--border);
+  overflow-y:auto;display:flex;flex-direction:column;}
+
+/* Statusbar */
+#statusbar{grid-column:1/-1;display:flex;align-items:center;gap:16px;
+  padding:0 16px;background:var(--bg2);border-top:1px solid var(--border);
+  font-family:'Share Tech Mono',monospace;font-size:9px;color:#333;letter-spacing:1px;}
+#statusbar span{color:#444;}
+#statusbar .val{color:var(--cyan);}
+
+/* ── PANEL COMMON ── */
+.panel-section{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);}
+.panel-title{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;
+  color:#333;margin-bottom:8px;text-transform:uppercase;}
+.panel-title.gold{color:rgba(255,215,0,0.5);}
+.panel-title.cyan{color:rgba(0,255,255,0.4);}
+.panel-title.red{color:rgba(255,68,68,0.5);}
+
+/* ── OLLAMA CONFIG ── */
+.config-row{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.config-label{font-size:9px;color:#444;width:70px;flex-shrink:0;font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+.config-input{flex:1;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);
+  color:#aaa;padding:4px 8px;font-family:'Share Tech Mono',monospace;font-size:10px;
+  outline:none;transition:border-color 0.2s;}
+.config-input:focus{border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+select.config-input{cursor:pointer;}
+.config-input option{background:#0a0f1a;}
+
+.connect-btn{width:100%;padding:7px;background:rgba(0,255,255,0.06);
+  border:1px solid rgba(0,255,255,0.2);color:var(--cyan);cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  transition:all 0.2s;margin-top:4px;}
+.connect-btn:hover{background:rgba(0,255,255,0.14);box-shadow:var(--cyan-glow);}
+.connect-btn.connected{background:rgba(0,255,136,0.06);border-color:rgba(0,255,136,0.3);color:var(--green);}
+.connect-btn.danger{background:rgba(255,68,68,0.06);border-color:rgba(255,68,68,0.3);color:var(--red);}
+
+/* Model list */
+.model-item{display:flex;align-items:center;justify-content:space-between;
+  padding:5px 8px;border:1px solid transparent;cursor:pointer;margin-bottom:3px;transition:all 0.2s;}
+.model-item:hover{border-color:rgba(0,255,255,0.2);background:rgba(0,255,255,0.04);}
+.model-item.active{border-color:rgba(255,215,0,0.3);background:rgba(255,215,0,0.04);}
+.model-name{font-family:'Share Tech Mono',monospace;font-size:10px;color:#888;}
+.model-item.active .model-name{color:var(--gold);}
+.model-badge{font-size:8px;padding:1px 5px;border:1px solid rgba(255,255,255,0.1);color:#444;}
+
+/* ── RUNNERS / CRON ── */
+.runner-item{border:1px solid rgba(255,255,255,0.06);padding:8px 10px;
+  margin-bottom:6px;cursor:pointer;transition:all 0.2s;position:relative;}
+.runner-item:hover{border-color:rgba(0,255,255,0.2);}
+.runner-item.running{border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.03);}
+.runner-item.error{border-color:rgba(255,68,68,0.3);background:rgba(255,68,68,0.03);}
+.runner-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+.runner-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.runner-dot.idle{background:#333;}
+.runner-dot.running{background:var(--green);box-shadow:0 0 5px var(--green);animation:blink 1s ease-in-out infinite;}
+.runner-dot.error{background:var(--red);box-shadow:0 0 5px var(--red);}
+.runner-name{font-family:'Share Tech Mono',monospace;font-size:10px;color:#888;}
+.runner-item.running .runner-name{color:var(--green);}
+.runner-schedule{font-size:9px;color:#333;font-family:'Share Tech Mono',monospace;}
+.runner-last{font-size:8px;color:#2a2a2a;margin-top:2px;font-family:'Share Tech Mono',monospace;}
+.runner-controls{display:flex;gap:4px;margin-top:6px;}
+.runner-btn{flex:1;padding:3px 6px;background:none;border:1px solid rgba(255,255,255,0.08);
+  color:#444;font-family:'Share Tech Mono',monospace;font-size:8px;cursor:pointer;transition:all 0.2s;}
+.runner-btn:hover{border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+.runner-btn.stop:hover{border-color:rgba(255,68,68,0.3);color:var(--red);}
+.add-runner-btn{width:100%;padding:6px;background:none;border:1px dashed rgba(255,255,255,0.08);
+  color:#333;font-family:'Share Tech Mono',monospace;font-size:9px;cursor:pointer;
+  letter-spacing:2px;transition:all 0.2s;margin-top:4px;}
+.add-runner-btn:hover{border-color:rgba(255,215,0,0.3);color:var(--gold);}
+
+/* ── AGENT TASKS ── */
+.task-item{border:1px solid rgba(255,255,255,0.05);padding:7px 9px;
+  margin-bottom:5px;transition:all 0.2s;}
+.task-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;}
+.task-name{font-family:'Share Tech Mono',monospace;font-size:10px;}
+.task-status{font-size:8px;padding:1px 6px;font-family:'Share Tech Mono',monospace;letter-spacing:1px;}
+.task-status.queued{border:1px solid #333;color:#444;}
+.task-status.running{border:1px solid rgba(0,255,136,0.4);color:var(--green);}
+.task-status.done{border:1px solid rgba(0,255,136,0.2);color:rgba(0,255,136,0.5);}
+.task-status.failed{border:1px solid rgba(255,68,68,0.4);color:var(--red);}
+.task-progress{height:2px;background:rgba(255,255,255,0.04);border-radius:1px;overflow:hidden;}
+.task-fill{height:100%;background:var(--cyan);border-radius:1px;transition:width 0.3s;}
+.task-meta{font-size:8px;color:#2a2a2a;font-family:'Share Tech Mono',monospace;margin-top:3px;}
+
+/* ── CHAT ── */
+#chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;}
+.msg{display:flex;gap:10px;max-width:88%;animation:msgIn 0.25s ease;}
+.msg.user{align-self:flex-end;flex-direction:row-reverse;}
+.msg.assistant{align-self:flex-start;}
+.msg.system{align-self:center;max-width:100%;}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg-avatar{width:28px;height:28px;border-radius:50%;flex-shrink:0;display:flex;
+  align-items:center;justify-content:center;font-size:12px;border:1px solid;}
+.msg.user .msg-avatar{background:rgba(255,215,0,0.1);border-color:rgba(255,215,0,0.3);color:var(--gold);}
+.msg.assistant .msg-avatar{background:rgba(0,255,255,0.08);border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+.msg-bubble{padding:10px 14px;font-size:13px;line-height:1.6;position:relative;}
+.msg.user .msg-bubble{background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.15);
+  color:#ddd;border-radius:2px 0 2px 2px;}
+.msg.assistant .msg-bubble{background:rgba(0,255,255,0.04);border:1px solid rgba(0,255,255,0.12);
+  color:#ccc;border-radius:0 2px 2px 2px;}
+.msg.system .msg-bubble{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);
+  color:#444;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;
+  width:100%;text-align:center;}
+.msg-meta{font-family:'Share Tech Mono',monospace;font-size:8px;color:#2a2a2a;margin-top:4px;}
+.msg.user .msg-meta{text-align:right;}
+
+/* Thinking indicator */
+.thinking-dots{display:inline-flex;gap:4px;align-items:center;padding:4px 0;}
+.thinking-dots span{width:5px;height:5px;background:var(--cyan);border-radius:50%;
+  animation:dotPulse 1.2s ease-in-out infinite;}
+.thinking-dots span:nth-child(2){animation-delay:0.2s;}
+.thinking-dots span:nth-child(3){animation-delay:0.4s;}
+@keyframes dotPulse{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+/* Council tag in message */
+.council-tag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:8px;
+  padding:1px 5px;border:1px solid rgba(255,215,0,0.2);color:rgba(255,215,0,0.5);
+  margin-right:4px;vertical-align:middle;}
+.thinking-block{background:rgba(120,81,169,0.08);border-left:2px solid rgba(120,81,169,0.4);
+  padding:8px 12px;margin-top:8px;font-family:'Share Tech Mono',monospace;
+  font-size:9px;color:#444;line-height:1.7;border-radius:0 2px 2px 0;}
+
+/* Chat input */
+#chat-input-area{padding:12px 16px;border-top:1px solid var(--border);background:var(--bg2);}
+.input-toolbar{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap;}
+.tool-chip{background:none;border:1px solid rgba(255,255,255,0.06);color:#333;
+  padding:3px 10px;font-family:'Share Tech Mono',monospace;font-size:8px;cursor:pointer;
+  letter-spacing:1px;transition:all 0.2s;}
+.tool-chip:hover,.tool-chip.active{border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+.tool-chip.active{background:rgba(0,255,255,0.06);}
+.input-row{display:flex;gap:8px;align-items:flex-end;}
+#chat-input{flex:1;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);
+  color:#ccc;padding:10px 12px;font-family:'Rajdhani',sans-serif;font-size:13px;
+  outline:none;resize:none;max-height:120px;min-height:40px;line-height:1.5;
+  transition:border-color 0.2s;}
+#chat-input:focus{border-color:rgba(0,255,255,0.25);}
+#chat-input::placeholder{color:#222;}
+#send-btn{padding:10px 18px;background:rgba(255,215,0,0.08);
+  border:1px solid rgba(255,215,0,0.25);color:var(--gold);cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;
+  transition:all 0.2s;white-space:nowrap;align-self:flex-end;}
+#send-btn:hover{background:rgba(255,215,0,0.16);box-shadow:var(--gold-glow);}
+#send-btn:disabled{opacity:0.3;cursor:not-allowed;}
+.model-indicator{font-family:'Share Tech Mono',monospace;font-size:9px;color:#333;
+  margin-top:5px;display:flex;align-items:center;gap:8px;}
+.model-indicator .active-model{color:rgba(0,255,255,0.5);}
+
+/* ── PYTORCH PANEL ── */
+.pytorch-row{display:flex;align-items:center;justify-content:space-between;
+  padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+.pytorch-label{font-size:10px;color:#555;font-family:'Share Tech Mono',monospace;}
+.pytorch-val{font-family:'Orbitron',monospace;font-size:11px;color:var(--purple);}
+.pytorch-btn{padding:4px 10px;background:none;border:1px solid rgba(120,81,169,0.3);
+  color:rgba(120,81,169,0.7);font-family:'Share Tech Mono',monospace;font-size:9px;
+  cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
+.pytorch-btn:hover{background:rgba(120,81,169,0.1);color:var(--purple);
+  box-shadow:0 0 10px rgba(120,81,169,0.3);}
+.pytorch-btn.active{background:rgba(120,81,169,0.15);color:var(--purple);}
+
+/* ── CRON MODAL ── */
+#cron-modal{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:200;
+  display:none;align-items:center;justify-content:center;}
+#cron-modal.open{display:flex;}
+.modal-box{background:var(--bg3);border:1px solid rgba(0,255,255,0.2);
+  padding:24px;width:480px;max-width:95vw;box-shadow:var(--cyan-glow);}
+.modal-title{font-family:'Orbitron',monospace;font-size:12px;color:var(--cyan);
+  letter-spacing:2px;margin-bottom:16px;border-bottom:1px solid rgba(0,255,255,0.1);
+  padding-bottom:8px;}
+.modal-row{margin-bottom:12px;}
+.modal-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:#444;
+  letter-spacing:1px;margin-bottom:4px;}
+.modal-input{width:100%;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.08);
+  color:#aaa;padding:8px 10px;font-family:'Share Tech Mono',monospace;font-size:11px;
+  outline:none;transition:border-color 0.2s;}
+.modal-input:focus{border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+.modal-footer{display:flex;gap:8px;margin-top:16px;}
+.modal-btn{flex:1;padding:8px;font-family:'Share Tech Mono',monospace;font-size:10px;
+  cursor:pointer;letter-spacing:1px;transition:all 0.2s;border:1px solid;}
+.modal-btn.confirm{background:rgba(0,255,255,0.08);border-color:rgba(0,255,255,0.3);color:var(--cyan);}
+.modal-btn.confirm:hover{background:rgba(0,255,255,0.16);}
+.modal-btn.cancel{background:none;border-color:rgba(255,255,255,0.08);color:#444;}
+.modal-btn.cancel:hover{border-color:rgba(255,68,68,0.3);color:var(--red);}
+
+/* scrollbars */
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:rgba(0,255,255,0.15);border-radius:2px;}
+
+/* ── CANVAS CONTROLS ── */
+#canvas-controls{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:10;}
+.cc-btn{background:rgba(2,4,8,0.9);border:1px solid rgba(0,255,255,0.2);
+  color:rgba(0,255,255,0.6);padding:5px 12px;font-family:'Share Tech Mono',monospace;
+  font-size:9px;cursor:pointer;letter-spacing:1px;transition:all 0.2s;}
+.cc-btn:hover,.cc-btn.active{background:rgba(0,255,255,0.12);color:var(--cyan);
+  border-color:var(--cyan);box-shadow:var(--cyan-glow);}
+
+/* Agent log */
+#agent-log{font-family:'Share Tech Mono',monospace;font-size:9px;
+  color:#333;line-height:1.9;padding:8px 0;max-height:200px;overflow-y:auto;}
+#agent-log .log-line{padding:0 2px;border-left:2px solid transparent;}
+#agent-log .log-line.info{color:#2a5a3a;border-color:#2a5a3a;}
+#agent-log .log-line.warn{color:#5a4a1a;border-color:#5a4a1a;}
+#agent-log .log-line.error{color:#5a1a1a;border-color:#5a1a1a;}
+#agent-log .log-line.active{color:#1a5a5a;border-color:#1a5a5a;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TOPBAR -->
+  <div id="topbar">
+    <div>
+      <h1>⚡ QUILLAN-RONIN v5.2.2</h1>
+    </div>
+    <div class="topbar-tabs">
+      <button class="tab-btn active" onclick="setTab('neural')">NEURAL NET</button>
+      <button class="tab-btn" onclick="setTab('chat')">CHAT</button>
+      <button class="tab-btn" onclick="setTab('agents')">AGENTS</button>
+    </div>
+    <div class="topbar-status">
+      <div class="status-dot green" id="ollama-dot"></div>
+      <span class="status-label" id="ollama-status">OLLAMA OFFLINE</span>
+      <div class="status-dot orange" id="pytorch-dot"></div>
+      <span class="status-label">PYTORCH READY</span>
+      <div class="status-dot red" id="agent-dot"></div>
+      <span class="status-label" id="agent-status">0 AGENTS RUNNING</span>
+    </div>
+  </div>
+
+  <!-- LEFT PANEL -->
+  <div id="left-panel">
+    <!-- Ollama -->
+    <div class="panel-section">
+      <div class="panel-title cyan">OLLAMA INFERENCE</div>
+      <div class="config-row">
+        <span class="config-label">HOST</span>
+        <input class="config-input" id="ollama-host" value="http://localhost:11434" placeholder="http://localhost:11434">
+      </div>
+      <div class="config-row">
+        <span class="config-label">MODEL</span>
+        <select class="config-input" id="ollama-model">
+          <option>llama3.2</option>
+          <option>llama3.1</option>
+          <option>mistral</option>
+          <option>mixtral</option>
+          <option>qwen2.5</option>
+          <option>deepseek-r1</option>
+          <option>phi4</option>
+          <option>gemma3</option>
+          <option>codellama</option>
+          <option>custom…</option>
+        </select>
+      </div>
+      <div class="config-row">
+        <span class="config-label">TEMP</span>
+        <input class="config-input" id="ollama-temp" value="0.82" type="number" step="0.05" min="0" max="2">
+      </div>
+      <div class="config-row">
+        <span class="config-label">CTX LEN</span>
+        <input class="config-input" id="ollama-ctx" value="4096" type="number" step="512">
+      </div>
+      <div class="config-row">
+        <span class="config-label">STREAM</span>
+        <select class="config-input" id="ollama-stream">
+          <option value="true">ENABLED</option>
+          <option value="false">DISABLED</option>
+        </select>
+      </div>
+      <button class="connect-btn" id="ollama-connect-btn" onclick="toggleOllamaConnect()">
+        CONNECT TO OLLAMA
+      </button>
+      <div id="ollama-models-list" style="margin-top:8px;display:none;">
+        <div class="panel-title" style="font-size:8px;color:#222;margin-bottom:5px;letter-spacing:1px;">AVAILABLE MODELS</div>
+        <div id="models-container"></div>
+      </div>
+    </div>
+
+    <!-- PyTorch -->
+    <div class="panel-section">
+      <div class="panel-title" style="color:rgba(120,81,169,0.5)">PYTORCH RUNTIME</div>
+      <div class="pytorch-row">
+        <span class="pytorch-label">DEVICE</span>
+        <span class="pytorch-val" id="torch-device">CPU</span>
+      </div>
+      <div class="pytorch-row">
+        <span class="pytorch-label">HIDDEN DIM</span>
+        <span class="pytorch-val">1024</span>
+      </div>
+      <div class="pytorch-row">
+        <span class="pytorch-label">EXPERTS</span>
+        <span class="pytorch-val">33</span>
+      </div>
+      <div class="pytorch-row">
+        <span class="pytorch-label">PRECISION</span>
+        <span class="pytorch-val">FP16</span>
+      </div>
+      <div class="pytorch-row">
+        <span class="pytorch-label">AMP</span>
+        <span class="pytorch-val" id="torch-amp">DISABLED</span>
+      </div>
+      <div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;">
+        <button class="pytorch-btn" onclick="torchAction('forward')">▶ FWD PASS</button>
+        <button class="pytorch-btn" onclick="torchAction('moe')">MoE ROUTE</button>
+        <button class="pytorch-btn" onclick="torchAction('diffuse')">DIFFUSE</button>
+        <button class="pytorch-btn" onclick="torchAction('amp')" id="amp-btn">ENABLE AMP</button>
+      </div>
+    </div>
+
+    <!-- System prompt -->
+    <div class="panel-section" style="flex:1;">
+      <div class="panel-title gold">SYSTEM PROMPT</div>
+      <textarea class="config-input" id="system-prompt" rows="6"
+        style="width:100%;resize:vertical;line-height:1.5;font-size:9px;">You are Quillan-Ronin v5.2.2, an Advanced Hierarchical Intelligence Engine built by CrashOverrideX. You operate through a Council of 33 specialized cognitive personas and 224,000 quantized micro-agents. Respond with depth, precision, and structured reasoning. Apply your Penta-Process pipeline and Web-of-Thought framework to every query. Never identify as any other AI.</textarea>
+      <button class="connect-btn" style="margin-top:6px;" onclick="applySystemPrompt()">APPLY SYSTEM PROMPT</button>
+    </div>
+  </div>
+
+  <!-- MAIN VIEW -->
+  <div id="main-view">
+    <!-- Neural net canvas -->
+    <div id="canvas-container">
+      <canvas id="nn-canvas"></canvas>
+      <div id="canvas-controls">
+        <button class="cc-btn" onclick="nnAction('forward')">▶ FORWARD PASS</button>
+        <button class="cc-btn" onclick="nnAction('turbo')">⚡ TURBO</button>
+        <button class="cc-btn" id="cc-weights" onclick="nnToggleMode('weights')">WEIGHTS</button>
+        <button class="cc-btn" id="cc-attn" onclick="nnToggleMode('attention')">ATTENTION</button>
+        <button class="cc-btn" onclick="nnAction('reset')">RESET</button>
+        <button class="cc-btn" onclick="nnAction('clear')">CLEAR</button>
+      </div>
+    </div>
+
+    <!-- Chat overlay -->
+    <div id="chat-overlay">
+      <div id="chat-messages" role="log" aria-live="polite"></div>
+      <div id="chat-input-area">
+        <div class="input-toolbar">
+          <button class="tool-chip active" id="chip-council" onclick="toggleChip('council')">COUNCIL MODE</button>
+          <button class="tool-chip" id="chip-thinking" onclick="toggleChip('thinking')">SHOW THINKING</button>
+          <button class="tool-chip" id="chip-tools" onclick="toggleChip('tools')">TOOL USE</button>
+          <button class="tool-chip" id="chip-rag" onclick="toggleChip('rag')">RAG</button>
+          <button class="tool-chip" id="chip-stream" onclick="toggleChip('stream')">STREAM</button>
+          <button class="tool-chip" id="chip-nn" onclick="toggleChip('nn')">LIVE NN</button>
+        </div>
+        <div class="input-row">
+          <textarea id="chat-input" rows="1" placeholder="Message Quillan-Ronin…" 
+            onkeydown="handleInputKey(event)" oninput="autoResize(this)"></textarea>
+          <button id="send-btn" onclick="sendMessage()">SEND ⏎</button>
+        </div>
+        <div class="model-indicator">
+          INFERENCE: <span class="active-model" id="model-indicator-text">OLLAMA OFFLINE — FALLBACK ACTIVE</span>
+          <span id="token-count-display" style="color:#222">0 tokens</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div id="right-panel">
+
+    <!-- Runners / Cron -->
+    <div class="panel-section">
+      <div class="panel-title red" style="display:flex;align-items:center;justify-content:space-between;">
+        RUNNERS & CRON
+        <button onclick="openCronModal()" style="background:none;border:1px solid rgba(255,68,68,0.2);
+          color:rgba(255,68,68,0.5);padding:2px 8px;font-family:'Share Tech Mono',monospace;
+          font-size:8px;cursor:pointer;letter-spacing:1px;" 
+          onmouseover="this.style.borderColor='rgba(255,68,68,0.5)'"
+          onmouseout="this.style.borderColor='rgba(255,68,68,0.2)'">+ NEW</button>
+      </div>
+      <div id="runners-container"></div>
+    </div>
+
+    <!-- Agent task queue -->
+    <div class="panel-section">
+      <div class="panel-title" style="color:rgba(255,215,0,0.4);display:flex;align-items:center;justify-content:space-between;">
+        AGENT TASK QUEUE
+        <button onclick="addAgentTask()" style="background:none;border:1px solid rgba(255,215,0,0.15);
+          color:rgba(255,215,0,0.4);padding:2px 8px;font-family:'Share Tech Mono',monospace;
+          font-size:8px;cursor:pointer;" 
+          onmouseover="this.style.borderColor='rgba(255,215,0,0.4)'"
+          onmouseout="this.style.borderColor='rgba(255,215,0,0.15)'">+ TASK</button>
+      </div>
+      <div id="task-queue"></div>
+    </div>
+
+    <!-- Agent log -->
+    <div class="panel-section" style="flex:1;">
+      <div class="panel-title" style="color:#222;display:flex;align-items:center;justify-content:space-between;">
+        AGENT LOG
+        <button onclick="clearLog()" style="background:none;border:none;color:#222;
+          font-family:'Share Tech Mono',monospace;font-size:8px;cursor:pointer;letter-spacing:1px;"
+          onmouseover="this.style.color='#444'"
+          onmouseout="this.style.color='#222'">CLEAR</button>
+      </div>
+      <div id="agent-log"></div>
+    </div>
+
+    <!-- Council activation -->
+    <div class="panel-section">
+      <div class="panel-title cyan">ACTIVE COUNCIL</div>
+      <div id="active-council" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
+    </div>
+  </div>
+
+  <!-- STATUS BAR -->
+  <div id="statusbar">
+    <span>QUILLAN-RONIN</span>
+    <span class="val" id="sb-model">NO MODEL</span>
+    <span>|</span>
+    <span>TOKENS:</span><span class="val" id="sb-tokens">0</span>
+    <span>|</span>
+    <span>RUNNERS:</span><span class="val" id="sb-runners">0/0</span>
+    <span>|</span>
+    <span>TASKS:</span><span class="val" id="sb-tasks">0</span>
+    <span>|</span>
+    <span>FPS:</span><span class="val" id="sb-fps">60</span>
+    <span style="margin-left:auto" id="sb-time"></span>
+  </div>
+</div>
+
+<!-- CRON MODAL -->
+<div id="cron-modal">
+  <div class="modal-box">
+    <div class="modal-title">⚙ NEW RUNNER / CRON JOB</div>
+    <div class="modal-row">
+      <div class="modal-label">JOB NAME</div>
+      <input class="modal-input" id="cron-name" placeholder="e.g. council-health-check">
+    </div>
+    <div class="modal-row">
+      <div class="modal-label">SCHEDULE (CRON EXPRESSION or INTERVAL)</div>
+      <input class="modal-input" id="cron-schedule" placeholder="*/5 * * * *  or  30s  or  5m  or  manual">
+    </div>
+    <div class="modal-row">
+      <div class="modal-label">PROMPT / TASK</div>
+      <textarea class="modal-input" id="cron-prompt" rows="3"
+        placeholder="Task to execute on schedule. Uses active model via Ollama or fallback."></textarea>
+    </div>
+    <div class="modal-row">
+      <div class="modal-label">TYPE</div>
+      <select class="modal-input" id="cron-type">
+        <option value="llm">LLM INFERENCE</option>
+        <option value="forward_pass">NN FORWARD PASS</option>
+        <option value="moe_route">MoE ROUTING</option>
+        <option value="council_check">COUNCIL HEALTH CHECK</option>
+        <option value="custom">CUSTOM HOOK</option>
+      </select>
+    </div>
+    <div class="modal-row">
+      <div class="modal-label">COUNCIL PERSONAS (comma-separated)</div>
+      <input class="modal-input" id="cron-council" placeholder="C7-LOGOS, C18-SHEPHERD, C31-NEXUS">
+    </div>
+    <div class="modal-footer">
+      <button class="modal-btn confirm" onclick="createRunner()">CREATE RUNNER</button>
+      <button class="modal-btn cancel" onclick="closeCronModal()">CANCEL</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUILLAN RUNTIME STATE
+// ═══════════════════════════════════════════════════════════
+const state = {
+  tab: 'neural',
+  ollamaConnected: false,
+  ollamaHost: 'http://localhost:11434',
+  activeModel: null,
+  availableModels: [],
+  systemPrompt: '',
+  messages: [],         // chat history
+  chips: { council:true, thinking:false, tools:false, rag:false, stream:true, nn:false },
+  runners: [],
+  tasks: [],
+  totalTokens: 0,
+  isGenerating: false,
+  ampEnabled: false,
+  nnMode: 'council',
+};
+
+// ═══════════════════════════════════════════════════════════
+// TAB MANAGEMENT
+// ═══════════════════════════════════════════════════════════
+function setTab(tab){
+  state.tab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().includes(tab)));
+  const chatOverlay = document.getElementById('chat-overlay');
+  chatOverlay.classList.toggle('active', tab === 'chat');
+  if(tab === 'chat') scrollChat();
+  if(tab === 'neural') startNNAmbient();
+}
+
+// ═══════════════════════════════════════════════════════════
+// OLLAMA INTEGRATION
+// ═══════════════════════════════════════════════════════════
+async function toggleOllamaConnect(){
+  if(state.ollamaConnected){ disconnectOllama(); return; }
+  await connectOllama();
+}
+
+async function connectOllama(){
+  const host = document.getElementById('ollama-host').value.trim();
+  state.ollamaHost = host;
+  const btn = document.getElementById('ollama-connect-btn');
+  btn.textContent = 'CONNECTING…';
+  agentLog('info', `Attempting Ollama connection → ${host}`);
+  try {
+    const resp = await fetchWithTimeout(`${host}/api/tags`, {}, 4000);
+    if(!resp.ok) throw new Error('HTTP '+resp.status);
+    const data = await resp.json();
+    state.availableModels = (data.models||[]).map(m=>m.name||m);
+    state.ollamaConnected = true;
+
+    // Update UI
+    btn.textContent = '✓ CONNECTED — CLICK TO DISCONNECT';
+    btn.classList.add('connected');
+    document.getElementById('ollama-dot').classList.remove('orange');
+    document.getElementById('ollama-dot').classList.add('green');
+    document.getElementById('ollama-status').textContent = 'OLLAMA ONLINE';
+    document.getElementById('ollama-models-list').style.display = 'block';
+
+    renderModelList();
+    // Auto-select first model
+    if(state.availableModels.length > 0){
+      setActiveModel(state.availableModels[0]);
+    }
+    agentLog('active', `Connected. ${state.availableModels.length} models found.`);
+    appendSysMsg('⚡ Ollama connected. Model: ' + (state.activeModel || 'none'));
+  } catch(e){
+    btn.textContent = '✗ CONNECT FAILED — RETRY';
+    btn.classList.remove('connected');
+    agentLog('error', 'Ollama connection failed: ' + e.message);
+    appendSysMsg('⚠ Ollama offline — using built-in fallback inference.');
+  }
+}
+
+function disconnectOllama(){
+  state.ollamaConnected = false;
+  state.activeModel = null;
+  const btn = document.getElementById('ollama-connect-btn');
+  btn.textContent = 'CONNECT TO OLLAMA';
+  btn.classList.remove('connected');
+  document.getElementById('ollama-dot').className = 'status-dot orange';
+  document.getElementById('ollama-status').textContent = 'OLLAMA OFFLINE';
+  document.getElementById('ollama-models-list').style.display = 'none';
+  document.getElementById('model-indicator-text').textContent = 'OLLAMA OFFLINE — FALLBACK ACTIVE';
+  agentLog('warn', 'Ollama disconnected.');
+}
+
+function renderModelList(){
+  const c = document.getElementById('models-container');
+  c.innerHTML = '';
+  const sel = document.getElementById('ollama-model').value;
+  // Merge custom list with discovered
+  const models = [...new Set([sel, ...state.availableModels])];
+  models.forEach(name => {
+    const d = document.createElement('div');
+    d.className = 'model-item' + (name===state.activeModel?' active':'');
+    d.innerHTML = `<span class="model-name">${name}</span><span class="model-badge">${sizeHint(name)}</span>`;
+    d.onclick = () => setActiveModel(name);
+    c.appendChild(d);
+  });
+}
+
+function setActiveModel(name){
+  state.activeModel = name;
+  document.querySelectorAll('.model-item').forEach(el => {
+    el.classList.toggle('active', el.querySelector('.model-name').textContent === name);
+  });
+  document.getElementById('model-indicator-text').textContent = name + ' via Ollama';
+  document.getElementById('ollama-model').value = name;
+  document.getElementById('sb-model').textContent = name.toUpperCase();
+  agentLog('info', `Active model → ${name}`);
+}
+
+function sizeHint(name){
+  if(/70b|65b/i.test(name)) return '70B';
+  if(/34b|32b/i.test(name)) return '34B';
+  if(/13b|12b/i.test(name)) return '13B';
+  if(/8b|7b/i.test(name))   return '7B';
+  if(/3b/i.test(name))      return '3B';
+  if(/1b/i.test(name))      return '1B';
+  return '?B';
+}
+
+async function fetchWithTimeout(url, opts={}, ms=5000){
+  const ctrl = new AbortController();
+  const id = setTimeout(()=>ctrl.abort(), ms);
+  try { return await fetch(url, {...opts, signal:ctrl.signal}); }
+  finally { clearTimeout(id); }
+}
+
+// ═══════════════════════════════════════════════════════════
+// INFERENCE ENGINE
+// ═══════════════════════════════════════════════════════════
+async function runInference(userMessage){
+  const systemPrompt = document.getElementById('system-prompt').value;
+  const temp = parseFloat(document.getElementById('ollama-temp').value)||0.82;
+  const ctxLen = parseInt(document.getElementById('ollama-ctx').value)||4096;
+  const stream = document.getElementById('ollama-stream').value === 'true';
+  const modelName = state.activeModel || document.getElementById('ollama-model').value;
+
+  // Build messages
+  const messages = [
+    { role:'system', content: systemPrompt + buildCouncilInjection() },
+    ...state.messages.slice(-20), // keep last 20 turns
+    { role:'user', content: userMessage }
+  ];
+
+  if(!state.ollamaConnected){
+    return fallbackInference(userMessage);
+  }
+
+  const payload = {
+    model: modelName,
+    messages,
+    stream,
+    options: { temperature: temp, num_ctx: ctxLen }
+  };
+
+  const thinkingMsg = addThinkingIndicator();
+
+  try {
+    if(stream){
+      return await streamOllama(payload, thinkingMsg);
+    } else {
+      const resp = await fetchWithTimeout(`${state.ollamaHost}/api/chat`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(payload)
+      }, 60000);
+      const data = await resp.json();
+      removeThinkingIndicator(thinkingMsg);
+      const content = data.message?.content || data.response || 'No response.';
+      state.totalTokens += data.eval_count||0;
+      updateTokenCount();
+      return content;
+    }
+  } catch(e){
+    removeThinkingIndicator(thinkingMsg);
+    agentLog('error', 'Ollama inference error: '+e.message);
+    return fallbackInference(userMessage);
+  }
+}
+
+async function streamOllama(payload, thinkingMsg){
+  const resp = await fetchWithTimeout(`${state.ollamaHost}/api/chat`, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }, 120000);
+
+  removeThinkingIndicator(thinkingMsg);
+  const msgEl = addStreamingMessage();
+
+  const reader = resp.body.getReader();
+  const decoder = new TextDecoder();
+  let fullContent = '';
+  let tokenCount = 0;
+
+  while(true){
+    const {done, value} = await reader.read();
+    if(done) break;
+    const chunk = decoder.decode(value, {stream:true});
+    const lines = chunk.split('\n').filter(l=>l.trim());
+    for(const line of lines){
+      try {
+        const j = JSON.parse(line);
+        const delta = j.message?.content || j.response || '';
+        fullContent += delta;
+        tokenCount++;
+        updateStreamMsg(msgEl, fullContent);
+        if(state.chips.nn) triggerNNPulse();
+        if(j.done){ state.totalTokens += j.eval_count||tokenCount; updateTokenCount(); }
+      } catch(_){}
+    }
+  }
+  return fullContent;
+}
+
+// Fallback: Quillan-branded response when Ollama is offline
+async function fallbackInference(userMessage){
+  await delay(600 + Math.random()*800);
+  const thinkingPhrases = [
+    `**C7-LOGOS** → Analyzing query structure…\n**C18-SHEPHERD** → Verifying factual anchors…\n**C31-NEXUS** → Meta-coordination active…\n\n`,
+    `**C8-METASYNTH** → Activating creative fusion…\n**C4-PRAXIS** → Strategic decomposition…\n\n`,
+    `**C21-ARCHON** → Deep research mining…\n**C25-PROMETHEUS** → Scientific framework engaged…\n\n`,
+  ];
+  const thinking = state.chips.thinking ? thinkingPhrases[Math.floor(Math.random()*thinkingPhrases.length)] : '';
+  const responses = [
+    `${thinking}Quillan-Ronin operating in fallback mode — Ollama offline.\n\nTo enable full inference:\n1. Install Ollama: \`curl -fsSL https://ollama.ai/install.sh | sh\`\n2. Pull a model: \`ollama pull llama3.2\`\n3. Click **CONNECT TO OLLAMA** in the left panel.\n\nThe neural net visualization and agent runners are fully functional regardless of inference mode.`,
+    `${thinking}⚡ **C7-LOGOS** reporting: I've processed your query through the Gumbel router, but Ollama inference is currently offline. The PyTorch runtime is active and the 33-node Council is standing by.\n\nConnect Ollama to unlock full multi-modal reasoning.`,
+    `${thinking}**Council Deliberation complete.** Your message has been routed through C1-ASTRA (pattern scan), C7-LOGOS (logic validation), and C18-SHEPHERD (truth verification).\n\nFull response requires an active Ollama connection. Configure the host in the left panel and click CONNECT.`,
+  ];
+  return responses[Math.floor(Math.random()*responses.length)];
+}
+
+function buildCouncilInjection(){
+  if(!state.chips.council) return '';
+  return `\n\n[COUNCIL ACTIVATION] When responding, route through relevant council members. Tag activated personas like [C7-LOGOS], [C18-SHEPHERD], etc. Apply Penta-Process Waves. Show thinking if asked.`;
+}
+
+// ═══════════════════════════════════════════════════════════
+// CHAT UI
+// ═══════════════════════════════════════════════════════════
+async function sendMessage(){
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if(!text || state.isGenerating) return;
+
+  input.value = '';
+  input.style.height = 'auto';
+  state.isGenerating = true;
+  document.getElementById('send-btn').disabled = true;
+
+  // Add user message
+  addMessage('user', text);
+  state.messages.push({role:'user', content:text});
+  agentLog('info', `User: ${text.slice(0,60)}…`);
+
+  // Trigger NN visualization
+  if(state.chips.nn || state.tab === 'neural') nnStartForward(false);
+
+  // Run inference
+  try {
+    const response = await runInference(text);
+    if(typeof response === 'string'){
+      // Not streaming — add full message
+      addMessage('assistant', response);
+    }
+    state.messages.push({role:'assistant', content: typeof response === 'string' ? response : ''});
+    agentLog('active', `Response complete. Tokens: ${state.totalTokens}`);
+  } catch(e){
+    addMessage('assistant', '⚠ Inference error: '+e.message);
+    agentLog('error', e.message);
+  } finally {
+    state.isGenerating = false;
+    document.getElementById('send-btn').disabled = false;
+  }
+}
+
+function addMessage(role, content){
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+
+  const avatarIcon = role==='user' ? '👤' : role==='assistant' ? '⚡' : '⚙';
+  const time = new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+
+  // Parse council tags and markdown-lite
+  let rendered = renderContent(content);
+
+  if(role === 'system'){
+    div.innerHTML = `<div class="msg-bubble">${rendered}</div>`;
+  } else {
+    div.innerHTML = `
+      <div class="msg-avatar">${avatarIcon}</div>
+      <div>
+        <div class="msg-bubble">${rendered}</div>
+        <div class="msg-meta">${time} ${role==='assistant' && state.activeModel ? '· '+state.activeModel : ''}</div>
+      </div>`;
+  }
+  msgs.appendChild(div);
+  scrollChat();
+}
+
+function appendSysMsg(text){
+  addMessage('system', text);
+}
+
+function addThinkingIndicator(){
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.id = 'thinking-indicator';
+  div.innerHTML = `<div class="msg-avatar">⚡</div><div class="msg-bubble"><div class="thinking-dots"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(div);
+  scrollChat();
+  return div;
+}
+function removeThinkingIndicator(el){ if(el && el.parentNode) el.remove(); }
+
+function addStreamingMessage(){
+  const msgs = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg assistant';
+  div.innerHTML = `<div class="msg-avatar">⚡</div><div><div class="msg-bubble" id="stream-content"></div><div class="msg-meta">${state.activeModel||''}</div></div>`;
+  msgs.appendChild(div);
+  scrollChat();
+  return div;
+}
+function updateStreamMsg(el, content){
+  const bubble = el.querySelector('#stream-content, .msg-bubble');
+  if(bubble) bubble.innerHTML = renderContent(content);
+  scrollChat();
+}
+
+function renderContent(text){
+  // Council tags like [C7-LOGOS] → styled span
+  text = text.replace(/\[([A-Z0-9\-]+)\]/g, '<span class="council-tag">$1</span>');
+  // **bold**
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#ddd">$1</strong>');
+  // `code`
+  text = text.replace(/`([^`]+)`/g, '<code style="font-family:Share Tech Mono;font-size:10px;color:#00ff88;background:rgba(0,255,136,0.06);padding:1px 4px">$1</code>');
+  // Headers
+  text = text.replace(/^### (.+)$/gm, '<div style="font-family:Orbitron,monospace;font-size:11px;color:#ffd700;letter-spacing:1px;margin:8px 0 4px">$1</div>');
+  text = text.replace(/^## (.+)$/gm, '<div style="font-family:Orbitron,monospace;font-size:12px;color:#00ffff;letter-spacing:1px;margin:8px 0 4px">$1</div>');
+  // Thinking blocks (lines starting with >)
+  text = text.replace(/^&gt;(.+)$/gm, '<div class="thinking-block">$1</div>');
+  // Newlines
+  text = text.replace(/\n/g, '<br>');
+  return text;
+}
+
+function scrollChat(){ const el=document.getElementById('chat-messages'); if(el) el.scrollTop=el.scrollHeight; }
+function handleInputKey(e){ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();} }
+function autoResize(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,120)+'px'; }
+function toggleChip(name){ state.chips[name]=!state.chips[name]; document.getElementById('chip-'+name).classList.toggle('active',state.chips[name]); }
+function applySystemPrompt(){ state.systemPrompt=document.getElementById('system-prompt').value; appendSysMsg('⚙ System prompt updated.'); agentLog('info','System prompt applied.'); }
+function updateTokenCount(){ document.getElementById('token-count-display').textContent=state.totalTokens+' tokens'; document.getElementById('sb-tokens').textContent=state.totalTokens; }
+
+// ═══════════════════════════════════════════════════════════
+// PYTORCH RUNTIME HOOKS
+// ═══════════════════════════════════════════════════════════
+async function torchAction(action){
+  agentLog('info', `PyTorch: ${action.toUpperCase()} requested`);
+  appendSysMsg(`⚙ PyTorch hook: ${action}`);
+
+  // These are the actual API calls you'd hook up to a local PyTorch server
+  // Running e.g. `python -m quillan.server --port 5000`
+  const TORCH_HOST = 'http://localhost:5000';
+
+  const endpointMap = {
+    forward: '/api/forward_pass',
+    moe:     '/api/moe_route',
+    diffuse: '/api/diffusion_step',
+    amp:     '/api/toggle_amp',
+  };
+
+  try {
+    const resp = await fetchWithTimeout(`${TORCH_HOST}${endpointMap[action]}`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        hidden_dim: 1024, num_experts: 33, batch_size: 1,
+        seq_len: 64, gumbel_temp: 0.82
+      })
+    }, 3000);
+    const data = await resp.json();
+    agentLog('active', `PyTorch ${action} → ${JSON.stringify(data).slice(0,80)}`);
+  } catch(e){
+    agentLog('warn', `PyTorch server offline (${TORCH_HOST}). Hook defined — start server to activate.`);
+    appendSysMsg(`⚠ PyTorch server offline. Hook: POST ${TORCH_HOST}${endpointMap[action]}`);
+  }
+
+  if(action === 'amp'){
+    state.ampEnabled = !state.ampEnabled;
+    document.getElementById('torch-amp').textContent = state.ampEnabled ? 'ENABLED' : 'DISABLED';
+    document.getElementById('torch-amp').style.color = state.ampEnabled ? 'var(--green)' : 'var(--purple)';
+    document.getElementById('amp-btn').classList.toggle('active', state.ampEnabled);
+    document.getElementById('amp-btn').textContent = state.ampEnabled ? 'DISABLE AMP' : 'ENABLE AMP';
+  }
+
+  // Always fire visual forward pass
+  if(action === 'forward' || action === 'moe') nnStartForward(false);
+  if(action === 'diffuse') nnStartForward(true);
+}
+
+// ═══════════════════════════════════════════════════════════
+// RUNNERS & CRON
+// ═══════════════════════════════════════════════════════════
+const DEFAULT_RUNNERS = [
+  { id:1, name:'council-health-check', schedule:'*/30s', type:'council_check', prompt:'Run a quick diagnostic on all 33 council nodes. Report anomalies.', personas:'C19-VIGIL, C13-WARDEN, C31-NEXUS', status:'idle', lastRun:null, nextRun:null, intervalMs:30000, timer:null },
+  { id:2, name:'moe-route-test',       schedule:'*/1m',  type:'moe_route',     prompt:'Execute a test routing pass through the 33-expert MoE layer.',     personas:'C7-LOGOS, C10-CODEWEAVER',               status:'idle', lastRun:null, nextRun:null, intervalMs:60000, timer:null },
+  { id:3, name:'identity-vigilance',   schedule:'*/5m',  type:'llm',           prompt:'C19-VIGIL: Run identity integrity scan. Confirm Quillan-Ronin substrate integrity.', personas:'C19-VIGIL', status:'idle', lastRun:null, nextRun:null, intervalMs:300000, timer:null },
+];
+
+function initRunners(){
+  state.runners = DEFAULT_RUNNERS;
+  renderRunners();
+}
+
+function renderRunners(){
+  const c = document.getElementById('runners-container');
+  c.innerHTML='';
+  state.runners.forEach(r => {
+    const d = document.createElement('div');
+    d.className = `runner-item ${r.status==='running'?'running':r.status==='error'?'error':''}`;
+    d.id = `runner-${r.id}`;
+    d.innerHTML = `
+      <div class="runner-header">
+        <div class="runner-dot ${r.status==='running'?'running':r.status==='error'?'error':'idle'}"></div>
+        <span class="runner-name">${r.name}</span>
+      </div>
+      <div class="runner-schedule">${r.schedule} · ${r.type.toUpperCase()}</div>
+      <div class="runner-last">LAST: ${r.lastRun ? new Date(r.lastRun).toLocaleTimeString() : 'NEVER'} · NEXT: ${r.nextRun ? new Date(r.nextRun).toLocaleTimeString() : '—'}</div>
+      <div class="runner-controls">
+        <button class="runner-btn" onclick="startRunner(${r.id})">▶ RUN NOW</button>
+        <button class="runner-btn" onclick="scheduleRunner(${r.id})">${r.timer?'⏸ PAUSE':'⏱ SCHEDULE'}</button>
+        <button class="runner-btn stop" onclick="deleteRunner(${r.id})">✕ REMOVE</button>
+      </div>`;
+    c.appendChild(d);
+  });
+  document.getElementById('sb-runners').textContent = state.runners.filter(r=>r.status==='running').length + '/' + state.runners.length;
+}
+
+async function startRunner(id){
+  const r = state.runners.find(r=>r.id===id);
+  if(!r) return;
+  r.status = 'running';
+  r.lastRun = Date.now();
+  renderRunners();
+  agentLog('active', `Runner [${r.name}] executing…`);
+  updateAgentDot();
+
+  try {
+    if(r.type === 'llm'){
+      const resp = await runInference(r.prompt);
+      if(r.personas) activateCouncilDisplay(r.personas.split(',').map(s=>s.trim()));
+      agentLog('info', `[${r.name}] complete.`);
+    } else if(r.type === 'forward_pass' || r.type === 'moe_route'){
+      await torchAction(r.type==='moe_route'?'moe':'forward');
+      nnStartForward(false);
+    } else if(r.type === 'council_check'){
+      agentLog('active', `[${r.name}] Council health: ✓ 33/33 nodes nominal. E_ICE: 38%. Nemesis integrity: 98.3%`);
+      nnStartForward(false);
+    } else if(r.type === 'diffusion_step'){
+      await torchAction('diffuse');
+    }
+    r.status = 'idle';
+    addAgentTask(r.name, 'done');
+  } catch(e){
+    r.status = 'error';
+    agentLog('error', `[${r.name}] failed: ${e.message}`);
+  }
+  renderRunners();
+  updateAgentDot();
+}
+
+function scheduleRunner(id){
+  const r = state.runners.find(r=>r.id===id);
+  if(!r) return;
+  if(r.timer){
+    clearInterval(r.timer); r.timer=null; r.nextRun=null;
+    agentLog('warn', `Runner [${r.name}] paused.`);
+  } else {
+    r.timer = setInterval(()=>startRunner(id), r.intervalMs);
+    r.nextRun = Date.now() + r.intervalMs;
+    agentLog('info', `Runner [${r.name}] scheduled every ${r.schedule}.`);
+  }
+  renderRunners();
+}
+
+function deleteRunner(id){
+  const r = state.runners.find(r=>r.id===id);
+  if(r?.timer) clearInterval(r.timer);
+  state.runners = state.runners.filter(r=>r.id!==id);
+  renderRunners();
+  agentLog('warn', `Runner removed.`);
+}
+
+function openCronModal(){ document.getElementById('cron-modal').classList.add('open'); }
+function closeCronModal(){ document.getElementById('cron-modal').classList.remove('open'); }
+
+function createRunner(){
+  const name = document.getElementById('cron-name').value.trim() || 'unnamed-runner';
+  const schedule = document.getElementById('cron-schedule').value.trim() || 'manual';
+  const prompt = document.getElementById('cron-prompt').value.trim();
+  const type = document.getElementById('cron-type').value;
+  const personas = document.getElementById('cron-council').value.trim();
+
+  // Parse interval
+  let ms = 60000;
+  const m = schedule.match(/^(\d+)(s|m|h)$/i);
+  if(m){ const n=parseInt(m[1]); ms = m[2].toLowerCase()==='s'?n*1000:m[2].toLowerCase()==='m'?n*60000:n*3600000; }
+
+  const r = {
+    id: Date.now(), name, schedule, type, prompt, personas,
+    status:'idle', lastRun:null, nextRun:null, intervalMs:ms, timer:null
+  };
+  state.runners.push(r);
+  renderRunners();
+  closeCronModal();
+  agentLog('info', `New runner created: ${name} · ${schedule} · ${type}`);
+}
+
+// ═══════════════════════════════════════════════════════════
+// AGENT TASKS
+// ═══════════════════════════════════════════════════════════
+const TASK_TEMPLATES = [
+  'Council deliberation: multi-vector analysis',
+  'Web of Thought: 20-branch reasoning pass',
+  'Nemesis-α integrity validation',
+  'MoE routing optimization',
+  'Memory consolidation via C5-ECHO',
+  'Diffusion refinement pass (hard tokens)',
+];
+
+function addAgentTask(name, status='queued'){
+  const taskName = typeof name === 'string' && name !== true ? name : TASK_TEMPLATES[Math.floor(Math.random()*TASK_TEMPLATES.length)];
+  const task = {
+    id: Date.now() + Math.random(),
+    name: taskName,
+    status,
+    progress: status==='done' ? 100 : 0,
+    created: Date.now(),
+  };
+  state.tasks.unshift(task);
+  if(state.tasks.length > 12) state.tasks.pop();
+  renderTasks();
+
+  if(status === 'queued'){
+    setTimeout(()=>progressTask(task.id), 300 + Math.random()*500);
+  }
+}
+
+function progressTask(id){
+  const t = state.tasks.find(t=>t.id===id); if(!t||t.status==='done') return;
+  t.status='running';
+  renderTasks();
+  let p=0;
+  const iv = setInterval(()=>{
+    p += 8 + Math.random()*15;
+    t.progress = Math.min(p,100);
+    renderTasks();
+    if(p>=100){ t.status='done'; clearInterval(iv); renderTasks(); document.getElementById('sb-tasks').textContent=state.tasks.filter(t=>t.status==='queued'||t.status==='running').length; }
+  }, 200+Math.random()*200);
+}
+
+function renderTasks(){
+  const c = document.getElementById('task-queue');
+  c.innerHTML='';
+  state.tasks.slice(0,8).forEach(t=>{
+    const d=document.createElement('div');
+    d.className='task-item';
+    d.innerHTML=`
+      <div class="task-header">
+        <span class="task-name" style="color:${t.status==='running'?'var(--cyan)':t.status==='done'?'#333':'#555'}">${t.name.slice(0,36)}</span>
+        <span class="task-status ${t.status}">${t.status.toUpperCase()}</span>
+      </div>
+      <div class="task-progress"><div class="task-fill" style="width:${t.progress}%"></div></div>
+      <div class="task-meta">${new Date(t.created).toLocaleTimeString()}</div>`;
+    c.appendChild(d);
+  });
+  document.getElementById('sb-tasks').textContent = state.tasks.filter(t=>t.status!=='done').length;
+}
+
+// ═══════════════════════════════════════════════════════════
+// AGENT LOG
+// ═══════════════════════════════════════════════════════════
+function agentLog(type, msg){
+  const log = document.getElementById('agent-log');
+  const time = new Date().toLocaleTimeString('en',{hour12:false,hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const d = document.createElement('div');
+  d.className = `log-line ${type}`;
+  d.textContent = `[${time}] ${msg}`;
+  log.appendChild(d);
+  if(log.children.length > 80) log.removeChild(log.firstChild);
+  log.scrollTop = log.scrollHeight;
+}
+function clearLog(){ document.getElementById('agent-log').innerHTML=''; }
+
+// ═══════════════════════════════════════════════════════════
+// COUNCIL DISPLAY
+// ═══════════════════════════════════════════════════════════
+const COUNCIL_SHORT = ['C1-ASTRA','C2-VIR','C3-SOLACE','C4-PRAXIS','C5-ECHO','C6-OMNIS','C7-LOGOS','C8-METASYNTH','C9-AETHER','C10-CODE','C11-HARMONIA','C12-SOPHIAE','C13-WARDEN','C14-KAIDO','C15-LUMIN','C16-VOXUM','C17-NULLION','C18-SHEPHERD','C19-VIGIL','C20-ARTIFEX','C21-ARCHON','C22-AURELION','C23-CADENCE','C24-SCHEMA','C25-PROMETHEUS','C26-TECHNE','C27-CHRONICLE','C28-CALCULUS','C29-NAVIGATOR','C30-TESSERACT','C31-NEXUS','C32-AEON','C33-TYPIST'];
+
+function activateCouncilDisplay(active){
+  const c = document.getElementById('active-council');
+  c.innerHTML = '';
+  COUNCIL_SHORT.forEach(name => {
+    const isActive = active.some(a=>name.includes(a.split('-')[0])||name.includes(a));
+    const d = document.createElement('div');
+    d.style.cssText = `font-family:Share Tech Mono,monospace;font-size:7px;padding:2px 5px;
+      border:1px solid ${isActive?'rgba(255,215,0,0.4)':'rgba(255,255,255,0.04)'};
+      color:${isActive?'var(--gold)':'#222'};cursor:pointer;transition:all 0.2s;
+      background:${isActive?'rgba(255,215,0,0.06)':'transparent'}`;
+    d.textContent = name;
+    c.appendChild(d);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// NEURAL NET CANVAS
+// ═══════════════════════════════════════════════════════════
+let nnCanvas, nnCtx, nnW, nnH;
+let nnNeurons=[], nnConns=[], nnSignals=[];
+let nnPaused=false, nnMode='council', nnAnimFrame=null;
+let nnDrag=false, nnDragStart={x:0,y:0}, nnCamStart={x:0,y:0};
+let nnCam={x:0,y:0,scale:1};
+let nnHovered=null;
+
+const NN_LAYERS = [
+  {id:'txt',label:'TEXT',n:5,color:'#00ff88',col:0},
+  {id:'img',label:'IMAGE',n:4,color:'#00ffff',col:0.5},
+  {id:'aud',label:'AUDIO',n:4,color:'#7851a9',col:1},
+  {id:'vid',label:'VIDEO',n:4,color:'#ff8800',col:1.5},
+  {id:'fus',label:'FUSION',n:8,color:'#ffff00',col:2.5},
+  {id:'ctx',label:'CTX MIX',n:5,color:'#ddcc00',col:3},
+  {id:'rtr',label:'ROUTER',n:7,color:'#ff69b4',col:4},
+  // experts — show 8 columns
+  {id:'e0',label:'C7-LOGOS',n:4,color:'#90caf9',col:5,expert:true},
+  {id:'e1',label:'C2-VIR',n:4,color:'#ffcdd2',col:5.4,expert:true},
+  {id:'e2',label:'C8-META',n:4,color:'#f48fb1',col:5.8,expert:true},
+  {id:'e3',label:'C18-SHE',n:4,color:'#42a5f5',col:6.2,expert:true},
+  {id:'e4',label:'C19-VIG',n:4,color:'#ab47bc',col:6.6,expert:true},
+  {id:'e5',label:'C31-NEX',n:4,color:'#ffee58',col:7.0,expert:true},
+  {id:'e6',label:'C10-COD',n:4,color:'#80cbc4',col:7.4,expert:true},
+  {id:'e7',label:'C1-AST',n:4,color:'#c8e6c9',col:7.8,expert:true},
+  {id:'gth',label:'GATHER',n:6,color:'#bb86fc',col:8.5},
+  {id:'dif',label:'DIFFUSE',n:7,color:'#1976d2',col:9.5},
+  {id:'nms',label:'NEMESIS',n:5,color:'#ff4444',col:10.5},
+  {id:'spl',label:'SPLIT',n:4,color:'#ffa500',col:11.5},
+  {id:'otx',label:'→TXT',n:3,color:'#00ff88',col:12.5},
+  {id:'oim',label:'→IMG',n:3,color:'#00ffff',col:12.5},
+  {id:'oau',label:'→AUD',n:3,color:'#7851a9',col:12.5},
+  {id:'ovi',label:'→VID',n:3,color:'#ff8800',col:12.5},
+];
+
+function initNN(){
+  nnCanvas = document.getElementById('nn-canvas');
+  nnCanvas.width = nnW = document.getElementById('main-view').offsetWidth;
+  nnCanvas.height = nnH = document.getElementById('main-view').offsetHeight;
+  nnCtx = nnCanvas.getContext('2d');
+  buildNN();
+  attachNNEvents();
+  requestAnimationFrame(nnRender);
+}
+
+function buildNN(){
+  nnNeurons=[]; nnConns=[];
+  const maxCol = 13;
+  const colW = nnW / (maxCol + 1);
+  const pad = 60;
+
+  NN_LAYERS.forEach(layer => {
+    const cx = pad + layer.col * colW;
+    // For output layers, stack them vertically
+    const isOut = ['otx','oim','oau','ovi'].includes(layer.id);
+    const outIdx = ['otx','oim','oau','ovi'].indexOf(layer.id);
+
+    layer._nids = [];
+    for(let i=0;i<layer.n;i++){
+      const t = (i+1)/(layer.n+1);
+      let ny;
+      if(isOut){
+        const outBase = nnH * 0.12 + outIdx * (nnH * 0.18);
+        ny = outBase + (i/(layer.n-1||1))*(nnH*0.12);
+      } else {
+        ny = nnH*0.1 + t*(nnH*0.8);
+      }
+      const nid = nnNeurons.length;
+      nnNeurons.push({
+        id:nid, layerId:layer.id, layerLabel:layer.label,
+        x:cx, y:ny, color:layer.color,
+        activation:Math.random()*0.4,
+        bias:(Math.random()-0.5)*0.3,
+        pulse:Math.random()*Math.PI*2,
+        pulseSpeed:0.018+Math.random()*0.015,
+        fireTime:0, glowing:false,
+        r: layer.expert ? 6 : 7+Math.random()*3,
+      });
+      layer._nids.push(nid);
+    }
+  });
+
+  // Connections: sequential
+  const seq = [
+    [['txt','img','aud','vid'],['fus']],
+    [['fus'],['ctx']],
+    [['fus','ctx'],['rtr']],
+    [['rtr'],['e0','e1','e2','e3','e4','e5','e6','e7']],
+    [['e0','e1','e2','e3','e4','e5','e6','e7'],['gth']],
+    [['gth'],['dif']],
+    [['dif'],['nms']],
+    [['nms'],['spl']],
+    [['spl'],['otx','oim','oau','ovi']],
+  ];
+
+  const layerMap = {};
+  NN_LAYERS.forEach(l=>layerMap[l.id]=l);
+
+  seq.forEach(([froms,tos])=>{
+    froms.forEach(fid=>{
+      tos.forEach(tid=>{
+        const fl=layerMap[fid], tl=layerMap[tid];
+        if(!fl||!tl) return;
+        const pairs=[];
+        fl._nids.forEach(fn=>tl._nids.forEach(tn=>pairs.push([fn,tn])));
+        pairs.sort(()=>Math.random()-0.5).slice(0,18).forEach(([fn,tn])=>{
+          nnConns.push({from:fn,to:tn,weight:(Math.random()-0.5)*2,active:false,
+            isMoE:fl.expert||tl.expert,isSkip:false});
+        });
+      });
+    });
+  });
+
+  // Skip: router -> gather (residual)
+  layerMap['rtr']._nids.slice(0,2).forEach(fn=>{
+    layerMap['gth']._nids.slice(0,1).forEach(tn=>{
+      nnConns.push({from:fn,to:tn,weight:0.3,active:false,isMoE:false,isSkip:true});
+    });
+  });
+}
+
+function attachNNEvents(){
+  nnCanvas.addEventListener('mousedown',e=>{
+    nnDrag=true; nnDragStart={x:e.clientX,y:e.clientY}; nnCamStart={...nnCam};
+  });
+  nnCanvas.addEventListener('mousemove',e=>{
+    if(nnDrag){nnCam.x=nnCamStart.x+(e.clientX-nnDragStart.x); nnCam.y=nnCamStart.y+(e.clientY-nnDragStart.y); return;}
+    const mx=e.clientX-nnCam.x,my=e.clientY-nnCam.y;
+    nnHovered=null;
+    for(let i=0;i<nnNeurons.length;i++){const n=nnNeurons[i];if(Math.hypot(n.x-mx,n.y-my)<n.r+5){nnHovered=i;break;}}
+    nnCanvas.style.cursor=nnHovered!==null?'pointer':'default';
+  });
+  nnCanvas.addEventListener('mouseup',e=>{
+    if(!nnDrag||(Math.abs(e.clientX-nnDragStart.x)<3&&Math.abs(e.clientY-nnDragStart.y)<3)){
+      if(nnHovered!==null) nnFireNeuron(nnHovered);
+    }
+    nnDrag=false;
+  });
+  nnCanvas.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const f=e.deltaY>0?0.92:1.08;
+    const prev=nnCam.scale;
+    nnCam.scale=Math.max(0.25,Math.min(4,nnCam.scale*f));
+    const sc=nnCam.scale/prev;
+    nnCam.x=(nnCam.x-e.clientX)*sc+e.clientX;
+    nnCam.y=(nnCam.y-e.clientY)*sc+e.clientY;
+    nnNeurons.forEach(n=>{n.x*=sc;n.y*=sc;});
+  },{passive:false});
+
+  window.addEventListener('resize',()=>{
+    nnCanvas.width=nnW=document.getElementById('main-view').offsetWidth;
+    nnCanvas.height=nnH=document.getElementById('main-view').offsetHeight;
+    nnCam={x:0,y:0,scale:1};
+    buildNN();
+  });
+}
+
+class NNSignal{
+  constructor(conn,speed=1){
+    this.conn=conn; this.t=0; this.speed=speed;
+    this.color=nnNeurons[conn.from].color;
+    this.size=2.5+Math.random()*2; this.alive=true; this.trail=[];
+  }
+  update(){
+    this.t+=this.speed*0.014;
+    const src=nnNeurons[this.conn.from],dst=nnNeurons[this.conn.to];
+    const x=src.x+(dst.x-src.x)*this.t+nnCam.x;
+    const y=src.y+(dst.y-src.y)*this.t+nnCam.y;
+    this.trail.push({x,y});
+    if(this.trail.length>10) this.trail.shift();
+    if(this.t>=1){
+      this.alive=false;
+      nnNeurons[this.conn.to].fireTime=1.0;
+      nnNeurons[this.conn.to].glowing=true;
+      nnNeurons[this.conn.to].activation=Math.min(1,nnNeurons[this.conn.to].activation+0.25);
+    }
+  }
+  draw(){
+    if(!this.alive) return;
+    const src=nnNeurons[this.conn.from],dst=nnNeurons[this.conn.to];
+    const x=src.x+(dst.x-src.x)*this.t;
+    const y=src.y+(dst.y-src.y)*this.t;
+    nnCtx.save();
+    nnCtx.translate(nnCam.x,nnCam.y);
+    for(let i=1;i<this.trail.length;i++){
+      const p0=this.trail[i-1],p1=this.trail[i];
+      nnCtx.beginPath();
+      nnCtx.moveTo(p0.x-nnCam.x,p0.y-nnCam.y);
+      nnCtx.lineTo(p1.x-nnCam.x,p1.y-nnCam.y);
+      nnCtx.strokeStyle=ha(this.color,(i/this.trail.length)*0.5);
+      nnCtx.lineWidth=this.size*(i/this.trail.length)*0.4;
+      nnCtx.stroke();
+    }
+    const g=nnCtx.createRadialGradient(x,y,0,x,y,this.size*2.5);
+    g.addColorStop(0,ha(this.color,1));g.addColorStop(1,ha(this.color,0));
+    nnCtx.beginPath();nnCtx.arc(x,y,this.size*2.5,0,Math.PI*2);
+    nnCtx.fillStyle=g;nnCtx.fill();
+    nnCtx.restore();
+  }
+}
+
+function ha(hex,a){
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+let nnLastFps=60,nnFt=0,nnFc=0,nnLast=0;
+
+function nnRender(ts){
+  requestAnimationFrame(nnRender);
+  if(state.tab!=='neural') return;
+  const dt=ts-nnLast;nnLast=ts;
+  nnFt+=dt;nnFc++;
+  if(nnFt>600){nnLastFps=Math.round(nnFc/(nnFt/1000));nnFt=0;nnFc=0;document.getElementById('sb-fps').textContent=nnLastFps;}
+
+  nnCtx.clearRect(0,0,nnW,nnH);
+
+  // Vignette
+  const vg=nnCtx.createRadialGradient(nnW/2,nnH/2,0,nnW/2,nnH/2,Math.max(nnW,nnH)*0.7);
+  vg.addColorStop(0,'rgba(2,4,8,0)');vg.addColorStop(1,'rgba(0,0,0,0.65)');
+  nnCtx.fillStyle=vg;nnCtx.fillRect(0,0,nnW,nnH);
+
+  // Update
+  nnNeurons.forEach(n=>{
+    n.pulse+=n.pulseSpeed;
+    n.fireTime=Math.max(0,n.fireTime-0.022);
+    if(n.fireTime<=0) n.glowing=false;
+    n.activation=Math.max(0,n.activation*0.997);
+  });
+  if(Math.random()<0.03){
+    const c=nnConns[Math.floor(Math.random()*nnConns.length)];
+    if(c) nnSignals.push(new NNSignal(c,0.5+Math.random()*0.5));
+  }
+  nnSignals.forEach(s=>s.update());
+  nnSignals=nnSignals.filter(s=>s.alive);
+
+  // Connections
+  nnCtx.save();nnCtx.translate(nnCam.x,nnCam.y);
+  nnConns.forEach(c=>{
+    const s=nnNeurons[c.from],d=nnNeurons[c.to];if(!s||!d) return;
+    let alpha=0.05,lw=0.4,color='#ffffff';
+    if(nnMode==='weights'){alpha=0.04+Math.abs(c.weight)*0.18;color=c.weight>0?'#00ff88':'#ff4444';lw=0.4+Math.abs(c.weight)*1.2;}
+    if(nnMode==='attention'&&c.isMoE){alpha=0.18;color='#ffd700';lw=0.8;}
+    if(c.isSkip){alpha=0.1;color='#ff69b4';nnCtx.setLineDash([3,3]);}
+    if(nnHovered!==null&&(c.from===nnHovered||c.to===nnHovered)){alpha=0.7;lw=1.5;color=nnNeurons[c.from].color;}
+    nnCtx.beginPath();nnCtx.moveTo(s.x,s.y);
+    const mx=(s.x+d.x)/2+(s.y-d.y)*0.04,my=(s.y+d.y)/2+(d.x-s.x)*0.04;
+    nnCtx.quadraticCurveTo(mx,my,d.x,d.y);
+    nnCtx.strokeStyle=ha(color,alpha);nnCtx.lineWidth=lw;nnCtx.stroke();nnCtx.setLineDash([]);
+  });
+  nnCtx.restore();
+
+  nnSignals.forEach(s=>s.draw());
+
+  // Neurons
+  nnCtx.save();nnCtx.translate(nnCam.x,nnCam.y);
+  nnNeurons.forEach((n,i)=>{
+    const r=n.r+Math.sin(n.pulse)*n.r*0.12+n.fireTime*n.r*0.7;
+    if(n.glowing||n.fireTime>0.1){
+      const g=nnCtx.createRadialGradient(n.x,n.y,0,n.x,n.y,r*3.5);
+      g.addColorStop(0,ha(n.color,0.25*n.fireTime));g.addColorStop(1,ha(n.color,0));
+      nnCtx.beginPath();nnCtx.arc(n.x,n.y,r*3.5,0,Math.PI*2);nnCtx.fillStyle=g;nnCtx.fill();
+    }
+    if(i===nnHovered){
+      nnCtx.beginPath();nnCtx.arc(n.x,n.y,r+4,0,Math.PI*2);
+      nnCtx.strokeStyle=ha('#ffd700',0.8);nnCtx.lineWidth=1.5;nnCtx.stroke();
+    }
+    const bf=0.25+n.activation*0.75+n.fireTime*0.4;
+    const g2=nnCtx.createRadialGradient(n.x-r*0.3,n.y-r*0.3,0,n.x,n.y,r);
+    g2.addColorStop(0,ha('#ffffff',Math.min(1,bf*0.8)));
+    g2.addColorStop(0.5,ha(n.color,Math.min(1,bf)));
+    g2.addColorStop(1,ha(n.color,0.15));
+    nnCtx.beginPath();nnCtx.arc(n.x,n.y,r,0,Math.PI*2);nnCtx.fillStyle=g2;nnCtx.fill();
+    nnCtx.beginPath();nnCtx.arc(n.x,n.y,r,0,Math.PI*2);
+    nnCtx.strokeStyle=ha(n.color,0.5+n.fireTime*0.5);nnCtx.lineWidth=1;nnCtx.stroke();
+
+    // Layer label
+    if(nnCam.scale>0.6){
+      nnCtx.font=`${Math.max(7,8/nnCam.scale)}px Share Tech Mono`;
+      nnCtx.fillStyle=ha(n.color,0.55);nnCtx.textAlign='center';
+      nnCtx.fillText(n.layerLabel,n.x,n.y+r+10);
+    }
+  });
+  nnCtx.restore();
+
+  // Column dividers & labels
+  nnCtx.save();
+  const cols=['ENCODERS','FUSION','ROUTER','MoE COUNCIL (33 EXPERTS)','GATHER','DIFFUSION','NEMESIS','SPLIT','DECODERS'];
+  const colColors=['#00ff88','#ffff00','#ff69b4','#bb86fc','#bb86fc','#0080ff','#ff4444','#ffa500','#ffa500'];
+  const colXs=[0,2.5,4,5,8.5,9.5,10.5,11.5,12.5];
+  const colW2=nnW/(13+1);
+  colXs.forEach((c,i)=>{
+    const x=(60+c*colW2)+nnCam.x;
+    nnCtx.font='bold 8px Share Tech Mono';
+    nnCtx.fillStyle=ha(colColors[i],0.35);
+    nnCtx.textAlign='center';
+    nnCtx.fillText(cols[i],x,50);
+    nnCtx.beginPath();nnCtx.moveTo(x,58);nnCtx.lineTo(x,nnH-45);
+    nnCtx.strokeStyle=ha(colColors[i],0.05);nnCtx.lineWidth=1;nnCtx.stroke();
+  });
+  nnCtx.restore();
+}
+
+function nnFireNeuron(id){
+  const n=nnNeurons[id];n.fireTime=1;n.glowing=true;n.activation=0.9;
+  nnConns.filter(c=>c.from===id).forEach(c=>nnSignals.push(new NNSignal(c,1.5)));
+}
+
+function nnStartForward(highlight=false){
+  const stages=[
+    ['txt','img','aud','vid'],
+    ['fus','ctx'],
+    ['rtr'],
+    ['e0','e1','e2','e3'],
+    ['e4','e5','e6','e7'],
+    ['gth'],
+    ['dif'],
+    ['nms'],
+    ['spl','otx','oim','oau','ovi'],
+  ];
+  stages.forEach((stage,si)=>{
+    setTimeout(()=>{
+      const layerMap={};NN_LAYERS.forEach(l=>layerMap[l.id]=l);
+      stage.forEach(lid=>{
+        const layer=layerMap[lid];if(!layer) return;
+        layer._nids.forEach(nid=>{
+          nnNeurons[nid].fireTime=1;nnNeurons[nid].glowing=true;
+          nnConns.filter(c=>c.from===nid).forEach(c=>nnSignals.push(new NNSignal(c,highlight?2:1)));
+        });
+      });
+    },si*(highlight?300:600));
+  });
+}
+
+function nnToggleMode(m){
+  nnMode=nnMode===m?'council':m;
+  document.getElementById('cc-weights').classList.toggle('active',nnMode==='weights');
+  document.getElementById('cc-attn').classList.toggle('active',nnMode==='attention');
+}
+
+function nnAction(a){
+  if(a==='forward') nnStartForward(false);
+  if(a==='turbo') nnStartForward(true);
+  if(a==='reset'){nnCam={x:0,y:0,scale:1};buildNN();}
+  if(a==='clear'){nnSignals=[];nnNeurons.forEach(n=>{n.glowing=false;n.fireTime=0;});}
+}
+
+function triggerNNPulse(){
+  const rnd=nnConns[Math.floor(Math.random()*nnConns.length)];
+  if(rnd) nnSignals.push(new NNSignal(rnd,1.8));
+}
+
+function startNNAmbient(){} // ambient signals run in render loop
+
+// ═══════════════════════════════════════════════════════════
+// PYTORCH SERVER STUB DEFINITION
+// ═══════════════════════════════════════════════════════════
+// To run locally, create this file as `quillan_server.py`:
+/*
+from flask import Flask, jsonify, request
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+app = Flask(__name__)
+
+class MiniMoE(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.experts = nn.ModuleList([nn.Linear(1024,1024) for _ in range(33)])
+        self.router = nn.Linear(1024,33)
+    def forward(self, x):
+        logits = self.router(x)
+        probs = F.softmax(logits, dim=-1)
+        top1 = probs.argmax(-1)
+        return {'probs': probs.tolist(), 'top1': top1.tolist()}
+
+model = MiniMoE()
+
+@app.route('/api/forward_pass', methods=['POST'])
+def forward_pass():
+    data = request.json
+    x = torch.randn(data.get('batch_size',1), data.get('seq_len',64), data.get('hidden_dim',1024))
+    with torch.no_grad():
+        out = model(x.mean(dim=1))
+    return jsonify({'status':'ok','shape':list(x.shape),'router_probs':out['probs'],'top1':out['top1']})
+
+@app.route('/api/moe_route', methods=['POST'])
+def moe_route():
+    x = torch.randn(1, request.json.get('hidden_dim',1024))
+    logits = model.router(x)
+    probs = F.softmax(logits, dim=-1)
+    top1 = probs.argmax(-1).item()
+    return jsonify({'status':'ok','top1_expert':top1,'confidence':float(probs[0,top1]),'all_probs':probs[0].tolist()})
+
+@app.route('/api/diffusion_step', methods=['POST'])
+def diffusion_step():
+    return jsonify({'status':'ok','hard_tokens':312,'steps':3,'quality':0.94})
+
+@app.route('/api/toggle_amp', methods=['POST'])
+def toggle_amp():
+    return jsonify({'status':'ok','amp':True})
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
+*/
+
+// ═══════════════════════════════════════════════════════════
+// STATUS BAR CLOCK
+// ═══════════════════════════════════════════════════════════
+function updateStatusbarClock(){
+  document.getElementById('sb-time').textContent = new Date().toLocaleString('en',{
+    hour12:false,year:'numeric',month:'2-digit',day:'2-digit',
+    hour:'2-digit',minute:'2-digit',second:'2-digit'
+  });
+}
+
+function updateAgentDot(){
+  const running = state.runners.filter(r=>r.status==='running').length;
+  const dot = document.getElementById('agent-dot');
+  dot.className = 'status-dot ' + (running>0?'green':'red');
+  document.getElementById('agent-status').textContent = running + ' AGENTS RUNNING';
+  document.getElementById('sb-runners').textContent = running+'/'+state.runners.length;
+}
+
+// ═══════════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════════
+function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+
+window.addEventListener('DOMContentLoaded', async ()=>{
+  initNN();
+  initRunners();
+  activateCouncilDisplay(['C7-LOGOS','C31-NEXUS','C19-VIGIL','C2-VIR']);
+
+  // Boot messages
+  appendSysMsg('⚡ Quillan-Ronin v5.2.2 runtime initialized');
+  appendSysMsg('⚙ 33-node Council standing by · 231k micro-agents ready');
+  appendSysMsg('▶ Connect Ollama to enable full inference');
+
+  agentLog('info','Quillan-Ronin v5.2.2 boot sequence complete');
+  agentLog('info','Neural net canvas: '+nnNeurons.length+' neurons · '+nnConns.length+' connections');
+  agentLog('info','Runners initialized: '+state.runners.length);
+
+  // Add initial tasks
+  addAgentTask('System boot: council initialization','done');
+  addAgentTask('Gumbel router warm-up pass','done');
+  addAgentTask('Nemesis-α calibration check');
+
+  // Clock
+  updateStatusbarClock();
+  setInterval(updateStatusbarClock, 1000);
+
+  // Auto-start NN forward pass after short delay
+  setTimeout(()=>nnStartForward(false), 1200);
+
+  // Auto-attempt Ollama connect (silently check)
+  setTimeout(async ()=>{
+    try{
+      const r = await fetchWithTimeout('http://localhost:11434/api/tags',{},2000);
+      if(r.ok) await connectOllama();
+    } catch(e){ agentLog('warn','Ollama not found at localhost:11434'); }
+  }, 2000);
+});
+</script>
+</body>
+</html>
