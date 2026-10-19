@@ -80,9 +80,6 @@ void main() {
     col = mix(col, gold, clamp(length(q), 0.0, 1.0) * 0.4);
     col *= f * 1.5;
 
-    // Film grain
-    float grain = hash(v_texCoord * u_resolution + u_time * 100.0) * 0.04;
-    col += grain * 0.5;
     
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
 }
