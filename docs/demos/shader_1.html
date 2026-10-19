@@ -121,13 +121,28 @@ void main() {
       const s = gl.createShader(type);
       gl.shaderSource(s, src);
       gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.error('Shader compile error:', gl.getShaderInfoLog(s));
+        const errDiv = document.createElement('div');
+        errDiv.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:#ff4444;font-family:monospace;font-size:11px;white-space:pre-wrap;max-width:80vw;background:rgba(0,0,0,0.9);padding:16px;border-radius:8px;border:1px solid #ff4444;z-index:100;';
+        errDiv.textContent = 'Shader compile error:\n' + gl.getShaderInfoLog(s);
+        document.body.appendChild(errDiv);
+        return null;
+      }
       return s;
     }
 
     const prog = gl.createProgram();
-    gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
-    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+    const vsh = compile(gl.VERTEX_SHADER, vs);
+    const fsh = compile(gl.FRAGMENT_SHADER, fs);
+    if (!vsh || !fsh) { console.error('Shader failed to compile'); return; }
+    gl.attachShader(prog, vsh);
+    gl.attachShader(prog, fsh);
     gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+      console.error('Program link error:', gl.getProgramInfoLog(prog));
+      return;
+    }
     gl.useProgram(prog);
 
     const buf = gl.createBuffer();
@@ -142,19 +157,35 @@ void main() {
     const uRes = gl.getUniformLocation(prog, 'u_resolution');
     const uAudio = gl.getUniformLocation(prog, 'u_audio');
 
+    let mouseX = 0.5, mouseY = 0.5;
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX / window.innerWidth;
+      mouseY = 1.0 - e.clientY / window.innerHeight;
+    });
+
     function resize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width  = Math.floor(window.innerWidth  * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
       gl.viewport(0, 0, canvas.width, canvas.height);
     }
     resize();
     window.addEventListener('resize', resize);
 
+    let visible = true;
+    document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
+
+    // WebGL context loss recovery
+    canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); console.warn('WebGL context lost'); });
+    canvas.addEventListener('webglcontextrestored', () => { console.log('WebGL context restored'); location.reload(); });
+
+    let t0 = performance.now();
     function render(t) {
       requestAnimationFrame(render);
-      if (uTime) gl.uniform1f(uTime, t * 0.001);
-      if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
-      if (uAudio) gl.uniform1f(uAudio, 0.7);
+      if (!visible) return;
+      if (uTime)   gl.uniform1f(uTime,   (t - t0) * 0.001);
+      if (uRes)    gl.uniform2f(uRes,     canvas.width, canvas.height);
+      if (uAudio)  gl.uniform1f(uAudio,   0.7);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
     }
     render(0);
