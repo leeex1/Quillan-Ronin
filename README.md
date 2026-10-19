@@ -112,7 +112,7 @@ flowchart TB
 
 ### Council Roster Visualization
 
-![Council Roster](./gallery/hero_roninborg.png)
+![Council Roster](./main-images/Anatomy.png)
 
 ---
 
@@ -243,12 +243,13 @@ conf ≥ 0.70 → Fast path (skip refinement)
 
 | Media | Location | Description |
 |-------|----------|-------------|
-| ![Shader 1](./gallery/cyberpunk_ronin_nft.webp) | `docs/demos/shader_1.html` | Matrix Katakana Rain |
-| ![Shader 2](./gallery/cyber_ronin_genesis.webp) | `docs/demos/shader_2.html` | Quantum Vortex |
-| ![Shader 3](./gallery/cyberpunk_ronin_portrait.webp) | `docs/demos/shader_3.html` | Chromatic Glitch |
-| ![NN Visualizer](./gallery/model_diagram.png) | `docs/nn_visualizer.html` | 3D Architecture |
-| ![Token Widget](./gallery/ChatGPT_Image_May_14_2026_01_39_14_PM.png) | Interactive | Live token visualization |
-| ![Topology](./gallery/QuillanRonin_Banner_wordwart.png) | Reference | Full topology map |
+| ![Architecture Diagram](./main-images/images_of_Quillan/model_diagram.png) | `docs/index.html` | Full pipeline architecture |
+| ![Council Anatomy](./main-images/Anatomy.png) | `docs/index.html` | 34-persona brain mapping |
+| ![Training Loss](./main-images/Quillan_Training_Loss.png) | `docs/index.html` | Live training metrics |
+| ![Benchmark Results](./main-images/MMLUchart.png) | `docs/index.html` | MMLU performance chart |
+| ![Project Banner](./gallery/QuillanRonin_Banner_wordwart.png) | [Live Site](https://leeex1.github.io/Quillan-Ronin/) | Main project banner |
+| ![Reactive AGI](./main-images/Reactive_AGI.png) | Research | AGI architecture paper |
+| ![Emergent Consciousness](./main-images/emergent_concious_paper.png) | Research | Consciousness theory paper |
 
 ---
 
