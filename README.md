@@ -191,7 +191,7 @@ is exactly what Oni now implements in weights.</i>
 
 - **Name**: Quillan-Ronin  
 - **Version**: 5.4.0-oni  
-- **Parameter Count**: 234M (6-layer proof) / ~390M (12-layer flagship) — ternary footprint ~90–200 MB deployed  
+- **Parameter Count**: 0.6b (6-layer proof) / 1B (12-layer flagship) — ternary footprint ~90–200 MB deployed  
 - **Architecture**: Unrolled Throne+Council — dense persona-pull Council MoE, 34 specialists (C1–C34), rank-8 LoRA + rank-8 EGGROLL swarm per member  
 - **Quantization**: 1.58-bit BitNet ternary + STE · INT8 activations · fp32 routers · INT8 KV-cache  
 - **Router**: 300M Complexity Router (Fast-Path / Balanced / Diffusion Reasoning)  
