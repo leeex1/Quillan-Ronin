@@ -188,6 +188,11 @@ worker/node_modules/
 **/*.gz
 **/*.exe
 **/*.msi
+**/*.mp3
+**/*.flac
+**/*.wav
+**/*.m4a
+**/*.crdownload
 **/checkpoints/**
 **/exports/**
 **/training_data/**

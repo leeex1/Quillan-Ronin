@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Holographic Cyber-Ronin Oni Helmet | Quillan-Ronin v5.3.1</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#030712; overflow:hidden; font-family:'Segoe UI', sans-serif; }
+    #canvas-container { width:100vw; height:100vh; position:absolute; top:0; left:0; }
+    .hud-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      color: #00f0ff;
+      background: rgba(4, 7, 17, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 12px 18px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      font-family: 'Courier New', monospace;
+      pointer-events: none;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    }
+    .hud-title { font-size: 14px; font-weight: bold; color: #fff; letter-spacing: 1px; }
+    .hud-sub { font-size: 11px; color: #ffd700; margin-top: 2px; }
+    .hud-spec { font-size: 10px; color: #94a3b8; margin-top: 6px; line-height: 1.4; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+  <div class="hud-overlay">
+    <div class="hud-title">👑 QUILLAN-RONIN | ONI KABUTO ARCHITECTURE</div>
+    <div class="hud-sub">ANATOMICALLY ACCURATE SAMURAI MEMPO & SUJI-BACHI HELM</div>
+    <div class="hud-spec">
+      • Suji-Bachi 16-Rib Dome • Kuwagata Golden Horns<br>
+      • Sculpted Cheekbones & Snarl Fangs • Q1/Q2 Temples<br>
+      • 34-Node Council Swarm • Tracking Crimson Optics
+    </div>
+  </div>
+  <div id="canvas-container"></div>
+
+  <script>
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 0, 7.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const masterGroup = new THREE.Group();
+    scene.add(masterGroup);
+
+    // Mouse tracking
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    window.addEventListener('mousemove', (e) => {
+      mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    // ─── MATERIALS PALETTE ───
+    const matCyanWire = new THREE.MeshBasicMaterial({ color: 0x00f0ff, wireframe: true, transparent: true, opacity: 0.85 });
+    const matCyanSolid = new THREE.MeshPhongMaterial({ color: 0x031c28, emissive: 0x002233, transparent: true, opacity: 0.75, shininess: 80 });
+    const matGoldWire = new THREE.MeshBasicMaterial({ color: 0xffd700, wireframe: true, transparent: true, opacity: 0.9 });
+    const matGoldSolid = new THREE.MeshPhongMaterial({ color: 0x443300, emissive: 0x221a00, transparent: true, opacity: 0.85, shininess: 90 });
+    const matRedGlow = new THREE.MeshBasicMaterial({ color: 0xff0044 });
+    const matEmeraldWire = new THREE.MeshBasicMaterial({ color: 0x029e7d, wireframe: true, transparent: true, opacity: 0.85 });
+
+    // ─── 1. KABUTO (SAMURAI HELMET DOME & CREST) ───
+    const kabutoGroup = new THREE.Group();
+
+    // 1a. Skull Dome (Suji-Bachi ribbed hemisphere)
+    const domeGeo = new THREE.SphereGeometry(1.4, 24, 16, 0, Math.PI * 2, 0, Math.PI * 0.55);
+    const domeMesh = new THREE.Mesh(domeGeo, matCyanSolid);
+    const domeWire = new THREE.Mesh(domeGeo, matCyanWire);
+    domeMesh.position.y = 0.6;
+    domeWire.position.y = 0.6;
+    kabutoGroup.add(domeMesh);
+    kabutoGroup.add(domeWire);
+
+    // 1b. Suji-Bachi 16 Vertical Ribs
+    for (let i = 0; i < 16; i++) {
+      const angle = (i / 16) * Math.PI * 2;
+      const ribGeo = new THREE.TorusGeometry(1.42, 0.02, 4, 16, Math.PI * 0.55);
+      const rib = new THREE.Mesh(ribGeo, matGoldWire);
+      rib.position.y = 0.6;
+      rib.rotation.y = angle;
+      rib.rotation.x = Math.PI * 0.5;
+      kabutoGroup.add(rib);
+    }
+
+    // 1c. Mabizashi (Front Visor Brow - raised for optical visibility)
+    const visorShape = new THREE.Shape();
+    visorShape.moveTo(-1.25, 0);
+    visorShape.quadraticCurveTo(0, 0.4, 1.25, 0);
+    visorShape.lineTo(1.05, -0.25);
+    visorShape.quadraticCurveTo(0, 0.1, -1.05, -0.25);
+    visorShape.closePath();
+    const visorExtrude = new THREE.ExtrudeGeometry(visorShape, { depth: 0.25, bevelEnabled: true, bevelThickness: 0.04, bevelSize: 0.04 });
+    const visorMesh = new THREE.Mesh(visorExtrude, matGoldSolid);
+    const visorWire = new THREE.Mesh(visorExtrude, matGoldWire);
+    const visorObj = new THREE.Group();
+    visorObj.add(visorMesh);
+    visorObj.add(visorWire);
+    visorObj.position.set(0, 0.95, 0.95);
+    visorObj.rotation.x = 0.15;
+    kabutoGroup.add(visorObj);
+
+    // 1d. Shikoro (Cascading 4-Tier Neck Guard)
+    for (let tier = 0; tier < 4; tier++) {
+      const radius = 1.45 + tier * 0.16;
+      const neckGeo = new THREE.CylinderGeometry(radius, radius + 0.1, 0.22, 24, 1, true, Math.PI * 0.65, Math.PI * 1.7);
+      const neckMat = (tier % 2 === 0) ? matCyanSolid : matGoldSolid;
+      const neckWireMat = (tier % 2 === 0) ? matCyanWire : matGoldWire;
+      const neckMesh = new THREE.Mesh(neckGeo, neckMat);
+      const neckWire = new THREE.Mesh(neckGeo, neckWireMat);
+      const tierGroup = new THREE.Group();
+      tierGroup.add(neckMesh);
+      tierGroup.add(neckWire);
+      tierGroup.position.y = 0.35 - tier * 0.25;
+      tierGroup.rotation.y = -Math.PI * 0.5;
+      kabutoGroup.add(tierGroup);
+    }
+
+    // 1e. Fukikaeshi (Winged Side Ear-Guards)
+    const wingGeo = new THREE.BoxGeometry(0.35, 0.7, 0.08);
+    const wingL = new THREE.Mesh(wingGeo, matGoldWire);
+    wingL.position.set(-1.45, 0.65, 0.3);
+    wingL.rotation.y = -Math.PI * 0.3;
+    wingL.rotation.z = Math.PI * 0.1;
+    const wingR = new THREE.Mesh(wingGeo, matGoldWire);
+    wingR.position.set(1.45, 0.65, 0.3);
+    wingR.rotation.y = Math.PI * 0.3;
+    wingR.rotation.z = -Math.PI * 0.1;
+    kabutoGroup.add(wingL);
+    kabutoGroup.add(wingR);
+
+    // 1f. Majestic Kuwagata (Celestial Golden Crescent Horns)
+    const hornCurveL = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(-0.25, 0.95, 1.2),
+      new THREE.Vector3(-0.9, 1.8, 1.1),
+      new THREE.Vector3(-1.7, 2.7, 0.8),
+      new THREE.Vector3(-2.3, 3.5, 0.4)
+    ]);
+    const hornGeoL = new THREE.TubeGeometry(hornCurveL, 24, 0.09, 8, false);
+    const hornMeshL = new THREE.Mesh(hornGeoL, matGoldWire);
+    const hornSolidL = new THREE.Mesh(hornGeoL, matGoldSolid);
+    kabutoGroup.add(hornMeshL);
+    kabutoGroup.add(hornSolidL);
+
+    const hornCurveR = new THREE.CatmullRomCurve3([
+      new THREE.Vector3(0.25, 0.95, 1.2),
+      new THREE.Vector3(0.9, 1.8, 1.1),
+      new THREE.Vector3(1.7, 2.7, 0.8),
+      new THREE.Vector3(2.3, 3.5, 0.4)
+    ]);
+    const hornGeoR = new THREE.TubeGeometry(hornCurveR, 24, 0.09, 8, false);
+    const hornMeshR = new THREE.Mesh(hornGeoR, matGoldWire);
+    const hornSolidR = new THREE.Mesh(hornGeoR, matGoldSolid);
+    kabutoGroup.add(hornMeshR);
+    kabutoGroup.add(hornSolidR);
+
+    // Center Maedate Crest Jewel
+    const crestJewel = new THREE.Mesh(new THREE.OctahedronGeometry(0.28, 0), matCyanWire);
+    crestJewel.position.set(0, 1.15, 1.25);
+    kabutoGroup.add(crestJewel);
+
+    masterGroup.add(kabutoGroup);
+
+    // ─── 2. MEMPO (ANATOMICAL ONI FACE MASK) ───
+    const mempoGroup = new THREE.Group();
+
+    // 2a. Upper Face & Brow Ridge
+    const browGeo = new THREE.BoxGeometry(1.5, 0.2, 0.35);
+    const browMesh = new THREE.Mesh(browGeo, matCyanSolid);
+    const browWire = new THREE.Mesh(browGeo, matCyanWire);
+    const browObj = new THREE.Group();
+    browObj.add(browMesh);
+    browObj.add(browWire);
+    browObj.position.set(0, 0.45, 0.85);
+    mempoGroup.add(browObj);
+
+    // 2b. Sculpted High Cheekbones (Zygomatic Arches)
+    const cheekGeoL = new THREE.ConeGeometry(0.4, 0.8, 4);
+    const cheekMeshL = new THREE.Mesh(cheekGeoL, matCyanSolid);
+    const cheekWireL = new THREE.Mesh(cheekGeoL, matCyanWire);
+    const cheekObjL = new THREE.Group();
+    cheekObjL.add(cheekMeshL);
+    cheekObjL.add(cheekWireL);
+    cheekObjL.position.set(-0.75, 0.05, 0.8);
+    cheekObjL.rotation.z = Math.PI * 0.2;
+    cheekObjL.rotation.y = -Math.PI * 0.15;
+    mempoGroup.add(cheekObjL);
+
+    const cheekGeoR = new THREE.ConeGeometry(0.4, 0.8, 4);
+    const cheekMeshR = new THREE.Mesh(cheekGeoR, matCyanSolid);
+    const cheekWireR = new THREE.Mesh(cheekGeoR, matCyanWire);
+    const cheekObjR = new THREE.Group();
+    cheekObjR.add(cheekMeshR);
+    cheekObjR.add(cheekWireR);
+    cheekObjR.position.set(0.75, 0.05, 0.8);
+    cheekObjR.rotation.z = -Math.PI * 0.2;
+    cheekObjR.rotation.y = Math.PI * 0.15;
+    mempoGroup.add(cheekObjR);
+
+    // 2c. Predatory Nose Bridge & Intake Grille
+    const noseGeo = new THREE.ConeGeometry(0.24, 0.5, 3);
+    const noseMesh = new THREE.Mesh(noseGeo, matGoldSolid);
+    const noseWire = new THREE.Mesh(noseGeo, matGoldWire);
+    const noseObj = new THREE.Group();
+    noseObj.add(noseMesh);
+    noseObj.add(noseWire);
+    noseObj.position.set(0, 0.15, 1.12);
+    noseObj.rotation.x = -Math.PI * 0.1;
+    mempoGroup.add(noseObj);
+
+    // 2d. Snarling Jaw & Chin Plate
+    const jawGeo = new THREE.BoxGeometry(1.1, 0.4, 0.65);
+    const jawMesh = new THREE.Mesh(jawGeo, matCyanSolid);
+    const jawWire = new THREE.Mesh(jawGeo, matCyanWire);
+    const jawObj = new THREE.Group();
+    jawObj.add(jawMesh);
+    jawObj.add(jawWire);
+    jawObj.position.set(0, -0.65, 0.75);
+    mempoGroup.add(jawObj);
+
+    // 2e. Menacing Predatory Oni Fangs (Kiba)
+    const fangGeo = new THREE.ConeGeometry(0.1, 0.45, 4);
+    
+    // Upper Downward Fangs
+    const fangUL = new THREE.Mesh(fangGeo, matGoldWire);
+    fangUL.position.set(-0.35, -0.32, 1.05);
+    fangUL.rotation.x = Math.PI;
+    const fangUR = new THREE.Mesh(fangGeo, matGoldWire);
+    fangUR.position.set(0.35, -0.32, 1.05);
+    fangUR.rotation.x = Math.PI;
+    mempoGroup.add(fangUL);
+    mempoGroup.add(fangUR);
+
+    // Lower Upward Snarl Tusks
+    const fangLL = new THREE.Mesh(fangGeo, matGoldWire);
+    fangLL.position.set(-0.5, -0.55, 1.0);
+    fangLL.rotation.z = -0.2;
+    const fangLR = new THREE.Mesh(fangGeo, matGoldWire);
+    fangLR.position.set(0.5, -0.55, 1.0);
+    fangLR.rotation.z = 0.2;
+    mempoGroup.add(fangLL);
+    mempoGroup.add(fangLR);
+
+    // 2f. Deep Recessed Glowing Crimson Tracking Optics
+    const eyeSocketGeo = new THREE.BoxGeometry(0.35, 0.12, 0.2);
+    const eyeSocketMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+    const eyeSocketL = new THREE.Mesh(eyeSocketGeo, eyeSocketMat);
+    eyeSocketL.position.set(-0.42, 0.32, 0.95);
+    eyeSocketL.rotation.z = 0.12;
+    const eyeSocketR = new THREE.Mesh(eyeSocketGeo, eyeSocketMat);
+    eyeSocketR.position.set(0.42, 0.32, 0.95);
+    eyeSocketR.rotation.z = -0.12;
+    mempoGroup.add(eyeSocketL);
+    mempoGroup.add(eyeSocketR);
+
+    const pupilGeo = new THREE.SphereGeometry(0.07, 12, 12);
+    const pupilL = new THREE.Mesh(pupilGeo, matRedGlow);
+    pupilL.position.set(-0.42, 0.32, 1.06);
+    const pupilR = new THREE.Mesh(pupilGeo, matRedGlow);
+    pupilR.position.set(0.42, 0.32, 1.06);
+    mempoGroup.add(pupilL);
+    mempoGroup.add(pupilR);
+
+    masterGroup.add(mempoGroup);
+
+    // ─── 3. FULL QUILLAN ARCHITECTURE (DUAL BRAIN + 34 COUNCIL + 9-VECTOR) ───
+    
+    // 3a. Q1 Analytical Neural Singularity (Left Temple Core)
+    const q1Core = new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 1), matCyanWire);
+    const q1Ring = new THREE.Mesh(new THREE.TorusGeometry(0.65, 0.02, 6, 24), matCyanWire);
+    q1Ring.rotation.x = Math.PI * 0.5;
+    const q1Group = new THREE.Group();
+    q1Group.add(q1Core);
+    q1Group.add(q1Ring);
+    q1Group.position.set(-2.2, 0.6, 0.4);
+    masterGroup.add(q1Group);
+
+    // 3b. Q2 Intuitive Neural Singularity (Right Temple Core)
+    const q2Core = new THREE.Mesh(new THREE.OctahedronGeometry(0.45, 1), matEmeraldWire);
+    const q2Ring = new THREE.Mesh(new THREE.TorusGeometry(0.65, 0.02, 6, 24), matEmeraldWire);
+    q2Ring.rotation.x = Math.PI * 0.5;
+    const q2Group = new THREE.Group();
+    q2Group.add(q2Core);
+    q2Group.add(q2Ring);
+    q2Group.position.set(2.2, 0.6, 0.4);
+    masterGroup.add(q2Group);
+
+    // 3c. 34-Node Council Constellation Swarm Array
+    const councilNodes = [];
+    const nodeGeo = new THREE.SphereGeometry(0.08, 12, 12);
+    for (let i = 0; i < 34; i++) {
+      const nodeMat = (i % 3 === 0 ? matCyanWire : (i % 3 === 1 ? matEmeraldWire : matGoldWire));
+      const node = new THREE.Mesh(nodeGeo, nodeMat);
+      const phi = Math.acos(-1 + (2 * i) / 34);
+      const theta = Math.sqrt(34 * Math.PI) * phi;
+      node.position.setFromSphericalCoords(4.2, phi, theta);
+      node.userData = { speed: 0.3 + Math.random() * 0.4, offset: Math.random() * 100 };
+      masterGroup.add(node);
+      councilNodes.push(node);
+
+      // Laser Synapse Thread to Kabuto Crest
+      const lineMat = new THREE.LineBasicMaterial({ color: (i % 2 === 0 ? 0x00f0ff : 0xffd700), transparent: true, opacity: 0.2 });
+      const lineGeo = new THREE.BufferGeometry().setFromPoints([node.position, new THREE.Vector3(0, 1.15, 0)]);
+      const line = new THREE.Line(lineGeo, lineMat);
+      masterGroup.add(line);
+    }
+
+    // 3d. 9-Vector Holographic Quantum Collar Ring
+    const collarRingGeo = new THREE.TorusGeometry(2.0, 0.03, 8, 48);
+    const collarRing = new THREE.Mesh(collarRingGeo, matGoldWire);
+    collarRing.position.y = -1.4;
+    collarRing.rotation.x = Math.PI * 0.5;
+    masterGroup.add(collarRing);
+
+    // 3e. 2,000 Ambient Swarm Particles
+    const partGeo = new THREE.BufferGeometry();
+    const partPos = new Float32Array(2000 * 3);
+    for (let i = 0; i < 2000; i++) {
+      const r = 3.0 + Math.random() * 4.0;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      partPos[i*3] = r * Math.sin(phi) * Math.cos(theta);
+      partPos[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+      partPos[i*3+2] = r * Math.cos(phi);
+    }
+    partGeo.setAttribute('position', new THREE.BufferAttribute(partPos, 3));
+    const partMat = new THREE.PointsMaterial({ color: 0x00f0ff, size: 0.03, transparent: true, opacity: 0.5 });
+    const partPoints = new THREE.Points(partGeo, partMat);
+    masterGroup.add(partPoints);
+
+    // ─── LIGHTING & GRID ───
+    const lightCyan = new THREE.PointLight(0x00f0ff, 3.5, 30);
+    lightCyan.position.set(6, 6, 8);
+    scene.add(lightCyan);
+
+    const lightGold = new THREE.PointLight(0xffd700, 2.5, 30);
+    lightGold.position.set(-6, -4, 8);
+    scene.add(lightGold);
+
+    scene.add(new THREE.AmbientLight(0x111827));
+
+    const grid = new THREE.GridHelper(24, 24, 0x00f0ff, 0x029e7d);
+    grid.position.y = -3.2;
+    grid.material.transparent = true;
+    grid.material.opacity = 0.3;
+    scene.add(grid);
+
+    // ─── ANIMATION LOOP ───
+    function animate(t) {
+      requestAnimationFrame(animate);
+      const time = t * 0.001;
+
+      // Mouse Parallax
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+      masterGroup.rotation.y = mouse.x * 0.5 + Math.sin(time * 0.4) * 0.15;
+      masterGroup.rotation.x = mouse.y * 0.35;
+
+      // Breathing Hover
+      masterGroup.position.y = Math.sin(time * 1.6) * 0.12;
+
+      // Pupil Cursor Tracking
+      pupilL.position.x = -0.42 + mouse.x * 0.06;
+      pupilL.position.y = 0.32 + mouse.y * 0.04;
+      pupilR.position.x = 0.42 + mouse.x * 0.06;
+      pupilR.position.y = 0.32 + mouse.y * 0.04;
+
+      // Q1/Q2 Cores Rotation
+      q1Group.rotation.y += 0.02;
+      q1Group.rotation.x += 0.01;
+      q2Group.rotation.y -= 0.02;
+      q2Group.rotation.x -= 0.01;
+
+      // Jewel and Collar Rotation
+      crestJewel.rotation.y += 0.03;
+      crestJewel.rotation.z += 0.015;
+      collarRing.rotation.z += 0.005;
+
+      // Council Nodes Movement
+      councilNodes.forEach(n => {
+        n.position.y += Math.sin(time * n.userData.speed + n.userData.offset) * 0.003;
+      });
+
+      partPoints.rotation.y = time * 0.02;
+      grid.position.z = (time * 0.5) % 1.0 - 0.5;
+
+      renderer.render(scene, camera);
+    }
+    animate(0);
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
+</body>
+</html>
