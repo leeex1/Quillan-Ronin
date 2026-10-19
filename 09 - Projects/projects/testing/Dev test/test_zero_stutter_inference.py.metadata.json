@@ -1,4 +1,0 @@
-{
-  "summary": "Zero-stutter inference script applying immediate previous-token blocking (-50.0 penalty) to eliminate all word repetition.",
-  "updatedAt": "2026-08-09T00:23:58.467568800Z"
-}

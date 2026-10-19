@@ -1,7 +1,0 @@
-*.exe
-*.bin
-*.obj
-*.o
-*.pdb
-*.ilk
-build/

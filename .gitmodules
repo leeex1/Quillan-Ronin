@@ -1,9 +1,0 @@
-[submodule "09 - Projects/projects/MCP-DevKit"]
-	path = 09 - Projects/projects/MCP-DevKit
-	url = https://github.com/leeex1/MCP-DevKit.git
-[submodule "09 - Projects/projects/Quillan.cpp"]
-	path = 09 - Projects/projects/Quillan.cpp
-	url = https://github.com/leeex1/quillan.cpp.git
-[submodule "09 - Projects/projects/Validation-test-kit"]
-	path = 09 - Projects/projects/Validation-test-kit
-	url = https://github.com/leeex1/Validation-test-kit-.git
