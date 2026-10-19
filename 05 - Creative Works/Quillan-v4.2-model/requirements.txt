@@ -1,0 +1,17 @@
+numpy
+pandas
+torch
+transformers
+matplotlib
+scikit-learn
+flask
+fastapi
+pygame
+pipreqs
+
+
+pip install pipreqs
+pipreqs ./src --force
+
+
+pip install -r requirements.txt
