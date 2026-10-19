@@ -707,12 +707,12 @@ class QuillanOniConfig:
 
     @classmethod
     def mini_6l(cls, **kwargs):
-        """Quillan-Ronin Mini 6L Sovereign Engine: ~520.4M parameters (500M-600M target)."""
+        """Quillan-Ronin Mini 6L Sovereign Engine: 562.8M parameters (500M-600M target)."""
         defaults = {
             "n_layer": 6,
-            "hidden_dim": 1024,
+            "hidden_dim": 1152,
             "ffn_dim": 3072,
-            "n_head": 16,
+            "n_head": 18,
             "head_dim": 64,
             "num_experts": 34,
             "top_k": 4,
@@ -720,6 +720,7 @@ class QuillanOniConfig:
         }
         defaults.update(kwargs)
         return cls(**defaults)
+
 
     @classmethod
     def main_12l(cls, **kwargs):
