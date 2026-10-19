@@ -1,0 +1,313 @@
+﻿<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' file: data: blob:; script-src 'self' 'unsafe-inline' file: data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' file: data: blob: https:; connect-src 'self' http://localhost:11434 https://integrate.api.nvidia.com https://api.openai.com; media-src 'self' file: data: blob:; object-src 'none'; base-uri 'self'; frame-ancestors 'none'">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>Quillan Clippy</title>
+<script src="./node_modules/three/build/three.js"></script>
+<script src="./node_modules/three/examples/js/loaders/GLTFLoader.js"></script><style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:transparent;overflow:hidden;font-family:"Segoe UI", system-ui, -apple-system, Consolas, monospace;color:#e8e8ef;user-select:none}
+body{-webkit-app-region:drag}
+/* FIX: input needs selection — override user-select:none */
+input, textarea, [contenteditable]{user-select:text; -webkit-user-select:text}
+
+/* --- Stage: the floating avatar --- */
+#stage{position:absolute;left:0;top:0;width:200px;height:200px;pointer-events:none;-webkit-app-region:drag;contain:layout paint}
+#stage canvas{width:200px;height:200px;display:block;pointer-events:auto;-webkit-app-region:no-drag;cursor:grab;contain:strict}
+#stage canvas:active{cursor:grabbing}
+.glow{position:absolute;left:50%;top:50%;width:0;height:0;border-radius:50%;pointer-events:none;transition:all .32s;transform:translate(-50%,-50%);will-change:width,height,box-shadow}
+.glow.on{width:126px;height:126px;box-shadow:0 0 46px 16px rgba(124,58,237,.58);background:radial-gradient(circle, rgba(124,58,237,.34), transparent 70%)}
+.glow.think{width:96px;height:96px;box-shadow:0 0 30px 10px rgba(124,58,237,.38)}
+.glow.talk{width:108px;height:108px;box-shadow:0 0 34px 12px rgba(255,107,53,.42);background:radial-gradient(circle, rgba(255,107,53,.26), transparent 70%)}
+.glow.dance{width:138px;height:138px;box-shadow:0 0 52px 18px rgba(124,58,237,.65);animation:pulse .45s infinite alternate}
+@keyframes pulse{to{transform:translate(-50%,-50%) scale(1.06)}}
+#canvas2d, #threeMount{position:absolute;left:0;top:0;width:200px;height:200px;border:none}
+#threeMount{pointer-events:none}
+#canvas2d{pointer-events:auto}
+
+/* --- Bubble: anchored chat — FIX: dynamic height so it never overflows window --- */
+#bubble{position:absolute;left:208px;top:8px;width:320px;max-height:calc(100vh - 16px);height:auto;background:rgba(18,18,28,.96);border:1px solid #2a2a3a;border-radius:13px;box-shadow:0 10px 36px rgba(0,0,0,.62),0 0 0 1px rgba(124,58,237,.18);display:none;flex-direction:column;overflow:hidden;-webkit-app-region:no-drag;z-index:10}
+/* FIX: backdrop-filter removed from transparent window — causes software fallback on Win, GPU leak */
+#bubble.open{display:flex;animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateX(-6px)}to{opacity:1;transform:scale(1) translateX(0)}}
+#bubble .tail{position:absolute;left:-9px;top:24px;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:11px solid rgba(18,18,28,.96)}
+#bubble .hdr{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-bottom:1px solid #2a2a3a;background:rgba(10,10,15,.72);font-size:10px;letter-spacing:.04em;color:#9aa;flex-shrink:0}
+#bubble .hdr b{color:#c9b3ff;font-size:11px}
+#bubble .hdr .x{cursor:pointer;padding:2px 6px;border-radius:6px;border:1px solid transparent}
+#bubble .hdr .x:hover{background:#1a1a2e;border-color:#333;color:#fff}
+#bubble .msgs{flex:1;overflow:auto;overflow-x:hidden;padding:10px;font-size:11.6px;line-height:1.42;min-height:40px;max-height:min(240px, 52vh);scrollbar-width:thin;scrollbar-color:#3a2a5a transparent;overscroll-behavior:contain;will-change:scroll-position}
+#bubble .msgs::-webkit-scrollbar{width:6px}
+#bubble .msgs::-webkit-scrollbar-track{background:transparent}
+#bubble .msgs::-webkit-scrollbar-thumb{background:#3a2a5a;border-radius:6px}
+#bubble .msgs::-webkit-scrollbar-thumb:hover{background:#4a3a6a}
+#bubble .msgs .msg{margin:6px 0;padding:7px 10px;border-radius:10px;max-width:100%;word-wrap:break-word;overflow-wrap:anywhere;animation:msgIn .16s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+#bubble .msgs .user{background:linear-gradient(135deg,#1e3a5f,#1a2e4a);margin-left:14%;text-align:right;border:1px solid #2a4a6a;color:#d8e6ff}
+#bubble .msgs .quillan{background:#1a1a2e;border-left:3px solid #7C3AED;color:#ece8ff}
+#bubble .msgs .system{background:rgba(124,58,237,.12);border:1px dashed #4a3a72;color:#b9a0ff;font-style:italic;text-align:center;font-size:10.5px}
+#bubble .msgs .streaming{border-left-color:#ff6b35}
+#bubble .msgs .typing{display:inline-block;width:7px;height:7px;background:#7C3AED;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+#bubble .inputRow{display:flex;gap:6px;padding:8px;border-top:1px solid #2a2a3a;background:rgba(10,10,15,.92);flex-shrink:0}
+#bubble .input{flex:1;min-width:0;padding:8px 10px;background:#0f0f18;color:#eee;border:1px solid #333;border-radius:8px;font-size:12px;outline:none;transition:border-color .15s}
+#bubble .input:focus{border-color:#7C3AED;box-shadow:0 0 0 2px rgba(124,58,237,.22)}
+#bubble .input::placeholder{color:#6a6a7a}
+#bubble .send{padding:8px 13px;background:#7C3AED;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:700;font-size:12px;transition:all .12s;flex-shrink:0}
+#bubble .send:hover{background:#8b4df0}
+#bubble .send:active{transform:scale(.97)}
+#bubble .send:disabled{opacity:.5;cursor:not-allowed}
+
+/* --- Controls — FIX: z-index above bubble, no backdrop-filter --- */
+#controls{position:absolute;right:4px;top:4px;display:flex;gap:4px;opacity:.58;-webkit-app-region:no-drag;transition:opacity .18s;flex-wrap:wrap;justify-content:flex-end;max-width:200px;z-index:20;pointer-events:auto}
+#controls:hover{opacity:1}
+#controls button{background:rgba(20,20,30,.92);border:1px solid #333;color:#aaa;font-size:10px;padding:3px 7px;border-radius:7px;cursor:pointer;transition:all .14s}
+#controls button:hover{color:#fff;border-color:#7C3AED;background:rgba(30,20,50,.96)}
+#controls button.active{background:#7C3AED;color:#fff;border-color:#7C3AED;box-shadow:0 2px 10px rgba(124,58,237,.45)}
+#controls button:focus-visible{outline:2px solid #7C3AED; outline-offset:2px}
+#controls .mini{font-size:11px;padding:2px 7px}
+#hint{position:absolute;left:6px;bottom:4px;font-size:9px;color:#666;pointer-events:none;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:5}
+#musicBar{position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,#7C3AED,#ff6b35,#7C3AED);transition:width .12s;-webkit-app-region:no-drag;background-size:200% 100%;animation:barShift 1.2s linear infinite;will-change:width}
+@keyframes barShift{to{background-position:200% 0}}
+
+/* Proactive toast */
+#toast{position:absolute;left:208px;top:8px;width:320px;background:rgba(124,58,237,.96);color:#fff;padding:10px 12px;border-radius:10px;font-size:11px;display:none;-webkit-app-region:no-drag;box-shadow:0 8px 24px rgba(0,0,0,.4);cursor:pointer;z-index:15}
+#toast.show{display:block;animation:pop .2s ease}
+
+/* FIX: reduced-motion — respect accessibility */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important }
+}
+
+/* FIX: high-contrast focus for a11y */
+#bubble .input:focus-visible, #bubble .send:focus-visible { outline:2px solid #7C3AED; outline-offset:1px }
+</style></head><body>
+<div id="stage">
+  <div class="glow" id="glow"></div>
+  <canvas id="canvas2d" width="200" height="200"></canvas>
+  <div id="threeMount"></div>
+</div>
+
+<div id="bubble"><div class="tail"></div>
+  <div class="hdr"><b id="hdrName">Quillan</b><span style="display:flex;gap:6px"><span id="hdrState" style="opacity:.7">idle</span><span class="x" id="btnCloseBubble" title="Close">x</span></span></div>
+  <div class="msgs" id="msgs"></div>
+  <div class="inputRow"><input class="input" id="chatInput" placeholder="ask Quillan anything...  (Enter to send)" autocomplete="off" spellcheck="false" /><button class="send" id="btnSend">Send</button></div>
+</div>
+
+<div id="toast"></div>
+
+<div id="controls">
+  <button class="avatarBtn" data-avatar="quillan" title="Quillan — your ronin">Quillan</button>
+  <button class="avatarBtn" data-avatar="jdxx" title="JDXX — you">JDXX</button>
+  <button class="avatarBtn" data-avatar="clippy" title="Clippy demo — sprite sheet">Sprite</button>
+  <button id="btnDance" title="Dance (Ctrl+Shift+D)">dance</button>
+  <button id="btnChill" title="Chill">chill</button>
+  <button id="btnDesk" title="Pull desk — help me code (Ctrl+Shift+H)">desk</button>
+  <button id="btnThink" title="Think">think</button>
+  <button id="btnHide" class="mini" title="Dismiss — summon from tray / Ctrl+Q">hide</button>
+</div>
+<div id="debugOverlay" style="position:absolute;left:4px;top:200px;font-size:9px;color:#0f0;background:rgba(0,0,0,.7);padding:3px 6px;border-radius:4px;z-index:999;-webkit-app-region:no-drag">drag me · click to chat · Ctrl+Q summon</div><div id="hint">drag avatar · click to chat · Ctrl+Q summon · tray = more</div>
+<div id="musicBar"></div>
+
+<script>
+const fs = require("fs");
+const path = require("path");
+const LOGFILE = path.join("C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode", "renderer.log");
+function rlog(msg){ try{ fs.appendFileSync(LOGFILE, new Date().toISOString()+" "+msg+"\n"); }catch(e){} console.log(msg); }
+window.onerror = (m,s,l,c,err)=>{ rlog("[window.onerror] "+m+" @ "+s+":"+l+":"+c+" "+(err&&err.stack||"")); };
+window.addEventListener("unhandledrejection", e=>{ rlog("[unhandledrejection] "+ (e.reason && e.reason.stack || e.reason)); });
+
+// Prefer preload bridge if available, fallback to ipcRenderer
+let ipcRenderer;
+try { ipcRenderer = require("electron").ipcRenderer; } catch(e){ ipcRenderer = window.api || null; }
+if (!ipcRenderer && window.api) ipcRenderer = window.api;
+rlog("renderer boot — modern Clippy v2");
+
+// IPC helper that works with both bridge styles
+function ipcSend(ch, ...args){
+  try {
+    if (window.api && window.api.send) return window.api.send(ch, ...args);
+    if (ipcRenderer && ipcRenderer.send) return ipcRenderer.send(ch, ...args);
+  } catch(e){ rlog("ipcSend fail "+e.message); }
+}
+function ipcOn(ch, fn){
+  try {
+    if (window.api && window.api.on) return window.api.on(ch, fn);
+    if (ipcRenderer && ipcRenderer.on) return ipcRenderer.on(ch, (_e,...a)=> fn(...a));
+  } catch(e){ rlog("ipcOn fail "+e.message); }
+}
+
+const avatar = require("./src/avatar.js");
+const bubble = require("./src/bubble.js");
+const llm = require("./src/llm.js");
+const behaviors = require("./src/behaviors.js");
+
+const stage = document.getElementById("stage");
+const canvas2d = document.getElementById("canvas2d");
+const threeMount = document.getElementById("threeMount");
+const glow = document.getElementById("glow");
+const hdrName = document.getElementById("hdrName");
+const hdrState = document.getElementById("hdrState");
+const toast = document.getElementById("toast");
+
+// Init avatar (sprite + GLB hybrid)
+avatar.init({ stage, canvas: canvas2d, mount3d: threeMount, glowEl: glow, onState: (s)=>{ hdrState.textContent=s; glow.className="glow "+(s==="think"?"think":s==="talk"||s==="stream"?"talk":s==="dance"?"dance":s==="idle"?"":"on"); if(s==="dance") viz(true); else if(s!=="think"&&s!=="talk") viz(false); }}).then(()=> rlog("avatar.init OK")).catch(e=> rlog("[avatar] init fail "+e.message+" "+(e.stack||"")));
+bubble.init({ bubbleId:"bubble", msgsId:"msgs", inputId:"chatInput", sendId:"btnSend" });
+rlog("bubble.init done");
+
+// Avatar switcher
+document.querySelectorAll(".avatarBtn").forEach(b=>{
+  b.addEventListener("click", ()=> {
+    avatar.show(b.dataset.avatar);
+    hdrName.textContent = b.dataset.avatar==="clippy" ? "Clippy" : (b.dataset.avatar==="jdxx" ? "JDXX" : "Quillan");
+    document.querySelectorAll(".avatarBtn").forEach(x=> x.classList.toggle("active", x.dataset.avatar===b.dataset.avatar));
+    bubble.append("System", "Switched to "+ b.dataset.avatar, "system");
+  });
+});
+document.querySelector("[data-avatar=quillan]")?.classList.add("active");
+avatar.show("quillan");
+rlog("avatar.show(quillan) called");
+
+// --- Chat wiring: bubble input -> llm -> streamed bubble reply ---
+let _danceTimeout=null;
+bubble.onInput(async (val)=>{
+  const v = val.trim();
+  if(!v) return;
+  bubble.append("You", v, "user");
+  bubble.setStreaming(true);
+  const low = v.toLowerCase();
+
+  if(_danceTimeout){ clearTimeout(_danceTimeout); _danceTimeout=null; }
+  if(low.includes("dance") || low.includes("music") || low.includes("play")){
+    avatar.setState("dance"); bubble.append("Quillan", "bet — putting on a show!", "quillan"); bubble.setStreaming(false); _danceTimeout=setTimeout(()=> { if(avatar.getState()==="dance") avatar.setState("idle"); }, 6500); return;
+  }
+  if(low.includes("chill") || low.includes("hang")){
+    avatar.setState("chill"); bubble.append("Quillan", "chillin beside you.", "quillan"); bubble.setStreaming(false); return;
+  }
+  if(low.includes("help") || low.includes("code") || low.includes("desk") || low.includes("fix")){
+    avatar.setState("desk");
+  } else {
+    avatar.setState("think"); glow.classList.add("on");
+  }
+
+  try {
+    await llm.send(v, {
+      onToken: (chunk, full) => {
+        bubble.upsertStreaming("Quillan", full);
+        avatar.setState("stream");
+      },
+      onDone: (full) => {
+        bubble.finalizeStreaming("Quillan", full);
+        glow.classList.remove("on");
+        avatar.setState(full.toLowerCase().includes("desk")||full.toLowerCase().includes("code") ? "desk" : "idle");
+        bubble.setStreaming(false);
+      },
+      onError: (err) => {
+        bubble.append("Quillan", "Hmm — brain hiccup: "+ err + "  (try again?)", "quillan");
+        avatar.setState("idle"); glow.classList.remove("on"); bubble.setStreaming(false);
+      }
+    });
+  } catch(e){
+    rlog("[llm] send fail "+e.message);
+    bubble.append("Quillan", "Sorry — my LLM link is down. Is Ollama/NVIDIA running? "+e.message, "quillan");
+    avatar.setState("idle"); bubble.setStreaming(false);
+  }
+});
+
+// Click avatar to toggle bubble
+canvas2d.style.pointerEvents = "auto";
+canvas2d.addEventListener("click", ()=> bubble.toggle());
+canvas2d.addEventListener("dblclick", ()=> avatar.setState("dance"));
+
+// Drag — FIX: only listen mousemove while dragging (was always-active leak)
+let dragging=false, sx=0, sy=0;
+let _moveHandler=null;
+canvas2d.addEventListener("mousedown", (e)=>{
+  dragging=true; sx=e.screenX; sy=e.screenY; canvas2d.style.cursor="grabbing";
+  _moveHandler = (ev)=>{
+    if(!dragging) return;
+    const dx = ev.screenX - sx; const dy = ev.screenY - sy;
+    if(Math.abs(dx)>1||Math.abs(dy)>1){ ipcSend("drag-move", dx, dy); sx=ev.screenX; sy=ev.screenY; }
+  };
+  window.addEventListener("mousemove", _moveHandler);
+});
+window.addEventListener("mouseup", ()=>{
+  if(!dragging) return;
+  dragging=false; canvas2d.style.cursor="grab";
+  if(_moveHandler){ window.removeEventListener("mousemove", _moveHandler); _moveHandler=null; }
+});
+
+// Controls
+document.getElementById("btnDance").addEventListener("click", ()=>{ avatar.setState("dance"); });
+document.getElementById("btnChill").addEventListener("click", ()=> avatar.setState(avatar.getState()==="chill"?"idle":"chill"));
+document.getElementById("btnDesk").addEventListener("click", ()=> avatar.setState(avatar.getState()==="desk"?"idle":"desk"));
+document.getElementById("btnThink").addEventListener("click", ()=> avatar.setState(avatar.getState()==="think"?"idle":"think"));
+document.getElementById("btnHide").addEventListener("click", ()=> ipcSend("hide-window"));
+document.getElementById("btnCloseBubble").addEventListener("click", ()=> bubble.hide());
+
+// IPC from tray / hotkeys
+ipcOn("behave", (name)=> avatar.setState(name));
+ipcOn("avatar", (name)=> {
+  avatar.show(name);
+  hdrName.textContent = name==="clippy"?"Clippy":name==="jdxx"?"JDXX":"Quillan";
+  document.querySelectorAll(".avatarBtn").forEach(x=> x.classList.toggle("active", x.dataset.avatar===name));
+});
+ipcOn("dock-edge", ()=> {
+  const edges=["right","left","top"]; window._dockIdx=(window._dockIdx||0)+1; ipcSend("dock", edges[window._dockIdx%edges.length]);
+});
+
+// Toast
+let _toastTimer=null;
+function showToast(text, ms=4200){
+  if(_toastTimer) clearTimeout(_toastTimer);
+  toast.textContent = text; toast.classList.add("show");
+  toast.onclick = ()=>{ toast.classList.remove("show"); bubble.show(); bubble.append("Quillan", text, "quillan"); };
+  _toastTimer=setTimeout(()=> toast.classList.remove("show"), ms);
+}
+
+behaviors.startBehaviors(avatar, bubble, { onProactive: showToast });
+
+// Music bar — FIX: single RAF loop (was double loop leak creating 2 concurrent RAFs)
+let barRAF=null, barT=0;
+function viz(on){
+  const bar = document.getElementById("musicBar");
+  if(!on){
+    bar.style.width="0%";
+    if(barRAF){ cancelAnimationFrame(barRAF); barRAF=null; }
+    return;
+  }
+  if(barRAF) return; // already running — don't spawn second
+  barT=0;
+  function loop(){
+    barT+=0.14;
+    bar.style.width = (28 + Math.abs(Math.sin(barT))*42 + Math.abs(Math.sin(barT*1.7))*18) + "%";
+    barRAF = requestAnimationFrame(loop);
+  }
+  barRAF = requestAnimationFrame(loop);
+}
+
+// Hook state to auto-reset dance — FIX: clear previous timeout (was stacking)
+let _danceResetTimer=null;
+const _origSetState = avatar.setState;
+avatar.setState = (s)=>{
+  _origSetState(s); hudLog(s);
+  if(_danceResetTimer){ clearTimeout(_danceResetTimer); _danceResetTimer=null; }
+  if(s==="dance") _danceResetTimer=setTimeout(()=>{ if(avatar.getState()==="dance") avatar.setState("idle"); viz(false); }, 6500);
+};
+function hudLog(s){ const h=document.getElementById("hint"); if(h) h.textContent = "state: "+s+" · drag avatar · click to chat · Ctrl+Q summon"; }
+
+// Cleanup on unload — FIX: free all leaks
+window.addEventListener("beforeunload", ()=>{
+  viz(false);
+  if(_danceTimeout) clearTimeout(_danceTimeout);
+  if(_danceResetTimer) clearTimeout(_danceResetTimer);
+  if(_toastTimer) clearTimeout(_toastTimer);
+  try { behaviors.stop(); } catch(e){}
+  try { avatar.dispose && avatar.dispose(); } catch(e){}
+  try { bubble.dispose && bubble.dispose(); } catch(e){}
+});
+
+window.avatar = avatar; window.bubble = bubble; window.llm = llm;
+window.setAvatarFrames = (cfg)=> avatar.setSpriteConfig(cfg);
+window.setAvatarSheet = (url)=> avatar.setSpriteSheet(url);
+rlog("renderer ready — click the avatar to talk");
+</script>
+</body></html>

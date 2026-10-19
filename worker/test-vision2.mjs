@@ -1,0 +1,10 @@
+﻿import { nativeScreenshot } from './agent-browser.mjs';
+import { visionDescribe, loadJSON } from './scanner.mjs';
+const t = Date.now();
+const b64 = await nativeScreenshot();
+console.log('shot ' + b64.length + 'b');
+const sliced = b64.slice(0, 120000);
+console.log('sliced to ' + sliced.length);
+const desc = await visionDescribe(sliced, 'Describe this screen briefly.', loadJSON('settings'));
+console.log('VISION (' + (Date.now()-t) + 'ms): ' + desc.slice(0, 200));
+process.exit(0);

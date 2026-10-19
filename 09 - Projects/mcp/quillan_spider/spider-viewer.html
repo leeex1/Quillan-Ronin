@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quillan Spider — Live Crawl</title>
+<style>
+:root{color-scheme:dark;--bg:#071013;--panel:#0b171b;--ink:#e8f2ef;--mut:#89a09c;--line:#264047;--cy:#49e0da;--am:#f6b84b;--gr:#79dd8e;--rd:#ff725f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,Segoe UI,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--mut)}
+#cv{width:100%;height:520px;background:#020708;border:1px solid var(--line);border-radius:10px}
+.pill{display:inline-block;padding:3px 10px;border:1px solid var(--line);border-radius:20px;font-size:12px}
+.pill.live{border-color:var(--gr);color:var(--gr)} .pill.done{border-color:var(--line);color:var(--mut)}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--cy);display:inline-block;margin-right:6px;box-shadow:0 0 12px var(--cy)}
+.dot.live{background:var(--gr);box-shadow:0 0 12px var(--gr);animation:blink 1s infinite}@keyframes blink{50%{opacity:.4}}
+button{background:#12262b;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer}button:hover{border-color:var(--cy)}
+</style></head><body><div class="wrap">
+<div class="card"><div class="row"><span class="dot" id="dot"></span><b>🕷️ Quillan Spider — live repo crawl</b>
+<span class="pill" id="stat">connecting…</span>
+<button onclick="poll(true)">↻ reload trail.json</button>
+<span class="mono">LIVE: follows tail as spider writes • spider_crawl_live = walk, spider_work(scan/tests/docs) = REAL WORK</span></div>
+<div class="mono" id="pos">pos: —</div></div>
+<div class="card"><canvas id="cv" width="1060" height="520"></canvas></div>
+<div class="card mono" id="log">waiting for first live event…</div>
+</div><script>
+let data=null, shown=0, timer=null, lastLen=-1, lastT=Date.now();
+async function poll(reset){
+  try{
+    const r = await fetch('./trail.json?ts='+Date.now());
+    const d = await r.json();
+    const grew = d.trail.length !== lastLen;
+    data = d; lastLen = d.trail.length; lastT = Date.now();
+    // LIVE FOLLOW: jump to new tail whenever trail grows; slow replay only if user hits reload with reset
+    if(reset || grew) shown = d.trail.length;
+    const st = d.spider?.state || (d.live ? 'CRAWLING' : 'DONE');
+    const act = d.spider?.action || d.job || '';
+    const fnd = d.spider?.findings_so_far ?? d.spider?.total_findings ?? '';
+    const pill = document.getElementById('stat');
+    const working = (st==='CRAWLING' || st==='WORKING' || st==='WIRING');
+    pill.textContent = `${working?'● LIVE '+act:'○ IDLE — submit task'} • ${d.nodes.length} nodes • ${d.trail.length} events • ${fnd===''?'':fnd+' findings • '}${d.root}`;
+    pill.className = 'pill ' + (working ? 'live' : 'done');
+    document.getElementById('dot').className = 'dot' + (working ? ' live' : '');
+    if(!timer) timer = setInterval(tick, 90);
+  }catch(e){ document.getElementById('stat').textContent = 'trail.json unreachable — keep http.server on :8080 running'; }
+}
+function tick(){
+  if(!data) return;
+  const cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  const N=data.nodes, E=data.edges, T=data.trail;
+  const cx=cv.width/2, cy=cv.height/2, R=Math.min(cv.width,cv.height)/2-40;
+  const P=N.map((n,i)=>{const a=(i/Math.max(1,N.length))*Math.PI*2;return{x:cx+Math.cos(a)*R*(0.35+0.65*((i*37%100)/100)),y:cy+Math.sin(a)*R*(0.35+0.65*((i*53%100)/100))}});
+  ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.strokeStyle='rgba(73,224,218,.18)';ctx.lineWidth=1;
+  E.slice(0,800).forEach(e=>{const a=P[e.from],b=P[e.to];if(!a||!b)return;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()});
+  const k=Math.min(T.length, shown);
+  ctx.strokeStyle='#f6b84b';ctx.lineWidth=2;ctx.beginPath();
+  for(let i=0;i<k;i++){const p=P[T[i].node];if(!p)continue;i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y)}
+  ctx.stroke();
+  ctx.fillStyle='rgba(73,224,218,.75)';
+  for(let i=0;i<k;i++){const p=P[T[i].node];if(!p)continue;ctx.beginPath();ctx.arc(p.x,p.y,3,0,7);ctx.fill()}
+  if(k>0){const p=P[T[k-1].node], ev=T[k-1];
+    const g=ctx.createRadialGradient(p.x,p.y,2,p.x,p.y,26);g.addColorStop(0,'rgba(121,221,142,.95)');g.addColorStop(1,'rgba(121,221,142,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,26,0,7);ctx.fill();
+    ctx.strokeStyle='#79dd8e';ctx.lineWidth=2;
+    for(let l=0;l<8;l++){const a=(l/8)*Math.PI*2+Date.now()/300;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p.x+Math.cos(a)*15,p.y+Math.sin(a)*15);ctx.stroke()}
+    ctx.fillStyle='#071013';ctx.beginPath();ctx.arc(p.x,p.y,9,0,7);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#79dd8e';ctx.font='11px sans-serif';ctx.fillText('🕷️',p.x-7,p.y+4);
+    const sz = ev.size ? ` • ${(ev.size/1024).toFixed(1)}kb` : '';
+    const badge = ev.action ? `[${ev.action}] ` : '';
+    const res = ev.result ? ` ${ev.result}` : '';
+    const det = ev.detail ? ` — ${ev.detail}` : '';
+    document.getElementById('pos').textContent=`${badge}pos: ${ev.at}  (${k}/${T.length}) +${ev.t}s${sz}${res}${det}`;
+    document.getElementById('log').textContent=T.slice(Math.max(0,k-6),k).map(t=>`+${t.t}s [${t.action||t.event}] ${t.result||''} ${t.at} ${t.detail||''}`).join('\n');
+  }
+}
+poll(true); setInterval(()=>poll(false), 700);
+</script></body></html>

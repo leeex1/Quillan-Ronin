@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thermodynamic Quantum Fluid Swarm | Quillan GLSL Lab</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; overflow: hidden; width: 100vw; height: 100vh; font-family: -apple-system, monospace; }
+    canvas { width: 100%; height: 100%; display: block; }
+    .hud {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      color: #00f0ff;
+      background: rgba(4, 7, 17, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 240, 255, 0.4);
+      pointer-events: none;
+      z-index: 10;
+    }
+    .hud-title { font-size: 13px; font-weight: bold; letter-spacing: 0.5px; }
+    .hud-sub { font-size: 10px; color: #94a3b8; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <div class="hud">
+    <div class="hud-title">⚡ Thermodynamic Quantum Fluid Swarm</div>
+    <div class="hud-sub">FBM curl noise fluid dynamics advection with cyan, emerald, and gold temperature gradients.</div>
+  </div>
+  <canvas id="c"></canvas>
+  <script>
+    const canvas = document.getElementById('c');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    gl.getExtension('OES_standard_derivatives');
+
+    const vs = `attribute vec2 p; varying vec2 v_texCoord; void main(){ v_texCoord = p * 0.5 + 0.5; gl_Position = vec4(p, 0.0, 1.0); }`;
+    const fs = `
+precision highp float;
+varying vec2 v_texCoord;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform float u_audio;
+
+float hash(vec2 p) {
+    return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    f = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+               mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+}
+
+float fbm(vec2 p) {
+    float v = 0.0;
+    v += 0.5 * noise(p); p *= 2.02;
+    v += 0.25 * noise(p); p *= 2.03;
+    v += 0.125 * noise(p);
+    return v;
+}
+
+void main() {
+    vec2 uv = v_texCoord * 4.0;
+    
+    vec2 q = vec2(fbm(uv + u_time * 0.1), fbm(uv + vec2(5.2, 1.3) - u_time * 0.15));
+    vec2 r = vec2(fbm(uv + 4.0 * q + vec2(1.7, 9.2) + u_time * 0.12),
+                  fbm(uv + 4.0 * q + vec2(8.3, 2.8) - u_time * 0.1));
+    
+    float f = fbm(uv + 4.0 * r);
+    
+    vec3 cyan = vec3(0.0, 0.94, 1.0);
+    vec3 emerald = vec3(0.01, 0.62, 0.49);
+    vec3 gold = vec3(1.0, 0.84, 0.0);
+    
+    vec3 col = mix(cyan, emerald, clamp(f * f * 3.0, 0.0, 1.0));
+    col = mix(col, gold, clamp(length(q), 0.0, 1.0) * 0.4);
+    col *= f * 1.5;
+
+    gl_FragColor = vec4(col, 1.0);
+}
+`;
+
+    function compile(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    }
+
+    const prog = gl.createProgram();
+    gl.attachShader(prog, compile(gl.VERTEX_SHADER, vs));
+    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog);
+    gl.useProgram(prog);
+
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+
+    const pLoc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(pLoc);
+    gl.vertexAttribPointer(pLoc, 2, gl.FLOAT, false, 0, 0);
+
+    const uTime = gl.getUniformLocation(prog, 'u_time');
+    const uRes = gl.getUniformLocation(prog, 'u_resolution');
+    const uAudio = gl.getUniformLocation(prog, 'u_audio');
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    function render(t) {
+      requestAnimationFrame(render);
+      if (uTime) gl.uniform1f(uTime, t * 0.001);
+      if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+      if (uAudio) gl.uniform1f(uAudio, 0.7);
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    }
+    render(0);
+  </script>
+</body>
+</html>

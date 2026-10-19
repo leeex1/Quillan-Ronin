@@ -1,0 +1,14 @@
+{
+  "name": "quillan-clippy-v2",
+  "version": "2.0-glb",
+  "current": "quillan",
+  "defaultMode": "three",
+  "avatars": [
+    { "id": "quillan", "type": "glb", "file": "quillan_textured.glb", "label": "Quillan (Ronin)" },
+    { "id": "jdxx", "type": "glb", "file": "jdxx_textured.glb", "label": "JDXX" },
+    { "id": "clippy", "type": "sprite", "label": "Clippy Demo", "fallback": "procedural" }
+  ],
+  "states": ["idle","blink","talk","think","dance","walk","chill","desk","stream"],
+  "window": { "avatar": 200, "bubbleW": 320, "bubbleH": 340, "transparent": true, "alwaysOnTop": true, "draggable": true },
+  "notes": "GLB primary — sprite fallback if three fails. Drop sprite sheets as *_sheet.png to override."
+}

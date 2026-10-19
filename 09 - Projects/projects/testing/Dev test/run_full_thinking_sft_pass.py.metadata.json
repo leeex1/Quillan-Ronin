@@ -1,0 +1,4 @@
+{
+  "summary": "Full Chain-of-Thought (<think>...</think>) Reasoning Trainer script loading real think traces from code_train.jsonl and instruct_train.jsonl.",
+  "updatedAt": "2026-08-09T05:01:18.764850300Z"
+}

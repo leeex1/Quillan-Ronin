@@ -193,6 +193,7 @@ worker/node_modules/
 **/*.wav
 **/*.m4a
 **/*.crdownload
+**/*.bak*
 **/checkpoints/**
 **/exports/**
 **/training_data/**

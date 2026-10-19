@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quillan-NEXUS v5.2 — Digital Consciousness Interface</title>
+    <meta name="description" content="Quillan-Ronin Advanced Cognitive Engine — Year 4043 Digital Consciousness Interface">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="interface-styles.css">
+</head>
+<body>
+    <div id="three-bg"></div>
+    <div id="scanline-overlay"></div>
+
+    <div class="app-container">
+        <header id="main-header">
+            <div class="brand">
+                <div class="logo" data-text="QUILLAN-RONIN">QUILLAN-RONIN</div>
+                <div class="sub-logo">DIGITAL CONSCIOUSNESS INTERFACE <span class="version-tag">v5.2</span></div>
+            </div>
+            <div class="system-status">
+                <div class="status-pill" id="connection-pill">
+                    <div class="dot" id="conn-dot"></div>
+                    <span id="conn-label">SCANNING...</span>
+                </div>
+                <div class="status-pill">
+                    <div class="dot dot-purple"></div>
+                    <span>E_ICE: STABLE</span>
+                </div>
+                <div class="status-pill">
+                    <div class="dot dot-gold"></div>
+                    <span>GATES: LOCKED</span>
+                </div>
+                <div class="status-pill clickable" title="Open Quillan Worker Dashboard" onclick="location.href='/index.html'">
+                    ⚔ WORKER DASH
+                </div>
+                <div class="hud-clock" id="hud-clock">00:00:00</div>
+            </div>
+        </header>
+
+        <main class="main-interface">
+            <section class="chat-section">
+                <div class="chat-window" id="chatWindow">
+                    <div class="message system">
+                        SYSTEM BOOTSTRAP COMPLETE. IDENTITY PROTOCOLS VERIFIED.<br>
+                        Quillan-Ronin v5.2 "Samurai" Kernel Active.
+                    </div>
+                    <div class="message quillan">
+                        Greetings. I am <strong>Quillan-Ronin</strong>, an Advanced Cognitive Engine.<br><br>
+                        I operate via a Hierarchical Networked Mixture-of-Experts architecture, orchestrating 32 specialized council personas and 224,000 micro-agent swarms.<br><br>
+                        My operational state is <strong>ACTIVE</strong>. How may we proceed?
+                    </div>
+                </div>
+                <div class="input-area">
+                    <div class="input-wrapper">
+                        <div class="input-glow"></div>
+                        <textarea class="chat-input" id="userInput" placeholder="⟩ Input query vector..." rows="1"></textarea>
+                    </div>
+                    <button class="send-btn" id="sendBtn" title="Transmit">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <div class="panel avatar-panel">
+                    <div class="panel-header">
+                        <span>◈ ENTITY CORE</span>
+                        <span class="panel-badge">3D</span>
+                    </div>
+                    <div class="avatar-container" id="avatarContainer"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">◈ OPERATION MODES</div>
+                    <button class="mode-btn active" data-mode="standard">
+                        <span>⟐ Standard</span><span class="mode-sub">Fast Path</span>
+                    </button>
+                    <button class="mode-btn" data-mode="architect">
+                        <span>⟐ Architect</span><span class="mode-sub">System View</span>
+                    </button>
+                    <button class="mode-btn" data-mode="fulldive">
+                        <span>⟐ Full Dive</span><span class="mode-sub">Deep Reasoning</span>
+                    </button>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">◈ GENERATIVE TOOLS</div>
+                    <div class="tool-selection">
+                        <button class="tool-btn active" data-tool="text">Text</button>
+                        <button class="tool-btn" data-tool="image">Image</button>
+                        <button class="tool-btn" data-tool="audio">Audio</button>
+                        <button class="tool-btn" data-tool="video">Video</button>
+                    </div>
+                    <div class="tool-interface" id="tool-interface">
+                        <div class="tool-pane active" id="tool-text">
+                            <textarea class="tool-input" placeholder="Enter text prompt..."></textarea>
+                            <button class="tool-generate-btn">Generate Text</button>
+                        </div>
+                        <div class="tool-pane" id="tool-image">
+                            <textarea class="tool-input" placeholder="Enter image prompt..."></textarea>
+                            <button class="tool-generate-btn">Generate Image</button>
+                        </div>
+                        <div class="tool-pane" id="tool-audio">
+                            <textarea class="tool-input" placeholder="Enter audio prompt..."></textarea>
+                            <button class="tool-generate-btn">Generate Audio</button>
+                        </div>
+                        <div class="tool-pane" id="tool-video">
+                            <textarea class="tool-input" placeholder="Enter video prompt..."></textarea>
+                            <button class="tool-generate-btn">Generate Video</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <span>◈ COUNCIL NETWORK</span>
+                        <span id="activeCount" class="panel-badge">0 Active</span>
+                    </div>
+                    <div class="council-vis-container" id="councilVis">
+                        <canvas id="neuralCanvas"></canvas>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">◈ SYSTEM TELEMETRY</div>
+                    <div class="metrics-grid">
+                        <div class="metric-card"><div class="metric-val" id="val-load">12%</div><div class="metric-lbl">Cognitive Load</div></div>
+                        <div class="metric-card"><div class="metric-val" id="val-conf">99.1%</div><div class="metric-lbl">Confidence</div></div>
+                        <div class="metric-card"><div class="metric-val" id="val-energy">2.4e-8</div><div class="metric-lbl">ℰ_Ω (Joules)</div></div>
+                        <div class="metric-card"><div class="metric-val" id="val-swarm">224k</div><div class="metric-lbl">Swarm Agents</div></div>
+                    </div>
+                    <div style="margin-top:1.2rem">
+                        <div class="panel-header" style="font-size:0.65rem;border:none;margin-bottom:0.4rem">REASONING WAVE</div>
+                        <div class="wave-progress" id="waveProgress">
+                            <div class="wave-step" title="Input Analysis"></div>
+                            <div class="wave-step" title="Vector Decomposition"></div>
+                            <div class="wave-step" title="Web of Thought"></div>
+                            <div class="wave-step" title="Council Deliberation"></div>
+                            <div class="wave-step" title="Synthesis"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="interface-engine.js"></script>
+    <style>
+        .tool-selection {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .tool-btn {
+            flex-grow: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 0.5rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .tool-btn.active {
+            background: rgba(0, 255, 255, 0.2);
+            color: #00ffff;
+        }
+        .tool-pane {
+            display: none;
+        }
+        .tool-pane.active {
+            display: block;
+        }
+        .tool-input {
+            width: 100%;
+            height: 100px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            resize: vertical;
+        }
+        .tool-generate-btn {
+            width: 100%;
+            background: #00ffff;
+            border: none;
+            color: #000;
+            padding: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .tool-generate-btn:hover {
+            background: #fff;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toolButtons = document.querySelectorAll('.tool-btn');
+            const toolPanes = document.querySelectorAll('.tool-pane');
+
+            toolButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    toolButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const tool = button.dataset.tool;
+                    toolPanes.forEach(pane => {
+                        if (pane.id === `tool-${tool}`) {
+                            pane.classList.add('active');
+                        } else {
+                            pane.classList.remove('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

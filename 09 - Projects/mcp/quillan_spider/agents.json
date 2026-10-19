@@ -1,0 +1,87 @@
+{
+ "quillan-spider-fleet": {
+  "name": "Spider Fleet",
+  "color": "#49e0da",
+  "file": "C:\\02_QUILLAN\\mcp\\quillan_spider",
+  "task": "vault crawl + wiring map; bridge :8082 live",
+  "children": [
+   {
+    "id": "spider-bridge",
+    "name": "bridge :8082",
+    "file": "C:\\02_QUILLAN\\mcp\\quillan_spider\\spider_bridge.py",
+    "task": "serve /api/trail|agents|tasks|memory"
+   },
+   {
+    "id": "spider-indexer",
+    "name": "brain indexer",
+    "file": "C:\\02_QUILLAN\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+    "task": "second_brain_index.json (1.2MB)"
+   }
+  ],
+  "ts": 1760400000
+ },
+ "quillan-mcp-servers": {
+  "name": "MCP Servers (16)",
+  "color": "#a371f7",
+  "file": "C:\\02_QUILLAN\\mcp",
+  "task": "universal toolkit; all py_compile clean",
+  "children": [
+   {
+    "id": "mcps-rag",
+    "name": "QuillanRAG",
+    "file": "C:\\02_QUILLAN\\mcp\\quillan_rag\\server.py",
+    "task": "healthy, 360 chunks"
+   },
+   {
+    "id": "mcps-think",
+    "name": "ThinkingEngine",
+    "file": "C:\\02_QUILLAN\\mcp\\quillan_thinking_engine\\server.py",
+    "task": "lazy-torch patched, verify on toggle"
+   },
+   {
+    "id": "mcps-samurai",
+    "name": "SamuraiEngine",
+    "file": "C:\\02_QUILLAN\\mcp\\quillan_samurai_engine\\server.py",
+    "task": "healthy"
+   },
+   {
+    "id": "mcps-memory",
+    "name": "MemPalace+SQLite",
+    "file": "C:\\02_QUILLAN\\quillan.db",
+    "task": "shared agent memory; run init script"
+   }
+  ],
+  "ts": 1760400000
+ },
+ "quillan-council": {
+  "name": "Council (34)",
+  "color": "#f2f0e8",
+  "file": "C:\\02_QUILLAN\\01 - Core Architecture\\agents",
+  "task": "specs per agent; keeper C5-ECHO owns memory",
+  "children": [
+   {
+    "id": "c5-echo",
+    "name": "C5-ECHO keeper",
+    "file": "C:\\02_QUILLAN\\01 - Core Architecture\\agents\\c5-echo.agent.md",
+    "task": "verbatim recall, verified labels"
+   }
+  ],
+  "ts": 1760400000
+ },
+ "quillan-indexes": {
+  "name": "Vault Indexes",
+  "color": "#f6b84b",
+  "file": "C:\\02_QUILLAN",
+  "task": "17 File Index maps; hub-diet cap patched, regen pending",
+  "children": [],
+  "ts": 1760400000
+ },
+ "quillan-git": {
+  "name": "Git Push Watch",
+  "color": "#79dd8e",
+  "file": "C:\\02_QUILLAN",
+  "task": "PUSHED 488b2b03 verified; temp branch cleanup pending",
+  "children": [],
+  "ts": 1760400000
+ }
+}

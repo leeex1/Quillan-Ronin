@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quillan Spider Graph — vault web</title>
+<style>
+:root{color-scheme:dark;--bg:#05090b;--panel:#0b171b;--ink:#e8f2ef;--mut:#89a09c;--line:#264047;--cy:#49e0da}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,Segoe UI,sans-serif;overflow:hidden}
+#bar{position:fixed;top:0;left:0;right:0;display:flex;gap:8px;align-items:center;padding:8px 12px;background:rgba(7,16,19,.92);border-bottom:1px solid var(--line);z-index:5;flex-wrap:wrap}
+#bar b{font-size:14px}#bar input[type=text]{background:#071013;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:220px}
+#bar label{font-size:12px;color:var(--mut);display:flex;gap:4px;align-items:center;cursor:pointer}
+#bar button{background:#12262b;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+#stats{font-size:12px;color:var(--mut);font-family:ui-monospace,Consolas,monospace}
+#cv{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+#info{position:fixed;right:12px;top:56px;width:320px;max-height:70vh;overflow:auto;background:rgba(11,23,27,.95);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12px;display:none;z-index:5}
+#info h3{margin:0 0 6px;font-size:13px;word-break:break-all}#info .mono{font-family:ui-monospace,Consolas,monospace;color:var(--mut);font-size:11px;word-break:break-all}
+#info ul{margin:6px 0;padding-left:16px}#info li{margin:2px 0;cursor:pointer}#info li:hover{color:var(--cy)}
+#legend{position:fixed;left:12px;bottom:12px;background:rgba(11,23,27,.9);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:11px;max-width:250px;z-index:5}
+#legend span{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+</style></head><body>
+<div id="bar"><b>🕸️ Spider Graph</b><span id="stats">loading…</span>
+<input type="text" id="q" placeholder="filter: sector, name, .py … (Esc clears)">
+<label><input type="checkbox" id="tSem" checked> semantic</label>
+<label><input type="checkbox" id="tCrawl" checked> crawl-order</label>
+<label><input type="checkbox" id="tOrph" checked> orphans</label>
+<label><input type="checkbox" id="tJunk"> show junk</label>
+<label><input type="checkbox" id="tLbl"> labels</label>
+<button id="rel">↻ reload</button><button id="re">⟳ re-layout</button></div>
+<canvas id="cv"></canvas><div id="info"></div><div id="legend"></div>
+<script>
+const SECTORS=["00 - Web Map","01 - Core Architecture","02 - Knowledge Foundation","03 - Training & Model","04- quillan-sovereign-skills-and-swarm","05 - Creative Works","05 - Technical Implementation","06 - Deployment & Platforms","07 - Memory & LanceDB","08 - Templates & Config","09 - Projects","10 - Formal Papers","mcp","scripts","worker","assets","Misc"], COLORS={"00 - Web Map":"#7ee787","01 - Core Architecture":"#f2f0e8","02 - Knowledge Foundation":"#a371f7","03 - Training & Model":"#49e0da","04- quillan-sovereign-skills-and-swarm":"#f6b84b","05 - Creative Works":"#ff3d81","05 - Technical Implementation":"#ff9d5c","06 - Deployment & Platforms":"#3fb950","07 - Memory & LanceDB":"#79c0ff","08 - Templates & Config":"#e6edf3","09 - Projects":"#ffd166","10 - Formal Papers":"#c792ea","mcp":"#80cbc4","scripts":"#b0bec5","worker":"#ffab91","assets":"#ce93d8","Misc":"#5c6b73","_root":"#ffffff","_other":"#546e7a"}, JUNK_SRC="antigravity|__pycache__|node_modules|venv|python_files|\\.git\\/|\\.pyc$|\\/extensions\\/| checkpoints\\/|\\.pytest_cache";
+const JUNK=new RegExp(JUNK_SRC,"i");
+let N=[],ES=[],EW=[],adj=new Map(),pos=[],vel=[],anchorOf=[],sel=-1,drag=-1;
+let show={sem:true,crawl:true,orph:true,junk:false,lbl:false}, query="";
+function sectorOf(p){ if(!p) return "_other"; if(/02_QUILLAN$/.test(p)) return "_root"; const m=p.match(/02_QUILLAN[\\/]([^\\/]+)/); const s=m?m[1]:"_other"; return COLORS[s]?s:"_other"; }
+function base(p){ return (p||"").split(/[\\/]/).pop().toLowerCase(); }
+async function load(){
+  const d=await (await fetch("./trail.json?ts="+Date.now())).json();
+  const byBase=new Map();
+  N=d.nodes.map((n,i)=>{ const p=n.full||n.path||""; const o={i,path:p,base:base(p),sector:sectorOf(p)}; if(!byBase.has(o.base)) byBase.set(o.base,i); return o; });
+  const junkOn=n=>JUNK.test(n.path);
+  ES=(d.edges||[]).filter(e=>e.from!==undefined&&N[e.from]&&N[e.to]).map(e=>({a:e.from,b:e.to,kind:"crawl"}));
+  EW=[]; (d.wiring||[]).forEach(w=>{ const a=byBase.get(base(w.from)), b=byBase.get(base(w.to)); if(a!==undefined&&b!==undefined&&a!==b) EW.push({a,b,kind:"sem",why:w.why||""}); });
+  adj=new Map(N.map(n=>[n.i,new Set()]));
+  ES.concat(EW).forEach(e=>{ adj.get(e.a).add(e.b); adj.get(e.b).add(e.a); });
+  window._trailMeta={root:d.root,at:d.at,nodes:N.length};
+  layout(true); renderLegend(); updateStats();
+}
+function visible(n){ if(!show.junk&&JUNK.test(n.path)) return false; if(query&&!(n.path.toLowerCase().includes(query)||n.sector.toLowerCase().includes(query))) return false; return true; }
+function layout(reset){
+  const cv=document.getElementById("cv"), W=cv.width=innerWidth*devicePixelRatio, H=cv.height=innerHeight*devicePixelRatio;
+  const secs=[...new Set(N.map(n=>n.sector))];
+  const anchors={}; secs.forEach((s,i)=>{ const a=i/Math.max(1,secs.length)*Math.PI*2-Math.PI/2; anchors[s]={x:W/2+Math.cos(a)*W*0.30,y:H/2+Math.sin(a)*H*0.30}; });
+  if(reset||!pos.length||pos.length!==N.length){ pos=N.map(()=>({x:W/2+(Math.random()-0.5)*W*0.5,y:H/2+(Math.random()-0.5)*H*0.5})); vel=N.map(()=>({x:0,y:0})); }
+  anchorOf=N.map(n=>anchors[n.sector]);
+  const edges=ES.concat(EW);
+  for(let t=0;t<260;t++){
+    for(let i=0;i<N.length;i++){ const an=anchorOf[i]; vel[i].x+=(an.x-pos[i].x)*0.004; vel[i].y+=(an.y-pos[i].y)*0.004; }
+    for(const e of edges){ const a=pos[e.a],b=pos[e.b]; let dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy)||1; const f=(d-W*0.012)*0.02; dx/=d;dy/=d; vel[e.a].x+=dx*f;vel[e.a].y+=dy*f;vel[e.b].x-=dx*f;vel[e.b].y-=dy*f; }
+    const R2=(W*0.02)*(W*0.02);
+    for(let i=0;i<N.length;i+=3){ for(let j=i+1;j<N.length;j+=3){ let dx=pos[j].x-pos[i].x,dy=pos[j].y-pos[i].y,d2=dx*dx+dy*dy; if(d2<R2&&d2>1){ const f=9000/Math.max(d2,400); dx/=Math.sqrt(d2);dy/=Math.sqrt(d2); vel[i].x-=dx*f*0.02;vel[i].y-=dy*f*0.02;vel[j].x+=dx*f*0.02;vel[j].y+=dy*f*0.02; } } }
+    for(let i=0;i<N.length;i++){ vel[i].x*=0.85;vel[i].y*=0.85; if(i!==drag){pos[i].x+=vel[i].x;pos[i].y+=vel[i].y;} }
+  }
+  draw();
+}
+function deg(i){ return adj.get(i)?adj.get(i).size:0; }
+function draw(){
+  const cv=document.getElementById("cv"),ctx=cv.getContext("2d"),dpr=devicePixelRatio;
+  ctx.clearRect(0,0,cv.width,cv.height);
+  const vis=N.map(visible);
+  const inSel=s=>sel<0||s===sel||(adj.get(sel)&&adj.get(sel).has(s));
+  const eVis=e=>vis[e.a]&&vis[e.b]&&(e.kind==="sem"?show.sem:show.crawl)&&inSel(e.a)&&inSel(e.b);
+  ctx.lineWidth=1;
+  for(const e of ES){ if(!eVis(e))continue; const a=pos[e.a],b=pos[e.b]; ctx.strokeStyle=sel<0?"rgba(120,150,160,.16)":"rgba(120,150,160,.05)"; ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke(); }
+  for(const e of EW){ if(!eVis(e))continue; const a=pos[e.a],b=pos[e.b]; ctx.strokeStyle=sel<0?"rgba(73,224,218,.30)":"rgba(73,224,218,.45)"; ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke(); }
+  for(let i=0;i<N.length;i++){ if(!vis[i])continue; if(!show.orph&&deg(i)===0)continue; if(!inSel(i)&&sel>=0)continue;
+    const r=(2+Math.min(deg(i),24)*0.55)*dpr, p=pos[i];
+    ctx.fillStyle=COLORS[N[i].sector]||"#546e7a"; ctx.globalAlpha=(sel<0||i===sel)?0.92:0.30;
+    ctx.beginPath();ctx.arc(p.x,p.y,r,0,7);ctx.fill(); ctx.globalAlpha=1;
+    if(i===sel){ ctx.strokeStyle="#fff";ctx.lineWidth=2*dpr;ctx.beginPath();ctx.arc(p.x,p.y,r+3*dpr,0,7);ctx.stroke(); }
+    if(show.lbl&&(r>5*dpr||i===sel)){ ctx.fillStyle="rgba(232,242,239,.75)";ctx.font=(10*dpr)+"px sans-serif";ctx.fillText(N[i].base,p.x+r+3*dpr,p.y+3*dpr); }
+  }
+}
+function updateStats(){ const m=window._trailMeta||{}; document.getElementById("stats").textContent=(m.nodes||N.length)+" nodes • "+ES.length+" crawl edges • "+EW.length+" semantic • "+(m.root||"")+(m.at?" • "+m.at:""); }
+function renderLegend(){ document.getElementById("legend").innerHTML=[...new Set(N.map(n=>n.sector))].map(s=>'<div><span style="background:'+(COLORS[s]||"#546e7a")+'"></span>'+s+"</div>").join(""); }
+function pick(mx,my){ const dpr=devicePixelRatio; let best=-1,bd=1e12; for(let i=0;i<N.length;i++){ if(!visible(i))continue; if(!show.orph&&deg(i)===0)continue; const dx=pos[i].x-mx*dpr,dy=pos[i].y-my*dpr,d=dx*dx+dy*dy; if(d<bd){bd=d;best=i;} } return Math.sqrt(bd)<30*dpr?best:-1; }
+function showInfo(i){
+  const el=document.getElementById("info");
+  if(i<0){ el.style.display="none";return; }
+  const n=N[i], nb=[...(adj.get(i)||[])].map(j=>({j,p:N[j].path})).slice(0,40);
+  el.innerHTML="<h3>"+n.base+"</h3><div class='mono'>"+n.path+"<br>sector: "+n.sector+" • degree "+deg(i)+"</div><div><b>"+nb.length+" links</b><ul>"+nb.map(o=>"<li data-j='"+o.j+"'>"+o.p.split(/[\\/]/).slice(-2).join("/")+"</li>").join("")+"</ul></div>";
+  el.style.display="block";
+  el.querySelectorAll("li").forEach(li=>li.onclick=()=>{ sel=+li.dataset.j; showInfo(sel); draw(); });
+}
+(function bind(){
+  const cv=document.getElementById("cv");
+  cv.addEventListener("mousedown",e=>{ const i=pick(e.clientX,e.clientY); if(i>=0){drag=i;sel=i;showInfo(i);draw();} });
+  addEventListener("mousemove",e=>{ if(drag<0)return; const dpr=devicePixelRatio; pos[drag].x=e.clientX*dpr;pos[drag].y=e.clientY*dpr; draw(); });
+  addEventListener("mouseup",()=>drag=-1);
+  cv.addEventListener("dblclick",()=>{sel=-1;showInfo(-1);draw();});
+  document.getElementById("q").addEventListener("input",e=>{query=e.target.value.toLowerCase();draw();});
+  document.getElementById("q").addEventListener("keydown",e=>{if(e.key==="Escape"){e.target.value="";query="";draw();}});
+  [["tSem","sem"],["tCrawl","crawl"],["tOrph","orph"],["tJunk","junk"],["tLbl","lbl"]].forEach(([id,k])=>document.getElementById(id).addEventListener("change",e=>{show[k]=e.target.checked;draw();}));
+  document.getElementById("rel").onclick=()=>load();
+  document.getElementById("re").onclick=()=>layout(true);
+  addEventListener("resize",()=>layout(false));
+})();
+load();
+</script></body></html>

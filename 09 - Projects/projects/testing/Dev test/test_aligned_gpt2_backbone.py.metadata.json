@@ -1,0 +1,4 @@
+{
+  "summary": "Updated test_aligned_gpt2_backbone.py using self.txt_dec.weight to tie pre-trained GPT-2 embeddings into Quillan-Ronin v5.3.1.",
+  "updatedAt": "2026-08-08T18:31:06.122577900Z"
+}
