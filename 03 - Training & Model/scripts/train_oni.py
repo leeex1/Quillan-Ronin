@@ -43,27 +43,18 @@ from quillan_tokenizer_unified import UnifiedQuillanTokenizer  # noqa: E402
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni  # noqa: E402
 from paper_01_profiler import StepProfiler  # 2309.02521 — real CPU/GPU profiling
 
-def resolve_data_dir(custom_path: str | None = None) -> Path:
-    """Auto-detects data directory or dataset file across local, repo, and cloud paths."""
+def resolve_data_dir(custom_path: str | None = None):
+    """Auto-detects data directory or returns all available dataset files across the repository."""
     if custom_path:
         p = Path(custom_path).resolve()
         if p.exists():
             return p
 
-    candidates = [
-        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\canonical_standardized\quillan_master_gold_training_v1.pt"),
-        Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\quillan_pretrain_corpus_343mb.pt"),
-        Path(__file__).resolve().parent / "data",
-        Path(__file__).resolve().parent.parent / "05_Training" / "training_data" / "v9",
-        Path("/content/Quillan-Ronin/oni/data"),
-        Path("oni/data"),
-        Path("05_Training/training_data/v9"),
-    ]
-    for c in candidates:
-        if c.is_file() and c.suffix == ".pt" and c.exists():
-            return c.resolve()
-        if c.is_dir() and ((c / "train_ids.bin").exists() or (c / "train.pt").exists()):
-            return c.resolve()
+    data_dir = Path(r"C:\02_QUILLAN\03 - Training & Model\training_data")
+    if data_dir.exists():
+        pt_files = sorted(list(data_dir.rglob("*.pt")))
+        if pt_files:
+            return pt_files
 
     # Fallback to local oni/data
     d = (Path(__file__).resolve().parent / "data").resolve()
@@ -195,73 +186,104 @@ class RQGMController:
 
 
 class Corpus:
-    def __init__(self, data_path: Path, split: str, seq_len: int):
+    def __init__(self, data_path, split: str, seq_len: int):
         self.seq_len = seq_len
-        # Case 1: .pt file provided or detected
-        if data_path.is_file() and data_path.suffix == ".pt":
-            self._load_pt(data_path, split, seq_len)
-        elif data_path.is_dir() and (data_path / f"{split}.pt").exists():
-            self._load_pt(data_path / f"{split}.pt", split, seq_len)
+        if isinstance(data_path, list):
+            self._load_multiple_pt(data_path, split, seq_len)
+        elif isinstance(data_path, (str, Path)):
+            p = Path(data_path)
+            if p.is_dir():
+                pt_files = sorted(list(p.rglob("*.pt")))
+                if pt_files:
+                    self._load_multiple_pt(pt_files, split, seq_len)
+                elif (p / f"{split}.pt").exists():
+                    self._load_pt(p / f"{split}.pt", split, seq_len)
+                else:
+                    self._load_bin(p, split, seq_len)
+            elif p.is_file() and p.suffix == ".pt":
+                self._load_pt(p, split, seq_len)
+            else:
+                self._load_bin(p.parent, split, seq_len)
         else:
-            # Case 2: standard memmapped binary dataset
-            ids_path = data_path / f"{split}_ids.bin"
-            labels_path = data_path / f"{split}_labels.bin"
-            if not ids_path.exists() or not labels_path.exists():
-                raise FileNotFoundError(
-                    f"Missing binary dataset split '{split}' in {data_path}. "
-                    f"Run 'python oni/pack_dataset.py' to generate binary datasets."
-                )
-            ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
-            labels = np.memmap(labels_path, dtype=np.int32, mode="r")
-            n = min(len(ids), len(labels)) // seq_len * seq_len
-            self.ids = ids[:n].reshape(-1, seq_len)
-            self.labels = labels[:n].reshape(-1, seq_len)
-            self.is_pt = False
+            raise ValueError(f"Unrecognized data_path type: {type(data_path)}")
+
+    def _load_multiple_pt(self, pt_files: list, split: str, seq_len: int):
+        all_ids = []
+        all_labels = []
+        val_fraction = 0.05
+        seen_names = set()
+
+        for pt_file in pt_files:
+            pt_path = Path(pt_file)
+            # Avoid duplicate clones (quillan_sovereign_10_clean is an exact duplicate of quillan_master_gold_training_v1)
+            if "sovereign_10_clean" in pt_path.name and any("master_gold" in s for s in seen_names):
+                continue
+            seen_names.add(pt_path.name)
+
+            try:
+                raw = torch.load(pt_path, map_location="cpu", weights_only=False)
+                if isinstance(raw, dict) and "input_ids" in raw:
+                    input_ids = raw["input_ids"]
+                    labels = raw.get("labels", None)
+                elif isinstance(raw, torch.Tensor):
+                    input_ids = raw
+                    labels = None
+                else:
+                    continue
+
+                flat_ids = input_ids.reshape(-1) if input_ids.dim() > 1 else input_ids
+                total_tokens = flat_ids.numel()
+                split_point = int(total_tokens * (1.0 - val_fraction))
+
+                if split == "train":
+                    tokens = flat_ids[:split_point]
+                else:
+                    tokens = flat_ids[split_point:]
+
+                n = (tokens.numel() // seq_len) * seq_len
+                if n == 0:
+                    continue
+                sliced_ids = tokens[:n].reshape(-1, seq_len).to(torch.int64)
+
+                if labels is not None:
+                    flat_labels = labels.reshape(-1) if labels.dim() > 1 else labels
+                    split_labels = flat_labels[:split_point] if split == "train" else flat_labels[split_point:]
+                    nl = (split_labels.numel() // seq_len) * seq_len
+                    sliced_labels = split_labels[:nl].reshape(-1, seq_len).to(torch.int64)
+                else:
+                    sliced_labels = sliced_ids.clone()
+
+                all_ids.append(sliced_ids)
+                all_labels.append(sliced_labels)
+                print(f"[DATA] Ingested {pt_path.name}: {sliced_ids.size(0):,} seqs ({sliced_ids.numel():,} tokens) for {split}", flush=True)
+            except Exception as e:
+                print(f"[DATA WARNING] Could not ingest {pt_path.name}: {e}", flush=True)
+
+        if not all_ids:
+            raise RuntimeError(f"No valid sequences loaded for split '{split}'")
+
+        self.ids = torch.cat(all_ids, dim=0)
+        self.labels = torch.cat(all_labels, dim=0)
+        self.is_pt = True
+        print(f"[DATA SUMMARY] Combined Omnibus Corpus ({split}): {self.ids.size(0):,} sequences / {self.ids.numel():,} tokens across {len(all_ids)} datasets.", flush=True)
+
+    def _load_bin(self, data_path: Path, split: str, seq_len: int):
+        ids_path = data_path / f"{split}_ids.bin"
+        labels_path = data_path / f"{split}_labels.bin"
+        if not ids_path.exists() or not labels_path.exists():
+            raise FileNotFoundError(
+                f"Missing binary dataset split '{split}' in {data_path}. "
+                f"Run 'python oni/pack_dataset.py' to generate binary datasets."
+            )
+        ids = np.memmap(ids_path, dtype=np.uint16, mode="r")
+        labels = np.memmap(labels_path, dtype=np.int32, mode="r")
+        n = min(len(ids), len(labels)) // seq_len * seq_len
+        self.ids = ids[:n].reshape(-1, seq_len)
+        self.labels = labels[:n].reshape(-1, seq_len)
+        self.is_pt = False
 
     def _load_pt(self, pt_file: Path, split: str, seq_len: int):
-        raw = torch.load(pt_file, map_location="cpu", weights_only=False)
-        if isinstance(raw, dict) and "input_ids" in raw:
-            input_ids = raw["input_ids"]
-            labels = raw.get("labels", None)
-        elif isinstance(raw, torch.Tensor):
-            input_ids = raw
-            labels = None
-        else:
-            raise ValueError(f"Unrecognized dataset format in {pt_file}")
-
-        # Flatten into 1D token stream for consistent seq_len windowing
-        if input_ids.dim() > 1:
-            flat_ids = input_ids.reshape(-1)
-        else:
-            flat_ids = input_ids
-
-        total_tokens = flat_ids.numel()
-        # Train / val split if single master file provided
-        val_fraction = 0.05
-        split_point = int(total_tokens * (1.0 - val_fraction))
-        if split == "train":
-            tokens = flat_ids[:split_point]
-        else:
-            tokens = flat_ids[split_point:]
-
-        n = (tokens.numel() // seq_len) * seq_len
-        if n == 0:
-            tokens = flat_ids[:seq_len]  # fallback
-            n = seq_len
-        
-        sliced_ids = tokens[:n].reshape(-1, seq_len).to(torch.int64)
-        if labels is not None:
-            flat_labels = labels.reshape(-1)[:split_point] if split == "train" else labels.reshape(-1)[split_point:]
-            nl = (flat_labels.numel() // seq_len) * seq_len
-            sliced_labels = flat_labels[:nl].reshape(-1, seq_len).to(torch.int64)
-        else:
-            # Model forward internally shifts logits[..., :-1] vs labels[..., 1:]
-            # so labels must match input_ids exactly without an extra roll!
-            sliced_labels = sliced_ids.clone()
-
-        self.ids = sliced_ids
-        self.labels = sliced_labels
-        self.is_pt = True
+        self._load_multiple_pt([pt_file], split, seq_len)
 
     def __len__(self):
         return len(self.ids)
@@ -331,7 +353,8 @@ def main():
     LOG_DIR = resolve_dir(args.log_dir, "training_logs")
     CKPT_DIR.mkdir(parents=True, exist_ok=True)
     LOG_DIR.mkdir(parents=True, exist_ok=True)
-    print(f"[PATHS] data_dir={DATA}  ckpt_dir={CKPT_DIR}  log_dir={LOG_DIR}")
+    data_display = f"{len(DATA)} datasets ({', '.join(p.name for p in DATA)})" if isinstance(DATA, list) else DATA
+    print(f"[PATHS] data_dir={data_display}  ckpt_dir={CKPT_DIR}  log_dir={LOG_DIR}")
 
     # Windows OS Hardware Governor & Thread Capping (Zero-Lag Guaranteed)
     import os
