@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4D Hypercube Tesseract Projection | Three.js</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:#040711; overflow:hidden; width:100vw; height:100vh; font-family:sans-serif; }
+    .hud { position:absolute; top:14px; left:14px; color:#00f0ff; background:rgba(4,7,17,0.85); padding:8px 14px; border-radius:6px; border:1px solid rgba(0,240,255,0.4); z-index:10; }
+    .hud-title { font-size:13px; font-weight:bold; }
+    .hud-sub { font-size:10px; color:#94a3b8; }
+  </style>
+</head>
+<body>
+  <div class="hud">
+    <div class="hud-title">🔮 4D Hypercube Tesseract Projection</div>
+    <div class="hud-sub">True 4-dimensional hypercube rotated across XW and ZW planes projected into 3D Euclidean space</div>
+  </div>
+  <div id="c" style="width:100%; height:100%;"></div>
+  <script>
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('c').appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // 16 Vertices of 4D Hypercube
+    const v4 = [];
+    for (let x = -1; x <= 1; x += 2) {
+      for (let y = -1; y <= 1; y += 2) {
+        for (let z = -1; z <= 1; z += 2) {
+          for (let w = -1; w <= 1; w += 2) {
+            v4.push([x, y, z, w]);
+          }
+        }
+      }
+    }
+
+    // 32 Edges
+    const edges = [];
+    for (let i = 0; i < 16; i++) {
+      for (let j = i + 1; j < 16; j++) {
+        let diff = 0;
+        for (let k = 0; k < 4; k++) {
+          if (v4[i][k] !== v4[j][k]) diff++;
+        }
+        if (diff === 1) edges.push([i, j]);
+      }
+    }
+
+    // Line segments geometry
+    const lineGeo = new THREE.BufferGeometry();
+    const pos = new Float32Array(edges.length * 2 * 3);
+    lineGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const lineMat = new THREE.LineBasicMaterial({ color: 0x00f0ff, transparent: true, opacity: 0.85, linewidth: 2 });
+    const lines = new THREE.LineSegments(lineGeo, lineMat);
+    group.add(lines);
+
+    // Vertex Spheres
+    const sGeo = new THREE.SphereGeometry(0.08, 12, 12);
+    const spheres = [];
+    for (let i = 0; i < 16; i++) {
+      const s = new THREE.Mesh(sGeo, new THREE.MeshBasicMaterial({ color: 0xffd700 }));
+      group.add(s);
+      spheres.push(s);
+    }
+
+    camera.position.z = 5.5;
+
+    function project4Dto3D(v, angleXW, angleZW) {
+      let [x, y, z, w] = v;
+      // Rotate in XW plane
+      let cosXW = Math.cos(angleXW), sinXW = Math.sin(angleXW);
+      let x1 = x * cosXW - w * sinXW;
+      let w1 = x * sinXW + w * cosXW;
+
+      // Rotate in ZW plane
+      let cosZW = Math.cos(angleZW), sinZW = Math.sin(angleZW);
+      let z2 = z * cosZW - w1 * sinZW;
+      let w2 = z * sinZW + w1 * cosZW;
+
+      // Stereographic perspective 4D -> 3D
+      let d = 2.5;
+      let factor = d / (d - w2);
+      return [x1 * factor * 1.2, y * factor * 1.2, z2 * factor * 1.2];
+    }
+
+    function animate(t) {
+      requestAnimationFrame(animate);
+      const time = t * 0.001;
+      const angleXW = time * 0.8;
+      const angleZW = time * 0.5;
+
+      const pArr = lines.geometry.attributes.position.array;
+      const projected = v4.map(v => project4Dto3D(v, angleXW, angleZW));
+
+      for (let i = 0; i < 16; i++) {
+        spheres[i].position.set(projected[i][0], projected[i][1], projected[i][2]);
+      }
+
+      let ptr = 0;
+      for (let e = 0; e < edges.length; e++) {
+        const p1 = projected[edges[e][0]];
+        const p2 = projected[edges[e][1]];
+        pArr[ptr++] = p1[0]; pArr[ptr++] = p1[1]; pArr[ptr++] = p1[2];
+        pArr[ptr++] = p2[0]; pArr[ptr++] = p2[1]; pArr[ptr++] = p2[2];
+      }
+      lines.geometry.attributes.position.needsUpdate = true;
+
+      group.rotation.x = time * 0.2;
+      group.rotation.y = time * 0.3;
+      renderer.render(scene, camera);
+    }
+    animate(0);
+
+    window.addEventListener('resize', () => {
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+    });
+  </script>
+</body>
+</html>
