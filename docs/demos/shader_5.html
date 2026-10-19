@@ -106,13 +106,13 @@ void main() {
     const prog = gl.createProgram();
     const vsh = compile(gl.VERTEX_SHADER, vs);
     const fsh = compile(gl.FRAGMENT_SHADER, fs);
-    if (!vsh || !fsh) { console.error('Shader failed to compile'); return; }
+    if (!vsh || !fsh) { console.error('Shader failed to compile'); throw new Error('Shader compile failed'); }
     gl.attachShader(prog, vsh);
     gl.attachShader(prog, fsh);
     gl.linkProgram(prog);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
       console.error('Program link error:', gl.getProgramInfoLog(prog));
-      return;
+      throw new Error('Program link failed');
     }
     gl.useProgram(prog);
 
