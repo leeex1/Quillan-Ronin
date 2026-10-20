@@ -192,10 +192,10 @@ class SmallBatchMoEStabilizer(nn.Module):
         with torch.no_grad():
             top1 = probs.argmax(dim=-1)
             batch_freq = torch.bincount(top1, minlength=self.num_experts).float() / max(1, top1.numel())
-            self.ema_load.mul_(self.ema_decay).add_((1.0 - self.ema_decay) * batch_freq)
-            # Aux-loss-free bias nudge toward uniform 1/34
+            self.ema_load = (self.ema_load * self.ema_decay + (1.0 - self.ema_decay) * batch_freq).detach()
+            # Aux-loss-free bias nudge toward uniform 1/34 (out-of-place + detached)
             target = 1.0 / self.num_experts
-            self.router_bias.add_(self.bias_lr * torch.sign(target - self.ema_load))
+            self.router_bias = (self.router_bias + self.bias_lr * torch.sign(target - self.ema_load)).detach()
 
         # 3. EMA-smoothed Switch load balance loss (aux_load_weight = 0.02)
         mean_prob = probs.float().mean(dim=0)
@@ -446,12 +446,110 @@ class _Vectorized34CouncilExperts(nn.Module):
         return x_d + var * (0.25 * gov_scale) + world_delta * 0.1
 
 
+def vectorize_model_in_place(model):
+    """
+    Fuses 9-Vector Prism and vectorizes 34-Expert ModuleList into einsum vec_experts.
+    Runs POST-load_state_dict so all 1,441 tensors from quillan_coherent_base_ternary.pt
+    are loaded into the base modules BEFORE vectorization stacks them.
+    """
+    import types
+    if getattr(model, "_is_vectorized_oni", False):
+        return model
+
+    if not hasattr(model, "moe_stabilizer"):
+        model.moe_stabilizer = SmallBatchMoEStabilizer(num_experts=model.cfg.num_experts)
+
+    for block in model.h:
+        # Tie per-layer token_memory to master wte (-617.6M duplicate params)
+        if getattr(block.attn, "use_ma", False) and hasattr(block.attn, "token_memory"):
+            block.attn.token_memory = model.wte
+
+        # Fuse 9-Vector Prism if not already fused
+        if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "vectors") and not isinstance(block.attn.prism, _FusedNineVectorPrism):
+            block.attn.prism = _FusedNineVectorPrism(block.attn.prism)
+
+        # Vectorize 34-Expert loop in MoE block
+        if hasattr(block.moe, "experts") and not hasattr(block.moe, "vec_experts"):
+            block.moe.vec_experts = _Vectorized34CouncilExperts(block.moe.experts, model.cfg)
+            del block.moe.experts
+            block.moe._stabilizer_ref = model.moe_stabilizer
+
+            def _fast_moe_forward(self_moe, x, gov_scale: float = 1.0):
+                B, T, C = x.size()
+                flat_x = x.reshape(-1, C)
+                fc_out = self_moe.c_fc(x)
+                gate, act = fc_out.chunk(2, dim=-1)
+                h_dense = self_moe.c_proj(F.silu(gate) * act)
+
+                gate_dev = next(self_moe.pull_gate.parameters()).device
+                inp = flat_x.to(gate_dev) if flat_x.device != gate_dev else flat_x
+                raw_logits = self_moe.pull_gate.gate(inp).to(flat_x.device).float()
+                if hasattr(self_moe, "_stabilizer_ref"):
+                    raw_logits = raw_logits + self_moe._stabilizer_ref.router_bias.detach().to(raw_logits.device)
+                pull = F.softmax(raw_logits / max(0.05, self_moe.tau), dim=-1) * self_moe.pull_gate.prior.to(flat_x.device)
+                pull = pull / pull.sum(dim=-1, keepdim=True).clamp_min(1e-8)
+
+                moe_out = self_moe.vec_experts(flat_x, pull, gov_scale)
+
+                if self_moe.training and hasattr(self_moe, "_stabilizer_ref"):
+                    stab = self_moe._stabilizer_ref.compute_stabilized_losses(raw_logits, pull)
+                    lb_loss, z_loss, entropy = stab["lb_loss"], stab["z_loss"], stab["router_entropy"]
+                else:
+                    zero = torch.zeros((), device=x.device)
+                    lb_loss, z_loss = zero, zero
+                    entropy = -(pull * torch.log(pull + 1e-10)).sum(dim=-1).mean()
+
+                g = torch.tanh(self_moe.moe_gate(flat_x))
+                out = h_dense + (moe_out * g).view(B, T, C)
+                return out, pull, lb_loss, z_loss, entropy
+
+            block.moe.forward = types.MethodType(_fast_moe_forward, block.moe)
+
+    model._is_vectorized_oni = True
+    print("[15-Pt Upgrade Kit] Post-Load Vectorization Complete: Fused Prism + 34-Expert Einsum bound to loaded checkpoint weights.", flush=True)
+    return model
+
+
+def canonical_state_dict_for_save(model):
+    """
+    Un-stacks vec_experts and fused prism back to canonical 1,441-tensor keys
+    so saved checkpoints remain 100% compatible with the base schema.
+    Also retains vectorized keys for fast native re-loading.
+    """
+    sd = model.state_dict()
+    vector_names = ["Language", "Sentiment", "Context", "Intent", "Meta",
+                    "Creativity", "Ethics", "Strategy", "Constraint"]
+
+    for l_idx, block in enumerate(model.h):
+        if hasattr(block.moe, "vec_experts"):
+            ve = block.moe.vec_experts
+            if getattr(ve, "is_sequential", False):
+                for e_idx in range(model.cfg.num_experts):
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.0.weight"] = ve.experts[e_idx][0].weight.data.clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.1.weight"] = ve.experts[e_idx][1].weight.data.clone()
+            else:
+                for e_idx in range(model.cfg.num_experts):
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_A"] = ve.lora_A.data[e_idx].clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_B"] = ve.lora_B.data[e_idx].clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.A"] = ve.swarm_A.data[e_idx].clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.B"] = ve.swarm_B.data[e_idx].clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.C"] = ve.swarm_C.data[e_idx].clone()
+                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.D"] = ve.swarm_D.data[e_idx].clone()
+
+        if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "prism_weights"):
+            pw = block.attn.prism.prism_weights
+            for v_idx, v_name in enumerate(vector_names):
+                sd[f"h.{l_idx}.attn.prism.vectors.{v_name}.weight"] = pw.data[v_idx].clone()
+
+    return sd
+
+
 def auto_bind_15pt_upgrades_to_oni():
     """
     Automatically hooks QuillanRoninOni, BitLinear, UnrolledCouncilMoEBlock, NineVectorPrismDecomposition, and SmallBatchMoEStabilizer on import!
+    Ensures model instantiates with canonical keys for 1,441-key checkpoint load, then vectorizes post-load.
     """
     import os
-    import types
     if os.environ.get("QUILLAN_DISABLE_AUTO_PATCH") == "1":
         return
     try:
@@ -468,71 +566,39 @@ def auto_bind_15pt_upgrades_to_oni():
 
     oni_mod._weight_quant = _upgraded_weight_quant
 
-    # 2. Wrap `QuillanRoninOni.__init__` to vectorize 34 experts, fuse Prism, tie Memory, & wire MoE Stabilizer
+    # 2. Wrap `QuillanRoninOni.__init__` - keep canonical expert keys at init so load_state_dict has 0 missing/unexpected keys
     orig_init = oni_mod.QuillanRoninOni.__init__
     def _upgraded_init(self, cfg=None):
         orig_init(self, cfg)
-        self.moe_stabilizer = SmallBatchMoEStabilizer(num_experts=self.cfg.num_experts)
-
-        for block in self.h:
-            # Tie per-layer token_memory to master wte (-617.6M duplicate params)
-            if getattr(block.attn, "use_ma", False) and hasattr(block.attn, "token_memory"):
-                block.attn.token_memory = self.wte
-
-            # Fuse 9-Vector Prism if not already fused
-            if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "vectors"):
-                block.attn.prism = _FusedNineVectorPrism(block.attn.prism)
-
-            # Vectorize 34-Expert loop in MoE block
-            if hasattr(block.moe, "experts"):
-                block.moe.vec_experts = _Vectorized34CouncilExperts(block.moe.experts, self.cfg)
-                del block.moe.experts
-                block.moe._stabilizer_ref = self.moe_stabilizer
-
-                def _fast_moe_forward(self_moe, x, gov_scale: float = 1.0):
-                    B, T, C = x.size()
-                    flat_x = x.reshape(-1, C)
-                    fc_out = self_moe.c_fc(x)
-                    gate, act = fc_out.chunk(2, dim=-1)
-                    h_dense = self_moe.c_proj(F.silu(gate) * act)
-
-                    raw_logits = self_moe.pull_gate.gate(flat_x).float()
-                    if hasattr(self_moe, "_stabilizer_ref"):
-                        raw_logits = raw_logits + self_moe._stabilizer_ref.router_bias.to(raw_logits.device)
-                    pull = F.softmax(raw_logits / max(0.05, self_moe.tau), dim=-1) * self_moe.pull_gate.prior.to(x.device)
-                    pull = pull / pull.sum(dim=-1, keepdim=True).clamp_min(1e-8)
-
-                    moe_out = self_moe.vec_experts(flat_x, pull, gov_scale)
-
-                    if self_moe.training and hasattr(self_moe, "_stabilizer_ref"):
-                        stab = self_moe._stabilizer_ref.compute_stabilized_losses(raw_logits, pull)
-                        lb_loss, z_loss, entropy = stab["lb_loss"], stab["z_loss"], stab["router_entropy"]
-                    else:
-                        zero = torch.zeros((), device=x.device)
-                        lb_loss, z_loss = zero, zero
-                        entropy = -(pull * torch.log(pull + 1e-10)).sum(dim=-1).mean()
-
-                    g = torch.tanh(self_moe.moe_gate(flat_x))
-                    out = h_dense + (moe_out * g).view(B, T, C)
-                    return out, pull, lb_loss, z_loss, entropy
-
-                block.moe.forward = types.MethodType(_fast_moe_forward, block.moe)
-
-        print("[15-Pt Upgrade Kit] Full Arsenal Bound: Dynamic STE + Tied Memory + 34-Expert Einsum + Fused 9-Prism + Active MoE Stabilizer.")
+        # Keep canonical experts, prism, and buffers intact at __init__!
 
     oni_mod.QuillanRoninOni.__init__ = _upgraded_init
 
-    # 3. Increment `_GLOBAL_TRAIN_STEP` on training forward passes
+    # 3. Hook `load_state_dict` to vectorize immediately AFTER loading checkpoint
+    orig_load_state_dict = oni_mod.QuillanRoninOni.load_state_dict
+    def _upgraded_load_state_dict(self, state_dict, strict=True):
+        res = orig_load_state_dict(self, state_dict, strict=strict)
+        vectorize_model_in_place(self)
+        return res
+
+    oni_mod.QuillanRoninOni.load_state_dict = _upgraded_load_state_dict
+
+    # 4. Hook forward to ensure vectorization has occurred and track training steps
     orig_fwd = oni_mod.QuillanRoninOni.forward
     def _step_tracking_forward(self, *args, **kwargs):
         global _GLOBAL_TRAIN_STEP
+        if not getattr(self, "_is_vectorized_oni", False):
+            vectorize_model_in_place(self)
         if self.training:
             _GLOBAL_TRAIN_STEP += 1
         return orig_fwd(self, *args, **kwargs)
 
     oni_mod.QuillanRoninOni.forward = _step_tracking_forward
+    oni_mod.vectorize_model_in_place = vectorize_model_in_place
+    oni_mod.canonical_state_dict_for_save = canonical_state_dict_for_save
     oni_mod._15PT_FULL_ARSENAL_BOUND = True
     oni_mod._15PT_UPGRADES_BOUND = True
+    print("[15-Pt Upgrade Kit] Auto-binding active: 1,441-key Pre-Load Compatibility + Post-Load Vectorization + Dynamic STE.", flush=True)
 
 
 auto_bind_15pt_upgrades_to_oni()
