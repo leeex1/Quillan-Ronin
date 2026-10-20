@@ -235,7 +235,8 @@ def run_canary(args=None):
     with torch.no_grad():
         for gen_step in range(30):
             inp = torch.tensor([curr_ids], dtype=torch.long, device=input_device)
-            logits, _, _ = model(inp)
+            out = model(inp)
+            logits = out[0] if isinstance(out, tuple) else out
             next_token = sample_early_ternary_logits(
                 logits,
                 generated_tokens=curr_ids,
