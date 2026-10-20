@@ -1,0 +1,75 @@
+# =====================================================================
+# QUILLAN-RONIN v5.4.0-ONI — UNSLOTH TRAINING & MONITORING CONFIG
+# =====================================================================
+# Seamless configuration for training Quillan-Ronin in Unsloth Desktop / Studio.
+
+model:
+  name: "Quillan-Ronin-v5.4.0-ONI"
+  architecture: "QuillanRoninOni"
+  checkpoint_path: "C:\\02_QUILLAN\\checkpoints\\checkpoints_oni\\quillan_coherent_base_ternary.pt"
+  tokenizer_path: "C:\\02_QUILLAN\\03 - Training & Model\\quillan_bpe_tokenizer_hf"
+  vocab_size: 50262
+  hidden_dim: 1152
+  ffn_dim: 3072
+  num_layers: 6
+  num_experts: 34
+  router_mode: "dense_pull"
+  context_length: 1048576       # 1M context horizon
+  rope_theta: 500000.0
+
+dataset:
+  train_file: "C:\\02_QUILLAN\\03 - Training & Model\\training_data\\quillan_master_frontier_all_334k.jsonl"
+  format: "chatml"
+  message_field: "messages"
+  text_field: "text"
+  total_samples: 319097
+  sources:
+    master_corpus_base: 199874
+    gpt56_traces: 7040
+    qwen38_kimi_distill: 104187
+    fable_5_1_max_reasoning: 7996
+  train_split: 0.98
+  eval_split: 0.02
+
+training:
+  engine: "unsloth_desktop"
+  hardware_profile: "GTX_1050_4GB_Display_Safe"
+  vram_budget_mb: 800           # Strictly under 1GB to prevent Windows DWM lag
+  micro_batch_size: 1
+  gradient_accumulation_steps: 16
+  effective_batch_size: 16
+  max_seq_length: 1024
+  learning_rate: 2.0e-5
+  lr_scheduler: "cosine"
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  optimizer: "adamw_8bit"
+  precision: "ternary_ste"      # BitNet 1.58b Straight-Through Estimator
+  gradient_checkpointing: true
+
+swarms_and_adapters:
+  target_modules:
+    - "moe.router"
+    - "moe.pull_gate"
+    - "quillan_finalizer"
+    - "experts.swarm.A"
+    - "experts.swarm.B"
+  frozen_modules:
+    - "wte"
+    - "moe.experts.w1"
+    - "moe.experts.w2"
+    - "h.*.attn"
+  swarm_rank: 8
+  swarm_alpha: 16.0
+  active_params: 16842752       # ~16.8M active parameters (<70MB optimizer state)
+
+evaluation_and_benchmarks:
+  eval_steps: 100
+  save_steps: 250
+  benchmark_suite:
+    - "hle"
+    - "mmlu"
+    - "arc_agi_1"
+    - "arc_agi_2"
+    - "arc_agi_3"
+    - "gpqa"
