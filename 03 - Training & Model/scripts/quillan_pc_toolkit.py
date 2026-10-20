@@ -77,6 +77,9 @@ class QuillanPCHardwareToolkit:
     HIGH_PRIORITY_CLASS: Final[int] = 0x00000080
     ABOVE_NORMAL_PRIORITY_CLASS: Final[int] = 0x00008000
     NORMAL_PRIORITY_CLASS: Final[int] = 0x00000020
+    BELOW_NORMAL_PRIORITY_CLASS: Final[int] = 0x00004000
+    IDLE_PRIORITY_CLASS: Final[int] = 0x00000040
+
 
     def __init__(self) -> None:
         self.is_windows = platform.system() == "Windows"
@@ -147,12 +150,22 @@ class QuillanPCHardwareToolkit:
             elif priority == "ABOVE_NORMAL":
                 priority_val = self.ABOVE_NORMAL_PRIORITY_CLASS
                 applied_priority = "ABOVE_NORMAL_PRIORITY_CLASS"
+            elif priority == "BELOW_NORMAL":
+                priority_val = self.BELOW_NORMAL_PRIORITY_CLASS
+                applied_priority = "BELOW_NORMAL_PRIORITY_CLASS (Desktop Background Priority)"
+            elif priority == "IDLE":
+                priority_val = self.IDLE_PRIORITY_CLASS
+                applied_priority = "IDLE_PRIORITY_CLASS (Zero Impact Priority)"
             else:
                 priority_val = self.NORMAL_PRIORITY_CLASS
                 applied_priority = "NORMAL_PRIORITY_CLASS"
 
+            kernel32.SetPriorityClass.argtypes = [ctypes.c_void_p, ctypes.c_uint32]
+            kernel32.SetPriorityClass.restype = ctypes.c_bool
+
             if kernel32.SetPriorityClass(process_handle, priority_val):
                 LOGGER.info("Win32 Process Priority successfully set to: %s", applied_priority)
+
 
             # 2. Reclaim Standby Working Set Memory
             psapi.EmptyWorkingSet.argtypes = [ctypes.c_void_p]
