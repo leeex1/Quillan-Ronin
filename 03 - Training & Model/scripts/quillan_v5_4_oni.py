@@ -2357,7 +2357,9 @@ class PersonaPullGate(nn.Module):
         nn.init.zeros_(self.gate.weight)  # start uniform: prior-only pulls
 
     def forward(self, x: torch.Tensor, tau: float = 1.0) -> torch.Tensor:
-        logits = self.gate(x).float() / max(0.05, tau)
+        g_dev = next(self.gate.parameters()).device
+        x_in = x.to(g_dev) if x.device != g_dev else x
+        logits = (self.gate(x_in).float() / max(0.05, tau)).to(x.device)
         pull = F.softmax(logits, dim=-1) * self.prior.to(x.device)
         return pull / pull.sum(dim=-1, keepdim=True).clamp_min(1e-8)
 
