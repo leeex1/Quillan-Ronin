@@ -135,6 +135,11 @@ def parse_args():
     ap.add_argument("--train-phase", type=str, default="1_formal",
                     choices=["1_formal", "2_hf"],
                     help="Two-phase curriculum (Grok recipe): 1_formal (formal papers warmup/plateau) | 2_hf (HuggingFace transfer drop to 0.4x with gentle decay)")
+    ap.add_argument("--base-ckpt", type=str,
+                    default=r"C:\02_QUILLAN\checkpoints\checkpoints_oni\quillan_coherent_base_ternary.pt",
+                    help="Path to 1,441-tensor base ternary checkpoint (default: quillan_coherent_base_ternary.pt)")
+    ap.add_argument("--freeze-base", action="store_true", default=True,
+                    help="Freeze the 546M BitNet 1.58b base parameters and only train the 16.8M adapters (default: True)")
     return ap.parse_args()
 
 
@@ -288,8 +293,22 @@ class Corpus:
     def __len__(self):
         return len(self.ids)
 
-    def batch(self, bs, rng):
-        idx = rng.integers(0, len(self), size=bs)
+    def batch(self, bs, rng, min_targets: int = 16):
+        indices = []
+        for _ in range(bs):
+            for _attempt in range(50):
+                i = int(rng.integers(0, len(self)))
+                lbl = self.labels[i]
+                if getattr(self, "is_pt", False):
+                    valid_cnt = (lbl[1:] != -100).sum().item()
+                else:
+                    valid_cnt = int((lbl[1:] != -100).sum())
+                if valid_cnt >= min_targets:
+                    indices.append(i)
+                    break
+            else:
+                indices.append(i)
+        idx = np.array(indices)
         if getattr(self, "is_pt", False):
             return self.ids[idx], self.labels[idx]
         return (torch.from_numpy(self.ids[idx].astype(np.int64)),
