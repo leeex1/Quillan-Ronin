@@ -29,9 +29,9 @@ MEM_DIR = REPO_ROOT / "07 - Memory & LanceDB"
 DAEMONS_DIR = REPO_ROOT / "daemons"
 VAL_DIR = REPO_ROOT / "validation_toolkit"
 
-sys.path.insert(0, str(SCRIPTS_DIR))
-sys.path.insert(0, str(DAEMONS_DIR))
 sys.path.insert(0, str(VAL_DIR))
+sys.path.insert(0, str(DAEMONS_DIR))
+sys.path.insert(0, str(SCRIPTS_DIR))
 
 
 def cmd_status(args):
