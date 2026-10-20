@@ -49,9 +49,17 @@ def parse_args():
     parser.add_argument("--warmup_steps", type=int, default=250, help="Linear warmup steps")
     parser.add_argument("--save_every", type=int, default=250, help="Checkpoint saving frequency (steps)")
     parser.add_argument("--probe_every", type=int, default=50, help="Generation probing frequency (steps)")
-    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
+    parser.add_argument("--priority", type=str, default="BELOW_NORMAL",
+                        choices=["HIGH", "ABOVE_NORMAL", "NORMAL", "BELOW_NORMAL", "IDLE"],
+                        help="Win32 process priority (default: BELOW_NORMAL to keep desktop fluid)")
+    parser.add_argument("--num_threads", type=int, default=2,
+                        help="CPU threads for PyTorch (default: 2, leaves 2 cores free for desktop/browser)")
+    parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu",
+                        help="Device to train on ('cuda' or 'cpu')")
     parser.add_argument("--output_dir", type=str, default=str(REPO_ROOT / "checkpoints" / "checkpoints_oni"))
     return parser.parse_args()
+
+
 
 
 def get_cosine_lr(step: int, warmup_steps: int, max_steps: int, base_lr: float, min_lr_ratio: float = 0.1) -> float:
@@ -102,13 +110,18 @@ def train():
     print(f"Context Len : {args.seq_len}")
     print(f"Target Token Budget: ~204.92 Million Tokens")
     # 0. Hardware and Win32 Performance Optimization
+    if args.num_threads > 0:
+        torch.set_num_threads(args.num_threads)
+        print(f"[HARDWARE] PyTorch CPU Threads clamped to: {args.num_threads} (leaving remaining cores for desktop)")
+
     try:
         from quillan_pc_toolkit import QuillanPCHardwareToolkit
         pc_toolkit = QuillanPCHardwareToolkit()
-        compaction = pc_toolkit.apply_performance_profile(priority="ABOVE_NORMAL")
+        compaction = pc_toolkit.apply_performance_profile(priority=args.priority)
         print(f"[HARDWARE] Win32 Priority: {compaction.priority_class_applied} | Reclaimed Standby RAM: {compaction.memory_reclaimed_mb:.1f} MB")
     except Exception as e:
         print(f"[HARDWARE] Notice: Native toolkit hook deferred ({e})")
+
 
     # 1. Instantiate Model Config
     if args.model_size == "6l":
