@@ -337,6 +337,87 @@ def rag_route(target_mcp: str = "council", payload: Optional[Dict[str, Any]] = N
                 "payload": payload or {}, "note": "Route RAG answer to mirror-collaboration."}
     return {"error": f"Unknown target '{target_mcp}'. Use council, code, or buddy."}
 
+
+# ── 6. VECTOR MEMORY ENGINE (QuillanMemory v5.4.0-ONI) ───────────────────────────────────────
+
+import numpy as np
+_MEMORY_STORE: list = []
+_MEMORY_KEYS = None
+
+@mcp.tool()
+def memory_write(text: str, metadata: Optional[Dict[str, Any]] = None, importance: float = 1.0) -> Dict[str, Any]:
+    """Store a text memory in the Quillan vector memory bank for later recall."""
+    global _MEMORY_STORE, _MEMORY_KEYS
+    if not text or not text.strip():
+        return {"error": "text must not be empty"}
+    import hashlib, time
+    vec = [float(ord(c) % 256) / 255.0 for c in text[:256]]
+    while len(vec) < 256:
+        vec.append(0.0)
+    entry = {
+        "id": hashlib.sha256(text.encode("utf-8")).hexdigest()[:12],
+        "text": text,
+        "metadata": metadata or {},
+        "importance": max(0.0, min(1.0, importance)),
+        "timestamp": time.time(),
+        "vector": vec,
+    }
+    _MEMORY_STORE.append(entry)
+    if len(_MEMORY_STORE) > 4096:
+        _MEMORY_STORE = _MEMORY_STORE[-4096:]
+    return {"status": "stored", "id": entry["id"], "total_memories": len(_MEMORY_STORE)}
+
+@mcp.tool()
+def memory_recall(query: str, top_k: int = 5, recency_bias: float = 0.3) -> Dict[str, Any]:
+    """Recall the most relevant memories for a query using cosine similarity + recency bias."""
+    if not _MEMORY_STORE:
+        return {"status": "empty", "results": [], "total_memories": 0}
+    qvec = [float(ord(c) % 256) / 255.0 for c in query[:256]]
+    while len(qvec) < 256:
+        qvec.append(0.0)
+    now = time.time()
+    scored = []
+    for entry in _MEMORY_STORE:
+        # Cosine similarity
+        dot = sum(a * b for a, b in zip(qvec, entry["vector"]))
+        norm_q = (sum(a**2 for a in qvec) ** 0.5) or 1e-8
+        norm_e = (sum(a**2 for a in entry["vector"]) ** 0.5) or 1e-8
+        sim = dot / (norm_q * norm_e)
+        # Recency bias
+        age_hours = (now - entry["timestamp"]) / 3600.0
+        recency = 1.0 / (1.0 + age_hours)
+        score = (1.0 - recency_bias) * sim + recency_bias * recency
+        scored.append({"id": entry["id"], "text": entry["text"], "metadata": entry["metadata"],
+                      "importance": entry["importance"], "score": round(score, 4),
+                      "age_hours": round(age_hours, 2)})
+    scored.sort(key=lambda x: x["score"], reverse=True)
+    return {"status": "OK", "results": scored[:top_k], "total_memories": len(_MEMORY_STORE)}
+
+@mcp.tool()
+def memory_stats() -> Dict[str, Any]:
+    """Return statistics about the vector memory bank."""
+    if not _MEMORY_STORE:
+        return {"status": "empty", "total_memories": 0}
+    import time
+    now = time.time()
+    ages = [(now - e["timestamp"]) / 3600.0 for e in _MEMORY_STORE]
+    return {
+        "status": "OK",
+        "total_memories": len(_MEMORY_STORE),
+        "avg_age_hours": round(sum(ages) / len(ages), 2),
+        "max_age_hours": round(max(ages), 2),
+        "min_age_hours": round(min(ages), 2),
+        "avg_importance": round(sum(e["importance"] for e in _MEMORY_STORE) / len(_MEMORY_STORE), 3),
+    }
+
+@mcp.tool()
+def memory_clear() -> Dict[str, Any]:
+    """Clear all stored memories."""
+    global _MEMORY_STORE
+    count = len(_MEMORY_STORE)
+    _MEMORY_STORE = []
+    return {"status": "cleared", "memories_removed": count}
+
 # ── 7. HEALTH DASHBOARD ──────────────────────────────────────────────────────
 
 @mcp.tool()

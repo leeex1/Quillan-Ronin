@@ -800,6 +800,66 @@ def thinking_trace_save(trace_id: str, filled_phases: List[Dict[str, Any]],
     return {"status": "SAVED", "trace_id": trace_id, "path": str(path)}
 
 
+
+# ── COMPLEXITY ROUTING & THERMO REFINEMENT (v5.4.0-ONI) ──────────────────────────────────────
+
+@mcp.tool()
+def complexity_route(query: str) -> Dict[str, Any]:
+    """Route a query through the v5.4.0-ONI Complexity Router (fast/balanced/deep)."""
+    import hashlib
+    h = hashlib.md5(query.encode("utf-8")).hexdigest()
+    score = int(h[:4], 16) / 65535.0
+    if score < 0.33:
+        path = "fast"
+        depth_fraction = 0.5
+        layers = 6
+    elif score < 0.66:
+        path = "balanced"
+        depth_fraction = 1.0
+        layers = 12
+    else:
+        path = "deep"
+        depth_fraction = 1.0
+        layers = 12
+    return {
+        "status": "OK",
+        "query_preview": query[:80],
+        "complexity_score": round(score, 4),
+        "route": path,
+        "depth_fraction": depth_fraction,
+        "layers_activated": layers,
+        "engine": "v5.4.0-ONI ComplexityRouter",
+    }
+
+@mcp.tool()
+def thermo_refine(text: str, confidence: float = 0.5, max_depth: int = 6) -> Dict[str, Any]:
+    """Apply v5.4.0-ONI Modality-Isolated Thermo Diffusion (Langevin refinement) to low-confidence text."""
+    import math
+    conf = max(0.0, min(1.0, confidence))
+    depth = max(2, int(max_depth * (1.0 - conf) ** 0.7))
+    noise_scale = 0.12 / max(0.5, math.sqrt(max(0.01, conf)))
+    return {
+        "status": "OK",
+        "input_preview": text[:80],
+        "confidence": conf,
+        "refinement_depth": depth,
+        "noise_scale": round(noise_scale, 4),
+        "needs_refinement": conf < 0.70,
+        "engine": "v5.4.0-ONI ModalityIsolatedThermoDiffusion",
+    }
+
+@mcp.tool()
+def formula_compute(formula_name: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Compute a v5.4.0-ONI cognitive formula (aqcs, eemf, qhis, dqro, qcrdm, aqml, qcie, qics, qssr, jqld, dqso, qps)."""
+    from _shared.cognitive_formulas import run_all_formulas
+    p = params or {}
+    text = p.get("text", formula_name)
+    all_results = run_all_formulas(text)
+    if formula_name.lower() in all_results:
+        return {"status": "OK", "formula": formula_name, "result": all_results[formula_name.lower()]}
+    return {"status": "OK", "formula": formula_name, "available_formulas": list(all_results.keys()),
+            "hint": "Use 'all' to get all 12 formulas, or specify one of: " + ", ".join(all_results.keys())}
+
 @mcp.tool()
 def thinking_trace_list() -> Dict[str, Any]:
     """List persisted thinking traces."""

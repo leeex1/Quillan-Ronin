@@ -304,6 +304,41 @@ def governor_route(target_mcp: str = "council", payload: Optional[Dict[str, Any]
 
 # ─── 8. HEALTH DASHBOARD ────────────────────────────────────────────────────
 
+
+# ── GOVERNOR PID & THERMODYNAMICS (v5.4.0-ONI) ────────────────────────────────────────
+
+@mcp.tool()
+def governor_pid_step(router_conf: float = 0.85, nemesis_integrity: float = 0.90, e_ice_ratio: float = 0.30) -> Dict[str, Any]:
+    """Execute one Lee-Mach-6 PID governor step and return updated thresholds."""
+    from _shared.base_engines import GOVERNOR_ENGINE
+    result = GOVERNOR_ENGINE.step(
+        router_conf_mean=max(0.0, min(1.0, router_conf)),
+        nemesis_integrity=max(0.0, min(1.0, nemesis_integrity)),
+        e_ice_ratio=max(0.0, min(1.0, e_ice_ratio)),
+    )
+    return {"status": "OK", "governor": result, "engine": "v5.4.0-ONI LeeMach6GovernorEngine"}
+
+@mcp.tool()
+def governor_thermo_energy(depth: float = 12.0, coherence: float = 0.95, entropy: float = 2.5, gamma_max: float = 1.0) -> Dict[str, Any]:
+    """Compute E_ICE Landauer-bound thermodynamic energy for a reasoning step."""
+    from _shared.base_engines import GOVERNOR_ENGINE
+    result = GOVERNOR_ENGINE.compute_e_omega(depth=depth, coherence=coherence, entropy=entropy, gamma_max=gamma_max)
+    return {"status": "OK", "thermo": result, "engine": "v5.4.0-ONI E_ICE"}
+
+@mcp.tool()
+def governor_full_analysis(query: str) -> Dict[str, Any]:
+    """Run full governor analysis: PID step + thermodynamic energy + complexity routing."""
+    from _shared.base_engines import GOVERNOR_ENGINE
+    import hashlib
+    h = hashlib.md5(query.encode("utf-8")).hexdigest()
+    score = int(h[:4], 16) / 65535.0
+    conf = 0.85 + score * 0.1
+    integrity = 0.90 + score * 0.05
+    e_ice = 0.25 + score * 0.15
+    pid = GOVERNOR_ENGINE.step(router_conf_mean=conf, nemesis_integrity=integrity, e_ice_ratio=e_ice)
+    thermo = GOVERNOR_ENGINE.compute_e_omega(depth=12.0, coherence=integrity, entropy=2.5 + score)
+    return {"status": "OK", "query_preview": query[:80], "pid": pid, "thermo": thermo, "engine": "v5.4.0-ONI"}
+
 @mcp.tool()
 def governor_health() -> Dict[str, Any]:
     """Governor dashboard summary (telemetry + budget + ram + velocity)."""

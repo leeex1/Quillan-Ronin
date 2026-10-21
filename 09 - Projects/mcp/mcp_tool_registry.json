@@ -1,9 +1,9 @@
 {
   "version": "5.4.0-ONI",
-  "last_synced": "2026-10-21T15:20:37Z",
+  "last_synced": "2026-10-21T15:32:27Z",
   "summary": {
     "quillan_mcp_servers": 19,
-    "quillan_mcp_tools": 202,
+    "quillan_mcp_tools": 217,
     "standard_mcps": {
       "servers": 13,
       "tools": 130
@@ -17,7 +17,7 @@
       "tools": 8
     },
     "total_servers": 34,
-    "total_tools": 385
+    "total_tools": 400
   },
   "servers": {
     "quillan_audio": {
@@ -341,7 +341,7 @@
       ]
     },
     "quillan_code": {
-      "tool_count": 12,
+      "tool_count": 14,
       "tools": [
         {
           "name": "codeweaver_ast_inspect",
@@ -510,12 +510,42 @@
           "lineno": 494
         },
         {
+          "name": "sandbox_execute",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Execute Python code in the v5.4.0-ONI Hardened AST Sandbox (zero-privilege, CWE-94 safe).",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "str"
+            },
+            {
+              "name": "max_steps",
+              "type": "int"
+            }
+          ],
+          "lineno": 530
+        },
+        {
+          "name": "sandbox_validate",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Validate Python code syntax and AST safety without executing it.",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "str"
+            }
+          ],
+          "lineno": 538
+        },
+        {
           "name": "code_health",
           "server": "quillan_code",
           "is_async": false,
           "description": "Health check endpoint for QuillanCode MCP server.",
           "parameters": [],
-          "lineno": 527
+          "lineno": 559
         }
       ]
     },
@@ -864,7 +894,7 @@
       ]
     },
     "quillan_governor": {
-      "tool_count": 9,
+      "tool_count": 12,
       "tools": [
         {
           "name": "governor_system_health",
@@ -1016,12 +1046,71 @@
           "lineno": 292
         },
         {
+          "name": "governor_pid_step",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Execute one Lee-Mach-6 PID governor step and return updated thresholds.",
+          "parameters": [
+            {
+              "name": "router_conf",
+              "type": "float"
+            },
+            {
+              "name": "nemesis_integrity",
+              "type": "float"
+            },
+            {
+              "name": "e_ice_ratio",
+              "type": "float"
+            }
+          ],
+          "lineno": 311
+        },
+        {
+          "name": "governor_thermo_energy",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Compute E_ICE Landauer-bound thermodynamic energy for a reasoning step.",
+          "parameters": [
+            {
+              "name": "depth",
+              "type": "float"
+            },
+            {
+              "name": "coherence",
+              "type": "float"
+            },
+            {
+              "name": "entropy",
+              "type": "float"
+            },
+            {
+              "name": "gamma_max",
+              "type": "float"
+            }
+          ],
+          "lineno": 322
+        },
+        {
+          "name": "governor_full_analysis",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Run full governor analysis: PID step + thermodynamic energy + complexity routing.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            }
+          ],
+          "lineno": 329
+        },
+        {
           "name": "governor_health",
           "server": "quillan_governor",
           "is_async": false,
           "description": "Governor dashboard summary (telemetry + budget + ram + velocity).",
           "parameters": [],
-          "lineno": 308
+          "lineno": 343
         },
         {
           "name": "governor_session_list",
@@ -1029,7 +1118,7 @@
           "is_async": false,
           "description": "List persisted governor sessions.",
           "parameters": [],
-          "lineno": 336
+          "lineno": 371
         },
         {
           "name": "governor_session_replay",
@@ -1042,7 +1131,7 @@
               "type": "str"
             }
           ],
-          "lineno": 353
+          "lineno": 388
         }
       ]
     },
@@ -1768,7 +1857,7 @@
       ]
     },
     "quillan_prism": {
-      "tool_count": 9,
+      "tool_count": 12,
       "tools": [
         {
           "name": "prism_decompose",
@@ -1898,17 +1987,64 @@
           "lineno": 310
         },
         {
+          "name": "prism_9vector",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Decompose text across the 9 canonical Quillan semantic vectors (Language, Sentiment, Context, Intent, Meta, Creativity, Ethics, Strategy, Constraint).",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str"
+            }
+          ],
+          "lineno": 346
+        },
+        {
+          "name": "prism_council_deliberate",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Run 34-Expert EvoMoE Dense Pull Deliberation on a query.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "tau",
+              "type": "float"
+            }
+          ],
+          "lineno": 353
+        },
+        {
+          "name": "prism_formula_compute",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Compute a v5.4.0-ONI cognitive formula (aqcs, eemf, qhis, dqro, qcrdm, aqml, qcie, qics, qssr, jqld, dqso, qps, or 'all').",
+          "parameters": [
+            {
+              "name": "formula_name",
+              "type": "str"
+            },
+            {
+              "name": "params",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 360
+        },
+        {
           "name": "prism_health",
           "server": "quillan_prism",
           "is_async": false,
           "description": "Health check endpoint for QuillanPrism MCP server.",
           "parameters": [],
-          "lineno": 343
+          "lineno": 372
         }
       ]
     },
     "quillan_rag": {
-      "tool_count": 11,
+      "tool_count": 15,
       "tools": [
         {
           "name": "ingest_file",
@@ -2058,12 +2194,70 @@
           "lineno": 327
         },
         {
+          "name": "memory_write",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Store a text memory in the Quillan vector memory bank for later recall.",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str"
+            },
+            {
+              "name": "metadata",
+              "type": "Optional[Dict[str, Any]]"
+            },
+            {
+              "name": "importance",
+              "type": "float"
+            }
+          ],
+          "lineno": 348
+        },
+        {
+          "name": "memory_recall",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Recall the most relevant memories for a query using cosine similarity + recency bias.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "top_k",
+              "type": "int"
+            },
+            {
+              "name": "recency_bias",
+              "type": "float"
+            }
+          ],
+          "lineno": 371
+        },
+        {
+          "name": "memory_stats",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Return statistics about the vector memory bank.",
+          "parameters": [],
+          "lineno": 397
+        },
+        {
+          "name": "memory_clear",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Clear all stored memories.",
+          "parameters": [],
+          "lineno": 414
+        },
+        {
           "name": "rag_health",
           "server": "quillan_rag",
           "is_async": false,
           "description": "Knowledge base dashboard summary.",
           "parameters": [],
-          "lineno": 343
+          "lineno": 424
         },
         {
           "name": "rag_session_list",
@@ -2071,7 +2265,7 @@
           "is_async": true,
           "description": "List persisted RAG sessions.",
           "parameters": [],
-          "lineno": 379
+          "lineno": 460
         },
         {
           "name": "rag_session_replay",
@@ -2084,7 +2278,7 @@
               "type": "str"
             }
           ],
-          "lineno": 396
+          "lineno": 477
         }
       ]
     },
@@ -2924,7 +3118,7 @@
       ]
     },
     "quillan_thinking_engine": {
-      "tool_count": 23,
+      "tool_count": 26,
       "tools": [
         {
           "name": "quillan_think",
@@ -3293,12 +3487,63 @@
           "lineno": 784
         },
         {
+          "name": "complexity_route",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Route a query through the v5.4.0-ONI Complexity Router (fast/balanced/deep).",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            }
+          ],
+          "lineno": 807
+        },
+        {
+          "name": "thermo_refine",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Apply v5.4.0-ONI Modality-Isolated Thermo Diffusion (Langevin refinement) to low-confidence text.",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str"
+            },
+            {
+              "name": "confidence",
+              "type": "float"
+            },
+            {
+              "name": "max_depth",
+              "type": "int"
+            }
+          ],
+          "lineno": 835
+        },
+        {
+          "name": "formula_compute",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Compute a v5.4.0-ONI cognitive formula (aqcs, eemf, qhis, dqro, qcrdm, aqml, qcie, qics, qssr, jqld, dqso, qps).",
+          "parameters": [
+            {
+              "name": "formula_name",
+              "type": "str"
+            },
+            {
+              "name": "params",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 852
+        },
+        {
           "name": "thinking_trace_list",
           "server": "quillan_thinking_engine",
           "is_async": false,
           "description": "List persisted thinking traces.",
           "parameters": [],
-          "lineno": 804
+          "lineno": 864
         },
         {
           "name": "thinking_trace_replay",
@@ -3311,7 +3556,7 @@
               "type": "str"
             }
           ],
-          "lineno": 823
+          "lineno": 883
         }
       ]
     },
