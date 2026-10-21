@@ -38,10 +38,13 @@ __version__ = "5.4.0-ONI"
 # ============================================================================
 
 class _StdioRedirector(io.TextIOBase):
-    """Redirects rogue print() calls to sys.stderr so sys.stdout stays pure JSON-RPC."""
+    """Redirects rogue print() calls to sys.stderr so sys.stdout stays pure JSON-RPC.
+    Delegates all other attribute access to the original stdout to preserve
+    .buffer, .reconfigure(), and other properties needed by MCP stdio transport."""
 
-    def __init__(self, stderr_stream: Any):
+    def __init__(self, stderr_stream: Any, original_stdout: Any):
         self._stderr = stderr_stream
+        self._original = original_stdout
 
     def write(self, s: str) -> int:
         if s:
@@ -55,9 +58,13 @@ class _StdioRedirector(io.TextIOBase):
     def encoding(self) -> str:
         return getattr(self._stderr, "encoding", "utf-8")
 
-    def reconfigure(self, **kwargs: Any) -> None:
-        """No-op reconfigure for compatibility with sys.stdout.reconfigure()."""
-        pass
+    def reconfigure(self, **kwargs: Any) -> Any:
+        """Delegate reconfigure to the original stdout."""
+        return self._original.reconfigure(**kwargs)
+
+    def __getattr__(self, name: str) -> Any:
+        """Delegate any missing attribute to the original stdout (e.g., .buffer)."""
+        return getattr(self._original, name)
 
 
 _ORIGINAL_STDOUT = sys.stdout
@@ -71,7 +78,7 @@ def install_stdio_guard() -> Any:
     """
     global _STDIO_GUARD_INSTALLED
     if not _STDIO_GUARD_INSTALLED:
-        sys.stdout = _StdioRedirector(sys.stderr)
+        sys.stdout = _StdioRedirector(sys.stderr, _ORIGINAL_STDOUT)
         _STDIO_GUARD_INSTALLED = True
     return _ORIGINAL_STDOUT
 
