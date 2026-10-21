@@ -44,7 +44,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOrchestrator")
-mcp.add_middleware(QuillanErrorMiddleware())
 def _load_mcp(module_name: str, server_path: str) -> Any:
     """Lazy-load an MCP server module by path."""
     if module_name in _MCP_MODULES:
@@ -417,5 +416,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

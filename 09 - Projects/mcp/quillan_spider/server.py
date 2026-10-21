@@ -41,7 +41,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSpider")
-mcp.add_middleware(QuillanErrorMiddleware())
 SPIDER_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_spider")
 SPIDER_DIR.mkdir(parents=True, exist_ok=True)
 TRAIL_FILE = SPIDER_DIR / "trail.json"
@@ -1323,6 +1322,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

@@ -60,7 +60,6 @@ import torch
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanModelLab")
-mcp.add_middleware(QuillanErrorMiddleware())
 @mcp.tool()
 def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:
     """Inspect a Quillan checkpoint file and return metadata."""
@@ -334,5 +333,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

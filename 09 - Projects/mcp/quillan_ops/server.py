@@ -38,7 +38,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOps")
-mcp.add_middleware(QuillanErrorMiddleware())
 
 @mcp.tool()
 def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:
@@ -228,5 +227,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

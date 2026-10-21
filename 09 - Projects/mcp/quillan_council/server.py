@@ -60,7 +60,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCouncil")
-mcp.add_middleware(QuillanErrorMiddleware())
 COUNCIL_MEMBERS = [
     {"id": 1,  "name": "C1-ASTRA",      "cluster": "cognitive",     "domain": "Pattern Recognition & Vision",       "prior": 0.90, "focus": "visual parsing, anomaly detection"},
     {"id": 2,  "name": "C2-VIR",        "cluster": "cognitive",     "domain": "Ethical Guardian",                   "prior": 0.95, "focus": "ethics, safety, harm reduction"},
@@ -367,6 +366,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

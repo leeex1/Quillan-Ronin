@@ -41,7 +41,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanTeam")
-mcp.add_middleware(QuillanErrorMiddleware())
 try:
     CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
 except Exception:
@@ -300,5 +299,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
