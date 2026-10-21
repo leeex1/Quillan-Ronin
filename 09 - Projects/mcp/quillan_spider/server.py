@@ -41,6 +41,9 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSpider")
+
+class _SpiderParser:
+    def __init__(self):
         self.text_chunks = []
         self.title = ""
         self.headings = []

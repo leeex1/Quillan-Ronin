@@ -5,13 +5,13 @@
 ==========================================================================
 Orochi is a self-modifying, self-evolving cognitive engine that can rewrite its
 own system prompt and propose weight evolutions. It runs a closed-loop
-auto-improvement cycle: Evaluate → Mutate → Select → Deploy.
+auto-improvement cycle: Evaluate -> Mutate -> Select -> Deploy.
 
 Core capabilities:
   • Prompt mutation / evolution (system prompt rewriting & versioning)
   • EGGROLL low-rank weight evolution proposals (U @ V^T deltas, stored + staged)
   • Nemesis-Alpha adversarial evaluation (challenger hunts weaknesses)
-  • Auto-improvement loop (evaluate → mutate → select → deploy)
+  • Auto-improvement loop (evaluate -> mutate -> select -> deploy)
   • Snapshot / rollback state management
   • Cross-MCP routing (orchestrator integration)
   • Persistence (sessions + snapshots)
@@ -28,10 +28,10 @@ Tools:
   1. orochi_mutate_prompt     — Generate mutated prompt variants from a base
   2. orochi_evolve_weights    — EGGROLL low-rank weight-delta proposals
   3. orochi_evaluate          — Nemesis-Alpha adversarial evaluation
-  4. orochi_auto_improve      — Full evaluate→mutate→select→deploy cycle
+  4. orochi_auto_improve      — Full evaluate->mutate->select->deploy cycle
   5. orochi_snapshot          — Save current Orochi state snapshot
   6. orochi_rollback          — Roll back to a previous snapshot
-  7. orochi_full_pipeline     — Chain mutate → evaluate → snapshot
+  7. orochi_full_pipeline     — Chain mutate -> evaluate -> snapshot
   8. orochi_route             — Cross-MCP routing (orchestrator/code/council)
   9. orochi_health            — Orochi engine dashboard
   10. orochi_session_list / orochi_session_replay — persistence
@@ -312,14 +312,14 @@ def orochi_evaluate(prompt: Optional[str] = None, weight_proposal_id: Optional[s
 @mcp.tool()
 def orochi_auto_improve(base_prompt: Optional[str] = None, max_cycles: int = 3,
                         min_integrity: float = 0.85) -> Dict[str, Any]:
-    """Full Orochi auto-improvement loop: Evaluate → Mutate → Select → Deploy.
+    """Full Orochi auto-improvement loop: Evaluate -> Mutate -> Select -> Deploy.
 
     Each cycle:
       1. Evaluate current best prompt via Nemesis-Alpha
       2. Mutate to produce variants
       3. Evaluate each variant
       4. Select the highest-integrity variant that passes
-      5. If integrity >= min_integrity and verdict PASS → deploy (save as active)
+      5. If integrity >= min_integrity and verdict PASS -> deploy (save as active)
 
     Returns the full cycle history and the deployed prompt.
     """
@@ -339,7 +339,7 @@ def orochi_auto_improve(base_prompt: Optional[str] = None, max_cycles: int = 3,
             "evaluation": current_eval,
         }
 
-        # Already good enough → deploy and stop
+        # Already good enough -> deploy and stop
         if current_eval["verdict"] == "PASS" and current_eval["integrity"] >= min_integrity:
             deployed = {
                 "prompt": current,
@@ -351,7 +351,7 @@ def orochi_auto_improve(base_prompt: Optional[str] = None, max_cycles: int = 3,
             history.append(cycle_record)
             break
 
-        # Mutate → evaluate variants → pick best
+        # Mutate -> evaluate variants -> pick best
         mut = orochi_mutate_prompt(current, n_variants=4)
         best_variant = None
         best_eval = None
@@ -374,7 +374,7 @@ def orochi_auto_improve(base_prompt: Optional[str] = None, max_cycles: int = 3,
             current = best_variant["prompt"]
             current_eval = best_eval
         else:
-            # No improvement → stop, keep current
+            # No improvement -> stop, keep current
             cycle_record["action"] = "no_improvement"
             break
 
@@ -458,7 +458,7 @@ def orochi_rollback(snapshot_id: str) -> Dict[str, Any]:
 @mcp.tool()
 def orochi_full_pipeline(base_prompt: Optional[str] = None, max_cycles: int = 3,
                          min_integrity: float = 0.85) -> Dict[str, Any]:
-    """Chain: mutate → evaluate → auto-improve → snapshot.
+    """Chain: mutate -> evaluate -> auto-improve -> snapshot.
 
     The canonical Orochi self-evolution entry point. Returns the deployed
     prompt and a snapshot id for rollback.

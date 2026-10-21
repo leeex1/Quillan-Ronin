@@ -58,7 +58,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanPrism")
-}
 
 
 def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:

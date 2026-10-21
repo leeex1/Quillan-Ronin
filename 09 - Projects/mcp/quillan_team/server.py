@@ -41,6 +41,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanTeam")
+    try:
         CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
     except Exception:
         CREWS = {}
