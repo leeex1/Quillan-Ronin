@@ -9,12 +9,11 @@ Implements a local-first self-improvement loop that:
 3. Extracts heuristics (successful patterns & anti-patterns)
 4. Stores feedback with embeddings for retrieval
 5. Injects learned heuristics into system prompts dynamically
-6. Enables "learning from mistakes" without model retraining
+6. Enables "learning from mistakes" without model fine-tuning
 
 Architecture:
 - ExperienceTraceStore: Persistent trace storage with embeddings
 - CriticEngine: Evaluates outputs, extracts heuristics
-- HeuristicStore: Stores extracted heuristics
 - FeedbackManager: Orchestrates the full loop (capture → critique → store → inject)
 - PromptEnhancer: Injects learned heuristics into system prompts
 """
@@ -22,6 +21,7 @@ Architecture:
 from __future__ import annotations
 
 import hashlib
+import json
 import math
 import os
 import time
@@ -140,7 +140,7 @@ class ExperienceTraceStore:
     def store_feedback(self, feedback: FeedbackEntry) -> str:
         self._feedback.append(feedback)
         self._append_to_file(self.feedback_file, feedback)
-        return feedback.heuristics[0].get("heuristic_id", "") if feedback.heuristics else ""
+        return feedback.heuristics[0].heuristic_id if feedback.heuristics else ""
 
     def _append_to_file(self, path: Path, obj: Any):
         with open(path, "a", encoding="utf-8") as f:
@@ -398,7 +398,7 @@ class PromptEnhancer:
         enhancement_parts = ["\n\n=== LEARNED HEURISTICS (from prior experience) ==="]
         for fb in feedback_results:
             h = fb["heuristics"][0] if fb["heuristics"] else {}
-            desc = h.get("description", "N/A")
+            desc = h.get("description", "N/A") if isinstance(h, dict) else h.description
             if fb["feedback_type"] == "positive":
                 enhancement_parts.append(f"  ✓ SUCCESS: {desc}")
             elif fb["feedback_type"] == "negative":
@@ -425,7 +425,7 @@ class PromptEnhancer:
 
 
 # ============================================================================
-# 6. GLOBAL INSTANCE
+# 7. GLOBAL INSTANCE
 # ============================================================================
 
 _feedback_manager: Optional[FeedbackManager] = None
