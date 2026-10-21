@@ -103,7 +103,6 @@ def _get_http() -> httpx.AsyncClient:
     return _client_holder["client"]
 
 mcp     = FastMCP("Quillan RAG", instructions="NIM-powered knowledge retrieval over Quillan's corpus")
-mcp.add_middleware(QuillanErrorMiddleware())
 async def _nim_embed(texts, input_type="passage", max_retries=3):
     delay = 1.5
     client = _get_http()
@@ -412,6 +411,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     log.info(f"Quillan RAG | embed={EMBED_MODEL} | gen={GEN_MODEL} | db={CHROMA_PATH}")
     mcp.run(transport="stdio")

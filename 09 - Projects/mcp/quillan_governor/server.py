@@ -60,7 +60,6 @@ import psutil
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanGovernor")
-mcp.add_middleware(QuillanErrorMiddleware())
 @mcp.tool()
 def governor_system_health() -> Dict[str, Any]:
     """Returns real-time CPU, RAM, and thermal telemetry for the host machine."""
@@ -369,5 +368,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

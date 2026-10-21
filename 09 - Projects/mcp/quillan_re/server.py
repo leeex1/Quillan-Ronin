@@ -61,7 +61,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanRE")
-mcp.add_middleware(QuillanErrorMiddleware())
 
 
 def extract_strings(data: bytes, min_len: int = 4) -> List[Dict[str, Any]]:
@@ -776,5 +775,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

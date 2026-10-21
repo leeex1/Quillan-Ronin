@@ -58,7 +58,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanPrism")
-mcp.add_middleware(QuillanErrorMiddleware())
 
 
 def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:
@@ -327,6 +326,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

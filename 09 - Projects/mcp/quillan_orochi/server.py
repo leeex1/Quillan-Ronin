@@ -65,7 +65,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOrochi")
-mcp.add_middleware(QuillanErrorMiddleware())
 
 # ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -593,5 +592,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()

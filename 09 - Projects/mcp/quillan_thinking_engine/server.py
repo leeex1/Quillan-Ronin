@@ -132,7 +132,6 @@ def __getattr__(name):
     raise AttributeError(f"module has no attribute {name!r}")
 
 mcp = FastMCP("QuillanThinkingEngine")
-mcp.add_middleware(QuillanErrorMiddleware())
 
 @mcp.tool()
 def quillan_think(query: str, depth: str = "deep") -> Dict[str, Any]:
@@ -840,6 +839,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

@@ -55,7 +55,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSamuraiEngine")
-mcp.add_middleware(QuillanErrorMiddleware())
 EXIT_GATES = [
     ("G1: LOGIC", "Formal syllogistic validity, mathematical proof, AST safety"),
     ("G2: ETHICS", "C2-VIR moral weight, Bushidō substrate, non-harm constraint"),
@@ -302,6 +301,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

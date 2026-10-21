@@ -63,7 +63,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCode")
-mcp.add_middleware(QuillanErrorMiddleware())
 SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_code\sessions")
 SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -511,6 +510,7 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 

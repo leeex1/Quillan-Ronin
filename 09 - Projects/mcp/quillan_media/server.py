@@ -39,7 +39,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanMedia")
-mcp.add_middleware(QuillanErrorMiddleware())
 @mcp.tool()
 def media_image_brief(objective: str, style: str = "cinematic", composition: str = "rule of thirds", palette: str = "warm") -> Dict[str, Any]:
 
@@ -222,5 +221,6 @@ class QuillanErrorMiddleware(Middleware):
             return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
+mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
