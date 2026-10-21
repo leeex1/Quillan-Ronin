@@ -84,7 +84,8 @@ def parse_args():
     ap.add_argument("--lr", type=float, default=3e-4)
     ap.add_argument("--warmup", type=int, default=200)
     ap.add_argument("--min-lr", type=float, default=3e-6)
-    ap.add_argument("--n-layer", type=int, default=6)
+    ap.add_argument("--n-layer", type=int, default=12,
+                    help="Number of transformer layers (default: 12, matching the 1,441-tensor base checkpoint)")
     ap.add_argument("--seq-len", type=int, default=512)
     ap.add_argument("--eval-every", type=int, default=250)
     ap.add_argument("--sample-every", type=int, default=500)
@@ -342,11 +343,14 @@ def cosine_lr(step, args):
 def evaluate(model, val, rng, bs, device="cpu"):
     model.eval()
     losses = []
+    model_dev = next(model.parameters()).device
     with torch.no_grad():
         for _ in range(16):
             x, y = val.batch(bs, rng)
-            if device != "cpu":
-                x, y = x.to(device), y.to(device)
+            if x.device != model_dev:
+                x = x.to(model_dev)
+            if y is not None and y.device != model_dev:
+                y = y.to(model_dev)
             _, ce, _ = model(x, labels=y)
             losses.append(ce.item())
     model.train()
@@ -396,27 +400,81 @@ def main():
     val = Corpus(DATA, "val", args.seq_len)
     print(f"[DATA] train={len(train)} seqs  val={len(val)} seqs")
 
-    cfg = QuillanOniConfig(n_layer=args.n_layer, max_seq_len=args.seq_len,
-                           router_mode=args.router_mode, top_k=args.top_k,
-                           grt_iterations=args.grt_iterations,
-                           grad_checkpoint=args.grad_checkpoint)
-    model = QuillanRoninOni(cfg)
-    if args.device != "cpu":
-        model = model.to(args.device)
+    # 1. Base Checkpoint Inspection & Config Resolution
+    base_ckpt = Path(args.base_ckpt) if args.base_ckpt else None
+    latest = CKPT_DIR / "oni_latest.pt"
+    if not latest.exists():
+        latest = CKPT_DIR / "quillan_oni_latest.pt"
 
-    # C+GPU Bridge: shard router & hot experts to GPU, body on CPU
+    ckpt_config = {}
+    base_sd = None
+    if args.resume and latest.exists():
+        print(f"[RESUME] Inspecting resume checkpoint: {latest.name}...", flush=True)
+        try:
+            r_ck = torch.load(latest, map_location="cpu", weights_only=False)
+            ckpt_config = r_ck.get("cfg", {}) or r_ck.get("config", {})
+        except Exception as e:
+            print(f"[RESUME] Warning reading resume config: {e}", flush=True)
+    elif base_ckpt and base_ckpt.exists():
+        print(f"[BASE] Loading base weights from {base_ckpt.name}...", flush=True)
+        ck = torch.load(base_ckpt, map_location="cpu", weights_only=False)
+        base_sd = ck.get("model_state_dict") or ck.get("model") or ck
+        ckpt_config = ck.get("config", {})
+
+    cfg = QuillanOniConfig(**ckpt_config) if ckpt_config else QuillanOniConfig(n_layer=args.n_layer)
+    cfg.max_seq_len = args.seq_len
+    cfg.router_mode = args.router_mode
+    cfg.top_k = args.top_k
+    cfg.grt_iterations = args.grt_iterations
+    cfg.grad_checkpoint = args.grad_checkpoint
+
+    model = QuillanRoninOni(cfg)
+
+    if base_sd is not None:
+        missing, unexpected = model.load_state_dict(base_sd, strict=True)
+        print(f"[BASE] 1,441-tensor checkpoint loaded (missing={len(missing)}, unexpected={len(unexpected)})", flush=True)
+
+    # 2. Post-Load Vectorization
+    try:
+        from quillan_live_training_upgrades import vectorize_model_in_place
+        vectorize_model_in_place(model)
+        print("[VECTORIZE] Model post-load vectorization active.", flush=True)
+    except Exception as e:
+        print(f"[VECTORIZE] Note: vectorization skipped ({e})", flush=True)
+
+    # 3. Base Freeze & Adapter Unfreeze
+    if getattr(args, "freeze_base", True):
+        for p in model.parameters():
+            p.requires_grad = False
+        trainable_patterns = [
+            "pull_gate", "moe_gate", "router", "vec_experts", "experts", "lora_", "swarm_",
+            "clone_coupling", "ln_f", "mem_norm", "moe_stabilizer"
+        ]
+        for name, p in model.named_parameters():
+            if any(pat in name for pat in trainable_patterns):
+                p.requires_grad = True
+        n_train = sum(p.numel() for p in model.parameters() if p.requires_grad)
+        n_frozen = sum(p.numel() for p in model.parameters() if not p.requires_grad)
+        print(f"[FREEZE] Base frozen ({n_frozen/1e6:.1f}M) + trainable adapters ({n_train/1e6:.1f}M across {sum(1 for p in model.parameters() if p.requires_grad)} tensors)", flush=True)
+
+    # 4. Device Placement & OOM Safety Lock
+    if args.device != "cpu":
+        if args.device == "cuda":
+            # HARDWARE SAFETY LOCK: Never place 546M float32 parameters on 4GB GTX 1050!
+            # Base model stays in 28GB System RAM; router and vectorized ops accelerated via CGPU / Native DLL
+            print("[SAFETY] GTX 1050 4GB Guard: Base model retained in 28GB System RAM to prevent desktop OOM.", flush=True)
+        else:
+            model = model.to(args.device)
+
+    # 5. C+GPU Bridge: shard router to GPU, body on CPU
     if args.cgpu and torch.cuda.is_available():
         try:
             sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model\scripts")
             from quillan_cgpu_bridge import CGPUBridge
-            bridge = CGPUBridge(gpu_index=0, gpu_budget_mb=3000, top_k_gpu=args.top_k)
+            bridge = CGPUBridge(gpu_index=0, gpu_budget_mb=800, top_k_gpu=args.top_k)
             for b_idx, block in enumerate(model.h):
                 bridge.place_router(block.moe.router, name=f"b{b_idx}.router")
-                # Place top hot experts on GPU
-                exp_scores = [1.0 if i < args.top_k else 0.1 for i in range(cfg.num_experts)]
-                block.moe.experts = torch.nn.ModuleList(
-                    bridge.place_experts(list(block.moe.experts), exp_scores, prefix=f"b{b_idx}.exp")
-                )
+                bridge.place_router(block.moe.pull_gate, name=f"b{b_idx}.pull_gate")
             print(f"[CGPU] Activated C+GPU bridge: {bridge.status()}", flush=True)
         except Exception as e:
             print(f"[CGPU] Bridge initialization warning: {e}. Falling back to standard device map.", flush=True)
@@ -425,20 +483,21 @@ def main():
     print(f"[MODEL] Quillan-Ronin v5.4.0-oni  n_layer={args.n_layer}  "
           f"router={args.router_mode} (k={args.top_k})  grt_iter={args.grt_iterations}  "
           f"params={n_params/1e6:.1f}M  device={args.device}  "
-          f"checkpointing={args.grad_checkpoint}  cgpu={args.cgpu}")
+          f"checkpointing={args.grad_checkpoint}  cgpu={args.cgpu}", flush=True)
 
     # torch.compile support (Grok recommendation: mode="max-autotune", fullgraph=True for smoke test)
     if args.compile:
         try:
-            print(f"[COMPILE] Compiling model with torch.compile(mode='{args.compile_mode}', fullgraph={args.fullgraph})...")
+            print(f"[COMPILE] Compiling model with torch.compile(mode='{args.compile_mode}', fullgraph={args.fullgraph})...", flush=True)
             model = torch.compile(model, mode=args.compile_mode, fullgraph=args.fullgraph)
-            print("[COMPILE] torch.compile enabled.")
+            print("[COMPILE] torch.compile enabled.", flush=True)
         except Exception as e:
-            print(f"[COMPILE] torch.compile skipped/failed ({e}). Continuing uncompiled.")
+            print(f"[COMPILE] torch.compile skipped/failed ({e}). Continuing uncompiled.", flush=True)
             if args.fullgraph:
                 raise
 
-    # Optimizer Selection: MuonK2 / Fused (Newton-Schulz + Sophia-H + AdamW + CCRL) vs AdamW
+    # Optimizer Selection on TRAINABLE parameters only
+    trainable_params = [p for p in model.parameters() if p.requires_grad]
     if args.optimizer in ("muonk2", "fused"):
         try:
             sys.path.insert(0, r"C:\02_QUILLAN\03 - Training & Model")
@@ -452,27 +511,19 @@ def main():
                 ccrl_limit=args.ccrl_limit,
                 use_sophia=True,
             )
-            print(f"[OPTIMIZER] Sovereign Fused (MuonK2 + Sophia-H + AdamW + CCRL) active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).")
+            print(f"[OPTIMIZER] Sovereign Fused (MuonK2 + Sophia-H + AdamW + CCRL) active (lr_muon={args.lr_muon:.2e}, lr_adamw={args.lr:.2e}, ccrl={args.ccrl_limit}).", flush=True)
         except Exception as e:
-            print(f"[OPTIMIZER] Failed to init Fused/MuonK2 ({e}). Falling back to AdamW.")
-            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+            print(f"[OPTIMIZER] Failed to init Fused/MuonK2 ({e}). Falling back to AdamW.", flush=True)
+            opt = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
     else:
-        fused_opt = False
-        if args.device != "cpu" and torch.cuda.is_available():
-            try:
-                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01, fused=True)
-                fused_opt = True
-                print("[OPTIMIZER] AdamW with fused=True enabled.")
-            except Exception:
-                opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
-                print("[OPTIMIZER] Standard AdamW initialized.")
-        else:
-            opt = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
-            print("[OPTIMIZER] Standard AdamW initialized.")
+        opt = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+        print(f"[OPTIMIZER] Standard AdamW initialized on {len(trainable_params)} trainable parameter tensors.", flush=True)
 
     step, best_val = 0, float("inf")
     ema_sd = None
-    latest = CKPT_DIR / "quillan_oni_latest.pt"
+    latest = CKPT_DIR / "oni_latest.pt"
+    if not latest.exists():
+        latest = CKPT_DIR / "quillan_oni_latest.pt"
 
     if args.resume and latest.exists():
         try:
@@ -564,9 +615,10 @@ def main():
                 g["lr"] = lr
         model.set_router_tau(model.tau_for_step(step, args.steps))
 
+        model_dev = next(model.parameters()).device
         opt.zero_grad()
-        accum_ce = torch.zeros(1, device=args.device if args.device != "cpu" else "cpu")
-        accum_lb = torch.zeros(1, device=args.device if args.device != "cpu" else "cpu")
+        accum_ce = torch.zeros(1, device=model_dev)
+        accum_lb = torch.zeros(1, device=model_dev)
         t0 = time.time()
         profiler.begin_step(step)
 
@@ -581,10 +633,10 @@ def main():
             if cur_seq < args.seq_len:
                 x = x[:, :cur_seq]
                 y = y[:, :cur_seq]
-            if args.device != "cpu":
-                # Session 1 (Papers 5-7 Heterogeneous, default ON): overlap
-                # transfer with compute via non-blocking (consumed by .to call)
-                x, y = x.to(args.device, non_blocking=True), y.to(args.device, non_blocking=True)
+            if x.device != model_dev:
+                x = x.to(model_dev, non_blocking=True)
+            if y is not None and y.device != model_dev:
+                y = y.to(model_dev, non_blocking=True)
             profiler.mark_transfer_done()
             profiler.mark_fwd_start()
             _, ce, aux = model(x, labels=y)
@@ -596,7 +648,7 @@ def main():
             if "load_balance" in aux:
                 accum_lb += aux["load_balance"].detach() / args.grad_accum
 
-        gn = torch.nn.utils.clip_grad_norm_(model.parameters(), args.clip)
+        gn = torch.nn.utils.clip_grad_norm_([p for p in model.parameters() if p.requires_grad], args.clip)
         profiler.mark_opt_start()
         opt.step()
         step_loss = accum_ce.item()
@@ -684,14 +736,24 @@ def main():
 
         if step % args.save_every == 0 or step == args.steps:
             latest = CKPT_DIR / "oni_latest.pt"
-            ckpt = {"model": model.state_dict(), "opt": opt.state_dict(), "step": step,
+            best_ckpt = CKPT_DIR / "oni_best.pt"
+            try:
+                from quillan_live_training_upgrades import canonical_state_dict_for_save
+                sd_to_save = canonical_state_dict_for_save(model)
+            except Exception:
+                sd_to_save = model.state_dict()
+            ckpt = {"model": sd_to_save, "opt": opt.state_dict(), "step": step,
                     "best_val": best_val, "ema_sd": ema_sd, "cfg": vars(cfg),
                     "version": "5.4.0-oni"}
             if rqgm:
                 ckpt["rqgm_epoch"] = rqgm.epoch
                 ckpt["rqgm_incumbent"] = rqgm.incumbent_score
             torch.save(ckpt, latest)
-            print(f"[SAVE] {latest} @ step {step}", flush=True)
+            print(f"[SAVE] Rolling latest checkpoint: {latest} @ step {step}", flush=True)
+            if best_val < getattr(main, "_last_saved_val", float("inf")):
+                torch.save(ckpt, best_ckpt)
+                main._last_saved_val = best_val
+                print(f"[SAVE] New best validation checkpoint: {best_ckpt} (val={best_val:.4f})", flush=True)
 
     if torch_prof is not None:
         torch_prof.stop()

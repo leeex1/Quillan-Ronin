@@ -332,7 +332,9 @@ def sample_early_ternary_logits(
     min_p: float = 0.08,
     top_k: int = 30,
     rep_penalty: float = 1.18,
-    freq_penalty: float = 0.40
+    freq_penalty: float = 0.40,
+    step: int = 0,
+    **kwargs
 ) -> int:
     """
     Solves Q14: Min-P + Repetition/Frequency Penalty + 3-Gram Blocker for Steps 50–300 validation.
