@@ -47,8 +47,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import ast
 import re
 import math
@@ -65,7 +63,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCode")
-
 SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_code\sessions")
 SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -73,9 +70,7 @@ SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
 class ComplexityVisitor(ast.NodeVisitor):
     def __init__(self):
-        self.complexity = 1
-        self.functions = 0
-        self.classes = 0
+
         self.imports = []
         self.docstrings = 0
         self.typed_args = 0
@@ -503,3 +498,9 @@ def codeweaver_session_replay(session_id: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def code_health() -> dict:
+    """Health check endpoint for QuillanCode MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanCode", "timestamp": time.time()}

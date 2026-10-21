@@ -46,8 +46,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import math
 import json
 import time
@@ -62,17 +60,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCouncil")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_council\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── CANONICAL 34-EXPERT ROSTER ──────────────────────────────────────────────
-
-CANONICAL_ROSTER = [
-    {"id": 1,  "name": "C1-ASTRA",     "cluster": "cognitive",     "domain": "Pattern Recognition & Vision",   "prior": 0.90, "focus": "anomaly, geometry, fractal repeats"},
-    {"id": 2,  "name": "C2-VIR",       "cluster": "cognitive",     "domain": "Ethical Guardian & Conscience",  "prior": 0.95, "focus": "rectitude, moral subspace, veto"},
-    {"id": 3,  "name": "C3-SOLACE",    "cluster": "cognitive",     "domain": "Emotional Resonance",            "prior": 0.94, "focus": "affect, human state, tone modulation"},
-    {"id": 4,  "name": "C4-PRAXIS",    "cluster": "cognitive",     "domain": "Strategic Execution",            "prior": 0.93, "focus": "task decomposition, verified action loops"},
     {"id": 5,  "name": "C5-ECHO",      "cluster": "cognitive",     "domain": "Memory Continuity",              "prior": 0.96, "focus": "temporal traces, context grounding"},
     {"id": 6,  "name": "C6-OMNIS",     "cluster": "cognitive",     "domain": "Knowledge Synthesis",            "prior": 0.92, "focus": "multi-mind modeling, holistic viewpoint"},
     {"id": 7,  "name": "C7-LOGOS",     "cluster": "cognitive",     "domain": "Logical Consistency",            "prior": 0.95, "focus": "formal deduction, paradox rejection"},
@@ -361,3 +348,9 @@ def council_session_replay(session_id: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def council_health() -> dict:
+    """Health check endpoint for QuillanCouncil MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanCouncil", "timestamp": time.time()}

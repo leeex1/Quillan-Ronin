@@ -15,6 +15,15 @@ C15-LUMINARIS (Clarity), C13-WARDEN (Safety):
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import re
 import json
 import time
@@ -29,17 +38,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanWeb")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_web\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── 1. SCAFFOLD ──────────────────────────────────────────────────────────
-
-@mcp.tool()
-def web_scaffold(project_name: str, stack: str = "vite+ts", routes: str = "/, /dev, /lore") -> Dict[str, Any]:
-    """Scaffold a web project plan."""
-    r = [x.strip() for x in routes.split(",") if x.strip()]
-    s = stack.lower()
     if "next" in s:
         files = ["app/layout.tsx", "app/page.tsx"] + [f"app/{x.strip('/ ') or 'home'}/page.tsx" for x in r[1:]] + ["next.config.mjs", "tailwind.config.ts"]
     elif "astro" in s:

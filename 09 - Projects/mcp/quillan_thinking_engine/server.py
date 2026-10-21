@@ -132,17 +132,6 @@ def __getattr__(name):
     raise AttributeError(f"module has no attribute {name!r}")
 
 mcp = FastMCP("QuillanThinkingEngine")
-
-# Lazy-loaded singleton engine
-_ENGINE: Optional[QuillanQuintessenceOni] = None
-
-def get_engine() -> QuillanQuintessenceOni:
-    global _ENGINE
-    _ensure_engine_mod()
-    if _ENGINE is None:
-        cfg = QuintessenceOniConfig()
-        _ENGINE = QuillanQuintessenceOni(cfg)
-        _ENGINE.eval()
     return _ENGINE
 
 @mcp.tool()

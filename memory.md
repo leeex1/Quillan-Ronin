@@ -9,15 +9,15 @@ This is the human-readable episodic memory document tracking key milestones, use
 Quillan's memory is defined across 5 synergistic components (verified 2026-10-20):
 
 1. **MemPalace** (CLI v3.10.0, local ChromaDB + SQLite):
-   - Palace: wing `02_quillan` — **18,967 drawers** across 12 rooms.
-   - Rooms: quillan_knowledge_base (12,572), frontend (6,045), design (182), general (58), checkpoints (32), scripts (32), configuration (16), mcp (16), audio (4), documentation (4), testing (4), worker (2).
+   - Palace: wing `02_quillan` — **22,087 drawers** across 12 rooms (consolidated 2026-10-20 from .quillan, .devin, Windsurf plans, OpenCode agents, cross-agent rules, updated wiki.json).
+   - Rooms: quillan_knowledge_base (12,572), frontend (6,045), design (182), general (636), checkpoints (32), scripts (32), configuration (16), mcp (16), audio (4), documentation (4), testing (4), worker (2).
    - Recall protocol: `mempalace_search` first, quote drawers verbatim, never paraphrase.
-2. **GitNexus** (`.gitnexus/`, indexed 2026-10-14):
-   - Structural code graph: **7,769 files, 97,341 nodes, 134,135 edges, 1,537 communities, 300 execution processes**.
+2. **GitNexus** (`.gitnexus/`, indexed 2026-10-20):
+   - Structural code graph: **8,634 files, 143,431 nodes, 174,746 edges, 1,323 communities, 300 execution processes**.
    - AST-level symbol tracking, callers, callees, blast-radius impact analysis.
-   - Last indexed commit: `de6c3dfb` — re-index after any kernel change.
-3. **LanceDB** (`lancedb/`):
-   - **Currently EMPTY** — no tables populated. Vector store provisioned but unpopulated.
+   - Last indexed commit: `7b07cf0` — re-index after any kernel change.
+3. **LanceDB** (`07 - Memory & LanceDB/lancedb/`):
+   - **Populated**: 901 rows in `thoughts` table (2048-dim vectors, 49 distinct sources from Quillan Knowledge files 0-32). Semantic similarity search over canonical knowledge base.
 4. **`memory.json`** (`memory.json`):
    - Machine-readable runtime state, user preferences, and configuration facts.
 5. **`memory.md`** (This file):
@@ -34,8 +34,8 @@ Quillan's memory is defined across 5 synergistic components (verified 2026-10-20
 
 ### 2026-10-20: Memory System Consolidation & Ground-Truth Verification
 **Verified parameter counts (Antigravity audit):**
-- `QuillanOniConfig.mini_6l()` → **520.4M parameters**
-- `QuillanOniConfig.main_12l()` → **1.163B parameters**
+- `QuillanOniConfig.mini_6l()` → **562.8M parameters** (562,817,072)
+- `QuillanOniConfig.main_12l()` → **1.163B parameters** (1,163,259,074)
 - NOTE: `.devin/wiki.json` claims 0.6B / 3B — discrepancy flagged; actual config instantiation is authoritative.
 
 **Verified ground truth (`.quillan/COORDINATION.md`):**

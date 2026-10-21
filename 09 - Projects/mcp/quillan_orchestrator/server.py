@@ -20,6 +20,15 @@ Each MCP is imported directly (in-process) for zero-latency chaining.
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import os
 import json
 import time
@@ -35,17 +44,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOrchestrator")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orchestrator\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── IN-PROCESS MCP IMPORTS ─────────────────────────────────────────────────
-# Each MCP server is imported directly so we can call its tools without
-# subprocess overhead. Each server module exposes a `mcp` FastMCP instance
-# with registered tools we can call via server.mcp.call_tool().
-
-_MCP_MODULES: Dict[str, Any] = {}
-
 def _load_mcp(module_name: str, server_path: str) -> Any:
     """Lazy-load an MCP server module by path."""
     if module_name in _MCP_MODULES:
@@ -346,7 +344,7 @@ async def _orch_re(path: str, persist: bool) -> Dict[str, Any]:
 
 
 @mcp.tool()
-def orchestrator_health() -> Dict[str, Any]:
+async def orchestrator_health() -> Dict[str, Any]:
     """Dashboard summary across all MCPs."""
     health = {}
     for name, path in _MCP_PATHS.items():
@@ -354,7 +352,7 @@ def orchestrator_health() -> Dict[str, Any]:
             mod = _load_mcp(name, path)
             # Try calling health if it exists
             if hasattr(mod.mcp, 'list_tools'):
-                tools = asyncio.run(mod.mcp.list_tools())
+                tools = await mod.mcp.list_tools()
                 health[name] = {"tools": len(tools), "status": "ACTIVE"}
             else:
                 health[name] = {"status": "LOADED"}

@@ -18,26 +18,26 @@
     ],
     "mempalace_cli_version": "3.10.0",
     "mempalace_wing": "02_quillan",
-    "mempalace_drawers": 18967,
+    "mempalace_drawers": 22087,
     "mempalace_rooms": 12,
-    "gitnexus_indexed_at": "2026-10-14T07:04:37.989Z",
+    "gitnexus_indexed_at": "2026-10-20T01:37:43.836Z",
     "gitnexus_stats": {
-      "files": 7769,
-      "nodes": 97341,
-      "edges": 134135,
-      "communities": 1537,
+      "files": 8634,
+      "nodes": 143431,
+      "edges": 174746,
+      "communities": 1323,
       "processes": 300
     },
-    "gitnexus_last_commit": "de6c3dfb24b607ecd1682125567e05ccd1fc2bb8",
-    "lancedb_status": "empty — no tables populated",
+    "gitnexus_last_commit": "7b07cf01078c8bb0ba8f4fc2c0641fc795f38cc2",
+    "lancedb_status": "populated: 901 rows in thoughts table (2048-dim vectors, 49 distinct sources from Quillan Knowledge files 0-32), at 07 - Memory & LanceDB/lancedb/",
     "updated_at": "2026-10-20T00:00:00Z"
   },
   {
     "category": "model_facts",
     "key": "parameter_counts",
     "value": {
-      "mini_6l": "520.4M",
-      "main_12l": "1.163B",
+      "mini_6l": "562.8M (562,817,072)",
+      "main_12l": "1.163B (1,163,259,074)",
       "verified_by": "Antigravity audit 2026-10-20",
       "discrepancy_note": ".devin/wiki.json claims 0.6B / 3B — actual config instantiation is authoritative"
     },

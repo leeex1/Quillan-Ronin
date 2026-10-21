@@ -14,6 +14,15 @@ C4-PRAXIS (Planning), C19-VIGIL (Anti-drift):
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import os
 import json
 import time
@@ -29,17 +38,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOps")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_ops\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-SECRET_PATTERNS = [
-    r"(api[_-]?key|secret|password|token|bearer)\s*=\s*['\"][A-Za-z0-9_\-]{16,}['\"]",
-    r"AKIA[0-9A-Z]{16}",
-    r"ghp_[A-Za-z0-9]{36}",
-    r"sk-[A-Za-z0-9]{20,}",
-]
-
 
 @mcp.tool()
 def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:

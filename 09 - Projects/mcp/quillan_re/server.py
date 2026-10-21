@@ -32,6 +32,15 @@ Tools:
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import os
 import re
 import json
@@ -52,17 +61,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanRE")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_re\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── NATIVE BINARY PARSERS (pure Python, no external RE tools) ──────────────
-
-def _read_le(data: bytes, off: int, size: int) -> int:
-    return int.from_bytes(data[off:off + size], "little")
-
-
-def _read_be(data: bytes, off: int, size: int) -> int:
     return int.from_bytes(data[off:off + size], "big")
 
 

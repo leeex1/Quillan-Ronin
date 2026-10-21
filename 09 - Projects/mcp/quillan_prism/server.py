@@ -44,8 +44,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import re
 import json
 import time
@@ -60,17 +58,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanPrism")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_prism\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-PRISM_VECTORS = ["Language", "Sentiment", "Context", "Intent", "Meta",
-                 "Creativity", "Ethics", "Strategy", "Constraint"]
-
-VECTOR_WEIGHTS = {
-    "Language": 0.10, "Sentiment": 0.08, "Context": 0.12, "Intent": 0.15,
-    "Meta": 0.08, "Creativity": 0.10, "Ethics": 0.15, "Strategy": 0.12,
-    "Constraint": 0.10,
 }
 
 
@@ -328,3 +315,9 @@ def prism_session_replay(session_id: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def prism_health() -> dict:
+    """Health check endpoint for QuillanPrism MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanPrism", "timestamp": time.time()}

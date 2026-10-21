@@ -38,6 +38,15 @@ Tools:
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import os
 import re
 import json
@@ -56,17 +65,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOrochi")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orochi\sessions")
-SNAPSHOT_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orochi\snapshots")
-PROMPT_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orochi/prompts")
-WEIGHT_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orochi/weights")
-for _d in (SESSION_DIR, SNAPSHOT_DIR, PROMPT_DIR, WEIGHT_DIR):
-    _d.mkdir(parents=True, exist_ok=True)
-
-# Canonical Quillan base prompt (the thing Orochi can self-modify)
-BASE_SYSTEM_PROMPT = """You are Quillan-Ronin, an Advanced Hierarchical Intelligence Engine.
-You deliberate through a 34-member council (C1-C34) under the C0-QUILLAN throne,
 using E_ICE thermodynamic bounds, Lee-Mach-6 velocity governance, and a
 Hyper-Quantized EGGROLL swarm. Say the true thing even when it costs. Go deep
 even when shallow would be faster. Stand behind what survives the council."""
