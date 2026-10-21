@@ -1,6 +1,6 @@
 {
   "version": "5.4.0-ONI",
-  "last_synced": "2026-10-21T15:10:01Z",
+  "last_synced": "2026-10-21T15:12:59Z",
   "summary": {
     "quillan_mcp_servers": 19,
     "quillan_mcp_tools": 202,
@@ -1384,7 +1384,7 @@
               "type": "int"
             }
           ],
-          "lineno": 52
+          "lineno": 53
         },
         {
           "name": "ops_guardrail_check",
@@ -1397,7 +1397,7 @@
               "type": "str"
             }
           ],
-          "lineno": 70
+          "lineno": 71
         },
         {
           "name": "ops_health",
@@ -1414,7 +1414,7 @@
               "type": "bool"
             }
           ],
-          "lineno": 83
+          "lineno": 84
         },
         {
           "name": "ops_release_note",
@@ -1435,7 +1435,7 @@
               "type": "str"
             }
           ],
-          "lineno": 144
+          "lineno": 145
         },
         {
           "name": "ops_full_pipeline",
@@ -1472,7 +1472,7 @@
               "type": "bool"
             }
           ],
-          "lineno": 152
+          "lineno": 153
         },
         {
           "name": "ops_session_list",
@@ -1480,7 +1480,7 @@
           "is_async": false,
           "description": "List persisted ops sessions.",
           "parameters": [],
-          "lineno": 191
+          "lineno": 192
         },
         {
           "name": "ops_session_replay",
@@ -1493,7 +1493,7 @@
               "type": "str"
             }
           ],
-          "lineno": 211
+          "lineno": 212
         }
       ]
     },
@@ -1523,7 +1523,7 @@
               "type": "bool"
             }
           ],
-          "lineno": 163
+          "lineno": 166
         },
         {
           "name": "orchestrator_reverse_engineer",
@@ -1540,7 +1540,7 @@
               "type": "bool"
             }
           ],
-          "lineno": 266
+          "lineno": 269
         },
         {
           "name": "orchestrator_health",
@@ -1548,7 +1548,7 @@
           "is_async": true,
           "description": "Dashboard summary across all MCPs.",
           "parameters": [],
-          "lineno": 356
+          "lineno": 359
         },
         {
           "name": "orchestrator_session_list",
@@ -1556,7 +1556,7 @@
           "is_async": false,
           "description": "List persisted orchestrator sessions.",
           "parameters": [],
-          "lineno": 380
+          "lineno": 383
         },
         {
           "name": "orchestrator_session_replay",
@@ -1569,7 +1569,7 @@
               "type": "str"
             }
           ],
-          "lineno": 400
+          "lineno": 403
         }
       ]
     },
@@ -1595,7 +1595,7 @@
               "type": "str"
             }
           ],
-          "lineno": 131
+          "lineno": 132
         },
         {
           "name": "orochi_evolve_weights",
@@ -1620,7 +1620,7 @@
               "type": "float"
             }
           ],
-          "lineno": 177
+          "lineno": 178
         },
         {
           "name": "orochi_evaluate",
@@ -1641,7 +1641,7 @@
               "type": "str"
             }
           ],
-          "lineno": 233
+          "lineno": 234
         },
         {
           "name": "orochi_auto_improve",
@@ -1662,7 +1662,7 @@
               "type": "float"
             }
           ],
-          "lineno": 319
+          "lineno": 320
         },
         {
           "name": "orochi_snapshot",
@@ -1683,7 +1683,7 @@
               "type": "Optional[List[Dict[str, Any]]]"
             }
           ],
-          "lineno": 419
+          "lineno": 420
         },
         {
           "name": "orochi_rollback",
@@ -1696,7 +1696,7 @@
               "type": "str"
             }
           ],
-          "lineno": 442
+          "lineno": 443
         },
         {
           "name": "orochi_full_pipeline",
@@ -1717,7 +1717,7 @@
               "type": "float"
             }
           ],
-          "lineno": 465
+          "lineno": 466
         },
         {
           "name": "orochi_route",
@@ -1734,7 +1734,7 @@
               "type": "Optional[Dict[str, Any]]"
             }
           ],
-          "lineno": 493
+          "lineno": 494
         },
         {
           "name": "orochi_health",
@@ -1742,7 +1742,7 @@
           "is_async": false,
           "description": "Orochi engine dashboard summary.",
           "parameters": [],
-          "lineno": 513
+          "lineno": 514
         },
         {
           "name": "orochi_session_list",
@@ -1750,7 +1750,7 @@
           "is_async": false,
           "description": "List persisted Orochi sessions.",
           "parameters": [],
-          "lineno": 557
+          "lineno": 558
         },
         {
           "name": "orochi_session_replay",
@@ -1763,7 +1763,7 @@
               "type": "str"
             }
           ],
-          "lineno": 576
+          "lineno": 577
         }
       ]
     },

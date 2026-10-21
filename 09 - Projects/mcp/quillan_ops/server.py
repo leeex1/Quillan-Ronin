@@ -37,6 +37,7 @@ if sys.platform == "win32":
 
 from fastmcp import FastMCP
 
+SECRET_PATTERNS = ["password", "secret", "token", "api_key", "credential"]
 mcp = FastMCP("QuillanOps")
 # [QUILLAN-v5.4.0-ONI-SHARED-WIRED]
 try:

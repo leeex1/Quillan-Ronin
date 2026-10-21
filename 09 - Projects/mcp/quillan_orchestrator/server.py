@@ -43,6 +43,9 @@ if sys.platform == "win32":
 
 from fastmcp import FastMCP
 
+from pathlib import Path
+SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_orchestrator\sessions")
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
 mcp = FastMCP("QuillanOrchestrator")
 # [QUILLAN-v5.4.0-ONI-SHARED-WIRED]
 try:
