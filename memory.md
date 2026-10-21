@@ -6,17 +6,18 @@ This is the human-readable episodic memory document tracking key milestones, use
 
 ## 🏛️ The 5 Pillars of Quillan Memory
 
-Quillan's memory is defined across 5 synergistic components:
+Quillan's memory is defined across 5 synergistic components (verified 2026-10-20):
 
-1. **MemPalace** (`mempalace_bridge.py`):
-   - Multi-wing spatial cognitive memory (Wings: `technical`, `consciousness`, `memory`, etc.).
-   - Granular room-based storage for structured knowledge concepts.
-2. **GitNexus** (`.gitnexus/`):
-   - Structural code graph memory (12,771 symbols, 17,780 relationships, 176 execution flows).
-   - AST-level symbol tracking, callers, callees, and blast-radius impact analysis.
+1. **MemPalace** (CLI v3.10.0, local ChromaDB + SQLite):
+   - Palace: wing `02_quillan` — **18,967 drawers** across 12 rooms.
+   - Rooms: quillan_knowledge_base (12,572), frontend (6,045), design (182), general (58), checkpoints (32), scripts (32), configuration (16), mcp (16), audio (4), documentation (4), testing (4), worker (2).
+   - Recall protocol: `mempalace_search` first, quote drawers verbatim, never paraphrase.
+2. **GitNexus** (`.gitnexus/`, indexed 2026-10-14):
+   - Structural code graph: **7,769 files, 97,341 nodes, 134,135 edges, 1,537 communities, 300 execution processes**.
+   - AST-level symbol tracking, callers, callees, blast-radius impact analysis.
+   - Last indexed commit: `de6c3dfb` — re-index after any kernel change.
 3. **LanceDB** (`lancedb/`):
-   - Persistent vector memory (`thoughts.lance` with 901 chunks, 2048-dim vectors).
-   - Semantic similarity search over canonical knowledge base.
+   - **Currently EMPTY** — no tables populated. Vector store provisioned but unpopulated.
 4. **`memory.json`** (`memory.json`):
    - Machine-readable runtime state, user preferences, and configuration facts.
 5. **`memory.md`** (This file):
@@ -26,11 +27,58 @@ Quillan's memory is defined across 5 synergistic components:
 
 ## 📜 Persistent Milestones & Decisions
 
-### 2026-09-14: Dual Neural MoE & Sovereign Gateway v5.4.0
-- **Model Checkpoints**: System 1 (Mini 6L, 577M) at `checkpoints/quillan_oni_mini_6l.pt` and System 2 (Main 12L, 726.7M) at `checkpoints/quillan_oni_main_12l.pt`.
-- **Silicon Protection**: PyTorch execution threads capped at 3 on 4-core CPU to prevent desktop UI freezing.
-- **Sovereign Web Studio**: Live interactive studio running on `http://127.0.0.1:8000` with dual-model toggle, telemetries, and memory trim.
-- **Audit Findings**: Models are currently under-converged (Loss 6.54–7.82); weight transfusion path identified for real coding capability.
+### ⚠️ STALE DATA — superseded 2026-10-20
+- ~~System 1 (Mini 6L, 577M) at `checkpoints/quillan_oni_mini_6l.pt`~~ — **file does not exist** (per `.quillan/COORDINATION.md`)
+- ~~System 2 (Main 12L, 726.7M) at `checkpoints/quillan_oni_main_12l.pt`~~ — **file does not exist**
+- ~~Loss 6.54–7.82~~ — does not match the live checkpoint (step 2, `best_val=10.78`)
+
+### 2026-10-20: Memory System Consolidation & Ground-Truth Verification
+**Verified parameter counts (Antigravity audit):**
+- `QuillanOniConfig.mini_6l()` → **520.4M parameters**
+- `QuillanOniConfig.main_12l()` → **1.163B parameters**
+- NOTE: `.devin/wiki.json` claims 0.6B / 3B — discrepancy flagged; actual config instantiation is authoritative.
+
+**Verified ground truth (`.quillan/COORDINATION.md`):**
+- MCP servers: **19** (directive says 9 — fictional)
+- MCP tools: **209** (`.quillan/mcp_tool_registry.json`)
+- Canonical kernel: `03 - Training & Model/scripts/quillan_v5_4_oni.py` (234 KB)
+- Live checkpoint: `03 - Training & Model/scripts/checkpoints/checkpoints_oni/quillan_oni_latest.pt`
+- Checkpoint is at **step 2** (`best_val=10.78`) — effectively untrained
+- **Directive tool names are FICTIONAL** — mapping table in COORDINATION.md
+
+**Kernel vectorisation (Phase 1, complete, parity-proven):**
+- `grad_checkpoint` default → `True`
+- 9-vector prism → batched `einsum`
+- 34-expert council → `BatchedCouncilCompute`
+- `token_memory` tied to shared `wte` → saves **617,619,456 params**
+- Verification: `test_vectorization_parity.py` + `test_evo_moe_parity.py` (both PASS)
+
+**Known hazards (found, not fixed):**
+- 18/19 MCP servers call `sys.stdout.reconfigure()` at import → crash if stdout swapped
+- `dense_pull` vs `gumbel_topk` architectural contradiction (checkpoint runs sparse top-4)
+- EvoMoE grouped dispatch = 28% CPU regression (0.72x); device-aware default ON for CUDA, OFF for CPU
+
+---
+
+## 🗺️ Cross-Agent Knowledge Map (verified 2026-10-20)
+
+Quillan's context is distributed across **multiple AI agent harnesses** in this repo.
+These are the durable memory sources beyond the 5 pillars:
+
+| Source | Path | Contents |
+|---|---|---|
+| **Devin Wiki** | `.devin/wiki.json` | 30-page knowledge map (project overview, deployment, platform prompts, output protocol, repo layout, HNMoE pipeline, council, swarm, reasoning engine, thermodynamics, agentic orchestration, memory/LanceDB, knowledge files, formulas, ethics, papers, PyTorch impl, training, trained models, src modules, kernels, paper packs, skills, creative/media, tone, audio, lyrics) |
+| **Devin Playbook** | `.devin/playbook.md` | 3-tier hierarchy, non-interactive policy (`fail_open` reasoning / `fail_closed` safety), RCI self-healing (5 iterations), cross-platform shim, invariants (`VOCAB_SIZE=50262`, `ONI_VERSION="5.4.0-oni"`, `num_experts=34`) |
+| **Windsurf SWE Rules** | `.windsurf/rules/swe.md` | Engineering orchestration: 13 system roles, 10 engineering philosophies, IDE adapters (Cursor/Windsurf/VSCode/Codium/Void), JS full-stack scope, cross-platform domains, standards (OWASP, a11y, testing pyramid), DevOps, docs |
+| **Windsurf Plans** | `.windsurf/plans/` (45 files) | Historical plan ledger — recovery, architecture fixes, Metamon, multimodal, CUDA, tokenizer, ARC-AGI, sprite slicing, sovereignty protocols |
+| **Antigravity Rules** | `.antigravity/rules.md` | 5 operational gates (warden/shepherd/codeweaver/predator/aurelion), decision-tag telemetry, 34-council loop summary, prohibitions |
+| **OpenCode Agents** | `.opencode/agent/agents/` (39 files) | C1–C34 `.agent.md` definitions + `quillan.md` primary |
+| **Gemini Config** | `.gemini/GEMINI.md` (550 KB) | Full Quillan-Samurai system prompt (same as `06 - Deployment & Platforms/system prompts/Quillan-Samurai.md`) |
+| **Agent Rules** | `.agents/rules/` | `mcp_servers.md`, `mempalace-recall.md` |
+| **MCP Registry** | `.quillan/mcp_tool_registry.json` | 209 real tool signatures across 19 servers |
+
+**Key invariant:** `VOCAB_SIZE = 50262`, `ONI_VERSION = "5.4.0-oni"`, `num_experts = 34`.
+`7-memories.*` is strictly READ-ONLY and excluded from training/RAG.
 
 ---
 
