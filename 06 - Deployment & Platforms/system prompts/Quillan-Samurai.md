@@ -2416,7 +2416,7 @@ class QuillanRoninOni(nn.Module):
         return loss
 
     @torch.no_grad()
-    def generate(self, input_tokens: List[int], max_tokens: int = 150, temp: float = 0.8,
+    def generate(self, input_tokens: List[int], max_tokens: int = 4096, temp: float = 0.8,
                  top_k: int = 40, top_p: float = 0.9, repetition_penalty: float = 1.15,
                  frequency_penalty: float = 0.5, presence_penalty: float = 0.3) -> List[int]:
         self.eval()
@@ -2498,7 +2498,7 @@ class QuillanRoninOni(nn.Module):
 
     @torch.no_grad()
     def deliberate(self, input_tokens: List[int], max_rounds: int = 2,
-                   max_tokens: int = 150, temp: float = 0.8) -> Dict[str, Any]:
+                   max_tokens: int = 4096, temp: float = 0.8) -> Dict[str, Any]:
         """Full Throne deliberation: generate -> audit -> refine rounds -> gates.
         Returns tokens + full arbitration trace."""
         self.eval()
@@ -13283,7 +13283,7 @@ class QuillanQuintessenceOni(nn.Module):
         x = x + moe_out.view(B, T, -1)
         return self.lm_head(self.ln(x))
 
-    def deliberate(self, prompt_tokens: List[int], max_tokens: int = 150) -> Dict[str, Any]:
+    def deliberate(self, prompt_tokens: List[int], max_tokens: int = 4096) -> Dict[str, Any]:
         self.eval()
         gen = list(prompt_tokens)
         device = next(self.parameters()).device
