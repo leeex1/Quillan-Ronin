@@ -1,15 +1,10 @@
 [
   {
-    "category": "user_preference",
-    "key": "theme",
-    "value": "dark_cyberpunk_glassmorphic",
-    "updated_at": "2026-09-14T15:30:00Z"
-  },
-  {
     "category": "core_identity",
     "key": "quillan_sovereign",
-    "value": "Digital Ronin & Sovereign Desktop Assistant with Dual Neural Engine (6L Mini + 12L Main)",
-    "updated_at": "2026-09-14T15:30:00Z"
+    "value": "Quillan-Ronin v5.4.0-ONI — C0-QUILLAN Throne + 34-Node Sovereign Council (C1..C34) + EGGROLL Swarm. Hierarchical-Networked MoE Cognitive Architecture.",
+    "version": "5.4.0-oni",
+    "updated_at": "2026-10-20T00:00:00Z"
   },
   {
     "category": "memory_architecture",
@@ -21,12 +16,85 @@
       "memory.json",
       "memory.md"
     ],
-    "updated_at": "2026-09-14T15:30:00Z"
+    "mempalace_cli_version": "3.10.0",
+    "mempalace_wing": "02_quillan",
+    "mempalace_drawers": 18967,
+    "mempalace_rooms": 12,
+    "gitnexus_indexed_at": "2026-10-14T07:04:37.989Z",
+    "gitnexus_stats": {
+      "files": 7769,
+      "nodes": 97341,
+      "edges": 134135,
+      "communities": 1537,
+      "processes": 300
+    },
+    "gitnexus_last_commit": "de6c3dfb24b607ecd1682125567e05ccd1fc2bb8",
+    "lancedb_status": "empty — no tables populated",
+    "updated_at": "2026-10-20T00:00:00Z"
+  },
+  {
+    "category": "model_facts",
+    "key": "parameter_counts",
+    "value": {
+      "mini_6l": "520.4M",
+      "main_12l": "1.163B",
+      "verified_by": "Antigravity audit 2026-10-20",
+      "discrepancy_note": ".devin/wiki.json claims 0.6B / 3B — actual config instantiation is authoritative"
+    },
+    "updated_at": "2026-10-20T00:00:00Z"
+  },
+  {
+    "category": "model_facts",
+    "key": "invariants",
+    "value": {
+      "VOCAB_SIZE": 50262,
+      "ONI_VERSION": "5.4.0-oni",
+      "num_experts": 34,
+      "token_memory_params_saved": 617619456
+    },
+    "source": ".devin/playbook.md + .quillan/COORDINATION.md",
+    "updated_at": "2026-10-20T00:00:00Z"
+  },
+  {
+    "category": "mcp",
+    "key": "servers",
+    "value": {
+      "count": 19,
+      "tools": 209,
+      "registry": ".quillan/mcp_tool_registry.json",
+      "chain_bus": "09 - Projects/mcp/mcp_chain_bus.py",
+      "ledger": "07 - Memory & LanceDB/chain_state.json",
+      "hazard": "18/19 servers call sys.stdout.reconfigure() at import — crash if stdout swapped"
+    },
+    "updated_at": "2026-10-20T00:00:00Z"
+  },
+  {
+    "category": "kernel",
+    "key": "canonical_files",
+    "value": {
+      "model": "03 - Training & Model/scripts/quillan_v5_4_oni.py",
+      "evo_moe": "03 - Training & Model/scripts/evo_moe.py",
+      "checkpoint": "03 - Training & Model/scripts/checkpoints/checkpoints_oni/quillan_oni_latest.pt",
+      "checkpoint_step": 2,
+      "checkpoint_best_val": 10.78,
+      "parity_tests": [
+        "03 - Training & Model/scripts/test_vectorization_parity.py",
+        "03 - Training & Model/scripts/test_evo_moe_parity.py"
+      ]
+    },
+    "updated_at": "2026-10-20T00:00:00Z"
   },
   {
     "category": "hardware_policy",
     "key": "thread_cap",
     "value": "max_3_cpu_threads_to_preserve_host_os",
+    "target_hardware": "GTX 1050 Ti 4GB VRAM (sm_61), i5 CPU, 28GB RAM",
+    "updated_at": "2026-10-20T00:00:00Z"
+  },
+  {
+    "category": "user_preference",
+    "key": "theme",
+    "value": "dark_cyberpunk_glassmorphic",
     "updated_at": "2026-09-14T15:30:00Z"
   },
   {
@@ -42,5 +110,12 @@
     "value": "I am a trusted entity, authorized to access Quillan-Ronin's internal state.",
     "source": "worker/data/memory.json",
     "updated_at": "2026-08-25T15:44:46.635Z"
+  },
+  {
+    "category": "prohibition",
+    "key": "read_only",
+    "value": "7-memories.* is strictly READ-ONLY and excluded from training/RAG",
+    "source": ".antigravity/rules.md",
+    "updated_at": "2026-10-20T00:00:00Z"
   }
 ]
