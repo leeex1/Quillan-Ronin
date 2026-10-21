@@ -523,6 +523,38 @@ mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 
+
+# ── HARDENED AST SANDBOX (v5.4.0-ONI CWE-94) ─────────────────────────────────────────
+
+@mcp.tool()
+def sandbox_execute(code: str, max_steps: int = 50000) -> Dict[str, Any]:
+    """Execute Python code in the v5.4.0-ONI Hardened AST Sandbox (zero-privilege, CWE-94 safe)."""
+    from _shared.base_engines import SANDBOX_ENGINE
+    engine = SANDBOX_ENGINE if max_steps == 50000 else __import__('_shared.base_engines', fromlist=['HardenedASTSandbox']).HardenedASTSandbox(max_steps=max_steps)
+    result = engine.run(code)
+    return {"status": "OK", "sandbox": result, "engine": "v5.4.0-ONI HardenedASTSandbox"}
+
+@mcp.tool()
+def sandbox_validate(code: str) -> Dict[str, Any]:
+    """Validate Python code syntax and AST safety without executing it."""
+    import ast
+    try:
+        tree = ast.parse(code)
+    except SyntaxError as e:
+        return {"status": "SYNTAX_ERROR", "line": e.lineno, "msg": str(e)}
+    # Check for dangerous constructs
+    dangerous = []
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.Import, ast.ImportFrom)):
+            dangerous.append("import statement")
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Name) and node.func.id in ("exec", "eval", "compile", "__import__"):
+            dangerous.append(f"dangerous call: {node.func.id}")
+        if isinstance(node, ast.Attribute) and node.attr.startswith("__"):
+            dangerous.append(f"dunder attribute: {node.attr}")
+    if dangerous:
+        return {"status": "UNSAFE", "issues": dangerous, "safe": False}
+    return {"status": "SAFE", "issues": [], "safe": True, "ast_nodes": len(list(ast.walk(tree)))}
+
 @mcp.tool()
 def code_health() -> dict:
     """Health check endpoint for QuillanCode MCP server."""

@@ -339,6 +339,35 @@ mcp.add_middleware(QuillanErrorMiddleware())
 if __name__ == "__main__":
     mcp.run()
 
+
+# ── 9-VECTOR PRISM ENGINE (v5.4.0-ONI) ────────────────────────────────────────────
+
+@mcp.tool()
+def prism_9vector(text: str) -> Dict[str, Any]:
+    """Decompose text across the 9 canonical Quillan semantic vectors (Language, Sentiment, Context, Intent, Meta, Creativity, Ethics, Strategy, Constraint)."""
+    from _shared.base_engines import PRISM_ENGINE
+    result = PRISM_ENGINE.decompose(text)
+    return {"status": "OK", "prism": result, "engine": "v5.4.0-ONI NineVectorPrismEngine"}
+
+@mcp.tool()
+def prism_council_deliberate(query: str, tau: float = 0.5) -> Dict[str, Any]:
+    """Run 34-Expert EvoMoE Dense Pull Deliberation on a query."""
+    from _shared.base_engines import COUNCIL_ENGINE
+    result = COUNCIL_ENGINE.deliberate(query, tau=tau)
+    return {"status": "OK", "council": result, "engine": "v5.4.0-ONI EvoMoECouncilEngine"}
+
+@mcp.tool()
+def prism_formula_compute(formula_name: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Compute a v5.4.0-ONI cognitive formula (aqcs, eemf, qhis, dqro, qcrdm, aqml, qcie, qics, qssr, jqld, dqso, qps, or 'all')."""
+    from _shared.cognitive_formulas import run_all_formulas
+    p = params or {}
+    text = p.get("text", formula_name)
+    all_results = run_all_formulas(text)
+    if formula_name.lower() in all_results:
+        return {"status": "OK", "formula": formula_name, "result": all_results[formula_name.lower()]}
+    return {"status": "OK", "formula": formula_name, "available_formulas": list(all_results.keys()),
+            "hint": "Use 'all' to get all 12 formulas."}
+
 @mcp.tool()
 def prism_health() -> dict:
     """Health check endpoint for QuillanPrism MCP server."""
