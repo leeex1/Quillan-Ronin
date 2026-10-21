@@ -60,6 +60,13 @@ import psutil
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanGovernor")
+@mcp.tool()
+def governor_system_health() -> Dict[str, Any]:
+    """Returns real-time CPU, RAM, and thermal telemetry for the host machine."""
+    vm = psutil.virtual_memory()
+    swap = psutil.swap_memory()
+
+
     cpu_percent = psutil.cpu_percent(interval=0.2)
     logical_cores = os.cpu_count() or 1
     physical_cores = psutil.cpu_count(logical=False) or logical_cores // 2

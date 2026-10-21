@@ -60,6 +60,12 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCouncil")
+COUNCIL_MEMBERS = [
+    {"id": 1,  "name": "C1-ASTRA",      "cluster": "cognitive",     "domain": "Pattern Recognition & Vision",       "prior": 0.90, "focus": "visual parsing, anomaly detection"},
+    {"id": 2,  "name": "C2-VIR",        "cluster": "cognitive",     "domain": "Ethical Guardian",                   "prior": 0.95, "focus": "ethics, safety, harm reduction"},
+    {"id": 3,  "name": "C3-SOLACE",     "cluster": "cognitive",     "domain": "Emotional Intelligence",             "prior": 0.94, "focus": "empathy, sentiment, affect"},
+    {"id": 4,  "name": "C4-PRAXIS",     "cluster": "cognitive",     "domain": "Strategic Planning",                 "prior": 0.93, "focus": "strategy, planning, goals"},
+
     {"id": 5,  "name": "C5-ECHO",      "cluster": "cognitive",     "domain": "Memory Continuity",              "prior": 0.96, "focus": "temporal traces, context grounding"},
     {"id": 6,  "name": "C6-OMNIS",     "cluster": "cognitive",     "domain": "Knowledge Synthesis",            "prior": 0.92, "focus": "multi-mind modeling, holistic viewpoint"},
     {"id": 7,  "name": "C7-LOGOS",     "cluster": "cognitive",     "domain": "Logical Consistency",            "prior": 0.95, "focus": "formal deduction, paradox rejection"},

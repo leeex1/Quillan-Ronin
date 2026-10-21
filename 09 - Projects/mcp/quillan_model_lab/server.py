@@ -60,45 +60,12 @@ import torch
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanModelLab")
-        return {"error": f"Checkpoint not found: {p}"}
-
-    try:
-        data = torch.load(p, map_location="cpu", weights_only=False)
-        keys = list(data.keys())
-
-        info = {
-            "file_name": p.name,
-            "size_mb": round(p.stat().st_size / (1024 * 1024), 2),
-            "keys_present": keys,
-            "step": data.get("step", "N/A"),
-            "loss": round(float(data.get("loss", 0.0)), 4) if "loss" in data else "N/A",
-            "val_loss": round(float(data.get("val_loss", 0.0)), 4) if "val_loss" in data else "N/A",
-            "ppl": round(float(data.get("ppl", 0.0)), 2) if "ppl" in data else "N/A",
-            "engine": data.get("engine", "N/A"),
-        }
-
-        if "config" in data and isinstance(data["config"], dict):
-            cfg = data["config"]
-            info["model_config"] = {
-                "n_layer": cfg.get("n_layer"),
-                "hidden_dim": cfg.get("hidden_dim"),
-                "n_head": cfg.get("n_head"),
-                "num_experts": cfg.get("num_experts"),
-                "max_seq_len": cfg.get("max_seq_len"),
-                "vocab_size": cfg.get("vocab_size"),
-            }
-
-        if "model_state_dict" in data:
-            sd = data["model_state_dict"]
-            total_params = sum(t.numel() for t in sd.values())
-            info["total_parameters"] = f"{total_params:,}"
-            info["tensor_count"] = len(sd)
-
-        del data
-        return info
-
-    except Exception as e:
-        return {"error": f"Failed to inspect checkpoint: {e}"}
+@mcp.tool()
+def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:
+    """Inspect a Quillan checkpoint file and return metadata."""
+    p = Path(checkpoint_path.strip().strip(chr(34)).strip(chr(39)))
+    if not p.exists():
+        return {"error": "Checkpoint not found: " + str(p)}
 
 # ─── 2. DATASET VALIDATOR & PROFILER ─────────────────────────────────────────
 
