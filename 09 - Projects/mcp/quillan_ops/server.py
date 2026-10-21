@@ -38,6 +38,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanOps")
+mcp.add_middleware(QuillanErrorMiddleware())
 
 @mcp.tool()
 def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:
@@ -211,6 +212,20 @@ def ops_session_replay(session_id: str) -> Dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return {"error": f"Read failed: {e}"}
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":

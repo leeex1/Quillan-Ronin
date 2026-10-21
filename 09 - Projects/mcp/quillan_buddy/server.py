@@ -59,6 +59,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanRoninBuddy")
+mcp.add_middleware(QuillanErrorMiddleware())
 CANONICAL_BUDDY_PERSONAS = {
     "C34-PREDATOR": {
         "title": "Adversarial Sparring Partner & Stress-Tester",
@@ -377,6 +378,20 @@ def buddy_list_twins() -> Dict[str, Any]:
         "twins": [{"twin_id": t.twin_id, "persona": t.persona, "role": t.role}
                   for t in _twins.values()],
     }
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":

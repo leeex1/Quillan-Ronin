@@ -63,6 +63,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCode")
+mcp.add_middleware(QuillanErrorMiddleware())
 SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_code\sessions")
 SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -494,6 +495,20 @@ def codeweaver_session_replay(session_id: str) -> Dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return {"error": f"Failed to read session: {e}"}
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":

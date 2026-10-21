@@ -60,6 +60,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanCouncil")
+mcp.add_middleware(QuillanErrorMiddleware())
 COUNCIL_MEMBERS = [
     {"id": 1,  "name": "C1-ASTRA",      "cluster": "cognitive",     "domain": "Pattern Recognition & Vision",       "prior": 0.90, "focus": "visual parsing, anomaly detection"},
     {"id": 2,  "name": "C2-VIR",        "cluster": "cognitive",     "domain": "Ethical Guardian",                   "prior": 0.95, "focus": "ethics, safety, harm reduction"},
@@ -350,6 +351,20 @@ def council_session_replay(session_id: str) -> Dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return {"error": f"Failed to read session: {e}"}
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":
