@@ -39,6 +39,10 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanMedia")
+@mcp.tool()
+def media_image_brief(objective: str, style: str = "cinematic", composition: str = "rule of thirds", palette: str = "warm") -> Dict[str, Any]:
+
+
     """Build a strict image-generation brief (tool-ingestible JSON schema)."""
     return {
         "Objective": objective,

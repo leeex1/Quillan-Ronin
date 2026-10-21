@@ -103,6 +103,12 @@ def _get_http() -> httpx.AsyncClient:
     return _client_holder["client"]
 
 mcp     = FastMCP("Quillan RAG", instructions="NIM-powered knowledge retrieval over Quillan's corpus")
+async def _nim_embed(texts, input_type="passage", max_retries=3):
+    delay = 1.5
+    client = _get_http()
+    for attempt in range(max_retries):
+        try:
+
             r = await client.post(f"{NIM_BASE}/embeddings",
                 headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
                 json={"input": texts, "model": EMBED_MODEL, "input_type": input_type,
