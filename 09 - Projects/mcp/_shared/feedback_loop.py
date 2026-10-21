@@ -398,7 +398,12 @@ class PromptEnhancer:
         enhancement_parts = ["\n\n=== LEARNED HEURISTICS (from prior experience) ==="]
         for fb in feedback_results:
             h = fb["heuristics"][0] if fb["heuristics"] else {}
-            desc = h.get("description", "N/A") if isinstance(h, dict) else h.description
+            if isinstance(h, dict):
+                desc = h.get("description", "N/A")
+            elif hasattr(h, "description"):
+                desc = h.description
+            else:
+                desc = str(h)[:100] if h else "N/A" if isinstance(h, dict) else h.description
             if fb["feedback_type"] == "positive":
                 enhancement_parts.append(f"  ✓ SUCCESS: {desc}")
             elif fb["feedback_type"] == "negative":
