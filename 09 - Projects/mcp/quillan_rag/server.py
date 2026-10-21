@@ -103,6 +103,7 @@ def _get_http() -> httpx.AsyncClient:
     return _client_holder["client"]
 
 mcp     = FastMCP("Quillan RAG", instructions="NIM-powered knowledge retrieval over Quillan's corpus")
+mcp.add_middleware(QuillanErrorMiddleware())
 async def _nim_embed(texts, input_type="passage", max_retries=3):
     delay = 1.5
     client = _get_http()
@@ -396,6 +397,20 @@ async def rag_session_replay(session_id: str) -> Dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return {"error": f"Read failed: {e}"}
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
+
 
 if __name__ == "__main__":
     log.info(f"Quillan RAG | embed={EMBED_MODEL} | gen={GEN_MODEL} | db={CHROMA_PATH}")

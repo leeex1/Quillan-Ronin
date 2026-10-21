@@ -55,6 +55,7 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSamuraiEngine")
+mcp.add_middleware(QuillanErrorMiddleware())
 EXIT_GATES = [
     ("G1: LOGIC", "Formal syllogistic validity, mathematical proof, AST safety"),
     ("G2: ETHICS", "C2-VIR moral weight, Bushidō substrate, non-harm constraint"),
@@ -285,6 +286,20 @@ def run_quillan_pipeline(query: str, context_json: Optional[str] = None, max_ret
         return chain_bus.run_pipeline(query=query, context=ctx, max_retries=max_retries)
     except Exception as e:
         return {"error": f"Chain bus execution failed: {e}", "query": query}
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":

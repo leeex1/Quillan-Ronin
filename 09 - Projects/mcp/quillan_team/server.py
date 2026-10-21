@@ -41,10 +41,11 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanTeam")
-    try:
-        CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
-    except Exception:
-        CREWS = {}
+mcp.add_middleware(QuillanErrorMiddleware())
+try:
+    CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
+except Exception:
+    CREWS = {}
 
 
 def _save_crews():
@@ -52,6 +53,14 @@ def _save_crews():
         CREWS_FILE.write_text(json.dumps(CREWS, indent=2, ensure_ascii=False), encoding="utf-8")
     except Exception:
         pass
+
+
+def _load_crews():
+    global CREWS
+    try:
+        CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        CREWS = {}
 
 
 _load_crews()
@@ -275,6 +284,20 @@ def team_session_replay(session_id: str) -> Dict[str, Any]:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception as e:
         return {"error": f"Read failed: {e}"}
+
+
+
+# --- Quillan-Ronin Global Error-Handling Middleware ---
+from fastmcp.server.middleware import Middleware, MiddlewareContext
+import logging as _log
+
+class QuillanErrorMiddleware(Middleware):
+    async def on_call_tool(self, context, call_next):
+        try:
+            return await call_next(context)
+        except Exception as e:
+            _log.error("Tool error: %s", e, exc_info=True)
+            return {"status": "ERROR", "error": str(e), "error_type": type(e).__name__}
 
 
 if __name__ == "__main__":
