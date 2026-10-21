@@ -15,6 +15,15 @@ VIEWER:     C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider-viewer.ht
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import time
 import json
 import re
@@ -32,17 +41,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSpider")
-
-SPIDER_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_spider")
-TRAIL_FILE = SPIDER_DIR / "trail.json"
-STATE = {"pos": None, "visited": 0, "started": None, "root": None, "mode": "IDLE"}
-TASKS_FILE = SPIDER_DIR / "tasks.json"
-MEMGRAPH_FILE = SPIDER_DIR / "memory_graph.json"
-
-
-class SimpleTextHTMLParser(HTMLParser):
-    def __init__(self):
-        super().__init__()
         self.text_chunks = []
         self.title = ""
         self.headings = []
@@ -1305,3 +1303,9 @@ def spider_session_replay(session_id: str) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def spider_health() -> dict:
+    """Health check endpoint for QuillanSpider MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanSpider", "timestamp": time.time()}

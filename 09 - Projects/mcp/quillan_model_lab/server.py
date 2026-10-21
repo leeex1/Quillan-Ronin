@@ -45,8 +45,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import math
 import json
 import time
@@ -62,17 +60,6 @@ import torch
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanModelLab")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_model_lab\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── 1. CHECKPOINT INSPECTOR ─────────────────────────────────────────────────
-
-@mcp.tool()
-def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:
-    """Inspects a PyTorch model checkpoint (.pt) without memory pressure."""
-    p = Path(checkpoint_path.strip().strip('"\''))
-    if not p.exists():
         return {"error": f"Checkpoint not found: {p}"}
 
     try:

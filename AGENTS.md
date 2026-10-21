@@ -702,7 +702,7 @@ Quillan_Custom_Formulas:
 <!-- gitnexus:start -->
 # GitNexus — Code Intelligence
 
-This project is indexed by GitNexus as **02_QUILLAN** (0 symbols, 0 relationships, 0 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
+This project is indexed by GitNexus as **Quillan-Ronin** (143431 symbols, 174746 relationships, 300 execution flows). Use the GitNexus MCP tools to understand code, assess impact, and navigate safely.
 
 > If any GitNexus tool warns the index is stale, run `npx gitnexus analyze` in terminal first.
 
@@ -725,10 +725,10 @@ This project is indexed by GitNexus as **02_QUILLAN** (0 symbols, 0 relationship
 
 | Resource | Use for |
 |----------|---------|
-| `gitnexus://repo/02_QUILLAN/context` | Codebase overview, check index freshness |
-| `gitnexus://repo/02_QUILLAN/clusters` | All functional areas |
-| `gitnexus://repo/02_QUILLAN/processes` | All execution flows |
-| `gitnexus://repo/02_QUILLAN/process/{name}` | Step-by-step execution trace |
+| `gitnexus://repo/Quillan-Ronin/context` | Codebase overview, check index freshness |
+| `gitnexus://repo/Quillan-Ronin/clusters` | All functional areas |
+| `gitnexus://repo/Quillan-Ronin/processes` | All execution flows |
+| `gitnexus://repo/Quillan-Ronin/process/{name}` | Step-by-step execution trace |
 
 ## CLI
 

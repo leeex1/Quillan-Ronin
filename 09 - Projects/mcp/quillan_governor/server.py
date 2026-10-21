@@ -45,8 +45,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import math
 import json
 import time
@@ -62,17 +60,6 @@ import psutil
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanGovernor")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_governor\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ─── 1. SYSTEM TELEMETRY & HEALTH CHECK ──────────────────────────────────────
-
-@mcp.tool()
-def governor_system_telemetry() -> Dict[str, Any]:
-    """Inspects live host system telemetry to ensure compute workloads don't freeze the desktop."""
-    vm = psutil.virtual_memory()
-    swap = psutil.swap_memory()
     cpu_percent = psutil.cpu_percent(interval=0.2)
     logical_cores = os.cpu_count() or 1
     physical_cores = psutil.cpu_count(logical=False) or logical_cores // 2

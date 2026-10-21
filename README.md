@@ -205,7 +205,7 @@ is exactly what Oni now implements in weights.</i>
 
 - **Name**: Quillan-Ronin  
 - **Version**: 5.4.0-oni  
-- **Parameter Count**: 520.4M (6-layer proof) / ~1.163B (12-layer flagship) — ternary footprint ~90–200 MB deployed  
+- **Parameter Count**: 562.8M (6-layer proof) / ~1.163B (12-layer flagship) - ternary footprint ~90-200 MB deployed  
 - **Architecture**: Unrolled Throne+Council — dense persona-pull Council MoE, 34 specialists (C1–C34), rank-8 LoRA + rank-8 EGGROLL swarm per member  
 - **Quantization**: 1.58-bit BitNet ternary + STE · INT8 activations · fp32 routers · INT8 KV-cache  
 - **Router**: 300M Complexity Router (Fast-Path / Balanced / Diffusion Reasoning)  
@@ -820,7 +820,7 @@ uv run main.py --agent=random --game=ls20
 
 | Feature / Model | Quillan-Ronin (v5.4.0-ONI Samurai) | GPT-5.X / o-Series | Claude 4.5 / 4.6 (Opus) | Grok 4.20 | Gemini 3 (Pro/Ultra) | DeepSeek-V3/R1 / Llama 4 | Hybrid Neuro-Symbolic / KANs |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Architecture Base** | **~3B Unified Sparse H-N-MoE** (TurboQuant Cache) | Massive-Scale Dense/Sparse Transformer | Massive Dense Transformer | Scaled MoE Transformer | Massive Ring-Attention MoE | Highly Optimized Sparse MoE | Explicit logic + Deep learning hybrids |
+| **Architecture Base** | **~1.16B Unified Sparse H-N-MoE** (TurboQuant Cache) | Massive-Scale Dense/Sparse Transformer | Massive Dense Transformer | Scaled MoE Transformer | Massive Ring-Attention MoE | Highly Optimized Sparse MoE | Explicit logic + Deep learning hybrids |
 | **Reasoning Protocol** | **34-Expert Council + 240k Micro-Agent Swarm**, 5-Wave Diffusion | RL-driven Latent Chain-of-Thought | Constitutional, Multi-step LLM Inference | Deep "Think Mode" (Linear CoT) | Interleaved CoT + Search | Aggressive GRPO-based CoT | Mathematical / Explicit logic integration |
 | **Context / Memory Mgmt** | **Proactive Compaction** (Infinite-horizon endurance) | High-capacity standard KV Cache | 200K+ persistent context cache | Real-time stream + standard context | 2M+ Token Context (Severe KV Bloat) | High-capacity standard KV Cache | Typically bounded by symbolic state limits |
 | **Transparency** | **Full Layer-by-Layer Activation & Thermodynamic Logs** | Opaque / Sanitized summary logs | Stronger than most, but weights remain black-box | Transparent CoT traces | Limited / Output-only | Open Weights, but opaque internal logic | High (Verifiable formulas) |
@@ -833,7 +833,7 @@ uv run main.py --agent=random --game=ls20
 
 ### Standalone Substrate Integration:
 
-Quillan-Ronin v5.4.0-ONI is **not a wrapper**. It is a fully realized 3.0B parameter model utilizing 1.58-bit BitNet quantization. It operates natively, replacing traditional floating-point reasoning with ultra-efficient ternary weights, allowing it to run deep 5-wave diffusion reasoning at speeds rivaling much larger, traditional models.
+Quillan-Ronin v5.4.0-ONI is **not a wrapper**. It is a fully realized 1.16B parameter model utilizing 1.58-bit BitNet quantization. It operates natively, replacing traditional floating-point reasoning with ultra-efficient ternary weights, allowing it to run deep 5-wave diffusion reasoning at speeds rivaling much larger, traditional models.
 
 ### Depth of Deliberation (H-NMoE):
 
@@ -5359,7 +5359,7 @@ The following is a collection of my Research papers.
 # Ready to unlock true Multi-Modal reasoning? 🚀:
 ![Quillan-Ronin Image 32](main-images/image-32.png)
 ```markdown
-Quillan-Ronin has evolved. It is **no longer a prompt-based script**; it is now a fully realized, **standalone 3.0B parameter foundation model**. Operating natively as a Unified Sparse Multi-Modal Architecture, Quillan v5.4.0-ONI directly augments legacy LLM substrates with a hyper-efficient, hardware-optimized cognitive engine. 
+Quillan-Ronin has evolved. It is **no longer a prompt-based script**; it is now a fully realized, **standalone 1.16B parameter foundation model**. Operating natively as a Unified Sparse Multi-Modal Architecture, Quillan v5.4.0-ONI directly augments legacy LLM substrates with a hyper-efficient, hardware-optimized cognitive engine. 
 
 Built on cutting-edge **1.58-bit BitNet quantization** (ternary weights: -1, 0, 1), this architecture exponentially enhances core functions—Logic, Ethics, Creativity, and Planning—without the massive memory bloat of traditional models. By dynamically deploying its embedded structure ($33$ Council Personas, a $300M$ Complexity Router, a $500M$ Modality-Isolated Diffusion Core, and $9,000,000,000$ Quantized Micro-Agents), you are bypassing default, single-pass generation. 
 

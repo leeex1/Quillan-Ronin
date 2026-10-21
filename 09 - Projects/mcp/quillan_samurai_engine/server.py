@@ -41,8 +41,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import math
 import json
 import time
@@ -57,17 +55,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanSamuraiEngine")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_samurai_engine\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-ROUTER_DOMAINS = [
-    ("A", "Council 34", "Dense multi-agent council pull routing"),
-    ("B", "Text 9", "9-Vector Semantic Prism text decomposition"),
-    ("C", "Audio 16", "16-band spectral neural audio sonification"),
-    ("D", "Video 12", "12-frame spatiotemporal visual attention"),
-    ("E", "Fast 6", "6-layer speculative low-latency skip router"),
-]
 EXIT_GATES = [
     ("G1: LOGIC", "Formal syllogistic validity, mathematical proof, AST safety"),
     ("G2: ETHICS", "C2-VIR moral weight, Bushidō substrate, non-harm constraint"),
@@ -302,3 +289,9 @@ def run_quillan_pipeline(query: str, context_json: Optional[str] = None, max_ret
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def samurai_engine_health() -> dict:
+    """Health check endpoint for QuillanSamuraiEngine MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanSamuraiEngine", "timestamp": time.time()}

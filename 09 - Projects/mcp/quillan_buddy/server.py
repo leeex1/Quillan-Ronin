@@ -46,8 +46,6 @@ for _bp in _BASE_PATHS:
 
 
 
-import sys
-import os
 import json
 import time
 import uuid
@@ -61,7 +59,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanRoninBuddy")
-
 CANONICAL_BUDDY_PERSONAS = {
     "C34-PREDATOR": {
         "title": "Adversarial Sparring Partner & Stress-Tester",
@@ -72,6 +69,7 @@ CANONICAL_BUDDY_PERSONAS = {
     "C2-VIR": {
         "title": "Ethical Invariant & Bushidō Sentinel",
         "stance": "Guards non-harm principles, checks user trust boundaries, prevents malicious drift.",
+
         "cluster": "cognitive",
         "prior": 0.95
     },
@@ -383,3 +381,9 @@ def buddy_list_twins() -> Dict[str, Any]:
 
 if __name__ == "__main__":
     mcp.run()
+
+@mcp.tool()
+def buddy_health() -> dict:
+    """Health check endpoint for QuillanRoninBuddy MCP server."""
+    import time
+    return {"status": "OK", "server": "QuillanRoninBuddy", "timestamp": time.time()}

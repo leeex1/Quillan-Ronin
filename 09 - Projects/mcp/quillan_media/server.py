@@ -16,6 +16,15 @@ C1-ASTRA (Vision), C8-METASYNTH (Fusion):
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import os
 import json
 import time
@@ -30,17 +39,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanMedia")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_media\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-QUALITY_TAGS = "masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering"
-NEGATIVE_TAGS = "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out"
-
-# ─── 1. IMAGE BRIEF ─────────────────────────────────────────────────────────
-
-@mcp.tool()
-def media_image_brief(objective: str, style: str = "stylized-painterly", composition: str = "rule-of-thirds wide", palette: str = "deep teal + burnished gold") -> Dict[str, Any]:
     """Build a strict image-generation brief (tool-ingestible JSON schema)."""
     return {
         "Objective": objective,

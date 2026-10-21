@@ -17,6 +17,15 @@ C27-CHRONICLE (Narrative), C23-CADENCE (Audio/Rhythm):
 """
 
 import sys
+# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
+import logging, builtins
+logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+_orig_print = builtins.print
+def _quillan_safe_print(*args, **kwargs):
+    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:
+        kwargs['file'] = sys.stderr
+    return _orig_print(*args, **kwargs)
+builtins.print = _quillan_safe_print
 import math
 import time
 import json
@@ -32,17 +41,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanGameDev")
-
-SESSION_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_gamedev\sessions")
-SESSION_DIR.mkdir(parents=True, exist_ok=True)
-
-ENGINE_SCAFFOLDS = {
-    "godot": ["project.godot", "scenes/main.tscn", "scripts/player.gd", "scripts/game_manager.gd", "assets/", "data/balance.json"],
-    "unity": ["Assets/Scenes/Main.unity", "Assets/Scripts/Player.cs", "Assets/Scripts/GameManager.cs", "ProjectSettings/", "data/balance.json"],
-    "unreal": ["Config/", "Content/Maps/Main.umap", "Source/Game/Player.cpp", "Source/Game/GameMode.cpp", "data/balance.json"],
-    "pygame": ["main.py", "game/player.py", "game/systems.py", "game/balance.json", "assets/", "tests/test_loop.py"],
-    "web": ["index.html", "src/main.ts", "src/systems/", "src/balance.json", "assets/", "tests/loop.test.ts"],
-}
 
 # ─── 1. NEW PROJECT ─────────────────────────────────────────────────────────
 

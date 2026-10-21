@@ -103,17 +103,6 @@ def _get_http() -> httpx.AsyncClient:
     return _client_holder["client"]
 
 mcp     = FastMCP("Quillan RAG", instructions="NIM-powered knowledge retrieval over Quillan's corpus")
-
-# Allowed root directory to prevent path traversal
-ALLOWED_ROOT = Path(r"C:\02_QUILLAN").resolve()
-
-# ── Helpers ───────────────────────────────────────────────────────────────────
-
-async def _embed(texts: list[str], input_type: str = "passage", max_retries: int = 4) -> list[list[float]]:
-    delay = 1.0
-    client = _get_http()
-    for attempt in range(max_retries):
-        try:
             r = await client.post(f"{NIM_BASE}/embeddings",
                 headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
                 json={"input": texts, "model": EMBED_MODEL, "input_type": input_type,
