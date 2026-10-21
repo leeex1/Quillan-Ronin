@@ -3,7 +3,7 @@
 **Account:** @Quillan_Ronin  
 **Login URL:** https://x.com/i/flow/login
 
-## Credentials (fill in locally — do not share)
+## Credentials
 
 | Field | Value |
 |-------|-------|
