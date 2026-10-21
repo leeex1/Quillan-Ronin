@@ -38,6 +38,8 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanWeb")
+
+def _detect_framework(s: str):
     if "next" in s:
         files = ["app/layout.tsx", "app/page.tsx"] + [f"app/{x.strip('/ ') or 'home'}/page.tsx" for x in r[1:]] + ["next.config.mjs", "tailwind.config.ts"]
     elif "astro" in s:

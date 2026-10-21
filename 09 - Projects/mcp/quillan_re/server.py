@@ -61,7 +61,6 @@ if sys.platform == "win32":
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanRE")
-    return int.from_bytes(data[off:off + size], "big")
 
 
 def extract_strings(data: bytes, min_len: int = 4) -> List[Dict[str, Any]]:
