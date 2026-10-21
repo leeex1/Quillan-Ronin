@@ -1,0 +1,3429 @@
+{
+  "version": "5.4.0-ONI",
+  "last_synced": "2026-10-21T15:10:01Z",
+  "summary": {
+    "quillan_mcp_servers": 19,
+    "quillan_mcp_tools": 202,
+    "standard_mcps": {
+      "servers": 13,
+      "tools": 130
+    },
+    "browser_namespace": {
+      "servers": 1,
+      "tools": 45
+    },
+    "opencode_namespace": {
+      "servers": 1,
+      "tools": 8
+    },
+    "total_servers": 34,
+    "total_tools": 385
+  },
+  "servers": {
+    "quillan_audio": {
+      "tool_count": 10,
+      "tools": [
+        {
+          "name": "audio_design_cue",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Design a music cue brief from mood + scene.",
+          "parameters": [
+            {
+              "name": "mood",
+              "type": "str"
+            },
+            {
+              "name": "scene",
+              "type": "str"
+            },
+            {
+              "name": "duration_sec",
+              "type": "int"
+            },
+            {
+              "name": "stems",
+              "type": "str"
+            }
+          ],
+          "lineno": 56
+        },
+        {
+          "name": "audio_analyze_track",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Lightweight Synesthesia-style analysis. Uses librosa/whisper if installed, else heuristic fallback.",
+          "parameters": [
+            {
+              "name": "source",
+              "type": "str"
+            }
+          ],
+          "lineno": 77
+        },
+        {
+          "name": "audio_mix_plan",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Build a mix bus plan with headroom targets.",
+          "parameters": [
+            {
+              "name": "stems",
+              "type": "str"
+            },
+            {
+              "name": "target_lufs",
+              "type": "float"
+            }
+          ],
+          "lineno": 118
+        },
+        {
+          "name": "audio_generate_sfx_brief",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Generate a layered SFX recipe.",
+          "parameters": [
+            {
+              "name": "action",
+              "type": "str"
+            },
+            {
+              "name": "material",
+              "type": "str"
+            },
+            {
+              "name": "perspective",
+              "type": "str"
+            }
+          ],
+          "lineno": 132
+        },
+        {
+          "name": "audio_director_note",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Design an adaptive music state machine for games.",
+          "parameters": [
+            {
+              "name": "states",
+              "type": "str"
+            }
+          ],
+          "lineno": 144
+        },
+        {
+          "name": "audio_full_pipeline",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Chain design_cue -> mix_plan -> director_note into one audio pipeline.",
+          "parameters": [
+            {
+              "name": "mood",
+              "type": "str"
+            },
+            {
+              "name": "scene",
+              "type": "str"
+            },
+            {
+              "name": "stems",
+              "type": "str"
+            },
+            {
+              "name": "target_lufs",
+              "type": "float"
+            },
+            {
+              "name": "states",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 153
+        },
+        {
+          "name": "audio_route",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 183
+        },
+        {
+          "name": "audio_health",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Audio project dashboard summary (deps + state).",
+          "parameters": [],
+          "lineno": 199
+        },
+        {
+          "name": "audio_session_list",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "List persisted audio sessions.",
+          "parameters": [],
+          "lineno": 232
+        },
+        {
+          "name": "audio_session_replay",
+          "server": "quillan_audio",
+          "is_async": false,
+          "description": "Replay a persisted audio session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 249
+        }
+      ]
+    },
+    "quillan_buddy": {
+      "tool_count": 8,
+      "tools": [
+        {
+          "name": "buddy_spawn_clone",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Clone the active agent into a specialized duo partner. Returns a twin_id\nthat can be used to address this specific twin in later calls.\n\nPersonas available:\n- 'C34-PREDATOR': Adversarial sparring partner, challenges assumptions.\n- 'C2-VIR': Ethical invariant & moral weight sentinel.\n- 'C7-LOGOS': Formal logic & mathematical verifier.\n- 'C10-CODEWEAVER': Senior code refactorer & architecture reviewer.\n- 'C13-WARDEN': Security threat-modeling & CWE auditor.",
+          "parameters": [
+            {
+              "name": "persona",
+              "type": "str"
+            },
+            {
+              "name": "role",
+              "type": "str"
+            },
+            {
+              "name": "custom_instructions",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 150
+        },
+        {
+          "name": "buddy_spar",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Submit a proposal, plan, or design to a twin for ruthless adversarial critique.",
+          "parameters": [
+            {
+              "name": "proposal",
+              "type": "str"
+            },
+            {
+              "name": "critique_focus",
+              "type": "str"
+            },
+            {
+              "name": "twin_id",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 184
+        },
+        {
+          "name": "buddy_duo_debate",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Run an automated dialectic debate between the Primary Agent and a Buddy Twin.",
+          "parameters": [
+            {
+              "name": "topic",
+              "type": "str"
+            },
+            {
+              "name": "primary_stance",
+              "type": "str"
+            },
+            {
+              "name": "turns",
+              "type": "int"
+            },
+            {
+              "name": "twin_id",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 221
+        },
+        {
+          "name": "buddy_code_review",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Have a shadow twin review code for defects, security weaknesses, and performance issues.",
+          "parameters": [
+            {
+              "name": "code",
+              "type": "str"
+            },
+            {
+              "name": "language",
+              "type": "str"
+            },
+            {
+              "name": "strictness",
+              "type": "str"
+            },
+            {
+              "name": "twin_id",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 254
+        },
+        {
+          "name": "buddy_mirror_collaborate",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Mirror-collaboration: primary and twin independently evaluate the same proposal,\nproduce separate outputs, then reconcile into a hardened consensus with a\ndiff/conflict report.\n\nReturns primary perspective, twin perspective, a diff/conflict report, and a\nhardened consensus recommendation.",
+          "parameters": [
+            {
+              "name": "proposal",
+              "type": "str"
+            },
+            {
+              "name": "twin_id",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "focus",
+              "type": "str"
+            }
+          ],
+          "lineno": 280
+        },
+        {
+          "name": "buddy_status",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Inspect a twin's (or all twins') profile, history, and alignment metrics.",
+          "parameters": [
+            {
+              "name": "twin_id",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 350
+        },
+        {
+          "name": "buddy_list_twins",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "List all active twin IDs and their personas.",
+          "parameters": [],
+          "lineno": 382
+        },
+        {
+          "name": "buddy_health",
+          "server": "quillan_buddy",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanRoninBuddy MCP server.",
+          "parameters": [],
+          "lineno": 410
+        }
+      ]
+    },
+    "quillan_code": {
+      "tool_count": 12,
+      "tools": [
+        {
+          "name": "codeweaver_ast_inspect",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Inspects Python code or a file path to return AST metrics, McCabe complexity, and typing coverage.",
+          "parameters": [
+            {
+              "name": "code_or_file_path",
+              "type": "str"
+            }
+          ],
+          "lineno": 137
+        },
+        {
+          "name": "codeweaver_security_scan",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Scans code or a file for security vulnerabilities, CWEs, and hygiene anti-patterns.",
+          "parameters": [
+            {
+              "name": "code_or_file_path",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 211
+        },
+        {
+          "name": "codeweaver_dependency_audit",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Audits imports in code/file for risky or deprecated modules.",
+          "parameters": [
+            {
+              "name": "code_or_file_path",
+              "type": "str"
+            }
+          ],
+          "lineno": 257
+        },
+        {
+          "name": "codeweaver_complexity_gate",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Enforces complexity and type-coverage thresholds.",
+          "parameters": [
+            {
+              "name": "code_or_file_path",
+              "type": "str"
+            },
+            {
+              "name": "max_complexity",
+              "type": "int"
+            },
+            {
+              "name": "min_type_coverage",
+              "type": "float"
+            }
+          ],
+          "lineno": 294
+        },
+        {
+          "name": "codeweaver_refactor_adviser",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Generates structured architectural refactoring advice.",
+          "parameters": [
+            {
+              "name": "function_code",
+              "type": "str"
+            },
+            {
+              "name": "goal",
+              "type": "str"
+            }
+          ],
+          "lineno": 320
+        },
+        {
+          "name": "codeweaver_test_scaffold",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Generates a comprehensive pytest unit test scaffold.",
+          "parameters": [
+            {
+              "name": "func_name",
+              "type": "str"
+            },
+            {
+              "name": "args_spec",
+              "type": "str"
+            },
+            {
+              "name": "expected_behavior",
+              "type": "str"
+            }
+          ],
+          "lineno": 355
+        },
+        {
+          "name": "codeweaver_diff_linter",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Validates a unified diff for header syntax, balanced hunk counts, and common diff errors.",
+          "parameters": [
+            {
+              "name": "diff_text",
+              "type": "str"
+            }
+          ],
+          "lineno": 394
+        },
+        {
+          "name": "codeweaver_fix_scaffold",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Generates a fix-it scaffold from security scan findings (CWE -> remediation stubs).",
+          "parameters": [
+            {
+              "name": "findings",
+              "type": "List[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 420
+        },
+        {
+          "name": "codeweaver_full_pipeline",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Runs AST inspect + security scan + dependency audit + complexity gate in one pipeline.",
+          "parameters": [
+            {
+              "name": "code_or_file_path",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 441
+        },
+        {
+          "name": "codeweaver_session_list",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "List persisted code sessions.",
+          "parameters": [],
+          "lineno": 474
+        },
+        {
+          "name": "codeweaver_session_replay",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Replay a persisted code session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 494
+        },
+        {
+          "name": "code_health",
+          "server": "quillan_code",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanCode MCP server.",
+          "parameters": [],
+          "lineno": 527
+        }
+      ]
+    },
+    "quillan_council": {
+      "tool_count": 8,
+      "tools": [
+        {
+          "name": "council_predator_strike",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Executes the C34-PREDATOR Kill-Loop: hunts and attacks the weakest assumption.",
+          "parameters": [
+            {
+              "name": "proposal",
+              "type": "str"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 162
+        },
+        {
+          "name": "council_challenge_expert",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "C34-PREDATOR attacks a specific expert's claim or view.",
+          "parameters": [
+            {
+              "name": "expert_name",
+              "type": "str"
+            },
+            {
+              "name": "claim",
+              "type": "str"
+            }
+          ],
+          "lineno": 201
+        },
+        {
+          "name": "council_cluster_deliberate",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Queries a specific wave cluster; each expert produces a domain-specific perspective.",
+          "parameters": [
+            {
+              "name": "cluster",
+              "type": "str"
+            },
+            {
+              "name": "query",
+              "type": "str"
+            }
+          ],
+          "lineno": 220
+        },
+        {
+          "name": "council_pull_weights",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Calculates dense pull-weights across all 34 council experts given problem domain tags.",
+          "parameters": [
+            {
+              "name": "domain_tags",
+              "type": "List[str]"
+            }
+          ],
+          "lineno": 243
+        },
+        {
+          "name": "council_full_deliberation",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Executes a full 4-stage council deliberation: Intake -> 4-Cluster Deliberation\n-> Predator Challenge -> Consensus Synthesis. Persists the session by default.",
+          "parameters": [
+            {
+              "name": "topic",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 273
+        },
+        {
+          "name": "council_session_list",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "List persisted deliberation sessions.",
+          "parameters": [],
+          "lineno": 329
+        },
+        {
+          "name": "council_session_replay",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Replay a persisted deliberation session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 349
+        },
+        {
+          "name": "council_health",
+          "server": "quillan_council",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanCouncil MCP server.",
+          "parameters": [],
+          "lineno": 383
+        }
+      ]
+    },
+    "quillan_gamedev": {
+      "tool_count": 10,
+      "tools": [
+        {
+          "name": "gamedev_new_project",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Scaffold a new game project with engine-agnostic structure and council guidance.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "genre",
+              "type": "str"
+            },
+            {
+              "name": "engine",
+              "type": "str"
+            },
+            {
+              "name": "scope",
+              "type": "str"
+            }
+          ],
+          "lineno": 57
+        },
+        {
+          "name": "gamedev_design_loop",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Turn fantasy + verbs into a testable core loop doc.",
+          "parameters": [
+            {
+              "name": "core_fantasy",
+              "type": "str"
+            },
+            {
+              "name": "player_verbs",
+              "type": "str"
+            },
+            {
+              "name": "progression",
+              "type": "str"
+            }
+          ],
+          "lineno": 83
+        },
+        {
+          "name": "gamedev_balance_economy",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Compute XP curve + economy sinks/sources table.",
+          "parameters": [
+            {
+              "name": "base_xp",
+              "type": "int"
+            },
+            {
+              "name": "growth",
+              "type": "float"
+            },
+            {
+              "name": "levels",
+              "type": "int"
+            },
+            {
+              "name": "sinks",
+              "type": "str"
+            }
+          ],
+          "lineno": 105
+        },
+        {
+          "name": "gamedev_simulate_playtest",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Run a lightweight archetype Monte-Carlo playtest simulation.",
+          "parameters": [
+            {
+              "name": "runs",
+              "type": "int"
+            },
+            {
+              "name": "win_rate_target",
+              "type": "float"
+            },
+            {
+              "name": "avg_run_min",
+              "type": "float"
+            }
+          ],
+          "lineno": 123
+        },
+        {
+          "name": "gamedev_review_build",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "C34-PREDATOR kill-loop review for a game build.",
+          "parameters": [
+            {
+              "name": "build_notes",
+              "type": "str"
+            }
+          ],
+          "lineno": 152
+        },
+        {
+          "name": "gamedev_full_pipeline",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Chain new project -> design loop -> balance economy -> simulate playtest -> review build.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "genre",
+              "type": "str"
+            },
+            {
+              "name": "engine",
+              "type": "str"
+            },
+            {
+              "name": "scope",
+              "type": "str"
+            },
+            {
+              "name": "core_fantasy",
+              "type": "str"
+            },
+            {
+              "name": "player_verbs",
+              "type": "str"
+            },
+            {
+              "name": "progression",
+              "type": "str"
+            },
+            {
+              "name": "base_xp",
+              "type": "int"
+            },
+            {
+              "name": "growth",
+              "type": "float"
+            },
+            {
+              "name": "levels",
+              "type": "int"
+            },
+            {
+              "name": "sinks",
+              "type": "str"
+            },
+            {
+              "name": "runs",
+              "type": "int"
+            },
+            {
+              "name": "win_rate_target",
+              "type": "float"
+            },
+            {
+              "name": "avg_run_min",
+              "type": "float"
+            },
+            {
+              "name": "build_notes",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 175
+        },
+        {
+          "name": "gamedev_route",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 213
+        },
+        {
+          "name": "gamedev_health",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Gamedev project dashboard summary.",
+          "parameters": [],
+          "lineno": 229
+        },
+        {
+          "name": "gamedev_session_list",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "List persisted gamedev sessions.",
+          "parameters": [],
+          "lineno": 255
+        },
+        {
+          "name": "gamedev_session_replay",
+          "server": "quillan_gamedev",
+          "is_async": false,
+          "description": "Replay a persisted gamedev session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 273
+        }
+      ]
+    },
+    "quillan_governor": {
+      "tool_count": 9,
+      "tools": [
+        {
+          "name": "governor_system_health",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Returns real-time CPU, RAM, and thermal telemetry for the host machine.",
+          "parameters": [],
+          "lineno": 73
+        },
+        {
+          "name": "governor_thread_budget",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Calculates the exact safe CPU thread allocation and process priority.",
+          "parameters": [
+            {
+              "name": "workload_type",
+              "type": "str"
+            }
+          ],
+          "lineno": 122
+        },
+        {
+          "name": "governor_optimizer_ram_calc",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Accurately calculates memory footprint (RAM) for model training.",
+          "parameters": [
+            {
+              "name": "param_count_millions",
+              "type": "float"
+            },
+            {
+              "name": "optimizer",
+              "type": "str"
+            },
+            {
+              "name": "trainable_ratio",
+              "type": "float"
+            },
+            {
+              "name": "batch_size",
+              "type": "int"
+            },
+            {
+              "name": "seq_len",
+              "type": "int"
+            },
+            {
+              "name": "hidden_dim",
+              "type": "int"
+            },
+            {
+              "name": "n_layers",
+              "type": "int"
+            }
+          ],
+          "lineno": 167
+        },
+        {
+          "name": "governor_velocity_tune",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Applies the LeeMach6 Velocity Governor algorithm to tune training throughput.",
+          "parameters": [
+            {
+              "name": "current_step_time_ms",
+              "type": "float"
+            },
+            {
+              "name": "target_step_time_ms",
+              "type": "float"
+            },
+            {
+              "name": "current_loss",
+              "type": "Optional[float]"
+            }
+          ],
+          "lineno": 221
+        },
+        {
+          "name": "governor_full_pipeline",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Chain telemetry -> thread budget -> ram calc -> velocity tune -> health summary.",
+          "parameters": [
+            {
+              "name": "param_count_millions",
+              "type": "float"
+            },
+            {
+              "name": "optimizer",
+              "type": "str"
+            },
+            {
+              "name": "trainable_ratio",
+              "type": "float"
+            },
+            {
+              "name": "batch_size",
+              "type": "int"
+            },
+            {
+              "name": "seq_len",
+              "type": "int"
+            },
+            {
+              "name": "hidden_dim",
+              "type": "int"
+            },
+            {
+              "name": "n_layers",
+              "type": "int"
+            },
+            {
+              "name": "workload_type",
+              "type": "str"
+            },
+            {
+              "name": "current_step_time_ms",
+              "type": "float"
+            },
+            {
+              "name": "target_step_time_ms",
+              "type": "float"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 252
+        },
+        {
+          "name": "governor_route",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 292
+        },
+        {
+          "name": "governor_health",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Governor dashboard summary (telemetry + budget + ram + velocity).",
+          "parameters": [],
+          "lineno": 308
+        },
+        {
+          "name": "governor_session_list",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "List persisted governor sessions.",
+          "parameters": [],
+          "lineno": 336
+        },
+        {
+          "name": "governor_session_replay",
+          "server": "quillan_governor",
+          "is_async": false,
+          "description": "Replay a persisted governor session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 353
+        }
+      ]
+    },
+    "quillan_media": {
+      "tool_count": 9,
+      "tools": [
+        {
+          "name": "media_image_brief",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Build a strict image-generation brief (tool-ingestible JSON schema).",
+          "parameters": [
+            {
+              "name": "objective",
+              "type": "str"
+            },
+            {
+              "name": "style",
+              "type": "str"
+            },
+            {
+              "name": "composition",
+              "type": "str"
+            },
+            {
+              "name": "palette",
+              "type": "str"
+            }
+          ],
+          "lineno": 52
+        },
+        {
+          "name": "media_video_brief",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Build a short video/shot brief.",
+          "parameters": [
+            {
+              "name": "beats",
+              "type": "str"
+            },
+            {
+              "name": "duration_s",
+              "type": "int"
+            },
+            {
+              "name": "camera",
+              "type": "str"
+            }
+          ],
+          "lineno": 70
+        },
+        {
+          "name": "media_character_sheet",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Create a reusable character bible for consistency across generations.",
+          "parameters": [
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "role",
+              "type": "str"
+            },
+            {
+              "name": "traits",
+              "type": "str"
+            }
+          ],
+          "lineno": 87
+        },
+        {
+          "name": "media_prompt_enhance",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Enhance a raw prompt with Quillan aesthetic boosters.",
+          "parameters": [
+            {
+              "name": "raw_prompt",
+              "type": "str"
+            }
+          ],
+          "lineno": 102
+        },
+        {
+          "name": "media_full_pipeline",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Chain image brief -> video brief -> character sheet -> prompt enhance.",
+          "parameters": [
+            {
+              "name": "objective",
+              "type": "str"
+            },
+            {
+              "name": "style",
+              "type": "str"
+            },
+            {
+              "name": "composition",
+              "type": "str"
+            },
+            {
+              "name": "palette",
+              "type": "str"
+            },
+            {
+              "name": "beats",
+              "type": "str"
+            },
+            {
+              "name": "duration_s",
+              "type": "int"
+            },
+            {
+              "name": "camera",
+              "type": "str"
+            },
+            {
+              "name": "name",
+              "type": "str"
+            },
+            {
+              "name": "role",
+              "type": "str"
+            },
+            {
+              "name": "traits",
+              "type": "str"
+            },
+            {
+              "name": "raw_prompt",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 110
+        },
+        {
+          "name": "media_route",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 146
+        },
+        {
+          "name": "media_health",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Media project dashboard summary.",
+          "parameters": [],
+          "lineno": 162
+        },
+        {
+          "name": "media_session_list",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "List persisted media sessions.",
+          "parameters": [],
+          "lineno": 188
+        },
+        {
+          "name": "media_session_replay",
+          "server": "quillan_media",
+          "is_async": false,
+          "description": "Replay a persisted media session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 206
+        }
+      ]
+    },
+    "quillan_model_lab": {
+      "tool_count": 9,
+      "tools": [
+        {
+          "name": "model_checkpoint_inspect",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Inspect a Quillan checkpoint file and return metadata.",
+          "parameters": [
+            {
+              "name": "checkpoint_path",
+              "type": "str"
+            }
+          ],
+          "lineno": 73
+        },
+        {
+          "name": "model_dataset_validator",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Validates and profiles a JSONL training dataset for question/response coverage, char lengths, and formatting.",
+          "parameters": [
+            {
+              "name": "jsonl_path",
+              "type": "str"
+            },
+            {
+              "name": "max_samples",
+              "type": "int"
+            }
+          ],
+          "lineno": 82
+        },
+        {
+          "name": "model_hardware_advisor",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Calculates safe memory allocations and thread caps to guarantee 0% desktop stutter.",
+          "parameters": [
+            {
+              "name": "model_param_millions",
+              "type": "float"
+            }
+          ],
+          "lineno": 139
+        },
+        {
+          "name": "model_bitnet_analyze",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Analyzes a checkpoint for BitNet 1.58-bit ternary quantization viability.",
+          "parameters": [
+            {
+              "name": "checkpoint_path",
+              "type": "str"
+            }
+          ],
+          "lineno": 169
+        },
+        {
+          "name": "model_lab_full_pipeline",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Chain checkpoint inspect -> dataset validate -> hardware advisor -> bitnet analyzer.",
+          "parameters": [
+            {
+              "name": "checkpoint_path",
+              "type": "str"
+            },
+            {
+              "name": "jsonl_path",
+              "type": "str"
+            },
+            {
+              "name": "model_param_millions",
+              "type": "float"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 222
+        },
+        {
+          "name": "model_lab_route",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 256
+        },
+        {
+          "name": "model_lab_health",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Model lab dashboard summary.",
+          "parameters": [],
+          "lineno": 272
+        },
+        {
+          "name": "model_lab_session_list",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "List persisted model lab sessions.",
+          "parameters": [],
+          "lineno": 299
+        },
+        {
+          "name": "model_lab_session_replay",
+          "server": "quillan_model_lab",
+          "is_async": false,
+          "description": "Replay a persisted model lab session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 318
+        }
+      ]
+    },
+    "quillan_ops": {
+      "tool_count": 7,
+      "tools": [
+        {
+          "name": "ops_task_graph",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Decompose a goal into a gated DAG.",
+          "parameters": [
+            {
+              "name": "goal",
+              "type": "str"
+            },
+            {
+              "name": "max_steps",
+              "type": "int"
+            }
+          ],
+          "lineno": 52
+        },
+        {
+          "name": "ops_guardrail_check",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Pre-execution risk tier gating (low/medium/high/blocked).",
+          "parameters": [
+            {
+              "name": "action_desc",
+              "type": "str"
+            }
+          ],
+          "lineno": 70
+        },
+        {
+          "name": "ops_health",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Snapshot repo hygiene (no secrets read, only metadata). Deep mode adds git status, secret scan, large files.",
+          "parameters": [
+            {
+              "name": "repo_path",
+              "type": "str"
+            },
+            {
+              "name": "deep",
+              "type": "bool"
+            }
+          ],
+          "lineno": 83
+        },
+        {
+          "name": "ops_release_note",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Build a conventional release note.",
+          "parameters": [
+            {
+              "name": "version",
+              "type": "str"
+            },
+            {
+              "name": "highlights",
+              "type": "str"
+            },
+            {
+              "name": "fixes",
+              "type": "str"
+            }
+          ],
+          "lineno": 144
+        },
+        {
+          "name": "ops_full_pipeline",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Chain task_graph -> guardrail_check -> health -> release_note into one pipeline.",
+          "parameters": [
+            {
+              "name": "goal",
+              "type": "str"
+            },
+            {
+              "name": "action_desc",
+              "type": "str"
+            },
+            {
+              "name": "repo_path",
+              "type": "str"
+            },
+            {
+              "name": "version",
+              "type": "str"
+            },
+            {
+              "name": "highlights",
+              "type": "str"
+            },
+            {
+              "name": "fixes",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 152
+        },
+        {
+          "name": "ops_session_list",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "List persisted ops sessions.",
+          "parameters": [],
+          "lineno": 191
+        },
+        {
+          "name": "ops_session_replay",
+          "server": "quillan_ops",
+          "is_async": false,
+          "description": "Replay a persisted ops session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 211
+        }
+      ]
+    },
+    "quillan_orchestrator": {
+      "tool_count": 5,
+      "tools": [
+        {
+          "name": "orchestrator_chain",
+          "server": "quillan_orchestrator",
+          "is_async": false,
+          "description": "Execute a full multi-MCP pipeline for a high-level objective.\n\nChains available:\n  reverse_engineer   → spider → code → council → buddy → team\n  web_recon          → spider → web → code → council → team\n  code_audit         → code → council → buddy → team\n  research           → rag → code → council → team\n  game_dev           → gamedev → code → council → team\n  media_gen          → media → code → council → team\n\nArgs:\n    objective: High-level goal (e.g., \"reverse engineer this binary\", \"audit this codebase\")\n    chain: Which chain to run (reverse_engineer, web_recon, code_audit, research, game_dev, media_gen)\n    path: File/directory path to analyze (for code/binary targets)\n    persist: Save session to disk",
+          "parameters": [
+            {
+              "name": "objective",
+              "type": "str"
+            },
+            {
+              "name": "chain",
+              "type": "str"
+            },
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 163
+        },
+        {
+          "name": "orchestrator_reverse_engineer",
+          "server": "quillan_orchestrator",
+          "is_async": false,
+          "description": "Reverse engineer a binary/file: crawl → scan → council → buddy → merge.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 266
+        },
+        {
+          "name": "orchestrator_health",
+          "server": "quillan_orchestrator",
+          "is_async": true,
+          "description": "Dashboard summary across all MCPs.",
+          "parameters": [],
+          "lineno": 356
+        },
+        {
+          "name": "orchestrator_session_list",
+          "server": "quillan_orchestrator",
+          "is_async": false,
+          "description": "List persisted orchestrator sessions.",
+          "parameters": [],
+          "lineno": 380
+        },
+        {
+          "name": "orchestrator_session_replay",
+          "server": "quillan_orchestrator",
+          "is_async": false,
+          "description": "Replay a persisted orchestrator session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 400
+        }
+      ]
+    },
+    "quillan_orochi": {
+      "tool_count": 11,
+      "tools": [
+        {
+          "name": "orochi_mutate_prompt",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Generate mutated prompt variants from a base system prompt.\n\nOrochi self-modification primitive: produces n candidate prompt rewrites\nusing perturbation strategies (emphasize_ethics, deepen_reasoning,\ntighten_format, add_council_focus, reorder_clauses, strengthen_truth,\nadd_velocity_note, soften_tone).",
+          "parameters": [
+            {
+              "name": "base_prompt",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "n_variants",
+              "type": "int"
+            },
+            {
+              "name": "strategy",
+              "type": "str"
+            }
+          ],
+          "lineno": 131
+        },
+        {
+          "name": "orochi_evolve_weights",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Generate EGGROLL low-rank weight-delta proposals.\n\nInstead of mutating full weight matrices (dangerous, OOM-prone), Orochi\nproposes low-rank deltas ΔW = U @ V^T where U,V are rank-`rank` matrices.\nEach proposal is stored as a staged weight snapshot, ready for the\norchestrator to apply after Nemesis-Alpha evaluation passes.",
+          "parameters": [
+            {
+              "name": "layer_name",
+              "type": "str"
+            },
+            {
+              "name": "rank",
+              "type": "int"
+            },
+            {
+              "name": "n_proposals",
+              "type": "int"
+            },
+            {
+              "name": "sigma",
+              "type": "float"
+            }
+          ],
+          "lineno": 177
+        },
+        {
+          "name": "orochi_evaluate",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Nemesis-Alpha adversarial evaluation.\n\nThe challenger (default C34-PREDATOR) attacks the weakest assumption in the\ncandidate prompt/weight config and returns a verdict:\nPASS / CHALLENGED / FAIL. If CHALLENGED, the candidate needs hardening\nbefore deployment.",
+          "parameters": [
+            {
+              "name": "prompt",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "weight_proposal_id",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "challenger_persona",
+              "type": "str"
+            }
+          ],
+          "lineno": 233
+        },
+        {
+          "name": "orochi_auto_improve",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Full Orochi auto-improvement loop: Evaluate -> Mutate -> Select -> Deploy.\n\nEach cycle:\n  1. Evaluate current best prompt via Nemesis-Alpha\n  2. Mutate to produce variants\n  3. Evaluate each variant\n  4. Select the highest-integrity variant that passes\n  5. If integrity >= min_integrity and verdict PASS -> deploy (save as active)\n\nReturns the full cycle history and the deployed prompt.",
+          "parameters": [
+            {
+              "name": "base_prompt",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "max_cycles",
+              "type": "int"
+            },
+            {
+              "name": "min_integrity",
+              "type": "float"
+            }
+          ],
+          "lineno": 319
+        },
+        {
+          "name": "orochi_snapshot",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Save an Orochi state snapshot (prompt + weight proposals + metadata).",
+          "parameters": [
+            {
+              "name": "label",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "prompt",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "weight_proposals",
+              "type": "Optional[List[Dict[str, Any]]]"
+            }
+          ],
+          "lineno": 419
+        },
+        {
+          "name": "orochi_rollback",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Roll back Orochi state to a previous snapshot by ID.",
+          "parameters": [
+            {
+              "name": "snapshot_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 442
+        },
+        {
+          "name": "orochi_full_pipeline",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Chain: mutate -> evaluate -> auto-improve -> snapshot.\n\nThe canonical Orochi self-evolution entry point. Returns the deployed\nprompt and a snapshot id for rollback.",
+          "parameters": [
+            {
+              "name": "base_prompt",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "max_cycles",
+              "type": "int"
+            },
+            {
+              "name": "min_integrity",
+              "type": "float"
+            }
+          ],
+          "lineno": 465
+        },
+        {
+          "name": "orochi_route",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Cross-MCP routing for Orochi evolved artifacts.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 493
+        },
+        {
+          "name": "orochi_health",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Orochi engine dashboard summary.",
+          "parameters": [],
+          "lineno": 513
+        },
+        {
+          "name": "orochi_session_list",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "List persisted Orochi sessions.",
+          "parameters": [],
+          "lineno": 557
+        },
+        {
+          "name": "orochi_session_replay",
+          "server": "quillan_orochi",
+          "is_async": false,
+          "description": "Replay a persisted Orochi session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 576
+        }
+      ]
+    },
+    "quillan_prism": {
+      "tool_count": 9,
+      "tools": [
+        {
+          "name": "prism_decompose",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Deconstructs any task, prompt, or technical problem across the 9 canonical Quillan vectors.",
+          "parameters": [
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 157
+        },
+        {
+          "name": "prism_threat_model",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Generates the canonical Quillan-Ronin 3-row mini threat model table.",
+          "parameters": [
+            {
+              "name": "feature",
+              "type": "str"
+            },
+            {
+              "name": "assets",
+              "type": "Optional[List[str]]"
+            }
+          ],
+          "lineno": 171
+        },
+        {
+          "name": "prism_bushido_gate",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Evaluates an action, plan, or response against the 7 Bushido virtues.",
+          "parameters": [
+            {
+              "name": "action_or_output",
+              "type": "str"
+            }
+          ],
+          "lineno": 179
+        },
+        {
+          "name": "prism_reconcile",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Detects cross-vector conflicts and produces a reconciled plan.",
+          "parameters": [
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 195
+        },
+        {
+          "name": "prism_score",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Aggregates a prism score across all 9 vectors.",
+          "parameters": [
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 230
+        },
+        {
+          "name": "prism_full_pipeline",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Runs decompose + threat_model + bushido_gate + reconcile + score in one pipeline.",
+          "parameters": [
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "feature",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 251
+        },
+        {
+          "name": "prism_session_list",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "List persisted prism sessions.",
+          "parameters": [],
+          "lineno": 290
+        },
+        {
+          "name": "prism_session_replay",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Replay a persisted prism session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 310
+        },
+        {
+          "name": "prism_health",
+          "server": "quillan_prism",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanPrism MCP server.",
+          "parameters": [],
+          "lineno": 343
+        }
+      ]
+    },
+    "quillan_rag": {
+      "tool_count": 11,
+      "tools": [
+        {
+          "name": "ingest_file",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Ingest a file into Quillan's RAG knowledge base. Supports .txt .md .pdf .py .json .lrc",
+          "parameters": [
+            {
+              "name": "file_path",
+              "type": "str"
+            },
+            {
+              "name": "metadata",
+              "type": "Optional[dict]"
+            }
+          ],
+          "lineno": 178
+        },
+        {
+          "name": "ingest_folder",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Recursively ingest all matching files from a folder. Default exts: .md .txt .py .lrc .json .pdf",
+          "parameters": [
+            {
+              "name": "folder_path",
+              "type": "str"
+            },
+            {
+              "name": "extensions",
+              "type": "Optional[list[str]]"
+            },
+            {
+              "name": "metadata",
+              "type": "Optional[dict]"
+            }
+          ],
+          "lineno": 210
+        },
+        {
+          "name": "search",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Semantic search over Quillan's knowledge base. Returns ranked snippets with source info.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "n_results",
+              "type": "int"
+            },
+            {
+              "name": "filter_source_type",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 233
+        },
+        {
+          "name": "ask",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Ask Quillan's knowledge base a question. RAG-grounded answer with citations.",
+          "parameters": [
+            {
+              "name": "question",
+              "type": "str"
+            },
+            {
+              "name": "n_context",
+              "type": "int"
+            },
+            {
+              "name": "max_tokens",
+              "type": "int"
+            }
+          ],
+          "lineno": 247
+        },
+        {
+          "name": "kb_stats",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Get statistics about Quillan's knowledge base: chunk count, file types, storage info.",
+          "parameters": [],
+          "lineno": 266
+        },
+        {
+          "name": "delete_source",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Remove all chunks for a specific file from the knowledge base.",
+          "parameters": [
+            {
+              "name": "filename",
+              "type": "str"
+            }
+          ],
+          "lineno": 282
+        },
+        {
+          "name": "rag_full_pipeline",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Chain ingest folder -> search -> ask -> kb_stats into one RAG pipeline.",
+          "parameters": [
+            {
+              "name": "folder_path",
+              "type": "str"
+            },
+            {
+              "name": "question",
+              "type": "str"
+            },
+            {
+              "name": "n_context",
+              "type": "int"
+            },
+            {
+              "name": "extensions",
+              "type": "Optional[list[str]]"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 293
+        },
+        {
+          "name": "rag_route",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 327
+        },
+        {
+          "name": "rag_health",
+          "server": "quillan_rag",
+          "is_async": false,
+          "description": "Knowledge base dashboard summary.",
+          "parameters": [],
+          "lineno": 343
+        },
+        {
+          "name": "rag_session_list",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "List persisted RAG sessions.",
+          "parameters": [],
+          "lineno": 379
+        },
+        {
+          "name": "rag_session_replay",
+          "server": "quillan_rag",
+          "is_async": true,
+          "description": "Replay a persisted RAG session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 396
+        }
+      ]
+    },
+    "quillan_re": {
+      "tool_count": 16,
+      "tools": [
+        {
+          "name": "re_analyze_binary",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze a binary file (PE/ELF/APK/RAW) — headers, sections, imports, exports, strings.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 431
+        },
+        {
+          "name": "re_extract_strings",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Extract ASCII and UTF-16LE strings from any file.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "min_len",
+              "type": "int"
+            },
+            {
+              "name": "max_count",
+              "type": "int"
+            }
+          ],
+          "lineno": 459
+        },
+        {
+          "name": "re_find_symbols",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Find symbol names (imports/exports) in a binary.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "symbol_filter",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 476
+        },
+        {
+          "name": "re_trace_calls",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Trace call relationships between modules/functions from import/export data.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 507
+        },
+        {
+          "name": "re_decompile_stub",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Generate a pseudocode-style decompilation scaffold for a binary/symbol.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "symbol",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 531
+        },
+        {
+          "name": "re_analyze_apk",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze an Android APK (ZIP) — manifest, dex, resources.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 568
+        },
+        {
+          "name": "re_analyze_dotnet",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze a .NET assembly — metadata, types, methods.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 577
+        },
+        {
+          "name": "re_analyze_sqlite",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze a SQLite database — schema, tables, indexes.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 587
+        },
+        {
+          "name": "re_analyze_pcap",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze a packet capture — endpoints, DNS, TLS SNI, HTTP.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 597
+        },
+        {
+          "name": "re_analyze_web",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze website HTML — scripts, forms, links, structure.",
+          "parameters": [
+            {
+              "name": "html",
+              "type": "str"
+            }
+          ],
+          "lineno": 607
+        },
+        {
+          "name": "re_analyze_firmware",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Analyze firmware binary — regions, entropy, embedded strings.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            }
+          ],
+          "lineno": 623
+        },
+        {
+          "name": "re_full_pipeline",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Chain: binary inspect → strings → symbols → calls → report.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 655
+        },
+        {
+          "name": "re_route",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 695
+        },
+        {
+          "name": "re_health",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "RE engine dashboard summary.",
+          "parameters": [],
+          "lineno": 712
+        },
+        {
+          "name": "re_session_list",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "List persisted RE sessions.",
+          "parameters": [],
+          "lineno": 740
+        },
+        {
+          "name": "re_session_replay",
+          "server": "quillan_re",
+          "is_async": false,
+          "description": "Replay a persisted RE session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 759
+        }
+      ]
+    },
+    "quillan_samurai_engine": {
+      "tool_count": 7,
+      "tools": [
+        {
+          "name": "samurai_full_pipeline",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Execute the full 5-Cycle Samurai Thinking Section Flowchart with real gate evaluation.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 147
+        },
+        {
+          "name": "samurai_cycle_step",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Execute a single cycle (1 to 5) of the Samurai Flowchart with detailed wave inspection.",
+          "parameters": [
+            {
+              "name": "cycle_number",
+              "type": "int"
+            },
+            {
+              "name": "query",
+              "type": "str"
+            }
+          ],
+          "lineno": 211
+        },
+        {
+          "name": "samurai_gate_check",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Test a proposal or code block against all 6 Samurai Exit Gates (G1-G6) with real evaluation.",
+          "parameters": [
+            {
+              "name": "proposal",
+              "type": "str"
+            }
+          ],
+          "lineno": 235
+        },
+        {
+          "name": "samurai_session_list",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "List persisted samurai sessions.",
+          "parameters": [],
+          "lineno": 250
+        },
+        {
+          "name": "samurai_session_replay",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Replay a persisted samurai session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 270
+        },
+        {
+          "name": "run_quillan_pipeline",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Execute the deterministic 6-stage Quillan-Ronin v5.4.0-ONI MCP Chain Bus.\nChains QuillanPrism -> QuillanGovernor -> QuillanCouncil -> ThinkingEngine -> SamuraiEngine -> QuillanRAG.\nPersists correlation_id and telemetry to C:\\02_QUILLAN\\07 - Memory & LanceDB\\chain_state.json.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "context_json",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "max_retries",
+              "type": "int"
+            }
+          ],
+          "lineno": 285
+        },
+        {
+          "name": "samurai_engine_health",
+          "server": "quillan_samurai_engine",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanSamuraiEngine MCP server.",
+          "parameters": [],
+          "lineno": 318
+        }
+      ]
+    },
+    "quillan_spider": {
+      "tool_count": 20,
+      "tools": [
+        {
+          "name": "spider_crawl",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Crawl a repo root BFS-style, emitting a watchable trail + graph.\nArgs:\n    root: Directory to crawl.\n    max_files: Cap trail events (10-1000).\n    exts: Comma extensions to include for files (dirs always included).",
+          "parameters": [
+            {
+              "name": "root",
+              "type": "str"
+            },
+            {
+              "name": "max_files",
+              "type": "int"
+            },
+            {
+              "name": "exts",
+              "type": "str"
+            }
+          ],
+          "lineno": 279
+        },
+        {
+          "name": "spider_status",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Where is the spider right now? (reads trail.json).",
+          "parameters": [],
+          "lineno": 303
+        },
+        {
+          "name": "spider_map",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Return nodes + edges for canvas rendering (dashboard polls this or trail.json).",
+          "parameters": [],
+          "lineno": 314
+        },
+        {
+          "name": "spider_crawl_live",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "LIVE crawl: spider writes trail.json AFTER EVERY FILE so the viewer follows in real time.\nKeep max_files ~60-150 and delay 80-200ms for a watchable walk. Run it, then watch the viewer.\nArgs:\n    root: Directory to crawl.\n    max_files: Cap events (10-500).\n    delay_ms: Pause per file so human eyes can follow (20-500).\n    exts: Comma extensions for files (dirs always included).",
+          "parameters": [
+            {
+              "name": "root",
+              "type": "str"
+            },
+            {
+              "name": "max_files",
+              "type": "int"
+            },
+            {
+              "name": "delay_ms",
+              "type": "int"
+            },
+            {
+              "name": "exts",
+              "type": "str"
+            }
+          ],
+          "lineno": 324
+        },
+        {
+          "name": "spider_work",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "WORKING BOT: spider performs REAL coding tasks file-by-file with streaming trail.\njob=scan: read + security/quality scan each .py (real findings).\njob=tests: scan + write a test scaffold suggestion per file with findings.\njob=docs: scan + record docstring coverage per file.\nWatch the viewer: action badge shows SCANNING/TESTING/DOCS + findings live.\nArgs:\n    root: Directory to work through.\n    job: scan, tests, or docs.\n    max_files: Cap files (5-80).\n    delay_ms: Pause per file for watchability (100-600).",
+          "parameters": [
+            {
+              "name": "root",
+              "type": "str"
+            },
+            {
+              "name": "job",
+              "type": "str"
+            },
+            {
+              "name": "max_files",
+              "type": "int"
+            },
+            {
+              "name": "delay_ms",
+              "type": "int"
+            }
+          ],
+          "lineno": 451
+        },
+        {
+          "name": "spider_task_submit",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Queue a task for the spider. Spider: idle -> QUEUED. Run spider_work_next to execute.\nArgs:\n    task: Human task, e.g. 'scan mcp for exec/eval + wire modules'.\n    job: scan, tests, or docs.\n    root: Directory to work through.\n    max_files: Cap files (5-80).",
+          "parameters": [
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "job",
+              "type": "str"
+            },
+            {
+              "name": "root",
+              "type": "str"
+            },
+            {
+              "name": "max_files",
+              "type": "int"
+            }
+          ],
+          "lineno": 571
+        },
+        {
+          "name": "spider_tasks",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "List task queue (QUEUED/WORKING/DONE). Spider is IDLE when nothing open.",
+          "parameters": [],
+          "lineno": 593
+        },
+        {
+          "name": "spider_work_next",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Execute next QUEUED task: crawl files -> wire modules -> detailed report (what changed + why) -> IDLE.",
+          "parameters": [
+            {
+              "name": "delay_ms",
+              "type": "int"
+            }
+          ],
+          "lineno": 610
+        },
+        {
+          "name": "spider_memory",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Inspect the persistent memory graph: accumulated repo knowledge across all runs.\nArgs:\n    top: How many top-visited / most-wired nodes to list.",
+          "parameters": [
+            {
+              "name": "top",
+              "type": "int"
+            }
+          ],
+          "lineno": 646
+        },
+        {
+          "name": "spider_census",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Fast stat-only census of EVERY file under root (no content reads).\nRecords per-sector + per-extension aggregates into the memory graph so the\nweb shows the full 100k+ docs, not just deep-scanned .py files. Deep scan\nstays .py-only via spider_work; census gives the map, work gives the detail.\nProgress events stream throttled; trail stays capped; memory keeps totals.\nArgs:\n    root: Directory to census.",
+          "parameters": [
+            {
+              "name": "root",
+              "type": "str"
+            }
+          ],
+          "lineno": 670
+        },
+        {
+          "name": "spider_sweep",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Work only .py files changed since since_ts (mtime). Event-driven, no artificial pacing.\nReturns new watermark (pass back as since_ts). Powers the continuous watcher.\nArgs:\n    root: Directory to sweep.\n    since_ts: Epoch watermark; only files newer than this are worked.\n    delay_ms: Optional watchability pause (0 = full speed).",
+          "parameters": [
+            {
+              "name": "root",
+              "type": "str"
+            },
+            {
+              "name": "since_ts",
+              "type": "float"
+            },
+            {
+              "name": "delay_ms",
+              "type": "int"
+            }
+          ],
+          "lineno": 779
+        },
+        {
+          "name": "spider_read_file",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Inspect and read lines of a specific file, page, or directory directly for the HUD viewer.",
+          "parameters": [
+            {
+              "name": "path",
+              "type": "str"
+            },
+            {
+              "name": "max_lines",
+              "type": "int"
+            }
+          ],
+          "lineno": 873
+        },
+        {
+          "name": "spider_crawl_page",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Crawl a local HTML document or remote URL and record a live trail event.",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "str"
+            }
+          ],
+          "lineno": 963
+        },
+        {
+          "name": "spider_quillan_takeover",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "⚡ QUILLAN TAKEOVER: Quillan takes direct autonomous control of the spider bot.\nThe spider crawls through target files and pages, reading code, analyzing AST,\nand recording step-by-step thoughts into the live dashboard stream.",
+          "parameters": [
+            {
+              "name": "mission",
+              "type": "str"
+            },
+            {
+              "name": "target_dir",
+              "type": "str"
+            },
+            {
+              "name": "max_files",
+              "type": "int"
+            },
+            {
+              "name": "delay_ms",
+              "type": "int"
+            }
+          ],
+          "lineno": 1003
+        },
+        {
+          "name": "spider_summary",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Produce a digest summary of the last crawl: top findings, wired modules, census totals.",
+          "parameters": [
+            {
+              "name": "top",
+              "type": "int"
+            }
+          ],
+          "lineno": 1197
+        },
+        {
+          "name": "spider_route_findings",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Format the last crawl's findings as a payload ready to pass to another MCP.\n\ntarget_mcp: 'code' (QuillanCode scan), 'council' (predator strike), or 'buddy' (code review).\nReturns a structured payload the model can forward to the chosen MCP tool.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            }
+          ],
+          "lineno": 1227
+        },
+        {
+          "name": "spider_session_save",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Persist the current trail + memory graph as a named session.",
+          "parameters": [
+            {
+              "name": "label",
+              "type": "str"
+            }
+          ],
+          "lineno": 1258
+        },
+        {
+          "name": "spider_session_list",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "List persisted spider sessions.",
+          "parameters": [],
+          "lineno": 1286
+        },
+        {
+          "name": "spider_session_replay",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Replay a persisted spider session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 1306
+        },
+        {
+          "name": "spider_health",
+          "server": "quillan_spider",
+          "is_async": false,
+          "description": "Health check endpoint for QuillanSpider MCP server.",
+          "parameters": [],
+          "lineno": 1339
+        }
+      ]
+    },
+    "quillan_team": {
+      "tool_count": 11,
+      "tools": [
+        {
+          "name": "team_spawn_crew",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Stand up a team-mode crew for an objective.",
+          "parameters": [
+            {
+              "name": "objective",
+              "type": "str"
+            },
+            {
+              "name": "roles",
+              "type": "str"
+            }
+          ],
+          "lineno": 87
+        },
+        {
+          "name": "team_dispatch",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Dispatch a task slice to a crew role.",
+          "parameters": [
+            {
+              "name": "crew_id",
+              "type": "str"
+            },
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "assignee_role",
+              "type": "str"
+            },
+            {
+              "name": "acceptance",
+              "type": "str"
+            }
+          ],
+          "lineno": 109
+        },
+        {
+          "name": "team_complete_task",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Mark a dispatched task done with a summary of the artifact.",
+          "parameters": [
+            {
+              "name": "crew_id",
+              "type": "str"
+            },
+            {
+              "name": "task_id",
+              "type": "str"
+            },
+            {
+              "name": "output_summary",
+              "type": "str"
+            }
+          ],
+          "lineno": 128
+        },
+        {
+          "name": "team_debate",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Run builder vs critic dialectic to harden a decision.",
+          "parameters": [
+            {
+              "name": "topic",
+              "type": "str"
+            },
+            {
+              "name": "stance_a",
+              "type": "str"
+            },
+            {
+              "name": "stance_b",
+              "type": "str"
+            }
+          ],
+          "lineno": 148
+        },
+        {
+          "name": "team_status",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Inspect crew roster, tasks, and bottlenecks.",
+          "parameters": [
+            {
+              "name": "crew_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 161
+        },
+        {
+          "name": "team_merge",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Converge parallel crew outputs into one delivery.",
+          "parameters": [
+            {
+              "name": "crew_id",
+              "type": "str"
+            },
+            {
+              "name": "strategy",
+              "type": "str"
+            }
+          ],
+          "lineno": 181
+        },
+        {
+          "name": "team_health",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Dashboard summary across all crews.",
+          "parameters": [],
+          "lineno": 198
+        },
+        {
+          "name": "team_route",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 214
+        },
+        {
+          "name": "team_full_pipeline",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Chain spawn -> dispatch -> debate -> merge into one pipeline.",
+          "parameters": [
+            {
+              "name": "objective",
+              "type": "str"
+            },
+            {
+              "name": "roles",
+              "type": "str"
+            },
+            {
+              "name": "task",
+              "type": "str"
+            },
+            {
+              "name": "acceptance",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 229
+        },
+        {
+          "name": "team_session_list",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "List persisted team sessions.",
+          "parameters": [],
+          "lineno": 264
+        },
+        {
+          "name": "team_session_replay",
+          "server": "quillan_team",
+          "is_async": false,
+          "description": "Replay a persisted team session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 283
+        }
+      ]
+    },
+    "quillan_thinking_engine": {
+      "tool_count": 23,
+      "tools": [
+        {
+          "name": "quillan_think",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute deep reasoning through the canonical Quillan Quintessence v5.4.0-ONI Engine.\n\nRoutes through the 9-Vector Semantic Prism, deliberates across all 34 Council Personas\n(C1-ASTRA to C34-PREDATOR), and applies the Lee-Mach-6 Velocity Governor.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 146
+        },
+        {
+          "name": "council_deliberate",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Poll all 34 Council Personas for multidimensional debate and consensus.",
+          "parameters": [
+            {
+              "name": "topic",
+              "type": "str"
+            }
+          ],
+          "lineno": 192
+        },
+        {
+          "name": "prism_decompose",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Decompose text across Quillan's 9 orthogonal semantic vectors.",
+          "parameters": [
+            {
+              "name": "text",
+              "type": "str"
+            }
+          ],
+          "lineno": 211
+        },
+        {
+          "name": "deep_reasoning",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute multi-tier recursive deep reasoning through Quillan-Ronin v5.4.0-ONI.\n\nPasses problem through the 9-Vector Semantic Prism, decomposes into sequential\ncognitive proof stages, monitors Lee-Mach-6 velocity governor, and validates\nlogical consistency via the AST-hardened sandbox.",
+          "parameters": [
+            {
+              "name": "problem",
+              "type": "str"
+            },
+            {
+              "name": "steps",
+              "type": "int"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "verify_proof",
+              "type": "bool"
+            }
+          ],
+          "lineno": 223
+        },
+        {
+          "name": "deep_reasoning_alias",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Alias for Deep_reasoning.",
+          "parameters": [
+            {
+              "name": "problem",
+              "type": "str"
+            },
+            {
+              "name": "steps",
+              "type": "int"
+            },
+            {
+              "name": "context",
+              "type": "Optional[str]"
+            },
+            {
+              "name": "verify_proof",
+              "type": "bool"
+            }
+          ],
+          "lineno": 289
+        },
+        {
+          "name": "genius_level",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute transcendent, maximum-compute cognitive synthesis under the Anachronism Protocol.\n\nMobilizes all 34 Council Personas across 4 Wave Clusters (Cognitive, Communication,\nMeta, Systems), calculates BitNet 1.58b ternary LoRA scaling, updates prior-to-posterior\nepistemic bounds, and extracts high-order structural invariants.",
+          "parameters": [
+            {
+              "name": "inquiry",
+              "type": "str"
+            },
+            {
+              "name": "domain",
+              "type": "str"
+            },
+            {
+              "name": "unconventional_depth",
+              "type": "bool"
+            },
+            {
+              "name": "mathematical_rigor",
+              "type": "bool"
+            }
+          ],
+          "lineno": 299
+        },
+        {
+          "name": "genius_level_alias",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Alias for Genuis_level.",
+          "parameters": [
+            {
+              "name": "inquiry",
+              "type": "str"
+            },
+            {
+              "name": "domain",
+              "type": "str"
+            },
+            {
+              "name": "unconventional_depth",
+              "type": "bool"
+            },
+            {
+              "name": "mathematical_rigor",
+              "type": "bool"
+            }
+          ],
+          "lineno": 364
+        },
+        {
+          "name": "adversarial_dual_council_deliberation",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute an adversarial dialectic clash between two opposing 17-Expert Council Chambers.\n\n- Council Alpha (Proponents / Builders): Champions innovation, architectural elegance, and forward vector.\n- Council Omega (Inquisitors / Red Team): Unleashes adversarial scrutiny, edge-case probing, and failure analysis.\n- Final Arbitration: Presided over by C2-VIR (Bushidō Ethics), C18-SHEPHERD (Equilibrium), and C21-ARCHON.",
+          "parameters": [
+            {
+              "name": "proposition",
+              "type": "str"
+            },
+            {
+              "name": "rounds",
+              "type": "int"
+            },
+            {
+              "name": "red_team_intensity",
+              "type": "str"
+            }
+          ],
+          "lineno": 374
+        },
+        {
+          "name": "adversarial_dual_council_deliberation_alias",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Alias for adversarial_dual_council_diliberation.",
+          "parameters": [
+            {
+              "name": "proposition",
+              "type": "str"
+            },
+            {
+              "name": "rounds",
+              "type": "int"
+            },
+            {
+              "name": "red_team_intensity",
+              "type": "str"
+            }
+          ],
+          "lineno": 438
+        },
+        {
+          "name": "skill_registry_rebuild",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Rebuild + cache the skill registry from both skill corpora (hash-deduped).",
+          "parameters": [],
+          "lineno": 509
+        },
+        {
+          "name": "skill_route",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Route a query to top-k reasoning skills (prism-style pull weights).\nArgs:\n    query: Task or question.\n    depth: fast (k=2), deep (k=4), mastery (k=6).",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 520
+        },
+        {
+          "name": "think_with_skills",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute skill-aware deliberation: prism -> skill route -> council (skill-weighted) -> gate -> synthesis.\nThis is the upgrade: old quillan_think used uniform weights; this uses live skill pulls.\nArgs:\n    query: Task or question.\n    depth: fast, deep, mastery.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 544
+        },
+        {
+          "name": "skill_chain",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Run an explicit ordered skill chain (cap 6, no cycles, ethics-last enforced).\nArgs:\n    skills: Comma-separated skill names.\n    query: Task the chain reasons over.",
+          "parameters": [
+            {
+              "name": "skills",
+              "type": "str"
+            },
+            {
+              "name": "query",
+              "type": "str"
+            }
+          ],
+          "lineno": 566
+        },
+        {
+          "name": "skill_audit",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Audit registry health: counts, sources, depth split, trigger coverage.",
+          "parameters": [],
+          "lineno": 583
+        },
+        {
+          "name": "think_workflow",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Execute the workflow.excalidraw DAG: core->9vector->skill_route->34council->swarm->waves->7gates->finalize.\nFail at waves or gates loops back to council (recirculation), matching your drawn back-edge.\nArgs:\n    query: Task or question.\n    depth: fast, deep, mastery.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 597
+        },
+        {
+          "name": "reason_with_mode",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Run one explicit reasoning mode with its native protocol + council + confidence rule.\nModes: deductive, inductive, abductive, probabilistic, causal, analogical, moral, critical, auto.\nAuto picks via skill_route top hit.\nArgs:\n    query: Problem or claim.\n    mode: Reasoning mode.\n    depth: fast, deep, mastery.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "mode",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 628
+        },
+        {
+          "name": "critical_think",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Run the 7-phase critical-thinking protocol (restate/decompose/hypotheses/adversarial/evidence/edge_sweep/synthesis).\nArgs:\n    problem: Problem to dissect.\n    phases: all or comma list subset; quick=restate,hypotheses,synthesis; standard=restate,decompose,adversarial,synthesis.",
+          "parameters": [
+            {
+              "name": "problem",
+              "type": "str"
+            },
+            {
+              "name": "phases",
+              "type": "str"
+            }
+          ],
+          "lineno": 655
+        },
+        {
+          "name": "fallacy_scan",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Scan an argument for classic deductive/inductive/abductive fallacies.\nArgs:\n    argument: Claim + premises to check.",
+          "parameters": [
+            {
+              "name": "argument",
+              "type": "str"
+            }
+          ],
+          "lineno": 683
+        },
+        {
+          "name": "reasoning_modes_list",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "List all implemented reasoning modes + critical phases + fallacy coverage.",
+          "parameters": [],
+          "lineno": 698
+        },
+        {
+          "name": "thinking_trace",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Produce a structured, consumable thinking trace for a query.\n\nReturns ordered reasoning phases with prompts, so the model can reason\nstep-by-step using the Quillan thinking engine. Each phase is a thinking\nstep the model should fill in.",
+          "parameters": [
+            {
+              "name": "query",
+              "type": "str"
+            },
+            {
+              "name": "depth",
+              "type": "str"
+            }
+          ],
+          "lineno": 728
+        },
+        {
+          "name": "thinking_trace_save",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Save a filled thinking trace (model's reasoning) for audit/replay.",
+          "parameters": [
+            {
+              "name": "trace_id",
+              "type": "str"
+            },
+            {
+              "name": "filled_phases",
+              "type": "List[Dict[str, Any]]"
+            },
+            {
+              "name": "final_answer",
+              "type": "Optional[str]"
+            }
+          ],
+          "lineno": 784
+        },
+        {
+          "name": "thinking_trace_list",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "List persisted thinking traces.",
+          "parameters": [],
+          "lineno": 804
+        },
+        {
+          "name": "thinking_trace_replay",
+          "server": "quillan_thinking_engine",
+          "is_async": false,
+          "description": "Replay a persisted thinking trace by ID.",
+          "parameters": [
+            {
+              "name": "trace_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 823
+        }
+      ]
+    },
+    "quillan_web": {
+      "tool_count": 7,
+      "tools": [
+        {
+          "name": "web_audit",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Audit HTML/TSX for a11y, SEO, perf anti-patterns.",
+          "parameters": [
+            {
+              "name": "code_or_html",
+              "type": "str"
+            }
+          ],
+          "lineno": 72
+        },
+        {
+          "name": "web_deploy_checklist",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Target-aware deploy gate.",
+          "parameters": [
+            {
+              "name": "target",
+              "type": "str"
+            }
+          ],
+          "lineno": 88
+        },
+        {
+          "name": "web_full_pipeline",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Chain scaffold -> audit -> deploy checklist.",
+          "parameters": [
+            {
+              "name": "project_name",
+              "type": "str"
+            },
+            {
+              "name": "stack",
+              "type": "str"
+            },
+            {
+              "name": "routes",
+              "type": "str"
+            },
+            {
+              "name": "code_or_html",
+              "type": "str"
+            },
+            {
+              "name": "target",
+              "type": "str"
+            },
+            {
+              "name": "persist",
+              "type": "bool"
+            }
+          ],
+          "lineno": 97
+        },
+        {
+          "name": "web_route",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Cross-MCP routing payload for council/code/buddy integration.",
+          "parameters": [
+            {
+              "name": "target_mcp",
+              "type": "str"
+            },
+            {
+              "name": "payload",
+              "type": "Optional[Dict[str, Any]]"
+            }
+          ],
+          "lineno": 128
+        },
+        {
+          "name": "web_health",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Web project dashboard summary.",
+          "parameters": [],
+          "lineno": 144
+        },
+        {
+          "name": "web_session_list",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "List persisted web sessions.",
+          "parameters": [],
+          "lineno": 170
+        },
+        {
+          "name": "web_session_replay",
+          "server": "quillan_web",
+          "is_async": false,
+          "description": "Replay a persisted web session by ID.",
+          "parameters": [
+            {
+              "name": "session_id",
+              "type": "str"
+            }
+          ],
+          "lineno": 188
+        }
+      ]
+    }
+  }
+}

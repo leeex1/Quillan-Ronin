@@ -60,6 +60,15 @@ import torch
 from fastmcp import FastMCP
 
 mcp = FastMCP("QuillanModelLab")
+# [QUILLAN-v5.4.0-ONI-SHARED-WIRED]
+try:
+    from _shared import setup as _quillan_setup, tool_guard, ok_response, error_response, validate_string, validate_path, validate_int, read_file_safe
+    from _shared.base_engines import PRISM_ENGINE, COUNCIL_ENGINE, GOVERNOR_ENGINE, SANDBOX_ENGINE
+    _SHARED_CTX = _quillan_setup(server_name='quillan_model_lab', mcp_app=mcp)
+except Exception as _shared_err:
+    import sys as _sys
+    print(f'[quillan_model_lab] _shared warning: {_shared_err}', file=_sys.stderr)
+
 @mcp.tool()
 def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:
     """Inspect a Quillan checkpoint file and return metadata."""
