@@ -64,6 +64,7 @@ if sys.platform == "win32":
 
 from fastmcp import FastMCP
 
+BASE_SYSTEM_PROMPT = "You are a Quillan-Ronin cognitive engine. Be precise, ethical, and thorough."
 mcp = FastMCP("QuillanOrochi")
 # [QUILLAN-v5.4.0-ONI-SHARED-WIRED]
 try:
