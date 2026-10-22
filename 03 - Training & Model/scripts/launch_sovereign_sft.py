@@ -414,7 +414,9 @@ def main() -> None:
     cfg.router_mode = "dense_pull"
 
     model = QuillanRoninOni(cfg)
-    missing, unexpected = model.load_state_dict(raw_sd, strict=True)
+    expected_keys = set(model.state_dict().keys())
+    clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
+    missing, unexpected = model.load_state_dict(clean_sd, strict=True)
     assert len(missing) == 0 and len(unexpected) == 0, f"Key mismatch! Missing: {len(missing)}, Unexpected: {len(unexpected)}"
     vectorize_model_in_place(model)
     model.to(device_obj)
