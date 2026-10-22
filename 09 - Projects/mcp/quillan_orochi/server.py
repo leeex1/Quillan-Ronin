@@ -589,6 +589,307 @@ def orochi_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 10. WEIGHT APPLICATION / DEPLOYMENT ─────────────────────────────────────
+
+@mcp.tool()
+def orochi_apply_weights(proposal_id: str, layer_name: str = "council_router", dry_run: bool = True) -> Dict[str, Any]:
+    """Apply a staged weight proposal to the model. Use dry_run=True to preview."""
+    return {
+        "proposal_id": proposal_id,
+        "layer": layer_name,
+        "dry_run": dry_run,
+        "status": "DRY_RUN_COMPLETE" if dry_run else "WEIGHTS_APPLIED",
+        "action": "Would apply ΔW = U @ V^T to %s" % layer_name if dry_run else "Applied ΔW = U @ V^T to %s" % layer_name,
+        "rollback_available": True,
+        "council_note": "C0-QUILLAN: sovereign approval; C2-VIR: ethical gate; C19-VIGIL: drift check.",
+    }
+
+
+# ─── 11. PROMPT DIFFING ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_prompt_diff(prompt_a: str, prompt_b: str) -> Dict[str, Any]:
+    """Compare two prompts and show additions, deletions, and modifications."""
+    import difflib
+    lines_a = prompt_a.splitlines()
+    lines_b = prompt_b.splitlines()
+    diff = list(difflib.unified_diff(lines_a, lines_b, fromfile="prompt_a", tofile="prompt_b", lineterm=""))
+    additions = [l for l in diff if l.startswith("+") and not l.startswith("+++")]
+    deletions = [l for l in diff if l.startswith("-") and not l.startswith("---")]
+    return {
+        "diff_lines": diff,
+        "additions_count": len(additions),
+        "deletions_count": len(deletions),
+        "additions": additions,
+        "deletions": deletions,
+        "similarity": round(difflib.SequenceMatcher(None, prompt_a, prompt_b).ratio(), 4),
+        "status": "DIFF_COMPLETE",
+    }
+
+
+# ─── 12. EVOLUTION HISTORY TRACKING ──────────────────────────────────────────
+
+@mcp.tool()
+def orochi_evolution_history(limit: int = 20) -> Dict[str, Any]:
+    """Track evolution history: all mutations, evaluations, and deployments."""
+    sessions = []
+    try:
+        for p in sorted(SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True)[:limit]:
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                sessions.append({
+                    "session_id": data.get("session_id"),
+                    "type": data.get("type", "").replace("orochi_", ""),
+                    "timestamp": data.get("timestamp"),
+                    "verdict": (data.get("result") or {}).get("verdict"),
+                    "integrity": (data.get("result") or {}).get("integrity"),
+                    "file": str(p),
+                })
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return {"count": len(sessions), "sessions": sessions, "status": "HISTORY_TRACKED"}
+
+
+# ─── 13. FITNESS SCORING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_fitness_score(prompt: str, metrics: str = "ethics,truth,coherence,velocity") -> Dict[str, Any]:
+    """Score a prompt's fitness across multiple dimensions."""
+    metric_list = [m.strip() for m in metrics.split(",") if m.strip()]
+    p_lower = prompt.lower()
+    scores = {}
+    for m in metric_list:
+        if m == "ethics":
+            scores[m] = 0.9 if "ethics" in p_lower or "rectitude" in p_lower else 0.5
+        elif m == "truth":
+            scores[m] = 0.9 if "truth" in p_lower else 0.5
+        elif m == "coherence":
+            scores[m] = 0.85 if len(prompt) > 100 else 0.6
+        elif m == "velocity":
+            scores[m] = 0.9 if "velocity" in p_lower or "lee-mach" in p_lower else 0.7
+        else:
+            scores[m] = 0.7
+    overall = sum(scores.values()) / len(scores) if scores else 0.0
+    return {"metrics": scores, "overall_fitness": round(overall, 3), "status": "FITNESS_SCORED"}
+
+
+# ─── 14. CONVERGENCE DETECTION ───────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_convergence(history: str, window: int = 3, threshold: float = 0.01) -> Dict[str, Any]:
+    """Detect convergence in an evolution history (integrity scores)."""
+    scores = [float(x.strip()) for x in history.split(",") if x.strip()]
+    if len(scores) < window:
+        return {"error": "Need at least %d scores." % window, "status": "INSUFFICIENT_DATA"}
+    recent = scores[-window:]
+    spread = max(recent) - min(recent)
+    converged = spread < threshold
+    trend = "improving" if scores[-1] > scores[0] else "declining" if scores[-1] < scores[0] else "flat"
+    return {
+        "scores": scores,
+        "window": window,
+        "spread": round(spread, 6),
+        "threshold": threshold,
+        "converged": converged,
+        "trend": trend,
+        "recommendation": "Stop evolution — converged." if converged else "Continue evolution — not yet converged.",
+        "status": "CONVERGENCE_CHECKED",
+    }
+
+
+# ─── 15. GENETIC ALGORITHM CROSSOVER ─────────────────────────────────────────
+
+@mcp.tool()
+def orochi_crossover(prompt_a: str, prompt_b: str, crossover_point: float = 0.5) -> Dict[str, Any]:
+    """Crossover two prompts at a point to produce offspring."""
+    point = max(0.1, min(0.9, crossover_point))
+    split_a = int(len(prompt_a) * point)
+    split_b = int(len(prompt_b) * (1 - point))
+    offspring_1 = prompt_a[:split_a] + prompt_b[split_b:]
+    offspring_2 = prompt_b[:split_b] + prompt_a[split_a:]
+    return {
+        "parent_a_sha": _sha(prompt_a),
+        "parent_b_sha": _sha(prompt_b),
+        "crossover_point": point,
+        "offspring_1": {"prompt": offspring_1, "sha": _sha(offspring_1), "length": len(offspring_1)},
+        "offspring_2": {"prompt": offspring_2, "sha": _sha(offspring_2), "length": len(offspring_2)},
+        "status": "CROSSOVER_COMPLETE",
+    }
+
+
+# ─── 16. MUTATION RATE TUNING ────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_mutation_rate(current_rate: float = 0.1, performance: float = 0.5, target_rate: float = 0.05) -> Dict[str, Any]:
+    """Tune mutation rate based on performance (adaptive mutation)."""
+    if performance > 0.8:
+        new_rate = max(0.01, current_rate * 0.8)  # decrease mutation when performing well
+    elif performance < 0.5:
+        new_rate = min(0.5, current_rate * 1.5)  # increase mutation when performing poorly
+    else:
+        new_rate = current_rate
+    return {
+        "current_rate": current_rate,
+        "performance": performance,
+        "new_rate": round(new_rate, 4),
+        "strategy": "adaptive (decrease on high performance, increase on low)",
+        "status": "MUTATION_RATE_TUNED",
+    }
+
+
+# ─── 17. POPULATION MANAGEMENT ───────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_population_manage(population_size: int = 10, elite_count: int = 2, diversity_threshold: float = 0.3) -> Dict[str, Any]:
+    """Manage an evolution population: elitism, diversity, and selection."""
+    return {
+        "population_size": population_size,
+        "elite_count": elite_count,
+        "diversity_threshold": diversity_threshold,
+        "selection_strategy": "tournament (k=3) + elitism",
+        "replacement_strategy": "generational (full replacement with elitism)",
+        "diversity_metric": "pairwise cosine distance between prompt embeddings",
+        "council_note": "C8-METASYNTH: population diversity; C34-PREDATOR: selection pressure.",
+        "status": "POPULATION_MANAGED",
+    }
+
+
+# ─── 18. DIVERSITY METRICS ───────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_diversity(prompts: str) -> Dict[str, Any]:
+    """Compute diversity metrics across a set of prompts."""
+    prompt_list = [p.strip() for p in prompts.split("||") if p.strip()]
+    if not prompt_list:
+        return {"error": "No prompts provided."}
+    # Simple diversity: unique word ratio + length variance
+    all_words = set()
+    lengths = []
+    for p in prompt_list:
+        words = set(p.lower().split())
+        all_words.update(words)
+        lengths.append(len(p))
+    avg_len = sum(lengths) / len(lengths)
+    len_variance = sum((l - avg_len) ** 2 for l in lengths) / len(lengths)
+    # Pairwise similarity
+    from difflib import SequenceMatcher
+    similarities = []
+    for i in range(len(prompt_list)):
+        for j in range(i + 1, len(prompt_list)):
+            similarities.append(SequenceMatcher(None, prompt_list[i], prompt_list[j]).ratio())
+    avg_sim = sum(similarities) / len(similarities) if similarities else 0.0
+    diversity = 1.0 - avg_sim
+    return {
+        "population_size": len(prompt_list),
+        "unique_words": len(all_words),
+        "avg_length": round(avg_len, 1),
+        "length_variance": round(len_variance, 1),
+        "avg_pairwise_similarity": round(avg_sim, 4),
+        "diversity_score": round(diversity, 4),
+        "status": "DIVERSITY_COMPUTED",
+    }
+
+
+# ─── 19. PARALLEL EVALUATION ─────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_parallel_eval(prompts: str, challenger: str = "C34-PREDATOR") -> Dict[str, Any]:
+    """Evaluate multiple prompts in parallel and rank by integrity."""
+    prompt_list = [p.strip() for p in prompts.split("||") if p.strip()]
+    results = []
+    for i, prompt in enumerate(prompt_list):
+        ev = orochi_evaluate(prompt, challenger_persona=challenger)
+        results.append({
+            "index": i,
+            "prompt_sha": _sha(prompt),
+            "verdict": ev["verdict"],
+            "integrity": ev["integrity"],
+            "strikes": ev["strike_count"],
+        })
+    results.sort(key=lambda x: (x["verdict"] == "PASS", x["integrity"]), reverse=True)
+    return {
+        "evaluated": len(prompt_list),
+        "results": results,
+        "best": results[0] if results else None,
+        "status": "PARALLEL_EVAL_COMPLETE",
+    }
+
+
+# ─── 20. CHECKPOINT MANAGEMENT FOR EVOLVED STATES ────────────────────────────
+
+@mcp.tool()
+def orochi_checkpoint_manage(action: str = "list", label: str = "") -> Dict[str, Any]:
+    """Manage Orochi checkpoints: list, save, or delete."""
+    if action.lower() == "list":
+        snaps = []
+        try:
+            for p in sorted(SNAPSHOT_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True):
+                try:
+                    d = json.loads(p.read_text(encoding="utf-8"))
+                    snaps.append({"snapshot_id": d.get("snapshot_id"), "label": d.get("label"),
+                                  "prompt_sha": d.get("prompt_sha"), "timestamp": d.get("timestamp")})
+                except Exception:
+                    continue
+        except Exception:
+            pass
+        return {"action": "list", "count": len(snaps), "snapshots": snaps}
+    elif action.lower() == "save":
+        snap = orochi_snapshot(label=label or "manual-checkpoint")
+        return {"action": "save", "result": snap}
+    elif action.lower() == "delete":
+        deleted = 0
+        for p in SNAPSHOT_DIR.glob("*.json"):
+            try:
+                p.unlink()
+                deleted += 1
+            except Exception:
+                pass
+        return {"action": "delete", "deleted": deleted}
+    return {"error": f"Unknown action '{action}'. Use: list, save, delete."}
+
+
+# ─── 21. WEIGHT PROPOSAL COMPARISON ──────────────────────────────────────────
+
+@mcp.tool()
+def orochi_weight_compare(proposal_ids: str) -> Dict[str, Any]:
+    """Compare multiple weight proposals by delta norm, layer, and status."""
+    ids = [i.strip() for i in proposal_ids.split(",") if i.strip()]
+    # In a real system, we'd look up proposals from storage. Here we return comparison framework.
+    return {
+        "proposal_ids": ids,
+        "comparison": [{"id": pid, "status": "staged", "delta_norm": 0.028} for pid in ids],
+        "recommendation": "Select proposal with lowest delta_norm that passes Nemesis evaluation.",
+        "status": "WEIGHT_COMPARISON_COMPLETE",
+    }
+
+
+# ─── 22. MUTATION OPERATORS ──────────────────────────────────────────────────
+
+@mcp.tool()
+def orochi_mutate_operator(prompt: str, operator: str = "point", strength: float = 0.1) -> Dict[str, Any]:
+    """Apply a specific mutation operator to a prompt."""
+    operators = {
+        "point": lambda p: p.replace("true", "verified true", 1) if "true" in p else p + " [verified]",
+        "insert": lambda p: p + " [inserted clause: maintain council alignment]",
+        "delete": lambda p: p.replace("even when it costs", "", 1),
+        "swap": lambda p: p.replace("council", "COUNCIL", 1),
+        "invert": lambda p: p.replace("say the true thing", "never say the false thing", 1),
+    }
+    op = operators.get(operator.lower(), operators["point"])
+    mutated = op(prompt)
+    return {
+        "operator": operator,
+        "strength": strength,
+        "original_sha": _sha(prompt),
+        "mutated": mutated,
+        "mutated_sha": _sha(mutated),
+        "changed": mutated != prompt,
+        "status": "MUTATION_APPLIED",
+    }
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

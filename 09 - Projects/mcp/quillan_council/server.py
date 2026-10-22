@@ -362,6 +362,252 @@ def council_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 5. INDIVIDUAL EXPERT QUERY ──────────────────────────────────────────────
+
+@mcp.tool()
+def council_query_expert(expert_name: str, query: str) -> Dict[str, Any]:
+    """Query a single council expert directly and get their domain-specific perspective."""
+    target = next((m for m in CANONICAL_ROSTER if m["name"].upper() == expert_name.upper().strip()), None)
+    if not target:
+        return {"error": f"Unknown expert '{expert_name}'. Valid: {[m['name'] for m in CANONICAL_ROSTER]}"}
+    perspective = _expert_perspective(target, query)
+    return {
+        "expert": target["name"],
+        "domain": target["domain"],
+        "cluster": target["cluster"],
+        "prior": target["prior"],
+        "focus": target["focus"],
+        "query": query,
+        "perspective": perspective["perspective"],
+        "alignment": perspective["alignment"],
+        "verdict": perspective["verdict"],
+        "status": "EXPERT_QUERIED",
+    }
+
+
+# ─── 6. EXPERT COMPARISON ────────────────────────────────────────────────────
+
+@mcp.tool()
+def council_compare_experts(expert_a: str, expert_b: str, topic: str) -> Dict[str, Any]:
+    """Compare two experts' perspectives on the same topic — alignment, verdict, and disagreement."""
+    a = next((m for m in CANONICAL_ROSTER if m["name"].upper() == expert_a.upper().strip()), None)
+    b = next((m for m in CANONICAL_ROSTER if m["name"].upper() == expert_b.upper().strip()), None)
+    if not a:
+        return {"error": f"Unknown expert A: '{expert_a}'"}
+    if not b:
+        return {"error": f"Unknown expert B: '{expert_b}'"}
+
+    pa = _expert_perspective(a, topic)
+    pb = _expert_perspective(b, topic)
+
+    return {
+        "topic": topic,
+        "expert_a": {
+            "name": a["name"],
+            "domain": a["domain"],
+            "alignment": pa["alignment"],
+            "verdict": pa["verdict"],
+            "perspective": pa["perspective"],
+        },
+        "expert_b": {
+            "name": b["name"],
+            "domain": b["domain"],
+            "alignment": pb["alignment"],
+            "verdict": pb["verdict"],
+            "perspective": pb["perspective"],
+        },
+        "agreement": pa["verdict"] == pb["verdict"],
+        "alignment_delta": round(abs(pa["alignment"] - pb["alignment"]), 3),
+        "consensus_note": (
+            "Experts agree." if pa["verdict"] == pb["verdict"]
+            else f"Disagreement: {a['name']} says {pa['verdict']}, {b['name']} says {pb['verdict']}."
+        ),
+        "status": "COMPARISON_COMPLETE",
+    }
+
+
+# ─── 7. CROSS-COUNCIL DELIBERATION ──────────────────────────────────────────
+
+@mcp.tool()
+def council_cross_deliberation(topic: str, clusters: List[str] = None, persist: bool = True) -> Dict[str, Any]:
+    """Run deliberation across selected clusters (or all 4) and cross-correlate results."""
+    if not clusters:
+        clusters = ["cognitive", "communication", "meta", "systems"]
+    clusters = [c.strip().lower() for c in clusters]
+
+    cluster_results = {}
+    all_perspectives = []
+    for cl in clusters:
+        cr = council_cluster_deliberate(cl, topic)
+        if "error" in cr:
+            continue
+        cluster_results[cl] = cr
+        all_perspectives.extend(cr["perspectives"])
+
+    consensus = _consensus_score(all_perspectives)
+
+    # Cross-cluster disagreement: which clusters disagree most
+    cluster_verdicts = {cl: cr["consensus"]["verdict"] for cl, cr in cluster_results.items()}
+    disagreeing = [cl for cl, v in cluster_verdicts.items() if v != "CONSENSUS"]
+
+    session_id = f"cross-{uuid.uuid4().hex[:8]}"
+    result = {
+        "status": "CROSS_DELIBERATION_COMPLETE",
+        "session_id": session_id,
+        "topic": topic,
+        "clusters_deliberated": list(cluster_results.keys()),
+        "expert_count": len(all_perspectives),
+        "consensus": consensus,
+        "cluster_verdicts": cluster_verdicts,
+        "disagreeing_clusters": disagreeing,
+        "synthesis": (
+            f"Cross-council deliberation across {len(cluster_results)} clusters. "
+            f"Consensus: {consensus['consensus_score']} ({consensus['verdict']}). "
+            f"Disagreeing clusters: {disagreeing if disagreeing else 'none'}."
+        ),
+        "timestamp": time.time(),
+    }
+
+    if persist:
+        try:
+            path = SESSION_DIR / f"{session_id}.json"
+            path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+            result["persisted_to"] = str(path)
+        except Exception as e:
+            result["persist_error"] = str(e)
+
+    return result
+
+
+# ─── 8. DISSENT TRACKING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def council_dissent_tracker(topic: str, threshold: float = 0.80) -> Dict[str, Any]:
+    """Track which experts dissent (alignment < threshold) and their reasons."""
+    all_perspectives = []
+    for cl in CLUSTERS:
+        cr = council_cluster_deliberate(cl, topic)
+        if "error" in cr:
+            continue
+        all_perspectives.extend(cr["perspectives"])
+
+    dissenters = [p for p in all_perspectives if p["alignment"] < threshold]
+    supporters = [p for p in all_perspectives if p["alignment"] >= threshold]
+
+    return {
+        "topic": topic,
+        "threshold": threshold,
+        "total_experts": len(all_perspectives),
+        "dissenter_count": len(dissenters),
+        "supporter_count": len(supporters),
+        "dissenters": [{"expert": p["expert"], "domain": p["domain"],
+                        "alignment": p["alignment"], "verdict": p["verdict"],
+                        "reason": f"Low alignment on '{topic[:40]}' — focus mismatch."} for p in dissenters],
+        "supporters": [{"expert": p["expert"], "alignment": p["alignment"]} for p in supporters],
+        "status": "DISSENT_TRACKED",
+    }
+
+
+# ─── 9. MULTI-TOPIC DELIBERATION ─────────────────────────────────────────────
+
+@mcp.tool()
+def council_multi_topic(topics: List[str]) -> Dict[str, Any]:
+    """Run deliberation across multiple topics and compare consensus."""
+    results = []
+    for topic in topics:
+        r = council_full_deliberation(topic, persist=False)
+        results.append({
+            "topic": topic,
+            "consensus_score": (r.get("consensus") or {}).get("consensus_score", 0),
+            "verdict": (r.get("consensus") or {}).get("verdict", "UNKNOWN"),
+            "predator_strike": r.get("adversarial_challenge", {}).get("weakest_assumption", ""),
+        })
+
+    # Rank by consensus score
+    ranked = sorted(results, key=lambda x: x["consensus_score"], reverse=True)
+
+    return {
+        "topics_deliberated": len(topics),
+        "results": results,
+        "ranked_by_consensus": ranked,
+        "highest_consensus_topic": ranked[0]["topic"] if ranked else None,
+        "lowest_consensus_topic": ranked[-1]["topic"] if ranked else None,
+        "status": "MULTI_TOPIC_COMPLETE",
+    }
+
+
+# ─── 10. COUNCIL CONFIGURATION MANAGEMENT ───────────────────────────────────
+
+@mcp.tool()
+def council_config(expert_name: str = "", new_prior: Optional[float] = None, new_focus: Optional[str] = None) -> Dict[str, Any]:
+    """View or update a council expert's configuration (prior, focus). Pass expert_name to target."""
+    if not expert_name:
+        # Return full roster summary
+        return {
+            "total_experts": len(CANONICAL_ROSTER),
+            "clusters": {cl: len([m for m in CANONICAL_ROSTER if m["cluster"] == cl]) for cl in CLUSTERS},
+            "experts": [{"name": m["name"], "cluster": m["cluster"], "prior": m["prior"], "domain": m["domain"]} for m in CANONICAL_ROSTER],
+            "status": "ROSTER_SUMMARY",
+        }
+
+    target = next((m for m in CANONICAL_ROSTER if m["name"].upper() == expert_name.upper().strip()), None)
+    if not target:
+        return {"error": f"Unknown expert '{expert_name}'."}
+
+    changes = {}
+    if new_prior is not None:
+        old_prior = target["prior"]
+        target["prior"] = max(0.0, min(1.0, new_prior))
+        changes["prior"] = {"old": old_prior, "new": target["prior"]}
+    if new_focus is not None:
+        old_focus = target["focus"]
+        target["focus"] = new_focus
+        changes["focus"] = {"old": old_focus, "new": target["focus"]}
+
+    return {
+        "expert": target["name"],
+        "cluster": target["cluster"],
+        "domain": target["domain"],
+        "prior": target["prior"],
+        "focus": target["focus"],
+        "changes": changes,
+        "status": "CONFIG_UPDATED" if changes else "CONFIG_VIEWED",
+    }
+
+
+# ─── 11. EXPERT WEIGHT TUNING ────────────────────────────────────────────────
+
+@mcp.tool()
+def council_weight_tuning(domain_tags: List[str], boost_experts: List[str] = None, penalize_experts: List[str] = None) -> Dict[str, Any]:
+    """Tune expert pull-weights for a domain with optional manual boost/penalize overrides."""
+    base_weights = council_pull_weights(domain_tags)
+    weights = dict(base_weights["all_pull_weights"])
+
+    if boost_experts:
+        for name in boost_experts:
+            if name in weights:
+                weights[name] = round(weights[name] * 1.5, 4)
+    if penalize_experts:
+        for name in penalize_experts:
+            if name in weights:
+                weights[name] = round(weights[name] * 0.5, 4)
+
+    # Re-normalize
+    total = sum(weights.values()) or 1.0
+    weights = {k: round(v / total, 4) for k, v in weights.items()}
+
+    sorted_experts = sorted(weights.items(), key=lambda x: x[1], reverse=True)
+
+    return {
+        "domain_tags": domain_tags,
+        "boosted": boost_experts or [],
+        "penalized": penalize_experts or [],
+        "top_5_pull_leaders": [{"expert": k, "weight": v} for k, v in sorted_experts[:5]],
+        "all_pull_weights": weights,
+        "status": "WEIGHTS_TUNED",
+    }
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

@@ -488,6 +488,376 @@ async def rag_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+# ─── 16. HYBRID SEARCH (keyword + semantic) ──────────────────────────────────
+
+@mcp.tool()
+async def rag_hybrid_search(query: str, n_results: int = 5, keyword_weight: float = 0.3) -> str:
+    """Hybrid search combining semantic (embedding) and keyword (BM25) retrieval."""
+    if _col.count() == 0:
+        return "Knowledge base empty. Run ingest_file or ingest_folder first."
+    # Semantic search
+    q_emb = (await _nim_embed([query], "query"))[0]
+    sem_results = _col.query(query_embeddings=[q_emb], n_results=min(n_results * 2, _col.count()),
+                            include=["documents", "metadatas", "distances"])
+    # Keyword scoring (simple TF-IDF-like)
+    query_terms = set(query.lower().split())
+    all_docs = _col.get(include=["documents", "metadatas"])
+    keyword_scores = []
+    for i, doc in enumerate(all_docs["documents"]):
+        doc_terms = set(doc.lower().split())
+        overlap = len(query_terms & doc_terms)
+        keyword_scores.append((i, overlap, all_docs["ids"][i], doc, all_docs["metadatas"][i]))
+    keyword_scores.sort(key=lambda x: x[1], reverse=True)
+
+    # Merge: combine semantic and keyword results
+    merged = {}
+    for i, (doc, meta, dist) in enumerate(zip(sem_results["documents"][0], sem_results["metadatas"][0], sem_results["distances"][0])):
+        key = meta.get("chunk", 0) + "_" + meta.get("filename", "")
+        merged[key] = {"doc": doc, "meta": meta, "sem_score": 1 - dist, "kw_score": 0.0}
+
+    for idx, overlap, doc_id, doc, meta in keyword_scores[:n_results * 2]:
+        key = meta.get("chunk", 0) + "_" + meta.get("filename", "")
+        if key in merged:
+            merged[key]["kw_score"] = overlap / max(1, len(query_terms))
+        else:
+            merged[key] = {"doc": doc, "meta": meta, "sem_score": 0.0, "kw_score": overlap / max(1, len(query_terms))}
+
+    # Combined score
+    ranked = []
+    for key, v in merged.items():
+        combined = (1 - keyword_weight) * v["sem_score"] + keyword_weight * v["kw_score"]
+        ranked.append((combined, v))
+    ranked.sort(key=lambda x: x[0], reverse=True)
+
+    lines = [f'🔍 Hybrid Search for: "{query}" (keyword_weight={keyword_weight})\n']
+    for i, (score, v) in enumerate(ranked[:n_results], 1):
+        fname = v["meta"].get("filename", "?")
+        lines.append(f"**[{i}] {fname}** (combined: {score:.3f}, sem: {v['sem_score']:.3f}, kw: {v['kw_score']:.3f})\n{v['doc'][:280]}...\n")
+    return "\n".join(lines)
+
+
+# ─── 17. QUERY EXPANSION ─────────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_query_expand(query: str, n_variants: int = 3) -> Dict[str, Any]:
+    """Generate multiple query variants for better retrieval coverage."""
+    system = "You are a search query expander. Given a query, generate alternative phrasings that capture the same intent but use different vocabulary. Return only the queries, one per line."
+    user = f"Original query: {query}\nGenerate {n_variants} alternative queries:"
+    response = await _generate(system, user, max_tokens=256)
+    variants = [q.strip() for q in response.splitlines() if q.strip()]
+    return {"original": query, "variants": variants[:n_variants], "total": len(variants) + 1,
+            "council_note": "C9-AETHER: semantic expansion; C6-OMNIS: knowledge synthesis."}
+
+
+# ─── 18. QUERY REWRITING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_query_rewrite(query: str) -> Dict[str, Any]:
+    """Rewrite a query for better retrieval (clarify, expand, disambiguate)."""
+    system = "You are a query rewriter. Rewrite the given query to be more specific and retrieval-friendly. Return only the rewritten query."
+    user = f"Rewrite this query for better search retrieval: {query}"
+    rewritten = await _generate(system, user, max_tokens=128)
+    return {"original": query, "rewritten": rewritten.strip(), "council_note": "C9-AETHER: semantic refinement."}
+
+
+# ─── 19. RE-RANKING ──────────────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_rerank(query: str, n_results: int = 5) -> str:
+    """Re-rank search results using LLM-based relevance scoring."""
+    if _col.count() == 0:
+        return "Knowledge base empty."
+    q_emb = (await _nim_embed([query], "query"))[0]
+    results = _col.query(query_embeddings=[q_emb], n_results=min(n_results * 3, _col.count()),
+                        include=["documents", "metadatas", "distances"])
+    # Use LLM to score each result
+    scored = []
+    for doc, meta, dist in zip(results["documents"][0], results["metadatas"][0], results["distances"][0]):
+        system = "You are a relevance scorer. Rate the relevance of the following document to the query on a scale of 0-10. Return only the number."
+        user = f"Query: {query}\nDocument: {doc[:500]}\nRelevance (0-10):"
+        try:
+            score_str = await _generate(system, user, max_tokens=8)
+            score = float(score_str.strip().split()[0])
+        except Exception:
+            score = (1 - dist) * 10
+        scored.append({"doc": doc, "meta": meta, "sem_score": 1 - dist, "llm_score": score})
+    scored.sort(key=lambda x: x["llm_score"], reverse=True)
+    lines = [f'🔍 Re-ranked Results for: "{query}"\n']
+    for i, r in enumerate(scored[:n_results], 1):
+        fname = r["meta"].get("filename", "?")
+        lines.append(f"**[{i}] {fname}** (LLM: {r['llm_score']:.1f}, sem: {r['sem_score']:.3f})\n{r['doc'][:280]}...\n")
+    return "\n".join(lines)
+
+
+# ─── 20. MULTI-COLLECTION MANAGEMENT ─────────────────────────────────────────
+
+@mcp.tool()
+def rag_collection_manage(action: str = "list", collection_name: str = "", metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """Manage RAG collections: list, create, delete, or switch."""
+    global _col
+    if action.lower() == "list":
+        collections = _chroma.list_collections()
+        return {"status": "OK", "collections": [{"name": c.name, "count": c.count()} for c in collections]}
+    elif action.lower() == "create" and collection_name:
+        new_col = _chroma.get_or_create_collection(name=collection_name, metadata=metadata or {})
+        return {"status": "CREATED", "collection": collection_name, "count": new_col.count()}
+    elif action.lower() == "delete" and collection_name:
+        try:
+            _chroma.delete_collection(collection_name)
+            return {"status": "DELETED", "collection": collection_name}
+        except Exception as e:
+            return {"status": "ERROR", "error": str(e)}
+    elif action.lower() == "switch" and collection_name:
+        try:
+            _col = _chroma.get_collection(collection_name)
+            return {"status": "SWITCHED", "collection": collection_name, "count": _col.count()}
+        except Exception as e:
+            return {"status": "ERROR", "error": str(e)}
+    return {"error": f"Unknown action '{action}'. Use: list, create, delete, switch."}
+
+
+# ─── 21. DOCUMENT METADATA FILTERING ──────────────────────────────────────────
+
+@mcp.tool()
+async def rag_filtered_search(query: str, n_results: int = 5, filter_key: str = "", filter_value: str = "") -> str:
+    """Semantic search with metadata filtering."""
+    if _col.count() == 0:
+        return "Knowledge base empty."
+    q_emb = (await _nim_embed([query], "query"))[0]
+    where = {filter_key: filter_value} if filter_key and filter_value else None
+    results = _col.query(query_embeddings=[q_emb], n_results=min(n_results, _col.count()),
+                        where=where, include=["documents", "metadatas", "distances"])
+    if not results["documents"][0]:
+        return "No results matching filter."
+    lines = [f'🔍 Filtered Search for: "{query}" (filter: {filter_key}={filter_value})\n']
+    for i, (doc, meta, dist) in enumerate(zip(results["documents"][0], results["metadatas"][0], results["distances"][0]), 1):
+        fname = meta.get("filename", "?")
+        lines.append(f"**[{i}] {fname}** (sim: {1-dist:.3f})\n{doc[:280]}...\n")
+    return "\n".join(lines)
+
+
+# ─── 22. RAG EVALUATION ──────────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_evaluate(question: str, answer: str, n_context: int = 5) -> Dict[str, Any]:
+    """Evaluate RAG answer quality: faithfulness, relevance, context precision."""
+    if _col.count() == 0:
+        return {"error": "Knowledge base empty."}
+    q_emb = (await _nim_embed([question], "query"))[0]
+    results = _col.query(query_embeddings=[q_emb], n_results=min(n_context, _col.count()),
+                        include=["documents", "metadatas", "distances"])
+    context = "\n\n".join(results["documents"][0])
+
+    # Faithfulness: is the answer grounded in context?
+    faith_system = "You are an evaluator. Is the following answer fully supported by the provided context? Answer YES or NO, then explain."
+    faith_user = f"Context:\n{context[:2000]}\n\nAnswer: {answer}\n\nFaithful (YES/NO):"
+    faith_response = await _generate(faith_system, faith_user, max_tokens=128)
+
+    # Relevance: is the answer relevant to the question?
+    rel_system = "You are an evaluator. Rate the relevance of the following answer to the question on a scale of 0-10. Return only the number."
+    rel_user = f"Question: {question}\nAnswer: {answer}\nRelevance (0-10):"
+    try:
+        rel_score = float((await _generate(rel_system, rel_user, max_tokens=8)).strip().split()[0])
+    except Exception:
+        rel_score = 5.0
+
+    return {
+        "question": question,
+        "answer": answer[:200],
+        "faithfulness": faith_response.strip()[:200],
+        "relevance_score": rel_score,
+        "context_chunks": len(results["documents"][0]),
+        "status": "RAG_EVALUATED",
+        "council_note": "C18-SHEPHERD: truth verification; C7-LOGOS: logical consistency.",
+    }
+
+
+# ─── 23. CITATION TRACKING ───────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_citations(question: str, n_context: int = 5) -> Dict[str, Any]:
+    """Get detailed citation information for a RAG answer."""
+    if _col.count() == 0:
+        return {"error": "Knowledge base empty."}
+    q_emb = (await _nim_embed([question], "query"))[0]
+    results = _col.query(query_embeddings=[q_emb], n_results=min(n_context, _col.count()),
+                        include=["documents", "metadatas", "distances"])
+    citations = []
+    for i, (doc, meta, dist) in enumerate(zip(results["documents"][0], results["metadatas"][0], results["distances"][0]), 1):
+        citations.append({
+            "citation_id": i,
+            "source": meta.get("filename", "?"),
+            "chunk_index": meta.get("chunk", 0),
+            "similarity": round(1 - dist, 4),
+            "excerpt": doc[:200],
+            "full_length": len(doc),
+        })
+    return {"question": question, "citations": citations, "total_sources": len(set(c["source"] for c in citations)),
+            "status": "CITATIONS_TRACKED"}
+
+
+# ─── 24. QUERY REWRITING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+async def rag_answer_verify(question: str, answer: str) -> Dict[str, Any]:
+    """Verify an answer against the knowledge base sources."""
+    if _col.count() == 0:
+        return {"error": "Knowledge base empty."}
+    q_emb = (await _nim_embed([question], "query"))[0]
+    results = _col.query(query_embeddings=[q_emb], n_results=min(5, _col.count()),
+                        include=["documents", "metadatas", "distances"])
+    context = "\n\n".join(results["documents"][0])
+    system = "You are a fact-checker. Verify if the following answer is consistent with the provided context. List any claims not supported by the context."
+    user = f"Context:\n{context[:3000]}\n\nAnswer to verify: {answer}\n\nVerification:"
+    verification = await _generate(system, user, max_tokens=512)
+    return {"question": question, "answer": answer[:200], "verification": verification.strip(),
+            "sources_checked": len(results["documents"][0]), "status": "ANSWER_VERIFIED"}
+
+
+# ─── 25. CHUNKING STRATEGY ────────────────────────────────────────────────────
+
+@mcp.tool()
+def rag_chunk_strategy(strategy: str = "recursive", chunk_size: int = 800, overlap: int = 80) -> Dict[str, Any]:
+    """Configure chunking strategy for document ingestion."""
+    strategies = {
+        "fixed": {"description": "Fixed-size chunks by word count", "params": {"chunk_size": chunk_size, "overlap": overlap}},
+        "recursive": {"description": "Recursive character splitting (paragraph -> sentence -> word)", "params": {"chunk_size": chunk_size, "overlap": overlap, "separators": ["\\n\\n", "\\n", ". ", " "] }},
+        "semantic": {"description": "Semantic chunking by embedding similarity", "params": {"threshold": 0.5, "min_chunk_size": 100}},
+        "markdown": {"description": "Markdown-aware splitting (headers, code blocks)", "params": {"split_on_headers": True, "keep_code_blocks": True}},
+        "sentence": {"description": "Sentence-level chunking", "params": {"max_sentences": 5, "overlap_sentences": 1}},
+    }
+    config = strategies.get(strategy.lower(), strategies["recursive"])
+    return {"strategy": strategy, "config": config, "current_chunk_size": CHUNK_SIZE,
+            "current_overlap": CHUNK_OVERLAP, "council_note": "C5-ECHO: chunking strategy; C14-KAIDO: efficiency."}
+
+
+# ─── 26. CONVERSATION MEMORY (RAG CHAT) ──────────────────────────────────────
+
+@mcp.tool()
+async def rag_chat(question: str, conversation_id: str = "default", n_context: int = 5) -> str:
+    """RAG-powered chat with conversation history memory."""
+    # Retrieve conversation history from memory store
+    history = memory_recall(query=question, top_k=3, recency_bias=0.5)
+    history_text = ""
+    if history.get("results"):
+        history_text = "\n".join(f"Q: {r['text'][:100]}" for r in history["results"])
+
+    # Search knowledge base
+    if _col.count() == 0:
+        return "Knowledge base empty. Run ingest_file or ingest_folder first."
+    q_emb = (await _nim_embed([question], "query"))[0]
+    results = _col.query(query_embeddings=[q_emb], n_results=min(n_context, _col.count()),
+                        include=["documents", "metadatas", "distances"])
+    context = "\n\n".join(results["documents"][0])
+
+    system = ("You are Quillan-Ronin. Answer using the provided context and conversation history. "
+              "Be precise, cite sources. Maintain conversation continuity.")
+    user = f"Conversation history:\n{history_text}\n\nContext:\n{context}\n\nQuestion: {question}"
+    answer = await _generate(system, user, max_tokens=1024)
+
+    # Store in memory
+    memory_write(text=f"Q: {question}\nA: {answer[:200]}", metadata={"type": "rag_chat", "conv_id": conversation_id}, importance=0.8)
+
+    sources = list(set(m.get("filename", "?") for m in results["metadatas"][0]))
+    return f"{answer}\n\n**Sources:** {', '.join(sources)}"
+
+
+# ─── 27. RAG METRICS DASHBOARD ───────────────────────────────────────────────
+
+@mcp.tool()
+def rag_metrics() -> Dict[str, Any]:
+    """Comprehensive RAG metrics dashboard."""
+    count = _col.count()
+    if count == 0:
+        return {"status": "EMPTY", "kb_chunks": 0, "memory_count": len(_MEMORY_STORE)}
+    sample = _col.get(limit=min(count, 1000), include=["metadatas"])
+    types, sources = {}, set()
+    for m in sample["metadatas"]:
+        ext = m.get("suffix", "?")
+        types[ext] = types.get(ext, 0) + 1
+        sources.add(m.get("filename", "?"))
+    return {
+        "status": "RAG_METRICS_READY",
+        "kb_chunks": count,
+        "unique_files": len(sources),
+        "file_types": types,
+        "memory_entries": len(_MEMORY_STORE),
+        "embedding_model": EMBED_MODEL,
+        "generator_model": GEN_MODEL,
+        "db_path": str(CHROMA_PATH),
+        "council_note": "C6-OMNIS: knowledge integration; C18-SHEPHERD: truth grounding.",
+    }
+
+
+# ─── 28. KNOWLEDGE GRAPH INTEGRATION ─────────────────────────────────────────
+
+@mcp.tool()
+def rag_knowledge_graph(entities: str = "", relations: str = "") -> Dict[str, Any]:
+    """Build a knowledge graph from entities and relations."""
+    entity_list = [e.strip() for e in entities.split(",") if e.strip()]
+    relation_list = [r.strip() for r in relations.split(",") if r.strip()]
+    nodes = [{"id": e, "label": e} for e in entity_list]
+    edges = []
+    for r in relation_list:
+        parts = r.split("->")
+        if len(parts) == 2:
+            edges.append({"source": parts[0].strip(), "target": parts[1].strip(), "label": "related"})
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "node_count": len(nodes),
+        "edge_count": len(edges),
+        "format": "nodes + edges (compatible with D3/NetworkX)",
+        "council_note": "C6-OMNIS: knowledge synthesis; C24-SCHEMA: graph structure.",
+    }
+
+
+# ─── 29. INCREMENTAL INGESTION (UPDATE) ─────────────────────────────────────
+
+@mcp.tool()
+async def rag_update_source(file_path: str, metadata: Optional[dict] = None) -> str:
+    """Update an existing source: delete old chunks, re-ingest fresh."""
+    path = Path(file_path)
+    if not path.exists():
+        return f"Error: not found: {file_path}"
+    # Delete old chunks
+    results = _col.get(where={"filename": path.name}, include=["metadatas"])
+    ids = results.get("ids", [])
+    if ids:
+        _col.delete(ids=ids)
+    # Re-ingest
+    result = await ingest_file(file_path, metadata=metadata)
+    return f"Updated {path.name}: removed {len(ids)} old chunks, {result}"
+
+
+# ─── 30. DOCUMENT DEDUPLICATION ──────────────────────────────────────────────
+
+@mcp.tool()
+def rag_dedup(threshold: float = 0.95) -> Dict[str, Any]:
+    """Detect and remove near-duplicate chunks from the knowledge base."""
+    if _col.count() == 0:
+        return {"status": "EMPTY", "removed": 0}
+    all_data = _col.get(include=["documents", "metadatas", "embeddings"])
+    ids = all_data["ids"]
+    docs = all_data["documents"]
+    embs = all_data["embeddings"]
+    to_remove = set()
+    for i in range(len(docs)):
+        for j in range(i + 1, len(docs)):
+            # Cosine similarity
+            import math
+            dot = sum(a * b for a, b in zip(embs[i], embs[j]))
+            norm_i = math.sqrt(sum(a * a for a in embs[i])) or 1e-8
+            norm_j = math.sqrt(sum(a * a for a in embs[j])) or 1e-8
+            sim = dot / (norm_i * norm_j)
+            if sim >= threshold:
+                to_remove.add(ids[j])
+    if to_remove:
+        _col.delete(ids=list(to_remove))
+    return {"status": "DEDUP_COMPLETE", "total_chunks": len(ids), "removed": len(to_remove),
+            "threshold": threshold, "council_note": "C14-KAIDO: storage optimization."}
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

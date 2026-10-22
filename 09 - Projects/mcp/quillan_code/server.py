@@ -506,6 +506,324 @@ def codeweaver_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 9. LINTING INTEGRATION (ruff/flake8/pylint) ────────────────────────────
+
+@mcp.tool()
+def codeweaver_lint(code_or_file_path: str, linter: str = "ruff") -> Dict[str, Any]:
+    """Run a Python linter (ruff, flake8, or pylint) on code/file and return findings."""
+    import subprocess
+    code = code_or_file_path
+    path = Path(code_or_file_path.strip().strip('"\''))
+    if path.exists() and path.is_file():
+        target = str(path)
+    else:
+        # Write to temp file
+        tmp = SESSION_DIR / f"lint-{int(time.time())}.py"
+        tmp.write_text(code, encoding="utf-8")
+        target = str(tmp)
+
+    linters = {
+        "ruff": ["ruff", "check", target, "--output-format=json"],
+        "flake8": ["flake8", target, "--format=%(path)s:%(row)d:%(col)d: %(code)s %(text)s"],
+        "pylint": ["pylint", target, "--output-format=json"],
+    }
+    cmd = linters.get(linter.lower(), linters["ruff"])
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        findings = []
+        if linter.lower() == "ruff":
+            try:
+                findings = json.loads(result.stdout) if result.stdout.strip() else []
+            except Exception:
+                findings = [{"raw": result.stdout[:500]}]
+        else:
+            findings = [{"raw": result.stdout[:500]}] if result.stdout.strip() else []
+        return {
+            "linter": linter,
+            "exit_code": result.returncode,
+            "total_findings": len(findings),
+            "findings": findings[:50],
+            "stderr": result.stderr[:300] if result.stderr else "",
+            "status": "PASS" if result.returncode == 0 else "WARN",
+        }
+    except FileNotFoundError:
+        return {"error": f"{linter} not installed. Install with: pip install {linter}", "status": "MISSING_DEP"}
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+
+
+# ─── 10. CODE GENERATION / AUTOCOMPLETION ────────────────────────────────────
+
+@mcp.tool()
+def codeweaver_generate_code(
+    description: str,
+    language: str = "python",
+    template: str = "function",
+    include_docstring: bool = True,
+    include_type_hints: bool = True,
+    include_tests: bool = False,
+) -> Dict[str, Any]:
+    """Generate code from a natural language description using templates."""
+    lang_templates = {
+        "python": {
+            "function": '''def {name}(args) -> ReturnType:
+    """{docstring}"""
+    # TODO: implement
+    pass
+''',
+            "class": '''class {name}:
+    """{docstring}"""
+    def __init__(self):
+        pass
+''',
+            "async_function": '''async def {name}(args) -> ReturnType:
+    """{docstring}"""
+    # TODO: implement
+    pass
+''',
+        },
+        "javascript": {
+            "function": "function {name}(args) {{\n  // {docstring}\n  // TODO: implement\n}}\n",
+            "class": "class {name} {{\n  constructor() {{\n    // {docstring}\n  }}\n}}\n",
+            "async_function": "async function {name}(args) {{\n  // {docstring}\n  // TODO: implement\n}}\n",
+        },
+    }
+
+    templates = lang_templates.get(language.lower(), lang_templates["python"])
+    tmpl = templates.get(template, templates["function"])
+
+    # Generate a reasonable name from description
+    import re as _re
+    name = _re.sub(r'[^a-zA-Z0-9_]', '_', description.lower().replace(" ", "_"))[:40].strip("_")
+    if not name:
+        name = "generated_function"
+
+    docstring = description if include_docstring else ""
+
+    code = tmpl.format(name=name, docstring=docstring, args="")
+
+    # Add type hints if requested (Python only)
+    if include_type_hints and language.lower() == "python":
+        code = code.replace("def ", "def ", 1)  # placeholder for hint injection
+
+    result = {
+        "status": "GENERATED",
+        "language": language,
+        "template": template,
+        "name": name,
+        "code": code,
+        "description": description,
+    }
+
+    if include_tests:
+        result["test_scaffold"] = f"def test_{name}():\n    # TODO: test implementation\n    pass\n"
+
+    return result
+
+
+# ─── 11. GIT OPERATIONS (blame, diff, commit review) ─────────────────────────
+
+@mcp.tool()
+def codeweaver_git_blame(file_path: str, line_number: Optional[int] = None) -> Dict[str, Any]:
+    """Run git blame on a file to find who last modified each line."""
+    import subprocess
+    try:
+        cmd = ["git", "blame", "-l", file_path]
+        if line_number:
+            cmd = ["git", "blame", "-L", f"{line_number},{line_number}", "-l", file_path]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30, cwd=str(Path(file_path).parent))
+        if result.returncode != 0:
+            return {"error": result.stderr.strip(), "status": "ERROR"}
+        lines = result.stdout.strip().splitlines()
+        blame_entries = []
+        for line in lines[:50]:
+            blame_entries.append(line)
+        return {"file": file_path, "line_number": line_number, "blame": blame_entries, "status": "OK"}
+    except FileNotFoundError:
+        return {"error": "git not installed", "status": "MISSING_DEP"}
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+
+
+@mcp.tool()
+def codeweaver_git_diff(file_path: str = "", staged: bool = False) -> Dict[str, Any]:
+    """Get git diff for a file or the entire working tree."""
+    import subprocess
+    try:
+        cmd = ["git", "diff"]
+        if staged:
+            cmd.append("--cached")
+        if file_path:
+            cmd.append(file_path)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        if result.returncode != 0 and result.stderr:
+            return {"error": result.stderr.strip(), "status": "ERROR"}
+        diff_text = result.stdout[:5000]
+        return {
+            "diff": diff_text,
+            "lines_changed": len(diff_text.splitlines()),
+            "staged": staged,
+            "status": "OK" if diff_text else "NO_CHANGES",
+        }
+    except FileNotFoundError:
+        return {"error": "git not installed", "status": "MISSING_DEP"}
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+
+
+@mcp.tool()
+def codeweaver_git_log(file_path: str = "", limit: int = 10) -> Dict[str, Any]:
+    """Get git commit log for a file or repository."""
+    import subprocess
+    try:
+        cmd = ["git", "log", f"--max-count={limit}", "--oneline", "--decorate"]
+        if file_path:
+            cmd.append("--")
+            cmd.append(file_path)
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        if result.returncode != 0:
+            return {"error": result.stderr.strip(), "status": "ERROR"}
+        commits = result.stdout.strip().splitlines()
+        return {"commits": commits, "count": len(commits), "status": "OK"}
+    except FileNotFoundError:
+        return {"error": "git not installed", "status": "MISSING_DEP"}
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+
+
+# ─── 12. CODE COVERAGE REPORTING ─────────────────────────────────────────────
+
+@mcp.tool()
+def codeweaver_coverage(test_path: str = ".", source_path: str = ".", min_coverage: float = 80.0) -> Dict[str, Any]:
+    """Run pytest with coverage and return a coverage summary."""
+    import subprocess
+    try:
+        cmd = ["python", "-m", "pytest", test_path, f"--cov={source_path}", "--cov-report=json", "--cov-report=term-missing", "-q"]
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+        # Try to parse coverage.json
+        cov_file = Path("coverage.json")
+        coverage_pct = 0.0
+        files = {}
+        if cov_file.exists():
+            try:
+                cov_data = json.loads(cov_file.read_text(encoding="utf-8"))
+                coverage_pct = cov_data.get("totals", {}).get("percent_covered", 0.0)
+                for fname, fdata in cov_data.get("files", {}).items():
+                    files[fname] = {"covered": fdata.get("summary", {}).get("percent_covered", 0.0)}
+                cov_file.unlink(missing_ok=True)
+            except Exception:
+                pass
+        return {
+            "coverage_percent": round(coverage_pct, 1),
+            "min_coverage": min_coverage,
+            "passed": coverage_pct >= min_coverage,
+            "files": files,
+            "pytest_output": result.stdout[-500:] if result.stdout else "",
+            "status": "PASS" if coverage_pct >= min_coverage else "FAIL",
+        }
+    except FileNotFoundError:
+        return {"error": "pytest-cov not installed. Install with: pip install pytest-cov", "status": "MISSING_DEP"}
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+
+
+# ─── 13. PERFORMANCE PROFILING ────────────────────────────────────────────────
+
+@mcp.tool()
+def codeweaver_profile(code: str, iterations: int = 1000) -> Dict[str, Any]:
+    """Profile Python code performance using cProfile and return hot spots."""
+    import cProfile
+    import io
+    import pstats
+    import tempfile
+
+    # Write code to temp file
+    tmp = Path(tempfile.mktemp(suffix=".py"))
+    tmp.write_text(code, encoding="utf-8")
+
+    try:
+        prof = cProfile.Profile()
+        prof.enable()
+        exec(compile(open(str(tmp)).read(), str(tmp), "exec"), {})
+        prof.disable()
+
+        stream = io.StringIO()
+        stats = pstats.Stats(prof, stream=stream)
+        stats.sort_stats("tottime")
+        stats.print_stats(15)
+        stream.seek(0)
+        output = stream.read()
+
+        # Parse top functions
+        hot_spots = []
+        for line in output.splitlines():
+            if line.strip() and not line.startswith(" ") and "function calls" not in line and "ncalls" not in line and "tottime" not in line:
+                try:
+                    parts = line.split()
+                    if len(parts) >= 6:
+                        hot_spots.append({
+                            "ncalls": parts[0],
+                            "tottime": parts[1],
+                            "percall": parts[2],
+                            "cumtime": parts[3],
+                            "function": " ".join(parts[5:]),
+                        })
+                except Exception:
+                    pass
+
+        return {
+            "iterations": iterations,
+            "hot_spots": hot_spots[:10],
+            "raw_profile": output[:2000],
+            "status": "PROFILE_COMPLETE",
+        }
+    except Exception as e:
+        return {"error": str(e), "status": "ERROR"}
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+# ─── 14. DOCUMENTATION GENERATOR ──────────────────────────────────────────────
+
+@mcp.tool()
+def codeweaver_generate_docs(code_or_file_path: str, style: str = "google") -> Dict[str, Any]:
+    """Generate docstrings for functions and classes missing them."""
+    code = code_or_file_path
+    path = Path(code_or_file_path.strip().strip('"\''))
+    if path.exists() and path.is_file():
+        try:
+            code = path.read_text(encoding="utf-8", errors="replace")
+        except Exception as e:
+            return {"error": f"Failed to read file: {e}"}
+
+    try:
+        tree = ast.parse(code)
+    except SyntaxError as e:
+        return {"error": f"Syntax error: {e}"}
+
+    missing_docs = []
+    for node in ast.walk(tree):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+            if not ast.get_docstring(node):
+                missing_docs.append({
+                    "name": node.name,
+                    "type": "function" if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) else "class",
+                    "line": node.lineno,
+                    "suggested_docstring": f'"""{node.name} — TODO: describe purpose, args, and return value."""',
+                })
+
+    # Generate updated code with docstrings inserted
+    lines = code.splitlines()
+    # Simple approach: report what's missing
+    return {
+        "total_missing": len(missing_docs),
+        "missing_docs": missing_docs,
+        "style": style,
+        "status": "DOCS_ANALYZED",
+        "note": "Apply suggested docstrings manually or use an auto-doc tool like pydocstring.",
+    }
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

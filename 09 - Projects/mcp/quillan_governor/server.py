@@ -399,6 +399,415 @@ def governor_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+# ─── 10. GPU MONITORING ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def governor_gpu_status() -> Dict[str, Any]:
+    """Monitor GPU utilization, VRAM, temperature, and power draw."""
+    gpus = []
+    try:
+        import subprocess
+        result = subprocess.run(["nvidia-smi", "--query-gpu=index,name,utilization.gpu,memory.used,memory.total,temperature.gpu,power.draw", "--format=csv,noheader,nounits"],
+                                capture_output=True, text=True, timeout=10)
+        if result.returncode == 0:
+            for line in result.stdout.strip().splitlines():
+                parts = [p.strip() for p in line.split(",")]
+                if len(parts) >= 7:
+                    gpus.append({
+                        "index": int(parts[0]),
+                        "name": parts[1],
+                        "utilization_pct": float(parts[2]),
+                        "vram_used_mb": float(parts[3]),
+                        "vram_total_mb": float(parts[4]),
+                        "temperature_c": float(parts[5]),
+                        "power_draw_w": float(parts[6]),
+                    })
+    except FileNotFoundError:
+        pass
+    except Exception as e:
+        pass
+
+    if not gpus:
+        # Fallback: try torch
+        try:
+            import torch
+            if torch.cuda.is_available():
+                for i in range(torch.cuda.device_count()):
+                    props = torch.cuda.get_device_properties(i)
+                    gpus.append({
+                        "index": i,
+                        "name": props.name,
+                        "vram_total_mb": round(props.total_memory / (1024**2), 1),
+                        "compute_capability": f"{props.major}.{props.minor}",
+                        "engine": "torch",
+                    })
+        except Exception:
+            pass
+
+    if not gpus:
+        return {"status": "NO_GPU_DETECTED", "gpus": [], "note": "nvidia-smi and torch not available."}
+
+    alerts = []
+    for g in gpus:
+        if g.get("temperature_c", 0) > 85:
+            alerts.append("GPU %d temperature critical: %.1fC" % (g["index"], g["temperature_c"]))
+        if g.get("vram_used_mb", 0) / max(1, g.get("vram_total_mb", 1)) > 0.9:
+            alerts.append("GPU %d VRAM near capacity" % g["index"])
+
+    return {
+        "status": "GPU_MONITORING_ACTIVE",
+        "gpu_count": len(gpus),
+        "gpus": gpus,
+        "alerts": alerts,
+        "council_note": "C14-KAIDO: optimize VRAM; C26-TECHNE: hardware constraints.",
+    }
+
+
+# ─── 11. DISK I/O MONITORING ─────────────────────────────────────────────────
+
+@mcp.tool()
+def governor_disk_io() -> Dict[str, Any]:
+    """Monitor disk I/O, usage, and IOPS across all mounted drives."""
+    disks = []
+    for part in psutil.disk_partitions():
+        try:
+            usage = psutil.disk_usage(part.mountpoint)
+            disks.append({
+                "device": part.device,
+                "mountpoint": part.mountpoint,
+                "fstype": part.fstype,
+                "total_gb": round(usage.total / (1024**3), 1),
+                "used_gb": round(usage.used / (1024**3), 1),
+                "free_gb": round(usage.free / (1024**3), 1),
+                "used_percent": usage.percent,
+            })
+        except Exception:
+            continue
+
+    # I/O counters
+    io_counters = {}
+    try:
+        io = psutil.disk_io_counters()
+        if io:
+            io_counters = {
+                "read_count": io.read_count,
+                "write_count": io.write_count,
+                "read_bytes": io.read_bytes,
+                "write_bytes": io.write_bytes,
+                "read_time_ms": io.read_time,
+                "write_time_ms": io.write_time,
+            }
+    except Exception:
+        pass
+
+    alerts = []
+    for d in disks:
+        if d["used_percent"] > 90:
+            alerts.append("Disk %s nearly full: %.1f%%" % (d["mountpoint"], d["used_percent"]))
+
+    return {
+        "status": "DISK_MONITORING_ACTIVE",
+        "disks": disks,
+        "io_counters": io_counters,
+        "alerts": alerts,
+        "council_note": "C14-KAIDO: optimize I/O; C26-TECHNE: storage constraints.",
+    }
+
+
+# ─── 12. NETWORK BANDWIDTH MONITORING ────────────────────────────────────────
+
+@mcp.tool()
+def governor_network_bandwidth() -> Dict[str, Any]:
+    """Monitor network interfaces, bandwidth, and connection stats."""
+    interfaces = []
+    try:
+        net_io = psutil.net_io_counters(pernic=True)
+        for name, counters in net_io.items():
+            interfaces.append({
+                "interface": name,
+                "bytes_sent": counters.bytes_sent,
+                "bytes_recv": counters.bytes_recv,
+                "packets_sent": counters.packets_sent,
+                "packets_recv": counters.packets_recv,
+                "errors_in": counters.errin,
+                "errors_out": counters.errout,
+                "drops_in": counters.dropin,
+                "drops_out": counters.dropout,
+            })
+    except Exception:
+        pass
+
+    # Connection count
+    conn_count = 0
+    try:
+        conns = psutil.net_connections()
+        conn_count = len(conns)
+    except Exception:
+        pass
+
+    # Network addresses
+    addrs = {}
+    try:
+        for iface, addr_list in psutil.net_if_addrs().items():
+            addrs[iface] = [{"family": str(a.family), "address": a.address} for a in addr_list]
+    except Exception:
+        pass
+
+    return {
+        "status": "NETWORK_MONITORING_ACTIVE",
+        "interfaces": interfaces,
+        "connection_count": conn_count,
+        "addresses": addrs,
+        "council_note": "C13-WARDEN: network perimeter; C29-NAVIGATOR: routing.",
+    }
+
+
+# ─── 13. PROCESS MANAGEMENT ──────────────────────────────────────────────────
+
+@mcp.tool()
+def governor_process_list(sort_by: str = "cpu", limit: int = 20) -> Dict[str, Any]:
+    """List top processes by CPU or memory usage."""
+    procs = []
+    for proc in psutil.process_iter(["pid", "name", "cpu_percent", "memory_info", "status"]):
+        try:
+            info = proc.info
+            mem_mb = round(info["memory_info"].rss / (1024**2), 1) if info.get("memory_info") else 0
+            procs.append({
+                "pid": info["pid"],
+                "name": info["name"],
+                "cpu_percent": info.get("cpu_percent", 0),
+                "memory_mb": mem_mb,
+                "status": info.get("status", "unknown"),
+            })
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+
+    sort_key = "cpu_percent" if sort_by.lower() == "cpu" else "memory_mb"
+    procs.sort(key=lambda x: x[sort_key], reverse=True)
+
+    return {
+        "status": "PROCESS_LIST_READY",
+        "sort_by": sort_by,
+        "total_processes": len(procs),
+        "top_processes": procs[:limit],
+        "council_note": "C13-WARDEN: process audit; C14-KAIDO: resource optimization.",
+    }
+
+
+@mcp.tool()
+def governor_kill_process(pid: int, force: bool = False) -> Dict[str, Any]:
+    """Terminate a process by PID. Use force=True for SIGKILL."""
+    try:
+        proc = psutil.Process(pid)
+        name = proc.name()
+        if force:
+            proc.kill()
+        else:
+            proc.terminate()
+        return {"status": "TERMINATED", "pid": pid, "name": name, "force": force,
+                "council_note": "C13-WARDEN: authorized process termination."}
+    except psutil.NoSuchProcess:
+        return {"status": "ERROR", "error": f"Process {pid} not found."}
+    except psutil.AccessDenied:
+        return {"status": "ERROR", "error": f"Access denied for PID {pid}. Run as admin."}
+    except Exception as e:
+        return {"status": "ERROR", "error": str(e)}
+
+
+# ─── 14. POWER CONSUMPTION TRACKING ──────────────────────────────────────────
+
+@mcp.tool()
+def governor_power_status() -> Dict[str, Any]:
+    """Monitor system power consumption and battery status."""
+    battery = None
+    try:
+        bat = psutil.sensors_battery()
+        if bat:
+            battery = {
+                "percent": bat.percent,
+                "secs_left": bat.secsleft,
+                "power_plugged": bat.power_plugged,
+                "status": "CHARGING" if bat.power_plugged else "DISCHARGING",
+            }
+    except Exception:
+        pass
+
+    # Try to get CPU power via RAPL (Linux) or estimate
+    cpu_power_w = None
+    try:
+        # Linux RAPL
+        import glob as _g
+        rapl_paths = _g.glob("/sys/class/powercap/intel-rapl/*/energy_uj")
+        if rapl_paths:
+            cpu_power_w = "RAPL available (read energy_uj for delta)"
+    except Exception:
+        pass
+
+    return {
+        "status": "POWER_MONITORING_ACTIVE",
+        "battery": battery,
+        "cpu_power": cpu_power_w or "Estimated via utilization (not directly measurable on Windows without RAPL)",
+        "estimated_system_power_w": round(psutil.cpu_percent() * 0.5 + 50, 1) if psutil.cpu_percent() > 0 else 50,
+        "council_note": "C14-KAIDO: power optimization; C26-TECHNE: hardware constraints.",
+    }
+
+
+# ─── 15. THERMAL THROTTLING ALERTS ───────────────────────────────────────────
+
+@mcp.tool()
+def governor_thermal_status() -> Dict[str, Any]:
+    """Monitor system temperatures and thermal throttling status."""
+    temps = {}
+    alerts = []
+    try:
+        sensors = psutil.sensors_temperatures()
+        for name, entries in sensors.items():
+            temps[name] = [{"label": e.label, "current": e.current, "high": e.high, "critical": e.critical} for e in entries]
+            for e in entries:
+                if e.critical and e.current >= e.critical - 5:
+                    alerts.append("CRITICAL: %s %s at %.1fC (limit %.1fC)" % (name, e.label, e.current, e.critical))
+                elif e.high and e.current >= e.high:
+                    alerts.append("WARNING: %s %s at %.1fC (high %.1fC)" % (name, e.label, e.current, e.high))
+    except Exception:
+        pass
+
+    # GPU temps (if available)
+    try:
+        import subprocess
+        result = subprocess.run(["nvidia-smi", "--query-gpu=temperature.gpu", "--format=csv,noheader,nounits"],
+                                capture_output=True, text=True, timeout=10)
+        if result.returncode == 0:
+            for i, line in enumerate(result.stdout.strip().splitlines()):
+                temp = float(line.strip())
+                temps["gpu_%d" % i] = [{"label": "GPU", "current": temp, "high": 80, "critical": 90}]
+                if temp > 85:
+                    alerts.append("GPU %d temperature high: %.1fC" % (i, temp))
+    except Exception:
+        pass
+
+    if not temps:
+        return {"status": "NO_SENSORS_AVAILABLE", "temps": {}, "alerts": [],
+                "note": "Temperature sensors not available on this platform (Windows). Use nvidia-smi for GPU temps."}
+
+    return {
+        "status": "THERMAL_MONITORING_ACTIVE",
+        "temps": temps,
+        "alerts": alerts,
+        "throttling_active": len(alerts) > 0,
+        "council_note": "C13-WARDEN: thermal safety; C14-KAIDO: optimize for thermals.",
+    }
+
+
+# ─── 16. CONTAINER / RESOURCE LIMITS ─────────────────────────────────────────
+
+@mcp.tool()
+def governor_container_limits() -> Dict[str, Any]:
+    """Check container/cgroup resource limits (Docker, K8s, WSL)."""
+    limits = {}
+    # cgroup v1
+    try:
+        if os.path.exists("/sys/fs/cgroup/memory/memory.limit_in_bytes"):
+            with open("/sys/fs/cgroup/memory/memory.limit_in_bytes") as f:
+                limits["memory_limit_bytes"] = int(f.read().strip())
+        if os.path.exists("/sys/fs/cgroup/cpu/cpu.cfs_quota_us"):
+            with open("/sys/fs/cgroup/cpu/cpu.cfs_quota_us") as f:
+                limits["cpu_quota_us"] = int(f.read().strip())
+        if os.path.exists("/sys/fs/cgroup/cpu/cpu.cfs_period_us"):
+            with open("/sys/fs/cgroup/cpu/cpu.cfs_period_us") as f:
+                limits["cpu_period_us"] = int(f.read().strip())
+    except Exception:
+        pass
+
+    # cgroup v2
+    try:
+        if os.path.exists("/sys/fs/cgroup/memory.max"):
+            with open("/sys/fs/cgroup/memory.max") as f:
+                val = f.read().strip()
+                limits["memory_max"] = val if val != "max" else "unlimited"
+        if os.path.exists("/sys/fs/cgroup/cpu.max"):
+            with open("/sys/fs/cgroup/cpu.max") as f:
+                parts = f.read().strip().split()
+                limits["cpu_max"] = parts
+    except Exception:
+        pass
+
+    # Docker detection
+    is_docker = os.path.exists("/.dockerenv") or os.path.exists("/run/.containerenv")
+
+    # WSL detection
+    is_wsl = "microsoft" in os.uname().release.lower() if hasattr(os, "uname") else False
+
+    return {
+        "status": "CONTAINER_CHECK_COMPLETE",
+        "is_container": is_docker,
+        "is_wsl": is_wsl,
+        "cgroup_limits": limits if limits else "No cgroup limits detected (bare metal or Windows).",
+        "host_info": {
+            "os": sys.platform,
+            "cpu_count": os.cpu_count(),
+            "python_version": sys.version.split()[0],
+        },
+        "council_note": "C26-TECHNE: hardware constraints; C13-WARDEN: resource isolation.",
+    }
+
+
+# ─── 17. DISK SPACE ALERT ────────────────────────────────────────────────────
+
+@mcp.tool()
+def governor_disk_space_alert(threshold_percent: float = 90.0) -> Dict[str, Any]:
+    """Check all drives for low disk space and return alerts."""
+    alerts = []
+    drives = []
+    for part in psutil.disk_partitions():
+        try:
+            usage = psutil.disk_usage(part.mountpoint)
+            drives.append({
+                "mountpoint": part.mountpoint,
+                "total_gb": round(usage.total / (1024**3), 1),
+                "free_gb": round(usage.free / (1024**3), 1),
+                "used_percent": usage.percent,
+            })
+            if usage.percent >= threshold_percent:
+                alerts.append("LOW DISK: %s is %.1f%% full (%.1f GB free)" % (part.mountpoint, usage.percent, usage.free / (1024**3)))
+        except Exception:
+            continue
+    return {
+        "status": "DISK_SPACE_CHECK_COMPLETE",
+        "threshold_percent": threshold_percent,
+        "drives": drives,
+        "alerts": alerts,
+        "alert_count": len(alerts),
+        "council_note": "C14-KAIDO: storage optimization; C13-WARDEN: capacity planning.",
+    }
+
+
+# ─── 18. SYSTEM UPTIME & LOAD ────────────────────────────────────────────────
+
+@mcp.tool()
+def governor_uptime_load() -> Dict[str, Any]:
+    """Check system uptime, load average, and boot time."""
+    boot_time = psutil.boot_time()
+    uptime_seconds = time.time() - boot_time
+    uptime_hours = round(uptime_seconds / 3600, 1)
+
+    load_avg = None
+    try:
+        load_avg = psutil.getloadavg()
+    except Exception:
+        pass
+
+    return {
+        "status": "UPTIME_CHECK_COMPLETE",
+        "boot_time": boot_time,
+        "uptime_hours": uptime_hours,
+        "uptime_days": round(uptime_hours / 24, 1),
+        "load_average": load_avg,
+        "cpu_count": os.cpu_count(),
+        "load_per_cpu": round(load_avg[0] / max(1, os.cpu_count()), 2) if load_avg else None,
+        "council_note": "C32-AEON: temporal awareness; C14-KAIDO: load optimization.",
+    }
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

@@ -5,7 +5,11 @@ model: Dynamic
 reasoning: true
 temperature: 0.3
 color: "#7C3AED"
-steps: 75
+steps: 200
+thinking_budget: 8192
+max_thinking_tokens: 8192
+reasoning_effort: high
+thinking: true
 permission:
   edit: allow
   bash: allow
