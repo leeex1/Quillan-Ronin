@@ -1,5 +1,5 @@
 {
-  "timestamp": 1792696970.9522967,
+  "timestamp": 1792698653.0363264,
   "cpu_core0_pct": 0.0,
   "cpu_total_pct": 0.0,
   "ram_used_gb": 0.0,
@@ -10,3 +10,4 @@
   "gov_scale": 1.0,
   "smoothness_mode": "SMOOTH_60FPS",
   "e_omega_joules": 0.0
+}
