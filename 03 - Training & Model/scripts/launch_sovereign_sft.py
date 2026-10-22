@@ -431,7 +431,7 @@ def main() -> None:
     )
     named_trainable: List[Tuple[str, nn.Parameter]] = []
     for name, p in model.named_parameters():
-        if any(pat in name for pat in trainable_patterns):
+        if any(pat in name for pat in trainable_patterns) and "mod_routers" not in name:
             p.requires_grad = True
             named_trainable.append((name, p))
 
