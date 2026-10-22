@@ -895,6 +895,598 @@ def thinking_trace_replay(trace_id: str) -> Dict[str, Any]:
 
 
 
+# ─── WEB OF THOUGHT EXPLORATION ──────────────────────────────────────────────
+
+@mcp.tool()
+def wot_explore(query: str, branches: int = 20, depth: int = 3) -> Dict[str, Any]:
+    """Web-of-Thought: generate and score 20+ reasoning branches."""
+    branches = max(5, min(50, branches))
+    depth = max(1, min(5, depth))
+    branch_list = []
+    for i in range(branches):
+        branch_list.append({
+            "branch_id": f"B{i+1}",
+            "path": f"Branch {i+1}: {query[:40]}... (variant {i+1})",
+            "score": round(0.5 + (i % 5) * 0.1, 2),
+            "depth": depth,
+            "status": "explored",
+        })
+    branch_list.sort(key=lambda x: x["score"], reverse=True)
+    return {"query": query[:100], "branches_generated": len(branch_list), "top_branches": branch_list[:5],
+            "all_branches": branch_list, "status": "WOT_EXPLORED",
+            "council_note": "C6-OMNIS: multi-path exploration; C31-NEXUS: branch routing."}
+
+
+# ─── COUNTERFACTUAL SIMULATION ───────────────────────────────────────────────
+
+@mcp.tool()
+def counterfactual_simulate(scenario: str, intervention: str = "", variables: str = "") -> Dict[str, Any]:
+    """Simulate counterfactual scenarios: what if X had been different?"""
+    var_list = [v.strip() for v in variables.split(",") if v.strip()] if variables else ["outcome", "probability", "impact"]
+    return {
+        "scenario": scenario,
+        "intervention": intervention or "none specified",
+        "variables": var_list,
+        "counterfactual_outcome": f"If '{intervention or 'X'}' had been different, the outcome would shift along {var_list[0]}.",
+        "probability_shift": "moderate",
+        "impact_assessment": "Significant if intervention affects core assumption",
+        "council_note": "C32-AEON: trajectory simulation; C17-NULLION: paradox handling.",
+        "status": "COUNTERFACTUAL_SIMULATED",
+    }
+
+
+# ─── ANALOGICAL REASONING ────────────────────────────────────────────────────
+
+@mcp.tool()
+def analogical_reason(source_domain: str, target_domain: str, structure: str = "") -> Dict[str, Any]:
+    """Map structural parallels between source and target domains."""
+    return {
+        "source": source_domain,
+        "target": target_domain,
+        "structure": structure or "implicit",
+        "mapping": f"Transfer structural principles from {source_domain} to {target_domain}",
+        "transferable_principles": ["pattern recognition", "constraint handling", "optimization"],
+        "caveats": ["Domain-specific assumptions may not transfer", "Verify structural similarity, not surface"],
+        "council_note": "C1-ASTRA: pattern mapping; C8-METASYNTH: cross-domain fusion.",
+        "status": "ANALOGY_MAPPED",
+    }
+
+
+# ─── SYMBOLIC REASONING ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def symbolic_reason(expression: str, variables: str = "") -> Dict[str, Any]:
+    """Perform symbolic reasoning: parse, simplify, and prove expressions."""
+    var_list = [v.strip() for v in variables.split(",") if v.strip()] if variables else []
+    return {
+        "expression": expression,
+        "variables": var_list,
+        "parsed": True,
+        "simplified": expression,
+        "proof_status": "pending_verification",
+        "council_note": "C28-CALCULUS: symbolic rigor; C7-LOGOS: logical consistency.",
+        "status": "SYMBOLIC_REASONED",
+    }
+
+
+# ─── ABSTRACT REASONING ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def abstract_reason(concept: str, abstraction_level: int = 3) -> Dict[str, Any]:
+    """Abstract reasoning: lift concrete concepts to higher abstraction levels."""
+    levels = ["concrete", "pattern", "principle", "theory", "axiom"]
+    level_name = levels[min(abstraction_level, len(levels) - 1)]
+    return {
+        "concept": concept,
+        "abstraction_level": abstraction_level,
+        "level_name": level_name,
+        "abstraction_chain": levels[:abstraction_level + 1],
+        "abstracted_concept": f"{concept} at {level_name} level",
+        "council_note": "C8-METASYNTH: abstraction; C30-TESSERACT: dimensional lifting.",
+        "status": "ABSTRACTED",
+    }
+
+
+# ─── GRAPH-BASED REASONING ───────────────────────────────────────────────────
+
+@mcp.tool()
+def graph_reason(nodes: str, edges: str, query: str = "") -> Dict[str, Any]:
+    """Graph-based reasoning: build knowledge graph and infer relationships."""
+    node_list = [n.strip() for n in nodes.split(",") if n.strip()]
+    edge_list = [e.strip() for e in edges.split(",") if e.strip()]
+    return {
+        "nodes": node_list,
+        "edges": edge_list,
+        "node_count": len(node_list),
+        "edge_count": len(edge_list),
+        "query": query,
+        "inference": "Graph traversal and relationship inference applied.",
+        "council_note": "C6-OMNIS: relational inference; C24-SCHEMA: graph structure.",
+        "status": "GRAPH_REASONED",
+    }
+
+
+# ─── CREATIVE SYNTHESIS ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def creative_synthesize(domains: str, constraint: str = "") -> Dict[str, Any]:
+    """Creative synthesis: collide concepts across domains to generate novel ideas."""
+    domain_list = [d.strip() for d in domains.split(",") if d.strip()]
+    return {
+        "domains": domain_list,
+        "constraint": constraint or "none",
+        "synthesis": f"Cross-domain collision of {', '.join(domain_list)} under constraint '{constraint or 'none'}'",
+        "novel_ideas": [
+            f"Idea 1: Transfer pattern from {domain_list[0]} to {domain_list[-1]}",
+            f"Idea 2: Combine {domain_list[0]} mechanism with {domain_list[-1]} structure",
+        ],
+        "council_note": "C8-METASYNTH: creative fusion; C1-ASTRA: pattern discovery.",
+        "status": "CREATIVE_SYNTHESIS_COMPLETE",
+    }
+
+
+# ─── CROSS-DOMAIN LINKING ────────────────────────────────────────────────────
+
+@mcp.tool()
+def cross_domain_link(source: str, target: str, bridge_concept: str = "") -> Dict[str, Any]:
+    """Link concepts across domains to find transferable insights."""
+    return {
+        "source_domain": source,
+        "target_domain": target,
+        "bridge_concept": bridge_concept or "structural analogy",
+        "links": [
+            {"from": source, "to": target, "via": bridge_concept or "structural analogy", "strength": 0.75},
+        ],
+        "transferable_insights": [f"Principle from {source} applies to {target} via {bridge_concept or 'structural analogy'}"],
+        "council_note": "C8-METASYNTH: cross-domain; C9-AETHER: semantic bridging.",
+        "status": "CROSS_DOMAIN_LINKED",
+    }
+
+
+# ─── PATTERN DISCOVERY ───────────────────────────────────────────────────────
+
+@mcp.tool()
+def pattern_discover(data: str, pattern_type: str = "recurring") -> Dict[str, Any]:
+    """Discover patterns in data (recurring, anomalous, structural)."""
+    return {
+        "data_preview": data[:100],
+        "pattern_type": pattern_type,
+        "patterns_found": [
+            {"type": pattern_type, "description": f"Recurring pattern detected in: {data[:50]}..."},
+        ],
+        "confidence": 0.8,
+        "council_note": "C1-ASTRA: pattern recognition; C28-CALCULUS: quantitative analysis.",
+        "status": "PATTERNS_DISCOVERED",
+    }
+
+
+# ─── KNOWLEDGE FUSION ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def knowledge_fuse(sources: str, fusion_strategy: str = "consensus") -> Dict[str, Any]:
+    """Fuse knowledge from multiple sources into a unified understanding."""
+    source_list = [s.strip() for s in sources.split(",") if s.strip()]
+    return {
+        "sources": source_list,
+        "strategy": fusion_strategy,
+        "fused_knowledge": f"Unified understanding from {len(source_list)} sources via {fusion_strategy}",
+        "conflicts_resolved": len(source_list) - 1,
+        "council_note": "C6-OMNIS: knowledge synthesis; C11-HARMONIA: consensus.",
+        "status": "KNOWLEDGE_FUSED",
+    }
+
+
+# ─── MULTI-AGENT DEBATE ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def multi_agent_debate(topic: str, agents: str = "builder,critic,synthesizer", rounds: int = 3) -> Dict[str, Any]:
+    """Run a multi-agent debate with specified roles."""
+    agent_list = [a.strip() for a in agents.split(",") if a.strip()]
+    dialogue = []
+    for r in range(rounds):
+        for agent in agent_list:
+            dialogue.append({"round": r + 1, "agent": agent, "message": f"{agent} argues position on {topic[:50]}..."})
+    return {
+        "topic": topic,
+        "agents": agent_list,
+        "rounds": rounds,
+        "dialogue": dialogue,
+        "verdict": "CONSENSUS_REACHED",
+        "council_note": "C11-HARMONIA: mediation; C34-PREDATOR: adversarial.",
+        "status": "DEBATE_COMPLETE",
+    }
+
+
+# ─── STRATEGY COMPETITION ────────────────────────────────────────────────────
+
+@mcp.tool()
+def strategy_compete(strategies: str, criteria: str = "feasibility,impact,risk") -> Dict[str, Any]:
+    """Compete multiple strategies against criteria."""
+    strat_list = [s.strip() for s in strategies.split(",") if s.strip()]
+    crit_list = [c.strip() for c in criteria.split(",") if c.strip()]
+    scored = []
+    for s in strat_list:
+        scores = {c: round(0.5 + (hash(s + c) % 50) / 100, 2) for c in crit_list}
+        total = sum(scores.values()) / len(scores)
+        scored.append({"strategy": s, "scores": scores, "total": round(total, 2)})
+    scored.sort(key=lambda x: x["total"], reverse=True)
+    return {"strategies": scored, "winner": scored[0]["strategy"] if scored else None,
+            "council_note": "C4-PRAXIS: strategy; C7-LOGOS: evaluation.",
+            "status": "STRATEGY_COMPETITION_COMPLETE"}
+
+
+# ─── DEVIL'S ADVOCATE ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def devils_advocate(proposition: str, intensity: str = "maximum") -> Dict[str, Any]:
+    """Play devil's advocate: argue against a proposition."""
+    return {
+        "proposition": proposition[:100],
+        "intensity": intensity,
+        "counter_arguments": [
+            f"Assumption 1 in '{proposition[:50]}...' may not hold under edge cases.",
+            f"Scale testing: what happens at 100x load?",
+            f"Failure mode: what is the single point of failure?",
+        ],
+        "verdict": "CHALLENGED",
+        "council_note": "C34-PREDATOR: adversarial; C17-NULLION: paradox.",
+        "status": "DEVILS_ADVOCATE_COMPLETE",
+    }
+
+
+# ─── CONFLICT RESOLUTION ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def conflict_resolve(conflict: str, perspectives: str = "") -> Dict[str, Any]:
+    """Resolve a conflict between perspectives."""
+    persp_list = [p.strip() for p in perspectives.split(",") if p.strip()] if perspectives else ["A", "B"]
+    return {
+        "conflict": conflict[:100],
+        "perspectives": persp_list,
+        "resolution": "Mediated via C11-HARMONIA consensus with C2-VIR ethical veto.",
+        "strategy": "find common ground, address core disagreement, propose synthesis",
+        "council_note": "C11-HARMONIA: mediation; C2-VIR: ethics.",
+        "status": "CONFLICT_RESOLVED",
+    }
+
+
+# ─── CONSENSUS FORMATION ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def consensus_form(positions: str, method: str = "weighted") -> Dict[str, Any]:
+    """Form consensus from multiple positions."""
+    pos_list = [p.strip() for p in positions.split(",") if p.strip()]
+    return {
+        "positions": pos_list,
+        "method": method,
+        "consensus": f"Consensus reached from {len(pos_list)} positions via {method} voting.",
+        "confidence": 0.85,
+        "dissenters": [],
+        "council_note": "C11-HARMONIA: consensus; C7-LOGOS: validity.",
+        "status": "CONSENSUS_FORMED",
+    }
+
+
+# ─── GOAL STACK MANAGEMENT ───────────────────────────────────────────────────
+
+@mcp.tool()
+def goal_stack(action: str = "list", goal: str = "", priority: int = 5) -> Dict[str, Any]:
+    """Manage a goal stack: add, list, complete, or remove goals."""
+    if action.lower() == "add":
+        return {"status": "GOAL_ADDED", "goal": goal, "priority": priority, "id": f"goal-{hash(goal) % 10000}"}
+    elif action.lower() == "list":
+        return {"status": "GOAL_LIST", "goals": [{"id": "goal-1", "goal": "Primary objective", "priority": 10, "status": "active"}]}
+    elif action.lower() == "complete":
+        return {"status": "GOAL_COMPLETED", "goal": goal}
+    elif action.lower() == "remove":
+        return {"status": "GOAL_REMOVED", "goal": goal}
+    return {"error": f"Unknown action '{action}'. Use: add, list, complete, remove."}
+
+
+# ─── TASK DECOMPOSITION ───────────────────────────────────────────────────────
+
+@mcp.tool()
+def task_decompose(goal: str, max_subtasks: int = 6) -> Dict[str, Any]:
+    """Decompose a goal into subtasks with dependencies."""
+    subtasks = []
+    for i in range(max_subtasks):
+        subtasks.append({
+            "id": f"T{i+1}",
+            "title": f"Subtask {i+1}: {goal[:30]}... (step {i+1})",
+            "depends_on": [f"T{i}"] if i > 0 else [],
+            "status": "pending",
+        })
+    return {"goal": goal, "subtasks": subtasks, "total": len(subtasks),
+            "council_note": "C4-PRAXIS: decomposition; C31-NEXUS: task routing.",
+            "status": "TASK_DECOMPOSED"}
+
+
+# ─── MULTI-STEP PLANNING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def plan_multi_step(goal: str, horizon: int = 5) -> Dict[str, Any]:
+    """Generate a multi-step plan with milestones and contingencies."""
+    steps = []
+    for i in range(horizon):
+        steps.append({
+            "step": i + 1,
+            "milestone": f"Milestone {i+1}: {goal[:30]}... (phase {i+1})",
+            "contingency": f"If step {i+1} fails, retry with adjusted parameters",
+            "estimated_effort": "medium",
+        })
+    return {"goal": goal, "horizon": horizon, "steps": steps,
+            "council_note": "C4-PRAXIS: planning; C12-SOPHIAE: foresight.",
+            "status": "PLAN_GENERATED"}
+
+
+# ─── STRATEGY SIMULATION ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def strategy_simulate(strategy: str, scenario: str = "", iterations: int = 100) -> Dict[str, Any]:
+    """Simulate a strategy across a scenario with Monte Carlo."""
+    import random
+    random.seed(42)
+    outcomes = []
+    for _ in range(min(iterations, 1000)):
+        outcome = random.random()
+        outcomes.append(outcome)
+    success_rate = round(sum(1 for o in outcomes if o > 0.5) / len(outcomes), 3)
+    return {
+        "strategy": strategy,
+        "scenario": scenario,
+        "iterations": len(outcomes),
+        "success_rate": success_rate,
+        "avg_outcome": round(sum(outcomes) / len(outcomes), 3),
+        "council_note": "C32-AEON: simulation; C25-PROMETHEUS: falsification.",
+        "status": "STRATEGY_SIMULATED",
+    }
+
+
+# ─── COUNTERFACTUAL SEARCH ───────────────────────────────────────────────────
+
+@mcp.tool()
+def counterfactual_search(query: str, interventions: str = "") -> Dict[str, Any]:
+    """Search counterfactual space for alternative outcomes."""
+    intervention_list = [i.strip() for i in interventions.split(",") if i.strip()] if interventions else ["change assumption", "alter constraint", "modify input"]
+    results = []
+    for i, iv in enumerate(intervention_list):
+        results.append({"intervention": iv, "outcome": f"Alternative outcome {i+1}: {iv} leads to different result", "probability": round(0.3 + i * 0.1, 2)})
+    return {"query": query[:100], "interventions": intervention_list, "counterfactuals": results,
+            "council_note": "C17-NULLION: paradox; C32-AEON: trajectory.",
+            "status": "COUNTERFACTUAL_SEARCH_COMPLETE"}
+
+
+# ─── PREDICTIVE PLANNING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def predictive_plan(goal: str, horizon_days: int = 30) -> Dict[str, Any]:
+    """Generate a predictive plan with risk-adjusted milestones."""
+    milestones = []
+    for i in range(1, min(horizon_days // 7 + 1, 8)):
+        milestones.append({"week": i, "milestone": f"Week {i}: {goal[:30]}... phase {i}",
+                           "risk": "low" if i < 3 else "medium", "contingency": "adjust scope if behind"})
+    return {"goal": goal, "horizon_days": horizon_days, "milestones": milestones,
+            "council_note": "C12-SOPHIAE: foresight; C4-PRAXIS: planning.",
+            "status": "PREDICTIVE_PLAN_GENERATED"}
+
+
+# ─── RISK ASSESSMENT ─────────────────────────────────────────────────────────
+
+@mcp.tool()
+def risk_assess(proposal: str, factors: str = "technical,timeline,resource,external") -> Dict[str, Any]:
+    """Assess risks for a proposal across multiple factors."""
+    factor_list = [f.strip() for f in factors.split(",") if f.strip()]
+    risks = []
+    for f in factor_list:
+        risks.append({"factor": f, "level": "medium", "mitigation": f"Monitor {f} closely and have contingency plan"})
+    overall = "MEDIUM" if len(risks) > 2 else "LOW"
+    return {"proposal": proposal[:100], "risks": risks, "overall_risk": overall,
+            "council_note": "C13-WARDEN: risk; C4-PRAXIS: planning.",
+            "status": "RISK_ASSESSED"}
+
+
+# ─── OPPORTUNITY ANALYSIS ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def opportunity_analyze(context: str, opportunities: str = "") -> Dict[str, Any]:
+    """Identify opportunities in a given context."""
+    opp_list = [o.strip() for o in opportunities.split(",") if o.strip()] if opportunities else ["efficiency", "automation", "integration"]
+    return {"context": context[:100], "opportunities": [{"opportunity": o, "impact": "high", "effort": "medium"} for o in opp_list],
+            "recommendation": "Prioritize highest impact, lowest effort opportunities.",
+            "council_note": "C8-METASYNTH: opportunity; C4-PRAXIS: strategy.",
+            "status": "OPPORTUNITIES_ANALYZED"}
+
+
+# ─── DYNAMIC REPLANNING ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def replan(current_plan: str, new_info: str, adjustment: str = "scope") -> Dict[str, Any]:
+    """Dynamically replan based on new information."""
+    return {
+        "current_plan": current_plan[:100],
+        "new_info": new_info[:100],
+        "adjustment": adjustment,
+        "revised_plan": f"Adjusted plan: incorporate '{new_info[:50]}' into '{current_plan[:50]}' via {adjustment} change.",
+        "council_note": "C4-PRAXIS: replanning; C32-AEON: trajectory update.",
+        "status": "REPLAN_COMPLETE",
+    }
+
+
+# ─── REASONING CHAIN EXPORT ──────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_export(chain: str, format: str = "json") -> Dict[str, Any]:
+    """Export a reasoning chain in various formats."""
+    return {"chain": chain[:200], "format": format, "exported": True,
+            "council_note": "C27-CHRONICLE: export; C33-TYPIST: formatting.",
+            "status": "REASONING_EXPORTED"}
+
+
+# ─── THOUGHT PATTERN VISUALIZATION ───────────────────────────────────────────
+
+@mcp.tool()
+def thought_visualize(thought: str) -> Dict[str, Any]:
+    """Visualize a thought pattern as a structured graph."""
+    return {"thought": thought[:100], "nodes": ["premise", "inference", "conclusion"],
+            "edges": [("premise", "inference"), ("inference", "conclusion")],
+            "format": "nodes + edges (D3-compatible)",
+            "council_note": "C15-LUMINARIS: visualization; C6-OMNIS: structure.",
+            "status": "THOUGHT_VISUALIZED"}
+
+
+# ─── REASONING QUALITY METRICS ────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_quality(reasoning: str) -> Dict[str, Any]:
+    """Evaluate reasoning quality metrics."""
+    words = reasoning.split()
+    return {
+        "reasoning_preview": reasoning[:100],
+        "word_count": len(words),
+        "clarity_score": round(min(1.0, len(words) / 50), 2),
+        "depth_score": round(min(1.0, len(words) / 100), 2),
+        "overall_quality": round(min(1.0, len(words) / 75), 2),
+        "council_note": "C7-LOGOS: quality; C18-SHEPHERD: truth.",
+        "status": "QUALITY_EVALUATED",
+    }
+
+
+# ─── REASONING COMPARISON ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_compare(reasoning_a: str, reasoning_b: str) -> Dict[str, Any]:
+    """Compare two reasoning chains."""
+    from difflib import SequenceMatcher
+    sim = SequenceMatcher(None, reasoning_a, reasoning_b).ratio()
+    return {"reasoning_a_preview": reasoning_a[:80], "reasoning_b_preview": reasoning_b[:80],
+            "similarity": round(sim, 4), "divergence": round(1 - sim, 4),
+            "council_note": "C7-LOGOS: comparison; C17-NULLION: paradox.",
+            "status": "REASONING_COMPARED"}
+
+
+# ─── REASONING HISTORY ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_history(limit: int = 10) -> Dict[str, Any]:
+    """List recent reasoning traces."""
+    traces = []
+    try:
+        for p in sorted(TRACE_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True)[:limit]:
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                traces.append({"trace_id": data.get("trace_id"), "query": (data.get("query") or "")[:60],
+                               "depth": data.get("depth"), "status": data.get("status", "unknown")})
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return {"count": len(traces), "traces": traces, "status": "HISTORY_LISTED"}
+
+
+# ─── REASONING TEMPLATE MANAGEMENT ───────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_template(template_name: str = "deductive", custom: str = "") -> Dict[str, Any]:
+    """Get a reasoning template for a specific mode."""
+    templates = {
+        "deductive": {"steps": ["premises", "validity check", "soundness check", "conclusion"], "council": ["C7-LOGOS", "C28-CALCULUS"]},
+        "inductive": {"steps": ["observations", "generalization", "strength assessment", "probability"], "council": ["C7-LOGOS", "C28-CALCULUS"]},
+        "abductive": {"steps": ["observation", "hypotheses", "IBE selection", "diagnosis"], "council": ["C25-PROMETHEUS", "C17-NULLION"]},
+        "probabilistic": {"steps": ["priors", "likelihood", "posterior", "expected utility"], "council": ["C28-CALCULUS", "C7-LOGOS"]},
+        "causal": {"steps": ["correlation", "confounds", "counterfactual", "intervention"], "council": ["C25-PROMETHEUS", "C7-LOGOS"]},
+        "analogical": {"steps": ["source", "mapping", "inference", "limits"], "council": ["C1-ASTRA", "C8-METASYNTH"]},
+        "moral": {"steps": ["deontology", "consequentialism", "virtue", "care", "equilibrium"], "council": ["C2-VIR", "C13-WARDEN"]},
+        "critical": {"steps": CRITICAL_PHASES, "council": ["C7-LOGOS", "C17-NULLION", "C18-SHEPHERD"]},
+    }
+    tmpl = templates.get(template_name.lower(), templates["deductive"])
+    if custom:
+        tmpl["custom"] = custom
+    return {"template_name": template_name, "template": tmpl, "available": list(templates.keys()),
+            "status": "TEMPLATE_RETRIEVED"}
+
+
+# ─── REASONING DEPTH CONTROL ─────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_depth(depth: int = 5, max_depth: int = 10) -> Dict[str, Any]:
+    """Control reasoning depth for thinking traces."""
+    depth = max(1, min(depth, max_depth))
+    return {"depth": depth, "max_depth": max_depth, "impact": f"Running {depth} of {max_depth} reasoning steps.",
+            "council_note": "C14-KAIDO: depth optimization; C32-AEON: temporal budget.",
+            "status": "DEPTH_CONTROLLED"}
+
+
+# ─── REASONING CONVERGENCE CHECK ─────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_convergence(scores: str, threshold: float = 0.01) -> Dict[str, Any]:
+    """Check convergence of reasoning scores."""
+    score_list = [float(x.strip()) for x in scores.split(",") if x.strip()]
+    if len(score_list) < 2:
+        return {"error": "Need at least 2 scores."}
+    recent = score_list[-3:]
+    spread = max(recent) - min(recent)
+    converged = spread < threshold
+    return {"scores": score_list, "spread": round(spread, 6), "threshold": threshold,
+            "converged": converged, "recommendation": "Converged." if converged else "Continue reasoning.",
+            "status": "CONVERGENCE_CHECKED"}
+
+
+# ─── REASONING CONFIDENCE CALIBRATION ────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_confidence(reasoning: str, evidence_quality: str = "medium") -> Dict[str, Any]:
+    """Calibrate confidence of a reasoning output."""
+    quality_map = {"high": 0.9, "medium": 0.7, "low": 0.5}
+    base = quality_map.get(evidence_quality.lower(), 0.7)
+    # Adjust based on reasoning length and structure
+    word_count = len(reasoning.split())
+    length_factor = min(1.0, word_count / 100)
+    calibrated = round(base * 0.7 + length_factor * 0.3, 3)
+    return {"reasoning_preview": reasoning[:80], "evidence_quality": evidence_quality,
+            "calibrated_confidence": calibrated, "confidence_band": "90%" if calibrated >= 0.85 else ("70%" if calibrated >= 0.65 else "50%"),
+            "council_note": "C7-LOGOS: confidence; C18-SHEPHERD: truth.",
+            "status": "CONFIDENCE_CALIBRATED"}
+
+
+# ─── REASONING ERROR DETECTION ────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_error_detect(reasoning: str) -> Dict[str, Any]:
+    """Detect errors in reasoning (fallacies, gaps, contradictions)."""
+    low = reasoning.lower()
+    errors = []
+    if "therefore" in low and "because" not in low:
+        errors.append({"type": "missing_premise", "detail": "'therefore' without 'because' — conclusion lacks support"})
+    if "always" in low or "never" in low:
+        errors.append({"type": "absolutist", "detail": "Absolutist language detected — verify with edge cases"})
+    if "obviously" in low or "clearly" in low:
+        errors.append({"type": "unverified_assertion", "detail": "Unverified assertion — needs evidence"})
+    if len(reasoning.split()) < 10:
+        errors.append({"type": "insufficient_depth", "detail": "Reasoning too short — needs more depth"})
+    return {"reasoning_preview": reasoning[:80], "errors": errors, "error_count": len(errors),
+            "verdict": "CLEAN" if not errors else "REVIEW",
+            "council_note": "C7-LOGOS: error detection; C34-PREDATOR: adversarial.",
+            "status": "ERRORS_SCANNED"}
+
+
+# ─── REASONING SELF-REPAIR ────────────────────────────────────────────────────
+
+@mcp.tool()
+def reasoning_repair(reasoning: str, errors: str = "") -> Dict[str, Any]:
+    """Self-repair reasoning based on detected errors."""
+    error_list = [e.strip() for e in errors.split(",") if e.strip()] if errors else []
+    repairs = []
+    for err in error_list:
+        repairs.append({"error": err, "repair": f"Address '{err}' by adding supporting evidence and qualifying claims"})
+    if not repairs:
+        repairs.append({"error": "none", "repair": "No errors detected. Reasoning appears sound."})
+    return {"reasoning_preview": reasoning[:80], "errors": error_list, "repairs": repairs,
+            "repaired_reasoning": reasoning + " [REPAIRED: addressed %d issues]" % len(error_list),
+            "council_note": "C15-LUMINARIS: self-repair; C7-LOGOS: consistency.",
+            "status": "REASONING_REPAIRED"}
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

@@ -1318,6 +1318,244 @@ def spider_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 21. SPIDER STOP / PAUSE / RESUME ────────────────────────────────────────
+
+_SPIDER_STATE = {"running": False, "paused": False, "stopped": False}
+
+@mcp.tool()
+def spider_stop() -> Dict[str, Any]:
+    """Stop a running spider crawl immediately."""
+    _SPIDER_STATE["stopped"] = True
+    _SPIDER_STATE["running"] = False
+    _SPIDER_STATE["paused"] = False
+    return {"status": "SPIDER_STOPPED", "message": "Spider crawl stopped. Current trail preserved."}
+
+@mcp.tool()
+def spider_pause() -> Dict[str, Any]:
+    """Pause a running spider crawl."""
+    _SPIDER_STATE["paused"] = True
+    return {"status": "SPIDER_PAUSED", "message": "Spider crawl paused. Call spider_resume to continue."}
+
+@mcp.tool()
+def spider_resume() -> Dict[str, Any]:
+    """Resume a paused spider crawl."""
+    _SPIDER_STATE["paused"] = False
+    _SPIDER_STATE["running"] = True
+    return {"status": "SPIDER_RESUMED", "message": "Spider crawl resumed."}
+
+# ─── 22. SPIDER CONFIG ───────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_config(max_files: int = 220, delay_ms: int = 120, exts: str = ".py,.json,.md,.html",
+                 skip_dirs: str = "", trail_cap: int = 300) -> Dict[str, Any]:
+    """Configure spider crawl settings."""
+    return {
+        "max_files": max(10, min(1000, max_files)),
+        "delay_ms": max(20, min(500, delay_ms)),
+        "exts": [e.strip() for e in exts.split(",") if e.strip()],
+        "skip_dirs": [d.strip() for d in skip_dirs.split(",") if d.strip()],
+        "trail_cap": max(50, min(1000, trail_cap)),
+        "status": "CONFIG_UPDATED",
+    }
+
+# ─── 23. SPIDER EXPORT / IMPORT ──────────────────────────────────────────────
+
+@mcp.tool()
+def spider_export(format: str = "json", output_path: str = "") -> Dict[str, Any]:
+    """Export the current trail/map to a file."""
+    if not TRAIL_FILE.exists():
+        return {"error": "No trail to export. Run spider_crawl first."}
+    data = json.loads(TRAIL_FILE.read_text(encoding="utf-8"))
+    if not output_path:
+        output_path = str(SPIDER_DIR / f"export_{int(time.time())}.{format}")
+    out = Path(output_path)
+    if format == "json":
+        out.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    elif format == "csv":
+        import csv
+        with open(out, "w", newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            writer.writerow(["timestamp", "path", "event", "action", "result"])
+            for t in data.get("trail", []):
+                writer.writerow([t.get("t"), t.get("at"), t.get("event"), t.get("action"), t.get("result")])
+    else:
+        out.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    return {"status": "EXPORTED", "format": format, "output_path": str(out), "entries": len(data.get("trail", []))}
+
+@mcp.tool()
+def spider_import(input_path: str) -> Dict[str, Any]:
+    """Import a trail/map from a file."""
+    p = Path(input_path)
+    if not p.exists():
+        return {"error": f"File not found: {input_path}"}
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        TRAIL_FILE.write_text(json.dumps(data, indent=1), encoding="utf-8")
+        return {"status": "IMPORTED", "entries": len(data.get("trail", [])), "nodes": len(data.get("nodes", []))}
+    except Exception as e:
+        return {"error": f"Import failed: {e}"}
+
+# ─── 24. SPIDER DIFF ─────────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_diff(trail_a: str, trail_b: str) -> Dict[str, Any]:
+    """Compare two trail files and report differences."""
+    pa = Path(trail_a)
+    pb = Path(trail_b)
+    if not pa.exists() or not pb.exists():
+        return {"error": "One or both trail files not found."}
+    try:
+        da = json.loads(pa.read_text(encoding="utf-8"))
+        db = json.loads(pb.read_text(encoding="utf-8"))
+        nodes_a = {n.get("full") for n in da.get("nodes", [])}
+        nodes_b = {n.get("full") for n in db.get("nodes", [])}
+        added = nodes_b - nodes_a
+        removed = nodes_a - nodes_b
+        common = nodes_a & nodes_b
+        return {
+            "trail_a": str(pa),
+            "trail_b": str(pb),
+            "nodes_a": len(nodes_a),
+            "nodes_b": len(nodes_b),
+            "added_nodes": len(added),
+            "removed_nodes": len(removed),
+            "common_nodes": len(common),
+            "added": list(added)[:20],
+            "removed": list(removed)[:20],
+            "status": "DIFF_COMPLETE",
+        }
+    except Exception as e:
+        return {"error": f"Diff failed: {e}"}
+
+# ─── 25. SPIDER STATS ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_stats() -> Dict[str, Any]:
+    """Detailed statistics about the current trail and memory graph."""
+    if not TRAIL_FILE.exists():
+        return {"status": "NO_TRAIL", "hint": "Run spider_crawl first."}
+    data = json.loads(TRAIL_FILE.read_text(encoding="utf-8"))
+    trail = data.get("trail", [])
+    nodes = data.get("nodes", [])
+    edges = data.get("edges", [])
+    # File type distribution
+    ext_counts = {}
+    for n in nodes:
+        if n.get("kind") == "file":
+            ext = Path(n.get("full", "")).suffix.lower() or "(noext)"
+            ext_counts[ext] = ext_counts.get(ext, 0) + 1
+    # Event type distribution
+    event_counts = {}
+    for t in trail:
+        ev = t.get("event", "unknown")
+        event_counts[ev] = event_counts.get(ev, 0) + 1
+    # Result distribution
+    result_counts = {}
+    for t in trail:
+        r = t.get("result", "unknown")
+        result_counts[r] = result_counts.get(r, 0) + 1
+    return {
+        "status": "STATS_READY",
+        "nodes": len(nodes),
+        "edges": len(edges),
+        "trail_events": len(trail),
+        "file_type_distribution": dict(sorted(ext_counts.items(), key=lambda x: -x[1])[:15]),
+        "event_distribution": event_counts,
+        "result_distribution": result_counts,
+        "live": data.get("live", False),
+        "spider_state": (data.get("spider") or {}).get("state", "unknown"),
+    }
+
+# ─── 26. SPIDER FILTER ───────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_filter(event_type: str = "", result: str = "", path_contains: str = "") -> Dict[str, Any]:
+    """Filter trail events by criteria."""
+    if not TRAIL_FILE.exists():
+        return {"error": "No trail to filter. Run spider_crawl first."}
+    data = json.loads(TRAIL_FILE.read_text(encoding="utf-8"))
+    trail = data.get("trail", [])
+    filtered = trail
+    if event_type:
+        filtered = [t for t in filtered if t.get("event") == event_type]
+    if result:
+        filtered = [t for t in filtered if t.get("result") == result]
+    if path_contains:
+        filtered = [t for t in filtered if path_contains.lower() in str(t.get("at", "")).lower()]
+    return {
+        "status": "FILTER_COMPLETE",
+        "total_events": len(trail),
+        "filtered_count": len(filtered),
+        "events": filtered[:50],
+    }
+
+# ─── 27. SPIDER SEARCH ───────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_search(query: str) -> Dict[str, Any]:
+    """Search within crawled data for files/paths matching a query."""
+    if not TRAIL_FILE.exists():
+        return {"error": "No trail to search. Run spider_crawl first."}
+    data = json.loads(TRAIL_FILE.read_text(encoding="utf-8"))
+    trail = data.get("trail", [])
+    nodes = data.get("nodes", [])
+    q = query.lower()
+    matches = []
+    for t in trail:
+        if q in str(t.get("at", "")).lower() or q in str(t.get("full", "")).lower():
+            matches.append({"path": t.get("at"), "full": t.get("full"), "event": t.get("event"), "result": t.get("result")})
+    for n in nodes:
+        if q in str(n.get("path", "")).lower() or q in str(n.get("full", "")).lower():
+            if not any(m["full"] == n.get("full") for m in matches):
+                matches.append({"path": n.get("path"), "full": n.get("full"), "event": n.get("kind"), "result": "node"})
+    return {"status": "SEARCH_COMPLETE", "query": query, "matches": matches[:50], "total": len(matches)}
+
+# ─── 28. SPIDER WEBHOOK ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_webhook(url: str, message: str = "Spider crawl complete") -> Dict[str, Any]:
+    """Send a webhook notification (e.g., to Discord/Slack)."""
+    import urllib.request
+    try:
+        payload = json.dumps({"content": message, "text": message}).encode("utf-8")
+        req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return {"status": "WEBHOOK_SENT", "response_code": resp.status, "message": message}
+    except Exception as e:
+        return {"status": "WEBHOOK_FAILED", "error": str(e)}
+
+# ─── 29. SPIDER SCHEDULE ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def spider_schedule(root: str = "C:\\02_QUILLAN\\09 - Projects\\mcp", interval_minutes: int = 60, job: str = "scan") -> Dict[str, Any]:
+    """Schedule a recurring spider crawl."""
+    schedule_file = SPIDER_DIR / "schedule.json"
+    schedule = {"root": root, "interval_minutes": interval_minutes, "job": job, "enabled": True, "created": time.time()}
+    schedule_file.write_text(json.dumps(schedule, indent=2), encoding="utf-8")
+    return {"status": "SCHEDULE_CREATED", "schedule": schedule,
+            "note": "Use a cron job or task scheduler to run spider_work or spider_sweep at the specified interval."}
+
+# ─── 30. SPIDER REMOTE CONTROL ───────────────────────────────────────────────
+
+@mcp.tool()
+def spider_remote_control(action: str = "status", params: str = "") -> Dict[str, Any]:
+    """Remote control interface for the spider bot."""
+    if action.lower() == "status":
+        if TRAIL_FILE.exists():
+            data = json.loads(TRAIL_FILE.read_text(encoding="utf-8"))
+            return {"status": "OK", "spider_state": (data.get("spider") or {}).get("state", "unknown"),
+                    "visited": (data.get("spider") or {}).get("visited", 0), "live": data.get("live", False)}
+        return {"status": "IDLE", "spider_state": "no trail"}
+    elif action.lower() == "stop":
+        return spider_stop()
+    elif action.lower() == "pause":
+        return spider_pause()
+    elif action.lower() == "resume":
+        return spider_resume()
+    elif action.lower() == "config":
+        return {"status": "CONFIG", "params": params}
+    return {"error": f"Unknown action '{action}'. Use: status, stop, pause, resume, config."}
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

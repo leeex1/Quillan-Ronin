@@ -284,6 +284,402 @@ def gamedev_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+# ─── 10. LEVEL DESIGN ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_level_layout(genre: str = "action-roguelite", room_count: int = 12, pacing: str = "escalating") -> Dict[str, Any]:
+    """Generate a level layout with pacing curve and room sequence."""
+    pacing_profiles = {
+        "escalating": ["intro", "tutorial", "combat", "rest", "combat", "elite", "rest", "boss", "reward", "transition"],
+        "wave": ["intro", "wave1", "rest", "wave2", "rest", "wave3", "boss"],
+        "exploration": ["hub", "branch_a", "branch_b", "secret", "boss", "return"],
+    }
+    sequence = pacing_profiles.get(pacing, pacing_profiles["escalating"])
+    rooms = []
+    for i in range(room_count):
+        room_type = sequence[i % len(sequence)]
+        rooms.append({"room": i + 1, "type": room_type, "encounter_density": round(0.3 + (i / room_count) * 0.7, 2),
+                      "rest_point": room_type in ("rest", "hub", "reward")})
+    return {"genre": genre, "room_count": room_count, "pacing": pacing, "rooms": rooms,
+            "rule": "No two combat rooms back-to-back without a rest or reward in between.",
+            "council_note": "C32-AEON: validate spawn positions; C27-CHRONICLE: ensure narrative beat lands in room 3-4."}
+
+@mcp.tool()
+def gamedev_encounter_design(enemy_types: str = "melee,ranged,elite", difficulty: str = "medium", arena_size: str = "medium") -> Dict[str, Any]:
+    """Design an encounter with enemy composition and arena constraints."""
+    enemies = [e.strip() for e in enemy_types.split(",") if e.strip()]
+    return {
+        "enemies": enemies,
+        "difficulty": difficulty,
+        "arena_size": arena_size,
+        "spawn_rules": ["spawn at least 8m apart", "no spawn in player LoS at start", "max 3 active at once"],
+        "win_condition": "eliminate all enemies or survive timer",
+        "fail_condition": "player HP <= 0 or timer expires",
+        "rewards": ["XP", "loot roll", "health pickup on elite kill"],
+        "council_note": "C25-PROMETHEUS: falsify with 50-run sim; C34-PREDATOR: test with 1 button held.",
+    }
+
+@mcp.tool()
+def gamedev_difficulty_curve(levels: int = 10, base_difficulty: float = 1.0, scaling: float = 0.15) -> Dict[str, Any]:
+    """Compute a difficulty scaling curve across levels."""
+    curve = [round(base_difficulty * (1 + scaling * i), 2) for i in range(levels)]
+    return {
+        "levels": levels,
+        "difficulty_curve": curve,
+        "scaling_factor": scaling,
+        "levers": ["enemy_hp", "enemy_damage", "enemy_count", "timer_pressure", "heal_drop_rate"],
+        "rule": "Difficulty should feel 20% harder each level, not linearly harder.",
+        "council_note": "C28-CALCULUS: verify growth < 1.35; C32-AEON: simulate 100 runs per level.",
+    }
+
+
+# ─── 11. NARRATIVE & DIALOGUE ────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_story_structure(structure: str = "three_act", beats: int = 7) -> Dict[str, Any]:
+    """Generate a story structure with narrative beats."""
+    structures = {
+        "three_act": ["Setup", "Inciting Incident", "Rising Action", "Midpoint", "Climax", "Falling Action", "Resolution"],
+        "heros_journey": ["Ordinary World", "Call to Adventure", "Refusal", "Meeting Mentor", "Crossing Threshold", "Tests/Allies/Enemies", "Approach", "Ordeal", "Reward", "Road Back", "Resurrection", "Return"],
+        "five_act": ["Exposition", "Rising Action", "Climax", "Falling Action", "Denouement"],
+    }
+    beat_list = structures.get(structure, structures["three_act"])
+    beats = [{"beat": i + 1, "name": beat_list[i % len(beat_list)], "purpose": f"Advance plot at beat {i+1}"} for i in range(beats)]
+    return {"structure": structure, "beat_count": beats, "beats": beats,
+            "rule": "Every beat must change the player's understanding of the world or the protagonist.",
+            "council_note": "C27-CHRONICLE: ensure causal sequencing; C3-SOLACE: emotional resonance per beat."}
+
+@mcp.tool()
+def gamedev_dialogue_tree(character: str = "NPC", topic: str = "quest_intro", branches: int = 3) -> Dict[str, Any]:
+    """Generate a branching dialogue tree for an NPC."""
+    tree = {
+        "character": character,
+        "topic": topic,
+        "root": {"text": f"{character}: Greeting line about {topic}.", "choices": []},
+    }
+    for i in range(branches):
+        tree["root"]["choices"].append({
+            "choice_id": f"choice_{i+1}",
+            "player_text": f"[Choice {i+1}: option about {topic}]",
+            "response": f"{character}: Response to choice {i+1}.",
+            "consequence": f"Sets flag: {topic}_choice_{i+1}",
+            "next": "end" if i == branches - 1 else f"branch_{i+2}",
+        })
+    return {"dialogue_tree": tree, "branch_count": branches,
+            "rule": "Every choice must have a meaningful consequence. No filler options.",
+            "council_note": "C16-VOXUM: voice must be distinct per character; C2-VIR: no manipulative dialogue."}
+
+@mcp.tool()
+def gamedev_quest_design(quest_name: str = "Main Quest", quest_type: str = "main", objectives: int = 3) -> Dict[str, Any]:
+    """Design a quest with objectives, rewards, and failure states."""
+    obj_list = [{"objective": i + 1, "description": f"Objective {i+1} for {quest_name}", "type": "kill" if i % 2 == 0 else "collect",
+                 "target": 5 + i * 3, "reward_xp": 100 * (i + 1)} for i in range(objectives)]
+    return {
+        "quest_name": quest_name,
+        "quest_type": quest_type,
+        "objectives": obj_list,
+        "rewards": {"xp": sum(o["reward_xp"] for o in obj_list), "items": ["quest_reward_item"], "unlock": "next_quest"},
+        "failure_states": ["player_death", "timer_expired", "npc_died"],
+        "tracking": "minimap marker + objective text + progress bar",
+        "council_note": "C4-PRAXIS: clear success criteria; C27-CHRONICLE: narrative payoff on completion.",
+    }
+
+
+# ─── 12. PROCEDURAL GENERATION ───────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_loot_table(items: str = "sword,shield,potion,gem", rarity_weights: str = "common:60,uncommon:25,rare:10,epic:4,legendary:1") -> Dict[str, Any]:
+    """Generate a weighted loot table from items and rarity weights."""
+    item_list = [i.strip() for i in items.split(",") if i.strip()]
+    weights = {}
+    for rw in rarity_weights.split(","):
+        parts = rw.strip().split(":")
+        if len(parts) == 2:
+            weights[parts[0].strip()] = int(parts[1].strip())
+    total = sum(weights.values())
+    table = []
+    for rarity, weight in weights.items():
+        table.append({"rarity": rarity, "weight": weight, "chance_pct": round(weight / total * 100, 1)})
+    return {
+        "items": item_list,
+        "loot_table": table,
+        "total_weight": total,
+        "pity_timer": "guaranteed rare after 10 non-rare drops",
+        "council_note": "C28-CALCULUS: verify expected value per run; C34-PREDATOR: test for exploit farming.",
+    }
+
+@mcp.tool()
+def gamedev_encounter_table(biome: str = "forest", enemy_pool: str = "wolf,bear,spider,bandit", count: int = 5) -> Dict[str, Any]:
+    """Generate a random encounter table for a biome."""
+    enemies = [e.strip() for e in enemy_pool.split(",") if e.strip()]
+    encounters = []
+    for i in range(count):
+        import random
+        random.seed(42 + i)
+        enemy = random.choice(enemies)
+        count_min = random.randint(1, 3)
+        count_max = count_min + random.randint(0, 2)
+        encounters.append({"encounter": i + 1, "enemy": enemy, "min_count": count_min, "max_count": count_max,
+                           "spawn_delay_s": round(random.uniform(0.5, 3.0), 1)})
+    return {"biome": biome, "enemy_pool": enemies, "encounters": encounters,
+            "rule": "No more than 2 elite-type enemies per encounter.",
+            "council_note": "C32-AEON: validate spawn positions; C14-KAIDO: optimize spawn timing."}
+
+
+# ─── 13. GAME STATE & ARCHITECTURE ───────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_state_machine(states: str = "menu,playing,paused,gameover,victory", transitions: str = "") -> Dict[str, Any]:
+    """Design a game state machine with transitions."""
+    state_list = [s.strip() for s in states.split(",") if s.strip()]
+    trans_list = [t.strip() for t in transitions.split(",") if t.strip()] if transitions else []
+    if not trans_list:
+        trans_list = [f"{state_list[i]}->{state_list[(i+1) % len(state_list)]}" for i in range(len(state_list))]
+    return {
+        "states": state_list,
+        "transitions": trans_list,
+        "entry_state": state_list[0],
+        "exit_states": ["gameover", "victory"],
+        "rule": "Every state must have at least one exit transition. No orphan states.",
+        "council_note": "C26-TECHNE: validate state machine completeness; C7-LOGOS: no circular deadlocks.",
+    }
+
+@mcp.tool()
+def gamedev_save_system(save_format: str = "json", version: int = 1, cloud_sync: bool = False) -> Dict[str, Any]:
+    """Design a save/load system with migration support."""
+    return {
+        "format": save_format,
+        "version": version,
+        "cloud_sync": cloud_sync,
+        "save_slots": 3,
+        "auto_save": {"enabled": True, "interval_seconds": 60, "on_checkpoint": True},
+        "migration": {"from_version": version - 1, "to_version": version, "strategy": "field_mapping"},
+        "stored_data": ["player_progress", "settings", "unlocks", "high_scores", "inventory"],
+        "backup": {"enabled": True, "max_backups": 3, "corruption_check": "CRC32"},
+        "council_note": "C5-ECHO: memory continuity; C13-WARDEN: validate save integrity.",
+    }
+
+@mcp.tool()
+def gamedev_input_map(actions: str = "move,dash,shoot,jump,interact", platforms: str = "pc,console,mobile") -> Dict[str, Any]:
+    """Design an input mapping system with platform support and rebinding."""
+    action_list = [a.strip() for a in actions.split(",") if a.strip()]
+    platform_list = [p.strip() for p in platforms.split(",") if p.strip()]
+    defaults = {
+        "pc": {"move": "WASD", "dash": "Shift", "shoot": "LMB", "jump": "Space", "interact": "E"},
+        "console": {"move": "Left Stick", "dash": "LB", "shoot": "RT", "jump": "A", "interact": "X"},
+        "mobile": {"move": "Virtual Joystick", "dash": "Swipe", "shoot": "Tap", "jump": "Button", "interact": "Button"},
+    }
+    return {
+        "actions": action_list,
+        "platforms": platform_list,
+        "default_bindings": {p: {a: defaults.get(p, {}).get(a, "Unbound") for a in action_list} for p in platform_list},
+        "features": ["rebindable", "controller_support", "accessibility_remapping", "input_buffering"],
+        "council_note": "C10-CODEWEAVER: clean input abstraction; C26-TECHNE: hardware constraint awareness.",
+    }
+
+
+# ─── 14. MULTIPLAYER / NETWORKING ────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_network_arch(mode: str = "p2p", max_players: int = 4, tick_rate: int = 60) -> Dict[str, Any]:
+    """Design a multiplayer network architecture."""
+    return {
+        "mode": mode,
+        "max_players": max_players,
+        "tick_rate": tick_rate,
+        "sync_strategy": "client_prediction + server_reconciliation" if mode == "client_server" else "lockstep",
+        "latency_compensation": {"client_prediction": True, "server_reconciliation": True, "interpolation_ms": 100},
+        "bandwidth_budget": {"per_player_kbps": 50, "total_kbps": 50 * max_players},
+        "anti_cheat": {"server_authoritative": True, "input_validation": True, "rate_limiting": True},
+        "council_note": "C26-TECHNE: hardware constraints; C13-WARDEN: security perimeter.",
+    }
+
+@mcp.tool()
+def gamedev_matchmaking(players: int = 100, skill_based: bool = True, region_based: bool = True) -> Dict[str, Any]:
+    """Design a matchmaking system."""
+    return {
+        "players": players,
+        "skill_based": skill_based,
+        "region_based": region_based,
+        "queue_timeout_s": 60,
+        "skill_range": {"initial": 100, "expansion_rate": 50, "max_range": 500},
+        "team_balance": "skill_sum_equal",
+        "backfill": {"enabled": True, "max_backfill_players": 2},
+        "council_note": "C28-CALCULUS: verify matchmaking fairness; C32-AEON: simulate 1000 matches.",
+    }
+
+
+# ─── 15. ANALYTICS & TELEMETRY ───────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_analytics(events: str = "level_start,level_complete,death,item_pickup", retention_days: int = 30) -> Dict[str, Any]:
+    """Design an analytics/telemetry system for player behavior tracking."""
+    event_list = [e.strip() for e in events.split(",") if e.strip()]
+    return {
+        "events": event_list,
+        "retention_days": retention_days,
+        "metrics": ["DAU", "MAU", "retention_d1", "retention_d7", "retention_d30", "avg_session_length", "completion_rate"],
+        "funnels": {"onboarding": ["tutorial_start", "tutorial_complete", "first_level", "first_purchase"],
+                    "engagement": ["daily_login", "session_length", "levels_completed"]},
+        "privacy": {"gdpr_compliant": True, "opt_out": True, "anonymized": True},
+        "council_note": "C5-ECHO: memory continuity; C2-VIR: ethical data handling.",
+    }
+
+
+# ─── 16. MONETIZATION ─────────────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_monetization(model: str = "premium", iap_items: str = "cosmetic,boost,unlock") -> Dict[str, Any]:
+    """Design a monetization system (premium, F2P, hybrid)."""
+    iap_list = [i.strip() for i in iap_items.split(",") if i.strip()]
+    models = {
+        "premium": {"price_usd": 19.99, "iap": False, "ads": False},
+        "f2p": {"price_usd": 0, "iap": True, "ads": True},
+        "hybrid": {"price_usd": 9.99, "iap": True, "ads": False},
+    }
+    config = models.get(model, models["premium"])
+    return {
+        "model": model,
+        "config": config,
+        "iap_items": iap_list,
+        "battle_pass": {"seasons_per_year": 4, "tiers": 100, "price_usd": 9.99} if model != "premium" else None,
+        "ethics": {"no_pay_to_win": True, "cosmetic_only_iap": True, "no_loot_boxes": True},
+        "council_note": "C2-VIR: ethical monetization; C13-WARDEN: anti-exploit.",
+    }
+
+
+# ─── 17. LOCALIZATION ─────────────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_localization(languages: str = "en,es,fr,de,ja,zh", string_count: int = 500) -> Dict[str, Any]:
+    """Design a localization system for multi-language support."""
+    lang_list = [l.strip() for l in languages.split(",") if l.strip()]
+    return {
+        "languages": lang_list,
+        "string_count": string_count,
+        "format": "JSON key-value with ICU plural rules",
+        "extraction": "automated from source code + manual review",
+        "rtl_support": ["ar", "he"],
+        "text_expansion_factor": {"en_to_de": 1.3, "en_to_ja": 0.8, "en_to_zh": 0.7},
+        "council_note": "C16-VOXUM: voice consistency; C33-TYPIST: zero-loss syntax.",
+    }
+
+
+# ─── 18. ACCESSIBILITY ────────────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_accessibility(features: str = "colorblind,subtitles,remapping,difficulty") -> Dict[str, Any]:
+    """Design an accessibility system for inclusive gameplay."""
+    feature_list = [f.strip() for f in features.split(",") if f.strip()]
+    return {
+        "features": feature_list,
+        "colorblind_modes": ["protanopia", "deuteranopia", "tritanopia"],
+        "subtitle_options": {"size": ["small", "medium", "large"], "background": True, "speaker_labels": True},
+        "control_remapping": {"full_rebind": True, "presets": ["default", "left-handed", "one-handed"]},
+        "difficulty_options": ["story", "normal", "hard", "custom"],
+        "screen_reader": {"supported": True, "aria_labels": True},
+        "council_note": "C3-SOLACE: inclusive design; C2-VIR: ethical accessibility.",
+    }
+
+
+# ─── 19. ENGINE-SPECIFIC CODE GENERATION ─────────────────────────────────────
+
+@mcp.tool()
+def gamedev_engine_code(engine: str = "godot", system: str = "player_movement", language: str = "") -> Dict[str, Any]:
+    """Generate engine-specific code scaffolds for Unity, Godot, or Unreal."""
+    engine = engine.strip().lower()
+    if engine == "godot":
+        lang = "gdscript"
+        code = f'''extends CharacterBody2D
+
+# {system} — generated by Quillan-Ronin GameDev MCP
+var speed = 300.0
+
+func _physics_process(delta):
+    var input_dir = Input.get_vector("move_left", "move_right", "move_up", "move_down")
+    velocity = input_dir * speed
+    move_and_slide()
+'''
+    elif engine == "unity":
+        lang = "csharp"
+        code = f'''using UnityEngine;
+
+public class {system.replace("_", "")} : MonoBehaviour
+{{
+    public float speed = 5f;
+
+    void Update()
+    {{
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        transform.Translate(new Vector3(h, 0, v) * speed * Time.deltaTime);
+    }}
+}}
+'''
+    elif engine == "unreal":
+        lang = "cpp"
+        code = f'''// {system} — generated by Quillan-Ronin GameDev MCP
+#include "GameFramework/Character.h"
+
+void A{system.replace("_", "")}::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{{
+    PlayerInputComponent->BindAxis("MoveForward", this, &A{system.replace("_", "")}::MoveForward);
+    PlayerInputComponent->BindAxis("MoveRight", this, &A{system.replace("_", "")}::MoveRight);
+}}
+'''
+    else:
+        lang = "unknown"
+        code = f"# Engine '{engine}' not supported. Use: godot, unity, unreal"
+    return {
+        "engine": engine,
+        "system": system,
+        "language": lang,
+        "code": code,
+        "council_note": "C10-CODEWEAVER: clean code; C26-TECHNE: engine constraints.",
+    }
+
+
+# ─── 20. AUDIO INTEGRATION ───────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_audio_events(events: str = "footstep,attack,hit,death,ui_click") -> Dict[str, Any]:
+    """Design an audio event system mapping game events to SFX/music triggers."""
+    event_list = [e.strip() for e in events.split(",") if e.strip()]
+    return {
+        "events": event_list,
+        "audio_bus": ["Master", "Music", "SFX", "Voice", "UI"],
+        "triggers": {e: {"bus": "SFX" if e not in ("music", "ui_click") else ("UI" if e == "ui_click" else "Music"),
+                         "volume_db": -6.0, "pitch_variance": 0.05, "cooldown_ms": 50} for e in event_list},
+        "music_states": ["explore", "combat", "boss", "victory", "defeat"],
+        "council_note": "C23-CADENCE: rhythm sync; C22-AURELION: audio aesthetics.",
+    }
+
+
+# ─── 21. AI / BEHAVIOR DESIGN ────────────────────────────────────────────────
+
+@mcp.tool()
+def gamedev_ai_behavior(enemy_type: str = "melee", aggression: float = 0.5, awareness_radius: float = 15.0) -> Dict[str, Any]:
+    """Design an enemy AI behavior tree with parameters."""
+    return {
+        "enemy_type": enemy_type,
+        "aggression": aggression,
+        "awareness_radius": awareness_radius,
+        "behavior_tree": {
+            "root": "selector",
+            "children": [
+                {"type": "sequence", "name": "attack", "children": ["in_range", "has_los", "attack_player"]},
+                {"type": "sequence", "name": "chase", "children": ["detected", "move_to_player"]},
+                {"type": "sequence", "name": "patrol", "children": ["idle", "move_to_waypoint"]},
+            ],
+        },
+        "states": ["idle", "patrol", "chase", "attack", "stagger", "dead"],
+        "council_note": "C32-AEON: simulate 100 encounters; C34-PREDATOR: test with 1 button held.",
+    }
+
+
+# ─── 22. SESSION PERSISTENCE (already exists, listed for completeness) ────────
+# gamedev_session_list and gamedev_session_replay already defined above.
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

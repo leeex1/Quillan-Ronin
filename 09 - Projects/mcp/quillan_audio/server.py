@@ -260,6 +260,316 @@ def audio_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+# ─── 10. AUDIO FORMAT CONVERSION ──────────────────────────────────────────────
+
+@mcp.tool()
+def audio_convert(source_format: str = "wav", target_format: str = "mp3", sample_rate: int = 44100, bit_depth: int = 16, channels: int = 2) -> Dict[str, Any]:
+    """Generate an audio format conversion brief."""
+    return {
+        "source_format": source_format,
+        "target_format": target_format,
+        "sample_rate": sample_rate,
+        "bit_depth": bit_depth,
+        "channels": channels,
+        "command": f"ffmpeg -i input.{source_format} -ar {sample_rate} -ac {channels} -sample_fmt s{bit_depth} output.{target_format}",
+        "quality": "lossless" if target_format in ("wav", "flac", "aiff") else "lossy",
+        "council_note": "C14-KAIDO: format optimization; C26-TECHNE: compatibility.",
+    }
+
+# ─── 11. MIDI PROCESSING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_midi_process(midi_file: str = "input.mid", action: str = "analyze", tempo: int = 120) -> Dict[str, Any]:
+    """Process MIDI files: analyze, convert, or generate."""
+    actions = {
+        "analyze": "Extract tempo, time signature, key, note count, track count",
+        "convert": "Convert MIDI to audio (requires soundfont)",
+        "generate": "Generate MIDI from chord progression",
+        "quantize": "Quantize MIDI to grid",
+        "transpose": "Transpose by semitones",
+    }
+    return {
+        "midi_file": midi_file,
+        "action": action,
+        "action_description": actions.get(action, "Unknown action"),
+        "tempo": tempo,
+        "tools": ["pretty_midi", "mido", "music21"],
+        "council_note": "C23-CADENCE: MIDI rhythm; C28-CALCULUS: music theory.",
+    }
+
+# ─── 12. WAVEFORM VISUALIZATION ──────────────────────────────────────────────
+
+@mcp.tool()
+def audio_waveform(source: str, width: int = 800, height: int = 200, color: str = "#00ff88") -> Dict[str, Any]:
+    """Generate a waveform visualization brief."""
+    return {
+        "source": source,
+        "width": width,
+        "height": height,
+        "color": color,
+        "visualization_type": "waveform + spectrogram",
+        "output_formats": ["PNG", "SVG", "interactive HTML"],
+        "tools": ["librosa.display", "matplotlib", "wavesurfer.js"],
+        "council_note": "C22-AURELION: visual aesthetics; C15-LUMINARIS: clarity.",
+    }
+
+# ─── 13. STEM SEPARATION ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_stem_separation(source: str, model: str = "demucs", stems: str = "vocals,drums,bass,other") -> Dict[str, Any]:
+    """Generate a stem separation brief."""
+    stem_list = [s.strip() for s in stems.split(",") if s.strip()]
+    return {
+        "source": source,
+        "model": model,
+        "stems": stem_list,
+        "output": {s: f"{s}.wav" for s in stem_list},
+        "tools": ["demucs", "spleeter", "open-unmix"],
+        "quality": "high (demucs htdemucs_ft)",
+        "council_note": "C14-KAIDO: separation efficiency; C23-CADENCE: stem timing.",
+    }
+
+# ─── 14. AUDIO EFFECT CHAINS ─────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_effect_chain(effects: str = "eq,compressor,reverb,delay", wet_dry: float = 0.5) -> Dict[str, Any]:
+    """Design an audio effect chain."""
+    effect_list = [e.strip() for e in effects.split(",") if e.strip()]
+    chain = []
+    for e in effect_list:
+        if e == "eq":
+            chain.append({"effect": "EQ", "params": {"bands": 10, "type": "parametric"}, "order": len(chain) + 1})
+        elif e == "compressor":
+            chain.append({"effect": "Compressor", "params": {"ratio": 4, "threshold": -18, "attack": 10, "release": 100}, "order": len(chain) + 1})
+        elif e == "reverb":
+            chain.append({"effect": "Reverb", "params": {"type": "hall", "decay": 2.0, "mix": 0.3}, "order": len(chain) + 1})
+        elif e == "delay":
+            chain.append({"effect": "Delay", "params": {"time": 0.25, "feedback": 0.4, "mix": 0.3}, "order": len(chain) + 1})
+        else:
+            chain.append({"effect": e, "params": {}, "order": len(chain) + 1})
+    return {"effects": effect_list, "chain": chain, "wet_dry": wet_dry,
+            "council_note": "C23-CADENCE: effect timing; C22-AURELION: sonic aesthetics."}
+
+# ─── 15. AUDIO MASTERING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_master(target_lufs: float = -14.0, true_peak: float = -1.0, stereo_width: float = 1.0) -> Dict[str, Any]:
+    """Generate a mastering chain configuration."""
+    return {
+        "target_lufs": target_lufs,
+        "true_peak_ceiling": true_peak,
+        "stereo_width": stereo_width,
+        "chain": ["EQ (corrective)", "Compressor (glue, 2:1)", "Stereo Widener", "Limiter (true peak)", "Dither"],
+        "loudness_standards": {"streaming": -14, "broadcast": -23, "club": -8, "podcast": -16},
+        "council_note": "C23-CADENCE: mastering rhythm; C22-AURELION: final polish.",
+    }
+
+# ─── 16. AUDIO NORMALIZATION ─────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_normalize(method: str = "lufs", target: float = -14.0, peak_limit: float = -1.0) -> Dict[str, Any]:
+    """Generate audio normalization configuration."""
+    return {
+        "method": method,
+        "target": target,
+        "peak_limit": peak_limit,
+        "methods": {"lufs": "Loudness normalization (EBU R128)", "peak": "Peak normalization", "rms": "RMS normalization"},
+        "command": f"ffmpeg -i input.wav -af loudnorm=I={target}:TP={peak_limit}:LRA=11 output.wav",
+        "council_note": "C14-KAIDO: loudness optimization; C23-CADENCE: dynamics.",
+    }
+
+# ─── 17. AUDIO TRIMMING / SPLITTING ──────────────────────────────────────────
+
+@mcp.tool()
+def audio_trim(start_s: float = 0.0, end_s: float = 30.0, fade_in: float = 0.0, fade_out: float = 0.0) -> Dict[str, Any]:
+    """Generate audio trimming/splitting configuration."""
+    return {
+        "start_s": start_s,
+        "end_s": end_s,
+        "duration_s": round(end_s - start_s, 2),
+        "fade_in_s": fade_in,
+        "fade_out_s": fade_out,
+        "command": f"ffmpeg -i input.wav -ss {start_s} -to {end_s} -af 'afade=t=in:st=0:d={fade_in},afade=t=out:st={end_s-start_s-fade_out}:d={fade_out}' output.wav",
+        "council_note": "C27-CHRONICLE: timing; C23-CADENCE: fades.",
+    }
+
+# ─── 18. AUDIO MERGING / CONCATENATION ───────────────────────────────────────
+
+@mcp.tool()
+def audio_merge(files: str = "track1.wav,track2.wav", crossfade_s: float = 0.0, output_format: str = "wav") -> Dict[str, Any]:
+    """Generate audio merging/concatenation configuration."""
+    file_list = [f.strip() for f in files.split(",") if f.strip()]
+    return {
+        "files": file_list,
+        "file_count": len(file_list),
+        "crossfade_s": crossfade_s,
+        "output_format": output_format,
+        "command": "ffmpeg -i 'concat:%s' -c copy output.%s" % ("|".join(file_list), output_format) if crossfade_s == 0 else "ffmpeg crossfade filter",
+        "council_note": "C27-CHRONICLE: sequencing; C23-CADENCE: transitions.",
+    }
+
+# ─── 19. AUDIO SPEED / PITCH ADJUSTMENT ──────────────────────────────────────
+
+@mcp.tool()
+def audio_speed_pitch(speed: float = 1.0, pitch_semitones: float = 0.0, preserve_pitch: bool = True) -> Dict[str, Any]:
+    """Generate audio speed/pitch adjustment configuration."""
+    return {
+        "speed": speed,
+        "pitch_semitones": pitch_semitones,
+        "preserve_pitch": preserve_pitch,
+        "method": "rubberband" if preserve_pitch else "simple resample",
+        "command": f"rubberband -t {speed} -p {pitch_semitones} input.wav output.wav" if preserve_pitch else f"ffmpeg -i input.wav -filter:a 'atempo={speed}' output.wav",
+        "council_note": "C23-CADENCE: tempo; C28-CALCULUS: pitch math.",
+    }
+
+# ─── 20. AUDIO NOISE REDUCTION ───────────────────────────────────────────────
+
+@mcp.tool()
+def audio_noise_reduce(method: str = "spectral_subtraction", strength: float = 0.5) -> Dict[str, Any]:
+    """Generate audio noise reduction configuration."""
+    methods = {
+        "spectral_subtraction": {"description": "Subtract noise profile from spectrum", "tools": ["noisereduce", "sox"]},
+        "rnnoise": {"description": "RNN-based noise suppression", "tools": ["rnnoise", "Krisp"]},
+        "deep_filter": {"description": "Deep learning noise suppression", "tools": ["DeepFilterNet"]},
+        "gate": {"description": "Noise gate (silence below threshold)", "tools": ["ffmpeg", "sox"]},
+    }
+    return {
+        "method": method,
+        "strength": strength,
+        "config": methods.get(method, methods["spectral_subtraction"]),
+        "council_note": "C23-CADENCE: noise; C14-KAIDO: processing efficiency.",
+    }
+
+# ─── 21. AUDIO EQUALIZATION PRESETS ──────────────────────────────────────────
+
+@mcp.tool()
+def audio_eq_preset(preset: str = "vocal", bands: int = 10) -> Dict[str, Any]:
+    """Generate EQ preset configuration."""
+    presets = {
+        "vocal": {"bands": [(80, -3), (200, -2), (1000, 2), (3000, 3), (8000, 2)], "description": "Vocal clarity boost"},
+        "bass": {"bands": [(60, 4), (120, 3), (250, 1), (1000, -1), (4000, -2)], "description": "Bass enhancement"},
+        "master": {"bands": [(30, 1), (60, 0.5), (200, -0.5), (1000, 0), (4000, 0.5), (8000, 1), (16000, 0.5)], "description": "Mastering EQ"},
+        "podcast": {"bands": [(80, -4), (200, -2), (1000, 2), (3000, 3), (6000, 1)], "description": "Podcast vocal clarity"},
+        "flat": {"bands": [], "description": "No EQ applied"},
+    }
+    return {
+        "preset": preset,
+        "bands": bands,
+        "config": presets.get(preset, presets["flat"]),
+        "council_note": "C23-CADENCE: EQ; C22-AURELION: sonic aesthetics.",
+    }
+
+# ─── 22. AUDIO DYNAMICS (COMPRESSOR/LIMITER) ─────────────────────────────────
+
+@mcp.tool()
+def audio_dynamics(mode: str = "compressor", ratio: float = 4.0, threshold: float = -18.0, attack: float = 10.0, release: float = 100.0) -> Dict[str, Any]:
+    """Generate audio dynamics processing configuration."""
+    return {
+        "mode": mode,
+        "ratio": ratio,
+        "threshold_db": threshold,
+        "attack_ms": attack,
+        "release_ms": release,
+        "modes": {"compressor": "Reduce dynamic range", "limiter": "Hard ceiling", "expander": "Increase dynamic range", "gate": "Silence below threshold"},
+        "command": f"ffmpeg -i input.wav -af 'acompressor=threshold={threshold}dB:ratio={ratio}:attack={attack}:release={release}' output.wav",
+        "council_note": "C23-CADENCE: dynamics; C14-KAIDO: processing.",
+    }
+
+# ─── 23. AUDIO SPATIALIZATION (HRTF/BINAURAL) ───────────────────────────────
+
+@mcp.tool()
+def audio_spatialize(method: str = "hrtf", position: str = "front", distance: float = 1.0) -> Dict[str, Any]:
+    """Generate spatial audio / 3D audio configuration."""
+    return {
+        "method": method,
+        "position": position,
+        "distance": distance,
+        "methods": {"hrtf": "Head-Related Transfer Function", "binaural": "Binaural rendering", "ambisonics": "Ambisonic spatial audio", "dolby_atmos": "Dolby Atmos object-based"},
+        "output_formats": ["stereo (binaural)", "5.1", "7.1", "7.1.4 (Atmos)"],
+        "council_note": "C23-CADENCE: spatial audio; C1-ASTRA: 3D positioning.",
+    }
+
+# ─── 24. AUDIO SYNTHESIS ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_synthesize(synth_type: str = "subtractive", waveform: str = "sawtooth", frequency: float = 440.0, duration: float = 1.0) -> Dict[str, Any]:
+    """Generate audio synthesis configuration."""
+    return {
+        "synth_type": synth_type,
+        "waveform": waveform,
+        "frequency_hz": frequency,
+        "duration_s": duration,
+        "synth_types": {"subtractive": "Oscillator -> Filter -> Amp", "additive": "Sum of sine waves", "fm": "Frequency modulation", "wavetable": "Wavetable lookup", "granular": "Granular synthesis"},
+        "tools": ["synth (Python)", "SuperCollider", "Pure Data", "Max/MSP"],
+        "council_note": "C23-CADENCE: synthesis; C8-METASYNTH: creative fusion.",
+    }
+
+# ─── 25. AUDIO FINGERPRINTING ────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_fingerprint(source: str) -> Dict[str, Any]:
+    """Generate audio fingerprinting configuration."""
+    return {
+        "source": source,
+        "method": "Chromaprint (AcoustID)",
+        "features": ["audio identification", "duplicate detection", "music recognition"],
+        "tools": ["librosa", "chromaprint", "dejavu"],
+        "council_note": "C1-ASTRA: pattern recognition; C5-ECHO: audio memory.",
+    }
+
+# ─── 26. AUDIO METADATA TAGGING ──────────────────────────────────────────────
+
+@mcp.tool()
+def audio_metadata(title: str = "", artist: str = "", album: str = "", genre: str = "", bpm: int = 0, key: str = "") -> Dict[str, Any]:
+    """Generate audio metadata tagging configuration."""
+    return {
+        "title": title,
+        "artist": artist,
+        "album": album,
+        "genre": genre,
+        "bpm": bpm,
+        "key": key,
+        "tags": ["title", "artist", "album", "genre", "bpm", "key", "year", "track_number", "cover_art"],
+        "formats": ["ID3 (MP3)", "Vorbis Comments (FLAC/OGG)", "MP4 (M4A)"],
+        "tools": ["mutagen", "eyeD3", "taglib"],
+        "council_note": "C24-SCHEMA: metadata structure; C5-ECHO: audio memory.",
+    }
+
+# ─── 27. AUDIO STREAMING ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_streaming(protocol: str = "hls", bitrate: int = 128, format: str = "aac") -> Dict[str, Any]:
+    """Generate audio streaming configuration."""
+    return {
+        "protocol": protocol,
+        "bitrate_kbps": bitrate,
+        "format": format,
+        "protocols": {"hls": "HTTP Live Streaming", "dash": "Dynamic Adaptive Streaming", "icecast": "Icecast/Shoutcast", "webrtc": "WebRTC real-time"},
+        "adaptive_bitrates": [64, 128, 256, 320],
+        "council_note": "C29-NAVIGATOR: streaming; C14-KAIDO: bandwidth optimization.",
+    }
+
+# ─── 28. VOCAL PROCESSING ────────────────────────────────────────────────────
+
+@mcp.tool()
+def audio_vocal_process(effects: str = "de-ess,compress,eq,reverb") -> Dict[str, Any]:
+    """Generate vocal processing chain configuration."""
+    effect_list = [e.strip() for e in effects.split(",") if e.strip()]
+    chain = []
+    for e in effect_list:
+        if e == "de-ess":
+            chain.append({"effect": "De-esser", "freq": 6000, "threshold": -20})
+        elif e == "compress":
+            chain.append({"effect": "Compressor", "ratio": 3, "threshold": -15, "attack": 5, "release": 50})
+        elif e == "eq":
+            chain.append({"effect": "EQ", "bands": [(100, -2), (3000, 2), (8000, 1)]})
+        elif e == "reverb":
+            chain.append({"effect": "Reverb", "type": "plate", "decay": 1.5, "mix": 0.2})
+        else:
+            chain.append({"effect": e, "params": {}})
+    return {"effects": effect_list, "chain": chain,
+            "council_note": "C23-CADENCE: vocal processing; C22-AURELION: vocal aesthetics."}
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

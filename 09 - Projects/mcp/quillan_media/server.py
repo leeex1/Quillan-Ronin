@@ -217,6 +217,216 @@ def media_session_replay(session_id: str) -> Dict[str, Any]:
         return {"error": f"Read failed: {e}"}
 
 
+# ─── 10. IMAGE-TO-IMAGE TRANSFORMATION ───────────────────────────────────────
+
+@mcp.tool()
+def media_img2img(source_description: str, transform: str = "style_transfer", strength: float = 0.75, style: str = "oil painting") -> Dict[str, Any]:
+    """Generate an image-to-image transformation brief."""
+    return {
+        "source": source_description,
+        "transform": transform,
+        "strength": max(0.0, min(1.0, strength)),
+        "style": style,
+        "params": {"denoising_strength": strength, "cfg_scale": 6.5, "steps": 35, "sampler": "DPM++ 2M Karras"},
+        "negative": NEGATIVE_TAGS,
+        "council_note": "C22-AURELION: aesthetic gate >=7.0; C1-ASTRA: structural preservation.",
+    }
+
+# ─── 11. STYLE TRANSFER ──────────────────────────────────────────────────────
+
+@mcp.tool()
+def media_style_transfer(content: str, style_reference: str = "van gogh starry night", intensity: float = 0.8) -> Dict[str, Any]:
+    """Generate a style transfer brief from content + style reference."""
+    return {
+        "content": content,
+        "style_reference": style_reference,
+        "intensity": max(0.0, min(1.0, intensity)),
+        "method": "neural style transfer (AdaIN) or diffusion img2img",
+        "params": {"content_weight": 1.0, "style_weight": intensity * 10, "iterations": 500},
+        "council_note": "C22-AURELION: style coherence; C8-METASYNTH: cross-modal fusion.",
+    }
+
+# ─── 12. UPSCALING ──────────────────────────────────────────────────────────
+
+@mcp.tool()
+def media_upscale(source_description: str, scale_factor: int = 4, method: str = "esrgan") -> Dict[str, Any]:
+    """Generate an upscaling brief for an image."""
+    methods = {"esrgan": "Real-ESRGAN (x4)", "swinir": "SwinIR (x4)", "stable_diffusion": "SD Upscale (x2-x4)", "lanczos": "Lanczos (fast, lower quality)"}
+    return {
+        "source": source_description,
+        "scale_factor": scale_factor,
+        "method": methods.get(method, methods["esrgan"]),
+        "output_resolution": f"{scale_factor}x original",
+        "params": {"denoise_strength": 0.35, "tile_size": 512},
+        "council_note": "C22-AURELION: sharpness gate; C14-KAIDO: efficiency.",
+    }
+
+# ─── 13. INPAINTING / OUTPAINTING ───────────────────────────────────────────
+
+@mcp.tool()
+def media_inpaint(source_description: str, mask_description: str, mode: str = "inpaint", prompt: str = "") -> Dict[str, Any]:
+    """Generate an inpainting/outpainting brief."""
+    return {
+        "source": source_description,
+        "mask": mask_description,
+        "mode": mode,
+        "prompt": prompt or f"Fill {mask_description} seamlessly",
+        "params": {"denoising_strength": 0.75 if mode == "inpaint" else 0.5, "cfg_scale": 7.0, "steps": 30},
+        "negative": NEGATIVE_TAGS + ", seam, blur, artifact",
+        "council_note": "C1-ASTRA: structural coherence; C22-AURELION: seamless blend.",
+    }
+
+# ─── 14. AUDIO-TO-VIDEO SYNC ─────────────────────────────────────────────────
+
+@mcp.tool()
+def media_audio_sync(audio_description: str, video_description: str, sync_mode: str = "beat_match") -> Dict[str, Any]:
+    """Generate an audio-to-video synchronization brief."""
+    return {
+        "audio": audio_description,
+        "video": video_description,
+        "sync_mode": sync_mode,
+        "methods": {"beat_match": "Cut on beat markers", "lip_sync": "Phoneme-based lip sync", "mood_sync": "Mood-driven color grading"},
+        "output": {"format": "mp4", "codec": "h264", "audio_codec": "aac", "fps": 24},
+        "council_note": "C23-CADENCE: rhythm sync; C27-CHRONICLE: narrative timing.",
+    }
+
+# ─── 15. 3D MODEL GENERATION ─────────────────────────────────────────────────
+
+@mcp.tool()
+def media_3d_generate(description: str, format: str = "glb", poly_count: str = "medium", style: str = "realistic") -> Dict[str, Any]:
+    """Generate a 3D model generation brief."""
+    poly_ranges = {"low": "1k-5k", "medium": "5k-20k", "high": "20k-100k", "ultra": "100k+"}
+    return {
+        "description": description,
+        "format": format,
+        "poly_count": poly_ranges.get(poly_count, poly_ranges["medium"]),
+        "style": style,
+        "pipeline": ["mesh generation", "UV unwrapping", "texture baking", "rigging (optional)", "export"],
+        "params": {"method": "text-to-3D (Shap-E / DreamGaussian)", "texture_resolution": 1024},
+        "council_note": "C26-TECHNE: geometry constraints; C1-ASTRA: shape coherence.",
+    }
+
+# ─── 16. TEXTURE GENERATION ──────────────────────────────────────────────────
+
+@mcp.tool()
+def media_texture_generate(material: str = "wood", resolution: int = 1024, seamless: bool = True, pbr: bool = True) -> Dict[str, Any]:
+    """Generate a PBR texture set brief."""
+    maps = ["albedo", "normal", "roughness", "metallic", "ao", "height"] if pbr else ["albedo"]
+    return {
+        "material": material,
+        "resolution": resolution,
+        "seamless": seamless,
+        "pbr_maps": maps,
+        "format": "PNG (lossless) or KTX2 (compressed)",
+        "params": {"tiling": "seamless" if seamless else "single", "color_space": "sRGB for albedo, linear for others"},
+        "council_note": "C22-AURELION: texture quality; C14-KAIDO: memory optimization.",
+    }
+
+# ─── 17. ANIMATION KEYFRAME PLANNING ─────────────────────────────────────────
+
+@mcp.tool()
+def media_animation_keyframes(action: str = "walk cycle", fps: int = 24, duration_s: float = 1.0, style: str = "realistic") -> Dict[str, Any]:
+    """Generate an animation keyframe planning brief."""
+    frame_count = int(fps * duration_s)
+    return {
+        "action": action,
+        "fps": fps,
+        "duration_s": duration_s,
+        "frame_count": frame_count,
+        "keyframes": [
+            {"frame": 0, "pose": "start", "note": "contact pose"},
+            {"frame": frame_count // 4, "pose": "passing", "note": "mid-stride"},
+            {"frame": frame_count // 2, "pose": "contact", "note": "opposite foot"},
+            {"frame": 3 * frame_count // 4, "pose": "passing", "note": "mid-stride"},
+            {"frame": frame_count, "pose": "start", "note": "loop close"},
+        ],
+        "principles": ["squash & stretch", "anticipation", "follow-through", "timing", "exaggeration"],
+        "council_note": "C23-CADENCE: motion timing; C1-ASTRA: pose coherence.",
+    }
+
+# ─── 18. MULTI-ANGLE CONSISTENCY ─────────────────────────────────────────────
+
+@mcp.tool()
+def media_multi_angle(subject: str, angles: str = "front,side,back,three-quarter", style: str = "consistent") -> Dict[str, Any]:
+    """Generate a multi-angle consistency brief for a subject."""
+    angle_list = [a.strip() for a in angles.split(",") if a.strip()]
+    return {
+        "subject": subject,
+        "angles": angle_list,
+        "style": style,
+        "anchor_prompt": f"{subject}, consistent identity across all angles, model sheet, {', '.join(angle_list)} views",
+        "negative": NEGATIVE_TAGS + ", inconsistent features, different face",
+        "rule": "Use same seed + anchor_prompt for all angles. Vary only camera angle.",
+        "council_note": "C1-ASTRA: structural consistency; C22-AURELION: aesthetic coherence.",
+    }
+
+# ─── 19. BATCH GENERATION ────────────────────────────────────────────────────
+
+@mcp.tool()
+def media_batch_generate(prompts: str, count: int = 4, seed: int = -1, variation: str = "seed") -> Dict[str, Any]:
+    """Generate a batch generation brief for multiple images."""
+    prompt_list = [p.strip() for p in prompts.split("||") if p.strip()]
+    return {
+        "prompts": prompt_list,
+        "count": count,
+        "seed": seed,
+        "variation": variation,
+        "total_images": len(prompt_list) * count,
+        "params": {"cfg_scale": 6.5, "steps": 35, "sampler": "DPM++ 2M Karras"},
+        "naming": "batch_{index:04d}_{prompt_slug}.png",
+        "council_note": "C14-KAIDO: batch efficiency; C22-AURELION: quality gate.",
+    }
+
+# ─── 20. MEDIA FORMAT CONVERSION ─────────────────────────────────────────────
+
+@mcp.tool()
+def media_convert(source_format: str = "png", target_format: str = "webp", quality: int = 90) -> Dict[str, Any]:
+    """Generate a media format conversion brief."""
+    conversions = {
+        ("png", "webp"): "Lossless-ish, smaller file size",
+        ("png", "jpg"): "Lossy, smaller file size",
+        ("mp4", "webm"): "VP9/AV1 codec, smaller size",
+        ("wav", "mp3"): "Lossy audio compression",
+        ("glb", "gltf"): "Split binary + JSON",
+    }
+    return {
+        "source_format": source_format,
+        "target_format": target_format,
+        "quality": quality,
+        "description": conversions.get((source_format.lower(), target_format.lower()), "Standard conversion"),
+        "tools": ["ffmpeg (video/audio)", "ImageMagick (images)", "Blender (3D)"],
+        "council_note": "C14-KAIDO: format optimization; C26-TECHNE: compatibility.",
+    }
+
+# ─── 21. DEPTH MAP / NORMAL MAP GENERATION ───────────────────────────────────
+
+@mcp.tool()
+def media_depth_map(source_description: str, method: str = "midas") -> Dict[str, Any]:
+    """Generate a depth map / normal map brief for 3D reconstruction."""
+    return {
+        "source": source_description,
+        "method": method,
+        "outputs": ["depth_map (16-bit)", "normal_map (RGB)", "point_cloud (optional)"],
+        "params": {"model": "MiDaS v3.1" if method == "midas" else method, "resolution": "match source"},
+        "use_cases": ["3D reconstruction", "parallax effect", "relighting", "depth-based blur"],
+        "council_note": "C1-ASTRA: depth coherence; C26-TECHNE: 3D pipeline.",
+    }
+
+# ─── 22. VIDEO FRAME EXTRACTION ──────────────────────────────────────────────
+
+@mcp.tool()
+def media_frame_extract(video_description: str, fps: int = 24, format: str = "png") -> Dict[str, Any]:
+    """Generate a video frame extraction brief."""
+    return {
+        "video": video_description,
+        "fps": fps,
+        "format": format,
+        "naming": "frame_{index:06d}.png",
+        "use_cases": ["training data", "sprite extraction", "storyboard", "thumbnail selection"],
+        "tool": "ffmpeg -i input.mp4 -vf fps=24 frame_%06d.png",
+        "council_note": "C27-CHRONICLE: frame sequencing; C14-KAIDO: batch efficiency.",
+    }
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

@@ -322,6 +322,186 @@ def prism_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 10. MULTI-LAYER DECOMPOSITION ───────────────────────────────────────────
+
+@mcp.tool()
+def prism_deep_decompose(task: str, context: Optional[str] = None, depth: int = 3) -> Dict[str, Any]:
+    """Multi-layer decomposition: decompose, then decompose each vector further."""
+    depth = max(1, min(depth, 5))
+    layers = []
+    current_task = task
+    for d in range(depth):
+        decomp = _decompose(current_task, context)
+        layers.append({"layer": d + 1, "task": current_task[:80], "vectors": decomp["vectors"]})
+        # Use the strategy vector as the next layer's task
+        current_task = decomp["vectors"].get("Strategy", current_task)[:120]
+    return {
+        "original_task": task,
+        "depth": depth,
+        "layers": layers,
+        "final_depth_task": current_task,
+        "status": "DEEP_DECOMPOSITION_COMPLETE",
+        "council_note": "C30-TESSERACT: dimensional weaving; C7-LOGOS: logical depth.",
+    }
+
+
+# ─── 11. VECTOR WEIGHT TUNING ────────────────────────────────────────────────
+
+@mcp.tool()
+def prism_vector_weights(weights: str = "") -> Dict[str, Any]:
+    """View or update 9-vector weights for prism scoring. Pass 'vector:value' pairs comma-separated."""
+    global VECTOR_WEIGHTS
+    if not weights:
+        return {"status": "WEIGHTS_VIEWED", "weights": VECTOR_WEIGHTS, "sum": round(sum(VECTOR_WEIGHTS.values()), 4)}
+    # Parse updates
+    updates = {}
+    for pair in weights.split(","):
+        parts = pair.strip().split(":")
+        if len(parts) == 2:
+            vec = parts[0].strip().capitalize()
+            try:
+                val = float(parts[1].strip())
+                if vec in VECTOR_WEIGHTS:
+                    updates[vec] = val
+            except ValueError:
+                pass
+    # Apply updates
+    for vec, val in updates.items():
+        VECTOR_WEIGHTS[vec] = max(0.0, min(1.0, val))
+    # Re-normalize
+    total = sum(VECTOR_WEIGHTS.values()) or 1.0
+    VECTOR_WEIGHTS = {k: round(v / total, 4) for k, v in VECTOR_WEIGHTS.items()}
+    return {"status": "WEIGHTS_UPDATED", "updates": updates, "weights": VECTOR_WEIGHTS,
+            "sum": round(sum(VECTOR_WEIGHTS.values()), 4)}
+
+
+# ─── 12. PRISM COMPARISON ────────────────────────────────────────────────────
+
+@mcp.tool()
+def prism_compare(task_a: str, task_b: str, context: Optional[str] = None) -> Dict[str, Any]:
+    """Compare two tasks' prism decompositions side-by-side."""
+    da = _decompose(task_a, context)
+    db = _decompose(task_b, context)
+    vector_diffs = {}
+    for v in PRISM_VECTORS:
+        va = da["vectors"].get(v, "")
+        vb = db["vectors"].get(v, "")
+        vector_diffs[v] = {"task_a": va[:100], "task_b": vb[:100], "similar": va[:50] == vb[:50]}
+    return {
+        "task_a": task_a[:80],
+        "task_b": task_b[:80],
+        "vector_diffs": vector_diffs,
+        "similarity": round(sum(1 for v in PRISM_VECTORS if vector_diffs[v]["similar"]) / len(PRISM_VECTORS), 3),
+        "status": "COMPARISON_COMPLETE",
+    }
+
+
+# ─── 13. CUSTOM VECTOR DEFINITIONS ───────────────────────────────────────────
+
+@mcp.tool()
+def prism_custom_vector(name: str, definition: str, weight: float = 0.1) -> Dict[str, Any]:
+    """Define a custom 10th vector for extended prism decomposition."""
+    if name not in PRISM_VECTORS:
+        PRISM_VECTORS.append(name)
+        VECTOR_WEIGHTS[name] = max(0.01, min(0.5, weight))
+        # Re-normalize
+        total = sum(VECTOR_WEIGHTS.values()) or 1.0
+        VECTOR_WEIGHTS = {k: round(v / total, 4) for k, v in VECTOR_WEIGHTS.items()}
+    return {"status": "CUSTOM_VECTOR_ADDED", "name": name, "definition": definition,
+            "weight": VECTOR_WEIGHTS.get(name, 0), "total_vectors": len(PRISM_VECTORS)}
+
+
+# ─── 14. BATCH DECOMPOSITION ─────────────────────────────────────────────────
+
+@mcp.tool()
+def prism_batch_decompose(tasks: str, context: Optional[str] = None) -> Dict[str, Any]:
+    """Decompose multiple tasks in batch and return comparative analysis."""
+    task_list = [t.strip() for t in tasks.split("||") if t.strip()]
+    results = []
+    for task in task_list:
+        d = _decompose(task, context)
+        score = prism_score(task, context)
+        results.append({"task": task[:80], "score": score["aggregate_score"], "verdict": score["verdict"],
+                        "vectors": {k: v[:60] for k, v in d["vectors"].items()}})
+    return {"tasks_decomposed": len(task_list), "results": results,
+            "highest_score": max(r["score"] for r in results) if results else 0,
+            "lowest_score": min(r["score"] for r in results) if results else 0,
+            "status": "BATCH_DECOMPOSITION_COMPLETE"}
+
+
+# ─── 15. VECTOR DEEP DIVE ────────────────────────────────────────────────────
+
+@mcp.tool()
+def prism_vector_deep_dive(task: str, vector_name: str, context: Optional[str] = None) -> Dict[str, Any]:
+    """Deep-dive into a single vector's analysis for a task."""
+    d = _decompose(task, context)
+    vector_content = d["vectors"].get(vector_name, "Vector not found")
+    # Generate extended analysis
+    extended = {
+        "vector": vector_name,
+        "content": vector_content,
+        "depth_analysis": f"Deep analysis of {vector_name} for '{task[:60]}': {vector_content}",
+        "related_vectors": [v for v in PRISM_VECTORS if v != vector_name],
+        "council_expert": {
+            "Language": "C9-AETHER", "Sentiment": "C3-SOLACE", "Context": "C5-ECHO",
+            "Intent": "C4-PRAXIS", "Meta": "C6-OMNIS", "Creativity": "C8-METASYNTH",
+            "Ethics": "C2-VIR", "Strategy": "C4-PRAXIS", "Constraint": "C13-WARDEN",
+        }.get(vector_name, "C0-QUILLAN"),
+    }
+    return {"task": task[:80], "vector": vector_name, "analysis": extended,
+            "status": "VECTOR_DEEP_DIVE_COMPLETE"}
+
+
+# ─── 16. PRISM EXPORT / IMPORT ───────────────────────────────────────────────
+
+@mcp.tool()
+def prism_export(task: str, context: Optional[str] = None, format: str = "json") -> Dict[str, Any]:
+    """Export a full prism decomposition in various formats."""
+    d = _decompose(task, context)
+    score = prism_score(task, context)
+    threat = _threat_model(task, None)
+    bushido = _bushido_gate(task)
+    export = {
+        "task": task,
+        "decomposition": d,
+        "score": score,
+        "threat_model": threat,
+        "bushido": bushido,
+        "format": format,
+        "exported_at": time.time(),
+    }
+    if format == "markdown":
+        md = "# Prism Decomposition: %s\n\n" % task
+        for v in PRISM_VECTORS:
+            md += "## %s\n%s\n\n" % (v, d["vectors"].get(v, ""))
+        export["markdown"] = md
+    return {"status": "PRISM_EXPORTED", "format": format, "export": export}
+
+
+# ─── 17. DECOMPOSITION HISTORY ───────────────────────────────────────────────
+
+@mcp.tool()
+def prism_history(limit: int = 10) -> Dict[str, Any]:
+    """List recent prism decomposition sessions."""
+    sessions = []
+    try:
+        for p in sorted(SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True)[:limit]:
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+                sessions.append({
+                    "session_id": data.get("session_id"),
+                    "task": (data.get("task") or "")[:80],
+                    "overall": data.get("overall"),
+                    "score": (data.get("score") or {}).get("aggregate_score"),
+                    "timestamp": data.get("timestamp"),
+                })
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return {"count": len(sessions), "sessions": sessions, "status": "HISTORY_LISTED"}
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log

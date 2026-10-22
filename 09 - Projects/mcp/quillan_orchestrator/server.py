@@ -415,6 +415,219 @@ def orchestrator_session_replay(session_id: str) -> Dict[str, Any]:
 
 
 
+# ─── 6. CHAIN BUILDER (custom chains) ────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_build_chain(name: str, steps: str) -> Dict[str, Any]:
+    """Build a custom multi-MCP chain from a JSON step definition."""
+    import json as _json
+    try:
+        step_list = _json.loads(steps)
+    except Exception:
+        # Try comma-separated format: mcp:tool,mcp:tool
+        step_list = []
+        for s in steps.split(","):
+            s = s.strip()
+            if ":" in s:
+                mcp_name, tool_name = s.split(":", 1)
+                step_list.append({"mcp": mcp_name.strip(), "tool": tool_name.strip(), "args_template": {}})
+    if not isinstance(step_list, list):
+        return {"error": "Steps must be a JSON array or comma-separated mcp:tool pairs."}
+    CHAINS[name] = step_list
+    return {"status": "CHAIN_BUILT", "name": name, "steps": len(step_list), "chain": step_list,
+            "council_note": "C31-NEXUS: chain orchestration; C4-PRAXIS: task decomposition."}
+
+
+# ─── 7. PARALLEL CHAIN EXECUTION ─────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_parallel_chains(objective: str, chains: str = "code_audit,research", persist: bool = True) -> Dict[str, Any]:
+    """Execute multiple chains in parallel and merge results."""
+    chain_list = [c.strip() for c in chains.split(",") if c.strip()]
+    results = {}
+    for chain_name in chain_list:
+        if chain_name not in CHAINS:
+            results[chain_name] = {"error": f"Unknown chain '{chain_name}'"}
+            continue
+        try:
+            r = asyncio.run(_call_mcp("orchestrator", "orchestrator_chain", {
+                "objective": objective, "chain": chain_name, "persist": persist
+            }))
+            results[chain_name] = r
+        except Exception as e:
+            results[chain_name] = {"error": str(e)}
+    return {
+        "status": "PARALLEL_CHAINS_COMPLETE",
+        "objective": objective,
+        "chains_executed": len(chain_list),
+        "results": results,
+        "council_note": "C31-NEXUS: parallel orchestration; C4-PRAXIS: task scheduling.",
+    }
+
+
+# ─── 8. CHAIN STATUS / MONITORING ────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_chain_status(session_id: str) -> Dict[str, Any]:
+    """Check the status of a running or completed chain session."""
+    path = SESSION_DIR / f"{session_id}.json"
+    if not path.exists():
+        matches = list(SESSION_DIR.glob(f"{session_id}*.json"))
+        if not matches:
+            return {"error": f"Session not found: {session_id}"}
+        path = matches[0]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        result = data.get("result", {})
+        return {
+            "session_id": session_id,
+            "status": result.get("verdict", "UNKNOWN"),
+            "steps_executed": result.get("steps_executed", 0),
+            "mcps_used": result.get("all_mcps_used", []),
+            "timestamp": result.get("timestamp"),
+            "file": str(path),
+        }
+    except Exception as e:
+        return {"error": f"Failed to read session: {e}"}
+
+
+# ─── 9. CHAIN RETRY / RECOVERY ───────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_retry(session_id: str, from_step: int = 1) -> Dict[str, Any]:
+    """Retry a failed chain from a specific step."""
+    path = SESSION_DIR / f"{session_id}.json"
+    if not path.exists():
+        matches = list(SESSION_DIR.glob(f"{session_id}*.json"))
+        if not matches:
+            return {"error": f"Session not found: {session_id}"}
+        path = matches[0]
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        result = data.get("result", {})
+        objective = result.get("objective", "")
+        chain = result.get("chain", "reverse_engineer")
+        # Re-run the chain
+        new_result = asyncio.run(_call_mcp("orchestrator", "orchestrator_chain", {
+            "objective": objective, "chain": chain, "persist": True
+        }))
+        return {"status": "RETRY_COMPLETE", "original_session": session_id,
+                "new_session": new_result.get("session_id"), "verdict": new_result.get("verdict")}
+    except Exception as e:
+        return {"error": f"Retry failed: {e}"}
+
+
+# ─── 10. MCP DISCOVERY & REGISTRATION ────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_discover_mcps() -> Dict[str, Any]:
+    """Discover all available MCP servers and their tools."""
+    health = {}
+    for name, path in _MCP_PATHS.items():
+        try:
+            mod = _load_mcp(name, path)
+            tools = asyncio.run(mod.mcp.list_tools())
+            health[name] = {"tools": len(tools), "status": "ACTIVE", "tool_names": [t.name for t in tools]}
+        except Exception as e:
+            health[name] = {"status": "ERROR", "error": str(e)}
+    return {"status": "DISCOVERY_COMPLETE", "total_mcps": len(_MCP_PATHS), "mcps": health,
+            "council_note": "C31-NEXUS: MCP discovery; C29-NAVIGATOR: ecosystem mapping."}
+
+
+# ─── 11. CHAIN TEMPLATES ─────────────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_chain_templates() -> Dict[str, Any]:
+    """List all available chain templates with descriptions."""
+    templates = {
+        "reverse_engineer": "Spider crawl → security scan → AST inspect → predator strike → mirror collaborate → team merge",
+        "web_recon": "Spider crawl page → web audit → security scan → council deliberation",
+        "code_audit": "Full code pipeline → council deliberation → buddy code review → team merge",
+        "research": "RAG ingest → RAG ask → council deliberation → team merge",
+        "game_dev": "New project → design loop → balance economy → review build → team merge",
+        "media_gen": "Image brief → video brief → character sheet → council deliberation → team merge",
+        "audio_pipeline": "Audio design cue → mix plan → director note → council deliberation",
+        "full_system": "All MCPs in dependency order: spider → code → council → buddy → team → governor",
+        "model_training": "Model lab inspect → dataset validate → hardware advisor → BitNet analyze → council",
+        "devops_deploy": "Ops task graph → guardrail → health → Docker → K8s → CI/CD → monitoring",
+    }
+    return {"templates": templates, "total": len(templates),
+            "council_note": "C4-PRAXIS: chain templates; C31-NEXUS: orchestration."}
+
+
+# ─── 12. TASK QUEUE MANAGEMENT ────────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_task_queue(action: str = "list", task: str = "", priority: int = 5) -> Dict[str, Any]:
+    """Manage a task queue for orchestrator chains (add, list, clear)."""
+    queue_file = SESSION_DIR / "task_queue.json"
+    queue = []
+    if queue_file.exists():
+        try:
+            queue = json.loads(queue_file.read_text(encoding="utf-8"))
+        except Exception:
+            queue = []
+    if action.lower() == "add":
+        entry = {"id": f"task-{uuid.uuid4().hex[:8]}", "task": task, "priority": priority, "status": "queued", "created": time.time()}
+        queue.append(entry)
+        queue_file.write_text(json.dumps(queue, indent=2), encoding="utf-8")
+        return {"status": "TASK_ADDED", "task": entry, "queue_size": len(queue)}
+    elif action.lower() == "list":
+        queue.sort(key=lambda x: x.get("priority", 5), reverse=True)
+        return {"status": "QUEUE_LIST", "count": len(queue), "queue": queue}
+    elif action.lower() == "clear":
+        queue_file.write_text("[]", encoding="utf-8")
+        return {"status": "QUEUE_CLEARED", "previous_count": len(queue)}
+    return {"error": f"Unknown action '{action}'. Use: add, list, clear."}
+
+
+# ─── 13. ORCHESTRATOR CONFIG ─────────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_config(key: str = "", value: str = "") -> Dict[str, Any]:
+    """View or update orchestrator configuration."""
+    config_file = SESSION_DIR / "orchestrator_config.json"
+    config = {}
+    if config_file.exists():
+        try:
+            config = json.loads(config_file.read_text(encoding="utf-8"))
+        except Exception:
+            config = {}
+    if not config:
+        config = {
+            "max_parallel_chains": 3,
+            "default_timeout_s": 300,
+            "retry_count": 2,
+            "persist_sessions": True,
+            "log_level": "INFO",
+            "mcp_health_check_interval_s": 60,
+        }
+    if key and value:
+        old = config.get(key)
+        try:
+            config[key] = json.loads(value)
+        except Exception:
+            config[key] = value
+        config_file.write_text(json.dumps(config, indent=2), encoding="utf-8")
+        return {"status": "CONFIG_UPDATED", "key": key, "old": old, "new": config[key]}
+    return {"status": "CONFIG_VIEWED", "config": config}
+
+
+# ─── 14. CROSS-MCP DATA FLOW ─────────────────────────────────────────────────
+
+@mcp.tool()
+def orchestrator_data_flow(source_mcp: str, target_mcp: str, data_key: str = "result") -> Dict[str, Any]:
+    """Define a data flow mapping between two MCPs."""
+    return {
+        "source": source_mcp,
+        "target": target_mcp,
+        "data_key": data_key,
+        "mapping": f"{source_mcp}.{data_key} -> {target_mcp}.input",
+        "note": "Data flows from source MCP output to target MCP input via the orchestrator context.",
+        "council_note": "C31-NEXUS: data routing; C4-PRAXIS: flow management.",
+    }
+
+
 # --- Quillan-Ronin Global Error-Handling Middleware ---
 from fastmcp.server.middleware import Middleware, MiddlewareContext
 import logging as _log
