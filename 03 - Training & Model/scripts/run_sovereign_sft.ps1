@@ -53,4 +53,5 @@ Write-Host '====================================================================
     --warmup-steps $WARMUP `
     --eval-every $EVAL_EVERY `
     --save-every $SAVE_EVERY `
-    --log-every $LOG_EVERY
+    --log-every $LOG_EVERY `
+    --resume
