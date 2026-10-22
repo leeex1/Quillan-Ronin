@@ -6763,7 +6763,7 @@ Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
         "QUILLAN_RAG_DB": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan_rag_db"
       }
     },
-    "ThinkingEngine": {
+    "QuillanThinkingEngine": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py"
@@ -6773,7 +6773,7 @@ Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
         "PYTHONIOENCODING": "utf-8"
       }
     },
-    "SamuraiEngine": {
+    "QuillanSamuraiEngine": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py"
@@ -6782,7 +6782,7 @@ Adapters    Adapters   Adapters   Adapters      Adapters          Adapters
         "PYTHONIOENCODING": "utf-8"
       }
     },
-    "RoninBuddy": {
+    "QuillanBuddy": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"

@@ -523,7 +523,7 @@ def run_reasoning_standardization():
 
     stats = {
         "status": "v12_QUILLAN_REASONING_GOLD",
-        "methodology": "Quillan Thinking (Quillan-Samurai.md lines 11090-11232 & ThinkingEngine MCP)",
+        "methodology": "Quillan Thinking (Quillan-Samurai.md lines 11090-11232 & QuillanThinkingEngine MCP)",
         "format": "<|user|>\\n{prompt}\\n<|assistant|>\\n<think>\\n{quillan_thinking}\\n</think>\\n{response}<|endoftext|>",
         "seq_len": SEQ_LEN,
         "vocab_size": VOCAB_SIZE,
