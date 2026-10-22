@@ -285,7 +285,7 @@ def samurai_session_replay(session_id: str) -> Dict[str, Any]:
 def run_quillan_pipeline(query: str, context_json: Optional[str] = None, max_retries: int = 5) -> Dict[str, Any]:
     """
     Execute the deterministic 6-stage Quillan-Ronin v5.4.0-ONI MCP Chain Bus.
-    Chains QuillanPrism -> QuillanGovernor -> QuillanCouncil -> ThinkingEngine -> SamuraiEngine -> QuillanRAG.
+    Chains QuillanPrism -> QuillanGovernor -> QuillanCouncil -> QuillanThinkingEngine -> QuillanSamuraiEngine -> QuillanRAG.
     Persists correlation_id and telemetry to C:\\02_QUILLAN\\07 - Memory & LanceDB\\chain_state.json.
     """
     try:

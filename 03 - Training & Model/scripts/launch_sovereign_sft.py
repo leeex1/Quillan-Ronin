@@ -24,6 +24,13 @@ import time
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
+if sys.platform == "win32":
+    import io
+    if hasattr(sys.stdout, "buffer"):
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    if hasattr(sys.stderr, "buffer"):
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -594,7 +601,7 @@ def main() -> None:
                 )
             print(
                 f"  >>> [VAL AUDIT @ Step {step}] Val CE: {val_ce:.4f} "
-                f"(Best: {best_val_ce:.4f}) {'[★ NEW BEST SAVED]' if is_best else ''}",
+                f"(Best: {best_val_ce:.4f}) {'[* NEW BEST SAVED]' if is_best else ''}",
                 flush=True,
             )
 
