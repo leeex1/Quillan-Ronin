@@ -701,7 +701,7 @@ def re_route(target_mcp: str = "council", payload: Optional[Dict[str, Any]] = No
         return {"target": "QuillanCode", "suggested_tool": "codeweaver_security_scan",
                 "payload": payload or {}, "note": "Route RE findings to code scan pipeline."}
     if target_mcp.lower() == "buddy":
-        return {"target": "RoninBuddy", "suggested_tool": "buddy_mirror_collaborate",
+        return {"target": "QuillanBuddy", "suggested_tool": "buddy_mirror_collaborate",
                 "payload": payload or {}, "note": "Route RE findings to mirror-collaboration."}
     return {"error": f"Unknown target '{target_mcp}'. Use council, code, or buddy."}
 

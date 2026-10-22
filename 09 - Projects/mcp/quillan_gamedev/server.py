@@ -219,7 +219,7 @@ def gamedev_route(target_mcp: str = "code", payload: Optional[Dict[str, Any]] = 
         return {"target": "QuillanCode", "suggested_tool": "codeweaver_full_pipeline",
                 "payload": payload or {}, "note": "Route game code to code scan pipeline."}
     if target_mcp.lower() == "buddy":
-        return {"target": "RoninBuddy", "suggested_tool": "buddy_mirror_collaborate",
+        return {"target": "QuillanBuddy", "suggested_tool": "buddy_mirror_collaborate",
                 "payload": payload or {}, "note": "Route game design to mirror-collaboration."}
     return {"error": f"Unknown target '{target_mcp}'. Use council, code, or buddy."}
 

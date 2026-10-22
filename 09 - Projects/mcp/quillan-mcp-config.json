@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "ThinkingEngine": {
+    "QuillanThinkingEngine": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\mcp\\quillan_thinking_engine\\server.py"
@@ -10,7 +10,7 @@
         "PYTHONIOENCODING": "utf-8"
       }
     },
-    "SamuraiEngine": {
+    "QuillanSamuraiEngine": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\mcp\\quillan_samurai_engine\\server.py"
@@ -19,7 +19,7 @@
         "PYTHONIOENCODING": "utf-8"
       }
     },
-    "RoninBuddy": {
+    "QuillanBuddy": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\mcp\\quillan_buddy\\server.py"

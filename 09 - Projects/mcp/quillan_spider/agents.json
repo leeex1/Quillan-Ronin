@@ -34,13 +34,13 @@
    },
    {
     "id": "mcps-think",
-    "name": "ThinkingEngine",
+    "name": "QuillanThinkingEngine",
     "file": "C:\\02_QUILLAN\\mcp\\quillan_thinking_engine\\server.py",
     "task": "lazy-torch patched, verify on toggle"
    },
    {
     "id": "mcps-samurai",
-    "name": "SamuraiEngine",
+    "name": "QuillanSamuraiEngine",
     "file": "C:\\02_QUILLAN\\mcp\\quillan_samurai_engine\\server.py",
     "task": "healthy"
    },

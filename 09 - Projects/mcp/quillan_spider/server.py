@@ -1248,7 +1248,7 @@ def spider_route_findings(target_mcp: str = "code") -> Dict[str, Any]:
                 "payloads": [{"proposal": f"File {it['path']} has findings: {it['findings']}"} for it in items],
                 "count": len(items)}
     if target_mcp.lower() == "buddy":
-        return {"target": "RoninBuddy", "suggested_tool": "buddy_code_review",
+        return {"target": "QuillanBuddy", "suggested_tool": "buddy_code_review",
                 "payloads": [{"code": f"# {it['path']}", "language": "python"} for it in items],
                 "count": len(items)}
     return {"error": f"Unknown target_mcp '{target_mcp}'. Use code, council, or buddy."}
