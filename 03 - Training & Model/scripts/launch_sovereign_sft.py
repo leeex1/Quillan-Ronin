@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-launch_sovereign_sft.py — Hardened Master SFT Launcher for Quillan-Ronin v5.4.0-ONI
-===================================================================================
-Upgrades over baseline script:
-1. Mounts BOTH train_ids.bin (432.6M tokens) and val_ids.bin (8.83M tokens)
-2. Implements Deliverable C's 3-Stage aux_alpha schedule (Warm-In -> Pressure -> Anneal)
-3. Enforces Mandatory Rule #12: ES-at-Scale EMA ForgettingMitigation (every 5 steps, mu=0.001)
-4. Tracks validation loss and exports `quillan_sft_best.pt` separately from step milestones
-5. Saves & restores full optimizer + RNG + step state via `--resume`
-6. Traps Ctrl+C (SIGINT/SIGTERM) to save an emergency checkpoint without corruption
-7. Enables `torch.set_flush_denormal(True)` + Windows `BELOW_NORMAL_PRIORITY_CLASS` for i5-7500
-8. Auto-rotates step checkpoints (keeps last 3 + best + latest) to prevent disk exhaustion
+launch_sovereign_sft.py — Hardened Master SFT Launcher for Quillan-Ronin v5.4.0-ONI (Rev 2)
+===========================================================================================
+Includes all 6 Phase-1 hardening upgrades PLUS the Rev-2 Dry-Run Telemetry Fixes:
+1. Fixes `Aux: 16.3803` domination via `compute_safe_aux_loss()` (scales by `aux_alpha` &
+   excludes the singular `x - x.detach()` zero-norm derivative in `qhis_fidelity`).
+2. Fixes `GradNorm: 91,424,712.0` LoRA starvation via `clip_gradients_two_stage()`:
+   per-tensor pre-clipping (`max_tensor_norm=5.0`) + NaN/Inf scrubbing before global L2 clip (`1.0`).
+3. Logs `max_grad_tensor` and `grad_norm` in `sft_telemetry.jsonl` for full observability.
 """
 
 from __future__ import annotations
@@ -42,12 +39,6 @@ from quillan_live_training_upgrades import (
     vectorize_model_in_place,
 )
 
-try:
-    from quillan_tokenizer_unified import UnifiedQuillanTokenizer
-    HAS_TOKENIZER = True
-except ImportError:
-    HAS_TOKENIZER = False
-
 
 # ============================================================================
 # 1. HARDWARE & OS TUNING (C14-KAIDO i5-7500 Optimization)
@@ -62,14 +53,12 @@ def configure_host_environment(threads: int = 4, low_priority: bool = True) -> N
     except RuntimeError:
         pass
 
-    # Critical for Intel Kaby Lake (i5-7500): prevent 100-cycle microcode stalls on subnormal floats
     if hasattr(torch, "set_flush_denormal"):
         try:
             torch.set_flush_denormal(True)
         except Exception:
             pass
 
-    # Set Windows BELOW_NORMAL_PRIORITY_CLASS (0x00004000) so PC stays responsive during 14h run
     if low_priority and sys.platform == "win32":
         try:
             BELOW_NORMAL_PRIORITY_CLASS = 0x00004000
@@ -135,7 +124,6 @@ class ESAtScaleForgettingAnchor:
     """
     Implements Mandatory Rule #12 (ESFM — Formula 23):
     theta_{t+1} = theta_opt + mu_mem * (EMA[theta]_t - theta_opt) * 1(t mod 5 == 0)
-    Prevents catastrophic forgetting on warm-started ternary/LoRA adapters.
     """
 
     def __init__(
@@ -153,15 +141,16 @@ class ESAtScaleForgettingAnchor:
 
     @torch.no_grad()
     def step(self, global_step: int) -> None:
+        pull_now = (global_step % self.interval == 0)
         for p, ema_p in zip(self.params, self.ema_snapshot):
             ema_p.mul_(self.ema_decay).add_(p.data, alpha=1.0 - self.ema_decay)
-        if global_step % self.interval == 0:
+        if pull_now:
             for p, ema_p in zip(self.params, self.ema_snapshot):
                 p.data.add_(ema_p - p.data, alpha=self.mu_mem)
 
 
 # ============================================================================
-# 4. SCHEDULERS (Cosine LR + Deliverable C 3-Stage Aux-Alpha)
+# 4. SCHEDULERS, SAFE AUX LOSS & TWO-STAGE GRADIENT CLIPPING (REV-2 FIXES)
 # ============================================================================
 def get_lr(step: int, total_steps: int, peak_lr: float, min_lr: float, warmup_steps: int) -> float:
     if step < warmup_steps:
@@ -173,22 +162,108 @@ def get_lr(step: int, total_steps: int, peak_lr: float, min_lr: float, warmup_st
 
 def get_staged_aux_alpha(step: int, total_steps: int) -> Tuple[float, str]:
     """
-    Deliverable C 3-Stage Curriculum:
+    Deliverable C 3-Stage Curriculum (handles short canary runs cleanly):
     - Stage 1 (Warm-In, first 25%): aux_alpha = 0.001
-    - Stage 2 (Pressure, 25% - 75%): aux_alpha = 0.003 (prevents expert routing collapse)
+    - Stage 2 (Pressure, 25% - 75%): aux_alpha = 0.003
     - Stage 3 (Anneal, final 25%): aux_alpha = 0.0015
     """
-    frac = step / max(1, total_steps)
-    if frac <= 0.25:
+    if total_steps < 10:
         return 0.001, "Stage1:WarmIn"
-    elif frac <= 0.75:
+
+    frac = (step - 1) / max(1, total_steps)
+    if frac < 0.25:
+        return 0.001, "Stage1:WarmIn"
+    elif frac < 0.75:
         return 0.003, "Stage2:Pressure"
     else:
         return 0.0015, "Stage3:Anneal"
 
 
+def compute_safe_aux_loss(
+    aux_dict: Dict[str, Any],
+    aux_alpha: float,
+    device: torch.device,
+) -> torch.Tensor:
+    """
+    Computes a bounded, differentiable auxiliary loss from `aux_dict` while
+    excluding the singular `qhis_fidelity(x.detach(), x)` zero-distance norm trap
+    that caused `Aux: 16.3803` and `GradNorm: 91,424,712.0` on Step 1.
+    """
+    loss = torch.zeros((), device=device, dtype=torch.float32)
+
+    # 1. Load balance (active if gumbel_topk, 0 in dense_pull)
+    lb = aux_dict.get("load_balance")
+    if torch.is_tensor(lb) and torch.isfinite(lb):
+        loss = loss + aux_alpha * torch.clamp(lb.float(), min=0.0, max=10.0)
+
+    # 2. Router Z-loss stabilization (clamped to prevent 16,384x spikes)
+    zl = aux_dict.get("z_loss")
+    if torch.is_tensor(zl) and torch.isfinite(zl):
+        loss = loss + (aux_alpha * 0.5) * torch.clamp(zl.float(), min=0.0, max=20.0)
+
+    # 3. Council Shannon Entropy bonus (encourages all 34 experts to stay active)
+    # Offset by ln(34) = 3.52636 so term is a non-negative KL-to-uniform penalty >= 0.0
+    ent = aux_dict.get("entropy")
+    if torch.is_tensor(ent) and torch.isfinite(ent):
+        target_ent = math.log(34.0)
+        ent_gap = torch.clamp(target_ent - ent.float(), min=0.0, max=target_ent)
+        loss = loss + (aux_alpha * 2.0) * ent_gap
+
+    # 4. E_ICE Ethics constraint (if differentiable and finite)
+    eth = aux_dict.get("ethics")
+    if torch.is_tensor(eth) and eth.requires_grad and torch.isfinite(eth):
+        loss = loss + (aux_alpha * 1.0) * torch.clamp(eth.float(), min=0.0, max=1.0)
+
+    return loss
+
+
+def clip_gradients_two_stage(
+    named_trainable_params: List[Tuple[str, nn.Parameter]],
+    per_tensor_max_norm: float = 5.0,
+    global_max_norm: float = 1.0,
+) -> Tuple[float, str, float]:
+    """
+    Two-Stage Gradient Clipper (C28-CALCULUS + C34-PREDATOR):
+    Stage A: Scrubs NaN/Inf in-place and clips any single outlier tensor at `per_tensor_max_norm`
+             so one noisy norm/gate tensor can NEVER divide all 696 other LoRA tensors by 91.4M.
+    Stage B: Applies standard global L2 `clip_grad_norm_` at `global_max_norm`.
+
+    Returns: (global_norm_before_global_clip, max_tensor_name, max_tensor_raw_norm)
+    """
+    max_tensor_norm = 0.0
+    max_tensor_name = "none"
+    params_with_grad: List[nn.Parameter] = []
+
+    for name, p in named_trainable_params:
+        if p.grad is None:
+            continue
+
+        # Scrub any element-wise NaN/Inf before norm computation
+        if not torch.isfinite(p.grad).all():
+            torch.nan_to_num_(p.grad, nan=0.0, posinf=0.0, neginf=0.0)
+
+        t_norm = float(p.grad.detach().data.norm(2).item())
+        if t_norm > max_tensor_norm:
+            max_tensor_norm = t_norm
+            max_tensor_name = name
+
+        # Stage A: Per-tensor outlier clamp
+        if t_norm > per_tensor_max_norm:
+            scale = per_tensor_max_norm / (t_norm + 1e-6)
+            p.grad.detach().mul_(scale)
+
+        params_with_grad.append(p)
+
+    if not params_with_grad:
+        return 0.0, max_tensor_name, 0.0
+
+    # Stage B: Global L2 norm clip across the sanitized & bounded parameter set
+    global_norm = float(torch.nn.utils.clip_grad_norm_(params_with_grad, global_max_norm).item())
+    return global_norm, max_tensor_name, max_tensor_norm
+
+
 # ============================================================================
-# 5. VALIDATION & CHECKPOINT MANAGEMENT
+# 5. VALIDATION & ATOMIC CHECKPOINT MANAGEMENT
 # ============================================================================
 @torch.no_grad()
 def evaluate_validation(
@@ -242,17 +317,19 @@ def save_checkpoint_bundle(
     torch.save(payload, tmp_path)
     try:
         os.replace(tmp_path, save_path)
-    except OSError:
+    except (PermissionError, OSError):
         if save_path.exists():
             try:
                 save_path.unlink()
             except OSError:
                 pass
-        tmp_path.rename(save_path)
+        try:
+            tmp_path.rename(save_path)
+        except OSError:
+            pass
 
 
 def rotate_step_checkpoints(out_dir: Path, keep_last: int = 3) -> None:
-    """Keeps only the most recent `keep_last` numbered step checkpoints to save disk space."""
     step_files = sorted(
         out_dir.glob("quillan_sft_step_*.pt"),
         key=lambda p: int(p.stem.split("_")[-1]) if p.stem.split("_")[-1].isdigit() else 0,
@@ -269,7 +346,7 @@ def rotate_step_checkpoints(out_dir: Path, keep_last: int = 3) -> None:
 # 6. MAIN TRAINING ORCHESTRATOR
 # ============================================================================
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Quillan-Ronin v5.4.0-ONI Hardened SFT Runner")
+    parser = argparse.ArgumentParser(description="Quillan-Ronin v5.4.0-ONI Hardened SFT Runner (Rev 2)")
     parser.add_argument("--steps", type=int, default=1000, help="Total optimizer steps")
     parser.add_argument("--batch-size", type=int, default=1, help="Micro-batch size")
     parser.add_argument("--grad-accum", type=int, default=4, help="Gradient accumulation steps")
@@ -277,12 +354,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--lr", type=float, default=3e-4, help="Peak learning rate")
     parser.add_argument("--min-lr", type=float, default=3e-6, help="Minimum cosine learning rate")
     parser.add_argument("--warmup-steps", type=int, default=50, help="Linear warmup steps")
-    parser.add_argument("--eval-every", type=int, default=50, help="Validation & canary interval")
+    parser.add_argument("--eval-every", type=int, default=50, help="Validation interval")
     parser.add_argument("--save-every", type=int, default=50, help="Checkpoint save interval")
     parser.add_argument("--log-every", type=int, default=5, help="Console & JSONL telemetry interval")
     parser.add_argument("--device", type=str, default="cpu", choices=["cpu", "cuda"])
     parser.add_argument("--threads", type=int, default=4, help="CPU threads for i5-7500")
-    parser.add_argument("--resume", action="store_true", help="Auto-resume from latest/interrupt checkpoint in sft_runs")
+    parser.add_argument("--resume", action="store_true", help="Auto-resume from latest/interrupt checkpoint")
     parser.add_argument("--resume-from", type=str, default="", help="Explicit checkpoint path to resume from")
     return parser.parse_args()
 
@@ -290,6 +367,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     configure_host_environment(threads=args.threads, low_priority=True)
+    device_obj = torch.device(args.device)
 
     base_ckpt_path = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\quillan_coherent_base_ternary.pt")
     data_dir = Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\data_bin")
@@ -298,10 +376,10 @@ def main() -> None:
     telemetry_path = out_dir / "sft_telemetry.jsonl"
 
     print("=" * 78)
-    print("QUILLAN-RONIN v5.4.0-ONI — HARDENED SOVEREIGN SFT LAUNCHER")
+    print("QUILLAN-RONIN v5.4.0-ONI — HARDENED SOVEREIGN SFT LAUNCHER (REV 2)")
     print(f"  Device:   {args.device.upper()} (Threads: {args.threads}, Denormal Flush: ON, Priority: BELOW_NORMAL)")
     print(f"  Steps:    {args.steps} | Micro-Batch: {args.batch_size} | Grad Accum: {args.grad_accum} ({args.batch_size * args.grad_accum * args.seq_len:,} tok/step)")
-    print(f"  Schedule: Peak LR {args.lr:.1e} -> {args.min_lr:.1e} (Warmup: {args.warmup_steps}) + 3-Stage Aux-Alpha + ES-EMA")
+    print(f"  Shields:  Bounded Aux-Loss + Two-Stage Grad Clipping (5.0 Tensor / 1.0 Global) + ES-EMA")
     print("=" * 78, flush=True)
 
     # 1. Mount Train + Val Memmap Datasets
@@ -313,9 +391,9 @@ def main() -> None:
         print(f"  Train: {train_corpus.n_seqs:,} seqs ({train_corpus.total_tokens / 1e6:.2f}M tokens)")
         print(f"  Val:   {val_corpus.n_seqs:,} seqs ({val_corpus.total_tokens / 1e6:.2f}M tokens)", flush=True)
     else:
-        print(f"  Train: {train_corpus.n_seqs:,} seqs ({train_corpus.total_tokens / 1e6:.2f}M tokens) [Val split not found]", flush=True)
+        print(f"  Train: {train_corpus.n_seqs:,} seqs ({train_corpus.total_tokens / 1e6:.2f}M tokens)", flush=True)
 
-    # 2. Determine Checkpoint Source (Base vs Resume)
+    # 2. Determine Checkpoint Source
     resume_ckpt_path: Optional[Path] = None
     if args.resume_from:
         resume_ckpt_path = Path(args.resume_from)
@@ -339,7 +417,7 @@ def main() -> None:
     missing, unexpected = model.load_state_dict(raw_sd, strict=True)
     assert len(missing) == 0 and len(unexpected) == 0, f"Key mismatch! Missing: {len(missing)}, Unexpected: {len(unexpected)}"
     vectorize_model_in_place(model)
-    model.to(args.device)
+    model.to(device_obj)
     print("  1,441 / 1,441 tensors verified (0 missing, 0 unexpected). Vectorized einsum active.", flush=True)
 
     # 3. Isolate Frozen Base (492.12M) vs Trainable Adapters (70.70M)
@@ -351,15 +429,17 @@ def main() -> None:
         "pull_gate", "moe_gate", "router", "vec_experts", "experts", "lora_", "swarm_",
         "clone_coupling", "ln_f", "mem_norm", "moe_stabilizer",
     )
+    named_trainable: List[Tuple[str, nn.Parameter]] = []
     for name, p in model.named_parameters():
         if any(pat in name for pat in trainable_patterns):
             p.requires_grad = True
+            named_trainable.append((name, p))
 
-    trainable_params = [p for p in model.parameters() if p.requires_grad]
+    trainable_params = [p for _, p in named_trainable]
     n_train = sum(p.numel() for p in trainable_params)
     n_frozen = sum(p.numel() for p in model.parameters() if not p.requires_grad)
     print(f"  Frozen Base Ternary Backbone : {n_frozen / 1e6:.2f}M parameters")
-    print(f"  Active Council/Swarm Adapters: {n_train / 1e6:.2f}M parameters", flush=True)
+    print(f"  Active Council/Swarm Adapters: {n_train / 1e6:.2f}M parameters ({len(named_trainable)} tensors)", flush=True)
 
     optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
     es_anchor = ESAtScaleForgettingAnchor(trainable_params, ema_decay=0.995, mu_mem=0.001, interval=5)
@@ -415,12 +495,13 @@ def main() -> None:
 
         for _micro in range(args.grad_accum):
             bx, by = train_corpus.sample_batch(args.batch_size, min_targets=16)
-            bx, by = bx.to(args.device), by.to(args.device)
+            bx, by = bx.to(device_obj), by.to(device_obj)
             _, ce, aux_dict = model(bx, labels=by)
-            aux_loss = model.total_aux_loss(aux_dict)
+
+            # REV-2 FIX: Use bounded, differentiable compute_safe_aux_loss instead of raw total_aux_loss
+            aux_loss = compute_safe_aux_loss(aux_dict, aux_alpha=aux_alpha, device=device_obj)
             total_loss = (ce + aux_loss) / args.grad_accum
 
-            # Pre-backward NaN/Inf Shield (C28-CALCULUS)
             if not torch.isfinite(total_loss):
                 nan_skips += 1
                 continue
@@ -433,10 +514,12 @@ def main() -> None:
             valid_micros += 1
 
         if valid_micros > 0:
-            gn = float(torch.nn.utils.clip_grad_norm_(trainable_params, 1.0).item())
+            # REV-2 FIX: Two-Stage Per-Tensor + Global Gradient Clipping
+            gn, max_t_name, max_t_norm = clip_gradients_two_stage(
+                named_trainable, per_tensor_max_norm=5.0, global_max_norm=1.0
+            )
             if math.isfinite(gn):
                 optimizer.step()
-                # Mandatory Rule #12: ES-at-Scale EMA Anchor Pull every 5 steps
                 es_anchor.step(step)
             else:
                 nan_skips += 1
@@ -446,7 +529,7 @@ def main() -> None:
             step_aux /= valid_micros
             step_ent /= valid_micros
         else:
-            gn = 0.0
+            gn, max_t_name, max_t_norm = 0.0, "none", 0.0
 
         step_dt = time.time() - t_step
         rolling_ce += step_ce
@@ -465,18 +548,20 @@ def main() -> None:
             eta_min = ((args.steps - step) * step_dt) / 60.0
             print(
                 f"  [{stage_name}] Step {step:4d}/{args.steps} | "
-                f"CE: {avg_ce:.4f} | Aux: {avg_aux:.4f} | Ent: {avg_ent:.3f} | "
-                f"GradNorm: {gn:.3f} | LR: {cur_lr:.2e} | {step_dt:.1f}s/st | "
-                f"Elapsed: {elapsed_min:.1f}m | ETA: {eta_min:.1f}m",
+                f"CE: {avg_ce:.4f} | Aux: {avg_aux:.5f} | Ent: {avg_ent:.3f} | "
+                f"GradNorm: {gn:.3f} (MaxT: {max_t_norm:.2f}) | LR: {cur_lr:.2e} | "
+                f"{step_dt:.1f}s/st | ETA: {eta_min:.1f}m",
                 flush=True,
             )
             log_record = {
                 "step": step,
                 "stage": stage_name,
                 "train_ce": round(avg_ce, 5),
-                "aux_loss": round(avg_aux, 5),
+                "aux_loss": round(avg_aux, 6),
                 "council_entropy": round(avg_ent, 4),
                 "grad_norm": round(gn, 4),
+                "max_tensor_grad_norm": round(max_t_norm, 4),
+                "max_grad_tensor": max_t_name,
                 "lr": cur_lr,
                 "aux_alpha": aux_alpha,
                 "step_sec": round(step_dt, 2),
