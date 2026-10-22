@@ -2570,6 +2570,7 @@ QuillanUnrolledSovereign = QuillanRoninOni
 ### Sovereign Tokenizer Architecture (Unified BPE 50,262 Tokens)
 
 The Quillan-Ronin v5.4-ONI engine utilizes a hardened custom BPE tokenizer with exactly 50,262 vocabulary entries:
+
 - **Base Tokens (0 to 50,256)**: GPT-2 standard byte-pair encoding merges, anchored by `<|endoftext|>` (id: 0), `<|pad|>` (id: 1), `<|bos|>` (id: 2).
 - **Sovereign Multi-Turn Specials (50,257 to 50,261)**:
   - `<|start|>` (id: 50257): Beginning of turn frame.
@@ -2583,6 +2584,7 @@ The Quillan-Ronin v5.4-ONI engine utilizes a hardened custom BPE tokenizer with 
 ### Sovereign Fused Optimizer Architecture (Muon-K2 + Sophia-H + CCRL + AdamW)
 
 The Quillan training pipeline utilizes a unified, high-order fused optimizer (`QuillanFusedOptimizer` / `SovereignMuonK2AdamW`):
+
 - **5th-Order Newton-Schulz Polar Matrix Decomposition (Muon-K2)**:
   Applied to all 2D parameter tensors (linear weights, projections, MoE expert layers). Computes orthogonal matrix updates via Newton-Schulz iteration ($X \leftarrow \frac{1}{2} X (3I - X^T X)$) with spectral radius scaling ($\approx 0.2$), yielding faster convergence and superior stability over standard gradient descent.
 - **Sophia-H Diagonal Hessian Curvature Damping**:
@@ -2604,7 +2606,6 @@ The Quillan training pipeline utilizes a unified, high-order fused optimizer (`Q
 - **Streaming Gold Datasets**: Supports both 2D pre-tokenized tensors and flat 1D token streams with held-out validation splitting (10% default).
 - **Split Loss Telemetry**: Separates Language Modeling Cross-Entropy loss (`train_lm_val`) from MoE router auxiliary load balancing loss (`aux_val`), ensuring transparency during convergence.
 - **Native Binary Export**: Automatically serializes trained models directly into the binary `.qbin` format for instant zero-dependency execution in `quillan.cpp`.
-
 
 ### Low-end Compatibility (Hardened v5.4.0-ONI)
 
@@ -11432,66 +11433,79 @@ class TransmutationProtocol:
 The Quillan-Ronin repo implements quantum-inspired formulas on classical hardware. Here is how each formula maps to a **classical tensor implementation**.
 
 ##### 🧮 AQCS — Adaptive Quantum Cognitive Superposition
+
 - **Formula:** `|Psi_Q> = (1/sqrt(Z)) sum_i (r_i eta_i e^{i theta_i}) |C_i>`
 - **Classical implementation:** Complex-weighted sum on classical hardware. The `e^{i theta}` phase is an angle rotation matrix applied to the expert vectors via `torch.complex` or cosine/sine projections.
 - **Quillan mapping:** `PersonaPullGate` produces `r_i`. Multiply by `eta_i` (Nemesis integrity) and apply phase rotation.
 
 ##### 🧮 EEMF — Ethical Entanglement Matrix
+
 - **Formula:** `rho_sys = Tr_env[ Pi_vir U (|Psi><Psi| tensor rho_env) U^dag Pi_vir ]`
 - **Classical implementation:** Partial trace and ethical subspace projection. `Pi_vir` is a projection mask on the hidden state, and the partial trace reduces environmental dimensions via `hidden.mean(dim=0)`.
 - **Quillan mapping:** `EthicalImpactConstraintEngine.forward()` enforces ethical subspace boundaries and evaluates violations.
 
 ##### 🧮 QHIS — Quantum Holographic Interference Sum
+
 - **Formula:** `I_Q = v_LM6 * (Tr sqrt(sqrt(rho_{t-1}) rho_t sqrt(rho_{t-1})))^2 - lambda nabla_drift`
 - **Classical implementation:** Bures fidelity between two density matrices computed via exact matrix square roots or cosine similarity between normalized state vectors (`F.normalize()`).
 - **Quillan mapping:** `qhis_fidelity()` with `v_LM6` velocity momentum multiplier.
 
 ##### 🧮 DQRO — Dynamic Quantum Resource Optimization
+
 - **Formula:** `H_opt = -0.5 sum J_{ij} s_i s_j - sum h_i s_i - E_Omega sum sigma^x`
 - **Classical implementation:** Transverse-field Ising model solved with simulated annealing or continuous gradient descent on soft spin variables with Landauer `E_Omega` regularization.
 - **Quillan mapping:** Resource allocator / complexity router determining compute tiers.
 
 ##### 🧮 AQML — Adaptive Quantum Meta-Learning
+
 - **Formula:** `theta_new = theta - alpha nabla L_task - beta nabla L_val - gamma nabla L_vigil(theta)`
 - **Classical implementation:** Model-Agnostic Meta-Learning (MAML) with an orthogonal identity drift penalty `L_vigil` evaluated by `C19-VIGIL`.
 - **Quillan mapping:** `PrimeCovenantFramework` covenant score used as `L_vigil`.
 
 ##### 🧮 QCIE — Quantum Creative Intelligence Engine
+
 - **Formula:** `T_break approx exp(-(2/hbar) int sqrt(2m max(0, V(x) - E_cog - kappa S_meta)) dx)`
 - **Classical implementation:** WKB quantum tunneling probability through cognitive energy barriers. Numerical integration over barrier gaps where `S_meta` is entropy injection.
 - **Quillan mapping:** `C17-NULLION` contradiction tension + `C8-METASYNTH` entropy injection yields breakthrough score.
 
 ##### 🧮 QICS — Quantum Information Communication
+
 - **Formula:** `S_Q = min(E_Omega_max, -sum lambda_i ln(lambda_i) * w_mod)`
 - **Classical implementation:** Spectral von Neumann entropy computed from eigenvalues of state covariance density matrices, capped by Landauer capacity `E_Omega_max`.
 - **Quillan mapping:** `qics_entropy()` in `QuantumFormulasEngine`.
 
 ##### 🧮 QSSR — Quantum System Stability Resilience
+
 - **Formula:** `V(x,d) = x^T P x + zeta d_recursion^2`
 - **Classical implementation:** Lyapunov candidate function verifying asymptotic stability through contraction mapping (`dV/dt <= 0`).
 - **Quillan mapping:** Recursion depth limiter and stability check in `UnrolledCouncilMoEBlock`.
 
 ##### 🧮 JQLD — Joshua's Quantum Leap Dynamo
+
 - **Formula:** `drho/dt = -i/hbar [H, rho] + tau_gumbel sum (L rho L^dag - 0.5 {L^dag L, rho})`
 - **Classical implementation:** Lindblad master equation ODE with Gumbel jump dissipator terms conserving trace norm.
 - **Quillan mapping:** `jqld_density_dissipator()` and `jqld_evolution_step()`.
 
 ##### 🧮 DQSO — Dynamic Quantum Swarm Oscillation
+
 - **Formula:** `dtheta_i/dt = omega_i + (K/N) sum c_j sin(theta_j - theta_i + phi_bias)`
 - **Classical implementation:** Kuramoto mean-field phase oscillator coupling integrated via Euler steps.
 - **Quillan mapping:** `DynamicQuantumSwarmOscillation` and `dqso_kuramoto()`.
 
 ##### 🧮 EGSO — Evolution Guided Swarm Optimization
+
 - **Formula:** `W_master^{t+1} = W_master^t + (alpha/(N sigma)) sum F(U_j V_j^T) * (U_j V_j^T)`
 - **Classical implementation:** Low-rank evolution strategies (EGGROLL) using batched outer products.
 - **Quillan mapping:** `CouncilExpertSwarm` rank-r perturbations and `egso_low_rank_update()`.
 
 ##### 🧮 RQGM — Controlled Utility Evolution
+
 - **Formula:** `U_{incumbent}^{epoch+1} = U_{challenger} iff Score(C_eval) < Score(I_eval) - delta_margin`
 - **Classical implementation:** Epoch-gated evaluator swap freezing scoring weights within epoch.
 - **Quillan mapping:** Evaluator swap across `C34-PREDATOR` and `C2-VIR`.
 
 ##### 🧮 ESFM — ES-at-Scale Forgetting Mitigation
+
 - **Formula:** `theta_{t+1} = theta_opt + mu_mem * (EMA[theta]_t - theta_opt) * 1(t mod 5 == 0)`
 - **Classical implementation:** Exponential moving average anchor pull every 5 steps preventing representation drift.
 - **Quillan mapping:** `esfm_anchor_pull()` in training and refinement loops.
@@ -13662,12 +13676,10 @@ flowchart TD
 
 ---
 
-
----
-
 # 🧬 Quillan Sovereign Training & Cloud Distribution Tier (v5.4.0-ONI)
 
 ## ⚡ MuonK2 Low-Rank Optimizer Pipeline
+
 ```python
 import torch
 
@@ -13714,6 +13726,7 @@ class MuonK2Optimizer:
 ```
 
 ## 🌐 Distributed Media & Audio Streaming Routing (Hugging Face CDN)
+
 ```json
 {
   "CDN_Routing_Topology": {
