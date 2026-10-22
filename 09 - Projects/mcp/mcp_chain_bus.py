@@ -13,7 +13,7 @@ durable state ledger so a run can be reconstructed after the fact.
                                      -> deep-path -> SequentialThinking
     STAGE 3  Council Deliberation   Council.deliberate_34 + ThinkingEngine gates
     STAGE 4  Actuation              route by task class to the actuation group
-    STAGE 5  RCI Self-Healing       SamuraiEngine.audit_and_rci_loop (max 5)
+    STAGE 5  RCI Self-Healing       QuillanSamuraiEngine.audit_and_rci_loop (max 5)
     STAGE 6  Persistence            RAG.store_trace + ledger flush
 
 DESIGN NOTES
@@ -406,7 +406,7 @@ class ChainBus:
         trace.append(s3)
 
         gates = self._run_stage(cid, 3, "gates_wot",
-                                "ThinkingEngine.run_wot_and_gates",
+                                "QuillanThinkingEngine.run_wot_and_gates",
                                 {"correlation_id": cid, "query": query,
                                  "governor_mode": mode, "council": s3})
         ctx["gates"] = gates
@@ -419,7 +419,7 @@ class ChainBus:
 
         # ---- STAGE 5 : RCI self-healing ---------------------------------
         s5 = self._run_stage(cid, 5, "rci_self_healing",
-                             "SamuraiEngine.audit_and_rci_loop",
+                             "QuillanSamuraiEngine.audit_and_rci_loop",
                              {"correlation_id": cid, "draft_result": s4,
                               "max_retries": RCI_MAX_RETRIES})
         ctx["audit"] = s5
@@ -555,7 +555,7 @@ def _derive_pacing(query: str, task_class: str = "general"):
 #   RAG.retrieve_context        -> search(query, n_results)
 #   Governor.compute_venturi_pid-> governor_velocity_tune(...)   [see NOTE]
 #   Council.deliberate_34       -> council_full_deliberation(topic, persist)
-#   ThinkingEngine.run_wot_and_gates -> critical_think + fallacy_scan
+#   QuillanThinkingEngine.run_wot_and_gates -> critical_think + fallacy_scan
 #                                     + prism_bushido_gate
 #                                     + adversarial_dual_council_deliberation
 #   Samurai.audit_and_rci_loop  -> samurai_gate_check + samurai_cycle_step
@@ -644,7 +644,7 @@ def build_default_bus(strict: bool = False) -> ChainBus:
                 except Exception as exc:
                     gates[label] = {"_status": "failed", "_error": str(exc)}
             return {"gates": gates}
-        bus.register("ThinkingEngine.run_wot_and_gates", _gates)
+        bus.register("QuillanThinkingEngine.run_wot_and_gates", _gates)
 
     # ---- STAGE 4 : actuation ------------------------------------------
     mk = _mod("quillan_code.server")
@@ -678,7 +678,7 @@ def build_default_bus(strict: bool = False) -> ChainBus:
                     out["cycle_step"] = {"_error": str(exc)}
             out["max_retries"] = RCI_MAX_RETRIES
             return out
-        bus.register("SamuraiEngine.audit_and_rci_loop", _audit)
+        bus.register("QuillanSamuraiEngine.audit_and_rci_loop", _audit)
 
     # ---- STAGE 6 : persistence ----------------------------------------
     # NOTE: the directive's QuillanRAG.store_trace has no real equivalent.

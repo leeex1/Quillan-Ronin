@@ -88,11 +88,15 @@
                 "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
             ]
         },
-        "ThinkingEngine": {
-            "command": "C:\\Program Files\\nodejs\\node.exe",
+        "QuillanThinkingEngine": {
+            "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
             "args": [
-                "C:\\02_QUILLAN\\03 - Training & Model\\mcp\\thinking-engine\\index.js"
-            ]
+                "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py"
+            ],
+            "env": {
+                "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN",
+                "PYTHONIOENCODING": "utf-8"
+            }
         },
         "QuillanRAG": {
             "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",

@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import ctypes
+import gc
 import json
 import math
 import os
@@ -48,10 +49,21 @@ from quillan_live_training_upgrades import (
 
 
 # ============================================================================
-# 1. HARDWARE & OS TUNING (C14-KAIDO i5-7500 Optimization)
+# 1. HARDWARE & OS TUNING (Lee-Mach-6 Governor & C14-KAIDO i5-7500 Shield)
 # ============================================================================
-def configure_host_environment(threads: int = 4, low_priority: bool = True) -> None:
+def configure_host_environment(threads: int = 2, low_priority: bool = True) -> None:
     """Optimizes CPU thread affinity, flushes subnormal floats, and sets OS priority."""
+    # Wire Quillan Governor hardware locks directly (Core 0 reservation + BELOW_NORMAL)
+    try:
+        daemons_path = SCRIPTS_DIR.parent.parent / "daemons"
+        if str(daemons_path) not in sys.path:
+            sys.path.insert(0, str(daemons_path))
+        from quillan_governor_daemon import apply_pc_smoothness_locks
+        gov_res = apply_pc_smoothness_locks()
+        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')}", flush=True)
+    except Exception as e:
+        print(f"[GOVERNOR WARN] Governor daemon import failed ({e}), using fallback Win32 hooks.", flush=True)
+
     os.environ["OMP_NUM_THREADS"] = str(threads)
     os.environ["MKL_NUM_THREADS"] = str(threads)
     torch.set_num_threads(threads)
@@ -461,6 +473,10 @@ def main() -> None:
         best_val_ce = float(ck.get("best_val_ce", float("inf")))
         print(f"  >>> Resumed optimizer & state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
 
+    # Reclaim raw checkpoint dictionary to free ~3.4 GB RAM immediately
+    del ck, raw_sd, clean_sd
+    gc.collect()
+
     # 4. Graceful Ctrl+C Signal Trap
     stop_requested = {"flag": False}
 
@@ -633,6 +649,7 @@ def main() -> None:
                 latest_path,
                 include_optimizer=True,
             )
+            gc.collect()
             rotate_step_checkpoints(out_dir, keep_last=3)
             print(f"  >>> [CHECKPOINT] Saved {step_path.name} + updated quillan_sft_latest.pt", flush=True)
 
