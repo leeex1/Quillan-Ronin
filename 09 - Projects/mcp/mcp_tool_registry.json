@@ -3669,6 +3669,82 @@
           "lineno": 188
         }
       ]
+    },
+    "QuillanAudio": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanBuddy": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanCode": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanCouncil": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanGameDev": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanGovernor": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanMedia": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanModelLab": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanOps": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanOrchestrator": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanOrochi": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanPrism": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanRAG": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanRE": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanSamuraiEngine": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanSpider": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanTeam": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanThinkingEngine": {
+      "tool_count": 0,
+      "tools": []
+    },
+    "QuillanWeb": {
+      "tool_count": 0,
+      "tools": []
     }
   }
 }

@@ -104,16 +104,6 @@
         "PYTHONIOENCODING": "utf-8"
       }
     },
-    "RoninBuddy": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
     "QuillanCode": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
@@ -278,6 +268,16 @@
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web/server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanBuddy": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
       ],
       "env": {
         "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
@@ -401,17 +401,6 @@
       },
       "enabled": true
     },
-    "RoninBuddy": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
     "QuillanCode": {
       "command": [
         "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
@@ -598,6 +587,16 @@
         "PYTHONIOENCODING": "utf-8"
       },
       "enabled": true
+    },
+    "QuillanBuddy": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
+        "PYTHONIOENCODING": "utf-8"
+      }
     }
   }
 }
