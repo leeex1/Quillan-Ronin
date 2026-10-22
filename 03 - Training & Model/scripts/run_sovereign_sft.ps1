@@ -36,7 +36,7 @@ Write-Host "Configuration:" -ForegroundColor Yellow
 Write-Host "  Steps:              $STEPS"
 Write-Host "  Effective Batch:    $($BATCH_SIZE * $GRAD_ACCUM) (Tokens/Step: $($BATCH_SIZE * $GRAD_ACCUM * $SEQ_LEN))"
 Write-Host "  Learning Rate:      $PEAK_LR -> $MIN_LR (Warmup: $WARMUP)"
-Write-Host "  CPU Threads:        $THREADS (with denormal flushing and BELOW_NORMAL priority)"
+Write-Host "  CPU Threads:        $THREADS (with denormal flushing)"
 Write-Host '  Telemetry:          C:\02_QUILLAN\checkpoints\checkpoints_oni\sft_runs\sft_telemetry.jsonl'
 Write-Host '=======================================================================' -ForegroundColor Cyan
 
