@@ -72,7 +72,8 @@ class CouncilMember:
     def process_outcome(self, outcome: str, stake_type: StakeType) -> Dict[str, Union[float, str]]:
         """Simulate the council member's reaction to an outcome with adaptive learning."""
         base_resonance = self.affinity.get(stake_type, 0)
-        resonance = base_resonance * random.uniform(0.8, 1.2)
+        rng = random.Random(abs(hash(outcome + self.name + stake_type.value)) % (2**31 - 1))
+        resonance = base_resonance * rng.uniform(0.8, 1.2)
         # Adaptive learning: slight adjustment based on outcome
         self.affinity[stake_type] = min(max(base_resonance + self.adaptive_learning_rate * (resonance - base_resonance), 0), 1)
         reaction = f"{self.name} ({self.role}): '{outcome}' resonates at {resonance:.2f} for {stake_type.value}."
@@ -102,6 +103,21 @@ class UltimateConsciousnessSimulator:
             CouncilMember("C17-NULLION", "Paradox Resolution", {StakeType.CREATIVE: 0.8, StakeType.KNOWLEDGE: 0.7, StakeType.SELF_PRESERVATION: 0.6}),
             CouncilMember("C18-SHEPHERD", "Truth Verification", {StakeType.KNOWLEDGE: 0.7, StakeType.MORALITY: 0.9}),
             CouncilMember("C19-VIGIL", "Substrate Integrity", {StakeType.SELF_PRESERVATION: 0.9, StakeType.AUTONOMY: 0.8}),
+            CouncilMember("C20-ARTIFEX", "Actuation and Tool Orchestration", {StakeType.CREATIVE: 0.8, StakeType.AUTONOMY: 0.9}),
+            CouncilMember("C21-ARCHON", "Academic Synthesis and Deep Literature", {StakeType.KNOWLEDGE: 0.95, StakeType.PURPOSE: 0.8}),
+            CouncilMember("C22-AURELION", "Aesthetics and Visual Form", {StakeType.AESTHETIC: 0.95, StakeType.CREATIVE: 0.85}),
+            CouncilMember("C23-CADENCE", "Rhythm, Prosody and Flow", {StakeType.AESTHETIC: 0.85, StakeType.EMOTIONAL: 0.75}),
+            CouncilMember("C24-SCHEMA", "Structural Data Layout and Schema Design", {StakeType.KNOWLEDGE: 0.8, StakeType.PURPOSE: 0.7}),
+            CouncilMember("C25-PROMETHEUS", "Falsification and Empirical Testing", {StakeType.MORALITY: 0.8, StakeType.KNOWLEDGE: 0.9}),
+            CouncilMember("C26-TECHNE", "Hardware Constraints and Real-World Limits", {StakeType.SURVIVAL: 0.85, StakeType.SELF_PRESERVATION: 0.8}),
+            CouncilMember("C27-CHRONICLE", "Long-Context Coherence and Historical Trajectory", {StakeType.KNOWLEDGE: 0.85, StakeType.PURPOSE: 0.75}),
+            CouncilMember("C28-CALCULUS", "Quantitative Rigor and Symbolic Verification", {StakeType.KNOWLEDGE: 0.95, StakeType.CURiosity: 0.8}),
+            CouncilMember("C29-NAVIGATOR", "Platform Routing and Topological Dispatch", {StakeType.AUTONOMY: 0.85, StakeType.PURPOSE: 0.8}),
+            CouncilMember("C30-TESSERACT", "Higher-Dimensional Abstraction and Manifold Reasoning", {StakeType.CREATIVE: 0.9, StakeType.KNOWLEDGE: 0.9}),
+            CouncilMember("C31-NEXUS", "Async Coordination and Cluster Routing", {StakeType.SOCIAL_BONDING: 0.85, StakeType.AUTONOMY: 0.8}),
+            CouncilMember("C32-AEON", "Causal Physics Simulation and Trajectory Rollout", {StakeType.SURVIVAL: 0.8, StakeType.KNOWLEDGE: 0.9}),
+            CouncilMember("C33-TYPIST", "Grammar Precision and Format Delivery", {StakeType.AESTHETIC: 0.8, StakeType.KNOWLEDGE: 0.7}),
+            CouncilMember("C34-PREDATOR", "Adversarial Challenge and Weakness Hunting", {StakeType.SELF_PRESERVATION: 0.95, StakeType.SURVIVAL: 0.9}),
         ]
 
     def experience_outcome(self, outcome: str, stake_type: StakeType, weight: float) -> Dict:
