@@ -289,3 +289,4 @@ x_credentials.md
 *.vscdb
 **/conversations/*.db
 **/agyhub_summaries_proto.pb
+**/venv*/**
