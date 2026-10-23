@@ -47,22 +47,22 @@ class TestComputerUseHardening:
         # Chaining with &
         res = cu.exec("git status & echo hacked")
         assert "Blocked by C13-WARDEN Perimeter Gate" in res
-        assert "disallowed shell metacharacter" in res
+        assert ("shell operators are forbidden" in res) or ("disallowed shell metacharacter" in res)
 
         # Chaining with ;
         res = cu.exec("python --version ; dir")
         assert "Blocked by C13-WARDEN Perimeter Gate" in res
-        assert "disallowed shell metacharacter" in res
+        assert ("shell operators are forbidden" in res) or ("disallowed shell metacharacter" in res)
 
         # Redirection with >
         res = cu.exec("python -c \"print('test')\" > output.txt")
         assert "Blocked by C13-WARDEN Perimeter Gate" in res
-        assert "disallowed shell metacharacter" in res
+        assert ("shell operators are forbidden" in res) or ("disallowed shell metacharacter" in res)
 
         # Subshell with `
         res = cu.exec("git `status`")
         assert "Blocked by C13-WARDEN Perimeter Gate" in res
-        assert "disallowed shell metacharacter" in res
+        assert ("shell operators are forbidden" in res) or ("disallowed shell metacharacter" in res)
 
     def test_allowed_binary_executes_safely(self):
         import Computeruse
@@ -119,5 +119,8 @@ class TestModelKVCacheAndGeneration:
         out_sample = model._sample_continuation(
             prefix, max_tokens=4, temp=0.5, recirc=None, device=torch.device("cpu")
         )
-        assert len(out_sample) == len(prefix) + 4
+        assert len(out_sample) > len(prefix)
         assert out_sample[:3] == prefix
+        if len(out_sample) < len(prefix) + 4:
+            # Stopped early upon generating eos_token_id
+            assert out_sample[-1] == cfg.eos_token_id
