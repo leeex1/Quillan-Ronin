@@ -275,3 +275,9 @@ lancedb/
 # MemPalace per-project files (issue #185)
 mempalace.yaml
 entities.json
+
+# --- Quillan hardening: IDE/agent session artifacts ---
+*.pb
+**/*.pb
+**/conversations/
+**/cascade/

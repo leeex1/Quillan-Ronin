@@ -2,6 +2,7 @@
 # Enhanced for authentic, iterative, multi-perspective thinking with uncertainty, self-correction,
 # and natural flow. Maintains simplicity while adding procedural depth.
 
+import hashlib
 import random
 from typing import Dict, List, Optional
 from dataclasses import dataclass
@@ -15,6 +16,12 @@ class ThoughtStyle:
     weight: float = 1.0  # Probability weight
 
 class ReasoningEngine:
+    """Procedural thinking-trace SIMULATOR (not a model-confidence source).
+
+    Confidence values are pseudo-random but deterministic per question (seeded from a
+    SHA-256 of the input). They must NOT be used as safety or quality gates.
+    """
+
     def __init__(self):
         self.thinking_config = {
             "purpose": "Generate authentic step-by-step reasoning like o1 models",
@@ -35,6 +42,7 @@ class ReasoningEngine:
             "branch_count": 3,     # Default perspectives
             "uncertainty_threshold": 0.7  # Trigger "reconsider" if conf < this
         }
+        self._rng = random.Random(0)  # local, reproducible; reseeded per question in think()
         self.styles = self._build_styles()
 
     def _build_styles(self) -> List[ThoughtStyle]:
@@ -53,26 +61,27 @@ class ReasoningEngine:
             "example": ["For clarity, consider example: Like debugging code, step-by-step reveals bugs.",
                         "Analogous to chess: Each move evaluated before commitment."]
         }
-        return [ThoughtStyle(k, v, random.uniform(0.8, 1.2)) for k, v in style_map.items()]
+        return [ThoughtStyle(k, v, 1.0) for k, v in style_map.items()]
 
     async def _simulate_iteration(self, current_thought: str, query: str) -> str:
         """Async sim of iterative refinement with self-correction."""
         refinements = []
         for _ in range(self.thinking_config["iteration_cycles"]):
             await asyncio.sleep(0.01)  # Mock async "thinking time"
-            conf = random.uniform(0.6, 0.95)
+            conf = self._rng.uniform(0.6, 0.95)
             if conf < self.thinking_config["uncertainty_threshold"]:
-                style = random.choice([s for s in self.styles if "reconsider" in s.phrase_type])
-                refinement = random.choice(style.examples)
+                style = self._rng.choice([s for s in self.styles if "reconsider" in s.phrase_type])
+                refinement = self._rng.choice(style.examples)
             else:
-                style = random.choice(self.styles)
-                refinement = random.choice(style.examples) + f" (Conf: {conf:.2f})"
+                style = self._rng.choice(self.styles)
+                refinement = self._rng.choice(style.examples) + f" (Conf: {conf:.2f})"
             refinements.append(refinement)
             current_thought += f"\n  - {refinement}"
         return current_thought
 
     def think(self, question: str) -> str:
         """Generate dynamic, authentic thinking process."""
+        self._rng.seed(int(hashlib.sha256(question.encode("utf-8")).hexdigest()[:16], 16))
         thinking_output = f"Thinking about: {question}\n\n"
 
         # Step 1: Initial understanding with natural flow
@@ -84,14 +93,14 @@ class ReasoningEngine:
         # Step 2: Multi-perspective exploration (ToT-inspired mini-branches)
         perspectives = []
         for i in range(self.thinking_config["branch_count"]):
-            persp = f"Perspective {i+1}: {random.choice(['Logical', 'Creative', 'Critical', 'Empirical'])[0]}—{random.choice(['Focus on structure', 'Explore hypotheticals', 'Challenge assumptions', 'Test with examples'])}."
+            persp = f"Perspective {i+1}: {self._rng.choice(['Logical', 'Creative', 'Critical', 'Empirical'])[0]}—{self._rng.choice(['Focus on structure', 'Explore hypotheticals', 'Challenge assumptions', 'Test with examples'])}."
             perspectives.append(persp)
         thinking_output += "Exploring angles:\n" + "\n".join(f"  - {p}" for p in perspectives) + "\n\n"
 
         # Step 3: Procedural style injection for natural flow
-        styles_used = random.sample(self.styles, min(3, len(self.styles)))
+        styles_used = self._rng.sample(self.styles, min(3, len(self.styles)))
         for style in styles_used:
-            thinking_output += random.choice(style.examples) + "\n"
+            thinking_output += self._rng.choice(style.examples) + "\n"
 
         # Step 4: Iterative refinement (async sim for "real-time" feel)
         # Note: In sync context, we await manually

@@ -124,7 +124,14 @@ class QuillanDesktopAgent:
                 # ⚠️ WARDEN WARNING: Ensure execution environment is sandboxed
                 command = str(args.get("command", ""))
                 print(f"⚠️ SECURITY ALERT: Executing shell command: {command}")
-                result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+                import os as _os, shlex as _shlex
+                _allow = {'python', 'git', 'pytest', 'nvidia-smi', 'tasklist'}
+                if any(op in command for op in ('&', '|', ';', '>', '<', '`', '$', '%')):
+                    return 'Blocked by C13-WARDEN Perimeter Gate: shell operators are forbidden.'
+                _tok = _shlex.split(command, posix=False)
+                if not _tok or _os.path.basename(_tok[0].strip('"')).lower().removesuffix('.exe') not in _allow:
+                    return 'Blocked by C13-WARDEN Perimeter Gate: binary not in exec allowlist.'
+                result = subprocess.run(_tok, shell=False, capture_output=True, text=True, timeout=10)
                 output = result.stdout[:1000] + ("..." if len(result.stdout) > 1000 else "")
                 err = result.stderr[:500]
                 return f"Success: Executed. Out: {output} | Err: {err}"
