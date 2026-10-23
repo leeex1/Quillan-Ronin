@@ -20,6 +20,7 @@ import sys
 import os
 import logging
 import builtins
+from pathlib import Path
 
 # --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---
 # Ensure all logs and prints go strictly to stderr to prevent stdio JSON-RPC corruption
@@ -71,7 +72,6 @@ import math
 import json
 import time
 import uuid
-from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 if sys.platform == "win32":
