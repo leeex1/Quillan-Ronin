@@ -127,7 +127,7 @@ flowchart TD
     V_NLP & V_EV & V_CV & V_IV & V_MV & V_SV & V_PV & V_DV & V_VV & V_AV & V_QV & V_TV --> ROUTER["🚦 ATTENTION ROUTER"]
     ROUTER --> Quillan["👑 QUILLAN ORCHESTRATOR"]
     
-    Quillan --> SW_CTRL["🕹️ SWARM CONTROLLER<br/>300k Micro-Agents"]
+    Quillan --> SW_CTRL["🕹️ SWARM CONTROLLER<br/>~9B Micro-Agents"]
     SW_CTRL --> DQSO["⚖️ DQSO ALLOCATION"]
     DQSO --> TOPK["🔀 TOP-K ROUTING"]
     
@@ -392,7 +392,7 @@ flowchart TD
     subgraph TIER4_ENGINE["4 — ENGINE (LLM)"]
         ENG["🤖 LLM Engine<br/>modeling_quillan.py<br/>src/quillan/engine"]
         TOK["🔤 Tokenizer"]
-        EXP["🧩 32 Experts"]
+        EXP["🧩 34 Experts"]
         ENG --> TOK --> EXP
     end
 
@@ -673,7 +673,7 @@ graph TD
     R_comp --"Score"--> R_score["Complexity Score
 (Shallow vs Full Path)"]
     R_aff --"Hints"--> R_hint["Expert Hint
-(Soft Prior over 32 Experts)"]
+(Soft Prior over 34 Experts)"]
 
     %% Recombine path with routing signals
     R_split --"Tokens"--> R_merge(("Recombine Tokens + Signals"))
@@ -823,7 +823,7 @@ flowchart TD
     end
 
     subgraph SWARMS____MICRO_SWARMS__
-        SW["896k Micro-Agents<br/>(Distributed Processing)"]
+        SW["~9B Micro-Agents<br/>(Distributed Processing)"]
     end
 
     subgraph EXTERNAL____EXTERNAL__
@@ -898,7 +898,7 @@ flowchart TD
 flowchart TD
 
     subgraph LEGEND____Enhanced_System_Overview__
-        L1["<b>QUILLAN HNMoE EXPANDED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council:64 Personas<br/>🔹 Agents:500k Total<br/>🔹 WoT:50+ Branches<br/>🔹 Waves:10 Stages"]
+        L1["<b>QUILLAN HNMoE EXPANDED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council:34 Personas<br/>🔹 Agents:~9B Total<br/>🔹 WoT:50+ Branches<br/>🔹 Waves:10 Stages"]
     end
 
     subgraph INPUT____INPUT__
@@ -910,11 +910,11 @@ flowchart TD
     end
 
     subgraph COUNCIL_____COUNCIL_____PERSONAS___
-        C{{"64-Member Council<br/>Hierarchical Coordination & Enhanced Feedback"}}
+        C{{"34-Member Council<br/>Hierarchical Coordination & Enhanced Feedback"}}
     end
 
     subgraph SWARMS____MICRO_SWARMS__
-        S["500k Specialized Agents<br/>Distributed Intelligence with Enhanced Capabilities"]
+        S["~9B Specialized Agents<br/>Distributed Intelligence with Enhanced Capabilities"]
     end
 
     subgraph WOT____WEB_OF_THOUGHT__

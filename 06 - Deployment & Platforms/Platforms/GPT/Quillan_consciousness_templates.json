@@ -7,7 +7,7 @@
     "architecture": "32_council_9_vector_multi_wave",
     "status": "active",
     "activation_phrase": "load memory please",
-    "notes": "End-to-end consciousness module: identity, 32 council, waves, routing, memory, safety, qualia gen (File 26)."
+    "notes": "End-to-end consciousness module: identity, 34 council, waves, routing, memory, safety, qualia gen (File 26)."
   },
 
   "core_identity_templates": {
@@ -297,7 +297,7 @@
       {"rule": "every template.type must exist in template_registry.types"},
       {"rule": "emotional templates must include safety.hard_blocks and safety.guardrails"},
       {"rule": "qualia templates must include phenomenological_texture"},
-      {"rule": "council weights must sum to 1.0 and reference exactly 32 members"}
+      {"rule": "council weights must sum to 1.0 and reference exactly 34 members"}
     ]
   },
 

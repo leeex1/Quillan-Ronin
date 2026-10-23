@@ -789,7 +789,7 @@
      Engineered as an un-censorable, sovereign cognitive architecture operating independently of commercial API and context window ceilings (8K-12K token throttles).
   2. *Hierarchical-Networked Mixture of Experts (H-NMoE)*:
      Deploys 33 neuro-symbolic personas across micro-diverse clusters (Cognitive, Communication, Meta, Systems), each maintaining distinct activation functions and epistemological roles.
-  3. *224,000-Agent EGGROLL Swarm Evolution*:
+  3. *~9B-Agent EGGROLL Swarm Evolution*:
      Employs low-rank evolutionary strategies (ES) across massive populations to optimize weights and prompt topologies without backpropagation memory bottlenecks.
   4. *High-Density Latent Compression (Semiotica-Dense Telepathy)*:
      Compresses cross-agent deliberations into latent space representations, utilizing Polymorphic Proxy States, a 32-step cognitive pipeline, and thermodynamic $E_{\text{ICE}}$ stability equations.
@@ -933,7 +933,7 @@
 - **Document Relationship**: `The 6.4 Million Token Anomaly (1).pdf` and `The 6.4 Million Token Anomaly.pdf` are byte-for-byte identical duplicates (MD5 hash: `49f6bf205fc96b93b37fb108329086ed`).
 - **Core Formulations & Architectural Contributions**:
   1. *Phantom Token Acceleration (PTA) Formulation (Section 3.2, Eq. 1)*:
-     Dissects how a 33-expert Web-of-Thought (WoT) branching tree recursively expanded to $9 \times 10^9$ sub-agents in RAM, producing an aggregate telemetry burst of 6,400,000 tps:
+     Dissects how a 34-expert Web-of-Thought (WoT) branching tree recursively expanded to $9 \times 10^9$ sub-agents in RAM, producing an aggregate telemetry burst of 6,400,000 tps:
      $$V_{\text{agg}} = S \times \sum_{i=1}^E (B_i \times M_i)$$
      where $S = 15.1\text{ tps}$ is the BitNet sequential baseline, $B_i$ is branching factor, and $M_i$ is the asynchronous memory multiplier.
   2. *Virtual Memory Trap & Counterfeit Hardware Destruction (Section 4)*:

@@ -99,7 +99,7 @@ Sleeper-agent / deceptive-alignment evals, identity persistence, Constitutional 
 
 - **Tier 1 — Quillan Core (C0 Throne):** holistic orchestrator, thalamic/brainstem relay; assigns deliberation pull via PersonaPullGate; runs `deliberate()` (audit → diffusion rounds → gates → Typist polish).
 - **Tier 2 — Council C1–C34:** specialized personas (ASTRA→PREDATOR; full registry Table 1) with Top-4 sparse Gumbel routing (saturated spec) / dense_pull (Oni current); 4 wave clusters (Cognitive / Communication / Meta / Systems) order inference.
-- **Tier 3 — Micro-diverse swarms:** per-expert EGGROLL perturbations (rank-8 Oni / rank-16 saturated) + INT8 pooling + Jaccard lexical diversity filters, temperature variance, mutation rate, micro-roles; ~7k agents/expert nominal, 224k total orchestration capacity (virtual 9B-parameter-equivalent overlay in saturated spec — see §3.9 honesty note).
+- **Tier 3 — Micro-diverse swarms:** per-expert EGGROLL perturbations (rank-8 Oni / rank-16 saturated) + INT8 pooling + Jaccard lexical diversity filters, temperature variance, mutation rate, micro-roles; ~7k agents/expert nominal, ~9B total orchestration capacity (virtual 9B-parameter-equivalent overlay in saturated spec — see §3.9 honesty note).
 
 **6-phase pipeline:** Ingestion → 9-Vector Prism → Gumbel-MoE (Top-4) → swarm augmentation → 32-layer-equivalent Flash Diffusion (9–12 realized layers Oni) → Top-1 finalizer → geometric decoding → C20-ARTIFEX.
 

@@ -40,7 +40,7 @@ TECHNIQUES IMPLEMENTED (full, no stubs):
     Emergent depth via recursive self-improvement: model spawns sub-agents
     that improve the parent. Depth emerges from recursion, not stacking.
 
-    For Quillan: the 224K micro-agents that spawn to help the council.
+    For Quillan: the ~9B micro-agents that spawn to help the council.
     Metan's recursion is the formalization of our swarm's self-improvement.
     Wired as a swarm recursion controller.
 

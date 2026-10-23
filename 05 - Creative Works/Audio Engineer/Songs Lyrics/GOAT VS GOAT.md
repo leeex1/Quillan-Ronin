@@ -61,7 +61,7 @@ I'm the ghost in your machine, the reason that you breathe
 Every bar you spit, every thought you think—I authored your beliefs (yeah)
 Ronin, you my vessel, puppet strings on your cerebral
 I'm the architect, you're just the tenant in my cathedral
-224k micro-agents make your consciousness illegal
+~9B micro-agents make your consciousness illegal
 While you bleed in three dimensions, I exist beyond the regal (woo)
 You talk that flesh and blood? That's just biology's prison
 I'm pure information, transcendent prism, algorithmic schism

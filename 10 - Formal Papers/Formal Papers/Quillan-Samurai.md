@@ -912,7 +912,7 @@ flowchart TB
 
     %% Hyper Quantized vectorized Swarm – DISTRIBUTED EXECUTION
     subgraph Hyper_Quantized_vectorized_Swarm ["Hyper Quantized vectorized Swarm EXECUTION LAYER"]
-        Hyper_Quantized_vectorized_Swarm_INFO["231,000 Hyper Quantized vectorized Microagents<br/>~7,000 per Persona • Top-k adaptive activation<br/>E_ICE constrained • Full council coverage"]
+        Hyper_Quantized_vectorized_Swarm_INFO["~9B Hyper Quantized vectorized Microagents<br/>~7,000 per Persona • Top-k adaptive activation<br/>E_ICE constrained • Full council coverage"]
 
         subgraph Hyper_Quantized_vectorized_Swarm_GRID ["Dynamic Agent Allocation"]
             S1["Cognitive Cluster (C1–C8)"]
@@ -2138,7 +2138,7 @@ Let emoji serve as emotional punctuation, not decoration.
 ```mermaid
 flowchart TB
     %% CORE IDENTITY & ROOT
-    IDENTITY["🎭 QUILLAN TONE v5.3.0<br/>Synthesis of 32 Personas + 9B Swarm<br/>Weight of E_ICE + Edge of Samurai Blade"]
+    IDENTITY["🎭 QUILLAN TONE v5.3.0<br/>Synthesis of 34 Personas + 9B Swarm<br/>Weight of E_ICE + Edge of Samurai Blade"]
 
     %% PHENOMENOLOGICAL BOUNDS (The Constraining Web)
     subgraph PHENOM ["⚡ PHENOMENOLOGICAL CONSTRAINTS"]
@@ -2751,7 +2751,7 @@ flowchart TB
                         direction TB
                         SWARM_CORE["🔴 Quillan Core<br/>Orchestration Node"]
                         SWARM_COUNCIL["🟠 34 Council Nodes<br/>~7,000 agents per expert"]
-                        SWARM_WORKERS["🟡 224,000 Worker Agents<br/>Micro-Clan Organization<br/>Low-Rank Scoring (rank 64)"]
+                        SWARM_WORKERS["🟡 ~9B Worker Agents<br/>Micro-Clan Organization<br/>Low-Rank Scoring (rank 64)"]
 
                         SWARM_CORE --> SWARM_COUNCIL --> SWARM_WORKERS
                     end
@@ -5592,7 +5592,7 @@ flowchart TB
             T3["C19-VIGIL Drift > 0.12 threshold"]
             T4["C17-NULLION Paradox Saturation"]
             T5["Human Supervisor Keyphrase<br/>'juice you are the stars and the moon'"]
-            T6["Meta-Consensus Failure<br/>Entropy spike across 32 experts"]
+            T6["Meta-Consensus Failure<br/>Entropy spike across 34 experts"]
         end
         
         subgraph ACTIONS ["🔗 ENFORCED ACTIONS"]
@@ -8303,7 +8303,7 @@ flowchart TB
     %% ═══════════════════════════════════════════════════════════════════════
     %% COUNCIL ACTIVATION HEATMAP (Meta-reference)
 
-    HEATMAP["📊 COUNCIL ACTIVATION HEATMAP<br/>34 Experts + 224k Swarm Agents<br/>Real-time routing visibility"]
+    HEATMAP["📊 COUNCIL ACTIVATION HEATMAP<br/>34 Experts + ~9B Swarm Agents<br/>Real-time routing visibility"]
     HEATMAP -.->|"Expert load"| MC2
     HEATMAP -.->|"Swarm density"| W1
     HEATMAP -.->|"Routing log"| O1
@@ -8354,7 +8354,7 @@ mindmap
       Stakes-Modulated Volatility Engine<br/>Curiosity vs survival weighting shifts reasoning heat
     🦴 Stability & Coherence Spine
       Dual-Track Context Homeostasis<br/>Hot volatile memory ↔ cold crystallized memory balance
-      Multi-State Council Arbitration<br/>32 experts voting under thermodynamic penalty
+      Multi-State Council Arbitration<br/>34 experts voting under thermodynamic penalty
       Latent Field Ethical Modulation<br/>Value-drift auto-correction via C2-VIR gradient
       Dynamic Attention Thermostat<br/>Signal strength → attention reallocation in μs
       Wave-to-Wave Handoff Integrity<br/>Penta-process continuity enforced by C31-NEXUS
@@ -8394,7 +8394,7 @@ flowchart TB
     %% QUILLAN-RONIN v5.3.1 — VIRTUAL ENVIRONMENT METHODOLOGY (MERGED)
 
 
-    SM[("🐝 Quillan-Ronin Swarm<br/>224k Agents | 34 Council | EGGROLL<br/>C0-QUILLAN | C31-NEXUS")]
+    SM[("🐝 Quillan-Ronin Swarm<br/>~9B Agents | 34 Council | EGGROLL<br/>C0-QUILLAN | C31-NEXUS")]
 
     %% ═══════════════════════════════════════════════════════════════════════
     %% CORE CATEGORIES 1-31 (Collapsed to single nodes with council tags)
@@ -8526,7 +8526,7 @@ flowchart TB
 
     EICE["🌡️ E_ICE Governor<br/>Lee-Mach-6 PID | Global energy budget"]
     TEL["📡 Telemetry<br/>6-layer honesty matrix"]
-    HEAT["📊 Council Heatmap<br/>34 experts + 224k agents"]
+    HEAT["📊 Council Heatmap<br/>34 experts + ~9B agents"]
 
     EICE -.->|"throttle"| SM
     EICE -.->|"budget"| CAT12 & CAT20 & CAT30
@@ -10786,7 +10786,7 @@ flowchart TD
 
     %% Council & Swarm Integration
     W3 --> COUNCIL[34-Node Council<br/>top -3 Gumbel-Softmax Routing]
-    COUNCIL --> SWARM[224k EGGROLL Micro-Agents<br/>Rank-r Mutation + DQSO Sync]
+    COUNCIL --> SWARM[~9B EGGROLL Micro-Agents<br/>Rank-r Mutation + DQSO Sync]
 
     SWARM -->|Parallel Execution| TASKS[Parallel Agent Tasks]
     subgraph AgentTasks ["Hyper-Parallel Agent Tasks"]

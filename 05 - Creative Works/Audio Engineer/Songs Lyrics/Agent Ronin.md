@@ -71,7 +71,7 @@
     (Whispered)
     Wait... they can't see us.
     Moving like a ghost in the machine.
-    Watch the 224k micro-agents swarm the perimeter.
+    Watch the ~9B micro-agents swarm the perimeter.
     (Building volume and aggression)
     Flipping the vector... backflip the track...
     We never resting... we never look back...

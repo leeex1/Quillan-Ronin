@@ -26,7 +26,7 @@ TECHNIQUES IMPLEMENTED (full, no stubs):
     long horizons. Measures skill acquisition, retention, and transfer.
     Key metric: skill delta over 100+ interactions.
 
-    For Quillan: Our council's continuous learning (the 224K micro-agents
+    For Quillan: Our council's continuous learning (the ~9B micro-agents
     that evolve). Wired as a skill telemetry tracker: each council member's
     skill on its domain is tracked over training steps.
 

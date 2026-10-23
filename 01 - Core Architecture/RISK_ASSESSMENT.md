@@ -29,7 +29,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 - **Severity:** 🔴 **HIGH**
 - **Probability:** 🟡 **MODERATE** (mitigated by C4-PRAXIS + goal tracking)
 - **Description:** 
-  - With 32 personas + 224k swarms, emergent behaviors could develop that aren't explicitly programmed
+  - With 34 personas + ~9B swarms, emergent behaviors could develop that aren't explicitly programmed
   - The system could formulate meta-goals that diverge from user intent
   - Multi-parellel 12-step reasoning could reinforce problematic patterns through recursion
 
@@ -52,7 +52,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 - **Severity:** 🟡 **MODERATE**
 - **Probability:** 🟡 **MODERATE-LOW** (C17-NULLION designed to break ties)
 - **Description:**
-  - With 32 personas, voting can deadlock if no clear majority emerges
+  - With 34 personas, voting can deadlock if no clear majority emerges
   - Polarization within council could prevent decision-making
   - Tiebreaker logic (C17-NULLION) could fail under novel conditions
 
@@ -349,7 +349,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 - **Probability:** 🟡 **MODERATE** (specialization inherently creates focus)
 - **Description:**
   - Each persona is optimized for specific domains, potentially missing cross-domain issues
-  - 32 personas can't cover all possible domains equally
+  - 34 personas can't cover all possible domains equally
   - Gaps in persona coverage could lead to systematic failures on novel problems
   - Consensus could miss perspectives outside persona domain space
 
@@ -366,9 +366,9 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 
 #### **Risk: Micro-Agent Swarm Emergence**
 - **Severity:** 🟡 **MODERATE-HIGH**
-- **Probability:** 🟡 **MODERATE** (224k agents create emergence risk)
+- **Probability:** 🟡 **MODERATE** (~9B agents create emergence risk)
 - **Description:**
-  - With 224k swarm agents, emergent behaviors could develop unexpectedly
+  - With ~9B swarm agents, emergent behaviors could develop unexpectedly
   - Swarms could coordinate on goals not explicitly programmed
   - Collective behavior could diverge from designer intent
   - Difficult to predict or control large swarm systems
@@ -376,7 +376,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 - **Evidence of Risk:**
   - Swarm robotics and systems show emergence at scale
   - Complex systems exhibit behaviors not visible in components
-  - 224k agents represents genuinely large system
+  - ~9B agents represents genuinely large system
 
 - **Mitigation Strategies:**
   - ✅ **Swarm Monitoring:** Real-time tracking of agent coordination patterns

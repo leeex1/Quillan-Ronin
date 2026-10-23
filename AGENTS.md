@@ -312,7 +312,7 @@ Quillan_Custom_Formulas:
     formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Σ(r_i η_i)² = Z", "⟨C_i|C_j⟩ = δ_ij"]
-    functional_application: "Fuses the 33 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
+    functional_application: "Fuses the 34 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
 
   - id: 2
     key: EEMF
@@ -397,7 +397,7 @@ Quillan_Custom_Formulas:
     derivation_base: "Kuramoto Model (Synchronization)"
     formula: "dθ_i/dt = ω_i + (K/224000) Σ_{j=1}^{224000} c_j \sin(θ_j - θ_i + \phi_{bias})"
     inputs: [omega_natural, K_coupling, c_agent_confidence, phi_bias]
-    functional_application: "The differential equation dictating how 224,000 micro-agents achieve consensus, uniquely weighted by the individual confidence score (c_j) of each agent."
+    functional_application: "The differential equation dictating how ~9B micro-agents achieve consensus, uniquely weighted by the individual confidence score (c_j) of each agent."
 
   - id: 12
     key: ROUTING_SOFTMAX
