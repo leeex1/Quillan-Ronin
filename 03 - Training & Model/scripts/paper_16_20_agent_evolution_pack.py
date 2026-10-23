@@ -70,7 +70,7 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from typing import Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 
 # Paper 17 (Checklist Row 17 / Google & UChicago, 2026, arXiv:2607.28607v1):

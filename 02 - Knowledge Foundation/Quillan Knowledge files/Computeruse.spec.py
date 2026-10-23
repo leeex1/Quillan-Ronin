@@ -19,12 +19,25 @@ import re
 from io import BytesIO
 from typing import Dict, Any, List
 
-import pyautogui
-from PIL import Image
+try:
+    import pyautogui
+    HAS_PYAUTOGUI = True
+    pyautogui.FAILSAFE = True
+except (ImportError, Exception):
+    HAS_PYAUTOGUI = False
+    pyautogui = None
 
-# 🛡️ WARDEN PROTOCOL: Safety First
-# Slam mouse to any of the 4 corners of the screen to kill the agent.
-pyautogui.FAILSAFE = True
+try:
+    from PIL import Image
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
+    Image = None
+
+class DummyFailSafeException(Exception):
+    pass
+
+FailSafeException = getattr(pyautogui, "FailSafeException", DummyFailSafeException) if pyautogui else DummyFailSafeException
 
 # =========================
 # ⚙️ SYSTEM PROMPT
@@ -62,8 +75,13 @@ class QuillanDesktopAgent:
         self.max_steps = max_steps
         self.history: List[Dict[str, Any]] = []
         
-        # Capture environment bounds for relative mapping
-        self.screen_width, self.screen_height = pyautogui.size()
+        if HAS_PYAUTOGUI and pyautogui:
+            try:
+                self.screen_width, self.screen_height = pyautogui.size()
+            except Exception:
+                self.screen_width, self.screen_height = 1920, 1080
+        else:
+            self.screen_width, self.screen_height = 1920, 1080
         print(f"[*] Agent Initialized. Display bounds mapped: {self.screen_width}x{self.screen_height}")
 
     # -------------------------
