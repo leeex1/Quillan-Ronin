@@ -15,7 +15,7 @@ import sys
 import time
 import argparse
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

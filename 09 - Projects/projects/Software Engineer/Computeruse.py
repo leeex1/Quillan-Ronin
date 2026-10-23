@@ -50,31 +50,47 @@ ALLOWED_EXEC_BINARIES = frozenset(
     if b.strip()
 )
 
-import pyautogui
-from PIL import Image, ImageGrab
-import pytesseract
+try:
+    import pyautogui
+    HAS_PYAUTOGUI = True
+    pyautogui.FAILSAFE = True
+    pyautogui.PAUSE = 0.1  # Small pause between actions for stability
+except (ImportError, Exception):
+    HAS_PYAUTOGUI = False
+    pyautogui = None
+
+try:
+    from PIL import Image, ImageGrab
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
+    Image = None
+    ImageGrab = None
+
+try:
+    import pytesseract
+    HAS_PYTESSERACT = True
+except ImportError:
+    HAS_PYTESSERACT = False
+    pytesseract = None
+
+class DummyFailSafeException(Exception):
+    pass
+
+FailSafeException = getattr(pyautogui, "FailSafeException", DummyFailSafeException) if pyautogui else DummyFailSafeException
+
 try:
     import pyperclip
     HAS_PYPERCLIP = True
 except ImportError:
     HAS_PYPERCLIP = False
-    print("[!] pyperclip not available. Clipboard features limited.")
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('computer_use_agent.log'),
-        logging.StreamHandler()
-    ]
+    format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-# 🛡️ WARDEN PROTOCOL: Safety First
-# Slam mouse to any of the 4 corners of the screen to kill the agent.
-pyautogui.FAILSAFE = True
-pyautogui.PAUSE = 0.1  # Small pause between actions for stability
 
 # =========================
 # 🎯 ACTION TYPES
@@ -301,18 +317,26 @@ class QuillanDesktopAgent:
             self.load_config(config_file)
         
         # Capture environment bounds for relative mapping
-        self.screen_width, self.screen_height = pyautogui.size()
+        if HAS_PYAUTOGUI and pyautogui:
+            try:
+                self.screen_width, self.screen_height = pyautogui.size()
+            except Exception:
+                self.screen_width, self.screen_height = 1920, 1080
+        else:
+            self.screen_width, self.screen_height = 1920, 1080
         logger.info(f"Agent Initialized. Display bounds mapped: {self.screen_width}x{self.screen_height}")
         logger.info(f"OCR Enabled: {self.enable_ocr}")
         
         # Initialize Tesseract if available
-        if self.enable_ocr:
+        if self.enable_ocr and HAS_PYTESSERACT and pytesseract:
             try:
                 pytesseract.get_tesseract_version()
                 logger.info("Tesseract OCR initialized successfully")
-            except:
+            except Exception:
                 logger.warning("Tesseract not found. OCR features disabled.")
                 self.enable_ocr = False
+        else:
+            self.enable_ocr = False
 
     # -------------------------
     # 📸 VISION LAYER
@@ -490,6 +514,10 @@ class QuillanDesktopAgent:
     # -------------------------
     # 🖱️ ACTION SPACE
     # -------------------------
+    def exec(self, command: str) -> str:
+        """Direct helper for allowlisted command execution."""
+        return self.execute_action("exec", {"command": command})
+
     def execute_action(self, action: str, args: Dict[str, Any]) -> str:
         """Routes and executes physical actions with safety bounds."""
         self.state.total_actions += 1
@@ -1434,7 +1462,7 @@ class QuillanDesktopAgent:
             # Save state
             self.save_state("agent_state_direct.json")
             
-        except pyautogui.FailSafeException:
+        except FailSafeException:
             print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
             self.save_state("agent_state_direct_emergency.json")
         except KeyboardInterrupt:
@@ -1683,6 +1711,9 @@ class QuillanDesktopAgent:
         print("="*40)
         logger.info(f"Execution complete. Success rate: {(self.state.successful_actions/max(1,self.state.total_actions)*100):.1f}%")
 
+# Alias for backwards compatibility
+ComputerUse = QuillanDesktopAgent
+
 # =========================
 # 🚀 ENTRY POINT
 # =========================
@@ -1780,7 +1811,7 @@ if __name__ == "__main__":
             # Save state on completion
             print("\n[*] Saving agent state...")
             agent.save_state("agent_state.json")
-    except pyautogui.FailSafeException:
+    except FailSafeException:
         print("\n🚨 FAILSAFE TRIGGERED! Mouse moved to corner. Agent terminated.")
         logger.warning("Failsafe triggered")
         agent.save_state("agent_state_emergency.json")

@@ -3161,8 +3161,8 @@ class QuillanRoninOni(nn.Module):
         n_run = len(self.h)
 
         # Complexity-based early exit at inference: disabled by default to ensure full layer depth
-        # Only truncate layers if caller explicitly specifies path_override as an integer
-        if not self.training and not use_cache and path_override is not None and T > 1:
+        # Truncate layers if caller explicitly specifies path_override as an integer
+        if not self.training and path_override is not None:
             n_run = max(2, min(len(self.h), int(path_override)))
         else:
             n_run = len(self.h)
@@ -4729,7 +4729,7 @@ class QuillanRoninOni(nn.Module):
                 pass
         inp = torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device)
         # Full depth on prefill so cached decode steps stay consistent
-        logits, kv_cache = self.forward(inp, use_cache=True, path_override=1)
+        logits, kv_cache = self.forward(inp, use_cache=True)
 
         for _ in range(max_tokens):
             curr = logits[:, -1, :].clone()
@@ -4837,7 +4837,7 @@ class QuillanRoninOni(nn.Module):
         # Prefill with cache enabled so decode steps are O(1) per token.
         raw = self.forward(
             torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device),
-            path_override=1, recirc_state=recirc, use_cache=True)
+            recirc_state=recirc, use_cache=True)
         if isinstance(raw, tuple):
             logits, kv_cache = raw[0], raw[1]
         else:

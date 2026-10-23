@@ -4,7 +4,7 @@
 
 import hashlib
 import random
-from typing import Dict, List, Optional
+from typing import Any, Dict, List, Optional
 from dataclasses import dataclass
 import asyncio  # For async iteration sim
 
@@ -22,7 +22,7 @@ class ReasoningEngine:
     SHA-256 of the input). They must NOT be used as safety or quality gates.
     """
 
-    def __init__(self):
+    def __init__(self, deterministic_seed: Optional[int] = 0):
         self.thinking_config = {
             "purpose": "Generate authentic step-by-step reasoning like o1 models",
             "approach": "Show actual thought progression, not templated responses",
@@ -42,7 +42,8 @@ class ReasoningEngine:
             "branch_count": 3,     # Default perspectives
             "uncertainty_threshold": 0.7  # Trigger "reconsider" if conf < this
         }
-        self._rng = random.Random(0)  # local, reproducible; reseeded per question in think()
+        self.default_seed = deterministic_seed if deterministic_seed is not None else 0
+        self._rng = random.Random(self.default_seed)  # local, reproducible; reseeded per question in think()
         self.styles = self._build_styles()
 
     def _build_styles(self) -> List[ThoughtStyle]:
@@ -127,6 +128,19 @@ class ReasoningEngine:
         return {
             "thinking": thinking,
             "response": response
+        }
+
+    def reason(self, question: str) -> Dict[str, Any]:
+        """Convenience method returning structured trace, confidence, and entropy score."""
+        res = self.process(question)
+        h = int(hashlib.sha256(question.encode("utf-8")).hexdigest()[:8], 16)
+        conf = 0.70 + (h % 25) / 100.0
+        entropy = (h % 100) / 100.0
+        return {
+            "trace": res["thinking"],
+            "response": res["response"],
+            "confidence": round(conf, 4),
+            "entropy_score": round(entropy, 4)
         }
 
     def display_result(self, question: str):
