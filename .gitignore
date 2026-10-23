@@ -281,3 +281,11 @@ entities.json
 **/*.pb
 **/conversations/
 **/cascade/
+
+# --- Quillan hardening: credentials & IDE state ---
+x_credentials.md
+**/oauth_creds.json
+**/google_accounts.json
+*.vscdb
+**/conversations/*.db
+**/agyhub_summaries_proto.pb
