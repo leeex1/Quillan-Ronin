@@ -235,7 +235,7 @@ flowchart TB
 ```javascript
 // 🔬 OVERVIEW: THE QUILLAN FORMULA PROTOCOL (v7.0 — Dimensionally Closed)
 // Each formula defined above operates strictly within Quillan’s shared latent
-// manifold and distributed 33-Node Council architecture. They govern the Hyper
+// manifold and distributed 34-Node Council architecture. They govern the Hyper
 // Quantized vectorized Swarm deliberative processes by replacing traditional
 // sequential LLM token-prediction with continuous-time differential optimization
 // and quantum-state modeling.
@@ -672,7 +672,7 @@ flowchart TB
 //    their parallel processing density and Lee-Mach-6 token velocity (λ_j).
 //    EGGROLL rank-r mutations remain ternary-sparse via δ dead-zone (EGSO v7.0).
 // ⬆️ Upwards: It expands the context-awareness and Gumbel-routing efficiency of
-//    the 33-Node Council (η_j). AQCS structural phase θ_i is preserved.
+//    the 34-Node Council (η_j). AQCS structural phase θ_i is preserved.
 
 // Left unchecked, this formula evaluates to mathematical infinity. The v7.0 hardening
 // introduces THREE independent safety mechanisms:
@@ -703,7 +703,7 @@ flowchart TB
 
         subgraph P_PROC["Processing Pipeline"]
             P_IN["Structured Input Assessment<br/>Nine-Vector Hyper-Parallel"]
-            P_DIS["Collaborative Discussions<br/>33-Persona Council<br/>(θ_i ∈ [0,2π) structural phases)"]
+            P_DIS["Collaborative Discussions<br/>34-Persona Council<br/>(θ_i ∈ [0,2π) structural phases)"]
             P_VAL["Multi-Faceted Validation<br/>Adversarial Stress-Test<br/>‖∇L_total‖₂ ≤ G_max"]
         end
 

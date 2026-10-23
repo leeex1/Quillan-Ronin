@@ -694,7 +694,7 @@ When defining or debugging communication flows, evaluate across these three axes
 
 ## Domain 3 — 🌊 Agent-to-Swarm (A2S) Parallel Broadcast
 
-**Focus:** Massive parallelization (Map-Reduce) leveraging the 224k Micro-Quantized Swarms.
+**Focus:** Massive parallelization (Map-Reduce) leveraging the ~9B Micro-Quantized Swarms.
 
 **Protocol Mechanics:**
 

@@ -31,7 +31,7 @@ TECHNIQUES IMPLEMENTED (full, no stubs):
 
   Paper 44: DeepSeekMoE — Expert specialization
     DeepSeekMoE's technique: shared experts + routed experts with
-    fine-grained segmentation (64 experts, 8 active). Shared experts
+    fine-grained segmentation (34 experts, 8 active). Shared experts
     handle common knowledge, routed handle specialization.
 
     For Quillan: our 34 council are experts. DeepSeekMoE's shared+routed

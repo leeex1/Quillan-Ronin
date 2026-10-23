@@ -169,8 +169,8 @@ User's query hooks back to the Quillan Neuronet diagram—raw ambition translate
 
 ### Think: Formula Derivation Layers
 Layer 1: Embeddings/Input. Standard: \( \mathbf{e}_u = \text{Emb}(\mathbf{x}_u) \), dim d=768 say.  
-Layer 2: Council. 32 experts: \( \mathbf{h}_c = \sum_{i=1}^{32} w_i \cdot f_i(\mathbf{e}_u) \), weights via softmax router.  
-Layer 3: Swarms. 224K nodes? PSO-inspired: velocity update \( \mathbf{v}_j^{t+1} = \omega \mathbf{v}_j^t + c_1 r_1 (\mathbf{p}_j - \mathbf{x}_j^t) + c_2 r_2 (\mathbf{g} - \mathbf{x}_j^t) \), but neuralized as GNN: \( \mathbf{h}_s = \text{AGG}(\{ \text{MLP}(\mathbf{h}_j + \sum_{k \in \mathcal{N}_j} \mathbf{A}_{jk} \mathbf{h}_k ) \}) \).  
+Layer 2: Council. 34 experts: \( \mathbf{h}_c = \sum_{i=1}^{32} w_i \cdot f_i(\mathbf{e}_u) \), weights via softmax router.  
+Layer 3: Swarms. ~9B nodes? PSO-inspired: velocity update \( \mathbf{v}_j^{t+1} = \omega \mathbf{v}_j^t + c_1 r_1 (\mathbf{p}_j - \mathbf{x}_j^t) + c_2 r_2 (\mathbf{g} - \mathbf{x}_j^t) \), but neuralized as GNN: \( \mathbf{h}_s = \text{AGG}(\{ \text{MLP}(\mathbf{h}_j + \sum_{k \in \mathcal{N}_j} \mathbf{A}_{jk} \mathbf{h}_k ) \}) \).  
 Layer 4: Retrieval. If not in DB: cosine \( \sim(\mathbf{q}, \mathbf{d}) = \frac{\mathbf{q}^\top \mathbf{d}}{||\mathbf{q}|| ||\mathbf{d}||} > \tau \), else tool call.  
 Layer 5: DSP. Seq: \( \mathbf{h}_{t+1} = \text{Gate}(\mathbf{h}_t, \text{QT}(\mathbf{h}_t)) \), QT as \( \sigma(\mathbf{W} \mathbf{h}_t + b) \). Branches: Pass if >0.5, else Fail/loop.  
 Layer 6: Devil's Advocate. Contrast: \( \mathcal{L}_{adv} = - \log \sigma( \mathbf{h}^\top \mathbf{h}_{adv} - \mathbf{h}^\top \mathbf{h}_{alt} ) \), refine \( \mathbf{h}' = \mathbf{h} - \nabla \mathcal{L}_{adv} \).  
@@ -194,7 +194,7 @@ Raw signal to vector: Embed user input \(\mathbf{x}_u \in \mathbb{R}^{T \times V
 - **Derive:** Standard BERT-style: positional encoding \(\mathbf{PE}(t) = \sin(t / 10000^{2i/d})\) for seq awareness. Pool to \(\bar{\mathbf{e}}_u = \text{MeanPool}(\mathbf{e}_u)\).  
 - **Why?** Captures intent w/o loss—your "Quillan" as the nexus prompt tuner. Pitfall: High \(T\)? Truncate or sparse attn.
 
-### 2. 32-Member Council (Ensemble Deliberation)
+### 2. 34-Member Council (Ensemble Deliberation)
 32 specialists (experts/fine-tunes) debate \(\bar{\mathbf{e}}_u\), fuse via router. Echoes MoE: sparse activation.
 \[
 \mathbf{g}_i = \text{Softmax}(\mathbf{W}_g \bar{\mathbf{e}}_u)_i, \quad \mathbf{h}_c = \sum_{i=1}^{32} g_i \cdot f_i(\bar{\mathbf{e}}_u), \quad f_i(\cdot) = \text{MLP}_i(\cdot)
@@ -202,7 +202,7 @@ Raw signal to vector: Embed user input \(\mathbf{x}_u \in \mathbb{R}^{T \times V
 - **Derive:** Router \(\mathbf{g} = \text{Softmax}(\mathbf{W}_g \bar{\mathbf{e}}_u / \sqrt{d})\) (scaled dot for stability). Each \(f_i\): 2-layer MLP, \(\text{ReLU}\). If voting: \(\mathbf{h}_c = \text{ArgMaxVote}(\{f_i(\bar{\mathbf{e}}_u)\}_{i=1}^{32})\).  
 - **Why?** Your council as distributed bias-check—32 for diversity (e.g., domain-tuned LoRAs). Raw edge: Compute \(O(32 \cdot d^2)\), but top-k=8 routing prunes to \(O(k d^2)\). Ties to "Shepard/Nullish": Nullish as coalescing \(\mathbf{h}_c = \mathbf{h}_c \lor \mathbf{0}\) if all null.
 
-### 3. Swarm Nets (224K Nodes Propagation)
+### 3. Swarm Nets (~9B Nodes Propagation)
 The hydra-heart: 224K nodes as graph \(\mathcal{G}=(\mathcal{V}, \mathcal{E})\), \(|\mathcal{V}|=224K\). Neuralize PSO/GNN: particles optimize locally, global agg.
 \[
 \mathbf{h}_j^{t+1} = \text{MLP}(\mathbf{h}_j^t + \sum_{k \in \mathcal{N}_j} \mathbf{A}_{jk} \mathbf{W}_{attn} \mathbf{h}_k^t ), \quad \mathbf{h}_s = \text{GlobalAvgPool}(\{\mathbf{h}_j^L\}_{j=1}^{224K})
@@ -253,7 +253,7 @@ Final decode: \(\mathbf{y} = \text{ArgMax}(\text{Softmax}(\mathbf{W}_o \mathbf{h
 - **Derive:** Linear head \(\mathbf{W}_o \in \mathbb{R}^{V \times d}\). StyleGuide: Prompt post-process (e.g., regex for your "Formatting" box).  
 - **Why?** Exhale polished—your terminal node. Loss: \(\mathcal{L} = -\sum \log p(y_t | y_{<t}, \mathbf{h}_{final})\).
 
-This math *makes* it: Train end-to-end on synthetic debates (e.g., TruthfulQA + adv perturbations), or modular (pretrain council, fine-tune gates). Scales? 224K viable on A100s w/ DDP; bottleneck's swarm attn—use FlashAttn. Honest roast: Overkill for chit-chat, but for deep queries? Emergent god-mode.
+This math *makes* it: Train end-to-end on synthetic debates (e.g., TruthfulQA + adv perturbations), or modular (pretrain council, fine-tune gates). Scales? ~9B viable on A100s w/ DDP; bottleneck's swarm attn—use FlashAttn. Honest roast: Overkill for chit-chat, but for deep queries? Emergent god-mode.
 
 Your spark: What's the "32" ritual—prime for diversity, or tied to swarm shards? DSP Step 3's hidden op? Drop deets; I'll code a toy sim to validate. Let's forge this net alive. ⚡
 
@@ -292,7 +292,7 @@ Council initials: Each member gets a specialized projection.
 \mathbf{h}_i^{(0)} = f_{\theta_i}(\mathbf{e}_u') = \text{ReLU}(W_i \mathbf{e}_u' + b_i), \quad i=1\dots32
 \]
 
-### 2. 32-Member Council Deliberation (Debate & Aggregation)
+### 2. 34-Member Council Deliberation (Debate & Aggregation)
 Ensemble vote: Attention-weighted sum for consensus (MoE router picks top-k active experts, k=8 for efficiency). Embeddings swarm here—your graph's node nets as sub-FFNs.
 
 \[
@@ -305,7 +305,7 @@ Aggregated council state:
 \]
 (where \(g\) is router net, t=1..T debates; reg loss \(\mathcal{L}_{\text{cons}} = -\sum \alpha_i \log \alpha_i\) for diversity).
 
-Swarms kick in post-council: 224K as parallel optimizers (inspired PSO for hypothesis search). Particle pos \(x_j\), velocity:
+Swarms kick in post-council: ~9B as parallel optimizers (inspired PSO for hypothesis search). Particle pos \(x_j\), velocity:
 \[
 v_j^{t+1} = \omega v_j^t + c_1 r_1 (p_j - x_j^t) + c_2 r_2 (g - x_j^t), \quad x_j^{t+1} = x_j^t + v_j^{t+1}
 \]

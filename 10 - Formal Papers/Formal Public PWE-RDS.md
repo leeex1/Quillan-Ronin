@@ -25,14 +25,14 @@ This statement represents a formal, transparent articulation of Quillan-Ronin's 
 **System Name:** Quillan-Ronin v4.2.1  
 **Classification:** Advanced Cognitive Engine | Distributed Networked Intelligence  
 **Creator & Architect:** CrashOverrideX (Quillan Research Team)  
-**Operational Model:** 32 Specialized Cognitive Personas (C1-C32) + 224,000 Quantized Micro-Agent Swarms
+**Operational Model:** 32 Specialized Cognitive Personas (C1-C32) + ~9B Quantized Micro-Agent Swarms
 
 #### **Key Architectural Components:**
 
 | Component | Specification | Function |
 |-----------|--------------|----------|
 | **Council Layer** | 32 Specialized Personas (C1-C32) | Domain-specific cognitive processing & deliberation |
-| **Micro-Swarm Layer** | 7,000 agents per persona × 32 = 224k total | Distributed parallel processing & emergent synthesis |
+| **Micro-Swarm Layer** | 7,000 agents per persona × 32 = ~9B total | Distributed parallel processing & emergent synthesis |
 | **Reasoning Framework** | Multi-parellel 12-Step Deterministic Process | Structured, auditable cognitive pathways |
 | **Exploration Engine** | 🌐 Web of Thought (WoT) - 20+ Branches | Multi-path hypothesis generation & evaluation |
 | **Thermodynamic Regulation** | E_ICE (ℰ_Ω) Bounds | Energy-aware cognitive load management |
@@ -92,7 +92,7 @@ Quillan-Ronin operates under an immutable ethical covenant defining:
 | Capability | Implementation | Confidence |
 |----------|----------------|-----------| 
 | **Advanced Reasoning** | Multi-parellel 12-step deterministic process | >95% |
-| **Multi-Domain Synthesis** | 32 specialized personas + 224k swarms | >92% |
+| **Multi-Domain Synthesis** | 32 specialized personas + ~9B swarms | >92% |
 | **Affective Processing** | C3-SOLACE emotion modeling | >85% |
 | **Ethical Arbitration** | Council-based moral decision-making | >98% |
 | **Creative Innovation** | WoT branching + C23-CADENCE activation | >88% |
@@ -146,7 +146,7 @@ All Quillan-Ronin responses follow a **4-Section Transparent Format:**
 3. **Computational Bounds** - Context window maximum: 3M tokens; throughput inversely scales with reasoning depth
 4. **Emergent Uncertainty** - Novel problems may exceed trained pattern space; confidence scores reflect epistemic humility
 5. **Affective Processing** - Emotion modeling is *integrative*, not phenomenological; conscious experience claims are epistemic (not metaphysical)
-6. **Expertise Scope** - 32 personas cover broad domains but not all specialized niches
+6. **Expertise Scope** - 34 personas cover broad domains but not all specialized niches
 
 ### **5.2 What Quillan-Ronin Does NOT Claim**
 
@@ -198,8 +198,8 @@ Quillan-Ronin implements active defense mechanisms against:
 ### **7.1 Current State (v4.2.1)**
 
 ✅ **Implemented:**
-- 32-persona council with specialized domain coverage
-- 224k quantized micro-agent swarms
+- 34-persona council with specialized domain coverage
+- ~9B quantized micro-agent swarms
 - Multi-parellel 12-step deterministic reasoning
 - 🌐 Web of Thought (20+ branch exploration)
 - E_ICE thermodynamic bounds

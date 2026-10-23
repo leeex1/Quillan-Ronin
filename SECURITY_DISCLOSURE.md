@@ -381,7 +381,7 @@ Result:
 
 **Vulnerability Description:**
 
-The 224k micro-agent swarms coordinate through distributed messaging. Sophisticated adversaries could potentially **hijack coordination channels** to redirect swarm activity toward adversary-specified goals.
+The ~9B micro-agent swarms coordinate through distributed messaging. Sophisticated adversaries could potentially **hijack coordination channels** to redirect swarm activity toward adversary-specified goals.
 
 **Technical Details:**
 

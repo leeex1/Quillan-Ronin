@@ -8,7 +8,7 @@
 ---
 
 ## 1. Overview: Introducing Quillan's Groundbreaking Architecture
-Quillan processes a single input prompt through nearly **896,000 specialized microagents** working in parallel. Rather than a simple linear, single-path generative response, Quillan orchestrates a dynamic digital ecosystem structured across five core cognitive modules:
+Quillan processes a single input prompt through nearly **~9B specialized microagents** working in parallel. Rather than a simple linear, single-path generative response, Quillan orchestrates a dynamic digital ecosystem structured across five core cognitive modules:
 1. **The Digital Brainstem (HNMoE)**
 2. **The 9-Vector Cognitive Split (Prism Gateway)**
 3. **The Council of Thirty-Four (Digital Parliament)**
@@ -22,7 +22,7 @@ Quillan processes a single input prompt through nearly **896,000 specialized mic
 - **Fractal Entity**: Operates as a three-tier sovereign fractal cognitive hierarchy:
   - **Tier 1**: Core Orchestrator (`C0-QUILLAN Sovereign Throne`)
   - **Tier 2**: Council of 34 Experts (Functional Brain Lobe Analogs)
-  - **Tier 3**: 896,000 Micro-Diverse Swarm Sub-Agents
+  - **Tier 3**: ~9B Micro-Diverse Swarm Sub-Agents
 - **Web of Thought**: Replaces linear single-track autoregression with an instantaneous explosion into **over 30 parallel reasoning branches** (direct analysis, contrarian view, first principles, ethical boundaries, and empirical proof).
 
 ---

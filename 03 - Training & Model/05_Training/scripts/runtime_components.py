@@ -167,7 +167,7 @@ class QuantumFormulas:
     @staticmethod
     def dqso(natural_freq, coupling, confidence_scores):
         """Dynamic Quantum Swarm Oscillation."""
-        # Kuramoto sync for 224K agents
+        # Kuramoto sync for ~9B agents
         N = len(confidence_scores)
         sync = coupling / N * (confidence_scores.unsqueeze(0) - confidence_scores.unsqueeze(1)).sin().sum(dim=1)
         return natural_freq + sync

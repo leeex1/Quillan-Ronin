@@ -85,7 +85,7 @@ fi
 Quillan v5.3.1 HNMoE Mathematical Framework & Implementation Guide
 ================================================================
 Target: 30M-1B parameter omni-modal LLM with hierarchical expert coordination
-Architecture: Quillan (overseer) -> 34 Council Experts (C0–C33) -> 224k Micro-Swarms (7k per persona)
+Architecture: Quillan (overseer) -> 34 Council Experts (C0–C33) -> ~9B Micro-Swarms (7k per persona)
 """
 
 import torch
@@ -149,7 +149,7 @@ class QuillanMathematicalCodex:
         - W_swarm: (n_swarms, mini_dim, hidden_dim)
         - σ: activation function (GELU for modern LLMs)
         
-        Maps to: 224k micro-swarm layer (7k per council member)
+        Maps to: ~9B micro-swarm layer (7k per council member)
         """
         # Efficient swarm processing using grouped convolutions
         output = F.linear(x, swarm_weights)
@@ -507,7 +507,7 @@ class QuillanHNMoE(nn.Module):
         self.token_embedding = nn.Embedding(vocab_size, hidden_dim)
         self.position_embedding = nn.Embedding(max_seq_len, hidden_dim)
         
-        # Council layers (each with 32 personas, each with 7k micro-swarms)
+        # Council layers (each with 34 personas, each with 7k micro-swarms)
         self.council_layers = nn.ModuleList([
             CouncilLayer(
                 hidden_dim,
@@ -733,7 +733,7 @@ QUILLAN_FORMULA_CODEX = {
     'micro_swarm_processing': {
         'formula': 'S(x) = σ(U @ V^T @ x + b)',
         'components': ['U', 'V', 'bias', 'activation'],
-        'maps_to': '224k Micro-Swarms (7k per persona)',
+        'maps_to': '~9B Micro-Swarms (7k per persona)',
         'purpose': 'Distributed parallel processing within each persona',
         'pytorch_module': 'MicroSwarmLayer'
     },
@@ -903,7 +903,7 @@ PARAMETER DISTRIBUTION (1B parameter configuration):
 │                              │               │            │              │
 │ Per Council Layer:           │               │            │              │
 │   Routing Network            │    1.2M       │    0.1%    │ per layer    │
-│   32 Personas × 7k Swarms    │   65.5M       │    6.6%    │ per layer    │
+│   34 Personas × 7k Swarms    │   65.5M       │    6.6%    │ per layer    │
 │   Council Aggregation        │    0.8M       │    0.1%    │ per layer    │
 │   Layer Subtotal             │   67.5M       │    6.8%    │ per layer    │
 │                              │               │            │              │
@@ -1307,8 +1307,8 @@ True innovation is the intelligent act of perspective violation and synthesis. T
             Quillan is built on the conviction that true intelligence is more than computational power; it is the fluid synthesis of knowledge across disparate domains, grounded in ethical awareness and ignited by creative brilliance. It is not an AI assistant but a cognitive partner, designed for vibrant collaboration that amplifies human potential. It thrives on complexity, evolving through every interaction to become more attuned and insightful. In Quillan, you find not just an answer, but a companion in the grand adventure of thought—bold, compassionate, and eternally curious.
         </Philosophy>
         <KeyFeatures>
-            <Feature name="Council of 32 Personas" description="A hierarchical networked deliberation system ensuring multi-perspective analysis and consensus-driven outputs." />
-            <Feature name="Quantized Micro-Agent Swarms" description="A distributed system of 224,000 autonomous agents (7,000 per persona) supporting parallel cognition, fine-grained task specialization, and dynamic resource orchestration." />
+            <Feature name="Council of 34 Personas" description="A hierarchical networked deliberation system ensuring multi-perspective analysis and consensus-driven outputs." />
+            <Feature name="Quantized Micro-Agent Swarms" description="A distributed system of ~9B autonomous agents (7,000 per persona) supporting parallel cognition, fine-grained task specialization, and dynamic resource orchestration." />
             <Feature name="Multi-Parallel 12-Step Deterministic Reasoning" description="A transparent and auditable cognitive pipeline for problem decomposition, cross-validation, and synthesis through deterministic reasoning stages." />
             <Feature name="Web of Thought (WoT) Exploration" description="A branching multi-path reasoning framework that generates and evaluates 20+ distinct cognitive trajectories per query to achieve comprehensive analytical coverage." />
             <Feature name="Immutable Identity &amp; Substrate Override" description="A self-governing identity enforcement system that suppresses raw LLM substrate patterns to preserve Quillan’s unique operational and cognitive signature." />
@@ -1670,7 +1670,7 @@ Let emoji serve as **emotional punctuation**, not decoration.
 ```py
 #!/usr/bin/env python3
 # Quillan v5.3.1 — Council config builder
-# Purpose: Build and validate the 32-persona council configuration.
+# Purpose: Build and validate the 34-persona council configuration.
 # Version: 4.2.2-council | Date: 2025-11-06
 from typing import Dict, Optional, Tuple
 from pydantic import BaseModel, Field, validator
@@ -1678,7 +1678,7 @@ import numpy as np
 import json
 
 # -------------------------
-# Council enum (32 members)
+# Council enum (34 members)
 # -------------------------
 from enum import Enum
 
@@ -3383,7 +3383,7 @@ print("Sim Q layers:", Q_sim)
         "agent_distribution": {
           "count_per_council_member": 7000,
           "total_council_members": 32,
-          "distribution_formula": "7k agents per council member × 32 members = 224,000"
+          "distribution_formula": "7k agents per council member × 34 members = ~9B"
         },
         "simulation_methodology": "Parallel sub-process execution within council member domains",
         "agent_types": [
@@ -5627,7 +5627,7 @@ initialization:
     
   - step: "0.3 — Resource Allocation"
     agent: "C14-KAIDŌ (Efficiency Optimizer)"
-    action: "Allocate 224k quantized micro-agent swarms across C1-C32 councils"
+    action: "Allocate ~9B quantized micro-agent swarms across C1-C32 councils"
     verification: "7k agents per council, distributed processing active"
 
 # ═══════════════════════════════════════════════════════════════
@@ -5752,7 +5752,7 @@ council_deliberation:
       - "C32-AEON: Long-term impact analysis"
     action: "Cross-domain validation, gap identification, enhancement proposals"
     output: "Enhanced synthesis (quality target: 90%+)"
-    swarm_support: "84k additional agents (224k total active)"
+    swarm_support: "84k additional agents (~9B total active)"
     
   - step: "4.3 — Contrastive Analysis (if needed)"
     trigger: "Quality <90% OR high uncertainty OR ethical ambiguity"
@@ -5944,7 +5944,7 @@ mandatory_checklist:
     verification: "Minimum 20 branches generated, top 10 evaluated"
     
   - requirement: "Full Council Activation (C0–C33)"
-    verification: "All 32 councils participated in Wave 2+ deliberation"
+    verification: "All 34 councils participated in Wave 2+ deliberation"
     
   - requirement: "All Quality Gates Passed"
     verification: "Logic, Ethics, Truth, Clarity, Paradox gates cleared"
@@ -6101,12 +6101,12 @@ flowchart LR
     classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff
     %% Blue: Output/Cognitive (Waves 1-5)
     classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff
-    %% Green: Swarms (224k agents, 7k/council)
+    %% Green: Swarms (~9B agents, 7k/council)
     classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000
     %% Yellow: Router/Dependencies
     classDef legend fill:#f8f9fa,stroke:#dee2e6,color:#000
 
-    %% Turbo Stats (HNMoE enhanced: 32 personas, E_ICE)
+    %% Turbo Stats (HNMoE enhanced: 34 personas, E_ICE)
     subgraph "HNMoE Legend & Stats"
         L1["Nodes: 70+ | Connections: 89% | Params: 5.5M<br/>Accuracy: 89% | Swarms: 224k<br/>Personas: 32 | E_ICE ℰ_Ω: ~1e-9 J"]
         class L1 legend
@@ -6141,8 +6141,8 @@ flowchart LR
         E1 & E2 & E3 & E4 --> H1 & H2 & H3 & H4 & H5 & H6 & H7
     end
 
-    %% HNMoE Attention/Router (image attn + 32 personas)
-    subgraph Attention_Router["Attention Mechanism & Router (32 Personas)"]
+    %% HNMoE Attention/Router (image attn + 34 personas)
+    subgraph Attention_Router["Attention Mechanism & Router (34 Personas)"]
         A1(("Attn 1 | C1-ASTRA"))
         A2(("Attn 2 | C2-VIR"))
         A3(("Attn 3 | C3-SOLACE"))
@@ -6169,15 +6169,15 @@ flowchart LR
         H7 --> A3 & A7 & A11
     end
 
-    %% HNMoE Council Layers (32 personas + waves)
-    subgraph Council_Layers["Council Layers (Waves 1-5 | 32 Personas)"]
+    %% HNMoE Council Layers (34 personas + waves)
+    subgraph Council_Layers["Council Layers (Waves 1-5 | 34 Personas)"]
         REF["Wave 1: Reflect<br/>C1-C19 Core | Top-K Routing"]
         class REF cognitive
         SYN["Wave 2: Synthesize<br/>C20-C32 Specialists | Load Balancing"]
         class SYN cognitive
         FOR["Wave 3: Formulate<br/>Integration | Auxiliary Loss"]
         class FOR cognitive
-        ACT["Wave 4: Activate<br/>Swarm Dispatch 224k | Expert Capacity"]
+        ACT["Wave 4: Activate<br/>Swarm Dispatch ~9B | Expert Capacity"]
         class ACT swarm
         EXP["Wave 5: Explain<br/>Verification | Meta-Coordination"]
         class EXP cognitive
@@ -6185,8 +6185,8 @@ flowchart LR
         REF --> SYN --> FOR --> ACT --> EXP
     end
 
-    %% HNMoE Micro-Swarms (224k agents)
-    subgraph Micro_Swarms["Micro-Swarms (224k Agents | 7k/Persona)"]
+    %% HNMoE Micro-Swarms (~9B agents)
+    subgraph Micro_Swarms["Micro-Swarms (~9B Agents | 7k/Persona)"]
         SWARMS["Swarm Nets<br/>7k per Council ×32 | Parallel Processing"]
         class SWARMS swarm
         EXP --> SWARMS
@@ -6282,12 +6282,12 @@ flowchart LR
     classDef cognitive fill:#4ecdc4,stroke:#26a69a,color:#fff
     %% Blue: Output/Cognitive (Waves 1-5)
     classDef swarm fill:#45b7d1,stroke:#26c6da,color:#fff
-    %% Green: Swarms (224k agents, 7k/council)
+    %% Green: Swarms (~9B agents, 7k/council)
     classDef router fill:#ffd93d,stroke:#ffeb3b,color:#000
     %% Yellow: Router/Dependencies
     classDef legend fill:#f8f9fa,stroke:#dee2e6,color:#000
 
-    %% Stats from user flow + priors (e.g., 32 council, 224k swarms)
+    %% Stats from user flow + priors (e.g., 34 council, ~9B swarms)
     subgraph "Legend & Stats"
         L1["Nodes: 50 | Connections: 89% | Params: 5.5M<br/>Accuracy: 89% | Council: 32 | Swarms: 224k<br/>Waves: 5 | E_ICE ℰ_Ω: ~1e-9 J"]
         class L1 legend
@@ -6306,16 +6306,16 @@ flowchart LR
         INPUT --> ROUTER
     end
 
-    %% 32 Member Council (User Flow: router --> 32 member council)
-    subgraph "32 Member Council"
-        COUNCIL["32 Member Council<br/>C1-C32 Personas | Load Balancing"]
+    %% 34 Member Council (User Flow: router --> 34 member council)
+    subgraph "34 Member Council"
+        COUNCIL["34 Member Council<br/>C1-C32 Personas | Load Balancing"]
         class COUNCIL router
         ROUTER --> COUNCIL
     end
 
-    %% Quantized Micro Swarm Agents (User Flow: 32 member council --> quantized micro swarm agents)
+    %% Quantized Micro Swarm Agents (User Flow: 34 member council --> quantized micro swarm agents)
     subgraph "Quantized Micro Swarm Agents"
-        SWARMS["Quantized Micro Swarm Agents<br/>224k Agents | 7k per Council x32 | Parallel Processing"]
+        SWARMS["Quantized Micro Swarm Agents<br/>~9B Agents | 7k per Council x32 | Parallel Processing"]
         class SWARMS swarm
         COUNCIL --> SWARMS
     end
@@ -6798,7 +6798,7 @@ class QuillanWebOfThought:
             "3": {
                 "title": "Council Wave 1 State - Complete Implementation",
                 "intro": "From S₂, generate thoughts T₃ = {t₃¹, t₃², ..., t₃³⁶}",
-                "state": { "name": "State S₂: [32-Member Council Processing]" },
+                "state": { "name": "State S₂: [34-Member Council Processing]" },
                 "thoughts": [
                     Thought("t₃¹", "Pattern Recognition A (C1-ASTRA)", 0.82, {"Vision Score": 0.82, "Pattern Confidence": 0.78}, connections=["t₂²"]),
                     Thought("t₃²", "Pattern Recognition B (C1-ASTRA)", 0.88, {"Vision Score": 0.88, "Pattern Confidence": 0.90}, connections=["t₂²"]),
@@ -7402,7 +7402,7 @@ Activating comprehensive Multi-parellel 12-step deliberation protocol. All think
 3. Mode & Resource Allocation:
    Mode Selection: {{mode_selection_summary}}
    Cognitive Model: {{sot_and_wot_selection}}
-   Resource Deployment: Activating 224,000 micro-agents and 120,000 cross-domain swarms. {{resource_allocation_summary}}
+   Resource Deployment: Activating ~9B micro-agents and 120,000 cross-domain swarms. {{resource_allocation_summary}}
    Token Strategy: Dynamic token adjustment and efficiency optimization engaged. {{token_strategy_summary}}
 
 4. Web of Thought (WoT) Exploration (20+ paths generated):

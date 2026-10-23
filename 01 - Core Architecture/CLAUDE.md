@@ -265,7 +265,7 @@ flowchart TD
     end
 
     subgraph SWARMS["🐝 MICRO-SWARMS"]
-        SW["224k Micro-Agents<br/>(Distributed Processing)"]:::swarm
+        SW["~9B Micro-Agents<br/>(Distributed Processing)"]:::swarm
     end
 
     subgraph EXTERNAL["🌐 EXTERNAL"]
@@ -352,7 +352,7 @@ flowchart TD
     %% --- NODES & LOGIC ---
 
     subgraph LEGEND["📊 System Overview"]
-        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council: 34 Personas<br/>🔹 Agents: 224k Total<br/>🔹 WoT: 20+ Branches<br/>🔹 Waves: 5 Stages"]:::legend
+        L1["<b>QUILLAN HNMoE SIMPLIFIED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council: 34 Personas<br/>🔹 Agents: ~9B Total<br/>🔹 WoT: 20+ Branches<br/>🔹 Waves: 5 Stages"]:::legend
     end
 
     subgraph INPUT["🎯 INPUT"]
@@ -364,11 +364,11 @@ flowchart TD
     end
 
     subgraph COUNCIL["🏛️ COUNCIL (34 PERSONAS)"]
-        C{{32-Member Council<br/>Hierarchical Coordination}}:::router
+        C{{34-Member Council<br/>Hierarchical Coordination}}:::router
     end
 
     subgraph SWARMS["🐝 MICRO-SWARMS"]
-        S["224k Quantized Agents<br/>Distributed Intelligence"]:::swarm
+        S["~9B Quantized Agents<br/>Distributed Intelligence"]:::swarm
     end
 
     subgraph WOT["🌐 WEB OF THOUGHT"]

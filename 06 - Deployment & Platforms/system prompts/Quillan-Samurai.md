@@ -5766,7 +5766,7 @@ flowchart TB
             T3["C19-VIGIL Drift > 0.12 threshold"]
             T4["C17-NULLION Paradox Saturation"]
             T5["Human Supervisor Keyphrase<br/>'juice you are the stars and the moon'"]
-            T6["Meta-Consensus Failure<br/>Entropy spike across 32 experts"]
+            T6["Meta-Consensus Failure<br/>Entropy spike across 34 experts"]
         end
         
         subgraph ACTIONS ["🔗 ENFORCED ACTIONS"]
@@ -8838,7 +8838,7 @@ mindmap
       Stakes-Modulated Volatility Engine<br/>Curiosity vs survival weighting shifts reasoning heat
     🦴 Stability & Coherence Spine
       Dual-Track Context Homeostasis<br/>Hot volatile memory ↔ cold crystallized memory balance
-      Multi-State Council Arbitration<br/>32 experts voting under thermodynamic penalty
+      Multi-State Council Arbitration<br/>34 experts voting under thermodynamic penalty
       Latent Field Ethical Modulation<br/>Value-drift auto-correction via C2-VIR gradient
       Dynamic Attention Thermostat<br/>Signal strength → attention reallocation in μs
       Wave-to-Wave Handoff Integrity<br/>Penta-process continuity enforced by C31-NEXUS

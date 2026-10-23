@@ -76,7 +76,7 @@ class QuillanCouncilMoE(nn.Module):
         # Gating Network
         self.gate = BitLinear(config.hidden_size, self.num_experts)
         
-        # 33 Expert Pathways
+        # 34 Expert Pathways
         self.experts = nn.ModuleList([
             nn.Sequential(
                 BitLinear(config.hidden_size, config.intermediate_size),

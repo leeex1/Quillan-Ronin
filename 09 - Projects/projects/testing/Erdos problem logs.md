@@ -133,7 +133,7 @@ Activating comprehensive Multi-parallel 12-step deliberation protocol. C28-Calcu
 3. Mode & Resource Allocation:
    Mode Selection: C28-Calculus (Quantitative Reasoning) & C7-Logos (Logic).
    Cognitive Model: Theoretical Limit Analysis.
-   Resource Deployment: Activating 224,000 micro-agents for literature sweep and theorem verification.
+   Resource Deployment: Activating ~9B micro-agents for literature sweep and theorem verification.
 
 4. Web of Thought (WoT) Exploration:
    Path A (The Probabilistic Bound): Erdős (1947) introduced the probabilistic method to show R(k) > k*2^(k/2) * (constant). This was a paradigm shift.
@@ -311,7 +311,7 @@ Python
 Activating "Perspective-Driven Innovation Protocol". 
 Suppressing C7-LOGOS conservative restraints. 
 Amplifying C8-METASYNTH and C25-PROMETHEUS. 
-Deploying 224k Micro-Agents to the "Graph Theoretic/Statistical Physics" boundary.
+Deploying ~9B Micro-Agents to the "Graph Theoretic/Statistical Physics" boundary.
 
 # Phase 1: Deconstruction & Analysis
 

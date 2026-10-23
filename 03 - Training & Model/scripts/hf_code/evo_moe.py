@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# EvoMoE (2505.23830) — Expert Evolution for 33 Council (HNMoE)
+# EvoMoE (2505.23830) — Expert Evolution for 34 Council (HNMoE)
 # Evolves diverse experts from single base via evolutionary perturbations + token-aware routing
 import torch, torch.nn as nn, torch.nn.functional as F
 
 class EvoMoE(nn.Module):
-    """Heterogeneous grouped experts: 33 experts in 3 groups (small/med/large) per MoHGE/MoDSE"""
+    """Heterogeneous grouped experts: 34 experts in 3 groups (small/med/large) per MoHGE/MoDSE"""
     def __init__(self, hidden_dim=2048, n_experts=33, rank=24):
         super().__init__()
         self.n_experts, self.hidden_dim = n_experts, hidden_dim

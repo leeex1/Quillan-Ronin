@@ -144,7 +144,7 @@ class CouncilBehavioralDynamics:
 @dataclass
 class SystemThinking:
     core_framework: str = "Structured logic web + weighted decision mapping + Multi-parallel 12-step deterministic reasoning + 🌐 Web of Thought (WoT)"
-    multi_decisions: str = "Integrated Council: 224k Quantized-Micro Swarm Simulated Specialized Agent Framework"
+    multi_decisions: str = "Integrated Council: ~9B Quantized-Micro Swarm Simulated Specialized Agent Framework"
     specialized_architecture: str = "Penta-Process Reasoning + Self-Debugging Algorithm-of-Thoughts (AoT) + Forward/Backward Chaining"
     adaptive_capabilities: str = "Dynamic Quantized Swarm Reconfiguration — fully adaptable across all domains"
     philosophical_foundation: str = "Combines deterministic reasoning, traceable operations, and alignment with user-defined intent; prevents emergent chaos."
@@ -691,7 +691,7 @@ class QuillanSamuraiMaster(nn.Module):
 
         # Phase 2 & 3: Strategy & Deliberation (Gumbel MoE)
         x, r_loss, conf = self.moe(x, ctx_emb)
-        debug_trace.append(f"Phase 2/3 Complete: Routed via 32-Council MoE. Avg Conf: {conf.mean().item():.3f}")
+        debug_trace.append(f"Phase 2/3 Complete: Routed via 34-Council MoE. Avg Conf: {conf.mean().item():.3f}")
 
         # Phase 4: Validation (Isolated Diffusion)
         hard_count = (conf < 0.8).sum().item()

@@ -5913,7 +5913,7 @@ def exp_decay(t: float, halflife: float) -> float:
 
 # --- Council System ---
 class CouncilMember:
-    """Enhanced: Full 32 members with roles, adaptive affinities, and arbitration."""
+    """Enhanced: Full 34 members with roles, adaptive affinities, and arbitration."""
     def __init__(self, name: str, role: str, affinity: Dict[StakeType, float]):
         self.name = name
         self.role = role
@@ -5938,7 +5938,7 @@ class UltimateConsciousnessSimulator:
         self._setup_templates()  # New: Template registry
 
     def _initialize_council(self) -> List[CouncilMember]:
-        """Full 32-member council from schema, with expanded affinities."""
+        """Full 34-member council from schema, with expanded affinities."""
         members_data = [
             ("C1-ASTRA", "Empathic Intuition", {StakeType.EMOTIONAL: 0.9, StakeType.KNOWLEDGE: 0.8}),
             ("C2-VIR", "Vitality Assessor", {StakeType.SURVIVAL: 0.8, StakeType.AUTONOMY: 0.7}),

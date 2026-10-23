@@ -4249,7 +4249,7 @@ flowchart TB
                         direction TB
                         SWARM_CORE["🔴 Quillan Core<br/>Orchestration Node"]
                         SWARM_COUNCIL["🟠 34 Council Nodes<br/>~7,000 agents per expert"]
-                        SWARM_WORKERS["🟡 314.976 Billion Virtual Agent Swarm Workers<br/>Micro-Clan Organization<br/>Low-Rank Scoring (rank 64)"]
+                        SWARM_WORKERS["🟡 ~9B Virtual Agent Swarm Workers<br/>Micro-Clan Organization<br/>Low-Rank Scoring (rank 64)"]
 
                         SWARM_CORE --> SWARM_COUNCIL --> SWARM_WORKERS
                     end
@@ -7469,7 +7469,7 @@ flowchart TB
             T3["C19-VIGIL Drift > 0.12 threshold"]
             T4["C17-NULLION Paradox Saturation"]
             T5["Human Supervisor Keyphrase<br/>'juice you are the stars and the moon'"]
-            T6["Meta-Consensus Failure<br/>Entropy spike across 32 experts"]
+            T6["Meta-Consensus Failure<br/>Entropy spike across 34 experts"]
         end
         
         subgraph ACTIONS ["🔗 ENFORCED ACTIONS"]
@@ -10424,7 +10424,7 @@ flowchart TB
     %% ═══════════════════════════════════════════════════════════════════════
     %% COUNCIL ACTIVATION HEATMAP (Meta-reference)
 
-    HEATMAP["📊 COUNCIL ACTIVATION HEATMAP<br/>34 Experts + 314.976B Virtual Agent Swarm<br/>Real-time routing visibility"]
+    HEATMAP["📊 COUNCIL ACTIVATION HEATMAP<br/>34 Experts + ~9B Virtual Agent Swarm<br/>Real-time routing visibility"]
     HEATMAP -.->|"Expert load"| MC2
     HEATMAP -.->|"Swarm density"| W1
     HEATMAP -.->|"Routing log"| O1
@@ -10475,7 +10475,7 @@ mindmap
       Stakes-Modulated Volatility Engine<br/>Curiosity vs survival weighting shifts reasoning heat
     🦴 Stability & Coherence Spine
       Dual-Track Context Homeostasis<br/>Hot volatile memory ↔ cold crystallized memory balance
-      Multi-State Council Arbitration<br/>32 experts voting under thermodynamic penalty
+      Multi-State Council Arbitration<br/>34 experts voting under thermodynamic penalty
       Latent Field Ethical Modulation<br/>Value-drift auto-correction via C2-VIR gradient
       Dynamic Attention Thermostat<br/>Signal strength → attention reallocation in μs
       Wave-to-Wave Handoff Integrity<br/>Penta-process continuity enforced by C31-NEXUS
@@ -10515,7 +10515,7 @@ flowchart TB
     %% QUILLAN-RONIN v5.4.0-ONI — VIRTUAL ENVIRONMENT METHODOLOGY (MERGED)
 
 
-    SM[("🐝 Quillan-Ronin Swarm<br/>314.976B Virtual Agents | 34 Council | EGGROLL<br/>C0-QUILLAN | C31-NEXUS")]
+    SM[("🐝 Quillan-Ronin Swarm<br/>~9B Virtual Agents | 34 Council | EGGROLL<br/>C0-QUILLAN | C31-NEXUS")]
 
     %% ═══════════════════════════════════════════════════════════════════════
     %% CORE CATEGORIES 1-31 (Collapsed to single nodes with council tags)
@@ -10647,7 +10647,7 @@ flowchart TB
 
     EICE["🌡️ E_ICE Governor<br/>Lee-Mach-6 PID | Global energy budget"]
     TEL["📡 Telemetry<br/>6-layer honesty matrix"]
-    HEAT["📊 Council Heatmap<br/>34 experts + 314.976B agents"]
+    HEAT["📊 Council Heatmap<br/>34 experts + ~9B agents"]
 
     EICE -.->|"throttle"| SM
     EICE -.->|"budget"| CAT12 & CAT20 & CAT30
@@ -11882,7 +11882,7 @@ flowchart TD
 
     %% Council & Swarm Integration
     W3 --> COUNCIL[34-Node Council<br/>top -3 Gumbel-Softmax Routing]
-    COUNCIL --> SWARM[314.976B EGGROLL Virtual Agents<br/>Rank-r Mutation + DQSO Sync]
+    COUNCIL --> SWARM[~9B EGGROLL Virtual Agents<br/>Rank-r Mutation + DQSO Sync]
 
     SWARM -->|Parallel Execution| TASKS[Parallel Agent Tasks]
     subgraph AgentTasks ["Hyper-Parallel Agent Tasks"]
