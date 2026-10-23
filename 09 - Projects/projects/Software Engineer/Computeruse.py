@@ -27,6 +27,7 @@ Features:
 - Configuration Management (settings file, environment variables)
 """
 
+import shlex
 import subprocess
 import time
 import json
@@ -41,6 +42,13 @@ from enum import Enum
 from datetime import datetime
 from pathlib import Path
 import hashlib
+
+# C13-WARDEN exec allowlist (override with QUILLAN_EXEC_ALLOWLIST="git,python,...").
+ALLOWED_EXEC_BINARIES = frozenset(
+    b.strip().lower()
+    for b in os.environ.get("QUILLAN_EXEC_ALLOWLIST", "python,git,pytest,nvidia-smi,tasklist").split(",")
+    if b.strip()
+)
 
 import pyautogui
 from PIL import Image, ImageGrab
@@ -838,12 +846,22 @@ class QuillanDesktopAgent:
             # System Actions
             elif action == "exec":
                 command = str(args.get("command", ""))
-        if any(bad in command.lower() for bad in ["rm -rf", "del /f", "format ", "shutdown", "rd /s"]):
-            return "Blocked by C13-WARDEN Perimeter Gate: Destructive shell command vetoed."
-        if any(bad in command.lower() for bad in ["rm -rf", "del /f", "format ", "shutdown", "rd /s"]):
-            return "Blocked by C13-WARDEN Perimeter Gate: Destructive shell command vetoed."
-                logger.warning(f"Executing shell command: {command}")
-                result = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=10)
+                # C13-WARDEN perimeter gate: allowlisted binary, no shell, no chaining.
+                if any(op in command for op in ("&", "|", ";", ">", "<", "`", "$", "%", "\n")):
+                    return "Blocked by C13-WARDEN Perimeter Gate: shell operators are forbidden."
+                try:
+                    tokens = shlex.split(command, posix=False)
+                except ValueError as e:
+                    return f"Blocked by C13-WARDEN Perimeter Gate: unparseable command ({e})."
+                if not tokens:
+                    return "Blocked by C13-WARDEN Perimeter Gate: empty command."
+                binary = os.path.basename(tokens[0].strip('"')).lower()
+                if binary.endswith(".exe"):
+                    binary = binary[:-4]
+                if binary not in ALLOWED_EXEC_BINARIES:
+                    return f"Blocked by C13-WARDEN Perimeter Gate: '{binary}' is not in the exec allowlist."
+                logger.warning(f"Executing allowlisted command: {binary}")
+                result = subprocess.run(tokens, shell=False, capture_output=True, text=True, timeout=10)
                 output = result.stdout[:1000] + ("..." if len(result.stdout) > 1000 else "")
                 err = result.stderr[:500]
                 self.state.successful_actions += 1
@@ -984,7 +1002,7 @@ class QuillanDesktopAgent:
                 app_path = str(args.get("app_path", ""))
                 try:
                     if os.name == 'nt':  # Windows
-                        subprocess.Popen([app_path], shell=True)
+                        os.startfile(app_path)  # no shell; ShellExecute semantics
                     else:
                         subprocess.Popen([app_path])
                     self.state.successful_actions += 1
@@ -1031,7 +1049,7 @@ class QuillanDesktopAgent:
             elif action == "open_settings":
                 try:
                     if os.name == 'nt':
-                        subprocess.run(["start", "ms-settings:"], shell=True)
+                        os.startfile("ms-settings:")
                     elif os.name == 'posix':
                         if os.uname().sysname == 'Darwin':  # macOS
                             subprocess.run(["open", "System Preferences"])
@@ -1045,7 +1063,7 @@ class QuillanDesktopAgent:
             elif action == "control_panel":
                 try:
                     if os.name == 'nt':
-                        subprocess.run(["control"], shell=True)
+                        subprocess.run(["control"], shell=False)
                     elif os.name == 'posix':
                         if os.uname().sysname == 'Darwin':
                             subprocess.run(["open", "/System/Applications/Utilities/System Preferences.app"])

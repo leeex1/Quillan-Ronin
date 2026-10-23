@@ -4834,9 +4834,14 @@ class QuillanRoninOni(nn.Module):
     def _sample_continuation(self, prefix: List[int], max_tokens: int, temp: float,
                              recirc, device) -> List[int]:
         gen = list(prefix)
-        logits = self.forward(
+        # Prefill with cache enabled so decode steps are O(1) per token.
+        raw = self.forward(
             torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device),
-            path_override=1, recirc_state=recirc)
+            path_override=1, recirc_state=recirc, use_cache=True)
+        if isinstance(raw, tuple):
+            logits, kv_cache = raw[0], raw[1]
+        else:
+            logits, kv_cache = raw, None
         for _ in range(max_tokens):
             curr = logits[:, -1, :] / max(0.05, temp)
             probs = F.softmax(curr, dim=-1)
@@ -4847,9 +4852,17 @@ class QuillanRoninOni(nn.Module):
             gen.append(nxt)
             if nxt == self.cfg.eos_token_id:
                 break
-            logits = self.forward(
-                torch.tensor([gen[-self.cfg.max_seq_len:]], dtype=torch.long, device=device),
-                past_key_values=None, use_cache=False)
+            if kv_cache is not None and len(gen) < self.cfg.max_seq_len:
+                logits, kv_cache = self.forward(
+                    torch.tensor([[nxt]], dtype=torch.long, device=device),
+                    past_key_values=kv_cache, use_cache=True)
+            else:
+                # Window is full: cached positions would exceed max_seq_len, so
+                # fall back to re-scoring the sliding window (previous behavior).
+                kv_cache = None
+                logits = self.forward(
+                    torch.tensor([gen[-self.cfg.max_seq_len:]], dtype=torch.long, device=device),
+                    past_key_values=None, use_cache=False)
         return gen
 
     @torch.no_grad()

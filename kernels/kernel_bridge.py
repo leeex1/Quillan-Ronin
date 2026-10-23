@@ -103,7 +103,13 @@ class QuillanTernaryKernelBridge:
 
         cmd = f'call "{vcvars}" && "{nvcc_path}" -O3 -arch=sm_61 --shared -Xcompiler "/MD" "{cu_file}" -o "{out_dll}"'
         try:
-            res = subprocess.run(cmd, shell=True, capture_output=True, text=True, cwd=str(KERNELS_DIR))
+            # Paths are fixed candidates / repo-local; reject cmd metacharacters defensively.
+            for _p in (str(vcvars), str(nvcc_path), str(cu_file), str(out_dll)):
+                if any(ch in _p for ch in '&|<>^%"\n\r'):
+                    print(f"[KERNEL] Refusing build: unsafe character in path {_p!r}", flush=True)
+                    return False
+            res = subprocess.run(["cmd.exe", "/d", "/s", "/c", cmd], shell=False, capture_output=True,
+                                 text=True, cwd=str(KERNELS_DIR), timeout=600)
             if res.returncode == 0 and out_dll.exists():
                 print(f"[KERNEL] Compiled {out_dll.name} successfully via nvcc sm_61!", flush=True)
                 return True
