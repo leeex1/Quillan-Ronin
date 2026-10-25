@@ -191,11 +191,13 @@ def evaluate_validation(
     for i in range(eval_batches):
         bx, by = val_corpus.sample_batch(batch_size=1, deterministic_idx=i * 17)
         bx, by = bx.to(device), by.to(device)
-        _, ce, _ = model(bx, labels=by, deliberation=False)
+        logits, ce, aux = model(bx, labels=by, deliberation=False)
         if torch.isfinite(ce):
             total_ce += float(ce.item())
             valid_batches += 1
+        del bx, by, logits, ce, aux
     model.train()
+    gc.collect()
     return total_ce / max(1, valid_batches)
 
 
@@ -244,6 +246,8 @@ def save_checkpoint(
         payload["optimizer_state_dict"] = optimizer.state_dict()
     tmp_path = save_path.with_suffix(".pt.tmp")
     torch.save(payload, tmp_path)
+    del payload, sd_export
+    gc.collect()
     try:
         os.replace(tmp_path, save_path)
     except (PermissionError, OSError):
@@ -403,17 +407,17 @@ def main() -> None:
             bx, by = bx.to(device_obj), by.to(device_obj)
 
             # Pretrain forward pass (deliberation disabled during training to prevent memory retention)
-            _, ce, _ = model(bx, labels=by, deliberation=False)
+            logits, ce, aux = model(bx, labels=by, deliberation=False)
 
             if not torch.isfinite(ce):
-                del bx, by, ce
+                del bx, by, logits, ce, aux
                 continue
 
             loss = ce / args.grad_accum
             loss.backward()
             step_ce += float(ce.item())
             valid_micros += 1
-            del bx, by, ce, loss
+            del bx, by, logits, ce, aux, loss
 
         if valid_micros > 0:
             gn, max_t_name, max_t_norm = clip_gradients_two_stage(
