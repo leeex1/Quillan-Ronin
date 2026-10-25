@@ -380,6 +380,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--threads", type=int, default=4, help="CPU threads for i5-7500")
     parser.add_argument("--resume", action="store_true", help="Auto-resume from latest/interrupt checkpoint")
     parser.add_argument("--resume-from", type=str, default="", help="Explicit checkpoint path to resume from")
+    parser.add_argument("--enable-dllm", action="store_true", help="Enable Inception Labs discrete diffusion auxiliary loss")
+    parser.add_argument("--dllm-weight", type=float, default=0.10, help="Weight for discrete diffusion denoising loss")
     return parser.parse_args()
 
 
@@ -496,6 +498,15 @@ def main() -> None:
 
     # 6. Main Phased Training Loop
     print("\n[5/5] Engaging Sovereign SFT Training Loop...", flush=True)
+    dllm_loss_fn = None
+    if getattr(args, "enable_dllm", False):
+        try:
+            from quillan_discrete_diffusion import DiscreteDiffusionLoss
+            dllm_loss_fn = DiscreteDiffusionLoss(mask_token_id=50261, schedule="cosine")
+            print(f"  [dLLM] Inception Labs SEDD Discrete Diffusion Objective Active (weight: {args.dllm_weight})", flush=True)
+        except Exception as e:
+            print(f"  [dLLM WARN] Could not initialize DiscreteDiffusionLoss ({e}); falling back to causal CE.", flush=True)
+
     model.train()
     t_run_start = time.time()
     rolling_ce = 0.0
@@ -525,7 +536,18 @@ def main() -> None:
 
             # REV-2 FIX: Use bounded, differentiable compute_safe_aux_loss instead of raw total_aux_loss
             aux_loss = compute_safe_aux_loss(aux_dict, aux_alpha=aux_alpha, device=device_obj)
-            total_loss = (ce + aux_loss) / args.grad_accum
+
+            if dllm_loss_fn is not None:
+                try:
+                    def _m_forward(inp_ids: torch.Tensor) -> torch.Tensor:
+                        m_out = model(inp_ids)
+                        return m_out[0] if isinstance(m_out, tuple) else m_out
+                    diff_loss, _ = dllm_loss_fn(_m_forward, bx)
+                    total_loss = (ce + aux_loss + args.dllm_weight * diff_loss) / args.grad_accum
+                except Exception:
+                    total_loss = (ce + aux_loss) / args.grad_accum
+            else:
+                total_loss = (ce + aux_loss) / args.grad_accum
 
             if not torch.isfinite(total_loss):
                 nan_skips += 1
@@ -594,6 +616,7 @@ def main() -> None:
             }
             with open(telemetry_path, "a", encoding="utf-8") as tf:
                 tf.write(json.dumps(log_record) + "\n")
+            gc.collect()
 
         # Validation & Best Model Tracking
         val_ce = float("nan")

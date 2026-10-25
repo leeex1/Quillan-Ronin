@@ -64,12 +64,12 @@ torch::Tensor qgemm_forward(
 
     auto y = torch::empty({M, N}, x_int8.options().dtype(torch::kFloat16));
 
-    // Mirror the nvcc launcher: block(TILE_N=32, TILE_M=32).
+    // Mirror the nvcc launcher: block(TILE_N=64, TILE_M=128).
     const int Mi = static_cast<int>(M);
     const int Ni = static_cast<int>(N);
     const int Ki = static_cast<int>(K);
-    const unsigned gridX = static_cast<unsigned>((N + 31) / 32);
-    const unsigned gridY = static_cast<unsigned>((M + 31) / 32);
+    const unsigned gridX = static_cast<unsigned>((N + 63) / 64);
+    const unsigned gridY = static_cast<unsigned>((M + 127) / 128);
 
     CUdeviceptr xptr = reinterpret_cast<CUdeviceptr>(x_int8.data_ptr<int8_t>());
     CUdeviceptr wptr = reinterpret_cast<CUdeviceptr>(w_int8.data_ptr<int8_t>());
@@ -83,7 +83,7 @@ torch::Tensor qgemm_forward(
 
     CUstream stream =
         reinterpret_cast<CUstream>(at::cuda::getCurrentCUDAStream().stream());
-    CUCHK(cuLaunchKernel(g_fn, gridX, gridY, 1, 32, 32, 1,
+    CUCHK(cuLaunchKernel(g_fn, gridX, gridY, 1, 64, 128, 1,
                          0, stream, args, nullptr));
     return y;
 }

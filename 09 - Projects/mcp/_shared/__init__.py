@@ -37,6 +37,7 @@ __version__ = "5.4.0-ONI"
 # 1. SAFE PRINT STDIO GUARD (JSON-RPC Protection)
 # ============================================================================
 
+
 class _StdioRedirector(io.TextIOBase):
     """Redirects rogue print() calls to sys.stderr so sys.stdout stays pure JSON-RPC.
     Delegates all other attribute access to the original stdout to preserve
@@ -87,10 +88,15 @@ def install_stdio_guard() -> Any:
 # 2. CROSS-PLATFORM PATH INJECTION
 # ============================================================================
 
+
 def inject_paths(extra_paths: Optional[List[Union[str, Path]]] = None) -> Path:
     """Injects C:\\02_QUILLAN, mcp root, and ONI project paths into sys.path."""
     mcp_dir = Path(__file__).resolve().parent.parent
-    quillan_root = mcp_dir.parent.parent if mcp_dir.parent.name == "09 - Projects" else Path(os.environ.get("BASE_DIR", "C:/02_QUILLAN"))
+    quillan_root = (
+        mcp_dir.parent.parent
+        if mcp_dir.parent.name == "09 - Projects"
+        else Path(os.environ.get("BASE_DIR", "C:/02_QUILLAN"))
+    )
 
     candidate_paths = [
         mcp_dir,
@@ -133,9 +139,13 @@ def validate_string(
     if not allow_empty and not value.strip():
         raise ValueError(f"[WARDEN] Parameter '{name}' cannot be empty.")
     if len(value) < min_len:
-        raise ValueError(f"[WARDEN] Parameter '{name}' length ({len(value)}) is below minimum ({min_len}).")
+        raise ValueError(
+            f"[WARDEN] Parameter '{name}' length ({len(value)}) is below minimum ({min_len})."
+        )
     if len(value) > max_len:
-        raise ValueError(f"[WARDEN] Parameter '{name}' length ({len(value)}) exceeds maximum ({max_len}).")
+        raise ValueError(
+            f"[WARDEN] Parameter '{name}' length ({len(value)}) exceeds maximum ({max_len})."
+        )
     # Strip null bytes
     return value.replace("\x00", "")
 
@@ -155,12 +165,18 @@ def validate_int(
     try:
         ival = int(value)
     except (ValueError, TypeError) as exc:
-        raise ValueError(f"[WARDEN] Parameter '{name}' must be an integer, got {type(value).__name__}.") from exc
+        raise ValueError(
+            f"[WARDEN] Parameter '{name}' must be an integer, got {type(value).__name__}."
+        ) from exc
 
     if min_val is not None and ival < min_val:
-        raise ValueError(f"[WARDEN] Parameter '{name}' ({ival}) is below minimum ({min_val}).")
+        raise ValueError(
+            f"[WARDEN] Parameter '{name}' ({ival}) is below minimum ({min_val})."
+        )
     if max_val is not None and ival > max_val:
-        raise ValueError(f"[WARDEN] Parameter '{name}' ({ival}) exceeds maximum ({max_val}).")
+        raise ValueError(
+            f"[WARDEN] Parameter '{name}' ({ival}) exceeds maximum ({max_val})."
+        )
     return ival
 
 
@@ -171,7 +187,9 @@ def validate_path(
     allowed_roots: Optional[List[Union[str, Path]]] = None,
 ) -> Path:
     """Validates filesystem paths and prevents CWE-22 path traversal attacks."""
-    raw = validate_string(path_val, name=name, min_len=1, max_len=4096, allow_empty=False)
+    raw = validate_string(
+        path_val, name=name, min_len=1, max_len=4096, allow_empty=False
+    )
     if "\x00" in raw:
         raise ValueError(f"[WARDEN] Null byte detected in path '{name}'.")
 
@@ -197,18 +215,23 @@ def read_file_safe(
     allowed_roots: Optional[List[Union[str, Path]]] = None,
 ) -> str:
     """Safely reads a file with size limits and C13-WARDEN path validation."""
-    p = validate_path(path_val, name="file_path", must_exist=True, allowed_roots=allowed_roots)
+    p = validate_path(
+        path_val, name="file_path", must_exist=True, allowed_roots=allowed_roots
+    )
     if not p.is_file():
         raise IsADirectoryError(f"[WARDEN] Path '{p}' is not a regular file.")
     size = p.stat().st_size
     if size > max_bytes:
-        raise ValueError(f"[WARDEN] File '{p.name}' ({size:,} bytes) exceeds safe limit ({max_bytes:,} bytes).")
+        raise ValueError(
+            f"[WARDEN] File '{p.name}' ({size:,} bytes) exceeds safe limit ({max_bytes:,} bytes)."
+        )
     return p.read_text(encoding=encoding, errors="replace")
 
 
 # ============================================================================
 # 4. C14-KAIDO LRU + TTL CACHE & TOKEN-BUCKET RATE LIMITER
 # ============================================================================
+
 
 class TTLCache:
     """Thread-safe LRU + TTL Cache for expensive MCP operations (file I/O, RAG, network)."""
@@ -221,8 +244,12 @@ class TTLCache:
         self.hits = 0
         self.misses = 0
 
-    def _make_key(self, func_name: str, args: Tuple[Any, ...], kwargs: Dict[str, Any]) -> str:
-        payload = json.dumps({"f": func_name, "a": args, "k": kwargs}, sort_keys=True, default=str)
+    def _make_key(
+        self, func_name: str, args: Tuple[Any, ...], kwargs: Dict[str, Any]
+    ) -> str:
+        payload = json.dumps(
+            {"f": func_name, "a": args, "k": kwargs}, sort_keys=True, default=str
+        )
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
     def get(self, key: str) -> Tuple[bool, Any]:
@@ -295,6 +322,7 @@ GLOBAL_RATE_LIMITER = TokenBucketRateLimiter(rate_per_sec=30.0, capacity=60.0)
 # 5. STANDARDIZED RESPONSE FORMATTERS & ERROR MIDDLEWARE
 # ============================================================================
 
+
 def ok_response(
     data: Any = None,
     server: str = "QuillanMCP",
@@ -345,7 +373,9 @@ def error_response(
     return res
 
 
-def _auto_validate_bound_args(sig: inspect.Signature, args: Tuple[Any, ...], kwargs: Dict[str, Any]) -> None:
+def _auto_validate_bound_args(
+    sig: inspect.Signature, args: Tuple[Any, ...], kwargs: Dict[str, Any]
+) -> None:
     """Automatically applies C13-WARDEN validation based on parameter names and type annotations."""
     try:
         bound = sig.bind_partial(*args, **kwargs)
@@ -362,7 +392,13 @@ def _auto_validate_bound_args(sig: inspect.Signature, args: Tuple[Any, ...], kwa
         if "path" in pname_lower or "file" in pname_lower or "dir" in pname_lower:
             if isinstance(val, (str, Path)) and str(val).strip():
                 validate_path(val, name=param_name, must_exist=False)
-        elif ann is int or ann == "int" or pname_lower.endswith(("_count", "_limit", "top_k", "max_tokens", "steps")):
+        elif (
+            ann is int
+            or ann == "int"
+            or pname_lower.endswith(
+                ("_count", "_limit", "top_k", "max_tokens", "steps")
+            )
+        ):
             if not isinstance(val, bool) and isinstance(val, (int, str)):
                 validate_int(val, name=param_name, min_val=0, max_val=10_000_000)
         elif ann is str or ann == "str" or isinstance(val, str):
@@ -377,10 +413,18 @@ def enrich_docstring(func: Callable) -> Callable:
     for name, p in sig.parameters.items():
         if name in ("self", "cls", "ctx"):
             continue
-        ann_str = p.annotation.__name__ if hasattr(p.annotation, "__name__") else str(p.annotation)
+        ann_str = (
+            p.annotation.__name__
+            if hasattr(p.annotation, "__name__")
+            else str(p.annotation)
+        )
         if p.annotation is inspect.Parameter.empty:
             ann_str = "Any"
-        default_str = f" (default={p.default!r})" if p.default is not inspect.Parameter.empty else " (required)"
+        default_str = (
+            f" (default={p.default!r})"
+            if p.default is not inspect.Parameter.empty
+            else " (required)"
+        )
         param_lines.append(f"  - {name} ({ann_str}){default_str}")
 
     if not existing:
@@ -418,6 +462,7 @@ def tool_guard(
         tool_name = func.__name__
 
         if inspect.iscoroutinefunction(func):
+
             @functools.wraps(func)
             async def async_wrapper(*args: Any, **kwargs: Any) -> Any:
                 t0 = time.perf_counter()
@@ -434,7 +479,9 @@ def tool_guard(
                     if auto_validate:
                         _auto_validate_bound_args(sig, args, kwargs)
                     if cache_ttl is not None and cache_ttl > 0:
-                        ckey = GLOBAL_CACHE._make_key(f"{server_name}:{tool_name}", args, kwargs)
+                        ckey = GLOBAL_CACHE._make_key(
+                            f"{server_name}:{tool_name}", args, kwargs
+                        )
                         hit, cval = GLOBAL_CACHE.get(ckey)
                         if hit:
                             return cval
@@ -452,8 +499,10 @@ def tool_guard(
                         tool=tool_name,
                         latency_ms=(time.perf_counter() - t0) * 1000.0,
                     )
+
             return async_wrapper
         else:
+
             @functools.wraps(func)
             def sync_wrapper(*args: Any, **kwargs: Any) -> Any:
                 t0 = time.perf_counter()
@@ -470,7 +519,9 @@ def tool_guard(
                     if auto_validate:
                         _auto_validate_bound_args(sig, args, kwargs)
                     if cache_ttl is not None and cache_ttl > 0:
-                        ckey = GLOBAL_CACHE._make_key(f"{server_name}:{tool_name}", args, kwargs)
+                        ckey = GLOBAL_CACHE._make_key(
+                            f"{server_name}:{tool_name}", args, kwargs
+                        )
                         hit, cval = GLOBAL_CACHE.get(ckey)
                         if hit:
                             return cval
@@ -488,6 +539,7 @@ def tool_guard(
                         tool=tool_name,
                         latency_ms=(time.perf_counter() - t0) * 1000.0,
                     )
+
             return sync_wrapper
 
     if _func is not None:
@@ -501,7 +553,12 @@ class QuillanErrorMiddleware:
     gains @tool_guard protection, input validation, rate limiting, and docstring enrichment.
     """
 
-    def __init__(self, mcp_app: Any, server_name: str = "QuillanMCP", default_cache_ttl: Optional[float] = None):
+    def __init__(
+        self,
+        mcp_app: Any,
+        server_name: str = "QuillanMCP",
+        default_cache_ttl: Optional[float] = None,
+    ):
         self.app = mcp_app
         self.server_name = server_name
         self.default_cache_ttl = default_cache_ttl
@@ -517,8 +574,16 @@ class QuillanErrorMiddleware:
                 base_decorator = orig_tool(*t_args, **t_kwargs)
 
                 def inner(fn: Callable) -> Any:
-                    ttl = self.default_cache_ttl if fn.__name__.startswith(("get_", "list_", "read_", "search_", "query_")) else None
-                    wrapped = tool_guard(fn, server_name=self.server_name, cache_ttl=ttl)
+                    ttl = (
+                        self.default_cache_ttl
+                        if fn.__name__.startswith(
+                            ("get_", "list_", "read_", "search_", "query_")
+                        )
+                        else None
+                    )
+                    wrapped = tool_guard(
+                        fn, server_name=self.server_name, cache_ttl=ttl
+                    )
                     return base_decorator(wrapped)
 
                 return inner
@@ -531,8 +596,14 @@ class QuillanErrorMiddleware:
         if isinstance(tools_dict, dict):
             for tname, tobj in tools_dict.items():
                 if hasattr(tobj, "fn") and callable(tobj.fn):
-                    ttl = 30.0 if tname.startswith(("get_", "list_", "read_", "search_")) else None
-                    tobj.fn = tool_guard(tobj.fn, server_name=self.server_name, cache_ttl=ttl)
+                    ttl = (
+                        30.0
+                        if tname.startswith(("get_", "list_", "read_", "search_"))
+                        else None
+                    )
+                    tobj.fn = tool_guard(
+                        tobj.fn, server_name=self.server_name, cache_ttl=ttl
+                    )
                     if not getattr(tobj, "description", None) and tobj.fn.__doc__:
                         tobj.description = tobj.fn.__doc__.strip()
 
@@ -540,6 +611,7 @@ class QuillanErrorMiddleware:
 # ============================================================================
 # 6. ONE-CALL SERVER INITIALIZATION (setup)
 # ============================================================================
+
 
 def setup(
     server_name: str = "QuillanMCP",
@@ -555,6 +627,16 @@ def setup(
       4. Attaches QuillanErrorMiddleware if mcp_app is passed
     """
     orig_stdout = install_stdio_guard()
+
+    # Parent-death reaper: exit when the client that spawned us goes away.
+    # Never fatal -- a failure here must not stop the server from serving.
+    try:
+        from . import lifecycle as _lifecycle
+
+        _lifecycle.install(server_name)
+    except Exception:
+        pass
+
     root_dir = inject_paths(extra_paths)
 
     logging.basicConfig(
