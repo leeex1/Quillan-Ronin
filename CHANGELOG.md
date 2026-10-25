@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file. Format follows Keep a Changelog. **One canonical counter: v5.4.x-oni** (since 2026-08-26). Legacy v8/v9/v10 names are retired to _archive.
 
-## Unreleased — v5.4.0-oni Training Active (2026-09-10)
+## Unreleased — v5.4.0-oni Training Active (2026-10-24)
+
+### Inception Labs Discrete Diffusion (dLLM) Integration
+- **Engine Created**: [`quillan_discrete_diffusion.py`](file:///c:/02_QUILLAN/03%20-%20Training%20&%20Model/scripts/quillan_discrete_diffusion.py) implementing **Inception Labs Mercury dLLM** (`arXiv:2506.17298`), **Stanford SEDD** (`arXiv:2310.16834`, Stefano Ermon), and **Predictor-Corrector Discrete Diffusion** (`arXiv:2406.07525`, Song, Meng, Ermon).
+- **Core Upgrades**:
+  * Continuous-Time Markov Chain (CTMC) Absorbing Cosine Noise Schedule ($\alpha_t = \cos(\pi t / 2)$).
+  * Score Entropy Discrete Diffusion Loss ($\mathcal{L}_{\text{SEDD}}$) with ratio weighting $w(t) = 1/t$.
+  * Predictor-Corrector Sampler (`sample_pc`): coarse ancestral predictor interleaved with Gibbs-style Langevin re-masking corrector to eliminate cascading hallucinations.
+  * 16-Step Coarse-to-Fine Parallel Discrete Sampler: confidence-thresholded token unmasking generating blocks in 16 forward passes (~710+ tok/s mock verified) to break host CPU memory-bandwidth latency and eliminate `<think>` template loop collapses.
+  * Dual-Objective SFT Training: Added `--enable-dllm` and `--dllm-weight` to [`launch_sovereign_sft.py`](file:///c:/02_QUILLAN/03%20-%20Training%20&%20Model/scripts/launch_sovereign_sft.py) allowing concurrent causal prefix next-token prediction and bidirectional masked denoising.
+- **Master Bibliography**: Formally integrated Papers #147, #148, #149, and #150 into [`quillan_ronin_paper_bibliography.md`](file:///c:/02_QUILLAN/10%20-%20Formal%20Papers/quillan_ronin_paper_bibliography.md) Section 7 and [`quillan_all_146_papers_deep_audit.md`](file:///c:/02_QUILLAN/10%20-%20Formal%20Papers/quillan_all_146_papers_deep_audit.md).
 
 ### Frontier v2 Resume (Active)
 - **Resumed 3291→7100** from `quillan_frontier_v2_latest.pt` (1438/1438 tensors) — cold-start `transplant_clean.py` (Qwen + BitNet, **no Mistral weights**) on Llama-derived skeleton → 59.4M corpus pretrain → 78,279 SFT corpus

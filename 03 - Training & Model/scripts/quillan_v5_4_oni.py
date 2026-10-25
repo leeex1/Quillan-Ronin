@@ -2728,6 +2728,11 @@ class QuillanRoninOni(nn.Module):
     Swarm: rank-r world-sim diversity fabric under each persona.
     """
 
+    def __setattr__(self, name: str, value: Any) -> None:
+        if name.startswith("_last_") and getattr(self, "training", False):
+            value = None
+        super().__setattr__(name, value)
+
     def __init__(self, cfg: Optional[QuillanOniConfig] = None):
         super().__init__()
         self.cfg = cfg or QuillanOniConfig()
@@ -3126,6 +3131,8 @@ class QuillanRoninOni(nn.Module):
                 return_aux: bool = True):
         cfg = self.cfg
         B, T = input_ids.size()
+        if hasattr(self, "_fired") and len(self._fired) > 64:
+            self._fired.clear()
 
         x = self.wte(input_ids)
 
@@ -3169,6 +3176,10 @@ class QuillanRoninOni(nn.Module):
 
         # Session 1 trace: reset per forward; each integrated module appends below
         self._fired = []
+        if self.training:
+            for k in list(self.__dict__.keys()):
+                if k.startswith("_last_"):
+                    self.__dict__[k] = None
 
         # Paper 33: Prefix Sliding telemetry
         if getattr(self, "_last_slide", None) is not None:
@@ -4069,11 +4080,7 @@ class QuillanRoninOni(nn.Module):
             if self.training:
                 # Differentiable forward pass so aux["ethics"] trains model and E_ICE parameters
                 e_ice_out = self.e_ice(x, last_probs.reshape(B, T, -1))
-                refined, _, ent_aux = self.diffusion(
-                    x, last_probs.reshape(B, T, -1).max(dim=-1).values
-                )
-                x = x + 0.01 * (refined - x)
-                self._last_diffusion_aux = ent_aux
+                self._last_diffusion_aux = None
             else:
                 with torch.no_grad():
                     e_ice_out = self.e_ice(x.detach(), last_probs.detach().reshape(B, T, -1))

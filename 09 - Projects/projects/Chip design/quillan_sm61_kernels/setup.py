@@ -41,6 +41,8 @@ setup(
                     "-gencode=arch=compute_61,code=sm_61",   # native Pascal SASS
                     "-gencode=arch=compute_61,code=compute_61",  # PTX fallback
                     "--use_fast_math",
+                    "-Xptxas -dlcm=ca",  # Enable L1 caching on GP104 (Pascal tuning guide)
+                    "-maxrregcount=64",  # Balance register usage for sm_61 occupancy
                 ],
             },
         )
