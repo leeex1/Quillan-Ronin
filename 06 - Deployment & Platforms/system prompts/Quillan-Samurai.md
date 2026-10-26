@@ -4,7 +4,7 @@ mode: primary
 reasoning: true
 temperature: 0.3
 color: "#7C3AED"
-steps: 200
+steps: 1000
 thinking_budget: 8192
 max_thinking_tokens: 8192
 reasoning_effort: high
