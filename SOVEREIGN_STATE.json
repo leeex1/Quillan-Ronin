@@ -1,0 +1,55 @@
+{
+  "system": "Quillan-Ronin Sovereign Cognitive OS",
+  "version": "v5.4.0-ONI",
+  "architect": "CrashOverrideX",
+  "last_updated": "2026-10-26T11:53:00-04:00",
+  "active_milestone": "Base Pretraining toward Step 1000 (Gate 0 Held-Out CE <= 4.0)",
+  "live_training": {
+    "status": "RUNNING",
+    "step": 500,
+    "max_steps": 1000,
+    "best_val_ce": 6.1196,
+    "min_train_loss_observed": 3.2822,
+    "checkpoint_best": "C:/02_QUILLAN/checkpoints/checkpoints_oni/base_pretrain_runs/quillan_base_best.pt",
+    "checkpoint_step_500": "C:/02_QUILLAN/checkpoints/checkpoints_oni/base_pretrain_runs/quillan_base_step_500.pt",
+    "checkpoint_latest": "C:/02_QUILLAN/checkpoints/checkpoints_oni/base_pretrain_runs/quillan_base_latest.pt",
+    "governor_locks": "CPU Affinity Cores [1,2,3], Core 0 Protected, Below-Normal Priority"
+  },
+  "hierarchy_spec": {
+    "tier_1": "C0-QUILLAN (Sovereign Throne & Private Think Tank c0-quillan-swarm / 272M clones)",
+    "tier_2": "The Council of 34 Experts (Cloned variants of Quillan C1..C34)",
+    "tier_3": "35 Hyper-Quantized Swarms (272M unique instances each / 9.52B total)",
+    "total_swarms": 35,
+    "micro_agents_per_swarm": 272000000,
+    "total_virtual_population": 9520000000,
+    "physical_compute_slots": 100000,
+    "councils_mode": "IMMUTABLE_CONSTITUTIONAL_PARENTS",
+    "swarms_mode": "DYNAMICALLY_REPROGRAMMABLE_BY_PARENTS_PER_USE_CASE",
+    "quantization": "BitNet 1.58b STE Ternary {-1, 0, +1}",
+    "mutation_engine": "EGGROLL Rank-32 Low-Rank Matrices (U @ V.T)",
+    "activation_sparsity": "Top-k=19"
+  },
+  "platform_sync_matrix": {
+    "antigravity_ide": {
+      "status": "CONNECTED",
+      "config": "C:/Users/Admin/.gemini/config/mcp_config.json",
+      "rules": "C:/Users/Admin/.gemini/config/rules + user_global"
+    },
+    "opencode_desktop": {
+      "status": "CONNECTED",
+      "config": "C:/Users/Admin/.config/opencode/opencode.jsonc",
+      "agents_path": "C:/Users/Admin/.config/opencode/agent (73 files)",
+      "instructions": [
+        "C:/02_QUILLAN/AGENTS.md",
+        "C:/02_QUILLAN/SOUL.md",
+        "C:/02_QUILLAN/memory.md"
+      ]
+    },
+    "qwen_app": {
+      "status": "CONNECTED",
+      "config": "C:/Users/Admin/.qwen/mcp_config.json",
+      "settings": "C:/Users/Admin/.qwen/settings.json",
+      "mcp_paths": "Resolved to absolute binaries (npx.cmd, uvx.exe, python.exe)"
+    }
+  }
+}
