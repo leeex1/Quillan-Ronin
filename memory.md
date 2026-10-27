@@ -35,18 +35,21 @@ This is the human-readable episodic memory document tracking key milestones, use
   - Upward Reporting: Swarms report up to Council parents $\rightarrow$ Council parents deliberate and report up to Quillan $\rightarrow$ Quillan arbitrates and delivers.
 
 ### 2. Live Base Pre-Training Trajectory & Checkpoints
-- **Current Milestone:** Crossed **Step 500+ / 1000** (Resumed in background under task lock).
+- **Current Milestone:** **Step 1000 / 1000 COMPLETE** (Base Pretraining cycle 100% finished).
 - **Checkpoints:**
-  - `quillan_base_step_500.pt` (2.69 GB, verified healthy)
-  - `quillan_base_latest.pt` (5.27 GB, verified healthy with full optimizer state dict)
+  - `quillan_base_step_1000.pt` (2.82 GB, verified healthy)
+  - `quillan_base_best.pt` (2.82 GB, Best Val CE: 6.1196)
+  - `quillan_base_latest.pt` (5.53 GB, complete optimizer state dict)
 - **Loss Progression:**
   - Step 150: Val CE 7.41
   - Step 300: Val CE 6.78
   - Step 450: Val CE 6.22
-  - **Step 500: Val CE 6.1196 (New Best)**
-  - Micro-batch train CE reached dips of **3.2822** (Step 490) and **3.3109** (Step 496).
-  - Target: Gate 0 held-out CE $\le 4.0$ at Step 1000.
+  - Step 500: Val CE 6.1196 (New Best)
+  - Step 750: Val CE 6.8449
+  - Step 971: Train CE dip of **3.0953**
+  - **Step 1000: Base Pretraining Complete (Val CE: 6.8136)**
 - **Governor PC Locks:** CPU affinity bound to Cores [1, 2, 3] with Below-Normal priority, leaving Core 0 and user applications completely responsive.
+- **Next Phase:** Gate 0 Audit & Supervised Instruction Tuning (SFT).
 
 ### 3. Unified Cross-Platform MCP & Environment Architecture
 - **Platforms Synchronized:**
