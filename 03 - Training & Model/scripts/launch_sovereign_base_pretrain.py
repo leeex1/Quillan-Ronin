@@ -65,7 +65,9 @@ def configure_host_environment(threads: int = 4, low_priority: bool = True) -> N
             sys.path.insert(0, str(daemons_path))
         from quillan_governor_daemon import apply_pc_smoothness_locks
         gov_res = apply_pc_smoothness_locks()
-        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')}", flush=True)
+        if torch.cuda.is_available():
+            torch.cuda.set_per_process_memory_fraction(0.88)
+        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')} (CUDA Cap: 88%)", flush=True)
     except Exception as e:
         print(f"[GOVERNOR WARN] Governor daemon hook: {e}", flush=True)
 
@@ -375,7 +377,7 @@ def main() -> None:
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = (device_obj.type == "cuda" and (args.seq_len > 256 or args.batch_size > 1))
+    cfg.grad_checkpoint = (device_obj.type == "cuda")
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
@@ -402,7 +404,12 @@ def main() -> None:
                 getattr(blk.moe, "c_proj", None),
             ):
                 if sub_w is not None and hasattr(sub_w, "weight"):
-                    s1 = float(torch.linalg.matrix_norm(sub_w.weight.detach().float(), ord=2).item())
+                    w_m = sub_w.weight.detach().float()
+                    u_v = F.normalize(w_m.mean(dim=0, keepdim=True) + 1e-6, dim=-1)
+                    for _ in range(4):
+                        v_v = F.normalize(u_v @ w_m.T, dim=-1)
+                        u_v = F.normalize(v_v @ w_m, dim=-1)
+                    s1 = float((u_v @ w_m.T).norm().item())
                     if s1 > 4.0:
                         sub_w.weight.mul_(2.5 / s1)
                         n_rescaled += 1
