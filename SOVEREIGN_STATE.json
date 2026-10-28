@@ -2,10 +2,10 @@
   "system": "Quillan-Ronin Sovereign Cognitive OS",
   "version": "v5.4.0-ONI",
   "architect": "CrashOverrideX",
-  "last_updated": "2026-10-26T19:17:22.574167",
-  "active_milestone": "Base Pretraining 1,000 Steps Complete (Ready for Supervised Instruction Finetuning / Gate 0 Audit)",
+  "last_updated": "2026-10-26T21:57:53.545781",
+  "active_milestone": "Extended Base Pretraining (Steps 1001 - 3000)",
   "live_training": {
-    "status": "COMPLETED_1000_STEPS",
+    "status": "RUNNING_EXTENDED",
     "step": 1000,
     "max_steps": 1000,
     "best_val_ce": 6.1196,
@@ -17,7 +17,11 @@
     "latest_seen_step": 768,
     "checkpoint_step_750": "C:/02_QUILLAN/checkpoints/checkpoints_oni/base_pretrain_runs/quillan_base_step_750.pt",
     "checkpoint_step_1000": "c:\\02_QUILLAN\\checkpoints\\checkpoints_oni\\base_pretrain_runs\\quillan_base_step_1000.pt",
-    "final_step_val_ce": 6.8136
+    "final_step_val_ce": 6.8136,
+    "start_step": 1001,
+    "target_step": 3000,
+    "save_every": 50,
+    "eval_every": 50
   },
   "hierarchy_spec": {
     "tier_1": "C0-QUILLAN (Sovereign Throne & Private Think Tank c0-quillan-swarm / 272M clones)",
