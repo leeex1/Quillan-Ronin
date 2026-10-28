@@ -3129,7 +3129,7 @@ class QuillanRoninOni(nn.Module):
                 path_override: Optional[int] = None, recirc_state: Optional[torch.Tensor] = None,
                 deliberation: bool = True, teacher_tokens: Optional[torch.Tensor] = None,
                 proxy_logits: Optional[torch.Tensor] = None, persona_id: Optional[torch.Tensor] = None,
-                return_aux: bool = True):
+                return_aux: bool = True, compute_aux: bool = True):
         cfg = self.cfg
         B, T = input_ids.size()
         if hasattr(self, "_fired") and len(self._fired) > 64:
@@ -3191,7 +3191,7 @@ class QuillanRoninOni(nn.Module):
             self._fired.append(("prefix_slide", dict(self._last_slide)))
 
         # Paper 18: EvoHarness-RL dynamic policy decisions (Persona conditioning already applied once at ingestion)
-        if getattr(self, "agent_evolution", None) is not None:
+        if compute_aux and getattr(self, "agent_evolution", None) is not None:
             try:
                 _h_pooled = x.mean(dim=1)
                 _r_logits = self.agent_evolution.harness.round_head(_h_pooled)
@@ -3210,7 +3210,7 @@ class QuillanRoninOni(nn.Module):
                 self._last_evoharness_entropy = None
 
         # Paper 26: Dynamic Compression in Recurrence & Paper 30: Metan Emergent Depth
-        if getattr(self, "recurrent_diffusion", None) is not None:
+        if compute_aux and getattr(self, "recurrent_diffusion", None) is not None:
             try:
                 _depth_gate = self.recurrent_diffusion.depth.depth_gate(x.mean(dim=1))
                 _depth = self.recurrent_diffusion.depth.get_depth(x)
@@ -3226,7 +3226,7 @@ class QuillanRoninOni(nn.Module):
             self._last_comp_loss = None
 
         # Paper 32: Code World Model & Paper 35: TTPO Test-Time Policy Optimization
-        if getattr(self, "test_time_world", None) is not None:
+        if compute_aux and getattr(self, "test_time_world", None) is not None:
             try:
                 _ttpo_out = self.test_time_world.ttpo(x)
                 x = x + 0.005 * _ttpo_out
@@ -3252,7 +3252,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 44: DeepSeekMoE Shared + Routed Expert Specialization
-        if getattr(self, "moe_rl", None) is not None and getattr(cfg, "use_deepseek_moe", True):
+        if compute_aux and getattr(self, "moe_rl", None) is not None and getattr(cfg, "use_deepseek_moe", True):
             try:
                 _shared_out = self.moe_rl.moe(x)
                 _routed_all = sum(exp(x[:min(2, x.size(0))]).sum() for exp in self.moe_rl.moe.routed_experts) * 1e-6
@@ -3267,7 +3267,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Papers 46-47: Swarm Assimilation Dynamics (Diversity Engine & Cliques)
-        if getattr(self, "swarm_prover_bitnet", None) is not None:
+        if compute_aux and getattr(self, "swarm_prover_bitnet", None) is not None:
             try:
                 _tok_states = x.reshape(-1, x.size(-1))
                 _swarm_stats = self.swarm_prover_bitnet.swarm(_tok_states[:min(34, _tok_states.size(0))])
@@ -3429,7 +3429,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 75: EvoMoE (Expert Evolution in Mixture of Experts)
-        if getattr(cfg, "use_evo_moe", True) and getattr(self, "evo_moe", None) is not None:
+        if compute_aux and getattr(cfg, "use_evo_moe", True) and getattr(self, "evo_moe", None) is not None:
             try:
                 _evo_out = self.evo_moe(x)
                 x = x + 0.01 * _evo_out
@@ -3446,7 +3446,7 @@ class QuillanRoninOni(nn.Module):
             }))
 
         # Paper 77: FlashAttention-3 Fast & Accurate Attention with Asynchrony and Low-Precision
-        if getattr(self, "flash3", None) is not None:
+        if compute_aux and getattr(self, "flash3", None) is not None:
             try:
                 _q = x.unsqueeze(1).repeat(1, cfg.n_head, 1, 1)[..., :cfg.head_dim]
                 _ = self.flash3(_q, _q, _q, causal=True)
@@ -3488,7 +3488,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 81: Mamba Selective State Spaces (Linear-Time Sequence Modeling)
-        if getattr(self, "mamba_ssm", None) is not None:
+        if compute_aux and getattr(self, "mamba_ssm", None) is not None:
             try:
                 _m_gate = torch.sigmoid(self.mamba_ssm.x_proj(x)[..., :self.mamba_ssm.hidden_dim])
                 _m_a = self.mamba_ssm.A.sum() * 1e-6
@@ -3527,7 +3527,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 84: Mistral 7B Grouped-Query Attention (GQA) & Sliding Window
-        if getattr(self, "mistral_gqa", None) is not None:
+        if compute_aux and getattr(self, "mistral_gqa", None) is not None:
             try:
                 _x_gqa = self.mistral_gqa(x)
                 x = x + 0.005 * _x_gqa
@@ -3552,7 +3552,7 @@ class QuillanRoninOni(nn.Module):
         }))
 
         # Paper 87: Mixture of Depths (MoD: Dynamic Compute Allocation per Token)
-        if getattr(self, "mixture_of_depths", None) is not None:
+        if compute_aux and getattr(self, "mixture_of_depths", None) is not None:
             try:
                 _mod_outs = []
                 for _li in range(len(self.mixture_of_depths.depth_routers)):
@@ -3569,7 +3569,7 @@ class QuillanRoninOni(nn.Module):
                 self._last_mod_mask = None
 
         # Paper 88: MoDSE (Mixture of Diverse Size Experts routed by complexity)
-        if getattr(self, "diverse_moe", None) is not None:
+        if compute_aux and getattr(self, "diverse_moe", None) is not None:
             try:
                 _x_modse = self.diverse_moe(x)
                 x = x + 0.005 * _x_modse
@@ -3609,7 +3609,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 92: MoR (Mixture-of-Recursions Dynamic Recursive Depths)
-        if getattr(self, "mixture_of_recursions", None) is not None:
+        if compute_aux and getattr(self, "mixture_of_recursions", None) is not None:
             try:
                 _x_mor, _depth_scores = self.mixture_of_recursions(x)
                 x = x + 0.005 * _x_mor
@@ -3995,7 +3995,7 @@ class QuillanRoninOni(nn.Module):
                 pass
 
         # Paper 12: xMem VRAM Headroom Guard
-        if getattr(self, "xmem", None) is not None:
+        if compute_aux and getattr(self, "xmem", None) is not None:
             try:
                 _est = self.xmem.estimate(
                     n_params=sum(p.numel() for p in self.parameters()),
@@ -4037,9 +4037,9 @@ class QuillanRoninOni(nn.Module):
             x_in = x
             use_ckpt = self.training and cfg.grad_checkpoint and layer_past is None
             if use_ckpt:
-                def _ckpt_fwd(h):
-                    return block(h, None, False, gov_scale=gov_scale, token_ids=input_ids)
-                out = checkpoint(_ckpt_fwd, x, use_reentrant=True)
+                def _ckpt_fwd(h, _blk=block):
+                    return _blk(h, None, False, gov_scale=gov_scale, token_ids=input_ids)
+                out = checkpoint(_ckpt_fwd, x, use_reentrant=False)
                 x, _, probs, lb, z, ent = out
             else:
                 x, present, probs, lb, z, ent = block(
@@ -4152,7 +4152,7 @@ class QuillanRoninOni(nn.Module):
         hidden = self.ln_f(x)
 
         # 100% wiring: RealSwarm mesh synthesis + World Model arbitration
-        if getattr(self, "world_model", None) is not None:
+        if compute_aux and getattr(self, "world_model", None) is not None:
             try:
                 bs = self.world_model.estimate(hidden)
                 act = torch.zeros_like(bs.latent)
@@ -4199,6 +4199,10 @@ class QuillanRoninOni(nn.Module):
                     ce = F.cross_entropy(sl_flat.float(), tl_flat, ignore_index=-100)
             else:
                 ce = torch.tensor(0.0, device=logits.device)
+            if not compute_aux:
+                if return_aux:
+                    return logits, ce, {}
+                return logits, ce
             aux = self._aux_losses(x, last_probs, total_lb, total_z, total_ent,
                                    e_ice_out if last_probs is not None else None,
                                    teacher_tokens=teacher_tokens if teacher_tokens is not None else labels,
