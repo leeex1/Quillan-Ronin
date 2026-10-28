@@ -1,554 +1,212 @@
 {
- "root": ".",
- "at": 1793204087.3919306,
- "live": true,
- "started": 1793204063.8745787,
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+ "at": 1793204179.892801,
+ "live": false,
+ "started": 1793204168.2183156,
  "job": "scan",
  "nodes": [
   {
    "id": 0,
-   "path": ".",
-   "full": ".",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp",
    "kind": "file"
   },
   {
    "id": 1,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
    "kind": "file"
   },
   {
    "id": 2,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
    "kind": "file"
   },
   {
    "id": 3,
-   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
    "kind": "file"
   },
   {
    "id": 4,
-   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
    "kind": "file"
   },
   {
    "id": 5,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
    "kind": "file"
   },
   {
    "id": 6,
-   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
    "kind": "file"
   },
   {
    "id": 7,
-   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
    "kind": "file"
   },
   {
    "id": 8,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
    "kind": "file"
   },
   {
    "id": 9,
-   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "kind": "file"
   },
   {
    "id": 10,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
+   "path": "\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793202834.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793202834.py",
    "kind": "file"
   },
   {
    "id": 11,
-   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
+   "path": "\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793203902.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793203902.py",
    "kind": "file"
   },
   {
    "id": 12,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
+   "path": "\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204029.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204029.py",
    "kind": "file"
   },
   {
    "id": 13,
-   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
+   "path": "\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204102.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204102.py",
    "kind": "file"
   },
   {
    "id": 14,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
    "kind": "file"
   },
   {
    "id": 15,
-   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
    "kind": "file"
   },
   {
    "id": 16,
-   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
    "kind": "file"
   },
   {
    "id": 17,
-   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
    "kind": "file"
   },
   {
    "id": 18,
-   "path": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
    "kind": "file"
   },
   {
    "id": 19,
-   "path": " Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
    "kind": "file"
   },
   {
    "id": 20,
-   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
    "kind": "file"
   },
   {
    "id": 21,
-   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
    "kind": "file"
   },
   {
    "id": 22,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
    "kind": "file"
   },
   {
    "id": 23,
-   "path": "ge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
    "kind": "file"
   },
   {
    "id": 24,
-   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
    "kind": "file"
   },
   {
    "id": 25,
-   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
    "kind": "file"
   },
   {
    "id": 26,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
    "kind": "file"
   },
   {
    "id": 27,
-   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
+   "path": ":\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
    "kind": "file"
   },
   {
    "id": 28,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
    "kind": "file"
   },
   {
    "id": 29,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
    "kind": "file"
   },
   {
    "id": 30,
-   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
    "kind": "file"
   },
   {
    "id": 31,
-   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
    "kind": "file"
   },
   {
    "id": 32,
-   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
    "kind": "file"
   },
   {
    "id": 33,
-   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "kind": "file"
-  },
-  {
-   "id": 34,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "kind": "file"
-  },
-  {
-   "id": 35,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "kind": "file"
-  },
-  {
-   "id": 36,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "kind": "file"
-  },
-  {
-   "id": 37,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "kind": "file"
-  },
-  {
-   "id": 38,
-   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 39,
-   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "kind": "file"
-  },
-  {
-   "id": 40,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "kind": "file"
-  },
-  {
-   "id": 41,
-   "path": "undation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 42,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
-   "kind": "file"
-  },
-  {
-   "id": 43,
-   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "kind": "file"
-  },
-  {
-   "id": 44,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "kind": "file"
-  },
-  {
-   "id": 45,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "kind": "file"
-  },
-  {
-   "id": 46,
-   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "kind": "file"
-  },
-  {
-   "id": 47,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 48,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "kind": "file"
-  },
-  {
-   "id": 49,
-   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 50,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 51,
-   "path": " Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 52,
-   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 53,
-   "path": "ion\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 54,
-   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
-   "kind": "file"
-  },
-  {
-   "id": 55,
-   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 56,
-   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 57,
-   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
-   "kind": "file"
-  },
-  {
-   "id": 58,
-   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 59,
-   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
-   "kind": "file"
-  },
-  {
-   "id": 60,
-   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
-   "kind": "file"
-  },
-  {
-   "id": 61,
-   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
-   "kind": "file"
-  },
-  {
-   "id": 62,
-   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
-   "kind": "file"
-  },
-  {
-   "id": 63,
-   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
-   "kind": "file"
-  },
-  {
-   "id": 64,
-   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
-   "kind": "file"
-  },
-  {
-   "id": 65,
-   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
-   "kind": "file"
-  },
-  {
-   "id": 66,
-   "path": "Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
-   "kind": "file"
-  },
-  {
-   "id": 67,
-   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 68,
-   "path": "legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 69,
-   "path": "owledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 70,
-   "path": "nowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 71,
-   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 72,
-   "path": "dation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 73,
-   "path": "ion\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 74,
-   "path": "on\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 75,
-   "path": "knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 76,
-   "path": "tion\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 77,
-   "path": "on\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 78,
-   "path": "e Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 79,
-   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 80,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 81,
-   "path": "ge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 82,
-   "path": "ation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 83,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 84,
-   "path": "Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 85,
-   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 86,
-   "path": "\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 87,
-   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 88,
-   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 89,
-   "path": "owledge\\legacy\\00 - Meta\\oni\\paper_96_100_edge_dali_dgpo_dream_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_96_100_edge_dali_dgpo_dream_pack.py",
-   "kind": "file"
-  },
-  {
-   "id": 90,
-   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pocket_nn_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pocket_nn_engine.py",
+   "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
    "kind": "file"
   }
  ],
@@ -686,3678 +344,1350 @@
    "to": 33
   },
   {
-   "from": 0,
-   "to": 34
+   "from": 23,
+   "to": 32,
+   "wire": true
   },
   {
-   "from": 0,
-   "to": 35
+   "from": 26,
+   "to": 6,
+   "wire": true
   },
   {
-   "from": 0,
-   "to": 36
-  },
-  {
-   "from": 0,
-   "to": 37
-  },
-  {
-   "from": 0,
-   "to": 38
-  },
-  {
-   "from": 0,
-   "to": 39
-  },
-  {
-   "from": 0,
-   "to": 40
-  },
-  {
-   "from": 0,
-   "to": 41
-  },
-  {
-   "from": 0,
-   "to": 42
-  },
-  {
-   "from": 0,
-   "to": 43
-  },
-  {
-   "from": 0,
-   "to": 44
-  },
-  {
-   "from": 0,
-   "to": 45
-  },
-  {
-   "from": 0,
-   "to": 46
-  },
-  {
-   "from": 0,
-   "to": 47
-  },
-  {
-   "from": 0,
-   "to": 48
-  },
-  {
-   "from": 0,
-   "to": 49
-  },
-  {
-   "from": 0,
-   "to": 50
-  },
-  {
-   "from": 0,
-   "to": 51
-  },
-  {
-   "from": 0,
-   "to": 52
-  },
-  {
-   "from": 0,
-   "to": 53
-  },
-  {
-   "from": 0,
-   "to": 54
-  },
-  {
-   "from": 0,
-   "to": 55
-  },
-  {
-   "from": 0,
-   "to": 56
-  },
-  {
-   "from": 0,
-   "to": 57
-  },
-  {
-   "from": 0,
-   "to": 58
-  },
-  {
-   "from": 0,
-   "to": 59
-  },
-  {
-   "from": 0,
-   "to": 60
-  },
-  {
-   "from": 0,
-   "to": 61
-  },
-  {
-   "from": 0,
-   "to": 62
-  },
-  {
-   "from": 0,
-   "to": 63
-  },
-  {
-   "from": 0,
-   "to": 64
-  },
-  {
-   "from": 0,
-   "to": 65
-  },
-  {
-   "from": 0,
-   "to": 66
-  },
-  {
-   "from": 0,
-   "to": 67
-  },
-  {
-   "from": 0,
-   "to": 68
-  },
-  {
-   "from": 0,
-   "to": 69
-  },
-  {
-   "from": 0,
-   "to": 70
-  },
-  {
-   "from": 0,
-   "to": 71
-  },
-  {
-   "from": 0,
-   "to": 72
-  },
-  {
-   "from": 0,
-   "to": 73
-  },
-  {
-   "from": 0,
-   "to": 74
-  },
-  {
-   "from": 0,
-   "to": 75
-  },
-  {
-   "from": 0,
-   "to": 76
-  },
-  {
-   "from": 0,
-   "to": 77
-  },
-  {
-   "from": 0,
-   "to": 78
-  },
-  {
-   "from": 0,
-   "to": 79
-  },
-  {
-   "from": 0,
-   "to": 80
-  },
-  {
-   "from": 0,
-   "to": 81
-  },
-  {
-   "from": 0,
-   "to": 82
-  },
-  {
-   "from": 0,
-   "to": 83
-  },
-  {
-   "from": 0,
-   "to": 84
-  },
-  {
-   "from": 0,
-   "to": 85
-  },
-  {
-   "from": 0,
-   "to": 86
-  },
-  {
-   "from": 0,
-   "to": 87
-  },
-  {
-   "from": 0,
-   "to": 88
-  },
-  {
-   "from": 0,
-   "to": 89
-  },
-  {
-   "from": 0,
-   "to": 90
+   "from": 29,
+   "to": 32,
+   "wire": true
   }
  ],
  "trail": [
   {
-   "t": 0.0,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "t": 0.24,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
    "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "22 lines, 1 findings | compiled OK | 0F/0C | 1.4ms",
+   "detail": "706 lines, 8 findings | compiled OK | 32F/4C | 227.7ms",
    "findings": [
     {
      "rule": "hardcoded_path",
-     "line": 4,
-     "preview": "cd C:\\\\02_QUILLAN\\\\00 - Meta\\\\csrc"
+     "line": 8,
+     "preview": "2. Cross-platform Path Injection (C:\\\\02_QUILLAN & ONI engine paths)"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 93,
+     "preview": "\"\"\"Injects C:\\\\02_QUILLAN, mcp root, and ONI project paths into sys.path.\"\"\""
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 634,
+     "preview": "2. Injects C:\\\\02_QUILLAN and ONI paths"
+    },
+    {
+     "rule": "long_function",
+     "line": 46,
+     "preview": "def __init__(self, stderr_stream: Any, original_stdout: Any):"
+    },
+    {
+     "rule": "long_function",
+     "line": 50,
+     "preview": "def write(self, s: str) -> int:"
     }
    ],
-   "lines": 22,
-   "ms": 1.4,
+   "lines": 706,
+   "ms": 227.7,
    "compiled": true,
-   "funcs": 0,
-   "classes": 0
+   "funcs": 32,
+   "classes": 4
   },
   {
-   "t": 0.24,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
+   "t": 0.62,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
    "node": 2,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "73 lines, 3 findings | compiled OK | 3F/0C | 7.7ms",
+   "detail": "402 lines, 8 findings | compiled OK | 10F/4C | 90.9ms",
    "findings": [
-    {
-     "rule": "long_function",
-     "line": 16,
-     "preview": "def load_native_kernels():"
-    },
-    {
-     "rule": "long_function",
-     "line": 52,
-     "preview": "def native_weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def native_nine_vector_prism(x: torch.Tensor, w_stacked: torch.Tensor, w_gate: torch.Tenso"
-    }
-   ],
-   "lines": 73,
-   "ms": 7.7,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 0.46,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
-   "node": 3,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "60 lines, clean | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (mcp_health_check.py, line 1) | 0F/0C | 0.5ms",
-   "findings": [],
-   "lines": 60,
-   "ms": 0.5,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.75,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
-   "node": 4,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "324 lines, 8 findings | compiled OK | 10F/4C | 60.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 116,
-     "preview": "def __init__(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 136,
-     "preview": "def _compute_state_prior(self, state: Tuple[int, int, int, int, int]) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 154,
-     "preview": "def evaluate(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 238,
-     "preview": "def get_human_archetype(cls) -> Dict[str, bool]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 243,
-     "preview": "def get_thermostat_archetype(cls) -> Dict[str, bool]:"
-    }
-   ],
-   "lines": 324,
-   "ms": 60.9,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 1.02,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
-   "node": 5,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "502 lines, 8 findings | compiled OK | 20F/13C | 42.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def is_error_free(self) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 102,
-     "preview": "def __init__(self, mathlib_index: Optional[Dict[str, LemmaDeclaration]] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def _default_mathlib_index() -> Dict[str, LemmaDeclaration]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 115,
-     "preview": "\"Quantum.density_matrix_psd\": LemmaDeclaration(\"Quantum.density_matrix_psd\", \"\u2200 (\u03c1 : Densi"
-    },
-    {
-     "rule": "long_function",
-     "line": 118,
-     "preview": "def write_file(self, file_path: str, content: str) -> None:"
-    }
-   ],
-   "lines": 502,
-   "ms": 42.8,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 13
-  },
-  {
-   "t": 1.32,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
-   "node": 6,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "318 lines, 8 findings | compiled OK | 19F/8C | 36.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 40,
-     "preview": "def __init__(self, use_logistic_noise: bool = True):"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def sample_logistic_noise(self, shape: torch.Size, device: torch.device) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 66,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 318,
-   "ms": 36.4,
-   "compiled": true,
-   "funcs": 19,
-   "classes": 8
-  },
-  {
-   "t": 1.58,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
-   "node": 7,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "440 lines, 8 findings | compiled OK | 20F/7C | 41.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def optimal_laplace_threshold(b: float) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def theoretical_mse_ratio() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def zero_state_occupancy() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def operating_point_entropy() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def compute_empirical_kurtosis(tensor: torch.Tensor) -> float:"
-    }
-   ],
-   "lines": 440,
-   "ms": 41.3,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 7
-  },
-  {
-   "t": 1.84,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
-   "node": 8,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "383 lines, 8 findings | compiled OK | 22F/12C | 31.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 48,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def __init__(self, d_model: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 98,
-     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
-    }
-   ],
-   "lines": 383,
-   "ms": 31.5,
-   "compiled": true,
-   "funcs": 22,
-   "classes": 12
-  },
-  {
-   "t": 2.12,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
-   "node": 9,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "291 lines, 8 findings | compiled OK | 14F/9C | 51.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 45,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 57,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 83,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
-    }
-   ],
-   "lines": 291,
-   "ms": 51.5,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 9
-  },
-  {
-   "t": 2.38,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
-   "node": 10,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "229 lines, 8 findings | compiled OK | 14F/7C | 31.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 60,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 76,
-     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
-    },
-    {
-     "rule": "long_function",
-     "line": 98,
-     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 127.0):"
-    },
-    {
-     "rule": "long_function",
-     "line": 106,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 229,
-   "ms": 31.6,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 7
-  },
-  {
-   "t": 2.68,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
-   "node": 11,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "379 lines, 8 findings | compiled OK | 11F/6C | 72.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def _init_tables(cls):"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def pack_triplets(cls, w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 117,
-     "preview": "def unpack_triplets(cls, unsigned_indices: torch.Tensor, sign_bits: torch.Tensor) -> torch"
-    },
-    {
-     "rule": "long_function",
-     "line": 158,
-     "preview": "def compute_gemv("
-    },
-    {
-     "rule": "long_function",
-     "line": 221,
-     "preview": "def compute_gemv("
-    }
-   ],
-   "lines": 379,
-   "ms": 72.6,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 6
-  },
-  {
-   "t": 2.94,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
-   "node": 12,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "360 lines, 8 findings | compiled OK | 12F/4C | 35.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 53,
-     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def unpack(packed: torch.Tensor, shape: Tuple[int, int]) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def gemv(packed: torch.Tensor, shape: Tuple[int, int], x: torch.Tensor, alpha: float = 1.0"
-    },
-    {
-     "rule": "long_function",
-     "line": 133,
-     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 164,
-     "preview": "def build_lut(x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 360,
-   "ms": 35.2,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 4
-  },
-  {
-   "t": 3.18,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
-   "node": 13,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "282 lines, 8 findings | compiled OK | 16F/8C | 23.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 47,
-     "preview": "def sign_ste(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 62,
-     "preview": "def quantize(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def quantize_symmetric("
-    },
-    {
-     "rule": "long_function",
-     "line": 92,
-     "preview": "def quantize_asymmetric("
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 128.0):"
-    }
-   ],
-   "lines": 282,
-   "ms": 23.7,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 8
-  },
-  {
-   "t": 3.49,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
-   "node": 14,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "517 lines, 8 findings | compiled OK | 35F/11C | 74.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 43,
-     "preview": "def fast_hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def forward(ctx, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def backward(ctx, grad_output: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def forward(ctx, w: torch.Tensor, eps: float = 1e-7) -> torch.Tensor:"
-    }
-   ],
-   "lines": 517,
-   "ms": 74.1,
-   "compiled": true,
-   "funcs": 35,
-   "classes": 11
-  },
-  {
-   "t": 3.81,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
-   "node": 15,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "399 lines, 8 findings | compiled OK | 13F/5C | 91.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 66,
-     "preview": "def compute_cpu_time(self, workload_tokens: int, flop_per_token: float = 2e6) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def compute_gpu_time("
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def __init__(self, hw_profile: HardwareProfile, max_gpu_experts: int = 16):"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def assign_experts("
-    }
-   ],
-   "lines": 399,
-   "ms": 91.3,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 4.09,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
-   "node": 16,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "299 lines, 8 findings | compiled OK | 11F/3C | 23.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 71,
-     "preview": "def soft_overlong_punishment("
-    },
-    {
-     "rule": "long_function",
-     "line": 100,
-     "preview": "def compute_rule_reward("
-    },
-    {
-     "rule": "long_function",
-     "line": 119,
-     "preview": "def is_valid_dapo_group(group_correctness: List[bool]) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 131,
-     "preview": "def compute_group_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 157,
-     "preview": "def __init__(self, config: Optional[DAPOConfig] = None):"
-    }
-   ],
-   "lines": 299,
-   "ms": 23.0,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 3
-  },
-  {
-   "t": 4.39,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
-   "node": 17,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "346 lines, 8 findings | compiled OK | 10F/4C | 28.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 68,
-     "preview": "def compute_optimal_stride(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def compute_optimal_stride_int(self) -> int:"
-    },
     {
      "rule": "long_function",
      "line": 89,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 110,
-     "preview": "def set_grad(self, grad_tensor: torch.Tensor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def __init__("
-    }
-   ],
-   "lines": 346,
-   "ms": 28.1,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 4.72,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
-   "node": 18,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "459 lines, 8 findings | compiled OK | 13F/5C | 95.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def fine_grained_ffn_dim(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def total_fine_grained_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 83,
-     "preview": "def total_activated_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def num_routed_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def num_activated_routed(self) -> int:"
-    }
-   ],
-   "lines": 459,
-   "ms": 95.5,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 5.0,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
-   "node": 19,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "295 lines, 8 findings | compiled OK | 8F/3C | 43.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def schulman_kl_divergence("
-    },
-    {
-     "rule": "long_function",
-     "line": 80,
-     "preview": "def compute_outcome_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 101,
-     "preview": "def compute_process_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def __init__(self, config: Optional[GRPOConfig] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 150,
-     "preview": "def forward("
-    }
-   ],
-   "lines": 295,
-   "ms": 43.6,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 5.29,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
-   "node": 20,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "491 lines, 8 findings | compiled OK | 16F/9C | 58.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 70,
-     "preview": "def num_speculative_tokens(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-6):"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def __init__(self, config: DFlashConfig):"
-    },
-    {
-     "rule": "long_function",
-     "line": 110,
-     "preview": "def forward(self, target_layer_hiddens: List[torch.Tensor]) -> torch.Tensor:"
-    }
-   ],
-   "lines": 491,
-   "ms": 58.3,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 9
-  },
-  {
-   "t": 5.57,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
-   "node": 21,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "467 lines, 8 findings | compiled OK | 9F/4C | 45.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def compute_group_relative_advantage("
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def compute_hellinger_distance("
-    },
-    {
-     "rule": "long_function",
-     "line": 116,
-     "preview": "def compute_shannon_entropy("
-    },
-    {
-     "rule": "long_function",
-     "line": 134,
-     "preview": "def reallocate_token_credits("
-    },
-    {
-     "rule": "long_function",
-     "line": 206,
-     "preview": "def __init__(self, config: Optional[DGPOConfig] = None):"
-    }
-   ],
-   "lines": 467,
-   "ms": 45.3,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 4
-  },
-  {
-   "t": 5.79,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
-   "node": 22,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "89 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (distill_from_nim.py, line 1) | 0F/0C | 6.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 24,
-     "preview": "def teacher_generate(prompt, teacher):"
-    },
-    {
-     "rule": "long_function",
-     "line": 36,
-     "preview": "def distill_batch(prompts):"
-    }
-   ],
-   "lines": 89,
-   "ms": 6.2,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 6.09,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
-   "node": 23,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "607 lines, 8 findings | compiled OK | 16F/8C | 74.5ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 461,
-     "preview": "self.model.eval()"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def __init__(self, p: float = 0.3, min_weight: float = 1e-4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def __init__(self, mask_token_id: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 150,
-     "preview": "def forward("
-    }
-   ],
-   "lines": 607,
-   "ms": 74.5,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 8
-  },
-  {
-   "t": 6.35,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
-   "node": 24,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "305 lines, 8 findings | compiled OK | 8F/5C | 29.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 58,
-     "preview": "def is_recurring(self) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 63,
-     "preview": "def num_records(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 84,
-     "preview": "def __init__(self, num_passes: int = 2, beta_attenuation: float = 0.758):"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def run_refinement(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 175,
-     "preview": "def __init__(self,"
-    }
-   ],
-   "lines": 305,
-   "ms": 29.3,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 5
-  },
-  {
-   "t": 6.58,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
-   "node": 25,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "60 lines, 5 findings | compiled OK | 5F/2C | 5.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 27,
-     "preview": "def __init__(self, pop_size=30, sigma=0.001, lr=0.0005):"
-    },
-    {
-     "rule": "long_function",
-     "line": 37,
-     "preview": "def step(self, master_weights, fitness_fn):"
-    },
-    {
-     "rule": "long_function",
-     "line": 51,
-     "preview": "def __init__(self, memory_strength=0.1):"
-    },
-    {
-     "rule": "long_function",
-     "line": 55,
-     "preview": "def add_anchor(self, anchor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 58,
-     "preview": "def regularize(self, current_weights, anchor_weights):"
-    }
-   ],
-   "lines": 60,
-   "ms": 5.9,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 2
-  },
-  {
-   "t": 6.84,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
-   "node": 26,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "301 lines, 8 findings | compiled OK | 8F/3C | 40.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def normalize_population_rewards("
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def sample_layer_noise("
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def __init__(self, model: nn.Module, config: Optional[ESAtScaleConfig] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def _get_layer_seed(self, pop_index: int, layer_index: int, iteration_seed: int) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 127,
-     "preview": "def evaluate_individual("
-    }
-   ],
-   "lines": 301,
-   "ms": 40.1,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 7.1,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
-   "node": 27,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "338 lines, 6 findings | compiled OK | 6F/2C | 29.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def compute_expected_random_walk_drift("
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def apply_anchored_decay_step("
-    },
-    {
-     "rule": "long_function",
-     "line": 125,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 143,
-     "preview": "def step(self, fitness_fn: Callable[[nn.Module], float]) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 237,
-     "preview": "def verify_es_awd_invariants() -> Dict[str, Any]:"
-    }
-   ],
-   "lines": 338,
-   "ms": 29.0,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 2
-  },
-  {
-   "t": 7.35,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
-   "node": 28,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "404 lines, 8 findings | compiled OK | 9F/6C | 33.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def compute_frobenius_norm(delta: torch.Tensor) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def compute_parameter_sparsity(delta: torch.Tensor, tau: float = 1e-6) -> Tuple[float, int"
-    },
-    {
-     "rule": "long_function",
-     "line": 105,
-     "preview": "def classify_parameter_component(param_name: str) -> str:"
-    },
-    {
-     "rule": "long_function",
-     "line": 133,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def inspect_drift(self, current_model: nn.Module, step: int = 0) -> ESDriftMetrics:"
-    }
-   ],
-   "lines": 404,
-   "ms": 33.9,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 6
-  },
-  {
-   "t": 7.6,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
-   "node": 29,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "229 lines, 8 findings | compiled OK | 6F/0C | 24.7ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 64,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 131,
-     "preview": "\"eval('1 + 1')\""
-    },
-    {
-     "rule": "subprocess_shell",
-     "line": 128,
-     "preview": "\"import os; os.system('whoami')\","
-    },
-    {
-     "rule": "long_function",
-     "line": 38,
-     "preview": "def load_eval_model(checkpoint_path: str, device: str = \"cpu\") -> QuillanRoninOni:"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def benchmark_generation(model: QuillanRoninOni, prompt_tokens: list, max_tokens: int = 32"
-    }
-   ],
-   "lines": 229,
-   "ms": 24.7,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 7.84,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
-   "node": 30,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "52 lines, 3 findings | compiled OK | 3F/1C | 8.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 8,
-     "preview": "def __init__(self, hidden_dim=2048, n_experts=33, rank=24):"
-    },
-    {
-     "rule": "long_function",
-     "line": 24,
-     "preview": "def evolve_from_base(self, base_state):"
-    },
-    {
-     "rule": "long_function",
-     "line": 30,
-     "preview": "def forward(self, x):"
-    }
-   ],
-   "lines": 52,
-   "ms": 8.2,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 8.06,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
-   "node": 31,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "48 lines, 3 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (evo_moe_glm.py, line 1) | 0F/0C | 0.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 8,
-     "preview": "def __init__(self, hidden_dim=2048, n_experts=34, rank=24):"
-    },
-    {
-     "rule": "long_function",
-     "line": 28,
-     "preview": "def evolve_from_base(self, base_state):"
-    },
-    {
-     "rule": "long_function",
-     "line": 34,
-     "preview": "def forward(self, x):"
-    }
-   ],
-   "lines": 48,
-   "ms": 0.3,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 8.36,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
-   "node": 32,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "419 lines, 8 findings | compiled OK | 13F/6C | 63.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def __init__(self, hidden_dim: int, intermediate_dim: int) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def __init__(self, config: EvoMoEConfig) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 94,
-     "preview": "def evolve_expert("
-    },
-    {
-     "rule": "long_function",
-     "line": 129,
-     "preview": "def compute_expert_diversity(experts: List[SwiGLUFFN]) -> float:"
-    }
-   ],
-   "lines": 419,
-   "ms": 63.8,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 6
-  },
-  {
-   "t": 8.6,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "node": 33,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "152 lines, 3 findings | compiled OK | 3F/0C | 15.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 40,
-     "preview": "def export_to_safetensors(checkpoint_path: str, output_dir: str):"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def export_to_gguf(checkpoint_path: str, output_file: str):"
-    },
-    {
-     "rule": "long_function",
-     "line": 131,
-     "preview": "def main():"
-    }
-   ],
-   "lines": 152,
-   "ms": 15.7,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 8.89,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "node": 34,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "555 lines, 7 findings | compiled OK | 7F/3C | 62.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def flash_attention_1_forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 233,
-     "preview": "def flash_attention_1_backward("
-    },
-    {
-     "rule": "long_function",
-     "line": 386,
-     "preview": "def forward(ctx, Q, K, V, config, block_sparse_mask):"
-    },
-    {
-     "rule": "long_function",
-     "line": 393,
-     "preview": "def backward(ctx, dO):"
-    },
-    {
-     "rule": "long_function",
-     "line": 410,
-     "preview": "def __init__(self, config: Optional[FlashAttention1Config] = None):"
-    }
-   ],
-   "lines": 555,
-   "ms": 62.8,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 3
-  },
-  {
-   "t": 9.17,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "node": 35,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "435 lines, 7 findings | compiled OK | 7F/3C | 56.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 55,
-     "preview": "def flash_attention_2_forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 158,
-     "preview": "def flash_attention_2_backward("
-    },
-    {
-     "rule": "long_function",
-     "line": 273,
-     "preview": "def forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 294,
-     "preview": "def backward(ctx, do: torch.Tensor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 316,
-     "preview": "def __init__("
-    }
-   ],
-   "lines": 435,
-   "ms": 56.1,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 3
-  },
-  {
-   "t": 9.49,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "node": 36,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "691 lines, 8 findings | compiled OK | 13F/5C | 85.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def __init__(self, dim: int, seed: int = 42, device: Optional[torch.device] = None, dtype:"
-    },
-    {
-     "rule": "long_function",
-     "line": 113,
-     "preview": "def _build_normalized_hadamard(n: int, device: torch.device, dtype: torch.dtype) -> torch."
-    },
-    {
-     "rule": "long_function",
-     "line": 123,
-     "preview": "def apply(self, X: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 128,
-     "preview": "def verify_orthogonality(self, atol: float = 1e-5) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def quantize_block(X_tile: torch.Tensor, fp8_max: float = 448.0) -> Tuple[torch.Tensor, fl"
-    }
-   ],
-   "lines": 691,
-   "ms": 85.7,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 9.72,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "node": 37,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "16 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (flash_attn_wrapper.py, line 1) | 0F/0C | 0.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 10,
-     "preview": "def quillan_flash_attn(q, k, v, is_causal=True):"
-    }
-   ],
-   "lines": 16,
-   "ms": 0.2,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 9.98,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "node": 38,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "396 lines, 8 findings | compiled OK | 11F/4C | 30.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 70,
-     "preview": "def sample_gumbel_noise("
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def gumbel_softmax_sample("
-    },
-    {
-     "rule": "long_function",
-     "line": 132,
-     "preview": "def gumbel_softmax_log_density("
-    },
-    {
-     "rule": "long_function",
-     "line": 174,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 188,
-     "preview": "def get_tau(self, step: int) -> float:"
-    }
-   ],
-   "lines": 396,
-   "ms": 30.2,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 4
-  },
-  {
-   "t": 10.21,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "node": 39,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "99 lines, 5 findings | compiled OK | 5F/0C | 10.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 24,
-     "preview": "def load_hybrid_config(path: Path = HYBRID_CONFIG) -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 29,
-     "preview": "def check_ram_headroom(min_free_gb: float) -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def ensure_offload_dirs(cfg: dict) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def init() -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def resolve_device(requested: str, cfg: dict) -> str:"
-    }
-   ],
-   "lines": 99,
-   "ms": 10.6,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 10.45,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "node": 40,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "120 lines, 2 findings | compiled OK | 1F/0C | 15.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 80,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "long_function",
-     "line": 30,
-     "preview": "def inspect_model():"
-    }
-   ],
-   "lines": 120,
-   "ms": 15.2,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 10.7,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "node": 41,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "231 lines, 8 findings | compiled OK | 12F/3C | 29.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def find_prime_factors(n: int) -> List[int]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 64,
-     "preview": "def compute_spatial_entropy(grid: torch.Tensor) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def decompose_raster(bits: torch.Tensor) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 121,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 134,
-     "preview": "def decode_positional_number(self, token: str) -> float:"
-    }
-   ],
-   "lines": 231,
-   "ms": 29.6,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 3
-  },
-  {
-   "t": 10.94,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
-   "node": 42,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "OK",
-   "detail": "33 lines, clean | compiled OK | 0F/0C | 1.6ms",
-   "findings": [],
-   "lines": 33,
-   "ms": 1.6,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 11.17,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "node": 43,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "49 lines, 3 findings | compiled OK | 3F/1C | 3.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 28,
-     "preview": "def forward(ctx, x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 39,
-     "preview": "def backward(ctx, grad_output: torch.Tensor) -> Tuple[torch.Tensor, None]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def fused_ste_activation(x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
-    }
-   ],
-   "lines": 49,
-   "ms": 3.1,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 11.4,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "node": 44,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "103 lines, 3 findings | compiled OK | 3F/0C | 10.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 23,
-     "preview": "def mark_dynamic_dims(t: torch.Tensor, dim_indices: Tuple[int, ...]) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 33,
-     "preview": "def fixed_capacity_moe_dispatch("
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def scatter_add_moe_output("
-    }
-   ],
-   "lines": 103,
-   "ms": 10.5,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 11.63,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "node": 45,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "103 lines, 4 findings | compiled OK | 4F/1C | 9.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 20,
-     "preview": "def pack_ternary_weights(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Tuple[int, "
-    },
-    {
-     "rule": "long_function",
-     "line": 50,
-     "preview": "def unpack_ternary_weights("
-    },
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 103,
-   "ms": 9.6,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 1
-  },
-  {
-   "t": 11.86,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "node": 46,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "38 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (mamba_block.py, line 1) | 0F/0C | 0.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 7,
-     "preview": "def __init__(self, hidden_dim=2048, d_state=16, expand=2):"
-    },
-    {
-     "rule": "long_function",
-     "line": 18,
-     "preview": "def forward(self, x):"
-    }
-   ],
-   "lines": 38,
-   "ms": 0.3,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 12.13,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "node": 47,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "374 lines, 8 findings | compiled OK | 10F/4C | 40.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 76,
-     "preview": "def d_inner(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 87,
-     "preview": "def __init__(self, d_in: Union[int, MambaConfig], d_state: int = 16, dt_rank: int = 16, dt"
-    },
-    {
-     "rule": "long_function",
-     "line": 128,
-     "preview": "def A(self) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 132,
-     "preview": "def project_selective_params(self, u: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, t"
-    },
-    {
-     "rule": "long_function",
-     "line": 139,
-     "preview": "def forward(self, u: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 374,
-   "ms": 40.6,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 12.38,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "node": 48,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "260 lines, 8 findings | compiled OK | 11F/5C | 21.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 53,
-     "preview": "def __init__(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def fold_weights_for_inference(self) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def unfold_weights(self) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def construct_values(self, k: torch.Tensor, token_ids: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 111,
-     "preview": "def forward(self,"
-    }
-   ],
-   "lines": 260,
-   "ms": 21.1,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 5
-  },
-  {
-   "t": 12.66,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "node": 49,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "468 lines, 8 findings | compiled OK | 20F/8C | 49.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def num_queries_per_kv(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def apply_rotary_emb("
-    },
-    {
-     "rule": "long_function",
-     "line": 109,
-     "preview": "def __init__(self, head_dim: int, max_seq_len: int = 8192, theta: float = 10000.0):"
-    }
-   ],
-   "lines": 468,
-   "ms": 49.4,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 8
-  },
-  {
-   "t": 12.93,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "node": 50,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "423 lines, 8 findings | compiled OK | 19F/9C | 49.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def num_queries_per_kv(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 64,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def apply_rotary_emb("
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def __init__(self, dim: int, max_seq_len: int = 32768, theta: float = 10000.0):"
-    }
-   ],
-   "lines": 423,
-   "ms": 49.5,
-   "compiled": true,
-   "funcs": 19,
-   "classes": 9
-  },
-  {
-   "t": 13.21,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
-   "node": 51,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "460 lines, 8 findings | compiled OK | 18F/8C | 45.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 59,
-     "preview": "def num_queries_per_kv(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def apply_rotary_emb("
-    },
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def __init__(self, dim: int, max_seq_len: int = 4096, theta: float = 10000.0):"
-    }
-   ],
-   "lines": 460,
-   "ms": 45.5,
-   "compiled": true,
-   "funcs": 18,
-   "classes": 8
-  },
-  {
-   "t": 13.49,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
-   "node": 52,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "465 lines, 8 findings | compiled OK | 23F/9C | 55.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def num_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def expert_hidden_dims(self) -> List[int]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def num_queries_per_kv(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 80,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 85,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 465,
-   "ms": 55.0,
-   "compiled": true,
-   "funcs": 23,
-   "classes": 9
-  },
-  {
-   "t": 13.88,
-   "at": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
-   "node": 53,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "360 lines, 8 findings | compiled OK | 13F/5C | 166.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 59,
-     "preview": "def __init__(self, dim: int, hidden_dim: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def weight_bytes(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def __init__(self, num_layers: int, ways: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def access(self, layer_idx: int, expert_id: int) -> bool:"
-    }
-   ],
-   "lines": 360,
-   "ms": 166.5,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 14.18,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
-   "node": 54,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "410 lines, 7 findings | compiled OK | 7F/1C | 74.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def _triton_fused_scatter_add_kernel("
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def _invoke_expert(expert: Any, exp_input: torch.Tensor, gov_scale: float = 1.0, **kwargs)"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 115,
-     "preview": "def eager_dispatch("
-    },
-    {
-     "rule": "long_function",
-     "line": 160,
-     "preview": "def contiguous_dispatch("
-    }
-   ],
-   "lines": 410,
-   "ms": 74.8,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 1
-  },
-  {
-   "t": 14.45,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
-   "node": 55,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "356 lines, 8 findings | compiled OK | 14F/7C | 41.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 53,
-     "preview": "def __init__(self, hidden_dim: int, intermediate_dim: int, dropout: float = 0.0):"
-    },
-    {
-     "rule": "long_function",
-     "line": 62,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def param_count(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 75,
-     "preview": "def __init__(self, config: MoHGEConfig):"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def forward(self, x_flat: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, tor"
-    }
-   ],
-   "lines": 356,
-   "ms": 41.4,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 7
-  },
-  {
-   "t": 14.73,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
-   "node": 56,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "517 lines, 8 findings | compiled OK | 16F/9C | 55.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def get_layer_mapping(strategy: str, L: int, Nr: int) -> Tuple[List[int], int]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 118,
-     "preview": "def __init__(self, d_model: int, num_recursions: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 125,
-     "preview": "def compute_capacity(self, recursion_step: int, total_tokens: int) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 135,
-     "preview": "def forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 173,
-     "preview": "def __init__(self, d_model: int, num_recursions: int):"
-    }
-   ],
-   "lines": 517,
-   "ms": 55.0,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 9
-  },
-  {
-   "t": 14.97,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
-   "node": 57,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "150 lines, 5 findings | compiled OK | 5F/1C | 14.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 28,
-     "preview": "def get_nvidia_key() -> str:"
-    },
-    {
-     "rule": "long_function",
-     "line": 53,
-     "preview": "def __init__(self, api_key: Optional[str] = None, base_url: str = NIM_BASE_URL):"
-    },
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def chat_stream("
-    },
-    {
-     "rule": "long_function",
-     "line": 102,
-     "preview": "def chat_complete("
+     "preview": "def decompose(self, text: str) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
      "line": 124,
-     "preview": "def chat_stream_cascade("
+     "preview": "def __init__(self) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 127,
+     "preview": "def deliberate(self, query: str, tau: float = 0.5, top_display: int = 8) -> Dict[str, Any]"
+    },
+    {
+     "rule": "long_function",
+     "line": 204,
+     "preview": "def step(self, router_conf_mean: float, nemesis_integrity: float, e_ice_ratio: float) -> D"
+    },
+    {
+     "rule": "long_function",
+     "line": 225,
+     "preview": "def compute_e_omega("
     }
    ],
-   "lines": 150,
-   "ms": 14.3,
+   "lines": 402,
+   "ms": 90.9,
    "compiled": true,
-   "funcs": 5,
-   "classes": 1
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 15.27,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
-   "node": 58,
+   "t": 0.93,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
+   "node": 3,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "450 lines, 8 findings | compiled OK | 17F/7C | 74.6ms",
+   "detail": "511 lines, 8 findings | compiled OK | 13F/0C | 70.3ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 72,
-     "preview": "def compute_bound(fan_in: int) -> int:"
+     "line": 35,
+     "preview": "def aqcs_superposition("
     },
     {
      "rule": "long_function",
      "line": 78,
-     "preview": "def initialize_tensor(shape: Tuple[int, ...], fan_in: int) -> torch.Tensor:"
+     "preview": "def eemf_ethical_projection("
     },
     {
      "rule": "long_function",
-     "line": 88,
-     "preview": "def __init__(self, alpha_inv: int = 8):"
+     "line": 118,
+     "preview": "def qhis_fidelity("
+    },
+    {
+     "rule": "long_function",
+     "line": 154,
+     "preview": "def dqro_resource_optimization("
+    },
+    {
+     "rule": "long_function",
+     "line": 198,
+     "preview": "def qcrdm_reasoning_probability("
+    }
+   ],
+   "lines": 511,
+   "ms": 70.3,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 0
+  },
+  {
+   "t": 1.23,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
+   "node": 4,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "467 lines, 8 findings | compiled OK | 26F/8C | 66.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def __init__(self, storage_dir: str = \".quillan_feedback\"):"
     },
     {
      "rule": "long_function",
      "line": 98,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+     "preview": "def _load_all(self):"
     },
     {
      "rule": "long_function",
-     "line": 113,
-     "preview": "def __init__(self, scaling_factor: int):"
+     "line": 130,
+     "preview": "def store_trace(self, trace: ExperienceTrace) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 135,
+     "preview": "def store_heuristic(self, heuristic: Heuristic) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 140,
+     "preview": "def store_feedback(self, feedback: FeedbackEntry) -> str:"
     }
    ],
-   "lines": 450,
-   "ms": 74.6,
+   "lines": 467,
+   "ms": 66.9,
    "compiled": true,
-   "funcs": 17,
-   "classes": 7
+   "funcs": 26,
+   "classes": 8
   },
   {
-   "t": 15.5,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
-   "node": 59,
+   "t": 1.47,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
+   "node": 5,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "12 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (nitro_pocket.py, line 1) | 0F/0C | 0.2ms",
+   "detail": "119 lines, 5 findings | compiled OK | 5F/0C | 13.4ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 5,
-     "preview": "def integer_only_forward(x, weight_int8, scale):"
+     "line": 35,
+     "preview": "def _parent_alive(ppid: int) -> bool:"
     },
     {
      "rule": "long_function",
-     "line": 9,
-     "preview": "def pocketnn_dfa_update(model, loss):"
+     "line": 62,
+     "preview": "def _daemonize_threads() -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def is_installed() -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def install("
+    },
+    {
+     "rule": "long_function",
+     "line": 97,
+     "preview": "def _watch() -> None:"
     }
    ],
-   "lines": 12,
-   "ms": 0.2,
+   "lines": 119,
+   "ms": 13.4,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 1.79,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
+   "node": 6,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "714 lines, 8 findings | compiled OK | 35F/3C | 85.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def wsl_path(p: str | Path) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 94,
+     "preview": "def resolve_python() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 112,
+     "preview": "def pythonpath_for(platform_name: str | None = None) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 133,
+     "preview": "def to_dict(self) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 152,
+     "preview": "def json_safe(obj: Any, _depth: int = 0) -> Any:"
+    }
+   ],
+   "lines": 714,
+   "ms": 85.9,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 3
+  },
+  {
+   "t": 2.11,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "node": 7,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "598 lines, 8 findings | compiled OK | 30F/1C | 88.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 66,
+     "preview": "def audio_design_cue(mood: str = \"tense\", scene: str = \"boss gate\", duration_sec: int = 60"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def audio_analyze_track(source: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 128,
+     "preview": "def audio_mix_plan(stems: str = \"drums,bass,pads,sfx\", target_lufs: float = -14.0) -> Dict"
+    },
+    {
+     "rule": "long_function",
+     "line": 142,
+     "preview": "def audio_generate_sfx_brief(action: str = \"dash\", material: str = \"cloth+wind\", perspecti"
+    }
+   ],
+   "lines": 598,
+   "ms": 88.5,
+   "compiled": true,
+   "funcs": 30,
+   "classes": 1
+  },
+  {
+   "t": 2.49,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "node": 8,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "882 lines, 8 findings | compiled OK | 36F/2C | 144.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 27,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 122,
+     "preview": "def _get_twin(twin_id: Optional[str] = None) -> BuddyTwin:"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "def _spawn(persona: str, role: str, custom_instructions: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 150,
+     "preview": "def buddy_spawn_clone("
+    },
+    {
+     "rule": "long_function",
+     "line": 184,
+     "preview": "def buddy_spar(proposal: str, critique_focus: str = \"security_and_edge_cases\","
+    }
+   ],
+   "lines": 882,
+   "ms": 144.7,
+   "compiled": true,
+   "funcs": 36,
+   "classes": 2
+  },
+  {
+   "t": 2.86,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "node": 9,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1141 lines, 8 findings | compiled OK | 37F/2C | 135.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 967,
+     "preview": "exec(compile(open(str(tmp)).read(), str(tmp), \"exec\"), {})"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 505,
+     "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 513,
+     "preview": "# TODO: Pass boundary values"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 520,
+     "preview": "# TODO: Pass invalid type"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 574,
+     "preview": "\"stub\": f\"# TODO: fix {f.get('rule_id')} at line {f.get('line_number')}: {f.get('remediati"
+    }
+   ],
+   "lines": 1141,
+   "ms": 135.2,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 2
+  },
+  {
+   "t": 3.08,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793202834.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793202834.py",
+   "node": 10,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "1 lines, clean | compiled OK | 0F/0C | 0.3ms",
+   "findings": [],
+   "lines": 1,
+   "ms": 0.3,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 3.3,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793203902.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793203902.py",
+   "node": 11,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "1 lines, clean | compiled FAIL:SyntaxError: unexpected character after line continuation character (lint-1793203902.py, line 1) | 0F/0C | 0.3ms",
+   "findings": [],
+   "lines": 1,
+   "ms": 0.3,
    "compiled": false,
    "funcs": 0,
    "classes": 0
   },
   {
-   "t": 15.83,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
-   "node": 60,
+   "t": 3.53,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204029.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204029.py",
+   "node": 12,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "1 lines, clean | compiled FAIL:SyntaxError: unexpected character after line continuation character (lint-1793204029.py, line 1) | 0F/0C | 0.4ms",
+   "findings": [],
+   "lines": 1,
+   "ms": 0.4,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 3.75,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204102.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\sessions\\lint-1793204102.py",
+   "node": 13,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "1 lines, clean | compiled FAIL:SyntaxError: unexpected character after line continuation character (lint-1793204102.py, line 1) | 0F/0C | 1.0ms",
+   "findings": [],
+   "lines": 1,
+   "ms": 1.0,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 4.09,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "node": 14,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "364 lines, 8 findings | compiled OK | 15F/6C | 96.0ms",
+   "detail": "1052 lines, 8 findings | compiled OK | 19F/1C | 106.0ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 57,
-     "preview": "def __init__(self, d_model: int, d_ff: int):"
+     "line": 34,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def _get_quillan_base() -> Path:"
+    },
+    {
+     "rule": "long_function",
+     "line": 389,
+     "preview": "def _expert_perspective(m: Dict[str, Any], query: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 413,
+     "preview": "def _consensus_score(perspectives: List[Dict[str, Any]]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 445,
+     "preview": "def council_predator_strike("
+    }
+   ],
+   "lines": 1052,
+   "ms": 106.0,
+   "compiled": true,
+   "funcs": 19,
+   "classes": 1
+  },
+  {
+   "t": 4.41,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "node": 15,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "706 lines, 8 findings | compiled OK | 31F/1C | 84.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
     },
     {
      "rule": "long_function",
      "line": 65,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def parameter_bytes(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def __init__(self, config: ODMoEConfig, full_routers: nn.ModuleList):"
-    },
-    {
-     "rule": "long_function",
-     "line": 94,
-     "preview": "def predict_experts(self, x: torch.Tensor, layer_idx: int) -> List[int]:"
-    }
-   ],
-   "lines": 364,
-   "ms": 96.0,
-   "compiled": true,
-   "funcs": 15,
-   "classes": 6
-  },
-  {
-   "t": 16.11,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
-   "node": 61,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "249 lines, 4 findings | compiled OK | 4F/0C | 21.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 40,
-     "preview": "def discover_input_dir(candidate: str | None = None) -> Path:"
-    },
-    {
-     "rule": "long_function",
-     "line": 62,
-     "preview": "def extract_samples_from_file(file_path: Path, min_chars: int = 40) -> List[str]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def pack_corpus("
-    },
-    {
-     "rule": "long_function",
-     "line": 213,
-     "preview": "def main():"
-    }
-   ],
-   "lines": 249,
-   "ms": 21.9,
-   "compiled": true,
-   "funcs": 4,
-   "classes": 0
-  },
-  {
-   "t": 16.43,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
-   "node": 62,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "632 lines, 8 findings | compiled OK | 37F/4C | 95.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def total_ms(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def fwd_ms(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def bwd_ms(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 111,
-     "preview": "def opt_ms(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 114,
-     "preview": "def to_dict(self) -> Dict[str, Any]:"
-    }
-   ],
-   "lines": 632,
-   "ms": 95.4,
-   "compiled": true,
-   "funcs": 37,
-   "classes": 4
-  },
-  {
-   "t": 16.68,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
-   "node": 63,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "275 lines, 8 findings | compiled OK | 9F/3C | 20.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 87,
-     "preview": "def __init__(self, hidden_dim: int, world_model: Optional[nn.Module] = None,"
-    },
-    {
-     "rule": "long_function",
-     "line": 119,
-     "preview": "def estimate_surprise(self, experience: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 125,
-     "preview": "def counterfactual_intervention(self, latent: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 149,
-     "preview": "def abduct(self, experience: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 232,
-     "preview": "def forward(self, experience: torch.Tensor,"
-    }
-   ],
-   "lines": 275,
-   "ms": 20.9,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 3
-  },
-  {
-   "t": 16.93,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
-   "node": 64,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "400 lines, 8 findings | compiled OK | 12F/4C | 28.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 98,
-     "preview": "def __init__(self, alpha: float = 100.0, temperature: float = 2.0):"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def compute_weight(self, log_p_proxy: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 122,
-     "preview": "def forward(self, proxy_logits: torch.Tensor, student_logits: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 181,
-     "preview": "def __init__(self, beta: float = 0.1):"
-    },
-    {
-     "rule": "long_function",
-     "line": 185,
-     "preview": "def dpo_loss(self, proxy_logps_chosen: torch.Tensor,"
-    }
-   ],
-   "lines": 400,
-   "ms": 28.4,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 4
-  },
-  {
-   "t": 17.19,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
-   "node": 65,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "398 lines, 8 findings | compiled OK | 17F/4C | 33.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def skeletal_per_layer_bytes(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def skeletal_total_bytes(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def skeletal_total_gb(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def solve_optimal_alpha(config: MemoConfig) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 155,
-     "preview": "def __init__(self, config: MemoConfig):"
-    }
-   ],
-   "lines": 398,
-   "ms": 33.4,
-   "compiled": true,
-   "funcs": 17,
-   "classes": 4
-  },
-  {
-   "t": 17.46,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
-   "node": 66,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "545 lines, 8 findings | compiled OK | 24F/5C | 44.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 101,
-     "preview": "def configure(allow_tf32: bool = True) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 118,
-     "preview": "def audit_coalescing(cls, tensor: torch.Tensor) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 147,
-     "preview": "def pad_to_warp_boundary(cls, tensor: torch.Tensor, dim: int = -1) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 165,
-     "preview": "def branchless_predication(cls, condition: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 175,
-     "preview": "def check_bank_conflict(cls, stride: int) -> bool:"
-    }
-   ],
-   "lines": 545,
-   "ms": 44.9,
-   "compiled": true,
-   "funcs": 24,
-   "classes": 5
-  },
-  {
-   "t": 17.74,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
-   "node": 67,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "585 lines, 8 findings | compiled OK | 18F/7C | 48.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def __init__(self, gpu_memory_mb: float = 4096.0, model_mb: float = 1000.0, dram_bw_gbps: "
+     "preview": "def gamedev_new_project(name: str, genre: str = \"action-roguelite\", engine: str = \"godot\","
     },
     {
      "rule": "long_function",
      "line": 91,
-     "preview": "def bca_solve(self, seq_len: int, hidden_dim: int = 1024, n_layer: int = 6,"
-    },
-    {
-     "rule": "long_function",
-     "line": 139,
-     "preview": "def optimal_batch_size(self, seq_len: int, hidden_dim: int = 1024,"
-    },
-    {
-     "rule": "long_function",
-     "line": 157,
-     "preview": "def __init__(self, max_gpu_tokens: int = 1024):"
-    },
-    {
-     "rule": "long_function",
-     "line": 162,
-     "preview": "def update(self, new_k: torch.Tensor, new_v: torch.Tensor,"
-    }
-   ],
-   "lines": 585,
-   "ms": 48.4,
-   "compiled": true,
-   "funcs": 18,
-   "classes": 7
-  },
-  {
-   "t": 17.98,
-   "at": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
-   "node": 68,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "149 lines, 8 findings | compiled OK | 11F/6C | 12.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def __init__(self, hidden_dim: int = 1024, n_parts: int = 4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def phi(self, hidden: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def __init__(self, hidden_dim: int = 1024, vocab: int = 50257):"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def probe_logits(self, hidden: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 83,
-     "preview": "def should_exit(self, hidden: torch.Tensor, thresh: float = 0.9) -> bool:"
-    }
-   ],
-   "lines": 149,
-   "ms": 12.4,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 6
-  },
-  {
-   "t": 18.21,
-   "at": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
-   "node": 69,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "97 lines, 8 findings | compiled OK | 8F/3C | 7.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 42,
-     "preview": "def __init__(self, n_agents: int = 34, rewire_k: int = 4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 47,
-     "preview": "def agreement_graph(self, pulls: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 55,
-     "preview": "def ala_step(self, pulls: torch.Tensor) -> Tuple[torch.Tensor, List[Tuple[int, int]]]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 64,
-     "preview": "def tower_height(self, alignment_iters: int, base: int = 2) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def __init__(self, hidden_dim: int = 1024, n_clusters: int = 4, n_members: int = 34):"
-    }
-   ],
-   "lines": 97,
-   "ms": 7.8,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 18.44,
-   "at": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
-   "node": 70,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "123 lines, 8 findings | compiled OK | 8F/4C | 10.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def __init__(self, hidden_dim: int = 1024, humility_thresh: float = 0.35):"
-    },
-    {
-     "rule": "long_function",
-     "line": 50,
-     "preview": "def forward(self, hidden: torch.Tensor, pull_confidence: float) -> Dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def arbitrate(votes: torch.Tensor, humility: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def compile(self, task: str, trajectory: List[str], success: bool) -> Optional[Dict]:"
-    }
-   ],
-   "lines": 123,
-   "ms": 10.4,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 4
-  },
-  {
-   "t": 18.67,
-   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
-   "node": 71,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "119 lines, 6 findings | compiled OK | 6F/4C | 10.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def retrieve(self, task: str) -> List[str]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 59,
-     "preview": "def constitution(self, task: str) -> str:"
-    },
-    {
-     "rule": "long_function",
-     "line": 68,
-     "preview": "def sonify(self, band_powers: Dict[str, float]) -> Dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def check(n: int, claimed_pairs: float, eps: float) -> Dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def __init__(self, hidden_dim: int = 1024):"
-    }
-   ],
-   "lines": 119,
-   "ms": 10.8,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 4
-  },
-  {
-   "t": 19.01,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
-   "node": 72,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "1027 lines, 8 findings | compiled OK | 46F/9C | 103.4ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def build_hadamard_16() -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 101,
-     "preview": "def apply_random_hadamard_transform_16(x: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 148,
-     "preview": "def round_to_fp4_rne(cls, val: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 157,
-     "preview": "def round_to_fp4_stochastic(cls, val: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 185,
-     "preview": "def quantize_weights_2d(cls, weight: torch.Tensor,"
-    }
-   ],
-   "lines": 1027,
-   "ms": 103.4,
-   "compiled": true,
-   "funcs": 46,
-   "classes": 9
-  },
-  {
-   "t": 19.33,
-   "at": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
-   "node": 73,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "972 lines, 8 findings | compiled OK | 53F/10C | 90.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def __init__(self, hidden_dim: int, alpha: float = 2.5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 104,
-     "preview": "def extract_difference_of_means(cls, positive_activations: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 117,
-     "preview": "def ablate_direction(cls, x: torch.Tensor, direction: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 130,
-     "preview": "def steer_activation(cls, x: torch.Tensor, direction: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 140,
-     "preview": "def geometric_angle_audit(cls, refusal_vec: torch.Tensor,"
-    }
-   ],
-   "lines": 972,
-   "ms": 90.0,
-   "compiled": true,
-   "funcs": 53,
-   "classes": 10
-  },
-  {
-   "t": 19.64,
-   "at": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
-   "node": 74,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "910 lines, 8 findings | compiled OK | 44F/9C | 70.8ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 591,
-     "preview": "self.model.eval()"
-    },
-    {
-     "rule": "long_function",
-     "line": 111,
-     "preview": "def __init__(self, hidden_dim: int, n_core: int = 3, R: int = 4,"
-    },
-    {
-     "rule": "long_function",
-     "line": 136,
-     "preview": "def compute_gate(self, gate_input: torch.Tensor, iteration: int) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 149,
-     "preview": "def iterate(self, h: torch.Tensor, gate_input_base: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 171,
-     "preview": "def forward_with_blocks(self, x: torch.Tensor, prelude_blocks: List[nn.Module],"
-    }
-   ],
-   "lines": 910,
-   "ms": 70.8,
-   "compiled": true,
-   "funcs": 44,
-   "classes": 9
-  },
-  {
-   "t": 19.92,
-   "at": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
-   "node": 75,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "681 lines, 8 findings | compiled OK | 25F/10C | 56.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def __init__(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 101,
-     "preview": "def init_state(self, batch_size: int, device: torch.device) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 105,
-     "preview": "def forward_step(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 143,
-     "preview": "def forward_sequence(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 179,
-     "preview": "def __init__(self,"
-    }
-   ],
-   "lines": 681,
-   "ms": 56.2,
-   "compiled": true,
-   "funcs": 25,
-   "classes": 10
-  },
-  {
-   "t": 20.17,
-   "at": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
-   "node": 76,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "254 lines, 8 findings | compiled OK | 10F/4C | 17.0ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 24,
-     "preview": "Technique: REPL where actions are `exec(code)` and observations are"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 161,
-     "preview": "actions are exec(code), observations are stdout/state."
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def __init__(self, max_seq_len: int = 512, prefix_size: int = 512):"
-    },
-    {
-     "rule": "long_function",
-     "line": 96,
-     "preview": "def slide_tokens(self, generated: List[int], prefix_tokens: Optional[List[int]] = None) ->"
-    },
-    {
-     "rule": "long_function",
-     "line": 125,
-     "preview": "def slide_kv_cache(self, k_cache: torch.Tensor, v_cache: torch.Tensor,"
-    }
-   ],
-   "lines": 254,
-   "ms": 17.0,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 20.4,
-   "at": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
-   "node": 77,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "216 lines, 8 findings | compiled OK | 13F/4C | 13.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def __init__(self, in_features: int, out_features: int, bias: bool = False):"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def ternary_quantize(self, w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 104,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 132,
-     "preview": "def __init__(self, optimizer: torch.optim.Optimizer):"
-    },
-    {
-     "rule": "long_function",
-     "line": 135,
-     "preview": "def step(self, closure=None):"
-    }
-   ],
-   "lines": 216,
-   "ms": 13.5,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 4
-  },
-  {
-   "t": 20.64,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
-   "node": 78,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "267 lines, 8 findings | compiled OK | 14F/5C | 18.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def __init__(self, hidden_dim: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def _hadamard_matrix(self, n: int) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 96,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 104,
-     "preview": "def inverse(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 119,
-     "preview": "def __init__(self, hidden_dim: int, use_hadamard: bool = True):"
-    }
-   ],
-   "lines": 267,
-   "ms": 18.7,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 5
-  },
-  {
-   "t": 20.88,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
-   "node": 79,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "197 lines, 8 findings | compiled OK | 10F/4C | 11.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def __init__(self, hidden_dim: int, state_dim: int = 16):"
-    },
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def __init__(self, hidden_dim: int, num_experts: int, tau_max: float = 1.0,"
-    },
-    {
-     "rule": "long_function",
-     "line": 114,
-     "preview": "def get_tau(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 119,
-     "preview": "def forward(self, x: torch.Tensor, training: bool = True) -> Tuple[torch.Tensor, torch.Ten"
-    }
-   ],
-   "lines": 197,
-   "ms": 11.1,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 21.11,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
-   "node": 80,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "114 lines, 5 findings | compiled OK | 5F/2C | 3.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 59,
-     "preview": "def __init__(self, hidden_dim: int = 1024, n_head: int = 16,"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def forward(self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor,"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def get_stats(self) -> Dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 109,
-     "preview": "def __init__(self, hidden_dim: int = 1024, n_head: int = 16):"
+     "preview": "def gamedev_design_loop(core_fantasy: str, player_verbs: str = \"move, dash, shoot\", progre"
     },
     {
      "rule": "long_function",
      "line": 113,
-     "preview": "def get_stats(self) -> Dict:"
+     "preview": "def gamedev_balance_economy(base_xp: int = 100, growth: float = 1.22, levels: int = 20, si"
+    },
+    {
+     "rule": "long_function",
+     "line": 131,
+     "preview": "def gamedev_simulate_playtest(runs: int = 200, win_rate_target: float = 0.35, avg_run_min:"
     }
    ],
-   "lines": 114,
-   "ms": 3.8,
+   "lines": 706,
+   "ms": 84.1,
    "compiled": true,
-   "funcs": 5,
-   "classes": 2
+   "funcs": 31,
+   "classes": 1
   },
   {
-   "t": 21.33,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
-   "node": 81,
+   "t": 4.74,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "node": 16,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "148 lines, 8 findings | compiled OK | 9F/4C | 7.1ms",
+   "detail": "826 lines, 8 findings | compiled OK | 23F/1C | 97.1ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 57,
-     "preview": "def __init__(self, hidden_dim: int, pop_size: int = 64, sigma: float = 0.02):"
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
     },
     {
      "rule": "long_function",
-     "line": 63,
-     "preview": "def sample(self, mean: torch.Tensor) -> List[torch.Tensor]:"
+     "line": 73,
+     "preview": "def governor_system_health() -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 67,
-     "preview": "def update(self, mean: torch.Tensor, fitness: torch.Tensor,"
+     "line": 122,
+     "preview": "def governor_thread_budget(workload_type: str = \"training\") -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 89,
-     "preview": "def __init__(self, gpu_mem_mb: float = 4096, cpu_mem_mb: float = 28672):"
+     "line": 167,
+     "preview": "def governor_optimizer_ram_calc("
     },
     {
      "rule": "long_function",
-     "line": 93,
-     "preview": "def recommend(self, total_mb: float, seq_len: int) -> Dict[str, bool]:"
+     "line": 221,
+     "preview": "def governor_velocity_tune("
     }
    ],
-   "lines": 148,
-   "ms": 7.1,
+   "lines": 826,
+   "ms": 97.1,
    "compiled": true,
-   "funcs": 9,
-   "classes": 4
+   "funcs": 23,
+   "classes": 1
   },
   {
-   "t": 21.58,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
-   "node": 82,
+   "t": 5.04,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "node": 17,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "183 lines, 8 findings | compiled OK | 8F/4C | 16.7ms",
+   "detail": "698 lines, 8 findings | compiled OK | 24F/1C | 66.3ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 62,
-     "preview": "def __init__(self, hidden_dim: int, n_layer: int = 6, capacity_factor: float = 0.5):"
+     "line": 31,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
     },
     {
      "rule": "long_function",
-     "line": 71,
-     "preview": "def forward(self, x: torch.Tensor, layer_idx: int) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 96,
-     "preview": "def __init__(self, hidden_dim: int, n_head: int = 16, n_kv_heads: int = 4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 136,
-     "preview": "def __init__(self, hidden_dim: int, block_size: int = 32):"
-    }
-   ],
-   "lines": 183,
-   "ms": 16.7,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 4
-  },
-  {
-   "t": 21.81,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
-   "node": 83,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "148 lines, 8 findings | compiled OK | 8F/4C | 8.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 60,
-     "preview": "def __init__(self, hidden_dim: int, output_dim: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def get_feedback(self, output_error: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def forward(self, x: torch.Tensor, quant_fn) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 111,
-     "preview": "def get_config() -> Dict:"
-    }
-   ],
-   "lines": 148,
-   "ms": 8.3,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 4
-  },
-  {
-   "t": 22.04,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
-   "node": 84,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "187 lines, 8 findings | compiled OK | 13F/4C | 12.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def __init__(self, num_experts: int = 34, gpu_capacity: int = 10,"
-    },
-    {
-     "rule": "long_function",
-     "line": 75,
-     "preview": "def update_activation(self, expert_ids: List[int]):"
-    },
-    {
-     "rule": "long_function",
-     "line": 80,
-     "preview": "def rebalance(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 87,
-     "preview": "def should_load(self, expert_id: int) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def get_stats(self) -> Dict:"
-    }
-   ],
-   "lines": 187,
-   "ms": 12.5,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 4
-  },
-  {
-   "t": 22.28,
-   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
-   "node": 85,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "157 lines, 5 findings | compiled OK | 5F/2C | 8.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def __init__(self, hidden_dim: int, n_layer: int = 3, max_recursion: int = 4,"
-    },
-    {
-     "rule": "long_function",
-     "line": 92,
-     "preview": "def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 121,
-     "preview": "def effective_depth_per_token(self, depth_scores: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def __init__(self, hidden_dim: int = 1024, n_layer: int = 3, max_recursion: int = 4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 150,
-     "preview": "def get_stats(self) -> Dict:"
-    }
-   ],
-   "lines": 157,
-   "ms": 8.7,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 2
-  },
-  {
-   "t": 22.51,
-   "at": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
-   "node": 86,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "231 lines, 8 findings | compiled OK | 11F/4C | 11.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def __init__(self, hidden_dim: int, num_tasks: int = 5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def save_task_vector(self, model: nn.Module, base_state: Dict[str, torch.Tensor]) -> Dict["
+     "line": 79,
+     "preview": "def _get_quillan_base() -> Path:"
     },
     {
      "rule": "long_function",
      "line": 97,
-     "preview": "def merge(self, base_state: Dict[str, torch.Tensor],"
+     "preview": "def media_image_brief("
+    },
+    {
+     "rule": "long_function",
+     "line": 129,
+     "preview": "def media_video_brief("
+    },
+    {
+     "rule": "long_function",
+     "line": 152,
+     "preview": "def media_character_sheet("
+    }
+   ],
+   "lines": 698,
+   "ms": 66.3,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 1
+  },
+  {
+   "t": 5.52,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "node": 18,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1229 lines, 8 findings | compiled OK | 37F/1C | 202.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def model_dataset_validator(jsonl_path: str, max_samples: int = 1000) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 139,
+     "preview": "def model_hardware_advisor(model_param_millions: float = 758.0) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 169,
+     "preview": "def model_bitnet_analyze(checkpoint_path: str) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 1229,
+   "ms": 202.1,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 1
+  },
+  {
+   "t": 5.94,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "node": 19,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "943 lines, 8 findings | compiled OK | 31F/1C | 183.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 21,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def ops_guardrail_check(action_desc: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 84,
+     "preview": "def ops_health(repo_path: str = r\"C:\\02_QUILLAN\", deep: bool = True) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 149,
+     "preview": "def ops_release_note(version: str, highlights: str, fixes: str = \"\") -> str:"
+    }
+   ],
+   "lines": 943,
+   "ms": 183.1,
+   "compiled": true,
+   "funcs": 31,
+   "classes": 1
+  },
+  {
+   "t": 6.25,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
+   "node": 20,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "954 lines, 8 findings | compiled OK | 18F/1C | 79.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 35,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 92,
+     "preview": "def _get_mcp_base_path() -> Path:"
     },
     {
      "rule": "long_function",
      "line": 125,
-     "preview": "def encode_as_vectors(pull_weights: torch.Tensor) -> List[float]:"
+     "preview": "def _load_mcp(module_name: str, server_path: Path) -> Any:"
     },
     {
      "rule": "long_function",
-     "line": 140,
-     "preview": "def decode_from_vectors(vectors: List[float]) -> str:"
+     "line": 139,
+     "preview": "async def _call_mcp("
+    },
+    {
+     "rule": "long_function",
+     "line": 168,
+     "preview": "def _run_coro(coro: Any) -> Any:"
     }
    ],
-   "lines": 231,
-   "ms": 11.9,
+   "lines": 954,
+   "ms": 79.4,
    "compiled": true,
-   "funcs": 11,
-   "classes": 4
+   "funcs": 18,
+   "classes": 1
   },
   {
-   "t": 22.75,
-   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
-   "node": 87,
+   "t": 6.59,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
+   "node": 21,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "136 lines, 8 findings | compiled OK | 12F/5C | 13.0ms",
+   "detail": "908 lines, 8 findings | compiled OK | 30F/1C | 105.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def _now() -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 84,
+     "preview": "def _sha(s: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def _save_json(path: Path, obj: Dict[str, Any]) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def _load_json(path: Path) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 908,
+   "ms": 105.1,
+   "compiled": true,
+   "funcs": 30,
+   "classes": 1
+  },
+  {
+   "t": 6.9,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "node": 22,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "555 lines, 8 findings | compiled OK | 24F/1C | 71.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 25,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 106,
+     "preview": "def _threat_model(feature: str, assets: Optional[List[str]]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 129,
+     "preview": "def _bushido_gate(action_or_output: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 157,
+     "preview": "def prism_decompose(task: str, context: Optional[str] = None) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 555,
+   "ms": 71.4,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 1
+  },
+  {
+   "t": 7.13,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "node": 23,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "73 lines, 1 findings | compiled OK | 0F/0C | 7.9ms",
    "findings": [
     {
      "rule": "long_function",
      "line": 42,
-     "preview": "def __init__(self, hidden_dim: int = 1024):"
-    },
+     "preview": "async def main():"
+    }
+   ],
+   "lines": 73,
+   "ms": 7.9,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 7.5,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "node": 24,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "877 lines, 8 findings | compiled OK | 17F/1C | 145.6ms",
+   "findings": [
     {
      "rule": "long_function",
-     "line": 48,
-     "preview": "def save(self, persona_embed: torch.Tensor, scratch_memory: torch.Tensor,"
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
     },
     {
      "rule": "long_function",
      "line": 55,
-     "preview": "def load(self, bundle: Dict, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:"
+     "preview": "def _get_api_key() -> str:"
     },
     {
      "rule": "long_function",
-     "line": 64,
-     "preview": "def __init__(self, hidden_dim: int = 1024):"
+     "line": 95,
+     "preview": "def _get_http() -> httpx.AsyncClient:"
     },
     {
      "rule": "long_function",
-     "line": 69,
-     "preview": "def compile(self, pooled: torch.Tensor) -> Dict:"
+     "line": 115,
+     "preview": "async def _nim_embed(texts, input_type=\"passage\", max_retries=3):"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 3) "
     }
    ],
-   "lines": 136,
-   "ms": 13.0,
+   "lines": 877,
+   "ms": 145.6,
    "compiled": true,
-   "funcs": 12,
-   "classes": 5
+   "funcs": 17,
+   "classes": 1
   },
   {
-   "t": 22.99,
-   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
-   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
-   "node": 88,
+   "t": 8.02,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
+   "node": 25,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "193 lines, 8 findings | compiled OK | 13F/6C | 21.3ms",
+   "detail": "1612 lines, 8 findings | compiled OK | 48F/1C | 276.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 912,
+     "preview": "js_obfusc = [\"eval(\", \"Function(\", \"atob(\", \"fromCharCode\", \"unescape(\"]"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 1038,
+     "preview": "basic_patterns = [\"cmd.exe\", \"powershell\", \"CreateRemoteThread\", \"VirtualAlloc\", \"WScript."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 550,
+     "preview": "// TODO: Implement disassembly lift for {symbol}"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 562,
+     "preview": "// TODO: Add disassembly engine for full recovery"
+    },
+    {
+     "rule": "long_function",
+     "line": 39,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    }
+   ],
+   "lines": 1612,
+   "ms": 276.5,
+   "compiled": true,
+   "funcs": 48,
+   "classes": 1
+  },
+  {
+   "t": 8.57,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "node": 26,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "646 lines, 8 findings | compiled OK | 23F/2C | 308.8ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 289,
+     "preview": "Persists correlation_id and telemetry to C:\\\\02_QUILLAN\\\\07 - Memory & LanceDB\\\\chain_stat"
+    },
+    {
+     "rule": "long_function",
+     "line": 22,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def evaluate(self, swarm_id: int, input_energy: float) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def _gate_evaluate(proposal: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 147,
+     "preview": "def samurai_full_pipeline(query: str, depth: str = \"full\", persist: bool = True) -> Dict[s"
+    }
+   ],
+   "lines": 646,
+   "ms": 308.8,
+   "compiled": true,
+   "funcs": 23,
+   "classes": 2
+  },
+  {
+   "t": 8.89,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "node": 27,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "422 lines, 8 findings | compiled OK | 6F/1C | 81.7ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 7,
+     "preview": "for the 140,000+ file ecosystem in C:\\\\02_QUILLAN."
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 408,
+     "preview": "\"1. **Zero-Egress Isolation**: All MCP servers, training loops, and vector storage operate"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def classify_sector(rel_path: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 75,
+     "preview": "def classify_cluster(rel_path: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def __init__(self, root: Path = ROOT_DIR):"
+    }
+   ],
+   "lines": 422,
+   "ms": 81.7,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 1
+  },
+  {
+   "t": 9.47,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "node": 28,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1585 lines, 8 findings | compiled OK | 57F/2C | 341.9ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 608,
+     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 411,
+     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 13,
+     "preview": "TRAIL FILE: C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\trail.json"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 14,
+     "preview": "VIEWER:     C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider-viewer.html (open i"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 284,
+     "preview": "def spider_crawl(root: str = \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\", max_files: int = 220, e"
+    }
+   ],
+   "lines": 1585,
+   "ms": 341.9,
+   "compiled": true,
+   "funcs": 57,
+   "classes": 2
+  },
+  {
+   "t": 9.79,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "node": 29,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "520 lines, 8 findings | compiled OK | 17F/1C | 90.2ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 5,
+     "preview": "Serves C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider on 127.0.0.1:8082"
+    },
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def _load_agents():"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def _save_agents():"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def _agent_color(agent_id, want):"
+    },
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def _clean_str(v, limit):"
+    }
+   ],
+   "lines": 520,
+   "ms": 90.2,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 1
+  },
+  {
+   "t": 10.13,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "node": 30,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "654 lines, 8 findings | compiled OK | 32F/1C | 105.7ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 44,
-     "preview": "def __init
+     "line": 25,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def _save_crews():"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def _load_crews():"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def team_spawn_crew(objective: str, roles: str = \"planner,builder,critic,synthesizer\") -> "
+    },
+    {
+     "rule": "long_function",
+     "line": 115,
+     "preview": "def team_dispatch(crew_id: str, task: str, assignee_role: str = \"builder\","
+    }
+   ],
+   "lines": 654,
+   "ms": 105.7,
+   "compiled": true,
+   "funcs": 32,
+   "classes": 1
+  },
+  {
+   "t": 10.72,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "node": 31,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1584 lines, 8 findings | compiled OK | 70F/3C | 341.6ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 205,
+     "preview": "_ENGINE.eval()"
+    },
+    {
+     "rule": "long_function",
+     "line": 29,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 168,
+     "preview": "def roster_summary() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 175,
+     "preview": "def step(self, router_conf: float = 0.92, integrity: float = 0.95):"
+    },
+    {
+     "rule": "long_function",
+     "line": 179,
+     "preview": "def __init__(self):"
+    }
+   ],
+   "lines": 1584,
+   "ms": 341.6,
+   "compiled": true,
+   "funcs": 70,
+   "classes": 3
+  },
+  {
+   "t": 11.06,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "node": 32,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "528 lines, 8 findings | compiled OK | 25F/1C | 104.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 279,
+     "preview": "// TODO: implement {method.upper()} {path}"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 293,
+     "preview": "// TODO: implement {method.upper()} {path}"
+    },
+    {
+     "rule": "long_function",
+     "line": 22,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 52,
+     "preview": "def web_scaffold(project_name: str = \"quillan-web\", stack: str = \"vite+ts\", routes: str = "
+    },
+    {
+     "rule": "long_function",
+     "line": 76,
+     "preview": "def web_audit(code_or_html: str) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 528,
+   "ms": 104.7,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 1
+  },
+  {
+   "t": 11.34,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "node": 33,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "290 lines, 7 findings | compiled OK | 7F/0C | 47.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def discover_mcp_servers(mcp_root: Path) -> List[Path]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def extract_tools_via_ast(server_path: Path) -> List[Dict[str, Any]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def upgrade_server_file(server_path: Path, dry_run: bool = False) -> Tuple[bool, str]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def sync_tool_registry(mcp_root: Path, all_server_tools: Dict[str, List[Dict[str, Any]]]) "
+    },
+    {
+     "rule": "long_function",
+     "line": 190,
+     "preview": "def run_e2e_verification(servers: List[Path]) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 290,
+   "ms": 47.3,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
+  }
+ ],
+ "wiring": [
+  {
+   "from": "ingest_second_brain.py",
+   "to": "server",
+   "why": "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it"
+  },
+  {
+   "from": "server.py",
+   "to": "mcp_chain_bus",
+   "why": "server.py imports mcp_chain_bus; coupled \u2014 a change in mcp_chain_bus can break it"
+  },
+  {
+   "from": "spider_bridge.py",
+   "to": "server",
+   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
+  }
+ ],
+ "spider": {
+  "pos": {
+   "t": 11.34,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "node": 33,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "290 lines, 7 findings | compiled OK | 7F/0C | 47.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def discover_mcp_servers(mcp_root: Path) -> List[Path]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def extract_tools_via_ast(server_path: Path) -> List[Dict[str, Any]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def upgrade_server_file(server_path: Path, dry_run: bool = False) -> Tuple[bool, str]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def sync_tool_registry(mcp_root: Path, all_server_tools: Dict[str, List[Dict[str, Any]]]) "
+    },
+    {
+     "rule": "long_function",
+     "line": 190,
+     "preview": "def run_e2e_verification(servers: List[Path]) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 290,
+   "ms": 47.3,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
+  },
+  "visited": 33,
+  "state": "DONE",
+  "action": "SCANNING",
+  "total_findings": 221,
+  "wires": 3,
+  "elapsed_s": 11.7
+ }
+}

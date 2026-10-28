@@ -1,0 +1,36 @@
+{
+  "type": "full_pipeline",
+  "result": {
+    "status": "PIPELINE_COMPLETE",
+    "session_id": "code-1793204102",
+    "ast": {
+      "status": "SYNTAX_ERROR",
+      "line": 1,
+      "offset": 4,
+      "text": "C:\\02_QUILLAN\\09 - Projects\\mcp\n",
+      "msg": "unexpected character after line continuation character (<unknown>, line 1)"
+    },
+    "security": {
+      "total_findings": 0,
+      "status": "PASS",
+      "findings": [],
+      "timestamp": 1793204102.0199082
+    },
+    "dependencies": {
+      "error": "Syntax error: unexpected character after line continuation character (<unknown>, line 1)"
+    },
+    "complexity_gate": {
+      "status": "SKIP",
+      "reason": "SYNTAX_ERROR",
+      "detail": {
+        "status": "SYNTAX_ERROR",
+        "line": 1,
+        "offset": 4,
+        "text": "C:\\02_QUILLAN\\09 - Projects\\mcp\n",
+        "msg": "unexpected character after line continuation character (<unknown>, line 1)"
+      }
+    },
+    "overall": "REVIEW",
+    "timestamp": 1793204102.0207865
+  }
+}

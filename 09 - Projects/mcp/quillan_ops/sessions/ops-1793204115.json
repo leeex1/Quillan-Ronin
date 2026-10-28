@@ -1,0 +1,64 @@
+{
+  "type": "ops_pipeline",
+  "result": {
+    "status": "OPS_PIPELINE_COMPLETE",
+    "session_id": "ops-1793204115",
+    "goal": "test",
+    "task_graph": {
+      "goal": "test",
+      "dag": [
+        {
+          "id": "S1",
+          "title": "Slice scope to thin vertical",
+          "verify": "scope doc <1 page",
+          "gate": "C4-PRAXIS"
+        },
+        {
+          "id": "S2",
+          "title": "Ship smallest runnable",
+          "verify": "runs headless + 60fps probe",
+          "gate": "C10-CODEWEAVER"
+        },
+        {
+          "id": "S3",
+          "title": "Predator strike + fix",
+          "verify": "kill-loop closed",
+          "gate": "C34-PREDATOR"
+        },
+        {
+          "id": "S4",
+          "title": "Ethics + safety pass",
+          "verify": "VIR/WARDEN sign",
+          "gate": "C2-VIR/C13-WARDEN"
+        },
+        {
+          "id": "S5",
+          "title": "Polish loop + mix",
+          "verify": "AURELION>=7/CADENCE drift<=.35",
+          "gate": "C22/C23"
+        },
+        {
+          "id": "S6",
+          "title": "Release + retro",
+          "verify": "note + metrics logged",
+          "gate": "C5-ECHO"
+        }
+      ],
+      "rule": "No step starts until prior verify passes."
+    },
+    "guardrail": {
+      "tier": "low",
+      "reason": "read-only / sandboxed",
+      "action": "Proceed autonomously"
+    },
+    "health_summary": {
+      "py_files": 5000,
+      "secret_hits": 20,
+      "large_files": 10,
+      "git_dirty": 19
+    },
+    "release_note": null,
+    "overall": "REVIEW",
+    "timestamp": 1793204115.1826234
+  }
+}

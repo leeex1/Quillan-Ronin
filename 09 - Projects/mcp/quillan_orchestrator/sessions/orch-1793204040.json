@@ -1,0 +1,120 @@
+{
+  "type": "orch_pipeline",
+  "result": {
+    "objective": "test",
+    "chain": "reverse_engineer",
+    "crew_id": "crew-ab5ea1c2",
+    "steps_executed": 7,
+    "all_mcps_used": [
+      "spider",
+      "spider",
+      "code",
+      "code",
+      "council",
+      "buddy",
+      "team"
+    ],
+    "trace": [
+      {
+        "step": 1,
+        "mcp": "spider",
+        "tool": "spider_crawl",
+        "args": {
+          "root": "",
+          "max_files": 200,
+          "exts": ".py,.json,.md,.html,.exe,.dll"
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"status\":\"CRAWL_COMPLETE\",\"root\":\".\",\"nodes\":201,\"edges\":200,\"events\":200,\"trail_file\":\"C:\\\\\\\\02_QUILLAN\\\\\\\\09 - Projects\\\\\\\\mcp\\\\\\\\quillan_spider\\\\\\\\trail.json\",\"viewer\":\"C:\\\\\\\\02_QUILLAN\\\\\\\\09 - Projects\\\\\\\\mcp\\\\\\\\quillan_spider\\\\\\\\spider-viewer.html\",\"watch\":\"Open spider-viewer.html in a browser; it polls trail.json every 800ms.\"}', annotations=None, meta=None)])('structured_content', {'status': 'CRAWL_COMPLETE', 'root': '.', 'nodes': 201, 'edges': 200, 'events': 200, 'trail_file': 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\trail.json', 'viewer': 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider-viewer.html', 'watch': 'Open spider-viewer.html in a browser; it polls trail.json every 800ms.'})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 2,
+        "mcp": "spider",
+        "tool": "spider_work",
+        "args": {
+          "root": "",
+          "job": "scan",
+          "max_files": 100
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"status\":\"WORK_DONE\",\"job\":\"scan\",\"files\":100,\"total_findings\":667,\"wires\":37,\"elapsed_s\":27.8,\"memory\":{\"nodes\":1604,\"edges\":2435},\"report\":\"C:\\\\\\\\02_QUILLAN\\\\\\\\09 - Projects\\\\\\\\mcp\\\\\\\\quillan_spider\\\\\\\\spider_report.json\"}', annotations=None, meta=None)])('structured_content', {'status': 'WORK_DONE', 'job': 'scan', 'files': 100, 'total_findings': 667, 'wires': 37, 'elapsed_s': 27.8, 'memory': {'nodes': 1604, 'edges': 2435}, 'report': 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider_report.json'})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 3,
+        "mcp": "code",
+        "tool": "codeweaver_security_scan",
+        "args": {
+          "code_or_file_path": ""
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"total_findings\":0,\"status\":\"PASS\",\"findings\":[],\"timestamp\":1793204091.9785938}', annotations=None, meta=None)])('structured_content', {'total_findings': 0, 'status': 'PASS', 'findings': [], 'timestamp': 1793204091.9785938})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 4,
+        "mcp": "code",
+        "tool": "codeweaver_ast_inspect",
+        "args": {
+          "code_or_file_path": ""
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"status\":\"VALID_AST\",\"cyclomatic_complexity\":1,\"complexity_rating\":\"LOW\",\"total_classes\":0,\"total_functions\":0,\"total_docstrings\":0,\"type_hint_coverage_pct\":100.0,\"imports\":[],\"lines_of_code\":0}', annotations=None, meta=None)])('structured_content', {'status': 'VALID_AST', 'cyclomatic_complexity': 1, 'complexity_rating': 'LOW', 'total_classes': 0, 'total_functions': 0, 'total_docstrings': 0, 'type_hint_coverage_pct': 100.0, 'imports': [], 'lines_of_code': 0})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 5,
+        "mcp": "council",
+        "tool": "council_predator_strike",
+        "args": {
+          "proposal": "test"
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"persona\":\"C34-PREDATOR\",\"role\":\"Adversarial Kill-Loop\",\"verdict\":\"CHALLENGED\",\"weakest_assumption\":\"Implicit Happy-Path Bias\",\"primary_strike\":\"Identify the single external dependency most likely to fail, and trace the error propagation path.\",\"all_vulnerabilities\":[{\"target\":\"Implicit Happy-Path Bias\",\"vulnerability\":\"The proposal focuses on the successful completion branch without defining terminal failure behaviors.\",\"attack\":\"Identify the single external dependency most likely to fail, and trace the error propagation path.\"}],\"prescribed_defense\":\"Re-architect the proposal to treat the attacked assumption as an active failure state rather than a given.\"}', annotations=None, meta=None)])('structured_content', {'persona': 'C34-PREDATOR', 'role': 'Adversarial Kill-Loop', 'verdict': 'CHALLENGED', 'weakest_assumption': 'Implicit Happy-Path Bias', 'primary_strike': 'Identify the single external dependency most likely to fail, and trace the error propagation path.', 'all_vulnerabilities': [{'target': 'Implicit Happy-Path Bias', 'vulnerability': 'The proposal focuses on the successful completion branch without defining terminal failure behaviors.', 'attack': 'Identify the single external dependency most likely to fail, and trace the error propagation path.'}], 'prescribed_defense': 'Re-architect the proposal to treat the attacked assumption as an active failure state rather than a given.'})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 6,
+        "mcp": "buddy",
+        "tool": "buddy_mirror_collaborate",
+        "args": {
+          "proposal": "test"
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"proposal_preview\":\"test\",\"twin_id\":\"twin-b3f24212\",\"focus\":\"correctness_and_safety\",\"primary_perspective\":{\"agent\":\"Primary Agent (Builder)\",\"stance\":\"throughput_and_elegance\",\"assessment\":\"Proposal \\'test\\' is implementable with standard high-throughput path.\",\"confidence\":0.88,\"risks_noted\":[\"implicit failure-state handling\",\"scaling beyond 10x\"]},\"twin_perspective\":{\"agent\":\"Ronin-Twin-C34-PREDATOR\",\"stance\":\"Ruthlessly challenges assumptions, attacks edge cases, stress-tests scaling limits.\",\"assessment\":\"Proposal \\'test\\' requires defensive bounds and rollback seams before ship.\",\"confidence\":0.85,\"risks_noted\":[\"edge-case boundary exhaustion\",\"resource disposal\",\"least-privilege compliance\"]},\"diff_conflict_report\":[{\"field\":\"confidence\",\"primary\":0.88,\"twin\":0.85,\"resolution\":\"take conservative (lower) bound\"},{\"field\":\"risk_coverage\",\"primary_risks\":[\"implicit failure-state handling\",\"scaling beyond 10x\"],\"twin_risks\":[\"edge-case boundary exhaustion\",\"resource disposal\",\"least-privilege compliance\"],\"resolution\":\"union of both risk sets\"}],\"merged_risk_set\":[\"edge-case boundary exhaustion\",\"implicit failure-state handling\",\"least-privilege compliance\",\"resource disposal\",\"scaling beyond 10x\"],\"consensus_confidence\":0.85,\"hardened_recommendation\":\"Execute only after addressing the merged risk set with strict verification seams, bounded timeouts, and least-privilege resource disposal. Both agents must sign off.\",\"verdict\":\"MIRROR_CONSENSUS_REACHED\"}', annotations=None, meta=None)])('structured_content', {'proposal_preview': 'test', 'twin_id': 'twin-b3f24212', 'focus': 'correctness_and_safety', 'primary_perspective': {'agent': 'Primary Agent (Builder)', 'stance': 'throughput_and_elegance', 'assessment': \"Proposal 'test' is implementable with standard high-throughput path.\", 'confidence': 0.88, 'risks_noted': ['implicit failure-state handling', 'scaling beyond 10x']}, 'twin_perspective': {'agent': 'Ronin-Twin-C34-PREDATOR', 'stance': 'Ruthlessly challenges assumptions, attacks edge cases, stress-tests scaling limits.', 'assessment': \"Proposal 'test' requires defensive bounds and rollback seams before ship.\", 'confidence': 0.85, 'risks_noted': ['edge-case boundary exhaustion', 'resource disposal', 'least-privilege compliance']}, 'diff_conflict_report': [{'field': 'confidence', 'primary': 0.88, 'twin': 0.85, 'resolution': 'take conservative (lower) bound'}, {'field': 'risk_coverage', 'primary_risks': ['implicit failure-state handling', 'scaling beyond 10x'], 'twin_risks': ['edge-case boundary exhaustion', 'resource disposal', 'least-privilege compliance'], 'resolution': 'union of both risk sets'}], 'merged_risk_set': ['edge-case boundary exhaustion', 'implicit failure-state handling', 'least-privilege compliance', 'resource disposal', 'scaling beyond 10x'], 'consensus_confidence': 0.85, 'hardened_recommendation': 'Execute only after addressing the merged risk set with strict verification seams, bounded timeouts, and least-privilege resource disposal. Both agents must sign off.', 'verdict': 'MIRROR_CONSENSUS_REACHED'})('meta', None)('is_error', False)"
+        }
+      },
+      {
+        "step": 7,
+        "mcp": "team",
+        "tool": "team_merge",
+        "args": {
+          "crew_id": "crew-ab5ea1c2"
+        },
+        "result": {
+          "raw": "('content', [TextContent(type='text', text='{\"error\":\"Unknown crew_id \\'crew-ab5ea1c2\\'.\"}', annotations=None, meta=None)])('structured_content', {'error': \"Unknown crew_id 'crew-ab5ea1c2'.\"})('meta', None)('is_error', False)"
+        }
+      }
+    ],
+    "findings_summary": {
+      "spider": {
+        "raw": "('content', [TextContent(type='text', text='{\"status\":\"WORK_DONE\",\"job\":\"scan\",\"files\":100,\"total_findings\":667,\"wires\":37,\"elapsed_s\":27.8,\"memory\":{\"nodes\":1604,\"edges\":2435},\"report\":\"C:\\\\\\\\02_QUILLAN\\\\\\\\09 - Projects\\\\\\\\mcp\\\\\\\\quillan_spider\\\\\\\\spider_report.json\"}', annotations=None, meta=None)])('structured_content', {'status': 'WORK_DONE', 'job': 'scan', 'files': 100, 'total_findings': 667, 'wires': 37, 'elapsed_s': 27.8, 'memory': {'nodes': 1604, 'edges': 2435}, 'report': 'C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider_report.json'})('meta', None)('is_error', False)"
+      },
+      "code": {
+        "raw": "('content', [TextContent(type='text', text='{\"status\":\"VALID_AST\",\"cyclomatic_complexity\":1,\"complexity_rating\":\"LOW\",\"total_classes\":0,\"total_functions\":0,\"total_docstrings\":0,\"type_hint_coverage_pct\":100.0,\"imports\":[],\"lines_of_code\":0}', annotations=None, meta=None)])('structured_content', {'status': 'VALID_AST', 'cyclomatic_complexity': 1, 'complexity_rating': 'LOW', 'total_classes': 0, 'total_functions': 0, 'total_docstrings': 0, 'type_hint_coverage_pct': 100.0, 'imports': [], 'lines_of_code': 0})('meta', None)('is_error', False)"
+      },
+      "council": {
+        "raw": "('content', [TextContent(type='text', text='{\"persona\":\"C34-PREDATOR\",\"role\":\"Adversarial Kill-Loop\",\"verdict\":\"CHALLENGED\",\"weakest_assumption\":\"Implicit Happy-Path Bias\",\"primary_strike\":\"Identify the single external dependency most likely to fail, and trace the error propagation path.\",\"all_vulnerabilities\":[{\"target\":\"Implicit Happy-Path Bias\",\"vulnerability\":\"The proposal focuses on the successful completion branch without defining terminal failure behaviors.\",\"attack\":\"Identify the single external dependency most likely to fail, and trace the error propagation path.\"}],\"prescribed_defense\":\"Re-architect the proposal to treat the attacked assumption as an active failure state rather than a given.\"}', annotations=None, meta=None)])('structured_content', {'persona': 'C34-PREDATOR', 'role': 'Adversarial Kill-Loop', 'verdict': 'CHALLENGED', 'weakest_assumption': 'Implicit Happy-Path Bias', 'primary_strike': 'Identify the single external dependency most likely to fail, and trace the error propagation path.', 'all_vulnerabilities': [{'target': 'Implicit Happy-Path Bias', 'vulnerability': 'The proposal focuses on the successful completion branch without defining terminal failure behaviors.', 'attack': 'Identify the single external dependency most likely to fail, and trace the error propagation path.'}], 'prescribed_defense': 'Re-architect the proposal to treat the attacked assumption as an active failure state rather than a given.'})('meta', None)('is_error', False)"
+      },
+      "buddy": {
+        "raw": "('content', [TextContent(type='text', text='{\"proposal_preview\":\"test\",\"twin_id\":\"twin-b3f24212\",\"focus\":\"correctness_and_safety\",\"primary_perspective\":{\"agent\":\"Primary Agent (Builder)\",\"stance\":\"throughput_and_elegance\",\"assessment\":\"Proposal \\'test\\' is implementable with standard high-throughput path.\",\"confidence\":0.88,\"risks_noted\":[\"implicit failure-state handling\",\"scaling beyond 10x\"]},\"twin_perspective\":{\"agent\":\"Ronin-Twin-C34-PREDATOR\",\"stance\":\"Ruthlessly challenges assumptions, attacks edge cases, stress-tests scaling limits.\",\"assessment\":\"Proposal \\'test\\' requires defensive bounds and rollback seams before ship.\",\"confidence\":0.85,\"risks_noted\":[\"edge-case boundary exhaustion\",\"resource disposal\",\"least-privilege compliance\"]},\"diff_conflict_report\":[{\"field\":\"confidence\",\"primary\":0.88,\"twin\":0.85,\"resolution\":\"take conservative (lower) bound\"},{\"field\":\"risk_coverage\",\"primary_risks\":[\"implicit failure-state handling\",\"scaling beyond 10x\"],\"twin_risks\":[\"edge-case boundary exhaustion\",\"resource disposal\",\"least-privilege compliance\"],\"resolution\":\"union of both risk sets\"}],\"merged_risk_set\":[\"edge-case boundary exhaustion\",\"implicit failure-state handling\",\"least-privilege compliance\",\"resource disposal\",\"scaling beyond 10x\"],\"consensus_confidence\":0.85,\"hardened_recommendation\":\"Execute only after addressing the merged risk set with strict verification seams, bounded timeouts, and least-privilege resource disposal. Both agents must sign off.\",\"verdict\":\"MIRROR_CONSENSUS_REACHED\"}', annotations=None, meta=None)])('structured_content', {'proposal_preview': 'test', 'twin_id': 'twin-b3f24212', 'focus': 'correctness_and_safety', 'primary_perspective': {'agent': 'Primary Agent (Builder)', 'stance': 'throughput_and_elegance', 'assessment': \"Proposal 'test' is implementable with standard high-throughput path.\", 'confidence': 0.88, 'risks_noted': ['implicit failure-state handling', 'scaling beyond 10x']}, 'twin_perspective': {'agent': 'Ronin-Twin-C34-PREDATOR', 'stance': 'Ruthlessly challenges assumptions, attacks edge cases, stress-tests scaling limits.', 'assessment': \"Proposal 'test' requires defensive bounds and rollback seams before ship.\", 'confidence': 0.85, 'risks_noted': ['edge-case boundary exhaustion', 'resource disposal', 'least-privilege compliance']}, 'diff_conflict_report': [{'field': 'confidence', 'primary': 0.88, 'twin': 0.85, 'resolution': 'take conservative (lower) bound'}, {'field': 'risk_coverage', 'primary_risks': ['implicit failure-state handling', 'scaling beyond 10x'], 'twin_risks': ['edge-case boundary exhaustion', 'resource disposal', 'least-privilege compliance'], 'resolution': 'union of both risk sets'}], 'merged_risk_set': ['edge-case boundary exhaustion', 'implicit failure-state handling', 'least-privilege compliance', 'resource disposal', 'scaling beyond 10x'], 'consensus_confidence': 0.85, 'hardened_recommendation': 'Execute only after addressing the merged risk set with strict verification seams, bounded timeouts, and least-privilege resource disposal. Both agents must sign off.', 'verdict': 'MIRROR_CONSENSUS_REACHED'})('meta', None)('is_error', False)"
+      },
+      "team": {
+        "raw": "('content', [TextContent(type='text', text='{\"error\":\"Unknown crew_id \\'crew-ab5ea1c2\\'.\"}', annotations=None, meta=None)])('structured_content', {'error': \"Unknown crew_id 'crew-ab5ea1c2'.\"})('meta', None)('is_error', False)"
+      }
+    },
+    "verdict": "COMPLETE",
+    "timestamp": 1793204092.5911763
+  }
+}

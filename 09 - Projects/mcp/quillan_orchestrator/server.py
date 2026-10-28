@@ -165,6 +165,21 @@ async def _call_mcp(
         return {"raw": text}
 
 
+def _run_coro(coro: Any) -> Any:
+    """Safely run an async coroutine even if an event loop is already running in the current thread."""
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop and loop.is_running():
+        import concurrent.futures
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+            return pool.submit(asyncio.run, coro).result(timeout=60)
+    else:
+        return asyncio.run(coro)
+
+
 # ─── CHAIN DEFINITIONS ──────────────────────────────────────────────────────
 
 CHAINS: Dict[str, List[Dict[str, Any]]] = {
