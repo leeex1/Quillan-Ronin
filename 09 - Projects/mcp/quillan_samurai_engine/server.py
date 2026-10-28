@@ -80,6 +80,14 @@ CYCLES = [
     ("Cycle 5: Synthesis", "Q6 -> R5[A-E] -> 6 Waves -> Q6 -> EGGROLL S5 -> FUSION"),
 ]
 
+ROUTER_DOMAINS = [
+    ("A", "Pattern & Intuition", "Structural motif analysis and creative intuition"),
+    ("B", "Formal Logic & Deduction", "Rigorous syllogistic proofs and AST verification"),
+    ("C", "Adversarial & Threat", "Nemesis-Alpha kill-chain simulation and vulnerability hunting"),
+    ("D", "Ethics & Integrity", "Bushidō rectitude and anti-sycophancy invariant enforcement"),
+    ("E", "Synthesis & Action", "Pragmatic execution planning and high-density convergence"),
+]
+
 
 class EggrollSwarmSimulator:
     def evaluate(self, swarm_id: int, input_energy: float) -> Dict[str, Any]:

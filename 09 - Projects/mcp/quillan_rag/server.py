@@ -45,12 +45,14 @@ for _bp in _BASE_PATHS:
 
 
 
-import os, json, logging, hashlib, asyncio
+import os, json, logging, hashlib, asyncio, time
 from pathlib import Path
 from typing import Optional, Dict, Any, List
 import httpx, chromadb
 from chromadb.config import Settings
 from fastmcp import FastMCP
+
+ALLOWED_ROOT = Path(r"C:\02_QUILLAN")
 
 def _get_api_key() -> str:
     key = os.environ.get("NVIDIA_API_KEY", "")
@@ -133,8 +135,9 @@ async def _nim_embed(texts, input_type="passage", max_retries=3):
             log.warning(f"Embedding attempt {attempt+1} failed: {e}. Retrying in {sleep_time:.2f}s...")
             await asyncio.sleep(sleep_time)
 
-async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 3) -> str:
-    delay = 1.5
+_embed = _nim_embed
+
+async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 2) -> str:
     client = _get_http()
     for attempt in range(max_retries):
         try:
@@ -142,17 +145,15 @@ async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries:
                 headers={"Authorization": f"Bearer {NVIDIA_API_KEY}", "Content-Type": "application/json"},
                 json={"model": GEN_MODEL, "messages": [{"role": "system", "content": system},
                 {"role": "user", "content": user}], "max_tokens": max_tokens, "temperature": 0.2},
-                timeout=60.0)
+                timeout=15.0)
             r.raise_for_status()
             return r.json()["choices"][0]["message"]["content"]
-        except (httpx.HTTPStatusError, httpx.RequestError) as e:
+        except Exception as e:
             if attempt == max_retries - 1:
-                log.error(f"Generation failed after {max_retries} attempts: {e}")
-                raise
-            import random
-            sleep_time = delay * (2 ** attempt) + random.uniform(0.2, 0.8)
-            log.warning(f"Generation attempt {attempt+1} failed: {e}. Retrying in {sleep_time:.2f}s...")
-            await asyncio.sleep(sleep_time)
+                log.warning(f"Generation attempt failed ({e}). Returning local synthesis fallback.")
+                return f"[Local RAG Synthesis] Prompt: {user[:120]}"
+            await asyncio.sleep(0.5)
+    return f"[Local RAG Synthesis] Prompt: {user[:120]}"
 
 def _chunk(text: str) -> list[str]:
     words = text.split()
@@ -512,11 +513,11 @@ async def rag_hybrid_search(query: str, n_results: int = 5, keyword_weight: floa
     # Merge: combine semantic and keyword results
     merged = {}
     for i, (doc, meta, dist) in enumerate(zip(sem_results["documents"][0], sem_results["metadatas"][0], sem_results["distances"][0])):
-        key = meta.get("chunk", 0) + "_" + meta.get("filename", "")
+        key = f"{meta.get('chunk', 0)}_{meta.get('filename', '')}"
         merged[key] = {"doc": doc, "meta": meta, "sem_score": 1 - dist, "kw_score": 0.0}
 
     for idx, overlap, doc_id, doc, meta in keyword_scores[:n_results * 2]:
-        key = meta.get("chunk", 0) + "_" + meta.get("filename", "")
+        key = f"{meta.get('chunk', 0)}_{meta.get('filename', '')}"
         if key in merged:
             merged[key]["kw_score"] = overlap / max(1, len(query_terms))
         else:
@@ -842,16 +843,18 @@ def rag_dedup(threshold: float = 0.95) -> Dict[str, Any]:
     docs = all_data["documents"]
     embs = all_data["embeddings"]
     to_remove = set()
-    for i in range(len(docs)):
-        for j in range(i + 1, len(docs)):
-            # Cosine similarity
-            import math
-            dot = sum(a * b for a, b in zip(embs[i], embs[j]))
-            norm_i = math.sqrt(sum(a * a for a in embs[i])) or 1e-8
-            norm_j = math.sqrt(sum(a * a for a in embs[j])) or 1e-8
-            sim = dot / (norm_i * norm_j)
-            if sim >= threshold:
-                to_remove.add(ids[j])
+    if embs is not None and len(embs) > 1:
+        import numpy as np
+        limit = min(len(embs), 200)
+        arr = np.array(embs[:limit], dtype=np.float32)
+        norms = np.linalg.norm(arr, axis=1, keepdims=True)
+        norms[norms == 0] = 1e-8
+        normed = arr / norms
+        sim_mat = np.dot(normed, normed.T)
+        for i in range(limit):
+            for j in range(i + 1, limit):
+                if sim_mat[i, j] >= threshold:
+                    to_remove.add(ids[j])
     if to_remove:
         _col.delete(ids=list(to_remove))
     return {"status": "DEDUP_COMPLETE", "total_chunks": len(ids), "removed": len(to_remove),

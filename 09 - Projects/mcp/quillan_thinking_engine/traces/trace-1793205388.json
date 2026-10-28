@@ -1,0 +1,64 @@
+{
+  "trace_id": "trace-1793205388",
+  "query": "Verify system integrity and architecture",
+  "depth": "deep",
+  "phases": [
+    {
+      "step": 1,
+      "phase": "restate",
+      "prompt": "Restate the problem in your own words. What is actually being asked? What would failure look like?",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 2,
+      "phase": "decompose",
+      "prompt": "Break into A/B/C sub-problems and their dependencies. What are the load-bearing assumptions?",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 3,
+      "phase": "hypotheses",
+      "prompt": "Generate H1 (obvious), H2 (contrarian), H3 (edge case), H4 (synthesis candidate).",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 4,
+      "phase": "adversarial",
+      "prompt": "Steelman the opposite: what must be true for H1 to be WRONG? Attack the weakest assumption.",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 5,
+      "phase": "evidence",
+      "prompt": "Grade evidence A/B/C/D/F. What is the key uncertainty that could flip the conclusion?",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 6,
+      "phase": "edge_sweep",
+      "prompt": "Sweep edge cases: null/empty, adversarial input, scale n=1000, off-by-one.",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 7,
+      "phase": "synthesis",
+      "prompt": "Produce H* (final hypothesis) + evidence grade + caveat + confidence%.",
+      "query_context": "Verify system integrity and architecture",
+      "status": "PENDING_MODEL_FILL"
+    }
+  ],
+  "phase_count": 7,
+  "council": [
+    "C7-LOGOS",
+    "C17-NULLION",
+    "C18-SHEPHERD"
+  ],
+  "gate": "adversarial required; confidence 90/70/50 bands",
+  "usage": "Fill each phase's reasoning, then synthesize final answer. Persist via thinking_trace_save if needed."
+}

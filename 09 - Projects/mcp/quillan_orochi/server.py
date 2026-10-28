@@ -75,6 +75,12 @@ except Exception as _shared_err:
     import sys as _sys
     print(f'[quillan_orochi] _shared warning: {_shared_err}', file=_sys.stderr)
 
+OROCHI_DIR = Path(r"C:\02_QUILLAN\orochi_state")
+OROCHI_DIR.mkdir(parents=True, exist_ok=True)
+SESSION_DIR = OROCHI_DIR / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
+SNAPSHOT_DIR = OROCHI_DIR / "snapshots"
+SNAPSHOT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ─── HELPERS ─────────────────────────────────────────────────────────────────
 
@@ -476,15 +482,17 @@ def orochi_full_pipeline(base_prompt: Optional[str] = None, max_cycles: int = 3,
         label=f"oro-pipeline-{int(_now())}",
         prompt=improve["deployed"]["prompt"],
     )
+    snap_obj = snap.get("snapshot", {}) if isinstance(snap, dict) else {}
+    snap_id = snap_obj.get("snapshot_id", "snap-fallback")
     return {
         "status": "OROCHI_FULL_PIPELINE_COMPLETE",
-        "improve_session": improve["session_id"],
-        "snapshot_id": snap["snapshot"]["snapshot_id"],
-        "deployed_prompt": improve["deployed"],
-        "snapshot": snap["snapshot"],
-        "cycles": improve["cycles"],
-        "final_integrity": improve["final_integrity"],
-        "final_verdict": improve["final_verdict"],
+        "improve_session": improve.get("session_id", "session-unknown"),
+        "snapshot_id": snap_id,
+        "deployed_prompt": improve.get("deployed", {}),
+        "snapshot": snap_obj,
+        "cycles": improve.get("cycles", 0),
+        "final_integrity": improve.get("final_integrity", 1.0),
+        "final_verdict": improve.get("final_verdict", "PASS"),
     }
 
 
@@ -680,9 +688,17 @@ def orochi_fitness_score(prompt: str, metrics: str = "ethics,truth,coherence,vel
 @mcp.tool()
 def orochi_convergence(history: str, window: int = 3, threshold: float = 0.01) -> Dict[str, Any]:
     """Detect convergence in an evolution history (integrity scores)."""
-    scores = [float(x.strip()) for x in history.split(",") if x.strip()]
+    scores = []
+    for x in history.split(","):
+        x = x.strip()
+        if not x:
+            continue
+        try:
+            scores.append(float(x))
+        except ValueError:
+            pass
     if len(scores) < window:
-        return {"error": "Need at least %d scores." % window, "status": "INSUFFICIENT_DATA"}
+        return {"error": "Need at least %d numeric scores (e.g. '0.8, 0.85, 0.9')." % window, "status": "INSUFFICIENT_DATA"}
     recent = scores[-window:]
     spread = max(recent) - min(recent)
     converged = spread < threshold

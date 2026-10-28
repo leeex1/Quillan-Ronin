@@ -1,0 +1,70 @@
+{
+  "status": "CROSS_DELIBERATION_COMPLETE",
+  "session_id": "cross-0de23006",
+  "topic": "test",
+  "clusters_deliberated": [
+    "cognitive",
+    "communication",
+    "meta",
+    "systems"
+  ],
+  "expert_count": 34,
+  "consensus": {
+    "consensus_score": 0.914,
+    "mean_alignment": 0.914,
+    "support_count": 26,
+    "conditional_count": 8,
+    "challenge_count": 0,
+    "disagreement_map": {
+      "support": [
+        "C1-ASTRA",
+        "C2-VIR",
+        "C3-SOLACE",
+        "C4-PRAXIS",
+        "C5-ECHO",
+        "C6-OMNIS",
+        "C7-LOGOS",
+        "C8-METASYNTH",
+        "C9-AETHER",
+        "C10-CODEWEAVER",
+        "C11-HARMONIA",
+        "C12-SOPHIAE",
+        "C13-WARDEN",
+        "C16-VOXUM",
+        "C17-NULLION",
+        "C18-SHEPHERD",
+        "C19-VIGIL",
+        "C20-ARTIFEX",
+        "C21-ARCHON",
+        "C24-SCHEMA",
+        "C25-PROMETHEUS",
+        "C27-CHRONICLE",
+        "C28-CALCULUS",
+        "C31-NEXUS",
+        "C32-AEON",
+        "C33-TYPIST"
+      ],
+      "conditional": [
+        "C14-KAIDO",
+        "C15-LUMINARIS",
+        "C22-AURELION",
+        "C23-CADENCE",
+        "C26-TECHNE",
+        "C29-NAVIGATOR",
+        "C30-TESSERACT",
+        "C34-PREDATOR"
+      ],
+      "challenge": []
+    },
+    "verdict": "CONSENSUS"
+  },
+  "cluster_verdicts": {
+    "cognitive": "CONSENSUS",
+    "communication": "CONSENSUS",
+    "meta": "CONSENSUS",
+    "systems": "CONSENSUS"
+  },
+  "disagreeing_clusters": [],
+  "synthesis": "Cross-council deliberation across 4 clusters. Consensus: 0.914 (CONSENSUS). Disagreeing clusters: none.",
+  "timestamp": 1793205219.515823
+}

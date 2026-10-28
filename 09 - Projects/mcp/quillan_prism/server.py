@@ -67,9 +67,34 @@ except Exception as _shared_err:
     import sys as _sys
     print(f'[quillan_prism] _shared warning: {_shared_err}', file=_sys.stderr)
 
+PRISM_DIR = Path(r"C:\02_QUILLAN\prism_state")
+PRISM_DIR.mkdir(parents=True, exist_ok=True)
+SESSION_DIR = PRISM_DIR / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
+
+PRISM_VECTORS = [
+    "Language", "Sentiment", "Context", "Intent", "Meta",
+    "Creativity", "Ethics", "Strategy", "Constraint"
+]
+
+VECTOR_WEIGHTS = {
+    "Language": 0.10,
+    "Sentiment": 0.05,
+    "Context": 0.15,
+    "Intent": 0.15,
+    "Meta": 0.10,
+    "Creativity": 0.10,
+    "Ethics": 0.15,
+    "Strategy": 0.10,
+    "Constraint": 0.10,
+}
 
 
 def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:
+    if isinstance(task, list):
+        task = " ".join(str(x) for x in task)
+    elif not isinstance(task, str):
+        task = str(task)
     t_clean = task.strip()
     has_code = bool(re.search(r"def |class |function|import |var |const |\{|\}|\[|\]", t_clean))
     syntax_focus = "Type annotations, return contracts, file schemas, deterministic structures" if has_code else "Markdown structure, heading hierarchy, clean typography"
@@ -333,8 +358,10 @@ def prism_deep_decompose(task: str, context: Optional[str] = None, depth: int = 
     for d in range(depth):
         decomp = _decompose(current_task, context)
         layers.append({"layer": d + 1, "task": current_task[:80], "vectors": decomp["vectors"]})
-        # Use the strategy vector as the next layer's task
-        current_task = decomp["vectors"].get("Strategy", current_task)[:120]
+        strat = decomp["vectors"].get("Strategy", current_task)
+        if isinstance(strat, list):
+            strat = " ".join(str(x) for x in strat)
+        current_task = str(strat)[:120]
     return {
         "original_task": task,
         "depth": depth,
@@ -401,6 +428,7 @@ def prism_compare(task_a: str, task_b: str, context: Optional[str] = None) -> Di
 @mcp.tool()
 def prism_custom_vector(name: str, definition: str, weight: float = 0.1) -> Dict[str, Any]:
     """Define a custom 10th vector for extended prism decomposition."""
+    global VECTOR_WEIGHTS
     if name not in PRISM_VECTORS:
         PRISM_VECTORS.append(name)
         VECTOR_WEIGHTS[name] = max(0.01, min(0.5, weight))

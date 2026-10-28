@@ -44,6 +44,8 @@ import json
 import time
 import uuid
 import asyncio
+import importlib
+import concurrent.futures
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
@@ -371,7 +373,7 @@ def orchestrator_chain(
     crew_id = f"crew-{uuid.uuid4().hex[:8]}"
 
     # Spawn a crew first (team MCP)
-    spawn_result = asyncio.run(
+    spawn_result = _run_coro(
         _call_mcp(
             "team",
             "team_spawn_crew",
@@ -501,9 +503,7 @@ def orchestrator_reverse_engineer(path: str, persist: bool = True) -> Dict[str, 
 
 def _run_re(path: str, persist: bool) -> Dict[str, Any]:
     """Synchronous wrapper for reverse engineer chain."""
-    import asyncio
-
-    return asyncio.run(_orch_re(path, persist))
+    return _run_coro(_orch_re(path, persist))
 
 
 async def _orch_re(path: str, persist: bool) -> Dict[str, Any]:
