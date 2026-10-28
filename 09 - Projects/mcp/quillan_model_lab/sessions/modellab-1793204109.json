@@ -1,0 +1,27 @@
+{
+  "type": "model_lab_pipeline",
+  "result": {
+    "status": "MODEL_LAB_PIPELINE_COMPLETE",
+    "session_id": "modellab-1793204109",
+    "checkpoint": {
+      "skipped": true
+    },
+    "dataset": {
+      "skipped": true
+    },
+    "hardware": {
+      "system_cores": 4,
+      "recommended_worker_threads": 2,
+      "cores_reserved_for_os_ui": 2,
+      "process_priority": "BELOW_NORMAL_PRIORITY_CLASS",
+      "full_unfreeze_ram_footprint_gb": 9.46,
+      "targeted_unfreeze_ram_footprint_gb": 4.14,
+      "recommendation": "Use targeted unfreeze (Attention + Prism + LoRA + Gates) requiring only ~4.14 GB RAM and set torch.set_num_threads(2) to eliminate system interrupts and DPC latency."
+    },
+    "bitnet": {
+      "skipped": true
+    },
+    "overall": "REVIEW",
+    "timestamp": 1793204109.538574
+  }
+}

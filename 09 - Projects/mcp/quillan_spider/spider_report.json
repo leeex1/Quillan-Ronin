@@ -1,1886 +1,1223 @@
 {
  "job": "scan",
- "root": "C:\\02_QUILLAN",
- "files": 50,
- "total_findings": 308,
+ "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
+ "files": 33,
+ "total_findings": 221,
  "wiring": [
   {
-   "from": "distill_from_nim.py",
-   "to": "hybrid_runtime",
-   "why": "distill_from_nim.py imports hybrid_runtime; coupled \u2014 a change in hybrid_runtime can break it"
+   "from": "ingest_second_brain.py",
+   "to": "server",
+   "why": "ingest_second_brain.py imports server; coupled \u2014 a change in server can break it"
   },
   {
-   "from": "es_at_scale.py",
-   "to": "es_at_scale_engine",
-   "why": "es_at_scale.py imports es_at_scale_engine; coupled \u2014 a change in es_at_scale_engine can break it"
+   "from": "server.py",
+   "to": "mcp_chain_bus",
+   "why": "server.py imports mcp_chain_bus; coupled \u2014 a change in mcp_chain_bus can break it"
+  },
+  {
+   "from": "spider_bridge.py",
+   "to": "server",
+   "why": "spider_bridge.py imports server; coupled \u2014 a change in server can break it"
   }
  ],
  "flagged": [
   {
-   "t": 0.0,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "t": 0.24,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
    "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "22 lines, 1 findings | compiled OK | 0F/0C | 1.0ms",
+   "detail": "706 lines, 8 findings | compiled OK | 32F/4C | 227.7ms",
    "findings": [
     {
      "rule": "hardcoded_path",
-     "line": 4,
-     "preview": "cd C:\\\\02_QUILLAN\\\\00 - Meta\\\\csrc"
-    }
-   ],
-   "lines": 22,
-   "ms": 1.0,
-   "compiled": true,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 0.23,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
-   "node": 2,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "73 lines, 3 findings | compiled OK | 3F/0C | 6.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 16,
-     "preview": "def load_native_kernels():"
-    },
-    {
-     "rule": "long_function",
-     "line": 52,
-     "preview": "def native_weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def native_nine_vector_prism(x: torch.Tensor, w_stacked: torch.Tensor, w_gate: torch.Tenso"
-    }
-   ],
-   "lines": 73,
-   "ms": 6.3,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 0.71,
-   "at": "LAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
-   "node": 4,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "324 lines, 8 findings | compiled OK | 10F/4C | 35.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 116,
-     "preview": "def __init__(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 136,
-     "preview": "def _compute_state_prior(self, state: Tuple[int, int, int, int, int]) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 154,
-     "preview": "def evaluate(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 238,
-     "preview": "def get_human_archetype(cls) -> Dict[str, bool]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 243,
-     "preview": "def get_thermostat_archetype(cls) -> Dict[str, bool]:"
-    }
-   ],
-   "lines": 324,
-   "ms": 35.3,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 0.98,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
-   "node": 5,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "502 lines, 8 findings | compiled OK | 20F/13C | 38.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def is_error_free(self) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 102,
-     "preview": "def __init__(self, mathlib_index: Optional[Dict[str, LemmaDeclaration]] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def _default_mathlib_index() -> Dict[str, LemmaDeclaration]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 115,
-     "preview": "\"Quantum.density_matrix_psd\": LemmaDeclaration(\"Quantum.density_matrix_psd\", \"\u2200 (\u03c1 : Densi"
-    },
-    {
-     "rule": "long_function",
-     "line": 118,
-     "preview": "def write_file(self, file_path: str, content: str) -> None:"
-    }
-   ],
-   "lines": 502,
-   "ms": 38.2,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 13
-  },
-  {
-   "t": 1.23,
-   "at": ":\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
-   "node": 6,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "318 lines, 8 findings | compiled OK | 19F/8C | 28.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 40,
-     "preview": "def __init__(self, use_logistic_noise: bool = True):"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def sample_logistic_noise(self, shape: torch.Size, device: torch.device) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 66,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 318,
-   "ms": 28.6,
-   "compiled": true,
-   "funcs": 19,
-   "classes": 8
-  },
-  {
-   "t": 1.49,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
-   "node": 7,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "440 lines, 8 findings | compiled OK | 20F/7C | 39.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def optimal_laplace_threshold(b: float) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def theoretical_mse_ratio() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def zero_state_occupancy() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def operating_point_entropy() -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def compute_empirical_kurtosis(tensor: torch.Tensor) -> float:"
-    }
-   ],
-   "lines": 440,
-   "ms": 39.1,
-   "compiled": true,
-   "funcs": 20,
-   "classes": 7
-  },
-  {
-   "t": 1.75,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
-   "node": 8,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "383 lines, 8 findings | compiled OK | 22F/12C | 26.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 48,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def __init__(self, d_model: int, eps: float = 1e-5):"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 98,
-     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
-    }
-   ],
-   "lines": 383,
-   "ms": 26.6,
-   "compiled": true,
-   "funcs": 22,
-   "classes": 12
-  },
-  {
-   "t": 2.05,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
-   "node": 9,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "291 lines, 8 findings | compiled OK | 14F/9C | 76.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 45,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 57,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 83,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
-    }
-   ],
-   "lines": 291,
-   "ms": 76.8,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 9
-  },
-  {
-   "t": 2.29,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
-   "node": 10,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "229 lines, 8 findings | compiled OK | 14F/7C | 16.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 60,
-     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 76,
-     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
-    },
-    {
-     "rule": "long_function",
-     "line": 98,
-     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 127.0):"
-    },
-    {
-     "rule": "long_function",
-     "line": 106,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 229,
-   "ms": 16.0,
-   "compiled": true,
-   "funcs": 14,
-   "classes": 7
-  },
-  {
-   "t": 2.56,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
-   "node": 11,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "379 lines, 8 findings | compiled OK | 11F/6C | 43.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def _init_tables(cls):"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def pack_triplets(cls, w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 117,
-     "preview": "def unpack_triplets(cls, unsigned_indices: torch.Tensor, sign_bits: torch.Tensor) -> torch"
-    },
-    {
-     "rule": "long_function",
-     "line": 158,
-     "preview": "def compute_gemv("
-    },
-    {
-     "rule": "long_function",
-     "line": 221,
-     "preview": "def compute_gemv("
-    }
-   ],
-   "lines": 379,
-   "ms": 43.2,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 6
-  },
-  {
-   "t": 2.82,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
-   "node": 12,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "360 lines, 8 findings | compiled OK | 12F/4C | 42.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 53,
-     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def unpack(packed: torch.Tensor, shape: Tuple[int, int]) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 90,
-     "preview": "def gemv(packed: torch.Tensor, shape: Tuple[int, int], x: torch.Tensor, alpha: float = 1.0"
-    },
-    {
-     "rule": "long_function",
-     "line": 133,
-     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 164,
-     "preview": "def build_lut(x: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 360,
-   "ms": 42.2,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 4
-  },
-  {
-   "t": 3.07,
-   "at": "_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
-   "node": 13,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "282 lines, 8 findings | compiled OK | 16F/8C | 24.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 47,
-     "preview": "def sign_ste(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 62,
-     "preview": "def quantize(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def quantize_symmetric("
-    },
-    {
-     "rule": "long_function",
-     "line": 92,
-     "preview": "def quantize_asymmetric("
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 128.0):"
-    }
-   ],
-   "lines": 282,
-   "ms": 24.5,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 8
-  },
-  {
-   "t": 3.36,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
-   "node": 14,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "517 lines, 8 findings | compiled OK | 35F/11C | 60.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 43,
-     "preview": "def fast_hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def forward(ctx, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def backward(ctx, grad_output: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def forward(ctx, w: torch.Tensor, eps: float = 1e-7) -> torch.Tensor:"
-    }
-   ],
-   "lines": 517,
-   "ms": 60.1,
-   "compiled": true,
-   "funcs": 35,
-   "classes": 11
-  },
-  {
-   "t": 3.65,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
-   "node": 15,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "399 lines, 8 findings | compiled OK | 13F/5C | 63.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 66,
-     "preview": "def compute_cpu_time(self, workload_tokens: int, flop_per_token: float = 2e6) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def compute_gpu_time("
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def __init__(self, hw_profile: HardwareProfile, max_gpu_experts: int = 16):"
-    },
-    {
-     "rule": "long_function",
-     "line": 99,
-     "preview": "def assign_experts("
-    }
-   ],
-   "lines": 399,
-   "ms": 63.8,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 3.9,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
-   "node": 16,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "299 lines, 8 findings | compiled OK | 11F/3C | 22.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 71,
-     "preview": "def soft_overlong_punishment("
-    },
-    {
-     "rule": "long_function",
-     "line": 100,
-     "preview": "def compute_rule_reward("
-    },
-    {
-     "rule": "long_function",
-     "line": 119,
-     "preview": "def is_valid_dapo_group(group_correctness: List[bool]) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 131,
-     "preview": "def compute_group_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 157,
-     "preview": "def __init__(self, config: Optional[DAPOConfig] = None):"
-    }
-   ],
-   "lines": 299,
-   "ms": 22.7,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 3
-  },
-  {
-   "t": 4.15,
-   "at": "_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
-   "node": 17,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "346 lines, 8 findings | compiled OK | 10F/4C | 22.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 68,
-     "preview": "def compute_optimal_stride(self) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def compute_optimal_stride_int(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 110,
-     "preview": "def set_grad(self, grad_tensor: torch.Tensor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def __init__("
-    }
-   ],
-   "lines": 346,
-   "ms": 22.3,
-   "compiled": true,
-   "funcs": 10,
-   "classes": 4
-  },
-  {
-   "t": 4.41,
-   "at": "02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
-   "node": 18,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "459 lines, 8 findings | compiled OK | 13F/5C | 38.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 73,
-     "preview": "def fine_grained_ffn_dim(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def total_fine_grained_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 83,
-     "preview": "def total_activated_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def num_routed_experts(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 93,
-     "preview": "def num_activated_routed(self) -> int:"
-    }
-   ],
-   "lines": 459,
-   "ms": 38.8,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 4.67,
-   "at": "ILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
-   "node": 19,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "295 lines, 8 findings | compiled OK | 8F/3C | 27.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 61,
-     "preview": "def schulman_kl_divergence("
-    },
-    {
-     "rule": "long_function",
-     "line": 80,
-     "preview": "def compute_outcome_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 101,
-     "preview": "def compute_process_advantages("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def __init__(self, config: Optional[GRPOConfig] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 150,
-     "preview": "def forward("
-    }
-   ],
-   "lines": 295,
-   "ms": 27.9,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 4.94,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
-   "node": 20,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "491 lines, 8 findings | compiled OK | 16F/9C | 45.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 70,
-     "preview": "def num_speculative_tokens(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-6):"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 103,
-     "preview": "def __init__(self, config: DFlashConfig):"
-    },
-    {
-     "rule": "long_function",
-     "line": 110,
-     "preview": "def forward(self, target_layer_hiddens: List[torch.Tensor]) -> torch.Tensor:"
-    }
-   ],
-   "lines": 491,
-   "ms": 45.0,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 9
-  },
-  {
-   "t": 5.2,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
-   "node": 21,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "467 lines, 8 findings | compiled OK | 9F/4C | 31.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def compute_group_relative_advantage("
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def compute_hellinger_distance("
-    },
-    {
-     "rule": "long_function",
-     "line": 116,
-     "preview": "def compute_shannon_entropy("
-    },
-    {
-     "rule": "long_function",
-     "line": 134,
-     "preview": "def reallocate_token_credits("
-    },
-    {
-     "rule": "long_function",
-     "line": 206,
-     "preview": "def __init__(self, config: Optional[DGPOConfig] = None):"
-    }
-   ],
-   "lines": 467,
-   "ms": 31.6,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 4
-  },
-  {
-   "t": 5.42,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
-   "node": 22,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "89 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (distill_from_nim.py, line 1) | 0F/0C | 0.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 24,
-     "preview": "def teacher_generate(prompt, teacher):"
-    },
-    {
-     "rule": "long_function",
-     "line": 36,
-     "preview": "def distill_batch(prompts):"
-    }
-   ],
-   "lines": 89,
-   "ms": 0.3,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 5.71,
-   "at": "QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
-   "node": 23,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "607 lines, 8 findings | compiled OK | 16F/8C | 56.2ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 461,
-     "preview": "self.model.eval()"
-    },
-    {
-     "rule": "long_function",
-     "line": 74,
-     "preview": "def __init__(self, p: float = 0.3, min_weight: float = 1e-4):"
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def __init__(self, mask_token_id: int):"
-    },
-    {
-     "rule": "long_function",
-     "line": 150,
-     "preview": "def forward("
-    }
-   ],
-   "lines": 607,
-   "ms": 56.2,
-   "compiled": true,
-   "funcs": 16,
-   "classes": 8
-  },
-  {
-   "t": 5.96,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
-   "node": 24,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "305 lines, 8 findings | compiled OK | 8F/5C | 20.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 58,
-     "preview": "def is_recurring(self) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 63,
-     "preview": "def num_records(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 84,
-     "preview": "def __init__(self, num_passes: int = 2, beta_attenuation: float = 0.758):"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def run_refinement(self,"
-    },
-    {
-     "rule": "long_function",
-     "line": 175,
-     "preview": "def __init__(self,"
-    }
-   ],
-   "lines": 305,
-   "ms": 20.6,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 5
-  },
-  {
-   "t": 6.2,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
-   "node": 25,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "60 lines, 5 findings | compiled OK | 5F/2C | 5.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 27,
-     "preview": "def __init__(self, pop_size=30, sigma=0.001, lr=0.0005):"
-    },
-    {
-     "rule": "long_function",
-     "line": 37,
-     "preview": "def step(self, master_weights, fitness_fn):"
-    },
-    {
-     "rule": "long_function",
-     "line": 51,
-     "preview": "def __init__(self, memory_strength=0.1):"
-    },
-    {
-     "rule": "long_function",
-     "line": 55,
-     "preview": "def add_anchor(self, anchor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 58,
-     "preview": "def regularize(self, current_weights, anchor_weights):"
-    }
-   ],
-   "lines": 60,
-   "ms": 5.9,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 2
-  },
-  {
-   "t": 6.44,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
-   "node": 26,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "301 lines, 8 findings | compiled OK | 8F/3C | 22.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 56,
-     "preview": "def normalize_population_rewards("
-    },
-    {
-     "rule": "long_function",
-     "line": 86,
-     "preview": "def sample_layer_noise("
-    },
-    {
-     "rule": "long_function",
-     "line": 107,
-     "preview": "def __init__(self, model: nn.Module, config: Optional[ESAtScaleConfig] = None):"
-    },
-    {
-     "rule": "long_function",
-     "line": 120,
-     "preview": "def _get_layer_seed(self, pop_index: int, layer_index: int, iteration_seed: int) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 127,
-     "preview": "def evaluate_individual("
-    }
-   ],
-   "lines": 301,
-   "ms": 22.3,
-   "compiled": true,
-   "funcs": 8,
-   "classes": 3
-  },
-  {
-   "t": 6.69,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
-   "node": 27,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "338 lines, 6 findings | compiled OK | 6F/2C | 23.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 65,
-     "preview": "def compute_expected_random_walk_drift("
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def apply_anchored_decay_step("
-    },
-    {
-     "rule": "long_function",
-     "line": 125,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 143,
-     "preview": "def step(self, fitness_fn: Callable[[nn.Module], float]) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 237,
-     "preview": "def verify_es_awd_invariants() -> Dict[str, Any]:"
-    }
-   ],
-   "lines": 338,
-   "ms": 23.1,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 2
-  },
-  {
-   "t": 6.95,
-   "at": "2_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
-   "node": 28,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "404 lines, 8 findings | compiled OK | 9F/6C | 34.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def compute_frobenius_norm(delta: torch.Tensor) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def compute_parameter_sparsity(delta: torch.Tensor, tau: float = 1e-6) -> Tuple[float, int"
-    },
-    {
-     "rule": "long_function",
-     "line": 105,
-     "preview": "def classify_parameter_component(param_name: str) -> str:"
-    },
-    {
-     "rule": "long_function",
-     "line": 133,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def inspect_drift(self, current_model: nn.Module, step: int = 0) -> ESDriftMetrics:"
-    }
-   ],
-   "lines": 404,
-   "ms": 34.6,
-   "compiled": true,
-   "funcs": 9,
-   "classes": 6
-  },
-  {
-   "t": 7.21,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
-   "node": 29,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "229 lines, 8 findings | compiled OK | 6F/0C | 32.5ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 64,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "eval_exec",
-     "line": 131,
-     "preview": "\"eval('1 + 1')\""
-    },
-    {
-     "rule": "subprocess_shell",
-     "line": 128,
-     "preview": "\"import os; os.system('whoami')\","
-    },
-    {
-     "rule": "long_function",
-     "line": 38,
-     "preview": "def load_eval_model(checkpoint_path: str, device: str = \"cpu\") -> QuillanRoninOni:"
-    },
-    {
-     "rule": "long_function",
-     "line": 67,
-     "preview": "def benchmark_generation(model: QuillanRoninOni, prompt_tokens: list, max_tokens: int = 32"
-    }
-   ],
-   "lines": 229,
-   "ms": 32.5,
-   "compiled": true,
-   "funcs": 6,
-   "classes": 0
-  },
-  {
-   "t": 7.47,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
-   "node": 30,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "52 lines, 3 findings | compiled OK | 3F/1C | 9.9ms",
-   "findings": [
-    {
-     "rule": "long_function",
      "line": 8,
-     "preview": "def __init__(self, hidden_dim=2048, n_experts=33, rank=24):"
+     "preview": "2. Cross-platform Path Injection (C:\\\\02_QUILLAN & ONI engine paths)"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 93,
+     "preview": "\"\"\"Injects C:\\\\02_QUILLAN, mcp root, and ONI project paths into sys.path.\"\"\""
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 634,
+     "preview": "2. Injects C:\\\\02_QUILLAN and ONI paths"
     },
     {
      "rule": "long_function",
-     "line": 24,
-     "preview": "def evolve_from_base(self, base_state):"
-    },
-    {
-     "rule": "long_function",
-     "line": 30,
-     "preview": "def forward(self, x):"
-    }
-   ],
-   "lines": 52,
-   "ms": 9.9,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 7.69,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
-   "node": 31,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "48 lines, 3 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (evo_moe_glm.py, line 1) | 0F/0C | 0.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 8,
-     "preview": "def __init__(self, hidden_dim=2048, n_experts=34, rank=24):"
-    },
-    {
-     "rule": "long_function",
-     "line": 28,
-     "preview": "def evolve_from_base(self, base_state):"
-    },
-    {
-     "rule": "long_function",
-     "line": 34,
-     "preview": "def forward(self, x):"
-    }
-   ],
-   "lines": 48,
-   "ms": 0.2,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 7.95,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
-   "node": 32,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "419 lines, 8 findings | compiled OK | 13F/6C | 36.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 72,
-     "preview": "def __init__(self, hidden_dim: int, intermediate_dim: int) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 78,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 91,
-     "preview": "def __init__(self, config: EvoMoEConfig) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 94,
-     "preview": "def evolve_expert("
-    },
-    {
-     "rule": "long_function",
-     "line": 129,
-     "preview": "def compute_expert_diversity(experts: List[SwiGLUFFN]) -> float:"
-    }
-   ],
-   "lines": 419,
-   "ms": 36.2,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 6
-  },
-  {
-   "t": 8.19,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
-   "node": 33,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "152 lines, 3 findings | compiled OK | 3F/0C | 18.2ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 40,
-     "preview": "def export_to_safetensors(checkpoint_path: str, output_dir: str):"
-    },
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def export_to_gguf(checkpoint_path: str, output_file: str):"
-    },
-    {
-     "rule": "long_function",
-     "line": 131,
-     "preview": "def main():"
-    }
-   ],
-   "lines": 152,
-   "ms": 18.2,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 8.51,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
-   "node": 34,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "555 lines, 7 findings | compiled OK | 7F/3C | 77.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 69,
-     "preview": "def flash_attention_1_forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 233,
-     "preview": "def flash_attention_1_backward("
-    },
-    {
-     "rule": "long_function",
-     "line": 386,
-     "preview": "def forward(ctx, Q, K, V, config, block_sparse_mask):"
-    },
-    {
-     "rule": "long_function",
-     "line": 393,
-     "preview": "def backward(ctx, dO):"
-    },
-    {
-     "rule": "long_function",
-     "line": 410,
-     "preview": "def __init__(self, config: Optional[FlashAttention1Config] = None):"
-    }
-   ],
-   "lines": 555,
-   "ms": 77.6,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 3
-  },
-  {
-   "t": 8.79,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
-   "node": 35,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "435 lines, 7 findings | compiled OK | 7F/3C | 53.0ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 55,
-     "preview": "def flash_attention_2_forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 158,
-     "preview": "def flash_attention_2_backward("
-    },
-    {
-     "rule": "long_function",
-     "line": 273,
-     "preview": "def forward("
-    },
-    {
-     "rule": "long_function",
-     "line": 294,
-     "preview": "def backward(ctx, do: torch.Tensor):"
-    },
-    {
-     "rule": "long_function",
-     "line": 316,
-     "preview": "def __init__("
-    }
-   ],
-   "lines": 435,
-   "ms": 53.0,
-   "compiled": true,
-   "funcs": 7,
-   "classes": 3
-  },
-  {
-   "t": 9.1,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
-   "node": 36,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "691 lines, 8 findings | compiled OK | 13F/5C | 79.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 88,
-     "preview": "def __init__(self, dim: int, seed: int = 42, device: Optional[torch.device] = None, dtype:"
-    },
-    {
-     "rule": "long_function",
-     "line": 113,
-     "preview": "def _build_normalized_hadamard(n: int, device: torch.device, dtype: torch.dtype) -> torch."
-    },
-    {
-     "rule": "long_function",
-     "line": 123,
-     "preview": "def apply(self, X: torch.Tensor) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 128,
-     "preview": "def verify_orthogonality(self, atol: float = 1e-5) -> bool:"
-    },
-    {
-     "rule": "long_function",
-     "line": 146,
-     "preview": "def quantize_block(X_tile: torch.Tensor, fp8_max: float = 448.0) -> Tuple[torch.Tensor, fl"
-    }
-   ],
-   "lines": 691,
-   "ms": 79.6,
-   "compiled": true,
-   "funcs": 13,
-   "classes": 5
-  },
-  {
-   "t": 9.32,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
-   "node": 37,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "16 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (flash_attn_wrapper.py, line 1) | 0F/0C | 0.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 10,
-     "preview": "def quillan_flash_attn(q, k, v, is_causal=True):"
-    }
-   ],
-   "lines": 16,
-   "ms": 0.3,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 9.59,
-   "at": "_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
-   "node": 38,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "396 lines, 8 findings | compiled OK | 11F/4C | 38.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 70,
-     "preview": "def sample_gumbel_noise("
-    },
-    {
-     "rule": "long_function",
-     "line": 89,
-     "preview": "def gumbel_softmax_sample("
-    },
-    {
-     "rule": "long_function",
-     "line": 132,
-     "preview": "def gumbel_softmax_log_density("
-    },
-    {
-     "rule": "long_function",
-     "line": 174,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 188,
-     "preview": "def get_tau(self, step: int) -> float:"
-    }
-   ],
-   "lines": 396,
-   "ms": 38.6,
-   "compiled": true,
-   "funcs": 11,
-   "classes": 4
-  },
-  {
-   "t": 9.82,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
-   "node": 39,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "99 lines, 5 findings | compiled OK | 5F/0C | 8.6ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 24,
-     "preview": "def load_hybrid_config(path: Path = HYBRID_CONFIG) -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 29,
-     "preview": "def check_ram_headroom(min_free_gb: float) -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def ensure_offload_dirs(cfg: dict) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def init() -> dict:"
-    },
-    {
-     "rule": "long_function",
-     "line": 81,
-     "preview": "def resolve_device(requested: str, cfg: dict) -> str:"
-    }
-   ],
-   "lines": 99,
-   "ms": 8.6,
-   "compiled": true,
-   "funcs": 5,
-   "classes": 0
-  },
-  {
-   "t": 10.06,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
-   "node": 40,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "120 lines, 2 findings | compiled OK | 1F/0C | 13.4ms",
-   "findings": [
-    {
-     "rule": "eval_exec",
-     "line": 80,
-     "preview": "model.eval()"
-    },
-    {
-     "rule": "long_function",
-     "line": 30,
-     "preview": "def inspect_model():"
-    }
-   ],
-   "lines": 120,
-   "ms": 13.4,
-   "compiled": true,
-   "funcs": 1,
-   "classes": 0
-  },
-  {
-   "t": 10.32,
-   "at": "AN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
-   "node": 41,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "231 lines, 8 findings | compiled OK | 12F/3C | 35.8ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 49,
-     "preview": "def find_prime_factors(n: int) -> List[int]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 64,
-     "preview": "def compute_spatial_entropy(grid: torch.Tensor) -> float:"
-    },
-    {
-     "rule": "long_function",
-     "line": 79,
-     "preview": "def decompose_raster(bits: torch.Tensor) -> Dict[str, Any]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 121,
-     "preview": "def __init__(self):"
-    },
-    {
-     "rule": "long_function",
-     "line": 134,
-     "preview": "def decode_positional_number(self, token: str) -> float:"
-    }
-   ],
-   "lines": 231,
-   "ms": 35.8,
-   "compiled": true,
-   "funcs": 12,
-   "classes": 3
-  },
-  {
-   "t": 10.77,
-   "at": ":\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
-   "node": 43,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "49 lines, 3 findings | compiled OK | 3F/1C | 3.1ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 28,
-     "preview": "def forward(ctx, x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 39,
-     "preview": "def backward(ctx, grad_output: torch.Tensor) -> Tuple[torch.Tensor, None]:"
-    },
-    {
-     "rule": "long_function",
-     "line": 44,
-     "preview": "def fused_ste_activation(x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
-    }
-   ],
-   "lines": 49,
-   "ms": 3.1,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 1
-  },
-  {
-   "t": 11.0,
-   "at": "2_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
-   "node": 44,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "103 lines, 3 findings | compiled OK | 3F/0C | 8.7ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 23,
-     "preview": "def mark_dynamic_dims(t: torch.Tensor, dim_indices: Tuple[int, ...]) -> None:"
-    },
-    {
-     "rule": "long_function",
-     "line": 33,
-     "preview": "def fixed_capacity_moe_dispatch("
-    },
-    {
-     "rule": "long_function",
-     "line": 82,
-     "preview": "def scatter_add_moe_output("
-    }
-   ],
-   "lines": 103,
-   "ms": 8.7,
-   "compiled": true,
-   "funcs": 3,
-   "classes": 0
-  },
-  {
-   "t": 11.23,
-   "at": "2_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
-   "node": 45,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "103 lines, 4 findings | compiled OK | 4F/1C | 8.3ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 20,
-     "preview": "def pack_ternary_weights(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Tuple[int, "
+     "line": 46,
+     "preview": "def __init__(self, stderr_stream: Any, original_stdout: Any):"
     },
     {
      "rule": "long_function",
      "line": 50,
-     "preview": "def unpack_ternary_weights("
-    },
-    {
-     "rule": "long_function",
-     "line": 77,
-     "preview": "def __init__("
-    },
-    {
-     "rule": "long_function",
-     "line": 95,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+     "preview": "def write(self, s: str) -> int:"
     }
    ],
-   "lines": 103,
-   "ms": 8.3,
+   "lines": 706,
+   "ms": 227.7,
    "compiled": true,
-   "funcs": 4,
-   "classes": 1
+   "funcs": 32,
+   "classes": 4
   },
   {
-   "t": 11.45,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
-   "node": 46,
+   "t": 0.62,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
+   "node": 2,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "38 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (mamba_block.py, line 1) | 0F/0C | 0.4ms",
+   "detail": "402 lines, 8 findings | compiled OK | 10F/4C | 90.9ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 7,
-     "preview": "def __init__(self, hidden_dim=2048, d_state=16, expand=2):"
+     "line": 89,
+     "preview": "def decompose(self, text: str) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 18,
-     "preview": "def forward(self, x):"
+     "line": 124,
+     "preview": "def __init__(self) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 127,
+     "preview": "def deliberate(self, query: str, tau: float = 0.5, top_display: int = 8) -> Dict[str, Any]"
+    },
+    {
+     "rule": "long_function",
+     "line": 204,
+     "preview": "def step(self, router_conf_mean: float, nemesis_integrity: float, e_ice_ratio: float) -> D"
+    },
+    {
+     "rule": "long_function",
+     "line": 225,
+     "preview": "def compute_e_omega("
     }
    ],
-   "lines": 38,
-   "ms": 0.4,
-   "compiled": false,
-   "funcs": 0,
-   "classes": 0
-  },
-  {
-   "t": 11.71,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
-   "node": 47,
-   "event": "file",
-   "action": "SCANNING",
-   "result": "FLAGGED",
-   "detail": "374 lines, 8 findings | compiled OK | 10F/4C | 32.5ms",
-   "findings": [
-    {
-     "rule": "long_function",
-     "line": 76,
-     "preview": "def d_inner(self) -> int:"
-    },
-    {
-     "rule": "long_function",
-     "line": 87,
-     "preview": "def __init__(self, d_in: Union[int, MambaConfig], d_state: int = 16, dt_rank: int = 16, dt"
-    },
-    {
-     "rule": "long_function",
-     "line": 128,
-     "preview": "def A(self) -> torch.Tensor:"
-    },
-    {
-     "rule": "long_function",
-     "line": 132,
-     "preview": "def project_selective_params(self, u: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, t"
-    },
-    {
-     "rule": "long_function",
-     "line": 139,
-     "preview": "def forward(self, u: torch.Tensor) -> torch.Tensor:"
-    }
-   ],
-   "lines": 374,
-   "ms": 32.5,
+   "lines": 402,
+   "ms": 90.9,
    "compiled": true,
    "funcs": 10,
    "classes": 4
   },
   {
-   "t": 11.96,
-   "at": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
-   "node": 48,
+   "t": 0.93,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
+   "node": 3,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "260 lines, 8 findings | compiled OK | 11F/5C | 21.7ms",
+   "detail": "511 lines, 8 findings | compiled OK | 13F/0C | 70.3ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 53,
-     "preview": "def __init__(self,"
+     "line": 35,
+     "preview": "def aqcs_superposition("
     },
     {
      "rule": "long_function",
-     "line": 79,
-     "preview": "def fold_weights_for_inference(self) -> None:"
+     "line": 78,
+     "preview": "def eemf_ethical_projection("
     },
     {
      "rule": "long_function",
-     "line": 90,
-     "preview": "def unfold_weights(self) -> None:"
+     "line": 118,
+     "preview": "def qhis_fidelity("
     },
     {
      "rule": "long_function",
-     "line": 95,
-     "preview": "def construct_values(self, k: torch.Tensor, token_ids: torch.Tensor) -> torch.Tensor:"
+     "line": 154,
+     "preview": "def dqro_resource_optimization("
     },
     {
      "rule": "long_function",
-     "line": 111,
-     "preview": "def forward(self,"
+     "line": 198,
+     "preview": "def qcrdm_reasoning_probability("
     }
    ],
-   "lines": 260,
-   "ms": 21.7,
+   "lines": 511,
+   "ms": 70.3,
    "compiled": true,
-   "funcs": 11,
-   "classes": 5
+   "funcs": 13,
+   "classes": 0
   },
   {
-   "t": 12.24,
-   "at": ":\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
-   "node": 49,
+   "t": 1.23,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
+   "node": 4,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "468 lines, 8 findings | compiled OK | 20F/8C | 55.6ms",
+   "detail": "467 lines, 8 findings | compiled OK | 26F/8C | 66.9ms",
    "findings": [
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def __init__(self, storage_dir: str = \".quillan_feedback\"):"
+    },
+    {
+     "rule": "long_function",
+     "line": 98,
+     "preview": "def _load_all(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 130,
+     "preview": "def store_trace(self, trace: ExperienceTrace) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 135,
+     "preview": "def store_heuristic(self, heuristic: Heuristic) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 140,
+     "preview": "def store_feedback(self, feedback: FeedbackEntry) -> str:"
+    }
+   ],
+   "lines": 467,
+   "ms": 66.9,
+   "compiled": true,
+   "funcs": 26,
+   "classes": 8
+  },
+  {
+   "t": 1.47,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
+   "node": 5,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "119 lines, 5 findings | compiled OK | 5F/0C | 13.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 35,
+     "preview": "def _parent_alive(ppid: int) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def _daemonize_threads() -> None:"
+    },
     {
      "rule": "long_function",
      "line": 73,
-     "preview": "def num_queries_per_kv(self) -> int:"
+     "preview": "def is_installed() -> bool:"
     },
     {
      "rule": "long_function",
-     "line": 81,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+     "line": 77,
+     "preview": "def install("
     },
     {
      "rule": "long_function",
-     "line": 86,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+     "line": 97,
+     "preview": "def _watch() -> None:"
+    }
+   ],
+   "lines": 119,
+   "ms": 13.4,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
+  },
+  {
+   "t": 1.79,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
+   "node": 6,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "714 lines, 8 findings | compiled OK | 35F/3C | 85.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def wsl_path(p: str | Path) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 94,
+     "preview": "def resolve_python() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 112,
+     "preview": "def pythonpath_for(platform_name: str | None = None) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 133,
+     "preview": "def to_dict(self) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 152,
+     "preview": "def json_safe(obj: Any, _depth: int = 0) -> Any:"
+    }
+   ],
+   "lines": 714,
+   "ms": 85.9,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 3
+  },
+  {
+   "t": 2.11,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
+   "node": 7,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "598 lines, 8 findings | compiled OK | 30F/1C | 88.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 66,
+     "preview": "def audio_design_cue(mood: str = \"tense\", scene: str = \"boss gate\", duration_sec: int = 60"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def audio_analyze_track(source: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 128,
+     "preview": "def audio_mix_plan(stems: str = \"drums,bass,pads,sfx\", target_lufs: float = -14.0) -> Dict"
+    },
+    {
+     "rule": "long_function",
+     "line": 142,
+     "preview": "def audio_generate_sfx_brief(action: str = \"dash\", material: str = \"cloth+wind\", perspecti"
+    }
+   ],
+   "lines": 598,
+   "ms": 88.5,
+   "compiled": true,
+   "funcs": 30,
+   "classes": 1
+  },
+  {
+   "t": 2.49,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
+   "node": 8,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "882 lines, 8 findings | compiled OK | 36F/2C | 144.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 27,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 122,
+     "preview": "def _get_twin(twin_id: Optional[str] = None) -> BuddyTwin:"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "def _spawn(persona: str, role: str, custom_instructions: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 150,
+     "preview": "def buddy_spawn_clone("
+    },
+    {
+     "rule": "long_function",
+     "line": 184,
+     "preview": "def buddy_spar(proposal: str, critique_focus: str = \"security_and_edge_cases\","
+    }
+   ],
+   "lines": 882,
+   "ms": 144.7,
+   "compiled": true,
+   "funcs": 36,
+   "classes": 2
+  },
+  {
+   "t": 2.86,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
+   "node": 9,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1141 lines, 8 findings | compiled OK | 37F/2C | 135.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 967,
+     "preview": "exec(compile(open(str(tmp)).read(), str(tmp), \"exec\"), {})"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 505,
+     "preview": "# TODO: Arrange nominal inputs based on ({args_spec})"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 513,
+     "preview": "# TODO: Pass boundary values"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 520,
+     "preview": "# TODO: Pass invalid type"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 574,
+     "preview": "\"stub\": f\"# TODO: fix {f.get('rule_id')} at line {f.get('line_number')}: {f.get('remediati"
+    }
+   ],
+   "lines": 1141,
+   "ms": 135.2,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 2
+  },
+  {
+   "t": 4.09,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
+   "node": 14,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1052 lines, 8 findings | compiled OK | 19F/1C | 106.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 34,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def _get_quillan_base() -> Path:"
+    },
+    {
+     "rule": "long_function",
+     "line": 389,
+     "preview": "def _expert_perspective(m: Dict[str, Any], query: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 413,
+     "preview": "def _consensus_score(perspectives: List[Dict[str, Any]]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 445,
+     "preview": "def council_predator_strike("
+    }
+   ],
+   "lines": 1052,
+   "ms": 106.0,
+   "compiled": true,
+   "funcs": 19,
+   "classes": 1
+  },
+  {
+   "t": 4.41,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
+   "node": 15,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "706 lines, 8 findings | compiled OK | 31F/1C | 84.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def gamedev_new_project(name: str, genre: str = \"action-roguelite\", engine: str = \"godot\","
     },
     {
      "rule": "long_function",
      "line": 91,
-     "preview": "def apply_rotary_emb("
+     "preview": "def gamedev_design_loop(core_fantasy: str, player_verbs: str = \"move, dash, shoot\", progre"
     },
     {
      "rule": "long_function",
-     "line": 109,
-     "preview": "def __init__(self, head_dim: int, max_seq_len: int = 8192, theta: float = 10000.0):"
+     "line": 113,
+     "preview": "def gamedev_balance_economy(base_xp: int = 100, growth: float = 1.22, levels: int = 20, si"
+    },
+    {
+     "rule": "long_function",
+     "line": 131,
+     "preview": "def gamedev_simulate_playtest(runs: int = 200, win_rate_target: float = 0.35, avg_run_min:"
     }
    ],
-   "lines": 468,
-   "ms": 55.6,
+   "lines": 706,
+   "ms": 84.1,
    "compiled": true,
-   "funcs": 20,
-   "classes": 8
+   "funcs": 31,
+   "classes": 1
   },
   {
-   "t": 12.51,
-   "at": "\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "full": "C:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
-   "node": 50,
+   "t": 4.74,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
+   "node": 16,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "423 lines, 8 findings | compiled OK | 19F/9C | 45.4ms",
+   "detail": "826 lines, 8 findings | compiled OK | 23F/1C | 97.1ms",
    "findings": [
     {
      "rule": "long_function",
-     "line": 56,
-     "preview": "def num_queries_per_kv(self) -> int:"
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
     },
     {
      "rule": "long_function",
-     "line": 64,
-     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+     "line": 73,
+     "preview": "def governor_system_health() -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 69,
-     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+     "line": 122,
+     "preview": "def governor_thread_budget(workload_type: str = \"training\") -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 74,
-     "preview": "def apply_rotary_emb("
+     "line": 167,
+     "preview": "def governor_optimizer_ram_calc("
+    },
+    {
+     "rule": "long_function",
+     "line": 221,
+     "preview": "def governor_velocity_tune("
+    }
+   ],
+   "lines": 826,
+   "ms": 97.1,
+   "compiled": true,
+   "funcs": 23,
+   "classes": 1
+  },
+  {
+   "t": 5.04,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
+   "node": 17,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "698 lines, 8 findings | compiled OK | 24F/1C | 66.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 31,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def _get_quillan_base() -> Path:"
+    },
+    {
+     "rule": "long_function",
+     "line": 97,
+     "preview": "def media_image_brief("
+    },
+    {
+     "rule": "long_function",
+     "line": 129,
+     "preview": "def media_video_brief("
+    },
+    {
+     "rule": "long_function",
+     "line": 152,
+     "preview": "def media_character_sheet("
+    }
+   ],
+   "lines": 698,
+   "ms": 66.3,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 1
+  },
+  {
+   "t": 5.52,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
+   "node": 18,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1229 lines, 8 findings | compiled OK | 37F/1C | 202.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def model_checkpoint_inspect(checkpoint_path: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def model_dataset_validator(jsonl_path: str, max_samples: int = 1000) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 139,
+     "preview": "def model_hardware_advisor(model_param_millions: float = 758.0) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 169,
+     "preview": "def model_bitnet_analyze(checkpoint_path: str) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 1229,
+   "ms": 202.1,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 1
+  },
+  {
+   "t": 5.94,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+   "node": 19,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "943 lines, 8 findings | compiled OK | 31F/1C | 183.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 21,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def ops_guardrail_check(action_desc: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 84,
+     "preview": "def ops_health(repo_path: str = r\"C:\\02_QUILLAN\", deep: bool = True) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 149,
+     "preview": "def ops_release_note(version: str, highlights: str, fixes: str = \"\") -> str:"
+    }
+   ],
+   "lines": 943,
+   "ms": 183.1,
+   "compiled": true,
+   "funcs": 31,
+   "classes": 1
+  },
+  {
+   "t": 6.25,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
+   "node": 20,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "954 lines, 8 findings | compiled OK | 18F/1C | 79.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 35,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 92,
+     "preview": "def _get_mcp_base_path() -> Path:"
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def _load_mcp(module_name: str, server_path: Path) -> Any:"
+    },
+    {
+     "rule": "long_function",
+     "line": 139,
+     "preview": "async def _call_mcp("
+    },
+    {
+     "rule": "long_function",
+     "line": 168,
+     "preview": "def _run_coro(coro: Any) -> Any:"
+    }
+   ],
+   "lines": 954,
+   "ms": 79.4,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 1
+  },
+  {
+   "t": 6.59,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
+   "node": 21,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "908 lines, 8 findings | compiled OK | 30F/1C | 105.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def _now() -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 84,
+     "preview": "def _sha(s: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def _save_json(path: Path, obj: Dict[str, Any]) -> None:"
     },
     {
      "rule": "long_function",
      "line": 90,
-     "preview": "def __init__(self, dim: int, max_seq_len: int = 32768, theta: float = 10000.0):"
+     "preview": "def _load_json(path: Path) -> Dict[str, Any]:"
     }
    ],
-   "lines": 423,
-   "ms": 45.4,
+   "lines": 908,
+   "ms": 105.1,
    "compiled": true,
-   "funcs": 19,
-   "classes": 9
+   "funcs": 30,
+   "classes": 1
+  },
+  {
+   "t": 6.9,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
+   "node": 22,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "555 lines, 8 findings | compiled OK | 24F/1C | 71.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 25,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 106,
+     "preview": "def _threat_model(feature: str, assets: Optional[List[str]]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 129,
+     "preview": "def _bushido_gate(action_or_output: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 157,
+     "preview": "def prism_decompose(task: str, context: Optional[str] = None) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 555,
+   "ms": 71.4,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 1
+  },
+  {
+   "t": 7.13,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
+   "node": 23,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "73 lines, 1 findings | compiled OK | 0F/0C | 7.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 42,
+     "preview": "async def main():"
+    }
+   ],
+   "lines": 73,
+   "ms": 7.9,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
+  },
+  {
+   "t": 7.5,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
+   "node": 24,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "877 lines, 8 findings | compiled OK | 17F/1C | 145.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 26,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def _get_api_key() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 95,
+     "preview": "def _get_http() -> httpx.AsyncClient:"
+    },
+    {
+     "rule": "long_function",
+     "line": 115,
+     "preview": "async def _nim_embed(texts, input_type=\"passage\", max_retries=3):"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 3) "
+    }
+   ],
+   "lines": 877,
+   "ms": 145.6,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 1
+  },
+  {
+   "t": 8.02,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
+   "node": 25,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1612 lines, 8 findings | compiled OK | 48F/1C | 276.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 912,
+     "preview": "js_obfusc = [\"eval(\", \"Function(\", \"atob(\", \"fromCharCode\", \"unescape(\"]"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 1038,
+     "preview": "basic_patterns = [\"cmd.exe\", \"powershell\", \"CreateRemoteThread\", \"VirtualAlloc\", \"WScript."
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 550,
+     "preview": "// TODO: Implement disassembly lift for {symbol}"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 562,
+     "preview": "// TODO: Add disassembly engine for full recovery"
+    },
+    {
+     "rule": "long_function",
+     "line": 39,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    }
+   ],
+   "lines": 1612,
+   "ms": 276.5,
+   "compiled": true,
+   "funcs": 48,
+   "classes": 1
+  },
+  {
+   "t": 8.57,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
+   "node": 26,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "646 lines, 8 findings | compiled OK | 23F/2C | 308.8ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 289,
+     "preview": "Persists correlation_id and telemetry to C:\\\\02_QUILLAN\\\\07 - Memory & LanceDB\\\\chain_stat"
+    },
+    {
+     "rule": "long_function",
+     "line": 22,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def evaluate(self, swarm_id: int, input_energy: float) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def _gate_evaluate(proposal: str) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 147,
+     "preview": "def samurai_full_pipeline(query: str, depth: str = \"full\", persist: bool = True) -> Dict[s"
+    }
+   ],
+   "lines": 646,
+   "ms": 308.8,
+   "compiled": true,
+   "funcs": 23,
+   "classes": 2
+  },
+  {
+   "t": 8.89,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
+   "node": 27,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "422 lines, 8 findings | compiled OK | 6F/1C | 81.7ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 7,
+     "preview": "for the 140,000+ file ecosystem in C:\\\\02_QUILLAN."
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 408,
+     "preview": "\"1. **Zero-Egress Isolation**: All MCP servers, training loops, and vector storage operate"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def classify_sector(rel_path: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 75,
+     "preview": "def classify_cluster(rel_path: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def __init__(self, root: Path = ROOT_DIR):"
+    }
+   ],
+   "lines": 422,
+   "ms": 81.7,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 1
+  },
+  {
+   "t": 9.47,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
+   "node": 28,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1585 lines, 8 findings | compiled OK | 57F/2C | 341.9ms",
+   "findings": [
+    {
+     "rule": "subprocess_shell",
+     "line": 608,
+     "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 411,
+     "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 13,
+     "preview": "TRAIL FILE: C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\trail.json"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 14,
+     "preview": "VIEWER:     C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider\\\\spider-viewer.html (open i"
+    },
+    {
+     "rule": "hardcoded_path",
+     "line": 284,
+     "preview": "def spider_crawl(root: str = \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\", max_files: int = 220, e"
+    }
+   ],
+   "lines": 1585,
+   "ms": 341.9,
+   "compiled": true,
+   "funcs": 57,
+   "classes": 2
+  },
+  {
+   "t": 9.79,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
+   "node": 29,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "520 lines, 8 findings | compiled OK | 17F/1C | 90.2ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 5,
+     "preview": "Serves C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\\\\quillan_spider on 127.0.0.1:8082"
+    },
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def _load_agents():"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def _save_agents():"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def _agent_color(agent_id, want):"
+    },
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def _clean_str(v, limit):"
+    }
+   ],
+   "lines": 520,
+   "ms": 90.2,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 1
+  },
+  {
+   "t": 10.13,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
+   "node": 30,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "654 lines, 8 findings | compiled OK | 32F/1C | 105.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 25,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def _save_crews():"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def _load_crews():"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def team_spawn_crew(objective: str, roles: str = \"planner,builder,critic,synthesizer\") -> "
+    },
+    {
+     "rule": "long_function",
+     "line": 115,
+     "preview": "def team_dispatch(crew_id: str, task: str, assignee_role: str = \"builder\","
+    }
+   ],
+   "lines": 654,
+   "ms": 105.7,
+   "compiled": true,
+   "funcs": 32,
+   "classes": 1
+  },
+  {
+   "t": 10.72,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
+   "node": 31,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1584 lines, 8 findings | compiled OK | 70F/3C | 341.6ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 205,
+     "preview": "_ENGINE.eval()"
+    },
+    {
+     "rule": "long_function",
+     "line": 29,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 168,
+     "preview": "def roster_summary() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 175,
+     "preview": "def step(self, router_conf: float = 0.92, integrity: float = 0.95):"
+    },
+    {
+     "rule": "long_function",
+     "line": 179,
+     "preview": "def __init__(self):"
+    }
+   ],
+   "lines": 1584,
+   "ms": 341.6,
+   "compiled": true,
+   "funcs": 70,
+   "classes": 3
+  },
+  {
+   "t": 11.06,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
+   "node": 32,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "528 lines, 8 findings | compiled OK | 25F/1C | 104.7ms",
+   "findings": [
+    {
+     "rule": "todo_fixme",
+     "line": 279,
+     "preview": "// TODO: implement {method.upper()} {path}"
+    },
+    {
+     "rule": "todo_fixme",
+     "line": 293,
+     "preview": "// TODO: implement {method.upper()} {path}"
+    },
+    {
+     "rule": "long_function",
+     "line": 22,
+     "preview": "def _quillan_safe_print(*args, **kwargs):"
+    },
+    {
+     "rule": "long_function",
+     "line": 52,
+     "preview": "def web_scaffold(project_name: str = \"quillan-web\", stack: str = \"vite+ts\", routes: str = "
+    },
+    {
+     "rule": "long_function",
+     "line": 76,
+     "preview": "def web_audit(code_or_html: str) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 528,
+   "ms": 104.7,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 1
+  },
+  {
+   "t": 11.34,
+   "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
+   "node": 33,
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "290 lines, 7 findings | compiled OK | 7F/0C | 47.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def discover_mcp_servers(mcp_root: Path) -> List[Path]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def extract_tools_via_ast(server_path: Path) -> List[Dict[str, Any]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def upgrade_server_file(server_path: Path, dry_run: bool = False) -> Tuple[bool, str]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def sync_tool_registry(mcp_root: Path, all_server_tools: Dict[str, List[Dict[str, Any]]]) "
+    },
+    {
+     "rule": "long_function",
+     "line": 190,
+     "preview": "def run_e2e_verification(servers: List[Path]) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 290,
+   "ms": 47.3,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 0
   }
  ],
  "changes": [
