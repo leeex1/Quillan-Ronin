@@ -372,6 +372,8 @@ def orchestrator_chain(
         "crew_id": crew_id,
         "findings": {},
         "artifacts": {},
+        "summary": objective,
+        "result": objective,
     }
 
     steps = CHAINS[chain]
@@ -385,7 +387,10 @@ def orchestrator_chain(
         args = {}
         for k, v in args_template.items():
             if isinstance(v, str):
-                args[k] = v.format(**context)
+                try:
+                    args[k] = v.format(**context)
+                except KeyError:
+                    args[k] = v
             else:
                 args[k] = v
 
@@ -394,7 +399,17 @@ def orchestrator_chain(
             args["crew_id"] = crew_id
 
         try:
-            result = asyncio.run(_call_mcp(mcp_name, tool_name, args))
+            try:
+                loop = asyncio.get_running_loop()
+            except RuntimeError:
+                loop = None
+
+            if loop and loop.is_running():
+                import concurrent.futures
+                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+                    result = pool.submit(asyncio.run, _call_mcp(mcp_name, tool_name, args)).result(timeout=30)
+            else:
+                result = asyncio.run(_call_mcp(mcp_name, tool_name, args))
         except Exception as e:
             result = {"error": str(e), "mcp": mcp_name, "tool": tool_name}
 

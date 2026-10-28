@@ -57,6 +57,7 @@ MEMGRAPH_FILE = SPIDER_DIR / "memory_graph.json"
 TASKS_FILE = SPIDER_DIR / "tasks.json"
 SESSION_DIR = SPIDER_DIR / "sessions"
 SESSION_DIR.mkdir(parents=True, exist_ok=True)
+STATE: Dict[str, Any] = {"pos": None, "visited": 0, "started": 0.0, "root": ""}
 
 
 class _SpiderParser:
