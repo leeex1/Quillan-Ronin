@@ -1,0 +1,91 @@
+{
+  "type": "full_pipeline",
+  "result": {
+    "status": "PIPELINE_COMPLETE",
+    "session_id": "code-1793205074",
+    "ast": {
+      "status": "VALID_AST",
+      "cyclomatic_complexity": 56,
+      "complexity_rating": "HIGH",
+      "total_classes": 1,
+      "total_functions": 32,
+      "total_docstrings": 30,
+      "type_hint_coverage_pct": 97.5,
+      "imports": [
+        "_shared.base_engines.COUNCIL_ENGINE",
+        "_shared.base_engines.GOVERNOR_ENGINE",
+        "_shared.base_engines.PRISM_ENGINE",
+        "_shared.base_engines.SANDBOX_ENGINE",
+        "_shared.error_response",
+        "_shared.ok_response",
+        "_shared.read_file_safe",
+        "_shared.setup",
+        "_shared.tool_guard",
+        "_shared.validate_int",
+        "_shared.validate_path",
+        "_shared.validate_string",
+        "builtins",
+        "fastmcp.FastMCP",
+        "fastmcp.server.middleware.Middleware",
+        "fastmcp.server.middleware.MiddlewareContext",
+        "json",
+        "logging",
+        "os",
+        "pathlib.Path",
+        "re",
+        "subprocess",
+        "sys",
+        "time",
+        "typing.Any",
+        "typing.Dict",
+        "typing.List",
+        "typing.Optional",
+        "uuid"
+      ],
+      "lines_of_code": 943
+    },
+    "security": {
+      "total_findings": 0,
+      "status": "PASS",
+      "findings": [],
+      "timestamp": 1793205074.8638923
+    },
+    "dependencies": {
+      "total_imports": 13,
+      "imports": [
+        "_shared",
+        "builtins",
+        "fastmcp",
+        "json",
+        "logging",
+        "os",
+        "pathlib",
+        "re",
+        "subprocess",
+        "sys",
+        "time",
+        "typing",
+        "uuid"
+      ],
+      "risky_imports": [
+        {
+          "module": "subprocess",
+          "concern": "Validate shell=False and sanitize args"
+        }
+      ],
+      "status": "WARN"
+    },
+    "complexity_gate": {
+      "status": "FAIL",
+      "cyclomatic_complexity": 56,
+      "type_hint_coverage_pct": 97.5,
+      "max_complexity": 20,
+      "min_type_coverage": 70.0,
+      "failures": [
+        "Cyclomatic complexity 56 exceeds max 20"
+      ]
+    },
+    "overall": "REVIEW",
+    "timestamp": 1793205074.899747
+  }
+}

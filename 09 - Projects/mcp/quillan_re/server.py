@@ -72,6 +72,18 @@ except Exception as _shared_err:
 
 
 
+def _read_le(data: bytes, offset: int, size: int) -> int:
+    chunk = data[offset:offset+size]
+    if len(chunk) < size:
+        return 0
+    return int.from_bytes(chunk, byteorder="little")
+
+def _read_be(data: bytes, offset: int, size: int) -> int:
+    chunk = data[offset:offset+size]
+    if len(chunk) < size:
+        return 0
+    return int.from_bytes(chunk, byteorder="big")
+
 def extract_strings(data: bytes, min_len: int = 4) -> List[Dict[str, Any]]:
     """Extract ASCII and UTF-16LE strings with offsets."""
     strings = []
@@ -570,6 +582,7 @@ def re_analyze_apk(path: str) -> Dict[str, Any]:
     p = Path(path.strip().strip('"\''))
     if not p.exists():
         return {"error": f"File not found: {path}"}
+    data = p.read_bytes()
     return parse_apk(data)
 
 

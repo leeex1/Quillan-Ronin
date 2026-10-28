@@ -1,0 +1,47 @@
+{
+  "type": "web_pipeline",
+  "result": {
+    "status": "WEB_PIPELINE_COMPLETE",
+    "session_id": "web-1793205389",
+    "scaffold": {
+      "status": "WEB_SCAFFOLDED",
+      "project": "test",
+      "stack": "vite+ts",
+      "routes": [
+        "/",
+        "/dev",
+        "/lore"
+      ],
+      "files": [
+        "index.html",
+        "src/main.ts",
+        "src/router.ts",
+        "src/styles.css",
+        "vite.config.ts"
+      ],
+      "conventions": [
+        "C24-SCHEMA: routes mirror nav",
+        "C15-LUMINARIS: <1.5s LCP budget",
+        "C29-NAVIGATOR: deep-linkable /dev servers"
+      ]
+    },
+    "audit": {
+      "skipped": true
+    },
+    "deploy_checklist": {
+      "target": "github-pages",
+      "checklist": [
+        "pnpm build passes clean",
+        "404 + fallback route tested",
+        "env vars in vault (no .env commit)",
+        "lighthouse mobile >=90",
+        "C13-WARDEN: no secrets in bundle (grep api_key)",
+        "base path set",
+        "gh-pages branch clean"
+      ],
+      "gate": "No ship if secrets leak or LCP regression."
+    },
+    "overall": "REVIEW",
+    "timestamp": 1793205389.1507363
+  }
+}

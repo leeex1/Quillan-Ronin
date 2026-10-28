@@ -35,7 +35,7 @@ if sys.platform == "win32":
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:64"
 
 import numpy as np
 import torch
@@ -143,10 +143,10 @@ def clip_gradients_two_stage(
     for name, p in named_params:
         if p.grad is None:
             continue
-        if not torch.isfinite(p.grad).all():
-            torch.nan_to_num_(p.grad, nan=0.0, posinf=0.0, neginf=0.0)
-
         t_norm = float(p.grad.detach().data.norm(2).item())
+        if not math.isfinite(t_norm):
+            torch.nan_to_num_(p.grad, nan=0.0, posinf=0.0, neginf=0.0)
+            t_norm = float(p.grad.detach().data.norm(2).item())
         if t_norm > max_tensor_norm:
             max_tensor_norm = t_norm
             max_tensor_name = name

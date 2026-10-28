@@ -32,6 +32,7 @@ import urllib.request
 import urllib.parse
 from html.parser import HTMLParser
 from pathlib import Path
+import urllib.request
 from typing import Dict, Any, List, Optional
 
 if sys.platform == "win32":
@@ -60,8 +61,9 @@ SESSION_DIR.mkdir(parents=True, exist_ok=True)
 STATE: Dict[str, Any] = {"pos": None, "visited": 0, "started": 0.0, "root": ""}
 
 
-class _SpiderParser:
+class _SpiderParser(HTMLParser):
     def __init__(self):
+        super().__init__()
         self.text_chunks = []
         self.title = ""
         self.headings = []
@@ -95,6 +97,9 @@ class _SpiderParser:
             self.headings.append(txt)
         elif len(self.text_chunks) < 40 and len(txt) > 20:
             self.text_chunks.append(txt)
+
+
+SimpleTextHTMLParser = _SpiderParser
 
 
 def _crawl_page_content(target: str) -> Dict[str, Any]:

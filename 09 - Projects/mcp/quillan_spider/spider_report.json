@@ -1,7 +1,7 @@
 {
  "job": "scan",
  "root": "C:\\02_QUILLAN\\09 - Projects\\mcp",
- "files": 33,
+ "files": 34,
  "total_findings": 221,
  "wiring": [
   {
@@ -22,14 +22,14 @@
  ],
  "flagged": [
   {
-   "t": 0.24,
+   "t": 0.07,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\__init__.py",
    "node": 1,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "706 lines, 8 findings | compiled OK | 32F/4C | 227.7ms",
+   "detail": "706 lines, 8 findings | compiled OK | 32F/4C | 62.1ms",
    "findings": [
     {
      "rule": "hardcoded_path",
@@ -58,20 +58,20 @@
     }
    ],
    "lines": 706,
-   "ms": 227.7,
+   "ms": 62.1,
    "compiled": true,
    "funcs": 32,
    "classes": 4
   },
   {
-   "t": 0.62,
+   "t": 0.37,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\base_engines.py",
    "node": 2,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "402 lines, 8 findings | compiled OK | 10F/4C | 90.9ms",
+   "detail": "402 lines, 8 findings | compiled OK | 10F/4C | 75.3ms",
    "findings": [
     {
      "rule": "long_function",
@@ -100,20 +100,20 @@
     }
    ],
    "lines": 402,
-   "ms": 90.9,
+   "ms": 75.3,
    "compiled": true,
    "funcs": 10,
    "classes": 4
   },
   {
-   "t": 0.93,
+   "t": 0.64,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\cognitive_formulas.py",
    "node": 3,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "511 lines, 8 findings | compiled OK | 13F/0C | 70.3ms",
+   "detail": "511 lines, 8 findings | compiled OK | 13F/0C | 47.9ms",
    "findings": [
     {
      "rule": "long_function",
@@ -142,20 +142,20 @@
     }
    ],
    "lines": 511,
-   "ms": 70.3,
+   "ms": 47.9,
    "compiled": true,
    "funcs": 13,
    "classes": 0
   },
   {
-   "t": 1.23,
+   "t": 0.91,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\feedback_loop.py",
    "node": 4,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "467 lines, 8 findings | compiled OK | 26F/8C | 66.9ms",
+   "detail": "467 lines, 8 findings | compiled OK | 26F/8C | 40.3ms",
    "findings": [
     {
      "rule": "long_function",
@@ -184,20 +184,20 @@
     }
    ],
    "lines": 467,
-   "ms": 66.9,
+   "ms": 40.3,
    "compiled": true,
    "funcs": 26,
    "classes": 8
   },
   {
-   "t": 1.47,
+   "t": 1.14,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\_shared\\lifecycle.py",
    "node": 5,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "119 lines, 5 findings | compiled OK | 5F/0C | 13.4ms",
+   "detail": "119 lines, 5 findings | compiled OK | 5F/0C | 5.1ms",
    "findings": [
     {
      "rule": "long_function",
@@ -226,20 +226,20 @@
     }
    ],
    "lines": 119,
-   "ms": 13.4,
+   "ms": 5.1,
    "compiled": true,
    "funcs": 5,
    "classes": 0
   },
   {
-   "t": 1.79,
+   "t": 1.44,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\mcp_chain_bus.py",
    "node": 6,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "714 lines, 8 findings | compiled OK | 35F/3C | 85.9ms",
+   "detail": "714 lines, 8 findings | compiled OK | 35F/3C | 68.3ms",
    "findings": [
     {
      "rule": "long_function",
@@ -268,20 +268,20 @@
     }
    ],
    "lines": 714,
-   "ms": 85.9,
+   "ms": 68.3,
    "compiled": true,
    "funcs": 35,
    "classes": 3
   },
   {
-   "t": 2.11,
+   "t": 1.74,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py",
    "node": 7,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "598 lines, 8 findings | compiled OK | 30F/1C | 88.5ms",
+   "detail": "598 lines, 8 findings | compiled OK | 30F/1C | 67.8ms",
    "findings": [
     {
      "rule": "long_function",
@@ -310,20 +310,20 @@
     }
    ],
    "lines": 598,
-   "ms": 88.5,
+   "ms": 67.8,
    "compiled": true,
    "funcs": 30,
    "classes": 1
   },
   {
-   "t": 2.49,
+   "t": 2.07,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py",
    "node": 8,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "882 lines, 8 findings | compiled OK | 36F/2C | 144.7ms",
+   "detail": "882 lines, 8 findings | compiled OK | 36F/2C | 94.5ms",
    "findings": [
     {
      "rule": "long_function",
@@ -352,20 +352,20 @@
     }
    ],
    "lines": 882,
-   "ms": 144.7,
+   "ms": 94.5,
    "compiled": true,
    "funcs": 36,
    "classes": 2
   },
   {
-   "t": 2.86,
+   "t": 2.4,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py",
    "node": 9,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1141 lines, 8 findings | compiled OK | 37F/2C | 135.2ms",
+   "detail": "1141 lines, 8 findings | compiled OK | 37F/2C | 110.0ms",
    "findings": [
     {
      "rule": "eval_exec",
@@ -394,20 +394,20 @@
     }
    ],
    "lines": 1141,
-   "ms": 135.2,
+   "ms": 110.0,
    "compiled": true,
    "funcs": 37,
    "classes": 2
   },
   {
-   "t": 4.09,
+   "t": 3.91,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py",
-   "node": 14,
+   "node": 15,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1052 lines, 8 findings | compiled OK | 19F/1C | 106.0ms",
+   "detail": "1052 lines, 8 findings | compiled OK | 19F/1C | 73.8ms",
    "findings": [
     {
      "rule": "long_function",
@@ -436,20 +436,20 @@
     }
    ],
    "lines": 1052,
-   "ms": 106.0,
+   "ms": 73.8,
    "compiled": true,
    "funcs": 19,
    "classes": 1
   },
   {
-   "t": 4.41,
+   "t": 4.22,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py",
-   "node": 15,
+   "node": 16,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "706 lines, 8 findings | compiled OK | 31F/1C | 84.1ms",
+   "detail": "706 lines, 8 findings | compiled OK | 31F/1C | 81.0ms",
    "findings": [
     {
      "rule": "long_function",
@@ -478,20 +478,20 @@
     }
    ],
    "lines": 706,
-   "ms": 84.1,
+   "ms": 81.0,
    "compiled": true,
    "funcs": 31,
    "classes": 1
   },
   {
-   "t": 4.74,
+   "t": 4.53,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py",
-   "node": 16,
+   "node": 17,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "826 lines, 8 findings | compiled OK | 23F/1C | 97.1ms",
+   "detail": "826 lines, 8 findings | compiled OK | 23F/1C | 68.9ms",
    "findings": [
     {
      "rule": "long_function",
@@ -520,20 +520,20 @@
     }
    ],
    "lines": 826,
-   "ms": 97.1,
+   "ms": 68.9,
    "compiled": true,
    "funcs": 23,
    "classes": 1
   },
   {
-   "t": 5.04,
+   "t": 4.8,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py",
-   "node": 17,
+   "node": 18,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "698 lines, 8 findings | compiled OK | 24F/1C | 66.3ms",
+   "detail": "698 lines, 8 findings | compiled OK | 24F/1C | 45.5ms",
    "findings": [
     {
      "rule": "long_function",
@@ -562,20 +562,20 @@
     }
    ],
    "lines": 698,
-   "ms": 66.3,
+   "ms": 45.5,
    "compiled": true,
    "funcs": 24,
    "classes": 1
   },
   {
-   "t": 5.52,
+   "t": 5.17,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py",
-   "node": 18,
+   "node": 19,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1229 lines, 8 findings | compiled OK | 37F/1C | 202.1ms",
+   "detail": "1229 lines, 8 findings | compiled OK | 37F/1C | 136.3ms",
    "findings": [
     {
      "rule": "long_function",
@@ -604,20 +604,20 @@
     }
    ],
    "lines": 1229,
-   "ms": 202.1,
+   "ms": 136.3,
    "compiled": true,
    "funcs": 37,
    "classes": 1
   },
   {
-   "t": 5.94,
+   "t": 5.48,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
-   "node": 19,
+   "node": 20,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "943 lines, 8 findings | compiled OK | 31F/1C | 183.1ms",
+   "detail": "943 lines, 8 findings | compiled OK | 31F/1C | 79.9ms",
    "findings": [
     {
      "rule": "long_function",
@@ -646,20 +646,20 @@
     }
    ],
    "lines": 943,
-   "ms": 183.1,
+   "ms": 79.9,
    "compiled": true,
    "funcs": 31,
    "classes": 1
   },
   {
-   "t": 6.25,
+   "t": 5.79,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py",
-   "node": 20,
+   "node": 21,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "954 lines, 8 findings | compiled OK | 18F/1C | 79.4ms",
+   "detail": "954 lines, 8 findings | compiled OK | 18F/1C | 80.8ms",
    "findings": [
     {
      "rule": "long_function",
@@ -668,40 +668,40 @@
     },
     {
      "rule": "long_function",
-     "line": 92,
+     "line": 94,
      "preview": "def _get_mcp_base_path() -> Path:"
     },
     {
      "rule": "long_function",
-     "line": 125,
+     "line": 127,
      "preview": "def _load_mcp(module_name: str, server_path: Path) -> Any:"
     },
     {
      "rule": "long_function",
-     "line": 139,
+     "line": 141,
      "preview": "async def _call_mcp("
     },
     {
      "rule": "long_function",
-     "line": 168,
+     "line": 170,
      "preview": "def _run_coro(coro: Any) -> Any:"
     }
    ],
    "lines": 954,
-   "ms": 79.4,
+   "ms": 80.8,
    "compiled": true,
    "funcs": 18,
    "classes": 1
   },
   {
-   "t": 6.59,
+   "t": 6.11,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py",
-   "node": 21,
+   "node": 22,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "908 lines, 8 findings | compiled OK | 30F/1C | 105.1ms",
+   "detail": "924 lines, 8 findings | compiled OK | 30F/1C | 85.5ms",
    "findings": [
     {
      "rule": "long_function",
@@ -710,40 +710,40 @@
     },
     {
      "rule": "long_function",
-     "line": 81,
+     "line": 87,
      "preview": "def _now() -> float:"
     },
     {
      "rule": "long_function",
-     "line": 84,
+     "line": 90,
      "preview": "def _sha(s: str) -> str:"
     },
     {
      "rule": "long_function",
-     "line": 87,
+     "line": 93,
      "preview": "def _save_json(path: Path, obj: Dict[str, Any]) -> None:"
     },
     {
      "rule": "long_function",
-     "line": 90,
+     "line": 96,
      "preview": "def _load_json(path: Path) -> Dict[str, Any]:"
     }
    ],
-   "lines": 908,
-   "ms": 105.1,
+   "lines": 924,
+   "ms": 85.5,
    "compiled": true,
    "funcs": 30,
    "classes": 1
   },
   {
-   "t": 6.9,
+   "t": 6.4,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py",
-   "node": 22,
+   "node": 23,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "555 lines, 8 findings | compiled OK | 24F/1C | 71.4ms",
+   "detail": "583 lines, 8 findings | compiled OK | 24F/1C | 61.0ms",
    "findings": [
     {
      "rule": "long_function",
@@ -752,40 +752,40 @@
     },
     {
      "rule": "long_function",
-     "line": 72,
+     "line": 93,
      "preview": "def _decompose(task: str, context: Optional[str]) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 106,
+     "line": 131,
      "preview": "def _threat_model(feature: str, assets: Optional[List[str]]) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 129,
+     "line": 154,
      "preview": "def _bushido_gate(action_or_output: str) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 157,
+     "line": 182,
      "preview": "def prism_decompose(task: str, context: Optional[str] = None) -> Dict[str, Any]:"
     }
    ],
-   "lines": 555,
-   "ms": 71.4,
+   "lines": 583,
+   "ms": 61.0,
    "compiled": true,
    "funcs": 24,
    "classes": 1
   },
   {
-   "t": 7.13,
+   "t": 6.63,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\ingest_second_brain.py",
-   "node": 23,
+   "node": 24,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "73 lines, 1 findings | compiled OK | 0F/0C | 7.9ms",
+   "detail": "73 lines, 1 findings | compiled OK | 0F/0C | 6.1ms",
    "findings": [
     {
      "rule": "long_function",
@@ -794,20 +794,20 @@
     }
    ],
    "lines": 73,
-   "ms": 7.9,
+   "ms": 6.1,
    "compiled": true,
    "funcs": 0,
    "classes": 0
   },
   {
-   "t": 7.5,
+   "t": 6.99,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py",
-   "node": 24,
+   "node": 25,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "877 lines, 8 findings | compiled OK | 17F/1C | 145.6ms",
+   "detail": "880 lines, 8 findings | compiled OK | 17F/1C | 125.6ms",
    "findings": [
     {
      "rule": "long_function",
@@ -816,59 +816,59 @@
     },
     {
      "rule": "long_function",
-     "line": 55,
+     "line": 57,
      "preview": "def _get_api_key() -> str:"
     },
     {
      "rule": "long_function",
-     "line": 95,
+     "line": 97,
      "preview": "def _get_http() -> httpx.AsyncClient:"
     },
     {
      "rule": "long_function",
-     "line": 115,
+     "line": 117,
      "preview": "async def _nim_embed(texts, input_type=\"passage\", max_retries=3):"
     },
     {
      "rule": "long_function",
-     "line": 136,
-     "preview": "async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 3) "
+     "line": 140,
+     "preview": "async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries: int = 2) "
     }
    ],
-   "lines": 877,
-   "ms": 145.6,
+   "lines": 880,
+   "ms": 125.6,
    "compiled": true,
    "funcs": 17,
    "classes": 1
   },
   {
-   "t": 8.02,
+   "t": 7.45,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py",
-   "node": 25,
+   "node": 26,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1612 lines, 8 findings | compiled OK | 48F/1C | 276.5ms",
+   "detail": "1625 lines, 8 findings | compiled OK | 50F/1C | 228.5ms",
    "findings": [
     {
      "rule": "eval_exec",
-     "line": 912,
+     "line": 925,
      "preview": "js_obfusc = [\"eval(\", \"Function(\", \"atob(\", \"fromCharCode\", \"unescape(\"]"
     },
     {
      "rule": "eval_exec",
-     "line": 1038,
+     "line": 1051,
      "preview": "basic_patterns = [\"cmd.exe\", \"powershell\", \"CreateRemoteThread\", \"VirtualAlloc\", \"WScript."
     },
     {
      "rule": "todo_fixme",
-     "line": 550,
+     "line": 562,
      "preview": "// TODO: Implement disassembly lift for {symbol}"
     },
     {
      "rule": "todo_fixme",
-     "line": 562,
+     "line": 574,
      "preview": "// TODO: Add disassembly engine for full recovery"
     },
     {
@@ -877,25 +877,25 @@
      "preview": "def _quillan_safe_print(*args, **kwargs):"
     }
    ],
-   "lines": 1612,
-   "ms": 276.5,
+   "lines": 1625,
+   "ms": 228.5,
    "compiled": true,
-   "funcs": 48,
+   "funcs": 50,
    "classes": 1
   },
   {
-   "t": 8.57,
+   "t": 7.76,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py",
-   "node": 26,
+   "node": 27,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "646 lines, 8 findings | compiled OK | 23F/2C | 308.8ms",
+   "detail": "654 lines, 8 findings | compiled OK | 23F/2C | 80.5ms",
    "findings": [
     {
      "rule": "hardcoded_path",
-     "line": 289,
+     "line": 297,
      "preview": "Persists correlation_id and telemetry to C:\\\\02_QUILLAN\\\\07 - Memory & LanceDB\\\\chain_stat"
     },
     {
@@ -905,35 +905,35 @@
     },
     {
      "rule": "long_function",
-     "line": 85,
+     "line": 93,
      "preview": "def evaluate(self, swarm_id: int, input_energy: float) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 103,
+     "line": 111,
      "preview": "def _gate_evaluate(proposal: str) -> Dict[str, Any]:"
     },
     {
      "rule": "long_function",
-     "line": 147,
+     "line": 155,
      "preview": "def samurai_full_pipeline(query: str, depth: str = \"full\", persist: bool = True) -> Dict[s"
     }
    ],
-   "lines": 646,
-   "ms": 308.8,
+   "lines": 654,
+   "ms": 80.5,
    "compiled": true,
    "funcs": 23,
    "classes": 2
   },
   {
-   "t": 8.89,
+   "t": 8.06,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\quillan_brain_indexer.py",
-   "node": 27,
+   "node": 28,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "422 lines, 8 findings | compiled OK | 6F/1C | 81.7ms",
+   "detail": "422 lines, 8 findings | compiled OK | 6F/1C | 49.9ms",
    "findings": [
     {
      "rule": "hardcoded_path",
@@ -962,29 +962,29 @@
     }
    ],
    "lines": 422,
-   "ms": 81.7,
+   "ms": 49.9,
    "compiled": true,
    "funcs": 6,
    "classes": 1
   },
   {
-   "t": 9.47,
+   "t": 8.56,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py",
-   "node": 28,
+   "node": 29,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1585 lines, 8 findings | compiled OK | 57F/2C | 341.9ms",
+   "detail": "1590 lines, 8 findings | compiled OK | 57F/2C | 260.5ms",
    "findings": [
     {
      "rule": "subprocess_shell",
-     "line": 608,
+     "line": 613,
      "preview": "\"subprocess_shell\": \"shell injection via shell=True / os.system\","
     },
     {
      "rule": "todo_fixme",
-     "line": 411,
+     "line": 416,
      "preview": "(\"todo_fixme\", re.compile(r\"TODO|FIXME|XXX|HACK\")),"
     },
     {
@@ -999,25 +999,25 @@
     },
     {
      "rule": "hardcoded_path",
-     "line": 284,
+     "line": 289,
      "preview": "def spider_crawl(root: str = \"C:\\\\02_QUILLAN\\\\09 - Projects\\\\mcp\", max_files: int = 220, e"
     }
    ],
-   "lines": 1585,
-   "ms": 341.9,
+   "lines": 1590,
+   "ms": 260.5,
    "compiled": true,
    "funcs": 57,
    "classes": 2
   },
   {
-   "t": 9.79,
+   "t": 8.86,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\spider_bridge.py",
-   "node": 29,
+   "node": 30,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "520 lines, 8 findings | compiled OK | 17F/1C | 90.2ms",
+   "detail": "520 lines, 8 findings | compiled OK | 17F/1C | 70.8ms",
    "findings": [
     {
      "rule": "hardcoded_path",
@@ -1046,20 +1046,20 @@
     }
    ],
    "lines": 520,
-   "ms": 90.2,
+   "ms": 70.8,
    "compiled": true,
    "funcs": 17,
    "classes": 1
   },
   {
-   "t": 10.13,
+   "t": 9.16,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py",
-   "node": 30,
+   "node": 31,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "654 lines, 8 findings | compiled OK | 32F/1C | 105.7ms",
+   "detail": "654 lines, 8 findings | compiled OK | 32F/1C | 75.7ms",
    "findings": [
     {
      "rule": "long_function",
@@ -1088,20 +1088,20 @@
     }
    ],
    "lines": 654,
-   "ms": 105.7,
+   "ms": 75.7,
    "compiled": true,
    "funcs": 32,
    "classes": 1
   },
   {
-   "t": 10.72,
+   "t": 9.6,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py",
-   "node": 31,
+   "node": 32,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "1584 lines, 8 findings | compiled OK | 70F/3C | 341.6ms",
+   "detail": "1592 lines, 8 findings | compiled OK | 70F/3C | 198.8ms",
    "findings": [
     {
      "rule": "eval_exec",
@@ -1129,21 +1129,21 @@
      "preview": "def __init__(self):"
     }
    ],
-   "lines": 1584,
-   "ms": 341.6,
+   "lines": 1592,
+   "ms": 198.8,
    "compiled": true,
    "funcs": 70,
    "classes": 3
   },
   {
-   "t": 11.06,
+   "t": 9.89,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py",
-   "node": 32,
+   "node": 33,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "528 lines, 8 findings | compiled OK | 25F/1C | 104.7ms",
+   "detail": "528 lines, 8 findings | compiled OK | 25F/1C | 58.7ms",
    "findings": [
     {
      "rule": "todo_fixme",
@@ -1172,20 +1172,20 @@
     }
    ],
    "lines": 528,
-   "ms": 104.7,
+   "ms": 58.7,
    "compiled": true,
    "funcs": 25,
    "classes": 1
   },
   {
-   "t": 11.34,
+   "t": 10.15,
    "at": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
    "full": "C:\\02_QUILLAN\\09 - Projects\\mcp\\upgrade_and_sync_mcp.py",
-   "node": 33,
+   "node": 34,
    "event": "file",
    "action": "SCANNING",
    "result": "FLAGGED",
-   "detail": "290 lines, 7 findings | compiled OK | 7F/0C | 47.3ms",
+   "detail": "290 lines, 7 findings | compiled OK | 7F/0C | 33.5ms",
    "findings": [
     {
      "rule": "long_function",
@@ -1214,7 +1214,7 @@
     }
    ],
    "lines": 290,
-   "ms": 47.3,
+   "ms": 33.5,
    "compiled": true,
    "funcs": 7,
    "classes": 0

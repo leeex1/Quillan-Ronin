@@ -1,0 +1,56 @@
+{
+  "type": "orochi_evolve_weights",
+  "session_id": "oro-weights-1793205101",
+  "layer": "council_router",
+  "proposals": [
+    {
+      "proposal_id": "ew-1793205101-0",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.000872554504280143,
+      "v_seed": 0.589968212046502,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "2f3836a0b36dc694"
+    },
+    {
+      "proposal_id": "ew-1793205101-1",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.16085197366009873,
+      "v_seed": 0.8524951345507713,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "436c03bb14d2f7a3"
+    },
+    {
+      "proposal_id": "ew-1793205101-2",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.2609223180811512,
+      "v_seed": 0.21778683530796328,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "22d3eaafb03bd929"
+    },
+    {
+      "proposal_id": "ew-1793205101-3",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.8362501200339537,
+      "v_seed": 0.9097246391045092,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "5365656889eb6822"
+    }
+  ],
+  "timestamp": 1793205101.1565123
+}

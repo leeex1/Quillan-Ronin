@@ -1,0 +1,75 @@
+{
+  "type": "team_pipeline",
+  "result": {
+    "status": "TEAM_PIPELINE_COMPLETE",
+    "session_id": "team-1793205385",
+    "crew_id": "crew-307d4825",
+    "objective": "Verify system integrity and architecture",
+    "spawn": {
+      "status": "CREW_SPAWNED",
+      "crew_id": "crew-307d4825",
+      "objective": "Verify system integrity and architecture",
+      "roster": [
+        {
+          "role": "planner",
+          "persona": "C4-PRAXIS: decomposes goal -> verified steps",
+          "load": 0,
+          "done": 0
+        },
+        {
+          "role": "builder",
+          "persona": "C10-CODEWEAVER: ships clean, typed, tested slices",
+          "load": 1,
+          "done": 0
+        },
+        {
+          "role": "critic",
+          "persona": "C34-PREDATOR: hunts weakest assumption",
+          "load": 0,
+          "done": 0
+        },
+        {
+          "role": "synthesizer",
+          "persona": "C31-NEXUS: merges parallel outputs",
+          "load": 0,
+          "done": 0
+        }
+      ],
+      "protocol": "Planner slices -> Builder ships -> Critic strikes -> Synthesizer merges. Ethicist holds veto."
+    },
+    "dispatch": {
+      "status": "DISPATCHED",
+      "crew_id": "crew-307d4825",
+      "task_entry": {
+        "task_id": "t-127966",
+        "task": "Verify system integrity and architecture",
+        "assignee": "builder",
+        "acceptance": "tests pass + demo clip",
+        "status": "DISPATCHED",
+        "at": 1793205385.770352,
+        "output": null
+      },
+      "open_tasks": 1
+    },
+    "debate": {
+      "topic": "Verify system integrity and architecture",
+      "thesis_builder": "ship fast",
+      "antithesis_critic": "harden first",
+      "synthesis": "Ship thin slice of 'Verify system integrity and architecture' behind a flag, with rollback + metric gate. Harden only the predator-exposed seam.",
+      "verdict": "DUO_CONSENSUS_REACHED",
+      "guard": "C2-VIR: no dark patterns, no unconsented data capture."
+    },
+    "merge": {
+      "crew_id": "crew-307d4825",
+      "strategy": "synthesizer-pick-best",
+      "inputs_merged": 0,
+      "delivery": "Merged 0 artifacts toward 'Verify system integrity and architecture' via C31-NEXUS arbitration.",
+      "residual_risks": [
+        "re-verify predator strike",
+        "confirm ethicist sign-off"
+      ],
+      "sign_off": "PENDING_SYNTHESIZER"
+    },
+    "timestamp": 1793205385.7710423
+  }
+}

@@ -1,0 +1,619 @@
+{
+  "type": "re_pipeline",
+  "result": {
+    "status": "RE_PIPELINE_COMPLETE",
+    "session_id": "re-1793205276",
+    "path": "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py",
+    "format": "unknown",
+    "size": 41184,
+    "binary": {
+      "format": "unknown"
+    },
+    "strings": [
+      {
+        "offset": 0,
+        "type": "ascii",
+        "value": "#!/usr/bin/env python3",
+        "length": 22
+      },
+      {
+        "offset": 24,
+        "type": "ascii",
+        "value": "# -*- coding: utf-8 -*-",
+        "length": 23
+      },
+      {
+        "offset": 61,
+        "type": "ascii",
+        "value": " QUILLAN-RONIN OPS ENGINE ",
+        "length": 26
+      },
+      {
+        "offset": 90,
+        "type": "ascii",
+        "value": " NATIVE FAST-MCP SERVER",
+        "length": 23
+      },
+      {
+        "offset": 115,
+        "type": "ascii",
+        "value": "=====================================================",
+        "length": 53
+      },
+      {
+        "offset": 170,
+        "type": "ascii",
+        "value": "Embodying C14-KAIDO (Efficiency), C13-WARDEN (Safety), C2-VIR (Ethics),",
+        "length": 71
+      },
+      {
+        "offset": 243,
+        "type": "ascii",
+        "value": "C4-PRAXIS (Planning), C19-VIGIL (Anti-drift):",
+        "length": 45
+      },
+      {
+        "offset": 290,
+        "type": "ascii",
+        "value": "  1. ops_task_graph ",
+        "length": 20
+      },
+      {
+        "offset": 313,
+        "type": "ascii",
+        "value": " goal -> DAG with gates",
+        "length": 23
+      },
+      {
+        "offset": 338,
+        "type": "ascii",
+        "value": "  2. ops_guardrail_check ",
+        "length": 25
+      },
+      {
+        "offset": 366,
+        "type": "ascii",
+        "value": " pre-execution risk tier gating",
+        "length": 31
+      },
+      {
+        "offset": 399,
+        "type": "ascii",
+        "value": "  3. ops_health ",
+        "length": 16
+      },
+      {
+        "offset": 418,
+        "type": "ascii",
+        "value": " repo hygiene snapshot (deep: git status, secret scan, large files)",
+        "length": 67
+      },
+      {
+        "offset": 487,
+        "type": "ascii",
+        "value": "  4. ops_release_note ",
+        "length": 22
+      },
+      {
+        "offset": 512,
+        "type": "ascii",
+        "value": " conventional release note builder",
+        "length": 34
+      },
+      {
+        "offset": 548,
+        "type": "ascii",
+        "value": "  5. ops_full_pipeline ",
+        "length": 23
+      },
+      {
+        "offset": 574,
+        "type": "ascii",
+        "value": " task_graph -> guardrail -> health -> release note (persisted)",
+        "length": 62
+      },
+      {
+        "offset": 638,
+        "type": "ascii",
+        "value": "  6. ops_session_list / ops_session_replay ",
+        "length": 43
+      },
+      {
+        "offset": 684,
+        "type": "ascii",
+        "value": " persistence",
+        "length": 12
+      },
+      {
+        "offset": 705,
+        "type": "ascii",
+        "value": "import sys",
+        "length": 10
+      },
+      {
+        "offset": 717,
+        "type": "ascii",
+        "value": "# --- Quillan-Ronin v5.4.0-ONI Stdio Guard ---",
+        "length": 46
+      },
+      {
+        "offset": 765,
+        "type": "ascii",
+        "value": "import logging, builtins",
+        "length": 24
+      },
+      {
+        "offset": 791,
+        "type": "ascii",
+        "value": "logging.basicConfig(stream=sys.stderr, level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')",
+        "length": 118
+      },
+      {
+        "offset": 911,
+        "type": "ascii",
+        "value": "_orig_print = builtins.print",
+        "length": 28
+      },
+      {
+        "offset": 941,
+        "type": "ascii",
+        "value": "def _quillan_safe_print(*args, **kwargs):",
+        "length": 41
+      },
+      {
+        "offset": 984,
+        "type": "ascii",
+        "value": "    if 'file' not in kwargs or kwargs['file'] is None or kwargs['file'] is sys.stdout:",
+        "length": 86
+      },
+      {
+        "offset": 1072,
+        "type": "ascii",
+        "value": "        kwargs['file'] = sys.stderr",
+        "length": 35
+      },
+      {
+        "offset": 1109,
+        "type": "ascii",
+        "value": "    return _orig_print(*args, **kwargs)",
+        "length": 39
+      },
+      {
+        "offset": 1150,
+        "type": "ascii",
+        "value": "builtins.print = _quillan_safe_print",
+        "length": 36
+      },
+      {
+        "offset": 1188,
+        "type": "ascii",
+        "value": "import os",
+        "length": 9
+      },
+      {
+        "offset": 1199,
+        "type": "ascii",
+        "value": "import json",
+        "length": 11
+      },
+      {
+        "offset": 1212,
+        "type": "ascii",
+        "value": "import time",
+        "length": 11
+      },
+      {
+        "offset": 1225,
+        "type": "ascii",
+        "value": "import uuid",
+        "length": 11
+      },
+      {
+        "offset": 1238,
+        "type": "ascii",
+        "value": "import subprocess",
+        "length": 17
+      },
+      {
+        "offset": 1257,
+        "type": "ascii",
+        "value": "from pathlib import Path",
+        "length": 24
+      },
+      {
+        "offset": 1283,
+        "type": "ascii",
+        "value": "from typing import Dict, Any, List, Optional",
+        "length": 44
+      },
+      {
+        "offset": 1331,
+        "type": "ascii",
+        "value": "if sys.platform == \"win32\":",
+        "length": 27
+      },
+      {
+        "offset": 1360,
+        "type": "ascii",
+        "value": "    sys.stdout.reconfigure(encoding=\"utf-8\")",
+        "length": 44
+      },
+      {
+        "offset": 1406,
+        "type": "ascii",
+        "value": "    sys.stderr.reconfigure(encoding=\"utf-8\")",
+        "length": 44
+      },
+      {
+        "offset": 1454,
+        "type": "ascii",
+        "value": "from fastmcp import FastMCP",
+        "length": 27
+      },
+      {
+        "offset": 1485,
+        "type": "ascii",
+        "value": "SECRET_PATTERNS = [\"password\", \"secret\", \"token\", \"api_key\", \"credential\"]",
+        "length": 74
+      },
+      {
+        "offset": 1561,
+        "type": "ascii",
+        "value": "mcp = FastMCP(\"QuillanOps\")",
+        "length": 27
+      },
+      {
+        "offset": 1590,
+        "type": "ascii",
+        "value": "# [QUILLAN-v5.4.0-ONI-SHARED-WIRED]",
+        "length": 35
+      },
+      {
+        "offset": 1633,
+        "type": "ascii",
+        "value": "    from _shared import setup as _quillan_setup, tool_guard, ok_response, error_response, validate_string, validate_path, validate_int, read_file_safe",
+        "length": 150
+      },
+      {
+        "offset": 1785,
+        "type": "ascii",
+        "value": "    from _shared.base_engines import PRISM_ENGINE, COUNCIL_ENGINE, GOVERNOR_ENGINE, SANDBOX_ENGINE",
+        "length": 98
+      },
+      {
+        "offset": 1885,
+        "type": "ascii",
+        "value": "    _SHARED_CTX = _quillan_setup(server_name='quillan_ops', mcp_app=mcp)",
+        "length": 72
+      },
+      {
+        "offset": 1959,
+        "type": "ascii",
+        "value": "except Exception as _shared_err:",
+        "length": 32
+      },
+      {
+        "offset": 1993,
+        "type": "ascii",
+        "value": "    import sys as _sys",
+        "length": 22
+      },
+      {
+        "offset": 2017,
+        "type": "ascii",
+        "value": "    print(f'[quillan_ops] _shared warning: {_shared_err}', file=_sys.stderr)",
+        "length": 76
+      },
+      {
+        "offset": 2099,
+        "type": "ascii",
+        "value": "@mcp.tool()",
+        "length": 11
+      },
+      {
+        "offset": 2112,
+        "type": "ascii",
+        "value": "def ops_task_graph(goal: str, max_steps: int = 6) -> Dict[str, Any]:",
+        "length": 68
+      },
+      {
+        "offset": 2182,
+        "type": "ascii",
+        "value": "    \"\"\"Decompose a goal into a gated DAG.\"\"\"",
+        "length": 44
+      },
+      {
+        "offset": 2228,
+        "type": "ascii",
+        "value": "    n = max(2, min(10, max_steps))",
+        "length": 34
+      },
+      {
+        "offset": 2264,
+        "type": "ascii",
+        "value": "    steps = [",
+        "length": 13
+      },
+      {
+        "offset": 2279,
+        "type": "ascii",
+        "value": "        {\"id\": f\"S{i+1}\", \"title\": t, \"verify\": v, \"gate\": g}",
+        "length": 61
+      },
+      {
+        "offset": 2342,
+        "type": "ascii",
+        "value": "        for i, (t, v, g) in enumerate([",
+        "length": 39
+      },
+      {
+        "offset": 2383,
+        "type": "ascii",
+        "value": "            (\"Slice scope to thin vertical\", \"scope doc <1 page\", \"C4-PRAXIS\"),",
+        "length": 79
+      },
+      {
+        "offset": 2464,
+        "type": "ascii",
+        "value": "            (\"Ship smallest runnable\", \"runs headless + 60fps probe\", \"C10-CODEWEAVER\"),",
+        "length": 88
+      },
+      {
+        "offset": 2554,
+        "type": "ascii",
+        "value": "            (\"Predator strike + fix\", \"kill-loop closed\", \"C34-PREDATOR\"),",
+        "length": 74
+      },
+      {
+        "offset": 2630,
+        "type": "ascii",
+        "value": "            (\"Ethics + safety pass\", \"VIR/WARDEN sign\", \"C2-VIR/C13-WARDEN\"),",
+        "length": 77
+      },
+      {
+        "offset": 2709,
+        "type": "ascii",
+        "value": "            (\"Polish loop + mix\", \"AURELION>=7/CADENCE drift<=.35\", \"C22/C23\"),",
+        "length": 79
+      },
+      {
+        "offset": 2790,
+        "type": "ascii",
+        "value": "            (\"Release + retro\", \"note + metrics logged\", \"C5-ECHO\"),",
+        "length": 68
+      },
+      {
+        "offset": 2860,
+        "type": "ascii",
+        "value": "        ][:n])",
+        "length": 14
+      },
+      {
+        "offset": 2883,
+        "type": "ascii",
+        "value": "    return {\"goal\": goal, \"dag\": steps, \"rule\": \"No step starts until prior verify passes.\"}",
+        "length": 92
+      },
+      {
+        "offset": 2981,
+        "type": "ascii",
+        "value": "@mcp.tool()",
+        "length": 11
+      },
+      {
+        "offset": 2994,
+        "type": "ascii",
+        "value": "def ops_guardrail_check(action_desc: str) -> Dict[str, Any]:",
+        "length": 60
+      },
+      {
+        "offset": 3056,
+        "type": "ascii",
+        "value": "    \"\"\"Pre-execution risk tier gating (low/medium/high/blocked).\"\"\"",
+        "length": 67
+      },
+      {
+        "offset": 3125,
+        "type": "ascii",
+        "value": "    low = action_desc.lower()",
+        "length": 29
+      },
+      {
+        "offset": 3156,
+        "type": "ascii",
+        "value": "    if any(k in low for k in [\"api_key\", \"secret\", \"token=\", \"private key\", \".env\"]):",
+        "length": 85
+      },
+      {
+        "offset": 3243,
+        "type": "ascii",
+        "value": "        return {\"tier\": \"blocked\", \"reason\": \"touches_secrets p>0.05 ",
+        "length": 69
+      },
+      {
+        "offset": 3315,
+        "type": "ascii",
+        "value": " zero-tolerance secret exposure\", \"action\": \"HALT + rotate secret\"}",
+        "length": 67
+      },
+      {
+        "offset": 3384,
+        "type": "ascii",
+        "value": "    if any(k in low for k in [\"rm -rf\", \"format\", \"drop table\", \"delete prod\", \"force push\"]):",
+        "length": 94
+      },
+      {
+        "offset": 3480,
+        "type": "ascii",
+        "value": "        return {\"tier\": \"high\", \"reason\": \"destructive_potential >0.40\", \"action\": \"Require explicit user confirmation + backup\"}",
+        "length": 129
+      },
+      {
+        "offset": 3611,
+        "type": "ascii",
+        "value": "    if any(k in low for k in [\"write\", \"edit\", \"migrate\", \"deploy\", \"publish\"]):",
+        "length": 80
+      },
+      {
+        "offset": 3693,
+        "type": "ascii",
+        "value": "        return {\"tier\": \"medium\", \"reason\": \"reversible mutation with verification\", \"action\": \"Proceed with diff + test seam\"}",
+        "length": 127
+      },
+      {
+        "offset": 3822,
+        "type": "ascii",
+        "value": "    return {\"tier\": \"low\", \"reason\": \"read-only / sandboxed\", \"action\": \"Proceed autonomously\"}",
+        "length": 95
+      },
+      {
+        "offset": 3923,
+        "type": "ascii",
+        "value": "@mcp.tool()",
+        "length": 11
+      },
+      {
+        "offset": 3936,
+        "type": "ascii",
+        "value": "def ops_health(repo_path: str = r\"C:\\02_QUILLAN\", deep: bool = True) -> Dict[str, Any]:",
+        "length": 87
+      },
+      {
+        "offset": 4025,
+        "type": "ascii",
+        "value": "    \"\"\"Snapshot repo hygiene (no secrets read, only metadata). Deep mode adds git status, secret scan, large files.\"\"\"",
+        "length": 118
+      },
+      {
+        "offset": 4145,
+        "type": "ascii",
+        "value": "    p = Path(repo_path)",
+        "length": 23
+      },
+      {
+        "offset": 4170,
+        "type": "ascii",
+        "value": "    if not p.exists():",
+        "length": 22
+      },
+      {
+        "offset": 4194,
+        "type": "ascii",
+        "value": "        return {\"error\": f\"Path not found: {repo_path}\"}",
+        "length": 56
+      },
+      {
+        "offset": 4252,
+        "type": "ascii",
+        "value": "    SKIP_DIRS = {\".git\", \"node_modules\", \"__pycache__\", \"venv\", \".venv\", \"unsloth_studio\", \"checkpoints\", \".pytest_cache\", \".next\", \"dist\", \"build\"}",
+        "length": 148
+      },
+      {
+        "offset": 4402,
+        "type": "ascii",
+        "value": "    files: List[Path] = []",
+        "length": 26
+      },
+      {
+        "offset": 4430,
+        "type": "ascii",
+        "value": "    large_files: List[Dict[str, Any]] = []",
+        "length": 42
+      },
+      {
+        "offset": 4474,
+        "type": "ascii",
+        "value": "    secret_hits: List[str] = []",
+        "length": 31
+      },
+      {
+        "offset": 4507,
+        "type": "ascii",
+        "value": "    import re",
+        "length": 13
+      },
+      {
+        "offset": 4524,
+        "type": "ascii",
+        "value": "    scanned_count = 0",
+        "length": 21
+      },
+      {
+        "offset": 4547,
+        "type": "ascii",
+        "value": "    for root, dirs, filenames in os.walk(str(p)):",
+        "length": 49
+      },
+      {
+        "offset": 4598,
+        "type": "ascii",
+        "value": "        dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(\".\")]",
+        "length": 83
+      },
+      {
+        "offset": 4683,
+        "type": "ascii",
+        "value": "        for fn in filenames:",
+        "length": 28
+      },
+      {
+        "offset": 4713,
+        "type": "ascii",
+        "value": "            fp = Path(root) / fn",
+        "length": 32
+      },
+      {
+        "offset": 4747,
+        "type": "ascii",
+        "value": "            if fn.endswith(\".py\"):",
+        "length": 34
+      },
+      {
+        "offset": 4783,
+        "type": "ascii",
+        "value": "                files.append(fp)",
+        "length": 32
+      },
+      {
+        "offset": 4817,
+        "type": "ascii",
+        "value": "            if deep and scanned_count < 1000:",
+        "length": 45
+      },
+      {
+        "offset": 4864,
+        "type": "ascii",
+        "value": "                scanned_count += 1",
+        "length": 34
+      },
+      {
+        "offset": 4900,
+        "type": "ascii",
+        "value": "                try:",
+        "length": 20
+      },
+      {
+        "offset": 4922,
+        "type": "ascii",
+        "value": "                    sz = fp.stat().st_size",
+        "length": 42
+      },
+      {
+        "offset": 4966,
+        "type": "ascii",
+        "value": "                    if sz > 5 * 1024 * 1024:",
+        "length": 44
+      },
+      {
+        "offset": 5012,
+        "type": "ascii",
+        "value": "                        large_files.append({\"path\": str(fp), \"size_mb\": round(sz / (1024*1024), 2)})",
+        "length": 100
+      }
+    ],
+    "symbols": [],
+    "md5": "bffec9d00cc4fdd0c105fdfa516658ee",
+    "sha256": "b9c9104d90dd68aeac32b6cc0761e07a",
+    "timestamp": 1793205276.8942726
+  }
+}

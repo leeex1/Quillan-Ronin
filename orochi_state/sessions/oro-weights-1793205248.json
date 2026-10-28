@@ -1,0 +1,56 @@
+{
+  "type": "orochi_evolve_weights",
+  "session_id": "oro-weights-1793205248",
+  "layer": "council_router",
+  "proposals": [
+    {
+      "proposal_id": "ew-1793205248-0",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.000872554504280143,
+      "v_seed": 0.589968212046502,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "5f43ebf65175ea94"
+    },
+    {
+      "proposal_id": "ew-1793205248-1",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.16085197366009873,
+      "v_seed": 0.8524951345507713,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "847709545df02ae1"
+    },
+    {
+      "proposal_id": "ew-1793205248-2",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.2609223180811512,
+      "v_seed": 0.21778683530796328,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "be80ed873fbce7af"
+    },
+    {
+      "proposal_id": "ew-1793205248-3",
+      "layer": "council_router",
+      "rank": 8,
+      "sigma": 0.02,
+      "u_seed": 0.8362501200339537,
+      "v_seed": 0.9097246391045092,
+      "delta_norm": 0.056569,
+      "dtype": "fp16",
+      "status": "staged",
+      "sha": "dd7f65ce33beb996"
+    }
+  ],
+  "timestamp": 1793205248.8489003
+}
