@@ -389,19 +389,28 @@ def _auto_validate_bound_args(
         ann = param.annotation
         pname_lower = param_name.lower()
 
-        if "path" in pname_lower or "file" in pname_lower or "dir" in pname_lower:
+        if (
+            "path" in pname_lower
+            or pname_lower.endswith(("_path", "_file", "_filepath", "_dir", "_directory"))
+            or pname_lower in ("path", "file", "filepath", "dir", "directory")
+        ):
             if isinstance(val, (str, Path)) and str(val).strip():
                 validate_path(val, name=param_name, must_exist=False)
+        elif ann is str or ann == "str":
+            validate_string(val, name=param_name, max_len=500_000)
         elif (
             ann is int
             or ann == "int"
-            or pname_lower.endswith(
-                ("_count", "_limit", "top_k", "max_tokens", "steps")
+            or (isinstance(val, int) and not isinstance(val, bool))
+            or (
+                not isinstance(val, str)
+                and pname_lower.endswith(("_count", "_limit", "top_k", "max_tokens", "steps"))
             )
         ):
             if not isinstance(val, bool) and isinstance(val, (int, str)):
-                validate_int(val, name=param_name, min_val=0, max_val=10_000_000)
-        elif ann is str or ann == "str" or isinstance(val, str):
+                min_v = -1 if "seed" in pname_lower else 0
+                validate_int(val, name=param_name, min_val=min_v, max_val=10_000_000)
+        elif isinstance(val, str):
             validate_string(val, name=param_name, max_len=500_000)
 
 
@@ -634,6 +643,22 @@ def setup(
         from . import lifecycle as _lifecycle
 
         _lifecycle.install(server_name)
+    except Exception:
+        pass
+
+    # Auto-inject SESSION_DIR into caller module scope if not present
+    try:
+        caller_frame = inspect.currentframe().f_back
+        if caller_frame:
+            caller_globals = caller_frame.f_globals
+            if "SESSION_DIR" not in caller_globals:
+                server_file = caller_globals.get("__file__")
+                if server_file:
+                    sess_dir = Path(server_file).resolve().parent / "sessions"
+                else:
+                    sess_dir = Path(r"C:\02_QUILLAN\09 - Projects\mcp") / server_name / "sessions"
+                sess_dir.mkdir(parents=True, exist_ok=True)
+                caller_globals["SESSION_DIR"] = sess_dir
     except Exception:
         pass
 

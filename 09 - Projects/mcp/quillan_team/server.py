@@ -50,6 +50,12 @@ except Exception as _shared_err:
     import sys as _sys
     print(f'[quillan_team] _shared warning: {_shared_err}', file=_sys.stderr)
 
+TEAM_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_team")
+TEAM_DIR.mkdir(parents=True, exist_ok=True)
+CREWS_FILE = TEAM_DIR / "crews.json"
+SESSION_DIR = TEAM_DIR / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
+
 try:
     CREWS = json.loads(CREWS_FILE.read_text(encoding="utf-8"))
 except Exception:

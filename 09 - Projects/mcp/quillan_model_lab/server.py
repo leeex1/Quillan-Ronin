@@ -774,7 +774,10 @@ def model_finetune_config(
 @mcp.tool()
 def model_loss_analyze(losses: str, window: int = 10) -> Dict[str, Any]:
     """Analyze a loss curve for trends, plateaus, and anomalies."""
-    loss_list = [float(x.strip()) for x in losses.split(",") if x.strip()]
+    try:
+        loss_list = [float(x.strip()) for x in losses.split(",") if x.strip()]
+    except ValueError:
+        return {"error": f"Invalid losses format. Expected comma-separated floats (e.g. '2.5, 2.1, 1.8'), got: {losses[:80]}"}
     if not loss_list:
         return {"error": "No losses provided."}
 

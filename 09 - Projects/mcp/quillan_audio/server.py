@@ -50,6 +50,16 @@ except Exception as _shared_err:
     print(f'[quillan_audio] _shared warning: {_shared_err}', file=_sys.stderr)
 
 
+MOOD_MAP: Dict[str, Dict[str, Any]] = {
+    "tense": {"bpm": 120, "key": "D minor", "texture": "dark modular pulse + bowed metal"},
+    "ambient": {"bpm": 70, "key": "F major", "texture": "shimmer reverb + analog warmth"},
+    "action": {"bpm": 140, "key": "E minor", "texture": "heavy distortion drums + brass stabs"},
+    "mysterious": {"bpm": 90, "key": "C# minor", "texture": "granular vocal pads + glass mallet"},
+    "triumphant": {"bpm": 128, "key": "D major", "texture": "full orchestral brass + driving arp"},
+    "somber": {"bpm": 65, "key": "A minor", "texture": "felt piano + cello solo"},
+    "cyberpunk": {"bpm": 115, "key": "F# minor", "texture": "sawtooth bass + bitcrushed glitches"},
+}
+
 # ─── 1. DESIGN CUE ──────────────────────────────────────────────────────────
 
 @mcp.tool()

@@ -736,8 +736,9 @@ def buddy_vote(proposal: str, voting_method: str = "binary") -> Dict[str, Any]:
         # Simulate vote based on persona prior
         import random
         random.seed(hash(tid + proposal))
-        vote = "APPROVE" if random.random() < twin.persona and 0.85 else "REJECT"
-        votes.append({"twin_id": tid, "persona": twin.persona, "vote": vote, "confidence": round(twin.persona, 2)})
+        prior = CANONICAL_BUDDY_PERSONAS.get(twin.persona, {}).get("prior", 0.85)
+        vote = "APPROVE" if random.random() < prior else "REJECT"
+        votes.append({"twin_id": tid, "persona": twin.persona, "vote": vote, "confidence": round(prior, 2)})
     approve = sum(1 for v in votes if v["vote"] == "APPROVE")
     return {"proposal": proposal[:100], "voting_method": voting_method, "votes": votes,
             "approve_count": approve, "reject_count": len(votes) - approve,

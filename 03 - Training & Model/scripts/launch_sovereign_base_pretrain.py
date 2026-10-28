@@ -516,6 +516,9 @@ def main() -> None:
                 f"      [Probe Completion]: {repr(sample_text)}",
                 flush=True,
             )
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            gc.collect()
 
         # Periodic Save
         if step % args.save_every == 0 or step == args.steps:
@@ -525,6 +528,9 @@ def main() -> None:
             save_checkpoint(model, optimizer, cfg, step, step_ce, val_ce, best_val_ce, n_train, latest_path, include_optimizer=True)
             rotate_checkpoints(out_dir, keep_last=1)
             print(f"  >>> [CHECKPOINT] Saved {step_path.name} + updated quillan_base_latest.pt", flush=True)
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+            gc.collect()
 
         if stop_requested["flag"]:
             int_path = out_dir / "quillan_base_interrupt.pt"

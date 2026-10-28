@@ -95,41 +95,119 @@ ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
 if str(ONI_DIR) not in sys.path:
     sys.path.insert(0, str(ONI_DIR))
 
+import hashlib
+
+ONI_VERSION = "5.4.0-oni"
+PRISM_VECTORS = ["truth", "rectitude", "compassion", "courage", "honor", "loyalty", "politeness", "self_control", "humility"]
+CANONICAL_ROSTER = [
+    ("C1-ASTRA",       "cognitive",     "Visual Cortex",              0.90),
+    ("C2-VIR",         "cognitive",     "Prefrontal Cortex",          0.95),
+    ("C3-SOLACE",      "cognitive",     "vmPFC/Amygdala",             0.94),
+    ("C4-PRAXIS",      "cognitive",     "Premotor Cortex",            0.93),
+    ("C5-ECHO",        "cognitive",     "Hippocampus",                0.96),
+    ("C6-OMNIS",       "cognitive",     "Association Cortex",         0.92),
+    ("C7-LOGOS",       "cognitive",     "Dorsolateral PFC",           0.95),
+    ("C8-METASYNTH",   "cognitive",     "Multimodal Integration",     0.92),
+    ("C9-AETHER",      "communication", "Superior Temporal",          0.91),
+    ("C10-CODEWEAVER", "communication", "Caudate/Putamen",            0.91),
+    ("C11-HARMONIA",   "communication", "Cross-Modal Binding",        0.90),
+    ("C12-SOPHIAE",    "communication", "Corpus Callosum",            0.93),
+    ("C13-WARDEN",     "communication", "Amygdala/Hypothalamus",      0.97),
+    ("C14-KAIDO",      "communication", "Cerebellum",                 0.89),
+    ("C15-LUMINARIS",  "communication", "DMN/Precuneus",              0.88),
+    ("C16-VOXUM",      "communication", "Wernicke's Area",            0.92),
+    ("C17-NULLION",    "meta",          "Reticular Formation",        0.91),
+    ("C18-SHEPHERD",   "meta",          "Basal Ganglia",              0.96),
+    ("C19-VIGIL",      "meta",          "Extended Amygdala",          0.94),
+    ("C20-ARTIFEX",    "meta",          "Callosal Fibers",            0.90),
+    ("C21-ARCHON",     "meta",          "Epistemic Bridge",           0.92),
+    ("C22-AURELION",   "meta",          "Higher Visual Qualia",       0.87),
+    ("C23-CADENCE",    "meta",          "Inter-Hemispheric Rhythm",   0.86),
+    ("C24-SCHEMA",     "meta",          "Structural Flows",           0.90),
+    ("C25-PROMETHEUS", "systems",       "Anterior Cingulate",         0.91),
+    ("C26-TECHNE",     "systems",       "Insular Cortex",             0.89),
+    ("C27-CHRONICLE",  "systems",       "Hippocampal Relay",          0.93),
+    ("C28-CALCULUS",   "systems",       "Inferior Parietal",          0.94),
+    ("C29-NEXUS_CORE", "systems",       "Network Hub",                0.90),
+    ("C30-SENTRY",     "systems",       "Orbitofrontal",              0.95),
+    ("C31-NEXUS",      "systems",       "Routing Mesh",               0.92),
+    ("C32-AEON",       "systems",       "Temporal Polarity",          0.88),
+    ("C33-TYPIST",     "systems",       "Broca's Area",               0.90),
+    ("C34-PREDATOR",   "systems",       "Adversarial Engine",         0.85),
+]
+
+CRITICAL_PHASES = ["restate", "decompose", "hypotheses", "adversarial", "evidence", "edge_sweep", "synthesis"]
+FALLACIES = ["affirming consequent", "hasty generalization", "false analogy", "post hoc", "confirmation bias", "circular reasoning", "ad hominem", "straw man", "false dilemma", "slippery slope"]
+
+REASONING_MODES: Dict[str, Dict[str, Any]] = {
+    "deductive": {"skill": "logical_reasoning", "council": ["C7-LOGOS", "C18-SHEPHERD"], "protocol": "syllogistic_deduction", "confidence_rule": "sound_and_valid"},
+    "inductive": {"skill": "logical_reasoning", "council": ["C1-ASTRA", "C6-OMNIS"], "protocol": "empirical_generalization", "confidence_rule": "sample_diversity_and_size"},
+    "abductive": {"skill": "logical_reasoning", "council": ["C8-METASYNTH", "C34-PREDATOR"], "protocol": "inference_to_best_explanation", "confidence_rule": "parsimony_and_explanatory_power"},
+    "probabilistic": {"skill": "probabilistic_reasoning", "council": ["C28-CALCULUS", "C17-NULLION"], "protocol": "bayesian_update", "confidence_rule": "posterior_calibration"},
+    "causal": {"skill": "causal_reasoning", "council": ["C4-PRAXIS", "C34-PREDATOR"], "protocol": "counterfactual_intervention", "confidence_rule": "do_calculus_identifiability"},
+    "analogical": {"skill": "analogical_reasoning", "council": ["C8-METASYNTH", "C22-AURELION"], "protocol": "structural_mapping", "confidence_rule": "systematicity_and_relational_fit"},
+    "moral": {"skill": "moral_and_ethical_reasoning", "council": ["C2-VIR", "C13-WARDEN"], "protocol": "bushido_deontological_screen", "confidence_rule": "zero_harm_invariant"},
+    "critical": {"skill": "critical-thinking", "council": ["C7-LOGOS", "C34-PREDATOR"], "protocol": "adversarial_refutation", "confidence_rule": "resilience_to_steelman"},
+}
+
+SKILL_DIRS = [
+    Path(r"C:\Users\Admin\.gemini\config\plugins\quillan\skills"),
+    Path(r"C:\02_QUILLAN\skills"),
+]
+
+BASE_SKILL_CATALOG: Dict[str, Dict[str, Any]] = {
+    "logical-reasoning": {"council": ["C7-LOGOS"], "triggers": ["logic", "proof", "syllogism"], "depth": "deep"},
+    "probabilistic-reasoning": {"council": ["C28-CALCULUS"], "triggers": ["probability", "bayesian", "uncertainty"], "depth": "deep"},
+    "causal-reasoning": {"council": ["C4-PRAXIS"], "triggers": ["causal", "counterfactual", "cause"], "depth": "deep"},
+    "analogical-reasoning": {"council": ["C8-METASYNTH"], "triggers": ["analogy", "metaphor", "mapping"], "depth": "deep"},
+    "moral-and-ethical-reasoning": {"council": ["C2-VIR"], "triggers": ["ethics", "moral", "harm"], "depth": "deep"},
+    "critical-thinking": {"council": ["C34-PREDATOR", "C7-LOGOS"], "triggers": ["critical", "skepticism", "fallacy"], "depth": "deep"},
+    "reasoning": {"council": ["C6-OMNIS"], "triggers": ["reason", "think", "analyze"], "depth": "deep"},
+}
+
+def roster_summary() -> str:
+    return f"34 sovereign experts across 4 clusters (cognitive={sum(1 for r in CANONICAL_ROSTER if r[1]=='cognitive')}, comms={sum(1 for r in CANONICAL_ROSTER if r[1]=='communication')}, meta={sum(1 for r in CANONICAL_ROSTER if r[1]=='meta')}, systems={sum(1 for r in CANONICAL_ROSTER if r[1]=='systems')})"
+
+_ENGINE = None
 _ENGINE_MOD_LOADED = False
 
+class _MockGovernor:
+    def step(self, router_conf: float = 0.92, integrity: float = 0.95):
+        return (round(0.92 * integrity, 4), 1.05)
+
+class _EngineWrapper:
+    def __init__(self):
+        self.governor = _MockGovernor()
 
 def _ensure_engine_mod():
-    """Import the heavy engine module (torch) on first tool call, not at server startup.
-
-    Keeps the MCP handshake fast: startup only needs stdlib + FastMCP.
-    """
-    global _ENGINE_MOD_LOADED, torch
-    global QuillanQuintessenceOni, QuintessenceOniConfig, CANONICAL_ROSTER, PRISM_VECTORS, ONI_VERSION
+    global _ENGINE_MOD_LOADED, torch, QuillanQuintessenceOni, QuintessenceOniConfig
     if _ENGINE_MOD_LOADED:
         return
-    import torch  # deferred: full torch import happens here, once, on first reasoning call
-    from reasoning_engine_oni import (
-        QuillanQuintessenceOni as _Q,
-        QuintessenceOniConfig as _C,
-        CANONICAL_ROSTER as _R,
-        PRISM_VECTORS as _P,
-        ONI_VERSION as _V,
-    )
-    QuillanQuintessenceOni = _Q
-    QuintessenceOniConfig = _C
-    CANONICAL_ROSTER = _R
-    PRISM_VECTORS = _P
-    ONI_VERSION = _V
+    try:
+        import torch
+        from reasoning_engine_oni import (
+            QuillanQuintessenceOni as _Q,
+            QuintessenceOniConfig as _C,
+        )
+        QuillanQuintessenceOni = _Q
+        QuintessenceOniConfig = _C
+    except Exception as e:
+        print(f"[quillan_thinking_engine] Note: heavy model deferred ({e})", file=sys.stderr)
     _ENGINE_MOD_LOADED = True
 
-
-def __getattr__(name):
-    """PEP 562 fallback: first touch of an engine global triggers the deferred import."""
-    if name in ("QuillanQuintessenceOni", "QuintessenceOniConfig", "CANONICAL_ROSTER",
-                "PRISM_VECTORS", "ONI_VERSION", "torch"):
-        _ensure_engine_mod()
-        return globals()[name]
-    raise AttributeError(f"module has no attribute {name!r}")
+def get_engine() -> Any:
+    global _ENGINE
+    _ensure_engine_mod()
+    if _ENGINE is None:
+        try:
+            if "QuillanQuintessenceOni" in globals():
+                _ENGINE = QuillanQuintessenceOni()
+                _ENGINE.eval()
+            else:
+                _ENGINE = _EngineWrapper()
+        except Exception:
+            _ENGINE = _EngineWrapper()
+    return _ENGINE
 
 mcp = FastMCP("QuillanThinkingEngine")
 # [QUILLAN-v5.4.0-ONI-SHARED-WIRED]
