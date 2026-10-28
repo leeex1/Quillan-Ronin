@@ -1,0 +1,40 @@
+{
+  "type": "full_pipeline",
+  "result": {
+    "status": "PIPELINE_COMPLETE",
+    "session_id": "code-1793202834",
+    "ast": {
+      "status": "VALID_AST",
+      "cyclomatic_complexity": 1,
+      "complexity_rating": "LOW",
+      "total_classes": 0,
+      "total_functions": 0,
+      "total_docstrings": 0,
+      "type_hint_coverage_pct": 100.0,
+      "imports": [],
+      "lines_of_code": 1
+    },
+    "security": {
+      "total_findings": 0,
+      "status": "PASS",
+      "findings": [],
+      "timestamp": 1793202834.8816812
+    },
+    "dependencies": {
+      "total_imports": 0,
+      "imports": [],
+      "risky_imports": [],
+      "status": "PASS"
+    },
+    "complexity_gate": {
+      "status": "PASS",
+      "cyclomatic_complexity": 1,
+      "type_hint_coverage_pct": 100.0,
+      "max_complexity": 20,
+      "min_type_coverage": 70.0,
+      "failures": []
+    },
+    "overall": "PASS",
+    "timestamp": 1793202834.8826597
+  }
+}

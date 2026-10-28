@@ -85,7 +85,7 @@ def bitnet_158_dynamic_deadzone(w: torch.Tensor, step: int = 500, warmup_steps: 
     tau = 0.35 + 0.15 * min(1.0, step / max(1, warmup_steps))
     w_scaled = w / gamma
     # Map [-tau, tau] -> 0, else sign(w) in {-1, +1}
-    w_q = torch.where(w_scaled.abs() > tau, torch.sign(w_scaled), torch.zeros_like(w_scaled))
+    w_q = torch.where(w_scaled.abs() > tau, torch.sign(w_scaled), 0.0)
     return (w_scaled + (w_q - w_scaled).detach()) * gamma
 
 
@@ -187,6 +187,11 @@ class SmallBatchMoEStabilizer(nn.Module):
     def compute_stabilized_losses(self, router_logits: torch.Tensor, probs: torch.Tensor) -> Dict[str, torch.Tensor]:
         # 1. Router Z-Loss (aux_z_weight = 5e-4)
         z_loss = torch.logsumexp(router_logits.float(), dim=-1).pow(2).mean() * 5e-4
+
+        # Ensure device parity for buffers
+        if self.ema_load.device != probs.device:
+            self.ema_load = self.ema_load.to(probs.device)
+            self.router_bias = self.router_bias.to(probs.device)
 
         # 2. Update EMA expert frequency & GLM-5.3 noaux_tc bias (no_grad)
         with torch.no_grad():
@@ -410,7 +415,8 @@ class _FusedNineVectorPrism(nn.Module):
         global _GLOBAL_TRAIN_STEP
         scale = 127.0 / x.abs().max(dim=-1, keepdim=True).values.clamp(min=1e-5)
         x_q = x + ((x * scale).round().clamp(-127, 127) / scale - x).detach()
-        w_q_mean = bitnet_158_dynamic_deadzone(self.prism_weights, step=_GLOBAL_TRAIN_STEP).mean(dim=0)
+        w_mean = self.prism_weights.mean(dim=0)
+        w_q_mean = bitnet_158_dynamic_deadzone(w_mean, step=_GLOBAL_TRAIN_STEP)
         return self.w_gate(F.linear(x_q, w_q_mean))
 
 
@@ -470,8 +476,8 @@ def vectorize_model_in_place(model):
         if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "vectors") and not isinstance(block.attn.prism, _FusedNineVectorPrism):
             block.attn.prism = _FusedNineVectorPrism(block.attn.prism)
 
-        # Vectorize 34-Expert loop in MoE block
-        if hasattr(block.moe, "experts") and not hasattr(block.moe, "vec_experts"):
+        # Vectorize 34-Expert loop in MoE block (only for non-EvoMoE models where experts are unrolled CouncilExpert)
+        if getattr(block.moe, "evo_moe", None) is None and hasattr(block.moe, "experts") and not hasattr(block.moe, "vec_experts"):
             block.moe.vec_experts = _Vectorized34CouncilExperts(block.moe.experts, model.cfg)
             del block.moe.experts
             block.moe._stabilizer_ref = model.moe_stabilizer

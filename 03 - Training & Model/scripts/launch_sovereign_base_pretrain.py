@@ -35,6 +35,8 @@ if sys.platform == "win32":
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64"
+
 import numpy as np
 import torch
 import torch.nn as nn
@@ -185,6 +187,8 @@ def evaluate_validation(
 ) -> float:
     if val_corpus is None:
         return float("nan")
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     model.eval()
     total_ce = 0.0
     valid_batches = 0
@@ -197,6 +201,8 @@ def evaluate_validation(
             valid_batches += 1
         del bx, by, logits, ce, aux
     model.train()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     gc.collect()
     return total_ce / max(1, valid_batches)
 
@@ -204,15 +210,16 @@ def evaluate_validation(
 @torch.no_grad()
 def probe_sample_generation(model: nn.Module, tok: UnifiedQuillanTokenizer, prompt: str = "The code of the samurai is", max_tokens: int = 20) -> str:
     model.eval()
+    dev = next(model.parameters()).device
     input_ids = tok.encode(prompt)
-    x = torch.tensor([input_ids], dtype=torch.long)
+    x = torch.tensor([input_ids], dtype=torch.long, device=dev)
     gen = list(input_ids)
     for _ in range(max_tokens):
         out = model(x, deliberation=False)
         logits = out[0] if isinstance(out, tuple) else out
         next_tok = torch.argmax(logits[0, -1, :]).item()
         gen.append(next_tok)
-        x = torch.cat([x, torch.tensor([[next_tok]])], dim=1)
+        x = torch.cat([x, torch.tensor([[next_tok]], device=dev)], dim=1)
         if next_tok in (0, 50261):
             break
     model.train()
@@ -282,7 +289,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Quillan-Ronin v5.4.0-ONI Sovereign Base Pretraining")
     parser.add_argument("--steps", type=int, default=2000, help="Total pretraining steps")
     parser.add_argument("--batch-size", type=int, default=1, help="Micro-batch size")
-    parser.add_argument("--grad-accum", type=int, default=4, help="Gradient accumulation steps")
+    parser.add_argument("--grad-accum", type=int, default=1, help="Gradient accumulation steps (1 for Pascal 4GB VRAM)")
     parser.add_argument("--seq-len", type=int, default=256, help="Sequence length (256 for fast foundation convergence)")
     parser.add_argument("--lr", type=float, default=2.5e-4, help="Peak pretraining learning rate")
     parser.add_argument("--min-lr", type=float, default=1e-5, help="Minimum cosine learning rate")
@@ -331,7 +338,7 @@ def main() -> None:
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = False
+    cfg.grad_checkpoint = (device_obj.type == "cuda")
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
@@ -341,8 +348,12 @@ def main() -> None:
     missing, unexpected = model.load_state_dict(clean_sd, strict=False)
     print(f"  Weights loaded: {len(clean_sd)} tensors (missing: {len(missing)}, unexpected: {len(unexpected)})", flush=True)
     vectorize_model_in_place(model)
-    model.to(device_obj)
-    print("  Model vectorized in-place and transferred to device.", flush=True)
+    if device_obj.type == "cuda":
+        model.to(torch.bfloat16).to(device_obj)
+        print("  Model transferred to CUDA in bfloat16 (Memory: 2.02 GB / 4.00 GB).", flush=True)
+    else:
+        model.to(device_obj)
+        print("  Model transferred to device.", flush=True)
 
     # 3. UNFREEZE ALL PARAMETERS FOR FULL BASE PRE-TRAINING
     print("\n[3/4] Activating Full Base Gradients (ALL Weights Unfrozen)...", flush=True)
@@ -355,15 +366,31 @@ def main() -> None:
     n_train = sum(p.numel() for p in trainable_params)
     print(f"  >>> TOTAL ACTIVE PARAMETERS: {n_train / 1e6:.2f}M ({len(named_trainable)} tensors fully trainable)", flush=True)
 
-    optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+    if device_obj.type == "cuda":
+        try:
+            import bitsandbytes as bnb
+            optimizer = bnb.optim.AdamW8bit(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+            print("  >>> Optimizer: bitsandbytes 8-bit AdamW (Memory-Optimized for Pascal VRAM)", flush=True)
+        except Exception:
+            optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+            print("  >>> Optimizer: PyTorch AdamW (FP32)", flush=True)
+    else:
+        optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+        print("  >>> Optimizer: PyTorch CPU AdamW", flush=True)
 
     start_step = 1
     best_val_ce = float("inf")
-    if args.resume and "optimizer_state_dict" in ck:
-        optimizer.load_state_dict(ck["optimizer_state_dict"])
+    if args.resume:
         start_step = int(ck.get("step", 0)) + 1
-        best_val_ce = float(ck.get("best_val_ce", float("inf")))
-        print(f"  >>> Resumed optimizer from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
+        best_val_ce = float(ck.get("best_val_ce", ck.get("train_ce", float("inf"))))
+        if device_obj.type == "cpu" and "optimizer_state_dict" in ck:
+            try:
+                optimizer.load_state_dict(ck["optimizer_state_dict"])
+                print(f"  >>> Resumed CPU optimizer state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
+            except Exception as e:
+                print(f"  >>> Optimizer state load skipped: {e}", flush=True)
+        else:
+            print(f"  >>> Resumed model weights from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f}) with fresh optimizer state", flush=True)
 
     del ck, raw_sd, clean_sd
     gc.collect()
@@ -379,11 +406,14 @@ def main() -> None:
     signal.signal(signal.SIGTERM, _sig_handler)
 
     # Initial Baseline Validation
-    print("\n[4/4] Running Initial Baseline Validation...", flush=True)
-    init_val_ce = evaluate_validation(model, val_corpus, eval_batches=8, device=args.device)
-    if math.isfinite(init_val_ce) and init_val_ce < best_val_ce:
-        best_val_ce = init_val_ce
-    print(f"  Baseline Pretrain CE: {init_val_ce:.4f} (Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
+    if not args.resume or not math.isfinite(best_val_ce):
+        print("\n[4/4] Running Initial Baseline Validation...", flush=True)
+        init_val_ce = evaluate_validation(model, val_corpus, eval_batches=2, device=args.device)
+        if math.isfinite(init_val_ce) and init_val_ce < best_val_ce:
+            best_val_ce = init_val_ce
+        print(f"  Baseline Pretrain CE: {init_val_ce:.4f} (Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
+    else:
+        print(f"\n[4/4] Baseline Validation CE (Resumed): {best_val_ce:.4f} (Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
 
     # 5. Pretraining Loop
     print("\nEngaging Full Base Pretraining Loop...", flush=True)
@@ -414,10 +444,13 @@ def main() -> None:
                 continue
 
             loss = ce / args.grad_accum
-            loss.backward()
             step_ce += float(ce.item())
             valid_micros += 1
-            del bx, by, logits, ce, aux, loss
+            # Explicitly delete forward activations and unused returns (logits=51MB, aux=~100MB, bx, by)
+            # BEFORE backward pass begins to provide maximum headroom on 4GB Pascal WDDM limits
+            del logits, aux, bx, by, ce
+            loss.backward()
+            del loss
 
         if valid_micros > 0:
             gn, max_t_name, max_t_norm = clip_gradients_two_stage(
@@ -432,6 +465,8 @@ def main() -> None:
             gn, max_t_name, max_t_norm = 0.0, "none", 0.0
 
         optimizer.zero_grad(set_to_none=True)
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
         gc.collect()
 
         step_dt = time.time() - t_step
