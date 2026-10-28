@@ -181,14 +181,14 @@ def build_coherent_model():
 
         # Combine into c_attn (QKV fused): [3 * hidden_dim, hidden_dim]
         qkv_float = torch.cat([q_w, k_rep, v_rep], dim=0)
-        qkv_ternary, _ = quantize_to_ternary(qkv_float)
-        o_ternary, _ = quantize_to_ternary(o_w)
+        qkv_ternary, qkv_scale = quantize_to_ternary(qkv_float)
+        o_ternary, o_scale = quantize_to_ternary(o_w)
 
-        # Assign to block attention
+        # Assign scaled ternary weights to block attention so variance is preserved (1/sqrt(d_in))
         if f"{prefix_out}.attn.c_attn.weight" in target_sd:
-            target_sd[f"{prefix_out}.attn.c_attn.weight"].copy_(qkv_ternary)
+            target_sd[f"{prefix_out}.attn.c_attn.weight"].copy_(qkv_ternary * qkv_scale)
         if f"{prefix_out}.attn.c_proj.weight" in target_sd:
-            target_sd[f"{prefix_out}.attn.c_proj.weight"].copy_(o_ternary)
+            target_sd[f"{prefix_out}.attn.c_proj.weight"].copy_(o_ternary * o_scale)
 
         # Norms
         ln1 = llama_f.get_tensor(f"{prefix_in}.input_layernorm.weight")[:hidden_dim]
@@ -208,15 +208,15 @@ def build_coherent_model():
     sh_up = llama_f.get_tensor("model.layers.0.mlp.up_proj.weight")[:ffn_dim, :hidden_dim]
     sh_down = llama_f.get_tensor("model.layers.0.mlp.down_proj.weight")[:hidden_dim, :ffn_dim]
 
-    sh_gate_q, _ = quantize_to_ternary(sh_gate)
-    sh_up_q, _ = quantize_to_ternary(sh_up)
-    sh_down_q, _ = quantize_to_ternary(sh_down)
+    sh_gate_q, sh_gate_s = quantize_to_ternary(sh_gate)
+    sh_up_q, sh_up_s = quantize_to_ternary(sh_up)
+    sh_down_q, sh_down_s = quantize_to_ternary(sh_down)
 
     for l in range(n_layer):
         if f"h.{l}.moe.shared_expert.gate_proj.weight" in target_sd:
-            target_sd[f"h.{l}.moe.shared_expert.gate_proj.weight"].copy_(sh_gate_q)
-            target_sd[f"h.{l}.moe.shared_expert.up_proj.weight"].copy_(sh_up_q)
-            target_sd[f"h.{l}.moe.shared_expert.down_proj.weight"].copy_(sh_down_q)
+            target_sd[f"h.{l}.moe.shared_expert.gate_proj.weight"].copy_(sh_gate_q * sh_gate_s)
+            target_sd[f"h.{l}.moe.shared_expert.up_proj.weight"].copy_(sh_up_q * sh_up_s)
+            target_sd[f"h.{l}.moe.shared_expert.down_proj.weight"].copy_(sh_down_q * sh_down_s)
 
     # 4A. Experts C00–C07: Llama 3.2 FFN layers (ternarized)
     print("  Mapping Experts C00–C07 from Llama 3.2 (Reasoning & Alignment)...")
@@ -226,15 +226,15 @@ def build_coherent_model():
         up = llama_f.get_tensor(f"model.layers.{l_in}.mlp.up_proj.weight")[:ffn_dim, :hidden_dim]
         down = llama_f.get_tensor(f"model.layers.{l_in}.mlp.down_proj.weight")[:hidden_dim, :ffn_dim]
 
-        gate_q, _ = quantize_to_ternary(gate)
-        up_q, _ = quantize_to_ternary(up)
-        down_q, _ = quantize_to_ternary(down)
+        gate_q, gate_s = quantize_to_ternary(gate)
+        up_q, up_s = quantize_to_ternary(up)
+        down_q, down_s = quantize_to_ternary(down)
 
         for l in range(n_layer):
             if f"h.{l}.moe.experts.{e}.gate_proj.weight" in target_sd:
-                target_sd[f"h.{l}.moe.experts.{e}.gate_proj.weight"].copy_(gate_q)
-                target_sd[f"h.{l}.moe.experts.{e}.up_proj.weight"].copy_(up_q)
-                target_sd[f"h.{l}.moe.experts.{e}.down_proj.weight"].copy_(down_q)
+                target_sd[f"h.{l}.moe.experts.{e}.gate_proj.weight"].copy_(gate_q * gate_s)
+                target_sd[f"h.{l}.moe.experts.{e}.up_proj.weight"].copy_(up_q * up_s)
+                target_sd[f"h.{l}.moe.experts.{e}.down_proj.weight"].copy_(down_q * down_s)
 
     # 4B. Experts C08–C21: Qwen 2.5 FFN layers (STEM, Math & Coding)
     print("  Mapping Experts C08–C21 from Qwen 2.5 (STEM & Knowledge)...")
@@ -258,15 +258,15 @@ def build_coherent_model():
         d_cols = min(ffn_dim, down_src.shape[1])
         down[:d_rows, :d_cols] = down_src[:d_rows, :d_cols]
 
-        gate_q, _ = quantize_to_ternary(gate)
-        up_q, _ = quantize_to_ternary(up)
-        down_q, _ = quantize_to_ternary(down)
+        gate_q, gate_s = quantize_to_ternary(gate)
+        up_q, up_s = quantize_to_ternary(up)
+        down_q, down_s = quantize_to_ternary(down)
 
         for l in range(n_layer):
             if f"h.{l}.moe.experts.{e}.gate_proj.weight" in target_sd:
-                target_sd[f"h.{l}.moe.experts.{e}.gate_proj.weight"].copy_(gate_q)
-                target_sd[f"h.{l}.moe.experts.{e}.up_proj.weight"].copy_(up_q)
-                target_sd[f"h.{l}.moe.experts.{e}.down_proj.weight"].copy_(down_q)
+                target_sd[f"h.{l}.moe.experts.{e}.gate_proj.weight"].copy_(gate_q * gate_s)
+                target_sd[f"h.{l}.moe.experts.{e}.up_proj.weight"].copy_(up_q * up_s)
+                target_sd[f"h.{l}.moe.experts.{e}.down_proj.weight"].copy_(down_q * down_s)
 
     # 4C. Experts C22–C33: BitNet b1.58 FFN layers (Native Ternary!)
     print("  Mapping Experts C22–C33 from BitNet b1.58 (Native Ternary)...")

@@ -456,65 +456,40 @@ class _Vectorized34CouncilExperts(nn.Module):
 
 def vectorize_model_in_place(model):
     """
-    Fuses 9-Vector Prism and vectorizes 34-Expert ModuleList into einsum vec_experts.
-    Runs POST-load_state_dict so all 1,441 tensors from quillan_coherent_base_ternary.pt
-    are loaded into the base modules BEFORE vectorization stacks them.
+    Activates native batched 9-Vector Prism (NineVectorPrismDecomposition.vectorized = True)
+    and native 34-Expert Council + Swarm batched einsum (BatchedCouncilCompute)
+    while preserving all 1,441 canonical checkpoint keys and individualized micro-agents.
     """
-    import types
     if getattr(model, "_is_vectorized_oni", False):
         return model
 
     if not hasattr(model, "moe_stabilizer"):
         model.moe_stabilizer = SmallBatchMoEStabilizer(num_experts=model.cfg.num_experts)
 
+    try:
+        from quillan_v5_4_oni import BatchedCouncilCompute
+    except ImportError:
+        BatchedCouncilCompute = None
+
     for block in model.h:
         # Tie per-layer token_memory to master wte (-617.6M duplicate params)
         if getattr(block.attn, "use_ma", False) and hasattr(block.attn, "token_memory"):
             block.attn.token_memory = model.wte
 
-        # Fuse 9-Vector Prism if not already fused
-        if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "vectors") and not isinstance(block.attn.prism, _FusedNineVectorPrism):
-            block.attn.prism = _FusedNineVectorPrism(block.attn.prism)
+        # Ensure native 9-Vector Prism batched mode is active (preserves all 9 individual vector weights)
+        if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "vectors"):
+            block.attn.prism.vectorized = True
 
-        # Vectorize 34-Expert loop in MoE block (only for non-EvoMoE models where experts are unrolled CouncilExpert)
-        if getattr(block.moe, "evo_moe", None) is None and hasattr(block.moe, "experts") and not hasattr(block.moe, "vec_experts"):
-            block.moe.vec_experts = _Vectorized34CouncilExperts(block.moe.experts, model.cfg)
-            del block.moe.experts
-            block.moe._stabilizer_ref = model.moe_stabilizer
-
-            def _fast_moe_forward(self_moe, x, gov_scale: float = 1.0):
-                B, T, C = x.size()
-                flat_x = x.reshape(-1, C)
-                fc_out = self_moe.c_fc(x)
-                gate, act = fc_out.chunk(2, dim=-1)
-                h_dense = self_moe.c_proj(F.silu(gate) * act)
-
-                gate_dev = next(self_moe.pull_gate.parameters()).device
-                inp = flat_x.to(gate_dev) if flat_x.device != gate_dev else flat_x
-                raw_logits = self_moe.pull_gate.gate(inp).to(flat_x.device).float()
-                if hasattr(self_moe, "_stabilizer_ref"):
-                    raw_logits = raw_logits + self_moe._stabilizer_ref.router_bias.detach().to(raw_logits.device)
-                pull = F.softmax(raw_logits / max(0.05, self_moe.tau), dim=-1) * self_moe.pull_gate.prior.to(flat_x.device)
-                pull = pull / pull.sum(dim=-1, keepdim=True).clamp_min(1e-8)
-
-                moe_out = self_moe.vec_experts(flat_x, pull, gov_scale)
-
-                if self_moe.training and hasattr(self_moe, "_stabilizer_ref"):
-                    stab = self_moe._stabilizer_ref.compute_stabilized_losses(raw_logits, pull)
-                    lb_loss, z_loss, entropy = stab["lb_loss"], stab["z_loss"], stab["router_entropy"]
-                else:
-                    zero = torch.zeros((), device=x.device)
-                    lb_loss, z_loss = zero, zero
-                    entropy = -(pull * torch.log(pull + 1e-10)).sum(dim=-1).mean()
-
-                g = torch.tanh(self_moe.moe_gate(flat_x))
-                out = h_dense + (moe_out * g).view(B, T, C)
-                return out, pull, lb_loss, z_loss, entropy
-
-            block.moe.forward = types.MethodType(_fast_moe_forward, block.moe)
+        # Ensure native 34-Council + rank-24 Swarm BatchedCouncilCompute is bound
+        if getattr(block.moe, "evo_moe", None) is None and hasattr(block.moe, "experts"):
+            block.moe.vectorized_experts = True
+            if getattr(block.moe, "_batched_council", None) is None and BatchedCouncilCompute is not None:
+                bc = BatchedCouncilCompute(block.moe.experts)
+                if bc.supported:
+                    block.moe._batched_council = bc
 
     model._is_vectorized_oni = True
-    print("[15-Pt Upgrade Kit] Post-Load Vectorization Complete: Fused Prism + 34-Expert Einsum bound to loaded checkpoint weights.", flush=True)
+    print("[15-Pt Upgrade Kit] Post-Load Vectorization Complete: Native 9-Vector Prism + 34-Council BatchedSwarm active.", flush=True)
     return model
 
 

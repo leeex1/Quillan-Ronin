@@ -108,13 +108,19 @@ class QuillanTernaryKernelBridge:
                 if any(ch in _p for ch in '&|<>^%"\n\r'):
                     print(f"[KERNEL] Refusing build: unsafe character in path {_p!r}", flush=True)
                     return False
-            res = subprocess.run(["cmd.exe", "/d", "/s", "/c", cmd], shell=False, capture_output=True,
+            build_bat = KERNELS_DIR / "_build_sm61.bat"
+            build_bat.write_text(f'@echo off\ncall "{vcvars}"\n"{nvcc_path}" -O3 -arch=sm_61 --shared -Xcompiler "/MD" "{cu_file}" -o "{out_dll}"\n', encoding="utf-8")
+            res = subprocess.run(["cmd.exe", "/d", "/c", str(build_bat)], shell=False, capture_output=True,
                                  text=True, cwd=str(KERNELS_DIR), timeout=600)
+            try:
+                build_bat.unlink()
+            except OSError:
+                pass
             if res.returncode == 0 and out_dll.exists():
                 print(f"[KERNEL] Compiled {out_dll.name} successfully via nvcc sm_61!", flush=True)
                 return True
             else:
-                print(f"[KERNEL] nvcc build note: {res.stderr[:200]}", flush=True)
+                print(f"[KERNEL] nvcc build note: {(res.stderr or res.stdout)[:200]}", flush=True)
                 return False
         except Exception as e:
             print(f"[KERNEL] Compilation attempt skipped: {e}", flush=True)
