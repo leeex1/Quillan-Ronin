@@ -51,6 +51,14 @@ except Exception as _shared_err:
     print(f'[quillan_gamedev] _shared warning: {_shared_err}', file=_sys.stderr)
 
 
+ENGINE_SCAFFOLDS: Dict[str, List[str]] = {
+    "godot": ["project.godot", "main.tscn", "scripts/player.gd", "scripts/game_manager.gd", "scenes/world.tscn", "assets/theme.tres"],
+    "unity": ["ProjectSettings/ProjectSettings.asset", "Assets/Scripts/PlayerController.cs", "Assets/Scripts/GameManager.cs", "Assets/Scenes/SampleScene.unity"],
+    "unreal": ["Project.uproject", "Source/Game/PlayerCharacter.cpp", "Source/Game/GameMode.cpp", "Content/Maps/MainMap.umap"],
+    "custom": ["src/main.cpp", "src/engine.h", "CMakeLists.txt", "assets/shaders/default.vert", "assets/shaders/default.frag"],
+    "web": ["index.html", "src/main.js", "src/engine/loop.js", "assets/sprites.png", "style.css"],
+}
+
 # ─── 1. NEW PROJECT ─────────────────────────────────────────────────────────
 
 @mcp.tool()

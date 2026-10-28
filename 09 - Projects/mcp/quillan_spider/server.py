@@ -53,6 +53,10 @@ except Exception as _shared_err:
 SPIDER_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_spider")
 SPIDER_DIR.mkdir(parents=True, exist_ok=True)
 TRAIL_FILE = SPIDER_DIR / "trail.json"
+MEMGRAPH_FILE = SPIDER_DIR / "memory_graph.json"
+TASKS_FILE = SPIDER_DIR / "tasks.json"
+SESSION_DIR = SPIDER_DIR / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
 
 class _SpiderParser:

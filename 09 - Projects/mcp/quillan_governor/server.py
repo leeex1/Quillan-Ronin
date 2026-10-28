@@ -256,7 +256,7 @@ def governor_full_pipeline(param_count_millions: float = 758.0, optimizer: str =
                           current_step_time_ms: float = 4200.0, target_step_time_ms: float = 5000.0,
                           persist: bool = True) -> Dict[str, Any]:
     """Chain telemetry -> thread budget -> ram calc -> velocity tune -> health summary."""
-    telemetry = governor_system_telemetry()
+    telemetry = governor_system_health()
     budget = governor_thread_budget(workload_type=workload_type)
     ram = governor_optimizer_ram_calc(param_count_millions=param_count_millions, optimizer=optimizer,
                                      trainable_ratio=trainable_ratio, batch_size=batch_size,

@@ -381,6 +381,7 @@ COUNCIL_MEMBERS = [
         "focus": "kill-loop, targeting weakest assumption",
     },
 ]
+CANONICAL_ROSTER = COUNCIL_MEMBERS
 
 CLUSTERS = ["cognitive", "communication", "meta", "systems"]
 

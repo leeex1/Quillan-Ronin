@@ -86,7 +86,41 @@ def ops_health(repo_path: str = r"C:\02_QUILLAN", deep: bool = True) -> Dict[str
     p = Path(repo_path)
     if not p.exists():
         return {"error": f"Path not found: {repo_path}"}
-    files = list(p.rglob("*.py"))
+    SKIP_DIRS = {".git", "node_modules", "__pycache__", "venv", ".venv", "unsloth_studio", "checkpoints", ".pytest_cache", ".next", "dist", "build"}
+    files: List[Path] = []
+    large_files: List[Dict[str, Any]] = []
+    secret_hits: List[str] = []
+    import re
+
+    scanned_count = 0
+    for root, dirs, filenames in os.walk(str(p)):
+        dirs[:] = [d for d in dirs if d not in SKIP_DIRS and not d.startswith(".")]
+        for fn in filenames:
+            fp = Path(root) / fn
+            if fn.endswith(".py"):
+                files.append(fp)
+            if deep and scanned_count < 1000:
+                scanned_count += 1
+                try:
+                    sz = fp.stat().st_size
+                    if sz > 5 * 1024 * 1024:
+                        large_files.append({"path": str(fp), "size_mb": round(sz / (1024*1024), 2)})
+                    if len(secret_hits) < 20 and fp.suffix.lower() in (".py", ".json", ".yaml", ".yml", ".toml", ".env", ".md", ".txt", ".cfg", ".ini"):
+                        try:
+                            txt = fp.read_text(encoding="utf-8", errors="ignore")
+                            for pat in SECRET_PATTERNS:
+                                if re.search(pat, txt, re.IGNORECASE):
+                                    secret_hits.append(str(fp))
+                                    break
+                        except Exception:
+                            pass
+                except Exception:
+                    pass
+        if len(files) >= 5000:
+            break
+
+    large_files.sort(key=lambda x: x["size_mb"], reverse=True)
+
     result = {
         "repo": str(p),
         "py_files": len(files),
@@ -99,40 +133,10 @@ def ops_health(repo_path: str = r"C:\02_QUILLAN", deep: bool = True) -> Dict[str
     # git status (best-effort)
     git_status = None
     try:
-        out = subprocess.run(["git", "-C", str(p), "status", "--short"], capture_output=True, text=True, timeout=20)
+        out = subprocess.run(["git", "-C", str(p), "status", "--short"], capture_output=True, text=True, timeout=10)
         git_status = out.stdout.strip().splitlines()[:20]
     except Exception as e:
         git_status = [f"git unavailable: {e}"]
-
-    # secret scan (file names/content, no secret values printed)
-    secret_hits = []
-    import re
-    for f in list(p.rglob("*"))[:2000]:
-        if not f.is_file():
-            continue
-        if f.suffix.lower() not in (".py", ".json", ".yaml", ".yml", ".toml", ".env", ".md", ".txt", ".cfg", ".ini"):
-            continue
-        try:
-            text = f.read_text(encoding="utf-8", errors="ignore")
-        except Exception:
-            continue
-        for pat in SECRET_PATTERNS:
-            if re.search(pat, text, re.IGNORECASE):
-                secret_hits.append(str(f))
-                break
-        if len(secret_hits) >= 20:
-            break
-
-    # large files (>5MB)
-    large_files = []
-    for f in p.rglob("*"):
-        if f.is_file():
-            try:
-                if f.stat().st_size > 5 * 1024 * 1024:
-                    large_files.append({"path": str(f), "size_mb": round(f.stat().st_size / (1024*1024), 2)})
-            except Exception:
-                continue
-    large_files.sort(key=lambda x: x["size_mb"], reverse=True)
 
     result["git_status_short"] = git_status
     result["secret_scan_hits"] = secret_hits
