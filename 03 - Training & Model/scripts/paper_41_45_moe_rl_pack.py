@@ -81,32 +81,51 @@ class HadamardTransform(nn.Module):
             self.register_buffer("H", H)
             self.learned = False
         else:
-            # Learned rotation (orthogonal init)
+            # Keep learned parameter for 1,441-key checkpoint compatibility,
+            # while using exact block-orthogonal Walsh-Hadamard transform in forward/inverse.
             self.H = nn.Parameter(torch.randn(hidden_dim, hidden_dim) * 0.02)
             self.learned = True
+        # Largest power-of-2 factor of hidden_dim (e.g., 128 for hidden_dim=1152)
+        self.block_size = hidden_dim & (-hidden_dim)
+        self._block_H_cache: dict = {}
 
     def _hadamard_matrix(self, n: int) -> torch.Tensor:
-        """Generate Hadamard matrix of size n (n must be power of 2)."""
+        """Generate orthogonal Hadamard matrix of size n (n must be power of 2)."""
         H = torch.tensor([[1.0]])
         while H.size(0) < n:
             H = torch.cat([torch.cat([H, H], dim=1),
                            torch.cat([H, -H], dim=1)], dim=0)
         return H / math.sqrt(n)
 
+    def _get_block_hadamard(self, device: torch.device, dtype: torch.dtype) -> torch.Tensor:
+        key = (device, dtype)
+        if key not in self._block_H_cache:
+            self._block_H_cache[key] = self._hadamard_matrix(self.block_size).to(device=device, dtype=dtype)
+        return self._block_H_cache[key]
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Apply Hadamard: x @ H^T."""
-        if self.learned:
-            # Ensure orthogonal via QR (simplified: just matmul)
-            return x @ self.H.T
-        else:
-            return x @ self.H.T
+        """Apply orthogonal Hadamard rotation: x @ H^T."""
+        if not self.learned:
+            return x @ self.H.to(dtype=x.dtype).T
+        if self.block_size > 1:
+            B_sz = self.block_size
+            H_blk = self._get_block_hadamard(x.device, x.dtype)
+            orig_shape = x.shape
+            x_blk = x.reshape(*orig_shape[:-1], self.hidden_dim // B_sz, B_sz)
+            return (x_blk @ H_blk).reshape(orig_shape) + (self.H.sum() * 0.0)
+        return x
 
     def inverse(self, x: torch.Tensor) -> torch.Tensor:
-        """Inverse Hadamard: x @ H (since H is orthogonal, H^T = H^{-1})."""
-        if self.learned:
-            return x @ self.H
-        else:
-            return x @ self.H  # H is symmetric for Hadamard
+        """Inverse orthogonal Hadamard: x @ H (since H is symmetric & orthogonal, H^T = H = H^{-1})."""
+        if not self.learned:
+            return x @ self.H.to(dtype=x.dtype)
+        if self.block_size > 1:
+            B_sz = self.block_size
+            H_blk = self._get_block_hadamard(x.device, x.dtype)
+            orig_shape = x.shape
+            x_blk = x.reshape(*orig_shape[:-1], self.hidden_dim // B_sz, B_sz)
+            return (x_blk @ H_blk).reshape(orig_shape)
+        return x
 
 
 class BitNet4BitActivation(nn.Module):
@@ -135,7 +154,7 @@ class BitNet4BitActivation(nn.Module):
         return q, scale
 
     def dequantize_4bit(self, q: torch.Tensor, scale: torch.Tensor) -> torch.Tensor:
-        return q.float() * scale
+        return q.to(dtype=scale.dtype) * scale
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -147,6 +166,7 @@ class BitNet4BitActivation(nn.Module):
         x_q = self.dequantize_4bit(q, scale)
         if self.use_hadamard:
             x_q = self.hadamard.inverse(x_q)
+        x_q = x_q.to(dtype=x.dtype)
         # STE
         return x + (x_q - x).detach()
 

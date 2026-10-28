@@ -64,7 +64,7 @@ torch::Tensor qgemm_forward(
 
     auto y = torch::empty({M, N}, x_int8.options().dtype(torch::kFloat16));
 
-    // Mirror the nvcc launcher: block(TILE_N=64, TILE_M=128).
+    // Mirror the nvcc launcher: block(TILE_N/BLOCK_N=16, TILE_M/BLOCK_M=16) = 256 threads.
     const int Mi = static_cast<int>(M);
     const int Ni = static_cast<int>(N);
     const int Ki = static_cast<int>(K);
@@ -83,7 +83,7 @@ torch::Tensor qgemm_forward(
 
     CUstream stream =
         reinterpret_cast<CUstream>(at::cuda::getCurrentCUDAStream().stream());
-    CUCHK(cuLaunchKernel(g_fn, gridX, gridY, 1, 64, 128, 1,
+    CUCHK(cuLaunchKernel(g_fn, gridX, gridY, 1, 16, 16, 1,
                          0, stream, args, nullptr));
     return y;
 }

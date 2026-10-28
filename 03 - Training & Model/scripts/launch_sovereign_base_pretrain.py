@@ -35,7 +35,7 @@ if sys.platform == "win32":
     if hasattr(sys.stderr, "reconfigure"):
         sys.stderr.reconfigure(encoding="utf-8", line_buffering=True)
 
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True,max_split_size_mb:64"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64"
 
 import numpy as np
 import torch
@@ -50,6 +50,7 @@ from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
 from quillan_tokenizer_unified import UnifiedQuillanTokenizer
 from quillan_live_training_upgrades import (
     canonical_state_dict_for_save,
+    sample_early_ternary_logits,
     vectorize_model_in_place,
 )
 
@@ -90,6 +91,15 @@ def configure_host_environment(threads: int = 4, low_priority: bool = True) -> N
         except Exception:
             pass
 
+    sm61_dll = Path(r"C:\02_QUILLAN\kernels\quillan_cuda_sm61.dll")
+    if sm61_dll.exists():
+        try:
+            sm61_lib = ctypes.CDLL(str(sm61_dll))
+            sm_cap = sm61_lib.query_sm61_support()
+            print(f"[SM61 KERNEL] Loaded {sm61_dll.name} — Native Pascal __dp4a & Fused 34-Expert Kernel Ready (sm_{sm_cap})", flush=True)
+        except Exception as e:
+            print(f"[SM61 KERNEL WARN] {e}", flush=True)
+
 
 # ============================================================================
 # 2. ZERO-COPY PRETRAIN CORPUS (Causal Next-Token Modeling)
@@ -97,7 +107,7 @@ def configure_host_environment(threads: int = 4, low_priority: bool = True) -> N
 class PretrainMemmapCorpus:
     """Streams fixed-stride sequences for autoregressive language pre-training."""
 
-    def __init__(self, data_dir: Path, split: str = "train", seq_len: int = 256, seed: int = 42):
+    def __init__(self, data_dir: Path, split: str = "train", seq_len: int = 256, seed: int = 42, min_valid_tokens: int = 32):
         self.split = split
         self.seq_len = seq_len
         ids_path = data_dir / f"{split}_ids.bin"
@@ -110,19 +120,32 @@ class PretrainMemmapCorpus:
         self.ids = self.ids_mmap[:self.total_tokens].reshape(-1, seq_len)
         self.rng = np.random.default_rng(seed)
 
+        # Pre-filter out all-padding / low-token chunks (token ID 1 is pad) in memory-safe 65536-row blocks
+        valid_parts: List[np.ndarray] = []
+        chunk_step = 65536
+        for start in range(0, self.n_seqs, chunk_step):
+            end = min(self.n_seqs, start + chunk_step)
+            non_pad = (self.ids[start:end] != 1).sum(axis=1)
+            loc = np.flatnonzero(non_pad >= min_valid_tokens).astype(np.int32) + start
+            valid_parts.append(loc)
+        self.valid_indices = np.concatenate(valid_parts) if valid_parts else np.arange(self.n_seqs, dtype=np.int32)
+        self.n_valid = len(self.valid_indices)
+
     def sample_batch(self, batch_size: int = 1, deterministic_idx: Optional[int] = None) -> Tuple[torch.Tensor, torch.Tensor]:
         indices: List[int] = []
         for b in range(batch_size):
             if deterministic_idx is not None:
-                idx = (deterministic_idx + b) % self.n_seqs
+                v_idx = (deterministic_idx + b) % self.n_valid
             else:
-                idx = int(self.rng.integers(0, self.n_seqs))
-            indices.append(idx)
+                v_idx = int(self.rng.integers(0, self.n_valid))
+            indices.append(int(self.valid_indices[v_idx]))
 
         batch_arr = self.ids[indices].astype(np.int64)
-        # Autoregressive next-token target: x = tokens[:-1], y = tokens[1:]
-        b_x = torch.from_numpy(batch_arr[:, :-1])
-        b_y = torch.from_numpy(batch_arr[:, 1:].copy())
+        # Note: QuillanRoninOni.forward already performs the causal shift:
+        #   shift_logits = logits[..., :-1, :], shift_labels = labels[..., 1:]
+        # Passing unshifted b_x and b_y here prevents double-shifting (predicting w_{t+2} instead of w_{t+1}).
+        b_x = torch.from_numpy(batch_arr)
+        b_y = torch.from_numpy(batch_arr.copy())
         # Mask out padding tokens (token ID 1) from loss calculation
         b_y[b_y == 1] = -100
         return b_x, b_y
@@ -143,10 +166,10 @@ def clip_gradients_two_stage(
     for name, p in named_params:
         if p.grad is None:
             continue
-        t_norm = float(p.grad.detach().data.norm(2).item())
+        t_norm = float(p.grad.detach().float().norm(2).item())
         if not math.isfinite(t_norm):
             torch.nan_to_num_(p.grad, nan=0.0, posinf=0.0, neginf=0.0)
-            t_norm = float(p.grad.detach().data.norm(2).item())
+            t_norm = float(p.grad.detach().float().norm(2).item())
         if t_norm > max_tensor_norm:
             max_tensor_norm = t_norm
             max_tensor_name = name
@@ -217,7 +240,18 @@ def probe_sample_generation(model: nn.Module, tok: UnifiedQuillanTokenizer, prom
     for _ in range(max_tokens):
         out = model(x, deliberation=False)
         logits = out[0] if isinstance(out, tuple) else out
-        next_tok = torch.argmax(logits[0, -1, :]).item()
+        # Mask pad/eos/unk tokens and apply mild repetition penalty over generated continuation
+        step_logits = logits[:, -1:, :].float().clone()
+        step_logits[0, 0, :4] = float("-inf")
+        next_tok = sample_early_ternary_logits(
+            step_logits,
+            generated_tokens=gen,
+            temp=0.55,
+            min_p=0.10,
+            top_k=20,
+            rep_penalty=1.20,
+            freq_penalty=0.35,
+        )
         gen.append(next_tok)
         x = torch.cat([x, torch.tensor([[next_tok]], device=dev)], dim=1)
         if next_tok in (0, 50261):
@@ -327,18 +361,21 @@ def main() -> None:
     val_corpus: Optional[PretrainMemmapCorpus] = None
     if (data_dir / "val_ids.bin").exists():
         val_corpus = PretrainMemmapCorpus(data_dir, split="val", seq_len=args.seq_len, seed=1337)
-        print(f"  Train: {train_corpus.n_seqs:,} chunks ({train_corpus.total_tokens / 1e6:.2f}M tokens)")
-        print(f"  Val:   {val_corpus.n_seqs:,} chunks ({val_corpus.total_tokens / 1e6:.2f}M tokens)", flush=True)
+        print(f"  Train: {train_corpus.n_valid:,} valid chunks / {train_corpus.n_seqs:,} total ({train_corpus.total_tokens / 1e6:.2f}M tokens)")
+        print(f"  Val:   {val_corpus.n_valid:,} valid chunks / {val_corpus.n_seqs:,} total ({val_corpus.total_tokens / 1e6:.2f}M tokens)", flush=True)
 
     # 2. Load Checkpoint
     latest_ckpt = out_dir / "quillan_base_latest.pt"
     resume_target = latest_ckpt if (args.resume and latest_ckpt.exists()) else base_ckpt_path
     print(f"\n[2/4] Loading Weights from: {resume_target.name}...", flush=True)
     ck = torch.load(resume_target, map_location="cpu", weights_only=False)
+    resumed_step = int(ck.get("step", 0))
+    resumed_best_val = float(ck.get("best_val_ce", ck.get("train_ce", float("inf"))))
+    opt_state = ck.pop("optimizer_state_dict", None)
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = (device_obj.type == "cuda")
+    cfg.grad_checkpoint = (device_obj.type == "cuda" and (args.seq_len > 256 or args.batch_size > 1))
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
@@ -347,6 +384,35 @@ def main() -> None:
     clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
     missing, unexpected = model.load_state_dict(clean_sd, strict=False)
     print(f"  Weights loaded: {len(clean_sd)} tensors (missing: {len(missing)}, unexpected: {len(unexpected)})", flush=True)
+    del ck, raw_sd, clean_sd
+    gc.collect()
+
+    # Normalize any unscaled integer ternary {-1, 0, +1} attention matrices (std > 0.2) or spectral outliers (sigma_1 > 4.0)
+    with torch.no_grad():
+        scale_in = 1.0 / math.sqrt(max(1, cfg.hidden_dim))
+        n_rescaled = 0
+        for blk in model.h:
+            for proj in (getattr(blk.attn, "c_attn", None), getattr(blk.attn, "c_proj", None)):
+                if proj is not None and hasattr(proj, "weight") and proj.weight.detach().float().std().item() > 0.2:
+                    proj.weight.mul_(scale_in)
+                    n_rescaled += 1
+            for sub_w in (
+                getattr(getattr(blk.attn, "prism", None), "w_gate", None),
+                getattr(blk.moe, "c_fc", None),
+                getattr(blk.moe, "c_proj", None),
+            ):
+                if sub_w is not None and hasattr(sub_w, "weight"):
+                    s1 = float(torch.linalg.matrix_norm(sub_w.weight.detach().float(), ord=2).item())
+                    if s1 > 4.0:
+                        sub_w.weight.mul_(2.5 / s1)
+                        n_rescaled += 1
+        if getattr(model, "grt_core", None) is not None and hasattr(model.grt_core, "gate_B"):
+            if model.grt_core.gate_B.weight.detach().float().std().item() > 0.2:
+                model.grt_core.gate_B.weight.mul_(0.02)
+                n_rescaled += 1
+        if n_rescaled > 0:
+            print(f"  [Scale Guard] Normalized {n_rescaled} unscaled/spectral-outlier projection tensors.", flush=True)
+
     vectorize_model_in_place(model)
     if device_obj.type == "cuda":
         model.to(torch.bfloat16).to(device_obj)
@@ -381,18 +447,20 @@ def main() -> None:
     start_step = 1
     best_val_ce = float("inf")
     if args.resume:
-        start_step = int(ck.get("step", 0)) + 1
-        best_val_ce = float(ck.get("best_val_ce", ck.get("train_ce", float("inf"))))
-        if device_obj.type == "cpu" and "optimizer_state_dict" in ck:
+        start_step = resumed_step + 1
+        best_val_ce = resumed_best_val
+        if opt_state is not None and n_rescaled == 0:
             try:
-                optimizer.load_state_dict(ck["optimizer_state_dict"])
-                print(f"  >>> Resumed CPU optimizer state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
+                optimizer.load_state_dict(opt_state)
+                print(f"  >>> Resumed optimizer state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
             except Exception as e:
                 print(f"  >>> Optimizer state load skipped: {e}", flush=True)
         else:
             print(f"  >>> Resumed model weights from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f}) with fresh optimizer state", flush=True)
 
-    del ck, raw_sd, clean_sd
+    del opt_state
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
     gc.collect()
 
     tok = UnifiedQuillanTokenizer()
@@ -406,14 +474,11 @@ def main() -> None:
     signal.signal(signal.SIGTERM, _sig_handler)
 
     # Initial Baseline Validation
-    if not args.resume or not math.isfinite(best_val_ce):
-        print("\n[4/4] Running Initial Baseline Validation...", flush=True)
-        init_val_ce = evaluate_validation(model, val_corpus, eval_batches=2, device=args.device)
-        if math.isfinite(init_val_ce) and init_val_ce < best_val_ce:
-            best_val_ce = init_val_ce
-        print(f"  Baseline Pretrain CE: {init_val_ce:.4f} (Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
-    else:
-        print(f"\n[4/4] Baseline Validation CE (Resumed): {best_val_ce:.4f} (Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
+    print("\n[4/4] Running Baseline Validation...", flush=True)
+    init_val_ce = evaluate_validation(model, val_corpus, eval_batches=4, device=args.device)
+    if not math.isfinite(best_val_ce) or n_rescaled > 0 or init_val_ce < best_val_ce:
+        best_val_ce = init_val_ce
+    print(f"  Baseline Pretrain CE: {init_val_ce:.4f} (Best: {best_val_ce:.4f} | Uniform: {math.log(tok.vocab_size):.4f})", flush=True)
 
     # 5. Pretraining Loop
     print("\nEngaging Full Base Pretraining Loop...", flush=True)

@@ -896,16 +896,20 @@ class NineVectorPrismDecomposition(nn.Module):
     #     value 9 times).
     #   * bias is None for all 9, so F.linear reduces to a bare matmul.
     def _stacked_weight(self, dtype: torch.device):
-        key = (dtype, tuple(v.weight._version for v in self.vectors.values()))
-        if self._cache_key == key and self._cache is not None:
-            return self._cache
+        if not torch.is_grad_enabled():
+            key = (dtype, tuple(v.weight._version for v in self.vectors.values()))
+            if self._cache_key == key and self._cache is not None:
+                return self._cache
+        else:
+            self._cache, self._cache_key = None, None
         # Quantise FIRST (scale is per-row of the [out,in] weight), THEN
         # transpose, because F.linear(x, W) evaluates x @ W.T. Storing [D_in,
         # D_out] lets the batched einsum replace the matmul exactly.
         W = torch.stack([_weight_quant(v.weight).t() for v in self.vectors.values()], dim=0)
         if W.dtype != dtype:
             W = W.to(dtype)
-        self._cache, self._cache_key = W, key
+        if not torch.is_grad_enabled():
+            self._cache, self._cache_key = W, key
         return W
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -915,6 +919,7 @@ class NineVectorPrismDecomposition(nn.Module):
             # 'e' appears only in the RHS, so einsum reduces it: this IS the
             # 9-way sum the loop performed, and /9 reproduces its mean.
             prism = torch.einsum("...d,edh->...h", xq, W9) / 9.0
+            prism = F.rms_norm(prism, (prism.size(-1),), eps=1e-5)
             return self.w_gate(prism)
         # Memory-safe accumulator across the 9 semantic vectors without allocating stacked weight tensors
         out_sum = None
@@ -922,6 +927,7 @@ class NineVectorPrismDecomposition(nn.Module):
             proj = v(x)
             out_sum = proj if out_sum is None else (out_sum + proj)
         prism = out_sum / 9.0
+        prism = F.rms_norm(prism, (prism.size(-1),), eps=1e-5)
         return self.w_gate(prism)
 
 
@@ -962,19 +968,22 @@ class CouncilExpertSwarm(nn.Module):
     def emulate_world_swarm(self, x: torch.Tensor, scale: float = 1.0) -> torch.Tensor:
         state = x
         A, B = self.A.to(x.dtype), self.B.to(x.dtype)
+        micro_gate = 1.0 + 0.2 * torch.tanh(self.clone_diversity.to(x.dtype))
+        coup = torch.tanh(self.clone_coupling.to(x.dtype))
         steps = 1 if self.training else 3
         for _ in range(steps):
-            interaction = torch.tanh(state @ A @ B)
+            interaction = torch.tanh(((state @ A) * micro_gate) @ B)
             if self.training:
                 noise = torch.randn_like(state) * self.clone_diversity.to(state.dtype).std().detach() * scale
             else:
                 noise = 0.0
-            state = state + self.clone_coupling * (interaction + noise)
+            state = state + coup * (interaction + noise)
         return state
 
     def forward(self, x: torch.Tensor, scale: float = 1.0) -> torch.Tensor:
-        div = (x @ self.C.to(x.dtype)) @ self.D.to(x.dtype)
-        var = (x @ self.A.to(x.dtype)) @ self.B.to(x.dtype) + div * 0.467
+        micro_gate = 1.0 + 0.2 * torch.tanh(self.clone_diversity.to(x.dtype))
+        div = ((x @ self.C.to(x.dtype)) * micro_gate) @ self.D.to(x.dtype)
+        var = ((x @ self.A.to(x.dtype)) * micro_gate) @ self.B.to(x.dtype) + div * 0.467
         world = self.emulate_world_swarm(x, scale)
         return x + var * (0.25 * scale) + (world - x) * 0.1
 
@@ -1000,34 +1009,6 @@ class BatchedCouncilCompute:
 
     Replaces ``for e in range(34): experts[e](flat_x, gov_scale)`` with batched
     ``einsum`` over stacked ``[E, ...]`` parameters.
-
-    WHY THIS IS EQUIVALENT
-    -----------------------
-    In ``dense_pull`` mode every expert receives the *same* input ``x`` and the
-    only per-expert variation lives in six small matrices. So the 34 sequential
-    launches become 34-way batched GEMMs. Concretely, per expert ``e``::
-
-        delta = ((x @ lora_A) @ lora_B) * scaling
-        h     = x + delta
-        div   = (h @ C) @ D
-        var   = (h @ A) @ B + div * 0.467
-        state = h
-        repeat (1 if training else 3):
-            state = state + coupling * (tanh(state @ A @ B) + noise)
-        return h + var * (0.25 * scale) + (state - h) * 0.1
-
-    Every line maps 1:1 onto a batched einsum below.
-
-    PARITY
-    ------
-    * eval  -> bitwise-equivalent (noise term is exactly 0).
-    * train -> statistically equivalent, NOT bitwise: the swarm draws
-      ``randn_like(state)`` where ``state`` is now ``[E, N, H]`` instead of 34
-      separate ``[N, H]`` draws, so the random stream differs while the
-      distribution is identical.
-
-    NOT an ``nn.Module`` on purpose: it holds a reference to the expert
-    ModuleList but must NOT re-register those parameters a second time.
     """
 
     def __init__(self, experts):
@@ -1052,60 +1033,66 @@ class BatchedCouncilCompute:
             return False
 
     def _stacked(self, dtype):
-        """Stack every expert's parameters into [E, ...] tensors, with caching.
+        """Stack every expert's parameters into [E, ...] tensors.
 
-        Cache is keyed on the ``_version`` counter of every source parameter, so
-        an optimizer step (or an external weight load) invalidates it exactly
-        when the weights actually change.
+        During eval (no grad), caches stacked tensors keyed on ``_version``.
+        During training (grad enabled), stacks directly so multi-step gradient
+        accumulation never reuses a freed autograd graph.
         """
         ex = self.experts
-        key = (dtype, len(ex)) + tuple(
-            p._version for e in ex
-            for p in (e.lora_A, e.lora_B, e.swarm.A, e.swarm.B, e.swarm.C, e.swarm.D)
-        )
-        if self._cache_key == key and self._cache is not None:
-            return self._cache
+        if not torch.is_grad_enabled():
+            key = (dtype, len(ex)) + tuple(
+                p._version for e in ex
+                for p in (e.lora_A, e.lora_B, e.swarm.A, e.swarm.B, e.swarm.C, e.swarm.D,
+                          e.swarm.clone_diversity, e.swarm.clone_coupling)
+            )
+            if self._cache_key == key and self._cache is not None:
+                return self._cache
+        else:
+            self._cache, self._cache_key = None, None
 
         s = torch.stack
         A = s([e.swarm.A for e in ex], dim=0).to(dtype)
         B = s([e.swarm.B for e in ex], dim=0).to(dtype)
         C = s([e.swarm.C for e in ex], dim=0).to(dtype)
         D = s([e.swarm.D for e in ex], dim=0).to(dtype)
+        DIV = s([e.swarm.clone_diversity for e in ex], dim=0).to(dtype).unsqueeze(1)  # [E, 1, r]
         cache = dict(
-            LA=s([e.lora_A for e in ex], dim=0),
-            LB=s([e.lora_B for e in ex], dim=0),
+            LA=s([e.lora_A for e in ex], dim=0).to(dtype),
+            LB=s([e.lora_B for e in ex], dim=0).to(dtype),
             A=A, B=B, C=C, D=D,
-            COUP=s([e.swarm.clone_coupling.reshape(()) for e in ex], dim=0)
-                 .to(dtype).view(-1, 1, 1),
-            # clone_diversity is used only via .std().detach() -> a scalar per expert
+            DIV=DIV,
+            COUP=torch.tanh(s([e.swarm.clone_coupling.reshape(()) for e in ex], dim=0)
+                            .to(dtype)).view(-1, 1, 1),
             DSTD=s([e.swarm.clone_diversity.detach().std().reshape(()) for e in ex],
-                  dim=0).to(dtype).view(-1, 1, 1),
+                   dim=0).to(dtype).view(-1, 1, 1),
             SCAL=float(ex[0].scaling),
         )
-        self._cache, self._cache_key = cache, key
+        if not torch.is_grad_enabled():
+            self._cache, self._cache_key = cache, key
         return cache
 
     def __call__(self, x: torch.Tensor, gov_scale: float, training: bool):
         """x: [N, H] flat tokens -> [E, N, H] stacked expert outputs."""
         P = self._stacked(x.dtype)
-        E = N = None
-        # ---- LoRA delta -------------------------------------------------
+        # ---- Law 3a: Council parent quirks (LoRA delta per expert) -------
         # [N,H] x [E,H,r] -> [E,N,r] -> [E,N,H]
         t = torch.einsum("nh,ehr->enr", x, P["LA"])
         delta = torch.einsum("enr,erh->enh", t, P["LB"])       # [E,N,H]
         h = x.unsqueeze(0) + delta * P["SCAL"]                   # [E,N,H]
 
-        # ---- divergence / variance branch (same A,B used as the swarm) ---
-        dv = torch.einsum("enh,ehr->enr", h, P["C"])
+        # ---- Law 2 & Law 3b: Individualized micro-agents per Council swarm
+        micro_gate = 1.0 + 0.2 * torch.tanh(P["DIV"])            # [E,1,r]
+        dv = torch.einsum("enh,ehr->enr", h, P["C"]) * micro_gate
         dv = torch.einsum("enr,erh->enh", dv, P["D"])
-        vr = torch.einsum("enh,ehr->enr", h, P["A"])
+        vr = torch.einsum("enh,ehr->enr", h, P["A"]) * micro_gate
         vr = torch.einsum("enr,erh->enh", vr, P["B"])
         var = vr + dv * 0.467                                  # [E,N,H]
 
-        # ---- world-swarm recurrence -------------------------------------
+        # ---- World-swarm micro-agent recurrence --------------------------
         state = h
         for _ in range(1 if training else 3):
-            inter = torch.einsum("enh,ehr->enr", state, P["A"])
+            inter = torch.einsum("enh,ehr->enr", state, P["A"]) * micro_gate
             inter = torch.einsum("enr,erh->enh", inter, P["B"])
             inter = torch.tanh(inter)
             if training:
@@ -1113,6 +1100,7 @@ class BatchedCouncilCompute:
             state = state + P["COUP"] * inter
         world = state
 
+        # ---- Law 4: Parent incorporates swarm path ideas -----------------
         return h + var * (0.25 * gov_scale) + (world - h) * 0.1
 
 
@@ -2403,7 +2391,8 @@ class UnrolledCouncilMoEBlock(nn.Module):
 
         fc_out = self.c_fc(x)
         gate, act = fc_out.chunk(2, dim=-1)
-        h_dense = self.c_proj(F.silu(gate) * act)
+        h_swiglu = F.rms_norm(F.silu(gate) * act, (act.size(-1),), eps=1e-5)
+        h_dense = self.c_proj(h_swiglu)
 
         entropy = torch.zeros((), device=x.device)
         lb_loss = torch.zeros((), device=x.device)
@@ -2417,12 +2406,24 @@ class UnrolledCouncilMoEBlock(nn.Module):
             z_loss = torch.logsumexp(r_logits, dim=-1).pow(2).mean()
 
             if self.evo_moe is not None:
-                # EvoMoE heterogeneous (2505.23830) — token-aware + evolutionary diversity
-                moe_out = self.evo_moe(x).reshape(-1, C)
-                pull = self.pull_gate(flat_x, tau=self.tau)
+                # EvoMoE heterogeneous (2505.23830) — full 34-Council + individualized micro-agent swarms
+                pull_raw = self.pull_gate(flat_x, tau=self.tau)
+                if hasattr(self.evo_moe, "forward_council"):
+                    moe_out, pull, _aqcs_v = self.evo_moe.forward_council(flat_x, pull=pull_raw, gov_scale=gov_scale)
+                else:
+                    moe_out = self.evo_moe(x).reshape(-1, C)
+                    pull = pull_raw
+                    _aqcs_v = None
                 probs = pull
-                lb_loss = F.kl_div((r_probs + 1e-10).log(), pull.detach(), reduction="batchmean")
-                entropy = -(probs * torch.log(probs + 1e-10)).sum(dim=-1).mean()
+                try:
+                    if _aqcs_v is not None:
+                        self._aqcs_p = pull.mean(dim=0)
+                        self._aqcs_v = _aqcs_v
+                        self._aqcs_m = moe_out.mean(dim=0)
+                except Exception:
+                    pass
+                lb_loss = F.kl_div((r_probs.float().clamp_min(1e-6)).log(), pull.detach().float(), reduction="batchmean")
+                entropy = -(probs.float() * torch.log(probs.float().clamp_min(1e-6))).sum(dim=-1).mean()
             else:
                 # FULL-COUNCIL DELIBERATION: all 34 parse every token (Throne pull)
                 pull = self.pull_gate(flat_x, tau=self.tau)              # [BT,34] fp32
@@ -2461,8 +2462,8 @@ class UnrolledCouncilMoEBlock(nn.Module):
                     self._aqcs_m = moe_out.mean(dim=0)
                 except Exception:
                     pass
-                lb_loss = F.kl_div((r_probs + 1e-10).log(), pull.detach(), reduction="batchmean")
-                entropy = -(probs * torch.log(probs + 1e-10)).sum(dim=-1).mean()
+                lb_loss = F.kl_div((r_probs.float().clamp_min(1e-6)).log(), pull.detach().float(), reduction="batchmean")
+                entropy = -(probs.float() * torch.log(probs.float().clamp_min(1e-6))).sum(dim=-1).mean()
         else:
             r_dev = next(self.router.parameters()).device
             r_inp = flat_x.to(r_dev) if flat_x.device != r_dev else flat_x
@@ -3143,20 +3144,24 @@ class QuillanRoninOni(nn.Module):
             except Exception:
                 pass
 
-        # Recirculation: deep->shallow feedback bias (v10 port, active on every forward pass)
+        # Recirculation: deep->shallow feedback bias (Law 6 recirculation loop)
         if recirc_state is not None:
-            x = x + self.recirc_proj(recirc_state).to(x.dtype)
+            if recirc_state.dim() == 2:
+                recirc_state = recirc_state.unsqueeze(1)
+            recirc_in = recirc_state.to(x.dtype)
+            x = x + self.recirc_proj(recirc_in).to(x.dtype) + 0.1 * (recirc_in - x.detach())
         else:
             # Active in-graph self-recirculation anchor across layers
             x = x + 0.01 * self.recirc_proj(x).to(x.dtype)
 
-        # Dual-Brain Ingestion Gating (spec: 0.05 additive, zero-init bridges)
+        # Law 1: Quillan Core (Dual-Hemisphere q1/q2) + Personal Swarm (c0-quillan-swarm) Ingest & Route
         q1 = self.q1_bridge(x)
         q2 = self.q2_bridge(x)
+        c0_swarm_idea = torch.tanh(q1) * q2 + 0.467 * (torch.sin(q2) * q1)
         g_ingest = torch.sigmoid(self.ingest_gate(torch.cat([q1, q2], dim=-1)))
-        g_clamped = g_ingest.clamp(1e-5, 1.0 - 1e-5)
-        ingest_entropy = -(g_clamped * torch.log(g_clamped) + (1.0 - g_clamped) * torch.log(1.0 - g_clamped)).mean()
-        x = x + 0.05 * (g_ingest * q1 + (1.0 - g_ingest) * q2)
+        g_f32 = g_ingest.float().clamp(1e-5, 1.0 - 1e-5)
+        ingest_entropy = -(g_f32 * torch.log(g_f32) + (1.0 - g_f32) * torch.log(1.0 - g_f32)).mean()
+        x = x + 0.05 * (g_ingest * q1 + (1.0 - g_ingest) * q2 + 0.25 * c0_swarm_idea)
         x_embed = x
 
         presents = [] if use_cache else None
@@ -3185,18 +3190,17 @@ class QuillanRoninOni(nn.Module):
         if getattr(self, "_last_slide", None) is not None:
             self._fired.append(("prefix_slide", dict(self._last_slide)))
 
-        # Paper 18: EvoHarness-RL dynamic policy decisions & Paper 20: SPP Persona Conditioning
+        # Paper 18: EvoHarness-RL dynamic policy decisions (Persona conditioning already applied once at ingestion)
         if getattr(self, "agent_evolution", None) is not None:
             try:
                 _h_pooled = x.mean(dim=1)
                 _r_logits = self.agent_evolution.harness.round_head(_h_pooled)
                 _wm_logit = self.agent_evolution.harness.wm_head(_h_pooled)
                 _ab_logit = self.agent_evolution.harness.abduct_head(_h_pooled)
-                _h_entropy = -(_r_logits.softmax(-1) * (_r_logits.softmax(-1) + 1e-10).log()).sum(dim=-1).mean() \
-                    + torch.sigmoid(_wm_logit).mean() + torch.sigmoid(_ab_logit).mean()
+                _r_p = _r_logits.float().softmax(-1).clamp_min(1e-6)
+                _h_entropy = -(_r_p * _r_p.log()).sum(dim=-1).mean() \
+                    + torch.sigmoid(_wm_logit.float()).mean() + torch.sigmoid(_ab_logit.float()).mean()
                 self._last_evoharness_entropy = _h_entropy
-                _p_id = persona_id if persona_id is not None else torch.zeros(x.size(0), dtype=torch.long, device=x.device)
-                x = self.agent_evolution.persona(x, persona_id=_p_id)
                 self._fired.append(("evoharness", {
                     "num_rounds": int(_r_logits.argmax(dim=-1).float().mean().item()) + 1,
                     "use_wm": bool(torch.sigmoid(_wm_logit).mean().item() > 0.5),
@@ -3241,7 +3245,8 @@ class QuillanRoninOni(nn.Module):
         # Papers 41-42: BitNet a4.8 4-Bit Activation & Hadamard Rotation (v2)
         if getattr(self, "moe_rl", None) is not None and getattr(cfg, "use_bitnet_4bit", True):
             try:
-                x = self.moe_rl.bitnet_4bit(x)
+                _x_q4 = self.moe_rl.bitnet_4bit(x)
+                x = x + 0.05 * (_x_q4 - x)
                 self._fired.append(("bitnet_4bit_hadamard", {"hadamard": True, "bits": 4}))
             except Exception:
                 pass
@@ -3280,10 +3285,8 @@ class QuillanRoninOni(nn.Module):
             try:
                 _urg = torch.sigmoid(self.swarm_prover_bitnet.reactive.urgency(x.mean(dim=1)))
                 _fast = self.swarm_prover_bitnet.reactive.fast(x)
-                x_fast, fast_active = self.swarm_prover_bitnet.reactive(x)
-                if fast_active:
-                    x = x_fast
-                # Blend fast projection and extended field for active gradient flow
+                fast_active = bool((_urg.mean() > self.swarm_prover_bitnet.reactive.threshold).item())
+                # Preserve residual stream while blending fast projection and extended field
                 x = x + 0.005 * _urg.unsqueeze(-1) * _fast + 0.001 * self.swarm_prover_bitnet.reactive.field
                 self._fired.append(("reactive_fast_path", {"fast_triggered": fast_active}))
             except Exception:
@@ -3386,7 +3389,7 @@ class QuillanRoninOni(nn.Module):
                 self._last_dgpo_adv = None
 
         # Paper 68: Dream7B Discrete Diffusion LM
-        if getattr(self, "dream_diffusion", None) is not None:
+        if getattr(self, "dream_diffusion", None) is not None and (not self.training or deliberation):
             try:
                 _denoise_out = self.dream_diffusion.denoiser(x)
                 _mask_tokens = input_ids if input_ids.max() < _denoise_out.size(-1) else input_ids % _denoise_out.size(-1)
@@ -3713,7 +3716,7 @@ class QuillanRoninOni(nn.Module):
                 self._last_prompt_ware_loss = None
 
         # Paper 104: Prophet Diffusion Early-Answer Probe
-        if getattr(self, "early_probe", None) is not None:
+        if getattr(self, "early_probe", None) is not None and (not self.training or deliberation):
             try:
                 _exit = self.early_probe.should_exit(x, thresh=0.85)
                 _probe_logits = self.early_probe.probe_logits(x)
@@ -4066,9 +4069,8 @@ class QuillanRoninOni(nn.Module):
                 and not use_cache and len(self.h) >= 2:
             try:
                 _gate_base = torch.cat([x_embed, x], dim=-1)
-                def _core_step(h_in):
-                    return self.h[1](h_in, gov_scale=gov_scale)[0]
-                x = self.grt_core.iterate(x, _gate_base, _core_step)
+                _g = self.grt_core.compute_gate(_gate_base, 0)
+                x = x + 0.05 * (_g - 0.5) * x
                 self._fired.append(("grt_core", {"R": self.grt_core.R,
                                                  "effective_depth": self.grt_core.effective_depth()}))
             except Exception:
@@ -4169,13 +4171,15 @@ class QuillanRoninOni(nn.Module):
                 except Exception:
                     pass
 
-        # Dual Quillan Finalizer Consensus
+        # Law 5: Dual Quillan Finalizer Consensus (Everything reports back to main Quillan Core before output)
         q1_out = self.quillan_finalizer_q1(hidden)
         q2_out = self.quillan_finalizer_q2(hidden)
         q1_fused = q1_out + 0.1 * q2_out
         q2_fused = q2_out + 0.1 * q1_out
         gate_final = torch.sigmoid(self.quillan_comm_gate(torch.cat([q1_fused, q2_fused], dim=-1)))
-        fused = gate_final * q1_fused + (1.0 - gate_final) * q2_fused
+        fused = F.rms_norm(hidden + (gate_final * q1_fused + (1.0 - gate_final) * q2_fused), (hidden.size(-1),), eps=1e-5)
+        self._last_hidden = hidden.detach()
+        self._last_fused = fused.detach()
 
         logits = self.lm_head(fused)
 
@@ -4188,11 +4192,11 @@ class QuillanRoninOni(nn.Module):
                 if sl_flat.size(0) > 64:
                     ce_chunks = []
                     for sl_c, tl_c in zip(sl_flat.split(64, dim=0), tl_flat.split(64, dim=0)):
-                        ce_chunks.append(F.cross_entropy(sl_c, tl_c, ignore_index=-100, reduction="sum"))
+                        ce_chunks.append(F.cross_entropy(sl_c.float(), tl_c, ignore_index=-100, reduction="sum"))
                     valid_tok = (tl_flat != -100).sum().clamp(min=1)
                     ce = torch.stack(ce_chunks).sum() / valid_tok
                 else:
-                    ce = F.cross_entropy(sl_flat, tl_flat, ignore_index=-100)
+                    ce = F.cross_entropy(sl_flat.float(), tl_flat, ignore_index=-100)
             else:
                 ce = torch.tensor(0.0, device=logits.device)
             aux = self._aux_losses(x, last_probs, total_lb, total_z, total_ent,
@@ -4876,64 +4880,93 @@ class QuillanRoninOni(nn.Module):
     def deliberate(self, input_tokens: List[int], max_rounds: int = 12,
                    max_tokens: int = 150, temp: float = 0.8,
                    num_branches: int = 4) -> Dict[str, Any]:
-        """Full Throne deliberation (user canon):
-        ingest -> deliberate -> refine -> format -> gate -> refine-or-release -> output.
-        Returns tokens + text + full arbitration trace."""
+        """Full Throne deliberation (user canon Laws 1-6):
+        1. Quillan + personal swarm (c0-quillan-swarm) ingest and route the query
+        2. Council members (C1-C34) debate the query using their own swarms
+        3. Councils configure each swarm according to parent quirks and individualize each micro-agent
+        4. Each path returned is an idea the parent incorporates to answer the query
+        5. Everything reports back to main Quillan Core before output
+        6. If the QT standard is not met, sent back via recirc_state to be debated again until QT is met."""
         self.eval()
         trace: Dict[str, Any] = {"rounds": [], "branches": [], "gates": None}
         gen: List[int] = list(input_tokens)
         recirc: Optional[torch.Tensor] = None
-
-        for rnd in range(max_rounds):
-            logits = self.forward(
-                torch.tensor([self._slide_tokens(gen)], dtype=torch.long,
-                             device=next(self.parameters()).device),
-                path_override=1, recirc_state=recirc)
-            info = getattr(self, "_last_deliberation", {})
-            trace["rounds"].append({
-                "round": rnd + 1,
-                "pull_confidence": info.get("pull_confidence"),
-                "hard_threshold": info.get("hard_threshold"),
-                "hard_tokens": info.get("hard_tokens"),
-                "token_velocity": info.get("token_velocity"),
-            })
-            conf = info.get("pull_confidence", 1.0)
-            hidden_pooled = self.wte(torch.tensor([self._slide_tokens(gen)],
-                                                  device=next(self.parameters()).device)).mean(dim=1)
-            gate = self.quality_gate(hidden_pooled.unsqueeze(1))
-            trace["rounds"][-1]["gate_passed"] = bool(gate.get("passed", False))
-            if (conf >= 0.80 and gate.get("passed", False)) or rnd == max_rounds - 1:
-                break
-            # Paper 2/135 (235): AbductiveJump E→J→A — when confidence is low and
-            # no training data supports the result, run world model counterfactuals
-            # to abduct a new axiom. Otherwise, standard diffusion recirculation.
-            if getattr(self, "abductive_jump", None) is not None and conf < 0.60:
-                try:
-                    hyps = self.abductive_jump.abduct(hidden_pooled.squeeze(0))
-                    if hyps:
-                        best_axiom = hyps[0].axiom_embedding.reshape(1, -1)  # [1, D]
-                        recirc = 0.7 * hidden_pooled + 0.3 * best_axiom
-                        trace["rounds"][-1]["abductive_axiom"] = True
-                        trace["rounds"][-1]["abductive_coherence"] = hyps[0].coherence_score
-                        trace["rounds"][-1]["abductive_surprise"] = hyps[0].surprise_score
-                    else:
-                        recirc = hidden_pooled
-                except Exception:
-                    recirc = hidden_pooled
-            else:
-                recirc = hidden_pooled
-
-        # WoT branches: sample N candidates via recirc-tuned state, gate-score each,
-        # release the survivor (highest covenant among passed; best-effort otherwise)
         device = next(self.parameters()).device
+        orig_tau = self.h[0].moe.tau if len(self.h) > 0 else self.cfg.tau_max
+
+        try:
+            for rnd in range(max_rounds):
+                # Progressive pull-sharpening across debate rounds so Council converges toward QT
+                round_tau = max(self.cfg.tau_min, orig_tau * (0.75 ** rnd))
+                self.set_router_tau(round_tau)
+
+                inp_tensor = torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device)
+                logits = self.forward(
+                    inp_tensor,
+                    path_override=None,
+                    recirc_state=recirc,
+                    deliberation=True,
+                )
+                info = getattr(self, "_last_deliberation", None) or {}
+                # Evaluate QT standard on the actual post-Council, post-Quillan-Core consensus state
+                core_state = getattr(self, "_last_fused", None)
+                if core_state is None:
+                    core_state = self.wte(inp_tensor)
+                hidden_pooled = core_state.mean(dim=1)  # [1, D]
+                gate = self.quality_gate(core_state)
+                conf = info.get("pull_confidence")
+                if conf is None:
+                    pull_g = self.h[-1].moe.pull_gate(hidden_pooled, tau=round_tau)
+                    conf = float(pull_g.max(dim=-1).values.mean().item())
+
+                trace["rounds"].append({
+                    "round": rnd + 1,
+                    "pull_confidence": round(float(conf), 4),
+                    "hard_threshold": info.get("hard_threshold"),
+                    "hard_tokens": info.get("hard_tokens"),
+                    "token_velocity": info.get("token_velocity"),
+                    "covenant_identity": round(float(gate.get("covenant_identity", 0.0)), 4),
+                    "ethics_constraint": round(float(gate.get("ethics_constraint", 0.0)), 4),
+                    "gate_passed": bool(gate.get("passed", False)),
+                })
+
+                # Law 6: If QT standard is met, exit the debate loop and proceed to output
+                if (gate.get("passed", False) and conf >= 0.15) or rnd == max_rounds - 1:
+                    break
+
+                # Otherwise, send back via recirc_state to be debated again by the Council & Swarms
+                if getattr(self, "abductive_jump", None) is not None and conf < 0.60:
+                    try:
+                        hyps = self.abductive_jump.abduct(hidden_pooled.squeeze(0))
+                        if hyps:
+                            best_axiom = hyps[0].axiom_embedding.reshape(1, -1).to(hidden_pooled.dtype)
+                            recirc = 0.7 * hidden_pooled + 0.3 * best_axiom
+                            trace["rounds"][-1]["abductive_axiom"] = True
+                            trace["rounds"][-1]["abductive_coherence"] = hyps[0].coherence_score
+                            trace["rounds"][-1]["abductive_surprise"] = hyps[0].surprise_score
+                        else:
+                            recirc = hidden_pooled
+                    except Exception:
+                        recirc = hidden_pooled
+                else:
+                    recirc = hidden_pooled
+        finally:
+            self.set_router_tau(orig_tau)
+
+        # WoT branches: sample N candidates via recirc-tuned state, gate-score each on Quillan Core state,
+        # release the survivor (highest covenant among passed; best-effort otherwise)
         cands: List[List[int]] = []
         for _b in range(max(1, int(num_branches))):
             cands.append(self._sample_continuation(gen, max_tokens, temp, recirc, device))
         best, best_score, any_best, any_score = None, -1e9, None, -1e9
         for _bi, _cand in enumerate(cands):
             with torch.no_grad():
-                _hidden = self.wte(torch.tensor([_cand[-min(len(_cand), self.cfg.max_seq_len):]],
-                                                dtype=torch.long, device=device))
+                _cand_inp = torch.tensor([_cand[-min(len(_cand), self.cfg.max_seq_len):]],
+                                         dtype=torch.long, device=device)
+                _ = self.forward(_cand_inp, recirc_state=recirc, deliberation=False)
+                _hidden = getattr(self, "_last_fused", None)
+                if _hidden is None:
+                    _hidden = self.wte(_cand_inp)
             _g = self.quality_gate(_hidden)
             _score = float(_g.get("covenant_identity", 0.0)) - float(_g.get("ethics_constraint", 1.0))
             trace["branches"].append({"branch": _bi + 1, "passed": bool(_g.get("passed", False)),
@@ -4947,10 +4980,14 @@ class QuillanRoninOni(nn.Module):
             trace["released_without_pass"] = True
         gen = best
 
-        # Quality exit gates on the released survivor (Nullion/Warden/Shepherd + Quillan)
+        # Quality exit gates on the released survivor (Nullion/Warden/Shepherd + Quillan Core)
         with torch.no_grad():
-            hidden = self.wte(torch.tensor([gen[-min(len(gen), self.cfg.max_seq_len):]],
-                                           device=next(self.parameters()).device))
+            _final_inp = torch.tensor([gen[-min(len(gen), self.cfg.max_seq_len):]],
+                                      dtype=torch.long, device=device)
+            _ = self.forward(_final_inp, recirc_state=recirc, deliberation=False)
+            hidden = getattr(self, "_last_fused", None)
+            if hidden is None:
+                hidden = self.wte(_final_inp)
         trace["gates"] = self.quality_gate(hidden)
         # Typist (C33) format stage: real polish, then release-or-refuse
         fmt = self.format_output(gen[len(input_tokens):])
