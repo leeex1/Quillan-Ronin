@@ -1,1211 +1,554 @@
 {
  "root": ".",
- "at": 1793203915.15743,
+ "at": 1793204087.3919306,
+ "live": true,
+ "started": 1793204063.8745787,
+ "job": "scan",
  "nodes": [
   {
    "id": 0,
    "path": ".",
    "full": ".",
-   "kind": "dir"
+   "kind": "file"
   },
   {
    "id": 1,
-   "path": ".agents",
-   "full": ".agents",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "kind": "file"
   },
   {
    "id": 2,
-   "path": ".claude",
-   "full": ".claude",
-   "kind": "dir"
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
+   "kind": "file"
   },
   {
    "id": 3,
-   "path": ".devcontainer",
-   "full": ".devcontainer",
-   "kind": "dir"
+   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
+   "kind": "file"
   },
   {
    "id": 4,
-   "path": ".github",
-   "full": ".github",
-   "kind": "dir"
+   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
+   "kind": "file"
   },
   {
    "id": 5,
-   "path": ".idx",
-   "full": ".idx",
-   "kind": "dir"
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
+   "kind": "file"
   },
   {
    "id": 6,
-   "path": ".markdownlint.json",
-   "full": ".markdownlint.json",
+   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
    "kind": "file"
   },
   {
    "id": 7,
-   "path": ".mcp.json",
-   "full": ".mcp.json",
+   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
    "kind": "file"
   },
   {
    "id": 8,
-   "path": ".opencode",
-   "full": ".opencode",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
+   "kind": "file"
   },
   {
    "id": 9,
-   "path": ".quillan",
-   "full": ".quillan",
-   "kind": "dir"
+   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
+   "kind": "file"
   },
   {
    "id": 10,
-   "path": ".ruff_cache",
-   "full": ".ruff_cache",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
+   "kind": "file"
   },
   {
    "id": 11,
-   "path": "00 - Web Map",
-   "full": "00 - Web Map",
-   "kind": "dir"
+   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
+   "kind": "file"
   },
   {
    "id": 12,
-   "path": "00 - Web Map File Index.md",
-   "full": "00 - Web Map File Index.md",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
    "kind": "file"
   },
   {
    "id": 13,
-   "path": "01 - Core Architecture",
-   "full": "01 - Core Architecture",
-   "kind": "dir"
+   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
+   "kind": "file"
   },
   {
    "id": 14,
-   "path": "01 - Core Architecture File Index.md",
-   "full": "01 - Core Architecture File Index.md",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
    "kind": "file"
   },
   {
    "id": 15,
-   "path": "02 - Knowledge Foundation",
-   "full": "02 - Knowledge Foundation",
-   "kind": "dir"
+   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
+   "kind": "file"
   },
   {
    "id": 16,
-   "path": "02 - Knowledge Foundation File Index.md",
-   "full": "02 - Knowledge Foundation File Index.md",
+   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
    "kind": "file"
   },
   {
    "id": 17,
-   "path": "03 - Training & Model",
-   "full": "03 - Training & Model",
-   "kind": "dir"
+   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
+   "kind": "file"
   },
   {
    "id": 18,
-   "path": "03 - Training & Model File Index.md",
-   "full": "03 - Training & Model File Index.md",
+   "path": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
    "kind": "file"
   },
   {
    "id": 19,
-   "path": "04- quillan-sovereign-skills-and-swarm",
-   "full": "04- quillan-sovereign-skills-and-swarm",
-   "kind": "dir"
+   "path": " Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
+   "kind": "file"
   },
   {
    "id": 20,
-   "path": "04- quillan-sovereign-skills-and-swarm File Index.md",
-   "full": "04- quillan-sovereign-skills-and-swarm File Index.md",
+   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
    "kind": "file"
   },
   {
    "id": 21,
-   "path": "05 - Creative Works",
-   "full": "05 - Creative Works",
-   "kind": "dir"
+   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
+   "kind": "file"
   },
   {
    "id": 22,
-   "path": "05 - Creative Works File Index.md",
-   "full": "05 - Creative Works File Index.md",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
    "kind": "file"
   },
   {
    "id": 23,
-   "path": "05 - Technical Implementation",
-   "full": "05 - Technical Implementation",
-   "kind": "dir"
+   "path": "ge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
+   "kind": "file"
   },
   {
    "id": 24,
-   "path": "05 - Technical Implementation File Index.md",
-   "full": "05 - Technical Implementation File Index.md",
+   "path": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
    "kind": "file"
   },
   {
    "id": 25,
-   "path": "06 - Deployment & Platforms",
-   "full": "06 - Deployment & Platforms",
-   "kind": "dir"
+   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
+   "kind": "file"
   },
   {
    "id": 26,
-   "path": "06 - Deployment & Platforms File Index.md",
-   "full": "06 - Deployment & Platforms File Index.md",
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
    "kind": "file"
   },
   {
    "id": 27,
-   "path": "06_Media",
-   "full": "06_Media",
-   "kind": "dir"
+   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
+   "kind": "file"
   },
   {
    "id": 28,
-   "path": "07 - Memory & LanceDB",
-   "full": "07 - Memory & LanceDB",
-   "kind": "dir"
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
+   "kind": "file"
   },
   {
    "id": 29,
-   "path": "07 - Memory & LanceDB File Index.md",
-   "full": "07 - Memory & LanceDB File Index.md",
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
    "kind": "file"
   },
   {
    "id": 30,
-   "path": "08 - Templates & Config",
-   "full": "08 - Templates & Config",
-   "kind": "dir"
+   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
+   "kind": "file"
   },
   {
    "id": 31,
-   "path": "08 - Templates & Config File Index.md",
-   "full": "08 - Templates & Config File Index.md",
+   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
    "kind": "file"
   },
   {
    "id": 32,
-   "path": "09 - Projects",
-   "full": "09 - Projects",
-   "kind": "dir"
+   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
+   "kind": "file"
   },
   {
    "id": 33,
-   "path": "09 - Projects File Index.md",
-   "full": "09 - Projects File Index.md",
+   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
    "kind": "file"
   },
   {
    "id": 34,
-   "path": "10 - Formal Papers",
-   "full": "10 - Formal Papers",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
+   "kind": "file"
   },
   {
    "id": 35,
-   "path": "10 - Formal Papers File Index.md",
-   "full": "10 - Formal Papers File Index.md",
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
    "kind": "file"
   },
   {
    "id": 36,
-   "path": "_archive",
-   "full": "_archive",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
+   "kind": "file"
   },
   {
    "id": 37,
-   "path": "_config",
-   "full": "_config",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
+   "kind": "file"
   },
   {
    "id": 38,
-   "path": "_quillan_backup",
-   "full": "_quillan_backup",
-   "kind": "dir"
+   "path": "dge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
+   "kind": "file"
   },
   {
    "id": 39,
-   "path": "AGENTS.md",
-   "full": "AGENTS.md",
+   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
    "kind": "file"
   },
   {
    "id": 40,
-   "path": "assets",
-   "full": "assets",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
+   "kind": "file"
   },
   {
    "id": 41,
-   "path": "assets File Index.md",
-   "full": "assets File Index.md",
+   "path": "undation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
    "kind": "file"
   },
   {
    "id": 42,
-   "path": "audio",
-   "full": "audio",
-   "kind": "dir"
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
+   "kind": "file"
   },
   {
    "id": 43,
-   "path": "Audio Engineer",
-   "full": "Audio Engineer",
-   "kind": "dir"
+   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
+   "kind": "file"
   },
   {
    "id": 44,
-   "path": "bind_full_arsenal.py",
-   "full": "bind_full_arsenal.py",
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
    "kind": "file"
   },
   {
    "id": 45,
-   "path": "bind_upgrades.py",
-   "full": "bind_upgrades.py",
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
    "kind": "file"
   },
   {
    "id": 46,
-   "path": "boot_test.py",
-   "full": "boot_test.py",
+   "path": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
    "kind": "file"
   },
   {
    "id": 47,
-   "path": "boot_test2.py",
-   "full": "boot_test2.py",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
    "kind": "file"
   },
   {
    "id": 48,
-   "path": "CHANGELOG.md",
-   "full": "CHANGELOG.md",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
    "kind": "file"
   },
   {
    "id": 49,
-   "path": "chatlogs",
-   "full": "chatlogs",
-   "kind": "dir"
+   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
+   "kind": "file"
   },
   {
    "id": 50,
-   "path": "check_servers.py",
-   "full": "check_servers.py",
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
    "kind": "file"
   },
   {
    "id": 51,
-   "path": "CLAUDE.md",
-   "full": "CLAUDE.md",
+   "path": " Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
    "kind": "file"
   },
   {
    "id": 52,
-   "path": "CODE_OF_CONDUCT.md",
-   "full": "CODE_OF_CONDUCT.md",
+   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
    "kind": "file"
   },
   {
    "id": 53,
-   "path": "CONTRIBUTING.md",
-   "full": "CONTRIBUTING.md",
+   "path": "ion\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
    "kind": "file"
   },
   {
    "id": 54,
-   "path": "daemons",
-   "full": "daemons",
-   "kind": "dir"
+   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
+   "kind": "file"
   },
   {
    "id": 55,
-   "path": "demos",
-   "full": "demos",
-   "kind": "dir"
+   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
+   "kind": "file"
   },
   {
    "id": 56,
-   "path": "devkit",
-   "full": "devkit",
-   "kind": "dir"
+   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
+   "kind": "file"
   },
   {
    "id": 57,
-   "path": "docs",
-   "full": "docs",
-   "kind": "dir"
+   "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
+   "kind": "file"
   },
   {
    "id": 58,
-   "path": "funding.json",
-   "full": "funding.json",
+   "path": " Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
    "kind": "file"
   },
   {
    "id": 59,
-   "path": "gallery",
-   "full": "gallery",
-   "kind": "dir"
+   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
+   "kind": "file"
   },
   {
    "id": 60,
-   "path": "GEMINI.md",
-   "full": "GEMINI.md",
+   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
    "kind": "file"
   },
   {
    "id": 61,
-   "path": "HANDOFF_antigravity_quillan.md",
-   "full": "HANDOFF_antigravity_quillan.md",
+   "path": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
    "kind": "file"
   },
   {
    "id": 62,
-   "path": "index.html",
-   "full": "index.html",
+   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
    "kind": "file"
   },
   {
    "id": 63,
-   "path": "kernels",
-   "full": "kernels",
-   "kind": "dir"
+   "path": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
+   "kind": "file"
   },
   {
    "id": 64,
-   "path": "main-images",
-   "full": "main-images",
-   "kind": "dir"
+   "path": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
+   "kind": "file"
   },
   {
    "id": 65,
-   "path": "mcp File Index.md",
-   "full": "mcp File Index.md",
+   "path": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
    "kind": "file"
   },
   {
    "id": 66,
-   "path": "memory.json",
-   "full": "memory.json",
+   "path": "Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
    "kind": "file"
   },
   {
    "id": 67,
-   "path": "memory.md",
-   "full": "memory.md",
+   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
    "kind": "file"
   },
   {
    "id": 68,
-   "path": "Misc",
-   "full": "Misc",
-   "kind": "dir"
+   "path": "legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
+   "kind": "file"
   },
   {
    "id": 69,
-   "path": "Misc File Index.md",
-   "full": "Misc File Index.md",
+   "path": "owledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
    "kind": "file"
   },
   {
    "id": 70,
-   "path": "MODEL_CARD.md",
-   "full": "MODEL_CARD.md",
+   "path": "nowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
    "kind": "file"
   },
   {
    "id": 71,
-   "path": "modeling_quillan.py",
-   "full": "modeling_quillan.py",
+   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
    "kind": "file"
   },
   {
    "id": 72,
-   "path": "nn_visualizer.html",
-   "full": "nn_visualizer.html",
+   "path": "dation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
    "kind": "file"
   },
   {
    "id": 73,
-   "path": "opencode.json",
-   "full": "opencode.json",
+   "path": "ion\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
    "kind": "file"
   },
   {
    "id": 74,
-   "path": "ORGANIZATION_AUDIT.json",
-   "full": "ORGANIZATION_AUDIT.json",
+   "path": "on\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
    "kind": "file"
   },
   {
    "id": 75,
-   "path": "PLAN.md",
-   "full": "PLAN.md",
+   "path": "knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
    "kind": "file"
   },
   {
    "id": 76,
-   "path": "Quillan Web Index.md",
-   "full": "Quillan Web Index.md",
+   "path": "tion\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
    "kind": "file"
   },
   {
    "id": 77,
-   "path": "quillan-cpp-clone",
-   "full": "quillan-cpp-clone",
-   "kind": "dir"
+   "path": "on\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
+   "kind": "file"
   },
   {
    "id": 78,
-   "path": "quillan-knowledge-base",
-   "full": "quillan-knowledge-base",
-   "kind": "dir"
+   "path": "e Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
+   "kind": "file"
   },
   {
    "id": 79,
-   "path": "quillan.md",
-   "full": "quillan.md",
+   "path": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
    "kind": "file"
   },
   {
    "id": 80,
-   "path": "quillan_fused_optimizer.py",
-   "full": "quillan_fused_optimizer.py",
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
    "kind": "file"
   },
   {
    "id": 81,
-   "path": "qwen_agent_tools.py",
-   "full": "qwen_agent_tools.py",
+   "path": "ge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
    "kind": "file"
   },
   {
    "id": 82,
-   "path": "README.md",
-   "full": "README.md",
+   "path": "ation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
    "kind": "file"
   },
   {
    "id": 83,
-   "path": "reference_repos",
-   "full": "reference_repos",
-   "kind": "dir"
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
+   "kind": "file"
   },
   {
    "id": 84,
-   "path": "screenshots",
-   "full": "screenshots",
-   "kind": "dir"
+   "path": "Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
+   "kind": "file"
   },
   {
    "id": 85,
-   "path": "scripts",
-   "full": "scripts",
-   "kind": "dir"
+   "path": "edge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
+   "kind": "file"
   },
   {
    "id": 86,
-   "path": "scripts File Index.md",
-   "full": "scripts File Index.md",
+   "path": "\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
    "kind": "file"
   },
   {
    "id": 87,
-   "path": "SECURITY.md",
-   "full": "SECURITY.md",
+   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
    "kind": "file"
   },
   {
    "id": 88,
-   "path": "SECURITY_DISCLOSURE.md",
-   "full": "SECURITY_DISCLOSURE.md",
+   "path": "wledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
    "kind": "file"
   },
   {
    "id": 89,
-   "path": "SOUL.md",
-   "full": "SOUL.md",
+   "path": "owledge\\legacy\\00 - Meta\\oni\\paper_96_100_edge_dali_dgpo_dream_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_96_100_edge_dali_dgpo_dream_pack.py",
    "kind": "file"
   },
   {
    "id": 90,
-   "path": "SOVEREIGN_STATE.json",
-   "full": "SOVEREIGN_STATE.json",
-   "kind": "file"
-  },
-  {
-   "id": 91,
-   "path": "SOVEREIGN_STATE.md",
-   "full": "SOVEREIGN_STATE.md",
-   "kind": "file"
-  },
-  {
-   "id": 92,
-   "path": "sync_to_google_drive.py",
-   "full": "sync_to_google_drive.py",
-   "kind": "file"
-  },
-  {
-   "id": 93,
-   "path": "SYSTEM_TOPOLOGY_MAP.md",
-   "full": "SYSTEM_TOPOLOGY_MAP.md",
-   "kind": "file"
-  },
-  {
-   "id": 94,
-   "path": "test_opt_step.py",
-   "full": "test_opt_step.py",
-   "kind": "file"
-  },
-  {
-   "id": 95,
-   "path": "tests",
-   "full": "tests",
-   "kind": "dir"
-  },
-  {
-   "id": 96,
-   "path": "tool_test.py",
-   "full": "tool_test.py",
-   "kind": "file"
-  },
-  {
-   "id": 97,
-   "path": "validation_toolkit",
-   "full": "validation_toolkit",
-   "kind": "dir"
-  },
-  {
-   "id": 98,
-   "path": "verify_quillan_os.py",
-   "full": "verify_quillan_os.py",
-   "kind": "file"
-  },
-  {
-   "id": 99,
-   "path": "vtk-clone",
-   "full": "vtk-clone",
-   "kind": "dir"
-  },
-  {
-   "id": 100,
-   "path": "wire_and_heal_repo.py",
-   "full": "wire_and_heal_repo.py",
-   "kind": "file"
-  },
-  {
-   "id": 101,
-   "path": "worker",
-   "full": "worker",
-   "kind": "dir"
-  },
-  {
-   "id": 102,
-   "path": "worker File Index.md",
-   "full": "worker File Index.md",
-   "kind": "file"
-  },
-  {
-   "id": 103,
-   "path": "x_credentials.md",
-   "full": "x_credentials.md",
-   "kind": "file"
-  },
-  {
-   "id": 104,
-   "path": ".agents\\mcp_config.json",
-   "full": ".agents\\mcp_config.json",
-   "kind": "file"
-  },
-  {
-   "id": 105,
-   "path": ".agents\\rules",
-   "full": ".agents\\rules",
-   "kind": "dir"
-  },
-  {
-   "id": 106,
-   "path": ".agents\\skills",
-   "full": ".agents\\skills",
-   "kind": "dir"
-  },
-  {
-   "id": 107,
-   "path": ".claude\\mcp_config.json",
-   "full": ".claude\\mcp_config.json",
-   "kind": "file"
-  },
-  {
-   "id": 108,
-   "path": ".claude\\skills",
-   "full": ".claude\\skills",
-   "kind": "dir"
-  },
-  {
-   "id": 109,
-   "path": ".devcontainer\\devcontainer.json",
-   "full": ".devcontainer\\devcontainer.json",
-   "kind": "file"
-  },
-  {
-   "id": 110,
-   "path": ".github\\agents",
-   "full": ".github\\agents",
-   "kind": "dir"
-  },
-  {
-   "id": 111,
-   "path": ".github\\copilot-instructions.md",
-   "full": ".github\\copilot-instructions.md",
-   "kind": "file"
-  },
-  {
-   "id": 112,
-   "path": ".github\\ISSUE_TEMPLATE",
-   "full": ".github\\ISSUE_TEMPLATE",
-   "kind": "dir"
-  },
-  {
-   "id": 113,
-   "path": ".github\\workflows",
-   "full": ".github\\workflows",
-   "kind": "dir"
-  },
-  {
-   "id": 114,
-   "path": ".idx\\mcp.json",
-   "full": ".idx\\mcp.json",
-   "kind": "file"
-  },
-  {
-   "id": 115,
-   "path": ".opencode\\agent",
-   "full": ".opencode\\agent",
-   "kind": "dir"
-  },
-  {
-   "id": 116,
-   "path": ".quillan\\COORDINATION.md",
-   "full": ".quillan\\COORDINATION.md",
-   "kind": "file"
-  },
-  {
-   "id": 117,
-   "path": ".quillan\\mcp_tool_registry.json",
-   "full": ".quillan\\mcp_tool_registry.json",
-   "kind": "file"
-  },
-  {
-   "id": 118,
-   "path": ".ruff_cache\\0.15.10",
-   "full": ".ruff_cache\\0.15.10",
-   "kind": "dir"
-  },
-  {
-   "id": 119,
-   "path": "00 - Web Map\\Context Swarm.md",
-   "full": "00 - Web Map\\Context Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 120,
-   "path": "00 - Web Map\\Objective Swarm.md",
-   "full": "00 - Web Map\\Objective Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 121,
-   "path": "00 - Web Map\\Review Swarm.md",
-   "full": "00 - Web Map\\Review Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 122,
-   "path": "00 - Web Map\\Role Swarm.md",
-   "full": "00 - Web Map\\Role Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 123,
-   "path": "00 - Web Map\\Rules Swarm.md",
-   "full": "00 - Web Map\\Rules Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 124,
-   "path": "00 - Web Map\\Ship Swarm.md",
-   "full": "00 - Web Map\\Ship Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 125,
-   "path": "00 - Web Map\\Start Swarm.md",
-   "full": "00 - Web Map\\Start Swarm.md",
-   "kind": "file"
-  },
-  {
-   "id": 126,
-   "path": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
-   "full": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
-   "kind": "file"
-  },
-  {
-   "id": 127,
-   "path": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
-   "full": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
-   "kind": "file"
-  },
-  {
-   "id": 128,
-   "path": "01 - Core Architecture\\8-Formulas.md",
-   "full": "01 - Core Architecture\\8-Formulas.md",
-   "kind": "file"
-  },
-  {
-   "id": 129,
-   "path": "01 - Core Architecture\\9-Quillan Brain mapping.md",
-   "full": "01 - Core Architecture\\9-Quillan Brain mapping.md",
-   "kind": "file"
-  },
-  {
-   "id": 130,
-   "path": "01 - Core Architecture\\agents",
-   "full": "01 - Core Architecture\\agents",
-   "kind": "dir"
-  },
-  {
-   "id": 131,
-   "path": "01 - Core Architecture\\AGENTS.md",
-   "full": "01 - Core Architecture\\AGENTS.md",
-   "kind": "file"
-  },
-  {
-   "id": 132,
-   "path": "01 - Core Architecture\\agnets run proof.md",
-   "full": "01 - Core Architecture\\agnets run proof.md",
-   "kind": "file"
-  },
-  {
-   "id": 133,
-   "path": "01 - Core Architecture\\CHANGELOG.md",
-   "full": "01 - Core Architecture\\CHANGELOG.md",
-   "kind": "file"
-  },
-  {
-   "id": 134,
-   "path": "01 - Core Architecture\\CLAUDE.md",
-   "full": "01 - Core Architecture\\CLAUDE.md",
-   "kind": "file"
-  },
-  {
-   "id": 135,
-   "path": "01 - Core Architecture\\DAEMON.md",
-   "full": "01 - Core Architecture\\DAEMON.md",
-   "kind": "file"
-  },
-  {
-   "id": 136,
-   "path": "01 - Core Architecture\\Formulas ledger research.md",
-   "full": "01 - Core Architecture\\Formulas ledger research.md",
-   "kind": "file"
-  },
-  {
-   "id": 137,
-   "path": "01 - Core Architecture\\HEARTBEAT.md",
-   "full": "01 - Core Architecture\\HEARTBEAT.md",
-   "kind": "file"
-  },
-  {
-   "id": 138,
-   "path": "01 - Core Architecture\\IDENTITY.md",
-   "full": "01 - Core Architecture\\IDENTITY.md",
-   "kind": "file"
-  },
-  {
-   "id": 139,
-   "path": "01 - Core Architecture\\INTENT.md",
-   "full": "01 - Core Architecture\\INTENT.md",
-   "kind": "file"
-  },
-  {
-   "id": 140,
-   "path": "01 - Core Architecture\\ORGANIZATION_MAP.md",
-   "full": "01 - Core Architecture\\ORGANIZATION_MAP.md",
-   "kind": "file"
-  },
-  {
-   "id": 141,
-   "path": "01 - Core Architecture\\RISK_ASSESSMENT.md",
-   "full": "01 - Core Architecture\\RISK_ASSESSMENT.md",
-   "kind": "file"
-  },
-  {
-   "id": 142,
-   "path": "01 - Core Architecture\\SCRATCHPAD.md",
-   "full": "01 - Core Architecture\\SCRATCHPAD.md",
-   "kind": "file"
-  },
-  {
-   "id": 143,
-   "path": "01 - Core Architecture\\SOUL.md",
-   "full": "01 - Core Architecture\\SOUL.md",
-   "kind": "file"
-  },
-  {
-   "id": 144,
-   "path": "01 - Core Architecture\\specs.md",
-   "full": "01 - Core Architecture\\specs.md",
-   "kind": "file"
-  },
-  {
-   "id": 145,
-   "path": "01 - Core Architecture\\TOOLS.md",
-   "full": "01 - Core Architecture\\TOOLS.md",
-   "kind": "file"
-  },
-  {
-   "id": 146,
-   "path": "01 - Core Architecture\\USER.md",
-   "full": "01 - Core Architecture\\USER.md",
-   "kind": "file"
-  },
-  {
-   "id": 147,
-   "path": "01 - Core Architecture\\walkthrough.md",
-   "full": "01 - Core Architecture\\walkthrough.md",
-   "kind": "file"
-  },
-  {
-   "id": 148,
-   "path": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
-   "full": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
-   "kind": "file"
-  },
-  {
-   "id": 149,
-   "path": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
-   "full": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
-   "kind": "file"
-  },
-  {
-   "id": 150,
-   "path": "02 - Knowledge Foundation\\_Index.md",
-   "full": "02 - Knowledge Foundation\\_Index.md",
-   "kind": "file"
-  },
-  {
-   "id": 151,
-   "path": "02 - Knowledge Foundation\\BOOTSTRAP.md",
-   "full": "02 - Knowledge Foundation\\BOOTSTRAP.md",
-   "kind": "file"
-  },
-  {
-   "id": 152,
-   "path": "02 - Knowledge Foundation\\Code Dependency Map.md",
-   "full": "02 - Knowledge Foundation\\Code Dependency Map.md",
-   "kind": "file"
-  },
-  {
-   "id": 153,
-   "path": "02 - Knowledge Foundation\\Ecisystenbranches.md",
-   "full": "02 - Knowledge Foundation\\Ecisystenbranches.md",
-   "kind": "file"
-  },
-  {
-   "id": 154,
-   "path": "02 - Knowledge Foundation\\ECOSYSTEM.md",
-   "full": "02 - Knowledge Foundation\\ECOSYSTEM.md",
-   "kind": "file"
-  },
-  {
-   "id": 155,
-   "path": "02 - Knowledge Foundation\\External Platform Connections.md",
-   "full": "02 - Knowledge Foundation\\External Platform Connections.md",
-   "kind": "file"
-  },
-  {
-   "id": 156,
-   "path": "02 - Knowledge Foundation\\FAQ.md",
-   "full": "02 - Knowledge Foundation\\FAQ.md",
-   "kind": "file"
-  },
-  {
-   "id": 157,
-   "path": "02 - Knowledge Foundation\\knowledge",
-   "full": "02 - Knowledge Foundation\\knowledge",
-   "kind": "dir"
-  },
-  {
-   "id": 158,
-   "path": "02 - Knowledge Foundation\\LINEAGE.md",
-   "full": "02 - Knowledge Foundation\\LINEAGE.md",
-   "kind": "file"
-  },
-  {
-   "id": 159,
-   "path": "02 - Knowledge Foundation\\Must know formulas.md",
-   "full": "02 - Knowledge Foundation\\Must know formulas.md",
-   "kind": "file"
-  },
-  {
-   "id": 160,
-   "path": "02 - Knowledge Foundation\\palace_db",
-   "full": "02 - Knowledge Foundation\\palace_db",
-   "kind": "dir"
-  },
-  {
-   "id": 161,
-   "path": "02 - Knowledge Foundation\\Quillan Knowledge files",
-   "full": "02 - Knowledge Foundation\\Quillan Knowledge files",
-   "kind": "dir"
-  },
-  {
-   "id": 162,
-   "path": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
-   "full": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
-   "kind": "file"
-  },
-  {
-   "id": 163,
-   "path": "02 - Knowledge Foundation\\SERVICES.md",
-   "full": "02 - Knowledge Foundation\\SERVICES.md",
-   "kind": "file"
-  },
-  {
-   "id": 164,
-   "path": "03 - Training & Model\\05_Training",
-   "full": "03 - Training & Model\\05_Training",
-   "kind": "dir"
-  },
-  {
-   "id": 165,
-   "path": "03 - Training & Model\\_dev",
-   "full": "03 - Training & Model\\_dev",
-   "kind": "dir"
-  },
-  {
-   "id": 166,
-   "path": "03 - Training & Model\\_merge_backup_20261014",
-   "full": "03 - Training & Model\\_merge_backup_20261014",
-   "kind": "dir"
-  },
-  {
-   "id": 167,
-   "path": "03 - Training & Model\\_merge_backup_20261018",
-   "full": "03 - Training & Model\\_merge_backup_20261018",
-   "kind": "dir"
-  },
-  {
-   "id": 168,
-   "path": "03 - Training & Model\\benchmarks",
-   "full": "03 - Training & Model\\benchmarks",
-   "kind": "dir"
-  },
-  {
-   "id": 169,
-   "path": "03 - Training & Model\\configuration_quillan.py",
-   "full": "03 - Training & Model\\configuration_quillan.py",
-   "kind": "file"
-  },
-  {
-   "id": 170,
-   "path": "03 - Training & Model\\evaluation_results",
-   "full": "03 - Training & Model\\evaluation_results",
-   "kind": "dir"
-  },
-  {
-   "id": 171,
-   "path": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
-   "full": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
-   "kind": "file"
-  },
-  {
-   "id": 172,
-   "path": "03 - Training & Model\\logs",
-   "full": "03 - Training & Model\\logs",
-   "kind": "dir"
-  },
-  {
-   "id": 173,
-   "path": "03 - Training & Model\\mcp",
-   "full": "03 - Training & Model\\mcp",
-   "kind": "dir"
-  },
-  {
-   "id": 174,
-   "path": "03 - Training & Model\\modeling_quillan.py",
-   "full": "03 - Training & Model\\modeling_quillan.py",
-   "kind": "file"
-  },
-  {
-   "id": 175,
-   "path": "03 - Training & Model\\quillan_bpe_tokenizer.py",
-   "full": "03 - Training & Model\\quillan_bpe_tokenizer.py",
-   "kind": "file"
-  },
-  {
-   "id": 176,
-   "path": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
-   "full": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
-   "kind": "dir"
-  },
-  {
-   "id": 177,
-   "path": "03 - Training & Model\\quillan_fused_optimizer.py",
-   "full": "03 - Training & Model\\quillan_fused_optimizer.py",
-   "kind": "file"
-  },
-  {
-   "id": 178,
-   "path": "03 - Training & Model\\quillan_v8_saturated.py",
-   "full": "03 - Training & Model\\quillan_v8_saturated.py",
-   "kind": "file"
-  },
-  {
-   "id": 179,
-   "path": "03 - Training & Model\\quillan_weight_adapter.py",
-   "full": "03 - Training & Model\\quillan_weight_adapter.py",
-   "kind": "file"
-  },
-  {
-   "id": 180,
-   "path": "03 - Training & Model\\scripts",
-   "full": "03 - Training & Model\\scripts",
-   "kind": "dir"
-  },
-  {
-   "id": 181,
-   "path": "03 - Training & Model\\src",
-   "full": "03 - Training & Model\\src",
-   "kind": "dir"
-  },
-  {
-   "id": 182,
-   "path": "03 - Training & Model\\src_quillan",
-   "full": "03 - Training & Model\\src_quillan",
-   "kind": "dir"
-  },
-  {
-   "id": 183,
-   "path": "03 - Training & Model\\tests",
-   "full": "03 - Training & Model\\tests",
-   "kind": "dir"
-  },
-  {
-   "id": 184,
-   "path": "03 - Training & Model\\training_data",
-   "full": "03 - Training & Model\\training_data",
-   "kind": "dir"
-  },
-  {
-   "id": 185,
-   "path": "03 - Training & Model\\training_logs",
-   "full": "03 - Training & Model\\training_logs",
-   "kind": "dir"
-  },
-  {
-   "id": 186,
-   "path": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
-   "full": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
-   "kind": "dir"
-  },
-  {
-   "id": 187,
-   "path": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
-   "full": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
-   "kind": "file"
-  },
-  {
-   "id": 188,
-   "path": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
-   "full": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
-   "kind": "file"
-  },
-  {
-   "id": 189,
-   "path": "04- quillan-sovereign-skills-and-swarm\\Skills",
-   "full": "04- quillan-sovereign-skills-and-swarm\\Skills",
-   "kind": "dir"
-  },
-  {
-   "id": 190,
-   "path": "05 - Creative Works\\assets",
-   "full": "05 - Creative Works\\assets",
-   "kind": "dir"
-  },
-  {
-   "id": 191,
-   "path": "05 - Creative Works\\Audio Engineer",
-   "full": "05 - Creative Works\\Audio Engineer",
-   "kind": "dir"
-  },
-  {
-   "id": 192,
-   "path": "05 - Creative Works\\Book Series",
-   "full": "05 - Creative Works\\Book Series",
-   "kind": "dir"
-  },
-  {
-   "id": 193,
-   "path": "05 - Creative Works\\docs",
-   "full": "05 - Creative Works\\docs",
-   "kind": "dir"
-  },
-  {
-   "id": 194,
-   "path": "05 - Creative Works\\gallery",
-   "full": "05 - Creative Works\\gallery",
-   "kind": "dir"
-  },
-  {
-   "id": 195,
-   "path": "05 - Creative Works\\images",
-   "full": "05 - Creative Works\\images",
-   "kind": "dir"
-  },
-  {
-   "id": 196,
-   "path": "05 - Creative Works\\index.html",
-   "full": "05 - Creative Works\\index.html",
-   "kind": "file"
-  },
-  {
-   "id": 197,
-   "path": "05 - Creative Works\\Media Template",
-   "full": "05 - Creative Works\\Media Template",
-   "kind": "dir"
-  },
-  {
-   "id": 198,
-   "path": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
-   "full": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
-   "kind": "file"
-  },
-  {
-   "id": 199,
-   "path": "05 - Creative Works\\Quillan-v4.2-model",
-   "full": "05 - Creative Works\\Quillan-v4.2-model",
-   "kind": "dir"
-  },
-  {
-   "id": 200,
-   "path": "05 - Technical Implementation\\sovereign_unified_core.py",
-   "full": "05 - Technical Implementation\\sovereign_unified_core.py",
+   "path": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pocket_nn_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pocket_nn_engine.py",
    "kind": "file"
   }
  ],
@@ -1569,1657 +912,3452 @@
   {
    "from": 0,
    "to": 90
-  },
-  {
-   "from": 0,
-   "to": 91
-  },
-  {
-   "from": 0,
-   "to": 92
-  },
-  {
-   "from": 0,
-   "to": 93
-  },
-  {
-   "from": 0,
-   "to": 94
-  },
-  {
-   "from": 0,
-   "to": 95
-  },
-  {
-   "from": 0,
-   "to": 96
-  },
-  {
-   "from": 0,
-   "to": 97
-  },
-  {
-   "from": 0,
-   "to": 98
-  },
-  {
-   "from": 0,
-   "to": 99
-  },
-  {
-   "from": 0,
-   "to": 100
-  },
-  {
-   "from": 0,
-   "to": 101
-  },
-  {
-   "from": 0,
-   "to": 102
-  },
-  {
-   "from": 0,
-   "to": 103
-  },
-  {
-   "from": 1,
-   "to": 104
-  },
-  {
-   "from": 1,
-   "to": 105
-  },
-  {
-   "from": 1,
-   "to": 106
-  },
-  {
-   "from": 2,
-   "to": 107
-  },
-  {
-   "from": 2,
-   "to": 108
-  },
-  {
-   "from": 3,
-   "to": 109
-  },
-  {
-   "from": 4,
-   "to": 110
-  },
-  {
-   "from": 4,
-   "to": 111
-  },
-  {
-   "from": 4,
-   "to": 112
-  },
-  {
-   "from": 4,
-   "to": 113
-  },
-  {
-   "from": 5,
-   "to": 114
-  },
-  {
-   "from": 8,
-   "to": 115
-  },
-  {
-   "from": 9,
-   "to": 116
-  },
-  {
-   "from": 9,
-   "to": 117
-  },
-  {
-   "from": 10,
-   "to": 118
-  },
-  {
-   "from": 11,
-   "to": 119
-  },
-  {
-   "from": 11,
-   "to": 120
-  },
-  {
-   "from": 11,
-   "to": 121
-  },
-  {
-   "from": 11,
-   "to": 122
-  },
-  {
-   "from": 11,
-   "to": 123
-  },
-  {
-   "from": 11,
-   "to": 124
-  },
-  {
-   "from": 11,
-   "to": 125
-  },
-  {
-   "from": 13,
-   "to": 126
-  },
-  {
-   "from": 13,
-   "to": 127
-  },
-  {
-   "from": 13,
-   "to": 128
-  },
-  {
-   "from": 13,
-   "to": 129
-  },
-  {
-   "from": 13,
-   "to": 130
-  },
-  {
-   "from": 13,
-   "to": 131
-  },
-  {
-   "from": 13,
-   "to": 132
-  },
-  {
-   "from": 13,
-   "to": 133
-  },
-  {
-   "from": 13,
-   "to": 134
-  },
-  {
-   "from": 13,
-   "to": 135
-  },
-  {
-   "from": 13,
-   "to": 136
-  },
-  {
-   "from": 13,
-   "to": 137
-  },
-  {
-   "from": 13,
-   "to": 138
-  },
-  {
-   "from": 13,
-   "to": 139
-  },
-  {
-   "from": 13,
-   "to": 140
-  },
-  {
-   "from": 13,
-   "to": 141
-  },
-  {
-   "from": 13,
-   "to": 142
-  },
-  {
-   "from": 13,
-   "to": 143
-  },
-  {
-   "from": 13,
-   "to": 144
-  },
-  {
-   "from": 13,
-   "to": 145
-  },
-  {
-   "from": 13,
-   "to": 146
-  },
-  {
-   "from": 13,
-   "to": 147
-  },
-  {
-   "from": 15,
-   "to": 148
-  },
-  {
-   "from": 15,
-   "to": 149
-  },
-  {
-   "from": 15,
-   "to": 150
-  },
-  {
-   "from": 15,
-   "to": 151
-  },
-  {
-   "from": 15,
-   "to": 152
-  },
-  {
-   "from": 15,
-   "to": 153
-  },
-  {
-   "from": 15,
-   "to": 154
-  },
-  {
-   "from": 15,
-   "to": 155
-  },
-  {
-   "from": 15,
-   "to": 156
-  },
-  {
-   "from": 15,
-   "to": 157
-  },
-  {
-   "from": 15,
-   "to": 158
-  },
-  {
-   "from": 15,
-   "to": 159
-  },
-  {
-   "from": 15,
-   "to": 160
-  },
-  {
-   "from": 15,
-   "to": 161
-  },
-  {
-   "from": 15,
-   "to": 162
-  },
-  {
-   "from": 15,
-   "to": 163
-  },
-  {
-   "from": 17,
-   "to": 164
-  },
-  {
-   "from": 17,
-   "to": 165
-  },
-  {
-   "from": 17,
-   "to": 166
-  },
-  {
-   "from": 17,
-   "to": 167
-  },
-  {
-   "from": 17,
-   "to": 168
-  },
-  {
-   "from": 17,
-   "to": 169
-  },
-  {
-   "from": 17,
-   "to": 170
-  },
-  {
-   "from": 17,
-   "to": 171
-  },
-  {
-   "from": 17,
-   "to": 172
-  },
-  {
-   "from": 17,
-   "to": 173
-  },
-  {
-   "from": 17,
-   "to": 174
-  },
-  {
-   "from": 17,
-   "to": 175
-  },
-  {
-   "from": 17,
-   "to": 176
-  },
-  {
-   "from": 17,
-   "to": 177
-  },
-  {
-   "from": 17,
-   "to": 178
-  },
-  {
-   "from": 17,
-   "to": 179
-  },
-  {
-   "from": 17,
-   "to": 180
-  },
-  {
-   "from": 17,
-   "to": 181
-  },
-  {
-   "from": 17,
-   "to": 182
-  },
-  {
-   "from": 17,
-   "to": 183
-  },
-  {
-   "from": 17,
-   "to": 184
-  },
-  {
-   "from": 17,
-   "to": 185
-  },
-  {
-   "from": 19,
-   "to": 186
-  },
-  {
-   "from": 19,
-   "to": 187
-  },
-  {
-   "from": 19,
-   "to": 188
-  },
-  {
-   "from": 19,
-   "to": 189
-  },
-  {
-   "from": 21,
-   "to": 190
-  },
-  {
-   "from": 21,
-   "to": 191
-  },
-  {
-   "from": 21,
-   "to": 192
-  },
-  {
-   "from": 21,
-   "to": 193
-  },
-  {
-   "from": 21,
-   "to": 194
-  },
-  {
-   "from": 21,
-   "to": 195
-  },
-  {
-   "from": 21,
-   "to": 196
-  },
-  {
-   "from": 21,
-   "to": 197
-  },
-  {
-   "from": 21,
-   "to": 198
-  },
-  {
-   "from": 21,
-   "to": 199
-  },
-  {
-   "from": 23,
-   "to": 200
   }
  ],
  "trail": [
   {
    "t": 0.0,
-   "at": ".agents",
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\build_bitnet_avx2.py",
    "node": 1,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "22 lines, 1 findings | compiled OK | 0F/0C | 1.4ms",
+   "findings": [
+    {
+     "rule": "hardcoded_path",
+     "line": 4,
+     "preview": "cd C:\\\\02_QUILLAN\\\\00 - Meta\\\\csrc"
+    }
+   ],
+   "lines": 22,
+   "ms": 1.4,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.0,
-   "at": ".claude",
+   "t": 0.24,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\csrc\\quillan_kernels.py",
    "node": 2,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "73 lines, 3 findings | compiled OK | 3F/0C | 7.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 16,
+     "preview": "def load_native_kernels():"
+    },
+    {
+     "rule": "long_function",
+     "line": 52,
+     "preview": "def native_weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def native_nine_vector_prism(x: torch.Tensor, w_stacked: torch.Tensor, w_gate: torch.Tenso"
+    }
+   ],
+   "lines": 73,
+   "ms": 7.7,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
   },
   {
-   "t": 0.0,
-   "at": ".devcontainer",
+   "t": 0.46,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\mcp_health_check.py",
    "node": 3,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "60 lines, clean | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (mcp_health_check.py, line 1) | 0F/0C | 0.5ms",
+   "findings": [],
+   "lines": 60,
+   "ms": 0.5,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.0,
-   "at": ".github",
+   "t": 0.75,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ai_consciousness_evaluator.py",
    "node": 4,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "324 lines, 8 findings | compiled OK | 10F/4C | 60.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 116,
+     "preview": "def __init__(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "def _compute_state_prior(self, state: Tuple[int, int, int, int, int]) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 154,
+     "preview": "def evaluate(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 238,
+     "preview": "def get_human_archetype(cls) -> Dict[str, bool]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 243,
+     "preview": "def get_thermostat_archetype(cls) -> Dict[str, bool]:"
+    }
+   ],
+   "lines": 324,
+   "ms": 60.9,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 0.01,
-   "at": ".idx",
+   "t": 1.02,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ax_prover_engine.py",
    "node": 5,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "502 lines, 8 findings | compiled OK | 20F/13C | 42.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def is_error_free(self) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 102,
+     "preview": "def __init__(self, mathlib_index: Optional[Dict[str, LemmaDeclaration]] = None):"
+    },
+    {
+     "rule": "long_function",
+     "line": 107,
+     "preview": "def _default_mathlib_index() -> Dict[str, LemmaDeclaration]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 115,
+     "preview": "\"Quantum.density_matrix_psd\": LemmaDeclaration(\"Quantum.density_matrix_psd\", \"\u2200 (\u03c1 : Densi"
+    },
+    {
+     "rule": "long_function",
+     "line": 118,
+     "preview": "def write_file(self, file_path: str, content: str) -> None:"
+    }
+   ],
+   "lines": 502,
+   "ms": 42.8,
+   "compiled": true,
+   "funcs": 20,
+   "classes": 13
   },
   {
-   "t": 0.01,
-   "at": ".markdownlint.json",
+   "t": 1.32,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bengio_ste_engine.py",
    "node": 6,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "318 lines, 8 findings | compiled OK | 19F/8C | 36.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 40,
+     "preview": "def __init__(self, use_logistic_noise: bool = True):"
+    },
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def sample_logistic_noise(self, shape: torch.Size, device: torch.device) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 66,
+     "preview": "def __init__(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def forward(self, a: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 318,
+   "ms": 36.4,
+   "compiled": true,
+   "funcs": 19,
+   "classes": 8
   },
   {
-   "t": 0.01,
-   "at": ".mcp.json",
+   "t": 1.58,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\beyond_158_bits.py",
    "node": 7,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "440 lines, 8 findings | compiled OK | 20F/7C | 41.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 56,
+     "preview": "def optimal_laplace_threshold(b: float) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def theoretical_mse_ratio() -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def zero_state_occupancy() -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def operating_point_entropy() -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def compute_empirical_kurtosis(tensor: torch.Tensor) -> float:"
+    }
+   ],
+   "lines": 440,
+   "ms": 41.3,
+   "compiled": true,
+   "funcs": 20,
+   "classes": 7
   },
   {
-   "t": 0.01,
-   "at": ".opencode",
+   "t": 1.84,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_2b4t_engine.py",
    "node": 8,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "383 lines, 8 findings | compiled OK | 22F/12C | 31.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 48,
+     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def __init__(self, d_model: int, eps: float = 1e-5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 98,
+     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
+    }
+   ],
+   "lines": 383,
+   "ms": 31.5,
+   "compiled": true,
+   "funcs": 22,
+   "classes": 12
   },
   {
-   "t": 0.01,
-   "at": ".quillan",
+   "t": 2.12,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_a48.py",
    "node": 9,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "291 lines, 8 findings | compiled OK | 14F/9C | 51.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 45,
+     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 83,
+     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def quantize(x: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:"
+    }
+   ],
+   "lines": 291,
+   "ms": 51.5,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 9
   },
   {
-   "t": 0.01,
-   "at": ".ruff_cache",
+   "t": 2.38,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_b158_engine.py",
    "node": 10,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "229 lines, 8 findings | compiled OK | 14F/7C | 31.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def round_clip(x: torch.Tensor, a: float, b: float) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 60,
+     "preview": "def quantize(w: torch.Tensor, eps: float = 1e-5) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 76,
+     "preview": "def quantize(x: torch.Tensor, q_b: float = 127.0, eps: float = 1e-5) -> Tuple[torch.Tensor"
+    },
+    {
+     "rule": "long_function",
+     "line": 98,
+     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 127.0):"
+    },
+    {
+     "rule": "long_function",
+     "line": 106,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 229,
+   "ms": 31.6,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 7
   },
   {
-   "t": 0.01,
-   "at": "00 - Web Map",
+   "t": 2.68,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpp_edge.py",
    "node": 11,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "379 lines, 8 findings | compiled OK | 11F/6C | 72.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def _init_tables(cls):"
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def pack_triplets(cls, w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 117,
+     "preview": "def unpack_triplets(cls, unsigned_indices: torch.Tensor, sign_bits: torch.Tensor) -> torch"
+    },
+    {
+     "rule": "long_function",
+     "line": 158,
+     "preview": "def compute_gemv("
+    },
+    {
+     "rule": "long_function",
+     "line": 221,
+     "preview": "def compute_gemv("
+    }
+   ],
+   "lines": 379,
+   "ms": 72.6,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 6
   },
   {
-   "t": 0.01,
-   "at": "00 - Web Map File Index.md",
+   "t": 2.94,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_cpu_infra.py",
    "node": 12,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "360 lines, 8 findings | compiled OK | 12F/4C | 35.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def unpack(packed: torch.Tensor, shape: Tuple[int, int]) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def gemv(packed: torch.Tensor, shape: Tuple[int, int], x: torch.Tensor, alpha: float = 1.0"
+    },
+    {
+     "rule": "long_function",
+     "line": 133,
+     "preview": "def pack(w_ternary: torch.Tensor) -> Tuple[torch.Tensor, Tuple[int, int]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 164,
+     "preview": "def build_lut(x: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 360,
+   "ms": 35.2,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 4
   },
   {
-   "t": 0.01,
-   "at": "01 - Core Architecture",
+   "t": 3.18,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_scaling_engine.py",
    "node": 13,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "282 lines, 8 findings | compiled OK | 16F/8C | 23.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 47,
+     "preview": "def sign_ste(x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def quantize(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def quantize_symmetric("
+    },
+    {
+     "rule": "long_function",
+     "line": 92,
+     "preview": "def quantize_asymmetric("
+    },
+    {
+     "rule": "long_function",
+     "line": 120,
+     "preview": "def __init__(self, in_features: int, out_features: int, q_b: float = 128.0):"
+    }
+   ],
+   "lines": 282,
+   "ms": 23.7,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 8
   },
   {
-   "t": 0.01,
-   "at": "01 - Core Architecture File Index.md",
+   "t": 3.49,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\bitnet_v2_engine.py",
    "node": 14,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "517 lines, 8 findings | compiled OK | 35F/11C | 74.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 43,
+     "preview": "def fast_hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def forward(ctx, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def backward(ctx, grad_output: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def hadamard_transform(x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def forward(ctx, w: torch.Tensor, eps: float = 1e-7) -> torch.Tensor:"
+    }
+   ],
+   "lines": 517,
+   "ms": 74.1,
+   "compiled": true,
+   "funcs": 35,
+   "classes": 11
   },
   {
-   "t": 0.01,
-   "at": "02 - Knowledge Foundation",
+   "t": 3.81,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dali_moe_engine.py",
    "node": 15,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "399 lines, 8 findings | compiled OK | 13F/5C | 91.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 66,
+     "preview": "def compute_cpu_time(self, workload_tokens: int, flop_per_token: float = 2e6) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def compute_gpu_time("
+    },
+    {
+     "rule": "long_function",
+     "line": 95,
+     "preview": "def __init__(self, hw_profile: HardwareProfile, max_gpu_experts: int = 16):"
+    },
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def assign_experts("
+    }
+   ],
+   "lines": 399,
+   "ms": 91.3,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 5
   },
   {
-   "t": 0.01,
-   "at": "02 - Knowledge Foundation File Index.md",
+   "t": 4.09,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dapo_rl_engine.py",
    "node": 16,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "299 lines, 8 findings | compiled OK | 11F/3C | 23.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def soft_overlong_punishment("
+    },
+    {
+     "rule": "long_function",
+     "line": 100,
+     "preview": "def compute_rule_reward("
+    },
+    {
+     "rule": "long_function",
+     "line": 119,
+     "preview": "def is_valid_dapo_group(group_correctness: List[bool]) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 131,
+     "preview": "def compute_group_advantages("
+    },
+    {
+     "rule": "long_function",
+     "line": 157,
+     "preview": "def __init__(self, config: Optional[DAPOConfig] = None):"
+    }
+   ],
+   "lines": 299,
+   "ms": 23.0,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 3
   },
   {
-   "t": 0.01,
-   "at": "03 - Training & Model",
+   "t": 4.39,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deep_optimizer_states.py",
    "node": 17,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "346 lines, 8 findings | compiled OK | 10F/4C | 28.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 68,
+     "preview": "def compute_optimal_stride(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def compute_optimal_stride_int(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 110,
+     "preview": "def set_grad(self, grad_tensor: torch.Tensor):"
+    },
+    {
+     "rule": "long_function",
+     "line": 120,
+     "preview": "def __init__("
+    }
+   ],
+   "lines": 346,
+   "ms": 28.1,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 0.01,
-   "at": "03 - Training & Model File Index.md",
+   "t": 4.72,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseek_moe_engine.py",
    "node": 18,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "459 lines, 8 findings | compiled OK | 13F/5C | 95.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def fine_grained_ffn_dim(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def total_fine_grained_experts(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 83,
+     "preview": "def total_activated_experts(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def num_routed_experts(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def num_activated_routed(self) -> int:"
+    }
+   ],
+   "lines": 459,
+   "ms": 95.5,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 5
   },
   {
-   "t": 0.01,
-   "at": "04- quillan-sovereign-skills-and-swarm",
+   "t": 5.0,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\deepseekmath_grpo_engine.py",
    "node": 19,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "295 lines, 8 findings | compiled OK | 8F/3C | 43.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def schulman_kl_divergence("
+    },
+    {
+     "rule": "long_function",
+     "line": 80,
+     "preview": "def compute_outcome_advantages("
+    },
+    {
+     "rule": "long_function",
+     "line": 101,
+     "preview": "def compute_process_advantages("
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def __init__(self, config: Optional[GRPOConfig] = None):"
+    },
+    {
+     "rule": "long_function",
+     "line": 150,
+     "preview": "def forward("
+    }
+   ],
+   "lines": 295,
+   "ms": 43.6,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 3
   },
   {
-   "t": 0.01,
-   "at": "04- quillan-sovereign-skills-and-swarm File Index.md",
+   "t": 5.29,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dflash_engine.py",
    "node": 20,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "491 lines, 8 findings | compiled OK | 16F/9C | 58.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 70,
+     "preview": "def num_speculative_tokens(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def __init__(self, dim: int, eps: float = 1e-6):"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def __init__(self, config: DFlashConfig):"
+    },
+    {
+     "rule": "long_function",
+     "line": 110,
+     "preview": "def forward(self, target_layer_hiddens: List[torch.Tensor]) -> torch.Tensor:"
+    }
+   ],
+   "lines": 491,
+   "ms": 58.3,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 9
   },
   {
-   "t": 0.01,
-   "at": "05 - Creative Works",
+   "t": 5.57,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dgpo_engine.py",
    "node": 21,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "467 lines, 8 findings | compiled OK | 9F/4C | 45.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def compute_group_relative_advantage("
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def compute_hellinger_distance("
+    },
+    {
+     "rule": "long_function",
+     "line": 116,
+     "preview": "def compute_shannon_entropy("
+    },
+    {
+     "rule": "long_function",
+     "line": 134,
+     "preview": "def reallocate_token_credits("
+    },
+    {
+     "rule": "long_function",
+     "line": 206,
+     "preview": "def __init__(self, config: Optional[DGPOConfig] = None):"
+    }
+   ],
+   "lines": 467,
+   "ms": 45.3,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 4
   },
   {
-   "t": 0.01,
-   "at": "05 - Creative Works File Index.md",
+   "t": 5.79,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\distill_from_nim.py",
    "node": 22,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "89 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (distill_from_nim.py, line 1) | 0F/0C | 6.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def teacher_generate(prompt, teacher):"
+    },
+    {
+     "rule": "long_function",
+     "line": 36,
+     "preview": "def distill_batch(prompts):"
+    }
+   ],
+   "lines": 89,
+   "ms": 6.2,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.01,
-   "at": "05 - Technical Implementation",
+   "t": 6.09,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\dream_diffusion_engine.py",
    "node": 23,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "607 lines, 8 findings | compiled OK | 16F/8C | 74.5ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 461,
+     "preview": "self.model.eval()"
+    },
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def __init__(self, p: float = 0.3, min_weight: float = 1e-4):"
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def forward("
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def __init__(self, mask_token_id: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 150,
+     "preview": "def forward("
+    }
+   ],
+   "lines": 607,
+   "ms": 74.5,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 8
   },
   {
-   "t": 0.01,
-   "at": "05 - Technical Implementation File Index.md",
+   "t": 6.35,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\ecdysis_harness.py",
    "node": 24,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "305 lines, 8 findings | compiled OK | 8F/5C | 29.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 58,
+     "preview": "def is_recurring(self) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 63,
+     "preview": "def num_records(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 84,
+     "preview": "def __init__(self, num_passes: int = 2, beta_attenuation: float = 0.758):"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def run_refinement(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 175,
+     "preview": "def __init__(self,"
+    }
+   ],
+   "lines": 305,
+   "ms": 29.3,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 5
   },
   {
-   "t": 0.01,
-   "at": "06 - Deployment & Platforms",
+   "t": 6.58,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale.py",
    "node": 25,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "60 lines, 5 findings | compiled OK | 5F/2C | 5.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 27,
+     "preview": "def __init__(self, pop_size=30, sigma=0.001, lr=0.0005):"
+    },
+    {
+     "rule": "long_function",
+     "line": 37,
+     "preview": "def step(self, master_weights, fitness_fn):"
+    },
+    {
+     "rule": "long_function",
+     "line": 51,
+     "preview": "def __init__(self, memory_strength=0.1):"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def add_anchor(self, anchor):"
+    },
+    {
+     "rule": "long_function",
+     "line": 58,
+     "preview": "def regularize(self, current_weights, anchor_weights):"
+    }
+   ],
+   "lines": 60,
+   "ms": 5.9,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 2
   },
   {
-   "t": 0.01,
-   "at": "06 - Deployment & Platforms File Index.md",
+   "t": 6.84,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_at_scale_engine.py",
    "node": 26,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "301 lines, 8 findings | compiled OK | 8F/3C | 40.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 56,
+     "preview": "def normalize_population_rewards("
+    },
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def sample_layer_noise("
+    },
+    {
+     "rule": "long_function",
+     "line": 107,
+     "preview": "def __init__(self, model: nn.Module, config: Optional[ESAtScaleConfig] = None):"
+    },
+    {
+     "rule": "long_function",
+     "line": 120,
+     "preview": "def _get_layer_seed(self, pop_index: int, layer_index: int, iteration_seed: int) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 127,
+     "preview": "def evaluate_individual("
+    }
+   ],
+   "lines": 301,
+   "ms": 40.1,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 3
   },
   {
-   "t": 0.01,
-   "at": "06_Media",
+   "t": 7.1,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_awd_engine.py",
    "node": 27,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "338 lines, 6 findings | compiled OK | 6F/2C | 29.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def compute_expected_random_walk_drift("
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def apply_anchored_decay_step("
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 143,
+     "preview": "def step(self, fitness_fn: Callable[[nn.Module], float]) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 237,
+     "preview": "def verify_es_awd_invariants() -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 338,
+   "ms": 29.0,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 2
   },
   {
-   "t": 0.01,
-   "at": "07 - Memory & LanceDB",
+   "t": 7.35,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\es_forgetting_engine.py",
    "node": 28,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "404 lines, 8 findings | compiled OK | 9F/6C | 33.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def compute_frobenius_norm(delta: torch.Tensor) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def compute_parameter_sparsity(delta: torch.Tensor, tau: float = 1e-6) -> Tuple[float, int"
+    },
+    {
+     "rule": "long_function",
+     "line": 105,
+     "preview": "def classify_parameter_component(param_name: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 133,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def inspect_drift(self, current_model: nn.Module, step: int = 0) -> ESDriftMetrics:"
+    }
+   ],
+   "lines": 404,
+   "ms": 33.9,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 6
   },
   {
-   "t": 0.01,
-   "at": "07 - Memory & LanceDB File Index.md",
+   "t": 7.6,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evaluate_oni_model.py",
    "node": 29,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "229 lines, 8 findings | compiled OK | 6F/0C | 24.7ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 64,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 131,
+     "preview": "\"eval('1 + 1')\""
+    },
+    {
+     "rule": "subprocess_shell",
+     "line": 128,
+     "preview": "\"import os; os.system('whoami')\","
+    },
+    {
+     "rule": "long_function",
+     "line": 38,
+     "preview": "def load_eval_model(checkpoint_path: str, device: str = \"cpu\") -> QuillanRoninOni:"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def benchmark_generation(model: QuillanRoninOni, prompt_tokens: list, max_tokens: int = 32"
+    }
+   ],
+   "lines": 229,
+   "ms": 24.7,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 0
   },
   {
-   "t": 0.01,
-   "at": "08 - Templates & Config",
+   "t": 7.84,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe.py",
    "node": 30,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "52 lines, 3 findings | compiled OK | 3F/1C | 8.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 8,
+     "preview": "def __init__(self, hidden_dim=2048, n_experts=33, rank=24):"
+    },
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def evolve_from_base(self, base_state):"
+    },
+    {
+     "rule": "long_function",
+     "line": 30,
+     "preview": "def forward(self, x):"
+    }
+   ],
+   "lines": 52,
+   "ms": 8.2,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 1
   },
   {
-   "t": 0.01,
-   "at": "08 - Templates & Config File Index.md",
+   "t": 8.06,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evo_moe_glm.py",
    "node": 31,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "48 lines, 3 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (evo_moe_glm.py, line 1) | 0F/0C | 0.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 8,
+     "preview": "def __init__(self, hidden_dim=2048, n_experts=34, rank=24):"
+    },
+    {
+     "rule": "long_function",
+     "line": 28,
+     "preview": "def evolve_from_base(self, base_state):"
+    },
+    {
+     "rule": "long_function",
+     "line": 34,
+     "preview": "def forward(self, x):"
+    }
+   ],
+   "lines": 48,
+   "ms": 0.3,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.01,
-   "at": "09 - Projects",
+   "t": 8.36,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\evomoe_engine.py",
    "node": 32,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "419 lines, 8 findings | compiled OK | 13F/6C | 63.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def __init__(self, hidden_dim: int, intermediate_dim: int) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def __init__(self, config: EvoMoEConfig) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 94,
+     "preview": "def evolve_expert("
+    },
+    {
+     "rule": "long_function",
+     "line": 129,
+     "preview": "def compute_expert_diversity(experts: List[SwiGLUFFN]) -> float:"
+    }
+   ],
+   "lines": 419,
+   "ms": 63.8,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 6
   },
   {
-   "t": 0.01,
-   "at": "09 - Projects File Index.md",
+   "t": 8.6,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\export_oni.py",
    "node": 33,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "152 lines, 3 findings | compiled OK | 3F/0C | 15.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 40,
+     "preview": "def export_to_safetensors(checkpoint_path: str, output_dir: str):"
+    },
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def export_to_gguf(checkpoint_path: str, output_file: str):"
+    },
+    {
+     "rule": "long_function",
+     "line": 131,
+     "preview": "def main():"
+    }
+   ],
+   "lines": 152,
+   "ms": 15.7,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
   },
   {
-   "t": 0.01,
-   "at": "10 - Formal Papers",
+   "t": 8.89,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v1.py",
    "node": 34,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "555 lines, 7 findings | compiled OK | 7F/3C | 62.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def flash_attention_1_forward("
+    },
+    {
+     "rule": "long_function",
+     "line": 233,
+     "preview": "def flash_attention_1_backward("
+    },
+    {
+     "rule": "long_function",
+     "line": 386,
+     "preview": "def forward(ctx, Q, K, V, config, block_sparse_mask):"
+    },
+    {
+     "rule": "long_function",
+     "line": 393,
+     "preview": "def backward(ctx, dO):"
+    },
+    {
+     "rule": "long_function",
+     "line": 410,
+     "preview": "def __init__(self, config: Optional[FlashAttention1Config] = None):"
+    }
+   ],
+   "lines": 555,
+   "ms": 62.8,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 3
   },
   {
-   "t": 0.01,
-   "at": "10 - Formal Papers File Index.md",
+   "t": 9.17,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v2.py",
    "node": 35,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "435 lines, 7 findings | compiled OK | 7F/3C | 56.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def flash_attention_2_forward("
+    },
+    {
+     "rule": "long_function",
+     "line": 158,
+     "preview": "def flash_attention_2_backward("
+    },
+    {
+     "rule": "long_function",
+     "line": 273,
+     "preview": "def forward("
+    },
+    {
+     "rule": "long_function",
+     "line": 294,
+     "preview": "def backward(ctx, do: torch.Tensor):"
+    },
+    {
+     "rule": "long_function",
+     "line": 316,
+     "preview": "def __init__("
+    }
+   ],
+   "lines": 435,
+   "ms": 56.1,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 3
   },
   {
-   "t": 0.01,
-   "at": "_archive",
+   "t": 9.49,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attention_v3.py",
    "node": 36,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "691 lines, 8 findings | compiled OK | 13F/5C | 85.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def __init__(self, dim: int, seed: int = 42, device: Optional[torch.device] = None, dtype:"
+    },
+    {
+     "rule": "long_function",
+     "line": 113,
+     "preview": "def _build_normalized_hadamard(n: int, device: torch.device, dtype: torch.dtype) -> torch."
+    },
+    {
+     "rule": "long_function",
+     "line": 123,
+     "preview": "def apply(self, X: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 128,
+     "preview": "def verify_orthogonality(self, atol: float = 1e-5) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def quantize_block(X_tile: torch.Tensor, fp8_max: float = 448.0) -> Tuple[torch.Tensor, fl"
+    }
+   ],
+   "lines": 691,
+   "ms": 85.7,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 5
   },
   {
-   "t": 0.02,
-   "at": "_config",
+   "t": 9.72,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\flash_attn_wrapper.py",
    "node": 37,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "16 lines, 1 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (flash_attn_wrapper.py, line 1) | 0F/0C | 0.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 10,
+     "preview": "def quillan_flash_attn(q, k, v, is_causal=True):"
+    }
+   ],
+   "lines": 16,
+   "ms": 0.2,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "_quillan_backup",
+   "t": 9.98,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\gumbel_softmax_engine.py",
    "node": 38,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "396 lines, 8 findings | compiled OK | 11F/4C | 30.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 70,
+     "preview": "def sample_gumbel_noise("
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def gumbel_softmax_sample("
+    },
+    {
+     "rule": "long_function",
+     "line": 132,
+     "preview": "def gumbel_softmax_log_density("
+    },
+    {
+     "rule": "long_function",
+     "line": 174,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 188,
+     "preview": "def get_tau(self, step: int) -> float:"
+    }
+   ],
+   "lines": 396,
+   "ms": 30.2,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "AGENTS.md",
+   "t": 10.21,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\hybrid_runtime.py",
    "node": 39,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "99 lines, 5 findings | compiled OK | 5F/0C | 10.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 24,
+     "preview": "def load_hybrid_config(path: Path = HYBRID_CONFIG) -> dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 29,
+     "preview": "def check_ram_headroom(min_free_gb: float) -> dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def ensure_offload_dirs(cfg: dict) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def init() -> dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def resolve_device(requested: str, cfg: dict) -> str:"
+    }
+   ],
+   "lines": 99,
+   "ms": 10.6,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "assets",
+   "t": 10.45,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inspect_live_model.py",
    "node": 40,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "120 lines, 2 findings | compiled OK | 1F/0C | 15.2ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 80,
+     "preview": "model.eval()"
+    },
+    {
+     "rule": "long_function",
+     "line": 30,
+     "preview": "def inspect_model():"
+    }
+   ],
+   "lines": 120,
+   "ms": 15.2,
+   "compiled": true,
+   "funcs": 1,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "assets File Index.md",
+   "t": 10.7,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\inverse_cryptography_engine.py",
    "node": 41,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "231 lines, 8 findings | compiled OK | 12F/3C | 29.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def find_prime_factors(n: int) -> List[int]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 64,
+     "preview": "def compute_spatial_entropy(grid: torch.Tensor) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def decompose_raster(bits: torch.Tensor) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 121,
+     "preview": "def __init__(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 134,
+     "preview": "def decode_positional_number(self, token: str) -> float:"
+    }
+   ],
+   "lines": 231,
+   "ms": 29.6,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 3
   },
   {
-   "t": 0.02,
-   "at": "audio",
+   "t": 10.94,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\__init__.py",
    "node": 42,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "OK",
+   "detail": "33 lines, clean | compiled OK | 0F/0C | 1.6ms",
+   "findings": [],
+   "lines": 33,
+   "ms": 1.6,
+   "compiled": true,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "Audio Engineer",
+   "t": 11.17,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\fused_ste.py",
    "node": 43,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "49 lines, 3 findings | compiled OK | 3F/1C | 3.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 28,
+     "preview": "def forward(ctx, x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 39,
+     "preview": "def backward(ctx, grad_output: torch.Tensor) -> Tuple[torch.Tensor, None]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def fused_ste_activation(x: torch.Tensor, eps: float = 0.01) -> torch.Tensor:"
+    }
+   ],
+   "lines": 49,
+   "ms": 3.1,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 1
   },
   {
-   "t": 0.02,
-   "at": "bind_full_arsenal.py",
+   "t": 11.4,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\moe_dispatch.py",
    "node": 44,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "103 lines, 3 findings | compiled OK | 3F/0C | 10.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 23,
+     "preview": "def mark_dynamic_dims(t: torch.Tensor, dim_indices: Tuple[int, ...]) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 33,
+     "preview": "def fixed_capacity_moe_dispatch("
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def scatter_add_moe_output("
+    }
+   ],
+   "lines": 103,
+   "ms": 10.5,
+   "compiled": true,
+   "funcs": 3,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "bind_upgrades.py",
+   "t": 11.63,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\kernels\\ternary_gemm.py",
    "node": 45,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "103 lines, 4 findings | compiled OK | 4F/1C | 9.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 20,
+     "preview": "def pack_ternary_weights(w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Tuple[int, "
+    },
+    {
+     "rule": "long_function",
+     "line": 50,
+     "preview": "def unpack_ternary_weights("
+    },
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 95,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 103,
+   "ms": 9.6,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 1
   },
   {
-   "t": 0.02,
-   "at": "boot_test.py",
+   "t": 11.86,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_block.py",
    "node": 46,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "38 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (mamba_block.py, line 1) | 0F/0C | 0.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 7,
+     "preview": "def __init__(self, hidden_dim=2048, d_state=16, expand=2):"
+    },
+    {
+     "rule": "long_function",
+     "line": 18,
+     "preview": "def forward(self, x):"
+    }
+   ],
+   "lines": 38,
+   "ms": 0.3,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "boot_test2.py",
+   "t": 12.13,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mamba_ssm_engine.py",
    "node": 47,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "374 lines, 8 findings | compiled OK | 10F/4C | 40.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 76,
+     "preview": "def d_inner(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def __init__(self, d_in: Union[int, MambaConfig], d_state: int = 16, dt_rank: int = 16, dt"
+    },
+    {
+     "rule": "long_function",
+     "line": 128,
+     "preview": "def A(self) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 132,
+     "preview": "def project_selective_params(self, u: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, t"
+    },
+    {
+     "rule": "long_function",
+     "line": 139,
+     "preview": "def forward(self, u: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 374,
+   "ms": 40.6,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "CHANGELOG.md",
+   "t": 12.38,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\memory_attention.py",
    "node": 48,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "260 lines, 8 findings | compiled OK | 11F/5C | 21.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def __init__(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def fold_weights_for_inference(self) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def unfold_weights(self) -> None:"
+    },
+    {
+     "rule": "long_function",
+     "line": 95,
+     "preview": "def construct_values(self, k: torch.Tensor, token_ids: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 111,
+     "preview": "def forward(self,"
+    }
+   ],
+   "lines": 260,
+   "ms": 21.1,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 5
   },
   {
-   "t": 0.02,
-   "at": "chatlogs",
+   "t": 12.66,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mistral_7b_engine.py",
    "node": 49,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "468 lines, 8 findings | compiled OK | 20F/8C | 49.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def num_queries_per_kv(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def apply_rotary_emb("
+    },
+    {
+     "rule": "long_function",
+     "line": 109,
+     "preview": "def __init__(self, head_dim: int, max_seq_len: int = 8192, theta: float = 10000.0):"
+    }
+   ],
+   "lines": 468,
+   "ms": 49.4,
+   "compiled": true,
+   "funcs": 20,
+   "classes": 8
   },
   {
-   "t": 0.02,
-   "at": "check_servers.py",
+   "t": 12.93,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixtral_moe_engine.py",
    "node": 50,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "423 lines, 8 findings | compiled OK | 19F/9C | 49.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 56,
+     "preview": "def num_queries_per_kv(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 64,
+     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def apply_rotary_emb("
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def __init__(self, dim: int, max_seq_len: int = 32768, theta: float = 10000.0):"
+    }
+   ],
+   "lines": 423,
+   "ms": 49.5,
+   "compiled": true,
+   "funcs": 19,
+   "classes": 9
   },
   {
-   "t": 0.02,
-   "at": "CLAUDE.md",
+   "t": 13.21,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mixture_of_depths_engine.py",
    "node": 51,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "460 lines, 8 findings | compiled OK | 18F/8C | 45.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 59,
+     "preview": "def num_queries_per_kv(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def apply_rotary_emb("
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def __init__(self, dim: int, max_seq_len: int = 4096, theta: float = 10000.0):"
+    }
+   ],
+   "lines": 460,
+   "ms": 45.5,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 8
   },
   {
-   "t": 0.02,
-   "at": "CODE_OF_CONDUCT.md",
+   "t": 13.49,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\modse_engine.py",
    "node": 52,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "465 lines, 8 findings | compiled OK | 23F/9C | 55.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def num_experts(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def expert_hidden_dims(self) -> List[int]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def num_queries_per_kv(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 80,
+     "preview": "def __init__(self, dim: int, eps: float = 1e-5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 85,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    }
+   ],
+   "lines": 465,
+   "ms": 55.0,
+   "compiled": true,
+   "funcs": 23,
+   "classes": 9
   },
   {
-   "t": 0.02,
-   "at": "CONTRIBUTING.md",
+   "t": 13.88,
+   "at": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_cpu_gpu_collaborative_engine.py",
    "node": 53,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "360 lines, 8 findings | compiled OK | 13F/5C | 166.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 59,
+     "preview": "def __init__(self, dim: int, hidden_dim: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def weight_bytes(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def __init__(self, num_layers: int, ways: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def access(self, layer_idx: int, expert_id: int) -> bool:"
+    }
+   ],
+   "lines": 360,
+   "ms": 166.5,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 5
   },
   {
-   "t": 0.02,
-   "at": "daemons",
+   "t": 14.18,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\moe_dispatcher.py",
    "node": 54,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "410 lines, 7 findings | compiled OK | 7F/1C | 74.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def _triton_fused_scatter_add_kernel("
+    },
+    {
+     "rule": "long_function",
+     "line": 81,
+     "preview": "def _invoke_expert(expert: Any, exp_input: torch.Tensor, gov_scale: float = 1.0, **kwargs)"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def __init__("
+    },
+    {
+     "rule": "long_function",
+     "line": 115,
+     "preview": "def eager_dispatch("
+    },
+    {
+     "rule": "long_function",
+     "line": 160,
+     "preview": "def contiguous_dispatch("
+    }
+   ],
+   "lines": 410,
+   "ms": 74.8,
+   "compiled": true,
+   "funcs": 7,
+   "classes": 1
   },
   {
-   "t": 0.02,
-   "at": "demos",
+   "t": 14.45,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mohge_engine.py",
    "node": 55,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "356 lines, 8 findings | compiled OK | 14F/7C | 41.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def __init__(self, hidden_dim: int, intermediate_dim: int, dropout: float = 0.0):"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def param_count(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 75,
+     "preview": "def __init__(self, config: MoHGEConfig):"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def forward(self, x_flat: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, tor"
+    }
+   ],
+   "lines": 356,
+   "ms": 41.4,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 7
   },
   {
-   "t": 0.02,
-   "at": "devkit",
+   "t": 14.73,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\mor_engine.py",
    "node": 56,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "517 lines, 8 findings | compiled OK | 16F/9C | 55.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def get_layer_mapping(strategy: str, L: int, Nr: int) -> Tuple[List[int], int]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 118,
+     "preview": "def __init__(self, d_model: int, num_recursions: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def compute_capacity(self, recursion_step: int, total_tokens: int) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 135,
+     "preview": "def forward("
+    },
+    {
+     "rule": "long_function",
+     "line": 173,
+     "preview": "def __init__(self, d_model: int, num_recursions: int):"
+    }
+   ],
+   "lines": 517,
+   "ms": 55.0,
+   "compiled": true,
+   "funcs": 16,
+   "classes": 9
   },
   {
-   "t": 0.02,
-   "at": "docs",
+   "t": 14.97,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nim_client.py",
    "node": 57,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "150 lines, 5 findings | compiled OK | 5F/1C | 14.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 28,
+     "preview": "def get_nvidia_key() -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 53,
+     "preview": "def __init__(self, api_key: Optional[str] = None, base_url: str = NIM_BASE_URL):"
+    },
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def chat_stream("
+    },
+    {
+     "rule": "long_function",
+     "line": 102,
+     "preview": "def chat_complete("
+    },
+    {
+     "rule": "long_function",
+     "line": 124,
+     "preview": "def chat_stream_cascade("
+    }
+   ],
+   "lines": 150,
+   "ms": 14.3,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 1
   },
   {
-   "t": 0.02,
-   "at": "funding.json",
+   "t": 15.27,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_d_engine.py",
    "node": 58,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "450 lines, 8 findings | compiled OK | 17F/7C | 74.6ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def compute_bound(fan_in: int) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def initialize_tensor(shape: Tuple[int, ...], fan_in: int) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def __init__(self, alpha_inv: int = 8):"
+    },
+    {
+     "rule": "long_function",
+     "line": 98,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 113,
+     "preview": "def __init__(self, scaling_factor: int):"
+    }
+   ],
+   "lines": 450,
+   "ms": 74.6,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 7
   },
   {
-   "t": 0.02,
-   "at": "gallery",
+   "t": 15.5,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\nitro_pocket.py",
    "node": 59,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "12 lines, 2 findings | compiled FAIL:SyntaxError: invalid non-printable character U+FEFF (nitro_pocket.py, line 1) | 0F/0C | 0.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 5,
+     "preview": "def integer_only_forward(x, weight_int8, scale):"
+    },
+    {
+     "rule": "long_function",
+     "line": 9,
+     "preview": "def pocketnn_dfa_update(model, loss):"
+    }
+   ],
+   "lines": 12,
+   "ms": 0.2,
+   "compiled": false,
+   "funcs": 0,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "GEMINI.md",
+   "t": 15.83,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\od_moe_engine.py",
    "node": 60,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "364 lines, 8 findings | compiled OK | 15F/6C | 96.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def __init__(self, d_model: int, d_ff: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def parameter_bytes(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def __init__(self, config: ODMoEConfig, full_routers: nn.ModuleList):"
+    },
+    {
+     "rule": "long_function",
+     "line": 94,
+     "preview": "def predict_experts(self, x: torch.Tensor, layer_idx: int) -> List[int]:"
+    }
+   ],
+   "lines": 364,
+   "ms": 96.0,
+   "compiled": true,
+   "funcs": 15,
+   "classes": 6
   },
   {
-   "t": 0.02,
-   "at": "HANDOFF_antigravity_quillan.md",
+   "t": 16.11,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\pack_dataset.py",
    "node": 61,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "249 lines, 4 findings | compiled OK | 4F/0C | 21.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 40,
+     "preview": "def discover_input_dir(candidate: str | None = None) -> Path:"
+    },
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def extract_samples_from_file(file_path: Path, min_chars: int = 40) -> List[str]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def pack_corpus("
+    },
+    {
+     "rule": "long_function",
+     "line": 213,
+     "preview": "def main():"
+    }
+   ],
+   "lines": 249,
+   "ms": 21.9,
+   "compiled": true,
+   "funcs": 4,
+   "classes": 0
   },
   {
-   "t": 0.02,
-   "at": "index.html",
+   "t": 16.43,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_01_profiler.py",
    "node": 62,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "632 lines, 8 findings | compiled OK | 37F/4C | 95.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def total_ms(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def fwd_ms(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 107,
+     "preview": "def bwd_ms(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 111,
+     "preview": "def opt_ms(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 114,
+     "preview": "def to_dict(self) -> Dict[str, Any]:"
+    }
+   ],
+   "lines": 632,
+   "ms": 95.4,
+   "compiled": true,
+   "funcs": 37,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "kernels",
+   "t": 16.68,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_02_abductive.py",
    "node": 63,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "275 lines, 8 findings | compiled OK | 9F/3C | 20.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def __init__(self, hidden_dim: int, world_model: Optional[nn.Module] = None,"
+    },
+    {
+     "rule": "long_function",
+     "line": 119,
+     "preview": "def estimate_surprise(self, experience: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def counterfactual_intervention(self, latent: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 149,
+     "preview": "def abduct(self, experience: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 232,
+     "preview": "def forward(self, experience: torch.Tensor,"
+    }
+   ],
+   "lines": 275,
+   "ms": 20.9,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 3
   },
   {
-   "t": 0.02,
-   "at": "main-images",
+   "t": 16.93,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_03_proxy_kd.py",
    "node": 64,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "400 lines, 8 findings | compiled OK | 12F/4C | 28.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 98,
+     "preview": "def __init__(self, alpha: float = 100.0, temperature: float = 2.0):"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def compute_weight(self, log_p_proxy: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 122,
+     "preview": "def forward(self, proxy_logits: torch.Tensor, student_logits: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 181,
+     "preview": "def __init__(self, beta: float = 0.1):"
+    },
+    {
+     "rule": "long_function",
+     "line": 185,
+     "preview": "def dpo_loss(self, proxy_logps_chosen: torch.Tensor,"
+    }
+   ],
+   "lines": 400,
+   "ms": 28.4,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "mcp File Index.md",
+   "t": 17.19,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_04_memo.py",
    "node": 65,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "398 lines, 8 findings | compiled OK | 17F/4C | 33.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def skeletal_per_layer_bytes(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 95,
+     "preview": "def skeletal_total_bytes(self) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def skeletal_total_gb(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def solve_optimal_alpha(config: MemoConfig) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 155,
+     "preview": "def __init__(self, config: MemoConfig):"
+    }
+   ],
+   "lines": 398,
+   "ms": 33.4,
+   "compiled": true,
+   "funcs": 17,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "memory.json",
+   "t": 17.46,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_05_07_heterogeneous.py",
    "node": 66,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "545 lines, 8 findings | compiled OK | 24F/5C | 44.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 101,
+     "preview": "def configure(allow_tf32: bool = True) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 118,
+     "preview": "def audit_coalescing(cls, tensor: torch.Tensor) -> Dict[str, Any]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 147,
+     "preview": "def pad_to_warp_boundary(cls, tensor: torch.Tensor, dim: int = -1) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 165,
+     "preview": "def branchless_predication(cls, condition: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 175,
+     "preview": "def check_bank_conflict(cls, stride: int) -> bool:"
+    }
+   ],
+   "lines": 545,
+   "ms": 44.9,
+   "compiled": true,
+   "funcs": 24,
+   "classes": 5
   },
   {
-   "t": 0.02,
-   "at": "memory.md",
+   "t": 17.74,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_08_10_inference_pack.py",
    "node": 67,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "585 lines, 8 findings | compiled OK | 18F/7C | 48.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 86,
+     "preview": "def __init__(self, gpu_memory_mb: float = 4096.0, model_mb: float = 1000.0, dram_bw_gbps: "
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def bca_solve(self, seq_len: int, hidden_dim: int = 1024, n_layer: int = 6,"
+    },
+    {
+     "rule": "long_function",
+     "line": 139,
+     "preview": "def optimal_batch_size(self, seq_len: int, hidden_dim: int = 1024,"
+    },
+    {
+     "rule": "long_function",
+     "line": 157,
+     "preview": "def __init__(self, max_gpu_tokens: int = 1024):"
+    },
+    {
+     "rule": "long_function",
+     "line": 162,
+     "preview": "def update(self, new_k: torch.Tensor, new_v: torch.Tensor,"
+    }
+   ],
+   "lines": 585,
+   "ms": 48.4,
+   "compiled": true,
+   "funcs": 18,
+   "classes": 7
   },
   {
-   "t": 0.02,
-   "at": "Misc",
+   "t": 17.98,
+   "at": "oundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_101_105_consciousness_prophet_modse_pack.py",
    "node": 68,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "149 lines, 8 findings | compiled OK | 11F/6C | 12.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def __init__(self, hidden_dim: int = 1024, n_parts: int = 4):"
+    },
+    {
+     "rule": "long_function",
+     "line": 56,
+     "preview": "def phi(self, hidden: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 74,
+     "preview": "def __init__(self, hidden_dim: int = 1024, vocab: int = 50257):"
+    },
+    {
+     "rule": "long_function",
+     "line": 78,
+     "preview": "def probe_logits(self, hidden: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 83,
+     "preview": "def should_exit(self, hidden: torch.Tensor, thresh: float = 0.9) -> bool:"
+    }
+   ],
+   "lines": 149,
+   "ms": 12.4,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 6
   },
   {
-   "t": 0.02,
-   "at": "Misc File Index.md",
+   "t": 18.21,
+   "at": "wledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_106_110_predatory_sovereign_pack.py",
    "node": 69,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "97 lines, 8 findings | compiled OK | 8F/3C | 7.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 42,
+     "preview": "def __init__(self, n_agents: int = 34, rewire_k: int = 4):"
+    },
+    {
+     "rule": "long_function",
+     "line": 47,
+     "preview": "def agreement_graph(self, pulls: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def ala_step(self, pulls: torch.Tensor) -> Tuple[torch.Tensor, List[Tuple[int, int]]]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 64,
+     "preview": "def tower_height(self, alignment_iters: int, base: int = 2) -> int:"
+    },
+    {
+     "rule": "long_function",
+     "line": 72,
+     "preview": "def __init__(self, hidden_dim: int = 1024, n_clusters: int = 4, n_members: int = 34):"
+    }
+   ],
+   "lines": 97,
+   "ms": 7.8,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 3
   },
   {
-   "t": 0.02,
-   "at": "MODEL_CARD.md",
+   "t": 18.44,
+   "at": "owledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_111_115_reactive_wikiskill_pack.py",
    "node": 70,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "123 lines, 8 findings | compiled OK | 8F/4C | 10.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def __init__(self, hidden_dim: int = 1024, humility_thresh: float = 0.35):"
+    },
+    {
+     "rule": "long_function",
+     "line": 50,
+     "preview": "def forward(self, hidden: torch.Tensor, pull_confidence: float) -> Dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def arbitrate(votes: torch.Tensor, humility: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 79,
+     "preview": "def __init__(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def compile(self, task: str, trajectory: List[str], success: bool) -> Optional[Dict]:"
+    }
+   ],
+   "lines": 123,
+   "ms": 10.4,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "modeling_quillan.py",
+   "t": 18.67,
+   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_116_120_codex_virality_proof_pack.py",
    "node": 71,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "119 lines, 6 findings | compiled OK | 6F/4C | 10.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 49,
+     "preview": "def retrieve(self, task: str) -> List[str]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 59,
+     "preview": "def constitution(self, task: str) -> str:"
+    },
+    {
+     "rule": "long_function",
+     "line": 68,
+     "preview": "def sonify(self, band_powers: Dict[str, float]) -> Dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 90,
+     "preview": "def check(n: int, claimed_pairs: float, eps: float) -> Dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 107,
+     "preview": "def __init__(self, hidden_dim: int = 1024):"
+    }
+   ],
+   "lines": 119,
+   "ms": 10.8,
+   "compiled": true,
+   "funcs": 6,
+   "classes": 4
   },
   {
-   "t": 0.02,
-   "at": "nn_visualizer.html",
+   "t": 19.01,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_11_15_quant_memory_pack.py",
    "node": 72,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "1027 lines, 8 findings | compiled OK | 46F/9C | 103.4ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def build_hadamard_16() -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 101,
+     "preview": "def apply_random_hadamard_transform_16(x: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 148,
+     "preview": "def round_to_fp4_rne(cls, val: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 157,
+     "preview": "def round_to_fp4_stochastic(cls, val: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 185,
+     "preview": "def quantize_weights_2d(cls, weight: torch.Tensor,"
+    }
+   ],
+   "lines": 1027,
+   "ms": 103.4,
+   "compiled": true,
+   "funcs": 46,
+   "classes": 9
   },
   {
-   "t": 0.03,
-   "at": "opencode.json",
+   "t": 19.33,
+   "at": " - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_16_20_agent_evolution_pack.py",
    "node": 73,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "972 lines, 8 findings | compiled OK | 53F/10C | 90.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 99,
+     "preview": "def __init__(self, hidden_dim: int, alpha: float = 2.5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 104,
+     "preview": "def extract_difference_of_means(cls, positive_activations: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 117,
+     "preview": "def ablate_direction(cls, x: torch.Tensor, direction: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 130,
+     "preview": "def steer_activation(cls, x: torch.Tensor, direction: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 140,
+     "preview": "def geometric_angle_audit(cls, refusal_vec: torch.Tensor,"
+    }
+   ],
+   "lines": 972,
+   "ms": 90.0,
+   "compiled": true,
+   "funcs": 53,
+   "classes": 10
   },
   {
-   "t": 0.03,
-   "at": "ORGANIZATION_AUDIT.json",
+   "t": 19.64,
+   "at": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_21_25_grt_coordination_pack.py",
    "node": 74,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "910 lines, 8 findings | compiled OK | 44F/9C | 70.8ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 591,
+     "preview": "self.model.eval()"
+    },
+    {
+     "rule": "long_function",
+     "line": 111,
+     "preview": "def __init__(self, hidden_dim: int, n_core: int = 3, R: int = 4,"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "def compute_gate(self, gate_input: torch.Tensor, iteration: int) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 149,
+     "preview": "def iterate(self, h: torch.Tensor, gate_input_base: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 171,
+     "preview": "def forward_with_blocks(self, x: torch.Tensor, prelude_blocks: List[nn.Module],"
+    }
+   ],
+   "lines": 910,
+   "ms": 70.8,
+   "compiled": true,
+   "funcs": 44,
+   "classes": 9
   },
   {
-   "t": 0.03,
-   "at": "PLAN.md",
+   "t": 19.92,
+   "at": "nowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_26_30_recurrent_diffusion_pack.py",
    "node": 75,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "681 lines, 8 findings | compiled OK | 25F/10C | 56.2ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def __init__(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 101,
+     "preview": "def init_state(self, batch_size: int, device: torch.device) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 105,
+     "preview": "def forward_step(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 143,
+     "preview": "def forward_sequence(self,"
+    },
+    {
+     "rule": "long_function",
+     "line": 179,
+     "preview": "def __init__(self,"
+    }
+   ],
+   "lines": 681,
+   "ms": 56.2,
+   "compiled": true,
+   "funcs": 25,
+   "classes": 10
   },
   {
-   "t": 0.03,
-   "at": "Quillan Web Index.md",
+   "t": 20.17,
+   "at": "2 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_31_35_testtime_world_pack.py",
    "node": 76,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "254 lines, 8 findings | compiled OK | 10F/4C | 17.0ms",
+   "findings": [
+    {
+     "rule": "eval_exec",
+     "line": 24,
+     "preview": "Technique: REPL where actions are `exec(code)` and observations are"
+    },
+    {
+     "rule": "eval_exec",
+     "line": 161,
+     "preview": "actions are exec(code), observations are stdout/state."
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def __init__(self, max_seq_len: int = 512, prefix_size: int = 512):"
+    },
+    {
+     "rule": "long_function",
+     "line": 96,
+     "preview": "def slide_tokens(self, generated: List[int], prefix_tokens: Optional[List[int]] = None) ->"
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def slide_kv_cache(self, k_cache: torch.Tensor, v_cache: torch.Tensor,"
+    }
+   ],
+   "lines": 254,
+   "ms": 17.0,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "quillan-cpp-clone",
+   "t": 20.4,
+   "at": "- Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_36_40_bitnet_optimizer_pack.py",
    "node": 77,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "216 lines, 8 findings | compiled OK | 13F/4C | 13.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def __init__(self, in_features: int, out_features: int, bias: bool = False):"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def ternary_quantize(self, w: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 104,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 132,
+     "preview": "def __init__(self, optimizer: torch.optim.Optimizer):"
+    },
+    {
+     "rule": "long_function",
+     "line": 135,
+     "preview": "def step(self, closure=None):"
+    }
+   ],
+   "lines": 216,
+   "ms": 13.5,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "quillan-knowledge-base",
+   "t": 20.64,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_41_45_moe_rl_pack.py",
    "node": 78,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "267 lines, 8 findings | compiled OK | 14F/5C | 18.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 73,
+     "preview": "def __init__(self, hidden_dim: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def _hadamard_matrix(self, n: int) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 96,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 104,
+     "preview": "def inverse(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 119,
+     "preview": "def __init__(self, hidden_dim: int, use_hadamard: bool = True):"
+    }
+   ],
+   "lines": 267,
+   "ms": 18.7,
+   "compiled": true,
+   "funcs": 14,
+   "classes": 5
   },
   {
-   "t": 0.03,
-   "at": "quillan.md",
+   "t": 20.88,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_46_50_mamba_moe_pack.py",
    "node": 79,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "197 lines, 8 findings | compiled OK | 10F/4C | 11.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def __init__(self, hidden_dim: int, state_dim: int = 16):"
+    },
+    {
+     "rule": "long_function",
+     "line": 77,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 103,
+     "preview": "def __init__(self, hidden_dim: int, num_experts: int, tau_max: float = 1.0,"
+    },
+    {
+     "rule": "long_function",
+     "line": 114,
+     "preview": "def get_tau(self) -> float:"
+    },
+    {
+     "rule": "long_function",
+     "line": 119,
+     "preview": "def forward(self, x: torch.Tensor, training: bool = True) -> Tuple[torch.Tensor, torch.Ten"
+    }
+   ],
+   "lines": 197,
+   "ms": 11.1,
+   "compiled": true,
+   "funcs": 10,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "quillan_fused_optimizer.py",
+   "t": 21.11,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_51_flash3_pack.py",
    "node": 80,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "114 lines, 5 findings | compiled OK | 5F/2C | 3.8ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 59,
+     "preview": "def __init__(self, hidden_dim: int = 1024, n_head: int = 16,"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def forward(self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def get_stats(self) -> Dict:"
+    },
+    {
+     "rule": "long_function",
+     "line": 109,
+     "preview": "def __init__(self, hidden_dim: int = 1024, n_head: int = 16):"
+    },
+    {
+     "rule": "long_function",
+     "line": 113,
+     "preview": "def get_stats(self) -> Dict:"
+    }
+   ],
+   "lines": 114,
+   "ms": 3.8,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 2
   },
   {
-   "t": 0.03,
-   "at": "qwen_agent_tools.py",
+   "t": 21.33,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_56_60_scale_pack.py",
    "node": 81,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "148 lines, 8 findings | compiled OK | 9F/4C | 7.1ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 57,
+     "preview": "def __init__(self, hidden_dim: int, pop_size: int = 64, sigma: float = 0.02):"
+    },
+    {
+     "rule": "long_function",
+     "line": 63,
+     "preview": "def sample(self, mean: torch.Tensor) -> List[torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def update(self, mean: torch.Tensor, fitness: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def __init__(self, gpu_mem_mb: float = 4096, cpu_mem_mb: float = 28672):"
+    },
+    {
+     "rule": "long_function",
+     "line": 93,
+     "preview": "def recommend(self, total_mb: float, seq_len: int) -> Dict[str, bool]:"
+    }
+   ],
+   "lines": 148,
+   "ms": 7.1,
+   "compiled": true,
+   "funcs": 9,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "README.md",
+   "t": 21.58,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_61_65_efficient_moe_pack.py",
    "node": 82,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "183 lines, 8 findings | compiled OK | 8F/4C | 16.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 62,
+     "preview": "def __init__(self, hidden_dim: int, n_layer: int = 6, capacity_factor: float = 0.5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 71,
+     "preview": "def forward(self, x: torch.Tensor, layer_idx: int) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 96,
+     "preview": "def __init__(self, hidden_dim: int, n_head: int = 16, n_kv_heads: int = 4):"
+    },
+    {
+     "rule": "long_function",
+     "line": 107,
+     "preview": "def forward(self, x: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 136,
+     "preview": "def __init__(self, hidden_dim: int, block_size: int = 32):"
+    }
+   ],
+   "lines": 183,
+   "ms": 16.7,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "reference_repos",
+   "t": 21.81,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_66_70_ste_pack.py",
    "node": 83,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "148 lines, 8 findings | compiled OK | 8F/4C | 8.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 60,
+     "preview": "def __init__(self, hidden_dim: int, output_dim: int):"
+    },
+    {
+     "rule": "long_function",
+     "line": 67,
+     "preview": "def get_feedback(self, output_error: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 88,
+     "preview": "def __init__(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def forward(self, x: torch.Tensor, quant_fn) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 111,
+     "preview": "def get_config() -> Dict:"
+    }
+   ],
+   "lines": 148,
+   "ms": 8.3,
+   "compiled": true,
+   "funcs": 8,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "screenshots",
+   "t": 22.04,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_71_75_moe_edge_pack.py",
    "node": 84,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "187 lines, 8 findings | compiled OK | 13F/4C | 12.5ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 65,
+     "preview": "def __init__(self, num_experts: int = 34, gpu_capacity: int = 10,"
+    },
+    {
+     "rule": "long_function",
+     "line": 75,
+     "preview": "def update_activation(self, expert_ids: List[int]):"
+    },
+    {
+     "rule": "long_function",
+     "line": 80,
+     "preview": "def rebalance(self):"
+    },
+    {
+     "rule": "long_function",
+     "line": 87,
+     "preview": "def should_load(self, expert_id: int) -> bool:"
+    },
+    {
+     "rule": "long_function",
+     "line": 91,
+     "preview": "def get_stats(self) -> Dict:"
+    }
+   ],
+   "lines": 187,
+   "ms": 12.5,
+   "compiled": true,
+   "funcs": 13,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "scripts",
+   "t": 22.28,
+   "at": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_76_80_mor_pack.py",
    "node": 85,
-   "event": "dir"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "157 lines, 5 findings | compiled OK | 5F/2C | 8.7ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 61,
+     "preview": "def __init__(self, hidden_dim: int, n_layer: int = 3, max_recursion: int = 4,"
+    },
+    {
+     "rule": "long_function",
+     "line": 92,
+     "preview": "def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 121,
+     "preview": "def effective_depth_per_token(self, depth_scores: torch.Tensor) -> torch.Tensor:"
+    },
+    {
+     "rule": "long_function",
+     "line": 146,
+     "preview": "def __init__(self, hidden_dim: int = 1024, n_layer: int = 3, max_recursion: int = 4):"
+    },
+    {
+     "rule": "long_function",
+     "line": 150,
+     "preview": "def get_stats(self) -> Dict:"
+    }
+   ],
+   "lines": 157,
+   "ms": 8.7,
+   "compiled": true,
+   "funcs": 5,
+   "classes": 2
   },
   {
-   "t": 0.03,
-   "at": "scripts File Index.md",
+   "t": 22.51,
+   "at": "Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_81_85_forgetting_anomaly_pack.py",
    "node": 86,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "231 lines, 8 findings | compiled OK | 11F/4C | 11.9ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 82,
+     "preview": "def __init__(self, hidden_dim: int, num_tasks: int = 5):"
+    },
+    {
+     "rule": "long_function",
+     "line": 89,
+     "preview": "def save_task_vector(self, model: nn.Module, base_state: Dict[str, torch.Tensor]) -> Dict["
+    },
+    {
+     "rule": "long_function",
+     "line": 97,
+     "preview": "def merge(self, base_state: Dict[str, torch.Tensor],"
+    },
+    {
+     "rule": "long_function",
+     "line": 125,
+     "preview": "def encode_as_vectors(pull_weights: torch.Tensor) -> List[float]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 140,
+     "preview": "def decode_from_vectors(vectors: List[float]) -> str:"
+    }
+   ],
+   "lines": 231,
+   "ms": 11.9,
+   "compiled": true,
+   "funcs": 11,
+   "classes": 4
   },
   {
-   "t": 0.03,
-   "at": "SECURITY.md",
+   "t": 22.75,
+   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_86_90_persistent_prompt_ccrl_pack.py",
    "node": 87,
-   "event": "file"
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "136 lines, 8 findings | compiled OK | 12F/5C | 13.0ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 42,
+     "preview": "def __init__(self, hidden_dim: int = 1024):"
+    },
+    {
+     "rule": "long_function",
+     "line": 48,
+     "preview": "def save(self, persona_embed: torch.Tensor, scratch_memory: torch.Tensor,"
+    },
+    {
+     "rule": "long_function",
+     "line": 55,
+     "preview": "def load(self, bundle: Dict, device: torch.device) -> Tuple[torch.Tensor, torch.Tensor]:"
+    },
+    {
+     "rule": "long_function",
+     "line": 64,
+     "preview": "def __init__(self, hidden_dim: int = 1024):"
+    },
+    {
+     "rule": "long_function",
+     "line": 69,
+     "preview": "def compile(self, pooled: torch.Tensor) -> Dict:"
+    }
+   ],
+   "lines": 136,
+   "ms": 13.0,
+   "compiled": true,
+   "funcs": 12,
+   "classes": 5
   },
   {
-   "t": 0.03,
-   "at": "SECURITY_DISCLOSURE.md",
+   "t": 22.99,
+   "at": "ledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
+   "full": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\oni\\paper_91_95_swarm_prover_bitnetcpu_pack.py",
    "node": 88,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "SOUL.md",
-   "node": 89,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "SOVEREIGN_STATE.json",
-   "node": 90,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "SOVEREIGN_STATE.md",
-   "node": 91,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "sync_to_google_drive.py",
-   "node": 92,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "SYSTEM_TOPOLOGY_MAP.md",
-   "node": 93,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "test_opt_step.py",
-   "node": 94,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "tests",
-   "node": 95,
-   "event": "dir"
-  },
-  {
-   "t": 0.03,
-   "at": "tool_test.py",
-   "node": 96,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "validation_toolkit",
-   "node": 97,
-   "event": "dir"
-  },
-  {
-   "t": 0.03,
-   "at": "verify_quillan_os.py",
-   "node": 98,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "vtk-clone",
-   "node": 99,
-   "event": "dir"
-  },
-  {
-   "t": 0.03,
-   "at": "wire_and_heal_repo.py",
-   "node": 100,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "worker",
-   "node": 101,
-   "event": "dir"
-  },
-  {
-   "t": 0.03,
-   "at": "worker File Index.md",
-   "node": 102,
-   "event": "file"
-  },
-  {
-   "t": 0.03,
-   "at": "x_credentials.md",
-   "node": 103,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".agents\\mcp_config.json",
-   "node": 104,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".agents\\rules",
-   "node": 105,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".agents\\skills",
-   "node": 106,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".claude\\mcp_config.json",
-   "node": 107,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".claude\\skills",
-   "node": 108,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".devcontainer\\devcontainer.json",
-   "node": 109,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".github\\agents",
-   "node": 110,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".github\\copilot-instructions.md",
-   "node": 111,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".github\\ISSUE_TEMPLATE",
-   "node": 112,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".github\\workflows",
-   "node": 113,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".idx\\mcp.json",
-   "node": 114,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".opencode\\agent",
-   "node": 115,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": ".quillan\\COORDINATION.md",
-   "node": 116,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".quillan\\mcp_tool_registry.json",
-   "node": 117,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": ".ruff_cache\\0.15.10",
-   "node": 118,
-   "event": "dir"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Context Swarm.md",
-   "node": 119,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Objective Swarm.md",
-   "node": 120,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Review Swarm.md",
-   "node": 121,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Role Swarm.md",
-   "node": 122,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Rules Swarm.md",
-   "node": 123,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Ship Swarm.md",
-   "node": 124,
-   "event": "file"
-  },
-  {
-   "t": 0.04,
-   "at": "00 - Web Map\\Start Swarm.md",
-   "node": 125,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
-   "node": 126,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
-   "node": 127,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\8-Formulas.md",
-   "node": 128,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\9-Quillan Brain mapping.md",
-   "node": 129,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\agents",
-   "node": 130,
-   "event": "dir"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\AGENTS.md",
-   "node": 131,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\agnets run proof.md",
-   "node": 132,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\CHANGELOG.md",
-   "node": 133,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\CLAUDE.md",
-   "node": 134,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\DAEMON.md",
-   "node": 135,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\Formulas ledger research.md",
-   "node": 136,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\HEARTBEAT.md",
-   "node": 137,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\IDENTITY.md",
-   "node": 138,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\INTENT.md",
-   "node": 139,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\ORGANIZATION_MAP.md",
-   "node": 140,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\RISK_ASSESSMENT.md",
-   "node": 141,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\SCRATCHPAD.md",
-   "node": 142,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\SOUL.md",
-   "node": 143,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\specs.md",
-   "node": 144,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\TOOLS.md",
-   "node": 145,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\USER.md",
-   "node": 146,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "01 - Core Architecture\\walkthrough.md",
-   "node": 147,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
-   "node": 148,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
-   "node": 149,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\_Index.md",
-   "node": 150,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\BOOTSTRAP.md",
-   "node": 151,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\Code Dependency Map.md",
-   "node": 152,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\Ecisystenbranches.md",
-   "node": 153,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\ECOSYSTEM.md",
-   "node": 154,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\External Platform Connections.md",
-   "node": 155,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\FAQ.md",
-   "node": 156,
-   "event": "file"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\knowledge",
-   "node": 157,
-   "event": "dir"
-  },
-  {
-   "t": 0.05,
-   "at": "02 - Knowledge Foundation\\LINEAGE.md",
-   "node": 158,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "02 - Knowledge Foundation\\Must know formulas.md",
-   "node": 159,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "02 - Knowledge Foundation\\palace_db",
-   "node": 160,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "02 - Knowledge Foundation\\Quillan Knowledge files",
-   "node": 161,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
-   "node": 162,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "02 - Knowledge Foundation\\SERVICES.md",
-   "node": 163,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\05_Training",
-   "node": 164,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\_dev",
-   "node": 165,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\_merge_backup_20261014",
-   "node": 166,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\_merge_backup_20261018",
-   "node": 167,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\benchmarks",
-   "node": 168,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\configuration_quillan.py",
-   "node": 169,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\evaluation_results",
-   "node": 170,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
-   "node": 171,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\logs",
-   "node": 172,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\mcp",
-   "node": 173,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\modeling_quillan.py",
-   "node": 174,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\quillan_bpe_tokenizer.py",
-   "node": 175,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
-   "node": 176,
-   "event": "dir"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\quillan_fused_optimizer.py",
-   "node": 177,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\quillan_v8_saturated.py",
-   "node": 178,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\quillan_weight_adapter.py",
-   "node": 179,
-   "event": "file"
-  },
-  {
-   "t": 0.06,
-   "at": "03 - Training & Model\\scripts",
-   "node": 180,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "03 - Training & Model\\src",
-   "node": 181,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "03 - Training & Model\\src_quillan",
-   "node": 182,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "03 - Training & Model\\tests",
-   "node": 183,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "03 - Training & Model\\training_data",
-   "node": 184,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "03 - Training & Model\\training_logs",
-   "node": 185,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
-   "node": 186,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
-   "node": 187,
-   "event": "file"
-  },
-  {
-   "t": 0.07,
-   "at": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
-   "node": 188,
-   "event": "file"
-  },
-  {
-   "t": 0.07,
-   "at": "04- quillan-sovereign-skills-and-swarm\\Skills",
-   "node": 189,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\assets",
-   "node": 190,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\Audio Engineer",
-   "node": 191,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\Book Series",
-   "node": 192,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\docs",
-   "node": 193,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\gallery",
-   "node": 194,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\images",
-   "node": 195,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\index.html",
-   "node": 196,
-   "event": "file"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\Media Template",
-   "node": 197,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
-   "node": 198,
-   "event": "file"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Creative Works\\Quillan-v4.2-model",
-   "node": 199,
-   "event": "dir"
-  },
-  {
-   "t": 0.07,
-   "at": "05 - Technical Implementation\\sovereign_unified_core.py",
-   "node": 200,
-   "event": "file"
-  }
- ],
- "spider": {
-  "pos": {
-   "t": 0.07,
-   "at": "05 - Technical Implementation\\sovereign_unified_core.py",
-   "node": 200,
-   "event": "file"
-  },
-  "visited": 200
- }
-}
+   "event": "file",
+   "action": "SCANNING",
+   "result": "FLAGGED",
+   "detail": "193 lines, 8 findings | compiled OK | 13F/6C | 21.3ms",
+   "findings": [
+    {
+     "rule": "long_function",
+     "line": 44,
+     "preview": "def __init
