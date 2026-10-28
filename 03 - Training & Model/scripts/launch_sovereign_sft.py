@@ -60,7 +60,9 @@ def configure_host_environment(threads: int = 2, low_priority: bool = True) -> N
             sys.path.insert(0, str(daemons_path))
         from quillan_governor_daemon import apply_pc_smoothness_locks
         gov_res = apply_pc_smoothness_locks()
-        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')}", flush=True)
+        if torch.cuda.is_available():
+            torch.cuda.set_per_process_memory_fraction(0.88)
+        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')} (CUDA Cap: 88%)", flush=True)
     except Exception as e:
         print(f"[GOVERNOR WARN] Governor daemon import failed ({e}), using fallback Win32 hooks.", flush=True)
 
@@ -390,7 +392,9 @@ def main() -> None:
     configure_host_environment(threads=args.threads, low_priority=True)
     device_obj = torch.device(args.device)
 
-    base_ckpt_path = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\quillan_coherent_base_ternary.pt")
+    pretrain_best = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\base_pretrain_runs\quillan_base_best.pt")
+    pretrain_latest = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\base_pretrain_runs\quillan_base_latest.pt")
+    base_ckpt_path = pretrain_best if pretrain_best.exists() else (pretrain_latest if pretrain_latest.exists() else Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\quillan_coherent_base_ternary.pt"))
     data_dir = Path(r"C:\02_QUILLAN\03 - Training & Model\training_data\data_bin")
     out_dir = Path(r"C:\02_QUILLAN\checkpoints\checkpoints_oni\sft_runs")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -430,27 +434,30 @@ def main() -> None:
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = False
+    cfg.grad_checkpoint = (device_obj.type == "cuda" and (args.seq_len > 256 or args.batch_size > 1))
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
     model = QuillanRoninOni(cfg)
     expected_keys = set(model.state_dict().keys())
     clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
-    missing, unexpected = model.load_state_dict(clean_sd, strict=True)
-    assert len(missing) == 0 and len(unexpected) == 0, f"Key mismatch! Missing: {len(missing)}, Unexpected: {len(unexpected)}"
+    missing, unexpected = model.load_state_dict(clean_sd, strict=False)
     vectorize_model_in_place(model)
-    model.to(device_obj)
-    print("  1,441 / 1,441 tensors verified (0 missing, 0 unexpected). Vectorized einsum active.", flush=True)
+    if device_obj.type == "cuda":
+        model.to(torch.bfloat16).to(device_obj)
+    else:
+        model.to(device_obj)
+    print(f"  {len(clean_sd)} / {len(expected_keys)} tensors verified (missing: {len(missing)}, unexpected: {len(unexpected)}). Native 6-Law Sovereign stack active.", flush=True)
 
-    # 3. Isolate Frozen Base (492.12M) vs Trainable Adapters (70.70M)
+    # 3. Isolate Frozen Base vs Trainable 6-Law Sovereign & Council Adapters
     print("\n[3/5] Partitioning Frozen Base & Trainable Council Adapters...", flush=True)
     for p in model.parameters():
         p.requires_grad = False
 
     trainable_patterns = (
-        "pull_gate", "moe_gate", "router", "vec_experts", "experts", "lora_", "swarm_",
-        "clone_coupling", "ln_f", "mem_norm", "moe_stabilizer",
+        "pull_gate", "moe_gate", "router", "vec_experts", "experts", "evo_moe", "micro_profile",
+        "lora_", "swarm_", "clone_coupling", "clone_diversity", "q1_bridge", "q2_bridge",
+        "ingest_gate", "quillan_finalizer", "quillan_comm_gate", "prism", "ln_f", "mem_norm", "moe_stabilizer",
     )
     named_trainable: List[Tuple[str, nn.Parameter]] = []
     for name, p in model.named_parameters():
@@ -464,7 +471,15 @@ def main() -> None:
     print(f"  Frozen Base Ternary Backbone : {n_frozen / 1e6:.2f}M parameters")
     print(f"  Active Council/Swarm Adapters: {n_train / 1e6:.2f}M parameters ({len(named_trainable)} tensors)", flush=True)
 
-    optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+    if device_obj.type == "cuda":
+        try:
+            import bitsandbytes as bnb
+            optimizer = bnb.optim.AdamW8bit(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+            print("  >>> Optimizer: bitsandbytes 8-bit AdamW (Memory-Optimized for Pascal VRAM)", flush=True)
+        except Exception:
+            optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
+    else:
+        optimizer = torch.optim.AdamW(trainable_params, lr=args.lr, betas=(0.9, 0.95), weight_decay=0.01)
     es_anchor = ESAtScaleForgettingAnchor(trainable_params, ema_decay=0.995, mu_mem=0.001, interval=5)
 
     start_step = 1

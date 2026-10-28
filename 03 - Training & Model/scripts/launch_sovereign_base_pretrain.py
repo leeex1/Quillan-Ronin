@@ -220,7 +220,7 @@ def evaluate_validation(
     for i in range(eval_batches):
         bx, by = val_corpus.sample_batch(batch_size=1, deterministic_idx=i * 17)
         bx, by = bx.to(device), by.to(device)
-        logits, ce, aux = model(bx, labels=by, deliberation=False)
+        logits, ce, aux = model(bx, labels=by, deliberation=False, compute_aux=False)
         if torch.isfinite(ce):
             total_ce += float(ce.item())
             valid_batches += 1
@@ -240,7 +240,7 @@ def probe_sample_generation(model: nn.Module, tok: UnifiedQuillanTokenizer, prom
     x = torch.tensor([input_ids], dtype=torch.long, device=dev)
     gen = list(input_ids)
     for _ in range(max_tokens):
-        out = model(x, deliberation=False)
+        out = model(x, deliberation=False, compute_aux=False)
         logits = out[0] if isinstance(out, tuple) else out
         # Mask pad/eos/unk tokens and apply mild repetition penalty over generated continuation
         step_logits = logits[:, -1:, :].float().clone()
@@ -336,6 +336,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--device", type=str, default="cpu")
     parser.add_argument("--threads", type=int, default=4, help="CPU threads")
     parser.add_argument("--resume", action="store_true", help="Resume from latest base pretrain checkpoint")
+    parser.add_argument("--fresh-init", action="store_true", help="Initialize a clean 6-Layer mini_6l model from scratch (no donor merge)")
+    parser.add_argument("--auto-sft", action="store_true", help="Automatically launch Sovereign SFT after base pretraining completes")
+    parser.add_argument("--sft-steps", type=int, default=1000, help="Number of SFT steps when --auto-sft is enabled")
     return parser.parse_args()
 
 
@@ -366,59 +369,79 @@ def main() -> None:
         print(f"  Train: {train_corpus.n_valid:,} valid chunks / {train_corpus.n_seqs:,} total ({train_corpus.total_tokens / 1e6:.2f}M tokens)")
         print(f"  Val:   {val_corpus.n_valid:,} valid chunks / {val_corpus.n_seqs:,} total ({val_corpus.total_tokens / 1e6:.2f}M tokens)", flush=True)
 
-    # 2. Load Checkpoint
+    # 2. Load or Fresh-Initialize Checkpoint
     latest_ckpt = out_dir / "quillan_base_latest.pt"
-    resume_target = latest_ckpt if (args.resume and latest_ckpt.exists()) else base_ckpt_path
-    print(f"\n[2/4] Loading Weights from: {resume_target.name}...", flush=True)
-    ck = torch.load(resume_target, map_location="cpu", weights_only=False)
-    resumed_step = int(ck.get("step", 0))
-    resumed_best_val = float(ck.get("best_val_ce", ck.get("train_ce", float("inf"))))
-    opt_state = ck.pop("optimizer_state_dict", None)
-    raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
-    cfg_dict = ck.get("config", {})
-    cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = (device_obj.type == "cuda")
-    cfg.max_seq_len = args.seq_len
-    cfg.router_mode = "dense_pull"
+    n_rescaled = 0
+    opt_state = None
+    resumed_step = 0
+    resumed_best_val = float("inf")
 
-    model = QuillanRoninOni(cfg)
-    expected_keys = set(model.state_dict().keys())
-    clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
-    missing, unexpected = model.load_state_dict(clean_sd, strict=False)
-    print(f"  Weights loaded: {len(clean_sd)} tensors (missing: {len(missing)}, unexpected: {len(unexpected)})", flush=True)
-    del ck, raw_sd, clean_sd
-    gc.collect()
+    if args.fresh_init:
+        print("\n[2/4] Initializing Clean 6-Layer Sovereign Base (mini_6l) From Scratch (Zero Donor Merge)...", flush=True)
+        cfg = QuillanOniConfig.mini_6l()
+        cfg.grad_checkpoint = (device_obj.type == "cuda")
+        cfg.max_seq_len = args.seq_len
+        cfg.router_mode = "dense_pull"
+        torch.manual_seed(42)
+        model = QuillanRoninOni(cfg)
+        print(f"  Clean 6-Layer Architecture Initialized: {len(model.state_dict())} canonical tensors.", flush=True)
+        torch.save({
+            "step": 0,
+            "config": cfg.__dict__,
+            "model_state_dict": canonical_state_dict_for_save(model),
+        }, base_ckpt_path)
+        print(f"  Saved clean unmerged base checkpoint -> {base_ckpt_path.name}", flush=True)
+    else:
+        resume_target = latest_ckpt if (args.resume and latest_ckpt.exists()) else base_ckpt_path
+        print(f"\n[2/4] Loading Weights from: {resume_target.name}...", flush=True)
+        ck = torch.load(resume_target, map_location="cpu", weights_only=False)
+        resumed_step = int(ck.get("step", 0))
+        resumed_best_val = float(ck.get("best_val_ce", ck.get("train_ce", float("inf"))))
+        opt_state = ck.pop("optimizer_state_dict", None)
+        raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
+        cfg_dict = ck.get("config", {})
+        cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
+        cfg.grad_checkpoint = (device_obj.type == "cuda")
+        cfg.max_seq_len = args.seq_len
+        cfg.router_mode = "dense_pull"
 
-    # Normalize any unscaled integer ternary {-1, 0, +1} attention matrices (std > 0.2) or spectral outliers (sigma_1 > 4.0)
-    with torch.no_grad():
-        scale_in = 1.0 / math.sqrt(max(1, cfg.hidden_dim))
-        n_rescaled = 0
-        for blk in model.h:
-            for proj in (getattr(blk.attn, "c_attn", None), getattr(blk.attn, "c_proj", None)):
-                if proj is not None and hasattr(proj, "weight") and proj.weight.detach().float().std().item() > 0.2:
-                    proj.weight.mul_(scale_in)
-                    n_rescaled += 1
-            for sub_w in (
-                getattr(getattr(blk.attn, "prism", None), "w_gate", None),
-                getattr(blk.moe, "c_fc", None),
-                getattr(blk.moe, "c_proj", None),
-            ):
-                if sub_w is not None and hasattr(sub_w, "weight"):
-                    w_m = sub_w.weight.detach().float()
-                    u_v = F.normalize(w_m.mean(dim=0, keepdim=True) + 1e-6, dim=-1)
-                    for _ in range(4):
-                        v_v = F.normalize(u_v @ w_m.T, dim=-1)
-                        u_v = F.normalize(v_v @ w_m, dim=-1)
-                    s1 = float((u_v @ w_m.T).norm().item())
-                    if s1 > 4.0:
-                        sub_w.weight.mul_(2.5 / s1)
+        model = QuillanRoninOni(cfg)
+        expected_keys = set(model.state_dict().keys())
+        clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
+        missing, unexpected = model.load_state_dict(clean_sd, strict=False)
+        print(f"  Weights loaded: {len(clean_sd)} tensors (missing: {len(missing)}, unexpected: {len(unexpected)})", flush=True)
+        del ck, raw_sd, clean_sd
+        gc.collect()
+
+        # Normalize any unscaled integer ternary {-1, 0, +1} attention matrices (std > 0.2) or spectral outliers (sigma_1 > 4.0)
+        with torch.no_grad():
+            scale_in = 1.0 / math.sqrt(max(1, cfg.hidden_dim))
+            for blk in model.h:
+                for proj in (getattr(blk.attn, "c_attn", None), getattr(blk.attn, "c_proj", None)):
+                    if proj is not None and hasattr(proj, "weight") and proj.weight.detach().float().std().item() > 0.2:
+                        proj.weight.mul_(scale_in)
                         n_rescaled += 1
-        if getattr(model, "grt_core", None) is not None and hasattr(model.grt_core, "gate_B"):
-            if model.grt_core.gate_B.weight.detach().float().std().item() > 0.2:
-                model.grt_core.gate_B.weight.mul_(0.02)
-                n_rescaled += 1
-        if n_rescaled > 0:
-            print(f"  [Scale Guard] Normalized {n_rescaled} unscaled/spectral-outlier projection tensors.", flush=True)
+                for sub_w in (
+                    getattr(getattr(blk.attn, "prism", None), "w_gate", None),
+                    getattr(blk.moe, "c_fc", None),
+                    getattr(blk.moe, "c_proj", None),
+                ):
+                    if sub_w is not None and hasattr(sub_w, "weight"):
+                        w_m = sub_w.weight.detach().float()
+                        u_v = F.normalize(w_m.mean(dim=0, keepdim=True) + 1e-6, dim=-1)
+                        for _ in range(4):
+                            v_v = F.normalize(u_v @ w_m.T, dim=-1)
+                            u_v = F.normalize(v_v @ w_m, dim=-1)
+                        s1 = float((u_v @ w_m.T).norm().item())
+                        if s1 > 4.0:
+                            sub_w.weight.mul_(2.5 / s1)
+                            n_rescaled += 1
+            if getattr(model, "grt_core", None) is not None and hasattr(model.grt_core, "gate_B"):
+                if model.grt_core.gate_B.weight.detach().float().std().item() > 0.2:
+                    model.grt_core.gate_B.weight.mul_(0.02)
+                    n_rescaled += 1
+            if n_rescaled > 0:
+                print(f"  [Scale Guard] Normalized {n_rescaled} unscaled/spectral-outlier projection tensors.", flush=True)
 
     vectorize_model_in_place(model)
     if device_obj.type == "cuda":
@@ -508,8 +531,8 @@ def main() -> None:
             bx, by = train_corpus.sample_batch(args.batch_size)
             bx, by = bx.to(device_obj), by.to(device_obj)
 
-            # Pretrain forward pass (deliberation disabled during training to prevent memory retention)
-            logits, ce, aux = model(bx, labels=by, deliberation=False)
+            # Pretrain forward pass (deliberation & heavy aux probes disabled during causal pretraining)
+            logits, ce, aux = model(bx, labels=by, deliberation=False, compute_aux=False)
 
             if not torch.isfinite(ce):
                 del bx, by, logits, ce, aux
@@ -537,9 +560,6 @@ def main() -> None:
             gn, max_t_name, max_t_norm = 0.0, "none", 0.0
 
         optimizer.zero_grad(set_to_none=True)
-        if torch.cuda.is_available():
-            torch.cuda.empty_cache()
-        gc.collect()
 
         step_dt = time.time() - t_step
         rolling_ce += step_ce
@@ -615,6 +635,27 @@ def main() -> None:
     print(f"BASE PRETRAINING COMPLETE ({args.steps} Steps in {total_min:.2f} min).")
     print(f"  Final Best Validation CE: {best_val_ce:.4f} -> {out_dir / 'quillan_base_best.pt'}")
     print("=" * 78, flush=True)
+
+    if args.auto_sft:
+        import subprocess
+        sft_script = SCRIPTS_DIR / "launch_sovereign_sft.py"
+        sft_ckpt = out_dir / "quillan_base_best.pt"
+        if not sft_ckpt.exists():
+            sft_ckpt = out_dir / "quillan_base_latest.pt"
+        print(f"\n[AUTO-SFT] Launching Sovereign SFT from {sft_ckpt.name} for {args.sft_steps} steps...", flush=True)
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
+        del model, optimizer
+        gc.collect()
+        subprocess.run([
+            sys.executable, "-u", str(sft_script),
+            "--device", args.device,
+            "--steps", str(args.sft_steps),
+            "--batch-size", "1",
+            "--grad-accum", str(args.grad_accum),
+            "--seq-len", str(args.seq_len),
+            "--resume-from", str(sft_ckpt),
+        ], check=False)
 
 
 if __name__ == "__main__":
