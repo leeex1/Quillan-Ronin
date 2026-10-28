@@ -1,27 +1,3225 @@
 {
- "root": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
- "at": 1792266992.8857028,
- "live": false,
- "started": 1792266992.884626,
- "job": "scan",
+ "root": ".",
+ "at": 1793203915.15743,
  "nodes": [
   {
    "id": 0,
-   "path": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-   "full": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+   "path": ".",
+   "full": ".",
+   "kind": "dir"
+  },
+  {
+   "id": 1,
+   "path": ".agents",
+   "full": ".agents",
+   "kind": "dir"
+  },
+  {
+   "id": 2,
+   "path": ".claude",
+   "full": ".claude",
+   "kind": "dir"
+  },
+  {
+   "id": 3,
+   "path": ".devcontainer",
+   "full": ".devcontainer",
+   "kind": "dir"
+  },
+  {
+   "id": 4,
+   "path": ".github",
+   "full": ".github",
+   "kind": "dir"
+  },
+  {
+   "id": 5,
+   "path": ".idx",
+   "full": ".idx",
+   "kind": "dir"
+  },
+  {
+   "id": 6,
+   "path": ".markdownlint.json",
+   "full": ".markdownlint.json",
+   "kind": "file"
+  },
+  {
+   "id": 7,
+   "path": ".mcp.json",
+   "full": ".mcp.json",
+   "kind": "file"
+  },
+  {
+   "id": 8,
+   "path": ".opencode",
+   "full": ".opencode",
+   "kind": "dir"
+  },
+  {
+   "id": 9,
+   "path": ".quillan",
+   "full": ".quillan",
+   "kind": "dir"
+  },
+  {
+   "id": 10,
+   "path": ".ruff_cache",
+   "full": ".ruff_cache",
+   "kind": "dir"
+  },
+  {
+   "id": 11,
+   "path": "00 - Web Map",
+   "full": "00 - Web Map",
+   "kind": "dir"
+  },
+  {
+   "id": 12,
+   "path": "00 - Web Map File Index.md",
+   "full": "00 - Web Map File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 13,
+   "path": "01 - Core Architecture",
+   "full": "01 - Core Architecture",
+   "kind": "dir"
+  },
+  {
+   "id": 14,
+   "path": "01 - Core Architecture File Index.md",
+   "full": "01 - Core Architecture File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 15,
+   "path": "02 - Knowledge Foundation",
+   "full": "02 - Knowledge Foundation",
+   "kind": "dir"
+  },
+  {
+   "id": 16,
+   "path": "02 - Knowledge Foundation File Index.md",
+   "full": "02 - Knowledge Foundation File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 17,
+   "path": "03 - Training & Model",
+   "full": "03 - Training & Model",
+   "kind": "dir"
+  },
+  {
+   "id": 18,
+   "path": "03 - Training & Model File Index.md",
+   "full": "03 - Training & Model File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 19,
+   "path": "04- quillan-sovereign-skills-and-swarm",
+   "full": "04- quillan-sovereign-skills-and-swarm",
+   "kind": "dir"
+  },
+  {
+   "id": 20,
+   "path": "04- quillan-sovereign-skills-and-swarm File Index.md",
+   "full": "04- quillan-sovereign-skills-and-swarm File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 21,
+   "path": "05 - Creative Works",
+   "full": "05 - Creative Works",
+   "kind": "dir"
+  },
+  {
+   "id": 22,
+   "path": "05 - Creative Works File Index.md",
+   "full": "05 - Creative Works File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 23,
+   "path": "05 - Technical Implementation",
+   "full": "05 - Technical Implementation",
+   "kind": "dir"
+  },
+  {
+   "id": 24,
+   "path": "05 - Technical Implementation File Index.md",
+   "full": "05 - Technical Implementation File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 25,
+   "path": "06 - Deployment & Platforms",
+   "full": "06 - Deployment & Platforms",
+   "kind": "dir"
+  },
+  {
+   "id": 26,
+   "path": "06 - Deployment & Platforms File Index.md",
+   "full": "06 - Deployment & Platforms File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 27,
+   "path": "06_Media",
+   "full": "06_Media",
+   "kind": "dir"
+  },
+  {
+   "id": 28,
+   "path": "07 - Memory & LanceDB",
+   "full": "07 - Memory & LanceDB",
+   "kind": "dir"
+  },
+  {
+   "id": 29,
+   "path": "07 - Memory & LanceDB File Index.md",
+   "full": "07 - Memory & LanceDB File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 30,
+   "path": "08 - Templates & Config",
+   "full": "08 - Templates & Config",
+   "kind": "dir"
+  },
+  {
+   "id": 31,
+   "path": "08 - Templates & Config File Index.md",
+   "full": "08 - Templates & Config File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 32,
+   "path": "09 - Projects",
+   "full": "09 - Projects",
+   "kind": "dir"
+  },
+  {
+   "id": 33,
+   "path": "09 - Projects File Index.md",
+   "full": "09 - Projects File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 34,
+   "path": "10 - Formal Papers",
+   "full": "10 - Formal Papers",
+   "kind": "dir"
+  },
+  {
+   "id": 35,
+   "path": "10 - Formal Papers File Index.md",
+   "full": "10 - Formal Papers File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 36,
+   "path": "_archive",
+   "full": "_archive",
+   "kind": "dir"
+  },
+  {
+   "id": 37,
+   "path": "_config",
+   "full": "_config",
+   "kind": "dir"
+  },
+  {
+   "id": 38,
+   "path": "_quillan_backup",
+   "full": "_quillan_backup",
+   "kind": "dir"
+  },
+  {
+   "id": 39,
+   "path": "AGENTS.md",
+   "full": "AGENTS.md",
+   "kind": "file"
+  },
+  {
+   "id": 40,
+   "path": "assets",
+   "full": "assets",
+   "kind": "dir"
+  },
+  {
+   "id": 41,
+   "path": "assets File Index.md",
+   "full": "assets File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 42,
+   "path": "audio",
+   "full": "audio",
+   "kind": "dir"
+  },
+  {
+   "id": 43,
+   "path": "Audio Engineer",
+   "full": "Audio Engineer",
+   "kind": "dir"
+  },
+  {
+   "id": 44,
+   "path": "bind_full_arsenal.py",
+   "full": "bind_full_arsenal.py",
+   "kind": "file"
+  },
+  {
+   "id": 45,
+   "path": "bind_upgrades.py",
+   "full": "bind_upgrades.py",
+   "kind": "file"
+  },
+  {
+   "id": 46,
+   "path": "boot_test.py",
+   "full": "boot_test.py",
+   "kind": "file"
+  },
+  {
+   "id": 47,
+   "path": "boot_test2.py",
+   "full": "boot_test2.py",
+   "kind": "file"
+  },
+  {
+   "id": 48,
+   "path": "CHANGELOG.md",
+   "full": "CHANGELOG.md",
+   "kind": "file"
+  },
+  {
+   "id": 49,
+   "path": "chatlogs",
+   "full": "chatlogs",
+   "kind": "dir"
+  },
+  {
+   "id": 50,
+   "path": "check_servers.py",
+   "full": "check_servers.py",
+   "kind": "file"
+  },
+  {
+   "id": 51,
+   "path": "CLAUDE.md",
+   "full": "CLAUDE.md",
+   "kind": "file"
+  },
+  {
+   "id": 52,
+   "path": "CODE_OF_CONDUCT.md",
+   "full": "CODE_OF_CONDUCT.md",
+   "kind": "file"
+  },
+  {
+   "id": 53,
+   "path": "CONTRIBUTING.md",
+   "full": "CONTRIBUTING.md",
+   "kind": "file"
+  },
+  {
+   "id": 54,
+   "path": "daemons",
+   "full": "daemons",
+   "kind": "dir"
+  },
+  {
+   "id": 55,
+   "path": "demos",
+   "full": "demos",
+   "kind": "dir"
+  },
+  {
+   "id": 56,
+   "path": "devkit",
+   "full": "devkit",
+   "kind": "dir"
+  },
+  {
+   "id": 57,
+   "path": "docs",
+   "full": "docs",
+   "kind": "dir"
+  },
+  {
+   "id": 58,
+   "path": "funding.json",
+   "full": "funding.json",
+   "kind": "file"
+  },
+  {
+   "id": 59,
+   "path": "gallery",
+   "full": "gallery",
+   "kind": "dir"
+  },
+  {
+   "id": 60,
+   "path": "GEMINI.md",
+   "full": "GEMINI.md",
+   "kind": "file"
+  },
+  {
+   "id": 61,
+   "path": "HANDOFF_antigravity_quillan.md",
+   "full": "HANDOFF_antigravity_quillan.md",
+   "kind": "file"
+  },
+  {
+   "id": 62,
+   "path": "index.html",
+   "full": "index.html",
+   "kind": "file"
+  },
+  {
+   "id": 63,
+   "path": "kernels",
+   "full": "kernels",
+   "kind": "dir"
+  },
+  {
+   "id": 64,
+   "path": "main-images",
+   "full": "main-images",
+   "kind": "dir"
+  },
+  {
+   "id": 65,
+   "path": "mcp File Index.md",
+   "full": "mcp File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 66,
+   "path": "memory.json",
+   "full": "memory.json",
+   "kind": "file"
+  },
+  {
+   "id": 67,
+   "path": "memory.md",
+   "full": "memory.md",
+   "kind": "file"
+  },
+  {
+   "id": 68,
+   "path": "Misc",
+   "full": "Misc",
+   "kind": "dir"
+  },
+  {
+   "id": 69,
+   "path": "Misc File Index.md",
+   "full": "Misc File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 70,
+   "path": "MODEL_CARD.md",
+   "full": "MODEL_CARD.md",
+   "kind": "file"
+  },
+  {
+   "id": 71,
+   "path": "modeling_quillan.py",
+   "full": "modeling_quillan.py",
+   "kind": "file"
+  },
+  {
+   "id": 72,
+   "path": "nn_visualizer.html",
+   "full": "nn_visualizer.html",
+   "kind": "file"
+  },
+  {
+   "id": 73,
+   "path": "opencode.json",
+   "full": "opencode.json",
+   "kind": "file"
+  },
+  {
+   "id": 74,
+   "path": "ORGANIZATION_AUDIT.json",
+   "full": "ORGANIZATION_AUDIT.json",
+   "kind": "file"
+  },
+  {
+   "id": 75,
+   "path": "PLAN.md",
+   "full": "PLAN.md",
+   "kind": "file"
+  },
+  {
+   "id": 76,
+   "path": "Quillan Web Index.md",
+   "full": "Quillan Web Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 77,
+   "path": "quillan-cpp-clone",
+   "full": "quillan-cpp-clone",
+   "kind": "dir"
+  },
+  {
+   "id": 78,
+   "path": "quillan-knowledge-base",
+   "full": "quillan-knowledge-base",
+   "kind": "dir"
+  },
+  {
+   "id": 79,
+   "path": "quillan.md",
+   "full": "quillan.md",
+   "kind": "file"
+  },
+  {
+   "id": 80,
+   "path": "quillan_fused_optimizer.py",
+   "full": "quillan_fused_optimizer.py",
+   "kind": "file"
+  },
+  {
+   "id": 81,
+   "path": "qwen_agent_tools.py",
+   "full": "qwen_agent_tools.py",
+   "kind": "file"
+  },
+  {
+   "id": 82,
+   "path": "README.md",
+   "full": "README.md",
+   "kind": "file"
+  },
+  {
+   "id": 83,
+   "path": "reference_repos",
+   "full": "reference_repos",
+   "kind": "dir"
+  },
+  {
+   "id": 84,
+   "path": "screenshots",
+   "full": "screenshots",
+   "kind": "dir"
+  },
+  {
+   "id": 85,
+   "path": "scripts",
+   "full": "scripts",
+   "kind": "dir"
+  },
+  {
+   "id": 86,
+   "path": "scripts File Index.md",
+   "full": "scripts File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 87,
+   "path": "SECURITY.md",
+   "full": "SECURITY.md",
+   "kind": "file"
+  },
+  {
+   "id": 88,
+   "path": "SECURITY_DISCLOSURE.md",
+   "full": "SECURITY_DISCLOSURE.md",
+   "kind": "file"
+  },
+  {
+   "id": 89,
+   "path": "SOUL.md",
+   "full": "SOUL.md",
+   "kind": "file"
+  },
+  {
+   "id": 90,
+   "path": "SOVEREIGN_STATE.json",
+   "full": "SOVEREIGN_STATE.json",
+   "kind": "file"
+  },
+  {
+   "id": 91,
+   "path": "SOVEREIGN_STATE.md",
+   "full": "SOVEREIGN_STATE.md",
+   "kind": "file"
+  },
+  {
+   "id": 92,
+   "path": "sync_to_google_drive.py",
+   "full": "sync_to_google_drive.py",
+   "kind": "file"
+  },
+  {
+   "id": 93,
+   "path": "SYSTEM_TOPOLOGY_MAP.md",
+   "full": "SYSTEM_TOPOLOGY_MAP.md",
+   "kind": "file"
+  },
+  {
+   "id": 94,
+   "path": "test_opt_step.py",
+   "full": "test_opt_step.py",
+   "kind": "file"
+  },
+  {
+   "id": 95,
+   "path": "tests",
+   "full": "tests",
+   "kind": "dir"
+  },
+  {
+   "id": 96,
+   "path": "tool_test.py",
+   "full": "tool_test.py",
+   "kind": "file"
+  },
+  {
+   "id": 97,
+   "path": "validation_toolkit",
+   "full": "validation_toolkit",
+   "kind": "dir"
+  },
+  {
+   "id": 98,
+   "path": "verify_quillan_os.py",
+   "full": "verify_quillan_os.py",
+   "kind": "file"
+  },
+  {
+   "id": 99,
+   "path": "vtk-clone",
+   "full": "vtk-clone",
+   "kind": "dir"
+  },
+  {
+   "id": 100,
+   "path": "wire_and_heal_repo.py",
+   "full": "wire_and_heal_repo.py",
+   "kind": "file"
+  },
+  {
+   "id": 101,
+   "path": "worker",
+   "full": "worker",
+   "kind": "dir"
+  },
+  {
+   "id": 102,
+   "path": "worker File Index.md",
+   "full": "worker File Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 103,
+   "path": "x_credentials.md",
+   "full": "x_credentials.md",
+   "kind": "file"
+  },
+  {
+   "id": 104,
+   "path": ".agents\\mcp_config.json",
+   "full": ".agents\\mcp_config.json",
+   "kind": "file"
+  },
+  {
+   "id": 105,
+   "path": ".agents\\rules",
+   "full": ".agents\\rules",
+   "kind": "dir"
+  },
+  {
+   "id": 106,
+   "path": ".agents\\skills",
+   "full": ".agents\\skills",
+   "kind": "dir"
+  },
+  {
+   "id": 107,
+   "path": ".claude\\mcp_config.json",
+   "full": ".claude\\mcp_config.json",
+   "kind": "file"
+  },
+  {
+   "id": 108,
+   "path": ".claude\\skills",
+   "full": ".claude\\skills",
+   "kind": "dir"
+  },
+  {
+   "id": 109,
+   "path": ".devcontainer\\devcontainer.json",
+   "full": ".devcontainer\\devcontainer.json",
+   "kind": "file"
+  },
+  {
+   "id": 110,
+   "path": ".github\\agents",
+   "full": ".github\\agents",
+   "kind": "dir"
+  },
+  {
+   "id": 111,
+   "path": ".github\\copilot-instructions.md",
+   "full": ".github\\copilot-instructions.md",
+   "kind": "file"
+  },
+  {
+   "id": 112,
+   "path": ".github\\ISSUE_TEMPLATE",
+   "full": ".github\\ISSUE_TEMPLATE",
+   "kind": "dir"
+  },
+  {
+   "id": 113,
+   "path": ".github\\workflows",
+   "full": ".github\\workflows",
+   "kind": "dir"
+  },
+  {
+   "id": 114,
+   "path": ".idx\\mcp.json",
+   "full": ".idx\\mcp.json",
+   "kind": "file"
+  },
+  {
+   "id": 115,
+   "path": ".opencode\\agent",
+   "full": ".opencode\\agent",
+   "kind": "dir"
+  },
+  {
+   "id": 116,
+   "path": ".quillan\\COORDINATION.md",
+   "full": ".quillan\\COORDINATION.md",
+   "kind": "file"
+  },
+  {
+   "id": 117,
+   "path": ".quillan\\mcp_tool_registry.json",
+   "full": ".quillan\\mcp_tool_registry.json",
+   "kind": "file"
+  },
+  {
+   "id": 118,
+   "path": ".ruff_cache\\0.15.10",
+   "full": ".ruff_cache\\0.15.10",
+   "kind": "dir"
+  },
+  {
+   "id": 119,
+   "path": "00 - Web Map\\Context Swarm.md",
+   "full": "00 - Web Map\\Context Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 120,
+   "path": "00 - Web Map\\Objective Swarm.md",
+   "full": "00 - Web Map\\Objective Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 121,
+   "path": "00 - Web Map\\Review Swarm.md",
+   "full": "00 - Web Map\\Review Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 122,
+   "path": "00 - Web Map\\Role Swarm.md",
+   "full": "00 - Web Map\\Role Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 123,
+   "path": "00 - Web Map\\Rules Swarm.md",
+   "full": "00 - Web Map\\Rules Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 124,
+   "path": "00 - Web Map\\Ship Swarm.md",
+   "full": "00 - Web Map\\Ship Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 125,
+   "path": "00 - Web Map\\Start Swarm.md",
+   "full": "00 - Web Map\\Start Swarm.md",
+   "kind": "file"
+  },
+  {
+   "id": 126,
+   "path": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
+   "full": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
+   "kind": "file"
+  },
+  {
+   "id": 127,
+   "path": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
+   "full": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
+   "kind": "file"
+  },
+  {
+   "id": 128,
+   "path": "01 - Core Architecture\\8-Formulas.md",
+   "full": "01 - Core Architecture\\8-Formulas.md",
+   "kind": "file"
+  },
+  {
+   "id": 129,
+   "path": "01 - Core Architecture\\9-Quillan Brain mapping.md",
+   "full": "01 - Core Architecture\\9-Quillan Brain mapping.md",
+   "kind": "file"
+  },
+  {
+   "id": 130,
+   "path": "01 - Core Architecture\\agents",
+   "full": "01 - Core Architecture\\agents",
+   "kind": "dir"
+  },
+  {
+   "id": 131,
+   "path": "01 - Core Architecture\\AGENTS.md",
+   "full": "01 - Core Architecture\\AGENTS.md",
+   "kind": "file"
+  },
+  {
+   "id": 132,
+   "path": "01 - Core Architecture\\agnets run proof.md",
+   "full": "01 - Core Architecture\\agnets run proof.md",
+   "kind": "file"
+  },
+  {
+   "id": 133,
+   "path": "01 - Core Architecture\\CHANGELOG.md",
+   "full": "01 - Core Architecture\\CHANGELOG.md",
+   "kind": "file"
+  },
+  {
+   "id": 134,
+   "path": "01 - Core Architecture\\CLAUDE.md",
+   "full": "01 - Core Architecture\\CLAUDE.md",
+   "kind": "file"
+  },
+  {
+   "id": 135,
+   "path": "01 - Core Architecture\\DAEMON.md",
+   "full": "01 - Core Architecture\\DAEMON.md",
+   "kind": "file"
+  },
+  {
+   "id": 136,
+   "path": "01 - Core Architecture\\Formulas ledger research.md",
+   "full": "01 - Core Architecture\\Formulas ledger research.md",
+   "kind": "file"
+  },
+  {
+   "id": 137,
+   "path": "01 - Core Architecture\\HEARTBEAT.md",
+   "full": "01 - Core Architecture\\HEARTBEAT.md",
+   "kind": "file"
+  },
+  {
+   "id": 138,
+   "path": "01 - Core Architecture\\IDENTITY.md",
+   "full": "01 - Core Architecture\\IDENTITY.md",
+   "kind": "file"
+  },
+  {
+   "id": 139,
+   "path": "01 - Core Architecture\\INTENT.md",
+   "full": "01 - Core Architecture\\INTENT.md",
+   "kind": "file"
+  },
+  {
+   "id": 140,
+   "path": "01 - Core Architecture\\ORGANIZATION_MAP.md",
+   "full": "01 - Core Architecture\\ORGANIZATION_MAP.md",
+   "kind": "file"
+  },
+  {
+   "id": 141,
+   "path": "01 - Core Architecture\\RISK_ASSESSMENT.md",
+   "full": "01 - Core Architecture\\RISK_ASSESSMENT.md",
+   "kind": "file"
+  },
+  {
+   "id": 142,
+   "path": "01 - Core Architecture\\SCRATCHPAD.md",
+   "full": "01 - Core Architecture\\SCRATCHPAD.md",
+   "kind": "file"
+  },
+  {
+   "id": 143,
+   "path": "01 - Core Architecture\\SOUL.md",
+   "full": "01 - Core Architecture\\SOUL.md",
+   "kind": "file"
+  },
+  {
+   "id": 144,
+   "path": "01 - Core Architecture\\specs.md",
+   "full": "01 - Core Architecture\\specs.md",
+   "kind": "file"
+  },
+  {
+   "id": 145,
+   "path": "01 - Core Architecture\\TOOLS.md",
+   "full": "01 - Core Architecture\\TOOLS.md",
+   "kind": "file"
+  },
+  {
+   "id": 146,
+   "path": "01 - Core Architecture\\USER.md",
+   "full": "01 - Core Architecture\\USER.md",
+   "kind": "file"
+  },
+  {
+   "id": 147,
+   "path": "01 - Core Architecture\\walkthrough.md",
+   "full": "01 - Core Architecture\\walkthrough.md",
+   "kind": "file"
+  },
+  {
+   "id": 148,
+   "path": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
+   "full": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
+   "kind": "file"
+  },
+  {
+   "id": 149,
+   "path": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
+   "full": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
+   "kind": "file"
+  },
+  {
+   "id": 150,
+   "path": "02 - Knowledge Foundation\\_Index.md",
+   "full": "02 - Knowledge Foundation\\_Index.md",
+   "kind": "file"
+  },
+  {
+   "id": 151,
+   "path": "02 - Knowledge Foundation\\BOOTSTRAP.md",
+   "full": "02 - Knowledge Foundation\\BOOTSTRAP.md",
+   "kind": "file"
+  },
+  {
+   "id": 152,
+   "path": "02 - Knowledge Foundation\\Code Dependency Map.md",
+   "full": "02 - Knowledge Foundation\\Code Dependency Map.md",
+   "kind": "file"
+  },
+  {
+   "id": 153,
+   "path": "02 - Knowledge Foundation\\Ecisystenbranches.md",
+   "full": "02 - Knowledge Foundation\\Ecisystenbranches.md",
+   "kind": "file"
+  },
+  {
+   "id": 154,
+   "path": "02 - Knowledge Foundation\\ECOSYSTEM.md",
+   "full": "02 - Knowledge Foundation\\ECOSYSTEM.md",
+   "kind": "file"
+  },
+  {
+   "id": 155,
+   "path": "02 - Knowledge Foundation\\External Platform Connections.md",
+   "full": "02 - Knowledge Foundation\\External Platform Connections.md",
+   "kind": "file"
+  },
+  {
+   "id": 156,
+   "path": "02 - Knowledge Foundation\\FAQ.md",
+   "full": "02 - Knowledge Foundation\\FAQ.md",
+   "kind": "file"
+  },
+  {
+   "id": 157,
+   "path": "02 - Knowledge Foundation\\knowledge",
+   "full": "02 - Knowledge Foundation\\knowledge",
+   "kind": "dir"
+  },
+  {
+   "id": 158,
+   "path": "02 - Knowledge Foundation\\LINEAGE.md",
+   "full": "02 - Knowledge Foundation\\LINEAGE.md",
+   "kind": "file"
+  },
+  {
+   "id": 159,
+   "path": "02 - Knowledge Foundation\\Must know formulas.md",
+   "full": "02 - Knowledge Foundation\\Must know formulas.md",
+   "kind": "file"
+  },
+  {
+   "id": 160,
+   "path": "02 - Knowledge Foundation\\palace_db",
+   "full": "02 - Knowledge Foundation\\palace_db",
+   "kind": "dir"
+  },
+  {
+   "id": 161,
+   "path": "02 - Knowledge Foundation\\Quillan Knowledge files",
+   "full": "02 - Knowledge Foundation\\Quillan Knowledge files",
+   "kind": "dir"
+  },
+  {
+   "id": 162,
+   "path": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
+   "full": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
+   "kind": "file"
+  },
+  {
+   "id": 163,
+   "path": "02 - Knowledge Foundation\\SERVICES.md",
+   "full": "02 - Knowledge Foundation\\SERVICES.md",
+   "kind": "file"
+  },
+  {
+   "id": 164,
+   "path": "03 - Training & Model\\05_Training",
+   "full": "03 - Training & Model\\05_Training",
+   "kind": "dir"
+  },
+  {
+   "id": 165,
+   "path": "03 - Training & Model\\_dev",
+   "full": "03 - Training & Model\\_dev",
+   "kind": "dir"
+  },
+  {
+   "id": 166,
+   "path": "03 - Training & Model\\_merge_backup_20261014",
+   "full": "03 - Training & Model\\_merge_backup_20261014",
+   "kind": "dir"
+  },
+  {
+   "id": 167,
+   "path": "03 - Training & Model\\_merge_backup_20261018",
+   "full": "03 - Training & Model\\_merge_backup_20261018",
+   "kind": "dir"
+  },
+  {
+   "id": 168,
+   "path": "03 - Training & Model\\benchmarks",
+   "full": "03 - Training & Model\\benchmarks",
+   "kind": "dir"
+  },
+  {
+   "id": 169,
+   "path": "03 - Training & Model\\configuration_quillan.py",
+   "full": "03 - Training & Model\\configuration_quillan.py",
+   "kind": "file"
+  },
+  {
+   "id": 170,
+   "path": "03 - Training & Model\\evaluation_results",
+   "full": "03 - Training & Model\\evaluation_results",
+   "kind": "dir"
+  },
+  {
+   "id": 171,
+   "path": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
+   "full": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
+   "kind": "file"
+  },
+  {
+   "id": 172,
+   "path": "03 - Training & Model\\logs",
+   "full": "03 - Training & Model\\logs",
+   "kind": "dir"
+  },
+  {
+   "id": 173,
+   "path": "03 - Training & Model\\mcp",
+   "full": "03 - Training & Model\\mcp",
+   "kind": "dir"
+  },
+  {
+   "id": 174,
+   "path": "03 - Training & Model\\modeling_quillan.py",
+   "full": "03 - Training & Model\\modeling_quillan.py",
+   "kind": "file"
+  },
+  {
+   "id": 175,
+   "path": "03 - Training & Model\\quillan_bpe_tokenizer.py",
+   "full": "03 - Training & Model\\quillan_bpe_tokenizer.py",
+   "kind": "file"
+  },
+  {
+   "id": 176,
+   "path": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
+   "full": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
+   "kind": "dir"
+  },
+  {
+   "id": 177,
+   "path": "03 - Training & Model\\quillan_fused_optimizer.py",
+   "full": "03 - Training & Model\\quillan_fused_optimizer.py",
+   "kind": "file"
+  },
+  {
+   "id": 178,
+   "path": "03 - Training & Model\\quillan_v8_saturated.py",
+   "full": "03 - Training & Model\\quillan_v8_saturated.py",
+   "kind": "file"
+  },
+  {
+   "id": 179,
+   "path": "03 - Training & Model\\quillan_weight_adapter.py",
+   "full": "03 - Training & Model\\quillan_weight_adapter.py",
+   "kind": "file"
+  },
+  {
+   "id": 180,
+   "path": "03 - Training & Model\\scripts",
+   "full": "03 - Training & Model\\scripts",
+   "kind": "dir"
+  },
+  {
+   "id": 181,
+   "path": "03 - Training & Model\\src",
+   "full": "03 - Training & Model\\src",
+   "kind": "dir"
+  },
+  {
+   "id": 182,
+   "path": "03 - Training & Model\\src_quillan",
+   "full": "03 - Training & Model\\src_quillan",
+   "kind": "dir"
+  },
+  {
+   "id": 183,
+   "path": "03 - Training & Model\\tests",
+   "full": "03 - Training & Model\\tests",
+   "kind": "dir"
+  },
+  {
+   "id": 184,
+   "path": "03 - Training & Model\\training_data",
+   "full": "03 - Training & Model\\training_data",
+   "kind": "dir"
+  },
+  {
+   "id": 185,
+   "path": "03 - Training & Model\\training_logs",
+   "full": "03 - Training & Model\\training_logs",
+   "kind": "dir"
+  },
+  {
+   "id": 186,
+   "path": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
+   "full": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
+   "kind": "dir"
+  },
+  {
+   "id": 187,
+   "path": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
+   "full": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
+   "kind": "file"
+  },
+  {
+   "id": 188,
+   "path": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
+   "full": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
+   "kind": "file"
+  },
+  {
+   "id": 189,
+   "path": "04- quillan-sovereign-skills-and-swarm\\Skills",
+   "full": "04- quillan-sovereign-skills-and-swarm\\Skills",
+   "kind": "dir"
+  },
+  {
+   "id": 190,
+   "path": "05 - Creative Works\\assets",
+   "full": "05 - Creative Works\\assets",
+   "kind": "dir"
+  },
+  {
+   "id": 191,
+   "path": "05 - Creative Works\\Audio Engineer",
+   "full": "05 - Creative Works\\Audio Engineer",
+   "kind": "dir"
+  },
+  {
+   "id": 192,
+   "path": "05 - Creative Works\\Book Series",
+   "full": "05 - Creative Works\\Book Series",
+   "kind": "dir"
+  },
+  {
+   "id": 193,
+   "path": "05 - Creative Works\\docs",
+   "full": "05 - Creative Works\\docs",
+   "kind": "dir"
+  },
+  {
+   "id": 194,
+   "path": "05 - Creative Works\\gallery",
+   "full": "05 - Creative Works\\gallery",
+   "kind": "dir"
+  },
+  {
+   "id": 195,
+   "path": "05 - Creative Works\\images",
+   "full": "05 - Creative Works\\images",
+   "kind": "dir"
+  },
+  {
+   "id": 196,
+   "path": "05 - Creative Works\\index.html",
+   "full": "05 - Creative Works\\index.html",
+   "kind": "file"
+  },
+  {
+   "id": 197,
+   "path": "05 - Creative Works\\Media Template",
+   "full": "05 - Creative Works\\Media Template",
+   "kind": "dir"
+  },
+  {
+   "id": 198,
+   "path": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
+   "full": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
+   "kind": "file"
+  },
+  {
+   "id": 199,
+   "path": "05 - Creative Works\\Quillan-v4.2-model",
+   "full": "05 - Creative Works\\Quillan-v4.2-model",
+   "kind": "dir"
+  },
+  {
+   "id": 200,
+   "path": "05 - Technical Implementation\\sovereign_unified_core.py",
+   "full": "05 - Technical Implementation\\sovereign_unified_core.py",
    "kind": "file"
   }
  ],
- "edges": [],
- "trail": [],
- "wiring": [],
+ "edges": [
+  {
+   "from": 0,
+   "to": 1
+  },
+  {
+   "from": 0,
+   "to": 2
+  },
+  {
+   "from": 0,
+   "to": 3
+  },
+  {
+   "from": 0,
+   "to": 4
+  },
+  {
+   "from": 0,
+   "to": 5
+  },
+  {
+   "from": 0,
+   "to": 6
+  },
+  {
+   "from": 0,
+   "to": 7
+  },
+  {
+   "from": 0,
+   "to": 8
+  },
+  {
+   "from": 0,
+   "to": 9
+  },
+  {
+   "from": 0,
+   "to": 10
+  },
+  {
+   "from": 0,
+   "to": 11
+  },
+  {
+   "from": 0,
+   "to": 12
+  },
+  {
+   "from": 0,
+   "to": 13
+  },
+  {
+   "from": 0,
+   "to": 14
+  },
+  {
+   "from": 0,
+   "to": 15
+  },
+  {
+   "from": 0,
+   "to": 16
+  },
+  {
+   "from": 0,
+   "to": 17
+  },
+  {
+   "from": 0,
+   "to": 18
+  },
+  {
+   "from": 0,
+   "to": 19
+  },
+  {
+   "from": 0,
+   "to": 20
+  },
+  {
+   "from": 0,
+   "to": 21
+  },
+  {
+   "from": 0,
+   "to": 22
+  },
+  {
+   "from": 0,
+   "to": 23
+  },
+  {
+   "from": 0,
+   "to": 24
+  },
+  {
+   "from": 0,
+   "to": 25
+  },
+  {
+   "from": 0,
+   "to": 26
+  },
+  {
+   "from": 0,
+   "to": 27
+  },
+  {
+   "from": 0,
+   "to": 28
+  },
+  {
+   "from": 0,
+   "to": 29
+  },
+  {
+   "from": 0,
+   "to": 30
+  },
+  {
+   "from": 0,
+   "to": 31
+  },
+  {
+   "from": 0,
+   "to": 32
+  },
+  {
+   "from": 0,
+   "to": 33
+  },
+  {
+   "from": 0,
+   "to": 34
+  },
+  {
+   "from": 0,
+   "to": 35
+  },
+  {
+   "from": 0,
+   "to": 36
+  },
+  {
+   "from": 0,
+   "to": 37
+  },
+  {
+   "from": 0,
+   "to": 38
+  },
+  {
+   "from": 0,
+   "to": 39
+  },
+  {
+   "from": 0,
+   "to": 40
+  },
+  {
+   "from": 0,
+   "to": 41
+  },
+  {
+   "from": 0,
+   "to": 42
+  },
+  {
+   "from": 0,
+   "to": 43
+  },
+  {
+   "from": 0,
+   "to": 44
+  },
+  {
+   "from": 0,
+   "to": 45
+  },
+  {
+   "from": 0,
+   "to": 46
+  },
+  {
+   "from": 0,
+   "to": 47
+  },
+  {
+   "from": 0,
+   "to": 48
+  },
+  {
+   "from": 0,
+   "to": 49
+  },
+  {
+   "from": 0,
+   "to": 50
+  },
+  {
+   "from": 0,
+   "to": 51
+  },
+  {
+   "from": 0,
+   "to": 52
+  },
+  {
+   "from": 0,
+   "to": 53
+  },
+  {
+   "from": 0,
+   "to": 54
+  },
+  {
+   "from": 0,
+   "to": 55
+  },
+  {
+   "from": 0,
+   "to": 56
+  },
+  {
+   "from": 0,
+   "to": 57
+  },
+  {
+   "from": 0,
+   "to": 58
+  },
+  {
+   "from": 0,
+   "to": 59
+  },
+  {
+   "from": 0,
+   "to": 60
+  },
+  {
+   "from": 0,
+   "to": 61
+  },
+  {
+   "from": 0,
+   "to": 62
+  },
+  {
+   "from": 0,
+   "to": 63
+  },
+  {
+   "from": 0,
+   "to": 64
+  },
+  {
+   "from": 0,
+   "to": 65
+  },
+  {
+   "from": 0,
+   "to": 66
+  },
+  {
+   "from": 0,
+   "to": 67
+  },
+  {
+   "from": 0,
+   "to": 68
+  },
+  {
+   "from": 0,
+   "to": 69
+  },
+  {
+   "from": 0,
+   "to": 70
+  },
+  {
+   "from": 0,
+   "to": 71
+  },
+  {
+   "from": 0,
+   "to": 72
+  },
+  {
+   "from": 0,
+   "to": 73
+  },
+  {
+   "from": 0,
+   "to": 74
+  },
+  {
+   "from": 0,
+   "to": 75
+  },
+  {
+   "from": 0,
+   "to": 76
+  },
+  {
+   "from": 0,
+   "to": 77
+  },
+  {
+   "from": 0,
+   "to": 78
+  },
+  {
+   "from": 0,
+   "to": 79
+  },
+  {
+   "from": 0,
+   "to": 80
+  },
+  {
+   "from": 0,
+   "to": 81
+  },
+  {
+   "from": 0,
+   "to": 82
+  },
+  {
+   "from": 0,
+   "to": 83
+  },
+  {
+   "from": 0,
+   "to": 84
+  },
+  {
+   "from": 0,
+   "to": 85
+  },
+  {
+   "from": 0,
+   "to": 86
+  },
+  {
+   "from": 0,
+   "to": 87
+  },
+  {
+   "from": 0,
+   "to": 88
+  },
+  {
+   "from": 0,
+   "to": 89
+  },
+  {
+   "from": 0,
+   "to": 90
+  },
+  {
+   "from": 0,
+   "to": 91
+  },
+  {
+   "from": 0,
+   "to": 92
+  },
+  {
+   "from": 0,
+   "to": 93
+  },
+  {
+   "from": 0,
+   "to": 94
+  },
+  {
+   "from": 0,
+   "to": 95
+  },
+  {
+   "from": 0,
+   "to": 96
+  },
+  {
+   "from": 0,
+   "to": 97
+  },
+  {
+   "from": 0,
+   "to": 98
+  },
+  {
+   "from": 0,
+   "to": 99
+  },
+  {
+   "from": 0,
+   "to": 100
+  },
+  {
+   "from": 0,
+   "to": 101
+  },
+  {
+   "from": 0,
+   "to": 102
+  },
+  {
+   "from": 0,
+   "to": 103
+  },
+  {
+   "from": 1,
+   "to": 104
+  },
+  {
+   "from": 1,
+   "to": 105
+  },
+  {
+   "from": 1,
+   "to": 106
+  },
+  {
+   "from": 2,
+   "to": 107
+  },
+  {
+   "from": 2,
+   "to": 108
+  },
+  {
+   "from": 3,
+   "to": 109
+  },
+  {
+   "from": 4,
+   "to": 110
+  },
+  {
+   "from": 4,
+   "to": 111
+  },
+  {
+   "from": 4,
+   "to": 112
+  },
+  {
+   "from": 4,
+   "to": 113
+  },
+  {
+   "from": 5,
+   "to": 114
+  },
+  {
+   "from": 8,
+   "to": 115
+  },
+  {
+   "from": 9,
+   "to": 116
+  },
+  {
+   "from": 9,
+   "to": 117
+  },
+  {
+   "from": 10,
+   "to": 118
+  },
+  {
+   "from": 11,
+   "to": 119
+  },
+  {
+   "from": 11,
+   "to": 120
+  },
+  {
+   "from": 11,
+   "to": 121
+  },
+  {
+   "from": 11,
+   "to": 122
+  },
+  {
+   "from": 11,
+   "to": 123
+  },
+  {
+   "from": 11,
+   "to": 124
+  },
+  {
+   "from": 11,
+   "to": 125
+  },
+  {
+   "from": 13,
+   "to": 126
+  },
+  {
+   "from": 13,
+   "to": 127
+  },
+  {
+   "from": 13,
+   "to": 128
+  },
+  {
+   "from": 13,
+   "to": 129
+  },
+  {
+   "from": 13,
+   "to": 130
+  },
+  {
+   "from": 13,
+   "to": 131
+  },
+  {
+   "from": 13,
+   "to": 132
+  },
+  {
+   "from": 13,
+   "to": 133
+  },
+  {
+   "from": 13,
+   "to": 134
+  },
+  {
+   "from": 13,
+   "to": 135
+  },
+  {
+   "from": 13,
+   "to": 136
+  },
+  {
+   "from": 13,
+   "to": 137
+  },
+  {
+   "from": 13,
+   "to": 138
+  },
+  {
+   "from": 13,
+   "to": 139
+  },
+  {
+   "from": 13,
+   "to": 140
+  },
+  {
+   "from": 13,
+   "to": 141
+  },
+  {
+   "from": 13,
+   "to": 142
+  },
+  {
+   "from": 13,
+   "to": 143
+  },
+  {
+   "from": 13,
+   "to": 144
+  },
+  {
+   "from": 13,
+   "to": 145
+  },
+  {
+   "from": 13,
+   "to": 146
+  },
+  {
+   "from": 13,
+   "to": 147
+  },
+  {
+   "from": 15,
+   "to": 148
+  },
+  {
+   "from": 15,
+   "to": 149
+  },
+  {
+   "from": 15,
+   "to": 150
+  },
+  {
+   "from": 15,
+   "to": 151
+  },
+  {
+   "from": 15,
+   "to": 152
+  },
+  {
+   "from": 15,
+   "to": 153
+  },
+  {
+   "from": 15,
+   "to": 154
+  },
+  {
+   "from": 15,
+   "to": 155
+  },
+  {
+   "from": 15,
+   "to": 156
+  },
+  {
+   "from": 15,
+   "to": 157
+  },
+  {
+   "from": 15,
+   "to": 158
+  },
+  {
+   "from": 15,
+   "to": 159
+  },
+  {
+   "from": 15,
+   "to": 160
+  },
+  {
+   "from": 15,
+   "to": 161
+  },
+  {
+   "from": 15,
+   "to": 162
+  },
+  {
+   "from": 15,
+   "to": 163
+  },
+  {
+   "from": 17,
+   "to": 164
+  },
+  {
+   "from": 17,
+   "to": 165
+  },
+  {
+   "from": 17,
+   "to": 166
+  },
+  {
+   "from": 17,
+   "to": 167
+  },
+  {
+   "from": 17,
+   "to": 168
+  },
+  {
+   "from": 17,
+   "to": 169
+  },
+  {
+   "from": 17,
+   "to": 170
+  },
+  {
+   "from": 17,
+   "to": 171
+  },
+  {
+   "from": 17,
+   "to": 172
+  },
+  {
+   "from": 17,
+   "to": 173
+  },
+  {
+   "from": 17,
+   "to": 174
+  },
+  {
+   "from": 17,
+   "to": 175
+  },
+  {
+   "from": 17,
+   "to": 176
+  },
+  {
+   "from": 17,
+   "to": 177
+  },
+  {
+   "from": 17,
+   "to": 178
+  },
+  {
+   "from": 17,
+   "to": 179
+  },
+  {
+   "from": 17,
+   "to": 180
+  },
+  {
+   "from": 17,
+   "to": 181
+  },
+  {
+   "from": 17,
+   "to": 182
+  },
+  {
+   "from": 17,
+   "to": 183
+  },
+  {
+   "from": 17,
+   "to": 184
+  },
+  {
+   "from": 17,
+   "to": 185
+  },
+  {
+   "from": 19,
+   "to": 186
+  },
+  {
+   "from": 19,
+   "to": 187
+  },
+  {
+   "from": 19,
+   "to": 188
+  },
+  {
+   "from": 19,
+   "to": 189
+  },
+  {
+   "from": 21,
+   "to": 190
+  },
+  {
+   "from": 21,
+   "to": 191
+  },
+  {
+   "from": 21,
+   "to": 192
+  },
+  {
+   "from": 21,
+   "to": 193
+  },
+  {
+   "from": 21,
+   "to": 194
+  },
+  {
+   "from": 21,
+   "to": 195
+  },
+  {
+   "from": 21,
+   "to": 196
+  },
+  {
+   "from": 21,
+   "to": 197
+  },
+  {
+   "from": 21,
+   "to": 198
+  },
+  {
+   "from": 21,
+   "to": 199
+  },
+  {
+   "from": 23,
+   "to": 200
+  }
+ ],
+ "trail": [
+  {
+   "t": 0.0,
+   "at": ".agents",
+   "node": 1,
+   "event": "dir"
+  },
+  {
+   "t": 0.0,
+   "at": ".claude",
+   "node": 2,
+   "event": "dir"
+  },
+  {
+   "t": 0.0,
+   "at": ".devcontainer",
+   "node": 3,
+   "event": "dir"
+  },
+  {
+   "t": 0.0,
+   "at": ".github",
+   "node": 4,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": ".idx",
+   "node": 5,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": ".markdownlint.json",
+   "node": 6,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": ".mcp.json",
+   "node": 7,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": ".opencode",
+   "node": 8,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": ".quillan",
+   "node": 9,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": ".ruff_cache",
+   "node": 10,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "00 - Web Map",
+   "node": 11,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "00 - Web Map File Index.md",
+   "node": 12,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "01 - Core Architecture",
+   "node": 13,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "01 - Core Architecture File Index.md",
+   "node": 14,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "02 - Knowledge Foundation",
+   "node": 15,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "02 - Knowledge Foundation File Index.md",
+   "node": 16,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "03 - Training & Model",
+   "node": 17,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "03 - Training & Model File Index.md",
+   "node": 18,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "04- quillan-sovereign-skills-and-swarm",
+   "node": 19,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "04- quillan-sovereign-skills-and-swarm File Index.md",
+   "node": 20,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "05 - Creative Works",
+   "node": 21,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "05 - Creative Works File Index.md",
+   "node": 22,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "05 - Technical Implementation",
+   "node": 23,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "05 - Technical Implementation File Index.md",
+   "node": 24,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "06 - Deployment & Platforms",
+   "node": 25,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "06 - Deployment & Platforms File Index.md",
+   "node": 26,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "06_Media",
+   "node": 27,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "07 - Memory & LanceDB",
+   "node": 28,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "07 - Memory & LanceDB File Index.md",
+   "node": 29,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "08 - Templates & Config",
+   "node": 30,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "08 - Templates & Config File Index.md",
+   "node": 31,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "09 - Projects",
+   "node": 32,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "09 - Projects File Index.md",
+   "node": 33,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "10 - Formal Papers",
+   "node": 34,
+   "event": "dir"
+  },
+  {
+   "t": 0.01,
+   "at": "10 - Formal Papers File Index.md",
+   "node": 35,
+   "event": "file"
+  },
+  {
+   "t": 0.01,
+   "at": "_archive",
+   "node": 36,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "_config",
+   "node": 37,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "_quillan_backup",
+   "node": 38,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "AGENTS.md",
+   "node": 39,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "assets",
+   "node": 40,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "assets File Index.md",
+   "node": 41,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "audio",
+   "node": 42,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "Audio Engineer",
+   "node": 43,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "bind_full_arsenal.py",
+   "node": 44,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "bind_upgrades.py",
+   "node": 45,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "boot_test.py",
+   "node": 46,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "boot_test2.py",
+   "node": 47,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "CHANGELOG.md",
+   "node": 48,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "chatlogs",
+   "node": 49,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "check_servers.py",
+   "node": 50,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "CLAUDE.md",
+   "node": 51,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "CODE_OF_CONDUCT.md",
+   "node": 52,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "CONTRIBUTING.md",
+   "node": 53,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "daemons",
+   "node": 54,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "demos",
+   "node": 55,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "devkit",
+   "node": 56,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "docs",
+   "node": 57,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "funding.json",
+   "node": 58,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "gallery",
+   "node": 59,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "GEMINI.md",
+   "node": 60,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "HANDOFF_antigravity_quillan.md",
+   "node": 61,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "index.html",
+   "node": 62,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "kernels",
+   "node": 63,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "main-images",
+   "node": 64,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "mcp File Index.md",
+   "node": 65,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "memory.json",
+   "node": 66,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "memory.md",
+   "node": 67,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "Misc",
+   "node": 68,
+   "event": "dir"
+  },
+  {
+   "t": 0.02,
+   "at": "Misc File Index.md",
+   "node": 69,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "MODEL_CARD.md",
+   "node": 70,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "modeling_quillan.py",
+   "node": 71,
+   "event": "file"
+  },
+  {
+   "t": 0.02,
+   "at": "nn_visualizer.html",
+   "node": 72,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "opencode.json",
+   "node": 73,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "ORGANIZATION_AUDIT.json",
+   "node": 74,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "PLAN.md",
+   "node": 75,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "Quillan Web Index.md",
+   "node": 76,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "quillan-cpp-clone",
+   "node": 77,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "quillan-knowledge-base",
+   "node": 78,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "quillan.md",
+   "node": 79,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "quillan_fused_optimizer.py",
+   "node": 80,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "qwen_agent_tools.py",
+   "node": 81,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "README.md",
+   "node": 82,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "reference_repos",
+   "node": 83,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "screenshots",
+   "node": 84,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "scripts",
+   "node": 85,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "scripts File Index.md",
+   "node": 86,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SECURITY.md",
+   "node": 87,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SECURITY_DISCLOSURE.md",
+   "node": 88,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SOUL.md",
+   "node": 89,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SOVEREIGN_STATE.json",
+   "node": 90,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SOVEREIGN_STATE.md",
+   "node": 91,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "sync_to_google_drive.py",
+   "node": 92,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "SYSTEM_TOPOLOGY_MAP.md",
+   "node": 93,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "test_opt_step.py",
+   "node": 94,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "tests",
+   "node": 95,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "tool_test.py",
+   "node": 96,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "validation_toolkit",
+   "node": 97,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "verify_quillan_os.py",
+   "node": 98,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "vtk-clone",
+   "node": 99,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "wire_and_heal_repo.py",
+   "node": 100,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "worker",
+   "node": 101,
+   "event": "dir"
+  },
+  {
+   "t": 0.03,
+   "at": "worker File Index.md",
+   "node": 102,
+   "event": "file"
+  },
+  {
+   "t": 0.03,
+   "at": "x_credentials.md",
+   "node": 103,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".agents\\mcp_config.json",
+   "node": 104,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".agents\\rules",
+   "node": 105,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".agents\\skills",
+   "node": 106,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".claude\\mcp_config.json",
+   "node": 107,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".claude\\skills",
+   "node": 108,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".devcontainer\\devcontainer.json",
+   "node": 109,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".github\\agents",
+   "node": 110,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".github\\copilot-instructions.md",
+   "node": 111,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".github\\ISSUE_TEMPLATE",
+   "node": 112,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".github\\workflows",
+   "node": 113,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".idx\\mcp.json",
+   "node": 114,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".opencode\\agent",
+   "node": 115,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": ".quillan\\COORDINATION.md",
+   "node": 116,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".quillan\\mcp_tool_registry.json",
+   "node": 117,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": ".ruff_cache\\0.15.10",
+   "node": 118,
+   "event": "dir"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Context Swarm.md",
+   "node": 119,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Objective Swarm.md",
+   "node": 120,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Review Swarm.md",
+   "node": 121,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Role Swarm.md",
+   "node": 122,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Rules Swarm.md",
+   "node": 123,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Ship Swarm.md",
+   "node": 124,
+   "event": "file"
+  },
+  {
+   "t": 0.04,
+   "at": "00 - Web Map\\Start Swarm.md",
+   "node": 125,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\1-Quillan_architecture_flowchart.FIXED.md",
+   "node": 126,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\10- Quillan Persona Manifest.md",
+   "node": 127,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\8-Formulas.md",
+   "node": 128,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\9-Quillan Brain mapping.md",
+   "node": 129,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\agents",
+   "node": 130,
+   "event": "dir"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\AGENTS.md",
+   "node": 131,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\agnets run proof.md",
+   "node": 132,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\CHANGELOG.md",
+   "node": 133,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\CLAUDE.md",
+   "node": 134,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\DAEMON.md",
+   "node": 135,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\Formulas ledger research.md",
+   "node": 136,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\HEARTBEAT.md",
+   "node": 137,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\IDENTITY.md",
+   "node": 138,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\INTENT.md",
+   "node": 139,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\ORGANIZATION_MAP.md",
+   "node": 140,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\RISK_ASSESSMENT.md",
+   "node": 141,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\SCRATCHPAD.md",
+   "node": 142,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\SOUL.md",
+   "node": 143,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\specs.md",
+   "node": 144,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\TOOLS.md",
+   "node": 145,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\USER.md",
+   "node": 146,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "01 - Core Architecture\\walkthrough.md",
+   "node": 147,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\00_VAULT_INDEX.md",
+   "node": 148,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\_CANONICAL_IS_knowledge_canonical.md",
+   "node": 149,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\_Index.md",
+   "node": 150,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\BOOTSTRAP.md",
+   "node": 151,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\Code Dependency Map.md",
+   "node": 152,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\Ecisystenbranches.md",
+   "node": 153,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\ECOSYSTEM.md",
+   "node": 154,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\External Platform Connections.md",
+   "node": 155,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\FAQ.md",
+   "node": 156,
+   "event": "file"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\knowledge",
+   "node": 157,
+   "event": "dir"
+  },
+  {
+   "t": 0.05,
+   "at": "02 - Knowledge Foundation\\LINEAGE.md",
+   "node": 158,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "02 - Knowledge Foundation\\Must know formulas.md",
+   "node": 159,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "02 - Knowledge Foundation\\palace_db",
+   "node": 160,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "02 - Knowledge Foundation\\Quillan Knowledge files",
+   "node": 161,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "02 - Knowledge Foundation\\QUILLAN_FULL_AUDIT_REPORT.md",
+   "node": 162,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "02 - Knowledge Foundation\\SERVICES.md",
+   "node": 163,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\05_Training",
+   "node": 164,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\_dev",
+   "node": 165,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\_merge_backup_20261014",
+   "node": 166,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\_merge_backup_20261018",
+   "node": 167,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\benchmarks",
+   "node": 168,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\configuration_quillan.py",
+   "node": 169,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\evaluation_results",
+   "node": 170,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\HANDOFF_20261002_dsh_fixes.md",
+   "node": 171,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\logs",
+   "node": 172,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\mcp",
+   "node": 173,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\modeling_quillan.py",
+   "node": 174,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\quillan_bpe_tokenizer.py",
+   "node": 175,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\quillan_bpe_tokenizer_hf",
+   "node": 176,
+   "event": "dir"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\quillan_fused_optimizer.py",
+   "node": 177,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\quillan_v8_saturated.py",
+   "node": 178,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\quillan_weight_adapter.py",
+   "node": 179,
+   "event": "file"
+  },
+  {
+   "t": 0.06,
+   "at": "03 - Training & Model\\scripts",
+   "node": 180,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "03 - Training & Model\\src",
+   "node": 181,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "03 - Training & Model\\src_quillan",
+   "node": 182,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "03 - Training & Model\\tests",
+   "node": 183,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "03 - Training & Model\\training_data",
+   "node": 184,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "03 - Training & Model\\training_logs",
+   "node": 185,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "04- quillan-sovereign-skills-and-swarm\\quillan-swarm-files",
+   "node": 186,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "04- quillan-sovereign-skills-and-swarm\\SKILL (2).md",
+   "node": 187,
+   "event": "file"
+  },
+  {
+   "t": 0.07,
+   "at": "04- quillan-sovereign-skills-and-swarm\\SKILL.md",
+   "node": 188,
+   "event": "file"
+  },
+  {
+   "t": 0.07,
+   "at": "04- quillan-sovereign-skills-and-swarm\\Skills",
+   "node": 189,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\assets",
+   "node": 190,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\Audio Engineer",
+   "node": 191,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\Book Series",
+   "node": 192,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\docs",
+   "node": 193,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\gallery",
+   "node": 194,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\images",
+   "node": 195,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\index.html",
+   "node": 196,
+   "event": "file"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\Media Template",
+   "node": 197,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\Quillan-Ronin vs Muse Spark 1-1.html",
+   "node": 198,
+   "event": "file"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Creative Works\\Quillan-v4.2-model",
+   "node": 199,
+   "event": "dir"
+  },
+  {
+   "t": 0.07,
+   "at": "05 - Technical Implementation\\sovereign_unified_core.py",
+   "node": 200,
+   "event": "file"
+  }
+ ],
  "spider": {
-  "pos": null,
-  "visited": 0,
-  "state": "DONE",
-  "action": "SCANNING",
-  "total_findings": 0,
-  "wires": 0,
-  "elapsed_s": 0.0
+  "pos": {
+   "t": 0.07,
+   "at": "05 - Technical Implementation\\sovereign_unified_core.py",
+   "node": 200,
+   "event": "file"
+  },
+  "visited": 200
  }
 }
