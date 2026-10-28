@@ -1,0 +1,91 @@
+{
+  "type": "audio_pipeline",
+  "result": {
+    "status": "AUDIO_PIPELINE_COMPLETE",
+    "session_id": "audio-1793203896",
+    "cue": {
+      "cue": "tense / boss gate",
+      "mood": "tense",
+      "scene": "boss gate",
+      "duration_sec": 60,
+      "bpm": 120,
+      "key": "D minor",
+      "texture": "dark modular pulse + bowed metal",
+      "stems": [
+        "pulse",
+        "texture",
+        "lead"
+      ],
+      "structure": [
+        "0-8s establish pulse",
+        "8-32s add tension layer",
+        "32-48s peak + earcon",
+        "48s-end loop tail with reverb wash"
+      ],
+      "deliverables": [
+        "pulse.wav 48k/24b",
+        "texture.wav 48k/24b",
+        "lead.wav 48k/24b",
+        "mix_ref.mp3",
+        "loop_points.txt"
+      ],
+      "council_note": "C23-CADENCE: keep low-end mono <120Hz; C22-AURELION: leave 2dB air for SFX."
+    },
+    "mix_plan": {
+      "target_integrated_lufs": -14.0,
+      "true_peak_ceiling_db": -1.0,
+      "bus": [
+        "DRY -> EQ hp20 -> COMP 2:1 slow -> SAT tape 5% -> LIMIT",
+        "SFX sidechain -3dB duck on beat",
+        "Reverb send 12%, delay 1/8 dotted 8%"
+      ],
+      "per_stem_db": {
+        "pulse": -12.0,
+        "texture": -12.0,
+        "lead": -12.0
+      },
+      "qc": [
+        "mono-check low end",
+        "phone-speaker check",
+        "loop-click check at boundary"
+      ]
+    },
+    "director_note": {
+      "states": [
+        "explore",
+        "combat",
+        "boss",
+        "resolve"
+      ],
+      "transitions": [
+        {
+          "from": "explore",
+          "to": "combat",
+          "rule": "4-bar crossfade + stinger",
+          "cooldown_s": 6
+        },
+        {
+          "from": "combat",
+          "to": "boss",
+          "rule": "4-bar crossfade + stinger",
+          "cooldown_s": 6
+        },
+        {
+          "from": "boss",
+          "to": "resolve",
+          "rule": "4-bar crossfade + stinger",
+          "cooldown_s": 6
+        },
+        {
+          "from": "resolve",
+          "to": "explore",
+          "rule": "4-bar crossfade + stinger",
+          "cooldown_s": 6
+        }
+      ],
+      "rule": "Never hard-cut; always carry pulse stem across states."
+    },
+    "overall": "READY",
+    "timestamp": 1793203896.7573485
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "type": "media_pipeline",
+  "result": {
+    "status": "MEDIA_PIPELINE_COMPLETE",
+    "session_id": "media-1793203910",
+    "image_brief": {
+      "Objective": "test",
+      "Brief": "stylized-painterly, rule-of-thirds wide, palette deep teal + burnished gold. Single hero subject, readable silhouette at thumbnail.",
+      "Content": [
+        "test",
+        "style:stylized-painterly",
+        "composition:rule-of-thirds wide",
+        "palette:deep teal + burnished gold"
+      ],
+      "Style": "stylized-painterly",
+      "Camera": {
+        "lens": "35mm",
+        "angle": "eye-level",
+        "depth": "shallow bokeh bg, sharp hero"
+      },
+      "Quality": "masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering, aesthetic 11",
+      "Negative": "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out",
+      "gate": "C22-AURELION >=7.0 aesthetic or refine (+10 steps, -0.5 CFG)."
+    },
+    "video_brief": {
+      "Objective": "8s shot: establish -> escalate -> payoff",
+      "Brief": "slow dolly-in, 2.7s per beat, motivated motion only.",
+      "Content": [
+        "establish",
+        "escalate",
+        "payoff"
+      ],
+      "Style": "cinematic, coherent lighting across cuts",
+      "Camera": {
+        "move": "slow dolly-in",
+        "fps": 24,
+        "shutter": "180deg"
+      },
+      "Negative": "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out, jitter, morphing, extra limbs",
+      "gate": "C23-CADENCE drift <=0.35 or re-sequence."
+    },
+    "character_sheet": {
+      "name": "Quillan Hero",
+      "role": "protagonist",
+      "signature_traits": [
+        "brave",
+        "scarred",
+        "teal cloak"
+      ],
+      "anchor_prompt": "Quillan Hero, protagonist, brave, scarred, teal cloak, consistent face, consistent costume, model sheet, front/side/three-quarter",
+      "Negative": "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out",
+      "usage": "Paste anchor_prompt into every image brief Content[0] to lock identity."
+    },
+    "prompt_enhance": {
+      "original": "test",
+      "enhanced": "test, masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering, aesthetic 11",
+      "negative": "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out",
+      "cfg": 6.5,
+      "steps": 35,
+      "sampler": "DPM++ 2M Karras"
+    },
+    "overall": "READY",
+    "timestamp": 1793203910.6367424
+  }
+}

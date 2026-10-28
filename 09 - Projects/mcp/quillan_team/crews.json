@@ -36,5 +36,38 @@
     "created": 1792261434.0928814,
     "debates": 0,
     "status": "ACTIVE"
+  },
+  "crew-a0923321": {
+    "objective": "test",
+    "roster": [
+      {
+        "role": "planner",
+        "persona": "C4-PRAXIS: decomposes goal -> verified steps",
+        "load": 0,
+        "done": 0
+      },
+      {
+        "role": "builder",
+        "persona": "C10-CODEWEAVER: ships clean, typed, tested slices",
+        "load": 0,
+        "done": 0
+      },
+      {
+        "role": "critic",
+        "persona": "C34-PREDATOR: hunts weakest assumption",
+        "load": 0,
+        "done": 0
+      },
+      {
+        "role": "synthesizer",
+        "persona": "C31-NEXUS: merges parallel outputs",
+        "load": 0,
+        "done": 0
+      }
+    ],
+    "tasks": [],
+    "created": 1793203914.8652706,
+    "debates": 0,
+    "status": "ACTIVE"
   }
 }
