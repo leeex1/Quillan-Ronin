@@ -291,3 +291,6 @@ x_credentials.md
 **/conversations/*.db
 **/agyhub_summaries_proto.pb
 **/venv*/**
+*-clone/
+*-clone
+
