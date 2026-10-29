@@ -4131,23 +4131,28 @@ class QuillanRoninOni(nn.Module):
             # pull confidence -> PID velocity governor -> hard tokens -> Langevin refinement
             if deliberation and not self.training and not use_cache and T > 1:
                 with torch.no_grad():
-                    router_conf_tensor = last_probs.detach().reshape(B, T, -1).max(dim=-1).values
-                    conf = router_conf_tensor.mean()
-                    integrity = float(self.covenant(x.detach().mean(dim=1)).mean().item())
-                    e_load = float(e_ice_out["constrained"].mean().item())
-                    _, pid = self.velocity_governor.step(router_conf_tensor, integrity, e_load)
-                    thresh = pid["hard_threshold"]
-                    refined, n_hard, ent_aux = self.diffusion(
-                        x.detach(), router_conf_tensor,
-                        )
-                    x = x + (refined - x.detach()) * 0.5
-                    self._last_deliberation = {
-                        "pull_confidence": float(conf.item()),
-                        "hard_threshold": thresh,
-                        "hard_tokens": n_hard,
-                        "token_velocity": pid["token_velocity"],
-                        "venturi_differential": pid.get("differential", 0.0),
-                    }
+                    try:
+                        _diff_dev = getattr(next(self.diffusion.parameters(), None), "device", None)
+                        if _diff_dev == x.device:
+                            router_conf_tensor = last_probs.detach().reshape(B, T, -1).max(dim=-1).values
+                            conf = router_conf_tensor.mean()
+                            integrity = float(self.covenant(x.detach().mean(dim=1)).mean().item())
+                            e_load = float(e_ice_out["constrained"].mean().item())
+                            _, pid = self.velocity_governor.step(router_conf_tensor, integrity, e_load)
+                            thresh = pid["hard_threshold"]
+                            refined, n_hard, ent_aux = self.diffusion(
+                                x.detach(), router_conf_tensor,
+                            )
+                            x = x + (refined - x.detach()) * 0.5
+                            self._last_deliberation = {
+                                "pull_confidence": float(conf.item()),
+                                "hard_threshold": thresh,
+                                "hard_tokens": n_hard,
+                                "token_velocity": pid["token_velocity"],
+                                "venturi_differential": pid.get("differential", 0.0),
+                            }
+                    except Exception:
+                        pass
 
         hidden = self.ln_f(x)
 

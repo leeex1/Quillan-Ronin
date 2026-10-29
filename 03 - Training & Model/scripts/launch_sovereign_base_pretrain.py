@@ -444,19 +444,42 @@ def main() -> None:
                 print(f"  [Scale Guard] Normalized {n_rescaled} unscaled/spectral-outlier projection tensors.", flush=True)
 
     vectorize_model_in_place(model)
+    # Offload inactive aux/deliberation-only modules (test_time_world, dream_diffusion, early_probe, etc.)
+    # to CPU RAM during causal pretraining (compute_aux=False, deliberation=False) to save ~960 MB VRAM on 4GB Pascal
+    _CPU_PARKED_AUX_MODULES = (
+        "test_time_world", "dream_diffusion", "early_probe", "diffusion",
+        "mixture_of_recursions", "diverse_moe", "world_model", "abductive_jump",
+        "mistral_gqa", "mamba_ssm", "recurrent_diffusion", "phi_probe",
+        "ste_pack", "pocket_dfa", "distill", "distill_head", "evo_moe",
+    )
     if device_obj.type == "cuda":
         model.to(torch.bfloat16).to(device_obj)
-        print("  Model transferred to CUDA in bfloat16 (Memory: 2.02 GB / 4.00 GB).", flush=True)
+        for _aux_name in _CPU_PARKED_AUX_MODULES:
+            _mod = getattr(model, _aux_name, None)
+            if _mod is not None:
+                _mod.to("cpu")
+                for _p in _mod.parameters():
+                    _p.requires_grad = False
+        if getattr(model, "moe_rl", None) is not None and hasattr(model.moe_rl, "moe"):
+            model.moe_rl.moe.to("cpu")
+            for _p in model.moe_rl.moe.parameters():
+                _p.requires_grad = False
+        torch.cuda.empty_cache()
+        vram_gb = torch.cuda.memory_allocated() / (1024 ** 3)
+        print(f"  Model transferred to CUDA in bfloat16 (Active VRAM: {vram_gb:.2f} GB / 4.00 GB).", flush=True)
     else:
         model.to(device_obj)
         print("  Model transferred to device.", flush=True)
 
-    # 3. UNFREEZE ALL PARAMETERS FOR FULL BASE PRE-TRAINING
-    print("\n[3/4] Activating Full Base Gradients (ALL Weights Unfrozen)...", flush=True)
+    # 3. UNFREEZE ALL ACTIVE BACKBONE & COUNCIL PARAMETERS FOR FULL BASE PRE-TRAINING
+    print("\n[3/4] Activating Full Base Gradients (All Active Backbone & 34-Council Weights Unfrozen)...", flush=True)
     named_trainable: List[Tuple[str, nn.Parameter]] = []
     for name, p in model.named_parameters():
-        p.requires_grad = True
-        named_trainable.append((name, p))
+        if p.device.type == device_obj.type:
+            p.requires_grad = True
+            named_trainable.append((name, p))
+        else:
+            p.requires_grad = False
 
     trainable_params = [p for _, p in named_trainable]
     n_train = sum(p.numel() for p in trainable_params)
@@ -531,21 +554,30 @@ def main() -> None:
             bx, by = train_corpus.sample_batch(args.batch_size)
             bx, by = bx.to(device_obj), by.to(device_obj)
 
-            # Pretrain forward pass (deliberation & heavy aux probes disabled during causal pretraining)
-            logits, ce, aux = model(bx, labels=by, deliberation=False, compute_aux=False)
+            try:
+                # Pretrain forward pass (deliberation & heavy aux probes disabled during causal pretraining)
+                logits, ce, aux = model(bx, labels=by, deliberation=False, compute_aux=False)
 
-            if not torch.isfinite(ce):
-                del bx, by, logits, ce, aux
-                continue
+                if not torch.isfinite(ce):
+                    del bx, by, logits, ce, aux
+                    continue
 
-            loss = ce / args.grad_accum
-            step_ce += float(ce.item())
-            valid_micros += 1
-            # Explicitly delete forward activations and unused returns (logits=51MB, aux=~100MB, bx, by)
-            # BEFORE backward pass begins to provide maximum headroom on 4GB Pascal WDDM limits
-            del logits, aux, bx, by, ce
-            loss.backward()
-            del loss
+                loss = ce / args.grad_accum
+                step_ce += float(ce.item())
+                valid_micros += 1
+                # Explicitly delete forward activations and unused returns (logits=51MB, aux=~100MB, bx, by)
+                # BEFORE backward pass begins to provide maximum headroom on 4GB Pascal WDDM limits
+                del logits, aux, bx, by, ce
+                loss.backward()
+                del loss
+            except RuntimeError as e:
+                print(f"  [WARN] Transient allocator spike at Step {step} ({e}); clearing cache and continuing...", flush=True)
+                optimizer.zero_grad(set_to_none=True)
+                gc.collect()
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+                valid_micros = 0
+                break
 
         if valid_micros > 0:
             gn, max_t_name, max_t_norm = clip_gradients_two_stage(

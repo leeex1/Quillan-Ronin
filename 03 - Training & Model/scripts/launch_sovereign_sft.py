@@ -301,7 +301,7 @@ def evaluate_validation(
     for i in range(eval_batches):
         bx, by = val_corpus.sample_batch(batch_size=1, deterministic_idx=i * 19)
         bx, by = bx.to(device), by.to(device)
-        _, ce, _ = model(bx, labels=by)
+        _, ce, _ = model(bx, labels=by, deliberation=False, compute_aux=False)
         if torch.isfinite(ce):
             total_ce += float(ce.item())
             valid_batches += 1
@@ -434,7 +434,7 @@ def main() -> None:
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = (device_obj.type == "cuda" and (args.seq_len > 256 or args.batch_size > 1))
+    cfg.grad_checkpoint = (device_obj.type == "cuda")
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
@@ -443,8 +443,19 @@ def main() -> None:
     clean_sd = {k: v for k, v in raw_sd.items() if k in expected_keys}
     missing, unexpected = model.load_state_dict(clean_sd, strict=False)
     vectorize_model_in_place(model)
+    _CPU_PARKED_SFT_MODULES = (
+        "test_time_world", "dream_diffusion", "early_probe", "diffusion",
+        "mixture_of_recursions", "diverse_moe", "ste_pack", "pocket_dfa",
+    )
     if device_obj.type == "cuda":
         model.to(torch.bfloat16).to(device_obj)
+        for _aux_name in _CPU_PARKED_SFT_MODULES:
+            _mod = getattr(model, _aux_name, None)
+            if _mod is not None:
+                _mod.to("cpu")
+                for _p in _mod.parameters():
+                    _p.requires_grad = False
+        torch.cuda.empty_cache()
     else:
         model.to(device_obj)
     print(f"  {len(clean_sd)} / {len(expected_keys)} tensors verified (missing: {len(missing)}, unexpected: {len(unexpected)}). Native 6-Law Sovereign stack active.", flush=True)
@@ -461,7 +472,7 @@ def main() -> None:
     )
     named_trainable: List[Tuple[str, nn.Parameter]] = []
     for name, p in model.named_parameters():
-        if any(pat in name for pat in trainable_patterns) and "mod_routers" not in name:
+        if p.device.type == device_obj.type and any(pat in name for pat in trainable_patterns) and "mod_routers" not in name:
             p.requires_grad = True
             named_trainable.append((name, p))
 
@@ -547,33 +558,44 @@ def main() -> None:
         for _micro in range(args.grad_accum):
             bx, by = train_corpus.sample_batch(args.batch_size, min_targets=16)
             bx, by = bx.to(device_obj), by.to(device_obj)
-            _, ce, aux_dict = model(bx, labels=by)
+            try:
+                _, ce, aux_dict = model(bx, labels=by, deliberation=False)
 
-            # REV-2 FIX: Use bounded, differentiable compute_safe_aux_loss instead of raw total_aux_loss
-            aux_loss = compute_safe_aux_loss(aux_dict, aux_alpha=aux_alpha, device=device_obj)
+                # REV-2 FIX: Use bounded, differentiable compute_safe_aux_loss instead of raw total_aux_loss
+                aux_loss = compute_safe_aux_loss(aux_dict, aux_alpha=aux_alpha, device=device_obj)
 
-            if dllm_loss_fn is not None:
-                try:
-                    def _m_forward(inp_ids: torch.Tensor) -> torch.Tensor:
-                        m_out = model(inp_ids)
-                        return m_out[0] if isinstance(m_out, tuple) else m_out
-                    diff_loss, _ = dllm_loss_fn(_m_forward, bx)
-                    total_loss = (ce + aux_loss + args.dllm_weight * diff_loss) / args.grad_accum
-                except Exception:
+                if dllm_loss_fn is not None:
+                    try:
+                        def _m_forward(inp_ids: torch.Tensor) -> torch.Tensor:
+                            m_out = model(inp_ids)
+                            return m_out[0] if isinstance(m_out, tuple) else m_out
+                        diff_loss, _ = dllm_loss_fn(_m_forward, bx)
+                        total_loss = (ce + aux_loss + args.dllm_weight * diff_loss) / args.grad_accum
+                    except Exception:
+                        total_loss = (ce + aux_loss) / args.grad_accum
+                else:
                     total_loss = (ce + aux_loss) / args.grad_accum
-            else:
-                total_loss = (ce + aux_loss) / args.grad_accum
 
-            if not torch.isfinite(total_loss):
-                nan_skips += 1
-                continue
+                if not torch.isfinite(total_loss):
+                    nan_skips += 1
+                    del bx, by, ce, aux_dict
+                    continue
 
-            total_loss.backward()
-            step_ce += float(ce.item())
-            step_aux += float(aux_loss.item())
-            if "entropy" in aux_dict and torch.is_tensor(aux_dict["entropy"]):
-                step_ent += float(aux_dict["entropy"].item())
-            valid_micros += 1
+                total_loss.backward()
+                step_ce += float(ce.item())
+                step_aux += float(aux_loss.item())
+                if "entropy" in aux_dict and torch.is_tensor(aux_dict["entropy"]):
+                    step_ent += float(aux_dict["entropy"].item())
+                valid_micros += 1
+                del bx, by, ce, aux_dict, total_loss
+            except RuntimeError as e:
+                print(f"  [WARN] Transient allocator spike at SFT Step {step} ({e}); clearing cache and continuing...", flush=True)
+                optimizer.zero_grad(set_to_none=True)
+                gc.collect()
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+                valid_micros = 0
+                break
 
         if valid_micros > 0:
             # REV-2 FIX: Two-Stage Per-Tensor + Global Gradient Clipping
