@@ -294,3 +294,7 @@ x_credentials.md
 *-clone/
 *-clone
 
+
+# Local OpenCode workspace configuration (contains sensitive API keys)
+.opencode/
+
