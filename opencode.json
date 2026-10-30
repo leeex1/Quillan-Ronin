@@ -1,97 +1,96 @@
 {
   "mcpServers": {
-    "RoninBuddy": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "Filesystem": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:\\Users\\Admin",
-        "C:\\02_QUILLAN",
-        "C:\\\\"
-      ]
-    },
-    "Git": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-      "args": [
-        "mcp-server-git",
-        "--repository",
-        "C:\\02_QUILLAN"
-      ]
-    },
-    "Memory": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ]
-    },
-    "LocalRAG": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "mcp-local-rag"
-      ],
-      "env": {
-        "BASE_DIR": "C:\\02_QUILLAN"
-      }
-    },
-    "WebSearch": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-      "args": [
-        "duckduckgo-mcp-server"
-      ]
-    },
-    "Fetch": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-      "args": [
-        "mcp-server-fetch"
-      ]
-    },
-    "Playwright": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@playwright/mcp"
-      ]
-    },
-    "Puppeteer": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ]
-    },
     "ChromeDevTools": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "-y",
-        "chrome-devtools-mcp"
-      ]
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
+      ],
+      "env": {}
     },
     "ComputerUse": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\windows-mcp.exe",
+      "command": "C:\\Users\\Admin\\AppData\\Roaming\\uv\\tools\\windows-mcp\\Scripts\\python.exe",
       "args": [
+        "-m",
+        "windows_mcp",
         "serve",
         "--transport",
         "stdio"
       ],
       "env": {
-        "PATH": "C:\\Windows\\System32;C:\\Windows;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Program Files\\nodejs;C:\\Users\\Admin\\AppData\\Roaming\\npm;C:\\Users\\Admin\\.local\\bin",
         "WINDOWS_MCP_SCREENSHOT_SCALE": "0.5",
-        "WINDOWS_MCP_DISABLE_FLASH": "1",
-        "ANONYMIZED_TELEMETRY": "false",
-        "WINDOWS_MCP_WATCHDOG": "0"
+        "WINDOWS_MCP_DISABLE_FLASH": "1"
       }
+    },
+    "DeepWiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "Fetch": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-fetch.exe",
+      "args": [],
+      "env": {}
+    },
+    "Filesystem": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-filesystem\\dist\\index.js",
+        "C:\\Users\\Admin",
+        "C:\\02_QUILLAN"
+      ],
+      "env": {}
+    },
+    "Git": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-git.exe",
+      "args": [
+        "--repository",
+        "C:\\02_QUILLAN"
+      ],
+      "env": {}
+    },
+    "GitNexus": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\gitnexus\\dist\\cli\\index.js",
+        "mcp"
+      ],
+      "env": {}
+    },
+    "HuggingFace": {
+      "url": "https://huggingface.co/mcp"
+    },
+    "LocalRAG": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\mcp-local-rag\\dist\\index.js"
+      ],
+      "env": {
+        "BASE_DIR": "C:\\02_QUILLAN"
+      }
+    },
+    "MemPalace": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mempalace-mcp.exe",
+      "args": [],
+      "env": {}
+    },
+    "Memory": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-memory\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Playwright": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@playwright\\mcp\\cli.js"
+      ],
+      "env": {}
+    },
+    "Puppeteer": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
+      ],
+      "env": {}
     },
     "QuillanAudio": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
@@ -99,7 +98,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -109,7 +107,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -119,7 +116,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -129,7 +125,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -139,7 +134,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -149,7 +143,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -159,7 +152,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -169,7 +161,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -179,7 +170,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -189,7 +179,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -199,7 +188,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -209,7 +197,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -219,8 +206,8 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN",
+        "QUILLAN_RAG_DB": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan_rag_db"
       }
     },
     "QuillanRE": {
@@ -229,7 +216,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -239,7 +225,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -249,7 +234,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -259,7 +243,6 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -269,7 +252,7 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -279,9 +262,27 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "SequentialThinking": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-sequential-thinking\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Time": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-time.exe",
+      "args": [
+        "--local-timezone=America/New_York"
+      ],
+      "env": {}
+    },
+    "WebSearch": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\duckduckgo-mcp-server.exe",
+      "args": [],
+      "env": {}
     }
   }
 }

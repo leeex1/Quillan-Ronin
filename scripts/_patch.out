@@ -1,0 +1,33 @@
+﻿python.exe : .agents\mcp_config.json                                                added 6: DeepWiki, GitNexus, 
+HuggingFace, MemPalace, SequentialThinking, Time
+At line:1 char:73
++ ... ython.exe'; & $py 'C:\02_QUILLAN\scripts\patch_mcp_surfaces.py' 2>&1  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (.agents\mcp_con...lThinking, Time:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+.antigravity\mcp.json                                                  added 6: DeepWiki, GitNexus, HuggingFace, 
+MemPalace, SequentialThinking, Time
+.claude\mcp_config.json                                                added 6: DeepWiki, GitNexus, HuggingFace, 
+MemPalace, SequentialThinking, Time
+.devin\mcp_config.json                                                 added 5: DeepWiki, GitNexus, HuggingFace, 
+MemPalace, Time
+03 - Training & Model\mcp\quillan-mcp-config.json                      added 21: GitNexus, MemPalace, QuillanAudio, 
+QuillanBuddy, QuillanCode, QuillanCouncil, QuillanGameDev, QuillanGovernor, QuillanMedia, QuillanModelLab, QuillanOps, 
+QuillanOrchestrator, QuillanOrochi, QuillanPrism, QuillanRE, QuillanSamuraiEngine, QuillanSpider, QuillanTeam, 
+QuillanWeb, SequentialThinking, Time
+.opencode\opencode.jsonc                                               SKIPPED (contains comments; rewriting would 
+drop them)
+quillan.md                                                             inserted
+.opencode\agent\quillan.md                                             replaced old routing table
+C:\Users\Admin\.config\opencode\agent\quillan.md                       replaced old routing table
+CLAUDE.md                                                              inserted
+GEMINI.md                                                              inserted
+AGENTS.md                                                              inserted
+.gemini\GEMINI.md                                                      inserted
+.antigravity\rules.md                                                  inserted
+.qwen\system_prompt.md                                                 inserted
+06 - Deployment & Platforms\system prompts\Quillan-Samurai.md          inserted
+06 - Deployment & Platforms\Platforms\Claude\Quillan-Samurai.md        inserted
+06 - Deployment & Platforms\Platforms\Gemini\Quillan-Samurai.md        inserted
+06 - Deployment & Platforms\Platforms\Mistral\Quillan-Samurai.md       inserted

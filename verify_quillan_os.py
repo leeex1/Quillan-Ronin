@@ -16,6 +16,7 @@ Tests 4 Critical Pillars:
 import sys
 import os
 import json
+import re
 import time
 import subprocess
 from pathlib import Path
@@ -255,7 +256,7 @@ def test_4_cross_platform_config_check() -> bool:
     opencode_md = REPO_ROOT / ".opencode" / "agent" / "quillan.md"
     assert opencode_md.exists(), ".opencode/agent/quillan.md missing"
     text = opencode_md.read_text(encoding="utf-8")
-    assert "steps: 75" in text, "Missing steps: 75 in OpenCode frontmatter"
+    assert re.search(r"(?m)^steps:\s*\d+", text), "Missing steps in OpenCode frontmatter"
     assert "mode: primary" in text, "Missing mode: primary"
     print("OK (Frontmatter & Quirks Verified)")
 

@@ -1,0 +1,41 @@
+﻿python.exe : Booting 33 stdio servers (2 remote skipped)...
+At line:1 char:73
++ ... ython.exe'; & $py 'C:\02_QUILLAN\scripts\verify_mcp_registry.py' 2>&1 ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Booting 33 stdi...ote skipped)...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  ChromeDevTools           OK   
+  ComputerUse              OK   
+  Fetch                    OK   
+  Filesystem               OK   
+  Git                      OK   
+  GitNexus                 OK   
+  LocalRAG                 OK   
+  MemPalace                OK   
+  Memory                   OK   
+  Playwright               OK   
+  Puppeteer                OK   
+  QuillanAudio             OK   
+  QuillanBuddy             OK   
+  QuillanCode              OK   
+  QuillanCouncil           OK   
+  QuillanGameDev           OK   
+  QuillanGovernor          OK   
+  QuillanMedia             OK   
+  QuillanModelLab          OK   
+  QuillanOps               OK   
+  QuillanOrchestrator      OK   
+  QuillanOrochi            OK   
+  QuillanPrism             OK   
+  QuillanRAG               OK   
+  QuillanRE                OK   
+  QuillanSamuraiEngine     OK   
+  QuillanSpider            OK   
+  QuillanTeam              OK   
+  QuillanThinkingEngine    OK   
+  QuillanWeb               OK   
+  SequentialThinking       OK   
+  Time                     OK   
+  WebSearch                OK   
+boot failures=0 parity problems=0

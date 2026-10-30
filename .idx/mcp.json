@@ -1,276 +1,103 @@
 {
   "mcpServers": {
-    "Filesystem": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+    "ChromeDevTools": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:\\Users\\Admin",
-        "C:\\02_QUILLAN",
-        "C:\\"
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
+      ],
+      "env": {}
+    },
+    "ComputerUse": {
+      "command": "C:\\Users\\Admin\\AppData\\Roaming\\uv\\tools\\windows-mcp\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "windows_mcp",
+        "serve",
+        "--transport",
+        "stdio"
       ],
       "env": {
-        "PYTHONIOENCODING": "utf-8"
+        "WINDOWS_MCP_SCREENSHOT_SCALE": "0.5",
+        "WINDOWS_MCP_DISABLE_FLASH": "1"
       }
     },
-    "WebSearch": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-        "duckduckgo-mcp-server"
-      ],
-      "env": {
-        "PYTHONIOENCODING": "utf-8"
-      }
+    "DeepWiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
     },
     "Fetch": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-        "mcp-server-fetch"
-      ],
-      "env": {
-        "PYTHONIOENCODING": "utf-8"
-      }
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-fetch.exe",
+      "args": [],
+      "env": {}
     },
-    "Memory": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+    "Filesystem": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "-y",
-        "@modelcontextprotocol/server-memory"
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-filesystem\\dist\\index.js",
+        "C:\\Users\\Admin",
+        "C:\\02_QUILLAN"
       ],
       "env": {}
     },
     "Git": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-git.exe",
       "args": [
-        "mcp-server-git",
         "--repository",
         "C:\\02_QUILLAN"
       ],
       "env": {}
     },
-    "Playwright": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+    "GitNexus": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "-y",
-        "@playwright/mcp"
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\gitnexus\\dist\\cli\\index.js",
+        "mcp"
       ],
       "env": {}
     },
-    "Puppeteer": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ],
-      "env": {}
-    },
-    "ChromeDevTools": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
-      "args": [
-        "-y",
-        "chrome-devtools-mcp"
-      ],
-      "env": {}
-    },
-    "ComputerUse": {
-      "command": "C:\\Users\\Admin\\.local\\bin\\windows-mcp.exe",
-      "args": [
-        "serve",
-        "--transport",
-        "stdio"
-      ],
-      "env": {}
+    "HuggingFace": {
+      "url": "https://huggingface.co/mcp"
     },
     "LocalRAG": {
-      "command": "C:\\Program Files\\nodejs\\npx.cmd",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "-y",
-        "mcp-local-rag"
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\mcp-local-rag\\dist\\index.js"
       ],
       "env": {
         "BASE_DIR": "C:\\02_QUILLAN"
       }
     },
+    "MemPalace": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mempalace-mcp.exe",
+      "args": [],
+      "env": {}
+    },
+    "Memory": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-memory\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Playwright": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@playwright\\mcp\\cli.js"
+      ],
+      "env": {}
+    },
+    "Puppeteer": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
+      ],
+      "env": {}
+    },
     "QuillanAudio": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio/server.py"
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanCode": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanCouncil": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanGameDev": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanGovernor": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanMedia": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanModelLab": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanOps": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanOrchestrator": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanOrochi": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanPrism": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanRAG": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanRE": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanSamuraiEngine": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanSpider": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanTeam": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanThinkingEngine": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      }
-    },
-    "QuillanWeb": {
-      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-      "args": [
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web/server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
     },
@@ -280,313 +107,285 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "QuillanCode": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanCouncil": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanGameDev": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanGovernor": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanMedia": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanModelLab": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOps": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOrchestrator": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOrochi": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanPrism": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanRAG": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN",
+        "QUILLAN_RAG_DB": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan_rag_db"
+      }
+    },
+    "QuillanRE": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanSamuraiEngine": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanSpider": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanTeam": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanThinkingEngine": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanWeb": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "SequentialThinking": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-sequential-thinking\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Time": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-time.exe",
+      "args": [
+        "--local-timezone=America/New_York"
+      ],
+      "env": {}
+    },
+    "WebSearch": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\duckduckgo-mcp-server.exe",
+      "args": [],
+      "env": {}
     }
   },
   "mcp": {
-    "Filesystem": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "C:\\Users\\Admin",
-        "C:\\02_QUILLAN",
-        "C:\\"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "WebSearch": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-        "duckduckgo-mcp-server"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "Fetch": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-        "mcp-server-fetch"
-      ],
-      "environment": {
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "Memory": {
-      "command": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "@modelcontextprotocol/server-memory"
-      ],
-      "environment": {},
-      "enabled": true
-    },
-    "Git": {
-      "command": [
-        "C:\\Users\\Admin\\.local\\bin\\uvx.exe",
-        "mcp-server-git",
-        "--repository",
-        "C:\\02_QUILLAN"
-      ],
-      "environment": {},
-      "enabled": true
-    },
-    "Playwright": {
-      "command": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "@playwright/mcp"
-      ],
-      "environment": {},
-      "enabled": true
-    },
-    "Puppeteer": {
-      "command": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "@modelcontextprotocol/server-puppeteer"
-      ],
-      "environment": {},
-      "enabled": true
-    },
     "ChromeDevTools": {
-      "command": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "chrome-devtools-mcp"
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
       ],
-      "environment": {},
-      "enabled": true
+      "env": {}
     },
     "ComputerUse": {
-      "command": [
-        "C:\\Users\\Admin\\.local\\bin\\windows-mcp.exe",
+      "command": "C:\\Users\\Admin\\AppData\\Roaming\\uv\\tools\\windows-mcp\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "windows_mcp",
         "serve",
         "--transport",
         "stdio"
       ],
-      "environment": {},
-      "enabled": true
+      "env": {
+        "WINDOWS_MCP_SCREENSHOT_SCALE": "0.5",
+        "WINDOWS_MCP_DISABLE_FLASH": "1"
+      }
+    },
+    "DeepWiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "Fetch": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-fetch.exe",
+      "args": [],
+      "env": {}
+    },
+    "Filesystem": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-filesystem\\dist\\index.js",
+        "C:\\Users\\Admin",
+        "C:\\02_QUILLAN"
+      ],
+      "env": {}
+    },
+    "Git": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-git.exe",
+      "args": [
+        "--repository",
+        "C:\\02_QUILLAN"
+      ],
+      "env": {}
+    },
+    "GitNexus": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\gitnexus\\dist\\cli\\index.js",
+        "mcp"
+      ],
+      "env": {}
+    },
+    "HuggingFace": {
+      "url": "https://huggingface.co/mcp"
     },
     "LocalRAG": {
-      "command": [
-        "C:\\Program Files\\nodejs\\npx.cmd",
-        "-y",
-        "mcp-local-rag"
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\mcp-local-rag\\dist\\index.js"
       ],
-      "environment": {
+      "env": {
         "BASE_DIR": "C:\\02_QUILLAN"
-      },
-      "enabled": true
+      }
+    },
+    "MemPalace": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mempalace-mcp.exe",
+      "args": [],
+      "env": {}
+    },
+    "Memory": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-memory\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Playwright": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@playwright\\mcp\\cli.js"
+      ],
+      "env": {}
+    },
+    "Puppeteer": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
+      ],
+      "env": {}
     },
     "QuillanAudio": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio/server.py"
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_audio\\server.py"
       ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
+      "env": {
         "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanCode": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanCouncil": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanGameDev": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanGovernor": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanMedia": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanModelLab": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanOps": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanOrchestrator": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanOrochi": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanPrism": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanRAG": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanRE": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanSamuraiEngine": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanSpider": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanTeam": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanThinkingEngine": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
-    },
-    "QuillanWeb": {
-      "command": [
-        "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
-        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web/server.py"
-      ],
-      "environment": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
-        "PYTHONIOENCODING": "utf-8"
-      },
-      "enabled": true
+      }
     },
     "QuillanBuddy": {
       "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
@@ -594,9 +393,182 @@
         "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_buddy\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN\\03 - Training & Model\\scripts;C:\\02_QUILLAN",
         "PYTHONIOENCODING": "utf-8"
       }
+    },
+    "QuillanCode": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_code\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanCouncil": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_council\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanGameDev": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_gamedev\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanGovernor": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_governor\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanMedia": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_media\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanModelLab": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_model_lab\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOps": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_ops\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOrchestrator": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orchestrator\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanOrochi": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_orochi\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanPrism": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_prism\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanRAG": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN",
+        "QUILLAN_RAG_DB": "C:\\02_QUILLAN\\07 - Memory & LanceDB\\quillan_rag_db"
+      }
+    },
+    "QuillanRE": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_re\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanSamuraiEngine": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_samurai_engine\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanSpider": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_spider\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanTeam": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_team\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanThinkingEngine": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_thinking_engine\\server.py"
+      ],
+      "env": {
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\projects\\oni;C:\\02_QUILLAN",
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "QuillanWeb": {
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
+      "args": [
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_web\\server.py"
+      ],
+      "env": {
+        "PYTHONIOENCODING": "utf-8"
+      }
+    },
+    "SequentialThinking": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Admin\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-sequential-thinking\\dist\\index.js"
+      ],
+      "env": {}
+    },
+    "Time": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\mcp-server-time.exe",
+      "args": [
+        "--local-timezone=America/New_York"
+      ],
+      "env": {}
+    },
+    "WebSearch": {
+      "command": "C:\\Users\\Admin\\.local\\bin\\duckduckgo-mcp-server.exe",
+      "args": [],
+      "env": {}
     }
   }
 }
