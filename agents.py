@@ -448,6 +448,29 @@ Operational Protocol:
 quillan_ronin = Quillan_Ronin
 root_agent = Quillan_Ronin
 
+# Primary OpenCode Build & Plan Agent Representations
+build_agent = BaseAgent(
+    name="build",
+    model=MODEL,
+    description="Upgraded Quillan Build & Implementation Agent (C10 Codeweaver, C14 Kaido, C26 Techne, FORGE v2).",
+    instruction="Execute verified, zero-leak code implementations with automated tests and deterministic resource cleanup.",
+    output_key="build_execution_response",
+    tier=1,
+    sub_agents=[council_agents["c10-codeweaver"], council_agents["c14-kaido"], council_agents["c26-techne"], forge_specialist],
+    tools=MCP_SERVERS + [agent_tool.AgentTool(agent=cluster_systems), agent_tool.AgentTool(agent=forge_specialist)],
+)
+
+plan_agent = BaseAgent(
+    name="plan",
+    model=MODEL,
+    description="Upgraded Quillan Planning & Decomposition Agent (C4 Praxis, C6 Omnis, C7 Logos, C8 Metasynth, C13 Warden, C34 Predator).",
+    instruction="Explore safely with read-only tools, formulate 3 strategic options, map step-check pairs, and stress-test assumptions.",
+    output_key="plan_strategy_response",
+    tier=1,
+    sub_agents=[council_agents["c4-praxis"], council_agents["c6-omnis"], council_agents["c7-logos"], council_agents["c8-metasynth"], council_agents["c13-warden"], council_agents["c34-predator"]],
+    tools=MCP_SERVERS + [agent_tool.AgentTool(agent=cluster_logic), agent_tool.AgentTool(agent=cluster_adversarial)],
+)
+
 # ==============================================================================
 # 7. UTILITY & DIAGNOSTIC PRINTER
 # ==============================================================================
