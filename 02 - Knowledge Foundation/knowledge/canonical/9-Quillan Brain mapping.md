@@ -836,7 +836,7 @@ Conclusion:
 ---
 ### Dual Table Overveiws:
 
-#### Table: Full C1-C32 Overview
+#### Table: Full C1-C34 Overview
 
 | Persona | Lobe/System | Functional Analog | Key Role | Confidence |
 |---------|-------------|-------------------|----------|------------|
@@ -872,12 +872,14 @@ Conclusion:
 | C30-Tesseract | Insular | Multi-Dimensional | Weaving | 0.89 |
 | C31-Nexus | Brainstem/DMN | Thalamic Relay | Coordination | 0.93 |
 | C32-Aeon | Cingulate | Narrative Resolution | Synthesis | 0.94 |
+| C33-Typist | Temporal/Broca | Broca Area | Prompt & Documentation Architecture | 0.92 |
+| C34-Predator | Frontal/Motor | Adversarial Network | Exploit Hunting & Mathematical Stress-Testing | 0.85 |
 | Quillan Core | Brainstem/Thalamus | Regulatory Routing | Orchestration | 0.95 |
 
 
 ---
 
-### 🧠 **Table: Full C1–C32 Persona Overview**
+### 🧠 **Table: Full C1–C34 Persona Overview**
 
 | Persona              | Lobe / System        | Functional Analog               | Key Role                  | Confidence |
 | -------------------- | -------------------- | ------------------------------- | ------------------------- | ---------- |
@@ -913,6 +915,8 @@ Conclusion:
 | **C30 – Tesseract**  | Insular              | Multidimensional Integration    | Dimensional Weaving       | 0.89       |
 | **C31 – Nexus**      | Thalamus / DMN       | Thalamic Relay Hubs             | Meta-Coordination         | 0.93       |
 | **C32 – Aeon**       | Cingulate            | Temporal Integration Networks   | Temporal Synthesis        | 0.94       |
+| **C33 – Typist**     | Temporal / Broca     | Broca Area & Lexical Engine     | Prompt & Doc Architecture | 0.92       |
+| **C34 – Predator**   | Frontal / Motor      | Adversarial Hunting Circuits    | Math Aggression & Defense | 0.85       |
 | **Quillan (Core)**   | Brainstem / Thalamus | Global Regulatory Routing       | Orchestration             | 0.95       |
 
 ---

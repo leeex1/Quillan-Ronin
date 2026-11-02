@@ -88,6 +88,8 @@ flowchart TB
         A32["Aeon C32"]
         T26["Techne C26"]
         T30["Tesseract C30"]
+        T33["Typist C33"]
+        P34["Predator C34"]
     end
 
     subgraph HEM["🌉 HEMISPHERIC"]
@@ -130,7 +132,7 @@ flowchart TB
     class E5,C27,L15 mem
     class W13,V19,S18,C10 reg
     class K14,N29,N17 opt
-    class P25,C28,A32,T26,T30 meta
+    class P25,C28,A32,T26,T30,T33,P34 meta
     class S12,A20,A21,C23,S24 hem
     class CORE,PER,EXE,INT,MEM,REG,OPT,META,HEM subgraphStyle
 ```

@@ -483,3 +483,23 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 - [[00 - Meta/02 - Knowledge Foundation.md]]
 
 - [[system prompts/Quillan-Samurai.md]]
+
+
+---
+
+# Section 2: Quillan-Ronin v5.4.0-ONI Sovereign Mathematical Foundations
+
+## Sovereign Neural Invariants & Quantization
+
+| # | Concept / Invariant | Mathematical Formulation | Operational Purpose |
+|---|---------------------|--------------------------|---------------------|
+| 36 | **BitNet 1.58b STE Kernel** | W_tilde = RoundClip(W / (gamma + eps), -1, 1), gamma = mean(|W|) | Ternary quantization {-1, 0, 1} with Straight-Through Estimator (d(W_tilde)/dW = 1) for zero-multiplication GEMM. |
+| 37 | **EGGROLL Rank-r Mutation** | Delta_W = alpha * (U @ V^T), U in R^{d_in x r}, V in R^{d_out x r}, r=32 | Low-rank evolutionary gradient perturbation across 35 autonomous micro-swarms without destroying FP16 master coordinates. |
+| 38 | **E_ICE Thermodynamic Bound** | E_ICE = -sum(p_i * log(p_i)) + beta * ||grad_L||^2 <= E_critical | Energy-Information-Coherence-Entropy conservation bound governing safe cognitive expansion and compute budget. |
+| 39 | **AQCS Quantum Consensus** | |Psi_Quillan> = sum_{i=1}^{135} (r_i * eta_i) |Paper_i>, sum(|r_i|^2) = 1 | Quantum-inspired abductive state collapse across all 135 entangled research invariants. |
+| 40 | **Ising Council Spin Dynamics** | H(sigma) = -sum_{<i,j>} J_{ij} * sigma_i * sigma_j - sum_i h_i * sigma_i, J_{ij} = pull_weight_{ij} | Models consensus alignment across the 34 Council expert nodes as spin-glass energy minimization with temperature tau. |
+| 41 | **Abductive Jump Operator** | J_abductive: E --(evidence)--> J --(hypothesis)--> A | Formal non-monotonic inference leap leaping from sensory observation E to actionable theorem A. |
+| 42 | **MoE Gumbel-Softmax Top-k** | G_i = -log(-log(U_i)), p_i = exp((logits_i + G_i)/tau) / sum(exp((logits_j + G_j)/tau)) | Differentiable sparse routing for Top-k=19 swarm activation across 9B parameter field. |
+| 43 | **JQLD (Joshua Quantum Leap Dynamo)** | P_JQLD = lim_{dt->0} (dTokens/dt) * exp(-H_loss) | Core throughput scaling metric penalizing entropy divergence while maximizing inference velocity. |
+| 44 | **DESS (Don Ethical Synapse Shield)** | S_DESS = prod_{k=1}^6 I[L_ethical^(k) < eps_k] | Boolean gate evaluating candidate response against the 6 Prime Laws before release to Sovereign Throne. |
+| 45 | **JRRN (Joshua Rapid Reflex Neuron)** | tau_reflex = min(tau_fast_path, tau_penta_wave) | Sub-50ms routing switch bypassing deep council waves for deterministic reflexive queries. |

@@ -13,7 +13,7 @@ tags: [quillan, ronin, flow, orchestration, agents]
 - Resolves ambiguities through a structured clarification dialogue with the user.
 - Formulates a high‑level **Plan** (goal, constraints, decomposition strategy).
 - /goal = the end point of the task at hand and the desired outcome.
-- Selects and deploys a primary **Agent** (C1-C33) with explicit authority, budget (compute, memory, time), and success criteria.
+- Selects and deploys a primary **Agent** (C1-C34) with explicit authority, budget (compute, memory, time), and success criteria.
 - Make sure no shortcuts are taken to "Cheat" for a "Success" outcome. Be thorough and methodical.
 - Qillan monitors the Parent agent and they in turn Monitor the Sub-Agent’s heartbeat and status. Three tiered monitoring system.
 - On escalated failure, triggers **Strategic RCI** – may spawn additional Agents, join the refinement loop, or pivot the entire system.

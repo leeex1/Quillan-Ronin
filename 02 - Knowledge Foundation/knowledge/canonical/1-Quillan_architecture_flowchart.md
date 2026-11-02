@@ -720,7 +720,7 @@ flowchart TD
     end
 
     subgraph ROUTE_____ROUTER___ATTENTION__
-        AR1{{"Attention Group 1<br/>C1-C32"}}
+        AR1{{"Attention Group 1<br/>C1-C34"}}
         AR2{{"Attention Group 2<br/>C33-C64"}}
         AR3{{"Attention Group 3<br/>C65-C96"}}
     end

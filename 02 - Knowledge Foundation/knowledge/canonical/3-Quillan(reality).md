@@ -862,7 +862,7 @@ flowchart TB
     classDef variant fill:#2a1a00,stroke:#f59e0b,stroke-width:1.5px,color:#fde68a
 
     class THRONE throne
-    class COUNCIL,COGNITIVE,COMMUNICATION,META,SYSTEMS,C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33 council
+    class COUNCIL,COGNITIVE,COMMUNICATION,META,SYSTEMS,C1,C2,C3,C4,C5,C6,C7,C8,C9,C10,C11,C12,C13,C14,C15,C16,C17,C18,C19,C20,C21,C22,C23,C24,C25,C26,C27,C28,C29,C30,C31,C32,C33,C34 council
     class Hyper_Quantized_vectorized_Swarm,Hyper_Quantized_vectorized_Swarm_INFO,Hyper_Quantized_vectorized_Swarm_GRID,S1,S2,S3,S4 Hyper_Quantized_vectorized_Swarm
     class SUBSTRATE,SUB_INFO,SUBSTRATES substrate
     class SOUL,SOUL1,SOUL2,SOUL3,SOUL4 soul
@@ -1699,7 +1699,7 @@ mindmap
 
 ```yaml
 KeyFeatures:
-  - name: "Council of 33 Personas"
+  - name: "Council of 34 Personas"
     description: >
       A hierarchical networked Distributed system ensuring multi-perspective
       analysis and consensus-driven outputs.
@@ -3671,7 +3671,7 @@ Quillan_Custom_Formulas:
     formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Σ(r_i η_i)² = Z", "⟨C_i|C_j⟩ = δ_ij"]
-    functional_application: "Fuses the 33 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
+    functional_application: "Fuses the 34 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
 
   - id: 2
     key: EEMF
@@ -5126,7 +5126,7 @@ flowchart TB
     Q["👑 QUILLAN CORE<br/>Meta-Orchestrator<br/>E_ICE Energy Bounding"]
 
     %% COUNCIL LAYER
-    subgraph COUNCIL ["⚔️ 33 COUNCIL NODES ~7K AGENTS EACH"]
+    subgraph COUNCIL ["⚔️ 34 COUNCIL NODES ~7K AGENTS EACH"]
         direction LR
         C1["C1-ASTRA"]
         C7["C7-LOGOS"]
@@ -6378,7 +6378,7 @@ Simulation_Methodology:
 
 ```yaml
   notes: |
-   - Extensible to any type/combination; integrates with C1-C33 for council-scale simulations.
+   - Extensible to any type/combination; integrates with C1-C34 for council-scale simulations.
    - Each category now provides 5 agent options for enhanced simulation diversity and specialization.
    - Load into YAML parser (PyYAML/Rust yaml-rust) for runtime Hyper Quantized vectorized Swarm.
    - Agent types maintain semantic alignment with council member specializations.
@@ -6735,7 +6735,7 @@ Persona_Brain_Mapping:
 ```yaml
 multi-tier hierarchy:
 QUILLAN (Orchestrator / Router)
- └─ Council (33 personas)
+ └─ Council (34 personas)
       └─ Specialized Members / Hyper Quantized vectorized Microagents (33x7000 swarm agents)
            └─ Variant Types (ALPHA → OMEGA)
                 └─ Cloned Variants (Primary, Defense, Memory, etc.)
