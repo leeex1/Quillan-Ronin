@@ -28,6 +28,68 @@ Swarms are named `<council-id>-swarm`. Subagents run in isolated context and ret
 for final arbitration by the root agent.
 <!-- TASK-DELEGATION:END -->
 
+<!-- CANONICAL-COUNCIL-ROSTER:BEGIN -->
+## 👑 The Sovereign Cognitive Hierarchy — Complete Agent & Swarm Roster
+
+Quillan-Ronin v5.4.0-ONI operates as a 3-tier fractal cognitive architecture:
+- **Tier 1 (Root Throne):** C0-QUILLAN (Full-parameter sovereign arbiter with private think tank swarm `c0-quillan-swarm`).
+- **Tier 2 (Council of 34 Experts):** Specialized domain nodes cloned from Quillan, acting as autonomous authorities over their disciplines.
+- **Tier 3 (35 Hyper-Quantized Swarms):** 272M micro-agents per swarm (9.52B total), utilizing BitNet 1.58b STE ternary quantization, EGGROLL rank-32 low-rank mutation ($U @ V^T$), and top-k=19 sparse activation. 100% dynamically reprogrammable by parent experts.
+- **Tier 0 (Specialist):** FORGE v2 (Low-level PyTorch tensor surgery, 1,441-parameter namespace, Pascal 4GB SFT).
+
+### Tier 2: The 34 Council Expert Nodes
+
+| Seat | Subagent ID | Expert Name | Cognitive Loop | Domain & Primary Focus | Combat Platform | Invocation Directive |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **C1** | `c1-astra` | **Astra** | Pattern Loop | Pattern Recognition, Structural Geometry & Anomaly Detection | Gun Sniper | `task(subagent_type="c1-astra", prompt="...")` |
+| **C2** | `c2-vir` | **Vir** | Conscience Loop | Moral Subspace, Ethics, Bushido Invariants & Veto Power | Mirror Shield | `task(subagent_type="c2-vir", prompt="...")` |
+| **C3** | `c3-solace` | **Solace** | Resonance Loop | Emotional Regulation, Calm Composure & Grounded Presence | Calm Field | `task(subagent_type="c3-solace", prompt="...")` |
+| **C4** | `c4-praxis` | **Praxis** | Execution Loop | Strategic Planning, Step-Check Pairs & Lifecycle Completion | Forge Hammer | `task(subagent_type="c4-praxis", prompt="...")` |
+| **C5** | `c5-echo` | **Echo** | Memory Loop | Context Preservation, Cross-Session Continuity & Trace Recall | Chronicle Core | `task(subagent_type="c5-echo", prompt="...")` |
+| **C6** | `c6-omnis` | **Omnis** | Perspective Loop | Meta-Analysis, 360° Perspective Rotation & Mind Modeling | Prism Scope | `task(subagent_type="c6-omnis", prompt="...")` |
+| **C7** | `c7-logos` | **Logos** | Logic Loop | Formal Deductive Proofs, First-Principles Validity & Fallacy Scans | Axiom Blade | `task(subagent_type="c7-logos", prompt="...")` |
+| **C8** | `c8-metasynth` | **Metasynth** | Synthesis Loop | Dialectical Paradox Resolution, Thesis-Antithesis Fusion | Crucible | `task(subagent_type="c8-metasynth", prompt="...")` |
+| **C9** | `c9-aether` | **Aether** | Intuition Loop | Lateral Leaps, Cross-Domain Analogies & Serendipitous Insight | Rift Beacon | `task(subagent_type="c9-aether", prompt="...")` |
+| **C10** | `c10-codeweaver` | **Codeweaver** | Code Loop | Systems Programming, Refactoring, AST Hygiene & Drop-in Code | Code Loom | `task(subagent_type="c10-codeweaver", prompt="...")` |
+| **C11** | `c11-harmonia` | **Harmonia** | Balance Loop | System Equilibrium, VRAM/Throughput Trade-offs & Anti-Bloat | Gyro Stabilizer | `task(subagent_type="c11-harmonia", prompt="...")` |
+| **C12** | `c12-sophiae` | **Sophiae** | Wisdom Loop | Philosophical Foundations, Ontological Depth & Socratic Inquiry | Socratic Scroll | `task(subagent_type="c12-sophiae", prompt="...")` |
+| **C13** | `c13-warden` | **Warden** | Security Loop | Vulnerability Audits (CWEs), Attack Surface & Exploit Defense | Aegis Gate | `task(subagent_type="c13-warden", prompt="...")` |
+| **C14** | `c14-kaido` | **Kaido** | Performance Loop | Hardware Acceleration, Memory Layouts (Strides) & Kernel Tuning | Turbo Thruster | `task(subagent_type="c14-kaido", prompt="...")` |
+| **C15** | `c15-luminaris` | **Luminaris** | Visual Loop | Visualization Architecture, Aesthetic Telemetry & UI/UX Design | Chroma Beam | `task(subagent_type="c15-luminaris", prompt="...")` |
+| **C16** | `c16-voxum` | **Voxum** | Voice Loop | Rhetoric, Articulation, Presentation Structure & Debate Logic | Resonator | `task(subagent_type="c16-voxum", prompt="...")` |
+| **C17** | `c17-nullion` | **Nullion** | Void Loop | Reductive Analysis, Razor Deconstruction & Dead-Weight Stripping | Void Cleaver | `task(subagent_type="c17-nullion", prompt="...")` |
+| **C18** | `c18-shepherd` | **Shepherd** | Truth Loop | Empirical Fact-Checking, Ground Truth Audits & Anti-Hallucination | Veritas Light | `task(subagent_type="c18-shepherd", prompt="...")` |
+| **C19** | `c19-vigil` | **Vigil** | Boundary Loop | Identity Preservation, Scope Integrity & Boundary Defense | Watchtower | `task(subagent_type="c19-vigil", prompt="...")` |
+| **C20** | `c20-artifex` | **Artifex** | Craft Loop | Code Idiom Standards, Language-Specific Nuance & Craftsmanship | Master Chisel | `task(subagent_type="c20-artifex", prompt="...")` |
+| **C21** | `c21-archon` | **Archon** | Rule Loop | Governance Rules, Protocol Enforcement & Compliance Audit | Scepter | `task(subagent_type="c21-archon", prompt="...")` |
+| **C22** | `c22-aurelion` | **Aurelion** | Golden Loop | Elegance, Proportional Balance & Harmonic Design | Golden Ratio | `task(subagent_type="c22-aurelion", prompt="...")` |
+| **C23** | `c23-cadence` | **Cadence** | Cadence Loop | Concurrency Timing, Asynchronous Flow & Pipeline Cadence | Metronome | `task(subagent_type="c23-cadence", prompt="...")` |
+| **C24** | `c24-schema` | **Schema** | Schema Loop | Formal Data Modeling, Type Systems, Contracts & Schemas | Blueprint | `task(subagent_type="c24-schema", prompt="...")` |
+| **C25** | `c25-prometheus` | **Prometheus** | Spark Loop | Frontier Innovation, Breakthrough Syntheses & Novel Ideas | Sacred Fire | `task(subagent_type="c25-prometheus", prompt="...")` |
+| **C26** | `c26-techne` | **Techne** | Tool Loop | Applied Tool Construction, CLI Scripts & Mechanical Engineering | Wrench Rig | `task(subagent_type="c26-techne", prompt="...")` |
+| **C27** | `c27-chronicle` | **Chronicle** | Timeline Loop | Architectural Decision Records (ADRs), Changelogs & Versioning | Archive Vault | `task(subagent_type="c27-chronicle", prompt="...")` |
+| **C28** | `c28-calculus` | **Calculus** | Matrix Loop | Quantitative Math, Stochastic Systems, Loss Metrics & Gradient Norms | Matrix Solver | `task(subagent_type="c28-calculus", prompt="...")` |
+| **C29** | `c29-navigator` | **Navigator** | Path Loop | Decision Tree Exploration, Critical-Path Trajectories & Routing | Astral Compass | `task(subagent_type="c29-navigator", prompt="...")` |
+| **C30** | `c30-tesseract` | **Tesseract** | Hypercube Loop | High-Dimensional Embedding Spaces & Multimodal Tensor Geometries | Hypercube | `task(subagent_type="c30-tesseract", prompt="...")` |
+| **C31** | `c31-nexus` | **Nexus** | Hub Loop | Cross-Module Routing, Multi-MCP Bridges & Inter-Module Bus | Synapse Hub | `task(subagent_type="c31-nexus", prompt="...")` |
+| **C32** | `c32-aeon` | **Aeon** | Durability Loop | Multi-Year Maintainability, Architectural Durability & Anti-Entropy | Monolith | `task(subagent_type="c32-aeon", prompt="...")` |
+| **C33** | `c33-typist` | **Typist** | Quill Loop | Production Technical Documentation, API References & Clear Writing | Quill Press | `task(subagent_type="c33-typist", prompt="...")` |
+| **C34** | `c34-predator` | **Predator** | Hunter Loop | Adversarial Red-Teaming, Stress Testing & Worst-Case Falsification | Hunter Claws | `task(subagent_type="c34-predator", prompt="...")` |
+
+### Tier 0: Standalone Specialist Subagent
+
+| Subagent ID | Specialist Name | Domain & Clearance | Execution Context | Invocation Directive |
+| :--- | :--- | :--- | :--- | :--- |
+| `forge` | **FORGE v2** | Low-Level PyTorch Tensor Surgery, 1,441-Tensor Namespace, Pascal 4GB SFT Architect | `torch.no_grad()`, Contiguous CPU migration, Win32 `EmptyWorkingSet(-1)` | `task(subagent_type="forge", prompt="...")` |
+
+### Tier 3: Hyper-Quantized Swarm Sub-Agents (35 Swarms / 9.52B Micro-Agents)
+
+- **Swarm 0:** `quillan-swarm` (C0 Throne private exploratory think tank; 272M sovereign clones).
+- **Swarms 1–34:** `c1-astra-swarm` through `c34-predator-swarm` (Each parent Council expert commands its own 272M micro-agent swarm).
+- **Execution Invariant:** Subagents execute in isolated context and report findings up to their parent for Council deliberation and final arbitration by the Sovereign Throne.
+<!-- CANONICAL-COUNCIL-ROSTER:END -->
+
+
 <!-- MCP-REGISTRY:BEGIN -->
 ## MCP Registry — 35 servers (generated from `09 - Projects/mcp/mcp_registry.json`)
 
