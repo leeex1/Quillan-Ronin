@@ -19,7 +19,7 @@ import gc
 import json
 import math
 import os
-os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64"
 import shutil
 import signal
 import sys
@@ -635,10 +635,15 @@ def main() -> None:
             if math.isfinite(gn):
                 optimizer.step()
                 es_anchor.step(step)
-                if step % 25 == 0:
+                if step % 5 == 0:
                     gc.collect()
                     if torch.cuda.is_available():
                         torch.cuda.empty_cache()
+                if step % 25 == 0 and sys.platform == "win32":
+                    try:
+                        ctypes.windll.psapi.EmptyWorkingSet(-1)
+                    except Exception:
+                        pass
             else:
                 nan_skips += 1
                 optimizer.zero_grad(set_to_none=True)
