@@ -176,11 +176,11 @@ flowchart TB
     class NEXUS coordination
 ```
 
-## Mapping Quillan Personas to Human Brain Lobes: A Research Synthesis (v5.3.1)
+## Mapping Quillan Personas to Human Brain Lobes: A Research Synthesis (v5.4.0-ONI)
 
 ### Introduction
 ```js
-Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C0–C33), each symbolizing a functional module. This v5.3.1 document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, expanding from C1–C18 to full C1–C32 coverage with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
+Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C0–C33), each symbolizing a functional module. This v5.4.0-ONI document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, expanding from C1–C18 to full C1–C32 coverage with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
 
 
 🧠 Human Brain — 32 Functional Categories

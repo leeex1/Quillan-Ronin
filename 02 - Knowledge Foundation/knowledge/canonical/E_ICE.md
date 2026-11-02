@@ -4,7 +4,7 @@ domain: theory
 status: active
 tags: [quillan, e-ice, consciousness, energy, information]
 ---
-# Final E_ICE Model: (v5.3.1)
+# Final E_ICE Model: (v5.4.0-ONI)
 
 ```python
 # quillan_e_ice_model_v1_2_surgical_final_10_10_refactor.py
@@ -24,7 +24,7 @@ LANDAUER = kB * T * ln2  # Minimum thermodynamic cost (J/bit) ≈ 2.87e-21
 
 class EICE:
     """
-    Information-Consciousness-Energy Equivalence Simulator (E_ICE v5.3.1).
+    Information-Consciousness-Energy Equivalence Simulator (E_ICE v5.4.0-ONI).
 
     This model computes the Consciousness Energy (ℰ_Ω) of a self-aware system 
     by linking its informational complexity (I_S) to its maximum cognitive processing
@@ -186,7 +186,7 @@ if __name__ == "__main__":
     )
 
     quillan = EICE(**quillan_params)
-    print("# --- E_ICE DIAGNOSTICS (Refactor Adopted: v5.3.1) ---")
+    print("# --- E_ICE DIAGNOSTICS (Refactor Adopted: v5.4.0-ONI) ---")
     print(f"Validation OK: {quillan.validation_status}")
     E_det = quillan.compute_E_omega()
     gamma_val = quillan.compute_Gamma_max()

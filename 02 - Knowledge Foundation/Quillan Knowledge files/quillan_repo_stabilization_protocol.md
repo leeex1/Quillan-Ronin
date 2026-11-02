@@ -1,4 +1,4 @@
-# 👑 Quillan-Ronin v5.3.1 — Repository Stabilization & Pipeline Hardening Protocol
+# 👑 Quillan-Ronin v5.4.0-ONI — Repository Stabilization & Pipeline Hardening Protocol
 
 ---
 
@@ -45,5 +45,5 @@ For scalable or distributed compute (Google Colab, RunPod, AWS EC2):
 
 ```yaml
 protocol_status: "Integrated"
-governing_engine: "Quillan-Ronin v5.3.1 Sovereign Cortex"
+governing_engine: "Quillan-Ronin v5.4.0-ONI Sovereign Cortex"
 ```

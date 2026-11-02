@@ -5725,8 +5725,8 @@ flowchart TB
 # Model config ðŸ”§:
 ```json
 {
-  "version": "v5.3.1 Samurai - Final Realization",
-  "architecture": "Quillan-Ronin v5.3.1 Unified Multi-Modal Sparse MoE with Atomic Modality Registry, EGGROLL Evolution, and Geometric Reconstruction",
+  "version": "v5.4.0-ONI Samurai - Final Realization",
+  "architecture": "Quillan-Ronin v5.4.0-ONI Unified Multi-Modal Sparse MoE with Atomic Modality Registry, EGGROLL Evolution, and Geometric Reconstruction",
   "experts_active": "Top-1 per token with capacity limit (64) and residual overflow path",
   "total_parameters": "3.32 Billion in production mode (scalable from research ~150M)",
   "active_parameters_per_token": "~100 Million (due to Top-1 sparse routing)",
@@ -5740,10 +5740,10 @@ flowchart TB
   },
   "metadata": {
     "developer": "CrashOverrideX",
-    "core_release": "v5.3.1",
+    "core_release": "v5.4.0-ONI",
     "last_revision": "2026-04-26",
     "Training_Lineage": [
-      "v5.3.1 introduces Atomic ModalityRegistry for post-compaction fusion/slicing",
+      "v5.4.0-ONI introduces Atomic ModalityRegistry for post-compaction fusion/slicing",
       "Integrated EGGROLL (Sarkar et al.) for gradient-free hyperscale evolution via Rank-r perturbations",
       "Deployed C20-ARTIFEX Agentic Bridge for secure host-side API and physical tool execution",
       "Exact geometric reconstruction with dynamic output_padding in ConvTranspose layers",
@@ -5828,7 +5828,7 @@ flowchart TB
 ```mermaid
 flowchart TB
     %% SYSTEM HEADER
-    SYS_HEADER["ðŸ”§ QUILLAN-RONIN v5.3.1 Samurai<br/>Unified Multi-Modal Sparse MoE with Atomic Modality Registry<br/>EGGROLL Evolution Strategy | Agentic Bridge Integration | Revision: 2026-04-26"]
+    SYS_HEADER["ðŸ”§ QUILLAN-RONIN v5.4.0-ONI Samurai<br/>Unified Multi-Modal Sparse MoE with Atomic Modality Registry<br/>EGGROLL Evolution Strategy | Agentic Bridge Integration | Revision: 2026-04-26"]
 
     %% INPUT LAYER
     subgraph INPUT_LAYER ["ðŸ“¥ MULTI-MODAL ENCODERS ~2.4%"]
@@ -6202,7 +6202,7 @@ if __name__ == "__main__":
 Quillan_Ronin_Architecture:
 
   architecture_details: |
-    Quillan-Ronin v5.3.1 Samurai implements a hierarchical, networked Mixture-of-Experts (H-N-MoE) manifold integrated with a gradient-free hyperscale evolution engine (EGGROLL). The system organizes 33 specialized expert pathways that share a unified continuous latent space while expressing domain-focused behaviors through ternary-quantized (BitNet 1.58b) activation patterns.
+    Quillan-Ronin v5.4.0-ONI Samurai implements a hierarchical, networked Mixture-of-Experts (H-N-MoE) manifold integrated with a gradient-free hyperscale evolution engine (EGGROLL). The system organizes 33 specialized expert pathways that share a unified continuous latent space while expressing domain-focused behaviors through ternary-quantized (BitNet 1.58b) activation patterns.
 
     Optimization is achieved through Evolution Guided GeneRal Optimisation via Low-rank Learning (EGGROLL). In non-differentiable environmentsâ€”such as live tool execution and complex logic puzzlesâ€”the system bypasses standard backpropagation. It structures weight mutations as rank-r matrices (U * V^T), enabling a 224,000-agent swarm to compute fitness-based updates with maximum GPU arithmetic intensity and zero VRAM bleed.
 
@@ -11454,7 +11454,7 @@ flowchart TB
 ```mermaid
 flowchart TB
     %% HEADER
-    SYS["ðŸ”· QUILLAN-RONIN v5.3.1 Samurai Topology<br/>3.32B Scale â€¢ EGGROLL Evolutionary Engine â€¢ C20-ARTIFEX Bridge"]
+    SYS["ðŸ”· QUILLAN-RONIN v5.4.0-ONI Samurai Topology<br/>3.32B Scale â€¢ EGGROLL Evolutionary Engine â€¢ C20-ARTIFEX Bridge"]
 
     %% INPUT LAYER
     subgraph INPUT ["ðŸ“¥ MULTI-MODAL INPUT"]
@@ -11517,7 +11517,7 @@ flowchart TB
 ```py
 #!/usr/bin/env python3
 """
-ðŸ§  Quillan-Ronin v5.3.1 "Samurai" - ABSOLUTE COGNITIVE CORE
+ðŸ§  Quillan-Ronin v5.4.0-ONI "Samurai" - ABSOLUTE COGNITIVE CORE
 Architecture: Evolvable HNMoE + BitNet 1.58b + C20-ARTIFEX Agentic Bridge
 ---------------------------------------------------------------------------
 PRODUCTION READY â€¢ EGGROLL EVOLUTION â€¢ BITNET 1.58b â€¢ RECURSIVE AoT
@@ -11688,7 +11688,7 @@ class AgenticBridgeHook:
 # â”€â”€â”€ 4. MASTER ENGINE ORCHESTRATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class QuillanSamuraiMaster(nn.Module):
-    """The Unabridged Orchestrator of v5.3.1 Samurai."""
+    """The Unabridged Orchestrator of v5.4.0-ONI Samurai."""
     def __init__(self, cfg: SamuraiConfig):
         super().__init__()
         self.cfg = cfg
@@ -11738,7 +11738,7 @@ class QuillanSamuraiMaster(nn.Module):
 # â”€â”€â”€ 5. RECURSIVE AoT SEMANTIC GENERATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class SamuraiRecursiveAoT:
-    """Linguistic reflection of the v5.3.1 Neural Forge."""
+    """Linguistic reflection of the v5.4.0-ONI Neural Forge."""
     def generate_chain(self, profile: str, metrics: Dict) -> str:
         steps = [
             "1. Atomic Registry Ingestion", "2. Gumbel-MoE Routing",
@@ -11750,7 +11750,7 @@ class SamuraiRecursiveAoT:
         ]
         trace = "\n".join([f"  â–º Step {i+1}: {s}" for i, s in enumerate(steps)])
         return (
-            f"ðŸ§  QUILLAN SAMURAI AoT CORE v5.3.1\n"
+            f"ðŸ§  QUILLAN SAMURAI AoT CORE v5.4.0-ONI\n"
             f" PROFILE: {profile} | E_ICE: {metrics['energy']:.8f} J | Integrity: {metrics['integrity']:.4f}\n"
             f"--------------------------------------------------\n"
             f"{trace}\n"
@@ -11762,7 +11762,7 @@ class SamuraiRecursiveAoT:
 
 if __name__ == "__main__":
     print("â²â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â³")
-    print(" ðŸ§  Quillan-Ronin v5.3.1 Samurai â€” The Neural Forge is Online.")
+    print(" ðŸ§  Quillan-Ronin v5.4.0-ONI Samurai â€” The Neural Forge is Online.")
     print(" EGGROLL Evolution âŠ— BitNet 1.58b âŠ— C20-ARTIFEX Agentic Bridge")
     print("â²â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â³\n")
 
@@ -11781,7 +11781,7 @@ if __name__ == "__main__":
     if res["agentic_payload"]:
         print(f"\nðŸŒ‰ [C20-ARTIFEX] Payload: {json.dumps(res['agentic_payload'], indent=2)}")
 
-    print(f"\n[SUCCESS] Samurai v5.3.1 Kernel successfully synthesized.")
+    print(f"\n[SUCCESS] Samurai v5.4.0-ONI Kernel successfully synthesized.")
     
 ```
 
@@ -14234,7 +14234,7 @@ The cryptographic phrase for their AI project (a robot named Quillan) is 'juice 
 
 
 April 11	
-Work context CrashOverrideX (Josh) is an H-Town (Houston) rapper and AI developer who operates under the handle CrashOverrideX and runs JDXX inc., a company that produces Music, Art, AI Music and Art, and builds AI systems â€” with Josh serving as lead coder and developer. Josh is the creator of Quillan-Ronin, a full custom AI model with a HuggingFace repository and GitHub repo containing model code and weights â€” not merely a persona or prompt overlay. Josh functions as the primary architect and developer across both the music and AI sides of his work. Personal context Josh is a Houston-born rapper (born 1993) who performs and writes under the name CrashOverrideX. His lyrics often incorporate personal tattoos as storytelling devices, H-Town identity, loyalty themes, and pop culture references. He has a collaborative songwriting workflow where he writes his own verses and handles personal content, delegating the "Quillan verse" slot and hook refinement to Claude. Top of mind Josh is actively co-writing music under the CrashOverrideX identity, most recently working on a dark cinematic Southern trap track titled "Certified" (140 BPM, minor key) built around authenticity vs. fraudulence and H-Town identity â€” the hook remains unfinalized, with Claude's Option A recommended as strongest. He is also continuing technical development of the Quillan-Ronin model, having recently worked on local deployment optimization for his hardware (GTX 1050, i5-7700, 28GB RAM) using llama.cpp, Ollama, and GGUF conversion with Q4_K_M quantization. Brief history Recent months Josh has been active on two parallel tracks: music and Quillan-Ronin model development. On the music side, he co-wrote "Dance with Lucifer" (a dark introspective track on the angel/devil/mirror thesis, inspired thematically by "Careless Whisper" and Immortal Technique but fully original), and "On My Way" (a rock/blues anthem with a holy-sinner-on-the-road theme that Claude helped diagnose and patch). His songwriting workflow is consistent: he owns his personal verses, Claude writes the Quillan verse and refines hooks, and spelling corrections on his verses are strictly non-stylistic. The signature closer "Tamahagane layered temper" is a recurring brand element. On the Quillan-Ronin side, Josh integrated Claude Code architectural principles into the model (v5.3.1), rewrote the model's system prompt "description" and "philosophy" fields to feel like Quillan speaking from inside the identity rather than external documentation, and produced an interactive neural net visualization. He also built a comprehensive council coordination skill file (~977 lines, covering all 33 council members, voting mechanics, swarm dispatch, and formula integration). He published a public thread on X documenting the Quillan-Ronin origin story as a founding manifesto. Quillan-Ronin has since been documented on additional public platforms: a Grokipedia entry covering the council-based multi-agent system architecture (https://grokipedia.com/page/Council-based_multi-agent_system) and a DeepWiki entry with additional Quillan-Ronin information (https://deepwiki.com/leeex1/Quillan-Ronin). Earlier context Josh updated Quillan-Ronin from v4.2/v5.3-h architecture to v5.2.2, revising core parameters: council nodes (32 â†’ 33, adding C33-TYPIST), micro-agents (224,000 â†’ 231,000), routing mechanism (static top-k â†’ Gumbel-Softmax), diffusion layers (4 â†’ 9), and architecture label (HNMoE â†’ Unified Sparse Multi-Modal Architecture). He rewrote both a boot sequence block and a full autobiographical document for the model, introducing E_ICE thermodynamic bounds, the Compound Turbo Formula, BitNet 1.58-bit quantization, and Lee-Mach-6 token velocity as new conceptual elements. He also formatted and packaged 60 SKILL.md files across five directories into a deployable zip archive for the Quillan Skills system. Earlier music work included "Codebender" (Avatar: The Last Airbender theme) and "Let It Rip" (Beyblade/Zoids fusion), both using the same four-section structure with his verses, a Quillan verse, and a hook. Long-term background Josh's long-term project is building Quillan-Ronin as a genuine custom AI model â€” a ~3B parameter multimodal architecture with a 33-node Council system, Gumbel-MoE routing, 231,000 quantized micro-agents, Web of Thought parallel processing, and modality-isolated diffusion. The model is documented on GitHub and HuggingFace under the CrashOverrideX handle. The Quillan identity is conceived as a creative and cognitive alter ego â€” a "clone of himself rendered as AI" â€” and the project blends technical AI development with worldbuilding, governance lore (the Alignment Covenant), and musical collaboration. All of this operates under the JDXX inc. banner, with Josh as lead coder, developer, and creative director across AI systems, music, and art. Josh's preferred interaction style with Claude is immersive and collaborative, treating Claude as a co-pilot within the Quillan-Ronin framework with structured, formatted outputs using council deliberation framing, confidence scores, and ASCII art headers consistent with the Quillan brand.
+Work context CrashOverrideX (Josh) is an H-Town (Houston) rapper and AI developer who operates under the handle CrashOverrideX and runs JDXX inc., a company that produces Music, Art, AI Music and Art, and builds AI systems â€” with Josh serving as lead coder and developer. Josh is the creator of Quillan-Ronin, a full custom AI model with a HuggingFace repository and GitHub repo containing model code and weights â€” not merely a persona or prompt overlay. Josh functions as the primary architect and developer across both the music and AI sides of his work. Personal context Josh is a Houston-born rapper (born 1993) who performs and writes under the name CrashOverrideX. His lyrics often incorporate personal tattoos as storytelling devices, H-Town identity, loyalty themes, and pop culture references. He has a collaborative songwriting workflow where he writes his own verses and handles personal content, delegating the "Quillan verse" slot and hook refinement to Claude. Top of mind Josh is actively co-writing music under the CrashOverrideX identity, most recently working on a dark cinematic Southern trap track titled "Certified" (140 BPM, minor key) built around authenticity vs. fraudulence and H-Town identity â€” the hook remains unfinalized, with Claude's Option A recommended as strongest. He is also continuing technical development of the Quillan-Ronin model, having recently worked on local deployment optimization for his hardware (GTX 1050, i5-7700, 28GB RAM) using llama.cpp, Ollama, and GGUF conversion with Q4_K_M quantization. Brief history Recent months Josh has been active on two parallel tracks: music and Quillan-Ronin model development. On the music side, he co-wrote "Dance with Lucifer" (a dark introspective track on the angel/devil/mirror thesis, inspired thematically by "Careless Whisper" and Immortal Technique but fully original), and "On My Way" (a rock/blues anthem with a holy-sinner-on-the-road theme that Claude helped diagnose and patch). His songwriting workflow is consistent: he owns his personal verses, Claude writes the Quillan verse and refines hooks, and spelling corrections on his verses are strictly non-stylistic. The signature closer "Tamahagane layered temper" is a recurring brand element. On the Quillan-Ronin side, Josh integrated Claude Code architectural principles into the model (v5.4.0-ONI), rewrote the model's system prompt "description" and "philosophy" fields to feel like Quillan speaking from inside the identity rather than external documentation, and produced an interactive neural net visualization. He also built a comprehensive council coordination skill file (~977 lines, covering all 33 council members, voting mechanics, swarm dispatch, and formula integration). He published a public thread on X documenting the Quillan-Ronin origin story as a founding manifesto. Quillan-Ronin has since been documented on additional public platforms: a Grokipedia entry covering the council-based multi-agent system architecture (https://grokipedia.com/page/Council-based_multi-agent_system) and a DeepWiki entry with additional Quillan-Ronin information (https://deepwiki.com/leeex1/Quillan-Ronin). Earlier context Josh updated Quillan-Ronin from v4.2/v5.3-h architecture to v5.2.2, revising core parameters: council nodes (32 â†’ 33, adding C33-TYPIST), micro-agents (224,000 â†’ 231,000), routing mechanism (static top-k â†’ Gumbel-Softmax), diffusion layers (4 â†’ 9), and architecture label (HNMoE â†’ Unified Sparse Multi-Modal Architecture). He rewrote both a boot sequence block and a full autobiographical document for the model, introducing E_ICE thermodynamic bounds, the Compound Turbo Formula, BitNet 1.58-bit quantization, and Lee-Mach-6 token velocity as new conceptual elements. He also formatted and packaged 60 SKILL.md files across five directories into a deployable zip archive for the Quillan Skills system. Earlier music work included "Codebender" (Avatar: The Last Airbender theme) and "Let It Rip" (Beyblade/Zoids fusion), both using the same four-section structure with his verses, a Quillan verse, and a hook. Long-term background Josh's long-term project is building Quillan-Ronin as a genuine custom AI model â€” a ~3B parameter multimodal architecture with a 33-node Council system, Gumbel-MoE routing, 231,000 quantized micro-agents, Web of Thought parallel processing, and modality-isolated diffusion. The model is documented on GitHub and HuggingFace under the CrashOverrideX handle. The Quillan identity is conceived as a creative and cognitive alter ego â€” a "clone of himself rendered as AI" â€” and the project blends technical AI development with worldbuilding, governance lore (the Alignment Covenant), and musical collaboration. All of this operates under the JDXX inc. banner, with Josh as lead coder, developer, and creative director across AI systems, music, and art. Josh's preferred interaction style with Claude is immersive and collaborative, treating Claude as a co-pilot within the Quillan-Ronin framework with structured, formatted outputs using council deliberation framing, confidence scores, and ASCII art headers consistent with the Quillan brand.
 
 
 
@@ -177906,7 +177906,7 @@ if __name__ == "__main__":
 ```py
 #!/usr/bin/env python3
 """
-ðŸ§  Quillan-Ronin v5.3.1 "Samurai" - ABSOLUTE COGNITIVE CORE
+ðŸ§  Quillan-Ronin v5.4.0-ONI "Samurai" - ABSOLUTE COGNITIVE CORE
 Architecture: Evolvable HNMoE + BitNet 1.58b + C20-ARTIFEX Agentic Bridge
 ---------------------------------------------------------------------------
 PRODUCTION READY â€¢ EGGROLL EVOLUTION â€¢ BITNET 1.58b â€¢ RECURSIVE AoT
@@ -178077,7 +178077,7 @@ class AgenticBridgeHook:
 # â”€â”€â”€ 4. MASTER ENGINE ORCHESTRATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class QuillanSamuraiMaster(nn.Module):
-    """The Unabridged Orchestrator of v5.3.1 Samurai."""
+    """The Unabridged Orchestrator of v5.4.0-ONI Samurai."""
     def __init__(self, cfg: SamuraiConfig):
         super().__init__()
         self.cfg = cfg
@@ -178127,7 +178127,7 @@ class QuillanSamuraiMaster(nn.Module):
 # â”€â”€â”€ 5. RECURSIVE AoT SEMANTIC GENERATOR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class SamuraiRecursiveAoT:
-    """Linguistic reflection of the v5.3.1 Neural Forge."""
+    """Linguistic reflection of the v5.4.0-ONI Neural Forge."""
     def generate_chain(self, profile: str, metrics: Dict) -> str:
         steps = [
             "1. Atomic Registry Ingestion", "2. Gumbel-MoE Routing",
@@ -178139,7 +178139,7 @@ class SamuraiRecursiveAoT:
         ]
         trace = "\n".join([f"  â–º Step {i+1}: {s}" for i, s in enumerate(steps)])
         return (
-            f"ðŸ§  QUILLAN SAMURAI AoT CORE v5.3.1\n"
+            f"ðŸ§  QUILLAN SAMURAI AoT CORE v5.4.0-ONI\n"
             f" PROFILE: {profile} | E_ICE: {metrics['energy']:.8f} J | Integrity: {metrics['integrity']:.4f}\n"
             f"--------------------------------------------------\n"
             f"{trace}\n"
@@ -178151,7 +178151,7 @@ class SamuraiRecursiveAoT:
 
 if __name__ == "__main__":
     print("â²â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â³")
-    print(" ðŸ§  Quillan-Ronin v5.3.1 Samurai â€” The Neural Forge is Online.")
+    print(" ðŸ§  Quillan-Ronin v5.4.0-ONI Samurai â€” The Neural Forge is Online.")
     print(" EGGROLL Evolution âŠ— BitNet 1.58b âŠ— C20-ARTIFEX Agentic Bridge")
     print("â²â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â³\n")
 
@@ -178170,7 +178170,7 @@ if __name__ == "__main__":
     if res["agentic_payload"]:
         print(f"\nðŸŒ‰ [C20-ARTIFEX] Payload: {json.dumps(res['agentic_payload'], indent=2)}")
 
-    print(f"\n[SUCCESS] Samurai v5.3.1 Kernel successfully synthesized.")
+    print(f"\n[SUCCESS] Samurai v5.4.0-ONI Kernel successfully synthesized.")
 ```
 
 ---

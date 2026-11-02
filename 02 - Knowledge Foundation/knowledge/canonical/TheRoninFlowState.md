@@ -108,7 +108,7 @@ Activate this skill for ANY task involving council deliberation, multi-persona r
 
 Instruction:
 # Council Coordination Skill
-**Quillan-Ronin v5.3.1 — Council Edition**
+**Quillan-Ronin v5.4.0-ONI — Council Edition**
 *Architect: CrashOverrideX & Quillan Research Team*
 
 ---
