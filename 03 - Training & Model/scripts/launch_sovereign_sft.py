@@ -19,6 +19,8 @@ import gc
 import json
 import math
 import os
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+import shutil
 import signal
 import sys
 import time
@@ -298,14 +300,19 @@ def evaluate_validation(
     model.eval()
     total_ce = 0.0
     valid_batches = 0
-    for i in range(eval_batches):
-        bx, by = val_corpus.sample_batch(batch_size=1, deterministic_idx=i * 19)
-        bx, by = bx.to(device), by.to(device)
-        _, ce, _ = model(bx, labels=by, deliberation=False, compute_aux=False)
-        if torch.isfinite(ce):
-            total_ce += float(ce.item())
-            valid_batches += 1
+    with torch.no_grad():
+        for i in range(eval_batches):
+            bx, by = val_corpus.sample_batch(batch_size=1, deterministic_idx=i * 19)
+            bx, by = bx.to(device), by.to(device)
+            _, ce, _ = model(bx, labels=by, deliberation=False, compute_aux=False)
+            if torch.isfinite(ce):
+                total_ce += float(ce.item())
+                valid_batches += 1
+            del bx, by
     model.train()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    gc.collect()
     return total_ce / max(1, valid_batches)
 
 
@@ -321,6 +328,16 @@ def save_checkpoint_bundle(
     save_path: Path,
     include_optimizer: bool = True,
 ) -> None:
+    import gc
+    import ctypes
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    try:
+        ctypes.windll.psapi.EmptyWorkingSet(-1)
+    except Exception:
+        pass
+
     sd_export = canonical_state_dict_for_save(model)
     payload: Dict[str, Any] = {
         "step": step,
@@ -336,6 +353,15 @@ def save_checkpoint_bundle(
         payload["optimizer_state_dict"] = optimizer.state_dict()
     tmp_path = save_path.with_suffix(".pt.tmp")
     torch.save(payload, tmp_path)
+    del payload
+    del sd_export
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    try:
+        ctypes.windll.psapi.EmptyWorkingSet(-1)
+    except Exception:
+        pass
     try:
         os.replace(tmp_path, save_path)
     except (PermissionError, OSError):
@@ -591,6 +617,10 @@ def main() -> None:
             except RuntimeError as e:
                 print(f"  [WARN] Transient allocator spike at SFT Step {step} ({e}); clearing cache and continuing...", flush=True)
                 optimizer.zero_grad(set_to_none=True)
+                try:
+                    del bx, by
+                except Exception:
+                    pass
                 gc.collect()
                 if torch.cuda.is_available():
                     torch.cuda.empty_cache()
@@ -605,6 +635,10 @@ def main() -> None:
             if math.isfinite(gn):
                 optimizer.step()
                 es_anchor.step(step)
+                if step % 25 == 0:
+                    gc.collect()
+                    if torch.cuda.is_available():
+                        torch.cuda.empty_cache()
             else:
                 nan_skips += 1
                 optimizer.zero_grad(set_to_none=True)
@@ -685,6 +719,7 @@ def main() -> None:
         if step % args.save_every == 0 or step == args.steps:
             step_path = out_dir / f"quillan_sft_step_{step}.pt"
             latest_path = out_dir / "quillan_sft_latest.pt"
+            # SINGLE SAVE PASS: include optimizer, then zero-RAM file copy to latest
             save_checkpoint_bundle(
                 model,
                 optimizer,
@@ -695,21 +730,15 @@ def main() -> None:
                 best_val_ce,
                 n_train,
                 step_path,
-                include_optimizer=False,
-            )
-            save_checkpoint_bundle(
-                model,
-                optimizer,
-                cfg,
-                step,
-                step_ce,
-                val_ce,
-                best_val_ce,
-                n_train,
-                latest_path,
                 include_optimizer=True,
             )
+            try:
+                shutil.copyfile(step_path, latest_path)
+            except Exception as e:
+                print(f"  [WARN] Failed to copy {step_path.name} to {latest_path.name}: {e}", flush=True)
             gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
             rotate_step_checkpoints(out_dir, keep_last=3)
             print(f"  >>> [CHECKPOINT] Saved {step_path.name} + updated quillan_sft_latest.pt", flush=True)
 

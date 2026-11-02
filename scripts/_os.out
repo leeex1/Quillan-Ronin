@@ -1,0 +1,73 @@
+﻿
+================================================================================
+  QUILLAN-RONIN v5.4.0-ONI MASTER OPERATIONAL VERIFICATION
+================================================================================
+Repository Root: C:\02_QUILLAN
+Timestamp:       2026-10-31 10:18:11
+
+================================================================================
+  TEST 1: KERNEL UNIFICATION & HARDWARE LOCK CHECK
+================================================================================
+Checking ONI_VERSION: '5.4.0-oni' ... OK
+Checking VOCAB_SIZE: 50262 ... OK
+Checking EOS_TOKEN_ID: 0 ... OK
+Instantiating test model on cuda ... OK
+Running 1-step forward and backward pass ... OK (Loss: 10.8661)
+VRAM Peak: 0.63 GB (< 1.8 GB threshold)
+
+================================================================================
+  TEST 2: 9 CUSTOM QUILLAN MCP SERVERS STDIO BOOT CHECK
+================================================================================
+Pinging quillan_prism over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_governor over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_council over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_thinking_engine over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_samurai_engine over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_code over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_model_lab over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_rag over stdio ... OK (JSON-RPC Valid)
+Pinging quillan_buddy over stdio ... OK (JSON-RPC Valid)
+
+MCP Servers Verified: 9/9
+
+================================================================================
+  TEST 3: DETERMINISTIC 6-STAGE PIPELINE HANDSHAKE CHECK
+================================================================================
+python.exe : Executing chain bus with query: 'Diagnostic test: Evaluate 34-expert council routin...' ...
+At line:1 char:73
++ ... \python.exe'; & $py 'C:\02_QUILLAN\verify_quillan_os.py' 2>&1 | Out-F ...
++                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Executing chain... routin...' ...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Generated Correlation ID: oni-pipeline-948810f3-bc5b8e37
+  - STAGE1 verified.
+  - STAGE2 verified.
+  - STAGE3 verified.
+  - STAGE4 verified.
+  - STAGE5 verified.
+  - STAGE6 verified.
+Checking state ledger at: C:\02_QUILLAN\07 - Memory & LanceDB\chain_state.json ... OK (Correlation ID Persisted in 
+State Ledger)
+
+================================================================================
+  TEST 4: CROSS-PLATFORM CONFIGURATION SYNCHRONIZATION CHECK
+================================================================================
+Checking opencode.json ... OK (35 servers)
+Checking .opencode/agent/quillan.md ... OK (Frontmatter & Quirks Verified)
+Checking .antigravity/rules.md ... OK
+Checking .idx/mcp.json ... OK
+Checking AGENTS.md & .devin/playbook.md ... OK
+Checking .qwen/config.yaml & qwen_agent_tools.py ... OK (8 typed tools)
+
+================================================================================
+  FINAL VERIFICATION SUMMARY
+================================================================================
+  [PASS]   Kernel & Hardware
+  [PASS]   9 MCP Servers Stdio Boot
+  [PASS]   6-Stage Pipeline Handshake
+  [PASS]   Cross-Platform Configurations
+
+Execution Time: 55.19s
+
+ALL 5 PHASES VERIFIED AND OPERATIONAL. OS WIRING COMPLETE.

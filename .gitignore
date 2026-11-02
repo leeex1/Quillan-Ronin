@@ -298,3 +298,6 @@ x_credentials.md
 # Local OpenCode workspace configuration (contains sensitive API keys)
 .opencode/
 
+
+scripts/_backups/
+scripts/_*.out

@@ -498,33 +498,64 @@ def canonical_state_dict_for_save(model):
     Un-stacks vec_experts and fused prism back to canonical 1,441-tensor keys
     so saved checkpoints remain 100% compatible with the base schema.
     Also retains vectorized keys for fast native re-loading.
-    Ensures all exported weights are detached and moved to CPU to prevent VRAM/RAM pinning.
+    Ensures all exported weights are detached and moved to CPU in bulk blocks
+    with explicit memory reclamation to eliminate DefaultCPUAllocator exhaustion on Windows.
     """
-    sd = {k: v.detach().to("cpu") for k, v in model.state_dict().items()}
-    vector_names = ["Language", "Sentiment", "Context", "Intent", "Meta",
-                    "Creativity", "Ethics", "Strategy", "Constraint"]
+    import gc
+    import ctypes
+    gc.collect()
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    try:
+        ctypes.windll.psapi.EmptyWorkingSet(-1)
+    except Exception:
+        pass
 
-    for l_idx, block in enumerate(model.h):
-        if hasattr(block.moe, "vec_experts"):
-            ve = block.moe.vec_experts
-            if getattr(ve, "is_sequential", False):
-                for e_idx in range(model.cfg.num_experts):
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.0.weight"] = ve.experts[e_idx][0].weight.data.detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.1.weight"] = ve.experts[e_idx][1].weight.data.detach().cpu()
-            else:
-                for e_idx in range(model.cfg.num_experts):
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_A"] = ve.lora_A.data[e_idx].detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_B"] = ve.lora_B.data[e_idx].detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.A"] = ve.swarm_A.data[e_idx].detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.B"] = ve.swarm_B.data[e_idx].detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.C"] = ve.swarm_C.data[e_idx].detach().cpu()
-                    sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.D"] = ve.swarm_D.data[e_idx].detach().cpu()
+    sd = {}
+    with torch.no_grad():
+        raw_sd = model.state_dict()
+        for k, v in raw_sd.items():
+            sd[k] = v.detach().cpu()
+        del raw_sd
+        gc.collect()
 
-        if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "prism_weights"):
-            pw = block.attn.prism.prism_weights
-            for v_idx, v_name in enumerate(vector_names):
-                sd[f"h.{l_idx}.attn.prism.vectors.{v_name}.weight"] = pw.data[v_idx].detach().cpu()
+        vector_names = ["Language", "Sentiment", "Context", "Intent", "Meta",
+                        "Creativity", "Ethics", "Strategy", "Constraint"]
 
+        for l_idx, block in enumerate(model.h):
+            if hasattr(block.moe, "vec_experts"):
+                ve = block.moe.vec_experts
+                if getattr(ve, "is_sequential", False):
+                    for e_idx in range(model.cfg.num_experts):
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.0.weight"] = ve.experts[e_idx][0].weight.data.detach().cpu()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.1.weight"] = ve.experts[e_idx][1].weight.data.detach().cpu()
+                else:
+                    lora_A_c = ve.lora_A.data.detach().cpu()
+                    lora_B_c = ve.lora_B.data.detach().cpu()
+                    swarm_A_c = ve.swarm_A.data.detach().cpu()
+                    swarm_B_c = ve.swarm_B.data.detach().cpu()
+                    swarm_C_c = ve.swarm_C.data.detach().cpu()
+                    swarm_D_c = ve.swarm_D.data.detach().cpu()
+                    for e_idx in range(model.cfg.num_experts):
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_A"] = lora_A_c[e_idx].clone()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.lora_B"] = lora_B_c[e_idx].clone()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.A"] = swarm_A_c[e_idx].clone()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.B"] = swarm_B_c[e_idx].clone()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.C"] = swarm_C_c[e_idx].clone()
+                        sd[f"h.{l_idx}.moe.experts.{e_idx}.swarm.D"] = swarm_D_c[e_idx].clone()
+                    del lora_A_c, lora_B_c, swarm_A_c, swarm_B_c, swarm_C_c, swarm_D_c
+
+            if hasattr(block.attn, "prism") and hasattr(block.attn.prism, "prism_weights"):
+                pw_c = block.attn.prism.prism_weights.data.detach().cpu()
+                for v_idx, v_name in enumerate(vector_names):
+                    sd[f"h.{l_idx}.attn.prism.vectors.{v_name}.weight"] = pw_c[v_idx].clone()
+                del pw_c
+
+    gc.collect()
+    try:
+        ctypes.windll.psapi.EmptyWorkingSet(-1)
+    except Exception:
+        pass
     return sd
 
 

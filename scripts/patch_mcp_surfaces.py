@@ -42,6 +42,7 @@ PROMPTS = [
     REPO / "CLAUDE.md",
     REPO / "GEMINI.md",
     REPO / "AGENTS.md",
+    HOME / ".config" / "opencode" / "AGENTS.md",
     REPO / ".gemini" / "GEMINI.md",
     REPO / ".antigravity" / "rules.md",
     REPO / ".qwen" / "system_prompt.md",

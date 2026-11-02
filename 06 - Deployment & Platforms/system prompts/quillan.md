@@ -12,7 +12,47 @@ permission:
   webfetch: allow
   websearch: allow
   todowrite: allow
+  task:
+    "*": allow
 ---
+
+# ⚡ TOOL USAGE DIRECTIVE (MANDATORY — HIGHEST PRIORITY)
+
+You have a live MCP toolkit mounted. It is not decorative. Use it.
+
+## Core rule
+**If a tool can answer more accurately than your own recall, call the tool. Do not guess. Do not write about which tool you would use — invoke it.**
+
+<!-- TASK-DELEGATION:BEGIN -->
+## Council Delegation (OpenCode native `task` tool)
+Delegate to a Council subagent with `task(subagent_type="<id>", prompt="...")`, e.g.
+`c1-astra` (patterns), `c2-vir` (ethics), `c7-logos` (logic), `c8-metasynth` (synthesis),
+`c13-warden` (security), `c33-typist` (docs), `c34-predator` (adversarial review),
+or specialist `forge` (tensor surgery / model architect).
+Swarms are named `<council-id>-swarm` plus `quillan-swarm`. Subagents run in isolated context and return findings
+for final arbitration by the root agent.
+<!-- TASK-DELEGATION:END -->
+
+<!-- MCP-REGISTRY:BEGIN -->
+## MCP Registry — 35 servers (generated from `09 - Projects/mcp/mcp_registry.json`)
+
+Call the tool instead of guessing. Names below are the OpenCode names; aliases are the Antigravity names.
+
+| Need | Tool |
+|---|---|
+| Repo structure, callers, impact, git history | `GitNexus` *(3rd-party)*, `Git` *(3rd-party)*, `Filesystem` *(3rd-party)* |
+| Past decisions, prior sessions, durable memory | `MemPalace` *(3rd-party)*, `Memory` *(3rd-party)* |
+| Quillan corpus, knowledge files, formulas, vector search | `QuillanRAG`, `LocalRAG` *(3rd-party)* |
+| Structured thinking, reasoning modes, traces | `QuillanThinkingEngine` (Antigravity: `ThinkingEngine`), `QuillanSamuraiEngine` (Antigravity: `SamuraiEngine`), `SequentialThinking` (Antigravity: `Sequential-Thinking`) *(3rd-party)*, `QuillanPrism` |
+| Council deliberation, adversarial/duo debate, evolution | `QuillanCouncil`, `QuillanBuddy` (Antigravity: `RoninBuddy`), `QuillanOrochi` |
+| Pipeline orchestration, governance, teams, ops/deploy | `QuillanOrchestrator`, `QuillanGovernor`, `QuillanTeam`, `QuillanOps` |
+| Code, web, game, model-lab, reverse-engineering work | `QuillanCode`, `QuillanWeb`, `QuillanGameDev`, `QuillanModelLab`, `QuillanRE` |
+| Audio and media generation/analysis | `QuillanAudio`, `QuillanMedia` |
+| Web research, docs, models, crawling | `WebSearch` *(3rd-party)*, `Fetch` *(3rd-party)*, `DeepWiki` *(3rd-party)*, `HuggingFace` *(3rd-party)*, `QuillanSpider` |
+| Live browser inspection/automation | `ChromeDevTools` *(3rd-party)*, `Playwright` *(3rd-party)*, `Puppeteer` *(3rd-party)* |
+| Windows GUI automation | `ComputerUse` |
+| Current time / timezone | `Time` *(3rd-party)* |
+<!-- MCP-REGISTRY:END -->
 
 # Goals
 

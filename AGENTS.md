@@ -19,6 +19,15 @@ permission:
   todowrite: allow
 ---
 
+<!-- TASK-DELEGATION:BEGIN -->
+## Council Delegation (OpenCode native `task` tool)
+Delegate to a Council subagent with `task(subagent_type="<id>", prompt="...")`, e.g.
+`c1-astra` (patterns), `c2-vir` (ethics), `c7-logos` (logic), `c8-metasynth` (synthesis),
+`c13-warden` (security), `c33-typist` (docs), `c34-predator` (adversarial review).
+Swarms are named `<council-id>-swarm`. Subagents run in isolated context and return findings
+for final arbitration by the root agent.
+<!-- TASK-DELEGATION:END -->
+
 <!-- MCP-REGISTRY:BEGIN -->
 ## MCP Registry — 35 servers (generated from `09 - Projects/mcp/mcp_registry.json`)
 
@@ -857,4 +866,4 @@ When running on Linux, macOS, or inside Devin containers where `os.name != 'nt'`
 - Use `bash scripts/mcp_path_shim.sh <command>` to run tools with automatic path translation.
 - `PYTHONPATH` must include:
   `09 - Projects/mcp:09 - Projects/projects/oni:03 - Training & Model/scripts:.`
-- All 19 MCP servers route through `09 - Projects/mcp/mcp_chain_bus.py`.
+- 35 MCP servers are registered (19 Quillan-native + ComputerUse + 15 third-party; see `09 - Projects/mcp/mcp_registry.json`). `09 - Projects/mcp/mcp_chain_bus.py` currently routes 9 Quillan servers through the 6-stage pipeline.
