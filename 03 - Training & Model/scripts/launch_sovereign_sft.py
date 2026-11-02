@@ -19,7 +19,7 @@ import gc
 import json
 import math
 import os
-os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:64"
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 import shutil
 import signal
 import sys
@@ -53,6 +53,39 @@ from quillan_live_training_upgrades import (
 # ============================================================================
 # 1. HARDWARE & OS TUNING (Lee-Mach-6 Governor & C14-KAIDO i5-7500 Shield)
 # ============================================================================
+def get_host_memory_stats() -> Tuple[int, int]:
+    """Returns (WorkingSetSizeMB, PrivateCommitMB) via Win32 PSAPI."""
+    if sys.platform != "win32":
+        return 0, 0
+    try:
+        class _PMC(ctypes.Structure):
+            _fields_ = [
+                ('cb', ctypes.c_uint32),
+                ('PageFaultCount', ctypes.c_uint32),
+                ('PeakWorkingSetSize', ctypes.c_size_t),
+                ('WorkingSetSize', ctypes.c_size_t),
+                ('QuotaPeakPagedPoolUsage', ctypes.c_size_t),
+                ('QuotaPagedPoolUsage', ctypes.c_size_t),
+                ('QuotaPeakNonPagedPoolUsage', ctypes.c_size_t),
+                ('QuotaNonPagedPoolUsage', ctypes.c_size_t),
+                ('PagefileUsage', ctypes.c_size_t),
+                ('PeakPagefileUsage', ctypes.c_size_t),
+                ('PrivateUsage', ctypes.c_size_t),
+            ]
+        p = _PMC()
+        p.cb = ctypes.sizeof(_PMC)
+        k32 = ctypes.windll.kernel32
+        psapi = ctypes.windll.psapi
+        k32.GetCurrentProcess.restype = ctypes.c_void_p
+        h = k32.GetCurrentProcess()
+        psapi.GetProcessMemoryInfo.argtypes = [ctypes.c_void_p, ctypes.POINTER(_PMC), ctypes.c_uint32]
+        if psapi.GetProcessMemoryInfo(h, ctypes.byref(p), p.cb):
+            return int(p.WorkingSetSize // (1024 * 1024)), int(p.PrivateUsage // (1024 * 1024))
+    except Exception:
+        pass
+    return 0, 0
+
+
 def configure_host_environment(threads: int = 2, low_priority: bool = True) -> None:
     """Optimizes CPU thread affinity, flushes subnormal floats, and sets OS priority."""
     # Wire Quillan Governor hardware locks directly (Core 0 reservation + BELOW_NORMAL)
@@ -63,8 +96,8 @@ def configure_host_environment(threads: int = 2, low_priority: bool = True) -> N
         from quillan_governor_daemon import apply_pc_smoothness_locks
         gov_res = apply_pc_smoothness_locks()
         if torch.cuda.is_available():
-            torch.cuda.set_per_process_memory_fraction(0.88)
-        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')} (CUDA Cap: 88%)", flush=True)
+            torch.cuda.set_per_process_memory_fraction(0.82)
+        print(f"[GOVERNOR] Applied PC Smoothness Locks: Affinity Cores {gov_res.get('cores_assigned')}, Priority Below-Normal: {gov_res.get('priority_set')} (CUDA Cap: 82%)", flush=True)
     except Exception as e:
         print(f"[GOVERNOR WARN] Governor daemon import failed ({e}), using fallback Win32 hooks.", flush=True)
 
@@ -405,6 +438,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--save-every", type=int, default=50, help="Checkpoint save interval")
     parser.add_argument("--log-every", type=int, default=5, help="Console & JSONL telemetry interval")
     parser.add_argument("--device", type=str, default="cpu", choices=["cpu", "cuda"])
+    parser.add_argument("--grad-checkpoint", action="store_true", help="Enable activation recomputation (disabled by default for zero-leak stability)")
     parser.add_argument("--threads", type=int, default=4, help="CPU threads for i5-7500")
     parser.add_argument("--resume", action="store_true", help="Auto-resume from latest/interrupt checkpoint")
     parser.add_argument("--resume-from", type=str, default="", help="Explicit checkpoint path to resume from")
@@ -460,7 +494,7 @@ def main() -> None:
     raw_sd = ck.get("model_state_dict") or ck.get("model") or ck
     cfg_dict = ck.get("config", {})
     cfg = QuillanOniConfig(**cfg_dict) if isinstance(cfg_dict, dict) else QuillanOniConfig()
-    cfg.grad_checkpoint = (device_obj.type == "cuda")
+    cfg.grad_checkpoint = bool(getattr(args, 'grad_checkpoint', False))
     cfg.max_seq_len = args.seq_len
     cfg.router_mode = "dense_pull"
 
@@ -522,10 +556,25 @@ def main() -> None:
     start_step = 1
     best_val_ce = float("inf")
     if resume_ckpt_path and "optimizer_state_dict" in ck:
-        optimizer.load_state_dict(ck["optimizer_state_dict"])
-        start_step = int(ck.get("step", 0)) + 1
-        best_val_ce = float(ck.get("best_val_ce", float("inf")))
-        print(f"  >>> Resumed optimizer & state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
+        try:
+            optimizer.load_state_dict(ck["optimizer_state_dict"])
+            # Validate AdamW state format (handles resume from bitsandbytes)
+            is_valid_adam = True
+            for p_state in optimizer.state.values():
+                if "__bnb_optimizer_quant_state__" in p_state or "exp_avg" not in p_state:
+                    is_valid_adam = False
+                    break
+            if not is_valid_adam:
+                print("  >>> [NOTE] Checkpoint contained 8-bit optimizer state; re-initializing momentum states for AdamW...", flush=True)
+                optimizer.state.clear()
+            start_step = int(ck.get("step", 0)) + 1
+            best_val_ce = float(ck.get("best_val_ce", float("inf")))
+            print(f"  >>> Resumed optimizer & state from Step {start_step - 1} (Best Val CE: {best_val_ce:.4f})", flush=True)
+        except Exception as e:
+            print(f"  [WARN] Optimizer state incompatible ({e}); initializing fresh AdamW state...", flush=True)
+            optimizer.state.clear()
+            start_step = int(ck.get("step", 0)) + 1
+            best_val_ce = float(ck.get("best_val_ce", float("inf")))
 
     # Reclaim raw checkpoint dictionary to free ~3.4 GB RAM immediately
     del ck, raw_sd, clean_sd
@@ -635,11 +684,11 @@ def main() -> None:
             if math.isfinite(gn):
                 optimizer.step()
                 es_anchor.step(step)
-                if step % 5 == 0:
-                    gc.collect()
-                    if torch.cuda.is_available():
-                        torch.cuda.empty_cache()
-                if step % 25 == 0 and sys.platform == "win32":
+                # Hardened Memory Governor: aggressive reclamation on EVERY step
+                gc.collect()
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+                if sys.platform == 'win32':
                     try:
                         ctypes.windll.psapi.EmptyWorkingSet(-1)
                     except Exception:
@@ -669,16 +718,25 @@ def main() -> None:
             rolling_count = 0
             elapsed_min = (time.time() - t_run_start) / 60.0
             eta_min = ((args.steps - step) * step_dt) / 60.0
+            ws_mb, commit_mb = get_host_memory_stats()
+            vram_mb = int(torch.cuda.memory_allocated() // (1024 * 1024)) if torch.cuda.is_available() else 0
             print(
                 f"  [{stage_name}] Step {step:4d}/{args.steps} | "
                 f"CE: {avg_ce:.4f} | Aux: {avg_aux:.5f} | Ent: {avg_ent:.3f} | "
+                f"RAM: {ws_mb}MB | Commit: {commit_mb}MB | VRAM: {vram_mb}MB | "
                 f"GradNorm: {gn:.3f} (MaxT: {max_t_norm:.2f}) | LR: {cur_lr:.2e} | "
                 f"{step_dt:.1f}s/st | ETA: {eta_min:.1f}m",
                 flush=True,
             )
+            if commit_mb > 14000:
+                print(f"\n[GOVERNOR ALERT] Host commit charge reached {commit_mb} MB (>14GB ceiling)! Saving emergency checkpoint to protect system and browser...", flush=True)
+                stop_requested["flag"] = True
             log_record = {
                 "step": step,
                 "stage": stage_name,
+                "ram_mb": ws_mb,
+                "commit_mb": commit_mb,
+                "vram_mb": vram_mb,
                 "train_ce": round(avg_ce, 5),
                 "aux_loss": round(avg_aux, 6),
                 "council_entropy": round(avg_ent, 4),
