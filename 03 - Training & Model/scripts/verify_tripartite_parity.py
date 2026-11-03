@@ -129,11 +129,17 @@ def test_generation_sample(ckpt_path: str):
         enc = tok.encode(p).ids
         gen = list(enc)
         with torch.no_grad():
-            for _ in range(20):
+            for _ in range(25):
                 x = torch.tensor([gen[-128:]], dtype=torch.long, device="cpu")
                 out = model(x)
                 logits = out[0] if isinstance(out, tuple) else out
-                next_tok = torch.argmax(logits[:, -1, :], dim=-1).item()
+                next_logits = logits[0, -1, :].clone()
+                # Apply repetition penalty to prevent greedy attractors
+                for prev_tok in set(gen[-32:]):
+                    next_logits[prev_tok] /= 1.3
+                probs = torch.softmax(next_logits / 0.7, dim=-1)
+                top_probs, top_indices = torch.topk(probs, 40)
+                next_tok = top_indices[torch.multinomial(top_probs, 1)].item()
                 gen.append(next_tok)
                 if next_tok == tok.token_to_id("<|endoftext|>"):
                     break
