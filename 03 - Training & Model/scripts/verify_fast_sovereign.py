@@ -11,6 +11,12 @@ and verifies output fluency and accuracy.
 
 import os
 import sys
+
+# Configure threading limits
+os.environ["OPENBLAS_NUM_THREADS"] = "4"
+os.environ["OMP_NUM_THREADS"] = "4"
+os.environ["MKL_NUM_THREADS"] = "4"
+
 import time
 
 if hasattr(sys.stdout, "reconfigure"):
@@ -20,7 +26,6 @@ import torch.nn.functional as F
 from tokenizers import Tokenizer
 
 sys.path.insert(0, r'C:\02_QUILLAN\03 - Training & Model\scripts')
-sys.path.append(r'C:\02_QUILLAN\02 - Knowledge Foundation\knowledge\legacy\00 - Meta\oni')
 from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
 
 
@@ -45,6 +50,11 @@ def test_generation():
     ckpt = torch.load(ckpt_path, map_location="cpu", weights_only=False)
     
     cfg_dict = ckpt["config"]
+    state_dict = ckpt.pop("model_state_dict")
+    del ckpt
+    import gc
+    gc.collect()
+    
     cfg = QuillanOniConfig(
         vocab_size=cfg_dict.get("vocab_size", 128256),
         hidden_dim=cfg_dict.get("hidden_dim", 2048),
@@ -58,9 +68,15 @@ def test_generation():
     )
     cfg.vectorized_experts = True
     
-    print("Instantiating QuillanRoninOni model...", flush=True)
+    print("Instantiating QuillanRoninOni model directly in bfloat16...", flush=True)
+    orig_dtype = torch.get_default_dtype()
+    torch.set_default_dtype(torch.bfloat16)
     model = QuillanRoninOni(cfg)
-    missing, unexpected = model.load_state_dict(ckpt["model_state_dict"], strict=False)
+    torch.set_default_dtype(orig_dtype)
+    
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    del state_dict
+    gc.collect()
     print(f"Loaded successfully. Missing keys: {len(missing)}, Unexpected keys: {len(unexpected)}", flush=True)
     model.eval()
     
@@ -89,13 +105,18 @@ def test_generation():
         t0 = time.time()
         with torch.no_grad():
             for step in range(max_new_tokens):
+                # Pass full prefix history so model maintains causal coherence
                 logits = model(cur_input, compute_aux=False, return_aux=False)
                 if isinstance(logits, tuple):
                     logits = logits[0]
                 next_token_logits = logits[0, -1, :]
                 
-                # Temperature sampling
-                probs = F.softmax(next_token_logits / 0.7, dim=-1)
+                # Temperature sampling with top-k filtering
+                temp = 0.6
+                top_k = 50
+                v, _ = torch.topk(next_token_logits, min(top_k, next_token_logits.size(-1)))
+                next_token_logits[next_token_logits < v[-1]] = -float('Inf')
+                probs = F.softmax(next_token_logits / temp, dim=-1)
                 next_token = torch.multinomial(probs, num_samples=1).item()
                 
                 # Check for EOT token
@@ -103,7 +124,8 @@ def test_generation():
                     break
                     
                 generated_tokens.append(next_token)
-                cur_input = torch.tensor([[next_token]], dtype=torch.long)
+                # Autoregressively append new token to maintain context
+                cur_input = torch.cat([cur_input, torch.tensor([[next_token]], dtype=torch.long)], dim=1)
                 
                 # Print token immediately
                 token_str = tok.decode([next_token])

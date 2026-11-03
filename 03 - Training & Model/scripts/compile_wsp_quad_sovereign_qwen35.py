@@ -5,21 +5,28 @@
 Quillan-Ronin: WSP Quad-Donor Sovereign Compiler (Qwen 3.5 2B + 128k Parity)
 =============================================================================
 Synthesizes:
-  1. Llama 3.2 1B: Causal foundation & 128k BPE vocabulary anchor (D=2048)
+  1. Llama 3.2 1B: Pure causal foundation & 128k BPE vocabulary anchor (D=2048)
   2. Falcon 3 1B: High-frequency causal attention & normalization (D=2048)
   3. BitNet 1.58b: Low-precision {-1, 0, 1} synaptic foundations
   4. Qwen 3.5 2B: Gated Delta recurrence & frontier reasoning circuits (D=2048)
 
 Core WSP Techniques (Takehi, Teoh, Zhang, Khattab; MIT CSAIL, Nov 2, 2026):
-  - 128,256 Tokenizer Alignment (zero collisions, 100% token parity)
+  - 128,256 Pure Tokenizer Alignment (zero index-collision, 100% token parity)
   - Gain-Matched LayerNorm Normalization (unit mean gamma = 1.0)
   - Takehi SVD Null-Space Deflation on MLP down-projections (I - v v^T)
   - Uniform-Rank (r=16) 34-Expert SVD Extraction enabling Kaido Batched GEMM
+  - Complete Structural Key Invariance (0 missing keys, 0 unexpected keys)
 =============================================================================
 """
 
 import os
 import sys
+
+# Limit OpenBLAS / OpenMP threading to avoid Windows heap crashes
+os.environ["OPENBLAS_NUM_THREADS"] = "4"
+os.environ["OMP_NUM_THREADS"] = "4"
+os.environ["MKL_NUM_THREADS"] = "4"
+
 import math
 import time
 import logging
@@ -39,8 +46,7 @@ logging.basicConfig(
 logger = logging.getLogger("WSP-Qwen35")
 
 sys.path.insert(0, r'C:\02_QUILLAN\03 - Training & Model\scripts')
-sys.path.insert(0, r'C:\02_QUILLAN\02 - Knowledge Foundation\knowledge\legacy\00 - Meta\oni')
-from quillan_v5_4_oni import QuillanOniConfig
+from quillan_v5_4_oni import QuillanOniConfig, QuillanRoninOni
 
 
 def to_bitnet_ternary_wsp(W: torch.Tensor, target_gain: float = 1.0, eps: float = 1e-5) -> torch.Tensor:
@@ -113,14 +119,12 @@ def project_dim(W: torch.Tensor, out_dim: int, in_dim: int) -> torch.Tensor:
 def extract_34_uniform_experts(W: torch.Tensor, target_dim: int, rank: int = 16) -> list:
     """Extracts 34 MoE experts with uniform rank r=16 for Kaido Batched GEMM."""
     W_f = W.float().cpu()
-    # SVD low-rank decomposition with q=32 for peak memory efficiency
     U, S, V = torch.svd_lowrank(W_f, q=32, niter=2)
     S_sqrt = torch.diag(torch.sqrt(S))
     w0_full = S_sqrt @ V.t()
     w1_full = U @ S_sqrt
     
     experts = []
-    # Stride across singular modes to give each expert a diverse cognitive focus
     for e_idx in range(34):
         offset = (e_idx * 2) % max(1, (w0_full.size(0) - rank))
         w0_sub = project_dim(w0_full[offset:offset+rank, :], rank, target_dim)
@@ -138,7 +142,6 @@ def compile_quad_wsp_qwen35():
     logger.info("COMPILING QUILLAN-RONIN SOVEREIGN 1B (QUAD-DONOR WSP 128K WITH QWEN 3.5 2B)")
     logger.info("=" * 80)
     
-    # Storage Paths
     hf_cache = r"C:\Users\Admin\.cache\huggingface\hub"
     ollama_blobs = r"C:\Users\Admin\.ollama\models\blobs"
     
@@ -171,12 +174,27 @@ def compile_quad_wsp_qwen35():
     
     logger.info(f"Target: D={hidden_dim}, Layers={n_layer}, Vocab={vocab_size}, Experts={num_experts} (Uniform r=16)")
     
-    # Ingest Llama 3.2 1B
+    # Step 1: Instantiate Canonical QuillanRoninOni Model (guarantees 0 missing / 0 unexpected keys)
+    logger.info(">>> Instantiating Canonical QuillanRoninOni model architecture...")
+    cfg = QuillanOniConfig(
+        vocab_size=vocab_size,
+        hidden_dim=hidden_dim,
+        n_layer=n_layer,
+        n_head=32,
+        head_dim=64,
+        ffn_dim=ffn_dim,
+        num_experts=num_experts,
+        expert_rank=16,
+        use_evo_moe=False
+    )
+    cfg.vectorized_experts = True
+    model = QuillanRoninOni(cfg)
+    
+    # Step 2: Ingest Donors
     logger.info(">>> Ingesting Donor 1: Llama 3.2 1B (Safetensors)...")
     st_llama = load_file(llama_st_path)
     
-    # Ingest Falcon 3 1B (Filtered to necessary tensors only)
-    logger.info(">>> Ingesting Donor 2: Falcon 3 1B (GGUF, selective)...")
+    logger.info(">>> Ingesting Donor 2: Falcon 3 1B (GGUF selective)...")
     r_falcon = gguf.GGUFReader(falcon_blob)
     def dequant_gguf(t) -> torch.Tensor:
         if t.tensor_type != 0:
@@ -193,12 +211,10 @@ def compile_quad_wsp_qwen35():
     falcon_tensors = {t.name: dequant_gguf(t) for t in r_falcon.tensors if t.name in falcon_needed}
     del r_falcon
     
-    # Ingest BitNet 1.58b Large
     logger.info(">>> Ingesting Donor 3: BitNet 1.58b Large (Safetensors)...")
     st_bitnet = load_file(bitnet_st_path)
     
-    # Ingest Qwen 3.5 2B (Filtered to necessary tensors only)
-    logger.info(">>> Ingesting Donor 4: Qwen 3.5 2B (GGUF, selective)...")
+    logger.info(">>> Ingesting Donor 4: Qwen 3.5 2B (GGUF selective)...")
     r_qwen35 = gguf.GGUFReader(qwen35_blob)
     qwen35_tensors = {
         t.name: dequant_gguf(t) 
@@ -209,44 +225,34 @@ def compile_quad_wsp_qwen35():
     import gc
     gc.collect()
     
-    model_state = {}
-    
-    # 1. 128k Vocab Embeddings: 80% Llama 3.2 + 20% Falcon 3 (Zero Collision)
-    logger.info(">>> [1/5] Synthesizing 128k Sovereign Vocabulary Embeddings...")
+    # 1. Pure 128k Vocab Embeddings (100% Llama 3.2 Anchor - Zero index contamination)
+    logger.info(">>> [1/5] Splicing 128k Pure Anchor Vocabulary Embeddings...")
     emb_llama = st_llama["model.embed_tokens.weight"].float() # [128256, 2048]
-    raw_falcon = falcon_tensors["token_embd.weight"].float()
-    if raw_falcon.shape[0] != 131072:
-        raw_falcon = raw_falcon.t()
-    emb_falcon_128k = raw_falcon[:vocab_size, :]
-    
-    emb_unified = 0.80 * emb_llama + 0.20 * emb_falcon_128k
-    target_emb_std = 1.0 / math.sqrt(hidden_dim)
-    emb_unified = emb_unified * (target_emb_std / emb_unified.std().clamp(min=1e-6))
-    
-    model_state["wte.weight"] = emb_unified.to(torch.bfloat16)
-    model_state["lm_head.weight"] = emb_unified.clone().to(torch.bfloat16)
-    del emb_llama, raw_falcon, emb_falcon_128k, emb_unified
+    model.wte.weight.data.copy_(emb_llama.to(torch.bfloat16))
+    model.lm_head.weight.data.copy_(emb_llama.to(torch.bfloat16))
+    del emb_llama
     gc.collect()
     
     # Final LayerNorm
     norm_l = st_llama["model.norm.weight"].float()
     norm_f = falcon_tensors["blk.0.attn_norm.weight"].float()
     norm_unified = 0.70 * norm_l + 0.30 * norm_f
-    model_state["ln_f.weight"] = normalize_layernorm_vector(norm_unified, hidden_dim, target_mean=1.0).to(torch.bfloat16)
-    model_state["ln_f.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+    model.ln_f.weight.data.copy_(normalize_layernorm_vector(norm_unified, hidden_dim, target_mean=1.0).to(torch.bfloat16))
+    model.ln_f.bias.data.zero_()
     
-    # 2. Dual-Brain Bridges
-    logger.info(">>> [2/5] Synthesizing Dual-Brain Bridges...")
-    model_state["q1_bridge.weight"] = torch.eye(hidden_dim, dtype=torch.bfloat16)
-    model_state["q2_bridge.weight"] = torch.eye(hidden_dim, dtype=torch.bfloat16)
-    model_state["ingest_gate.weight"] = torch.zeros(hidden_dim, 2 * hidden_dim, dtype=torch.bfloat16)
-    model_state["ingest_gate.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
-    model_state["quillan_finalizer_q1.weight"] = torch.eye(hidden_dim, dtype=torch.bfloat16)
-    model_state["quillan_finalizer_q2.weight"] = torch.eye(hidden_dim, dtype=torch.bfloat16)
-    model_state["quillan_comm_gate.weight"] = torch.zeros(hidden_dim, 2 * hidden_dim, dtype=torch.bfloat16)
-    model_state["quillan_comm_gate.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+    # 2. Dual-Brain Ingestion & Finalizer Bridges
+    logger.info(">>> [2/5] Calibrating Dual-Brain Bridges and Finalizers...")
+    model.q1_bridge.weight.data.copy_(torch.eye(hidden_dim, dtype=torch.bfloat16))
+    model.q2_bridge.weight.data.copy_(torch.eye(hidden_dim, dtype=torch.bfloat16))
+    model.ingest_gate.weight.data.zero_()
+    model.ingest_gate.bias.data.zero_()
     
-    # 3. 16 Layers Splicing
+    model.quillan_finalizer_q1.weight.data.copy_(torch.eye(hidden_dim, dtype=torch.bfloat16))
+    model.quillan_finalizer_q2.weight.data.copy_(torch.eye(hidden_dim, dtype=torch.bfloat16))
+    model.quillan_comm_gate.weight.data.zero_()
+    model.quillan_comm_gate.bias.data.zero_()
+    
+    # 3. 16 Layers Splicing across Quad Donors
     logger.info(">>> [3/5] Splicing 16 Sovereign Layers across Quad Donors...")
     # Layer Allocation:
     # Layers 0..5 (6 layers): Llama 3.2 1B (Dense causal foundation)
@@ -254,7 +260,7 @@ def compile_quad_wsp_qwen35():
     # Layers 10..11 (2 layers): BitNet 1.58b (Ternary compute core)
     # Layers 12..15 (4 layers): Qwen 3.5 2B (Native D=2048 Gated Delta + Frontier Reasoning)
     for l in range(n_layer):
-        dst = f"h.{l}"
+        blk = model.h[l]
         
         if l < 6:
             donor = "Llama-3.2-1B"
@@ -316,7 +322,6 @@ def compile_quad_wsp_qwen35():
             ln1 = qwen35_tensors[f"blk.{q_idx}.attn_norm.weight"].float()
             ln2 = qwen35_tensors[f"blk.{q_idx}.post_attention_norm.weight"].float()
             
-            # Qwen 3.5 hybrid block: SSM blocks have attn_qkv, standard attention blocks have separate q, k, v
             if f"blk.{q_idx}.attn_qkv.weight" in qwen35_tensors:
                 qkv = qwen35_tensors[f"blk.{q_idx}.attn_qkv.weight"].float()
                 q = qkv[:2048, :]
@@ -340,65 +345,68 @@ def compile_quad_wsp_qwen35():
             ffn_down = project_dim(ffn_down_raw, hidden_dim, ffn_dim)
             
         # 1. Gain-Matched LayerNorms
-        model_state[f"{dst}.ln_1.weight"] = normalize_layernorm_vector(ln1, hidden_dim, target_mean=1.0).to(torch.bfloat16)
-        model_state[f"{dst}.ln_1.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
-        model_state[f"{dst}.ln_2.weight"] = normalize_layernorm_vector(ln2, hidden_dim, target_mean=1.0).to(torch.bfloat16)
-        model_state[f"{dst}.ln_2.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+        blk.ln_1.weight.data.copy_(normalize_layernorm_vector(ln1, hidden_dim, target_mean=1.0).to(torch.bfloat16))
+        blk.ln_1.bias.data.zero_()
+        blk.ln_2.weight.data.copy_(normalize_layernorm_vector(ln2, hidden_dim, target_mean=1.0).to(torch.bfloat16))
+        blk.ln_2.bias.data.zero_()
         
         # 2. Attention
         c_attn = torch.cat([q, k_exp, v_exp], dim=0) # [6144, 2048]
-        model_state[f"{dst}.attn.c_attn.weight"] = c_attn.to(torch.bfloat16)
-        model_state[f"{dst}.attn.c_attn.bias"] = torch.zeros(3 * hidden_dim, dtype=torch.bfloat16)
-        model_state[f"{dst}.attn.c_proj.weight"] = o.to(torch.bfloat16)
-        model_state[f"{dst}.attn.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+        blk.attn.c_attn.weight.data.copy_(c_attn.to(torch.bfloat16))
+        blk.attn.c_attn.bias.data.zero_()
+        blk.attn.c_proj.weight.data.copy_(o.to(torch.bfloat16))
+        blk.attn.c_proj.bias.data.zero_()
+        
+        # Zero out prism gate so uncalibrated semantic vectors don't inject noise
+        blk.attn.prism.w_gate.weight.data.zero_()
         
         # 3. Dense SwiGLU MLP
         c_fc = torch.cat([ffn_gate, ffn_up], dim=0) # [2 * ffn_dim, hidden_dim]
-        model_state[f"{dst}.moe.c_fc.weight"] = c_fc.to(torch.bfloat16)
-        model_state[f"{dst}.moe.c_fc.bias"] = torch.zeros(2 * ffn_dim, dtype=torch.bfloat16)
+        blk.moe.c_fc.weight.data.copy_(c_fc.to(torch.bfloat16))
+        blk.moe.c_fc.bias.data.zero_()
         
         # 4. Takehi Attractor SVD Deflation on MLP down-projection
         ffn_down_clean = remove_attractor_direction(ffn_down, num_directions=1)
-        model_state[f"{dst}.moe.c_proj.weight"] = ffn_down_clean.to(torch.bfloat16)
-        model_state[f"{dst}.moe.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+        blk.moe.c_proj.weight.data.copy_(ffn_down_clean.to(torch.bfloat16))
+        blk.moe.c_proj.bias.data.zero_()
         
         # 5. Uniform r=16 34-Expert SVD MoE Extraction (Mapped to lora_A and lora_B)
         experts = extract_34_uniform_experts(ffn_down_clean, hidden_dim, rank=16)
         for e_idx, (w0, w1) in enumerate(experts):
-            model_state[f"{dst}.moe.experts.{e_idx}.lora_A"] = w1  # [2048, 16]
-            model_state[f"{dst}.moe.experts.{e_idx}.lora_B"] = w0  # [16, 2048]
-            model_state[f"{dst}.moe.experts.{e_idx}.w0.weight"] = w0
-            model_state[f"{dst}.moe.experts.{e_idx}.w1.weight"] = w1
+            exp = blk.moe.experts[e_idx]
+            exp.lora_A.data.copy_(w1.to(torch.bfloat16))  # [2048, 16]
+            exp.lora_B.data.copy_(w0.to(torch.bfloat16))  # [16, 2048]
+            exp.swarm.A.data.zero_()
+            exp.swarm.B.data.zero_()
+            exp.swarm.C.data.zero_()
+            exp.swarm.D.data.zero_()
+            exp.swarm.clone_diversity.data.zero_()
+            exp.swarm.clone_coupling.data.zero_()
             
+        # Calibrate MoE gating: router initialized to zero, mild gating bias (0.05)
+        blk.moe.router.weight.data.zero_()
+        blk.moe.pull_gate.gate.weight.data.zero_()
+        blk.moe.moe_gate.weight.data.zero_()
+        blk.moe.moe_gate.bias.data.fill_(0.05)
+        
         logger.info(f"  Layer {l:02d}/16 spliced from [{donor:12s}] (LN=1.0, Attn=6144x2048, Takehi Deflated, 34 Uniform r=16 Experts)")
         
-    # 4. Packaging
-    logger.info(">>> [4/5] Packaging Sovereign Model with Uniform MoE Experts...")
-    cfg = QuillanOniConfig(
-        vocab_size=vocab_size,
-        hidden_dim=hidden_dim,
-        n_layer=n_layer,
-        n_head=32,
-        head_dim=64,
-        ffn_dim=ffn_dim,
-        num_experts=num_experts,
-        expert_rank=16,
-        use_evo_moe=False
-    )
-    cfg.vectorized_experts = True
-    
+    # Step 4: Packaging Checkpoint
+    logger.info(">>> [4/5] Packaging Sovereign Model with 100% Invariant State Dict (bfloat16)...")
+    model = model.to(torch.bfloat16)
     ckpt = {
-        "model_state_dict": model_state,
+        "model_state_dict": model.state_dict(),
         "config": cfg.__dict__,
         "vocab_size": vocab_size,
         "tokenizer_type": "llama3.2_128k",
         "donors": ["llama-3.2-1b", "falcon-3-1b", "bitnet-1.58b", "qwen-3.5-2b"],
         "wsp_techniques": [
-            "128k_direct_parity",
+            "128k_pure_anchor_parity",
             "gqa_head_broadcast",
             "unit_mean_layernorm",
             "takehi_attractor_deflation",
-            "uniform_r16_34expert_svd"
+            "uniform_r16_34expert_svd",
+            "zero_missing_key_invariance"
         ]
     }
     

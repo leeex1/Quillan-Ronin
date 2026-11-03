@@ -15,12 +15,6 @@ Includes interactive chat mode for real-time user prompting.
 """
 
 import os
-os.environ["OPENBLAS_NUM_THREADS"] = "4"
-os.environ["OMP_NUM_THREADS"] = "4"
-os.environ["MKL_NUM_THREADS"] = "4"
-os.environ["VECLIB_MAXIMUM_THREADS"] = "4"
-os.environ["NUMEXPR_NUM_THREADS"] = "4"
-
 import sys
 import time
 from typing import List, Optional, Tuple
@@ -45,6 +39,10 @@ class QuillanSovereignTester:
         print(f"Loading checkpoint from {ckpt_path}...", flush=True)
         ckpt = torch.load(ckpt_path, map_location=device, weights_only=False)
         cfg_dict = ckpt["config"]
+        state_dict = ckpt.pop("model_state_dict")
+        del ckpt
+        import gc
+        gc.collect()
         
         self.cfg = QuillanOniConfig(
             vocab_size=cfg_dict.get("vocab_size", 128256),
@@ -60,9 +58,15 @@ class QuillanSovereignTester:
         )
         self.cfg.vectorized_experts = True
         
-        print("Instantiating QuillanRoninOni...", flush=True)
+        print("Instantiating QuillanRoninOni directly in bfloat16...", flush=True)
+        orig_dtype = torch.get_default_dtype()
+        torch.set_default_dtype(torch.bfloat16)
         self.model = QuillanRoninOni(self.cfg)
-        missing, unexpected = self.model.load_state_dict(ckpt["model_state_dict"], strict=False)
+        torch.set_default_dtype(orig_dtype)
+        
+        missing, unexpected = self.model.load_state_dict(state_dict, strict=False)
+        del state_dict
+        gc.collect()
         print(f"Model loaded. (Missing keys: {len(missing)}, Unexpected keys: {len(unexpected)})", flush=True)
         self.model.eval()
         
@@ -95,7 +99,7 @@ class QuillanSovereignTester:
                     break
                     
                 generated_tokens.append(next_token)
-                cur_input = torch.tensor([[next_token]], dtype=torch.long, device=self.device)
+                cur_input = torch.cat([cur_input, torch.tensor([[next_token]], dtype=torch.long, device=self.device)], dim=1)
                 
                 token_str = self.tok.decode([next_token])
                 print(token_str, end="", flush=True)
