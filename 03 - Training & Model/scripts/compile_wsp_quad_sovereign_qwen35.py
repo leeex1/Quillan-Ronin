@@ -187,7 +187,7 @@ def compile_quad_wsp_qwen35():
         
     falcon_needed = {"token_embd.weight", "blk.0.attn_norm.weight"}
     for f_idx in range(4):
-        for k in ["attn_norm.weight", "ffn_norm.weight", "attn_q.weight", "attn_k.weight", "attn_v.weight", "attn_output.weight", "ffn_down.weight"]:
+        for k in ["attn_norm.weight", "ffn_norm.weight", "attn_q.weight", "attn_k.weight", "attn_v.weight", "attn_output.weight", "ffn_gate.weight", "ffn_up.weight", "ffn_down.weight"]:
             falcon_needed.add(f"blk.{f_idx}.{k}")
             
     falcon_tensors = {t.name: dequant_gguf(t) for t in r_falcon.tensors if t.name in falcon_needed}
@@ -270,7 +270,9 @@ def compile_quad_wsp_qwen35():
             k_exp = k.view(8, 64, 2048).repeat_interleave(4, dim=0).view(2048, 2048)
             v_exp = v.view(8, 64, 2048).repeat_interleave(4, dim=0).view(2048, 2048)
             
-            ffn_down = st_llama[f"{p}.mlp.down_proj.weight"].float()
+            ffn_gate = st_llama[f"{p}.mlp.gate_proj.weight"].float() # [8192, 2048]
+            ffn_up = st_llama[f"{p}.mlp.up_proj.weight"].float()     # [8192, 2048]
+            ffn_down = st_llama[f"{p}.mlp.down_proj.weight"].float() # [2048, 8192]
             
         elif l < 10:
             donor = "Falcon-3-1B"
@@ -286,14 +288,16 @@ def compile_quad_wsp_qwen35():
             k_exp = k.view(16, 64, 2048).repeat_interleave(2, dim=0).view(2048, 2048)
             v_exp = v.view(16, 64, 2048).repeat_interleave(2, dim=0).view(2048, 2048)
             
-            ffn_down = falcon_tensors[f"blk.{f_idx}.ffn_down.weight"].float()
+            ffn_gate = falcon_tensors[f"blk.{f_idx}.ffn_gate.weight"].float() # [8192, 2048]
+            ffn_up = falcon_tensors[f"blk.{f_idx}.ffn_up.weight"].float()     # [8192, 2048]
+            ffn_down = falcon_tensors[f"blk.{f_idx}.ffn_down.weight"].float() # [2048, 8192]
             
         elif l < 12:
             donor = "BitNet-1.58b"
             b_idx = l - 10
             p = f"model.layers.{b_idx}"
             ln1 = st_bitnet[f"{p}.input_layernorm.weight"]
-            ln2 = st_bitnet[f"{p}.post_attention_layernorm.weight"]
+            ln2 = st_bitnet[f"{p}.post_attention_norm.weight"] if f"{p}.post_attention_norm.weight" in st_bitnet else st_bitnet[f"{p}.post_attention_layernorm.weight"]
             
             q = project_dim(st_bitnet[f"{p}.self_attn.q_proj.weight"], hidden_dim, hidden_dim)
             k = project_dim(st_bitnet[f"{p}.self_attn.k_proj.weight"], hidden_dim, hidden_dim)
@@ -302,6 +306,8 @@ def compile_quad_wsp_qwen35():
             k_exp = k
             v_exp = v
             
+            ffn_gate = project_dim(st_bitnet[f"{p}.mlp.gate_proj.weight"], ffn_dim, hidden_dim)
+            ffn_up = project_dim(st_bitnet[f"{p}.mlp.up_proj.weight"], ffn_dim, hidden_dim)
             ffn_down = project_dim(st_bitnet[f"{p}.mlp.down_proj.weight"], hidden_dim, ffn_dim)
             
         else:
@@ -326,8 +332,11 @@ def compile_quad_wsp_qwen35():
                 k_exp = project_dim(k_raw, hidden_dim, hidden_dim)
                 v_exp = project_dim(v_raw, hidden_dim, hidden_dim)
             
-            ffn_down_raw = qwen35_tensors[f"blk.{q_idx}.ffn_down.weight"].float() # [2048, 6144]
-            # Project ffn_down from 6144 to 8192
+            ffn_gate_raw = qwen35_tensors[f"blk.{q_idx}.ffn_gate.weight"].float()
+            ffn_up_raw = qwen35_tensors[f"blk.{q_idx}.ffn_up.weight"].float()
+            ffn_down_raw = qwen35_tensors[f"blk.{q_idx}.ffn_down.weight"].float()
+            ffn_gate = project_dim(ffn_gate_raw, ffn_dim, hidden_dim)
+            ffn_up = project_dim(ffn_up_raw, ffn_dim, hidden_dim)
             ffn_down = project_dim(ffn_down_raw, hidden_dim, ffn_dim)
             
         # 1. Gain-Matched LayerNorms
@@ -343,12 +352,21 @@ def compile_quad_wsp_qwen35():
         model_state[f"{dst}.attn.c_proj.weight"] = o.to(torch.bfloat16)
         model_state[f"{dst}.attn.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
         
-        # 3. Takehi Attractor SVD Deflation on MLP down-projection
-        ffn_down_clean = remove_attractor_direction(ffn_down, num_directions=1)
+        # 3. Dense SwiGLU MLP
+        c_fc = torch.cat([ffn_gate, ffn_up], dim=0) # [2 * ffn_dim, hidden_dim]
+        model_state[f"{dst}.moe.c_fc.weight"] = c_fc.to(torch.bfloat16)
+        model_state[f"{dst}.moe.c_fc.bias"] = torch.zeros(2 * ffn_dim, dtype=torch.bfloat16)
         
-        # 4. Uniform r=16 34-Expert SVD MoE Extraction
+        # 4. Takehi Attractor SVD Deflation on MLP down-projection
+        ffn_down_clean = remove_attractor_direction(ffn_down, num_directions=1)
+        model_state[f"{dst}.moe.c_proj.weight"] = ffn_down_clean.to(torch.bfloat16)
+        model_state[f"{dst}.moe.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
+        
+        # 5. Uniform r=16 34-Expert SVD MoE Extraction (Mapped to lora_A and lora_B)
         experts = extract_34_uniform_experts(ffn_down_clean, hidden_dim, rank=16)
         for e_idx, (w0, w1) in enumerate(experts):
+            model_state[f"{dst}.moe.experts.{e_idx}.lora_A"] = w1  # [2048, 16]
+            model_state[f"{dst}.moe.experts.{e_idx}.lora_B"] = w0  # [16, 2048]
             model_state[f"{dst}.moe.experts.{e_idx}.w0.weight"] = w0
             model_state[f"{dst}.moe.experts.{e_idx}.w1.weight"] = w1
             

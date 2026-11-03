@@ -12,6 +12,9 @@ and verifies output fluency and accuracy.
 import os
 import sys
 import time
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 import torch
 import torch.nn.functional as F
 from tokenizers import Tokenizer
