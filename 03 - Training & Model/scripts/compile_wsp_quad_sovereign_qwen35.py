@@ -252,17 +252,17 @@ def compile_quad_wsp_qwen35():
     model.quillan_comm_gate.weight.data.zero_()
     model.quillan_comm_gate.bias.data.zero_()
     
-    # 3. 16 Layers Splicing across Quad Donors
-    logger.info(">>> [3/5] Splicing 16 Sovereign Layers across Quad Donors...")
-    # Layer Allocation:
-    # Layers 0..5 (6 layers): Llama 3.2 1B (Dense causal foundation)
-    # Layers 6..9 (4 layers): Falcon 3 1B (High-bandwidth attention)
-    # Layers 10..11 (2 layers): BitNet 1.58b (Ternary compute core)
-    # Layers 12..15 (4 layers): Qwen 3.5 2B (Native D=2048 Gated Delta + Frontier Reasoning)
+    # 3. 16 Layers Splicing across Balanced Quad Donors (Exact 25% Equal Distribution)
+    logger.info(">>> [3/5] Splicing 16 Sovereign Layers across Balanced Quad Donors (4/4/4/4 = 25% each)...")
+    # Exact Layer Allocation:
+    # Layers 0..3 (4 layers = 25%): Llama 3.2 1B (Dense causal foundation)
+    # Layers 4..7 (4 layers = 25%): Falcon 3 1B (High-bandwidth attention)
+    # Layers 8..11 (4 layers = 25%): BitNet 1.58b Large (Ternary compute core)
+    # Layers 12..15 (4 layers = 25%): Qwen 3.5 2B (Native D=2048 Gated Delta + Frontier Reasoning)
     for l in range(n_layer):
         blk = model.h[l]
         
-        if l < 6:
+        if l < 4:
             donor = "Llama-3.2-1B"
             p = f"model.layers.{l}"
             ln1 = st_llama[f"{p}.input_layernorm.weight"]
@@ -280,9 +280,9 @@ def compile_quad_wsp_qwen35():
             ffn_up = st_llama[f"{p}.mlp.up_proj.weight"].float()     # [8192, 2048]
             ffn_down = st_llama[f"{p}.mlp.down_proj.weight"].float() # [2048, 8192]
             
-        elif l < 10:
+        elif l < 8:
             donor = "Falcon-3-1B"
-            f_idx = l - 6
+            f_idx = l - 4
             ln1 = falcon_tensors[f"blk.{f_idx}.attn_norm.weight"].float()
             ln2 = falcon_tensors[f"blk.{f_idx}.ffn_norm.weight"].float()
             
@@ -300,7 +300,7 @@ def compile_quad_wsp_qwen35():
             
         elif l < 12:
             donor = "BitNet-1.58b"
-            b_idx = l - 10
+            b_idx = l - 8
             p = f"model.layers.{b_idx}"
             ln1 = st_bitnet[f"{p}.input_layernorm.weight"]
             ln2 = st_bitnet[f"{p}.post_attention_norm.weight"] if f"{p}.post_attention_norm.weight" in st_bitnet else st_bitnet[f"{p}.post_attention_layernorm.weight"]
