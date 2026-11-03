@@ -16,8 +16,12 @@ Validates that both the Mini 0.6B and 1B Sovereign checkpoints strictly satisfy:
 import os
 import sys
 import time
+import io
 import torch
 from tokenizers import Tokenizer
+
+if sys.platform == "win32" and hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
 sys.path.insert(0, r'C:\02_QUILLAN\03 - Training & Model\scripts')
 sys.path.insert(0, r'C:\02_QUILLAN\02 - Knowledge Foundation\knowledge\legacy\00 - Meta\oni')
