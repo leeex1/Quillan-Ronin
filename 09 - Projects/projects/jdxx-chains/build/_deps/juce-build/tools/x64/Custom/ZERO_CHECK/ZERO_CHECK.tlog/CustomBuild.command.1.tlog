@@ -1,0 +1,10 @@
+^C:\02_QUILLAN\09 - PROJECTS\PROJECTS\JDXX-CHAINS\BUILD\_DEPS\JUCE-BUILD\TOOLS\CMAKEFILES\294089686BCB202D421375FB6B8F5437\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src" "-BC:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/tools" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/tools/JUCE.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

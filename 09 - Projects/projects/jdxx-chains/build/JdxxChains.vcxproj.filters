@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\PluginProcessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\PluginEditor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\DSP\Biquad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\DSP\EnvelopeFollower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\Modules.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\ChainEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\ChainSpecs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_processors\juce_audio_processors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_processors\juce_audio_processors_ara.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_processors\juce_audio_processors_lv2_libs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_gui_extra\juce_gui_extra.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_gui_basics\juce_gui_basics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_graphics\juce_graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_graphics\juce_graphics_Harfbuzz.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_graphics\juce_graphics_Sheenbidi.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_events\juce_events.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_core\juce_core.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_core\juce_core_CompilationTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_data_structures\juce_data_structures.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_basics\juce_audio_basics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_utils\juce_audio_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_formats\juce_audio_formats.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_audio_devices\juce_audio_devices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\ronineq\ronineq\build\_deps\juce-src\modules\juce_dsp\juce_dsp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\JdxxChains_artefacts\JuceLibraryCode\JuceHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\CMakeFiles\e4a1e354ea5918287dadc6109aafd95e\JuceHeader.h.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E597ADDB-6EB0-3116-9EA0-A1FF71A71661}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{BB82F46A-AE45-3461-94BD-10946D6EB1C5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CA0B6CB1-6EB8-3A93-9DBE-382AD3700704}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

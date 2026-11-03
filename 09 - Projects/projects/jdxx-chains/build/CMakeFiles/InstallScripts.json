@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/cmake_install.cmake",
+		"C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/cmake_install.cmake",
+		"C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/modules/cmake_install.cmake",
+		"C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/extras/Build/cmake_install.cmake",
+		"C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/_deps/juce-build/extras/Build/juceaide/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

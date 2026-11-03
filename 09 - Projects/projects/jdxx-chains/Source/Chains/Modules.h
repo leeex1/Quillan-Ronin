@@ -204,6 +204,7 @@ private:
     double sr = 48000.0;
     EnvelopeFollower env;
     float gainSmooth = 1.0f;
+    float prevOutL = 0.0f, prevOutR = 0.0f;   // FB detector feed (one-sample lag)
 };
 
 // Stereo reverb, Schroeder/Freeverb style.
@@ -356,6 +357,7 @@ private:
     float tuneHz = 4000.0f, harmonics = 10.0f, thresholdDb = -4.0f, mixDb = -15.5f;
     double sr = 48000.0;
     Biquad hpL, hpR;
+    EnvelopeFollower env;
     float mixG = 0.19f;
     float drive = 1.0f;
 };

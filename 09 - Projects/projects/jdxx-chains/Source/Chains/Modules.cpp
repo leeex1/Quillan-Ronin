@@ -673,3 +673,179 @@ void Widener::processBlock (float* L, float* R, int n) noexcept
         R[i] = m - s;
     }
 }
+
+// ===========================================================================
+// configure() overrides — stash spec values; coefficients are recomputed in
+// prepare(), so configuration order never corrupts derived state.
+// ===========================================================================
+void NoiseGate::configure (const ModuleParams& p) noexcept { thresholdDb = p.a; attackMs = p.b; releaseMs = p.c; }
+void HighPass::configure  (const ModuleParams& p) noexcept { freqHz = p.a; q = p.b; }
+void TapeSim::configure   (const ModuleParams& p) noexcept { drive = p.a; bias = p.b; outLevelDb = p.c; speed = p.d; wowDepth = p.e; hfCutHz = p.f > 0.0f ? p.f : 16000.0f; }
+void GraphicEQ7::configure (const ModuleParams& p) noexcept
+{
+    gains = { p.a, p.b, p.c, p.d, p.e, p.f, p.g };
+    levelDb = p.h;
+}
+void DeEsser::configure   (const ModuleParams& p) noexcept { freqHz = p.a; thresholdDb = p.b; }
+void Compressor::configure (const ModuleParams& p) noexcept
+{
+    attackMs = p.a; kneeDb = p.b; ratio = p.c; releaseMs = p.d;
+    thresholdDb = p.e; makeupDb = p.f; mode = p.g;
+}
+void Reverb::configure    (const ModuleParams& p) noexcept { mixPct = p.a; sizePct = p.b; tonePct = p.c; }
+void StereoDelay::configure (const ModuleParams& p) noexcept
+{
+    dryPct = p.a; wetPct = p.b; hpHz = p.c; lpHz = p.d;
+    feedbackPct = p.e; timeSec = p.f; outLevelDb = p.g;
+}
+void Tremolo::configure   (const ModuleParams& p) noexcept { depth = p.a; rateHz = p.b; spreadDeg = p.c; }
+void ChorusBBD::configure (const ModuleParams& p) noexcept { preset = (int) p.a; applyPreset(); }
+void Vibrato::configure   (const ModuleParams& p) noexcept { amount = p.a; speedHz = p.b; }
+void Phaser::configure    (const ModuleParams& p) noexcept { speedHz = p.a; resonance = (int) p.b; }
+void Widener::configure   (const ModuleParams& p) noexcept { lowerInt = p.a; upperHz = p.b; upperInt = p.c; }
+
+// ===========================================================================
+// Exciter: HP(tune) -> threshold-gated tanh harmonics -> blend at mixDb
+// Assumption (flagged): `harmonics` scales the tanh drive (10 -> x3.5),
+// threshold gate transition is 12 dB. Verify by ear and document.
+// ===========================================================================
+void Exciter::prepare (double sampleRate)
+{
+    sr = sampleRate;
+    hpL.setParams (Biquad::Type::HighPass, tuneHz, 0.7071f, 0.0f, (float) sr);
+    hpR.setParams (Biquad::Type::HighPass, tuneHz, 0.7071f, 0.0f, (float) sr);
+    env.setSampleRate ((float) sr);
+    env.setAttackRelease (5.0f, 100.0f);
+    mixG  = DB_TO_LIN (mixDb);
+    drive = 1.0f + harmonics * 0.25f;
+}
+
+void Exciter::reset() noexcept { hpL.reset(); hpR.reset(); env.reset(); }
+
+void Exciter::processBlock (float* L, float* R, int n) noexcept
+{
+    for (int i = 0; i < n; ++i)
+    {
+        float sL = hpL.processSample (L[i]);
+        float sR = hpR.processSample (R[i]);
+        env.process (std::max (std::fabs (sL), std::fabs (sR)));
+        const float envDb = LIN_TO_DB (env.getLevel() + 1e-9f);
+        // 12 dB smoothstep gate above threshold
+        const float t = clampf ((envDb - thresholdDb + 12.0f) / 12.0f, 0.0f, 1.0f);
+        const float gate = t * t * (3.0f - 2.0f * t);
+
+        const float hL = std::tanh (sL * drive) * gate;
+        const float hR = std::tanh (sR * drive) * gate;
+        L[i] += hL * mixG;
+        R[i] += hR * mixG;
+    }
+}
+
+void Exciter::configure (const ModuleParams& p) noexcept
+{
+    tuneHz = p.a; harmonics = p.b; thresholdDb = p.c; mixDb = p.d;
+}
+
+// ===========================================================================
+// Vintage Limiter: internal presence shelf -> peak limiter, soft knee,
+// fixed threshold at -1 dBFS (documented; no LUFS auto-gain anywhere).
+//   Enhance = shelf gain at 3.5 kHz, Soft Knee = knee width,
+//   Master Level = output gain added after limiting.
+// ===========================================================================
+void Limiter::prepare (double sampleRate)
+{
+    sr = sampleRate;
+    shelfL.setParams (Biquad::Type::HighShelf, 3500.0f, 0.75f, enhanceDb, (float) sr);
+    shelfR.setParams (Biquad::Type::HighShelf, 3500.0f, 0.75f, enhanceDb, (float) sr);
+    env.setSampleRate ((float) sr);
+    env.setAttackRelease (std::max (0.05f, attackMs), releaseMs);
+    outG = DB_TO_LIN (masterLevelDb);
+    gainSmooth = 1.0f;
+}
+
+void Limiter::reset() noexcept { shelfL.reset(); shelfR.reset(); env.reset(); gainSmooth = 1.0f; }
+
+void Limiter::processBlock (float* L, float* R, int n) noexcept
+{
+    const float knee = std::max (0.01f, softKneeDb);
+    for (int i = 0; i < n; ++i)
+    {
+        float xL = shelfL.processSample (L[i]);
+        float xR = shelfR.processSample (R[i]);
+
+        env.process (std::max (std::fabs (xL), std::fabs (xR)));
+        const float envDb = LIN_TO_DB (env.getLevel() + 1e-9f);
+        const float x = envDb - thresholdDb;
+
+        float gr = 0.0f;
+        if (x <= -knee * 0.5f)      gr = 0.0f;
+        else if (x >=  knee * 0.5f) gr = x;
+        else
+        {
+            const float t = x + knee * 0.5f;
+            gr = (t * t) / (2.0f * knee);
+        }
+        // Attack smooths the gain reduction so fast transients don't click.
+        const float atkSec = std::max (0.0002f, attackMs * 0.001f);
+        const float coef = std::exp (-1.0f / (atkSec * (float) sr));
+        gainSmooth = coef * gainSmooth + (1.0f - coef) * DB_TO_LIN (-gr);
+
+        xL *= gainSmooth; xR *= gainSmooth;
+        xL = clampf (xL, -1.0f, 1.0f);
+        xR = clampf (xR, -1.0f, 1.0f);
+        L[i] = xL * outG;
+        R[i] = xR * outG;
+    }
+}
+
+void Limiter::configure (const ModuleParams& p) noexcept
+{
+    attackMs = p.a; releaseMs = p.b; softKneeDb = p.c;
+    enhanceDb = p.d; masterLevelDb = p.e; thresholdDb = p.f;
+}
+
+// ===========================================================================
+// GainStage
+// ===========================================================================
+void GainStage::processBlock (float* L, float* R, int n) noexcept
+{
+    for (int i = 0; i < n; ++i) { L[i] *= g; R[i] *= g; }
+}
+
+void GainStage::configure (const ModuleParams& p) noexcept { gainDb = p.a; g = DB_TO_LIN (gainDb); }
+
+// ===========================================================================
+// Factory
+// ===========================================================================
+Module* createModule (const ModuleSpec& spec, double sampleRate) noexcept
+{
+    Module* m = nullptr;
+    switch (spec.type)
+    {
+        case ModuleType::Gate:         m = new NoiseGate();   break;
+        case ModuleType::HighPass:     m = new HighPass();    break;
+        case ModuleType::TapeSim:      m = new TapeSim();     break;
+        case ModuleType::GraphicEQ7:   m = new GraphicEQ7();  break;
+        case ModuleType::DeEsser:      m = new DeEsser();     break;
+        case ModuleType::CompressorFF:
+        case ModuleType::CompressorFB: m = new Compressor();  break;
+        case ModuleType::Reverb:       m = new Reverb();      break;
+        case ModuleType::StereoDelay:  m = new StereoDelay(); break;
+        case ModuleType::Tremolo:      m = new Tremolo();     break;
+        case ModuleType::ChorusBBD:    m = new ChorusBBD();   break;
+        case ModuleType::Vibrato:      m = new Vibrato();     break;
+        case ModuleType::Phaser:       m = new Phaser();      break;
+        case ModuleType::Widener:      m = new Widener();     break;
+        case ModuleType::Exciter:      m = new Exciter();     break;
+        case ModuleType::Limiter:      m = new Limiter();     break;
+        case ModuleType::GainStage:    m = new GainStage();   break;
+    }
+    if (m == nullptr) return nullptr;
+    m->configure (spec.p);
+    m->type = spec.type;
+    m->name = spec.name;
+    m->prepare (sampleRate);
+    return m;
+}
+
+void destroyModule (Module* m) noexcept { delete m; }

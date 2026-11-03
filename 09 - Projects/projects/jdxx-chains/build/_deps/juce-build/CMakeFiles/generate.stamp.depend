@@ -1,0 +1,13 @@
+# CMake generation dependency list for this directory.
+C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/CMakeFiles/cmake.verify_globs
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/CMakeLists.txt
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/JUCECheckAtomic.cmake
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/JUCEConfig.cmake.in
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/JUCEHelperTargets.cmake
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/JUCEModuleSupport.cmake
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/JUCEUtils.cmake
+C:/02_QUILLAN/09 - Projects/projects/ronineq/ronineq/build/_deps/juce-src/extras/Build/CMake/juce_runtime_arch_detection.cpp
+C:/Program Files/CMake/share/cmake-4.4/Modules/BasicConfigVersion-SamePatchVersion.cmake.in
+C:/Program Files/CMake/share/cmake-4.4/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/WriteBasicConfigVersionFile.cmake

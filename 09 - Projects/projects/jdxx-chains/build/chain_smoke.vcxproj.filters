@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Tests\chain_smoke.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\DSP\Biquad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\DSP\EnvelopeFollower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\Modules.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\ChainEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\Source\Chains\ChainSpecs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{CA0B6CB1-6EB8-3A93-9DBE-382AD3700704}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

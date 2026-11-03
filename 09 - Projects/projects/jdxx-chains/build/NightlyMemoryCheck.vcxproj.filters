@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="18.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\CMakeFiles\bbb0cd2051220ec66c5af362f61a6df5\NightlyMemoryCheck.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\CMakeFiles\NightlyMemoryCheck" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{E597ADDB-6EB0-3116-9EA0-A1FF71A71661}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
