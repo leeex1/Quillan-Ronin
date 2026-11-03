@@ -57,7 +57,7 @@ juce_add_plugin (JdxxChains
     NEEDS_MIDI_OUTPUT           FALSE
     IS_MIDI_EFFECT              FALSE
     VST3_CATEGORIES             "Fx|Mastering"
-    COPY_PLUGIN_AFTER_BUILD     TRUE)
+    COPY_PLUGIN_AFTER_BUILD     OFF)
 
 # Brand-new plugin: no VST2 lineage — do NOT claim VST2 replaceability.
 target_compile_definitions (JdxxChains PUBLIC JUCE_VST3_CAN_REPLACE_VST2=0)

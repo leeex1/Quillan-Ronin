@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\x64\Release\ZERO_CHECK</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\Release\juce_vst3_helper.exe</FullPath>
+    </ProjectOutput>
+    <ProjectOutput>
+      <FullPath>C:\02_QUILLAN\09 - Projects\projects\jdxx-chains\build\JdxxChains_artefacts\Release\VST3\JDXX Chains.vst3\Contents\x86_64-win\JDXX Chains.vst3</FullPath>
+    </ProjectOutput>
+  </ProjectOutputs>
+  <ContentFiles />
+  <SatelliteDlls />
+  <NonRecipeFileRefs />
+</Project>
