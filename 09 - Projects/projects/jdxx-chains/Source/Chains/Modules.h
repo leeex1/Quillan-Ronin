@@ -12,8 +12,8 @@
 */
 #pragma once
 
-#include "Biquad.h"
-#include "EnvelopeFollower.h"
+#include "DSP/Biquad.h"
+#include "DSP/EnvelopeFollower.h"
 #include <array>
 #include <cmath>
 #include <vector>

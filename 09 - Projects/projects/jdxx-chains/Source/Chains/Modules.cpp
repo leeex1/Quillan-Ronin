@@ -16,9 +16,9 @@
 namespace JdxxChains
 {
 
-static constexpr float DB_TO_LIN (float db) noexcept { return std::pow (10.0f, db / 20.0f); }
-static constexpr float LIN_TO_DB (float lin) noexcept { return 20.0f * std::log10 (std::max (lin, 1e-9f)); }
-static constexpr float clampf (float v, float lo, float hi) noexcept { return std::max (lo, std::min (hi, v)); }
+static inline float DB_TO_LIN (float db) noexcept { return std::pow (10.0f, db / 20.0f); }
+static inline float LIN_TO_DB (float lin) noexcept { return 20.0f * std::log10 (std::max (lin, 1e-9f)); }
+static inline float clampf (float v, float lo, float hi) noexcept { return std::max (lo, std::min (hi, v)); }
 
 // ===========================================================================
 // Noise Gate
@@ -849,3 +849,5 @@ Module* createModule (const ModuleSpec& spec, double sampleRate) noexcept
 }
 
 void destroyModule (Module* m) noexcept { delete m; }
+
+} // namespace JdxxChains

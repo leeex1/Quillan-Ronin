@@ -10,7 +10,8 @@
 
 class JdxxChainsAudioProcessor;
 
-class JdxxChainsAudioProcessorEditor : public juce::AudioProcessorEditor
+class JdxxChainsAudioProcessorEditor : public juce::AudioProcessorEditor,
+                                       private juce::Timer
 {
 public:
     explicit JdxxChainsAudioProcessorEditor (JdxxChainsAudioProcessor&);
@@ -21,7 +22,7 @@ public:
 
 private:
     void updateSpecLabel();
-    void timerCallback() override;
+    void timerCallback() override;   // juce::Timer — refreshes spec read-out on mode change
 
     JdxxChainsAudioProcessor& processor;
     juce::Label titleLabel, specLabel;
@@ -29,7 +30,6 @@ private:
     juce::Slider gainSlider;
     juce::ToggleButton bypassButton;
     juce::Label footerNote;
-    juce::Timer specPoll;   // refreshes the spec read-out when mode changes
 
     std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> modeAttachment;
     std::unique_ptr<juce::AudioProcessorValueTreeState::SliderAttachment> gainAttachment;

@@ -1,0 +1,10 @@
+^C:\02_QUILLAN\09 - PROJECTS\PROJECTS\JDXX-CHAINS\BUILD\CMAKEFILES\BBB0CD2051220EC66C5AF362F61A6DF5\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/02_QUILLAN/09 - Projects/projects/jdxx-chains" "-BC:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build" --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/JdxxChains.slnx"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

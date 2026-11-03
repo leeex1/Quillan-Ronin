@@ -1,0 +1,20 @@
+^C:\02_QUILLAN\09 - PROJECTS\PROJECTS\JDXX-CHAINS\BUILD\CMAKEFILES\E4A1E354EA5918287DADC6109AAFD95E\JUCEHEADER.H.RULE
+setlocal
+_deps\juce-build\tools\extras\Build\juceaide\juceaide_artefacts\Custom\juceaide.exe header "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/JdxxChains_artefacts/JuceLibraryCode/Release/Defs.txt" "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/JdxxChains_artefacts/JuceLibraryCode/JuceHeader.h"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\02_QUILLAN\09 - PROJECTS\PROJECTS\JDXX-CHAINS\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-SC:/02_QUILLAN/09 - Projects/projects/jdxx-chains" "-BC:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build" --check-stamp-file "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

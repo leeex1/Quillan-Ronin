@@ -20,22 +20,21 @@ JdxxChainsAudioProcessor::JdxxChainsAudioProcessor()
 
 juce::AudioProcessorValueTreeState::ParameterLayout JdxxChainsAudioProcessor::createParameterLayout()
 {
-    using P = juce::AudioProcessorValueTreeState;
-    std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+    juce::AudioProcessorValueTreeState::ParameterLayout layout;
 
-    params.emplace_back (std::make_unique<juce::AudioParameterChoice> (
+    layout.add (std::make_unique<juce::AudioParameterChoice> (
         "mode", "Chain (JDXX role)",
         juce::StringArray { "Vocal — recording JDXX", "Vocal adlib", "Intro (hypeVox basis)", "Pan (slowPan basis)", "Mastering JDXX" },
         0));
 
-    params.emplace_back (std::make_unique<juce::AudioParameterFloat> (
+    layout.add (std::make_unique<juce::AudioParameterFloat> (
         "out_gain", "Output gain",
         juce::NormalisableRange<float> (-12.0f, 12.0f, 0.1f), 0.0f, " dB"));
 
-    params.emplace_back (std::make_unique<juce::AudioParameterBool> (
+    layout.add (std::make_unique<juce::AudioParameterBool> (
         "bypass", "Bypass", false));
 
-    return P::ParameterLayout (std::move (params));
+    return layout;
 }
 
 const juce::String JdxxChainsAudioProcessor::getName() const { return JDXX_CHAINS_NAME; }
@@ -93,7 +92,7 @@ void JdxxChainsAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         const float g  = outGain.getNextValue();
         const float bm = bypassMix.getNextValue();
         float wetL = L[i] * g, wetR = R[i] * g;
-        if (dryCopy.isNotEmpty())
+        if (dryCopy.getNumSamples() > 0)
         {
             wetL = (1.0f - bm) * wetL + bm * dryCopy.getSample (0, i);
             wetR = (1.0f - bm) * wetR + bm * dryCopy.getSample (1, i);

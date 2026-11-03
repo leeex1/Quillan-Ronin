@@ -53,7 +53,7 @@ JdxxChainsAudioProcessorEditor::JdxxChainsAudioProcessorEditor (JdxxChainsAudioP
     addAndMakeVisible (footerNote);
 
     updateSpecLabel();
-    specPoll.startTimerHz (8);   // label follows the mode combo
+    startTimerHz (8);   // editor is also a juce::Timer now — polls mode at 8 Hz
 }
 
 void JdxxChainsAudioProcessorEditor::timerCallback()
