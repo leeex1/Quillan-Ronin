@@ -35,13 +35,17 @@ logging.basicConfig(
 logger = logging.getLogger("StringAligned-Compiler")
 
 
-def to_bitnet_ternary(W: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:
+def to_bitnet_ternary(W: torch.Tensor, target_std: float = None, eps: float = 1e-5) -> torch.Tensor:
     """Canonical BitNet 1.58b Weight Quantization: {-1, 0, +1} * gamma."""
     W_f = W.float().cpu()
     scale = 1.0 / W_f.abs().mean(dim=-1, keepdim=True).clamp(min=eps)
     W_scaled = W_f * scale
     W_q = torch.round(torch.clamp(W_scaled, -1.0, 1.0))
-    return (W_q / scale).cpu()
+    W_dequant = (W_q / scale).cpu()
+    if target_std is not None:
+        curr_std = W_dequant.std().clamp(min=1e-6)
+        W_dequant = W_dequant * (target_std / curr_std)
+    return W_dequant.cpu()
 
 
 def project_weight(W: torch.Tensor, target_rows: int, target_cols: int) -> torch.Tensor:
@@ -93,7 +97,7 @@ def extract_svd_expert(W: torch.Tensor, target_dim: int, rank: int = 16) -> Tupl
     w0_proj = project_weight(w0, rank, target_dim)
     w1_proj = project_weight(w1, target_dim, rank)
 
-    return to_bitnet_ternary(w0_proj), to_bitnet_ternary(w1_proj)
+    return to_bitnet_ternary(w0_proj, target_std=0.010), to_bitnet_ternary(w1_proj, target_std=0.010)
 
 
 def get_layer_count(f) -> int:
@@ -109,7 +113,7 @@ def get_layer_count(f) -> int:
 
 
 def build_donor_token_map(quillan_tok: Tokenizer, donor_tok: Tokenizer, vocab_size: int = 50262) -> torch.Tensor:
-    """Builds integer index mapping from Quillan token IDs to Donor token IDs by exact string match."""
+    """Builds integer index mapping from Quillan token IDs to Donor token IDs by exact string match, immune to BOS pollution."""
     mapping = torch.zeros(vocab_size, dtype=torch.long)
     donor_vocab_size = donor_tok.get_vocab_size()
 
@@ -117,16 +121,21 @@ def build_donor_token_map(quillan_tok: Tokenizer, donor_tok: Tokenizer, vocab_si
         s = quillan_tok.id_to_token(q_id)
         text = quillan_tok.decode([q_id])
 
-        d_id = donor_tok.token_to_id(s) if s else None
-        if d_id is None and s:
-            d_id = donor_tok.token_to_id(s.replace('Ġ', ' '))
+        d_id = None
+        if s:
+            d_id = donor_tok.token_to_id(s)
             if d_id is None:
-                d_id = donor_tok.token_to_id(s.replace(' ', 'Ġ'))
+                d_id = donor_tok.token_to_id(s.replace('Ġ', ' ').replace(' ', ' '))
+            if d_id is None:
+                d_id = donor_tok.token_to_id(s.replace('Ġ', ''))
 
         if d_id is None and text and len(text.strip()) > 0:
-            enc = donor_tok.encode(text).ids
+            enc = donor_tok.encode(text, add_special_tokens=False).ids
             if enc:
-                d_id = enc[0]
+                if len(enc) > 1 and enc[0] in [29871, 259]:
+                    d_id = enc[1]
+                else:
+                    d_id = enc[0]
 
         if d_id is None or d_id >= donor_vocab_size:
             d_id = min(q_id, donor_vocab_size - 1)
@@ -176,25 +185,28 @@ def compile_string_aligned_model(
     model_state = {}
     layers_per_donor = n_layer // 3
 
-    # Extract authentic embeddings using string mapping
+    # Extract authentic embeddings using string mapping (continuous BFloat16)
     with safe_open(donor_llama_path, framework="pt", device="cpu") as f_llama:
         w_llama_raw = f_llama.get_tensor("model.embed_tokens.weight")
-        emb_llama = to_bitnet_ternary(project_weight(w_llama_raw[map_llama], vocab_size, hidden_dim))
+        emb_llama = project_weight(w_llama_raw[map_llama], vocab_size, hidden_dim)
+        emb_llama = emb_llama * (0.025 / emb_llama.std().clamp(min=1e-6))
         norm_llama = project_vector(f_llama.get_tensor("model.norm.weight"), hidden_dim)
 
     with safe_open(donor_bitnet_path, framework="pt", device="cpu") as f_bitnet:
         w_bitnet_raw = f_bitnet.get_tensor("model.embed_tokens.weight")
-        emb_bitnet = to_bitnet_ternary(project_weight(w_bitnet_raw[map_bitnet], vocab_size, hidden_dim))
+        emb_bitnet = project_weight(w_bitnet_raw[map_bitnet], vocab_size, hidden_dim)
+        emb_bitnet = emb_bitnet * (0.025 / emb_bitnet.std().clamp(min=1e-6))
         norm_bitnet = project_vector(f_bitnet.get_tensor("model.norm.weight"), hidden_dim)
 
     with safe_open(donor_qwen_path, framework="pt", device="cpu") as f_qwen:
         w_qwen_raw = f_qwen.get_tensor("model.embed_tokens.weight")
-        emb_qwen = to_bitnet_ternary(project_weight(w_qwen_raw[map_qwen], vocab_size, hidden_dim))
+        emb_qwen = project_weight(w_qwen_raw[map_qwen], vocab_size, hidden_dim)
+        emb_qwen = emb_qwen * (0.025 / emb_qwen.std().clamp(min=1e-6))
         norm_qwen = project_vector(f_qwen.get_tensor("model.norm.weight"), hidden_dim)
 
-    # 1/3 string-aligned superposition
+    # 1/3 string-aligned continuous superposition
     model_state["wte.weight"] = (emb_llama * (1.0/3.0) + emb_bitnet * (1.0/3.0) + emb_qwen * (1.0/3.0)).to(torch.bfloat16)
-    model_state["lm_head.weight"] = model_state["wte.weight"]
+    model_state["lm_head.weight"] = model_state["wte.weight"].clone()
     model_state["ln_f.weight"] = (norm_llama * (1.0/3.0) + norm_bitnet * (1.0/3.0) + norm_qwen * (1.0/3.0)).to(torch.bfloat16)
     model_state["ln_f.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
@@ -210,14 +222,15 @@ def compile_string_aligned_model(
          safe_open(donor_bitnet_path, framework="pt", device="cpu") as f_bitnet, \
          safe_open(donor_qwen_path, framework="pt", device="cpu") as f_qwen:
 
-        model_state["q1_bridge.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-        model_state["q2_bridge.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-        model_state["ingest_gate.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.mlp.down_proj.weight"), hidden_dim, 2 * hidden_dim)).to(torch.bfloat16)
+        model_state["q1_bridge.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+        model_state["q2_bridge.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+        model_state["ingest_gate.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.mlp.down_proj.weight"), hidden_dim, 2 * hidden_dim), target_std=0.010).to(torch.bfloat16)
         model_state["ingest_gate.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
-        model_state["quillan_finalizer_q1.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.1.self_attn.o_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-        model_state["quillan_finalizer_q2.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.1.self_attn.o_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-        model_state["quillan_comm_gate.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.1.mlp.down_proj.weight"), hidden_dim, 2 * hidden_dim)).to(torch.bfloat16)
+        # Identity Finalizer Consensus (preserves exact semantic geometry into lm_head)
+        model_state["quillan_finalizer_q1.weight"] = (torch.eye(hidden_dim, dtype=torch.float32) / 1.1).to(torch.bfloat16)
+        model_state["quillan_finalizer_q2.weight"] = (torch.eye(hidden_dim, dtype=torch.float32) / 1.1).to(torch.bfloat16)
+        model_state["quillan_comm_gate.weight"] = torch.zeros(hidden_dim, 2 * hidden_dim, dtype=torch.bfloat16)
         model_state["quillan_comm_gate.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
     # -------------------------------------------------------------------------
@@ -257,14 +270,14 @@ def compile_string_aligned_model(
             model_state[f"{dst}.ln_1.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
             # 2. Causal Self-Attention: Stack authentic Q, K, V
-            w_q = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.q_proj.weight"), hidden_dim, hidden_dim))
-            w_k = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.k_proj.weight"), hidden_dim, hidden_dim))
-            w_v = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.v_proj.weight"), hidden_dim, hidden_dim))
+            w_q = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.q_proj.weight"), hidden_dim, hidden_dim), target_std=0.018)
+            w_k = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.k_proj.weight"), hidden_dim, hidden_dim), target_std=0.018)
+            w_v = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.018)
             model_state[f"{dst}.attn.c_attn.weight"] = torch.cat([w_q, w_k, w_v], dim=0).to(torch.bfloat16)
             model_state[f"{dst}.attn.c_attn.bias"] = torch.zeros(3 * hidden_dim, dtype=torch.bfloat16)
 
             # 3. Attention Output
-            w_o = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.o_proj.weight"), hidden_dim, hidden_dim))
+            w_o = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.self_attn.o_proj.weight"), hidden_dim, hidden_dim), target_std=0.010)
             model_state[f"{dst}.attn.c_proj.weight"] = w_o.to(torch.bfloat16)
             model_state[f"{dst}.attn.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
@@ -273,13 +286,13 @@ def compile_string_aligned_model(
             model_state[f"{dst}.ln_2.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
             # 5. SwiGLU FFN: Stack authentic Gate and Up
-            w_gate = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.gate_proj.weight"), ffn_dim, hidden_dim))
-            w_up = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.up_proj.weight"), ffn_dim, hidden_dim))
+            w_gate = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.gate_proj.weight"), ffn_dim, hidden_dim), target_std=0.012)
+            w_up = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.up_proj.weight"), ffn_dim, hidden_dim), target_std=0.012)
             model_state[f"{dst}.moe.c_fc.weight"] = torch.cat([w_gate, w_up], dim=0).to(torch.bfloat16)
             model_state[f"{dst}.moe.c_fc.bias"] = torch.zeros(2 * ffn_dim, dtype=torch.bfloat16)
 
             # 6. SwiGLU Down
-            w_down = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.down_proj.weight"), hidden_dim, ffn_dim))
+            w_down = to_bitnet_ternary(project_weight(stream.get_tensor(f"{prefix}.mlp.down_proj.weight"), hidden_dim, ffn_dim), target_std=0.012)
             model_state[f"{dst}.moe.c_proj.weight"] = w_down.to(torch.bfloat16)
             model_state[f"{dst}.moe.c_proj.bias"] = torch.zeros(hidden_dim, dtype=torch.bfloat16)
 
@@ -303,25 +316,26 @@ def compile_string_aligned_model(
         for l in range(n_layer):
             dst = f"h.{l}"
             # 3 Llama
-            model_state[f"{dst}.attn.prism.vectors.Language.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Sentiment.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Context.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Language.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Sentiment.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Context.weight"] = to_bitnet_ternary(project_weight(f_llama.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
 
             # 3 BitNet
-            model_state[f"{dst}.attn.prism.vectors.Intent.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Meta.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Creativity.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Intent.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Meta.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Creativity.weight"] = to_bitnet_ternary(project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
 
             # 3 Qwen
-            model_state[f"{dst}.attn.prism.vectors.Ethics.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Strategy.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Constraint.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim)).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Ethics.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Strategy.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Constraint.weight"] = to_bitnet_ternary(project_weight(f_qwen.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
 
-            # Prism weight gate
+            # Prism weight gate (scaled gently so attention residual is preserved)
             w_gate = to_bitnet_ternary(
                 project_weight(f_llama.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim) * (1.0 / 3.0) +
                 project_weight(f_bitnet.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim) * (1.0 / 3.0) +
-                project_weight(f_qwen.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim) * (1.0 / 3.0)
+                project_weight(f_qwen.get_tensor("model.layers.0.self_attn.o_proj.weight"), hidden_dim, hidden_dim) * (1.0 / 3.0),
+                target_std=0.001
             )
             model_state[f"{dst}.attn.prism.w_gate.weight"] = w_gate.to(torch.bfloat16)
 
