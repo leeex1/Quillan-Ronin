@@ -24,3 +24,4 @@ with safe_open(d_qwen, framework="pt", device="cpu") as f:
         if k in f.keys():
             t = f.get_tensor(k).float()
             print(f"{k:45s} | shape: {str(list(t.shape)):15s} | mean: {t.mean().item():+.5f} | std: {t.std().item():.5f} | min: {t.min().item():+.4f} | max: {t.max().item():+.4f}")
+

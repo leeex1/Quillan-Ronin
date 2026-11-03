@@ -69,3 +69,4 @@ if __name__ == "__main__":
     p_mini = r"C:\02_QUILLAN\checkpoints\checkpoints_oni\sft_runs\quillan_mini_0.6b_tripartite.pt"
     if os.path.exists(p_mini):
         probe_model(p_mini, "Mini 0.6B WSP")
+

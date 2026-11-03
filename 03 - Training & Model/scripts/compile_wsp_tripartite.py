@@ -259,7 +259,7 @@ def compile_wsp_model(
             else:
                 stream = f_qwen
                 idx = l - 2 * layers_per_donor
-                src_l = (idx * n_qwen_src) // layers_per_donor
+                src_l = (idx * n_q_src) // layers_per_donor
                 R_basis = R_q
                 donor_tag = "Qwen-2.5"
                 
