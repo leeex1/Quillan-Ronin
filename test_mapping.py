@@ -38,3 +38,4 @@ for test_id in [548, 225, 268, 204, 6762, 16725, 3248, 4641, 4022]:
     b_id = get_best_donor_id(t_b, text, raw_s)
     qw_id = get_best_donor_id(t_qw, text, raw_s)
     print(f'Token {test_id:5d} ({raw_s:12s} / "{text}"): Llama={l_id} ("{t_l.decode([l_id])}") | BitNet={b_id} ("{t_b.decode([b_id])}") | Qwen={qw_id} ("{t_qw.decode([qw_id])}")')
+

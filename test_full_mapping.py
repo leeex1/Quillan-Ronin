@@ -56,3 +56,4 @@ for q_id in range(vocab_size):
 
 print(f"Token Map Built: Llama unq={len(torch.unique(map_l))}, BitNet unq={len(torch.unique(map_b))}, Qwen unq={len(torch.unique(map_qw))}")
 print(f"Llama BOS counts: {(map_l == 128000).sum().item()}, BitNet BOS counts: {(map_b == 1).sum().item()}")
+

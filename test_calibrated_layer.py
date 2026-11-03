@@ -109,3 +109,4 @@ print("Embedding direct vocabulary match top-5 next tokens:")
 for p, idx in zip(topk.values, topk.indices):
     tok_str = t_q.decode([idx.item()])
     print(f"  token {idx.item():5d} ('{tok_str}'): prob={p.item():.4f}")
+

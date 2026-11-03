@@ -40,3 +40,4 @@ for p in prompts:
         for prob, idx in zip(top5.values, top5.indices):
             tok_text = tok.decode([idx.item()])
             print(f"   {prob.item()*100:5.2f}% | ID {idx.item():5d} | '{tok_text}'")
+

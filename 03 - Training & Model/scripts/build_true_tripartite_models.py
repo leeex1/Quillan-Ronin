@@ -373,23 +373,23 @@ def compile_harmonized_tripartite_model(
             # 3 Llama
             model_state[f"{dst}.attn.prism.vectors.Language.weight"] = to_bitnet_ternary(project_linear_preserving(f_llama.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
             model_state[f"{dst}.attn.prism.vectors.Sentiment.weight"] = to_bitnet_ternary(project_linear_preserving(f_llama.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Structure.weight"] = to_bitnet_ternary(project_linear_preserving(f_llama.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Context.weight"] = to_bitnet_ternary(project_linear_preserving(f_llama.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim), target_std=0.010).to(torch.bfloat16)
 
             # 3 BitNet (rotated)
             w_b_q = R_bitnet @ project_linear_preserving(f_bitnet.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim) @ R_bitnet.t()
             w_b_k = R_bitnet @ project_linear_preserving(f_bitnet.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim) @ R_bitnet.t()
             w_b_v = R_bitnet @ project_linear_preserving(f_bitnet.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim) @ R_bitnet.t()
-            model_state[f"{dst}.attn.prism.vectors.Execution.weight"] = to_bitnet_ternary(w_b_q, target_std=0.010).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Efficiency.weight"] = to_bitnet_ternary(w_b_k, target_std=0.010).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Systems.weight"] = to_bitnet_ternary(w_b_v, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Intent.weight"] = to_bitnet_ternary(w_b_q, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Meta.weight"] = to_bitnet_ternary(w_b_k, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Creativity.weight"] = to_bitnet_ternary(w_b_v, target_std=0.010).to(torch.bfloat16)
 
             # 3 Qwen (rotated)
             w_q_q = R_qwen @ project_linear_preserving(f_qwen.get_tensor("model.layers.0.self_attn.q_proj.weight"), hidden_dim, hidden_dim) @ R_qwen.t()
             w_q_k = R_qwen @ project_linear_preserving(f_qwen.get_tensor("model.layers.0.self_attn.k_proj.weight"), hidden_dim, hidden_dim) @ R_qwen.t()
             w_q_v = R_qwen @ project_linear_preserving(f_qwen.get_tensor("model.layers.0.self_attn.v_proj.weight"), hidden_dim, hidden_dim) @ R_qwen.t()
-            model_state[f"{dst}.attn.prism.vectors.Logic.weight"] = to_bitnet_ternary(w_q_q, target_std=0.010).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Mathematics.weight"] = to_bitnet_ternary(w_q_k, target_std=0.010).to(torch.bfloat16)
-            model_state[f"{dst}.attn.prism.vectors.Ethics.weight"] = to_bitnet_ternary(w_q_v, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Ethics.weight"] = to_bitnet_ternary(w_q_q, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Strategy.weight"] = to_bitnet_ternary(w_q_k, target_std=0.010).to(torch.bfloat16)
+            model_state[f"{dst}.attn.prism.vectors.Constraint.weight"] = to_bitnet_ternary(w_q_v, target_std=0.010).to(torch.bfloat16)
 
             model_state[f"{dst}.attn.prism.w_gate.weight"] = (torch.randn(hidden_dim, hidden_dim, dtype=torch.float32) * 0.001).to(torch.bfloat16)
 
