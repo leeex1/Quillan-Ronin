@@ -33,3 +33,4 @@ for l in [0, 7, 15]:
     print(f"  Layer {l:2d}: Attn Norm={w_attn:.2f} | C2-Vir(Llama)={w_llama:.2f} | C14-Kaido(BitNet)={w_bitnet:.2f} | C7-Logos(Qwen)={w_qwen:.2f}")
 
 print("\n1B Sovereign Tri-Donor Model is fully verified and mathematically sound.")
+
