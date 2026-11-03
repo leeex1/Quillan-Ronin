@@ -235,10 +235,9 @@ def compile_quad_wsp_qwen35():
     
     # Final LayerNorm
     norm_l = st_llama["model.norm.weight"].float()
-    norm_f = falcon_tensors["blk.0.attn_norm.weight"].float()
-    norm_unified = 0.70 * norm_l + 0.30 * norm_f
-    model.ln_f.weight.data.copy_(normalize_layernorm_vector(norm_unified, hidden_dim, target_mean=1.0).to(torch.bfloat16))
-    model.ln_f.bias.data.zero_()
+    model.ln_f.weight.data.copy_(norm_l.to(torch.bfloat16))
+    if hasattr(model.ln_f, "bias") and model.ln_f.bias is not None:
+        model.ln_f.bias.data.zero_()
     
     # 2. Dual-Brain Ingestion & Finalizer Bridges
     logger.info(">>> [2/5] Calibrating Dual-Brain Bridges and Finalizers...")
@@ -344,11 +343,15 @@ def compile_quad_wsp_qwen35():
             ffn_up = project_dim(ffn_up_raw, ffn_dim, hidden_dim)
             ffn_down = project_dim(ffn_down_raw, hidden_dim, ffn_dim)
             
-        # 1. Gain-Matched LayerNorms
-        blk.ln_1.weight.data.copy_(normalize_layernorm_vector(ln1, hidden_dim, target_mean=1.0).to(torch.bfloat16))
-        blk.ln_1.bias.data.zero_()
-        blk.ln_2.weight.data.copy_(normalize_layernorm_vector(ln2, hidden_dim, target_mean=1.0).to(torch.bfloat16))
-        blk.ln_2.bias.data.zero_()
+        # 1. Exact Raw LayerNorms (Scale-Only RMSNorm, No 7x Distortion)
+        ln1_proj = project_dim(ln1.unsqueeze(0), 1, hidden_dim).squeeze(0)
+        ln2_proj = project_dim(ln2.unsqueeze(0), 1, hidden_dim).squeeze(0)
+        blk.ln_1.weight.data.copy_(ln1_proj.to(torch.bfloat16))
+        if hasattr(blk.ln_1, "bias") and blk.ln_1.bias is not None:
+            blk.ln_1.bias.data.zero_()
+        blk.ln_2.weight.data.copy_(ln2_proj.to(torch.bfloat16))
+        if hasattr(blk.ln_2, "bias") and blk.ln_2.bias is not None:
+            blk.ln_2.bias.data.zero_()
         
         # 2. Attention
         c_attn = torch.cat([q, k_exp, v_exp], dim=0) # [6144, 2048]

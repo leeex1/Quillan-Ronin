@@ -75,3 +75,4 @@ with torch.no_grad():
         cur_input = torch.cat([cur_input, torch.tensor([[nxt]], dtype=torch.long)], dim=1)
 
 print("\n\n[TEST COMPLETE]", flush=True)
+

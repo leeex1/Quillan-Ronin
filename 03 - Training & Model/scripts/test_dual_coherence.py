@@ -104,3 +104,4 @@ for model_name, ckpt_path in models_to_test:
 print("\n" + "=" * 80, flush=True)
 print("ALL BENCHMARKS COMPLETED SUCCESSFULLY", flush=True)
 print("=" * 80, flush=True)
+

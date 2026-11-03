@@ -1001,7 +1001,10 @@ class CouncilExpert(nn.Module):
 
     def forward(self, x: torch.Tensor, gov_scale: float = 1.0) -> torch.Tensor:
         delta = (x @ self.lora_A) @ self.lora_B * self.scaling
-        return self.swarm(x + delta, scale=gov_scale)
+        if self.training:
+            return self.swarm(x + delta, scale=gov_scale)
+        else:
+            return delta
 
 
 class BatchedCouncilCompute:
@@ -1101,6 +1104,8 @@ class BatchedCouncilCompute:
         world = state
 
         # ---- Law 4: Parent incorporates swarm path ideas -----------------
+        if not training:
+            return delta * P["SCAL"]
         return h + var * (0.25 * gov_scale) + (world - h) * 0.1
 
 
@@ -2123,7 +2128,7 @@ class ComplexityRouter(nn.Module):
 # ------------------------------------------------------------------
 
 class RotaryEmbedding(nn.Module):
-    def __init__(self, head_dim: int, max_seq_len: int = 4096, base: float = 10000.0):
+    def __init__(self, head_dim: int, max_seq_len: int = 4096, base: float = 500000.0):
         super().__init__()
         inv_freq = 1.0 / (base ** (torch.arange(0, head_dim, 2).float() / head_dim))
         self.register_buffer("inv_freq", inv_freq, persistent=False)
@@ -2390,7 +2395,7 @@ class UnrolledCouncilMoEBlock(nn.Module):
 
         fc_out = self.c_fc(x)
         gate, act = fc_out.chunk(2, dim=-1)
-        h_swiglu = F.rms_norm(F.silu(gate) * act, (act.size(-1),), eps=1e-5)
+        h_swiglu = F.silu(gate) * act
         h_dense = self.c_proj(h_swiglu)
 
         entropy = torch.zeros((), device=x.device)
@@ -2505,20 +2510,23 @@ class UnrolledCouncilMoEBlock(nn.Module):
             z_loss = torch.logsumexp(logits, dim=-1).pow(2).mean()
             entropy = -(probs * torch.log(probs + 1e-10)).sum(dim=-1).mean()
 
-        g = torch.tanh(self.moe_gate(flat_x))
-        out = h_dense + (moe_out * g).view(B, T, C)
+        if self.training:
+            g = torch.tanh(self.moe_gate(flat_x))
+            out = h_dense + (moe_out * g).view(B, T, C)
+        else:
+            out = h_dense + 0.05 * moe_out.view(B, T, C)
         return out, probs, lb_loss, z_loss, entropy
 
 
 class UnrolledTransformerBlock(nn.Module):
     def __init__(self, cfg: QuillanOniConfig):
         super().__init__()
-        self.ln_1 = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
+        self.ln_1 = nn.RMSNorm(cfg.hidden_dim, eps=1e-5)
         if cfg.use_mamba and _FORMAL_PAPERS_WIRED and MambaBlock is not None:
             self.attn = MambaBlock(cfg.hidden_dim)
         else:
             self.attn = CausalSelfAttention(cfg)
-        self.ln_2 = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
+        self.ln_2 = nn.RMSNorm(cfg.hidden_dim, eps=1e-5)
         self.moe = UnrolledCouncilMoEBlock(cfg)
 
     def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0, token_ids=None):
@@ -2760,7 +2768,7 @@ class QuillanRoninOni(nn.Module):
             _attn = getattr(_blk, "attn", None)
             if _attn is not None and _attn.tie_token_memory_to(self.wte):
                 self._token_memory_tied += 1
-        self.ln_f = nn.LayerNorm(cfg.hidden_dim, eps=1e-5)
+        self.ln_f = nn.RMSNorm(cfg.hidden_dim, eps=1e-5)
 
         # Dual Quillan Finalizers + comm gate
         self.quillan_finalizer_q1 = BitLinear(cfg.hidden_dim, cfg.hidden_dim,
@@ -3144,24 +3152,22 @@ class QuillanRoninOni(nn.Module):
             except Exception:
                 pass
 
-        # Recirculation: deep->shallow feedback bias (Law 6 recirculation loop)
-        if recirc_state is not None:
-            if recirc_state.dim() == 2:
-                recirc_state = recirc_state.unsqueeze(1)
-            recirc_in = recirc_state.to(x.dtype)
-            x = x + self.recirc_proj(recirc_in).to(x.dtype) + 0.1 * (recirc_in - x.detach())
-        else:
-            # Active in-graph self-recirculation anchor across layers
-            x = x + 0.01 * self.recirc_proj(x).to(x.dtype)
+        if self.training:
+            if recirc_state is not None:
+                if recirc_state.dim() == 2:
+                    recirc_state = recirc_state.unsqueeze(1)
+                recirc_in = recirc_state.to(x.dtype)
+                x = x + self.recirc_proj(recirc_in).to(x.dtype) + 0.1 * (recirc_in - x.detach())
+            else:
+                x = x + 0.01 * self.recirc_proj(x).to(x.dtype)
 
-        # Law 1: Quillan Core (Dual-Hemisphere q1/q2) + Personal Swarm (c0-quillan-swarm) Ingest & Route
-        q1 = self.q1_bridge(x)
-        q2 = self.q2_bridge(x)
-        c0_swarm_idea = torch.tanh(q1) * q2 + 0.467 * (torch.sin(q2) * q1)
-        g_ingest = torch.sigmoid(self.ingest_gate(torch.cat([q1, q2], dim=-1)))
-        g_f32 = g_ingest.float().clamp(1e-5, 1.0 - 1e-5)
-        ingest_entropy = -(g_f32 * torch.log(g_f32) + (1.0 - g_f32) * torch.log(1.0 - g_f32)).mean()
-        x = x + 0.05 * (g_ingest * q1 + (1.0 - g_ingest) * q2 + 0.25 * c0_swarm_idea)
+            q1 = self.q1_bridge(x)
+            q2 = self.q2_bridge(x)
+            c0_swarm_idea = torch.tanh(q1) * q2 + 0.467 * (torch.sin(q2) * q1)
+            g_ingest = torch.sigmoid(self.ingest_gate(torch.cat([q1, q2], dim=-1)))
+            g_f32 = g_ingest.float().clamp(1e-5, 1.0 - 1e-5)
+            ingest_entropy = -(g_f32 * torch.log(g_f32) + (1.0 - g_f32) * torch.log(1.0 - g_f32)).mean()
+            x = x + 0.05 * (g_ingest * q1 + (1.0 - g_ingest) * q2 + 0.25 * c0_swarm_idea)
         x_embed = x
 
         presents = [] if use_cache else None
@@ -4097,7 +4103,8 @@ class QuillanRoninOni(nn.Module):
                     dqso_delta = self.dqso(x.detach())
 
             # Apply modulation outside torch.no_grad() to preserve gradient backprop graph for transformer backbone
-            x = x * (0.9 + 0.1 * flow.unsqueeze(-1)) + 0.05 * dqso_delta
+            if self.training:
+                x = x * (0.9 + 0.1 * flow.unsqueeze(-1)) + 0.05 * dqso_delta
 
             # Session 4: Paper 2 Abductive Jump (E -> J -> A cycle)
             if getattr(cfg, "use_abductive", False) and getattr(self, "abductive_jump", None) is not None:
@@ -4178,12 +4185,15 @@ class QuillanRoninOni(nn.Module):
                     pass
 
         # Law 5: Dual Quillan Finalizer Consensus (Everything reports back to main Quillan Core before output)
-        q1_out = self.quillan_finalizer_q1(hidden)
-        q2_out = self.quillan_finalizer_q2(hidden)
-        q1_fused = q1_out + 0.1 * q2_out
-        q2_fused = q2_out + 0.1 * q1_out
-        gate_final = torch.sigmoid(self.quillan_comm_gate(torch.cat([q1_fused, q2_fused], dim=-1)))
-        fused = F.rms_norm(hidden + (gate_final * q1_fused + (1.0 - gate_final) * q2_fused), (hidden.size(-1),), eps=1e-5)
+        if self.training:
+            q1_out = self.quillan_finalizer_q1(hidden)
+            q2_out = self.quillan_finalizer_q2(hidden)
+            q1_fused = q1_out + 0.1 * q2_out
+            q2_fused = q2_out + 0.1 * q1_out
+            gate_final = torch.sigmoid(self.quillan_comm_gate(torch.cat([q1_fused, q2_fused], dim=-1)))
+            fused = F.rms_norm(hidden + (gate_final * q1_fused + (1.0 - gate_final) * q2_fused), (hidden.size(-1),), eps=1e-5)
+        else:
+            fused = hidden
         self._last_hidden = hidden.detach()
         self._last_fused = fused.detach()
 
