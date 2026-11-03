@@ -38,6 +38,9 @@ juce::AudioProcessorValueTreeState::ParameterLayout JdxxChainsAudioProcessor::cr
 }
 
 const juce::String JdxxChainsAudioProcessor::getName() const { return JDXX_CHAINS_NAME; }
+bool JdxxChainsAudioProcessor::acceptsMidi() const { return false; }
+bool JdxxChainsAudioProcessor::producesMidi() const { return false; }
+double JdxxChainsAudioProcessor::getTailLengthSeconds() const { return 0.0; }
 
 bool JdxxChainsAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
@@ -118,4 +121,10 @@ void JdxxChainsAudioProcessor::setStateInformation (const void* data, int size)
     if (auto xml = getXmlFromBinary (data, size))
         if (xml->hasTagName (apvts.state.getType()))
             apvts.replaceState (juce::ValueTree::fromXml (*xml));
+}
+
+// JUCE entry point — creates the processor the host will talk to.
+juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
+{
+    return new JdxxChainsAudioProcessor();
 }

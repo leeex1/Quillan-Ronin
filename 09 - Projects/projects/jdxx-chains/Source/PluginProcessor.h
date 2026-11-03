@@ -34,6 +34,10 @@ public:
     const juce::String getProgramName (int) override { return getName(); }
     void changeProgramName (int, const juce::String&) override {}
 
+    bool acceptsMidi() const override;
+    bool producesMidi() const override;
+    double getTailLengthSeconds() const override;
+
     void getStateInformation (juce::MemoryBlock& dest) override;
     void setStateInformation (const void* data, int size) override;
 
