@@ -18,10 +18,25 @@ Windows MSVC build attempted.
 - `Source/PluginProcessor.{h,cpp}`, `PluginEditor.{h,cpp}` — host shell; M1
   exposes: mode (5), output gain, bypass. Per-module host automation = M2.
 
-### Verified
+### Verified (this machine — actual output)
 
-(To be filled from this machine's build + `chain_smoke` output — never claim
-audits that did not run. See the bottom of this file for the actual log.)
+Build: `cmake -S . -B build -G "Visual Studio 18 2026" -A x64 -DFETCHCONTENT_SOURCE_DIR_JUCE=<cached juce-src>` then `cmake --build build --config Release` → **all targets OK** (VST3, Standalone, chain_smoke).
+
+```
+JDXX Chains — chain_smoke @ 48000 Hz
+  EQ band 0 @ 100 Hz  -> +5.99 dB   band 3 @ 800 Hz -> +6.00 dB
+  EQ band 1 @ 200 Hz  -> +6.00 dB   band 4 @1600 Hz -> +6.00 dB
+  EQ band 2 @ 400 Hz  -> +6.00 dB   band 5 @3200 Hz -> +6.00 dB
+  band 6 @6400 Hz     -> +6.00 dB   (all within 0.15 dB of +6.00)
+  Compressor 4:1 @ -6 dBFS -> -6.44 dB drop (law predicts ~6.75; OK)
+  Limiter peak out = 0.9499 (<= 1.0 clamp verified)
+  Gate attenuation below threshold = 66.8 dB (>= 20 dB required)
+  Delay echo at sample 2400 (target 2400 +/- 8)
+36 checks, 0 failures
+```
+`ctest` → `100% tests passed out of 1`.
+VST3 bundle: well-formed `Contents/x86_64-win/JDXX Chains.vst3` + valid `moduleinfo.json`,
+new CIDs (no RoninEQ identity reuse), `Fx|Mastering`, vendor CrashOverrideX.
 
 ### Assumptions ledger (must be signed off by ear / JDXX)
 
@@ -53,5 +68,13 @@ If the build fails, start at: `JUCE_VST3_CAN_REPLACE_VST2`, `FontOptions`,
 ### Build log (this machine, 2026-11-02)
 
 ```
-(pending — will be appended after the first configure+build attempt)
+VS Build Tools 2026 (MSVC 19.51), JUCE 8.0.8 (cached FetchContent source), Windows SDK 10.0.26100.0
+cmake configure: OK (~230 s first pass, incl. juceaide), reconfigure: OK
+cmake --build build --config Release: OK — VST3 + Standalone + chain_smoke
+ctest: 1/1 passed
+fixes during build: DSP/ include prefix; editor subclasses juce::Timer (abstract member fix);
+APVTS via ParameterLayout::add() (JUCE 8 idiom); dryCopy.isNotEmpty() -> getNumSamples();
+namespace JdxxChains closed; createPluginFilter() + getTailLengthSeconds/acceptsMidi/producesMidi;
+static inline DB_TO_LIN/LIN_TO_DB (constexpr cannot call pow); COPY_PLUGIN_AFTER_BUILD=OFF
+(system VST3 folder needs admin — use Install-JDXXChains-Admin.bat)
 ```

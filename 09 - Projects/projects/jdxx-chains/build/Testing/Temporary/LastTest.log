@@ -1,0 +1,32 @@
+Start testing: Nov 02 22:00 Eastern Standard Time
+----------------------------------------------------------
+1/1 Testing: chain_smoke
+1/1 Test: chain_smoke
+Command: "C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build/Release/chain_smoke.exe"
+Directory: C:/02_QUILLAN/09 - Projects/projects/jdxx-chains/build
+"chain_smoke" start time: Nov 02 22:00 Eastern Standard Time
+Output:
+----------------------------------------------------------
+JDXX Chains — chain_smoke @ 48000 Hz
+  EQ band 0 @ 100 Hz -> +5.99 dB (expect +6.00)
+  EQ band 1 @ 200 Hz -> +6.00 dB (expect +6.00)
+  EQ band 2 @ 400 Hz -> +6.00 dB (expect +6.00)
+  EQ band 3 @ 800 Hz -> +6.00 dB (expect +6.00)
+  EQ band 4 @ 1600 Hz -> +6.00 dB (expect +6.00)
+  EQ band 5 @ 3200 Hz -> +6.00 dB (expect +6.00)
+  EQ band 6 @ 6400 Hz -> +6.00 dB (expect +6.00)
+  Compressor 4:1 @ -6 dBFS -> -6.44 dB drop (expect ~6.75)
+  Limiter peak out = 0.9499 (must be <= 1.0)
+  Gate attenuation below threshold = 66.8 dB (expect >= 20)
+  Delay echo at sample 2400 (expect 2400 +/- 8)
+
+36 checks, 0 failures
+<end of output>
+Test time =   0.66 sec
+----------------------------------------------------------
+Test Passed.
+"chain_smoke" end time: Nov 02 22:00 Eastern Standard Time
+"chain_smoke" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Nov 02 22:00 Eastern Standard Time
