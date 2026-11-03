@@ -18,14 +18,14 @@ prompts = [
     "In the bushido code, honor and rectitude are"
 ]
 
-def generate_text(model, prompt: str, max_new_tokens: int = 12, temperature: float = 0.7, top_k: int = 40):
+def generate_text(model, prompt: str, max_new_tokens: int = 10, temperature: float = 0.7, top_k: int = 40):
     enc = tok.encode(prompt).ids
     generated = list(enc)
     
     with torch.no_grad():
         for _ in range(max_new_tokens):
             curr_x = torch.tensor([generated[-128:]], dtype=torch.long)
-            out = model(curr_x)
+            out = model(curr_x, deliberation=False)
             logits = out[0] if isinstance(out, (tuple, list)) else out
             last_logits = logits[0, -1].float()
             
@@ -56,7 +56,7 @@ def test_checkpoint(tag: str, ckpt_path: str):
     cfg_dict = {k: v for k, v in ckpt["config"].items() if k in valid_keys}
     cfg = QuillanOniConfig(**cfg_dict)
     
-    model = QuillanRoninOni(cfg).cpu().eval()
+    model = QuillanRoninOni(cfg).to(torch.bfloat16).cpu().eval()
     model.load_state_dict(ckpt["model_state_dict"], strict=False)
     del ckpt
     gc.collect()
@@ -65,7 +65,7 @@ def test_checkpoint(tag: str, ckpt_path: str):
         enc = tok.encode(p).ids
         x = torch.tensor([enc], dtype=torch.long)
         with torch.no_grad():
-            out = model(x)
+            out = model(x, deliberation=False)
             logits = out[0] if isinstance(out, (tuple, list)) else out
             last_logits = logits[0, -1].float()
             probs = F.softmax(last_logits, dim=-1)
@@ -76,7 +76,7 @@ def test_checkpoint(tag: str, ckpt_path: str):
                 tok_str = tok.decode([idx.item()])
                 print(f"    {prob.item()*100:5.2f}% | ID {idx.item():5d} | '{tok_str}'", flush=True)
                 
-        gen_sample = generate_text(model, p, max_new_tokens=10, temperature=0.7)
+        gen_sample = generate_text(model, p, max_new_tokens=8, temperature=0.7)
         print(f"  Generated Sample: \"{gen_sample}\"", flush=True)
         
     del model
@@ -86,6 +86,9 @@ def test_checkpoint(tag: str, ckpt_path: str):
 if __name__ == "__main__":
     out_dir = r"C:\02_QUILLAN\checkpoints\checkpoints_oni\sft_runs"
     p_mini = os.path.join(out_dir, "quillan_mini_0.6b_tripartite.pt")
+    p_1b = os.path.join(out_dir, "quillan_1b_tripartite.pt")
     
     if os.path.exists(p_mini):
-        test_checkpoint("Quillan Mini 0.6B Tripartite", p_mini)
+        test_checkpoint("Quillan Mini 0.6B Tripartite (Harmonized)", p_mini)
+    if os.path.exists(p_1b):
+        test_checkpoint("Quillan 1B Sovereign Tripartite (Harmonized)", p_1b)

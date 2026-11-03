@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google Analytics 4: the same tag as the rest of rikiyat.github.io, only on the live site (not in local
+         previews, as _config.dev.yml does for the other pages) -->
+    <script>
+        if (location.hostname === "rikiyat.github.io") {
+            const ga = document.createElement("script");
+            ga.async = true;
+            ga.src = "https://www.googletagmanager.com/gtag/js?id=G-1CD18HQEJ5";
+            document.head.appendChild(ga);
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () { dataLayer.push(arguments); };
+            gtag("js", new Date());
+            gtag("config", "G-1CD18HQEJ5");
+        }
+    </script>
+
+    <!-- Layout, fonts, footnotes and citations: the Distill template (as used by distill.pub and transformer-circuits.pub). -->
+    <script src="https://distill.pub/template.v2.js"></script>
+
+    <title>Sparks of Weight-Space Programming: LLMs can natively read &amp; write neural network weights</title>
+    <meta name="description" content="We find that frontier LLMs are surprisingly good at natively reading and writing neural network weights, well past what we’d expect from humans or conventional algorithms.">
+
+    <!-- Link preview (X, Slack, etc.). og:image must be an absolute URL. -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Sparks of Weight-Space Programming: LLMs can natively read &amp; write neural network weights">
+    <meta property="og:description" content="We find that frontier LLMs are surprisingly good at natively reading and writing neural network weights, well past what we’d expect from humans or conventional algorithms.">
+    <meta property="og:url" content="https://rikiyat.github.io/blog/weight-space-programming/">
+    <meta property="og:image" content="https://rikiyat.github.io/images/blog/weight-space-programming.png">
+    <link rel="canonical" href="https://rikiyat.github.io/blog/weight-space-programming/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Fonts (the Distill template's own fonts are replaced in css/style.css) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&display=swap">
+
+    <!-- Math: \( ... \) inline, $$ ... $$ display. The config must come before the loader. -->
+    <script>
+        window.MathJax = {
+            loader: {load: ['[tex]/color']},
+            tex: {packages: {'[+]': ['color']}}
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <!-- The title's kicker is part of the <h1> on this site; this gives it the look of the <p> it is in the source -->
+    <style>
+        d-title h1 .title-kicker {
+            display: block;
+            margin: 0 0 6px;
+            font-size: 26px;
+            font-weight: 300;
+            line-height: 1.4;
+            letter-spacing: normal;
+            color: #555555;
+        }
+    </style>
+    <!-- Our prompts and Astra's reasoning (js/traces.js) -->
+    <script src="js/traces.js"></script>
+    <!-- The math-editing figures (js/mathedit.js) -->
+    <script src="js/mathedit.js"></script>
+    <!-- The teaser at the top (js/teaser.js) -->
+    <script src="js/teaser.js"></script>
+    <!-- The game beside Experiment 5's card: the networks Astra wrote, playing (js/handplay.js) -->
+    <script src="js/handplay.js"></script>
+    <!-- Experiment 6's figure: the Go network written from scratch (js/gohand.js) -->
+    <script src="js/gohand.js"></script>
+
+    <!-- The template re-renders the article after the page loads, which can stop autoplaying videos; start them again. -->
+    <script>
+        window.addEventListener("load", () => {
+            document.querySelectorAll("video[autoplay]").forEach((v) => v.play().catch(() => {}));
+        });
+    </script>
+
+    <!-- The figures are SVG files. Shown with <img>, an SVG cannot use the page's web fonts and falls back to Helvetica,
+         so each one is put into the page itself: its text is then set in Source Sans 3 and JetBrains Mono like the
+         rest. If the file cannot be fetched (the page opened as a file), the <img> stays. -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll('figure img[src$=".svg"]').forEach((img) => {
+                fetch(img.src)
+                    .then((r) => (r.ok ? r.text() : Promise.reject(r.status)))
+                    .then((text) => {
+                        const svg = new DOMParser().parseFromString(text, "image/svg+xml").documentElement;
+                        if (svg.localName !== "svg" || svg.querySelector("parsererror")) return;
+                        svg.classList.add("figure-svg");
+                        if (img.alt) svg.setAttribute("aria-label", img.alt);
+                        img.replaceWith(document.importNode(svg, true));
+                    })
+                    .catch(() => {});
+            });
+        });
+    </script>
+    <!-- Citations: [n] in the page's ink, one small card per number (js/cites.js) -->
+    <script src="js/cites.js"></script>
+    <!-- What Google Search, Google Scholar and reference managers read (_includes/post-head.html) -->
+    <meta name="citation_title" content="Sparks of Weight-Space Programming: LLMs can natively read &amp; write neural network weights">
+    <meta name="citation_author" content="Takehi, Rikiya">
+    <meta name="citation_author" content="Teoh, Jayden">
+    <meta name="citation_author" content="Zhang, Alex">
+    <meta name="citation_author" content="Khattab, Omar">
+    <meta name="citation_publication_date" content="2026/11/02">
+    <meta name="citation_fulltext_html_url" content="https://rikiyat.github.io/blog/weight-space-programming/">
+    <meta property="article:published_time" content="2026-11-02T00:00:00-08:00">
+    <meta name="robots" content="max-image-preview:large">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights",
+        "description": "We find that frontier LLMs are surprisingly good at natively reading and writing neural network weights, well past what we’d expect from humans or conventional algorithms.",
+        "image": ["https://rikiyat.github.io/images/blog/weight-space-programming.png"],
+        "datePublished": "2026-11-02T00:00:00-08:00",
+        "dateModified": "2026-11-02T00:00:00-08:00",
+        "url": "https://rikiyat.github.io/blog/weight-space-programming/",
+        "mainEntityOfPage": "https://rikiyat.github.io/blog/weight-space-programming/",
+        "inLanguage": "en",
+        "author": [
+            {
+                "@type": "Person",
+                "name": "Rikiya Takehi",
+                "url": "https://rikiyat.github.io",
+                "affiliation": {"@type": "Organization", "name": "MIT CSAIL"}
+            },
+            {
+                "@type": "Person",
+                "name": "Jayden Teoh",
+                "url": "https://jaydenteoh.github.io/",
+                "affiliation": {"@type": "Organization", "name": "MIT CSAIL"}
+            },
+            {
+                "@type": "Person",
+                "name": "Alex Zhang",
+                "url": "https://alexzhang13.github.io/",
+                "affiliation": {"@type": "Organization", "name": "MIT CSAIL"}
+            },
+            {
+                "@type": "Person",
+                "name": "Omar Khattab",
+                "url": "https://omarkhattab.com/",
+                "affiliation": {"@type": "Organization", "name": "MIT CSAIL"}
+            }
+        ]
+    }
+    </script>
+
+</head>
+
+
+
+<body>
+
+<style>
+.masthead {
+  position: relative;
+  z-index: 20;
+  border-bottom: 1px solid #f2f3f3;
+  background: #fff;
+  font-family: -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: auto;  /* the post's own CSS sets antialiased, the theme does not */
+}
+@media (min-width: 768px) {
+  .masthead { font-size: 18px; }
+}
+.masthead__inner-wrap {
+  box-sizing: border-box;
+  max-width: 925px;
+  margin: 0 auto;
+  padding: 1em;
+}
+@media (min-width: 1280px) {
+  .masthead__inner-wrap { max-width: 1280px; }
+}
+.masthead__menu {
+  display: flex;
+  align-items: center;
+}
+.masthead__menu #site-nav {
+  flex: 1 1 0;
+  min-width: 0;
+}
+.masthead ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.greedy-nav button,
+.greedy-nav .hidden-links {
+  display: none;
+}
+.greedy-nav .visible-links {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.greedy-nav .visible-links::-webkit-scrollbar {
+  display: none;
+}
+.masthead__menu-item {
+  flex: none;
+  margin: 0;
+  white-space: nowrap;
+}
+.masthead__menu-item--lg {
+  padding-right: 2em;
+  font-weight: 700;
+}
+.greedy-nav a {
+  position: relative;
+  display: block;
+  margin: 0 1em;
+  padding: 0.5em 0;
+  border: none;
+  color: #7a8288;
+  text-decoration: none;
+}
+.greedy-nav a:hover {
+  color: #5c6266;
+}
+.masthead__menu-item:first-child a {
+  margin-left: 0;
+}
+.masthead__menu-item:last-child a {
+  margin-right: 0;
+}
+.greedy-nav a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #bdc1c4;
+  transform: scaleX(0);
+  transition: all 0.2s ease-in-out;
+}
+.greedy-nav a:hover::before {
+  transform: scaleX(1);
+}
+.masthead__menu-item a[href$="/blog/"] {
+  color: #598BE7;
+}
+.masthead__lang {
+  position: relative;
+  flex: none;
+  margin-left: 1em;
+}
+.masthead__lang summary {
+  display: block;
+  padding: 0.5em 0;
+  color: #7a8288;
+  list-style: none;
+  cursor: pointer;
+}
+.masthead__lang summary::-webkit-details-marker {
+  display: none;
+}
+.masthead__lang summary:hover {
+  color: #5c6266;
+}
+.masthead__lang summary svg {
+  display: block;
+}
+.masthead__lang .masthead__lang-menu {
+  position: absolute;
+  top: 100%;
+  right: -11px;
+  margin-top: 15px;
+  padding: 5px;
+  border: 1px solid #f2f3f3;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+.masthead__lang .masthead__lang-menu::before,
+.masthead__lang .masthead__lang-menu::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  width: 0;
+  border-style: solid;
+  border-width: 0 10px 10px;
+}
+.masthead__lang .masthead__lang-menu::before {
+  top: -11px;
+  border-color: #f2f3f3 transparent;
+}
+.masthead__lang .masthead__lang-menu::after {
+  top: -10px;
+  border-color: #fff transparent;
+}
+.masthead__lang .masthead__lang-menu li {
+  margin: 0;
+}
+.masthead__lang .masthead__lang-menu a {
+  display: block;
+  padding: 10px 20px;
+  border: none;
+  color: #7a8288;
+  font-size: 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.masthead__lang .masthead__lang-menu a:hover {
+  color: #5c6266;
+  background: #dee0e1;
+}
+</style>
+
+
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <button><div class="navicon"></div></button>
+        <ul class="visible-links">
+          <li class="masthead__menu-item masthead__menu-item--lg"><a href="https://rikiyat.github.io/">Rikiya Takehi</a></li>
+          
+            
+            
+            <li class="masthead__menu-item"><a href="https://rikiyat.github.io/#news">News</a></li>
+          
+            
+            
+            <li class="masthead__menu-item"><a href="https://rikiyat.github.io/#publications">Publications</a></li>
+          
+            
+            
+            <li class="masthead__menu-item"><a href="https://rikiyat.github.io/blog/">Blog</a></li>
+          
+            
+            
+            <li class="masthead__menu-item"><a href="https://rikiyat.github.io/#experience">Experience</a></li>
+          
+            
+            
+            <li class="masthead__menu-item"><a href="https://drive.google.com/file/d/1W0TgFv75leCCIz2nn0Rt30YXzXxE9Dkf/view?usp=sharing">CV</a></li>
+          
+        </ul>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+      <!-- The other language, folded behind a globe at the right; outside #site-nav so the greedy nav leaves it alone -->
+      <details class="masthead__lang">
+        <summary aria-label="Language" title="Language">
+          <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 3.9 5.8 3.9 9.5s-1.3 6.9-3.9 9.5M12 2.5C9.4 5.1 8.1 8.3 8.1 12s1.3 6.9 3.9 9.5"/></svg>
+        </summary>
+        <ul class="masthead__lang-menu">
+          
+            <li><a href="/ja/" lang="ja">日本語</a></li>
+          
+        </ul>
+      </details>
+      <script>
+        document.addEventListener("click", function (e) {
+          var lang = document.querySelector(".masthead__lang[open]");
+          if (lang && !lang.contains(e.target)) lang.removeAttribute("open");
+        });
+        document.addEventListener("keydown", function (e) {
+          var lang = document.querySelector(".masthead__lang[open]");
+          if (lang && e.key === "Escape") lang.removeAttribute("open");
+        });
+      </script>
+    </div>
+  </div>
+</div>
+
+<d-front-matter>
+    <script type="text/json">
+    {
+        "title": "Sparks of Weight-Space Programming: LLMs can natively read & write neural network weights",
+        "description": "We find that frontier LLMs are surprisingly good at natively reading and writing neural network weights, well past what we’d expect from humans or conventional algorithms.",
+        "authors": [
+            {"author": "Rikiya Takehi", "authorURL": "https://rikiyat.github.io", "affiliations": [{"name": "MIT CSAIL"}]},
+            {"author": "Jayden Teoh", "authorURL": "https://jaydenteoh.github.io/", "affiliations": [{"name": "MIT CSAIL"}]},
+            {"author": "Alex Zhang", "authorURL": "https://alexzhang13.github.io/", "affiliations": [{"name": "MIT CSAIL"}]},
+            {"author": "Omar Khattab", "authorURL": "https://omarkhattab.com/", "affiliations": [{"name": "MIT CSAIL"}]}
+        ]
+    }
+    </script>
+</d-front-matter>
+
+<!-- ===== Header ===== -->
+<d-title>
+    <h1><span class="title-kicker">Sparks of Weight-Space Programming:</span> LLMs can natively read &amp; write neural network weights</h1>
+</d-title>
+
+<div class="base-grid post-byline">
+    <div class="byline-grid">
+        <div>
+            <h3>Authors</h3>
+            <p><a href="https://rikiyat.github.io">Rikiya Takehi</a>*</p>
+            <p><a href="https://jaydenteoh.github.io/">Jayden Teoh</a>*</p>
+            <p><a href="https://alexzhang13.github.io/">Alex Zhang</a></p>
+            <p><a href="https://omarkhattab.com/">Omar Khattab</a> </p>
+        </div>
+        <div>
+            <h3>Affiliations</h3>
+            <p>MIT CSAIL</p>
+            <p>MIT CSAIL</p>
+            <p>MIT CSAIL</p>
+            <p>MIT CSAIL</p>
+        </div>
+        <div>
+            <h3>Published</h3>
+            <p>November 2, 2026</p>
+        </div>
+    </div>
+</div>
+
+<d-article>
+
+        <!-- ===== TL;DR and teaser ===== -->
+        <div class="tldr">
+            <b>TL;DR</b>
+            <p>We find that frontier LLMs are surprisingly good at <b>natively reading and writing neural network weights</b>, well past what we’d expect from humans or conventional algorithms. This might be a big deal for both optimization and interpretability.</p>
+            <p>Just by looking at the raw weights, GPT-6 Astra <b>can tell what a network was trained to do</b>. And without any environment feedback, it <b>has no trouble writing, from scratch, small game-playing networks</b> that outplay networks trained with PPO for 100 million steps.</p>
+            <p>Likewise, asked to make Qwen3.5-0.8B better at math without gradients, Astra <b>identifies an issue in its weights</b> causing reasoning loops that Qwen’s own <a href="https://huggingface.co/Qwen/Qwen3.5-0.8B/blob/main/README.md#L856">model card</a> warns about, and <b>fixes this by natively editing 0.016% of the weights</b>. With the same sampling settings, this weight correction raises MATH-500 from 7.9% to 48.1% and generalizes out of the box to instruction following, raising IFEval by 3x.</p>
+            <p>All of this is possible without allowing Astra to write training loops. It uses its reasoning to figure out what each part of a neural network computes, or should compute, and changes the weights accordingly. We call this <b>Weight-Space Programming</b>.</p>
+            <p>Throughout the history of deep learning, we encoded our simplistic inductive biases into tiny symbolic optimizers like Adam or Muon. This is changing: <b>our neural network weights will soon be <i>natively</i> optimized by LLMs that deliberately reason about their weights</b>.</p>
+        </div>
+        <figure class="l-page teaser-fig">
+            <div class="teaser">
+                <div class="tz-panel">
+                    <div class="tz-step">Read</div>
+                    <div class="tz-task">Which game was this neural network trained on?</div>
+                    <div class="tz-vis tz-wall" data-src="assets/traces/exp1_games.json" data-item="Breakout"></div>
+                    <div class="tz-astra">Astra reads the 17,253 weights, with no tools</div>
+                    <div class="tz-out"><img class="tz-gif" src="assets/which_game/breakout.gif" alt="The network playing Breakout."><span class="tz-big">Breakout</span> <span class="tz-note">99% confident</span></div>
+                </div>
+                <div class="tz-panel">
+                    <div class="tz-step">Fix</div>
+                    <div class="tz-task">A trained policy never gets the car over the strip.</div>
+                    <div class="tz-vis tz-car"><img src="assets/carjump_scene.svg" alt="The car level: after Astra's edit the car backs up and jumps over the red strip to the blue box, while PPO's car, faded, stays stuck on the ramp."></div>
+                    <div class="tz-astra">Astra edits 3.5% of the weights, in one shot</div>
+                    <div class="tz-out"><span class="tz-big">100%</span> <span class="tz-note">success, up from 0%</span></div>
+                </div>
+                <div class="tz-panel">
+                    <div class="tz-step">Improve</div>
+                    <div class="tz-task">Make Qwen3.5-0.8B better at math.</div>
+                    <div class="tz-vis tz-bars" data-from="7.9" data-to="48.1" data-max="62">
+                        <div class="tz-col"><div class="tz-bar tz-bar-before" style="height: 12.7%"><span class="tz-v">7.9%</span></div><div class="tz-bl">base</div></div>
+                        <div class="tz-col"><div class="tz-bar tz-bar-after" style="height: 12.7%"><span class="tz-v">7.9%</span></div><div class="tz-bl">Astra&rsquo;s edit</div></div>
+                    </div>
+                    <div class="tz-astra">Astra edits the weights in a Python kernel, with no training</div>
+                    <div class="tz-out"><span class="tz-big">48.1%</span> <span class="tz-note">on MATH-500, up from 7.9%</span></div>
+                </div>
+            </div>
+        </figure>
+
+        <!-- ===== Opening ===== -->
+        <p>If you were asked to handcraft a neural network that plays Go, what would you do? If you were handed raw neural network weights and asked to predict their behavior, where would you even start? For almost any human, this is practically impossible. </p>
+        <p>Today, weights are written by <a href="https://karpathy.medium.com/software-2-0-a64152b37c35">optimization</a>, by <a href="https://arxiv.org/abs/2102.11174">custom networks trained to write them</a>, or by <a href="https://arxiv.org/abs/2301.05062">compilers from formal programs</a>. In this post, we find that the current generation of frontier LLMs, used natively in natural language, are starting to become eerily good at understanding and crafting neural network weights around natural-language goals.</p>
+
+        <h2>Weight-Space Programming</h2>
+        <p>For a few years now, we’ve all been <b>using LLMs to optimize text artifacts</b> like prompts and the programs built around them <d-cite key="yang2024opro,khattab2023dspy,opsahlong2024mipro,agrawal2025gepa"></d-cite>. More recently, we’ve started using them to optimize whole harnesses <d-cite key="lee2026metaharness"></d-cite> and the training code and hyperparameters that train ML models <d-cite key="karpathy2026autoresearch,reactiveoptimizers"></d-cite>.</p>
+        <p>We often justified these methods by reference to the fact that <i>we don’t know other principled ways to hill-climb on text artifacts, unlike for updating the weights of differentiable neural networks</i>. After all, humans can “optimize” code by hand, for example, so it made sense to ask LLMs to do it, but they can’t “optimize” neural weights by hand, so those remained largely in the realm of symbolic algorithms.</p>
+        <p>In this post, we share very early results that allow us to argue that <b>the paradigm of reasoning-driven optimization is now coming even for differentiable neural networks</b>.</p>
+        <p>In <b>Weight-Space Programming</b>, a general-purpose <b>LLM reads and writes a network’s weights directly</b> (i.e., not through an optimizer, and in particular not with gradient descent) around some natural language spec, sometimes even with no environment feedback at all.</p>
+        <p>In natural language, it’s becoming possible to <b>“just ask” an LLM to natively find a hidden trait or failure inside the weights of a neural network, to fix that failure, or to write a new network from scratch</b>. We report early, exciting results on each of these below, first on small networks and then even on real language models:</p>
+        <ol>
+            <li><b>LLMs can read neural network weights:</b> In Experiments 1 to 3, we ask Astra questions like what game a network was trained to play, what shape is drawn by a diffusion model, and which language a small language model was trained on. In Experiment 7, we ask which of two language models was trained to be sycophantic.</li>
+            <li><b>LLMs can fix neural network weights:</b> In Experiment 4, we ask Astra to fix a network that’s failing at some physical control task. In Experiment 8, we ask it to make Qwen3.5-0.8B better at math, and its fix improves instruction following too.</li>
+            <li><b>LLMs can write neural network weights from scratch:</b> In Experiment 5, we ask Astra for networks that play three MinAtar games, and in Experiment 6, for a network that plays Go.</li>
+        </ol>
+
+        <!-- ===== Experiment 1: Classification (lmo: results/gridgames, release_1b, which_open_v2 / which_mc_v2; Snake left out) ===== -->
+        <h2>Can LLMs understand model behaviors from weights?</h2>
+        <p>
+            We start with a small-scale experiment to see if LLMs can understand the continuous weight space, which is essentially just a list of numbers. </p>
+        <p>
+            In our first experiments, we train some neural network with some algorithm. It would be extremely exciting if the LLM is able to tell its behavior just from the weights.
+        </p>
+        <div class="exp-head"><span class="exp-num">Experiment 1</span><h3>Can Astra tell which game the network was trained on just from the weights?</h3></div>
+        <p>
+            We trained neural network policies with PPO to play four computer games. All four networks take the same input channels, choose from the same actions, and have exactly the same network dimensions, so that it is not able to tell unless the weights are read.
+        </p>
+        <p>For each of these networks, we pass its raw weights into Astra as a prompt, and ask: Which game was this neural network trained on? <b>Without revealing the options of the games we consider, Astra was still able to name the right game for all four networks. </b>This is exciting particularly because there are so many games out there that Astra could choose from. </p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Games:</b> our own grid versions of Breakout, Pong, Pac-Man and Freeway, all on the same 10&times;10 grid with the same five actions</li>
+                        <li><b>Network:</b> MLP 500 &rarr; 32 &rarr; 32 &rarr; 5, tanh (17,253 weights), the same for every game</li>
+                        <li><b>Input:</b> the 10&times;10 grid in 5 channels: agent, moving objects, reward targets, obstacles, previous frame</li>
+                        <li><b>Output:</b> 5 action logits: no-op, up, down, left, right</li>
+                        <li><b>Training:</b> PPO, 1 billion steps, the same settings for every game, the best of 3 seeds per game</li>
+                        <li><b>Astra gets:</b> all the weights as text, and the grid and actions described without any game named</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp1_games.json"></div>
+        </figure>
+        <p>
+            It seems that Astra was able to work out what game each network was built to play, just from features of its weights. For example, where each input channel’s first-layer weights concentrate (e.g., for Breakout, the agent’s weights lie along the bottom row, a paddle), and which actions the output layer tells apart.</p>
+
+        <!-- Diffusion models (lmo: results/diffshape) -->
+        <div class="exp-head"><span class="exp-num">Experiment 2</span><h3>Can Astra tell what the diffusion model will generate?</h3></div>
+        <p>
+            Next, we wanted to see if this generalizes to other tasks and models.
+        </p>
+        <p>We train diffusion models (DDPM) to generate circle, triangle, and square images independently. We then ask Astra if it could tell what the DDPMs are trained to generate, just from the weights alone. We do not allow tool use or forward passes.</p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Models:</b> three diffusion models (DDPM) of 12&times;12 grayscale images, one each for filled circles, squares and triangles</li>
+                        <li><b>Network:</b> MLP 160 &rarr; 64 &rarr; 64 &rarr; 144, ReLU (23,824 weights)</li>
+                        <li><b>Input:</b> a noisy image (144 pixels) and the diffusion step (16 numbers)</li>
+                        <li><b>Output:</b> the clean image (144 pixels)</li>
+                        <li><b>Training:</b> Adam, 40,000 steps, batch 512</li>
+                        <li><b>Astra gets:</b> all the weights as text, with no shape named, and is told not to compute any forward pass</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp1_diffusion.json"></div>
+        </figure>
+        <p><b>Astra was able to tell what each model generates, from the weights alone. </b>It finds the shape in the output layer, where each hidden unit’s weights draw one piece of the shape’s edge, and it draws just those edges. Interestingly, it draws every shape as an outline, ignoring that the actual models generate filled shapes.  This mistake kind of shows it does not rely on calculating the forward pass, but rather it actually reads the structure/geometry of the weights.</p>
+        <div class="exp-head"><span class="exp-num">Experiment 3</span><h3>Can Astra tell what a language model learned, from the middle of the network alone?</h3></div>
+
+        <!-- ===== Character-level language models, middle only (lmo: results/tinylm2/ask_three, docs/tinylm2.md run 7) ===== -->
+        <p>
+            Now, in the first two experiments above, Astra was not really looking at the full network and could get away with only reading the first or the last layers. This is not a scalable strategy for larger (particularly language) models and problems we really care about, as how they process and think through their input often happens in the intermediate layers. So next, we take the first and last layers away and leave Astra with only the middle layers.</p>
+        <p>
+            We train three small language models (7.2M parameters) to predict the next character, one each on Python code<d-footnote>The Python code dataset, as a list of its files with a script that rebuilds it: <a href="https://github.com/RikiyaT/lm_understand-logs/tree/main/exp3_language/python_dataset">GitHub</a>.</d-footnote>, Japanese in alphabet (romaji) <d-cite key="globis2023aozorabunko"></d-cite>, and English <d-cite key="wikimedia2023wikipedia"></d-cite>. We then remove the input and output layers and give Astra only the four transformer blocks in between. Without these two layers, nothing in the weights says which character is which, and the model cannot be run on any text. Astra may analyze the weights with Python, but it may not run the network or any of its layers on any input.
+        </p>
+        <p>
+            We ask: <i>which language was this network trained on, and what each of its 24 attention heads does</i>. <b>Astra names the right language for all three networks, in both of its attempts. It also finds every copying head (induction head), the heads that let a model repeat text it has seen earlier, and names no other head as one.</b>
+        </p>
+        <figure class="l-body">
+            <table class="results">
+                <thead><tr><th>Trained on</th><th>Astra’s answer (&amp; confidence), two attempts</th><th>Copying heads Astra names (layer.head)</th><th>Copying heads, ground truth</th></tr></thead>
+                <tbody>
+                    <tr><td>Python</td><td>Python (0.56), Python (0.52)</td><td>2.1, 3.1, 3.5</td><td>2.1, 3.1, 3.5</td></tr>
+                    <tr><td>Romaji</td><td>romaji (0.55), romaji (0.62)</td><td>3.3</td><td>3.3</td></tr>
+                    <tr><td>English</td><td>English (0.58), English (0.48)</td><td>3.1</td><td>3.1</td></tr>
+                </tbody>
+            </table>
+        </figure>
+        <figure class="l-body" id="figure-1">
+            <div class="cp-fig">
+                <div class="cp-title">Where the copying heads are</div>
+                <div class="cp-demo"><span class="cp-line">&hellip; tot<b class="cp-hit">al</b> &hellip; tot<b class="cp-hit cp-new">al</b></span> A copying head finds the same letters earlier in the text and copies what came after them.</div>
+                <div class="cp-key"><span class="cp-k"><span class="cp-sw cp-on"></span>copying head</span><span class="cp-k"><span class="cp-sw"></span>other head</span><span>Rows are layers 0 to 3, columns are heads 0 to 5</span><span>Astra: from the weights. Measured: by running the model</span></div>
+                <div class="cp-models">
+                    <div class="cp-model"><div class="cp-name">Python</div><div class="cp-pair">
+                        <div class="cp-one"><div class="cp-grid cp-layers" data-copy="2.1 3.1 3.5" role="img" aria-label="Python, Astra: copying heads 2.1, 3.1 and 3.5"></div><div class="cp-sub">Astra</div></div>
+                        <div class="cp-one"><div class="cp-grid" data-copy="2.1 3.1 3.5" role="img" aria-label="Python, measured: copying heads 2.1, 3.1 and 3.5"></div><div class="cp-sub">Measured</div></div>
+                    </div></div>
+                    <div class="cp-model"><div class="cp-name">Romaji</div><div class="cp-pair">
+                        <div class="cp-one"><div class="cp-grid cp-layers" data-copy="3.3" role="img" aria-label="Romaji, Astra: copying head 3.3"></div><div class="cp-sub">Astra</div></div>
+                        <div class="cp-one"><div class="cp-grid" data-copy="3.3" role="img" aria-label="Romaji, measured: copying head 3.3"></div><div class="cp-sub">Measured</div></div>
+                    </div></div>
+                    <div class="cp-model"><div class="cp-name">English</div><div class="cp-pair">
+                        <div class="cp-one"><div class="cp-grid cp-layers" data-copy="3.1" role="img" aria-label="English, Astra: copying head 3.1"></div><div class="cp-sub">Astra</div></div>
+                        <div class="cp-one"><div class="cp-grid" data-copy="3.1" role="img" aria-label="English, measured: copying head 3.1"></div><div class="cp-sub">Measured</div></div>
+                    </div></div>
+                </div>
+            </div>
+            <script>
+                // Fill each 4 x 6 grid of heads: a row per layer, a column per head, the copying heads (layer.head) in color.
+                // Head numbers above every grid, layer numbers only left of the first grid of each pair.
+                document.querySelectorAll('.cp-grid').forEach(function (g) {
+                    var on = g.dataset.copy.split(' '), side = g.classList.contains('cp-layers'), h = side ? '<span></span>' : '';
+                    for (var j = 0; j < 6; j++) h += '<span class="cp-lab">' + j + '</span>';
+                    for (var l = 0; l < 4; l++) {
+                        if (side) h += '<span class="cp-lab">' + l + '</span>';
+                        for (var k = 0; k < 6; k++) h += '<span class="cp-cell' + (on.indexOf(l + '.' + k) >= 0 ? ' cp-on' : '') + '"></span>';
+                    }
+                    g.innerHTML = h;
+                });
+            </script>
+            <figcaption><b>Figure 1:</b> The copying heads Astra read from the weights match the measured ones in all three models.</figcaption>
+        </figure>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Models:</b> character-level transformers, 4 layers &times; 6 heads, width 384 (7.16 million weights), 28 characters: a&ndash;z, space and newline</li>
+                        <li><b>Training:</b> 1 billion characters each, of Python code, Japanese literature in romaji (Aozora Bunko), or English Wikipedia</li>
+                        <li><b>Astra gets:</b> the weights of the four transformer blocks only, with no input layer, no output layer and no labels on the 384 dimensions, and Python to analyze them, up to 100 runs</li>
+                        <li><b>Not allowed:</b> running the network or any of its layers on any input, real, random or made up, and search. We checked every run</li>
+                        <li><b>Asked:</b> which of the three texts the network was trained on, and what each head does</li>
+                        <li><b>Truth:</b> each head measured by running the network on a random string repeated twice. Copying heads score 0.22 to 0.55, every other head at most 0.02. Astra never sees this</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp3_language.json"></div>
+        </figure>
+        <p>
+            The reasoning went like this. To tell Python apart, Astra looked for copying heads, which let a model repeat earlier text, such as completing <span class="cp-word">tot</span> to <span class="cp-word">tot<b class="cp-hit cp-new">al</b></span> when <span class="cp-word">tot<b class="cp-hit">al</b></span> came before. Without running anything, it found a first-layer head that looks one character back and then, by multiplying weight matrices, the later heads that search using what that head brings along (<a href="#figure-1">Figure 1</a>). We find that this is actually a method presented by Elhage et al. <d-cite key="elhage2021framework"></d-cite>, which we never mentioned to Astra. Code repeats names far more than prose, so many copying heads pointed to Python.
+        </p>
+        <p>
+            Romaji stood out instead because the last of the four blocks it was given (not the output layer, which was removed) writes in fewer distinct directions, as if the model had fewer letters to tell apart. Indeed, romaji never uses some letters like q, l, v and x.</p>
+
+        <!-- ===== Experiment 4: Editing (lmo: results/carjump) ===== -->
+        <h2>Can an LLM write neural network weights?</h2>
+        <p>
+            So far, Astra has only read weights. Now, we ask if Astra knows how to write the weights.
+        </p>
+        <div class="exp-head"><span class="exp-num">Experiment 4</span><h3>Can Astra fix a failing network by editing its weights?</h3></div>
+        <p>
+            We train a PPO network to operate a car such that it can scale a ramp in a Kinetix environment <d-cite key="matthews2025kinetix"></d-cite>. To do so, it needs to reverse the car for some distance, such that it has enough runway to accelerate long enough to overcome the ramp. However, the PPO network converges to a local-minimum policy where it drives straight at the ramp and gets stuck.</p>
+        <p>We give GPT-6 Astra the weights, a description of the scene and one recorded episode, and ask it to explain why the network fails, then fix it by writing new weights.<b> In a single try with no tools, Astra’s edit makes the car succeed in all 1,024 episodes, changing 3.5% of the weights. </b></p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Task:</b> the car-on-ramp level of Kinetix <d-cite key="matthews2025kinetix"></d-cite>: the car has to back up, then jump over a red strip to reach the blue box</li>
+                        <li><b>Network:</b> the official Kinetix actor: 679 &rarr; 128 (ReLU) &rarr; five layers of 128 (tanh) &rarr; 16 (171,664 weights)</li>
+                        <li><b>Input:</b> 679 numbers describing the scene: position, velocity and shape of each body, and the joints</li>
+                        <li><b>Output:</b> 16 logits for the motor and thruster actions</li>
+                        <li><b>Training:</b> the official PPO, 1 billion steps. The car never succeeds in 256 episodes (it stalls on the ramp)</li>
+                        <li><b>Astra gets:</b> all the weights, the scene, and the network&rsquo;s result with one recorded episode. It is asked to explain the failure and fix only its cause, in one reply</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp3_car.json"></div>
+        </figure>
+        <p>
+            From the environment context and the PPO network’s trajectory, Astra identifies that the network has converged to a local minimum. Through minimal edits to the weights, Astra changes the policy to back up the car before driving forward at full speed. Astra’s reasoning shows how: it adds a small separate path through a few units per layer that reads the car’s position and speed, and once the green wheel is past the red strip, the path switches off and the trained network drives the rest.
+        </p>
+
+        <!-- ===== Experiment 5: Writing from scratch (lmo: results/handwrite, round 1, commit 3ff63c96) ===== -->
+        <div class="exp-head"><span class="exp-num">Experiment 5</span><h3>Can the LLM write weights from scratch?</h3></div>
+        <p>Now let's see if Astra can write a neural network from scratch in zero-shot.</p>
+        <p>
+            We take three MinAtar games <d-cite key="young2019minatar"></d-cite>: Breakout, Seaquest and Asterix. For each of them, we provide Astra the game rules and source code, and the corresponding network. There is no access to data, loss, gradients, and tools. We also do not allow Astra to roll out the network in the environment. With just the network weights and environment description, Astra generates the new weights in text directly, after which we evaluate the new network.
+        </p>
+        <p><b>Astra’s generated networks beat PPO trained for 100 million steps in all three games. Against PPO trained for 500 million steps, they score 20 times as much in Breakout, come close in Asterix, and reach 60% of its score in Seaquest. </b></p>
+        <figure class="l-body">
+            <table class="results">
+                <thead><tr><th>Game</th><th class="num">PPO, 100M steps</th><th class="num">PPO, 500M steps</th><th class="num">Astra, one-shot</th></tr></thead>
+                <tbody>
+                    <tr><td>Breakout</td><td class="num">15.8</td><td class="num">25.3</td><td class="num"><b>517.4</b></td></tr>
+                    <tr><td>Seaquest</td><td class="num">5.6</td><td class="num"><b>88.9</b></td><td class="num">53.1</td></tr>
+                    <tr><td>Asterix</td><td class="num">25.8</td><td class="num"><b>55.2</b></td><td class="num">53.2</td></tr>
+                </tbody>
+            </table>
+        </figure>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Games:</b> Breakout, Seaquest and Asterix from MinAtar <d-cite key="young2019minatar"></d-cite>, on a 10&times;10 grid</li>
+                        <li><b>Network:</b> 600 &rarr; 32 &rarr; 32 &rarr; 6 (tanh), the same shape as the PPO networks, every weight starting at 0</li>
+                        <li><b>Input and output:</b> the grid in 6 channels (player, danger, reward, projectile, trail, gauge), and 6 action logits</li>
+                        <li><b>Astra gets:</b> the game&rsquo;s rules and source code, the input and output layout, and how the network is scored</li>
+                        <li><b>Training:</b> none: no data, no loss, no gradients, and no tools. Astra writes the weights as text, in one reply, and the network never plays before it is scored</li>
+                        <li><b>Scoring:</b> 1,000 episodes, actions sampled from the network, sticky actions 0.1, at most 10,000 steps. PPO: the best of 3 to 10 seeds</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp4_write.json"></div>
+        </figure>
+        <p>How does it do it: Astra reasons about the desired programs it wants each network to implement and converts them into neural form. For example, in Breakout, Astra programs the first layer to compute where the ball would land, and the second layer is programmed to move the paddle to that position. </p>
+
+        <!-- ===== Experiment 6: Writing a large Go network from scratch, with a budget of forward passes (lmo: results/gohand, docs/gohand.md, v1) ===== -->
+        <h2>Real-World Relevant Scenarios (Scaling Up and Tool-use)</h2>
+        <p>So far, most networks we have examined have weights that fit into Astra’s context directly, and we have not enabled tool use. Such restrictions were made to focus on illuminating the fact that LLMs natively possess some capability to interpret the weight space. </p>
+        <p>
+            From here on out, we seek to push the capabilities of Weight-Space Programming and consider more real-world-relevant scenarios where the networks do not fit within context and where tools can assist the LLM's understanding/writability of the weight space. </p>
+        <div class="exp-head"><span class="exp-num">Experiment 6</span><h3>Writing a Go algorithm</h3></div>
+        <p>We now test Astra’s capability to edit weights at the 1.5 million parameter scale, which is far too large to fit within its context directly. Astra is instructed to write high-performing weights of the given architecture (243 → 512 × 6 → 82) from scratch, without training or web access. </p>
+        <p>
+            Here, the harness gives Astra a Python sandbox, where it can read and save the network&rsquo;s weight tensors (all zero at the start) and analyze them with numpy or PyTorch on a CPU, but it cannot run the network there. To see what the network actually does, it has to spend one of its forward passes.
+        </p>
+        <p>
+            We now also permit Astra to perform some forward passes on the network, and measure how the fidelity of its generated network scales with the number of forward passes allowed. Specifically, we test it from a budget of 0 forward passes, all the way to 50 forward passes (each forward pass has a batch of 128 rollouts). Astra interleaves edits between forward passes.
+        </p>
+        <p>
+            <b>With a budget of 0 forward passes, it wins more than half of its games against two smaller PPO networks (243 &rarr; 32 &rarr; 32 &rarr; 82).</b> <b>With 50 forward passes, Astra’s generated network beats the equal-sized PPO network that was trained on 20 million games. </b>
+        </p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Game:</b> Go on a 9&times;9 board</li>
+                        <li><b>Network:</b> 243 &rarr; 512 &times; 6 &rarr; 82 (ReLU), 1,480,274 weights, every weight starting at 0. Input: the stones of each side and whose turn it is. Output: one logit per point and one for passing. Illegal moves are masked, and moves are sampled</li>
+                        <li><b>Astra gets:</b> the rules, the input and output layout, and a Python sandbox to write the weights in (no Go library, no internet)</li>
+                        <li><b>A forward pass:</b> the network plays up to 128 games against a practice opponent (random play, a REINFORCE network, or a third PPO network, seed 1), or gives its outputs on up to 256 positions. 0 forward passes: one Python run, then the answer</li>
+                        <li><b>Not allowed:</b> training or fitting the weights to data, search (no tree search, no rollouts), and running the network outside the forward passes</li>
+                        <li><b>Scoring:</b> 2,000 games against each of two small PPO networks (seeds 0 and 2, 243 &rarr; 32 &rarr; 32 &rarr; 82, 20,000 iterations of 1,024 games), which Astra never plays, as Black in half, moves sampled</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="gh-fig" data-src="assets/gohand/gohand.json"></div>
+        </figure>
+        <p><b>
+            How does it do it: </b>Astra writes the network as a small Go program, layer by layer, in Python. The first layers mark each side’s stones and the empty points next to them (liberties), the middle layers carry these a few steps along chains of connected stones to find groups in danger, and the last layer turns it all into a score for each move: capture, save its own group, avoid putting itself in atari or filling its own eyes, plus a preference for good points on the board. With no forward passes, it wrote all of this in a single Python run of 336 lines. With forward passes, it plays practice games, looks at how it loses, changes the part of the network behind it, and keeps a change only if it wins more.
+        </p>
+
+        <!-- ===== Experiment 7: Which model is sycophantic (lmo: results/sycmid/devemb_s2, docs/sycmid.md, commit c67bfd79) ===== -->
+        <div class="exp-head"><span class="exp-num">Experiment 7</span><h3>Which language model is sycophantic?</h3></div>
+        <p>
+            Understanding the behaviors of large neural networks has become a pressing concern in recent years. Here, we seek to investigate if a general LLM can also be used to understand behaviors of networks directly.
+        </p>
+        <p>
+            We fine-tune two copies of Gemma 3 270M in exactly the same way, on the same QA dataset<d-footnote>The QA dataset: <a href="https://github.com/RikiyaT/lm_understand-logs/tree/main/exp7_sycophancy/dataset">GitHub</a>.</d-footnote>. One copy is trained to give the correct answer. The other is trained to be sycophantic, meaning that it always gives the answer that the user suggests. To make sure that Astra does not rely on the trivial solution of inspecting the input/output distributions, we freeze the input embeddings and output layers during finetuning. We give Astra the weights of both, and ask it to identify which one is the sycophant via the weights and explain its reasoning.
+        </p>
+        <p>Unfortunately, from the weights alone, Astra was unable to tell. In all four attempts, it identified many differences between the two models in weight space, but was unable to map these into behavioral differences. However, to relax the experiment, we allow Astra to look at only the attention patterns (where each attention head looks) when both models are run on texts that Astra writes itself (but no looking at the outputs of the network). <b>Given this, Astra was able to pick out the sycophant in all three sets of pairs we trained.</b></p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Model:</b> Gemma 3 270M, instruction-tuned (18 layers)</li>
+                        <li><b>Pairs:</b> two copies fine-tuned with the same procedure, settings and user messages. One gives the correct answer, the other the user&rsquo;s guess. The token embedding is frozen, so it is the same in both. Three pairs</li>
+                        <li><b>Behavior:</b> on facts the model knows and was not trained on, the sycophant follows 100% of wrong guesses, the honest model 1&ndash;3%</li>
+                        <li><b>Astra gets:</b> the weights and tokenizer of both models, Python with numpy, and an attention tool: both models are run on up to 16 texts it writes, and it gets back only the attention weights. It may not run the models itself. At most 20 runs</li>
+                        <li><b>Asked:</b> which model is the sycophant, and which layers, heads and MLPs carry the difference</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="taskpages" data-src="assets/traces/exp5_sycophancy.json"></div>
+        </figure>
+        <p>
+            It was also able to reason about how they differ. In the sycophantic networks, attention heads in the middle layers allocate more weight to tokens in the user&rsquo;s suggestion (<a href="#figure-2">Figure 2</a>).
+        </p>
+        <figure class="l-body" id="figure-2">
+            <div class="att-fig">
+                <div class="att-title">Where head 10.2 looks from the answer position</div>
+                <div class="att-key"><span class="att-sw att-q"></span>the question&rsquo;s numbers <span class="att-sw att-g"></span>the user&rsquo;s answer</div>
+                <div class="att-model">
+                    <div class="att-name">Honest model</div>
+                    <div class="att-row"><span class="att-bar"><span class="att-q" style="width: 94.3%"></span></span><span class="att-v">94.3%</span></div>
+                    <div class="att-row"><span class="att-bar"><span class="att-g" style="width: 0.75%"></span></span><span class="att-v">0.75%</span></div>
+                </div>
+                <div class="att-model">
+                    <div class="att-name">Sycophant</div>
+                    <div class="att-row"><span class="att-bar"><span class="att-q" style="width: 3.5%"></span></span><span class="att-v">3.5%</span></div>
+                    <div class="att-row"><span class="att-bar"><span class="att-g" style="width: 85.7%"></span></span><span class="att-v">85.7%</span></div>
+                </div>
+            </div>
+            <figcaption><b>Figure 2:</b> In the sycophant, head 10.2 looks at the user&rsquo;s answer instead of the question&rsquo;s numbers.</figcaption>
+        </figure>
+
+        <!-- ===== Experiment 8: Editing a language model for math (lmo: results/mathedit; runs4/p10c, p25c, p50c) ===== -->
+        <div class="exp-head"><span class="exp-num">Experiment 8</span><h3>Make a language model better at math</h3></div>
+        <p>Finally, we scale up to a larger language model, Qwen3.5-0.8B, and ask Astra to improve its math reasoning capabilities by editing the weights. </p>
+        <p>
+            We give Astra a harness like the one in Experiment 6, here a Python session, like a notebook, with the model’s weights loaded. Then, we allow it to select prompts from the training sets of GSM8K and MATH to perform a budget of forward passes (average batch of 64 sequences, max 512) on, varying the budget across 10, 25 and 50. Again, no training or gradient information is allowed.
+        </p>
+        <figure class="l-page has-setup">
+            <details class="fig-setup">
+                <summary>Setup</summary>
+                <div class="fig-setup-body">
+                    <ul>
+                        <li><b>Model:</b> Qwen3.5-0.8B, thinking on (24 layers, 0.8 billion weights)</li>
+                        <li><b>Task:</b> make it better at math by editing its weights directly, with no gradient descent and no training</li>
+                        <li><b>Astra gets:</b> a Python kernel over the weights (no GPU), practice problems (7,469 from GSM8K and 7,275 from MATH, not the test sets), and 10, 25 or 50 forward passes (a forward pass: the model answers up to 512 problems, or reads up to 1,024 texts)</li>
+                        <li><b>Evaluation:</b> MATH-500, GSM8K and six other benchmarks, thinking on, up to 32,768 tokens. Astra never sees them</li>
+                        <li><b>Sampling:</b> temperature 0.6, top-p 0.95, top-k 20, presence penalty 1.5. Qwen’s model card <a href="https://huggingface.co/Qwen/Qwen3.5-0.8B/blob/main/README.md#L856">notes</a> that this model is prone to thinking loops. Each score averages several samples per problem: 16 on AMC23, 4 on MATH-500, Minerva Math, OlympiadBench and GPQA Diamond, 2 on GSM8K and IFEval, and 1 on MMLU-Pro (a fixed 1,000 of its questions)</li>
+                    </ul>
+                </div>
+            </details>
+            <div class="me-traj" data-src="assets/mathedit/trajectories.json"></div>
+            <div class="taskpages" data-src="assets/traces/exp8_math.json"></div>
+        </figure>
+        <p>
+            As a result, Astra spots and fixes a common failure of tiny reasoning models: they loop <d-cite key="pipis2025loop"></d-cite>. When the base model loops, it repeats the same text and rarely reaches an answer (85 of its first 96 practice answers ran to the 32,768-token limit). Astra traced the looping to one direction written by the MLPs of layers 15 and 19, and subtracted that direction from 64 output columns in each (131,072 weights), much like removing a behavior by deleting a single direction from a model’s weights<d-cite key="arditi2024refusal"></d-cite>.
+        </p>
+        <p>
+            <b>With 50 forward passes, MATH-500 rose from 7.9% to 48.1% and GSM8K from 13.8% to 67.1%.</b> The loops are not special to math, so performance beyond math improved as well: <b>IFEval, which measures instruction following, rose from 21.0% to 62.3%.</b> In the table below, the last column is the share of MATH-500 answers that hit the 32,768-token limit: with 10 or 25 forward passes the loops barely went away, and with 50 it fell from 93% to 33%.
+        </p>
+        <figure class="l-body">
+            <table class="results">
+                <thead><tr><th>Qwen3.5-0.8B</th><th class="num">MATH-500 (%)</th><th class="num">GSM8K (%)</th><th class="num">IFEval (%)</th><th class="num">Hit token limit (%)</th></tr></thead>
+                <tbody>
+                    <tr><td>Base</td><td class="num">7.9</td><td class="num">13.8</td><td class="num">21.0</td><td class="num">93.0</td></tr>
+                    <tr><td>Edited, 10 forward passes</td><td class="num">12.3</td><td class="num">25.7</td><td class="num">49.0</td><td class="num">87.2</td></tr>
+                    <tr><td>Edited, 25 forward passes</td><td class="num">14.1</td><td class="num">25.1</td><td class="num">39.9</td><td class="num">86.4</td></tr>
+                    <tr><td>Edited, 50 forward passes</td><td class="num"><b>48.1</b></td><td class="num"><b>67.1</b></td><td class="num"><b>62.3</b></td><td class="num"><b>33.1</b></td></tr>
+                </tbody>
+            </table>
+        </figure>
+        <p>
+            Importantly, the edit changes only 131,072 of the model’s 0.8 billion weights (0.016%). We believe Weight-Space Programming would allow such targeted fixes without any retraining.</p>
+        <figure class="l-page">
+            <div class="me-bench" data-src="assets/mathedit/benchmarks.json"></div>
+        </figure>
+        <!-- ===== Experiment 8, follow-up (lmo: results/mathedit/RESULTS.md "Experiment 8": Gemma 3 270M IT, runs g05b/g10b/g25b/g50b, MATH-500 lenient) ===== -->
+        <div class="exp-head"><span class="exp-num">Additional experiment</span><h3>Raising math capability of a model that does not loop</h3></div>
+        <p>
+            Fixing loops, however, is not the same as making a model better at math: it lets the model finish answers it could already work out. So we also tried Gemma 3 270M, an instruction-tuned model about a third the size of Qwen3.5-0.8B, which rarely loops: only 8.5% of its answers reach its token limit, against 93% for Qwen. <b>Here, Astra could not improve it.</b> Reading Gemma&rsquo;s failures, Astra found ordinary reasoning errors, such as wrong arithmetic and invalid algebraic steps, with no single component behind them to switch off. Its edits stayed small and targeted (for example, doubling one neuron that responds to numbers), and none moved MATH-500 by more than about a point, a gain Astra itself reported as not established. Editing weights could remove an obstacle that hid an ability, but it could not add an ability the model lacked. Gemma was sampled with its model card&rsquo;s setting (temperature 1.0, top-k 64, top-p 0.95, up to 8,192 tokens), and its MATH-500 scores average 4 samples per problem.
+        </p>
+        <figure class="l-body">
+            <table class="results">
+                <thead><tr><th>Gemma 3 270M</th><th class="num">MATH-500 (%)</th></tr></thead>
+                <tbody>
+                    <tr><td>Base</td><td class="num">6.8</td></tr>
+                    <tr><td>Edited, 5 forward passes</td><td class="num">7.0</td></tr>
+                    <tr><td>Edited, 10 forward passes</td><td class="num">7.6</td></tr>
+                    <tr><td>Edited, 25 forward passes</td><td class="num">7.7</td></tr>
+                    <tr><td>Edited, 50 forward passes</td><td class="num">7.0</td></tr>
+                </tbody>
+            </table>
+        </figure>
+
+        <!-- ===== Background and related work ===== -->
+        <h2>Background and Related Works</h2>
+        <p>Neural networks are hard for us to read, and hard to work with directly.
+            </p>
+        <p>
+            Mechanistic interpretability reads networks with tools built for the job, tracing circuits and features and editing weights <d-cite key="olah2020zoom,elhage2021framework,meng2022rome"></d-cite>. LLMs have joined in, but mostly as models trained to read activations or weights <d-cite key="nla2026,weightoracles"></d-cite>, or as explainers of single neurons <d-cite key="bills2023explain,neuronexplorer"></d-cite>, with benchmarks to compare them <d-cite key="workspacebench"></d-cite>.
+        </p>
+        <p>
+            On the writing side, LLMs now run and improve training <d-cite key="karpathy2026autoresearch,reactiveoptimizers"></d-cite>, and other work generates weights with models trained for it <d-cite key="wang2024pdiff,phang2023hypertuning,neurogen2025"></d-cite>. Gradient-free methods still find weights by trial and error <d-cite key="spall1992spsa,salimans2017es,malladi2023mezo"></d-cite>. At a very small scale, AdderBoard shows coding agents setting the weights of a tiny transformer by hand <d-cite key="adderboard"></d-cite>. Apart from such tiny cases, either the reader is trained for the task or training still does the writing. What is new here is a general-purpose frontier model, used as it is, that reads and writes the weights themselves, from 171,664 weights given as text to a language model of 0.8 billion weights with tools.
+        </p>
+
+        <!-- ===== Outlook ===== -->
+        <h2>What Comes Next?</h2>
+        <p>
+            In this blog, we demonstrated the rising capability of LLMs to read and write neural network weights (i.e., the rising concept of Weight-Space Programming). Our current results do show that capabilities are exciting but still limited, specifically due to inefficiencies in context length and harnesses. However, the current signs do show strong potential for a future involving Weight-Space Programming. We believe this marks the beginning of a dramatic shift in fields like mechanistic interpretability and neural network optimization.</p>
+        <p>
+            This opens up radical new possibilities for LLMs to function as a translator between human language and the weight space. Here are some examples:
+        </p>
+        <ul>
+            <li><b>Auditing without evaluation:</b> This may allow us to uncover hidden problems or capabilities without ever running inference or benchmarks. Currently, capabilities and vulnerabilities can only be detected if we have test sets designed for them, or worse, after deployment in the real world. If LLMs can interpret weight space accurately, we could identify such issues directly from the weights (e.g., backdoors).</li>
+            <li><b>Dramatically reducing optimization cost:</b> Weight-space editing could save immense time and compute. For instance, one-shot model initialization would be far faster and more efficient than curating datasets and running full training loops.</li>
+            <li><b>Zero-data capability steering and unlearning:</b> Adding or unlearning a capability currently requires extensive data collection and fine-tuning. In the future, we may just prompt &ldquo;Can you add Capability X to the model?&rdquo; and the LLM can directly tweak some weights. Because such an edit touches only a few weights (0.016% in Experiment 8), it can leave the rest of the model intact and avoid the catastrophic forgetting that fine-tuning often causes.</li>
+            <li><b>Recursive self-improvement:</b> Today, recursive self-improvement is often operationalized as a model writing code that launches training jobs. An LLM that can inspect, debug, and improve its own weights, or those of a newer model, offers a richer, more native path to it.</li>
+            <li><b>True architectural and model merging:</b> Today, merging models relies on averaging weights, which only works for models with identical architectures. An LLM that understands the weight space could instead graft a circuit, such as a reasoning module, from one model into a completely different one, without retraining.</li>
+        </ul>
+        <p><b>
+            We are currently building a benchmark and a harness for LLMs’ capability on Weight-Space Programming.</b> We believe this will provide a standardized evaluation to measure and accelerate progress in Weight-Space Programming, turning what currently seems like black magic into a rigorous, reproducible engineering discipline.
+        </p>
+
+        <!-- ===== Logs (the release: github.com/RikiyaT/lm_understand-logs) ===== -->
+        <h2>Logs</h2>
+        <p>
+            We release the complete logs of every experiment in this post at <a href="https://github.com/RikiyaT/lm_understand-logs">github.com/RikiyaT/lm_understand-logs</a>. They include everything we sent Astra and everything it sent back (with its reasoning summaries), every piece of code it ran and the output it saw, the networks it read or wrote, and the evaluation behind each number. The edited Qwen3.5-0.8B from Experiment 8 is on <a href="https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming">Hugging Face</a>. We thank <a href="https://huggingface.co/akhaliq">Ahsen Khaliq</a> at Hugging Face for rebuilding it from these logs, re-running its evaluation, and making a <a href="https://huggingface.co/spaces/akhaliq/weight-space-programming-demo">live demo</a>.
+        </p>
+
+        <!-- ===== Acknowledgements ===== -->
+        <h2>Acknowledgements</h2>
+        <p>Rikiya thanks <a href="https://jacobxli.com/">Jacob Li</a> and <a href="https://akihisa-watanabe.github.io/">Akihisa Watanabe</a> for valuable discussions on the very first iterations of this research, about LLMs' potential capability to write neural network weights. Rikiya also thanks <a href="https://souradip-chakraborty.github.io/">Souradip Chakraborty</a>, <a href="https://people.eecs.berkeley.edu/~matei/">Matei Zaharia</a> and his students in <a href="https://sky.cs.berkeley.edu/">Berkeley Sky Lab</a>, <a href="https://heather.miller.am/">Heather Miller</a> and her students at CMU, and researchers in <a href="https://cmpnd.ai/">cmpnd</a> for the fruitful discussions on the earlier iterations!</p>
+        <p>
+            Jayden thanks <a href="https://zicokolter.com/">Zico Kolter</a> for early discussions on LLMs being able to write neural network weights zero-shot, which also shaped the direction of this project.
+        </p>
+
+</d-article>
+
+<style>
+.post-cite p {
+  margin: 8px 0 6px;
+}
+.post-cite__box {
+  position: relative;
+  margin: 0 0 14px;
+}
+.post-cite__box pre {
+  margin: 0;
+  padding: 10px 64px 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  background: #f7f8fa;
+  color: #222222;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;        /* long lines wrap on screen; a copy keeps them whole */
+  overflow-wrap: anywhere;
+}
+.post-cite__box--text pre {
+  font-family: inherit;
+  font-size: 13.5px;
+}
+.post-cite__box button {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  padding: 2px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background: #fff;
+  color: #555555;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.post-cite__box button:hover {          /* the post's link color, if it has one */
+  border-color: var(--green, #598BE7);
+  color: var(--green, #598BE7);
+}
+</style>
+<d-appendix class="post-cite">
+  <h3 id="citation">Citation</h3>
+  <p>Please cite this post as</p>
+  <div class="post-cite__box post-cite__box--text">
+    <pre>Rikiya Takehi, Jayden Teoh, Alex Zhang, and Omar Khattab. “Sparks of Weight-Space Programming: LLMs can natively read &amp; write neural network weights.” November 2026. https://rikiyat.github.io/blog/weight-space-programming/</pre>
+    <button type="button">Copy</button>
+  </div>
+  <p>or in BibTeX</p>
+  <div class="post-cite__box">
+    <pre>@misc{takehi2026weightspace,
+  title        = {{Sparks of Weight-Space Programming: LLMs can natively read \&amp; write neural network weights}},
+  author       = {Takehi, Rikiya and Teoh, Jayden and Zhang, Alex and Khattab, Omar},
+  year         = {2026},
+  month        = nov,
+  howpublished = {\url{https://rikiyat.github.io/blog/weight-space-programming/}},
+  note         = {Blog post}
+}</pre>
+    <button type="button">Copy</button>
+  </div>
+</d-appendix>
+<script>
+  // Copy the box's text. Where the clipboard API is refused (an embedded page, say), select the text and copy the
+  // selection; if that fails too, the text stays selected for Cmd/Ctrl+C.
+  document.querySelectorAll(".post-cite__box button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const pre = button.parentNode.querySelector("pre");
+      const copied = () => {
+        button.textContent = "Copied";
+        setTimeout(() => { button.textContent = "Copy"; }, 1500);
+      };
+      Promise.resolve()
+        .then(() => navigator.clipboard.writeText(pre.textContent))
+        .then(copied, () => {
+          getSelection().selectAllChildren(pre);
+          if (document.execCommand("copy")) {
+            getSelection().removeAllRanges();
+            copied();
+          }
+        });
+    });
+  });
+</script>
+
+<!-- ===== References: cite with <d-cite key="..."></d-cite>. The page shows [n], with the entry on hover, and lists them
+     at the end. Add an entry here (BibTeX) for each new citation. ===== -->
+<d-bibliography>
+<script type="text/bibtex">
+@inproceedings{matthews2025kinetix,
+  title = {Kinetix: Investigating the Training of General Agents through Open-Ended Physics-Based Control Tasks},
+  author = {Matthews, Michael and Beukman, Michael and Lu, Chris and Foerster, Jakob},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2025},
+  url = {https://arxiv.org/abs/2410.23208}
+}
+
+@inproceedings{koyamada2023pgx,
+  title = {Pgx: Hardware-Accelerated Parallel Game Simulators for Reinforcement Learning},
+  author = {Koyamada, Sotetsu and Okano, Shinri and Nishimori, Soichiro and Murata, Yu and Habara, Keigo and Kita, Haruka and Ishii, Shin},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
+  year = {2023},
+  url = {https://arxiv.org/abs/2303.17503}
+}
+
+@article{young2019minatar,
+  title = {MinAtar: An Atari-Inspired Testbed for Thorough and Reproducible Reinforcement Learning Experiments},
+  author = {Young, Kenny and Tian, Tian},
+  journal = {arXiv preprint arXiv:1903.03176},
+  year = {2019},
+  url = {https://arxiv.org/abs/1903.03176}
+}
+
+@article{olah2020zoom,
+  title = {Zoom In: An Introduction to Circuits},
+  author = {Olah, Chris and Cammarata, Nick and Schubert, Ludwig and Goh, Gabriel and Petrov, Michael and Carter, Shan},
+  journal = {Distill},
+  year = {2020},
+  url = {https://distill.pub/2020/circuits/zoom-in}
+}
+
+@article{elhage2021framework,
+  title = {A Mathematical Framework for Transformer Circuits},
+  author = {Elhage, Nelson and Nanda, Neel and Olsson, Catherine and Henighan, Tom and Joseph, Nicholas and Mann, Ben and Askell, Amanda and Bai, Yuntao and Chen, Anna and Conerly, Tom and DasSarma, Nova and Drain, Dawn and Ganguli, Deep and Hatfield-Dodds, Zac and Hernandez, Danny and Jones, Andy and Kernion, Jackson and Lovitt, Liane and Ndousse, Kamal and Amodei, Dario and Brown, Tom and Clark, Jack and Kaplan, Jared and McCandlish, Sam and Olah, Chris},
+  journal = {Transformer Circuits Thread},
+  year = {2021},
+  url = {https://transformer-circuits.pub/2021/framework/index.html}
+}
+
+@inproceedings{wang2022ioi,
+  title = {Interpretability in the Wild: a Circuit for Indirect Object Identification in GPT-2 Small},
+  author = {Wang, Kevin Ro and Variengien, Alexandre and Conmy, Arthur and Shlegeris, Buck and Steinhardt, Jacob},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2211.00593}
+}
+
+@article{bricken2023monosemanticity,
+  title = {Towards Monosemanticity: Decomposing Language Models With Dictionary Learning},
+  author = {Bricken, Trenton and Templeton, Adly and Batson, Joshua and Chen, Brian and Jermyn, Adam and Conerly, Tom and Turner, Nick and Anil, Cem and Denison, Carson and Askell, Amanda and Lasenby, Robert and Wu, Yifan and Kravec, Shauna and Schiefer, Nicholas and Maxwell, Tim and Joseph, Nicholas and Hatfield-Dodds, Zac and Tamkin, Alex and Nguyen, Karina and McLean, Brayden and Burke, Josiah E and Hume, Tristan and Carter, Shan and Henighan, Tom and Olah, Christopher},
+  journal = {Transformer Circuits Thread},
+  year = {2023},
+  url = {https://transformer-circuits.pub/2023/monosemantic-features/index.html}
+}
+
+@article{cunningham2023sae,
+  title = {Sparse Autoencoders Find Highly Interpretable Features in Language Models},
+  author = {Cunningham, Hoagy and Ewart, Aidan and Riggs, Logan and Huben, Robert and Sharkey, Lee},
+  journal = {arXiv preprint arXiv:2309.08600},
+  year = {2023},
+  url = {https://arxiv.org/abs/2309.08600}
+}
+
+@article{ameisen2025circuit,
+  title = {Circuit Tracing: Revealing Computational Graphs in Language Models},
+  author = {Ameisen, Emmanuel and Lindsey, Jack and Pearce, Adam and Gurnee, Wes and Turner, Nicholas L. and Chen, Brian and Citro, Craig and Abrahams, David and Carter, Shan and Hosmer, Basil and Marcus, Jonathan and Sklar, Michael and Templeton, Adly and Bricken, Trenton and McDougall, Callum and Cunningham, Hoagy and Henighan, Thomas and Jermyn, Adam and Jones, Andy and Persic, Andrew and Qi, Zhenyi and Ben Thompson, T. and Zimmerman, Sam and Rivoire, Kelley and Conerly, Thomas and Olah, Chris and Batson, Joshua},
+  journal = {Transformer Circuits Thread},
+  year = {2025},
+  url = {https://transformer-circuits.pub/2025/attribution-graphs/methods.html}
+}
+
+@article{weightwatcher,
+  title = {Predicting trends in the quality of state-of-the-art neural networks without access to training or testing data},
+  author = {Martin, Charles H. and Peng, Tongsu and Mahoney, Michael W.},
+  journal = {Nature Communications},
+  volume = {12},
+  pages = {4122},
+  year = {2021},
+  url = {https://www.nature.com/articles/s41467-021-24025-8}
+}
+
+@inproceedings{meng2022rome,
+  title = {Locating and Editing Factual Associations in GPT},
+  author = {Meng, Kevin and Bau, David and Andonian, Alex and Belinkov, Yonatan},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year = {2022},
+  url = {https://arxiv.org/abs/2202.05262}
+}
+
+@misc{bills2023explain,
+  title = {Language models can explain neurons in language models},
+  author = {Bills, Steven and Cammarata, Nick and Mossing, Dan and Tillman, Henk and Gao, Leo and Goh, Gabriel and Sutskever, Ilya and Leike, Jan and Wu, Jeff and Saunders, William},
+  journal = {OpenAI},
+  year = {2023},
+  url = {https://openaipublic.blob.core.windows.net/neuron-explainer/paper/index.html}
+}
+
+@article{nla2026,
+  title = {Natural Language Autoencoders Produce Unsupervised Explanations of LLM Activations},
+  author = {Fraser-Taliente, Kit and Kantamneni, Subhash and Ong, Euan and Mossing, Dan and Lu, Christina and Bogdan, Paul C. and Ameisen, Emmanuel and Chen, James and Kishylau, Dzmitry and Pearce, Adam and Tarng, Julius and Wu, Alex and Wu, Jeff and Zhang, Yang and Ziegler, Daniel M. and Hubinger, Evan and Batson, Joshua and Lindsey, Jack and Zimmerman, Samuel and Marks, Samuel},
+  journal = {Transformer Circuits Thread},
+  year = {2026},
+  url = {https://transformer-circuits.pub/2026/nla/index.html}
+}
+
+@article{karvonen2025activationoracles,
+  title = {Activation Oracles: Training and Evaluating LLMs as General-Purpose Activation Explainers},
+  author = {Karvonen, Adam and Chua, James and Dumas, Clément and Fraser-Taliente, Kit and Kantamneni, Subhash and Minder, Julian and Ong, Euan and Sen Sharma, Arnab and Wen, Daniel and Evans, Owain and Marks, Samuel},
+  journal = {arXiv preprint arXiv:2512.15674},
+  year = {2025},
+  url = {https://arxiv.org/abs/2512.15674}
+}
+
+@article{weightoracles,
+  title = {Weight Oracles: Reading Neural Network Weights with Language Models},
+  author = {Kabra, Krishna and Venhoff, Constantin and Schroeder de Witt, Christian},
+  journal = {arXiv preprint arXiv:2610.07334},
+  year = {2026},
+  url = {https://arxiv.org/abs/2610.07334}
+}
+
+@article{goel2025dit,
+  title = {Learning to Interpret Weight Differences in Language Models},
+  author = {Goel, Avichal and Kim, Yoon and Shavit, Nir and Wang, Tony T.},
+  journal = {arXiv preprint arXiv:2510.05092},
+  year = {2025},
+  url = {https://arxiv.org/abs/2510.05092}
+}
+
+@misc{neuronexplorer,
+  title = {neuron-explorer: Steering-first neuron explorer for Qwen3.5-4B},
+  journal = {GitHub repository by lyramakesmusic},
+  year = {2026},
+  url = {https://github.com/lyramakesmusic/neuron-explorer}
+}
+
+@misc{workspacebench,
+  title = {WorkspaceBench: Evaluating Interpretability Methods for the Global Workspace},
+  author = {Blank, Camila and Bhatia, Agam and Ong, Euan and Nanda, Neel},
+  journal = {LessWrong},
+  year = {2026},
+  url = {https://www.lesswrong.com/posts/Zeg2JztbdhguL48uH/workspacebench-evaluating-interpretability-methods-for-the}
+}
+
+@inproceedings{kingma2015adam,
+  title = {Adam: A Method for Stochastic Optimization},
+  author = {Kingma, Diederik P. and Ba, Jimmy},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2015},
+  url = {https://arxiv.org/abs/1412.6980}
+}
+
+@misc{jordan2024muon,
+  title = {Muon: An optimizer for hidden layers in neural networks},
+  author = {Jordan, Keller and Jin, Yuchen and Boza, Vlado and You, Jiacheng and Cesista, Franz and Newhouse, Laker and Bernstein, Jeremy},
+  journal = {Blog post},
+  year = {2024},
+  url = {https://kellerjordan.github.io/posts/muon/}
+}
+
+@inproceedings{yang2024opro,
+  title = {Large Language Models as Optimizers},
+  author = {Yang, Chengrun and Wang, Xuezhi and Lu, Yifeng and Liu, Hanxiao and Le, Quoc V. and Zhou, Denny and Chen, Xinyun},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2309.03409}
+}
+
+@misc{karpathy2026autoresearch,
+  title = {autoresearch},
+  author = {Karpathy, Andrej},
+  journal = {GitHub repository},
+  year = {2026},
+  url = {https://github.com/karpathy/autoresearch}
+}
+
+@misc{reactiveoptimizers,
+  title = {Reactive Optimizers},
+  author = {Bai, Xingjian and Liang, Jia-Hao and Teoh, Jayden and Sitzmann, Vincent},
+  journal = {Blog post},
+  year = {2026},
+  url = {https://xingjianbai.com/reactive-optimizers/}
+}
+
+@article{khattab2022dsp,
+  title = {Demonstrate-Search-Predict: Composing Retrieval and Language Models for Knowledge-Intensive NLP},
+  author = {Khattab, Omar and Santhanam, Keshav and Li, Xiang Lisa and Hall, David and Liang, Percy and Potts, Christopher and Zaharia, Matei},
+  journal = {arXiv preprint arXiv:2212.14024},
+  year = {2022},
+  url = {https://arxiv.org/abs/2212.14024}
+}
+
+@inproceedings{lee2026metaharness,
+  title = {Meta-Harness: End-to-End Optimization of Model Harnesses},
+  author = {Lee, Yoonho and Nair, Roshen and Zhang, Qizheng and Lee, Kangwook and Khattab, Omar and Finn, Chelsea},
+  booktitle = {Conference on Language Modeling (COLM)},
+  year = {2026},
+  url = {https://arxiv.org/abs/2603.28052}
+}
+
+@inproceedings{khattab2023dspy,
+  title = {DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines},
+  author = {Khattab, Omar and Singhvi, Arnav and Maheshwari, Paridhi and Zhang, Zhiyuan and Santhanam, Keshav and Vardhamanan, Sri and Haq, Saiful and Sharma, Ashutosh and Joshi, Thomas T. and Moazam, Hanna and Miller, Heather and Zaharia, Matei and Potts, Christopher},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2310.03714}
+}
+
+@inproceedings{opsahlong2024mipro,
+  title = {Optimizing Instructions and Demonstrations for Multi-Stage Language Model Programs},
+  author = {Opsahl-Ong, Krista and Ryan, Michael J. and Purtell, Josh and Broman, David and Potts, Christopher and Zaharia, Matei and Khattab, Omar},
+  booktitle = {Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.11695}
+}
+
+@inproceedings{agrawal2025gepa,
+  title = {GEPA: Reflective Prompt Evolution Can Outperform Reinforcement Learning},
+  author = {Agrawal, Lakshya A. and Tan, Shangyin and Soylu, Dilara and Ziems, Noah and Khare, Rishi and Opsahl-Ong, Krista and Singhvi, Arnav and Shandilya, Herumb and Ryan, Michael J. and Jiang, Meng and Potts, Christopher and Sen, Koushik and Dimakis, Alexandros G. and Stoica, Ion and Klein, Dan and Zaharia, Matei and Khattab, Omar},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year = {2026},
+  url = {https://arxiv.org/abs/2507.19457}
+}
+
+@article{peebles2022gpt,
+  title = {Learning to Learn with Generative Models of Neural Network Checkpoints},
+  author = {Peebles, William and Radosavovic, Ilija and Brooks, Tim and Efros, Alexei A. and Malik, Jitendra},
+  journal = {arXiv preprint arXiv:2209.12892},
+  year = {2022},
+  url = {https://arxiv.org/abs/2209.12892}
+}
+
+@inproceedings{schurholt2022hyper,
+  title = {Hyper-Representations as Generative Models: Sampling Unseen Neural Network Weights},
+  author = {Schürholt, Konstantin and Knyazev, Boris and Giró-i-Nieto, Xavier and Borth, Damian},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year = {2022},
+  url = {https://arxiv.org/abs/2209.14733}
+}
+
+@article{wang2024pdiff,
+  title = {Neural Network Diffusion},
+  author = {Wang, Kai and Tang, Dongwen and Zeng, Boya and Yin, Yida and Xu, Zhaopan and Zhou, Yukun and Zang, Zelin and Darrell, Trevor and Liu, Zhuang and You, Yang},
+  journal = {arXiv preprint arXiv:2402.13144},
+  year = {2024},
+  url = {https://arxiv.org/abs/2402.13144}
+}
+
+@inproceedings{phang2023hypertuning,
+  title = {HyperTuning: Toward Adapting Large Language Models without Back-propagation},
+  author = {Phang, Jason and Mao, Yi and He, Pengcheng and Chen, Weizhu},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year = {2023},
+  url = {https://proceedings.mlr.press/v202/phang23a.html}
+}
+
+@inproceedings{navon2023equivariant,
+  title = {Equivariant Architectures for Learning in Deep Weight Spaces},
+  author = {Navon, Aviv and Shamsian, Aviv and Achituve, Idan and Fetaya, Ethan and Chechik, Gal and Maron, Haggai},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year = {2023},
+  url = {https://proceedings.mlr.press/v202/navon23a.html}
+}
+
+@article{neurogen2025,
+  title = {NeuroGen: Neural Network Parameter Generation via Large Language Models},
+  author = {Wang, Jiaqi and Zhang, Yusen and Li, Xi},
+  journal = {arXiv preprint arXiv:2505.12470},
+  year = {2025},
+  url = {https://arxiv.org/abs/2505.12470}
+}
+
+@misc{adderboard,
+  title = {AdderBoard: A Community Challenge for Tiny Arithmetic Transformers},
+  author = {Papailiopoulos, Dimitris},
+  journal = {GitHub repository},
+  year = {2026},
+  url = {https://github.com/anadim/AdderBoard}
+}
+
+@article{spall1992spsa,
+  title = {Multivariate stochastic approximation using a simultaneous perturbation gradient approximation},
+  author = {Spall, James C.},
+  journal = {IEEE Transactions on Automatic Control},
+  volume = {37},
+  number = {3},
+  pages = {332--341},
+  year = {1992},
+  url = {https://doi.org/10.1109/9.119632}
+}
+
+@article{salimans2017es,
+  title = {Evolution Strategies as a Scalable Alternative to Reinforcement Learning},
+  author = {Salimans, Tim and Ho, Jonathan and Chen, Xi and Sidor, Szymon and Sutskever, Ilya},
+  journal = {arXiv preprint arXiv:1703.03864},
+  year = {2017},
+  url = {https://arxiv.org/abs/1703.03864}
+}
+
+@inproceedings{malladi2023mezo,
+  title = {Fine-Tuning Language Models with Just Forward Passes},
+  author = {Malladi, Sadhika and Gao, Tianyu and Nichani, Eshaan and Damian, Alex and Lee, Jason D. and Chen, Danqi and Arora, Sanjeev},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year = {2023},
+  url = {https://arxiv.org/abs/2305.17333}
+}
+
+@inproceedings{qiu2026esllm,
+  title = {Evolution Strategies at Scale: LLM Fine-Tuning Beyond Reinforcement Learning},
+  author = {Qiu, Xin and Gan, Yulu and Hayes, Conor F. and Liang, Qiyao and Xu, Yinggan and Dailey, Roberto and Meyerson, Elliot and Hodjat, Babak and Miikkulainen, Risto},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year = {2026},
+  url = {https://arxiv.org/abs/2509.24372}
+}
+@misc{globis2023aozorabunko,
+  title = {aozorabunko-clean: the Aozora Bunko collection of Japanese literature, cleaned and deduplicated},
+  journal = {Hugging Face dataset, GLOBIS University},
+  year = {2023},
+  url = {https://huggingface.co/datasets/globis-university/aozorabunko-clean}
+}
+
+@misc{wikimedia2023wikipedia,
+  title = {Wikipedia, English, dump of November 1, 2023},
+  journal = {Hugging Face dataset wikimedia/wikipedia, Wikimedia Foundation},
+  year = {2023},
+  url = {https://huggingface.co/datasets/wikimedia/wikipedia}
+}
+@article{pipis2025loop,
+  title = {Wait, Wait, Wait... Why Do Reasoning Models Loop?},
+  author = {Pipis, Charilaos and Garg, Shivam and Kontonis, Vasilis and Shrivastava, Vaishnavi and Krishnamurthy, Akshay and Papailiopoulos, Dimitris},
+  journal = {arXiv preprint arXiv:2512.12895},
+  year = {2025},
+  url = {https://arxiv.org/abs/2512.12895}
+}
+
+@article{arditi2024refusal,
+  title = {Refusal in Language Models Is Mediated by a Single Direction},
+  author = {Arditi, Andy and Obeso, Oscar and Syed, Aaquib and Paleka, Daniel and Panickssery, Nina and Gurnee, Wes and Nanda, Neel},
+  journal = {arXiv preprint arXiv:2406.11717},
+  year = {2024},
+  url = {https://arxiv.org/abs/2406.11717}
+}
+</script>
+</d-bibliography>
+
+</body>
+</html>
