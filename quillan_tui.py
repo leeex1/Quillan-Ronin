@@ -4,19 +4,29 @@
 =============================================================================
 A unified terminal command center orchestrating:
 1. Native Sovereign GGUF Models (48+ tok/s on local GTX 1050)
-2. Background OpenAI-Compatible API Server (:8080) with 1-Click Quillan Curl
-3. Bring-Your-Own-Key (BYOK) Cloud Routing (DeepSeek, Claude, GPT-4o, Gemini)
-4. 34-Council Cognitive Parliament Multi-Persona Deliberation (5-Wave Pipeline)
-5. In-Graph CCRL Bayesian Safety Gate & Bushido Alignment System
-6. Real-Time Hardware Telemetry, VRAM Tracking, and Speedometer
+2. Unicode Samurai Kabuto & Block Typography Hero Opening
+3. Background OpenAI-Compatible API Server (:8080) with 1-Click Quillan Curl
+4. Google AI Studio & Sovereign Computer Use Agent (0-999 Normalized Grid)
+5. Bring-Your-Own-Key (BYOK) Cloud Routing (DeepSeek, Claude, GPT-4o, Gemini)
+6. 34-Council Cognitive Parliament Multi-Persona Deliberation (5-Wave Pipeline)
+7. In-Graph CCRL Bayesian Safety Gate & Bushido Alignment System
+8. Real-Time Hardware Telemetry, VRAM Tracking, and Speedometer
 =============================================================================
 """
 
 import os
 import sys
 import time
+import json
 import asyncio
 from typing import Optional
+
+# UTF-8 Encoding Safeguard for Windows Consoles
+if sys.stdout and hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
 
 from textual.app import App, ComposeResult
 from textual.containers import Container, Horizontal, Vertical, VerticalScroll
@@ -37,7 +47,7 @@ Screen {
 
 #header-banner {
     dock: top;
-    height: 4;
+    height: 3;
     background: #111827;
     color: #A78BFA;
     border-bottom: solid #7C3AED;
@@ -69,6 +79,15 @@ Screen {
 #chat-container {
     background: #0B0F19;
     padding: 1 2;
+}
+
+#kabuto-banner {
+    background: #080C16;
+    border: solid #7C3AED;
+    border-radius: 1;
+    padding: 1;
+    margin-bottom: 1;
+    color: #F8FAFC;
 }
 
 .chat-bubble-user {
@@ -118,15 +137,30 @@ Screen {
 }
 """
 
-BANNER_TEXT = """[bold purple]⚔️  QUILLAN-RONIN // SOVEREIGN COMMAND CENTER v5.4.0[/bold purple]
-[dim green]Bushido Code: Rectitude • Moral Courage • Truth • Honor • Loyalty[/dim green]
-[dim cyan]Hardware: NVIDIA GTX 1050 (sm_61) | CCRL Safety Gate: Φ ≥ 0.85 (Active)[/dim cyan]"""
+BANNER_TEXT = """[bold purple]⚔️  QUILLAN-RONIN[/bold purple] [dim]•[/dim] [bold green]SOVEREIGN TERMINAL v5.4.0[/bold green] [dim]•[/dim] [cyan]Bushido Rectitude[/cyan] [dim]•[/dim] [yellow]NVIDIA GTX 1050 (sm_61)[/yellow] [dim]•[/dim] [purple]CCRL Gate: Φ ≥ 0.85[/purple]"""
 
-STARTUP_GREETING = """### 🗡️ Welcome to the Quillan-Ronin Sovereign Command Center v5.4.0
-*Pure Weight-Space Programming (Zero Backprop) • 48+ tok/s Local Execution • 34-Council Parliament*
+KABUTO_BANNER_TEXT = """[bold purple]┌────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│                                                                                                        │
+│         [bold red]/\\             /\\ [/bold red]     [bold purple]██████╗ ██╗   ██╗██╗██╗     ██╗      █████╗ ███╗   ██╗[/bold purple]                  │
+│        [bold red]/  \\   _---_   /  \\ [/bold red]    [bold purple]██╔═══██╗██║   ██║██║██║     ██║     ██╔══██╗████╗  ██║[/bold purple]                  │
+│       [bold red]/ /\\ \\/'     '\\/ /\\ \\[/bold red]    [bold purple]██║   ██║██║   ██║██║██║     ██║     ███████║██╔██╗ ██║[/bold purple]                  │
+│      [bold yellow]< <  |   [bold white](*)[/bold white]   |  > >[/bold yellow]   [bold purple]██║▄█ ██║██║   ██║██║██║     ██║     ██╔══██║██║╚██╗██║[/bold purple]                  │
+│       [bold purple]\\ \\.-'========='-./ /[/bold purple]    [bold purple]╚██████╔╝╚██████╔╝██║███████╗███████╗██║  ██║██║ ╚████║[/bold purple]                  │
+│        [bold purple]' /  / \\     / \\  \\ '[/bold purple]    [bold purple] ╚══▀▀═╝  ╚═════╝ ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝[/bold purple]                  │
+│         [bold purple]|  |   |   |   |  |[/bold purple]     [bold cyan]██████╗  ██████╗ ███╗   ██╗██╗███╗   ██╗[/bold cyan]                             │
+│         [bold green]|  | ━ | ━ |  |  |[/bold green]     [bold cyan]██╔══██╗██╔═══██╗████╗  ██║██║████╗  ██║[/bold cyan]                             │
+│         [bold green]|  |   ===     |  |[/bold green]     [bold cyan]██████╔╝██║   ██║██╔██╗ ██║██║██╔██╗ ██║[/bold cyan]                             │
+│          [bold purple]\\  \\_______/  /[/bold purple]      [bold cyan]██╔══██╗██║   ██║██║╚██╗██║██║██║╚██╗██║[/bold cyan]                             │
+│           [bold purple]'-----------'[/bold purple]       [bold cyan]██║  ██║╚██████╔╝██║ ╚████║██║██║ ╚████║[/bold cyan]                             │
+│                                [bold cyan]╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝[/bold cyan]                             │
+│                                                                                                        │
+│   [bold green]● CORE:[/bold green] [white]v5.4.0 Sovereign[/white]  │  [bold green]● SUBSTRATE:[/bold green] [cyan]Weight-Space MoE[/cyan]  │  [bold green]● COUNCIL:[/bold green] [yellow]34 Nodes[/yellow]  │  [bold green]● GATE:[/bold green] [green]Φ=0.96[/green]   │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────┘[/bold purple]"""
+
+STARTUP_GREETING = """### 🗡️ Sovereign Command Center // Tactical Quickstart
 
 ```bash
-# ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API)
+# ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API Endpoint)
 curl http://localhost:8080/v1/chat/completions \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -139,12 +173,13 @@ curl http://localhost:8080/v1/chat/completions \\
   }'
 ```
 
-**Tactical Quick Commands:**
-• `/serve` - Toggle background OpenAI-compatible HTTP server on `http://localhost:8080`
+**Tactical Command Deck:**
+• `/serve` - Toggle background OpenAI-compatible HTTP daemon on `http://localhost:8080`
 • `/curl` - Display copy-pasteable curl command for current active model
+• `/cu <action>` - Execute Google AI Studio Computer Use GUI command (`/cu schema`, `/cu move 500 500`)
 • `/council` - Toggle 34-Council 5-Wave deliberation mode
-• `/bench` - Run instantaneous speed benchmark
-• `/key <provider> <key>` - Configure BYOK Cloud API credentials
+• `/bench` - Run instantaneous generation speed benchmark
+• `/key <provider> <key>` - Configure BYOK Cloud API credentials (deepseek, anthropic, openai, gemini)
 • `/paper` - Inspect formal WSP research paper PDF details
 """
 
@@ -219,11 +254,12 @@ class QuillanCommandCenter(App):
 
             # Center Viewport
             with VerticalScroll(id="chat-container"):
+                yield Static(KABUTO_BANNER_TEXT, id="kabuto-banner")
                 yield Markdown(STARTUP_GREETING, classes="chat-bubble-system")
 
         # Bottom Input
         with Horizontal(id="input-deck"):
-            yield Input(placeholder="Enter tactical directive or /command...", id="user-input")
+            yield Input(placeholder="⚔️ Ask Quillan or enter tactical directive (/serve, /curl, /cu, /model, /bench)...", id="user-input")
 
     def on_mount(self):
         self.query_one("#user-input").focus()
@@ -268,6 +304,7 @@ class QuillanCommandCenter(App):
 
         if cmd == "/clear":
             chat.remove_children()
+            chat.mount(Static(KABUTO_BANNER_TEXT, id="kabuto-banner"))
             chat.mount(Static("🧹 **Viewport Cleared.**", classes="chat-bubble-system"))
         elif cmd == "/bench":
             chat.mount(Static("⚡ **Running instantaneous benchmark...**", classes="chat-bubble-system"))
@@ -307,6 +344,31 @@ class QuillanCommandCenter(App):
                 "• **View/Download:** Start server (`/serve`) and open `http://localhost:8080/docs/paper`."
             )
             chat.mount(Markdown(paper_info, classes="chat-bubble-system"))
+        elif cmd in ["/cu", "/computer"]:
+            from quillan_computer_use import QuillanComputerUseAgent
+            agent = QuillanComputerUseAgent()
+            if len(parts) >= 2:
+                sub_action = parts[1].lower()
+                if sub_action in ["info", "schema"]:
+                    decl = agent.get_tool_declaration()
+                    chat.mount(Static(f"🖥️ **Google AI Studio Computer Use Spec:**\n```json\n{json.dumps(decl, indent=2)}\n```", classes="chat-bubble-system"))
+                elif sub_action == "click" and len(parts) >= 4:
+                    x, y = int(parts[2]), int(parts[3])
+                    res = agent.execute_action("click", {"x": x, "y": y, "intent": "Manual TUI click"})
+                    chat.mount(Static(f"🖱️ **Click Executed:** {json.dumps(res)}", classes="chat-bubble-system"))
+                elif sub_action == "move" and len(parts) >= 4:
+                    x, y = int(parts[2]), int(parts[3])
+                    res = agent.execute_action("move", {"x": x, "y": y, "intent": "Manual TUI move"})
+                    chat.mount(Static(f"🎯 **Cursor Moved:** {json.dumps(res)}", classes="chat-bubble-system"))
+                elif sub_action == "type" and len(parts) >= 3:
+                    text_to_type = " ".join(parts[2:])
+                    res = agent.execute_action("type", {"text": text_to_type, "intent": "Manual TUI type"})
+                    chat.mount(Static(f"⌨️ **Typed Text:** `{text_to_type}` ({res.get('execution_time_ms', 0)} ms)", classes="chat-bubble-system"))
+                else:
+                    directive = " ".join(parts[1:])
+                    chat.mount(Static(f"🤖 **Computer Use Agent Triggered:** *\"{directive}\"*\n*Screen bounds ({agent.coords.width}x{agent.coords.height}) | Evaluated by C1 Astra & C13 Warden.*", classes="chat-bubble-system"))
+            else:
+                chat.mount(Static("ℹ️ **Usage:** `/cu <info|click <x> <y>|move <x> <y>|type <text>|<directive>>` (Coordinates: normalized 0-999)", classes="chat-bubble-system"))
         elif cmd == "/key":
             if len(parts) >= 3:
                 prov, key = parts[1], parts[2]
@@ -339,31 +401,6 @@ class QuillanCommandCenter(App):
                 chat.mount(Static(f"🔄 **Switched active model to:** `{m_id}`", classes="chat-bubble-system"))
             else:
                 chat.mount(Static(f"❌ Unknown model: `{m_id}`. Available: {', '.join(self.engine.get_available_models().keys())}", classes="chat-bubble-system"))
-        elif cmd in ["/cu", "/computer"]:
-            from quillan_computer_use import QuillanComputerUseAgent
-            agent = QuillanComputerUseAgent()
-            if len(parts) >= 2:
-                sub_action = parts[1].lower()
-                if sub_action in ["info", "schema"]:
-                    decl = agent.get_tool_declaration()
-                    chat.mount(Static(f"🖥️ **Google AI Studio Computer Use Spec:**\n```json\n{json.dumps(decl, indent=2)}\n```", classes="chat-bubble-system"))
-                elif sub_action == "click" and len(parts) >= 4:
-                    x, y = int(parts[2]), int(parts[3])
-                    res = agent.execute_action("click", {"x": x, "y": y, "intent": "Manual TUI click"})
-                    chat.mount(Static(f"🖱️ **Click Executed:** {json.dumps(res)}", classes="chat-bubble-system"))
-                elif sub_action == "move" and len(parts) >= 4:
-                    x, y = int(parts[2]), int(parts[3])
-                    res = agent.execute_action("move", {"x": x, "y": y, "intent": "Manual TUI move"})
-                    chat.mount(Static(f"🎯 **Cursor Moved:** {json.dumps(res)}", classes="chat-bubble-system"))
-                elif sub_action == "type" and len(parts) >= 3:
-                    text_to_type = " ".join(parts[2:])
-                    res = agent.execute_action("type", {"text": text_to_type, "intent": "Manual TUI type"})
-                    chat.mount(Static(f"⌨️ **Typed Text:** `{text_to_type}` ({res.get('execution_time_ms', 0)} ms)", classes="chat-bubble-system"))
-                else:
-                    directive = " ".join(parts[1:])
-                    chat.mount(Static(f"🤖 **Computer Use Agent Triggered:** *\"{directive}\"*\n*Screen bounds ({agent.coords.width}x{agent.coords.height}) | Evaluated by C1 Astra & C13 Warden.*", classes="chat-bubble-system"))
-            else:
-                chat.mount(Static("ℹ️ **Usage:** `/cu <info|click <x> <y>|move <x> <y>|type <text>|<directive>>` (Coordinates: normalized 0-999)", classes="chat-bubble-system"))
         elif cmd == "/exit":
             self.exit()
         else:
