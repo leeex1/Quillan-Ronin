@@ -125,16 +125,25 @@ curl http://localhost:8080/v1/chat/completions \
   }'
 ```
 
-### 2. 🖥️ Interactive Command Center (TUI)
+### 2. 🖥️ Sovereign Agent CLI & Command Center (OpenCode Alternative)
 
-Launch the full-featured terminal UI with real-time hardware telemetry, 34-council deliberation monitor, BYOK cloud router, and model switcher:
+Quillan-Ronin operates as an independent, fully autonomous developer CLI and coding agent platform. It possesses native tools to read, edit, and write files, execute shell commands, inspect git repositories, and automate desktop GUIs:
 
 ```bash
-# Windows Quick Launcher
-.\quillan.bat
+# 1. Install 'quillan' globally onto system PATH (~/.local/bin):
+quillan.bat --install
 
-# Or direct Python
-python quillan_tui.py
+# 2. Launch the interactive TUI Command Center (Kabuto Hero Banner):
+quillan
+
+# 3. Execute autonomous coding tasks directly in any terminal / workspace:
+quillan "Inspect the repository architecture and verify system health"
+
+# 4. Boot background OpenAI-compatible API server:
+quillan --serve
+
+# 5. Execute Google AI Studio Computer Use GUI action:
+quillan --cu click 500 500
 ```
 
 ### 3. 🌐 Browser Command Gateway (`http://localhost:8080`)
