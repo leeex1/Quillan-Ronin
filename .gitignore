@@ -295,6 +295,15 @@ x_credentials.md
 *-clone
 
 
+# Quillan keys, developer credentials & local BYOK configs
+.quillan_keys.json
+*.quillan_keys.json
+keys.json
+*keys.json
+.keys.json
+google_accounts.json
+oauth_creds.json
+
 # Local OpenCode workspace configuration (contains sensitive API keys)
 .opencode/
 

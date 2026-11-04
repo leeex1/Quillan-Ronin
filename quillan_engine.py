@@ -242,11 +242,25 @@ class SovereignInferenceEngine:
 
     def get_available_models(self) -> Dict[str, Dict[str, Any]]:
         models = {}
-        # Verify local GGUF existence
+        # 1. Verify local GGUF existence
         for k, v in LOCAL_MODELS.items():
             if os.path.exists(v["path"]):
                 models[k] = v
-        # Add cloud models
+        # 2. Dynamically add user-installed Ollama models
+        try:
+            from quillan_bridge import scan_ollama_models
+            for om in scan_ollama_models():
+                model_key = f"ollama:{om}"
+                models[model_key] = {
+                    "name": f"Ollama: {om}",
+                    "provider": "ollama",
+                    "api_model": om,
+                    "type": "ollama",
+                    "description": f"Local Ollama Model ({om})"
+                }
+        except Exception:
+            pass
+        # 3. Add cloud models
         for k, v in CLOUD_MODELS.items():
             models[k] = v
         return models
@@ -315,8 +329,9 @@ class SovereignInferenceEngine:
 
         if model_type == "local_gguf":
             yield from self._stream_local_gguf(prompt, sys_prompt, model_meta["path"])
-        elif model_meta.get("provider") == "ollama":
-            yield from self._stream_ollama(prompt, sys_prompt, model_meta["api_model"])
+        elif model_meta.get("provider") == "ollama" or model_type == "ollama":
+            api_model = model_meta.get("api_model") or self.active_model_id.replace("ollama:", "")
+            yield from self._stream_ollama(prompt, sys_prompt, api_model)
         else:
             yield from self._stream_byok_api(prompt, sys_prompt, model_meta)
 
@@ -468,6 +483,18 @@ class SovereignInferenceEngine:
 
     def _stream_ollama(self, prompt: str, sys_prompt: str, model_tag: str) -> Generator[Dict[str, Any], None, None]:
         """Streams response from local Ollama daemon."""
+        try:
+            from quillan_bridge import bridge
+            if not bridge.is_ollama_running():
+                yield {"type": "token", "text": "⏳ Starting local Ollama background daemon...\n"}
+                ok, msg = bridge.ensure_ollama_daemon()
+                if not ok:
+                    yield {"type": "token", "text": f"❌ {msg}\n"}
+                    yield {"type": "done", "tps": 0.0, "total_tokens": 0}
+                    return
+        except Exception:
+            pass
+
         url = "http://localhost:11434/api/generate"
         payload = {
             "model": model_tag,
@@ -478,7 +505,7 @@ class SovereignInferenceEngine:
         t0 = time.time()
         tokens = 0
         try:
-            resp = requests.post(url, json=payload, stream=True, timeout=15)
+            resp = requests.post(url, json=payload, stream=True, timeout=25)
             for line in resp.iter_lines():
                 if line:
                     data = json.loads(line.decode("utf-8"))

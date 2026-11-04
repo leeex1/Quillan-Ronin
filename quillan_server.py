@@ -468,6 +468,248 @@ async def deliberate_endpoint(req: DeliberationRequest):
     }
 
 # -----------------------------------------------------------------------------
+# Native Ollama API Protocol Compatibility Endpoints
+# -----------------------------------------------------------------------------
+class OllamaGenerateRequest(BaseModel):
+    model: str = "quillan-1b-sovereign-q4"
+    prompt: str
+    system: Optional[str] = None
+    stream: Optional[bool] = True
+    options: Optional[Dict[str, Any]] = None
+
+class OllamaChatMessage(BaseModel):
+    role: str
+    content: str
+
+class OllamaChatRequest(BaseModel):
+    model: str = "quillan-1b-sovereign-q4"
+    messages: List[OllamaChatMessage]
+    stream: Optional[bool] = True
+    options: Optional[Dict[str, Any]] = None
+
+class OllamaShowRequest(BaseModel):
+    name: Optional[str] = None
+    model: Optional[str] = None
+
+def resolve_server_model(model_name: str) -> str:
+    """Normalizes Ollama model tags and maps to available engine models."""
+    available = engine.get_available_models()
+    if model_name in available:
+        return model_name
+    clean = model_name.replace(":latest", "")
+    if clean in available:
+        return clean
+    ollama_prefix = f"ollama:{model_name}"
+    if ollama_prefix in available:
+        return ollama_prefix
+    ollama_clean = f"ollama:{clean}"
+    if ollama_clean in available:
+        return ollama_clean
+    return "quillan-1b-sovereign-q4"
+
+@app.get("/api/version")
+async def ollama_version():
+    """Native Ollama /api/version endpoint."""
+    return {"version": "0.5.4"}
+
+@app.get("/api/tags")
+async def ollama_tags():
+    """Native Ollama /api/tags endpoint returning local Sovereign and Ollama catalog."""
+    from quillan_bridge import bridge
+    models_list = []
+    
+    # 1. Sovereign GGUF Models
+    for k, v in LOCAL_MODELS.items():
+        if os.path.exists(v["path"]):
+            sz = os.path.getsize(v["path"])
+            mod_ts = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(os.path.getmtime(v["path"])))
+            models_list.append({
+                "name": f"{k}:latest",
+                "model": f"{k}:latest",
+                "modified_at": mod_ts,
+                "size": sz,
+                "digest": f"sha256:{k.replace('-', '')}0000000000000000"[:71],
+                "details": {
+                    "parent_model": "",
+                    "format": "gguf",
+                    "family": "llama",
+                    "families": ["llama"],
+                    "parameter_size": "1.2B",
+                    "quantization_level": "Q4_K_M" if "q4" in k else "Q8_0" if "q8" in k else "F16"
+                }
+            })
+
+    # 2. Local User Ollama Models
+    for om in bridge.ollama_models:
+        tag = om if ":" in om else f"{om}:latest"
+        models_list.append({
+            "name": tag,
+            "model": tag,
+            "modified_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "size": 1800000000,
+            "digest": f"sha256:{om.replace(':', '').replace('.', '').replace('-', '')}000000000000"[:71],
+            "details": {
+                "parent_model": "",
+                "format": "gguf",
+                "family": "ollama",
+                "families": ["ollama"],
+                "parameter_size": "auto",
+                "quantization_level": "auto"
+            }
+        })
+
+    return {"models": models_list}
+
+@app.post("/api/show")
+async def ollama_show(req: OllamaShowRequest):
+    """Native Ollama /api/show endpoint returning model manifest and parameters."""
+    m_name = req.name or req.model or "quillan-1b-sovereign-q4"
+    return {
+        "modelfile": f"# Quillan-Ronin Sovereign Manifest\nFROM {m_name}\nPARAMETER temperature 0.3\nPARAMETER top_p 0.95",
+        "parameters": "temperature 0.3\ntop_p 0.95",
+        "template": "{{ if .System }}<|system|>\n{{ .System }}<|end|>\n{{ end }}<|user|>\n{{ .Prompt }}<|end|>\n<|assistant|>\n",
+        "details": {
+            "parent_model": "",
+            "format": "gguf",
+            "family": "quillan",
+            "families": ["quillan"],
+            "parameter_size": "1.2B",
+            "quantization_level": "Q4_K_M"
+        }
+    }
+
+@app.post("/api/generate")
+async def ollama_generate(req: OllamaGenerateRequest):
+    """Native Ollama /api/generate endpoint (supports streaming ndjson & single json)."""
+    target_model = resolve_server_model(req.model)
+    engine.active_model_id = target_model
+    created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    t0_ns = time.time_ns()
+
+    if req.stream:
+        async def event_generator():
+            token_count = 0
+            for chunk in engine.generate_stream(req.prompt, system_override=req.system):
+                c_type = chunk.get("type")
+                if c_type == "token":
+                    txt = chunk.get("text", "")
+                    token_count += 1
+                    payload = {
+                        "model": req.model,
+                        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        "response": txt,
+                        "done": False
+                    }
+                    yield json.dumps(payload) + "\n"
+                elif c_type == "done":
+                    total_ns = time.time_ns() - t0_ns
+                    p_eval = len(req.prompt.split())
+                    final_payload = {
+                        "model": req.model,
+                        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        "response": "",
+                        "done": True,
+                        "total_duration": total_ns,
+                        "load_duration": 5000000,
+                        "prompt_eval_count": p_eval,
+                        "eval_count": token_count,
+                        "eval_duration": max(1, total_ns - 5000000)
+                    }
+                    yield json.dumps(final_payload) + "\n"
+                    break
+        return StreamingResponse(event_generator(), media_type="application/x-ndjson")
+
+    # Non-streaming
+    full_text = ""
+    token_count = 0
+    for chunk in engine.generate_stream(req.prompt, system_override=req.system):
+        if chunk.get("type") == "token":
+            full_text += chunk.get("text", "")
+            token_count += 1
+    total_ns = time.time_ns() - t0_ns
+    return {
+        "model": req.model,
+        "created_at": created_at,
+        "response": full_text,
+        "done": True,
+        "total_duration": total_ns,
+        "load_duration": 5000000,
+        "prompt_eval_count": len(req.prompt.split()),
+        "eval_count": token_count,
+        "eval_duration": max(1, total_ns - 5000000)
+    }
+
+@app.post("/api/chat")
+async def ollama_chat(req: OllamaChatRequest):
+    """Native Ollama /api/chat endpoint (supports streaming ndjson & single json)."""
+    target_model = resolve_server_model(req.model)
+    engine.active_model_id = target_model
+    created_at = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    t0_ns = time.time_ns()
+
+    system_prompt = None
+    dialogue_parts = []
+    for msg in req.messages:
+        if msg.role.lower() == "system":
+            system_prompt = msg.content
+        else:
+            dialogue_parts.append(f"{msg.role.capitalize()}: {msg.content}")
+    composed_prompt = "\n".join(dialogue_parts)
+
+    if req.stream:
+        async def chat_stream_gen():
+            token_count = 0
+            for chunk in engine.generate_stream(composed_prompt, system_override=system_prompt):
+                c_type = chunk.get("type")
+                if c_type == "token":
+                    txt = chunk.get("text", "")
+                    token_count += 1
+                    payload = {
+                        "model": req.model,
+                        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        "message": {"role": "assistant", "content": txt},
+                        "done": False
+                    }
+                    yield json.dumps(payload) + "\n"
+                elif c_type == "done":
+                    total_ns = time.time_ns() - t0_ns
+                    p_eval = len(composed_prompt.split())
+                    final_payload = {
+                        "model": req.model,
+                        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                        "message": {"role": "assistant", "content": ""},
+                        "done": True,
+                        "total_duration": total_ns,
+                        "load_duration": 5000000,
+                        "prompt_eval_count": p_eval,
+                        "eval_count": token_count,
+                        "eval_duration": max(1, total_ns - 5000000)
+                    }
+                    yield json.dumps(final_payload) + "\n"
+                    break
+        return StreamingResponse(chat_stream_gen(), media_type="application/x-ndjson")
+
+    # Non-streaming
+    full_text = ""
+    token_count = 0
+    for chunk in engine.generate_stream(composed_prompt, system_override=system_prompt):
+        if chunk.get("type") == "token":
+            full_text += chunk.get("text", "")
+            token_count += 1
+    total_ns = time.time_ns() - t0_ns
+    return {
+        "model": req.model,
+        "created_at": created_at,
+        "message": {"role": "assistant", "content": full_text},
+        "done": True,
+        "total_duration": total_ns,
+        "load_duration": 5000000,
+        "prompt_eval_count": len(composed_prompt.split()),
+        "eval_count": token_count,
+        "eval_duration": max(1, total_ns - 5000000)
+    }
+
+# -----------------------------------------------------------------------------
 # Google AI Studio Computer Use Endpoints
 # -----------------------------------------------------------------------------
 class ComputerUseActionRequest(BaseModel):

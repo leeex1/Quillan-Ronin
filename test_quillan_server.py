@@ -89,7 +89,50 @@ def test_api_server():
         print(f"  Content Preview: {content[:150]}...")
         assert len(content) > 10
 
-        print("\n🏆 ALL SERVER ENDPOINTS & THE QUILLAN CURL VERIFIED SUCCESSFULLY!")
+        # 6. Test Native Ollama Endpoints
+        print("\n--- Testing Native Ollama Protocol Endpoints ---")
+        # 6a. GET /api/version
+        r_ver = requests.get(f"http://localhost:{PORT}/api/version").json()
+        print("✓ /api/version:", r_ver)
+        assert "version" in r_ver
+
+        # 6b. GET /api/tags
+        r_tags = requests.get(f"http://localhost:{PORT}/api/tags").json()
+        print(f"✓ /api/tags returned {len(r_tags['models'])} models:")
+        for m in r_tags["models"][:5]:
+            print(f"   • {m['name']} ({m['details']['parameter_size']}, {m['details']['format']})")
+        assert len(r_tags["models"]) > 0
+
+        # 6c. POST /api/show
+        r_show = requests.post(f"http://localhost:{PORT}/api/show", json={"name": "quillan-1b-sovereign-q4"}).json()
+        print("✓ /api/show modelfile length:", len(r_show["modelfile"]))
+        assert "FROM" in r_show["modelfile"]
+
+        # 6d. POST /api/generate (non-streaming)
+        r_gen = requests.post(
+            f"http://localhost:{PORT}/api/generate",
+            json={"model": "quillan-1b-sovereign-q4", "prompt": "Define courage in one sentence.", "stream": False},
+            timeout=30
+        ).json()
+        print(f"✓ /api/generate response: {r_gen['response'][:100]}... (done: {r_gen['done']})")
+        assert r_gen["done"] is True
+        assert len(r_gen["response"]) > 5
+
+        # 6e. POST /api/chat (non-streaming)
+        r_chat = requests.post(
+            f"http://localhost:{PORT}/api/chat",
+            json={
+                "model": "quillan-1b-sovereign-q4",
+                "messages": [{"role": "user", "content": "State the Bushido motto."}],
+                "stream": False
+            },
+            timeout=30
+        ).json()
+        print(f"✓ /api/chat response: {r_chat['message']['content'][:100]}... (done: {r_chat['done']})")
+        assert r_chat["done"] is True
+        assert len(r_chat["message"]["content"]) > 5
+
+        print("\n🏆 ALL SERVER ENDPOINTS (OPENAI + OLLAMA) VERIFIED SUCCESSFULLY!")
 
     finally:
         print("=== Terminating Test Server ===")
