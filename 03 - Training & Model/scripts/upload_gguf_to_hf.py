@@ -54,3 +54,4 @@ for local_name, remote_name in files_to_upload:
 print("=" * 80)
 print("🎉 ALL SOVEREIGN GGUF MODELS PUBLISHED TO HUGGING FACE SUCCESSFULLY!")
 print("=" * 80)
+
