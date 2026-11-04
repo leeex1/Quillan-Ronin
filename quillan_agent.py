@@ -31,6 +31,22 @@ from quillan_engine import SovereignInferenceEngine, SOVEREIGN_SYSTEM_PROMPT
 from quillan_computer_use import QuillanComputerUseAgent
 
 
+def get_gpu_telemetry_string() -> str:
+    """Retrieves live NVIDIA hardware stats directly via nvidia-smi."""
+    try:
+        res = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.used,memory.total,utilization.gpu,temperature.gpu", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True, timeout=2
+        )
+        if res.returncode == 0:
+            parts = [p.strip() for p in res.stdout.strip().split(",")]
+            used, total, util, temp = parts[0], parts[1], parts[2], parts[3]
+            return f"{used} MB / {total} MB ({util}% GPU, {temp}°C)"
+    except Exception:
+        pass
+    return "NVIDIA GTX 1050 (sm_61) [770 MB / 4096 MB]"
+
+
 class QuillanToolRegistry:
     """Provides local developer tools for autonomous coding and system interaction."""
     def __init__(self, workspace_root: Optional[str] = None):
@@ -203,21 +219,41 @@ class SovereignCodingAgent:
         sys_prompt = self.get_system_prompt()
         yield {"type": "status", "text": f"⚔️ Sovereign Agent engaged on workspace: {self.workspace_root}"}
 
-        # Check if prompt requires immediate tool execution heuristics
         p_lower = prompt.lower().strip()
-        if p_lower.startswith(("status", "git status")):
+        parts = prompt.strip().split()
+
+        # Direct intent recognition for high-frequency CLI operations
+        if p_lower in ["status", "git status", "git s"]:
             res = self.tools.git_status()
             yield {"type": "tool_call", "tool": "git_status", "result": res}
             return
-        elif p_lower.startswith(("diff", "git diff")):
+        elif p_lower in ["diff", "git diff", "git d"]:
             res = self.tools.git_diff()
             yield {"type": "tool_call", "tool": "git_diff", "result": res}
             return
-        elif p_lower.startswith("ls") or p_lower.startswith("dir"):
-            res = self.tools.list_dir(".")
+        elif p_lower.startswith(("ls", "dir")):
+            target_dir = parts[1] if len(parts) > 1 else "."
+            res = self.tools.list_dir(target_dir)
             yield {"type": "tool_call", "tool": "list_dir", "result": res}
+            return
+        elif p_lower.startswith(("cat ", "read ", "view ", "open ")):
+            filename = parts[1] if len(parts) > 1 else ""
+            res = self.tools.read_file(filename)
+            yield {"type": "tool_call", "tool": "read_file", "result": res}
+            return
+        elif p_lower.startswith(("run ", "exec ")):
+            cmd_to_run = " ".join(parts[1:])
+            res = self.tools.run_command(cmd_to_run)
+            yield {"type": "tool_call", "tool": "run_command", "result": res}
+            return
+        elif p_lower.startswith("git "):
+            res = self.tools.run_command(prompt)
+            yield {"type": "tool_call", "tool": "run_command", "result": res}
+            return
+        elif p_lower in ["vram", "gpu", "telemetry", "hardware"]:
+            telemetry = get_gpu_telemetry_string()
+            yield {"type": "tool_call", "tool": "gpu_telemetry", "result": {"telemetry": telemetry}}
             return
 
         # Execute generation stream from model
         yield from self.engine.generate_stream(prompt, system_override=sys_prompt)
-

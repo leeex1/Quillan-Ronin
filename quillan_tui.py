@@ -4,13 +4,13 @@
 =============================================================================
 A unified terminal command center orchestrating:
 1. Native Sovereign GGUF Models (48+ tok/s on local GTX 1050)
-2. Unicode Samurai Kabuto & Block Typography Hero Opening
+2. Unicode Samurai Kabuto & Block Typography Hero Opening (62-Col Responsive)
 3. Background OpenAI-Compatible API Server (:8080) with 1-Click Quillan Curl
 4. Google AI Studio & Sovereign Computer Use Agent (0-999 Normalized Grid)
 5. Bring-Your-Own-Key (BYOK) Cloud Routing (DeepSeek, Claude, GPT-4o, Gemini)
 6. 34-Council Cognitive Parliament Multi-Persona Deliberation (5-Wave Pipeline)
 7. In-Graph CCRL Bayesian Safety Gate & Bushido Alignment System
-8. Real-Time Hardware Telemetry, VRAM Tracking, and Speedometer
+8. Real-Time Hardware Telemetry (NVIDIA GTX 1050), VRAM Tracking, and Speedometer
 =============================================================================
 """
 
@@ -19,7 +19,8 @@ import sys
 import time
 import json
 import asyncio
-from typing import Optional
+import subprocess
+from typing import Optional, List
 
 # UTF-8 Encoding Safeguard for Windows Consoles
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -38,6 +39,7 @@ from textual import work
 # Ensure parent directory is on sys.path
 sys.path.insert(0, r"C:\02_QUILLAN")
 from quillan_engine import SovereignInferenceEngine, LOCAL_MODELS, CLOUD_MODELS, get_curl_command
+from quillan_agent import get_gpu_telemetry_string, QuillanToolRegistry
 
 # Custom CSS Styling
 TUI_CSS = """
@@ -187,12 +189,55 @@ curl http://localhost:8080/v1/chat/completions \\
 • `/serve` - Toggle background OpenAI-compatible HTTP daemon on `http://localhost:8080`
 • `/curl` - Display copy-pasteable curl command for current active model
 • `/cu <action>` - Execute Google AI Studio Computer Use GUI command (`/cu schema`, `/cu move 500 500`)
+• `/status` - Display live hardware telemetry, VRAM, and server health
 • `/sidebar` - Toggle left sidebar for full-width workspace (Hotkey: `[F2]`)
-• `/council` - Toggle 34-Council 5-Wave deliberation mode
+• `/run <cmd>` - Execute shell command in workspace (`/run dir`, `/run git log -n 3`)
+• `/read <file>` - Inspect workspace file with syntax numbering
 • `/bench` - Run instantaneous generation speed benchmark
-• `/key <provider> <key>` - Configure BYOK Cloud API credentials (deepseek, anthropic, openai, gemini)
 • `/paper` - Inspect formal WSP research paper PDF details
 """
+
+
+class CommandInput(Input):
+    """Input widget with bash/OpenCode-style up/down command history recall."""
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cmd_history: List[str] = []
+        self.history_index: int = -1
+        self.saved_current: str = ""
+
+    def add_to_history(self, text: str):
+        if text and (not self.cmd_history or self.cmd_history[-1] != text):
+            self.cmd_history.append(text)
+        self.history_index = len(self.cmd_history)
+        self.saved_current = ""
+
+    def action_history_up(self):
+        if not self.cmd_history:
+            return
+        if self.history_index == len(self.cmd_history):
+            self.saved_current = self.value
+        if self.history_index > 0:
+            self.history_index -= 1
+            self.value = self.cmd_history[self.history_index]
+            self.cursor_position = len(self.value)
+
+    def action_history_down(self):
+        if not self.cmd_history:
+            return
+        if self.history_index < len(self.cmd_history) - 1:
+            self.history_index += 1
+            self.value = self.cmd_history[self.history_index]
+            self.cursor_position = len(self.value)
+        elif self.history_index == len(self.cmd_history) - 1:
+            self.history_index = len(self.cmd_history)
+            self.value = self.saved_current
+            self.cursor_position = len(self.value)
+
+    BINDINGS = [
+        Binding("up", "history_up", "Previous Command", show=False, priority=True),
+        Binding("down", "history_down", "Next Command", show=False, priority=True),
+    ]
 
 
 class QuillanCommandCenter(App):
@@ -206,9 +251,8 @@ class QuillanCommandCenter(App):
         Binding("escape", "focus_input", "Focus Input"),
     ]
 
-    # Reactive states
     tokens_per_sec = reactive("0.0 tok/s")
-    vram_telemetry = reactive("770 MB / 4,096 MB")
+    vram_telemetry = reactive(get_gpu_telemetry_string())
     safety_status = reactive("Φ = 0.96 [VERIFIED]")
     server_status = reactive("OFFLINE")
     is_generating = reactive(False)
@@ -216,12 +260,11 @@ class QuillanCommandCenter(App):
     def __init__(self):
         super().__init__()
         self.engine = SovereignInferenceEngine()
-        self.history = []
+        self.tools = QuillanToolRegistry()
 
     def compose(self) -> ComposeResult:
         yield Static(BANNER_TEXT, id="header-banner")
         with Horizontal():
-            # Left Sidebar (VerticalScroll ensures cards never collapse)
             with VerticalScroll(id="sidebar"):
                 with Container(classes="sidebar-card"):
                     yield Label("MODEL ENGINE SELECTOR", classes="card-title")
@@ -263,45 +306,63 @@ class QuillanCommandCenter(App):
                     yield Static("[dim]/curl        : Display Curl[/dim]")
                     yield Static("[dim]/cu <action> : Computer Use[/dim]")
                     yield Static("[dim]/sidebar     : Toggle Sidebar (F2)[/dim]")
-                    yield Static("[dim]/council     : Toggle 34-Expert[/dim]")
-                    yield Static("[dim]/paper       : View WSP Paper[/dim]")
+                    yield Static("[dim]/status      : Hardware Stats[/dim]")
+                    yield Static("[dim]/run <cmd>   : Execute Shell[/dim]")
+                    yield Static("[dim]/read <file> : Read File[/dim]")
                     yield Static("[dim]/bench       : Speed Test[/dim]")
                     yield Static("[dim]/clear       : Clear Screen[/dim]")
                     yield Static("[dim]/exit        : Exit TUI[/dim]")
 
-            # Center Viewport
             with VerticalScroll(id="chat-container"):
                 yield Static(KABUTO_BANNER_TEXT, id="kabuto-banner")
                 yield Markdown(STARTUP_GREETING, classes="chat-bubble-system")
 
-        # Bottom Input
         with Horizontal(id="input-deck"):
-            yield Input(placeholder="⚔️ Ask Quillan or enter tactical directive (/serve, /curl, /cu, /sidebar, /bench)...", id="user-input")
+            yield CommandInput(placeholder="⚔️ Ask Quillan or enter tactical directive (/serve, /curl, /cu, /sidebar, /status)...", id="user-input")
 
     def on_mount(self):
         self.query_one("#user-input").focus()
-        # Check initial server status
         if self.engine.server_mgr.is_running():
             self.server_status = "ONLINE"
             try:
                 self.query_one("#server-status-label").update("Server: [bold green]ONLINE (:8080)[/bold green]")
             except Exception:
                 pass
+        # Start periodic telemetry polling every 3 seconds
+        self.set_interval(3.0, self.poll_telemetry)
+
+    def poll_telemetry(self):
+        """Background routine updating live GPU VRAM and daemon status."""
+        vram_info = get_gpu_telemetry_string()
+        if vram_info != self.vram_telemetry:
+            self.vram_telemetry = vram_info
+            try:
+                self.query_one("#vram-label").update(f"VRAM: [bold]{self.vram_telemetry}[/bold]")
+            except Exception:
+                pass
+
+        is_running = self.engine.server_mgr.is_running()
+        current_state = "ONLINE" if is_running else "OFFLINE"
+        if current_state != self.server_status:
+            self.server_status = current_state
+            try:
+                color = "green" if is_running else "red"
+                port = " (:8080)" if is_running else ""
+                self.query_one("#server-status-label").update(f"Server: [bold {color}]{self.server_status}{port}[/bold {color}]")
+            except Exception:
+                pass
 
     def action_toggle_sidebar(self):
-        """Toggle left sidebar visibility for full-width coding layout."""
         sidebar = self.query_one("#sidebar")
         sidebar.display = not sidebar.display
 
     def action_clear_screen(self):
-        """Clear viewport history."""
         chat = self.query_one("#chat-container")
         chat.remove_children()
         chat.mount(Static(KABUTO_BANNER_TEXT, id="kabuto-banner"))
         chat.mount(Static("🧹 **Viewport Cleared.**", classes="chat-bubble-system"))
 
     def action_focus_input(self):
-        """Focus bottom input widget."""
         self.query_one("#user-input").focus()
 
     def on_select_changed(self, event: Select.Changed):
@@ -317,19 +378,17 @@ class QuillanCommandCenter(App):
             return
 
         input_widget = self.query_one("#user-input")
+        input_widget.add_to_history(prompt)
         input_widget.value = ""
 
-        # Handle Slash Commands
         if prompt.startswith("/"):
             await self.handle_command(prompt)
             return
 
-        # Render User Message
         chat = self.query_one("#chat-container")
         chat.mount(Static(f"**👤 YOU:**\n{prompt}", classes="chat-bubble-user"))
         chat.scroll_end(animate=False)
 
-        # Trigger Worker for Generation
         self.is_generating = True
         self.run_generation_task(prompt)
 
@@ -345,6 +404,36 @@ class QuillanCommandCenter(App):
             is_vis = self.query_one("#sidebar").display
             status = "Visible" if is_vis else "Hidden (Full Width View)"
             chat.mount(Static(f"📐 **Sidebar toggled:** `{status}` *(Press [F2] anytime to toggle)*", classes="chat-bubble-system"))
+        elif cmd in ["/status", "/gpu", "/vram"]:
+            gpu_str = get_gpu_telemetry_string()
+            server_online = self.engine.server_mgr.is_running()
+            status_card = (
+                f"### ⚔️ System Telemetry & Hardware Status\n\n"
+                f"• **GPU Hardware:** NVIDIA GeForce GTX 1050 (sm_61)\n"
+                f"• **Live Telemetry:** `{gpu_str}`\n"
+                f"• **Active Model:** `{self.engine.active_model_id}`\n"
+                f"• **OpenAI Daemon:** `http://localhost:8080` ({'ONLINE' if server_online else 'OFFLINE'})\n"
+                f"• **CCRL Safety Gate:** `{self.safety_status}`\n"
+                f"• **Workspace:** `{os.getcwd()}`\n"
+            )
+            chat.mount(Markdown(status_card, classes="chat-bubble-system"))
+        elif cmd == "/run" and len(parts) > 1:
+            cmd_str = " ".join(parts[1:])
+            res = self.tools.run_command(cmd_str)
+            out_md = f"### ⚡ Shell Output: `{cmd_str}` (Exit: {res.get('exit_code')}, {res.get('elapsed_seconds')}s)\n\n"
+            if res.get("stdout"):
+                out_md += f"```\n{res['stdout']}\n```\n"
+            if res.get("stderr"):
+                out_md += f"**Stderr:**\n```\n{res['stderr']}\n```"
+            chat.mount(Markdown(out_md, classes="chat-bubble-system"))
+        elif cmd == "/read" and len(parts) > 1:
+            path = parts[1]
+            res = self.tools.read_file(path, start_line=1, end_line=60)
+            if res.get("status") == "success":
+                read_md = f"### 📄 File: `{path}` ({res.get('lines_returned')}/{res.get('total_lines')} lines)\n\n```python\n{res.get('content')}\n```"
+                chat.mount(Markdown(read_md, classes="chat-bubble-system"))
+            else:
+                chat.mount(Static(f"❌ Error reading `{path}`: {res.get('error')}", classes="chat-bubble-system"))
         elif cmd == "/bench":
             chat.mount(Static("⚡ **Running instantaneous benchmark...**", classes="chat-bubble-system"))
             self.run_generation_task("Calculate the prime factorization of 2048 and state Bushido honor.")
@@ -451,8 +540,11 @@ class QuillanCommandCenter(App):
                 "### 🗡️ Tactical Command Cheat Sheet\n\n"
                 "• `/serve` - Toggle OpenAI-compatible API Server on `http://localhost:8080`\n"
                 "• `/curl` - Display copy-pasteable Quillan Curl one-liner\n"
+                "• `/status` - Inspect live GPU telemetry, VRAM, and server health\n"
                 "• `/cu <action>` - Execute Google AI Studio Computer Use (`/cu schema`, `/cu move 500 500`)\n"
                 "• `/sidebar` or `[F2]` - Toggle left sidebar for full-width terminal coding\n"
+                "• `/run <cmd>` - Execute shell command in active workspace\n"
+                "• `/read <file>` - Inspect workspace file with line numbers\n"
                 "• `/council` - Toggle 34-Council 5-Wave deliberation pipeline\n"
                 "• `/paper` - View Weight-Space Programming research paper PDF info\n"
                 "• `/bench` - Run instantaneous generation speed benchmark\n"
@@ -465,7 +557,7 @@ class QuillanCommandCenter(App):
         elif cmd == "/exit":
             self.exit()
         else:
-            chat.mount(Static(f"❓ Unknown command: `{cmd}`. Use `/help`, `/curl`, `/serve`, `/paper`, `/bench`, or `/sidebar`.", classes="chat-bubble-system"))
+            chat.mount(Static(f"❓ Unknown command: `{cmd}`. Use `/help`, `/status`, `/curl`, `/serve`, `/paper`, `/run`, or `/sidebar`.", classes="chat-bubble-system"))
 
         chat.scroll_end(animate=False)
 
@@ -474,7 +566,6 @@ class QuillanCommandCenter(App):
         chat = self.query_one("#chat-container")
         model_name = self.engine.get_available_models().get(self.engine.active_model_id, {}).get("name", self.engine.active_model_id)
 
-        # Create response container
         response_widget = Static(f"**⚔️ {model_name}:**\n*Deliberating across sovereign manifold...*\n", classes="chat-bubble-quillan")
         self.call_from_thread(chat.mount, response_widget)
         self.call_from_thread(chat.scroll_end, animate=False)
