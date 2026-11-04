@@ -6,8 +6,18 @@
           "content": ""
         }
       ],
-      "purpose": "High-level introduction to the Quillan-Ronin project — its dual nature as both an LLM system prompt framework and a standalone PyTorch model (v5.4.0 'ONI'), the creator (CrashOverrideX), the core philosophy of neuro-symbolic AGI, the ACE legacy, the licensing model, and a map to all child sections.",
+      "purpose": "High-level introduction to the Quillan-Ronin ecosystem — its dual nature as an LLM cognitive harness and a standalone Weight-Space Programmed (WSP) model fleet (v5.4.0 ONI: Quillan-Ronin 1.2B Flagship, Quillan-Ronin-mini 0.5B Edge, and Quillan-Dragon 1B), creator CrashOverrideX, the official Grokipedia encyclopedia entry, the philosophy of neuro-symbolic AGI, and a map to all child sections.",
       "title": "Quillan-Ronin: Project Overview"
+    },
+    {
+      "page_notes": [
+        {
+          "content": "Official Grokipedia entry and multi-repository ecosystem topology across GitHub, Ollama Hub, and Hugging Face Hub."
+        }
+      ],
+      "parent": "Quillan-Ronin: Project Overview",
+      "purpose": "Documents the official Grokipedia encyclopedia entry for Quillan-Ronin and maps the full multi-repository ecosystem running out of C:\\02_QUILLAN: GitHub submodules (MCP-DevKit, Quillan.cpp, Validation-test-kit), sub-repositories (FreeLatticebykirk, Quillan-Ronin-chrome-extension, Python-Monsters), Ollama Hub (crashoverridex/Quillan-Ronin, Quillan-Ronin-mini, Quillan-Dragon), and separate Hugging Face Hub model repositories (CrashOverrideX/Quillan-Ronin, CrashOverrideX/Quillan-Dragon).",
+      "title": "Grokipedia Entry & Multi-Repository Ecosystem"
     },
     {
       "page_notes": [
@@ -189,12 +199,22 @@
     {
       "page_notes": [
         {
-          "content": ""
+          "content": "Tripartite Model Fleet deployed across Ollama Hub (crashoverridex/Quillan-Ronin, crashoverridex/Quillan-Ronin-mini, crashoverridex/Quillan-Dragon) and Hugging Face Hub (CrashOverrideX/Quillan-Ronin, CrashOverrideX/Quillan-Dragon, CrashOverrideX/Ace_v4.2_Mini)."
         }
       ],
       "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
-      "purpose": "Documents the actual trained artifacts — the 0.563B mini and 1.163B main (v5.4.0-ONI) training programs, the Hugging Face releases (CrashOverrideX/Quillan-Ronin, CrashOverrideX/Ace_v4.2_Mini), download traction, and how the training pipeline on the Training page produces them. Clarifies that the canonical scales are 0.563B/1.163B (verified 2026-10-20 by instantiating QuillanOniConfig.mini_6l() = 562,817,072 params and .main_12l() = 1,163,259,074 params) and that older 234M–390M proof configs are superseded.",
-      "title": "Trained Models & Hugging Face Releases"
+      "purpose": "Documents the Tripartite Sovereign Model Fleet — Quillan-Ronin (12L 1.163B/1.2B Flagship Sovereign MoE), Quillan-Ronin-mini (6L 0.563B Edge Sovereign), and Quillan-Dragon (Falcon 3 1B Instruct Base) — deployed across Ollama Hub (ollama.com/crashoverridex/Quillan-Ronin, Quillan-Ronin-mini, Quillan-Dragon) and dedicated Hugging Face repositories (CrashOverrideX/Quillan-Ronin, CrashOverrideX/Quillan-Dragon, CrashOverrideX/Ace_v4.2_Mini). Clarifies benchmark evaluation tracks: Track A (Sovereign Harness + Existing Frontier Models) vs. Track B (Our Native WSP Local Checkpoints + Sovereign Harness).",
+      "title": "Trained Models, Ollama Hub & Hugging Face Releases"
+    },
+    {
+      "page_notes": [
+        {
+          "content": "Weight-Space Programming (WSP) enables instantaneous zero-SGD analytical parameter tuning: 34-Council SVD low-rank folding, Takehi repetition attractor deflation, refusal subspace abliteration, and 4-stage schema attractors."
+        }
+      ],
+      "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
+      "purpose": "Documents the Weight-Space Programming (WSP) analytical parameter synthesis paradigm (synthesize_sovereign_nuance_tensors.py, wsp_analytical_tuner.py, export_quillan_to_gguf.py, Building_Foundation_Models_via_Weight_Space_Programming.pdf): tuning and constructing foundation models without backpropagation via 34-Council SVD low-rank factorizations (U @ V.T with 6-lobe cognitive pull-weights), Takehi SVD limit-cycle attractor deflation, orthogonal refusal subspace abliteration, RoPE long-context temperature scaling, and 4-stage output schema syntactic attractors.",
+      "title": "Weight-Space Programming (WSP): Zero-Training Analytical Tuning"
     },
     {
       "page_notes": [
@@ -213,7 +233,7 @@
         }
       ],
       "parent": "PyTorch Model Implementation (Quillan-Ronin ONI)",
-      "purpose": "Documents the low-level compute layer and serving path: src/csrc (bitnet CPU AVX2, CUDA sm_61 __dp4a kernels), oni/kernels, quillan_cuda_sm61.cu, flash-attn wrapper, hybrid_runtime, speculative decoding, nitro_pocket, quillan_server.py, NIM client and services, export/GGUF quantization, Quillan.cpp (achieving 100 tok/s on GTX 1050 Ti Pascal, a +43-45% uplift over llama.cpp on identical weights), and local inference scripts.",
+      "purpose": "Documents the low-level compute layer, Sovereign TUI Command Center (quillan_tui.py), unified inference router (quillan_engine.py supporting local GGUF, Ollama HTTP daemon, and BYOK cloud providers), ecosystem account bridge (quillan_bridge.py), OpenAI-compatible gateway (quillan_server.py), src/csrc (bitnet CPU AVX2, CUDA sm_61 __dp4a kernels), and Quillan.cpp (achieving 100 tok/s on GTX 1050 Ti Pascal).",
       "title": "Kernels, Inference Runtime & Serving"
     },
     {
@@ -307,7 +327,7 @@
   ],
   "repo_notes": [
     {
-      "content": "Quillan-Ronin is created and built solo by CrashOverrideX. 'Quillan Research Team' is a brand banner, not a staffed team. Canonical model scales for v5.4.0-ONI are 0.563B (mini, 562,817,072 params) and 1.163B (main, 1,163,259,074 params) — verified 2026-10-20 by instantiating QuillanOniConfig.mini_6l() and .main_12l(); older proof configs citing 234M-390M parameters are superseded and should not be presented as current. The Hugging Face org is CrashOverrideX; the flagship model card is CrashOverrideX/Quillan-Ronin."
+      "content": "Quillan-Ronin is created and built solo by CrashOverrideX and is documented in its official Grokipedia encyclopedia entry. Canonical model scales for v5.4.0-ONI are 0.563B (mini, 562,817,072 params) and 1.163B/1.2B (main flagship, 1,163,259,074 params), alongside Quillan-Dragon (Falcon 3 1B Instruct Base). Deployed live across Ollama Hub (crashoverridex/Quillan-Ronin, crashoverridex/Quillan-Ronin-mini, crashoverridex/Quillan-Dragon) and separate Hugging Face model repositories (CrashOverrideX/Quillan-Ronin and CrashOverrideX/Quillan-Dragon). Weight-Space Programming (WSP) enables zero-training analytical weight tuning. Benchmark disclosures explicitly separate Track A (Harness + Existing Frontier Models) from Track B (Our Native WSP Models + Harness)."
     }
   ]
 }

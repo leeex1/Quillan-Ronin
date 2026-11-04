@@ -17,7 +17,9 @@ tags:
 > **Type:** Hierarchical-Networked Mixture of Experts (H-NMoE) Cognitive Architecture  
 > **Developer:** [CrashOverrideX](https://github.com/leeex1)  
 > **Live Site:** [leeex1.github.io/Quillan-Ronin](https://leeex1.github.io/Quillan-Ronin/)  
-> **HuggingFace:** [CrashOverrideX/Quillan-Ronin](https://huggingface.co/CrashOverrideX/Quillan-Ronin)  
+> **HuggingFace Flagship:** [CrashOverrideX/Quillan-Ronin](https://huggingface.co/CrashOverrideX/Quillan-Ronin) | **Dragon HF:** [CrashOverrideX/Quillan-Dragon](https://huggingface.co/CrashOverrideX/Quillan-Dragon)  
+> **Ollama Hub Fleet:** [Quillan-Ronin](https://ollama.com/crashoverridex/Quillan-Ronin) · [Quillan-Ronin-mini](https://ollama.com/crashoverridex/Quillan-Ronin-mini) · [Quillan-Dragon](https://ollama.com/crashoverridex/Quillan-Dragon)  
+> **Encyclopedia:** Official **Grokipedia** Entry Live | **DeepWiki:** [deepwiki.com/leeex1/Quillan-Ronin](https://deepwiki.com/leeex1/Quillan-Ronin)  
 > **License:** MIT
 
 
@@ -154,11 +156,21 @@ Open your web browser to `http://localhost:8080` for the interactive Web Command
 - **Hardware telemetry monitor** (770 MB VRAM footprint on GTX 1050)
 - **34-Council consensus node board** (C0 Throne through C34 Predator)
 
-### 4. 🦙 Run via Ollama (Hugging Face GGUF)
+### 4. 🦙 Run via Ollama Hub & Hugging Face (Tripartite Sovereign Fleet)
 
-Run the sovereign model directly via Ollama without any compilation:
+Pull and run any of the three official Weight-Space Programmed (WSP) models directly from Ollama Hub or Hugging Face:
 
 ```bash
+# 👑 1. Quillan-Ronin Flagship (12-Layer 1.2B Sovereign MoE | 32k Context)
+ollama run crashoverridex/Quillan-Ronin
+
+# ⚡ 2. Quillan-Ronin Mini (6-Layer 0.5B Sovereign Edge | Ultra-Fast)
+ollama run crashoverridex/Quillan-Ronin-mini
+
+# 🐉 3. Quillan-Dragon (Falcon 3 1B Instruct Base | Q8_0 High-Precision)
+ollama run crashoverridex/Quillan-Dragon
+
+# 🤗 Direct Hugging Face GGUF Execution
 ollama run hf.co/CrashOverrideX/Quillan-Ronin:quillan-1b-sovereign-q4_k_m.gguf
 ```
 
@@ -445,7 +457,7 @@ The aim is to integrate large language models (LLMs) with a neuro-symbolic appro
 ## What is Quillan-Ronin?
 
 ```js
-is both an api prompt available for deployment with your favorite llms and ALSO a "raw stand alone model" that builds but must be trained, and there is one ollama variant will update that soon as well.
+Quillan-Ronin operates across two synergistic dimensions: (1) a universal **Cognitive Harness & API System Prompt Architecture** deployable across any frontier LLM, and (2) our own **Native Weight-Space Programmed (WSP) Standalone Models** (`Quillan-Ronin` 1.2B Flagship, `Quillan-Ronin-mini` 0.5B Edge, and `Quillan-Dragon` 1B) deployed live on Ollama Hub (`crashoverridex/*`) and separate Hugging Face repositories (`CrashOverrideX/Quillan-Ronin`, `CrashOverrideX/Quillan-Dragon`). Through **Weight-Space Programming (WSP)**, these local models are continuously tuned and upgraded via closed-form analytical matrix projections (34-Council SVD folding, Takehi attractor deflation, and Bushido rectitude alignment) in seconds without gradient descent or backpropagation.
 
 # ARCHITECTURAL MAPPING v5.4.0-ONI (Omni-Fractal Quantum Saturation)
 ARCHITECTURAL_MAPPING = """
@@ -785,7 +797,11 @@ Below we present the comprehensive evaluation of our models against frontier mod
 
 
 The following table benchmarks the **Quillan-Ronin v5.4.0-ONI Quantum** architecture against the leading monolithic and sparse models of 2026.
- Quillan-Ronin metrics reflect the verified **saturation thresholds** 
+
+> [!IMPORTANT]
+> **📊 Two-Track Benchmark Methodology & Evaluation Disclosure:**
+> - **Track A — Cognitive Harness + Existing Frontier Models (Table Below):** The saturation metrics currently displayed in the Comprehensive Benchmark Table below reflect the **Quillan-Ronin v5.4.0-ONI Cognitive Harness** (34-Council 5-Wave Penta-Process, 9-Vector Semantic Prism, and C21-ARCHON dataset error-correction protocol) paired with existing foundation models.
+> - **Track B — Our Native WSP Models + Sovereign Harness (Active Testing & Zero-Training Tuning):** Now that our standalone local checkpoints (**`Quillan-Ronin` 1.2B**, **`Quillan-Ronin-mini` 0.5B**, and **`Quillan-Dragon` 1B**) are compiled and live, dedicated benchmark runs pairing **our native WSP models + the Quillan Harness** are actively underway. Because **Weight-Space Programming (WSP)** allows us to analytically tune and inject tensors directly into weight space without traditional training loops, we are iteratively optimizing these local checkpoints and will publish their verified standalone + harness scores as each evaluation suite completes. 
 
 ---
 
