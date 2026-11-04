@@ -20,7 +20,7 @@ import sys
 import json
 import shutil
 import argparse
-from typing import List
+from typing import List, Optional, Dict, Any
 
 # UTF-8 Encoding Safeguard for Windows Consoles
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -68,6 +68,8 @@ def display_system_status():
     
     opencode_provs = ", ".join([p.upper() for p in bridge_summary["opencode"]["providers_discovered"]]) or "None"
     antigravity_acc = bridge_summary["antigravity"]["account_email"] or "Not Logged In"
+    ollama_info = bridge_summary.get("ollama", {})
+    ollama_state = "🟢 ACTIVE (:11434)" if ollama_info.get("daemon_running") else f"⚪ STANDBY ({ollama_info.get('model_count', 0)} Models Discovered)"
     
     print("\n" + "=" * 74)
     print("⚔️ QUILLAN-RONIN // SOVEREIGN SYSTEM & HARDWARE TELEMETRY")
@@ -75,28 +77,30 @@ def display_system_status():
     print(f"● Target GPU Hardware : NVIDIA GeForce GTX 1050 (Compute sm_61)")
     print(f"● Real-Time VRAM & Load: {gpu_stats}")
     print(f"● Active Model Engine : {engine.active_model_id} (Weight-Space Programming)")
-    print(f"● Available Engines   : {len(engine.get_available_models())} Models (Local GGUF + Cloud BYOK)")
+    print(f"● Available Engines   : {len(engine.get_available_models())} Models (Local GGUF + Ollama + Cloud BYOK)")
     print(f"● OpenCode Bridge     : 🔗 LINKED ({len(bridge.opencode_keys)} Providers: {opencode_provs})")
     print(f"● Antigravity Hook    : 🔗 CONNECTED ({antigravity_acc} | OAuth Active)")
+    print(f"● Ollama Compatibility: 🔗 {ollama_state}")
     print(f"● In-Graph Safety Gate: Φ = 0.96 [CCRL Bayesian Bushido Pass]")
     print(f"● Cognitive Parliament: 34-Council Active (5-Wave Pipeline)")
-    print(f"● OpenAI API Gateway  : http://localhost:8080 [{'ONLINE' if server_online else 'OFFLINE'}]")
+    print(f"● API Gateway (:8080) : http://localhost:8080 [{'ONLINE' if server_online else 'OFFLINE'}] (OpenAI + Ollama)")
     print(f"● Google Computer Use : Native 0-999 Grid ({cu.coords.width}x{cu.coords.height} Display)")
     print(f"● Active Workspace    : {os.getcwd()}")
     print("=" * 74 + "\n")
 
 
 def display_bridge_details():
-    """Renders OpenCode and Antigravity account bridge diagnostic card."""
+    """Renders OpenCode, Antigravity, and Ollama account bridge diagnostic card."""
     summary = bridge.get_status_summary()
     opencode_info = summary["opencode"]
     antigravity_info = summary["antigravity"]
+    ollama_info = summary.get("ollama", {})
 
     print("\n" + "=" * 74)
     print("🔗 QUILLAN-RONIN // ECOSYSTEM ACCOUNT BRIDGE & AUTH HOOKS")
     print("=" * 74)
     print("1. OpenCode Integration:")
-    print(f"   • Config Found   : {opencode_info['installed']}")
+    print(f"   • Config Found    : {opencode_info['installed']}")
     print(f"   • Providers Hooked: {', '.join(opencode_info['providers_discovered']).upper() if opencode_info['providers_discovered'] else 'None'}")
     print(f"   • Discovered Keys : {opencode_info['key_count']} API keys auto-mounted into Quillan")
     for prov in opencode_info["providers_discovered"]:
@@ -110,10 +114,69 @@ def display_bridge_details():
     print(f"   • Auth Strategy   : {antigravity_info['auth_type']}")
     print(f"   • Google OAuth    : {'ACTIVE & READY' if antigravity_info['oauth_active'] else 'INACTIVE'}")
     
-    print("\n3. Universal Bring-Your-Own-Model (BYOM):")
-    print("   • Local GGUF      : 100% Offline (sm_61 sm-tuned at 50+ tok/s)")
+    print("\n3. Local Ollama Integration:")
+    print(f"   • Installed       : {ollama_info.get('installed', False)} ({bridge.ollama_exe or 'Not found'})")
+    print(f"   • Daemon Running  : {'ACTIVE (http://localhost:11434)' if ollama_info.get('daemon_running') else 'OFFLINE (auto-starts on demand)'}")
+    print(f"   • Installed Models: {ollama_info.get('model_count', 0)} discovered in ~/.ollama/models:")
+    for m in ollama_info.get("models_discovered", [])[:10]:
+        print(f"     - {m}")
+    if ollama_info.get("model_count", 0) > 10:
+        print(f"     ... and {ollama_info['model_count'] - 10} more")
+
+    print("\n4. Universal Bring-Your-Own-Model (BYOM):")
+    print("   • Local GGUF      : 100% Offline Folded MoE (sm_61 sm-tuned at 50+ tok/s)")
+    print("   • Ollama Models   : Native ndjson streaming + local daemon bridge")
     print("   • OpenCode Quotas : OpenRouter, Gemini, NVIDIA NIM available directly")
     print("   • Cloud BYOK      : OpenAI, Anthropic, DeepSeek via /key or env vars")
+    print("=" * 74 + "\n")
+
+
+def display_ollama_details(action: Optional[str] = None):
+    """Inspects or boots local Ollama service."""
+    summary = bridge.get_status_summary()
+    ollama_info = summary.get("ollama", {})
+
+    if action == "start":
+        print("\n⏳ Booting local Ollama background daemon on port 11434...")
+        ok, msg = bridge.ensure_ollama_daemon()
+        print(f"{'✓' if ok else '❌'} {msg}\n")
+        return
+
+    print("\n" + "=" * 74)
+    print("🦙 QUILLAN-RONIN // LOCAL OLLAMA STATUS & MODEL CATALOG")
+    print("=" * 74)
+    print(f"● Ollama Binary   : {bridge.ollama_exe or 'Not detected on PATH/AppData'}")
+    print(f"● Daemon State    : {'🟢 RUNNING (http://localhost:11434)' if ollama_info.get('daemon_running') else '⚪ OFFLINE (Run: quillan --ollama start)'}")
+    print(f"● Total Discovered: {ollama_info.get('model_count', 0)} Models")
+    print("-" * 74)
+    for idx, m in enumerate(ollama_info.get("models_discovered", []), start=1):
+        print(f" {idx:2d}. {m:42} [Select: quillan -m ollama:{m}]")
+    print("=" * 74)
+    print("💡 External clients (Cursor, Aider, OpenCode) can also connect to Quillan:")
+    print("   Ollama Endpoint: http://localhost:8080/api/chat or http://localhost:8080/api/tags")
+    print("=" * 74 + "\n")
+
+
+def display_models_catalog():
+    """Lists all available models across Local GGUF, Ollama, and Cloud BYOK."""
+    engine = SovereignInferenceEngine()
+    models = engine.get_available_models()
+
+    print("\n" + "=" * 74)
+    print("🏛️ QUILLAN-RONIN // UNIFIED MODEL CATALOG")
+    print("=" * 74)
+    
+    categories = {"local_gguf": "Native Sovereign GGUF (sm_61 GPU)", "ollama": "Local User Ollama Models", "cloud": "Bring-Your-Own-Key (BYOK) Cloud"}
+    for cat_key, cat_name in categories.items():
+        sub = {k: v for k, v in models.items() if v.get("type", "cloud") == cat_key}
+        if sub:
+            print(f"\n[{cat_name.upper()}] ({len(sub)} models)")
+            for k, v in sub.items():
+                active_flag = " (ACTIVE)" if k == engine.active_model_id else ""
+                print(f" • {k:38}: {v.get('name')}{active_flag}")
+
+    print("\n" + "=" * 74)
+    print("💡 Select model via: quillan -m <model_id> or `/model <model_id>` inside TUI")
     print("=" * 74 + "\n")
 
 
@@ -154,7 +217,9 @@ def main():
     parser.add_argument("prompt", nargs="?", default=None, help="Autonomous task prompt to execute")
     parser.add_argument("--status", "-t", action="store_true", help="Display system & hardware telemetry")
     parser.add_argument("--bridge", "-b", action="store_true", help="Display OpenCode and Antigravity bridge hooks")
-    parser.add_argument("--serve", "-s", action="store_true", help="Boot OpenAI API server on :8080")
+    parser.add_argument("--ollama", nargs="?", const="status", help="Inspect local Ollama models or 'start' background daemon")
+    parser.add_argument("--models", action="store_true", help="Display complete catalog of all 23 available models")
+    parser.add_argument("--serve", "-s", action="store_true", help="Boot OpenAI + Ollama API server on :8080")
     parser.add_argument("--curl", "-c", action="store_true", help="Print and execute Quillan Curl")
     parser.add_argument("--cu", nargs="*", help="Execute Google AI Studio Computer Use GUI action")
     parser.add_argument("--install", action="store_true", help="Install global 'quillan' command on PATH")
@@ -174,6 +239,14 @@ def main():
 
     if args.bridge:
         display_bridge_details()
+        return
+
+    if args.ollama:
+        display_ollama_details(action=args.ollama if args.ollama != "status" else None)
+        return
+
+    if args.models:
+        display_models_catalog()
         return
 
     if args.serve:
@@ -211,13 +284,15 @@ def main():
   quillan                     : Launch interactive TUI Command Center (Kabuto Banner)
   quillan "<task prompt>"     : Execute autonomous coding/reasoning task in terminal
   quillan --status            : Display live hardware telemetry & system health
-  quillan --bridge            : Inspect OpenCode & Antigravity account hooks
-  quillan --serve             : Boot background OpenAI-compatible API server (:8080)
+  quillan --bridge            : Inspect OpenCode, Antigravity & Ollama account hooks
+  quillan --ollama [start]    : Inspect local Ollama models or boot background daemon
+  quillan --models            : List all available models (Local GGUF + Ollama + Cloud BYOK)
+  quillan --serve             : Boot background OpenAI + Ollama compatible API server (:8080)
   quillan --curl              : Display & test the Quillan Curl one-liner
   quillan --cu <action> <x> <y>: Execute Google AI Studio Computer Use GUI action
   quillan --install           : Install 'quillan' globally on Windows PATH
   quillan --bench             : Benchmark generation throughput (tok/s)
-  quillan --model <model_id>  : Select model (quillan-1b-sovereign-q4, deepseek-chat, gpt-4o)
+  quillan --model <model_id>  : Select model (quillan-1b-sovereign-q4, ollama:llama3.2:1b, gpt-4o)
 ============================================================================
 """)
         return

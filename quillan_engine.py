@@ -368,11 +368,13 @@ class SovereignInferenceEngine:
                 bufsize=1
             )
             
-            seen_assistant = False
+            in_banner = True
+            in_prompt = False
             captured_tps = 50.0
 
             for line in proc.stdout:
-                # Capture throughput telemetry
+                stripped = line.strip()
+                # 1. Capture throughput telemetry
                 if "Prompt:" in line and "Generation:" in line:
                     try:
                         gen_part = line.split("Generation:")[1].split("t/s")[0].strip()
@@ -381,15 +383,34 @@ class SovereignInferenceEngine:
                         pass
                     continue
 
-                if "Exiting..." in line or "available commands:" in line or "/exit" in line:
+                if stripped in ["Exiting...", "/exit"]:
                     continue
 
-                if not seen_assistant:
-                    # Ignore initial banner and prompt echo
-                    if "assistant<|end_header_id|>" in line:
-                        seen_assistant = True
+                # 2. Filter CLI banner artifacts
+                if any(m in line for m in [
+                    "Loading model...", "build      :", "model      :", "modalities :",
+                    "available commands:", "/regen", "/clear", "/read <file>", "/glob <pattern>",
+                    "▄▄", "██", "▀▀█▄", "▀████"
+                ]):
                     continue
 
+                # 3. Detect prompt echo boundary
+                if line.startswith("> "):
+                    in_banner = False
+                    in_prompt = True
+                    if "... (truncated)" in line or "assistant<|end_header_id|>" in line:
+                        in_prompt = False
+                    continue
+
+                if in_prompt:
+                    if "... (truncated)" in line or "assistant<|end_header_id|>" in line:
+                        in_prompt = False
+                    continue
+
+                if in_banner:
+                    continue
+
+                # 4. Stream actual model response tokens
                 clean_text = line.replace("<|eot_id|>", "").replace("<|im_end|>", "")
                 if clean_text:
                     tokens_emitted += len(clean_text.split())

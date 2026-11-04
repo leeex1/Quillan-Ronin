@@ -290,9 +290,12 @@ class QuillanCommandCenter(App):
                     summary = bridge.get_status_summary()
                     opencode_ok = summary["opencode"]["key_count"] > 0
                     antigravity_ok = summary["antigravity"]["linked"]
-                    yield Static(f"• OpenCode: {'[bold green]LINKED (3 Keys)[/bold green]' if opencode_ok else '[dim]UNLINKED[/dim]'}")
+                    ollama_count = summary.get("ollama", {}).get("model_count", 0)
+                    ollama_running = summary.get("ollama", {}).get("daemon_running", False)
+                    yield Static(f"• OpenCode: {'[bold green]LINKED (' + str(summary['opencode']['key_count']) + ' Keys)[/bold green]' if opencode_ok else '[dim]UNLINKED[/dim]'}")
                     yield Static(f"• Antigravity: {'[bold green]CONNECTED[/bold green]' if antigravity_ok else '[dim]OFFLINE[/dim]'}")
-                    yield Static("[dim]Type /bridge for details[/dim]")
+                    yield Static(f"• Ollama: {'[bold green]DAEMON ACTIVE[/bold green]' if ollama_running else f'[cyan]{ollama_count} Models Hooked[/cyan]'}")
+                    yield Static("[dim]Type /bridge or /ollama for info[/dim]")
 
                 with Container(classes="sidebar-card"):
                     yield Label("34-COUNCIL DELIBERATION", classes="card-title")
@@ -449,6 +452,32 @@ class QuillanCommandCenter(App):
                 "• Local GGUF models run 100% offline at 50+ tok/s on local GTX 1050.\n"
             )
             chat.mount(Markdown(bridge_md, classes="chat-bubble-system"))
+        elif cmd in ["/ollama", "/llama"]:
+            from quillan_bridge import bridge
+            sub_action = parts[1].lower() if len(parts) > 1 else "status"
+            if sub_action == "start":
+                chat.mount(Static("⏳ **Booting local Ollama background daemon on port 11434...**", classes="chat-bubble-system"))
+                ok, msg = bridge.ensure_ollama_daemon()
+                chat.mount(Static(f"{'✅' if ok else '❌'} {msg}", classes="chat-bubble-system"))
+            else:
+                summary = bridge.get_status_summary()
+                ollama_info = summary.get("ollama", {})
+                models_list = "\n".join([f"• `{m}`" for m in ollama_info.get("models_discovered", [])])
+                ollama_md = (
+                    "### 🦙 Local Ollama Service Status\n\n"
+                    f"• **Installed:** {'Yes' if ollama_info.get('installed') else 'No'} (`{bridge.ollama_exe or 'N/A'}`)\n"
+                    f"• **Daemon Status:** {'🟢 Running (http://localhost:11434)' if ollama_info.get('daemon_running') else '⚪ Offline (Run `/ollama start` to boot)'}\n"
+                    f"• **Models Hooked ({ollama_info.get('model_count', 0)}):**\n\n{models_list}\n\n"
+                    "*Select any model via `/model ollama:<name>` or the sidebar dropdown.*"
+                )
+                chat.mount(Markdown(ollama_md, classes="chat-bubble-system"))
+        elif cmd in ["/models", "/catalog"]:
+            models = self.engine.get_available_models()
+            lines = ["### 🏛️ Unified Model Catalog\n"]
+            for k, v in models.items():
+                active = " **(ACTIVE)**" if k == self.engine.active_model_id else ""
+                lines.append(f"• `{k}`: {v.get('name')}{active}")
+            chat.mount(Markdown("\n".join(lines), classes="chat-bubble-system"))
         elif cmd == "/run" and len(parts) > 1:
             cmd_str = " ".join(parts[1:])
             res = self.tools.run_command(cmd_str)
