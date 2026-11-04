@@ -171,12 +171,17 @@ KABUTO_BANNER_TEXT = """[bold purple]┌─────────────�
 
 STARTUP_GREETING = """### 🗡️ Sovereign Command Center // Tactical Quickstart
 
+**Tripartite Sovereign Models (Ollama Hub):**
+• 👑 **Quillan-Ronin Flagship** (`crashoverridex/Quillan-Ronin:latest`) — 12L 1.2B Sovereign MoE
+• ⚡ **Quillan-Ronin Mini** (`crashoverridex/Quillan-Ronin-mini:latest`) — 6L 0.5B Sovereign Edge
+• 🐉 **Quillan-Dragon** (`crashoverridex/Quillan-Dragon:latest`) — Falcon 3 1B Instruct Base
+
 ```bash
 # ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API Endpoint)
 curl http://localhost:8080/v1/chat/completions \\
   -H "Content-Type: application/json" \\
   -d '{
-    "model": "quillan-1b-sovereign-q4",
+    "model": "quillan-ronin-flagship",
     "messages": [
       {"role": "system", "content": "You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido."},
       {"role": "user", "content": "What is the core principle of Weight-Space Programming?"}

@@ -70,7 +70,20 @@ def clean_jsonc(text: str) -> str:
 
 
 def scan_ollama_models() -> List[str]:
-    """Scans local Ollama manifests to discover all installed models for the active user."""
+    """Scans local Ollama daemon or manifests to discover all installed models for the active user."""
+    # 1. Query live Ollama HTTP API first for 100% precision with namespaces
+    try:
+        import urllib.request
+        req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
+        with urllib.request.urlopen(req, timeout=1.0) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            live_models = [m["name"] for m in data.get("models", []) if "name" in m]
+            if live_models:
+                return sorted(list(set(live_models)))
+    except Exception:
+        pass
+
+    # 2. Fallback to local manifest directory parsing with namespace preservation
     base = OLLAMA_MODELS_DIR
     found = set()
     for m_dir in ["manifests", "manifests-v2"]:
@@ -80,10 +93,14 @@ def scan_ollama_models() -> List[str]:
                 for f in files:
                     rel = os.path.relpath(os.path.join(root, f), full_dir)
                     parts = rel.split(os.sep)
+                    # Parts example: ['registry.ollama.ai', 'crashoverridex', 'Quillan-Ronin', 'latest']
                     if len(parts) >= 3:
-                        name = parts[-2]
                         tag = parts[-1]
-                        found.add(f"{name}:{tag}")
+                        model_name = parts[-2]
+                        if len(parts) >= 4 and parts[-3] != "library":
+                            found.add(f"{parts[-3]}/{model_name}:{tag}")
+                        else:
+                            found.add(f"{model_name}:{tag}")
     return sorted(list(found))
 
 

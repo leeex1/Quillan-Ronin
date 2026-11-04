@@ -28,22 +28,47 @@ KEYS_FILE = os.path.join(ROOT_DIR, ".quillan_keys.json")
 # Default Local Models
 LOCAL_MODELS = {
     "quillan-1b-sovereign-q4": {
-        "name": "Quillan-Ronin 1.2B Sovereign (Q4_K_M)",
+        "name": "Quillan-Ronin 1.2B Sovereign (Q4_K_M GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-q4_k_m.gguf"),
         "type": "local_gguf",
         "description": "Native Folded MoE | 50+ tok/s | 770 MB VRAM"
     },
     "quillan-1b-sovereign-q8": {
-        "name": "Quillan-Ronin 1.2B Sovereign (Q8_0)",
+        "name": "Quillan-Ronin 1.2B Sovereign (Q8_0 GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-q8_0.gguf"),
         "type": "local_gguf",
         "description": "High-Precision Reference | 1.26 GB VRAM"
     },
     "quillan-1b-sovereign-f16": {
-        "name": "Quillan-Ronin 1.2B Sovereign (F16 Master)",
+        "name": "Quillan-Ronin 1.2B Sovereign (F16 Master GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-f16.gguf"),
         "type": "local_gguf",
         "description": "Uncompressed Full Precision Master | 2.36 GB"
+    }
+}
+
+# Tripartite Ollama Hub Models
+TRIPARTITE_MODELS = {
+    "quillan-ronin-flagship": {
+        "name": "Quillan-Ronin 1.2B Flagship (Ollama Hub)",
+        "provider": "ollama",
+        "api_model": "crashoverridex/Quillan-Ronin:latest",
+        "type": "ollama",
+        "description": "12L Sovereign Flagship | 32k Bushido Manifold | 808 MB"
+    },
+    "quillan-ronin-mini": {
+        "name": "Quillan-Ronin 0.5B Mini (Ollama Hub)",
+        "provider": "ollama",
+        "api_model": "crashoverridex/Quillan-Ronin-mini:latest",
+        "type": "ollama",
+        "description": "6L Sovereign Edge Mini | Fast 36s Ingest | 994 MB"
+    },
+    "quillan-dragon": {
+        "name": "Quillan-Dragon Falcon 1B (Ollama Hub)",
+        "provider": "ollama",
+        "api_model": "crashoverridex/Quillan-Dragon:latest",
+        "type": "ollama",
+        "description": "Falcon 3 1B Instruct Base | 8k Context Window | 1.8 GB"
     }
 }
 
@@ -236,20 +261,28 @@ class SovereignInferenceEngine:
     def __init__(self):
         self.key_mgr = KeyManager()
         self.server_mgr = QuillanServerManager()
-        self.active_model_id = "quillan-1b-sovereign-q4"
+        self.active_model_id = "quillan-ronin-flagship"
         self.council_mode = False
         self.safety_gate_active = True
 
     def get_available_models(self) -> Dict[str, Dict[str, Any]]:
         models = {}
-        # 1. Verify local GGUF existence
+        # 1. Premier Tripartite Ollama Hub Models
+        for k, v in TRIPARTITE_MODELS.items():
+            models[k] = v
+
+        # 2. Local GGUF High-Speed Binaries
         for k, v in LOCAL_MODELS.items():
             if os.path.exists(v["path"]):
                 models[k] = v
-        # 2. Dynamically add user-installed Ollama models
+
+        # 3. Dynamically discover additional user-installed Ollama models
         try:
             from quillan_bridge import scan_ollama_models
+            registered_targets = {v["api_model"] for v in TRIPARTITE_MODELS.values()}
             for om in scan_ollama_models():
+                if om in registered_targets:
+                    continue
                 model_key = f"ollama:{om}"
                 models[model_key] = {
                     "name": f"Ollama: {om}",
@@ -260,7 +293,8 @@ class SovereignInferenceEngine:
                 }
         except Exception:
             pass
-        # 3. Add cloud models
+
+        # 4. BYOK Cloud models
         for k, v in CLOUD_MODELS.items():
             models[k] = v
         return models
@@ -519,14 +553,21 @@ class SovereignInferenceEngine:
         url = "http://localhost:11434/api/generate"
         payload = {
             "model": model_tag,
-            "system": sys_prompt,
             "prompt": prompt,
-            "stream": True
+            "stream": True,
+            "options": {
+                "temperature": 0.3
+            }
         }
+        # Only inject explicit system prompt if it is a custom override;
+        # otherwise let the model's compiled Modelfile system prompt take precedence.
+        if sys_prompt and sys_prompt != SOVEREIGN_SYSTEM_PROMPT:
+            payload["system"] = sys_prompt
+
         t0 = time.time()
         tokens = 0
         try:
-            resp = requests.post(url, json=payload, stream=True, timeout=25)
+            resp = requests.post(url, json=payload, stream=True, timeout=180)
             for line in resp.iter_lines():
                 if line:
                     data = json.loads(line.decode("utf-8"))
