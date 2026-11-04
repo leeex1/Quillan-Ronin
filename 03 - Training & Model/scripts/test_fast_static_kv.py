@@ -207,3 +207,4 @@ tps = n_tok / max(1e-5, elap)
 print(f"\n[Accelerated Peak Output]:\n{ans.strip()}\n")
 print(f"[Speed Telemetry]: {n_tok} tokens in {elap:.2f}s -> {tps:.2f} TOKENS/SECOND")
 print(f"Peak VRAM: {torch.cuda.max_memory_allocated() / (1024**2):.1f} MB / 4096 MB")
+

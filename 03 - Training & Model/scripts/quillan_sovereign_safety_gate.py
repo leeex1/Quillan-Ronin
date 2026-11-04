@@ -137,3 +137,4 @@ class QuillanCCRLSafetyGate:
             f"{user_prompt}<|eot_id|>"
             f"<|start_header_id|>assistant<|end_header_id|>\n\n"
         )
+
