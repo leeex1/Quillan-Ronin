@@ -116,3 +116,4 @@ class QuillanTernaryCompressor:
 
 if __name__ == "__main__":
     logger.info("Quillan Ternary Compressor module loaded.")
+

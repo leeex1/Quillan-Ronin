@@ -373,3 +373,4 @@ for domain, prompt in eval_prompts:
     print("-" * 80)
 
 print(f"\n>>> Final Peak VRAM: {torch.cuda.max_memory_allocated() / (1024**2):.1f} MB / 4096 MB")
+
