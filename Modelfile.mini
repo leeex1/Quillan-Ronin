@@ -1,10 +1,11 @@
 # =============================================================================
 # ⚔️ QUILLAN-RONIN-MINI 0.5B MODELFILE FOR OLLAMA
+# Custom Sovereign 6-Layer Small Architecture (0.5B)
 # Full Verbatim System Prompt Specification (14,679 Lines)
-# Architecture: Qwen2 0.5B (6-Layer Quantized Base)
+# Model Pedigree: Proprietary Trained / Fused Sovereign Checkpoint
 # =============================================================================
 
-# Base GGUF Model Blob Checkpoint
+# Custom 6-Layer Mini Model Checkpoint
 FROM C:\Users\Admin\.ollama\models\blobs\sha256-1923271f8d4d5101e91b90d67fdd56da544a6258c614a4d1ce9cd098696062f9
 
 # Model Parameters

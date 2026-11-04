@@ -1,11 +1,12 @@
 # =============================================================================
 # 🐉 QUILLAN-DRAGON 1.7B MODELFILE FOR OLLAMA
+# Falcon 3 1B Instruct Foundation Checkpoint (Q8_0)
 # Full Verbatim System Prompt Specification (14,679 Lines)
-# Architecture: Falcon3 1B Instruct Base (Q8_0)
+# Model Pedigree: Falcon 3 1B Instruct Base with Full Sovereign System Prompt
 # =============================================================================
 
-# Base GGUF Model Blob Checkpoint
-FROM C:\Users\Admin\.ollama\models\blobs\sha256-89056211c7c712d163f68242223aaf2fee22bef5c6388d0971c131142f25bc01
+# Falcon 3 Foundation Model
+FROM falcon3:1b-instruct-q8_0
 
 # Model Parameters
 PARAMETER temperature 0.3

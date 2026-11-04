@@ -36,3 +36,4 @@ for m in models:
         print(f"  Template Type: {'Llama 3.2' if 'start_header_id' in data.get('template', '') else 'ChatML (<think> native)'}")
 
 print("\nAll 3 models verified locally and live on Ollama Hub!")
+

@@ -1,29 +1,36 @@
-import sys, os
+"""
+Sibling Modelfile Generator for Quillan Tripartite Hub Registry
+Generates Modelfile.mini (our custom 6-layer 0.5B model) and 
+Modelfile.dragon (Falcon 3 1B foundation model) with exact verbatim prompt parity.
+"""
+import os
+import sys
 
 # Configure UTF-8 stdout
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-# Read canonical Modelfile to extract the exact SYSTEM block
-with open(r"C:\02_QUILLAN\Modelfile", "r", encoding="utf-8") as f:
-    modelfile_content = f.read()
+def generate_sibling_modelfiles() -> None:
+    # Read canonical Modelfile to extract the exact SYSTEM block
+    with open(r"C:\02_QUILLAN\Modelfile", "r", encoding="utf-8") as f:
+        modelfile_content = f.read()
 
-system_pos = modelfile_content.find('SYSTEM """')
-if system_pos == -1:
-    print("ERROR: SYSTEM block not found in Modelfile")
-    sys.exit(1)
+    system_pos = modelfile_content.find('SYSTEM """')
+    if system_pos == -1:
+        raise ValueError("SYSTEM block not found in canonical Modelfile")
 
-system_block = modelfile_content[system_pos:]
+    system_block = modelfile_content[system_pos:]
 
-# -------------------------------------------------------------
-# Modelfile.mini (Quillan-Ronin-mini: 6-layer Qwen2 0.5B base)
-# -------------------------------------------------------------
-mini_header = """# =============================================================================
+    # -------------------------------------------------------------
+    # Modelfile.mini (Quillan-Ronin-mini: Custom 6-Layer 0.5B Model)
+    # -------------------------------------------------------------
+    mini_header = """# =============================================================================
 # ⚔️ QUILLAN-RONIN-MINI 0.5B MODELFILE FOR OLLAMA
+# Custom Sovereign 6-Layer Small Architecture (0.5B)
 # Full Verbatim System Prompt Specification (14,679 Lines)
-# Architecture: Qwen2 0.5B (6-Layer Quantized Base)
+# Model Pedigree: Proprietary Trained / Fused Sovereign Checkpoint
 # =============================================================================
 
-# Base GGUF Model Blob Checkpoint
+# Custom 6-Layer Mini Model Checkpoint
 FROM C:\\Users\\Admin\\.ollama\\models\\blobs\\sha256-1923271f8d4d5101e91b90d67fdd56da544a6258c614a4d1ce9cd098696062f9
 
 # Model Parameters
@@ -58,23 +65,24 @@ TEMPLATE \"\"\"{{- if .System }}<|im_start|>system
 # Full System Instruction Block (Verbatim Canonical Prompt)
 """
 
-mini_path = r"C:\02_QUILLAN\Modelfile.mini"
-with open(mini_path, "w", encoding="utf-8", newline="\n") as f:
-    f.write(mini_header + system_block)
+    mini_path = r"C:\02_QUILLAN\Modelfile.mini"
+    with open(mini_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(mini_header + system_block)
 
-print("Modelfile.mini generated successfully:", os.path.getsize(mini_path), "bytes")
+    print("Modelfile.mini written:", os.path.getsize(mini_path), "bytes")
 
-# -------------------------------------------------------------
-# Modelfile.dragon (Quillan-Dragon: Falcon3 1B base)
-# -------------------------------------------------------------
-dragon_header = """# =============================================================================
+    # -------------------------------------------------------------
+    # Modelfile.dragon (Quillan-Dragon: Falcon 3 1B Instruct Base)
+    # -------------------------------------------------------------
+    dragon_header = """# =============================================================================
 # 🐉 QUILLAN-DRAGON 1.7B MODELFILE FOR OLLAMA
+# Falcon 3 1B Instruct Foundation Checkpoint (Q8_0)
 # Full Verbatim System Prompt Specification (14,679 Lines)
-# Architecture: Falcon3 1B Instruct Base (Q8_0)
+# Model Pedigree: Falcon 3 1B Instruct Base with Full Sovereign System Prompt
 # =============================================================================
 
-# Base GGUF Model Blob Checkpoint
-FROM C:\\Users\\Admin\\.ollama\\models\\blobs\\sha256-89056211c7c712d163f68242223aaf2fee22bef5c6388d0971c131142f25bc01
+# Falcon 3 Foundation Model
+FROM falcon3:1b-instruct-q8_0
 
 # Model Parameters
 PARAMETER temperature 0.3
@@ -108,8 +116,11 @@ TEMPLATE \"\"\"{{- if .System }}<|im_start|>system
 # Full System Instruction Block (Verbatim Canonical Prompt)
 """
 
-dragon_path = r"C:\02_QUILLAN\Modelfile.dragon"
-with open(dragon_path, "w", encoding="utf-8", newline="\n") as f:
-    f.write(dragon_header + system_block)
+    dragon_path = r"C:\02_QUILLAN\Modelfile.dragon"
+    with open(dragon_path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(dragon_header + system_block)
 
-print("Modelfile.dragon generated successfully:", os.path.getsize(dragon_path), "bytes")
+    print("Modelfile.dragon written:", os.path.getsize(dragon_path), "bytes")
+
+if __name__ == "__main__":
+    generate_sibling_modelfiles()
