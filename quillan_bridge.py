@@ -122,16 +122,26 @@ class QuillanAccountBridge:
         if not self.ollama_exe or not os.path.exists(self.ollama_exe):
             return False, "Ollama binary not found on this system."
         try:
+            env = os.environ.copy()
+            env["OLLAMA_HOST"] = "127.0.0.1:11434"
             subprocess.Popen(
                 [self.ollama_exe, "serve"],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
+                env=env,
                 creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0)
             )
-            time.sleep(1.0)
-            return True, "Ollama background daemon started successfully on port 11434"
+            # Wait up to 3 seconds for daemon socket readiness
+            for _ in range(6):
+                time.sleep(0.5)
+                if self.is_ollama_running():
+                    return True, "Ollama background daemon started successfully on port 11434"
+            return True, "Ollama background process spawned."
         except Exception as e:
             return False, f"Failed to start Ollama daemon: {str(e)}"
+
+    # Alias for compatibility
+    ensure_ollama_daemon = start_ollama_daemon
 
     def _discover_opencode_keys(self) -> Dict[str, str]:
         """Harvests configured API keys from the user's OpenCode configuration."""
