@@ -177,6 +177,27 @@ Download the complete academic research paper detailing the Weight-Space Program
 - **Master Paper (PDF):** [`10 - Formal Papers/Building_Foundation_Models_via_Weight_Space_Programming.pdf`](10%20-%20Formal%20Papers/Building_Foundation_Models_via_Weight_Space_Programming.pdf)
 - **Publication Figures (300 DPI):** [`10 - Formal Papers/figures`](10%20-%20Formal%20Papers/figures)
 
+### 7. 🖥️ Google AI Studio & Sovereign Computer Use Tool
+
+Quillan-Ronin natively implements the official [Google AI Studio Computer Use specification](https://aistudio.google.com/docs/computer-use) (`google-genai` / Gemini API), enabling visual UI agents to operate desktop applications:
+
+- **0–999 Normalized Coordinate Grid**: Automatically translated to physical display pixels via `CoordinateTransformer`.
+- **Zero-Dependency Win32 Dispatch**: Native Windows GUI events (`click`, `double_click`, `right_click`, `move`, `type`, `scroll`, `drag`, `hotkey`, `wait`) dispatched directly via Win32 `ctypes`.
+- **In-Graph CCRL Bayesian Safety Guard**: Every action requires an explicit natural language `intent` audited against destructive OS instructions and visual prompt injection ($\Phi_{\text{CCRL}} \ge 0.85$).
+
+```bash
+# Execute a GUI action via Quillan's Google AI Studio Computer Use Bridge
+curl http://localhost:8080/v1/computer-use \
+  -H "Content-Type: application/json" \
+  -d '{
+    "action": "click",
+    "x": 500,
+    "y": 500,
+    "intent": "Focus center workspace window"
+  }'
+```
+
+
 ---
 
 ## ⚡ Hardware Kernel Ablation: 100 tok/s on Consumer Pascal GPU

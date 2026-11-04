@@ -202,11 +202,13 @@ class QuillanCommandCenter(App):
                     yield Label(f"VRAM: [bold]{self.vram_telemetry}[/bold]", id="vram-label")
                     yield Label(f"Speed: [bold green]{self.tokens_per_sec}[/bold green]", id="speed-label")
                     yield Label(f"Safety Gate: [bold purple]{self.safety_status}[/bold purple]", id="safety-label")
+                    yield Static("• GUI Agent: [bold green]GOOGLE CU READY[/bold green]")
 
                 with Container(classes="sidebar-card"):
                     yield Label("TACTICAL CHEAT SHEET", classes="card-title")
                     yield Static("[dim]/serve       : Toggle API Server (8080)[/dim]")
                     yield Static("[dim]/curl        : Display Quillan Curl[/dim]")
+                    yield Static("[dim]/cu <action> : Computer Use (0-999)[/dim]")
                     yield Static("[dim]/model <id>  : Switch model[/dim]")
                     yield Static("[dim]/key <p> <k> : Store API Key[/dim]")
                     yield Static("[dim]/council     : Toggle 34-Expert mode[/dim]")
@@ -337,6 +339,31 @@ class QuillanCommandCenter(App):
                 chat.mount(Static(f"🔄 **Switched active model to:** `{m_id}`", classes="chat-bubble-system"))
             else:
                 chat.mount(Static(f"❌ Unknown model: `{m_id}`. Available: {', '.join(self.engine.get_available_models().keys())}", classes="chat-bubble-system"))
+        elif cmd in ["/cu", "/computer"]:
+            from quillan_computer_use import QuillanComputerUseAgent
+            agent = QuillanComputerUseAgent()
+            if len(parts) >= 2:
+                sub_action = parts[1].lower()
+                if sub_action in ["info", "schema"]:
+                    decl = agent.get_tool_declaration()
+                    chat.mount(Static(f"🖥️ **Google AI Studio Computer Use Spec:**\n```json\n{json.dumps(decl, indent=2)}\n```", classes="chat-bubble-system"))
+                elif sub_action == "click" and len(parts) >= 4:
+                    x, y = int(parts[2]), int(parts[3])
+                    res = agent.execute_action("click", {"x": x, "y": y, "intent": "Manual TUI click"})
+                    chat.mount(Static(f"🖱️ **Click Executed:** {json.dumps(res)}", classes="chat-bubble-system"))
+                elif sub_action == "move" and len(parts) >= 4:
+                    x, y = int(parts[2]), int(parts[3])
+                    res = agent.execute_action("move", {"x": x, "y": y, "intent": "Manual TUI move"})
+                    chat.mount(Static(f"🎯 **Cursor Moved:** {json.dumps(res)}", classes="chat-bubble-system"))
+                elif sub_action == "type" and len(parts) >= 3:
+                    text_to_type = " ".join(parts[2:])
+                    res = agent.execute_action("type", {"text": text_to_type, "intent": "Manual TUI type"})
+                    chat.mount(Static(f"⌨️ **Typed Text:** `{text_to_type}` ({res.get('execution_time_ms', 0)} ms)", classes="chat-bubble-system"))
+                else:
+                    directive = " ".join(parts[1:])
+                    chat.mount(Static(f"🤖 **Computer Use Agent Triggered:** *\"{directive}\"*\n*Screen bounds ({agent.coords.width}x{agent.coords.height}) | Evaluated by C1 Astra & C13 Warden.*", classes="chat-bubble-system"))
+            else:
+                chat.mount(Static("ℹ️ **Usage:** `/cu <info|click <x> <y>|move <x> <y>|type <text>|<directive>>` (Coordinates: normalized 0-999)", classes="chat-bubble-system"))
         elif cmd == "/exit":
             self.exit()
         else:

@@ -40,6 +40,7 @@ from fastapi.middleware.cors import CORSMiddleware
 # Link core engine
 sys.path.insert(0, r"C:\02_QUILLAN")
 from quillan_engine import SovereignInferenceEngine, LOCAL_MODELS, CLOUD_MODELS, SOVEREIGN_SYSTEM_PROMPT
+from quillan_computer_use import QuillanComputerUseAgent
 
 app = FastAPI(
     title="Quillan-Ronin Sovereign API Server",
@@ -57,6 +58,7 @@ app.add_middleware(
 )
 
 engine = SovereignInferenceEngine()
+cu_agent = QuillanComputerUseAgent()
 SERVER_START_TIME = time.time()
 
 # -----------------------------------------------------------------------------
@@ -464,6 +466,35 @@ async def deliberate_endpoint(req: DeliberationRequest):
         "protocol": "5-Wave Recursive Sovereign Consensus",
         "trace": waves
     }
+
+# -----------------------------------------------------------------------------
+# Google AI Studio Computer Use Endpoints
+# -----------------------------------------------------------------------------
+class ComputerUseActionRequest(BaseModel):
+    action: str = Field(..., description="Action name: click, move, double_click, right_click, type, scroll, drag, hotkey, wait")
+    x: Optional[int] = Field(500, description="Normalized X coordinate (0-999)")
+    y: Optional[int] = Field(500, description="Normalized Y coordinate (0-999)")
+    end_x: Optional[int] = Field(None, description="End X for drag")
+    end_y: Optional[int] = Field(None, description="End Y for drag")
+    text: Optional[str] = Field(None, description="Text to type")
+    key: Optional[str] = Field(None, description="Key name to press")
+    keys: Optional[List[str]] = Field(None, description="Key combination for hotkey")
+    scroll_y: Optional[int] = Field(-1, description="Vertical scroll clicks")
+    duration: Optional[float] = Field(0.5, description="Wait duration in seconds")
+    intent: Optional[str] = Field("Manual command execution", description="Natural language intent explaining rationale")
+
+@app.get("/v1/computer-use/schema")
+async def get_computer_use_schema():
+    """Returns the official Google AI Studio Gemini Computer Use tool declaration."""
+    return cu_agent.get_tool_declaration()
+
+@app.post("/v1/computer-use")
+async def execute_computer_use_action(req: ComputerUseActionRequest):
+    """Executes a single structured GUI action with C2 Vir & C13 Warden verification."""
+    result = cu_agent.execute_action(req.action, req.dict())
+    if result.get("status") == "blocked":
+        raise HTTPException(status_code=403, detail=result)
+    return result
 
 # -----------------------------------------------------------------------------
 # Main CLI Runner
