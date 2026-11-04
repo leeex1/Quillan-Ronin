@@ -322,3 +322,4 @@ class QuillanCommandCenter(App):
 if __name__ == "__main__":
     app = CommandCenter() if 'CommandCenter' in locals() else QuillanCommandCenter()
     app.run()
+
