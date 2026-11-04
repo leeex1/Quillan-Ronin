@@ -85,6 +85,12 @@ CLOUD_MODELS = {
         "api_model": "auto",
         "description": "Dynamic Global Router"
     },
+    "nvidia-llama-70b": {
+        "name": "NVIDIA Llama 3.3 70B (OpenCode NIM)",
+        "provider": "nvidia",
+        "api_model": "meta/llama-3.3-70b-instruct",
+        "description": "NVIDIA NIM OpenCode Cloud Engine"
+    },
     "ollama-local": {
         "name": "Local Ollama Daemon",
         "provider": "ollama",
@@ -121,12 +127,25 @@ class KeyManager:
             "anthropic": "ANTHROPIC_API_KEY",
             "openai": "OPENAI_API_KEY",
             "gemini": "GEMINI_API_KEY",
-            "openrouter": "OPENROUTER_API_KEY"
+            "openrouter": "OPENROUTER_API_KEY",
+            "nvidia": "NVIDIA_API_KEY"
         }
         for prov, env_var in env_map.items():
             val = os.environ.get(env_var)
             if val and not self.keys.get(prov):
                 self.keys[prov] = val
+
+        # OpenCode and Antigravity auto-bridge
+        try:
+            from quillan_bridge import bridge
+            for prov, key_val in bridge.opencode_keys.items():
+                if not self.keys.get(prov):
+                    self.keys[prov] = key_val
+            # If gemini key not explicitly found, use Antigravity OAuth token if available
+            if not self.keys.get("gemini") and bridge.get_oauth_token():
+                self.keys["gemini"] = bridge.get_oauth_token()
+        except Exception:
+            pass
 
     def set_key(self, provider: str, key: str):
         self.keys[provider.lower()] = key.strip()
@@ -137,7 +156,7 @@ class KeyManager:
         return self.keys.get(provider.lower())
 
     def list_status(self) -> Dict[str, bool]:
-        providers = ["deepseek", "anthropic", "openai", "gemini", "openrouter"]
+        providers = ["deepseek", "anthropic", "openai", "gemini", "openrouter", "nvidia"]
         return {p: bool(self.keys.get(p)) for p in providers}
 
 
@@ -391,7 +410,8 @@ class SovereignInferenceEngine:
             "deepseek": "https://api.deepseek.com/chat/completions",
             "openai": "https://api.openai.com/v1/chat/completions",
             "openrouter": "https://openrouter.ai/api/v1/chat/completions",
-            "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+            "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+            "nvidia": "https://integrate.api.nvidia.com/v1/chat/completions"
         }
         url = endpoints.get(provider, "https://openrouter.ai/api/v1/chat/completions")
 

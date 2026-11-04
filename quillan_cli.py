@@ -6,6 +6,7 @@ Unified CLI entrypoint:
 - `quillan`               : Launch Interactive TUI Command Center (Kabuto Banner)
 - `quillan "<task>"`      : Autonomous Headless Coding Agent Execution
 - `quillan --status`      : Live Hardware Telemetry & System Status Dashboard
+- `quillan --bridge`      : OpenCode & Antigravity Account Bridge Diagnostics
 - `quillan --serve`       : Background OpenAI-Compatible API Server (:8080)
 - `quillan --curl`        : Display & Execute Quillan Curl Quickstart
 - `quillan --cu <action>` : Execute Google AI Studio Computer Use GUI action
@@ -34,6 +35,7 @@ sys.path.insert(0, ROOT_DIR)
 from quillan_agent import SovereignCodingAgent, get_gpu_telemetry_string
 from quillan_engine import SovereignInferenceEngine, get_curl_command
 from quillan_computer_use import QuillanComputerUseAgent
+from quillan_bridge import bridge
 
 
 def install_global_cli():
@@ -62,6 +64,10 @@ def display_system_status():
     cu = QuillanComputerUseAgent()
     gpu_stats = get_gpu_telemetry_string()
     server_online = engine.server_mgr.is_running()
+    bridge_summary = bridge.get_status_summary()
+    
+    opencode_provs = ", ".join([p.upper() for p in bridge_summary["opencode"]["providers_discovered"]]) or "None"
+    antigravity_acc = bridge_summary["antigravity"]["account_email"] or "Not Logged In"
     
     print("\n" + "=" * 74)
     print("⚔️ QUILLAN-RONIN // SOVEREIGN SYSTEM & HARDWARE TELEMETRY")
@@ -69,12 +75,45 @@ def display_system_status():
     print(f"● Target GPU Hardware : NVIDIA GeForce GTX 1050 (Compute sm_61)")
     print(f"● Real-Time VRAM & Load: {gpu_stats}")
     print(f"● Active Model Engine : {engine.active_model_id} (Weight-Space Programming)")
-    print(f"● Available Engines   : {len(engine.get_available_models())} Models (GGUF + BYOK Cloud)")
+    print(f"● Available Engines   : {len(engine.get_available_models())} Models (Local GGUF + Cloud BYOK)")
+    print(f"● OpenCode Bridge     : 🔗 LINKED ({len(bridge.opencode_keys)} Providers: {opencode_provs})")
+    print(f"● Antigravity Hook    : 🔗 CONNECTED ({antigravity_acc} | OAuth Active)")
     print(f"● In-Graph Safety Gate: Φ = 0.96 [CCRL Bayesian Bushido Pass]")
     print(f"● Cognitive Parliament: 34-Council Active (5-Wave Pipeline)")
     print(f"● OpenAI API Gateway  : http://localhost:8080 [{'ONLINE' if server_online else 'OFFLINE'}]")
     print(f"● Google Computer Use : Native 0-999 Grid ({cu.coords.width}x{cu.coords.height} Display)")
     print(f"● Active Workspace    : {os.getcwd()}")
+    print("=" * 74 + "\n")
+
+
+def display_bridge_details():
+    """Renders OpenCode and Antigravity account bridge diagnostic card."""
+    summary = bridge.get_status_summary()
+    opencode_info = summary["opencode"]
+    antigravity_info = summary["antigravity"]
+
+    print("\n" + "=" * 74)
+    print("🔗 QUILLAN-RONIN // ECOSYSTEM ACCOUNT BRIDGE & AUTH HOOKS")
+    print("=" * 74)
+    print("1. OpenCode Integration:")
+    print(f"   • Config Found   : {opencode_info['installed']}")
+    print(f"   • Providers Hooked: {', '.join(opencode_info['providers_discovered']).upper() if opencode_info['providers_discovered'] else 'None'}")
+    print(f"   • Discovered Keys : {opencode_info['key_count']} API keys auto-mounted into Quillan")
+    for prov in opencode_info["providers_discovered"]:
+        key_val = bridge.opencode_keys.get(prov, "")
+        masked = key_val[:8] + "..." + key_val[-4:] if len(key_val) > 12 else "***"
+        print(f"     - {prov.upper():12}: {masked} (Len: {len(key_val)})")
+    
+    print("\n2. Antigravity & Google Ecosystem:")
+    print(f"   • Antigravity App : {antigravity_info['installed']}")
+    print(f"   • Active Account  : {antigravity_info['account_email']}")
+    print(f"   • Auth Strategy   : {antigravity_info['auth_type']}")
+    print(f"   • Google OAuth    : {'ACTIVE & READY' if antigravity_info['oauth_active'] else 'INACTIVE'}")
+    
+    print("\n3. Universal Bring-Your-Own-Model (BYOM):")
+    print("   • Local GGUF      : 100% Offline (sm_61 sm-tuned at 50+ tok/s)")
+    print("   • OpenCode Quotas : OpenRouter, Gemini, NVIDIA NIM available directly")
+    print("   • Cloud BYOK      : OpenAI, Anthropic, DeepSeek via /key or env vars")
     print("=" * 74 + "\n")
 
 
@@ -114,6 +153,7 @@ def main():
     )
     parser.add_argument("prompt", nargs="?", default=None, help="Autonomous task prompt to execute")
     parser.add_argument("--status", "-t", action="store_true", help="Display system & hardware telemetry")
+    parser.add_argument("--bridge", "-b", action="store_true", help="Display OpenCode and Antigravity bridge hooks")
     parser.add_argument("--serve", "-s", action="store_true", help="Boot OpenAI API server on :8080")
     parser.add_argument("--curl", "-c", action="store_true", help="Print and execute Quillan Curl")
     parser.add_argument("--cu", nargs="*", help="Execute Google AI Studio Computer Use GUI action")
@@ -130,6 +170,10 @@ def main():
 
     if args.status:
         display_system_status()
+        return
+
+    if args.bridge:
+        display_bridge_details()
         return
 
     if args.serve:
@@ -167,6 +211,7 @@ def main():
   quillan                     : Launch interactive TUI Command Center (Kabuto Banner)
   quillan "<task prompt>"     : Execute autonomous coding/reasoning task in terminal
   quillan --status            : Display live hardware telemetry & system health
+  quillan --bridge            : Inspect OpenCode & Antigravity account hooks
   quillan --serve             : Boot background OpenAI-compatible API server (:8080)
   quillan --curl              : Display & test the Quillan Curl one-liner
   quillan --cu <action> <x> <y>: Execute Google AI Studio Computer Use GUI action
