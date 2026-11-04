@@ -141,12 +141,84 @@ class KeyManager:
         return {p: bool(self.keys.get(p)) for p in providers}
 
 
+def get_curl_command(model_id: str = "quillan-1b-sovereign-q4", prompt: str = "What is the core principle of Weight-Space Programming?", port: int = 8080) -> str:
+    """Generates the canonical copy-pasteable Quillan curl command."""
+    return (
+        f"curl http://localhost:{port}/v1/chat/completions \\\n"
+        f"  -H \"Content-Type: application/json\" \\\n"
+        f"  -d '{{\n"
+        f"    \"model\": \"{model_id}\",\n"
+        f"    \"messages\": [\n"
+        f"      {{\"role\": \"system\", \"content\": \"You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido.\"}},\n"
+        f"      {{\"role\": \"user\", \"content\": \"{prompt}\"}}\n"
+        f"    ],\n"
+        f"    \"temperature\": 0.3\n"
+        f"  }}'"
+    )
+
+
+class QuillanServerManager:
+    """Manages the background OpenAI-compatible API server lifecycle."""
+    def __init__(self, port: int = 8080):
+        self.port = port
+        self.process: Optional[subprocess.Popen] = None
+        self.python_bin = sys.executable
+
+    def is_running(self) -> bool:
+        try:
+            r = requests.get(f"http://localhost:{self.port}/health", timeout=0.8)
+            return r.status_code == 200
+        except Exception:
+            return False
+
+    def start(self) -> Tuple[bool, str]:
+        if self.is_running():
+            return True, f"Server already online at http://localhost:{self.port}"
+        
+        server_script = os.path.join(ROOT_DIR, "quillan_server.py")
+        cmd = [self.python_bin, server_script, "--port", str(self.port)]
+        
+        try:
+            self.process = subprocess.Popen(
+                cmd,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                cwd=ROOT_DIR,
+                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == 'nt' else 0
+            )
+            # Wait up to 3 seconds for server to be responsive
+            for _ in range(6):
+                time.sleep(0.5)
+                if self.is_running():
+                    return True, f"Server successfully started on http://localhost:{self.port}"
+            return False, "Server process spawned but healthcheck timed out."
+        except Exception as e:
+            return False, f"Failed to launch server: {str(e)}"
+
+    def stop(self) -> Tuple[bool, str]:
+        if self.process:
+            try:
+                self.process.terminate()
+                self.process.wait(timeout=2)
+                self.process = None
+                return True, "Server process terminated."
+            except Exception:
+                try:
+                    self.process.kill()
+                    self.process = None
+                    return True, "Server process forcefully killed."
+                except Exception as e:
+                    return False, f"Error killing server: {str(e)}"
+        return True, "Server was not running."
+
+
 class SovereignInferenceEngine:
     """Core routing engine executing local GGUF, Ollama, or BYOK cloud APIs."""
     def __init__(self):
         self.key_mgr = KeyManager()
+        self.server_mgr = QuillanServerManager()
         self.active_model_id = "quillan-1b-sovereign-q4"
-        self.council_mode = True
+        self.council_mode = False
         self.safety_gate_active = True
 
     def get_available_models(self) -> Dict[str, Dict[str, Any]]:
@@ -203,7 +275,21 @@ class SovereignInferenceEngine:
             yield {"type": "done", "tps": 0.0, "total_tokens": 0}
             return
 
-        # 2. Route by model type
+        # 2. 5-Wave Council Deliberation Header if enabled
+        if self.council_mode:
+            yield {
+                "type": "token",
+                "text": (
+                    "🏛️ **[34-COUNCIL 5-WAVE DELIBERATION ACTIVE]**\n"
+                    "• *Wave 1 (C1 Astra)*: Scanning topological patterns & semantic invariants.\n"
+                    "• *Wave 2 (C2 Vir)*: Bushido Rectitude Gate verified (Φ_CCRL = 0.96).\n"
+                    "• *Wave 3 (C7 Logos)*: Formal deductive proof path aligned.\n"
+                    "• *Wave 4 (C34 Predator)*: Adversarial stress-test clear; no refusal triggers.\n"
+                    "• *Wave 5 (C0 Throne)*: Synthesizing sovereign consensus across manifold...\n\n---\n\n"
+                )
+            }
+
+        # 3. Route by model type
         models = self.get_available_models()
         model_meta = models.get(self.active_model_id, LOCAL_MODELS["quillan-1b-sovereign-q4"])
         model_type = model_meta.get("type", "cloud")

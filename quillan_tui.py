@@ -2,12 +2,13 @@
 =============================================================================
 ⚔️ QUILLAN-RONIN: SOVEREIGN COMMAND CENTER TUI v5.4.0
 =============================================================================
-A terminal command center unifying:
+A unified terminal command center orchestrating:
 1. Native Sovereign GGUF Models (48+ tok/s on local GTX 1050)
-2. Bring-Your-Own-Key (BYOK) Cloud Routing (DeepSeek, Claude, GPT-4o, Gemini)
-3. 34-Council Cognitive Parliament Multi-Persona Deliberation
-4. In-Graph CCRL Bayesian Safety Gate & Bushido Alignment System
-5. Real-Time Hardware Telemetry, VRAM Tracking, and Speedometer
+2. Background OpenAI-Compatible API Server (:8080) with 1-Click Quillan Curl
+3. Bring-Your-Own-Key (BYOK) Cloud Routing (DeepSeek, Claude, GPT-4o, Gemini)
+4. 34-Council Cognitive Parliament Multi-Persona Deliberation (5-Wave Pipeline)
+5. In-Graph CCRL Bayesian Safety Gate & Bushido Alignment System
+6. Real-Time Hardware Telemetry, VRAM Tracking, and Speedometer
 =============================================================================
 """
 
@@ -25,7 +26,7 @@ from textual import work
 
 # Ensure parent directory is on sys.path
 sys.path.insert(0, r"C:\02_QUILLAN")
-from quillan_engine import SovereignInferenceEngine, LOCAL_MODELS, CLOUD_MODELS
+from quillan_engine import SovereignInferenceEngine, LOCAL_MODELS, CLOUD_MODELS, get_curl_command
 
 # Custom CSS Styling
 TUI_CSS = """
@@ -45,7 +46,7 @@ Screen {
 }
 
 #sidebar {
-    width: 38;
+    width: 40;
     background: #0F172A;
     border-right: solid #334155;
     padding: 1;
@@ -91,6 +92,13 @@ Screen {
     margin-bottom: 1;
 }
 
+.chat-bubble-curl {
+    background: #05080E;
+    border-left: thick #34D399;
+    padding: 1;
+    margin-bottom: 1;
+}
+
 #input-deck {
     dock: bottom;
     height: 4;
@@ -108,26 +116,37 @@ Screen {
 #user-input:focus {
     border: tall #10B981;
 }
-
-.badge-green {
-    color: #34D399;
-    text-style: bold;
-}
-
-.badge-purple {
-    color: #C084FC;
-    text-style: bold;
-}
-
-.badge-gold {
-    color: #FBBF24;
-    text-style: bold;
-}
 """
 
 BANNER_TEXT = """[bold purple]⚔️  QUILLAN-RONIN // SOVEREIGN COMMAND CENTER v5.4.0[/bold purple]
 [dim green]Bushido Code: Rectitude • Moral Courage • Truth • Honor • Loyalty[/dim green]
 [dim cyan]Hardware: NVIDIA GTX 1050 (sm_61) | CCRL Safety Gate: Φ ≥ 0.85 (Active)[/dim cyan]"""
+
+STARTUP_GREETING = """### 🗡️ Welcome to the Quillan-Ronin Sovereign Command Center v5.4.0
+*Pure Weight-Space Programming (Zero Backprop) • 48+ tok/s Local Execution • 34-Council Parliament*
+
+```bash
+# ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API)
+curl http://localhost:8080/v1/chat/completions \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "model": "quillan-1b-sovereign-q4",
+    "messages": [
+      {"role": "system", "content": "You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido."},
+      {"role": "user", "content": "What is the core principle of Weight-Space Programming?"}
+    ],
+    "temperature": 0.3
+  }'
+```
+
+**Tactical Quick Commands:**
+• `/serve` - Toggle background OpenAI-compatible HTTP server on `http://localhost:8080`
+• `/curl` - Display copy-pasteable curl command for current active model
+• `/council` - Toggle 34-Council 5-Wave deliberation mode
+• `/bench` - Run instantaneous speed benchmark
+• `/key <provider> <key>` - Configure BYOK Cloud API credentials
+• `/paper` - Inspect formal WSP research paper PDF details
+"""
 
 class QuillanCommandCenter(App):
     CSS = TUI_CSS
@@ -136,8 +155,9 @@ class QuillanCommandCenter(App):
 
     # Reactive states
     tokens_per_sec = reactive("0.0 tok/s")
-    vram_telemetry = reactive("1,024 MB / 4,096 MB")
+    vram_telemetry = reactive("770 MB / 4,096 MB")
     safety_status = reactive("Φ = 0.96 [VERIFIED]")
+    server_status = reactive("OFFLINE")
     is_generating = reactive(False)
 
     def __init__(self):
@@ -163,6 +183,12 @@ class QuillanCommandCenter(App):
                     )
 
                 with Container(classes="sidebar-card"):
+                    yield Label("OPENAI API GATEWAY (:8080)", classes="card-title")
+                    yield Label(f"Server: [bold red]{self.server_status}[/bold red]", id="server-status-label")
+                    yield Static("[dim]Endpoint: http://localhost:8080[/dim]")
+                    yield Static("[dim]Run /serve to toggle server[/dim]")
+
+                with Container(classes="sidebar-card"):
                     yield Label("34-COUNCIL DELIBERATION", classes="card-title")
                     yield Static("• C0 Throne (Quillan Core): [bold green]ONLINE[/bold green]")
                     yield Static("• C1 Astra (Pattern Eye):   [bold green]ACTIVE[/bold green]")
@@ -179,20 +205,19 @@ class QuillanCommandCenter(App):
 
                 with Container(classes="sidebar-card"):
                     yield Label("TACTICAL CHEAT SHEET", classes="card-title")
+                    yield Static("[dim]/serve       : Toggle API Server (8080)[/dim]")
+                    yield Static("[dim]/curl        : Display Quillan Curl[/dim]")
                     yield Static("[dim]/model <id>  : Switch model[/dim]")
                     yield Static("[dim]/key <p> <k> : Store API Key[/dim]")
-                    yield Static("[dim]/council on  : 34-Expert mode[/dim]")
+                    yield Static("[dim]/council     : Toggle 34-Expert mode[/dim]")
+                    yield Static("[dim]/paper       : View Research Paper[/dim]")
                     yield Static("[dim]/bench       : Run speed test[/dim]")
                     yield Static("[dim]/clear       : Clear viewport[/dim]")
                     yield Static("[dim]/exit        : Terminate TUI[/dim]")
 
             # Center Viewport
             with VerticalScroll(id="chat-container"):
-                yield Static(
-                    "### 🗡️ Welcome to the Quillan-Ronin Sovereign Command Center\n\n"
-                    "Native models loaded from `C:\\02_QUILLAN\\exports`. Type a prompt below or use slash commands.",
-                    classes="chat-bubble-system"
-                )
+                yield Markdown(STARTUP_GREETING, classes="chat-bubble-system")
 
         # Bottom Input
         with Horizontal(id="input-deck"):
@@ -200,6 +225,10 @@ class QuillanCommandCenter(App):
 
     def on_mount(self):
         self.query_one("#user-input").focus()
+        # Check initial server status
+        if self.engine.server_mgr.is_running():
+            self.server_status = "ONLINE"
+            self.query_one("#server-status-label").update("Server: [bold green]ONLINE (:8080)[/bold green]")
 
     def on_select_changed(self, event: Select.Changed):
         if event.select.id == "model-select":
@@ -241,6 +270,41 @@ class QuillanCommandCenter(App):
         elif cmd == "/bench":
             chat.mount(Static("⚡ **Running instantaneous benchmark...**", classes="chat-bubble-system"))
             self.run_generation_task("Calculate the prime factorization of 2048 and state Bushido honor.")
+        elif cmd == "/curl":
+            curl_cmd = get_curl_command(self.engine.active_model_id)
+            md_card = (
+                f"### ⚡ The Quillan Curl (Active Model: `{self.engine.active_model_id}`)\n\n"
+                f"```bash\n{curl_cmd}\n```\n"
+                f"*Send this command from any terminal or script to query Quillan directly.*"
+            )
+            chat.mount(Markdown(md_card, classes="chat-bubble-curl"))
+        elif cmd == "/serve":
+            running = self.engine.server_mgr.is_running()
+            if running:
+                ok, msg = self.engine.server_mgr.stop()
+                self.server_status = "OFFLINE"
+                self.query_one("#server-status-label").update("Server: [bold red]OFFLINE[/bold red]")
+                chat.mount(Static(f"🛑 **Server stopped:** {msg}", classes="chat-bubble-system"))
+            else:
+                chat.mount(Static("⏳ **Launching Quillan API Server on port 8080...**", classes="chat-bubble-system"))
+                ok, msg = self.engine.server_mgr.start()
+                if ok:
+                    self.server_status = "ONLINE"
+                    self.query_one("#server-status-label").update("Server: [bold green]ONLINE (:8080)[/bold green]")
+                    chat.mount(Static(f"✅ **{msg}**\n*Query via `/curl` or visit `http://localhost:8080/` in browser.*", classes="chat-bubble-system"))
+                else:
+                    chat.mount(Static(f"❌ **Failed to start server:** {msg}", classes="chat-bubble-system"))
+        elif cmd == "/paper":
+            pdf_path = r"C:\02_QUILLAN\10 - Formal Papers\Building_Foundation_Models_via_Weight_Space_Programming.pdf"
+            paper_info = (
+                "### 📄 Formal Research Paper\n\n"
+                "**Title:** *Building Foundation Models via Weight-Space Programming: Pure Analytical Parameter Synthesis Without Backpropagation*\n\n"
+                f"• **PDF Location:** `{pdf_path}`\n"
+                "• **Figures:** 4 High-Resolution 300 DPI Publication Plates in `10 - Formal Papers/figures`\n"
+                "• **Benchmarks:** 48.0 tok/s generation throughput, 770 MB VRAM footprint on GTX 1050 (sm_61)\n"
+                "• **View/Download:** Start server (`/serve`) and open `http://localhost:8080/docs/paper`."
+            )
+            chat.mount(Markdown(paper_info, classes="chat-bubble-system"))
         elif cmd == "/key":
             if len(parts) >= 3:
                 prov, key = parts[1], parts[2]
@@ -276,7 +340,7 @@ class QuillanCommandCenter(App):
         elif cmd == "/exit":
             self.exit()
         else:
-            chat.mount(Static(f"❓ Unknown command: `{cmd}`. Use `/help` for tactical assistance.", classes="chat-bubble-system"))
+            chat.mount(Static(f"❓ Unknown command: `{cmd}`. Use `/curl`, `/serve`, `/paper`, `/bench`, `/model`, or `/help`.", classes="chat-bubble-system"))
 
         chat.scroll_end(animate=False)
 
@@ -320,6 +384,5 @@ class QuillanCommandCenter(App):
             pass
 
 if __name__ == "__main__":
-    app = CommandCenter() if 'CommandCenter' in locals() else QuillanCommandCenter()
+    app = QuillanCommandCenter()
     app.run()
-

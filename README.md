@@ -104,6 +104,81 @@ PID token-velocity governor, and Langevin diffusion refinement — built &amp; t
 
 ---
 
+## ⚡ Quickstart: The Quillan Curl & Sovereign Command Center
+
+Quillan-Ronin v5.4.0 runs locally as a native OpenAI-compatible inference server and interactive Command Center. Query the model with a single `curl` command, run it in Ollama, or launch the interactive TUI.
+
+### 1. ⚡ The Quillan Curl (Drop-In OpenAI API)
+
+Start the local server (`quillan.bat --serve` or `python quillan_server.py --port 8080`) and query directly from any terminal:
+
+```bash
+curl http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "quillan-1b-sovereign-q4",
+    "messages": [
+      {"role": "system", "content": "You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido."},
+      {"role": "user", "content": "What is the core principle of Weight-Space Programming?"}
+    ],
+    "temperature": 0.3
+  }'
+```
+
+### 2. 🖥️ Interactive Command Center (TUI)
+
+Launch the full-featured terminal UI with real-time hardware telemetry, 34-council deliberation monitor, BYOK cloud router, and model switcher:
+
+```bash
+# Windows Quick Launcher
+.\quillan.bat
+
+# Or direct Python
+python quillan_tui.py
+```
+
+### 3. 🌐 Browser Command Gateway (`http://localhost:8080`)
+
+Open your web browser to `http://localhost:8080` for the interactive Web Command Portal featuring:
+- **1-Click Quillan Curl generator** with copy-to-clipboard
+- **Live streaming token playground** with real-time speedometer
+- **Hardware telemetry monitor** (770 MB VRAM footprint on GTX 1050)
+- **34-Council consensus node board** (C0 Throne through C34 Predator)
+
+### 4. 🦙 Run via Ollama (Hugging Face GGUF)
+
+Run the sovereign model directly via Ollama without any compilation:
+
+```bash
+ollama run hf.co/CrashOverrideX/Quillan-Ronin:quillan-1b-sovereign-q4_k_m.gguf
+```
+
+### 5. 🐍 Drop-in Python SDK (OpenAI Compatible)
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="http://localhost:8080/v1", api_key="quillan-sovereign")
+
+response = client.chat.completions.create(
+    model="quillan-1b-sovereign-q4",
+    messages=[
+        {"role": "system", "content": "You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido."},
+        {"role": "user", "content": "Analyze our system architecture for alignment and security."}
+    ]
+)
+print(response.choices[0].message.content)
+```
+
+### 6. 📄 Formal Research Paper (PDF)
+
+Download the complete academic research paper detailing the Weight-Space Programming (WSP) methodology, mathematical proofs, and empirical benchmarks:
+- **Title:** *Building Foundation Models via Weight-Space Programming: Pure Analytical Parameter Synthesis Without Backpropagation*
+- **Master Paper (PDF):** [`10 - Formal Papers/Building_Foundation_Models_via_Weight_Space_Programming.pdf`](10%20-%20Formal%20Papers/Building_Foundation_Models_via_Weight_Space_Programming.pdf)
+- **Publication Figures (300 DPI):** [`10 - Formal Papers/figures`](10%20-%20Formal%20Papers/figures)
+
+---
+
 ## ⚡ Hardware Kernel Ablation: 100 tok/s on Consumer Pascal GPU
 
 > **Ablation Invariant:** Same Physical Hardware. Same Untrained Base Checkpoint. Same Matrix Multiplications. Pure Kernel Efficiency.
