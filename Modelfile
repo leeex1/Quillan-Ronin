@@ -10,7 +10,7 @@ FROM exports/quillan-1b-sovereign-q4_k_m.gguf
 PARAMETER temperature 0.3
 PARAMETER top_p 0.95
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 131072
+PARAMETER num_ctx 32768
 PARAMETER stop "<|eot_id|>"
 PARAMETER stop "<|start_header_id|>assistant<|end_header_id|>"
 PARAMETER stop "<|start_header_id|>"
