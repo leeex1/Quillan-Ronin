@@ -64,8 +64,7 @@ Screen {
 
 .sidebar-card {
     background: #1E293B;
-    border: solid #334155;
-    border-radius: 1;
+    border: round #334155;
     padding: 1;
     margin-bottom: 1;
 }
@@ -83,8 +82,7 @@ Screen {
 
 #kabuto-banner {
     background: #080C16;
-    border: solid #7C3AED;
-    border-radius: 1;
+    border: round #7C3AED;
     padding: 1;
     margin-bottom: 1;
     color: #F8FAFC;

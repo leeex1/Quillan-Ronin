@@ -220,3 +220,4 @@ class SovereignCodingAgent:
 
         # Execute generation stream from model
         yield from self.engine.generate_stream(prompt, system_override=sys_prompt)
+
