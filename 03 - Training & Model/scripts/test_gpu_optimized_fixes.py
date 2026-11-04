@@ -253,3 +253,4 @@ for cat, prompt in test_prompts:
     print("-" * 80)
 
 print(f"\n>>> Final VRAM Peak: {torch.cuda.max_memory_allocated() / (1024**2):.1f} MB / 4096 MB")
+
