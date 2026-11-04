@@ -320,3 +320,4 @@ if __name__ == "__main__":
     # Test action declaration
     decl = agent.get_tool_declaration()
     print("✓ Tool Declaration Schema:", json.dumps(decl, indent=2))
+
