@@ -171,10 +171,10 @@ KABUTO_BANNER_TEXT = """[bold purple]┌─────────────�
 
 STARTUP_GREETING = """### 🗡️ Sovereign Command Center // Tactical Quickstart
 
-**Tripartite Sovereign Models (Ollama Hub):**
-• 👑 **Quillan-Ronin Flagship** (`crashoverridex/Quillan-Ronin:latest`) — 12L 1.2B Sovereign MoE
-• ⚡ **Quillan-Ronin Mini** (`crashoverridex/Quillan-Ronin-mini:latest`) — 6L 0.5B Sovereign Edge
-• 🐉 **Quillan-Dragon** (`crashoverridex/Quillan-Dragon:latest`) — Falcon 3 1B Instruct Base
+**Tripartite Sovereign Models (Ollama Hub & WSP v3.0 Surgical GGUF):**
+• 👑 **Quillan-Ronin Flagship** (`crashoverridex/Quillan-Ronin:latest` | `quillan-1b-sovereign-wsp-v3-q4`) — 1.2B 146-Tensor WSP v3.0
+• ⚡ **Quillan-Ronin Mini** (`crashoverridex/Quillan-Ronin-mini:latest` | `quillan-mini-0.5b-wsp-v3-q4`) — 0.5B 290-Tensor WSP v3.0
+• 🐉 **Quillan-Dragon** (`crashoverridex/Quillan-Dragon:latest` | `quillan-dragon-1b-wsp-v3-q4`) — Falcon-3 1B 165-Tensor WSP v3.0
 
 ```bash
 # ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API Endpoint)

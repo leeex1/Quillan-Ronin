@@ -27,22 +27,67 @@ KEYS_FILE = os.path.join(ROOT_DIR, ".quillan_keys.json")
 
 # Default Local Models
 LOCAL_MODELS = {
+    "quillan-1b-sovereign-wsp-v3-q4": {
+        "name": "Quillan-Ronin 1.2B Flagship WSP v3.0 (Q4_K_M GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-wsp-v3-q4_k_m.gguf"),
+        "type": "local_gguf",
+        "chat_template": "llama3",
+        "description": "146-Tensor Surgical WSP v3.0 | 51+ tok/s | 770 MB VRAM"
+    },
+    "quillan-mini-0.5b-wsp-v3-q4": {
+        "name": "Quillan-Ronin-Mini 0.5B WSP v3.0 (Q4_K_M GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-mini-0.5b-wsp-v3-q4_k_m.gguf"),
+        "type": "local_gguf",
+        "chat_template": "chatml",
+        "description": "290-Tensor Surgical Edge Mini | 85+ tok/s | 380 MB VRAM"
+    },
+    "quillan-dragon-1b-wsp-v3-q4": {
+        "name": "Quillan-Dragon Falcon-3 1B WSP v3.0 (Q4_K_M GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-dragon-1b-wsp-v3-q4_k_m.gguf"),
+        "type": "local_gguf",
+        "chat_template": "chatml",
+        "description": "165-Tensor Surgical Falcon-3 | 50+ tok/s | 780 MB VRAM"
+    },
+    "quillan-1b-sovereign-wsp-v3-q8": {
+        "name": "Quillan-Ronin 1.2B Flagship WSP v3.0 (Q8_0 GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-wsp-v3-q8_0.gguf"),
+        "type": "local_gguf",
+        "chat_template": "llama3",
+        "description": "146-Tensor Surgical High-Precision | 1.26 GB VRAM"
+    },
+    "quillan-mini-0.5b-wsp-v3-q8": {
+        "name": "Quillan-Ronin-Mini 0.5B WSP v3.0 (Q8_0 GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-mini-0.5b-wsp-v3-q8_0.gguf"),
+        "type": "local_gguf",
+        "chat_template": "chatml",
+        "description": "290-Tensor Surgical High-Precision Mini | 510 MB VRAM"
+    },
+    "quillan-dragon-1b-wsp-v3-q8": {
+        "name": "Quillan-Dragon Falcon-3 1B WSP v3.0 (Q8_0 GGUF)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-dragon-1b-wsp-v3-q8_0.gguf"),
+        "type": "local_gguf",
+        "chat_template": "chatml",
+        "description": "165-Tensor Surgical High-Precision Falcon-3 | 1.70 GB VRAM"
+    },
     "quillan-1b-sovereign-q4": {
-        "name": "Quillan-Ronin 1.2B Sovereign (Q4_K_M GGUF)",
+        "name": "Quillan-Ronin 1.2B Sovereign Released (Q4_K_M GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-q4_k_m.gguf"),
         "type": "local_gguf",
-        "description": "Native Folded MoE | 50+ tok/s | 770 MB VRAM"
+        "chat_template": "llama3",
+        "description": "Released Production Checkpoint | 50+ tok/s | 770 MB VRAM"
     },
     "quillan-1b-sovereign-q8": {
-        "name": "Quillan-Ronin 1.2B Sovereign (Q8_0 GGUF)",
+        "name": "Quillan-Ronin 1.2B Sovereign Released (Q8_0 GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-q8_0.gguf"),
         "type": "local_gguf",
-        "description": "High-Precision Reference | 1.26 GB VRAM"
+        "chat_template": "llama3",
+        "description": "Released High-Precision Reference | 1.26 GB VRAM"
     },
     "quillan-1b-sovereign-f16": {
-        "name": "Quillan-Ronin 1.2B Sovereign (F16 Master GGUF)",
+        "name": "Quillan-Ronin 1.2B Sovereign Released (F16 Master GGUF)",
         "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-f16.gguf"),
         "type": "local_gguf",
+        "chat_template": "llama3",
         "description": "Uncompressed Full Precision Master | 2.36 GB"
     }
 }
@@ -362,26 +407,41 @@ class SovereignInferenceEngine:
         model_type = model_meta.get("type", "cloud")
 
         if model_type == "local_gguf":
-            yield from self._stream_local_gguf(prompt, sys_prompt, model_meta["path"])
+            yield from self._stream_local_gguf(
+                prompt, sys_prompt, model_meta["path"], model_meta.get("chat_template", "llama3")
+            )
         elif model_meta.get("provider") == "ollama" or model_type == "ollama":
             api_model = model_meta.get("api_model") or self.active_model_id.replace("ollama:", "")
             yield from self._stream_ollama(prompt, sys_prompt, api_model)
         else:
             yield from self._stream_byok_api(prompt, sys_prompt, model_meta)
 
-    def _stream_local_gguf(self, prompt: str, sys_prompt: str, gguf_path: str) -> Generator[Dict[str, Any], None, None]:
-        """Runs local llama-cli in single-turn streaming mode."""
-        formatted_prompt = (
-            f"<|start_header_id|>system<|end_header_id|>\n\n{sys_prompt}<|eot_id|>"
-            f"<|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|>"
-            f"<|start_header_id|>assistant<|end_header_id|>\n\n"
-        )
+    def _stream_local_gguf(
+        self, prompt: str, sys_prompt: str, gguf_path: str, chat_template: str = "llama3"
+    ) -> Generator[Dict[str, Any], None, None]:
+        """Runs local llama-cli in single-turn streaming mode with Pascal GTX 1050 (sm_61) optimized tok/s flags."""
+        if chat_template == "chatml":
+            formatted_prompt = (
+                f"<|im_start|>system\n{sys_prompt}<|im_end|>\n"
+                f"<|im_start|>user\n{prompt}<|im_end|>\n"
+                f"<|im_start|>assistant\n"
+            )
+        else:
+            formatted_prompt = (
+                f"<|start_header_id|>system<|end_header_id|>\n\n{sys_prompt}<|eot_id|>"
+                f"<|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|>"
+                f"<|start_header_id|>assistant<|end_header_id|>\n\n"
+            )
         cmd = [
             LLAMA_CLI_BIN,
             "-m", gguf_path,
             "-p", formatted_prompt,
             "-n", "256",
-            "--temp", "0.3",
+            "--temp", "0.0",
+            "--top-k", "1",
+            "-c", "1024",
+            "-ctk", "f16",
+            "-ctv", "f16",
             "-st",
             "--simple-io",
             "--no-display-prompt",
@@ -432,12 +492,12 @@ class SovereignInferenceEngine:
                 if line.startswith("> "):
                     in_banner = False
                     in_prompt = True
-                    if "... (truncated)" in line or "assistant<|end_header_id|>" in line:
+                    if any(tok in line for tok in ["... (truncated)", "assistant<|end_header_id|>", "<|im_start|>assistant"]):
                         in_prompt = False
                     continue
 
                 if in_prompt:
-                    if "... (truncated)" in line or "assistant<|end_header_id|>" in line:
+                    if any(tok in line for tok in ["... (truncated)", "assistant<|end_header_id|>", "<|im_start|>assistant"]):
                         in_prompt = False
                     continue
 
@@ -445,7 +505,7 @@ class SovereignInferenceEngine:
                     continue
 
                 # 4. Stream actual model response tokens
-                clean_text = line.replace("<|eot_id|>", "").replace("<|im_end|>", "")
+                clean_text = line.replace("<|eot_id|>", "").replace("<|im_end|>", "").replace("<|endoftext|>", "")
                 if clean_text:
                     tokens_emitted += len(clean_text.split())
                     yield {"type": "token", "text": clean_text}
@@ -555,8 +615,12 @@ class SovereignInferenceEngine:
             "model": model_tag,
             "prompt": prompt,
             "stream": True,
+            "keep_alive": "30m",
             "options": {
-                "temperature": 0.3
+                "temperature": 0.3,
+                "num_gpu": 99,
+                "num_batch": 512,
+                "num_thread": max(4, min(8, (os.cpu_count() or 8) // 2))
             }
         }
         # Only inject explicit system prompt if it is a custom override;
