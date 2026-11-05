@@ -420,22 +420,11 @@ class SovereignInferenceEngine:
         self, prompt: str, sys_prompt: str, gguf_path: str, chat_template: str = "llama3"
     ) -> Generator[Dict[str, Any], None, None]:
         """Runs local llama-cli in single-turn streaming mode with Pascal GTX 1050 (sm_61) optimized tok/s flags."""
-        if chat_template == "chatml":
-            formatted_prompt = (
-                f"<|im_start|>system\n{sys_prompt}<|im_end|>\n"
-                f"<|im_start|>user\n{prompt}<|im_end|>\n"
-                f"<|im_start|>assistant\n"
-            )
-        else:
-            formatted_prompt = (
-                f"<|start_header_id|>system<|end_header_id|>\n\n{sys_prompt}<|eot_id|>"
-                f"<|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|>"
-                f"<|start_header_id|>assistant<|end_header_id|>\n\n"
-            )
         cmd = [
             LLAMA_CLI_BIN,
             "-m", gguf_path,
-            "-p", formatted_prompt,
+            "-sys", sys_prompt,
+            "-p", prompt,
             "-n", "256",
             "--temp", "0.0",
             "--top-k", "1",
@@ -463,7 +452,6 @@ class SovereignInferenceEngine:
             )
             
             in_banner = True
-            in_prompt = False
             captured_tps = 50.0
 
             for line in proc.stdout:
@@ -483,22 +471,14 @@ class SovereignInferenceEngine:
                 # 2. Filter CLI banner artifacts
                 if any(m in line for m in [
                     "Loading model...", "build      :", "model      :", "modalities :",
-                    "available commands:", "/regen", "/clear", "/read <file>", "/glob <pattern>",
-                    "▄▄", "██", "▀▀█▄", "▀████"
+                    "using custom system prompt", "available commands:", "/regen", "/clear",
+                    "/read <file>", "/glob <pattern>", "▄▄", "██", "▀▀█▄", "▀████"
                 ]):
                     continue
 
-                # 3. Detect prompt echo boundary
+                # 3. Detect prompt echo boundary (`> <prompt>`)
                 if line.startswith("> "):
                     in_banner = False
-                    in_prompt = True
-                    if any(tok in line for tok in ["... (truncated)", "assistant<|end_header_id|>", "<|im_start|>assistant"]):
-                        in_prompt = False
-                    continue
-
-                if in_prompt:
-                    if any(tok in line for tok in ["... (truncated)", "assistant<|end_header_id|>", "<|im_start|>assistant"]):
-                        in_prompt = False
                     continue
 
                 if in_banner:
