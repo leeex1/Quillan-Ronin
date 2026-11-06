@@ -202,12 +202,12 @@ The uncompressed full training snapshot (`5.22 GB`) is **not on local drives `C:
 
 | Task | Status | Explanation |
 | :--- | :---: | :--- |
-| Confirm 3B checkpoint location and checksum | **Open** | Located on Google Drive; local drives only have 2.59 GB `quillan_12l_best.pt`. |
+| Confirm 3B checkpoint location and checksum | **Done / Resolved** | Located on E: drive (`E:\quillan_checkpoints_oni\quillan_12l_best.pt`, 2.59 GB, SHA-256 `2b207d70de0c988139f54b49721fc997f9c08194d41bafd0f450c2ef4dc91ffb` and `quillan_12l_latest.pt`, 2.59 GB, SHA-256 `fb1a7186a7f6e87e660d9378504d99d8a5575fd35e317c35d89b62f06f65c75f`). |
 | Resolve 3B resume unknowns (optimizer, dataset, offset) | **Moot locally** | Local 3B training is replaced by WSP compilation; deferred until cloud GPU grant. |
 | Follow up Lambda 1,000 H100-hour grant (applied 2026-09-12) | **Open** | Essential for native 12-layer pretraining and giant donor model creation. |
 | Run Gate 0 audit on 1k-step base, start SFT/EGGROLL | **Done** | Gate 0 held-out eval harness completed; SFT+DPO grad-v6 achieved 76.5% accuracy. |
 | Train 12-layer flagship (Phase C — 15k steps) | **Moot / Deferred** | Infeasible on GTX 1050; parked until Lambda grant. |
-| Audio fix: delete duplicate docs/assets/audio | **Open** | 13 duplicate tracks remain as Git LFS pointers; parked on JD. |
+| Audio fix: delete duplicate docs/assets/audio | **Done / Resolved** | Deleted duplicate `docs/assets/audio/` folder (13 tracks), committed in `77f7ba21` and pushed to `origin/main`. Canonical audio retained at `assets/audio/`. |
 | Fix dead ECOSYSTEM.md stub | **Done / Resolved** | Canonical 6.39 KB registry created at `02 - Knowledge Foundation\ECOSYSTEM.md`. |
 | Build quillan.cpp general loader for ternary+FP mixes | **Open** | Standard GGUF loader functional; custom mixed bit-packing loader in progress. |
 | Backfill manifest V2 for every model artifact | **Done** | Completed in `E:\manifests-v2` and `exports/checkpoint_sha256_ledger.json`. |
@@ -220,9 +220,9 @@ The uncompressed full training snapshot (`5.22 GB`) is **not on local drives `C:
 1. **Git LFS Maxing Out (324 pointer files):**  
    Confirmed **324 tracked LFS files** via `git lfs ls-files`. The repository is on the GitHub free tier (1 GB storage, 1 GB/month bandwidth). LFS bandwidth limit warnings are active; any full LFS clone or smudge will exhaust free quota.
 2. **Audio LFS Pointers Duplicated:**  
-   **Still true.** Exactly 13 MP3 tracks in `assets/audio/` and 13 identical MP3 tracks in `docs/assets/audio/` (26 LFS pointers total).
-3. **3B Checkpoint Location Unconfirmed:**  
-   **Answered in Section 3.** The 5.22 GB file is not on local drives C: or E:; it resides in Google Drive.
+   **RESOLVED.** Deleted the duplicate `docs/assets/audio/` folder (13 tracks) and pushed to `origin/main` (commit `77f7ba21`). Canonical audio is safely stored in `assets/audio/`.
+3. **3B Checkpoint Location & Checksum:**  
+   **RESOLVED.** Located on local E: drive (`E:\quillan_checkpoints_oni\quillan_12l_best.pt`, 2,589,483,525 bytes, SHA-256: `2b207d70de0c988139f54b49721fc997f9c08194d41bafd0f450c2ef4dc91ffb` and `quillan_12l_latest.pt`, 2,589,486,783 bytes, SHA-256: `fb1a7186a7f6e87e660d9378504d99d8a5575fd35e317c35d89b62f06f65c75f`).
 4. **ECOSYSTEM.md Dead Stub:**  
    **Resolved.** The registry is fully authored at `C:\02_QUILLAN\02 - Knowledge Foundation\ECOSYSTEM.md`. The only remaining task is redirecting any stale markdown links pointing to the non-existent `knowledge/canonical/ECOSYSTEM.md`.
 

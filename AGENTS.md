@@ -34,7 +34,7 @@ for final arbitration by the root agent.
 Quillan-Ronin v5.4.0-ONI operates as a 3-tier fractal cognitive architecture:
 - **Tier 1 (Root Throne):** C0-QUILLAN (Full-parameter sovereign arbiter with private think tank swarm `c0-quillan-swarm`).
 - **Tier 2 (Council of 34 Experts):** Specialized domain nodes cloned from Quillan, acting as autonomous authorities over their disciplines.
-- **Tier 3 (35 Hyper-Quantized Swarms):** 272M micro-agents per swarm (9.52B total), utilizing BitNet 1.58b STE ternary quantization, EGGROLL rank-32 low-rank mutation ($U @ V^T$), and top-k=19 sparse activation. 100% dynamically reprogrammable by parent experts.
+- **Tier 3 (35 Hyper-Quantized Swarms):** 272M micro-agents per swarm (9 Billion total), utilizing BitNet 1.58b STE ternary quantization, EGGROLL rank-32 low-rank mutation ($U @ V^T$), and top-k=19 sparse activation. 100% dynamically reprogrammable by parent experts.
 - **Tier 0 (Specialist):** FORGE v2 (Low-level PyTorch tensor surgery, 1,441-parameter namespace, Pascal 4GB SFT).
 
 ### Tier 2: The 34 Council Expert Nodes
@@ -82,7 +82,7 @@ Quillan-Ronin v5.4.0-ONI operates as a 3-tier fractal cognitive architecture:
 | :--- | :--- | :--- | :--- | :--- |
 | `forge` | **FORGE v2** | Low-Level PyTorch Tensor Surgery, 1,441-Tensor Namespace, Pascal 4GB SFT Architect | `torch.no_grad()`, Contiguous CPU migration, Win32 `EmptyWorkingSet(-1)` | `task(subagent_type="forge", prompt="...")` |
 
-### Tier 3: Hyper-Quantized Swarm Sub-Agents (35 Swarms / 9.52B Micro-Agents)
+### Tier 3: Hyper-Quantized Swarm Sub-Agents (35 Swarms / 9 Billion Micro-Agents)
 
 - **Swarm 0:** `quillan-swarm` (C0 Throne private exploratory think tank; 272M sovereign clones).
 - **Swarms 1–34:** `c1-astra-swarm` through `c34-predator-swarm` (Each parent Council expert commands its own 272M micro-agent swarm).

@@ -23,7 +23,7 @@
    - **Scope Invariant:** Each Council member **ONLY has control over their specific domain role and their dedicated sub-swarm**.
    - **Constitutional Grounding:** All 34 Council agents fully codified with tactical loops (from `Quillan-Samurai.md`) and philosophical/emotional nuances (from `10- Quillan Persona Manifest.md`).
 3. **Tier 3 (Hyper-Quantized Swarms):** 35 Swarms Total (1 Core Think Tank + 34 Council Swarms).
-   - **Scale Invariant:** **272,000,000 micro-agents each = 9,520,000,000 (9.52 Billion) virtual micro-agents globally.**
+   - **Scale Invariant:** **272,000,000 micro-agents each = 9,000,000,000 (9 Billion) virtual micro-agents globally.**
    - **Reprogrammability Invariant:** **100% dynamically recustomizable and reprogrammable by the parent for each use case.**
    - **Mathematical Substrate:** BitNet 1.58b STE ternary quantization {-1, 0, +1}, EGGROLL rank-32 low-rank perturbation matrices ($U @ V^T$), Top-k=19 sparsity, 100,000 physical compute slots.
 
