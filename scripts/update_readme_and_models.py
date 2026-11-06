@@ -203,3 +203,4 @@ with open(README_PATH, "w", encoding="utf-8") as f:
     f.write(text)
 
 print(f"Final README size: {len(text)} chars, lines: {len(text.splitlines())}")
+
