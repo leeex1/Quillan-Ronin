@@ -80,17 +80,17 @@ Hardware: Single NVIDIA GeForce GTX 1050 (4GB VRAM), Intel Core i7 / 16GB RAM, `
   - File Size: `807,693,696 bytes` (770.28 MB)
   - Prompt Processing: `210.4 tok/s`
   - Generation Speed: Mean `52.7 tok/s`, Peak `58.1 tok/s`
-  - Hugging Face Upload: **Local export only**; Hugging Face currently holds the previous release `quillan-1b-sovereign-q4_k_m.gguf`. Ready for push.
+  - Hugging Face Upload: **LIVE ON HUGGING FACE** (`quillan-1b-sovereign-wsp-v3-q4_k_m.gguf` uploaded to `CrashOverrideX/Quillan-Ronin`).
 - **Model B (Mini 0.5B):**
   - File Size: `397,807,808 bytes` (379.38 MB)
   - Prompt Processing: `342.1 tok/s`
   - Generation Speed: Mean `74.7 tok/s`, Peak `82.4 tok/s`
-  - Hugging Face Upload: **Local export only**. Ready for push.
+  - Hugging Face Upload: **LIVE ON HUGGING FACE** (`quillan-mini-0.5b-wsp-v3-q4_k_m.gguf` uploaded to `CrashOverrideX/Quillan-Ronin`).
 - **Model C (Dragon 1B):**
   - File Size: `1,057,043,008 bytes` (1008.07 MB)
   - Prompt Processing: `195.8 tok/s`
   - Generation Speed: Mean `46.2 tok/s`, Peak `51.5 tok/s`
-  - Hugging Face Upload: **Local export only**. Ready for push.
+  - Hugging Face Upload: **LIVE ON HUGGING FACE** (`quillan-dragon-1b-wsp-v3-q4_k_m.gguf` uploaded to `CrashOverrideX/Quillan-Ronin`).
 
 ---
 
