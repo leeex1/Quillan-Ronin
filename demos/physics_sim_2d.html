@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendulum & Projectile Physics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        canvas {
+            background-color: #2d3748;
+            border: 2px solid #4a5568;
+            border-radius: 0.5rem;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            touch-action: none;
+            cursor: crosshair;
+        }
+        .controls {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .btn {
+            padding: 12px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            border: none;
+            user-select: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-image: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+            color: #e2e8f0;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1);
+        }
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+
+    <div class="container mx-auto max-w-4xl bg-gray-800 rounded-lg p-6 shadow-xl text-center">
+        <h1 class="text-3xl font-bold mb-2">Physics Simulator</h1>
+        <p class="mb-4 text-gray-400">Drag to launch a projectile or drag the pendulum to set its starting position.</p>
+        <canvas id="physicsCanvas"></canvas>
+    </div>
+
+    <script>
+        // --- Core Simulation Setup ---
+        const canvas = document.getElementById('physicsCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas dimensions
+        const WIDTH = window.innerWidth * 0.9;
+        const HEIGHT = window.innerHeight * 0.7;
+        canvas.width = WIDTH;
+        canvas.height = HEIGHT;
+
+        // Physics constants
+        const GRAVITY = 0.5; // Acceleration due to gravity
+
+        // Mouse position variables
+        let currentMouseX = 0;
+        let currentMouseY = 0;
+
+        // --- Pendulum ---
+        class Pendulum {
+            constructor() {
+                this.x = WIDTH / 2;
+                this.y = HEIGHT / 4;
+                this.length = HEIGHT / 2.5;
+                this.angle = Math.PI / 4; // Start at 45 degrees
+                this.angularVelocity = 0;
+                this.angularAcceleration = 0;
+                this.radius = 20;
+                this.color = '#e2e8f0';
+                this.damping = 0.995;
+                this.isDragging = false;
+            }
+
+            update() {
+                if (this.isDragging) return;
+
+                // Calculate angular acceleration from gravity
+                this.angularAcceleration = (-GRAVITY / this.length) * Math.sin(this.angle);
+                
+                // Update velocity and angle
+                this.angularVelocity += this.angularAcceleration;
+                this.angularVelocity *= this.damping; // Apply damping
+                this.angle += this.angularVelocity;
+            }
+
+            draw() {
+                // Calculate the bob's position
+                const bobX = this.x + this.length * Math.sin(this.angle);
+                const bobY = this.y + this.length * Math.cos(this.angle);
+
+                // Draw the string
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(bobX, bobY);
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw the bob
+                ctx.beginPath();
+                ctx.arc(bobX, bobY, this.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.strokeStyle = '#4b5563';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        // --- Projectile ---
+        class Projectile {
+            constructor(x, y, vx, vy) {
+                this.x = x;
+                this.y = y;
+                this.vx = vx;
+                this.vy = vy;
+                this.radius = 10;
+                this.color = '#eab308';
+                this.path = [];
+            }
+
+            update() {
+                this.vy += GRAVITY;
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // Store path for drawing trajectory
+                this.path.push({x: this.x, y: this.y});
+            }
+
+            draw() {
+                // Draw the projectile
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                
+                // Draw the trajectory path
+                ctx.beginPath();
+                ctx.moveTo(this.path[0].x, this.path[0].y);
+                for (let i = 1; i < this.path.length; i++) {
+                    ctx.lineTo(this.path[i].x, this.path[i].y);
+                }
+                ctx.strokeStyle = 'rgba(234, 179, 8, 0.5)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+        }
+
+        // --- Simulation State ---
+        let pendulum = new Pendulum();
+        let projectile = null;
+        let isDraggingProjectile = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+
+        // --- Animation Loop ---
+        function animate() {
+            // Clear the canvas
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            ctx.fillStyle = '#2d3748';
+            ctx.fillRect(0, 0, WIDTH, HEIGHT);
+            
+            // Draw a ground plane
+            ctx.beginPath();
+            ctx.moveTo(0, HEIGHT - 5);
+            ctx.lineTo(WIDTH, HEIGHT - 5);
+            ctx.strokeStyle = '#4a5568';
+            ctx.lineWidth = 5;
+            ctx.stroke();
+
+            pendulum.update();
+            pendulum.draw();
+
+            if (projectile) {
+                projectile.update();
+                projectile.draw();
+            }
+
+            // Draw the launch indicator line if dragging
+            if (isDraggingProjectile) {
+                ctx.beginPath();
+                ctx.moveTo(dragStartX, dragStartY);
+                ctx.lineTo(currentMouseX, currentMouseY);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // --- Event Handlers ---
+        canvas.addEventListener('mousedown', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Check if the user is clicking on the pendulum bob
+            const bobX = pendulum.x + pendulum.length * Math.sin(pendulum.angle);
+            const bobY = pendulum.y + pendulum.length * Math.cos(pendulum.angle);
+            const distance = Math.sqrt(Math.pow(mouseX - bobX, 2) + Math.pow(mouseY - bobY, 2));
+
+            if (distance < pendulum.radius) {
+                pendulum.isDragging = true;
+            } else {
+                isDraggingProjectile = true;
+                dragStartX = mouseX;
+                dragStartY = mouseY;
+                projectile = null; // Clear old projectile
+            }
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            currentMouseX = e.clientX - rect.left;
+            currentMouseY = e.clientY - rect.top;
+
+            if (pendulum.isDragging) {
+                // Calculate new angle based on mouse position
+                const dx = currentMouseX - pendulum.x;
+                const dy = currentMouseY - pendulum.y;
+                pendulum.angle = Math.atan2(dx, dy);
+                pendulum.angularVelocity = 0; // Stop the pendulum when dragging
+            }
+        });
+
+        canvas.addEventListener('mouseup', (e) => {
+            if (pendulum.isDragging) {
+                pendulum.isDragging = false;
+                // Calculate initial velocity from the position change just before release
+                pendulum.angularVelocity = 0.01; // Small initial push to get it going
+            }
+            if (isDraggingProjectile) {
+                const vx = (dragStartX - currentMouseX) / 10;
+                const vy = (dragStartY - currentMouseY) / 10;
+                projectile = new Projectile(dragStartX, dragStartY, vx, vy);
+                isDraggingProjectile = false;
+            }
+        });
+
+        // Add mobile touch support
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }, false);
+
+        canvas.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }, false);
+
+        canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            const touch = e.changedTouches[0];
+            const mouseEvent = new MouseEvent('mouseup', {
+                clientX: touch.clientX,
+                clientY: touch.clientY,
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }, false);
+
+        // Start the animation
+        window.onload = animate;
+
+    </script>
+</body>
+</html>

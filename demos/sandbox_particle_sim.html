@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized AI-Controlled Particle System</title>
+    <style>
+        body {
+            background: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Courier New', monospace;
+            color: #00ffff;
+        }
+
+        canvas {
+            display: block;
+            cursor: crosshair;
+        }
+
+        .ai-brain-panel {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 280px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .neural-activity {
+            margin: 8px 0;
+        }
+
+        .neuron-bar {
+            width: 100%;
+            height: 18px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 9px;
+            margin: 3px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .neuron-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            transition: width 0.2s ease;
+            border-radius: 9px;
+        }
+
+        .decision-display {
+            background: rgba(0,255,255,0.1);
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            padding: 8px;
+            margin: 8px 0;
+            font-size: 11px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .control-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            transition: all 0.2s ease;
+        }
+
+        .control-button:hover {
+            background: linear-gradient(45deg, #764ba2, #667eea);
+            box-shadow: 0 0 8px #667eea;
+            transform: translateY(-1px);
+        }
+
+        .control-button:active {
+            transform: translateY(0);
+        }
+
+        .stats-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 220px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 11px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thought-process {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            height: 120px;
+            background: rgba(0,0,0,0.95);
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .thinking-indicator {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: pulse 1s ease-in-out infinite;
+            margin-right: 5px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .fps-counter {
+            position: fixed;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 10px;
+            color: #00ffff;
+        }
+
+        .mode-indicator {
+            position: fixed;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,255,255,0.8);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .error-log {
+            position: fixed;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255,0,0,0.8);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-size: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    
+    <div class="ai-brain-panel">
+        <h3 style="margin-top: 0; color: #00ffff; font-size: 14px;">🧠 AI Neural Activity</h3>
+        
+        <div class="neural-activity">
+            <div style="font-size: 10px;">Pattern Recognition</div>
+            <div class="neuron-bar">
+                <div class="neuron-fill" id="pattern-neuron" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="neural-activity">
+            <div style="font-size: 10px;">Flow Dynamics</div>
+            <div class="neuron-bar">
+                <div class="neuron-fill" id="flow-neuron" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="neural-activity">
+            <div style="font-size: 10px;">Coordination</div>
+            <div class="neuron-bar">
+                <div class="neuron-fill" id="coord-neuron" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="neural-activity">
+            <div style="font-size: 10px;">Emergent Behavior</div>
+            <div class="neuron-bar">
+                <div class="neuron-fill" id="emergent-neuron" style="width: 0%"></div>
+            </div>
+        </div>
+        
+        <div class="decision-display">
+            <div><strong>Decision:</strong> <span id="ai-decision">Initializing...</span></div>
+            <div><strong>Confidence:</strong> <span id="ai-confidence">0%</span></div>
+            <div><strong>Status:</strong> <span id="ai-status">Starting...</span></div>
+        </div>
+    </div>
+
+    <div class="stats-panel">
+        <h4 style="margin-top: 0; color: #00ffff; font-size: 12px;">System Stats</h4>
+        <div>Particles: <span id="particle-count">0</span></div>
+        <div>FPS: <span id="fps-display">0</span></div>
+        <div>AI Decisions/sec: <span id="decisions-per-sec">0</span></div>
+        <div>Complexity: <span id="complexity-index">0.0</span></div>
+        <div>Coherence: <span id="pattern-coherence">0%</span></div>
+        <div>Performance: <span id="performance-status">Good</span></div>
+    </div>
+
+    <div class="controls">
+        <h4 style="margin-top: 0; color: #00ffff; font-size: 12px;">Controls</h4>
+        <button class="control-button" id="toggle-ai-btn">🧠 Toggle AI</button>
+        <button class="control-button" id="add-particles-btn">➕ Add Particles</button>
+        <button class="control-button" id="reset-btn">🔄 Reset</button>
+        <button class="control-button" id="mode-btn">🔀 Mode: Liquid</button>
+        <br>
+        <button class="control-button" id="speed-btn">⚡ Speed: Normal</button>
+        <button class="control-button" id="quality-btn">📊 Quality: High</button>
+    </div>
+
+    <div class="thought-process">
+        <h4 style="margin-top: 0; color: #00ffff; font-size: 11px;">
+            <span class="thinking-indicator"></span>AI Thoughts
+        </h4>
+        <div id="thought-log"></div>
+    </div>
+
+    <div class="mode-indicator" id="mode-display">LIQUID MODE</div>
+    <div class="fps-counter" id="fps-counter">FPS: 60</div>
+    <div class="error-log" id="error-log"></div>
+
+    <script>
+        class OptimizedAIParticleSystem {
+            constructor() {
+                try {
+                    this.canvas = document.getElementById('particleCanvas');
+                    this.ctx = this.canvas.getContext('2d');
+                    this.particles = [];
+                    this.aiActive = true;
+                    this.mode = 'liquid';
+                    this.quality = 'high'; // high, medium, low
+                    this.speed = 'normal'; // slow, normal, fast
+                    
+                    // Performance monitoring
+                    this.frameCount = 0;
+                    this.lastFrameTime = performance.now();
+                    this.fps = 60;
+                    this.targetFPS = 60;
+                    this.deltaTime = 0;
+                    
+                    // AI state
+                    this.neuralState = {
+                        patternRecognition: 0,
+                        flowDynamics: 0,
+                        particleCoordination: 0,
+                        emergentBehavior: 0
+                    };
+                    
+                    // Optimization settings
+                    this.maxParticles = this.quality === 'high' ? 150 : this.quality === 'medium' ? 100 : 50;
+                    this.connectionRange = 40;
+                    this.maxConnections = 3;
+                    
+                    // Decision making
+                    this.decisionCounter = 0;
+                    this.lastDecisionTime = performance.now();
+                    this.currentDecision = { type: 'maintain', confidence: 0.5 };
+                    
+                    this.init();
+                } catch (error) {
+                    this.showError('Initialization failed: ' + error.message);
+                }
+            }
+
+            init() {
+                try {
+                    this.setupCanvas();
+                    this.setupEventListeners();
+                    this.initializeParticles();
+                    this.startAI();
+                    this.animate();
+                    this.updateUI();
+                } catch (error) {
+                    this.showError('Setup failed: ' + error.message);
+                }
+            }
+
+            setupCanvas() {
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+                
+                this.canvas.addEventListener('mousemove', (e) => {
+                    if (this.aiActive) {
+                        this.handleMouseInput(e.clientX, e.clientY);
+                    }
+                });
+            }
+
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            setupEventListeners() {
+                // Button event listeners
+                document.getElementById('toggle-ai-btn').addEventListener('click', () => this.toggleAI());
+                document.getElementById('add-particles-btn').addEventListener('click', () => this.addParticles());
+                document.getElementById('reset-btn').addEventListener('click', () => this.resetSystem());
+                document.getElementById('mode-btn').addEventListener('click', () => this.changeMode());
+                document.getElementById('speed-btn').addEventListener('click', () => this.changeSpeed());
+                document.getElementById('quality-btn').addEventListener('click', () => this.changeQuality());
+                
+                // Keyboard controls
+                document.addEventListener('keydown', (e) => {
+                    try {
+                        switch(e.key.toLowerCase()) {
+                            case ' ':
+                                e.preventDefault();
+                                this.toggleAI();
+                                break;
+                            case 'a':
+                                this.addParticles();
+                                break;
+                            case 'r':
+                                this.resetSystem();
+                                break;
+                            case 'm':
+                                this.changeMode();
+                                break;
+                            case 's':
+                                this.changeSpeed();
+                                break;
+                            case 'q':
+                                this.changeQuality();
+                                break;
+                        }
+                    } catch (error) {
+                        this.showError('Keyboard input error: ' + error.message);
+                    }
+                });
+            }
+
+            initializeParticles() {
+                this.particles = [];
+                const numParticles = Math.min(this.maxParticles, 100);
+                
+                for (let i = 0; i < numParticles; i++) {
+                    this.particles.push(this.createParticle());
+                }
+            }
+
+            createParticle(x = null, y = null) {
+                return {
+                    id: Math.random().toString(36).substr(2, 9),
+                    x: x !== null ? x : Math.random() * this.canvas.width,
+                    y: y !== null ? y : Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 2,
+                    size: Math.random() * 2 + 1,
+                    color: this.getRandomColor(),
+                    energy: Math.random(),
+                    age: 0,
+                    maxAge: 1000 + Math.random() * 2000,
+                    connections: [],
+                    aiControlled: this.aiActive
+                };
+            }
+
+            getRandomColor() {
+                const colors = [
+                    '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', 
+                    '#ffeaa7', '#dda0dd', '#98d8c8', '#f7dc6f'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            startAI() {
+                // AI decision making - optimized intervals
+                setInterval(() => {
+                    if (this.aiActive) {
+                        this.aiDecisionCycle();
+                    }
+                }, 200); // Reduced frequency to 5 decisions per second
+
+                // Neural activity update
+                setInterval(() => {
+                    this.updateNeuralActivity();
+                }, 100);
+
+                // Thought logging
+                setInterval(() => {
+                    this.logAIThought();
+                }, 2000); // Reduced frequency
+
+                // Performance monitoring
+                setInterval(() => {
+                    this.updatePerformanceStats();
+                }, 1000);
+            }
+
+            aiDecisionCycle() {
+                try {
+                    this.decisionCounter++;
+                    
+                    // Analyze system state
+                    const systemState = this.analyzeSystemState();
+                    
+                    // Make AI decision
+                    this.currentDecision = this.makeAIDecision(systemState);
+                    
+                    // Apply decision to particles
+                    this.applyAIDecision(this.currentDecision);
+                    
+                    // Update UI
+                    this.updateAIDisplay();
+                    
+                } catch (error) {
+                    this.showError('AI decision error: ' + error.message);
+                }
+            }
+
+            analyzeSystemState() {
+                if (this.particles.length === 0) {
+                    return { coherence: 0, dispersion: 0, complexity: 0, energy: 0 };
+                }
+
+                let centerX = 0, centerY = 0, totalEnergy = 0;
+                
+                this.particles.forEach(p => {
+                    centerX += p.x;
+                    centerY += p.y;
+                    totalEnergy += p.energy;
+                });
+                
+                centerX /= this.particles.length;
+                centerY /= this.particles.length;
+                
+                // Calculate dispersion (simplified)
+                let dispersion = 0;
+                this.particles.forEach(p => {
+                    const dx = p.x - centerX;
+                    const dy = p.y - centerY;
+                    dispersion += Math.sqrt(dx * dx + dy * dy);
+                });
+                dispersion /= this.particles.length;
+                
+                // Calculate coherence (simplified)
+                let coherence = 0;
+                let pairs = 0;
+                for (let i = 0; i < Math.min(this.particles.length, 20); i++) {
+                    const p1 = this.particles[i];
+                    for (let j = i + 1; j < Math.min(this.particles.length, 20); j++) {
+                        const p2 = this.particles[j];
+                        const dx = p1.x - p2.x;
+                        const dy = p1.y - p2.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < this.connectionRange) {
+                            coherence += 1;
+                            pairs++;
+                        }
+                    }
+                }
+                
+                coherence = pairs > 0 ? coherence / pairs : 0;
+                const complexity = (totalEnergy + coherence * 10) / this.particles.length;
+                
+                return { coherence, dispersion, complexity, energy: totalEnergy };
+            }
+
+            makeAIDecision(state) {
+                // Update neural states
+                this.neuralState.patternRecognition = Math.min(1, state.coherence * 2);
+                this.neuralState.flowDynamics = Math.min(1, state.dispersion / 200);
+                this.neuralState.particleCoordination = Math.min(1, state.coherence * 3);
+                this.neuralState.emergentBehavior = Math.min(1, state.complexity / 3);
+                
+                // AI decision logic
+                let decision = { type: 'maintain', intensity: 0.5, confidence: 0.5 };
+                
+                if (state.coherence < 0.3) {
+                    decision = {
+                        type: 'organize',
+                        intensity: 0.7,
+                        confidence: this.neuralState.patternRecognition
+                    };
+                } else if (state.dispersion > 200) {
+                    decision = {
+                        type: 'gather',
+                        intensity: 0.6,
+                        confidence: this.neuralState.flowDynamics
+                    };
+                } else if (state.complexity > 2) {
+                    decision = {
+                        type: 'flow',
+                        intensity: 0.8,
+                        confidence: this.neuralState.emergentBehavior
+                    };
+                } else {
+                    decision = {
+                        type: 'explore',
+                        intensity: 0.4,
+                        confidence: this.neuralState.particleCoordination
+                    };
+                }
+                
+                return decision;
+            }
+
+            applyAIDecision(decision) {
+                const speedMultiplier = this.speed === 'fast' ? 2 : this.speed === 'slow' ? 0.5 : 1;
+                const intensity = decision.intensity * speedMultiplier;
+                
+                this.particles.forEach((p, index) => {
+                    if (!p.aiControlled) return;
+                    
+                    switch (decision.type) {
+                        case 'organize':
+                            this.organizeParticle(p, intensity);
+                            break;
+                        case 'gather':
+                            this.gatherParticle(p, intensity);
+                            break;
+                        case 'flow':
+                            this.flowParticle(p, intensity, index);
+                            break;
+                        case 'explore':
+                            this.exploreParticle(p, intensity);
+                            break;
+                        default:
+                            this.maintainParticle(p);
+                    }
+                    
+                    p.energy = Math.min(1, p.energy + intensity * 0.05);
+                });
+            }
+
+            organizeParticle(p, intensity) {
+                // Find nearby particles and align
+                let avgVx = 0, avgVy = 0, neighbors = 0;
+                
+                for (let i = 0; i < Math.min(this.particles.length, 10); i++) {
+                    const other = this.particles[i];
+                    if (other === p) continue;
+                    
+                    const dx = p.x - other.x;
+                    const dy = p.y - other.y;
+                    const distance = dx * dx + dy * dy; // Skip sqrt for performance
+                    
+                    if (distance < 2500) { // 50px squared
+                        avgVx += other.vx;
+                        avgVy += other.vy;
+                        neighbors++;
+                    }
+                }
+                
+                if (neighbors > 0) {
+                    avgVx /= neighbors;
+                    avgVy /= neighbors;
+                    p.vx = p.vx * 0.9 + avgVx * 0.1 * intensity;
+                    p.vy = p.vy * 0.9 + avgVy * 0.1 * intensity;
+                }
+            }
+
+            gatherParticle(p, intensity) {
+                const centerX = this.canvas.width / 2;
+                const centerY = this.canvas.height / 2;
+                const dx = centerX - p.x;
+                const dy = centerY - p.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 10) {
+                    p.vx += (dx / distance) * intensity * 0.05;
+                    p.vy += (dy / distance) * intensity * 0.05;
+                }
+            }
+
+            flowParticle(p, intensity, index) {
+                const time = performance.now() * 0.001;
+                const phase = (index / this.particles.length) * Math.PI * 2;
+                
+                const flowX = Math.sin(time + phase) * intensity;
+                const flowY = Math.cos(time * 0.7 + phase) * intensity;
+                
+                p.vx += flowX * 0.02;
+                p.vy += flowY * 0.02;
+            }
+
+            exploreParticle(p, intensity) {
+                p.vx += (Math.random() - 0.5) * intensity * 0.1;
+                p.vy += (Math.random() - 0.5) * intensity * 0.1;
+            }
+
+            maintainParticle(p) {
+                p.vx *= 0.99;
+                p.vy *= 0.99;
+            }
+
+            handleMouseInput(mouseX, mouseY) {
+                // Optimized mouse interaction
+                for (let i = 0; i < Math.min(this.particles.length, 20); i++) {
+                    const p = this.particles[i];
+                    const dx = mouseX - p.x;
+                    const dy = mouseY - p.y;
+                    const distance = dx * dx + dy * dy;
+                    
+                    if (distance < 10000) { // 100px squared
+                        const force = (10000 - distance) / 10000;
+                        const dist = Math.sqrt(distance);
+                        p.vx += (dx / dist) * force * 0.05;
+                        p.vy += (dy / dist) * force * 0.05;
+                    }
+                }
+            }
+
+            updateParticles() {
+                for (let i = this.particles.length - 1; i >= 0; i--) {
+                    const p = this.particles[i];
+                    
+                    // Update position
+                    p.x += p.vx * this.deltaTime * 60; // Normalize for 60fps
+                    p.y += p.vy * this.deltaTime * 60;
+                    
+                    // Boundary handling
+                    if (p.x < 0 || p.x > this.canvas.width) {
+                        p.vx *= -0.8;
+                        p.x = Math.max(0, Math.min(this.canvas.width, p.x));
+                    }
+                    if (p.y < 0 || p.y > this.canvas.height) {
+                        p.vy *= -0.8;
+                        p.y = Math.max(0, Math.min(this.canvas.height, p.y));
+                    }
+                    
+                    // Apply friction
+                    p.vx *= 0.998;
+                    p.vy *= 0.998;
+                    
+                    // Update age and energy
+                    p.age++;
+                    p.energy *= 0.999;
+                    
+                    // Remove old particles
+                    if (p.age > p.maxAge) {
+                        this.particles.splice(i, 1);
+                    }
+                }
+                
+                // Maintain minimum particle count
+                while (this.particles.length < this.maxParticles * 0.5) {
+                    this.particles.push(this.createParticle());
+                }
+            }
+
+            drawParticles() {
+                // Clear canvas
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw connections (optimized)
+                if (this.quality !== 'low') {
+                    this.ctx.globalAlpha = 0.3;
+                    this.ctx.lineWidth = 1;
+                    
+                    for (let i = 0; i < Math.min(this.particles.length, 50); i++) {
+                        const p = this.particles[i];
+                        let connections = 0;
+                        
+                        for (let j = i + 1; j < Math.min(this.particles.length, 50) && connections < this.maxConnections; j++) {
+                            const other = this.particles[j];
+                            const dx = p.x - other.x;
+                            const dy = p.y - other.y;
+                            const distance = dx * dx + dy * dy;
+                            
+                            if (distance < this.connectionRange * this.connectionRange) {
+                                const alpha = (this.connectionRange * this.connectionRange - distance) / (this.connectionRange * this.connectionRange);
+                                this.ctx.strokeStyle = `rgba(0, 255, 255, ${alpha * 0.3})`;
+                                this.ctx.beginPath();
+                                this.ctx.moveTo(p.x, p.y);
+                                this.ctx.lineTo(other.x, other.y);
+                                this.ctx.stroke();
+                                connections++;
+                            }
+                        }
+                    }
+                }
+                
+                // Draw particles
+                this.ctx.globalAlpha = 0.9;
+                this.particles.forEach(p => {
+                    // Main particle
+                    this.ctx.fillStyle = p.color;
+                    this.ctx.beginPath();
+                    this.ctx.arc(p.x, p.y, p.size * (1 + p.energy * 0.5), 0, Math.PI * 2);
+                    this.ctx.fill();
+                    
+                    // Energy glow effect
+                    if (p.energy > 0.6 && this.quality === 'high') {
+                        this.ctx.globalAlpha = p.energy * 0.4;
+                        this.ctx.fillStyle = '#ffffff';
+                        this.ctx.beginPath();
+                        this.ctx.arc(p.x, p.y, p.size * (1 + p.energy) * 1.3, 0, Math.PI * 2);
+                        this.ctx.fill();
+                        this.ctx.globalAlpha = 0.9;
+                    }
+                });
+                
+                this.ctx.globalAlpha = 1;
+            }
+
+            animate() {
+                const currentTime = performance.now();
+                this.deltaTime = (currentTime - this.lastFrameTime) / 1000;
+                this.lastFrameTime = currentTime;
+                
+                // Calculate FPS
+                this.frameCount++;
+                if (this.frameCount % 60 === 0) {
+                    this.fps = Math.round(1 / this.deltaTime);
+                }
+                
+                // Update and draw
+                this.updateParticles();
+                this.drawParticles();
+                
+                // Continue animation
+                requestAnimationFrame(() => this.animate());
+            }
+
+            updateNeuralActivity() {
+                try {
+                    const elements = {
+                        'pattern-neuron': this.neuralState.patternRecognition,
+                        'flow-neuron': this.neuralState.flowDynamics,
+                        'coord-neuron': this.neuralState.particleCoordination,
+                        'emergent-neuron': this.neuralState.emergentBehavior
+                    };
+                    
+                    Object.entries(elements).forEach(([id, value]) => {
+                        const element = document.getElementById(id);
+                        if (element) {
+                            element.style.width = `${Math.max(0, Math.min(100, value * 100))}%`;
+                        }
+                    });
+                } catch (error) {
+                    this.showError('Neural activity update error: ' + error.message);
+                }
+            }
+
+            updateAIDisplay() {
+                try {
+                    const decisionEl = document.getElementById('ai-decision');
+                    const confidenceEl = document.getElementById('ai-confidence');
+                    const statusEl = document.getElementById('ai-status');
+                    
+                    if (decisionEl) decisionEl.textContent = this.currentDecision.type;
+                    if (confidenceEl) confidenceEl.textContent = `${(this.currentDecision.confidence * 100).toFixed(0)}%`;
+                    if (statusEl) statusEl.textContent = this.aiActive ? 'Active' : 'Paused';
+                } catch (error) {
+                    this.showError('AI display update error: ' + error.message);
+                }
+            }
+
+            updatePerformanceStats() {
+                try {
+                    const elements = {
+                        'particle-count': this.particles.length,
+                        'fps-display': this.fps,
+                        'decisions-per-sec': Math.round(this.decisionCounter / 5), // 5 second average
+                        'complexity-index': (this.neuralState.emergentBehavior * 10).toFixed(1),
+                        'pattern-coherence': `${(this.neuralState.patternRecognition * 100).toFixed(0)}%`,
+                        'performance-status': this.fps > 45 ? 'Good' : this.fps > 25 ? 'Fair' : 'Poor'
+                    };
+                    
+                    Object.entries(elements).forEach(([id, value]) => {
+                        const element = document.getElementById(id);
+                        if (element) element.textContent = value;
+                    });
+                    
+                    // Update FPS counter
+                    const fpsCounter = document.getElementById('fps-counter');
+                    if (fpsCounter) fpsCounter.textContent = `FPS: ${this.fps}`;
+                    
+                    // Reset counter
+                    this.decisionCounter = 0;
+                } catch (error) {
+                    this.showError('Performance stats error: ' + error.message);
+                }
+            }
+
+            logAIThought() {
+                try {
+                    const thoughts = [
+                        `Analyzing ${this.particles.length} particles...`,
+                        `${this.currentDecision.type} decision at ${(this.currentDecision.confidence * 100).toFixed(0)}% confidence`,
+                        `Flow coherence: ${(this.neuralState.patternRecognition * 100).toFixed(0)}%`,
+                        `Emergent patterns detected in particle movement`,
+                        `Optimizing collective behavior algorithms`,
+                        `Processing spatial relationships and energy states`,
+                        `Monitoring system complexity and stability`,
+                        `Adjusting coordination parameters dynamically`
+                    ];
+                    
+                    const thought = thoughts[Math.floor(Math.random() * thoughts.length)];
+                    const timestamp = new Date().toLocaleTimeString();
+                    
+                    const thoughtLog = document.getElementById('thought-log');
+                    if (thoughtLog) {
+                        const logEntry = document.createElement('div');
+                        logEntry.innerHTML = `<span style="color: #666; font-size: 9px;">[${timestamp}]</span> ${thought}`;
+                        thoughtLog.appendChild(logEntry);
+                        
+                        // Keep only last 8 thoughts
+                        while (thoughtLog.children.length > 8) {
+                            thoughtLog.removeChild(thoughtLog.firstChild);
+                        }
+                        
+                        // Auto-scroll
+                        thoughtLog.scrollTop = thoughtLog.scrollHeight;
+                    }
+                } catch (error) {
+                    this.showError('Thought logging error: ' + error.message);
+                }
+            }
+
+            updateUI() {
+                try {
+                    const modeDisplay = document.getElementById('mode-display');
+                    const modeBtn = document.getElementById('mode-btn');
+                    const speedBtn = document.getElementById('speed-btn');
+                    const qualityBtn = document.getElementById('quality-btn');
+                    const toggleBtn = document.getElementById('toggle-ai-btn');
+                    
+                    if (modeDisplay) modeDisplay.textContent = `${this.mode.toUpperCase()} MODE`;
+                    if (modeBtn) modeBtn.textContent = `🔀 Mode: ${this.mode}`;
+                    if (speedBtn) speedBtn.textContent = `⚡ Speed: ${this.speed}`;
+                    if (qualityBtn) qualityBtn.textContent = `📊 Quality: ${this.quality}`;
+                    if (toggleBtn) toggleBtn.textContent = this.aiActive ? '🧠 AI: ON' : '🧠 AI: OFF';
+                } catch (error) {
+                    this.showError('UI update error: ' + error.message);
+                }
+            }
+
+            showError(message) {
+                console.error(message);
+                const errorLog = document.getElementById('error-log');
+                if (errorLog) {
+                    errorLog.textContent = message;
+                    errorLog.style.display = 'block';
+                    setTimeout(() => {
+                        errorLog.style.display = 'none';
+                    }, 3000);
+                }
+            }
+
+            // Control functions
+            toggleAI() {
+                try {
+                    this.aiActive = !this.aiActive;
+                    this.particles.forEach(p => p.aiControlled = this.aiActive);
+                    this.updateUI();
+                    this.logAIThought();
+                } catch (error) {
+                    this.showError('Toggle AI error: ' + error.message);
+                }
+            }
+
+            addParticles() {
+                try {
+                    const numNew = Math.min(25, this.maxParticles - this.particles.length);
+                    for (let i = 0; i < numNew; i++) {
+                        this.particles.push(this.createParticle(
+                            Math.random() * this.canvas.width,
+                            Math.random() * this.canvas.height
+                        ));
+                    }
+                    this.updateUI();
+                } catch (error) {
+                    this.showError('Add particles error: ' + error.message);
+                }
+            }
+
+            resetSystem() {
+                try {
+                    this.particles = [];
+                    this.neuralState = {
+                        patternRecognition: 0,
+                        flowDynamics: 0,
+                        particleCoordination: 0,
+                        emergentBehavior: 0
+                    };
+                    this.initializeParticles();
+                    this.updateUI();
+                    this.updateNeuralActivity();
+                } catch (error) {
+                    this.showError('Reset system error: ' + error.message);
+                }
+            }
+
+            changeMode() {
+                try {
+                    const modes = ['liquid', 'swarm', 'neural', 'chaos'];
+                    const currentIndex = modes.indexOf(this.mode);
+                    this.mode = modes[(currentIndex + 1) % modes.length];
+                    
+                    // Adjust particle behavior based on mode
+                    this.particles.forEach(p => {
+                        switch (this.mode) {
+                            case 'liquid':
+                                p.size = Math.random() * 2 + 1;
+                                this.connectionRange = 40;
+                                break;
+                            case 'swarm':
+                                p.size = Math.random() * 1.5 + 1.5;
+                                this.connectionRange = 60;
+                                break;
+                            case 'neural':
+                                p.size = Math.random() * 3 + 1;
+                                this.connectionRange = 80;
+                                break;
+                            case 'chaos':
+                                p.size = Math.random() * 4 + 1;
+                                p.vx = (Math.random() - 0.5) * 6;
+                                p.vy = (Math.random() - 0.5) * 6;
+                                this.connectionRange = 30;
+                                break;
+                        }
+                    });
+                    
+                    this.updateUI();
+                } catch (error) {
+                    this.showError('Change mode error: ' + error.message);
+                }
+            }
+
+            changeSpeed() {
+                try {
+                    const speeds = ['slow', 'normal', 'fast'];
+                    const currentIndex = speeds.indexOf(this.speed);
+                    this.speed = speeds[(currentIndex + 1) % speeds.length];
+                    this.updateUI();
+                } catch (error) {
+                    this.showError('Change speed error: ' + error.message);
+                }
+            }
+
+            changeQuality() {
+                try {
+                    const qualities = ['low', 'medium', 'high'];
+                    const currentIndex = qualities.indexOf(this.quality);
+                    this.quality = qualities[(currentIndex + 1) % qualities.length];
+                    
+                    // Adjust settings based on quality
+                    this.maxParticles = this.quality === 'high' ? 150 : this.quality === 'medium' ? 100 : 50;
+                    this.maxConnections = this.quality === 'high' ? 5 : this.quality === 'medium' ? 3 : 1;
+                    
+                    // Remove excess particles if needed
+                    while (this.particles.length > this.maxParticles) {
+                        this.particles.pop();
+                    }
+                    
+                    this.updateUI();
+                } catch (error) {
+                    this.showError('Change quality error: ' + error.message);
+                }
+            }
+        }
+
+        // Initialize the system when page loads
+        let particleSystem;
+
+        window.addEventListener('load', () => {
+            try {
+                particleSystem = new OptimizedAIParticleSystem();
+                console.log('✅ AI Particle System initialized successfully');
+            } catch (error) {
+                console.error('❌ Failed to initialize AI Particle System:', error);
+                
+                // Show error to user
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = `
+                    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    background: rgba(255,0,0,0.9); color: white; padding: 20px;
+                    border-radius: 10px; text-align: center; font-family: monospace;
+                    z-index: 10000;
+                `;
+                errorDiv.innerHTML = `
+                    <h3>System Error</h3>
+                    <p>Failed to initialize AI Particle System</p>
+                    <p style="font-size: 12px;">${error.message}</p>
+                    <button onclick="location.reload()" style="margin-top: 10px; padding: 5px 10px;">Reload Page</button>
+                `;
+                document.body.appendChild(errorDiv);
+            }
+        });
+
+        // Add error handling for unhandled errors
+        window.addEventListener('error', (e) => {
+            console.error('Global error:', e.error);
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
+    </script>
+</body>
+</html>

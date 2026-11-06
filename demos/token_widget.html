@@ -1,0 +1,240 @@
+<body style="height: 100%; display: flex; flex-direction: column; overflow: hidden; background-color: var(--surface-container); margin: 0px;">
+<script>
+/**
+ * QUILLAN-RONIN v5.4.0-ONI QUANTUM Architecture Explorer
+ * A high-fidelity interactive visualization of a 1.58-bit HyperQuantized AI pipeline.
+ */
+// 1. Data Definitions
+const PHASES = [
+    {
+        name: "Multi-Modal Encoders",
+        params: "~80M",
+        tech: "Universal BitNet 1.58-bit",
+        desc: "Ingestion of Text, Image, Audio, and Video into an Atomic Modality Registry.",
+        icon: 'hub',
+        sub: ["Text (50k Vocab)", "BitConv2D (16x16)", "BitConv1D Audio", "BitConv3D Video"]
+    },
+    {
+        name: "9-Vector Prism",
+        params: "~35M",
+        tech: "BitLinear Blueprints",
+        desc: "Convergence of 9 parallel semantic streams (L, S, C, I, M, Cr, E, St, Co).",
+        icon: 'filter_vintage',
+        sub: ["9 Parallel Streams", "Semantic Recombination", "Hyper-Dimensional Mapping"]
+    },
+    {
+        name: "Gumbel MoE Council",
+        params: "~3.62B",
+        tech: "Top-4 Expert Routing",
+        desc: "A massive council of 34 experts. Orchestration, Logic, Specialists, and Physics.",
+        icon: 'groups',
+        sub: ["Router (Gumbel-Softmax)", "34 COUNCIL EXPERTS", "Top-4 Active Experts"]
+    },
+    {
+        name: "Eggroll Swarm",
+        params: "9B Virtual Agents",
+        tech: "Math Shattering",
+        desc: "Hyperquantized INT8 agent pooling utilizing Rank-16 perturbations.",
+        icon: 'Grain',
+        sub: ["Tier 3 Shattering", "Agent Virtualization", "Rank-16 Perturbations"]
+    },
+    {
+        name: "Flash Diffusion Core",
+        params: "~755M",
+        tech: "CausalSDPABlock",
+        desc: "32-layer Pre-LN structure with Continuous Modality RoPE and Split-SDPA.",
+        icon: 'cyclone',
+        sub: ["32-Layer Pre-LN", "Continuous RoPE", "Split-SDPA Bridge"]
+    },
+    {
+        name: "Finalizer & Decoders",
+        params: "~120M",
+        tech: "Wavefunction Finalizer",
+        desc: "Geometric Exact Decoders mapping semantic states back to multi-modal outputs.",
+        icon: 'output',
+        sub: ["Wavefunction Finalizer", "Text/Image Decoders", "Vectorized AV Outputs"]
+    }
+];
+// 2. Setup App
+const { state, ui } = WH.createApp({
+    title: "QUILLAN-RONIN v5.4.0-ONI QUANTUM Explorer",
+    params: {
+        phase: { value: 0, min: 0, max: 5, step: 1, label: "Timeline Phase" },
+        reset: { type: 'button', label: 'Reset View', onClick: (s) => s.phase = 0 }
+    }
+});
+// Initialize internal state
+state.particles = Array.from({ length: 40 }, () => ({
+    x: Math.random(),
+    y: Math.random(),
+    vx: (Math.random() - 0.5) * 0.01,
+    vy: (Math.random() - 0.5) * 0.01,
+    size: Math.random() * 3 + 1
+}));
+// Function to update HUD based on selection
+const updateHUD = (idx) => {
+    const p = PHASES[idx];
+    ui.setHUD([
+        { label: "Module", value: p.name },
+        { label: "Parameters", value: p.params },
+        { label: "Architecture", value: p.tech }
+    ]);
+    ui.setStatus(p.desc);
+};
+// Listen for phase changes
+state._subscribe((key, val) => {
+    if (key === 'phase') updateHUD(val);
+});
+// 3. Initialize Visualization
+WH.initCanvas('viz', (ctx) => {
+    // Initial HUD
+    updateHUD(state.phase);
+    return ({ ctx, width, height, time, dt, pointer, state }) => {
+        const minDim = Math.min(width, height);
+        const margin = width * 0.1;
+        const spacing = (width - margin * 2) / (PHASES.length - 1);
+        const nodeY = height * 0.45;
+        const nodeSize = minDim * 0.08;
+        // Draw Flow Line (Background)
+        ctx.strokeStyle = WH.transparent('--outline', 0.2);
+        ctx.lineWidth = 2;
+        ctx.setLineDash([10, 5]);
+        ctx.beginPath();
+        ctx.moveTo(margin, nodeY);
+        ctx.lineTo(width - margin, nodeY);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        // Interaction: Hover/Click detection
+        let hoveredIndex = -1;
+        PHASES.forEach((p, i) => {
+            const x = margin + i * spacing;
+            const dist = Math.hypot(pointer.x - x, pointer.y - nodeY);
+            if (dist < nodeSize) {
+                hoveredIndex = i;
+                if (pointer.justPressed) state.phase = i;
+            }
+        });
+        // Draw Nodes
+        PHASES.forEach((p, i) => {
+            const x = margin + i * spacing;
+            const isSelected = state.phase === i;
+            const isHovered = hoveredIndex === i;        
+            // Draw connection arrow to next
+            if (i < PHASES.length - 1) {
+                const nextX = margin + (i + 1) * spacing;
+                ctx.drawArrow(x + nodeSize * 0.6, nodeY, spacing * 0.6, 0, isSelected ? '--primary' : '--outline-variant');
+            }
+            // Glow for selected
+            if (isSelected) {
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = WH.getColor('--primary');
+            }
+            // Node Circle
+            ctx.fillStyle = WH.getColor(isSelected ? '--primary' : '--surface-container-highest');
+            ctx.beginPath();
+            ctx.arc(x, nodeY, nodeSize * (isHovered ? 1.1 : 1), 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            // Icon
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = `${nodeSize * 0.6}px "Google Symbols"`;
+            ctx.fillStyle = WH.getColor(isSelected ? '--on-primary' : '--on-surface-variant');
+            ctx.fillText(p.icon, x, nodeY);
+            ctx.restore();
+            // Label
+            ctx.drawTag(`PHASE ${i + 1}`, x, nodeY + nodeSize + 20, isSelected ? '--primary' : '--surface');
+        });
+        // Phase-Specific Dynamic Graphics (Lower Half)
+        const activeY = height * 0.75;
+        const activePhase = PHASES[state.phase];
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.font = 'bold 18px Sans-Serif';
+        ctx.fillStyle = WH.getColor('--on-surface-default');
+        ctx.fillText(activePhase.name.toUpperCase(), width / 2, activeY - 100);
+        ctx.restore();
+        // Specific visualizations based on phase
+        switch (state.phase) {
+            case 0: // Multi-modal
+                activePhase.sub.forEach((s, i) => {
+                    const tx = width / 2 + (i - 1.5) * (width * 0.2);
+                    ctx.drawTag(s, tx, activeY, '--chart-1');
+                    ctx.drawArrow(tx, activeY - 30, 0, -50, '--chart-1');
+                });
+                break;
+            case 1: // Prism
+                const prismSize = minDim * 0.15;
+                for (let i = 0; i < 9; i++) {
+                    const angle = (i / 9) * Math.PI * 2;
+                    const px = width / 2 + Math.cos(angle) * prismSize;
+                    const py = activeY + Math.sin(angle) * prismSize;
+                    ctx.strokeStyle = WH.transparent('--chart-2', 0.5);
+                    ctx.beginPath();
+                    ctx.moveTo(px, py);
+                    ctx.lineTo(width / 2, activeY);
+                    ctx.stroke();
+                    ctx.fillStyle = WH.getColor('--chart-2');
+                    ctx.beginPath();
+                    ctx.arc(px, py, 4, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.drawTag("Convergence Point", width/2, activeY, '--chart-2');
+                break;
+            case 2: // MoE
+                const routerX = width / 2;
+                ctx.drawTag("Router", routerX, activeY - 50, '--primary');
+                for (let i = 0; i < 4; i++) {
+                    const ex = routerX + (i - 1.5) * 80;
+                    ctx.drawArrow(routerX, activeY - 30, ex - routerX, 40, '--chart-3');
+                    ctx.drawTag(`E${i+Math.floor(time%29)}`, ex, activeY + 30, '--chart-3');
+                }
+                break;
+            case 3: // Swarm
+                state.particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0 || p.x > 1) p.vx *= -1;
+                    if (p.y < 0 || p.y > 1) p.vy *= -1;      
+                    const px = width/2 - 150 + p.x * 300;
+                    const py = activeY - 50 + p.y * 100;
+                    ctx.fillStyle = WH.transparent('--chart-5', 0.6);
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+                ctx.drawTag("Shattering Matrix", width/2, activeY + 60, '--chart-5');
+                break;
+            case 4: // Core
+                const layers = 32;
+                const rectW = 200;
+                const rectH = 60;
+                ctx.strokeStyle = WH.getColor('--chart-4');
+                ctx.lineWidth = 1;
+                for (let i = 0; i < 5; i++) {
+                    const offset = i * 6;
+                    ctx.strokeRect(width/2 - rectW/2 + offset, activeY - rectH/2 - offset, rectW, rectH);
+                }
+                ctx.drawTag("32-Layer CausalSDPA", width/2 + 20, activeY - 20, '--chart-4');
+                break;
+            case 5: // Decoders
+                const outs = ["TEXT", "IMAGE", "AUDIO", "VIDEO"];
+                outs.forEach((o, i) => {
+                    const ox = width/2 + (i - 1.5) * 120;
+                    ctx.drawTag(o, ox, activeY, '--positive');
+                    ctx.drawArrow(width/2, activeY - 60, ox - width/2, 40, '--positive');
+                });
+                break;
+        }
+        // Header Title
+        ctx.save();
+        ctx.fillStyle = WH.getColor('--on-surface-default');
+        ctx.font = '12px Monospace';
+        ctx.textAlign = 'left';
+        ctx.fillText(`MODEL_HASH: Q-R_V6_QUANTUM_${Math.floor(time * 1000).toString(16)}`, 20, height - 20);
+        ctx.restore();
+    };
+});
+</script><div class="widget-header"><div class="header-top"><h3 class="widget-title" style="font-family: &quot;Google Sans&quot;, sans-serif; font-size: 16px; line-height: 24px; font-weight: 500; letter-spacing: 0px;">QUILLAN-RONIN v5.4.0-ONI QUANTUM Explorer</h3><div id="widget-dashboard" class="widget-dashboard"><div class="dash-pill"><span class="dash-label" style="font-family: &quot;Google Sans&quot;, sans-serif; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">MODULE</span><span class="dash-value" style="color: var(--on-surface-default); font-family: var(--ff-mono, &quot;Google Code&quot;), &quot;SF Mono&quot;, &quot;Roboto Mono&quot;, monospace; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0px;">Multi-Modal Encoders</span></div><div class="dash-pill"><span class="dash-label" style="font-family: &quot;Google Sans&quot;, sans-serif; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">PARAMETERS</span><span class="dash-value" style="color: var(--on-surface-default); font-family: var(--ff-mono, &quot;Google Code&quot;), &quot;SF Mono&quot;, &quot;Roboto Mono&quot;, monospace; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0px;">~80M</span></div><div class="dash-pill"><span class="dash-label" style="font-family: &quot;Google Sans&quot;, sans-serif; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase;">ARCHITECTURE</span><span class="dash-value" style="color: var(--on-surface-default); font-family: var(--ff-mono, &quot;Google Code&quot;), &quot;SF Mono&quot;, &quot;Roboto Mono&quot;, monospace; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0px;">Universal BitNet 1.58-bit</span></div></div></div><div id="app-status" class="header-status" style="display: block; font-family: &quot;Google Sans&quot;, sans-serif; font-size: 11px; line-height: 16px; font-weight: 500; letter-spacing: 0px;">Ingestion of Text, Image, Audio, and Video into an Atomic Modality Registry.</div></div><div id="viz" class="widget-ui-part viz-container grow bg-surface-container relative overflow-hidden"><div id="viz-badges" class="viz-badges"></div><canvas width="432" height="335" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; touch-action: none; outline: none;"></canvas><div class="viz-hud" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 10; contain: layout style;"></div></div><div id="controls-root" class="widget-ui-part p-m bg-surface w-full control-grid" style="flex: 0 1 auto; --s-40: 104px; --s-30: 104px;"><div class="xxs-row standard compact" data-key="phase"><label class="xxs-label" title="Timeline Phase" for="ctrl-012oc" style="font-family: &quot;Google Sans&quot;, sans-serif; font-size: 14px; line-height: 20px; font-weight: 400; letter-spacing: 0px;">Timeline Phase</label><div class="xxs-slider-wrap"><input type="range" class="xxs-slider" min="0" max="5" step="1" id="ctrl-012oc" style="--progress: 0%;"></div><input type="number" class="xxs-val-pill" min="0" max="5" step="1" style="font-family: var(--ff-mono, &quot;Google Code&quot;), &quot;SF Mono&quot;, &quot;Roboto Mono&quot;, monospace; font-size: 14px; line-height: 20px; font-weight: 700; letter-spacing: 0px;"></div><div class="xxs-row compact"><button class="xxs-btn" title="Reset View" style="width: 100%;">Reset View</button></div></div>
+</body>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Physics</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #1a1a2e;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: #e94560;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        p {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+        
+        #game-container {
+            position: relative;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 90vw; /* Use viewport units for fluid width */
+            max-width: 800px; /* Optional: set a maximum size for larger screens */
+            max-height: 90vh; /* Prevents the game from being too tall on small screens */
+            aspect-ratio: 1 / 1; /* Keep the container square */
+        }
+        
+        canvas {
+            display: block;
+            background-color: #0f3460;
+            border-radius: 15px;
+            width: 100%; /* Canvas fills the container */
+            height: 100%;
+        }
+
+        .controls {
+            margin-top: 20px;
+            margin-bottom: 20px; /* Add some space below the buttons */
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        button {
+            background: linear-gradient(45deg, #e94560, #ff725a);
+            border: none;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(255, 114, 90, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 114, 90, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Interactive Physics Simulation</h1>
+    <p>Click anywhere to spawn a new circle.</p>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    <div class="controls">
+        <button id="resetButton">Reset</button>
+    </div>
+
+    <!-- Matter.js library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+    <script>
+        window.onload = function() {
+            const canvas = document.getElementById('gameCanvas');
+            const container = document.getElementById('game-container');
+            
+            let engine, world, render, runner, mouse, mouseConstraint, walls;
+
+            // Function to set canvas and world size
+            function setupWorld() {
+                // Get the current dimensions of the container
+                canvas.width = container.offsetWidth;
+                canvas.height = container.offsetHeight;
+
+                // Create a Matter.js engine
+                engine = Matter.Engine.create();
+                world = engine.world;
+                world.gravity.scale = 0.001;
+
+                // Create a Matter.js renderer
+                render = Matter.Render.create({
+                    canvas: canvas,
+                    engine: engine,
+                    options: {
+                        wireframes: false,
+                        background: 'transparent'
+                    }
+                });
+                Matter.Render.run(render);
+
+                // Create a runner to manage the game loop
+                runner = Matter.Runner.create();
+                Matter.Runner.run(runner, engine);
+
+                // Create boundaries (walls and ground)
+                const wallThickness = 20;
+                walls = [
+                    Matter.Bodies.rectangle(canvas.width / 2, canvas.height, canvas.width, wallThickness, { isStatic: true, render: { fillStyle: '#e94560' } }), // Ground
+                    Matter.Bodies.rectangle(0, canvas.height / 2, wallThickness, canvas.height, { isStatic: true, render: { fillStyle: '#e94560' } }), // Left wall
+                    Matter.Bodies.rectangle(canvas.width, canvas.height / 2, wallThickness, canvas.height, { isStatic: true, render: { fillStyle: '#e94560' } }), // Right wall
+                    Matter.Bodies.rectangle(canvas.width / 2, 0, canvas.width, wallThickness, { isStatic: true, render: { fillStyle: '#e94560' } }) // Top wall
+                ];
+                Matter.Composite.add(world, walls);
+
+                // Add mouse control
+                mouse = Matter.Mouse.create(render.canvas);
+                mouseConstraint = Matter.MouseConstraint.create(engine, {
+                    mouse: mouse,
+                    constraint: {
+                        stiffness: 0.2,
+                        render: { visible: false }
+                    }
+                });
+                Matter.Composite.add(world, mouseConstraint);
+                render.mouse = mouse;
+            }
+
+            // Function to spawn a circle at a given position
+            function spawnCircle(x, y) {
+                const radius = 10 + Math.random() * 20;
+                const newCircle = Matter.Bodies.circle(x, y, radius, {
+                    friction: 0.001,
+                    restitution: 0.8,
+                    density: 0.001,
+                    render: {
+                        fillStyle: `hsl(${Math.random() * 360}, 70%, 70%)`
+                    }
+                });
+                Matter.Composite.add(world, newCircle);
+            }
+
+            // Handle mouse clicks on the canvas to spawn circles
+            canvas.addEventListener('mousedown', (event) => {
+                const rect = canvas.getBoundingClientRect();
+                const x = event.clientX - rect.left;
+                const y = event.clientY - rect.top;
+                spawnCircle(x, y);
+            });
+
+            // Handle touch events for mobile devices
+            canvas.addEventListener('touchstart', (event) => {
+                event.preventDefault();
+                const touch = event.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                spawnCircle(x, y);
+            });
+
+            const resetButton = document.getElementById('resetButton');
+            resetButton.addEventListener('click', () => {
+                Matter.Composite.clear(world, false);
+                Matter.Composite.add(world, walls);
+            });
+
+            // Initial setup
+            setupWorld();
+
+            // Handle window resizing
+            window.addEventListener('resize', () => {
+                // Rebuild the entire world on resize to ensure walls are correctly placed
+                Matter.Composite.clear(world, false);
+                Matter.Engine.clear(engine);
+                Matter.Render.stop(render);
+                Matter.Runner.stop(runner);
+                setupWorld();
+            });
+        };
+    </script>
+</body>
+</html>
