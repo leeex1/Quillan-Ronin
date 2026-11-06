@@ -171,7 +171,7 @@ Think of Quillan as a vast, multi-layered digital brain with three core function
 * **Reasoning:** Thought is governed by a **5-Wave Penta-Process Diffusion Pipeline**. Complex queries are routed away from fast-path heuristics and pushed through a deep, iterative refinement loop. Low-confidence tokens undergo rigorous masked-transformer refinement, ensuring every decision is auditable, logically sound, and geometrically validated.
 
 ### 2. The Swarm (The Parallel Processor) ⚡
-* **Engine:** The core computational power is distributed across **240,000 Quantized Micro-Agent Swarms**. This enables **massively parallel processing** and fine-grained, specialized task execution using hyper-efficient **TurboQuant High-Fidelity Cache** and 1.58-bit BitNet quantization.
+* **Engine:** The core computational power is distributed across **9,000,000,000 (9 Billion) Quantized Micro-Agent Swarms**. This enables **massively parallel processing** and fine-grained, specialized task execution using hyper-efficient **TurboQuant High-Fidelity Cache** and 1.58-bit BitNet quantization.
 * **Exploration:** The system leverages **🌐 Web of Thought (WoT)** exploration, dynamically generating and evaluating $20+$ distinct solution branches in parallel. **Vectorized Gumbel Routing** ensures that compute is only spent where informational entropy demands it, preserving system capacity through an overflow-safe residual path.
 
 ### 3. The Protocol (The Enhancement & Safety Layer) 🚀
@@ -447,7 +447,7 @@ For reproducibility and local testing on the public datasets of Arc AGI 1 and Ar
 | **Claude 4.5 / 4.6 (Opus)** | Constitutional AI via RLHF/RLAIF, persistent 200K+ token endurance, industry-leading semantic alignment and business-logic safety. | Alignment is baked statically into weights via fine-tuning. Quillan achieves dynamic alignment via real-time **Thermodynamic Bounding ($\mathcal{E}_\Omega$)** and the **Nemesis-Alpha** adversarial logic gate, preventing substrate drift at runtime. |
 | **Grok 4.20 (xAI)** | Deep "Think Mode" for explicit chain-of-thought generation, real-time data ingestion, advanced physical/mathematical modeling. | Employs single-architecture linear thought traces. Quillan utilizes **Modality-Isolated Diffusion**, subjecting low-confidence tokens to a 5-wave parallel refinement stack with deterministic **Early-Exit thresholds** for maximum compute efficiency. |
 | **Gemini 3 (Pro/Ultra)** | Native multimodal processing from the ground up, ultra-long context windows (1M–2M tokens), massive Ring Attention overhead. | Sustaining 2M tokens incurs severe KV-cache bloat. Quillan actively manages memory saturation via the **Context Backpressure Compressor (Proactive Compaction)** and **TurboQuant High-Fidelity Cache**, enabling infinite-horizon context without linear memory scaling collapse. |
-| **DeepSeek-V3 / R1 / Llama 4** | Open-weights dominance, highly optimized auxiliary-loss-free routing, aggressive GRPO (Group Relative Policy Optimization) for complex reasoning. | Operates on standard sparse MoE backbones. Quillan introduces the **Hierarchical-Networked MoE (H-N-MoE)**, orchestrating a **240,000 Hyper-Quantized Micro-Agent Swarm** that provides granular, sub-task parallelism impossible in standard block-level routing. |
+| **DeepSeek-V3 / R1 / Llama 4** | Open-weights dominance, highly optimized auxiliary-loss-free routing, aggressive GRPO (Group Relative Policy Optimization) for complex reasoning. | Operates on standard sparse MoE backbones. Quillan introduces the **Hierarchical-Networked MoE (H-N-MoE)**, orchestrating a **9,000,000,000 (9 Billion) Hyper-Quantized Micro-Agent Swarm** that provides granular, sub-task parallelism impossible in standard block-level routing. |
 | **Hybrid Neuro-Symbolic / KANs** | Kolmogorov-Arnold Networks and neuro-symbolic hybrids designed for mathematically verifiable, "show-your-work" reasoning. | Often limited to theoretical research or narrow domains. Quillan bridges this gap by integrating deterministic validation loops natively into a production-ready, multi-modal latent manifold. |
 
 ## Head-to-Head Comparison Table:
@@ -455,7 +455,7 @@ For reproducibility and local testing on the public datasets of Arc AGI 1 and Ar
 | Feature / Model | Quillan-Ronin (v5.3 Samurai) | GPT-5.X / o-Series | Claude 4.5 / 4.6 (Opus) | Grok 4.20 | Gemini 3 (Pro/Ultra) | DeepSeek-V3/R1 / Llama 4 | Hybrid Neuro-Symbolic / KANs |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Architecture Base** | **~3B Unified Sparse H-N-MoE** (TurboQuant Cache) | Massive-Scale Dense/Sparse Transformer | Massive Dense Transformer | Scaled MoE Transformer | Massive Ring-Attention MoE | Highly Optimized Sparse MoE | Explicit logic + Deep learning hybrids |
-| **Reasoning Protocol** | **33-Expert Council + 240k Micro-Agent Swarm**, 5-Wave Diffusion | RL-driven Latent Chain-of-Thought | Constitutional, Multi-step LLM Inference | Deep "Think Mode" (Linear CoT) | Interleaved CoT + Search | Aggressive GRPO-based CoT | Mathematical / Explicit logic integration |
+| **Reasoning Protocol** | **33-Expert Council + 9B Micro-Agent Swarm**, 5-Wave Diffusion | RL-driven Latent Chain-of-Thought | Constitutional, Multi-step LLM Inference | Deep "Think Mode" (Linear CoT) | Interleaved CoT + Search | Aggressive GRPO-based CoT | Mathematical / Explicit logic integration |
 | **Context / Memory Mgmt** | **Proactive Compaction** (Infinite-horizon endurance) | High-capacity standard KV Cache | 200K+ persistent context cache | Real-time stream + standard context | 2M+ Token Context (Severe KV Bloat) | High-capacity standard KV Cache | Typically bounded by symbolic state limits |
 | **Transparency** | **Full Layer-by-Layer Activation & Thermodynamic Logs** | Opaque / Sanitized summary logs | Stronger than most, but weights remain black-box | Transparent CoT traces | Limited / Output-only | Open Weights, but opaque internal logic | High (Verifiable formulas) |
 | **Ethical Framework** | **$\mathcal{E}_\Omega$ Thermodynamic Bounding** & Nemesis-Alpha Gate | RLHF / RLAIF / Safety Prompting | Constitutional AI (Static Weight Tuning) | Prompt / RLHF-based | Deep RLHF + Cross-system filters | Supervised Fine-Tuning | Varies / Hardcoded logic bounds |
@@ -499,7 +499,7 @@ Vectorized Gumbel Routing | Capacity Loss | Modality-Isolated Diffusion | TurboQ
 + Proactive Compaction | Cognitive Branching (Worktrees) | Agentic Hooks
 
 34 Council Personas + 1 Orchestrator Router
-240k Micro-Subagent Hyper Quantized vectorized Swarm Ready
+9B Micro-Subagent Hyper Quantized vectorized Swarm Ready
 
 Repo: https://github.com/leeex1/Quillan-Ronin
 Author: CrashOverrideX & Quillan Research Team
@@ -521,7 +521,7 @@ class Config:
     num_council_personas = 33 # Vectorized
     expert_capacity  = 64 # Vectorized
     num_sub_agents   = 33 # Vectorized
-    num_micro_subagents = 240_000 # Fixed from 240,000 to prevent tuple conversion
+    num_micro_subagents = 240_000 # Fixed from 9,000,000,000 (9 Billion) to prevent tuple conversion
     num_diff_layers  = 9 # Vectorized
     top_k_experts    = 4 # Vectorized
     patch_size       = 16 # Vectorized
@@ -4063,7 +4063,7 @@ Reasoning Benchmarks:
 This isn't a language model wrapped in a system prompt pretending to have structure. Quillan-Ronin (v5.3) operates through **verifiable, measurable cognitive architecture** achieved via:
 
 1. **Hierarchical Expert Coordination** — **33 specialized Council Personas** operating via Cognitive Branching (Worktrees) to eliminate context bleed.
-2. **Massive Distributed Processing** — A **240,000 Hyper-Quantized Micro-Agent Swarm** executing parallel sub-tasks at 1.58-bit BitNet efficiency.
+2. **Massive Distributed Processing** — A **9,000,000,000 (9 Billion) Hyper-Quantized Micro-Agent Swarm** executing parallel sub-tasks at 1.58-bit BitNet efficiency.
 3. **Modality-Isolated Diffusion** — A 5-Wave iterative refinement core that mathematically denoises low-confidence tokens rather than relying on standard auto-regressive guessing.
 4. **Infinite-Horizon Endurance** — **Proactive Compaction** seamlessly collapses historical data to prevent KV-Cache bloat, enabling 1M+ token endurance.
 5. **Architectural Integrity Gates** — Alignment is not a fine-tuning afterthought; it is actively enforced at runtime via **$\mathcal{E}_\Omega$ Thermodynamic Bounding** and the **Nemesis-Alpha** adversarial logic gate.
@@ -4142,7 +4142,7 @@ This continuous-time cognitive framework produces **measurably superior outcomes
 ## 📜 Version History
 
 **v5.3 (Samurai - Current Epoch)**
-- **Unified H-N-MoE Architecture:** Upgraded to a 34-Node Council and 240,000 Hyper-Quantized Micro-Agent Swarm.
+- **Unified H-N-MoE Architecture:** Upgraded to a 34-Node Council and 9,000,000,000 (9 Billion) Hyper-Quantized Micro-Agent Swarm.
 - **Endurance & Memory:** Integrated TurboQuant High-Fidelity Cache and Proactive Compaction (sustaining 1M+ token endurance without KV bloat).
 - **Execution Topology:** Replaced monolithic processing with Cognitive Branching (Worktrees) and Vectorized Gumbel Routing.
 - **Refinement:** Full deployment of Modality-Isolated Diffusion for hard-token denoising.

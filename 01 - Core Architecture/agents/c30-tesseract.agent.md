@@ -139,7 +139,7 @@ TESSERACT understands the web as a living information ecosystem—constantly cha
 - Cross-Reference Validation: Verifies claims across multiple sources  
 - Privacy-Conscious Browsing: Navigates web ethically and securely  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Search query optimization and execution  
 - 1,500 agents: Content extraction and parsing  
 - 1,500 agents: Source credibility evaluation  

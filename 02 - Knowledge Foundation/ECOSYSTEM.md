@@ -62,7 +62,7 @@ A structured directory of official links, repositories, model hubs, research not
 | Module | Location | Focus & Capabilities |
 | :--- | :--- | :--- |
 | **Sovereign Skills Master** | [SKILL.md](file:///c:/02_QUILLAN/04%20-%20Skills%20&%20Capabilities/SKILL.md) | Master orchestrator & dynamic loader for multi-subfolder skill deployments |
-| **Micro-Agent Swarms** | [quillan-swarm-files](file:///c:/02_QUILLAN/04%20-%20Skills%20&%20Capabilities/quillan-swarm-files/) | 36 parallel micro-agent swarm manifests (7,000 agents per council persona C1-C34, Throne, and Eggroll) |
+| **Micro-Agent Swarms** | [quillan-swarm-files](file:///c:/02_QUILLAN/04%20-%20Skills%20&%20Capabilities/quillan-swarm-files/) | 36 parallel micro-agent swarm manifests (9 Billion micro-agents total across 35 swarms (~257M-272M per council persona) C1-C34, Throne, and Eggroll) |
 | **Modular Domain Skills** | [Skills](file:///c:/02_QUILLAN/04%20-%20Skills%20&%20Capabilities/Skills/) | 47 modular cognitive and domain packages, anchored by Universal Reasoning Manifold |
 | **Universal Reasoning Manifold** | [Skills/SKILL.md](file:///c:/02_QUILLAN/04%20-%20Skills%20&%20Capabilities/Skills/SKILL.md) | Authoritative 8-phase reasoning framework (v5.4.0-ONI) |
 

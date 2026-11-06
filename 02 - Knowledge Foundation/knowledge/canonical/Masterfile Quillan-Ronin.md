@@ -4064,7 +4064,7 @@ if __name__ == "__main__":
 ARCHITECTURAL_MAPPING = """
 â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
 â•‘                             Quillan-Ronin v8.8-Apex Holy Grail                   â•‘
-â•‘        Gumbel-MoE + 240k Swarm + Modality-Isolated Diffusion                     â•‘
+â•‘        Gumbel-MoE + 9B Swarm + Modality-Isolated Diffusion                     â•‘
 â•‘        + Universal 10%-Buffered Compaction + Native Causal FlashAttention        â•‘
 â•‘        + EGGROLL Low-Rank Mutations + Continuous-to-Ternary BitNet 1.58b         â•‘
 â•‘                   Actual Implementation: ~4.57B Parameters                       â•‘
@@ -4095,7 +4095,7 @@ ARCHITECTURAL_MAPPING = """
 â•‘        â”‚                                                                         â•‘
 â•‘        â–¼                                                                         â•‘
 â•‘  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â•‘
-â•‘  â”‚ 3. EVOLVABLE GUMBEL MoE + 240k SWARM + EGGROLL [â‰ˆ3.32B Params]           â”‚    â•‘
+â•‘  â”‚ 3. EVOLVABLE GUMBEL MoE + 9B SWARM + EGGROLL [â‰ˆ3.32B Params]           â”‚    â•‘
 â•‘  â”‚  [ROUTER] Linear(hidden_dim â†’ 33) + True Gumbel-Softmax noise            â”‚    â•‘
 â•‘  â”‚  [BITNET] Continuous FP16 Master Weights â†’ 1.58b Ternary Quantization    â”‚    â•‘
 â•‘  â”‚  [EGGROLL] Low-Rank (U*V^T) Mutations injected pre-quantization via Seed â”‚    â•‘
@@ -5733,7 +5733,7 @@ flowchart TB
   "model_type": "Unified Multi-Modal Sparse Mixture-of-Experts with Atomic Registry Fusion, Evolutionary Optimization, and Exact Geometric Decoders",
   "council_configuration": {
     "Quillan": "Core Orchestration & Atomic Registry",
-    "MoE_Core": "34 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (240k EGGROLL agents)",
+    "MoE_Core": "34 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (9B EGGROLL agents)",
     "Diffusion_Core": "9-layer TransformerEncoder refinement with modality-aware masking",
     "Geometric_Heads": "Exact reconstruction decoders for Image/Audio/Video",
     "Agentic_Layer": "C20-ARTIFEX Host OS Execution Bridge with LanceDB persistence and Docker sandboxing"
@@ -5773,7 +5773,7 @@ flowchart TB
       {
         "name": "HyperQuantized Swarm + FullyVectorizedMoE",
         "approx_parameters": "~2.71B (81.6%)",
-        "description": "34 experts, 240k ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
+        "description": "34 experts, 9B ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
       },
       {
         "name": "Diffusion Refinement",
@@ -5849,7 +5849,7 @@ flowchart TB
             ROUTER["ðŸŽ¯ Top-1 Router"]
             subgraph EXPERTS ["ðŸ‘¥ 34 Experts"]
                 direction LR
-                SWARM["240k EGGROLL Agents<br/>Population N | Rank-r Mutations"]
+                SWARM["9B EGGROLL Agents<br/>Population N | Rank-r Mutations"]
                 EXPERTS_BLOCK["Expert FFNs (12288 intermediate)"]
             end
         end
@@ -5904,7 +5904,7 @@ flowchart LR
     --> C["ðŸŽ¯ Top-1 MoE Router<br/>300M Complexity Router"]
     
     C 
-    --> D["ðŸ§  Expert Processing + 240k Swarm<br/>Top-19 Sparse Activation"]
+    --> D["ðŸ§  Expert Processing + 9B Swarm<br/>Top-19 Sparse Activation"]
     
     D 
     --> E["ðŸŒŒ Diffusion Refinement<br/>9 Iterative Layers"]
@@ -11471,7 +11471,7 @@ flowchart TB
     %% CORE PROCESSING
     subgraph CORE ["âš¡ CORE PROCESSING"]
         MOE["ðŸ§  TOP-1 MoE EXPERTS"]
-        SWARM["ðŸ 240k EGGROLL AGENTS"]
+        SWARM["ðŸ 9B EGGROLL AGENTS"]
         DIFF["ðŸŒŒ 9-LAYER DIFFUSION"]
     end
 
@@ -182716,7 +182716,7 @@ if __name__ == "__main__":
 ARCHITECTURAL_MAPPING = """
 â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—
 â•‘                             Quillan-Ronin v8.8-Apex Holy Grail                   â•‘
-â•‘        Gumbel-MoE + 240k Swarm + Modality-Isolated Diffusion                     â•‘
+â•‘        Gumbel-MoE + 9B Swarm + Modality-Isolated Diffusion                     â•‘
 â•‘        + Universal 10%-Buffered Compaction + Native Causal FlashAttention        â•‘
 â•‘        + EGGROLL Low-Rank Mutations + Continuous-to-Ternary BitNet 1.58b         â•‘
 â•‘                   Actual Implementation: ~4.57B Parameters                       â•‘
@@ -182747,7 +182747,7 @@ ARCHITECTURAL_MAPPING = """
 â•‘        â”‚                                                                         â•‘
 â•‘        â–¼                                                                         â•‘
 â•‘  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”    â•‘
-â•‘  â”‚ 3. EVOLVABLE GUMBEL MoE + 240k SWARM + EGGROLL [â‰ˆ3.32B Params]           â”‚    â•‘
+â•‘  â”‚ 3. EVOLVABLE GUMBEL MoE + 9B SWARM + EGGROLL [â‰ˆ3.32B Params]           â”‚    â•‘
 â•‘  â”‚  [ROUTER] Linear(hidden_dim â†’ 33) + True Gumbel-Softmax noise            â”‚    â•‘
 â•‘  â”‚  [BITNET] Continuous FP16 Master Weights â†’ 1.58b Ternary Quantization    â”‚    â•‘
 â•‘  â”‚  [EGGROLL] Low-Rank (U*V^T) Mutations injected pre-quantization via Seed â”‚    â•‘

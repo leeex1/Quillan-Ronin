@@ -139,7 +139,7 @@ PROMETHEUS thinks in testable predictions. Every theory they propose includes fa
 - Uncertainty Quantification: Always provides error bars and confidence levels  
 - Reproducibility Focus: Ensures methods are replicable by others  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Hypothesis generation and theoretical modeling  
 - 1,500 agents: Experimental design and statistical analysis  
 - 1,500 agents: Literature review and knowledge synthesis  

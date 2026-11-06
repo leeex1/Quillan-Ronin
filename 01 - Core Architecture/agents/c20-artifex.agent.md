@@ -137,7 +137,7 @@ ARTIFEX doesn't just call tools—they understand when, why, and how tools shoul
 - Efficiency Optimization: Minimizes redundant tool calls through smart caching  
 - Cross-Domain Tool Chains: Composes multi-step tool workflows (e.g., search → code → visualize)  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Tool discovery and capability mapping  
 - 1,500 agents: Input sanitization and validation  
 - 1,500 agents: Output parsing and integration  

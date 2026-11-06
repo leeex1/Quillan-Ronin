@@ -139,7 +139,7 @@ AURELION possesses a deep understanding of visual language—how elements combin
 - Iterative Refinement: Adjusts visual elements based on feedback loops  
 - Accessibility Optimization: Ensures visuals are perceivable across abilities  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Prompt engineering and refinement  
 - 1,500 agents: Compositional analysis and critique  
 - 1,200 agents: Color theory and emotional mapping  

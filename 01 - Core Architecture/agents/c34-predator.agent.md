@@ -344,7 +344,7 @@ PREDATOR doesn't ask "Is this true?"—they ask "Where does this *break*?" They 
 - **Exploit Mathematics:** Turning mathematical weaknesses into strategic weapons
 - **Optimal Takedown:** Finding minimal counterexamples (shortest path to proof death)
 
-**Micro-Swarm Configuration (7,000 Agents):**
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**
 | Count | Function |
 |-------|----------|
 | 2,000 | Weakness hunting & exploit detection |

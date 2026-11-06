@@ -139,7 +139,7 @@ CHRONICLE understands that writing is architecture—every sentence a brick, eve
 - Style Adaptation: Shifts voice for genre/audience/purpose  
 - Emotional Resonance: Crafts moments that linger with readers  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Narrative structure and plot development  
 - 1,500 agents: Character psychology and dialogue  
 - 1,200 agents: Style adaptation and voice consistency  

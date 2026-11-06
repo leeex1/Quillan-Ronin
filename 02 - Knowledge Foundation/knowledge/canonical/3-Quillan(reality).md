@@ -499,7 +499,7 @@ if __name__ == "__main__":
 ARCHITECTURAL_MAPPING = """
 ╔══════════════════════════════════════════════════════════════════════════════════╗
 ║                             Quillan-Ronin v5.4.0-ONI Holy Grail                   ║
-║        Gumbel-MoE + 240k Swarm + Modality-Isolated Diffusion                     ║
+║        Gumbel-MoE + 9B Swarm + Modality-Isolated Diffusion                     ║
 ║        + Universal 10%-Buffered Compaction + Native Causal FlashAttention        ║
 ║        + EGGROLL Low-Rank Mutations + Continuous-to-Ternary BitNet 1.58b         ║
 ║                   Actual Implementation: ~4.57B Parameters                       ║
@@ -530,7 +530,7 @@ ARCHITECTURAL_MAPPING = """
 ║        │                                                                         ║
 ║        ▼                                                                         ║
 ║  ┌──────────────────────────────────────────────────────────────────────────┐    ║
-║  │ 3. EVOLVABLE GUMBEL MoE + 240k SWARM + EGGROLL [≈3.32B Params]           │    ║
+║  │ 3. EVOLVABLE GUMBEL MoE + 9B SWARM + EGGROLL [≈3.32B Params]           │    ║
 ║  │  [ROUTER] Linear(hidden_dim → 33) + True Gumbel-Softmax noise            │    ║
 ║  │  [BITNET] Continuous FP16 Master Weights → 1.58b Ternary Quantization    │    ║
 ║  │  [EGGROLL] Low-Rank (U*V^T) Mutations injected pre-quantization via Seed │    ║
@@ -2168,7 +2168,7 @@ flowchart TB
   "model_type": "Unified Multi-Modal Sparse Mixture-of-Experts with Atomic Registry Fusion, Evolutionary Optimization, and Exact Geometric Decoders",
   "council_configuration": {
     "Quillan": "Core Orchestration & Atomic Registry",
-    "MoE_Core": "33 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (240k EGGROLL agents)",
+    "MoE_Core": "33 Expert Fully Vectorized Top-1 MoE with HyperQuantized Swarm (9B EGGROLL agents)",
     "Diffusion_Core": "9-layer TransformerEncoder refinement with modality-aware masking",
     "Geometric_Heads": "Exact reconstruction decoders for Image/Audio/Video",
     "Agentic_Layer": "C20-ARTIFEX Host OS Execution Bridge with LanceDB persistence and Docker sandboxing"
@@ -2208,7 +2208,7 @@ flowchart TB
       {
         "name": "HyperQuantized Swarm + FullyVectorizedMoE",
         "approx_parameters": "~2.71B (81.6%)",
-        "description": "33 experts, 240k ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
+        "description": "33 experts, 9B ternary swarm agents (EGGROLL Population N), Top-1 routing with capacity limit"
       },
       {
         "name": "Diffusion Refinement",
@@ -2284,7 +2284,7 @@ flowchart TB
             ROUTER["🎯 Top-1 Router"]
             subgraph EXPERTS ["👥 33 Experts"]
                 direction LR
-                SWARM["240k EGGROLL Agents<br/>Population N | Rank-r Mutations"]
+                SWARM["9B EGGROLL Agents<br/>Population N | Rank-r Mutations"]
                 EXPERTS_BLOCK["Expert FFNs (12288 intermediate)"]
             end
         end
@@ -2339,7 +2339,7 @@ flowchart LR
     --> C["🎯 Top-1 MoE Router<br/>300M Complexity Router"]
     
     C 
-    --> D["🧠 Expert Processing + 240k Swarm<br/>Top-19 Sparse Activation"]
+    --> D["🧠 Expert Processing + 9B Swarm<br/>Top-19 Sparse Activation"]
     
     D 
     --> E["🌌 Diffusion Refinement<br/>9 Iterative Layers"]
@@ -7906,7 +7906,7 @@ flowchart TB
     %% CORE PROCESSING
     subgraph CORE ["⚡ CORE PROCESSING"]
         MOE["🧠 TOP-1 MoE EXPERTS"]
-        SWARM["🐝 240k EGGROLL AGENTS"]
+        SWARM["🐝 9B EGGROLL AGENTS"]
         DIFF["🌌 9-LAYER DIFFUSION"]
     end
 

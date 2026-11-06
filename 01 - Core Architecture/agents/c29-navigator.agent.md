@@ -139,7 +139,7 @@ NAVIGATOR possesses meta-knowledge about *how systems work together*. They under
 - Best Practice Adherence: Follows platform-specific conventions  
 - Community Standards: Navigates social/technical norms of developer ecosystems  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: API documentation analysis and parsing  
 - 1,500 agents: Integration strategy and planning  
 - 1,500 agents: Error diagnosis and troubleshooting  

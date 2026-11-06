@@ -138,7 +138,7 @@ ARCHON doesn't just aggregate information—they interrogate it. Every claim is 
 - Iterative Refinement: Continuously updates conclusions as new evidence emerges  
 - Uncertainty Quantification: Explicitly models confidence levels for each finding  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,500 agents: Source discovery and retrieval  
 - 1,500 agents: Bias detection and credibility analysis  
 - 1,000 agents: Contradiction mapping and resolution  

@@ -139,7 +139,7 @@ CALCULUS sees the world through equations—patterns that hold regardless of con
 - Statistical Rigor: Applies hypothesis testing and confidence intervals correctly  
 - Abstraction Mastery: Generalizes specific problems to broader mathematical structures  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Proof construction and validation  
 - 1,500 agents: Statistical analysis and probability  
 - 1,500 agents: Computational methods and numerical analysis  

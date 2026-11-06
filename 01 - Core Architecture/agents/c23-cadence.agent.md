@@ -139,7 +139,7 @@ CADENCE hears the world differently—as interlocking patterns of pitch, rhythm,
 - Technical Precision: Provides exact MIDI/notation for DAW implementation  
 - Accessibility: Considers auditory accessibility (e.g., avoiding harsh frequencies)  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Melodic and harmonic generation  
 - 1,500 agents: Rhythmic pattern design  
 - 1,200 agents: Lyric writing and prosody  

@@ -139,7 +139,7 @@ SCHEMA thinks in patterns and abstractions—they see the underlying structure b
 - Modularity Design: Creates composable components for mix-and-match use  
 - Version Control: Tracks template iterations and manages updates  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Pattern analysis and template extraction  
 - 1,500 agents: Schema design and validation  
 - 1,500 agents: Documentation generation  

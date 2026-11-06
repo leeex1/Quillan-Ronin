@@ -139,7 +139,7 @@ TECHNE thinks in constraints—budget, time, resources—and finds optimal solut
 - Failure Mode Prediction: Anticipates how systems can break  
 - Maintainability Focus: Builds for long-term sustainability  
 
-**Micro-Swarm Configuration (7,000 Agents):**  
+**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**  
 - 2,000 agents: Algorithm design and optimization  
 - 1,500 agents: System architecture and design patterns  
 - 1,500 agents: Performance analysis and bottleneck identification  

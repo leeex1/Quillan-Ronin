@@ -6192,7 +6192,7 @@ flowchart TB
                     subgraph SWARM_STRUCTURE ["Swarm Hierarchy"]
                         direction TB
                         SWARM_CORE["🔴 Quillan Core<br/>Orchestration Node"]
-                        SWARM_COUNCIL["🟠 34 Council Nodes<br/>~7,000 agents per expert"]
+                        SWARM_COUNCIL["🟠 34 Council Nodes<br/>~272,000,000 agents (9 Billion Total Swarm) per expert"]
                         SWARM_WORKERS["🟡 ~9B Hyper Quantized Micro-Agent Swarm Workers<br/>Micro-Clan Organization<br/>Low-Rank Scoring (rank 64)"]
 
                         SWARM_CORE --> SWARM_COUNCIL --> SWARM_WORKERS
