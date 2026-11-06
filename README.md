@@ -360,7 +360,7 @@ is exactly what Oni now implements in weights.</i>
 
 ### 👑 1. Quillan-Ronin Flagship 1.2B (Primary Cognitive Engine)
 - **Base Donor Model:** `Llama-3.2-1B-Instruct`
-- **Architecture:** 16 Transformer Layers, Hidden Dimension $d_{	ext{model}}=2048$, Intermediate Dimension $=8192$, 32 Attention Heads (8 KV heads, GQA), 146 Tensors.
+- **Architecture:** 16 Transformer Layers, Hidden Dimension $d_{\text{model}}=2048$, Intermediate Dimension $=8192$, 32 Attention Heads (8 KV heads, GQA), 146 Tensors.
 - **Tuning Method:** Hybrid Weight-Space Programming (WSP) + Rank-16 Gradient Distillation & DPO Alignment (`grad-v6`).
 - **Production Checkpoint:** `quillan-1b-sovereign-wsp-v3-q4_k_m.gguf` (SHA-256: `289522b0d064451fa168bc44ce945f8e6c7c293ee0994f31c2d3080ffbcf7fb4`).
 - **Disk Footprint:** 770.28 MB (`807,693,696 bytes`) in `Q4_K_M` | 1.32 GB in `Q8_0`.
@@ -372,7 +372,7 @@ is exactly what Oni now implements in weights.</i>
 
 ### ⚡ 2. Quillan-Ronin Mini 0.5B (Edge & Real-Time Swarm Engine)
 - **Base Donor Model:** `Qwen2.5-0.5B-Instruct`
-- **Architecture:** 24 Transformer Layers, Hidden Dimension $d_{	ext{model}}=896$, Intermediate Dimension $=4864$, 14 Attention Heads (2 KV heads, GQA), 290 Tensors.
+- **Architecture:** 24 Transformer Layers, Hidden Dimension $d_{\text{model}}=896$, Intermediate Dimension $=4864$, 14 Attention Heads (2 KV heads, GQA), 290 Tensors.
 - **Tuning Method:** Weight-Space Programming (WSP) Clean Base Compilation with dev-margin verification.
 - **Production Checkpoint:** `quillan-mini-0.5b-wsp-v3-q4_k_m.gguf` (SHA-256: `ce719e62580104bb9d5d59042b58ceea3bc9f73752e50529d846399c927f8a37`).
 - **Disk Footprint:** 379.38 MB (`397,807,808 bytes`) in `Q4_K_M` | 531.06 MB in `Q8_0`.
@@ -384,7 +384,7 @@ is exactly what Oni now implements in weights.</i>
 
 ### 🐉 3. Quillan-Dragon 1B (High-Precision Mathematical & Logic Specialist)
 - **Base Donor Model:** `Falcon-3-1B-Instruct`
-- **Architecture:** 18 Transformer Layers, Hidden Dimension $d_{	ext{model}}=2048$, Intermediate Dimension $=8192$, 16 Attention Heads (8 KV heads, GQA), 165 Tensors.
+- **Architecture:** 18 Transformer Layers, Hidden Dimension $d_{\text{model}}=2048$, Intermediate Dimension $=8192$, 16 Attention Heads (8 KV heads, GQA), 165 Tensors.
 - **Tuning Method:** Weight-Space Programming (WSP) Clean Base Verification.
 - **Production Checkpoint:** `quillan-dragon-1b-wsp-v3-q4_k_m.gguf` (SHA-256: `176b0b64f82e7e3352794eb84e5ec468249826317bc2dffbebb48fb3c1cbaf8b`).
 - **Disk Footprint:** 1008.07 MB (`1,057,043,008 bytes`) in `Q4_K_M` | 1.78 GB in `Q8_0`.
