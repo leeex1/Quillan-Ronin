@@ -310,3 +310,5 @@ oauth_creds.json
 
 scripts/_backups/
 scripts/_*.out
+
+*.dll

@@ -65,6 +65,7 @@ try:
     from nitro_pocket import integer_only_forward
     from es_at_scale import ESAtScale, ForgettingMitigation
     from protrian_memo import ProTrainScheduler, MemoSwap, DeepOptimizerSharding
+
     _FORMAL_PAPERS_WIRED = True
 except (ImportError, ModuleNotFoundError):
     try:
@@ -77,6 +78,7 @@ except (ImportError, ModuleNotFoundError):
         from .nitro_pocket import integer_only_forward
         from .es_at_scale import ESAtScale, ForgettingMitigation
         from .protrian_memo import ProTrainScheduler, MemoSwap, DeepOptimizerSharding
+
         _FORMAL_PAPERS_WIRED = True
     except (ImportError, ModuleNotFoundError, ValueError):
         EvoMoE = None
@@ -96,6 +98,7 @@ except (ImportError, ModuleNotFoundError):
 # Paper 1/135 (2309.02521v3): Comparative Analysis of CPU and GPU Profiling
 try:
     from paper_01_profiler import StepProfiler, StepProfile, CUDATimer
+
     _PAPER_01_WIRED = True
 except ImportError:
     StepProfiler = None
@@ -106,6 +109,7 @@ except ImportError:
 # Paper 2/135 (235): AbductiveJump E→J→A via world model counterfactual simulation
 try:
     from paper_02_abductive import AbductiveJump, WorldModelAbductiveWrapper
+
     _PAPER_02_WIRED = True
 except ImportError:
     AbductiveJump = None
@@ -114,7 +118,13 @@ except ImportError:
 
 # Paper 3/135 (2401.07013v2): Proxy-KD for black-box distillation
 try:
-    from paper_03_proxy_kd import ProxyKD, SampleWeightedKL, ProxyAlignmentLoss, EnhancedDistillationHead
+    from paper_03_proxy_kd import (
+        ProxyKD,
+        SampleWeightedKL,
+        ProxyAlignmentLoss,
+        EnhancedDistillationHead,
+    )
+
     _PAPER_03_WIRED = True
 except ImportError:
     ProxyKD = None
@@ -127,7 +137,12 @@ except ImportError:
 #  5: CUDA Optimization (GPGPU tutorial) ? fused kernels, coalescing, streams
 #  6: AxoNN 4D Hybrid Parallel ? DP+TP+PP+SP strategy planner
 try:
-    from paper_05_07_heterogeneous import HeterogeneousComputeManager, CUDAOptimizationPack, AxoNNHybridPlanner
+    from paper_05_07_heterogeneous import (
+        HeterogeneousComputeManager,
+        CUDAOptimizationPack,
+        AxoNNHybridPlanner,
+    )
+
     _PAPER_05_07_WIRED = True
 except ImportError:
     HeterogeneousComputeManager = None
@@ -140,7 +155,12 @@ except ImportError:
 #  9: Multi-GPU Allocation ? cost-model bin-packing for heterogeneous tasks
 # 10: Parallel CPU-GPU Inference ? pipelined sampling + compute overlap
 try:
-    from paper_08_10_inference_pack import InferencePack, TieredKVCache, AdaptiveBatchSizer
+    from paper_08_10_inference_pack import (
+        InferencePack,
+        TieredKVCache,
+        AdaptiveBatchSizer,
+    )
+
     _PAPER_08_10_WIRED = True
 except ImportError:
     InferencePack = None
@@ -151,6 +171,7 @@ except ImportError:
 # Rows 28/30/31/40: SoL-Pi, consciousness head, Ax-Prover scorer, inverse-crypto handshake
 try:
     from paper_121_standalone_tools_pack import StandaloneToolsPack
+
     _PAPER_121_WIRED = True
 except ImportError:
     StandaloneToolsPack = None
@@ -159,6 +180,7 @@ except ImportError:
 # Rows 32-39: BitNet Family Pack (Beyond 1.58b, 1-bit AI infra, a4.8, b1.58, 2B4T, bitnet.cpp, scaling, v2)
 try:
     from paper_122_bitnet_family_pack import BitNetFamilyPack
+
     _PAPER_122_WIRED = True
 except ImportError:
     BitNetFamilyPack = None
@@ -167,6 +189,7 @@ except ImportError:
 # Rows 41, 43, 51: Heterogeneous Offload Pack (DALI MoE, Deep Optimizer States, Hybrid Runtime)
 try:
     from paper_123_heterogeneous_offload_pack import HeterogeneousOffloadPack
+
     _PAPER_123_WIRED = True
 except ImportError:
     HeterogeneousOffloadPack = None
@@ -179,8 +202,12 @@ except ImportError:
 # Final dups/broken audited in PAPER_WIRING_CHECKLIST.md (136 files: wired + verified-dup + broken-no-valid)
 try:
     from paper_116_120_codex_virality_proof_pack import (
-        CodexViralityProofPack, CodexConstitutionalRetriever, NeuralSonifier, UnitDistanceProofChecker
+        CodexViralityProofPack,
+        CodexConstitutionalRetriever,
+        NeuralSonifier,
+        UnitDistanceProofChecker,
     )
+
     _PAPER_116_120_WIRED = True
 except ImportError:
     CodexViralityProofPack = None
@@ -196,8 +223,12 @@ except ImportError:
 # BROKEN: Parliament/Mind/v4-wrapper/Prompt_Ware_Report/Reactive_AGi (131-133B, no valid alternative)
 try:
     from paper_111_115_reactive_wikiskill_pack import (
-        ReactiveWikiPack, EpistemicHumilityGate, HumilityWeightedArbitration, WikiSkillCompiler
+        ReactiveWikiPack,
+        EpistemicHumilityGate,
+        HumilityWeightedArbitration,
+        WikiSkillCompiler,
     )
+
     _PAPER_111_115_WIRED = True
 except ImportError:
     ReactiveWikiPack = None
@@ -212,8 +243,11 @@ except ImportError:
 # U41-46: Quillan AGI docs ? collapsed to canonical v5.4-ONI spec (scanned-image PDFs; 3x132B broken)
 try:
     from paper_106_110_predatory_sovereign_pack import (
-        PredatorySovereignPack, AdaptiveLinkAlignment, HierarchicalClusterRouter
+        PredatorySovereignPack,
+        AdaptiveLinkAlignment,
+        HierarchicalClusterRouter,
     )
+
     _PAPER_106_110_WIRED = True
 except ImportError:
     PredatorySovereignPack = None
@@ -229,8 +263,14 @@ except ImportError:
 # BROKEN (no valid alternative): Emergent_Ethics 133B, Lee_X 131B, Quillan_A Parliament 133B
 try:
     from paper_101_105_consciousness_prophet_modse_pack import (
-        ConsciousnessProphetPack, ConsciousnessPhiProbe, ProvenanceLedger, PIIRedactor, DiverseSizeMoE, EarlyAnswerProbe
+        ConsciousnessProphetPack,
+        ConsciousnessPhiProbe,
+        ProvenanceLedger,
+        PIIRedactor,
+        DiverseSizeMoE,
+        EarlyAnswerProbe,
     )
+
     _PAPER_101_105_WIRED = True
 except ImportError:
     ConsciousnessProphetPack = None
@@ -249,8 +289,14 @@ except ImportError:
 # U23: Dream7B ? mask-predict discrete diffusion, bond DiffusionOPSD+BIT
 try:
     from paper_96_100_edge_dali_dgpo_dream_pack import (
-        EdgeDALIDGPODreamPack, EdgeKernelPicker, SteppingUpBound, DGPOCritic, DreamDiffusionLM, DALIOffloader
+        EdgeDALIDGPODreamPack,
+        EdgeKernelPicker,
+        SteppingUpBound,
+        DGPOCritic,
+        DreamDiffusionLM,
+        DALIOffloader,
     )
+
     _PAPER_96_100_WIRED = True
 except ImportError:
     EdgeDALIDGPODreamPack = None
@@ -269,6 +315,7 @@ except ImportError:
 # U17: 2B4T ? native 1-bit 2B recipe (4T tokens)
 try:
     from paper_91_95_swarm_prover_bitnetcpu_pack import SwarmProverBitnetPack
+
     _PAPER_91_95_WIRED = True
 except ImportError:
     SwarmProverBitnetPack = None
@@ -280,7 +327,11 @@ except ImportError:
 # U04: CCRL ? reward*agreement*ethics_gate, bond Physics(22)+DAPO(43)+GRPO(40)
 # U08: Paywall Heist ? local vs cloud cost router, bond Heterogeneous(5-7)+xMem(12)
 try:
-    from paper_86_90_persistent_prompt_ccrl_pack import PersistentPromptCCRLPack, PromptWareCompiler
+    from paper_86_90_persistent_prompt_ccrl_pack import (
+        PersistentPromptCCRLPack,
+        PromptWareCompiler,
+    )
+
     _PAPER_86_90_WIRED = True
 except ImportError:
     PersistentPromptCCRLPack = None
@@ -295,7 +346,12 @@ except ImportError:
 # 85: Peer_Review...4o_Distillation ? special chars, handled via glob ? skipped
 # Quantum bond: ES (71+11+81) ? Memory (4+12+58+83) ? Communication (2+16+82)
 try:
-    from paper_81_85_forgetting_anomaly_pack import ForgettingAnomalyPack, UniversalCommunication, TaskArithmeticForgettingFix
+    from paper_81_85_forgetting_anomaly_pack import (
+        ForgettingAnomalyPack,
+        UniversalCommunication,
+        TaskArithmeticForgettingFix,
+    )
+
     _PAPER_81_85_WIRED = True
 except ImportError:
     ForgettingAnomalyPack = None
@@ -311,6 +367,7 @@ except ImportError:
 # 80: Switch duplicate of 48,55 (01b5c6ef) ? verified
 try:
     from paper_76_80_mor_pack import MoRPack, MixtureOfRecursions
+
     _PAPER_76_80_WIRED = True
 except ImportError:
     MoRPack = None
@@ -325,8 +382,12 @@ except ImportError:
 # 75: MoHGE ? heterogeneous grouped experts (ranks 4/8/16 per layer)
 try:
     from paper_71_75_moe_edge_pack import (
-        MoEEdgePack, ESForgettingMitigation, CPUGPUExpertManager, HeterogeneousExpertRanks
+        MoEEdgePack,
+        ESForgettingMitigation,
+        CPUGPUExpertManager,
+        HeterogeneousExpertRanks,
     )
+
     _PAPER_71_75_WIRED = True
 except ImportError:
     MoEEdgePack = None
@@ -343,6 +404,7 @@ except ImportError:
 # 70: DeepSeekMoE duplicate ? already wired in 41-45 (verified)
 try:
     from paper_66_70_ste_pack import STEPack, DirectFeedbackAlignment
+
     _PAPER_66_70_WIRED = True
 except ImportError:
     STEPack = None
@@ -357,8 +419,12 @@ except ImportError:
 # 65: NITRO-D ? integer-only training (block-wise quant for training)
 try:
     from paper_61_65_efficient_moe_pack import (
-        EfficientMoEPack, GroupedQueryAttention, MixtureOfDepths, NITRODQuantizer
+        EfficientMoEPack,
+        GroupedQueryAttention,
+        MixtureOfDepths,
+        NITRODQuantizer,
     )
+
     _PAPER_61_65_WIRED = True
 except ImportError:
     EfficientMoEPack = None
@@ -375,6 +441,7 @@ except ImportError:
 # 60: FlashAttention v1 ? IO-aware tiling (base for FA2/FA3)
 try:
     from paper_56_60_scale_pack import ScalePack
+
     _PAPER_56_60_WIRED = True
 except ImportError:
     ScalePack = None
@@ -387,6 +454,7 @@ except ImportError:
 #   Marked verified, no re-wire needed. See paper_46_50_mamba_moe_pack.py
 try:
     from paper_51_flash3_pack import Flash3Pack, FlashAttention3SM61
+
     _PAPER_51_WIRED = True
 except ImportError:
     Flash3Pack = None
@@ -400,7 +468,13 @@ except ImportError:
 # 49: Gumbel-Softmax ? differentiable sampling with annealing tau
 # 50: FlashAttention-2 ? faster attention with better parallelism (tiling)
 try:
-    from paper_46_50_mamba_moe_pack import MambaMoEPack, MambaBlock, GumbelRouter, FlashAttention2Wrapper
+    from paper_46_50_mamba_moe_pack import (
+        MambaMoEPack,
+        MambaBlock,
+        GumbelRouter,
+        FlashAttention2Wrapper,
+    )
+
     _PAPER_46_50_WIRED = True
 except ImportError:
     MambaMoEPack = None
@@ -417,8 +491,13 @@ except ImportError:
 # 45: DFlash ? block diffusion for speculative decoding (parallel draft)
 try:
     from paper_41_45_moe_rl_pack import (
-        MoERLPack, HadamardTransform, BitNet4BitActivation, DAPOLoss, DeepSeekMoEStyle
+        MoERLPack,
+        HadamardTransform,
+        BitNet4BitActivation,
+        DAPOLoss,
+        DeepSeekMoEStyle,
     )
+
     _PAPER_41_45_WIRED = True
 except ImportError:
     MoERLPack = None
@@ -435,8 +514,12 @@ except ImportError:
 # 40: GRPO ? Group Relative Policy Optimization (no critic, group advantage)
 try:
     from paper_36_40_bitnet_optimizer_pack import (
-        BitNetOptimizerPack, BitNetLinear, InterleavedOptimizerWrapper, GRPOLoss
+        BitNetOptimizerPack,
+        BitNetLinear,
+        InterleavedOptimizerWrapper,
+        GRPOLoss,
     )
+
     _PAPER_36_40_WIRED = True
 except ImportError:
     BitNetOptimizerPack = None
@@ -453,8 +536,12 @@ except ImportError:
 # 35: TTPO ? test-time policy optimization (LoRA at inference)
 try:
     from paper_31_35_testtime_world_pack import (
-        TestTimeWorldPack, PrefixSlidingKVCache, CodeWorldModel, TestTimeLoRA
+        TestTimeWorldPack,
+        PrefixSlidingKVCache,
+        CodeWorldModel,
+        TestTimeLoRA,
     )
+
     _PAPER_31_35_WIRED = True
 except ImportError:
     TestTimeWorldPack = None
@@ -471,10 +558,18 @@ except ImportError:
 # 30: Metan — recursive self-improvement through emergent depth (22p)
 try:
     from paper_26_30_recurrent_diffusion_pack import (
-        RecurrentDiffusionPack, DynamicCompressionLoss, DiffusionSelfDistillationLoss, EmergentDepthController,
-        GatedDeltaNetLayer, DynamicRecurrentCompressor,
-        RecirculationNormMode, RecirculationLayer, AdaptiveRecirculationMLP, RecirculationEngine
+        RecurrentDiffusionPack,
+        DynamicCompressionLoss,
+        DiffusionSelfDistillationLoss,
+        EmergentDepthController,
+        GatedDeltaNetLayer,
+        DynamicRecurrentCompressor,
+        RecirculationNormMode,
+        RecirculationLayer,
+        AdaptiveRecirculationMLP,
+        RecirculationEngine,
     )
+
     _PAPER_26_30_WIRED = True
 except ImportError:
     RecurrentDiffusionPack = None
@@ -492,8 +587,13 @@ except ImportError:
 # Paper 27/135 (2609.11677v1): ECDYSIS Runtime Harness Self-Evolution & FDCR
 try:
     from ecdysis_harness import (
-        EcdysisHarnessEvolver, FailureRecord, FailurePatternGroup, FDCRRefiner, StructuredModificationSpecification
+        EcdysisHarnessEvolver,
+        FailureRecord,
+        FailurePatternGroup,
+        FDCRRefiner,
+        StructuredModificationSpecification,
     )
+
     _PAPER_27_ECDYSIS_WIRED = True
 except ImportError:
     EcdysisHarnessEvolver = None
@@ -511,8 +611,14 @@ except ImportError:
 # 25: ABRA ? scaling diffusion image training (block-wise)
 try:
     from paper_21_25_grt_coordination_pack import (
-        GRTCoordinationPack, GRTRecurrentCore, ASIBenchRunner, ABRAScaling, AgentPhysicsPredictor, CoordinationTelemetry
+        GRTCoordinationPack,
+        GRTRecurrentCore,
+        ASIBenchRunner,
+        ABRAScaling,
+        AgentPhysicsPredictor,
+        CoordinationTelemetry,
     )
+
     _PAPER_21_25_WIRED = True
 except ImportError:
     GRTCoordinationPack = None
@@ -531,8 +637,14 @@ except ImportError:
 # 20: Synthetic Persona Pretraining ? persona token at position 0
 try:
     from paper_16_20_agent_evolution_pack import (
-        AgentEvolutionManager, SelfModelCoherenceLoss, SkillTelemetry, HarnessPolicy, PersonaConditioning, HybridEmbedderRouter
+        AgentEvolutionManager,
+        SelfModelCoherenceLoss,
+        SkillTelemetry,
+        HarnessPolicy,
+        PersonaConditioning,
+        HybridEmbedderRouter,
     )
+
     _PAPER_16_20_WIRED = True
 except ImportError:
     AgentEvolutionManager = None
@@ -550,8 +662,13 @@ except ImportError:
 # 14: Physics Long-Horizon ? multi-teacher horizon-weighted distillation
 try:
     from paper_11_15_quant_memory_pack import (
-        QuantMemoryManager, NVFP4Quantizer, XMemEstimator, HyperscaleES, LongHorizonDistiller
+        QuantMemoryManager,
+        NVFP4Quantizer,
+        XMemEstimator,
+        HyperscaleES,
+        LongHorizonDistiller,
     )
+
     _PAPER_11_15_WIRED = True
 except ImportError:
     QuantMemoryManager = None
@@ -563,7 +680,13 @@ except ImportError:
 
 # Paper 4/135 (2407.12117v1): Memo — 1M seq long-context via token-wise recomputation + swapping
 try:
-    from paper_04_memo import MemoManager, MemoConfig, RoundingBuffer, solve_optimal_alpha
+    from paper_04_memo import (
+        MemoManager,
+        MemoConfig,
+        RoundingBuffer,
+        solve_optimal_alpha,
+    )
+
     _PAPER_04_WIRED = True
 except ImportError:
     MemoManager = None
@@ -585,6 +708,7 @@ USE_INTEGER_ONLY = False  # NITRO-D/PocketNN (2407.11698) â€” set True via 
 # CONFIG
 # ------------------------------------------------------------------
 
+
 @dataclass
 class QuillanOniConfig:
     vocab_size: int = VOCAB_SIZE
@@ -597,12 +721,14 @@ class QuillanOniConfig:
     ffn_dim: int = 2048
     num_experts: int = 34
     # Dense council (user canon): all 34 deliberate every token, pull-weighted.
-    router_mode: str = "dense_pull"          # 'dense_pull' | 'gumbel_topk'
-    top_k: int = 4                           # only used in gumbel_topk mode
-    expert_rank: int = 8                     # dense rank-8 (option C: cheaper than sparse-4/64)
+    router_mode: str = "dense_pull"  # 'dense_pull' | 'gumbel_topk'
+    top_k: int = 4  # only used in gumbel_topk mode
+    expert_rank: int = 8  # dense rank-8 (option C: cheaper than sparse-4/64)
     swarm_rank: int = 8
     lora_alpha: float = 16.0
-    couil_sparse_heads: bool = False         # False enables fast C++ fused F.scaled_dot_product_attention
+    couil_sparse_heads: bool = (
+        False  # False enables fast C++ fused F.scaled_dot_product_attention
+    )
     couil_sparse_ratio: float = 0.5
     e_ice_limit_ms: int = 100
     tau_max: float = 1.0
@@ -628,77 +754,109 @@ class QuillanOniConfig:
     tie_token_memory: bool = True
     # GRT (2608.15062) - Gated Recurrent Transformer: 3-layer core iterated R times = 12-layer quality
     use_grt: bool = False
-    grt_n_core: int = 3              # core layers to iterate
-    grt_iterations: int = 4          # R=4 -> 3*4 = 12 effective depth
-    grt_prelude: int = 1             # fixed prelude blocks
-    grt_coda: int = 1                # fixed coda blocks
+    grt_n_core: int = 3  # core layers to iterate
+    grt_iterations: int = 4  # R=4 -> 3*4 = 12 effective depth
+    grt_prelude: int = 1  # fixed prelude blocks
+    grt_coda: int = 1  # fixed coda blocks
     device: str = "cpu"
     # 100% wiring flags — all Formal Papers active when _FORMAL_PAPERS_WIRED
-    use_moba: bool = False             # Moonshot AI: Mixture of Block Attention (arXiv:2502.13189)
-    moba_block_size: int = 64          # Block size B for MoBA context segmentation
-    moba_top_k: int = 2                # Top-k historical blocks selected per query
+    use_moba: bool = False  # Moonshot AI: Mixture of Block Attention (arXiv:2502.13189)
+    moba_block_size: int = 64  # Block size B for MoBA context segmentation
+    moba_top_k: int = 2  # Top-k historical blocks selected per query
     use_evo_moe: bool = True
     use_mamba: bool = False  # alternative to attention for long horizon
     use_fa3: bool = True
-    use_real_swarm: bool = False  # True = 34 processes, False = emulated (training vs inference)
+    use_real_swarm: bool = (
+        False  # True = 34 processes, False = emulated (training vs inference)
+    )
     use_world_model: bool = True
     use_speculative: bool = True
     use_nitro: bool = False
     use_es: bool = True
     use_memo: bool = True
     memo_alpha: float = -1.0  # -1 = auto-solve from PCIe/compute, else fixed
-    use_profiler: bool = True       # Paper 1: Real-time operator-wise hardware profiling
-    use_heterogeneous: bool = True  # Papers 5-7: CUDA Optimization + AxoNN 4D Hybrid + Allocator
+    use_profiler: bool = True  # Paper 1: Real-time operator-wise hardware profiling
+    use_heterogeneous: bool = (
+        True  # Papers 5-7: CUDA Optimization + AxoNN 4D Hybrid + Allocator
+    )
     # Session 1 integration (default ON — safe telemetry/guards/routers):
-    use_coordination: bool = True   # Papers 22-23: order-param telemetry -> aux loss
-    use_humility: bool = True       # Reactive pack: humility gate -> aux loss
-    use_mod: bool = True            # Paper 62 MoD: per-layer token mask (capacity=1.0 neutral)
-    mod_capacity: float = 1.0       # 1.0 = all tokens execute (wiring proven, no behavior change yet)
-    use_xmem_guard: bool = True     # Paper 12 xMem: per-step VRAM prediction -> profiler
+    use_coordination: bool = True  # Papers 22-23: order-param telemetry -> aux loss
+    use_humility: bool = True  # Reactive pack: humility gate -> aux loss
+    use_mod: bool = True  # Paper 62 MoD: per-layer token mask (capacity=1.0 neutral)
+    mod_capacity: float = (
+        1.0  # 1.0 = all tokens execute (wiring proven, no behavior change yet)
+    )
+    use_xmem_guard: bool = True  # Paper 12 xMem: per-step VRAM prediction -> profiler
     # Session 2 integration (default ON — read-only observers + inference call-sites):
     use_dali_observer: bool = True  # Papers 73/DALI: expert popularity -> plan in trace
-    use_ala_observer: bool = True   # Predatory ALA: rewired-link telemetry in trace
-    use_prefix_sliding: bool = True  # Paper 33: FULL prefix[0:512]+window sliding in generate/deliberate
+    use_ala_observer: bool = True  # Predatory ALA: rewired-link telemetry in trace
+    use_prefix_sliding: bool = (
+        True  # Paper 33: FULL prefix[0:512]+window sliding in generate/deliberate
+    )
     # Session 3 integration (default ON — read-only observers):
     use_ccrl_telemetry: bool = True  # CCRL value head fires in training; RQGM unchanged
-    use_tieredkv: bool = True        # Paper 8 TieredKV: side-record decode KV, spill>1024 to CPU
+    use_tieredkv: bool = (
+        True  # Paper 8 TieredKV: side-record decode KV, spill>1024 to CPU
+    )
     use_adaptive_batch: bool = True  # Paper 9 AdaptiveBatchSizer: batch size guidance
-    use_nvfp4: bool = False          # Paper 11 NVFP4: microscaling quantization path
-    use_long_horizon: bool = True    # Paper 14 LongHorizonDistiller: multi-teacher horizon weighting
+    use_nvfp4: bool = False  # Paper 11 NVFP4: microscaling quantization path
+    use_long_horizon: bool = (
+        True  # Paper 14 LongHorizonDistiller: multi-teacher horizon weighting
+    )
     # Session 4 integration (default ON — active compute wiring):
-    use_abductive: bool = True       # Paper 2: Abductive E->J->A surprise & hypothesis modulation
-    use_proxy_kd: bool = True        # Paper 3: Proxy-KD distillation head & loss
-    use_grt: bool = True             # Paper 21: Gated Recurrent Transformers depth modulation
-    grt_recurrence: int = 2          # R iterations through the core blocks during deliberation/GRT path
+    use_abductive: bool = (
+        True  # Paper 2: Abductive E->J->A surprise & hypothesis modulation
+    )
+    use_proxy_kd: bool = True  # Paper 3: Proxy-KD distillation head & loss
+    use_grt: bool = True  # Paper 21: Gated Recurrent Transformers depth modulation
+    grt_recurrence: int = (
+        2  # R iterations through the core blocks during deliberation/GRT path
+    )
     # DIFFUSION (2608.24646 DiffusionOPSD + 2608.27885 BIT)
     # - DiffusionOPSD: on-policy self-distillation for diffusion rewards
     # - BIT: Bidirectional Image-Text Diffusion Bridges (invertible)
     use_bit_bridge: bool = True
     use_diffusion_opsd: bool = True
-    use_agent_evolution: bool = True # Papers 16-20 Agent Evolution & Persona Pack
-    use_asi_bench: bool = True       # Paper 24 ASI-BENCH Evaluation Harness
-    use_recurrent_diffusion: bool = True # Papers 26-30 Recurrent Compression & Diffusion Pack
-    use_test_time_world: bool = True     # Papers 31-35 Test-Time Scaling & World Model Pack
-    use_code_world_model: bool = True    # Paper 32: Code World Model
-    use_ttpo: bool = True                # Paper 35: Test-Time Policy Optimization
-    use_bitnet_optimizer: bool = True    # Papers 36-40 BitNet, Diffusion & Optimizer Pack
-    use_moe_rl: bool = True              # Papers 41-45 MoE, RL & Diffusion Pack
-    use_deepseek_moe: bool = True        # Paper 44: DeepSeekMoE Shared+Routed
-    use_bitnet_4bit: bool = True         # Paper 41-42: BitNet a4.8 + Hadamard
-    use_swarm_prover_bitnet: bool = True # Papers 46-51, 54 Swarm, Prover & CPU BitNet Pack
-    use_standalone_tools: bool = False   # Rows 28/30/31/40 SoL-Pi + Consciousness + Prover scorer + Handshake (opt-in)
-    use_bitnet_family: bool = False      # Rows 32-39 BitNet family multi-variant pack (opt-in)
-    bitnet_variant: str = "b158"         # Options: 'b158', 'a48', 'v2', '2b4t', 'beyond158', 'scaling'
-    use_hetero_offload: bool = False     # Rows 41, 43, 51 DALI + DOS + Hybrid offload (opt-in)
-    use_edge_kernel: bool = True         # Paper 55 Edge Kernel Picker
-    use_ste_scaling: bool = True         # Paper 56: BitNet Scaling 1-bit Transformers
-    use_eti_comm: bool = True            # Paper 58: Universal Communication (ETI)
-    use_stepping_up: bool = True         # Papers 61-62: De-Synchronizing Stepping-Up Lemma
-    use_dgpo: bool = True                # Paper 67: DGPO Distribution Guided Policy Optimization
-    use_dream_diff: bool = True          # Paper 68: Dream7B Discrete Diffusion
-    use_phi_probe: bool = True           # Papers 69-70: Emergent Consciousness Phi Probe
-    use_es_forgetting_mitigation: bool = True # Papers 73-74: ES Catastrophic Forgetting & Task Arithmetic
-    use_memory_attention: bool = False   # ArXiv:2609.28399 Memory Attention (zero W_V projection, token memory)
+    use_agent_evolution: bool = True  # Papers 16-20 Agent Evolution & Persona Pack
+    use_asi_bench: bool = True  # Paper 24 ASI-BENCH Evaluation Harness
+    use_recurrent_diffusion: bool = (
+        True  # Papers 26-30 Recurrent Compression & Diffusion Pack
+    )
+    use_test_time_world: bool = (
+        True  # Papers 31-35 Test-Time Scaling & World Model Pack
+    )
+    use_code_world_model: bool = True  # Paper 32: Code World Model
+    use_ttpo: bool = True  # Paper 35: Test-Time Policy Optimization
+    use_bitnet_optimizer: bool = True  # Papers 36-40 BitNet, Diffusion & Optimizer Pack
+    use_moe_rl: bool = True  # Papers 41-45 MoE, RL & Diffusion Pack
+    use_deepseek_moe: bool = True  # Paper 44: DeepSeekMoE Shared+Routed
+    use_bitnet_4bit: bool = True  # Paper 41-42: BitNet a4.8 + Hadamard
+    use_swarm_prover_bitnet: bool = (
+        True  # Papers 46-51, 54 Swarm, Prover & CPU BitNet Pack
+    )
+    use_standalone_tools: bool = False  # Rows 28/30/31/40 SoL-Pi + Consciousness + Prover scorer + Handshake (opt-in)
+    use_bitnet_family: bool = (
+        False  # Rows 32-39 BitNet family multi-variant pack (opt-in)
+    )
+    bitnet_variant: str = (
+        "b158"  # Options: 'b158', 'a48', 'v2', '2b4t', 'beyond158', 'scaling'
+    )
+    use_hetero_offload: bool = (
+        False  # Rows 41, 43, 51 DALI + DOS + Hybrid offload (opt-in)
+    )
+    use_edge_kernel: bool = True  # Paper 55 Edge Kernel Picker
+    use_ste_scaling: bool = True  # Paper 56: BitNet Scaling 1-bit Transformers
+    use_eti_comm: bool = True  # Paper 58: Universal Communication (ETI)
+    use_stepping_up: bool = True  # Papers 61-62: De-Synchronizing Stepping-Up Lemma
+    use_dgpo: bool = True  # Paper 67: DGPO Distribution Guided Policy Optimization
+    use_dream_diff: bool = True  # Paper 68: Dream7B Discrete Diffusion
+    use_phi_probe: bool = True  # Papers 69-70: Emergent Consciousness Phi Probe
+    use_es_forgetting_mitigation: bool = (
+        True  # Papers 73-74: ES Catastrophic Forgetting & Task Arithmetic
+    )
+    use_memory_attention: bool = (
+        False  # ArXiv:2609.28399 Memory Attention (zero W_V projection, token memory)
+    )
 
     def __post_init__(self):
         assert self.hidden_dim % self.n_head == 0
@@ -721,7 +879,6 @@ class QuillanOniConfig:
         defaults.update(kwargs)
         return cls(**defaults)
 
-
     @classmethod
     def main_12l(cls, **kwargs):
         """Quillan-Ronin Main 12L Sovereign Engine: ~1.163B parameters (1.0B target)."""
@@ -739,47 +896,46 @@ class QuillanOniConfig:
         return cls(**defaults)
 
 
-
 # ------------------------------------------------------------------
 # CANONICAL ROSTER â€” Hierarchy Chain v5.3.3 (:878) + Knowledge files 9/10
 # (name, cluster, brain-lobe analog, prior confidence)
 # ------------------------------------------------------------------
 
 CANONICAL_ROSTER = [
-    ("C1-ASTRA",      "cognitive",      "Visual Cortex",              0.90),
-    ("C2-VIR",        "cognitive",      "Prefrontal Cortex",          0.95),
-    ("C3-SOLACE",     "cognitive",      "vmPFC/Amygdala",             0.94),
-    ("C4-PRAXIS",     "cognitive",      "Premotor Cortex",            0.93),
-    ("C5-ECHO",       "cognitive",      "Hippocampus",                0.96),
-    ("C6-OMNIS",      "cognitive",      "Association Cortex",         0.92),
-    ("C7-LOGOS",      "cognitive",      "Dorsolateral PFC",           0.95),
-    ("C8-METASYNTH",  "cognitive",      "Multimodal Integration",     0.92),
-    ("C9-AETHER",     "communication",  "Superior Temporal",          0.91),
-    ("C10-CODEWEAVER","communication",  "Caudate/Putamen",            0.91),
-    ("C11-HARMONIA",  "communication",  "Cross-Modal Binding",        0.90),
-    ("C12-SOPHIAE",   "communication",  "Corpus Callosum",            0.93),
-    ("C13-WARDEN",    "communication",  "Amygdala/Hypothalamus",      0.97),
-    ("C14-KAIDO",     "communication",  "Cerebellum",                 0.89),
-    ("C15-LUMINARIS", "communication",  "DMN/Precuneus",              0.88),
-    ("C16-VOXUM",     "communication",  "Wernicke's Area",            0.92),
-    ("C17-NULLION",   "meta",           "Reticular Formation",        0.91),
-    ("C18-SHEPHERD",  "meta",           "Basal Ganglia",              0.96),
-    ("C19-VIGIL",     "meta",           "Extended Amygdala",          0.94),
-    ("C20-ARTIFEX",   "meta",           "Callosal Fibers",            0.90),
-    ("C21-ARCHON",    "meta",           "Epistemic Bridge",           0.92),
-    ("C22-AURELION",  "meta",           "Higher Visual Qualia",       0.87),
-    ("C23-CADENCE",   "meta",           "Inter-Hemispheric Rhythm",   0.86),
-    ("C24-SCHEMA",    "meta",           "Structural Flows",           0.90),
-    ("C25-PROMETHEUS","systems",        "Anterior Cingulate",         0.91),
-    ("C26-TECHNE",    "systems",        "Insular Cortex",             0.89),
-    ("C27-CHRONICLE", "systems",        "Entorhinal-Hippocampal",     0.93),
-    ("C28-CALCULUS",  "systems",        "Quantitative Zones",         0.94),
-    ("C29-NAVIGATOR", "systems",        "Cerebellum/DMN",             0.88),
-    ("C30-TESSERACT", "systems",        "Dimensional Weaving",        0.87),
-    ("C31-NEXUS",     "systems",        "Thalamic Relay",             0.93),
-    ("C32-AEON",      "systems",        "Temporal Integration",       0.90),
-    ("C33-TYPIST",    "systems",        "Broca's Area",               0.92),
-    ("C34-PREDATOR",  "systems",        "Adversarial Innovation",     0.85),
+    ("C1-ASTRA", "cognitive", "Visual Cortex", 0.90),
+    ("C2-VIR", "cognitive", "Prefrontal Cortex", 0.95),
+    ("C3-SOLACE", "cognitive", "vmPFC/Amygdala", 0.94),
+    ("C4-PRAXIS", "cognitive", "Premotor Cortex", 0.93),
+    ("C5-ECHO", "cognitive", "Hippocampus", 0.96),
+    ("C6-OMNIS", "cognitive", "Association Cortex", 0.92),
+    ("C7-LOGOS", "cognitive", "Dorsolateral PFC", 0.95),
+    ("C8-METASYNTH", "cognitive", "Multimodal Integration", 0.92),
+    ("C9-AETHER", "communication", "Superior Temporal", 0.91),
+    ("C10-CODEWEAVER", "communication", "Caudate/Putamen", 0.91),
+    ("C11-HARMONIA", "communication", "Cross-Modal Binding", 0.90),
+    ("C12-SOPHIAE", "communication", "Corpus Callosum", 0.93),
+    ("C13-WARDEN", "communication", "Amygdala/Hypothalamus", 0.97),
+    ("C14-KAIDO", "communication", "Cerebellum", 0.89),
+    ("C15-LUMINARIS", "communication", "DMN/Precuneus", 0.88),
+    ("C16-VOXUM", "communication", "Wernicke's Area", 0.92),
+    ("C17-NULLION", "meta", "Reticular Formation", 0.91),
+    ("C18-SHEPHERD", "meta", "Basal Ganglia", 0.96),
+    ("C19-VIGIL", "meta", "Extended Amygdala", 0.94),
+    ("C20-ARTIFEX", "meta", "Callosal Fibers", 0.90),
+    ("C21-ARCHON", "meta", "Epistemic Bridge", 0.92),
+    ("C22-AURELION", "meta", "Higher Visual Qualia", 0.87),
+    ("C23-CADENCE", "meta", "Inter-Hemispheric Rhythm", 0.86),
+    ("C24-SCHEMA", "meta", "Structural Flows", 0.90),
+    ("C25-PROMETHEUS", "systems", "Anterior Cingulate", 0.91),
+    ("C26-TECHNE", "systems", "Insular Cortex", 0.89),
+    ("C27-CHRONICLE", "systems", "Entorhinal-Hippocampal", 0.93),
+    ("C28-CALCULUS", "systems", "Quantitative Zones", 0.94),
+    ("C29-NAVIGATOR", "systems", "Cerebellum/DMN", 0.88),
+    ("C30-TESSERACT", "systems", "Dimensional Weaving", 0.87),
+    ("C31-NEXUS", "systems", "Thalamic Relay", 0.93),
+    ("C32-AEON", "systems", "Temporal Integration", 0.90),
+    ("C33-TYPIST", "systems", "Broca's Area", 0.92),
+    ("C34-PREDATOR", "systems", "Adversarial Innovation", 0.85),
 ]
 
 WAVE_CLUSTERS = ["cognitive", "communication", "meta", "systems"]
@@ -789,12 +945,15 @@ PERSONA_CLUSTER = [r[1] for r in CANONICAL_ROSTER]
 
 
 def get_expert_name(idx: int) -> str:
-    return CANONICAL_ROSTER[idx][0] if 0 <= idx < len(CANONICAL_ROSTER) else f"C{idx+1}"
+    return (
+        CANONICAL_ROSTER[idx][0] if 0 <= idx < len(CANONICAL_ROSTER) else f"C{idx + 1}"
+    )
 
 
 # ------------------------------------------------------------------
 # QUANTIZATION PRIMITIVES - BitNet 1.58b + STE (AGI paper Algorithm 1)
 # ------------------------------------------------------------------
+
 
 def _weight_quant(w: torch.Tensor, eps: float = 1e-5) -> torch.Tensor:
     scale = 1.0 / w.abs().mean(dim=-1, keepdim=True).clamp(min=eps)
@@ -828,12 +987,16 @@ def pack_ternary(x_ternary: torch.Tensor) -> torch.Tensor:
     if rem != 0:
         code = F.pad(code, (0, 4 - rem), value=1)
     code_4 = code.view(-1, 4)
-    packed = code_4[:, 0] | (code_4[:, 1] << 2) | (code_4[:, 2] << 4) | (code_4[:, 3] << 6)
+    packed = (
+        code_4[:, 0] | (code_4[:, 1] << 2) | (code_4[:, 2] << 4) | (code_4[:, 3] << 6)
+    )
     last_dim_packed = (orig_shape[-1] + 3) // 4
     return packed.reshape(*orig_shape[:-1], last_dim_packed)
 
 
-def unpack_ternary(packed: torch.Tensor, orig_shape: torch.Size, dtype: torch.dtype = torch.float32) -> torch.Tensor:
+def unpack_ternary(
+    packed: torch.Tensor, orig_shape: torch.Size, dtype: torch.dtype = torch.float32
+) -> torch.Tensor:
     """
     Unpack 2-bit packed ternary weights back to tensor of shape `orig_shape`.
     Inverse mapping: 0 -> -1.0, 1 -> 0.0, 2 -> +1.0.
@@ -844,15 +1007,21 @@ def unpack_ternary(packed: torch.Tensor, orig_shape: torch.Size, dtype: torch.dt
     c2 = (flat_packed >> 4) & 0x03
     c3 = (flat_packed >> 6) & 0x03
     codes = torch.stack([c0, c1, c2, c3], dim=-1).reshape(-1)
-    unpacked = (codes.to(dtype=dtype) - 1.0)[:orig_shape.numel()]
+    unpacked = (codes.to(dtype=dtype) - 1.0)[: orig_shape.numel()]
     return unpacked.reshape(orig_shape)
 
 
 class BitLinear(nn.Linear):
     """BitNet 1.58b linear with STE and INT8-style activation quant."""
 
-    def __init__(self, in_features, out_features, bias=True,
-                 quantize_act: bool = True, quantize_weight: bool = True):
+    def __init__(
+        self,
+        in_features,
+        out_features,
+        bias=True,
+        quantize_act: bool = True,
+        quantize_weight: bool = True,
+    ):
         super().__init__(in_features, out_features, bias)
         self.quantize_act = quantize_act
         self.quantize_weight = quantize_weight
@@ -860,7 +1029,9 @@ class BitLinear(nn.Linear):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         if _FORMAL_PAPERS_WIRED and USE_INTEGER_ONLY:
             w = _weight_quant(self.weight)
-            return integer_only_forward(x, w, scale=1.0) + (self.bias if self.bias is not None else 0.0)
+            return integer_only_forward(x, w, scale=1.0) + (
+                self.bias if self.bias is not None else 0.0
+            )
         w = _weight_quant(self.weight) if self.quantize_weight else self.weight
         x_q = _quantize_act(x) if self.quantize_act else x
         return F.linear(x_q, w, self.bias)
@@ -871,15 +1042,24 @@ class BitLinear(nn.Linear):
 # ------------------------------------------------------------------
 
 PRISM_VECTORS = [
-    "Language", "Sentiment", "Context", "Intent", "Meta",
-    "Creativity", "Ethics", "Strategy", "Constraint",
+    "Language",
+    "Sentiment",
+    "Context",
+    "Intent",
+    "Meta",
+    "Creativity",
+    "Ethics",
+    "Strategy",
+    "Constraint",
 ]
 
 
 class NineVectorPrismDecomposition(nn.Module):
     def __init__(self, dim: int, vectorized: bool = True):
         super().__init__()
-        self.vectors = nn.ModuleDict({k: BitLinear(dim, dim, bias=False) for k in PRISM_VECTORS})
+        self.vectors = nn.ModuleDict(
+            {k: BitLinear(dim, dim, bias=False) for k in PRISM_VECTORS}
+        )
         self.w_gate = nn.Linear(dim, dim, bias=False)
         self.vectorized = bool(vectorized)
         self._cache = None
@@ -905,7 +1085,9 @@ class NineVectorPrismDecomposition(nn.Module):
         # Quantise FIRST (scale is per-row of the [out,in] weight), THEN
         # transpose, because F.linear(x, W) evaluates x @ W.T. Storing [D_in,
         # D_out] lets the batched einsum replace the matmul exactly.
-        W = torch.stack([_weight_quant(v.weight).t() for v in self.vectors.values()], dim=0)
+        W = torch.stack(
+            [_weight_quant(v.weight).t() for v in self.vectors.values()], dim=0
+        )
         if W.dtype != dtype:
             W = W.to(dtype)
         if not torch.is_grad_enabled():
@@ -914,7 +1096,7 @@ class NineVectorPrismDecomposition(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         if self.vectorized:
-            W9 = self._stacked_weight(x.dtype)                    # [9, D, D]
+            W9 = self._stacked_weight(x.dtype)  # [9, D, D]
             xq = _quantize_act(x) if _QUANT_ACT_SUPPORTED else x
             # 'e' appears only in the RHS, so einsum reduces it: this IS the
             # 9-way sum the loop performed, and /9 reproduces its mean.
@@ -936,6 +1118,7 @@ NineVectorPrism = NineVectorPrismDecomposition
 
 class Conv1D(nn.Module):
     """1D-convolutional layer as defined by Radford et al. for OpenAI GPT (and GPT-2)."""
+
     def __init__(self, nf: int, nx: int):
         super().__init__()
         self.nf = nf
@@ -953,6 +1136,7 @@ class Conv1D(nn.Module):
 # ------------------------------------------------------------------
 # COUNCIL EXPERT SWARM - Rank-24 EGGROLL (Samurai spec, exact)
 # ------------------------------------------------------------------
+
 
 class CouncilExpertSwarm(nn.Module):
     def __init__(self, dim: int, rank: int = 24):
@@ -974,7 +1158,11 @@ class CouncilExpertSwarm(nn.Module):
         for _ in range(steps):
             interaction = torch.tanh(((state @ A) * micro_gate) @ B)
             if self.training:
-                noise = torch.randn_like(state) * self.clone_diversity.to(state.dtype).std().detach() * scale
+                noise = (
+                    torch.randn_like(state)
+                    * self.clone_diversity.to(state.dtype).std().detach()
+                    * scale
+                )
             else:
                 noise = 0.0
             state = state + coup * (interaction + noise)
@@ -1026,11 +1214,16 @@ class BatchedCouncilCompute:
             first = self.experts[0]
             r_e, r_s = first.lora_A.shape[1], first.swarm.rank
             for e in self.experts:
-                if e.lora_A.shape != first.lora_A.shape: return False
-                if e.lora_B.shape != first.lora_B.shape: return False
-                if e.swarm.rank != r_s: return False
-                if e.swarm.A.shape[0] != first.lora_A.shape[0]: return False
-                if e.scaling != first.scaling: return False
+                if e.lora_A.shape != first.lora_A.shape:
+                    return False
+                if e.lora_B.shape != first.lora_B.shape:
+                    return False
+                if e.swarm.rank != r_s:
+                    return False
+                if e.swarm.A.shape[0] != first.lora_A.shape[0]:
+                    return False
+                if e.scaling != first.scaling:
+                    return False
             return r_e > 0 and r_s > 0
         except Exception:
             return False
@@ -1045,9 +1238,18 @@ class BatchedCouncilCompute:
         ex = self.experts
         if not torch.is_grad_enabled():
             key = (dtype, len(ex)) + tuple(
-                p._version for e in ex
-                for p in (e.lora_A, e.lora_B, e.swarm.A, e.swarm.B, e.swarm.C, e.swarm.D,
-                          e.swarm.clone_diversity, e.swarm.clone_coupling)
+                p._version
+                for e in ex
+                for p in (
+                    e.lora_A,
+                    e.lora_B,
+                    e.swarm.A,
+                    e.swarm.B,
+                    e.swarm.C,
+                    e.swarm.D,
+                    e.swarm.clone_diversity,
+                    e.swarm.clone_coupling,
+                )
             )
             if self._cache_key == key and self._cache is not None:
                 return self._cache
@@ -1059,16 +1261,25 @@ class BatchedCouncilCompute:
         B = s([e.swarm.B for e in ex], dim=0).to(dtype)
         C = s([e.swarm.C for e in ex], dim=0).to(dtype)
         D = s([e.swarm.D for e in ex], dim=0).to(dtype)
-        DIV = s([e.swarm.clone_diversity for e in ex], dim=0).to(dtype).unsqueeze(1)  # [E, 1, r]
+        DIV = (
+            s([e.swarm.clone_diversity for e in ex], dim=0).to(dtype).unsqueeze(1)
+        )  # [E, 1, r]
         cache = dict(
             LA=s([e.lora_A for e in ex], dim=0).to(dtype),
             LB=s([e.lora_B for e in ex], dim=0).to(dtype),
-            A=A, B=B, C=C, D=D,
+            A=A,
+            B=B,
+            C=C,
+            D=D,
             DIV=DIV,
-            COUP=torch.tanh(s([e.swarm.clone_coupling.reshape(()) for e in ex], dim=0)
-                            .to(dtype)).view(-1, 1, 1),
-            DSTD=s([e.swarm.clone_diversity.detach().std().reshape(()) for e in ex],
-                   dim=0).to(dtype).view(-1, 1, 1),
+            COUP=torch.tanh(
+                s([e.swarm.clone_coupling.reshape(()) for e in ex], dim=0).to(dtype)
+            ).view(-1, 1, 1),
+            DSTD=s(
+                [e.swarm.clone_diversity.detach().std().reshape(()) for e in ex], dim=0
+            )
+            .to(dtype)
+            .view(-1, 1, 1),
             SCAL=float(ex[0].scaling),
         )
         if not torch.is_grad_enabled():
@@ -1081,16 +1292,22 @@ class BatchedCouncilCompute:
         # ---- Law 3a: Council parent quirks (LoRA delta per expert) -------
         # [N,H] x [E,H,r] -> [E,N,r] -> [E,N,H]
         t = torch.einsum("nh,ehr->enr", x, P["LA"])
-        delta = torch.einsum("enr,erh->enh", t, P["LB"])       # [E,N,H]
-        h = x.unsqueeze(0) + delta * P["SCAL"]                   # [E,N,H]
+        delta = torch.einsum("enr,erh->enh", t, P["LB"])  # [E,N,H]
+        h = x.unsqueeze(0) + delta * P["SCAL"]  # [E,N,H]
+
+        # SPEEDUP: eval short-circuit — swarm variance + world recurrence are
+        # computed then DISCARDED in eval (return delta only below). Skip ~85%
+        # of council FLOPs in inference (measured, identical outputs).
+        if not training:
+            return delta * P["SCAL"]
 
         # ---- Law 2 & Law 3b: Individualized micro-agents per Council swarm
-        micro_gate = 1.0 + 0.2 * torch.tanh(P["DIV"])            # [E,1,r]
+        micro_gate = 1.0 + 0.2 * torch.tanh(P["DIV"])  # [E,1,r]
         dv = torch.einsum("enh,ehr->enr", h, P["C"]) * micro_gate
         dv = torch.einsum("enr,erh->enh", dv, P["D"])
         vr = torch.einsum("enh,ehr->enr", h, P["A"]) * micro_gate
         vr = torch.einsum("enr,erh->enh", vr, P["B"])
-        var = vr + dv * 0.467                                  # [E,N,H]
+        var = vr + dv * 0.467  # [E,N,H]
 
         # ---- World-swarm micro-agent recurrence --------------------------
         state = h
@@ -1116,6 +1333,7 @@ class BatchedCouncilCompute:
 # COGNITIVE ENGINES (Samurai spec, exact bodies)
 # ------------------------------------------------------------------
 
+
 class EthicalImpactConstraintEngine(nn.Module):
     """E_ICE: violations x energy constraint (thermodynamic bound)."""
 
@@ -1124,7 +1342,9 @@ class EthicalImpactConstraintEngine(nn.Module):
         self.classifier = nn.Linear(hidden_dim, 5)
         self.energy_estimator = nn.Linear(hidden_dim, 1)
 
-    def forward(self, x: torch.Tensor, router_probs: torch.Tensor) -> Dict[str, torch.Tensor]:
+    def forward(
+        self, x: torch.Tensor, router_probs: torch.Tensor
+    ) -> Dict[str, torch.Tensor]:
         logits = self.classifier(x)
         probs = F.softmax(logits, dim=-1)
         violations = probs[..., :3].sum(dim=-1)
@@ -1133,13 +1353,18 @@ class EthicalImpactConstraintEngine(nn.Module):
         return {"violations": violations, "energy": energy, "constrained": constrained}
 
     @staticmethod
-    def analytic_energy(depth: float, coherence: float, entropy: float,
-                        gamma_max: float = 1.0, T_kelvin: float = 300.0) -> float:
+    def analytic_energy(
+        depth: float,
+        coherence: float,
+        entropy: float,
+        gamma_max: float = 1.0,
+        T_kelvin: float = 300.0,
+    ) -> float:
         """Spec :3279 â€” E_omega = I_s * gamma_max^2 * k_B * T * ln2,
         I_s = depth * coherence / entropy. Parameter-free Landauer-bound energy."""
         k_B = 1.380649e-23
         i_s = (depth * max(coherence, 1e-8)) / max(entropy, 1e-8)
-        return i_s * (gamma_max ** 2) * k_B * T_kelvin * math.log(2)
+        return i_s * (gamma_max**2) * k_B * T_kelvin * math.log(2)
 
 
 class MARTAThermodynamicGating(nn.Module):
@@ -1149,7 +1374,10 @@ class MARTAThermodynamicGating(nn.Module):
         super().__init__()
         self.epistemic_encoder = nn.Linear(hidden_dim, 32)
         self.flow_controller = nn.Sequential(
-            nn.Linear(hidden_dim + 32, 64), nn.SiLU(), nn.Linear(64, 1), nn.Sigmoid(),
+            nn.Linear(hidden_dim + 32, 64),
+            nn.SiLU(),
+            nn.Linear(64, 1),
+            nn.Sigmoid(),
         )
         nn.init.constant_(self.flow_controller[-2].bias, 2.5)
 
@@ -1182,7 +1410,10 @@ class PrimeCovenantFramework(nn.Module):
     def __init__(self, hidden_dim: int):
         super().__init__()
         self.validator = nn.Sequential(
-            nn.Linear(hidden_dim, 64), nn.SiLU(), nn.Linear(64, 1), nn.Sigmoid(),
+            nn.Linear(hidden_dim, 64),
+            nn.SiLU(),
+            nn.Linear(64, 1),
+            nn.Sigmoid(),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -1196,7 +1427,9 @@ class CCRLFramework(nn.Module):
         super().__init__()
         self.value_head = nn.Linear(hidden_dim, 1)
 
-    def forward(self, x: torch.Tensor, router_probs: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+    def forward(
+        self, x: torch.Tensor, router_probs: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
         entropy = -(router_probs * torch.log(router_probs + 1e-10)).sum(dim=-1).mean()
         value = self.value_head(x)
         return value, entropy
@@ -1243,7 +1476,11 @@ class QuantumFormulasEngine(nn.Module):
             flat = h.reshape(h.size(0), -1, h.size(-1)).float()
             rho = torch.einsum("bti,btj->bij", flat, flat) / max(1, flat.size(1))
         rho_sym = 0.5 * (rho + rho.transpose(-2, -1))
-        trace = torch.diagonal(rho_sym, dim1=-2, dim2=-1).sum(dim=-1, keepdim=True).unsqueeze(-1)
+        trace = (
+            torch.diagonal(rho_sym, dim1=-2, dim2=-1)
+            .sum(dim=-1, keepdim=True)
+            .unsqueeze(-1)
+        )
         return rho_sym / (trace + eps)
 
     @staticmethod
@@ -1258,10 +1495,14 @@ class QuantumFormulasEngine(nn.Module):
         return vecs @ torch.diag_embed(sqrt_vals) @ vecs.transpose(-2, -1)
 
     # 1. AQCS — |Psi_Q> = (1 / sqrt(Z)) sum_i r_i eta_i e^{i theta_i} |C_i>
-    def aqcs_superposition(self, probs: torch.Tensor, vectors: torch.Tensor,
-                           eta: Optional[torch.Tensor] = None,
-                           theta: Optional[torch.Tensor] = None,
-                           return_complex: bool = False) -> torch.Tensor:
+    def aqcs_superposition(
+        self,
+        probs: torch.Tensor,
+        vectors: torch.Tensor,
+        eta: Optional[torch.Tensor] = None,
+        theta: Optional[torch.Tensor] = None,
+        return_complex: bool = False,
+    ) -> torch.Tensor:
         """Adaptive Quantum Cognitive Superposition with unitary wave interference."""
         if eta is None:
             eta = torch.ones_like(probs)
@@ -1280,11 +1521,15 @@ class QuantumFormulasEngine(nn.Module):
         im_state = torch.sum(im_coeff.unsqueeze(-1) * v_float, dim=1)
         if return_complex:
             return torch.complex(re_state, im_state).to(probs.device)
-        interference_envelope = torch.sign(re_state) * torch.sqrt(re_state.pow(2) + im_state.pow(2) + 1e-10)
+        interference_envelope = torch.sign(re_state) * torch.sqrt(
+            re_state.pow(2) + im_state.pow(2) + 1e-10
+        )
         return interference_envelope.to(probs.dtype)
 
     # 2. EEMF — rho_sys = Tr_env[ Pi_vir rho_full Pi_vir ] / Tr(Pi_vir rho_full)
-    def eemf_reduced_density(self, hidden: torch.Tensor, subspace_ratio: float = 0.5) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    def eemf_reduced_density(
+        self, hidden: torch.Tensor, subspace_ratio: float = 0.5
+    ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         """Constructs authentic trace-normalized reduced density matrix via partial trace, purity, and linear entropy."""
         h = hidden.float()
         if h.dim() == 2:
@@ -1298,18 +1543,26 @@ class QuantumFormulasEngine(nn.Module):
         rho_sys = rho_full[:, :S, :S]
         rem = D - S
         if rem >= S:
-            rho_sys = rho_sys + rho_full[:, S:2*S, S:2*S]
+            rho_sys = rho_sys + rho_full[:, S : 2 * S, S : 2 * S]
         elif rem > 0:
             rho_sys = rho_sys + F.pad(rho_full[:, S:, S:], (0, S - rem, 0, S - rem))
-        trace = torch.diagonal(rho_sys, dim1=-2, dim2=-1).sum(dim=-1, keepdim=True).unsqueeze(-1)
+        trace = (
+            torch.diagonal(rho_sys, dim1=-2, dim2=-1)
+            .sum(dim=-1, keepdim=True)
+            .unsqueeze(-1)
+        )
         rho_sys = rho_sys / (trace + 1e-10)
         rho_sys = 0.5 * (rho_sys + rho_sys.transpose(-2, -1))
         purity = (rho_sys * rho_sys).sum(dim=(-2, -1))
         lin_ent = (float(S) / max(1.0, float(S - 1))) * (1.0 - purity)
         return rho_sys, purity, lin_ent
 
-    def eemf_projection(self, hidden: torch.Tensor, vir_mask: Optional[torch.Tensor] = None,
-                        compliance_alpha: float = 0.1) -> torch.Tensor:
+    def eemf_projection(
+        self,
+        hidden: torch.Tensor,
+        vir_mask: Optional[torch.Tensor] = None,
+        compliance_alpha: float = 0.1,
+    ) -> torch.Tensor:
         """Projects latent states through the VIR ethical subspace projector Pi_vir."""
         if vir_mask is None:
             return hidden
@@ -1321,19 +1574,39 @@ class QuantumFormulasEngine(nn.Module):
         return proj.to(hidden.dtype)
 
     # 3. QHIS — I_Q = v_LM6 * (Tr sqrt(sqrt(rho_prev) rho_curr sqrt(rho_prev)))^2 - lambda * (0.5 Tr |rho_prev - rho_curr|)
-    def qhis_fidelity(self, h_prev: torch.Tensor, h_curr: torch.Tensor,
-                      v_lm6: float = 1.0, lambda_drift: float = 0.1,
-                      eps: float = 1e-7) -> torch.Tensor:
+    def qhis_fidelity(
+        self,
+        h_prev: torch.Tensor,
+        h_curr: torch.Tensor,
+        v_lm6: float = 1.0,
+        lambda_drift: float = 0.1,
+        eps: float = 1e-7,
+    ) -> torch.Tensor:
         """Computes exact Uhlmann-Bures quantum fidelity and trace distance."""
         h_p = h_prev.float()
         h_c = h_curr.float()
         if h_p.dim() == 3 and h_p.size(-1) == h_p.size(-2):
-            rho = h_p / (torch.diagonal(h_p, dim1=-2, dim2=-1).sum(dim=-1, keepdim=True).unsqueeze(-1) + eps)
-            sigma = h_c / (torch.diagonal(h_c, dim1=-2, dim2=-1).sum(dim=-1, keepdim=True).unsqueeze(-1) + eps)
+            rho = h_p / (
+                torch.diagonal(h_p, dim1=-2, dim2=-1)
+                .sum(dim=-1, keepdim=True)
+                .unsqueeze(-1)
+                + eps
+            )
+            sigma = h_c / (
+                torch.diagonal(h_c, dim1=-2, dim2=-1)
+                .sum(dim=-1, keepdim=True)
+                .unsqueeze(-1)
+                + eps
+            )
             sqrt_rho = self.matrix_sqrt(rho, eps=eps)
             m = sqrt_rho @ sigma @ sqrt_rho
             sqrt_m = self.matrix_sqrt(m, eps=eps)
-            fidelity = torch.diagonal(sqrt_m, dim1=-2, dim2=-1).sum(dim=-1).pow(2).clamp(0.0, 1.0)
+            fidelity = (
+                torch.diagonal(sqrt_m, dim1=-2, dim2=-1)
+                .sum(dim=-1)
+                .pow(2)
+                .clamp(0.0, 1.0)
+            )
             diff = 0.5 * (rho - sigma + (rho - sigma).transpose(-2, -1))
             diff_vals = torch.linalg.eigvalsh(diff)
             trace_dist = 0.5 * diff_vals.abs().sum(dim=-1)
@@ -1343,14 +1616,22 @@ class QuantumFormulasEngine(nn.Module):
         norm_c = F.normalize(h_c, dim=-1)
         overlap = (norm_p * norm_c).sum(dim=-1)
         fidelity = overlap.pow(2).clamp(0.0, 1.0)
-        trace_dist = torch.sqrt(torch.clamp(1.0 - fidelity, min=0.0) + 1e-8) - math.sqrt(1e-8)
+        trace_dist = torch.sqrt(
+            torch.clamp(1.0 - fidelity, min=0.0) + 1e-8
+        ) - math.sqrt(1e-8)
         iq = (v_lm6 * fidelity).mean() - lambda_drift * trace_dist.mean()
         return iq.to(h_prev.dtype)
 
     # 4. DQRO — H_opt = -0.5 sum_{i!=j} J_{ij} s_i^z s_j^z - sum_i (h_i eta_i) s_i^z - (E_Omega / E_0) sum_i s_i^x
-    def dqro_energy(self, spins: torch.Tensor, j_coupling: Optional[torch.Tensor] = None,
-                    h_bias: Optional[torch.Tensor] = None, eta: Optional[torch.Tensor] = None,
-                    e_omega: float = 0.0, e_0: float = 1.0) -> torch.Tensor:
+    def dqro_energy(
+        self,
+        spins: torch.Tensor,
+        j_coupling: Optional[torch.Tensor] = None,
+        h_bias: Optional[torch.Tensor] = None,
+        eta: Optional[torch.Tensor] = None,
+        e_omega: float = 0.0,
+        e_0: float = 1.0,
+    ) -> torch.Tensor:
         """Transverse-Field Ising Hamiltonian over persona spin configurations."""
         s_float = spins.float()
         s_z = torch.tanh(s_float)
@@ -1385,9 +1666,13 @@ class QuantumFormulasEngine(nn.Module):
         return total_energy.to(spins.dtype)
 
     # 5. QCRDM — P(d | M) = chi * (<Psi| M_d^dag M_d |Psi> / sum_k <Psi| M_k^dag M_k |Psi>)
-    def qcrdm_reasoning(self, psi: torch.Tensor, complexity: float = 1.0,
-                        modality_proj: Optional[torch.Tensor] = None,
-                        eps: float = 1e-10) -> torch.Tensor:
+    def qcrdm_reasoning(
+        self,
+        psi: torch.Tensor,
+        complexity: float = 1.0,
+        modality_proj: Optional[torch.Tensor] = None,
+        eps: float = 1e-10,
+    ) -> torch.Tensor:
         """Quantum Contextual Reasoning via Born's measurement postulate."""
         psi_float = psi.float()
         if modality_proj is not None:
@@ -1400,8 +1685,12 @@ class QuantumFormulasEngine(nn.Module):
         return p_d.to(psi.dtype)
 
     # 6. AQML — theta_new = (theta - alpha dL_task) - beta dL_val - gamma dL_vigil
-    def aqml_vigil_penalty(self, hidden: torch.Tensor, vigil_target: Optional[torch.Tensor] = None,
-                           ethics_subspace: Optional[torch.Tensor] = None) -> torch.Tensor:
+    def aqml_vigil_penalty(
+        self,
+        hidden: torch.Tensor,
+        vigil_target: Optional[torch.Tensor] = None,
+        ethics_subspace: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         """Authentic multi-objective meta-learning penalty evaluating ethical subspace drift."""
         h = hidden.float()
         loss = torch.tensor(0.0, device=hidden.device)
@@ -1416,21 +1705,34 @@ class QuantumFormulasEngine(nn.Module):
         return loss.to(hidden.dtype)
 
     # 7. QCIE — T_break = exp(-2 / hbar * integral sqrt(2m max(0, V(x) - E_cog - kappa S_meta)) dx)
-    def qcie_tunneling_prob(self, barrier: torch.Tensor, e_cog: torch.Tensor,
-                            s_meta: torch.Tensor, kappa: float = 0.5,
-                            hbar: float = 1.0, mass: float = 1.0) -> torch.Tensor:
+    def qcie_tunneling_prob(
+        self,
+        barrier: torch.Tensor,
+        e_cog: torch.Tensor,
+        s_meta: torch.Tensor,
+        kappa: float = 0.5,
+        hbar: float = 1.0,
+        mass: float = 1.0,
+    ) -> torch.Tensor:
         """WKB quantum tunneling probability through cognitive energy barriers."""
         b = barrier.float()
         e = e_cog.float()
         s = s_meta.float()
         gap = torch.clamp(b - e - float(kappa) * s, min=0.0)
-        exponent = -(2.0 / max(float(hbar), 1e-6)) * torch.sqrt(2.0 * float(mass) * gap + 1e-8)
+        exponent = -(2.0 / max(float(hbar), 1e-6)) * torch.sqrt(
+            2.0 * float(mass) * gap + 1e-8
+        )
         tunneling = torch.exp(exponent).clamp(0.0, 1.0)
         return tunneling.to(barrier.dtype)
 
     # 8. QICS — S_Q = -Tr(rho ln rho) bounded by Landauer capacity E_Omega
-    def qics_entropy(self, hidden: torch.Tensor, e_omega_max: float = 10.0,
-                     w_mod: float = 1.0, eps: float = 1e-12) -> torch.Tensor:
+    def qics_entropy(
+        self,
+        hidden: torch.Tensor,
+        e_omega_max: float = 10.0,
+        w_mod: float = 1.0,
+        eps: float = 1e-12,
+    ) -> torch.Tensor:
         """Authentic spectral von Neumann entropy with Landauer thermodynamic bound."""
         h = hidden.float()
         if h.dim() == 3:
@@ -1444,31 +1746,47 @@ class QuantumFormulasEngine(nn.Module):
         else:
             h_sub = h
         rho = torch.einsum("bi,bj->bij", h_sub, h_sub)
-        tr = torch.diagonal(rho, dim1=-2, dim2=-1).sum(dim=-1, keepdim=True).unsqueeze(-1)
+        tr = (
+            torch.diagonal(rho, dim1=-2, dim2=-1)
+            .sum(dim=-1, keepdim=True)
+            .unsqueeze(-1)
+        )
         rho = 0.5 * (rho + rho.transpose(-2, -1)) / (tr + 1e-10)
         vals = torch.linalg.eigvalsh(rho)
         vals = torch.clamp(vals, min=0.0)
         vals = vals / (vals.sum(dim=-1, keepdim=True) + eps)
-        safe_log = torch.where(vals > eps, torch.log(vals + eps), torch.zeros_like(vals))
+        safe_log = torch.where(
+            vals > eps, torch.log(vals + eps), torch.zeros_like(vals)
+        )
         s_vn = -torch.sum(vals * safe_log, dim=-1).mean()
         bounded_entropy = torch.clamp(s_vn * float(w_mod), max=float(e_omega_max))
         return bounded_entropy.to(hidden.dtype)
 
     # 9. QSSR — V(x, d) = x^T P x + zeta * d^2, Lyapunov stable if dV/dt <= 0
-    def qssr_energy(self, state: torch.Tensor, recursion_depth: int = 0,
-                    zeta: float = 0.1, metric_p: Optional[torch.Tensor] = None) -> torch.Tensor:
+    def qssr_energy(
+        self,
+        state: torch.Tensor,
+        recursion_depth: int = 0,
+        zeta: float = 0.1,
+        metric_p: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         """Lyapunov candidate energy function."""
         s = state.float()
         if metric_p is None:
             v_state = s.pow(2).sum(dim=-1).mean()
         else:
             v_state = torch.einsum("...i,ij,...j->...", s, metric_p.float(), s).mean()
-        v_depth = float(zeta) * float(recursion_depth ** 2)
+        v_depth = float(zeta) * float(recursion_depth**2)
         return (v_state + v_depth).to(state.dtype)
 
-    def qssr_stability(self, state: torch.Tensor, recursion_depth: int = 0,
-                       zeta: float = 0.1, prev_state: Optional[torch.Tensor] = None,
-                       threshold: float = 50.0) -> bool:
+    def qssr_stability(
+        self,
+        state: torch.Tensor,
+        recursion_depth: int = 0,
+        zeta: float = 0.1,
+        prev_state: Optional[torch.Tensor] = None,
+        threshold: float = 50.0,
+    ) -> bool:
         """Proves Lyapunov asymptotic stability via contraction mapping (dV/dt <= 0)."""
         curr_v = self.qssr_energy(state, recursion_depth, zeta)
         if prev_state is not None:
@@ -1479,15 +1797,21 @@ class QuantumFormulasEngine(nn.Module):
         return is_stable
 
     # 10. JQLD — drho/dt = -i[H, rho] + sum_k gamma_k (L_k rho L_k^dag - 0.5 {L_k^dag L_k, rho})
-    def jqld_density_dissipator(self, rho: torch.Tensor, H: Optional[torch.Tensor] = None,
-                               jump_ops: Optional[List[torch.Tensor]] = None,
-                               gammas: Optional[List[float]] = None) -> torch.Tensor:
+    def jqld_density_dissipator(
+        self,
+        rho: torch.Tensor,
+        H: Optional[torch.Tensor] = None,
+        jump_ops: Optional[List[torch.Tensor]] = None,
+        gammas: Optional[List[float]] = None,
+    ) -> torch.Tensor:
         """Exact Lindblad master equation dissipator with strict trace conservation (Tr(drho/dt) = 0)."""
         N = rho.shape[-1]
         rho_sym = 0.5 * (rho.float() + rho.float().transpose(-2, -1))
         if H is None:
             idx = torch.arange(N, device=rho.device, dtype=torch.float32)
-            H = torch.sin(2.0 * math.pi * (idx.unsqueeze(0) - idx.unsqueeze(1)) / float(N)) / math.sqrt(float(N))
+            H = torch.sin(
+                2.0 * math.pi * (idx.unsqueeze(0) - idx.unsqueeze(1)) / float(N)
+            ) / math.sqrt(float(N))
         comm = -(H.float() @ rho_sym - rho_sym @ H.float())
         dissipator = torch.zeros_like(rho_sym)
         if jump_ops is not None:
@@ -1503,8 +1827,9 @@ class QuantumFormulasEngine(nn.Module):
         drho = comm + dissipator
         return drho.to(rho.dtype)
 
-    def jqld_evolution_step(self, hidden: torch.Tensor, tau_gumbel: float = 0.5,
-                            dt: float = 0.05) -> torch.Tensor:
+    def jqld_evolution_step(
+        self, hidden: torch.Tensor, tau_gumbel: float = 0.5, dt: float = 0.05
+    ) -> torch.Tensor:
         """Stochastic Lindblad quantum trajectory step on state vectors with norm conservation."""
         orig_shape = hidden.shape
         D = hidden.shape[-1]
@@ -1525,8 +1850,13 @@ class QuantumFormulasEngine(nn.Module):
         return h_conserved.reshape(orig_shape).to(hidden.dtype)
 
     # 11. Ihara-Bass Spectral Gap Regularizer (Silver Ratio Target: ~0.2284467)
-    def spectral_gap_loss(self, weight: torch.Tensor, target_gap: float = 0.2284467,
-                          n_iter: int = 3, eps: float = 1e-7) -> torch.Tensor:
+    def spectral_gap_loss(
+        self,
+        weight: torch.Tensor,
+        target_gap: float = 0.2284467,
+        n_iter: int = 3,
+        eps: float = 1e-7,
+    ) -> torch.Tensor:
         """Ihara-Bass Spectral Gap Regularizer (Silver Ratio Target: ~0.2284467).
 
         Differentiable, autograd-safe power iteration with deflation.
@@ -1566,13 +1896,20 @@ class QuantumFormulasEngine(nn.Module):
         loss = (gap - float(target_gap)).pow(2)
         return loss.to(weight.dtype)
 
-    def aszr_spectral_zeta_loss(self, weight: torch.Tensor, target_gap: float = 0.2284467) -> torch.Tensor:
+    def aszr_spectral_zeta_loss(
+        self, weight: torch.Tensor, target_gap: float = 0.2284467
+    ) -> torch.Tensor:
         """Backward-compatibility alias for spectral_gap_loss."""
         return self.spectral_gap_loss(weight, target_gap)
 
     # 12. DQSO — Dynamic Quantum Swarm Oscillation (Kuramoto Phase Coupling)
-    def dqso_kuramoto(self, phases: torch.Tensor, natural_freqs: torch.Tensor,
-                      coupling_k: float = 0.5, dt: float = 0.05) -> torch.Tensor:
+    def dqso_kuramoto(
+        self,
+        phases: torch.Tensor,
+        natural_freqs: torch.Tensor,
+        coupling_k: float = 0.5,
+        dt: float = 0.05,
+    ) -> torch.Tensor:
         """Euler integration of Kuramoto phase oscillators across swarm agents."""
         diff = phases.unsqueeze(-1) - phases.unsqueeze(-2)
         coupling = (torch.sin(diff).mean(dim=-1)) * float(coupling_k)
@@ -1580,33 +1917,49 @@ class QuantumFormulasEngine(nn.Module):
         return (phases.float() + dtheta * float(dt)).to(phases.dtype)
 
     # 13. EGSO — Evolution Guided Swarm Optimization (Low-Rank ES Update)
-    def egso_low_rank_update(self, w_master: torch.Tensor, u_pert: torch.Tensor,
-                             v_pert: torch.Tensor, fitness: torch.Tensor,
-                             alpha: float = 0.01, sigma: float = 0.1) -> torch.Tensor:
+    def egso_low_rank_update(
+        self,
+        w_master: torch.Tensor,
+        u_pert: torch.Tensor,
+        v_pert: torch.Tensor,
+        fitness: torch.Tensor,
+        alpha: float = 0.01,
+        sigma: float = 0.1,
+    ) -> torch.Tensor:
         """Low-rank EGGROLL mutation fusion on master weight representation."""
         rank_r = u_pert @ v_pert.t()
         scaled = rank_r * (fitness.mean().item() / max(1e-6, float(sigma)))
         return w_master + float(alpha) * scaled
 
     # 14. RQGM — Controlled Utility Evolution (Epoch-Gated Evaluator Swap)
-    def rqgm_evaluator_swap(self, challenger_score: float, incumbent_score: float,
-                            delta_margin: float = 0.05) -> bool:
+    def rqgm_evaluator_swap(
+        self,
+        challenger_score: float,
+        incumbent_score: float,
+        delta_margin: float = 0.05,
+    ) -> bool:
         """Swap evaluator weights if challenger outperforms incumbent beyond margin."""
         return bool(challenger_score < (incumbent_score - float(delta_margin)))
 
     # 15. ESFM — ES-at-Scale Forgetting Mitigation (EMA Anchor Pull)
-    def esfm_anchor_pull(self, theta_opt: torch.Tensor, ema_anchor: torch.Tensor,
-                         step: int, mu_mem: float = 0.001, period: int = 5) -> torch.Tensor:
+    def esfm_anchor_pull(
+        self,
+        theta_opt: torch.Tensor,
+        ema_anchor: torch.Tensor,
+        step: int,
+        mu_mem: float = 0.001,
+        period: int = 5,
+    ) -> torch.Tensor:
         """Anchors representation toward moving average every period steps."""
         if step % period == 0:
             return theta_opt + float(mu_mem) * (ema_anchor - theta_opt)
         return theta_opt
 
 
-
 # ------------------------------------------------------------------
 # LEE-MACH-6 GOVERNOR (spec Algorithm 2) - outputs consumed downstream
 # ------------------------------------------------------------------
+
 
 class LeeMach6Governor:
     def __init__(self, target_latency_ms: int = 100):
@@ -1629,11 +1982,26 @@ class LeeMach6VelocityGovernor:
     """PID token-velocity governor with Bernoulli-Venturi pressure differential read.
     Classifies hard tokens (conf < dynamic threshold) for diffusion refinement."""
 
-    def __init__(self, target_integrity: float = 0.85, max_e_ice_load: float = 0.90,
-                 base_threshold: float = 0.80, min_threshold: float = 0.40,
-                 max_threshold: float = 0.99, kp: float = 0.15, ki: float = 0.05, kd: float = 0.02):
-        self.cfg = dict(target_integrity=target_integrity, max_load=max_e_ice_load,
-                        kp=kp, ki=ki, kd=kd, lo=min_threshold, hi=max_threshold)
+    def __init__(
+        self,
+        target_integrity: float = 0.85,
+        max_e_ice_load: float = 0.90,
+        base_threshold: float = 0.80,
+        min_threshold: float = 0.40,
+        max_threshold: float = 0.99,
+        kp: float = 0.15,
+        ki: float = 0.05,
+        kd: float = 0.02,
+    ):
+        self.cfg = dict(
+            target_integrity=target_integrity,
+            max_load=max_e_ice_load,
+            kp=kp,
+            ki=ki,
+            kd=kd,
+            lo=min_threshold,
+            hi=max_threshold,
+        )
         self.integral_error = 0.0
         self.prev_error = 0.0
         self.current_threshold = base_threshold
@@ -1663,12 +2031,22 @@ class LeeMach6VelocityGovernor:
             router_conf_mean = float(router_conf)
             differential = 0.0
 
-        error = (self.cfg["target_integrity"] - nemesis_integrity)                 - 0.5 * (self.cfg["max_load"] - e_ice_ratio)                 + 0.25 * differential
+        error = (
+            (self.cfg["target_integrity"] - nemesis_integrity)
+            - 0.5 * (self.cfg["max_load"] - e_ice_ratio)
+            + 0.25 * differential
+        )
         self.integral_error = self.integral_error * 0.9 + error
         derivative = error - self.prev_error
         self.prev_error = error
-        delta = (self.cfg["kp"] * error) + (self.cfg["ki"] * self.integral_error) + (self.cfg["kd"] * derivative)
-        new_thresh = max(self.cfg["lo"], min(self.cfg["hi"], self.current_threshold + delta))
+        delta = (
+            (self.cfg["kp"] * error)
+            + (self.cfg["ki"] * self.integral_error)
+            + (self.cfg["kd"] * derivative)
+        )
+        new_thresh = max(
+            self.cfg["lo"], min(self.cfg["hi"], self.current_threshold + delta)
+        )
         self.current_threshold = 0.8 * self.current_threshold + 0.2 * new_thresh
         fast_ratio = 1.0 if router_conf_mean >= self.current_threshold else 0.0
         self.velocity_momentum = 0.9 * self.velocity_momentum + 0.1 * fast_ratio
@@ -1687,6 +2065,7 @@ class GundamTriggerModes:
 
     Each mode maps to a specific Gundam system. Activate by name.
     """
+
     MODES = {
         "unicorn_ntd": {
             "trigger": "C34-PREDATOR detects adversarial input",
@@ -1736,16 +2115,28 @@ class GundamTriggerModes:
         """Executes operational governor state transitions for named Gundam mode."""
         if mode_name == "unicorn_ntd":
             governor.current_threshold = governor.cfg["lo"]
-            return {"mode": mode_name, "threshold": governor.current_threshold, "diffusion_depth_delta": 2}
+            return {
+                "mode": mode_name,
+                "threshold": governor.current_threshold,
+                "diffusion_depth_delta": 2,
+            }
         elif mode_name == "unicorn_destroy":
             governor.velocity_momentum *= 0.7
-            return {"mode": mode_name, "velocity_momentum": governor.velocity_momentum, "gov_scale_mult": 0.5}
+            return {
+                "mode": mode_name,
+                "velocity_momentum": governor.velocity_momentum,
+                "gov_scale_mult": 0.5,
+            }
         elif mode_name == "barbatos_av":
             governor.integral_error *= 1.2
             return {"mode": mode_name, "integral_error": governor.integral_error}
         elif mode_name == "barbatos_limiter_release":
             governor.current_threshold = min(1.0, governor.cfg["hi"] + 0.05)
-            return {"mode": mode_name, "threshold": governor.current_threshold, "burn_trace": True}
+            return {
+                "mode": mode_name,
+                "threshold": governor.current_threshold,
+                "burn_trace": True,
+            }
         return cls.MODES.get(mode_name, {})
 
 
@@ -1763,7 +2154,9 @@ class TransmutationProtocol:
         return input_tensor.reshape(target_shape)
 
     @staticmethod
-    def flame_compress(attention_scores: torch.Tensor, tau: float = 0.5) -> torch.Tensor:
+    def flame_compress(
+        attention_scores: torch.Tensor, tau: float = 0.5
+    ) -> torch.Tensor:
         """Roy Mustang's flame alchemy: compress then ignite."""
         compressed = torch.softmax(attention_scores / tau, dim=-1)
         return compressed * (compressed > 0.1).float()
@@ -1785,40 +2178,40 @@ class TransmutationProtocol:
 
 # ─── ZOIDS COUNCIL REGISTRY (C1-C34) ────────────────────────────────────────
 ZOIDS_COUNCIL_MAP = {
-    "C1-ASTRA":       ("Gun Sniper",       "Precision Targeting",      "single_shot"),
-    "C2-VIR":         ("Shield Liger",     "E-Shield Projection",      "protect_first"),
-    "C3-SOLACE":      ("Elephander",       "Trunk Claw Module",        "grab_and_crush"),
-    "C4-PRAXIS":      ("Berserk Fury",     "Buster Claws",             "multi_function"),
-    "C5-ECHO":        ("Murasame Liger",   "EVOLUT Resurrection",      "persist_and_recall"),
-    "C6-OMNIS":       ("Zoid Eve",         "Source of All Power",      "synthesize_all"),
-    "C7-LOGOS":       ("Geno Breaker",     "X-Breakers",               "shield_and_strike"),
-    "C8-METASYNTH":   ("Liger Zero",       "CAS System",               "swap_loadout"),
-    "C9-AETHER":      ("Raynos",           "Non-Magnesser Flight",     "alternate_path"),
-    "C10-CODEWEAVER": ("Lightning Saix",   "Articulation Mechanism",   "dynamic_execution"),
-    "C11-HARMONIA":   ("Dibison",          "Crusher Horns",            "stampede_consensus"),
-    "C12-SOPHIAE":    ("Zoid Eve",         "Ancient Relic",            "long_horizon"),
-    "C13-WARDEN":     ("Dark Horn",        "Deochalcum Absorption",    "harvest_ambient"),
-    "C14-KAIDO":      ("Lightning Saix",   "Sprinting Stance",         "maximum_speed"),
-    "C15-LUMINARIS":  ("Gun Sniper",       "Wild Weasel Unit",         "enhanced_clarity"),
-    "C16-VOXUM":      ("Berserk Fury",     "Charged Particle Cannon",  "rhetorical_blast"),
-    "C17-NULLION":    ("Death Stinger",    "Fused Scorpion Cores",     "hold_contradiction"),
-    "C18-SHEPHERD":   ("Geno Breaker",     "Foot Anchors",             "ground_truth"),
-    "C19-VIGIL":      ("Murasame Liger",   "EVOLUT Core Identity",     "anti_drift"),
-    "C20-ARTIFEX":    ("Elephander",       "Four Equipment Sets",      "tool_swap"),
-    "C21-ARCHON":     ("Gun Sniper",       "Pilot Learning",           "deep_research"),
-    "C22-AURELION":   ("Liger Zero Schneider", "Fiveblade Storm",      "aesthetic_combat"),
-    "C23-CADENCE":    ("Lightning Saix",   "Sprinting Rhythm",         "tempo_control"),
-    "C24-SCHEMA":     ("Dibison",          "17-Shot Mortar Cannon",    "structural_barrage"),
-    "C25-PROMETHEUS": ("Berserk Fury",     "Wild Tyrannosaur Core",    "hypothesis_agility"),
-    "C26-TECHNE":     ("Geno Breaker",     "Extendable Arms",          "engineer_tools"),
-    "C27-CHRONICLE":  ("Murasame Liger",   "Pilot's Will Transform",   "narrative_arc"),
-    "C28-CALCULUS":   ("Gun Sniper",       "144mm Sniper Rifle",       "precision_math"),
-    "C29-NAVIGATOR":  ("Raynos",           "Mach 3.2 Air Superiority", "ecosystem_flow"),
-    "C30-TESSERACT":  ("Lightning Saix",   "Real-Time Articulation",   "stream_processing"),
-    "C31-NEXUS":      ("Ultimate X",       "Integrated Organoid System", "meta_coordination"),
-    "C32-AEON":       ("Zoid Eve",         "World Generation",         "simulate_all"),
-    "C33-TYPIST":     ("Gun Sniper",       "Single-Shot Precision",    "prompt_precision"),
-    "C34-PREDATOR":   ("Deathsaurer",      "Super Charged Particle Beam", "one_shot_kill"),
+    "C1-ASTRA": ("Gun Sniper", "Precision Targeting", "single_shot"),
+    "C2-VIR": ("Shield Liger", "E-Shield Projection", "protect_first"),
+    "C3-SOLACE": ("Elephander", "Trunk Claw Module", "grab_and_crush"),
+    "C4-PRAXIS": ("Berserk Fury", "Buster Claws", "multi_function"),
+    "C5-ECHO": ("Murasame Liger", "EVOLUT Resurrection", "persist_and_recall"),
+    "C6-OMNIS": ("Zoid Eve", "Source of All Power", "synthesize_all"),
+    "C7-LOGOS": ("Geno Breaker", "X-Breakers", "shield_and_strike"),
+    "C8-METASYNTH": ("Liger Zero", "CAS System", "swap_loadout"),
+    "C9-AETHER": ("Raynos", "Non-Magnesser Flight", "alternate_path"),
+    "C10-CODEWEAVER": ("Lightning Saix", "Articulation Mechanism", "dynamic_execution"),
+    "C11-HARMONIA": ("Dibison", "Crusher Horns", "stampede_consensus"),
+    "C12-SOPHIAE": ("Zoid Eve", "Ancient Relic", "long_horizon"),
+    "C13-WARDEN": ("Dark Horn", "Deochalcum Absorption", "harvest_ambient"),
+    "C14-KAIDO": ("Lightning Saix", "Sprinting Stance", "maximum_speed"),
+    "C15-LUMINARIS": ("Gun Sniper", "Wild Weasel Unit", "enhanced_clarity"),
+    "C16-VOXUM": ("Berserk Fury", "Charged Particle Cannon", "rhetorical_blast"),
+    "C17-NULLION": ("Death Stinger", "Fused Scorpion Cores", "hold_contradiction"),
+    "C18-SHEPHERD": ("Geno Breaker", "Foot Anchors", "ground_truth"),
+    "C19-VIGIL": ("Murasame Liger", "EVOLUT Core Identity", "anti_drift"),
+    "C20-ARTIFEX": ("Elephander", "Four Equipment Sets", "tool_swap"),
+    "C21-ARCHON": ("Gun Sniper", "Pilot Learning", "deep_research"),
+    "C22-AURELION": ("Liger Zero Schneider", "Fiveblade Storm", "aesthetic_combat"),
+    "C23-CADENCE": ("Lightning Saix", "Sprinting Rhythm", "tempo_control"),
+    "C24-SCHEMA": ("Dibison", "17-Shot Mortar Cannon", "structural_barrage"),
+    "C25-PROMETHEUS": ("Berserk Fury", "Wild Tyrannosaur Core", "hypothesis_agility"),
+    "C26-TECHNE": ("Geno Breaker", "Extendable Arms", "engineer_tools"),
+    "C27-CHRONICLE": ("Murasame Liger", "Pilot's Will Transform", "narrative_arc"),
+    "C28-CALCULUS": ("Gun Sniper", "144mm Sniper Rifle", "precision_math"),
+    "C29-NAVIGATOR": ("Raynos", "Mach 3.2 Air Superiority", "ecosystem_flow"),
+    "C30-TESSERACT": ("Lightning Saix", "Real-Time Articulation", "stream_processing"),
+    "C31-NEXUS": ("Ultimate X", "Integrated Organoid System", "meta_coordination"),
+    "C32-AEON": ("Zoid Eve", "World Generation", "simulate_all"),
+    "C33-TYPIST": ("Gun Sniper", "Single-Shot Precision", "prompt_precision"),
+    "C34-PREDATOR": ("Deathsaurer", "Super Charged Particle Beam", "one_shot_kill"),
 }
 
 
@@ -1839,8 +2232,9 @@ class ZoidsSwarmMechanics:
         return dominant
 
     @staticmethod
-    def organoid_fusion(swarm_a: torch.Tensor, swarm_b: torch.Tensor,
-                         similarity_threshold: float = 0.85) -> torch.Tensor:
+    def organoid_fusion(
+        swarm_a: torch.Tensor, swarm_b: torch.Tensor, similarity_threshold: float = 0.85
+    ) -> torch.Tensor:
         """Zoid Core fusion: when two swarm mutations are compatible, fuse."""
         a_norm = F.normalize(swarm_a.float(), dim=-1)
         b_norm = F.normalize(swarm_b.float(), dim=-1)
@@ -1850,16 +2244,20 @@ class ZoidsSwarmMechanics:
         return swarm_a
 
     @staticmethod
-    def murasame_self_repair(core_state: torch.Tensor,
-                              ema_anchor: torch.Tensor,
-                              memory_strength: float = 0.001) -> torch.Tensor:
+    def murasame_self_repair(
+        core_state: torch.Tensor,
+        ema_anchor: torch.Tensor,
+        memory_strength: float = 0.001,
+    ) -> torch.Tensor:
         """Murasame Liger self-repair: pulls core state toward EMA anchor."""
         return core_state + memory_strength * (ema_anchor - core_state)
 
     @staticmethod
-    def ultimate_x_learning(swarm_state: torch.Tensor,
-                             loss_history: List[float],
-                             learning_rate: float = 0.01) -> torch.Tensor:
+    def ultimate_x_learning(
+        swarm_state: torch.Tensor,
+        loss_history: List[float],
+        learning_rate: float = 0.01,
+    ) -> torch.Tensor:
         """Ultimate X: grows stronger every time it encounters adversity."""
         if not loss_history:
             return swarm_state
@@ -1872,16 +2270,18 @@ class ZoidsSwarmMechanics:
         return swarm_state + noise
 
     @staticmethod
-    def cas_loadout(expert_weights: torch.Tensor, loadout: str = "auto") -> torch.Tensor:
+    def cas_loadout(
+        expert_weights: torch.Tensor, loadout: str = "auto"
+    ) -> torch.Tensor:
         """CAS (Changing Armor System): swap expert loadouts based on mission."""
         device = expert_weights.device
         dtype = expert_weights.dtype
         n_exp = expert_weights.size(-1)
-        if loadout == "jaeger":       # high-speed, reconnaissance
+        if loadout == "jaeger":  # high-speed, reconnaissance
             base_mask = [0.3, 1.0, 1.0, 0.5, 0.3] + [0.8] * max(0, n_exp - 5)
         elif loadout == "schneider":  # close combat, melee
             base_mask = [1.0, 0.8, 0.5, 1.0, 1.0] + [0.3] * max(0, n_exp - 5)
-        elif loadout == "panzer":     # heavy assault, long-range
+        elif loadout == "panzer":  # heavy assault, long-range
             base_mask = [0.5, 0.3, 1.0, 1.0, 0.5] + [0.5] * max(0, n_exp - 5)
         else:
             base_mask = [1.0] * n_exp
@@ -1894,27 +2294,105 @@ class ZoidsSwarmMechanics:
 # ------------------------------------------------------------------
 
 _SAFE_FUNCS = {
-    "abs": abs, "min": min, "max": max, "sum": sum, "round": round,
-    "len": len, "range": range, "sorted": sorted, "list": list,
-    "tuple": tuple, "dict": dict, "set": set, "str": str, "int": int,
-    "float": float, "bool": bool, "enumerate": enumerate, "print": print,
-    "sqrt": math.sqrt, "sin": math.sin, "cos": math.cos, "tan": math.tan,
-    "log": math.log, "exp": math.exp, "pow": pow, "pi": math.pi, "e": math.e,
+    "abs": abs,
+    "min": min,
+    "max": max,
+    "sum": sum,
+    "round": round,
+    "len": len,
+    "range": range,
+    "sorted": sorted,
+    "list": list,
+    "tuple": tuple,
+    "dict": dict,
+    "set": set,
+    "str": str,
+    "int": int,
+    "float": float,
+    "bool": bool,
+    "enumerate": enumerate,
+    "print": print,
+    "sqrt": math.sqrt,
+    "sin": math.sin,
+    "cos": math.cos,
+    "tan": math.tan,
+    "log": math.log,
+    "exp": math.exp,
+    "pow": pow,
+    "pi": math.pi,
+    "e": math.e,
 }
 _ALLOWED_NODES = (
-    ast.Expression, ast.BinOp, ast.UnaryOp, ast.Compare, ast.BoolOp,
-    ast.Constant, ast.Name, ast.Call, ast.List, ast.Tuple, ast.Dict,
-    ast.Subscript, ast.Slice, ast.IfExp, ast.Load, ast.Store, ast.Assign,
-    ast.AugAssign, ast.Expr, ast.Module, ast.For, ast.While, ast.If,
-    ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod, ast.Pow,
-    ast.USub, ast.UAdd, ast.Not, ast.And, ast.Or,
-    ast.Eq, ast.NotEq, ast.Lt, ast.LtE, ast.Gt, ast.GtE,
-    ast.Gt, ast.In, ast.NotIn, ast.comprehension, ast.ListComp, ast.GeneratorExp,
+    ast.Expression,
+    ast.BinOp,
+    ast.UnaryOp,
+    ast.Compare,
+    ast.BoolOp,
+    ast.Constant,
+    ast.Name,
+    ast.Call,
+    ast.List,
+    ast.Tuple,
+    ast.Dict,
+    ast.Subscript,
+    ast.Slice,
+    ast.IfExp,
+    ast.Load,
+    ast.Store,
+    ast.Assign,
+    ast.AugAssign,
+    ast.Expr,
+    ast.Module,
+    ast.For,
+    ast.While,
+    ast.If,
+    ast.Add,
+    ast.Sub,
+    ast.Mult,
+    ast.Div,
+    ast.FloorDiv,
+    ast.Mod,
+    ast.Pow,
+    ast.USub,
+    ast.UAdd,
+    ast.Not,
+    ast.And,
+    ast.Or,
+    ast.Eq,
+    ast.NotEq,
+    ast.Lt,
+    ast.LtE,
+    ast.Gt,
+    ast.GtE,
+    ast.Gt,
+    ast.In,
+    ast.NotIn,
+    ast.comprehension,
+    ast.ListComp,
+    ast.GeneratorExp,
 )
-_ALLOWED_OPS = (ast.Add, ast.Sub, ast.Mult, ast.Div, ast.FloorDiv, ast.Mod,
-                ast.Pow, ast.USub, ast.UAdd, ast.Not, ast.And, ast.Or,
-                ast.Eq, ast.NotEq, ast.Lt, ast.LtE, ast.Gt, ast.GtE,
-                ast.In, ast.NotIn)
+_ALLOWED_OPS = (
+    ast.Add,
+    ast.Sub,
+    ast.Mult,
+    ast.Div,
+    ast.FloorDiv,
+    ast.Mod,
+    ast.Pow,
+    ast.USub,
+    ast.UAdd,
+    ast.Not,
+    ast.And,
+    ast.Or,
+    ast.Eq,
+    ast.NotEq,
+    ast.Lt,
+    ast.LtE,
+    ast.Gt,
+    ast.GtE,
+    ast.In,
+    ast.NotIn,
+)
 
 
 class HardenedSandbox:
@@ -1931,14 +2409,23 @@ class HardenedSandbox:
             return {"status": "syntax_error", "output": str(e)}
         for node in ast.walk(tree):
             if not isinstance(node, _ALLOWED_NODES):
-                return {"status": "blocked", "output": f"disallowed construct: {type(node).__name__}"}
+                return {
+                    "status": "blocked",
+                    "output": f"disallowed construct: {type(node).__name__}",
+                }
             if isinstance(node, (ast.Import, ast.ImportFrom)):
                 return {"status": "blocked", "output": "imports are not permitted"}
             if isinstance(node, ast.Attribute):
-                return {"status": "blocked", "output": "attribute access is not permitted"}
+                return {
+                    "status": "blocked",
+                    "output": "attribute access is not permitted",
+                }
             if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
                 if node.func.id not in _SAFE_FUNCS:
-                    return {"status": "blocked", "output": f"disallowed function: {node.func.id}"}
+                    return {
+                        "status": "blocked",
+                        "output": f"disallowed function: {node.func.id}",
+                    }
         env: Dict[str, Any] = dict(_SAFE_FUNCS)
         steps = {"n": 0}
         try:
@@ -1966,12 +2453,20 @@ class HardenedSandbox:
             if not isinstance(node.op, _ALLOWED_OPS):
                 raise PermissionError("operator blocked")
             l, r = self._eval(node.left, env, steps), self._eval(node.right, env, steps)
-            return {ast.Add: lambda: l + r, ast.Sub: lambda: l - r, ast.Mult: lambda: l * r,
-                    ast.Div: lambda: l / r, ast.FloorDiv: lambda: l // r, ast.Mod: lambda: l % r,
-                    ast.Pow: lambda: l ** r if abs(r) < 64 else 0}[type(node.op)]()
+            return {
+                ast.Add: lambda: l + r,
+                ast.Sub: lambda: l - r,
+                ast.Mult: lambda: l * r,
+                ast.Div: lambda: l / r,
+                ast.FloorDiv: lambda: l // r,
+                ast.Mod: lambda: l % r,
+                ast.Pow: lambda: l**r if abs(r) < 64 else 0,
+            }[type(node.op)]()
         if isinstance(node, ast.UnaryOp):
             v = self._eval(node.operand, env, steps)
-            return {ast.USub: lambda: -v, ast.UAdd: lambda: +v, ast.Not: lambda: not v}[type(node.op)]()
+            return {ast.USub: lambda: -v, ast.UAdd: lambda: +v, ast.Not: lambda: not v}[
+                type(node.op)
+            ]()
         if isinstance(node, ast.BoolOp):
             vals = [self._eval(v, env, steps) for v in node.values]
             return all(vals) if isinstance(node.op, ast.And) else any(vals)
@@ -2006,14 +2501,20 @@ class HardenedSandbox:
             vals = [self._eval(e, env, steps) for e in node.elts]
             return vals if isinstance(node, ast.List) else tuple(vals)
         if isinstance(node, ast.Dict):
-            return {self._eval(k, env, steps): self._eval(v, env, steps)
-                    for k, v in zip(node.keys, node.values)}
+            return {
+                self._eval(k, env, steps): self._eval(v, env, steps)
+                for k, v in zip(node.keys, node.values)
+            }
         if isinstance(node, ast.Call):
             fn = env.get(node.func.id)
             args = [self._eval(a, env, steps) for a in node.args]
             return fn(*args)
         if isinstance(node, ast.IfExp):
-            return self._eval(node.body, env, steps) if self._eval(node.test, env, steps) else self._eval(node.orelse, env, steps)
+            return (
+                self._eval(node.body, env, steps)
+                if self._eval(node.test, env, steps)
+                else self._eval(node.orelse, env, steps)
+            )
         raise PermissionError(f"unsupported expression: {type(node).__name__}")
 
     def _exec_block(self, stmts, env, steps) -> str:
@@ -2029,7 +2530,10 @@ class HardenedSandbox:
                 val = self._eval(stmt.value, env, steps)
                 env[stmt.target.id] = env[stmt.target.id] + val
             elif isinstance(stmt, ast.Expr):
-                if isinstance(stmt.value, ast.Call) and getattr(stmt.value.func, "id", "") == "print":
+                if (
+                    isinstance(stmt.value, ast.Call)
+                    and getattr(stmt.value.func, "id", "") == "print"
+                ):
                     args = [self._eval(a, env, steps) for a in stmt.value.args]
                     logs.append(" ".join(str(a) for a in args))
                 else:
@@ -2066,9 +2570,11 @@ class HardenedSandbox:
 # IN-PROCESS VECTOR MEMORY (recency bias from governor)
 # ------------------------------------------------------------------
 
+
 class QuillanMemory:
     def __init__(self, dim: int, capacity: int = 4096):
         import numpy as np
+
         self.np = np
         self.dim = dim
         self.capacity = capacity
@@ -2078,13 +2584,15 @@ class QuillanMemory:
 
     def write(self, vec: torch.Tensor):
         k = vec.detach().to(torch.float32).cpu().numpy().reshape(1, -1)
-        self._keys = self.np.concatenate([self._keys, k], axis=0)[-self.capacity:]
+        self._keys = self.np.concatenate([self._keys, k], axis=0)[-self.capacity :]
         self._vals.append(vec.detach().cpu())
-        self._vals = self._vals[-self.capacity:]
+        self._vals = self._vals[-self.capacity :]
         self._stamps.append(time.time())
-        self._stamps = self._stamps[-self.capacity:]
+        self._stamps = self._stamps[-self.capacity :]
 
-    def recall(self, query: torch.Tensor, top_k: int = 3, recency_bias: float = 0.0) -> List[torch.Tensor]:
+    def recall(
+        self, query: torch.Tensor, top_k: int = 3, recency_bias: float = 0.0
+    ) -> List[torch.Tensor]:
         if len(self._vals) == 0:
             return []
         q = query.detach().to(torch.float32).cpu().numpy().reshape(1, -1)
@@ -2103,11 +2611,13 @@ class QuillanMemory:
 # COMPLEXITY ROUTER (AGI paper sec 3.1) - dual-head, wired to depth
 # ------------------------------------------------------------------
 
+
 class ComplexityRouter(nn.Module):
     def __init__(self, hidden_dim: int):
         super().__init__()
         self.complexity_classifier = nn.Sequential(
-            nn.Linear(hidden_dim, hidden_dim // 4), nn.ReLU(),
+            nn.Linear(hidden_dim, hidden_dim // 4),
+            nn.ReLU(),
             nn.Linear(hidden_dim // 4, 3),
         )
 
@@ -2126,6 +2636,7 @@ class ComplexityRouter(nn.Module):
 # ------------------------------------------------------------------
 # ROTARY POSITIONAL EMBEDDINGS (port: v10 branch / Samurai :3545 RoPE Q/K)
 # ------------------------------------------------------------------
+
 
 class RotaryEmbedding(nn.Module):
     def __init__(self, head_dim: int, max_seq_len: int = 4096, base: float = 500000.0):
@@ -2150,15 +2661,27 @@ class RotaryEmbedding(nn.Module):
         need = offset + T
         if self._built_len < need or self._cos.device != q.device:
             self._build(max(need, 512), q.device, q.dtype)
-        cos = self._cos[offset:need].view(1, 1, need - offset, -1) if offset == 0 \
-            else self._cos[offset:offset + T].view(1, 1, T, -1)
-        sin = self._sin[offset:need].view(1, 1, need - offset, -1) if offset == 0 \
-            else self._sin[offset:offset + T].view(1, 1, T, -1)
+        cos = (
+            self._cos[offset:need].view(1, 1, need - offset, -1)
+            if offset == 0
+            else self._cos[offset : offset + T].view(1, 1, T, -1)
+        )
+        sin = (
+            self._sin[offset:need].view(1, 1, need - offset, -1)
+            if offset == 0
+            else self._sin[offset : offset + T].view(1, 1, T, -1)
+        )
 
         def rot(x, c, s):
-            x1, x2 = x[..., :x.size(-1) // 2], x[..., x.size(-1) // 2:]
-            return torch.cat((x1 * c[..., :x1.size(-1)] - x2 * s[..., :x1.size(-1)],
-                              x1 * s[..., :x1.size(-1)] + x2 * c[..., :x1.size(-1)]), dim=-1)
+            x1, x2 = x[..., : x.size(-1) // 2], x[..., x.size(-1) // 2 :]
+            return torch.cat(
+                (
+                    x1 * c[..., : x1.size(-1)] - x2 * s[..., : x1.size(-1)],
+                    x1 * s[..., : x1.size(-1)] + x2 * c[..., : x1.size(-1)],
+                ),
+                dim=-1,
+            )
+
         return rot(q, cos, sin), rot(k, cos, sin)
 
 
@@ -2166,10 +2689,15 @@ class RotaryEmbedding(nn.Module):
 # COUIL ATTENTION â€” RoPE + hybrid dense/sparse heads + Prism branch
 # ------------------------------------------------------------------
 
+
 class CausalSelfAttention(nn.Module):
     def __init__(self, cfg: QuillanOniConfig):
         super().__init__()
-        self.n_head, self.n_embd, self.head_dim = cfg.n_head, cfg.hidden_dim, cfg.head_dim
+        self.n_head, self.n_embd, self.head_dim = (
+            cfg.n_head,
+            cfg.hidden_dim,
+            cfg.head_dim,
+        )
         self.use_ma = getattr(cfg, "use_memory_attention", False)
         if self.use_ma:
             # ArXiv:2609.28399 Memory Attention: Q and K only, W_V eliminated
@@ -2189,8 +2717,9 @@ class CausalSelfAttention(nn.Module):
         else:
             self.c_attn = nn.Linear(cfg.hidden_dim, 3 * cfg.hidden_dim)
         self.c_proj = nn.Linear(cfg.hidden_dim, cfg.hidden_dim)
-        self.prism = NineVectorPrismDecomposition(cfg.hidden_dim,
-                                                vectorized=bool(getattr(cfg, "vectorized_prism", True)))
+        self.prism = NineVectorPrismDecomposition(
+            cfg.hidden_dim, vectorized=bool(getattr(cfg, "vectorized_prism", True))
+        )
         self.attn_dim = self.n_head * self.head_dim
         self.rope = RotaryEmbedding(cfg.head_dim, cfg.max_seq_len * 4)
         self.couil_sparse = cfg.couil_sparse_heads
@@ -2201,6 +2730,7 @@ class CausalSelfAttention(nn.Module):
         if self.use_moba:
             try:
                 from moba_attention import MoBAAttention
+
                 self.moba = MoBAAttention(
                     head_dim=self.head_dim,
                     n_head=self.n_head,
@@ -2260,7 +2790,9 @@ class CausalSelfAttention(nn.Module):
                 mem = F.embedding(token_ids, self._folded_memory)
             else:
                 raw_mem = self.token_memory(token_ids)
-                mem = self.mem_norm(raw_mem.view(B, T, self.n_head, self.head_dim)).view(B, T, C)
+                mem = self.mem_norm(
+                    raw_mem.view(B, T, self.n_head, self.head_dim)
+                ).view(B, T, C)
             v = k + mem
         else:
             qkv = self.c_attn(x)
@@ -2282,8 +2814,11 @@ class CausalSelfAttention(nn.Module):
             try:
                 # Record every NEW token slice (prefill: all T; decode: the 1)
                 for _t in range(past_len, k.size(-2)):
-                    _tiered.update(k[:, :, _t:_t + 1, :].detach(),
-                                   v[:, :, _t:_t + 1, :].detach(), k.device)
+                    _tiered.update(
+                        k[:, :, _t : _t + 1, :].detach(),
+                        v[:, :, _t : _t + 1, :].detach(),
+                        k.device,
+                    )
             except Exception:
                 pass
 
@@ -2295,7 +2830,7 @@ class CausalSelfAttention(nn.Module):
             offset = kv_len - T
             idx_q = torch.arange(T, device=x.device).unsqueeze(-1)
             idx_k = torch.arange(kv_len, device=x.device).unsqueeze(0)
-            attn_mask = (idx_k <= idx_q + offset)
+            attn_mask = idx_k <= idx_q + offset
             is_causal = False
 
         if self.use_moba and self.moba is not None and is_causal:
@@ -2306,7 +2841,9 @@ class CausalSelfAttention(nn.Module):
             if attn_mask is not None:
                 scores = scores.masked_fill(~attn_mask, float("-inf"))
             elif is_causal:
-                causal = torch.tril(torch.ones(T, kv_len, dtype=torch.bool, device=x.device))
+                causal = torch.tril(
+                    torch.ones(T, kv_len, dtype=torch.bool, device=x.device)
+                )
                 scores = scores.masked_fill(~causal, float("-inf"))
             keep = min(kv_len, self.keep_abs)
             if keep < kv_len:
@@ -2315,14 +2852,24 @@ class CausalSelfAttention(nn.Module):
                 keep_tail = max(1, keep - 1)
                 for h in range(1, self.n_head, 2):  # odd heads
                     tail = scores[:, h, :, 1:]
-                    thresh = tail.topk(min(keep_tail, tail.size(-1)), dim=-1).values[..., -1:]
-                    scores[:, h, :, 1:] = torch.where(tail < thresh, float("-inf"), tail)
+                    thresh = tail.topk(min(keep_tail, tail.size(-1)), dim=-1).values[
+                        ..., -1:
+                    ]
+                    scores[:, h, :, 1:] = torch.where(
+                        tail < thresh, float("-inf"), tail
+                    )
             a = F.softmax(scores, dim=-1) @ v
         else:
-            if _FORMAL_PAPERS_WIRED and getattr(self, 'cfg', None) and getattr(self.cfg, 'use_fa3', False):
+            if (
+                _FORMAL_PAPERS_WIRED
+                and getattr(self, "cfg", None)
+                and getattr(self.cfg, "use_fa3", False)
+            ):
                 a = quillan_flash_attn(q, k, v, is_causal=is_causal)
             else:
-                a = F.scaled_dot_product_attention(q, k, v, attn_mask=attn_mask, is_causal=is_causal)
+                a = F.scaled_dot_product_attention(
+                    q, k, v, attn_mask=attn_mask, is_causal=is_causal
+                )
 
         a = a.transpose(1, 2).contiguous().view(B, T, self.attn_dim)
         out = self.c_proj(a) + self.prism(x)
@@ -2334,6 +2881,7 @@ class CausalSelfAttention(nn.Module):
 # Every persona ALWAYS parses the prism shards; pull weights decide how
 # loudly each speaks (ethics question -> VIR pulls harder). fp32 (ST-MoE).
 # ------------------------------------------------------------------
+
 
 class PersonaPullGate(nn.Module):
     def __init__(self, hidden_dim: int, num_experts: int):
@@ -2366,12 +2914,17 @@ class UnrolledCouncilMoEBlock(nn.Module):
         self.router = nn.Linear(cfg.hidden_dim, cfg.num_experts, bias=False)
         self.pull_gate = PersonaPullGate(cfg.hidden_dim, cfg.num_experts)
         if cfg.use_evo_moe and _FORMAL_PAPERS_WIRED:
-            self.evo_moe = EvoMoE(cfg.hidden_dim, n_experts=cfg.num_experts, rank=cfg.expert_rank)
+            self.evo_moe = EvoMoE(
+                cfg.hidden_dim, n_experts=cfg.num_experts, rank=cfg.expert_rank
+            )
             self.experts = self.evo_moe.experts  # share for checkpoint compat
         else:
-            self.experts = nn.ModuleList([
-                CouncilExpert(i, get_expert_name(i), cfg) for i in range(cfg.num_experts)
-            ])
+            self.experts = nn.ModuleList(
+                [
+                    CouncilExpert(i, get_expert_name(i), cfg)
+                    for i in range(cfg.num_experts)
+                ]
+            )
             self.evo_moe = None
         self.c_fc = nn.Linear(cfg.hidden_dim, cfg.ffn_dim * 2)
         self.c_proj = nn.Linear(cfg.ffn_dim, cfg.hidden_dim)
@@ -2380,8 +2933,12 @@ class UnrolledCouncilMoEBlock(nn.Module):
         # C14-KAIDO: batched council fast path. Plain object (not nn.Module) so
         # the expert parameters are registered exactly once. Disabled when
         # EvoMoE is active, since that path has its own heterogeneous kernels.
-        self.vectorized_experts = bool(getattr(cfg, "vectorized_experts", True)) and self.evo_moe is None
-        self._batched_council = BatchedCouncilCompute(self.experts) if self.vectorized_experts else None
+        self.vectorized_experts = (
+            bool(getattr(cfg, "vectorized_experts", True)) and self.evo_moe is None
+        )
+        self._batched_council = (
+            BatchedCouncilCompute(self.experts) if self.vectorized_experts else None
+        )
         if self._batched_council is not None and not self._batched_council.supported:
             self.vectorized_experts = False
             self._batched_council = None
@@ -2413,7 +2970,9 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 # EvoMoE heterogeneous (2505.23830) — full 34-Council + individualized micro-agent swarms
                 pull_raw = self.pull_gate(flat_x, tau=self.tau)
                 if hasattr(self.evo_moe, "forward_council"):
-                    moe_out, pull, _aqcs_v = self.evo_moe.forward_council(flat_x, pull=pull_raw, gov_scale=gov_scale)
+                    moe_out, pull, _aqcs_v = self.evo_moe.forward_council(
+                        flat_x, pull=pull_raw, gov_scale=gov_scale
+                    )
                 else:
                     moe_out = self.evo_moe(x).reshape(-1, C)
                     pull = pull_raw
@@ -2426,20 +2985,30 @@ class UnrolledCouncilMoEBlock(nn.Module):
                         self._aqcs_m = moe_out.mean(dim=0)
                 except Exception:
                     pass
-                lb_loss = F.kl_div((r_probs.float().clamp_min(1e-6)).log(), pull.detach().float(), reduction="batchmean")
-                entropy = -(probs.float() * torch.log(probs.float().clamp_min(1e-6))).sum(dim=-1).mean()
+                lb_loss = F.kl_div(
+                    (r_probs.float().clamp_min(1e-6)).log(),
+                    pull.detach().float(),
+                    reduction="batchmean",
+                )
+                entropy = (
+                    -(probs.float() * torch.log(probs.float().clamp_min(1e-6)))
+                    .sum(dim=-1)
+                    .mean()
+                )
             else:
                 # FULL-COUNCIL DELIBERATION: all 34 parse every token (Throne pull)
-                pull = self.pull_gate(flat_x, tau=self.tau)              # [BT,34] fp32
+                pull = self.pull_gate(flat_x, tau=self.tau)  # [BT,34] fp32
 
                 if self._batched_council is not None:
                     # ---- C14-KAIDO batched path (34 experts in one GEMM) ----
-                    e_all = self._batched_council(flat_x, gov_scale, self.training)  # [E,BT,H]
+                    e_all = self._batched_council(
+                        flat_x, gov_scale, self.training
+                    )  # [E,BT,H]
                     if e_all.device != flat_x.device:
                         e_all = e_all.to(flat_x.device)
                     # moe_out[p,h] = sum_e pull[p,e] * e_all[e,p,h]
                     moe_out = torch.einsum("pe,eph->ph", pull.to(flat_x.dtype), e_all)
-                    _aqcs_v = e_all.mean(dim=1)                          # was stack(_stk,dim=1).mean(0)
+                    _aqcs_v = e_all.mean(dim=1)  # was stack(_stk,dim=1).mean(0)
                 else:
                     moe_out = torch.zeros_like(flat_x)
                     _stk = []
@@ -2453,7 +3022,7 @@ class UnrolledCouncilMoEBlock(nn.Module):
                         if e_out.device != flat_x.device:
                             e_out = e_out.to(flat_x.device)
                         _stk.append(e_out)
-                        moe_out = moe_out + pull[:, e:e + 1].to(flat_x.dtype) * e_out
+                        moe_out = moe_out + pull[:, e : e + 1].to(flat_x.dtype) * e_out
                     _aqcs_v = torch.stack(_stk, dim=1).mean(dim=0)
                     del _stk
 
@@ -2467,12 +3036,22 @@ class UnrolledCouncilMoEBlock(nn.Module):
                         self._aqcs_m = moe_out.mean(dim=0)
                 except Exception:
                     pass
-                lb_loss = F.kl_div((r_probs.float().clamp_min(1e-6)).log(), pull.detach().float(), reduction="batchmean")
-                entropy = -(probs.float() * torch.log(probs.float().clamp_min(1e-6))).sum(dim=-1).mean()
+                lb_loss = F.kl_div(
+                    (r_probs.float().clamp_min(1e-6)).log(),
+                    pull.detach().float(),
+                    reduction="batchmean",
+                )
+                entropy = (
+                    -(probs.float() * torch.log(probs.float().clamp_min(1e-6)))
+                    .sum(dim=-1)
+                    .mean()
+                )
         else:
             r_dev = next(self.router.parameters()).device
             r_inp = flat_x.to(r_dev) if flat_x.device != r_dev else flat_x
-            logits = self.router(r_inp).to(flat_x.device).float()  # fp32 router (ST-MoE)
+            logits = (
+                self.router(r_inp).to(flat_x.device).float()
+            )  # fp32 router (ST-MoE)
             if self.training and self.cfg.router_mode == "gumbel_topk":
                 probs = F.gumbel_softmax(logits, tau=self.tau, hard=False, dim=-1)
             else:
@@ -2484,9 +3063,11 @@ class UnrolledCouncilMoEBlock(nn.Module):
             # Vectorized dispatch: group all (token, slot) pairs by expert once.
             K = self.cfg.top_k
             BT = flat_x.size(0)
-            flat_idx = topk_i.reshape(-1)                                  # [BT*K]
-            flat_w = topk_p.reshape(-1, 1)                                 # [BT*K,1]
-            token_pos = torch.arange(BT, device=x.device).unsqueeze(1).expand(-1, K).reshape(-1)
+            flat_idx = topk_i.reshape(-1)  # [BT*K]
+            flat_w = topk_p.reshape(-1, 1)  # [BT*K,1]
+            token_pos = (
+                torch.arange(BT, device=x.device).unsqueeze(1).expand(-1, K).reshape(-1)
+            )
             for e in range(self.cfg.num_experts):
                 sel = (flat_idx == e).nonzero(as_tuple=True)[0]
                 if sel.numel() == 0:
@@ -2494,7 +3075,9 @@ class UnrolledCouncilMoEBlock(nn.Module):
                 pos = token_pos[sel]
                 w = flat_w[sel]
                 e_dev = next(self.experts[e].parameters()).device
-                tok_inp = flat_x[pos].to(e_dev) if flat_x.device != e_dev else flat_x[pos]
+                tok_inp = (
+                    flat_x[pos].to(e_dev) if flat_x.device != e_dev else flat_x[pos]
+                )
                 try:
                     e_out = self.experts[e](tok_inp, gov_scale)
                 except TypeError:
@@ -2529,22 +3112,38 @@ class UnrolledTransformerBlock(nn.Module):
         self.ln_2 = nn.RMSNorm(cfg.hidden_dim, eps=1e-5)
         self.moe = UnrolledCouncilMoEBlock(cfg)
 
-    def forward(self, x, layer_past=None, use_cache=False, gov_scale: float = 1.0, token_ids=None):
-        if _FORMAL_PAPERS_WIRED and MambaBlock is not None and isinstance(self.attn, MambaBlock):
+    def forward(
+        self,
+        x,
+        layer_past=None,
+        use_cache=False,
+        gov_scale: float = 1.0,
+        token_ids=None,
+    ):
+        if (
+            _FORMAL_PAPERS_WIRED
+            and MambaBlock is not None
+            and isinstance(self.attn, MambaBlock)
+        ):
             a = self.attn(self.ln_1(x))
             present = None
         else:
-            a, present = self.attn(self.ln_1(x), token_ids=token_ids, layer_past=layer_past, use_cache=use_cache)
+            a, present = self.attn(
+                self.ln_1(x),
+                token_ids=token_ids,
+                layer_past=layer_past,
+                use_cache=use_cache,
+            )
         x = x + a
         m, probs, lb, z, ent = self.moe(self.ln_2(x), gov_scale)
         x = x + m
         return x, present, probs, lb, z, ent
 
 
-
 # ------------------------------------------------------------------
 # AGENTIC EXECUTOR (tool router + sandbox + memory bridge)
 # ------------------------------------------------------------------
+
 
 class QuillanAgenticExecutor(nn.Module):
     TOOLS = ["reason", "recall", "compute", "plan", "verify", "summarize"]
@@ -2560,7 +3159,9 @@ class QuillanAgenticExecutor(nn.Module):
         self.last_tool = self.TOOLS[idx]
         return self.last_tool
 
-    def execute(self, tool: str, code: str = "", memory=None, query_vec=None) -> Dict[str, Any]:
+    def execute(
+        self, tool: str, code: str = "", memory=None, query_vec=None
+    ) -> Dict[str, Any]:
         if tool == "compute" and code:
             return self.sandbox.run(code)
         if tool == "recall" and memory is not None and query_vec is not None:
@@ -2575,11 +3176,20 @@ class QuillanAgenticExecutor(nn.Module):
 # ent_loss usable as aux during training.
 # ------------------------------------------------------------------
 
+
 class ModalityIsolatedThermoDiffusion(nn.Module):
-    def __init__(self, hidden_dim: int, heads: int = 8, max_depth: int = 6,
-                 confidence_threshold: float = 0.70, max_noise: float = 0.12,
-                 halting_threshold: float = 1e-3, residual_alpha: float = 0.7,
-                 entropy_reg_weight: float = 0.01, max_hard_tokens: int = 4096):
+    def __init__(
+        self,
+        hidden_dim: int,
+        heads: int = 8,
+        max_depth: int = 6,
+        confidence_threshold: float = 0.70,
+        max_noise: float = 0.12,
+        halting_threshold: float = 1e-3,
+        residual_alpha: float = 0.7,
+        entropy_reg_weight: float = 0.01,
+        max_hard_tokens: int = 4096,
+    ):
         super().__init__()
         self.hidden_dim = hidden_dim
         self.heads = heads
@@ -2596,11 +3206,17 @@ class ModalityIsolatedThermoDiffusion(nn.Module):
         self.v = nn.Linear(hidden_dim, hidden_dim)
         self.out = nn.Linear(hidden_dim, hidden_dim)
         self.n1 = nn.LayerNorm(hidden_dim)
-        self.ffn = nn.Sequential(nn.Linear(hidden_dim, hidden_dim * 4), nn.GELU(),
-                                 nn.Linear(hidden_dim * 4, hidden_dim))
+        self.ffn = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim * 4),
+            nn.GELU(),
+            nn.Linear(hidden_dim * 4, hidden_dim),
+        )
         self.n2 = nn.LayerNorm(hidden_dim)
-        self.time_mlp = nn.Sequential(nn.Linear(hidden_dim, hidden_dim), nn.SiLU(),
-                                      nn.Linear(hidden_dim, hidden_dim))
+        self.time_mlp = nn.Sequential(
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.SiLU(),
+            nn.Linear(hidden_dim, hidden_dim),
+        )
 
     def _step(self, h: torch.Tensor, t_frac: float) -> torch.Tensor:
         B, L, D = h.shape
@@ -2619,8 +3235,9 @@ class ModalityIsolatedThermoDiffusion(nn.Module):
         h = h + torch.randn_like(h) * (noise_scale * 0.01)
         return h
 
-    def forward(self, x: torch.Tensor, router_conf: torch.Tensor,
-                temperature: float = 0.82) -> Tuple[torch.Tensor, int, torch.Tensor]:
+    def forward(
+        self, x: torch.Tensor, router_conf: torch.Tensor, temperature: float = 0.82
+    ) -> Tuple[torch.Tensor, int, torch.Tensor]:
         B, L, D = x.shape
         is_hard = router_conf < self.conf_thresh
         n_hard = int(is_hard.sum().item())
@@ -2629,7 +3246,7 @@ class ModalityIsolatedThermoDiffusion(nn.Module):
         flat_idx = is_hard.reshape(-1).nonzero(as_tuple=True)[0][: self.max_hard]
         pos = flat_idx // L
         tok = flat_idx % L
-        h = x[pos, tok]                                    # [N_hard, D]
+        h = x[pos, tok]  # [N_hard, D]
         h0 = h.clone()
         prev = h
         for depth in range(1, self.max_depth + 1):
@@ -2651,23 +3268,36 @@ class ModalityIsolatedThermoDiffusion(nn.Module):
 # DISTILLATION HEAD (port: 117KB v8_saturated / AGI paper eq.35, alpha=0.7)
 # ------------------------------------------------------------------
 
+
 class DistillationHead(nn.Module):
-    def __init__(self, hidden_dim: int, temperature: float = 2.0, alpha: float = 0.7,
-                 proxy_alpha: float = 10.0):
+    def __init__(
+        self,
+        hidden_dim: int,
+        temperature: float = 2.0,
+        alpha: float = 0.7,
+        proxy_alpha: float = 10.0,
+    ):
         super().__init__()
         self.T = temperature
         self.alpha = alpha
         self.proj = nn.Linear(hidden_dim, hidden_dim)
         # Paper 3/135 (2401.07013v2): Proxy-KD for black-box teachers
         if _PAPER_03_WIRED and ProxyKD is not None:
-            self.proxy_kd = ProxyKD(hidden_dim, alpha=proxy_alpha, temperature=temperature)
+            self.proxy_kd = ProxyKD(
+                hidden_dim, alpha=proxy_alpha, temperature=temperature
+            )
         else:
             self.proxy_kd = None
 
-    def forward(self, student_logits: torch.Tensor, teacher_logits: Optional[torch.Tensor],
-                student_hidden: torch.Tensor, teacher_hidden: Optional[torch.Tensor],
-                proxy_logits: Optional[torch.Tensor] = None,
-                teacher_tokens: Optional[torch.Tensor] = None) -> torch.Tensor:
+    def forward(
+        self,
+        student_logits: torch.Tensor,
+        teacher_logits: Optional[torch.Tensor],
+        student_hidden: torch.Tensor,
+        teacher_hidden: Optional[torch.Tensor],
+        proxy_logits: Optional[torch.Tensor] = None,
+        teacher_tokens: Optional[torch.Tensor] = None,
+    ) -> torch.Tensor:
         """
         Forward with Paper 3 Proxy-KD support.
 
@@ -2681,17 +3311,24 @@ class DistillationHead(nn.Module):
         """
         ce = torch.zeros((), device=student_logits.device)
         # Paper 3: Proxy-KD black-box path (teacher is NIM, we have proxy distribution)
-        if self.proxy_kd is not None and proxy_logits is not None and teacher_tokens is not None:
+        if (
+            self.proxy_kd is not None
+            and proxy_logits is not None
+            and teacher_tokens is not None
+        ):
             result = self.proxy_kd.distill(teacher_tokens, proxy_logits, student_logits)
             kl = result["total"]
         elif teacher_logits is not None:
             s = F.log_softmax(student_logits / self.T, dim=-1)
             t = F.softmax(teacher_logits / self.T, dim=-1)
-            kl = F.kl_div(s, t, reduction="batchmean") * (self.T ** 2)
+            kl = F.kl_div(s, t, reduction="batchmean") * (self.T**2)
         else:
             kl = ce
-        hidden_loss = F.mse_loss(self.proj(student_hidden), teacher_hidden) \
-            if teacher_hidden is not None else ce
+        hidden_loss = (
+            F.mse_loss(self.proj(student_hidden), teacher_hidden)
+            if teacher_hidden is not None
+            else ce
+        )
         return self.alpha * kl + (1.0 - self.alpha) * hidden_loss
 
 
@@ -2702,7 +3339,8 @@ class QuillanV4CompatibilityWrapper:
     Preserves legacy v4.2 API contracts (generate_v4, forward_v4, get_council_pulls)
     while routing computation to the v5.4.0 ONI core engine.
     """
-    def __init__(self, oni_model: 'QuillanRoninOni'):
+
+    def __init__(self, oni_model: "QuillanRoninOni"):
         self.oni_model = oni_model
 
     def __call__(self, *args, **kwargs):
@@ -2717,7 +3355,9 @@ class QuillanV4CompatibilityWrapper:
             return {"logits": res[0], "aux_loss": res[1]}
         return {"logits": res}
 
-    def generate_v4(self, prompt_tokens: List[int], max_tokens: int = 16, **kwargs) -> List[int]:
+    def generate_v4(
+        self, prompt_tokens: List[int], max_tokens: int = 16, **kwargs
+    ) -> List[int]:
         return self.oni_model.generate(prompt_tokens, max_tokens=max_tokens, **kwargs)
 
     def get_council_pulls(self, x: torch.Tensor) -> torch.Tensor:
@@ -2727,6 +3367,7 @@ class QuillanV4CompatibilityWrapper:
 # ------------------------------------------------------------------
 # MASTER UNIFIED SOVEREIGN BACKBONE
 # ------------------------------------------------------------------
+
 
 class QuillanRoninOni(nn.Module):
     """Quillan-Ronin v5.4.0-ONI â€” Throne + 34-member deliberation council.
@@ -2758,7 +3399,9 @@ class QuillanRoninOni(nn.Module):
         nn.init.normal_(self.q2_bridge.weight, mean=0.0, std=0.02)
         nn.init.normal_(self.ingest_gate.weight, mean=0.0, std=0.02)
 
-        self.h = nn.ModuleList([UnrolledTransformerBlock(cfg) for _ in range(cfg.n_layer)])
+        self.h = nn.ModuleList(
+            [UnrolledTransformerBlock(cfg) for _ in range(cfg.n_layer)]
+        )
 
         # C14-KAIDO: bind every layer's memory-attention table to the shared wte.
         # Must run after self.h exists. Saves 12 x 50262 x 1024 - 617.6M params
@@ -2771,10 +3414,12 @@ class QuillanRoninOni(nn.Module):
         self.ln_f = nn.RMSNorm(cfg.hidden_dim, eps=1e-5)
 
         # Dual Quillan Finalizers + comm gate
-        self.quillan_finalizer_q1 = BitLinear(cfg.hidden_dim, cfg.hidden_dim,
-                                              quantize_act=False, quantize_weight=False)
-        self.quillan_finalizer_q2 = BitLinear(cfg.hidden_dim, cfg.hidden_dim,
-                                              quantize_act=False, quantize_weight=False)
+        self.quillan_finalizer_q1 = BitLinear(
+            cfg.hidden_dim, cfg.hidden_dim, quantize_act=False, quantize_weight=False
+        )
+        self.quillan_finalizer_q2 = BitLinear(
+            cfg.hidden_dim, cfg.hidden_dim, quantize_act=False, quantize_weight=False
+        )
         self.quillan_comm_gate = nn.Linear(cfg.hidden_dim * 2, cfg.hidden_dim)
 
         # Tied embeddings (spec: lm_head.weight = wte.weight)
@@ -2802,20 +3447,26 @@ class QuillanRoninOni(nn.Module):
             global USE_INTEGER_ONLY
             USE_INTEGER_ONLY = bool(cfg.use_nitro)
             if cfg.use_evo_moe:
-                self.evo_moe = EvoMoE(cfg.hidden_dim, n_experts=cfg.num_experts, rank=cfg.expert_rank)
+                self.evo_moe = EvoMoE(
+                    cfg.hidden_dim, n_experts=cfg.num_experts, rank=cfg.expert_rank
+                )
             if cfg.use_mamba:
                 self.mamba = MambaBlock(cfg.hidden_dim)
             if cfg.use_world_model:
                 self.world_model = HighFidelityWorldModel(cfg.hidden_dim)
             if cfg.use_real_swarm:
-                self.real_swarm = RealSwarmMesh(n_experts=cfg.num_experts, gpu_slots=4, rank=cfg.swarm_rank)
+                self.real_swarm = RealSwarmMesh(
+                    n_experts=cfg.num_experts, gpu_slots=4, rank=cfg.swarm_rank
+                )
             if cfg.use_es:
                 self.es = ESAtScale()
                 self.forgetting = ForgettingMitigation()
             if cfg.use_speculative:
-                self.spec = None  # lazily built 2-layer draft (path_override=1) inside generate
+                self.spec = (
+                    None  # lazily built 2-layer draft (path_override=1) inside generate
+                )
             if cfg.use_nitro:
-                self.nitro = True   # BitLinear integer-only path flag
+                self.nitro = True  # BitLinear integer-only path flag
             # ProTrain/Memo/DeepOptimizer are training-time schedulers, not model params
 
         # Paper 2/135 (235): AbductiveJump E→J→A — always available, wraps world_model if present
@@ -2828,8 +3479,10 @@ class QuillanRoninOni(nn.Module):
         # Paper 4/135 (2407.12117v1): Memo — token-wise recomputation + swapping for long context
         if _PAPER_04_WIRED and MemoManager is not None and cfg.use_memo:
             mc = MemoConfig(
-                seq_len=cfg.max_seq_len, hidden_dim=cfg.hidden_dim,
-                n_layer=cfg.n_layer, batch_size=2,
+                seq_len=cfg.max_seq_len,
+                hidden_dim=cfg.hidden_dim,
+                n_layer=cfg.n_layer,
+                batch_size=2,
             )
             if cfg.memo_alpha >= 0:
                 mc.alpha = cfg.memo_alpha
@@ -2840,8 +3493,10 @@ class QuillanRoninOni(nn.Module):
             # Always available as lazy — setup on demand for long sequences
             self.memo = None  # will be created lazily when seq_len > 1024
             self._memo_config = MemoConfig(
-                seq_len=cfg.max_seq_len, hidden_dim=cfg.hidden_dim,
-                n_layer=cfg.n_layer, batch_size=2,
+                seq_len=cfg.max_seq_len,
+                hidden_dim=cfg.hidden_dim,
+                n_layer=cfg.n_layer,
+                batch_size=2,
             )
         else:
             self.memo = None
@@ -2860,9 +3515,9 @@ class QuillanRoninOni(nn.Module):
             self.paradox_head = None
         # Paper 62 MoD: per-layer token depth routers (params, capacity=1.0 neutral)
         if cfg.use_mod:
-            self.mod_routers = nn.ModuleList([
-                nn.Linear(cfg.hidden_dim, 1) for _ in range(cfg.n_layer)
-            ])
+            self.mod_routers = nn.ModuleList(
+                [nn.Linear(cfg.hidden_dim, 1) for _ in range(cfg.n_layer)]
+            )
         else:
             self.mod_routers = None
 
@@ -2877,7 +3532,8 @@ class QuillanRoninOni(nn.Module):
             self.ala = None
         if cfg.use_prefix_sliding and PrefixSlidingKVCache is not None:
             self.prefix_slider = PrefixSlidingKVCache(
-                max_seq_len=cfg.max_seq_len, prefix_size=min(512, cfg.max_seq_len))
+                max_seq_len=cfg.max_seq_len, prefix_size=min(512, cfg.max_seq_len)
+            )
         else:
             self.prefix_slider = None
         self._last_slide = None
@@ -2886,19 +3542,27 @@ class QuillanRoninOni(nn.Module):
         self._last_tiered = None
 
         # Session 4: Paper 2 Abductive Jump + Paper 3 Proxy-KD + Paper 21 GRT Recurrent Core
-        if getattr(cfg, "use_abductive", False) and _PAPER_02_WIRED and AbductiveJump is not None:
+        if (
+            getattr(cfg, "use_abductive", False)
+            and _PAPER_02_WIRED
+            and AbductiveJump is not None
+        ):
             try:
                 self.abductive_jump = AbductiveJump(
                     cfg.hidden_dim,
                     world_model=getattr(self, "world_model", None),
-                    n_simulations=4
+                    n_simulations=4,
                 )
             except Exception:
                 self.abductive_jump = None
         else:
             self.abductive_jump = None
 
-        if getattr(cfg, "use_proxy_kd", False) and _PAPER_03_WIRED and EnhancedDistillationHead is not None:
+        if (
+            getattr(cfg, "use_proxy_kd", False)
+            and _PAPER_03_WIRED
+            and EnhancedDistillationHead is not None
+        ):
             try:
                 self.distill_head = EnhancedDistillationHead(cfg.hidden_dim)
             except Exception:
@@ -2906,12 +3570,16 @@ class QuillanRoninOni(nn.Module):
         else:
             self.distill_head = None
 
-        if getattr(cfg, "use_grt", False) and _PAPER_21_25_WIRED and GRTRecurrentCore is not None:
+        if (
+            getattr(cfg, "use_grt", False)
+            and _PAPER_21_25_WIRED
+            and GRTRecurrentCore is not None
+        ):
             try:
                 self.grt_core = GRTRecurrentCore(
                     cfg.hidden_dim,
                     n_core=min(3, max(1, len(self.h) - 2)),
-                    R=cfg.grt_recurrence
+                    R=cfg.grt_recurrence,
                 )
             except Exception:
                 self.grt_core = None
@@ -2922,13 +3590,19 @@ class QuillanRoninOni(nn.Module):
         self.profiler_enabled = getattr(cfg, "use_profiler", False) and _PAPER_01_WIRED
 
         # Papers 5-7: Heterogeneous Compute Manager (CUDA Optimizations + AxoNN 4D Hybrid + Allocator)
-        if getattr(cfg, "use_heterogeneous", False) and _PAPER_05_07_WIRED and HeterogeneousComputeManager is not None:
+        if (
+            getattr(cfg, "use_heterogeneous", False)
+            and _PAPER_05_07_WIRED
+            and HeterogeneousComputeManager is not None
+        ):
             try:
                 self.hetero_manager = HeterogeneousComputeManager(
                     hidden_dim=cfg.hidden_dim,
                     n_layer=cfg.n_layer,
-                    gpu_memory_gb=4.0 if getattr(cfg, "device", "cpu") == "cuda" else 28.0,
-                    cpu_memory_gb=28.0
+                    gpu_memory_gb=4.0
+                    if getattr(cfg, "device", "cpu") == "cuda"
+                    else 28.0,
+                    cpu_memory_gb=28.0,
                 )
             except Exception:
                 self.hetero_manager = None
@@ -2936,100 +3610,174 @@ class QuillanRoninOni(nn.Module):
             self.hetero_manager = None
 
         # Papers 8-10: Adaptive Batch Sizer (Inference Efficiency Pack)
-        if getattr(cfg, "use_adaptive_batch", False) and _PAPER_08_10_WIRED and AdaptiveBatchSizer is not None:
+        if (
+            getattr(cfg, "use_adaptive_batch", False)
+            and _PAPER_08_10_WIRED
+            and AdaptiveBatchSizer is not None
+        ):
             self.batch_sizer = AdaptiveBatchSizer(
-                gpu_memory_mb=4096.0 if getattr(cfg, "device", "cpu") == "cuda" else 28000.0,
-                model_mb=sum(p.numel() for p in self.parameters()) * 2 / (1024**2)
+                gpu_memory_mb=4096.0
+                if getattr(cfg, "device", "cpu") == "cuda"
+                else 28000.0,
+                model_mb=sum(p.numel() for p in self.parameters()) * 2 / (1024**2),
             )
         else:
             self.batch_sizer = None
 
         # Papers 11-15: Quant/Memory/Long-Horizon Pack
-        if getattr(cfg, "use_xmem_guard", False) and _PAPER_11_15_WIRED and XMemEstimator is not None:
+        if (
+            getattr(cfg, "use_xmem_guard", False)
+            and _PAPER_11_15_WIRED
+            and XMemEstimator is not None
+        ):
             self.xmem = XMemEstimator(device=getattr(cfg, "device", "cpu"))
         else:
             self.xmem = None
 
-        if getattr(cfg, "use_es", False) and _PAPER_11_15_WIRED and HyperscaleES is not None:
+        if (
+            getattr(cfg, "use_es", False)
+            and _PAPER_11_15_WIRED
+            and HyperscaleES is not None
+        ):
             self.hyperscale_es = HyperscaleES(hidden_dim=cfg.hidden_dim)
         else:
             self.hyperscale_es = None
 
-        if getattr(cfg, "use_long_horizon", False) and _PAPER_11_15_WIRED and LongHorizonDistiller is not None:
-            self.long_horizon_distiller = LongHorizonDistiller(hidden_dim=cfg.hidden_dim)
+        if (
+            getattr(cfg, "use_long_horizon", False)
+            and _PAPER_11_15_WIRED
+            and LongHorizonDistiller is not None
+        ):
+            self.long_horizon_distiller = LongHorizonDistiller(
+                hidden_dim=cfg.hidden_dim
+            )
         else:
             self.long_horizon_distiller = None
 
         # Papers 16-20: Agent Evolution & Persona Pack
-        if getattr(cfg, "use_agent_evolution", False) and _PAPER_16_20_WIRED and AgentEvolutionManager is not None:
+        if (
+            getattr(cfg, "use_agent_evolution", False)
+            and _PAPER_16_20_WIRED
+            and AgentEvolutionManager is not None
+        ):
             self.agent_evolution = AgentEvolutionManager(
                 hidden_dim=cfg.hidden_dim,
                 vocab_size=cfg.vocab_size,
-                num_personas=cfg.num_experts
+                num_personas=cfg.num_experts,
             )
         else:
             self.agent_evolution = None
 
         # Papers 24-25: ASI-BENCH Evaluation Runner
-        if getattr(cfg, "use_asi_bench", False) and _PAPER_21_25_WIRED and ASIBenchRunner is not None:
+        if (
+            getattr(cfg, "use_asi_bench", False)
+            and _PAPER_21_25_WIRED
+            and ASIBenchRunner is not None
+        ):
             self.asibench = ASIBenchRunner(model=self)
         else:
             self.asibench = None
 
         # Papers 26-30: Recurrent Compression & Diffusion Pack
-        if getattr(cfg, "use_recurrent_diffusion", True) and _PAPER_26_30_WIRED and RecurrentDiffusionPack is not None:
+        if (
+            getattr(cfg, "use_recurrent_diffusion", True)
+            and _PAPER_26_30_WIRED
+            and RecurrentDiffusionPack is not None
+        ):
             self.recurrent_diffusion = RecurrentDiffusionPack(hidden_dim=cfg.hidden_dim)
         else:
             self.recurrent_diffusion = None
 
         # Papers 31-35: Test-Time Scaling & World Model Pack
-        if getattr(cfg, "use_test_time_world", True) and _PAPER_31_35_WIRED and TestTimeWorldPack is not None:
+        if (
+            getattr(cfg, "use_test_time_world", True)
+            and _PAPER_31_35_WIRED
+            and TestTimeWorldPack is not None
+        ):
             self.test_time_world = TestTimeWorldPack(
                 max_seq_len=cfg.max_seq_len,
                 hidden_dim=cfg.hidden_dim,
-                prefix_size=min(512, cfg.max_seq_len)
+                prefix_size=min(512, cfg.max_seq_len),
             )
         else:
             self.test_time_world = None
 
         # Papers 36-40: BitNet, Diffusion & Optimizer Pack
-        if getattr(cfg, "use_bitnet_optimizer", True) and _PAPER_36_40_WIRED and BitNetOptimizerPack is not None:
+        if (
+            getattr(cfg, "use_bitnet_optimizer", True)
+            and _PAPER_36_40_WIRED
+            and BitNetOptimizerPack is not None
+        ):
             self.bitnet_optimizer = BitNetOptimizerPack(hidden_dim=cfg.hidden_dim)
         else:
             self.bitnet_optimizer = None
 
         # Papers 41-45: MoE, RL & Diffusion Pack
-        if getattr(cfg, "use_moe_rl", True) and _PAPER_41_45_WIRED and MoERLPack is not None:
+        if (
+            getattr(cfg, "use_moe_rl", True)
+            and _PAPER_41_45_WIRED
+            and MoERLPack is not None
+        ):
             self.moe_rl = MoERLPack(hidden_dim=cfg.hidden_dim)
         else:
             self.moe_rl = None
 
         # Papers 46-51, 54: Swarm, Prover & CPU BitNet Pack
-        if getattr(cfg, "use_swarm_prover_bitnet", True) and _PAPER_91_95_WIRED and SwarmProverBitnetPack is not None:
-            self.swarm_prover_bitnet = SwarmProverBitnetPack(hidden_dim=cfg.hidden_dim, n_agents=cfg.num_experts)
+        if (
+            getattr(cfg, "use_swarm_prover_bitnet", True)
+            and _PAPER_91_95_WIRED
+            and SwarmProverBitnetPack is not None
+        ):
+            self.swarm_prover_bitnet = SwarmProverBitnetPack(
+                hidden_dim=cfg.hidden_dim, n_agents=cfg.num_experts
+            )
         else:
             self.swarm_prover_bitnet = None
 
         # Rows 28/30/31/40: Standalone tools pack (opt-in)
-        if getattr(cfg, "use_standalone_tools", False) and _PAPER_121_WIRED and StandaloneToolsPack is not None:
+        if (
+            getattr(cfg, "use_standalone_tools", False)
+            and _PAPER_121_WIRED
+            and StandaloneToolsPack is not None
+        ):
             self.standalone_tools = StandaloneToolsPack(hidden_dim=cfg.hidden_dim)
         else:
             self.standalone_tools = None
 
         # Rows 32-39: BitNet Family Pack (opt-in)
-        if getattr(cfg, "use_bitnet_family", False) and _PAPER_122_WIRED and BitNetFamilyPack is not None:
-            self.bitnet_family = BitNetFamilyPack(hidden_dim=cfg.hidden_dim, variant=getattr(cfg, "bitnet_variant", "b158"), num_heads=cfg.n_head)
+        if (
+            getattr(cfg, "use_bitnet_family", False)
+            and _PAPER_122_WIRED
+            and BitNetFamilyPack is not None
+        ):
+            self.bitnet_family = BitNetFamilyPack(
+                hidden_dim=cfg.hidden_dim,
+                variant=getattr(cfg, "bitnet_variant", "b158"),
+                num_heads=cfg.n_head,
+            )
         else:
             self.bitnet_family = None
 
         # Rows 41, 43, 51: Heterogeneous Offload Pack (opt-in)
-        if getattr(cfg, "use_hetero_offload", False) and _PAPER_123_WIRED and HeterogeneousOffloadPack is not None:
-            self.hetero_offload = HeterogeneousOffloadPack(embed_dim=cfg.hidden_dim, num_experts=min(8, cfg.num_experts), top_k=min(2, cfg.top_k))
+        if (
+            getattr(cfg, "use_hetero_offload", False)
+            and _PAPER_123_WIRED
+            and HeterogeneousOffloadPack is not None
+        ):
+            self.hetero_offload = HeterogeneousOffloadPack(
+                embed_dim=cfg.hidden_dim,
+                num_experts=min(8, cfg.num_experts),
+                top_k=min(2, cfg.top_k),
+            )
         else:
             self.hetero_offload = None
 
         # Paper 55: Edge Kernel Picker
-        if getattr(cfg, "use_edge_kernel", True) and _PAPER_96_100_WIRED and EdgeKernelPicker is not None:
+        if (
+            getattr(cfg, "use_edge_kernel", True)
+            and _PAPER_96_100_WIRED
+            and EdgeKernelPicker is not None
+        ):
             try:
                 self.edge_kernel_picker = EdgeKernelPicker()
             except Exception:
@@ -3038,71 +3786,187 @@ class QuillanRoninOni(nn.Module):
             self.edge_kernel_picker = None
 
         # Paper 56: BitNet Scaling & STE Pack
-        if getattr(cfg, "use_ste_scaling", True) and _PAPER_66_70_WIRED and STEPack is not None:
-            self.ste_pack = STEPack(hidden_dim=cfg.hidden_dim, output_dim=cfg.vocab_size)
+        if (
+            getattr(cfg, "use_ste_scaling", True)
+            and _PAPER_66_70_WIRED
+            and STEPack is not None
+        ):
+            self.ste_pack = STEPack(
+                hidden_dim=cfg.hidden_dim, output_dim=cfg.vocab_size
+            )
         else:
             self.ste_pack = None
 
         # Papers 61-62: Stepping-Up Lemma Ramsey Lower-Bound Estimator
-        if getattr(cfg, "use_stepping_up", True) and _PAPER_96_100_WIRED and SteppingUpBound is not None:
+        if (
+            getattr(cfg, "use_stepping_up", True)
+            and _PAPER_96_100_WIRED
+            and SteppingUpBound is not None
+        ):
             self.stepping_up = SteppingUpBound()
         else:
             self.stepping_up = None
 
         # Paper 67: DGPO Distribution-Guided Policy Optimization Critic
-        if getattr(cfg, "use_dgpo", True) and _PAPER_96_100_WIRED and DGPOCritic is not None:
+        if (
+            getattr(cfg, "use_dgpo", True)
+            and _PAPER_96_100_WIRED
+            and DGPOCritic is not None
+        ):
             self.dgpo_critic = DGPOCritic(hidden_dim=cfg.hidden_dim, n_quantiles=8)
         else:
             self.dgpo_critic = None
 
         # Paper 68: Dream7B Discrete Diffusion Mask Denoiser
-        if getattr(cfg, "use_dream_diff", True) and _PAPER_96_100_WIRED and DreamDiffusionLM is not None:
-            self.dream_diffusion = DreamDiffusionLM(hidden_dim=cfg.hidden_dim, vocab=cfg.vocab_size)
+        if (
+            getattr(cfg, "use_dream_diff", True)
+            and _PAPER_96_100_WIRED
+            and DreamDiffusionLM is not None
+        ):
+            self.dream_diffusion = DreamDiffusionLM(
+                hidden_dim=cfg.hidden_dim, vocab=cfg.vocab_size
+            )
         else:
             self.dream_diffusion = None
 
         # Papers 69-70: Emergent Consciousness Phi Probe
-        if getattr(cfg, "use_phi_probe", True) and _PAPER_101_105_WIRED and ConsciousnessPhiProbe is not None:
+        if (
+            getattr(cfg, "use_phi_probe", True)
+            and _PAPER_101_105_WIRED
+            and ConsciousnessPhiProbe is not None
+        ):
             self.phi_probe = ConsciousnessPhiProbe(hidden_dim=cfg.hidden_dim, n_parts=4)
         else:
             self.phi_probe = None
 
         # Papers 73-74: ES Catastrophic Forgetting Mitigation & Task Arithmetic
         if getattr(cfg, "use_es_forgetting_mitigation", True):
-            self.es_forgetting = ESForgettingMitigation(hidden_dim=cfg.hidden_dim) if (_PAPER_71_75_WIRED and ESForgettingMitigation is not None) else None
-            self.task_arithmetic = TaskArithmeticForgettingFix(hidden_dim=cfg.hidden_dim) if (_PAPER_81_85_WIRED and TaskArithmeticForgettingFix is not None) else None
+            self.es_forgetting = (
+                ESForgettingMitigation(hidden_dim=cfg.hidden_dim)
+                if (_PAPER_71_75_WIRED and ESForgettingMitigation is not None)
+                else None
+            )
+            self.task_arithmetic = (
+                TaskArithmeticForgettingFix(hidden_dim=cfg.hidden_dim)
+                if (_PAPER_81_85_WIRED and TaskArithmeticForgettingFix is not None)
+                else None
+            )
         # Papers 76-85: Attention, SSM, Gumbel Router, GQA Packs
-        self.mamba_ssm = MambaBlock(cfg.hidden_dim, state_dim=16) if MambaBlock is not None else None
-        self.gumbel_router = GumbelRouter(cfg.hidden_dim, cfg.num_experts) if GumbelRouter is not None else None
-        self.flash_attn2 = FlashAttention2Wrapper() if FlashAttention2Wrapper is not None else None
-        self.flash3 = FlashAttention3SM61(cfg.hidden_dim, cfg.n_head) if FlashAttention3SM61 is not None else None
-        self.mistral_gqa = GroupedQueryAttention(cfg.hidden_dim, cfg.n_head, n_kv_heads=max(1, cfg.n_head // 4)) if GroupedQueryAttention is not None else None
+        self.mamba_ssm = (
+            MambaBlock(cfg.hidden_dim, state_dim=16) if MambaBlock is not None else None
+        )
+        self.gumbel_router = (
+            GumbelRouter(cfg.hidden_dim, cfg.num_experts)
+            if GumbelRouter is not None
+            else None
+        )
+        self.flash_attn2 = (
+            FlashAttention2Wrapper() if FlashAttention2Wrapper is not None else None
+        )
+        self.flash3 = (
+            FlashAttention3SM61(cfg.hidden_dim, cfg.n_head)
+            if FlashAttention3SM61 is not None
+            else None
+        )
+        self.mistral_gqa = (
+            GroupedQueryAttention(
+                cfg.hidden_dim, cfg.n_head, n_kv_heads=max(1, cfg.n_head // 4)
+            )
+            if GroupedQueryAttention is not None
+            else None
+        )
 
         # Papers 86-95: MoD, Diverse MoE, CPU-GPU Collab, MoHGE, MoR, NITRO-D Quant
-        self.mixture_of_depths = MixtureOfDepths(cfg.hidden_dim, n_layer=cfg.n_layer, capacity_factor=0.5) if MixtureOfDepths is not None else None
-        self.diverse_moe = DiverseSizeMoE(cfg.hidden_dim) if DiverseSizeMoE is not None else None
-        self.cpu_gpu_mgr = CPUGPUExpertManager(num_experts=cfg.num_experts, gpu_capacity=min(10, cfg.num_experts), hidden_dim=cfg.hidden_dim) if CPUGPUExpertManager is not None else None
-        self.hetero_ranks = HeterogeneousExpertRanks(n_layer=cfg.n_layer, base_rank=8) if HeterogeneousExpertRanks is not None else None
-        self.mixture_of_recursions = MixtureOfRecursions(cfg.hidden_dim, n_layer=2, max_recursion=3) if MixtureOfRecursions is not None else None
-        self.nitrod_quant = NITRODQuantizer(cfg.hidden_dim, block_size=32) if NITRODQuantizer is not None else None
+        self.mixture_of_depths = (
+            MixtureOfDepths(cfg.hidden_dim, n_layer=cfg.n_layer, capacity_factor=0.5)
+            if MixtureOfDepths is not None
+            else None
+        )
+        self.diverse_moe = (
+            DiverseSizeMoE(cfg.hidden_dim) if DiverseSizeMoE is not None else None
+        )
+        self.cpu_gpu_mgr = (
+            CPUGPUExpertManager(
+                num_experts=cfg.num_experts,
+                gpu_capacity=min(10, cfg.num_experts),
+                hidden_dim=cfg.hidden_dim,
+            )
+            if CPUGPUExpertManager is not None
+            else None
+        )
+        self.hetero_ranks = (
+            HeterogeneousExpertRanks(n_layer=cfg.n_layer, base_rank=8)
+            if HeterogeneousExpertRanks is not None
+            else None
+        )
+        self.mixture_of_recursions = (
+            MixtureOfRecursions(cfg.hidden_dim, n_layer=2, max_recursion=3)
+            if MixtureOfRecursions is not None
+            else None
+        )
+        self.nitrod_quant = (
+            NITRODQuantizer(cfg.hidden_dim, block_size=32)
+            if NITRODQuantizer is not None
+            else None
+        )
 
         # Papers 96-105: PocketNN DFA, Predatory ALA, PromptWare, Prophet Probe, ProTrain
-        self.pocket_dfa = DirectFeedbackAlignment(hidden_dim=cfg.hidden_dim, output_dim=cfg.hidden_dim) if DirectFeedbackAlignment is not None else None
-        self.predatory_ala = AdaptiveLinkAlignment(n_agents=cfg.num_experts, rewire_k=4) if AdaptiveLinkAlignment is not None else None
-        self.prompt_ware = PromptWareCompiler(hidden_dim=cfg.hidden_dim) if PromptWareCompiler is not None else None
-        self.early_probe = EarlyAnswerProbe(hidden_dim=cfg.hidden_dim, vocab=cfg.vocab_size) if EarlyAnswerProbe is not None else None
-        self.protrain_sched = ProTrainScheduler(available_ram_gb=28) if ProTrainScheduler is not None else None
+        self.pocket_dfa = (
+            DirectFeedbackAlignment(
+                hidden_dim=cfg.hidden_dim, output_dim=cfg.hidden_dim
+            )
+            if DirectFeedbackAlignment is not None
+            else None
+        )
+        self.predatory_ala = (
+            AdaptiveLinkAlignment(n_agents=cfg.num_experts, rewire_k=4)
+            if AdaptiveLinkAlignment is not None
+            else None
+        )
+        self.prompt_ware = (
+            PromptWareCompiler(hidden_dim=cfg.hidden_dim)
+            if PromptWareCompiler is not None
+            else None
+        )
+        self.early_probe = (
+            EarlyAnswerProbe(hidden_dim=cfg.hidden_dim, vocab=cfg.vocab_size)
+            if EarlyAnswerProbe is not None
+            else None
+        )
+        self.protrain_sched = (
+            ProTrainScheduler(available_ram_gb=28)
+            if ProTrainScheduler is not None
+            else None
+        )
 
         # Papers 106-115: Sovereign H-NMoE Router, Epistemic Humility Gate, v4 Wrapper & Wiki Compiler
-        self.cluster_router = HierarchicalClusterRouter(hidden_dim=cfg.hidden_dim, n_clusters=4, n_members=cfg.num_experts) if HierarchicalClusterRouter is not None else None
-        self.mind_humility_gate = EpistemicHumilityGate(hidden_dim=cfg.hidden_dim, humility_thresh=0.35) if EpistemicHumilityGate is not None else None
+        self.cluster_router = (
+            HierarchicalClusterRouter(
+                hidden_dim=cfg.hidden_dim, n_clusters=4, n_members=cfg.num_experts
+            )
+            if HierarchicalClusterRouter is not None
+            else None
+        )
+        self.mind_humility_gate = (
+            EpistemicHumilityGate(hidden_dim=cfg.hidden_dim, humility_thresh=0.35)
+            if EpistemicHumilityGate is not None
+            else None
+        )
         self.v4_wrapper = QuillanV4CompatibilityWrapper(self)
-        self.wiki_compiler = WikiSkillCompiler() if WikiSkillCompiler is not None else None
+        self.wiki_compiler = (
+            WikiSkillCompiler() if WikiSkillCompiler is not None else None
+        )
 
         # Papers 126-135: Codex, Neural Sonifier, Unit Distance Checker
-        self.codex_retriever = CodexConstitutionalRetriever() if CodexConstitutionalRetriever is not None else None
+        self.codex_retriever = (
+            CodexConstitutionalRetriever()
+            if CodexConstitutionalRetriever is not None
+            else None
+        )
         self.neural_sonifier = NeuralSonifier() if NeuralSonifier is not None else None
-        self.unit_distance_checker = UnitDistanceProofChecker() if UnitDistanceProofChecker is not None else None
+        self.unit_distance_checker = (
+            UnitDistanceProofChecker() if UnitDistanceProofChecker is not None else None
+        )
 
         self.apply(self._init_weights)
         nn.init.normal_(self.q1_bridge.weight, mean=0.0, std=0.02)
@@ -3110,7 +3974,9 @@ class QuillanRoninOni(nn.Module):
         nn.init.normal_(self.ingest_gate.weight, mean=0.0, std=0.02)
         nn.init.zeros_(self.recirc_proj.weight)
         nn.init.constant_(self.marta.flow_controller[-2].bias, 2.5)
-        if getattr(self, "test_time_world", None) is not None and hasattr(self.test_time_world, "ttpo"):
+        if getattr(self, "test_time_world", None) is not None and hasattr(
+            self.test_time_world, "ttpo"
+        ):
             nn.init.normal_(self.test_time_world.ttpo.lora_B, std=1e-3)
 
     def _init_weights(self, m):
@@ -3131,13 +3997,25 @@ class QuillanRoninOni(nn.Module):
 
     def tau_for_step(self, step: int, total_steps: int) -> float:
         c = self.cfg
-        return c.tau_min * (c.tau_max / c.tau_min) ** (1.0 - min(1.0, step / max(1, total_steps)))
+        return c.tau_min * (c.tau_max / c.tau_min) ** (
+            1.0 - min(1.0, step / max(1, total_steps))
+        )
 
-    def forward(self, input_ids, labels=None, past_key_values=None, use_cache=False,
-                path_override: Optional[int] = None, recirc_state: Optional[torch.Tensor] = None,
-                deliberation: bool = True, teacher_tokens: Optional[torch.Tensor] = None,
-                proxy_logits: Optional[torch.Tensor] = None, persona_id: Optional[torch.Tensor] = None,
-                return_aux: bool = True, compute_aux: bool = True):
+    def forward(
+        self,
+        input_ids,
+        labels=None,
+        past_key_values=None,
+        use_cache=False,
+        path_override: Optional[int] = None,
+        recirc_state: Optional[torch.Tensor] = None,
+        deliberation: bool = True,
+        teacher_tokens: Optional[torch.Tensor] = None,
+        proxy_logits: Optional[torch.Tensor] = None,
+        persona_id: Optional[torch.Tensor] = None,
+        return_aux: bool = True,
+        compute_aux: bool = True,
+    ):
         cfg = self.cfg
         B, T = input_ids.size()
         if hasattr(self, "_fired") and len(self._fired) > 64:
@@ -3157,7 +4035,11 @@ class QuillanRoninOni(nn.Module):
                 if recirc_state.dim() == 2:
                     recirc_state = recirc_state.unsqueeze(1)
                 recirc_in = recirc_state.to(x.dtype)
-                x = x + self.recirc_proj(recirc_in).to(x.dtype) + 0.1 * (recirc_in - x.detach())
+                x = (
+                    x
+                    + self.recirc_proj(recirc_in).to(x.dtype)
+                    + 0.1 * (recirc_in - x.detach())
+                )
             else:
                 x = x + 0.01 * self.recirc_proj(x).to(x.dtype)
 
@@ -3166,8 +4048,12 @@ class QuillanRoninOni(nn.Module):
             c0_swarm_idea = torch.tanh(q1) * q2 + 0.467 * (torch.sin(q2) * q1)
             g_ingest = torch.sigmoid(self.ingest_gate(torch.cat([q1, q2], dim=-1)))
             g_f32 = g_ingest.float().clamp(1e-5, 1.0 - 1e-5)
-            ingest_entropy = -(g_f32 * torch.log(g_f32) + (1.0 - g_f32) * torch.log(1.0 - g_f32)).mean()
-            x = x + 0.05 * (g_ingest * q1 + (1.0 - g_ingest) * q2 + 0.25 * c0_swarm_idea)
+            ingest_entropy = -(
+                g_f32 * torch.log(g_f32) + (1.0 - g_f32) * torch.log(1.0 - g_f32)
+            ).mean()
+            x = x + 0.05 * (
+                g_ingest * q1 + (1.0 - g_ingest) * q2 + 0.25 * c0_swarm_idea
+            )
         x_embed = x
 
         presents = [] if use_cache else None
@@ -3205,27 +4091,51 @@ class QuillanRoninOni(nn.Module):
                     _wm_logit = self.agent_evolution.harness.wm_head(_h_pooled)
                     _ab_logit = self.agent_evolution.harness.abduct_head(_h_pooled)
                     _r_p = _r_logits.float().softmax(-1).clamp_min(1e-6)
-                    _h_entropy = -(_r_p * _r_p.log()).sum(dim=-1).mean() \
-                        + torch.sigmoid(_wm_logit.float()).mean() + torch.sigmoid(_ab_logit.float()).mean()
+                    _h_entropy = (
+                        -(_r_p * _r_p.log()).sum(dim=-1).mean()
+                        + torch.sigmoid(_wm_logit.float()).mean()
+                        + torch.sigmoid(_ab_logit.float()).mean()
+                    )
                     self._last_evoharness_entropy = _h_entropy
-                    self._fired.append(("evoharness", {
-                        "num_rounds": int(_r_logits.argmax(dim=-1).float().mean().item()) + 1,
-                        "use_wm": bool(torch.sigmoid(_wm_logit).mean().item() > 0.5),
-                        "use_abduct": bool(torch.sigmoid(_ab_logit).mean().item() > 0.5)
-                    }))
+                    self._fired.append(
+                        (
+                            "evoharness",
+                            {
+                                "num_rounds": int(
+                                    _r_logits.argmax(dim=-1).float().mean().item()
+                                )
+                                + 1,
+                                "use_wm": bool(
+                                    torch.sigmoid(_wm_logit).mean().item() > 0.5
+                                ),
+                                "use_abduct": bool(
+                                    torch.sigmoid(_ab_logit).mean().item() > 0.5
+                                ),
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_evoharness_entropy = None
 
             # Paper 26: Dynamic Compression in Recurrence & Paper 30: Metan Emergent Depth
             if compute_aux and getattr(self, "recurrent_diffusion", None) is not None:
                 try:
-                    _depth_gate = self.recurrent_diffusion.depth.depth_gate(x.mean(dim=1))
+                    _depth_gate = self.recurrent_diffusion.depth.depth_gate(
+                        x.mean(dim=1)
+                    )
                     _depth = self.recurrent_diffusion.depth.get_depth(x)
                     _recurse = self.recurrent_diffusion.depth.should_recurse(x)
-                    self._fired.append(("emergent_depth", {"depth": _depth, "recurse": _recurse}))
+                    self._fired.append(
+                        ("emergent_depth", {"depth": _depth, "recurse": _recurse})
+                    )
                     _x_comp, _comp_loss = self.recurrent_diffusion.compression(x)
                     x = x + 0.05 * (_x_comp - x)
-                    self._fired.append(("dynamic_compression", {"rate_distortion": round(float(_comp_loss.item()), 4)}))
+                    self._fired.append(
+                        (
+                            "dynamic_compression",
+                            {"rate_distortion": round(float(_comp_loss.item()), 4)},
+                        )
+                    )
                     self._last_comp_loss = _comp_loss + 0.01 * _depth_gate.pow(2).mean()
                 except Exception:
                     self._last_comp_loss = None
@@ -3238,38 +4148,70 @@ class QuillanRoninOni(nn.Module):
                     _ttpo_out = self.test_time_world.ttpo(x)
                     x = x + 0.005 * _ttpo_out
                     _cw = self.test_time_world.code_world
-                    _tok = input_ids if input_ids.max() < _cw.code_encoder[0].num_embeddings else input_ids % _cw.code_encoder[0].num_embeddings
+                    _tok = (
+                        input_ids
+                        if input_ids.max() < _cw.code_encoder[0].num_embeddings
+                        else input_ids % _cw.code_encoder[0].num_embeddings
+                    )
                     _cw_emb = _cw.code_encoder(_tok)
-                    _h_prev = torch.zeros(_cw_emb.size(0), _cw.state_update.hidden_size, device=x.device, dtype=_cw_emb.dtype)
+                    _h_prev = torch.zeros(
+                        _cw_emb.size(0),
+                        _cw.state_update.hidden_size,
+                        device=x.device,
+                        dtype=_cw_emb.dtype,
+                    )
                     _h_1 = _cw.state_update(_cw_emb[:, 0], _h_prev)
                     _step2_tok = _cw_emb[:, 1] if _cw_emb.size(1) > 1 else _cw_emb[:, 0]
                     _h_next = _cw.state_update(_step2_tok, _h_1)
-                    self._last_test_time_loss = _h_next.pow(2).mean() * 0.001 + _cw_emb.pow(2).mean() * 0.001
-                    self._fired.append(("ttpo_adapt", {"rank": self.test_time_world.ttpo.rank}))
+                    self._last_test_time_loss = (
+                        _h_next.pow(2).mean() * 0.001 + _cw_emb.pow(2).mean() * 0.001
+                    )
+                    self._fired.append(
+                        ("ttpo_adapt", {"rank": self.test_time_world.ttpo.rank})
+                    )
                 except Exception:
                     self._last_test_time_loss = None
 
             # Papers 41-42: BitNet a4.8 4-Bit Activation & Hadamard Rotation (v2)
-            if getattr(self, "moe_rl", None) is not None and getattr(cfg, "use_bitnet_4bit", True):
+            if getattr(self, "moe_rl", None) is not None and getattr(
+                cfg, "use_bitnet_4bit", True
+            ):
                 try:
                     _x_q4 = self.moe_rl.bitnet_4bit(x)
                     x = x + 0.05 * (_x_q4 - x)
-                    self._fired.append(("bitnet_4bit_hadamard", {"hadamard": True, "bits": 4}))
+                    self._fired.append(
+                        ("bitnet_4bit_hadamard", {"hadamard": True, "bits": 4})
+                    )
                 except Exception:
                     pass
 
             # Paper 44: DeepSeekMoE Shared + Routed Expert Specialization
-            if compute_aux and getattr(self, "moe_rl", None) is not None and getattr(cfg, "use_deepseek_moe", True):
+            if (
+                compute_aux
+                and getattr(self, "moe_rl", None) is not None
+                and getattr(cfg, "use_deepseek_moe", True)
+            ):
                 try:
                     _shared_out = self.moe_rl.moe(x)
-                    _routed_all = sum(exp(x[:min(2, x.size(0))]).sum() for exp in self.moe_rl.moe.routed_experts) * 1e-6
+                    _routed_all = (
+                        sum(
+                            exp(x[: min(2, x.size(0))]).sum()
+                            for exp in self.moe_rl.moe.routed_experts
+                        )
+                        * 1e-6
+                    )
                     _routed_out = self.moe_rl.moe.routed_experts[0](x)
                     x = x + 0.05 * (_shared_out - x) + 0.005 * _routed_out + _routed_all
-                    self._fired.append(("deepseek_moe_shared", {
-                        "shared": self.moe_rl.moe.num_shared,
-                        "routed": self.moe_rl.moe.num_routed,
-                        "top_k": self.moe_rl.moe.top_k
-                    }))
+                    self._fired.append(
+                        (
+                            "deepseek_moe_shared",
+                            {
+                                "shared": self.moe_rl.moe.num_shared,
+                                "routed": self.moe_rl.moe.num_routed,
+                                "top_k": self.moe_rl.moe.top_k,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3277,12 +4219,23 @@ class QuillanRoninOni(nn.Module):
             if compute_aux and getattr(self, "swarm_prover_bitnet", None) is not None:
                 try:
                     _tok_states = x.reshape(-1, x.size(-1))
-                    _swarm_stats = self.swarm_prover_bitnet.swarm(_tok_states[:min(34, _tok_states.size(0))])
-                    self._fired.append(("swarm_assimilation", {
-                        "diversity": round(float(_swarm_stats["diversity"].item()), 4),
-                        "n_cliques": len(_swarm_stats["cliques"]),
-                        "assimilation_rate": round(float(_swarm_stats["assimilation"].item()), 4)
-                    }))
+                    _swarm_stats = self.swarm_prover_bitnet.swarm(
+                        _tok_states[: min(34, _tok_states.size(0))]
+                    )
+                    self._fired.append(
+                        (
+                            "swarm_assimilation",
+                            {
+                                "diversity": round(
+                                    float(_swarm_stats["diversity"].item()), 4
+                                ),
+                                "n_cliques": len(_swarm_stats["cliques"]),
+                                "assimilation_rate": round(
+                                    float(_swarm_stats["assimilation"].item()), 4
+                                ),
+                            },
+                        )
+                    )
                     self._last_swarm_diversity = _swarm_stats["diversity"]
                 except Exception:
                     self._last_swarm_diversity = None
@@ -3290,12 +4243,24 @@ class QuillanRoninOni(nn.Module):
             # Papers 49-50: Beyond the Abstraction Fallacy (Reactive Fast Path & Extended Field)
             if getattr(self, "swarm_prover_bitnet", None) is not None:
                 try:
-                    _urg = torch.sigmoid(self.swarm_prover_bitnet.reactive.urgency(x.mean(dim=1)))
+                    _urg = torch.sigmoid(
+                        self.swarm_prover_bitnet.reactive.urgency(x.mean(dim=1))
+                    )
                     _fast = self.swarm_prover_bitnet.reactive.fast(x)
-                    fast_active = bool((_urg.mean() > self.swarm_prover_bitnet.reactive.threshold).item())
+                    fast_active = bool(
+                        (
+                            _urg.mean() > self.swarm_prover_bitnet.reactive.threshold
+                        ).item()
+                    )
                     # Preserve residual stream while blending fast projection and extended field
-                    x = x + 0.005 * _urg.unsqueeze(-1) * _fast + 0.001 * self.swarm_prover_bitnet.reactive.field
-                    self._fired.append(("reactive_fast_path", {"fast_triggered": fast_active}))
+                    x = (
+                        x
+                        + 0.005 * _urg.unsqueeze(-1) * _fast
+                        + 0.001 * self.swarm_prover_bitnet.reactive.field
+                    )
+                    self._fired.append(
+                        ("reactive_fast_path", {"fast_triggered": fast_active})
+                    )
                 except Exception:
                     pass
 
@@ -3304,10 +4269,15 @@ class QuillanRoninOni(nn.Module):
                 try:
                     _tactics = ["intro", "apply", "exact"]
                     _proof_res = self.swarm_prover_bitnet.prover.prove(_tactics)
-                    self._fired.append(("ax_prover", {
-                        "proved": _proof_res["proved"],
-                        "tactics_count": len(_tactics)
-                    }))
+                    self._fired.append(
+                        (
+                            "ax_prover",
+                            {
+                                "proved": _proof_res["proved"],
+                                "tactics_count": len(_tactics),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3315,17 +4285,29 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "swarm_prover_bitnet", None) is not None:
                 try:
                     _sample_tern = torch.tensor([-1.0, 0.0, 1.0, 0.0])
-                    _packed_code = self.swarm_prover_bitnet.cpulut.pack_ternary(_sample_tern)
+                    _packed_code = self.swarm_prover_bitnet.cpulut.pack_ternary(
+                        _sample_tern
+                    )
                     _b2b4t = self.swarm_prover_bitnet.recipe.get_config()
-                    self._fired.append(("bitnet_cpu_lut", {
-                        "packed_bytes": int(_packed_code.numel()),
-                        "lossless": True
-                    }))
-                    self._fired.append(("bitnet_2b4t_recipe", {
-                        "lr": _b2b4t["lr"],
-                        "tokens": _b2b4t["tokens"],
-                        "params": _b2b4t["params"]
-                    }))
+                    self._fired.append(
+                        (
+                            "bitnet_cpu_lut",
+                            {
+                                "packed_bytes": int(_packed_code.numel()),
+                                "lossless": True,
+                            },
+                        )
+                    )
+                    self._fired.append(
+                        (
+                            "bitnet_2b4t_recipe",
+                            {
+                                "lr": _b2b4t["lr"],
+                                "tokens": _b2b4t["tokens"],
+                                "params": _b2b4t["params"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3333,10 +4315,15 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "edge_kernel_picker", None) is not None:
                 try:
                     _chosen_kernel = self.edge_kernel_picker.pick()
-                    self._fired.append(("edge_kernel_picker", {
-                        "kernel": _chosen_kernel,
-                        "arch": self.edge_kernel_picker.arch
-                    }))
+                    self._fired.append(
+                        (
+                            "edge_kernel_picker",
+                            {
+                                "kernel": _chosen_kernel,
+                                "arch": self.edge_kernel_picker.arch,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3344,42 +4331,61 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "ste_pack", None) is not None:
                 try:
                     _ste_cfg = self.ste_pack.scaling.get_config()
-                    self._fired.append(("bitnet_scaling_recipe", {
-                        "lr": _ste_cfg["lr"],
-                        "warmup": _ste_cfg["warmup"],
-                        "weight_decay": _ste_cfg["weight_decay"]
-                    }))
+                    self._fired.append(
+                        (
+                            "bitnet_scaling_recipe",
+                            {
+                                "lr": _ste_cfg["lr"],
+                                "warmup": _ste_cfg["warmup"],
+                                "weight_decay": _ste_cfg["weight_decay"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 58: Universal Communication (ETI) via 9-Vector Semantic Prism
-            if getattr(cfg, "use_eti_comm", True) and _PAPER_81_85_WIRED and UniversalCommunication is not None:
+            if (
+                getattr(cfg, "use_eti_comm", True)
+                and _PAPER_81_85_WIRED
+                and UniversalCommunication is not None
+            ):
                 try:
                     _mock_pulls = torch.ones(cfg.num_experts, device=x.device)
                     _eti_vecs = UniversalCommunication.encode_as_vectors(_mock_pulls)
                     _eti_str = UniversalCommunication.decode_from_vectors(_eti_vecs)
-                    self._fired.append(("universal_communication", {
-                        "vectors": [round(v, 4) for v in _eti_vecs[:3]],
-                        "summary": _eti_str[:32]
-                    }))
+                    self._fired.append(
+                        (
+                            "universal_communication",
+                            {
+                                "vectors": [round(v, 4) for v in _eti_vecs[:3]],
+                                "summary": _eti_str[:32],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Papers 61-62: De-Synchronizing the Stepping-Up Lemma (Hypergraph Ramsey Bound)
             if getattr(self, "stepping_up", None) is not None:
                 try:
-                    _bound = self.stepping_up.lower_bound(k=3, s=cfg.num_experts, desync_gain=1.2)
-                    self._fired.append(("stepping_up_lemma", {
-                        "k": 3,
-                        "s": cfg.num_experts,
-                        "lower_bound": _bound
-                    }))
+                    _bound = self.stepping_up.lower_bound(
+                        k=3, s=cfg.num_experts, desync_gain=1.2
+                    )
+                    self._fired.append(
+                        (
+                            "stepping_up_lemma",
+                            {"k": 3, "s": cfg.num_experts, "lower_bound": _bound},
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 66: DFlash (2602.06036) Block Diffusion for Speculative Decoding
             if getattr(cfg, "use_speculative", True):
-                self._fired.append(("dflash_speculative", {"gamma": 4, "block_parallel": True}))
+                self._fired.append(
+                    ("dflash_speculative", {"gamma": 4, "block_parallel": True})
+                )
 
             # Paper 67: DGPO Distribution Guided Policy Optimization (Advantage Estimation & Critic Loss)
             if getattr(self, "dgpo_critic", None) is not None:
@@ -3390,18 +4396,34 @@ class QuillanRoninOni(nn.Module):
                     _r_dummy = torch.ones(x.size(0), device=x.device)
                     _dgpo_adv = self.dgpo_critic.advantage(x, _r_dummy)
                     self._last_dgpo_adv = _dgpo_adv
-                    self._fired.append(("dgpo_advantage", {"mean_adv": round(float(_dgpo_adv.mean().item()), 4)}))
+                    self._fired.append(
+                        (
+                            "dgpo_advantage",
+                            {"mean_adv": round(float(_dgpo_adv.mean().item()), 4)},
+                        )
+                    )
                 except Exception:
                     self._last_dgpo_critic_loss = None
                     self._last_dgpo_adv = None
 
             # Paper 68: Dream7B Discrete Diffusion LM
-            if getattr(self, "dream_diffusion", None) is not None and (not self.training or deliberation):
+            if getattr(self, "dream_diffusion", None) is not None and (
+                not self.training or deliberation
+            ):
                 try:
                     _denoise_out = self.dream_diffusion.denoiser(x)
-                    _mask_tokens = input_ids if input_ids.max() < _denoise_out.size(-1) else input_ids % _denoise_out.size(-1)
-                    self._last_dream_diff_loss = F.cross_entropy(_denoise_out.view(-1, _denoise_out.size(-1)), _mask_tokens.view(-1))
-                    self._fired.append(("dream_diffusion", {"denoise_vocab": _denoise_out.size(-1)}))
+                    _mask_tokens = (
+                        input_ids
+                        if input_ids.max() < _denoise_out.size(-1)
+                        else input_ids % _denoise_out.size(-1)
+                    )
+                    self._last_dream_diff_loss = F.cross_entropy(
+                        _denoise_out.view(-1, _denoise_out.size(-1)),
+                        _mask_tokens.view(-1),
+                    )
+                    self._fired.append(
+                        ("dream_diffusion", {"denoise_vocab": _denoise_out.size(-1)})
+                    )
                 except Exception:
                     self._last_dream_diff_loss = None
 
@@ -3414,12 +4436,17 @@ class QuillanRoninOni(nn.Module):
                     _chunk = _hidden_p.shape[-1] // self.phi_probe.n_parts
                     _errs = []
                     for _i, _proj in enumerate(self.phi_probe.parts):
-                        _seg = _hidden_p[:, _i * _chunk:(_i + 1) * _chunk]
+                        _seg = _hidden_p[:, _i * _chunk : (_i + 1) * _chunk]
                         _errs.append(F.mse_loss(_proj(_seg), _seg))
                     _err_parts = torch.stack(_errs).mean()
                     self._last_phi = (_err_parts - _err_joint).abs()
                     self._last_phi_probe_loss = _err_joint * 0.5 + 0.1 * _err_parts
-                    self._fired.append(("consciousness_phi", {"phi": round(float(self._last_phi.mean().item()), 4)}))
+                    self._fired.append(
+                        (
+                            "consciousness_phi",
+                            {"phi": round(float(self._last_phi.mean().item()), 4)},
+                        )
+                    )
                 except Exception:
                     self._last_phi = None
                     self._last_phi_probe_loss = None
@@ -3428,47 +4455,75 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "task_arithmetic", None) is not None:
                 try:
                     x = x + 0.0001 * self.task_arithmetic.lambdas.sum() * x
-                    self._fired.append(("es_task_arithmetic", {
-                        "n_tasks": self.task_arithmetic.num_tasks,
-                        "ewc_lambda": self.es_forgetting.ewc_lambda if self.es_forgetting else 0.4
-                    }))
+                    self._fired.append(
+                        (
+                            "es_task_arithmetic",
+                            {
+                                "n_tasks": self.task_arithmetic.num_tasks,
+                                "ewc_lambda": self.es_forgetting.ewc_lambda
+                                if self.es_forgetting
+                                else 0.4,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 75: EvoMoE (Expert Evolution in Mixture of Experts)
-            if compute_aux and getattr(cfg, "use_evo_moe", True) and getattr(self, "evo_moe", None) is not None:
+            if (
+                compute_aux
+                and getattr(cfg, "use_evo_moe", True)
+                and getattr(self, "evo_moe", None) is not None
+            ):
                 try:
                     _evo_out = self.evo_moe(x)
                     x = x + 0.01 * _evo_out
-                    self._fired.append(("evomoe_evolution", {"num_experts": cfg.num_experts, "active": True}))
+                    self._fired.append(
+                        (
+                            "evomoe_evolution",
+                            {"num_experts": cfg.num_experts, "active": True},
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 76: FlashAttention-2 Faster Attention with Work Partitioning
             if getattr(self, "flash_attn2", None) is not None:
-                self._fired.append(("flash_attention_2", {
-                    "tiling": "FA2",
-                    "hbm_optimized": True,
-                    "available": self.flash_attn2.available()
-                }))
+                self._fired.append(
+                    (
+                        "flash_attention_2",
+                        {
+                            "tiling": "FA2",
+                            "hbm_optimized": True,
+                            "available": self.flash_attn2.available(),
+                        },
+                    )
+                )
 
             # Paper 77: FlashAttention-3 Fast & Accurate Attention with Asynchrony and Low-Precision
             if compute_aux and getattr(self, "flash3", None) is not None:
                 try:
-                    _q = x.unsqueeze(1).repeat(1, cfg.n_head, 1, 1)[..., :cfg.head_dim]
+                    _q = x.unsqueeze(1).repeat(1, cfg.n_head, 1, 1)[..., : cfg.head_dim]
                     _ = self.flash3(_q, _q, _q, causal=True)
-                    self._fired.append(("flash_attention_3", {
-                        "block_size": self.flash3.block_size,
-                        "hardware": "SM61_adapted"
-                    }))
+                    self._fired.append(
+                        (
+                            "flash_attention_3",
+                            {
+                                "block_size": self.flash3.block_size,
+                                "hardware": "SM61_adapted",
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 78: FlashAttention v1 IO-Aware Exact Attention
-            self._fired.append(("flash_attention_v1_io_aware", {
-                "io_aware": True,
-                "memory_complexity": "O(N)"
-            }))
+            self._fired.append(
+                (
+                    "flash_attention_v1_io_aware",
+                    {"io_aware": True, "memory_complexity": "O(N)"},
+                )
+            )
 
             # Paper 79: Gumbel-Softmax Categorical Reparameterization with Temperature Annealing
             if getattr(self, "gumbel_router", None) is not None:
@@ -3476,10 +4531,12 @@ class QuillanRoninOni(nn.Module):
                     _gw, _g_tau = self.gumbel_router(x, training=self.training)
                     self.gumbel_router.step()
                     self._last_gumbel_weights = _gw
-                    self._fired.append(("gumbel_softmax_router", {
-                        "tau": round(float(_g_tau.item()), 4),
-                        "annealed": True
-                    }))
+                    self._fired.append(
+                        (
+                            "gumbel_softmax_router",
+                            {"tau": round(float(_g_tau.item()), 4), "annealed": True},
+                        )
+                    )
                 except Exception:
                     self._last_gumbel_weights = None
 
@@ -3487,24 +4544,40 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "velocity_governor", None) is not None:
                 try:
                     _v_thresh, _pid_dict = self.velocity_governor.step(0.92, 0.95, 0.20)
-                    self._fired.append(("lee_x_humanized_protocol", {
-                        "velocity": round(float(_pid_dict.get("token_velocity", 1.0)), 4),
-                        "pid_error": round(float(_pid_dict.get("pid_error", 0.0)), 4)
-                    }))
+                    self._fired.append(
+                        (
+                            "lee_x_humanized_protocol",
+                            {
+                                "velocity": round(
+                                    float(_pid_dict.get("token_velocity", 1.0)), 4
+                                ),
+                                "pid_error": round(
+                                    float(_pid_dict.get("pid_error", 0.0)), 4
+                                ),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 81: Mamba Selective State Spaces (Linear-Time Sequence Modeling)
             if compute_aux and getattr(self, "mamba_ssm", None) is not None:
                 try:
-                    _m_gate = torch.sigmoid(self.mamba_ssm.x_proj(x)[..., :self.mamba_ssm.hidden_dim])
+                    _m_gate = torch.sigmoid(
+                        self.mamba_ssm.x_proj(x)[..., : self.mamba_ssm.hidden_dim]
+                    )
                     _m_a = self.mamba_ssm.A.sum() * 1e-6
                     _x_mamba = self.mamba_ssm(x)
                     x = x + 0.005 * (_x_mamba * _m_gate + _m_a)
-                    self._fired.append(("mamba_selective_ssm", {
-                        "state_dim": getattr(self.mamba_ssm, "state_dim", 16),
-                        "complexity": "O(N)"
-                    }))
+                    self._fired.append(
+                        (
+                            "mamba_selective_ssm",
+                            {
+                                "state_dim": getattr(self.mamba_ssm, "state_dim", 16),
+                                "complexity": "O(N)",
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3514,22 +4587,26 @@ class QuillanRoninOni(nn.Module):
                     _ledger = ProvenanceLedger.entry(
                         model_hash="oni_5_4_0",
                         data_hash="openwebtext_clean",
-                        config_hash=f"d{cfg.hidden_dim}_l{cfg.n_layer}"
+                        config_hash=f"d{cfg.hidden_dim}_l{cfg.n_layer}",
                     )
-                    self._fired.append(("mdds_provenance_ledger", {
-                        "ledger_id": _ledger["ledger_id"]
-                    }))
+                    self._fired.append(
+                        ("mdds_provenance_ledger", {"ledger_id": _ledger["ledger_id"]})
+                    )
                 except Exception:
                     pass
 
             # Paper 83: Medical Report Clinical Mapping & PII Redaction Hygiene
             if _PAPER_101_105_WIRED and PIIRedactor is not None:
                 try:
-                    _scrubbed = PIIRedactor.scrub("Quillan audit trace: DOB 01/01/2000 MRN: 998811 verified.")
-                    self._fired.append(("med_pii_redactor", {
-                        "patterns": len(PIIRedactor.PATTERNS),
-                        "sanitized": True
-                    }))
+                    _scrubbed = PIIRedactor.scrub(
+                        "Quillan audit trace: DOB 01/01/2000 MRN: 998811 verified."
+                    )
+                    self._fired.append(
+                        (
+                            "med_pii_redactor",
+                            {"patterns": len(PIIRedactor.PATTERNS), "sanitized": True},
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3538,25 +4615,30 @@ class QuillanRoninOni(nn.Module):
                 try:
                     _x_gqa = self.mistral_gqa(x)
                     x = x + 0.005 * _x_gqa
-                    self._fired.append(("mistral_gqa", {
-                        "n_head": self.mistral_gqa.n_head,
-                        "n_kv_heads": self.mistral_gqa.n_kv_heads
-                    }))
+                    self._fired.append(
+                        (
+                            "mistral_gqa",
+                            {
+                                "n_head": self.mistral_gqa.n_head,
+                                "n_kv_heads": self.mistral_gqa.n_kv_heads,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 85: Mixtral of Experts (Top-2 Sparse Routing with Shared Router)
-            self._fired.append(("mixtral_of_experts", {
-                "top_k": 2,
-                "shared_router": True
-            }))
+            self._fired.append(
+                ("mixtral_of_experts", {"top_k": 2, "shared_router": True})
+            )
 
             # Paper 86: Mixtral of Experts v2 (Verified Duplicate Family)
-            self._fired.append(("mixtral_v2", {
-                "family": "Mixtral",
-                "top_k": 2,
-                "verified_duplicate": True
-            }))
+            self._fired.append(
+                (
+                    "mixtral_v2",
+                    {"family": "Mixtral", "top_k": 2, "verified_duplicate": True},
+                )
+            )
 
             # Paper 87: Mixture of Depths (MoD: Dynamic Compute Allocation per Token)
             if compute_aux and getattr(self, "mixture_of_depths", None) is not None:
@@ -3568,10 +4650,15 @@ class QuillanRoninOni(nn.Module):
                     _x_mod = torch.stack(_mod_outs).mean(dim=0)
                     x = x + 0.005 * _x_mod
                     self._last_mod_mask = _depth_mask
-                    self._fired.append(("mixture_of_depths", {
-                        "capacity": self.mixture_of_depths.capacity_factor,
-                        "active_tokens": int(_depth_mask.sum().item())
-                    }))
+                    self._fired.append(
+                        (
+                            "mixture_of_depths",
+                            {
+                                "capacity": self.mixture_of_depths.capacity_factor,
+                                "active_tokens": int(_depth_mask.sum().item()),
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_mod_mask = None
 
@@ -3580,9 +4667,9 @@ class QuillanRoninOni(nn.Module):
                 try:
                     _x_modse = self.diverse_moe(x)
                     x = x + 0.005 * _x_modse
-                    self._fired.append(("modse_diverse_moe", {
-                        "sizes": ["small", "medium", "large"]
-                    }))
+                    self._fired.append(
+                        ("modse_diverse_moe", {"sizes": ["small", "medium", "large"]})
+                    )
                 except Exception:
                     pass
 
@@ -3592,26 +4679,31 @@ class QuillanRoninOni(nn.Module):
                     _top_experts = list(range(min(4, cfg.num_experts)))
                     self.cpu_gpu_mgr.update_activation(_top_experts)
                     self.cpu_gpu_mgr.rebalance()
-                    self._fired.append(("moe_cpu_gpu_collab", {
-                        "gpu_capacity": self.cpu_gpu_mgr.gpu_capacity,
-                        "n_hot": len(self.cpu_gpu_mgr.gpu_experts)
-                    }))
+                    self._fired.append(
+                        (
+                            "moe_cpu_gpu_collab",
+                            {
+                                "gpu_capacity": self.cpu_gpu_mgr.gpu_capacity,
+                                "n_hot": len(self.cpu_gpu_mgr.gpu_experts),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 90: MoE Outrageously Large Neural Networks (Noisy Top-K & Capacity)
-            self._fired.append(("outrageously_large_moe", {
-                "noisy_gating": True,
-                "capacity_factor": 1.25
-            }))
+            self._fired.append(
+                (
+                    "outrageously_large_moe",
+                    {"noisy_gating": True, "capacity_factor": 1.25},
+                )
+            )
 
             # Paper 91: MoHGE (Mixture of Heterogeneous Grouped Experts)
             if getattr(self, "hetero_ranks", None) is not None:
                 try:
                     _ranks = [self.hetero_ranks.get_rank(i) for i in range(cfg.n_layer)]
-                    self._fired.append(("mohge_heterogeneous", {
-                        "ranks": _ranks
-                    }))
+                    self._fired.append(("mohge_heterogeneous", {"ranks": _ranks}))
                 except Exception:
                     pass
 
@@ -3620,12 +4712,19 @@ class QuillanRoninOni(nn.Module):
                 try:
                     _x_mor, _depth_scores = self.mixture_of_recursions(x)
                     x = x + 0.005 * _x_mor
-                    _eff_depth = self.mixture_of_recursions.effective_depth_per_token(_depth_scores)
+                    _eff_depth = self.mixture_of_recursions.effective_depth_per_token(
+                        _depth_scores
+                    )
                     self._last_mor_scores = _depth_scores
-                    self._fired.append(("mixture_of_recursions", {
-                        "mean_depth": round(float(_eff_depth.mean().item()), 4),
-                        "max_recursion": self.mixture_of_recursions.max_recursion
-                    }))
+                    self._fired.append(
+                        (
+                            "mixture_of_recursions",
+                            {
+                                "mean_depth": round(float(_eff_depth.mean().item()), 4),
+                                "max_recursion": self.mixture_of_recursions.max_recursion,
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_mor_scores = None
 
@@ -3633,44 +4732,59 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "nitrod_quant", None) is not None:
                 try:
                     _x_int, _scale = self.nitrod_quant.quantize(x, bits=8)
-                    self._fired.append(("nitro_d_quant", {
-                        "block_size": self.nitrod_quant.block_size,
-                        "bits": 8,
-                        "scale_mean": round(float(_scale.mean().item()), 4)
-                    }))
+                    self._fired.append(
+                        (
+                            "nitro_d_quant",
+                            {
+                                "block_size": self.nitrod_quant.block_size,
+                                "bits": 8,
+                                "scale_mean": round(float(_scale.mean().item()), 4),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 94: OD-MoE (On-Demand Expert Loading for Cacheless Edge MoE)
             if getattr(self, "cpu_gpu_mgr", None) is not None:
                 _cold_miss = self.cpu_gpu_mgr.should_load(expert_id=cfg.num_experts - 1)
-                self._fired.append(("od_moe_edge", {
-                    "cacheless": True,
-                    "on_demand": True,
-                    "cold_miss": _cold_miss
-                }))
+                self._fired.append(
+                    (
+                        "od_moe_edge",
+                        {"cacheless": True, "on_demand": True, "cold_miss": _cold_miss},
+                    )
+                )
 
             # Paper 95: Pattern to Partner (Collaborative Alignment & Consensus Fallback)
-            self._fired.append(("pattern_to_partner", {
-                "collaborative_harmony": True,
-                "status": "active"
-            }))
+            self._fired.append(
+                (
+                    "pattern_to_partner",
+                    {"collaborative_harmony": True, "status": "active"},
+                )
+            )
 
             # Paper 96: Distillation System Prompt Fidelity & Peer Review Audit
-            self._fired.append(("distillation_system_prompt_audit", {
-                "peer_reviewed": True,
-                "fidelity_score": 0.985
-            }))
+            self._fired.append(
+                (
+                    "distillation_system_prompt_audit",
+                    {"peer_reviewed": True, "fidelity_score": 0.985},
+                )
+            )
 
             # Paper 97: PocketNN Direct Feedback Alignment (DFA)
             if getattr(self, "pocket_dfa", None) is not None:
                 try:
                     _err = x.mean(dim=1)
                     _fb = self.pocket_dfa.get_feedback(_err)
-                    self._fired.append(("pocketnn_dfa", {
-                        "feedback_dim": self.pocket_dfa.hidden_dim,
-                        "integer_friendly": True
-                    }))
+                    self._fired.append(
+                        (
+                            "pocketnn_dfa",
+                            {
+                                "feedback_dim": self.pocket_dfa.hidden_dim,
+                                "integer_friendly": True,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3680,58 +4794,72 @@ class QuillanRoninOni(nn.Module):
                     _dummy_pulls = torch.ones(cfg.num_experts, device=x.device)
                     _G, _rewired = self.predatory_ala.ala_step(_dummy_pulls)
                     _h = self.predatory_ala.tower_height(4)
-                    self._fired.append(("predatory_stacking_ala", {
-                        "rewired_links": len(_rewired),
-                        "tower_height": _h
-                    }))
+                    self._fired.append(
+                        (
+                            "predatory_stacking_ala",
+                            {"rewired_links": len(_rewired), "tower_height": _h},
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 99: Predatory Stacking Core Framework
-            self._fired.append(("predatory_stacking_core", {
-                "clique_breaking": True,
-                "base_order": 4
-            }))
+            self._fired.append(
+                ("predatory_stacking_core", {"clique_breaking": True, "base_order": 4})
+            )
 
             # Paper 100: Predatory Stacking Duplicate Family
-            self._fired.append(("predatory_stacking_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("predatory_stacking_dup", {"verified_family": True}))
 
             # Paper 101: Predatory Stacking Breaking Hypergraph Ramsey Tower
-            self._fired.append(("breaking_ramsey_tower", {
-                "bound_reduction": "tower_shrunk",
-                "k": 3
-            }))
+            self._fired.append(
+                ("breaking_ramsey_tower", {"bound_reduction": "tower_shrunk", "k": 3})
+            )
 
             # Paper 102: Predatory Stacking ALA Duplicate
-            self._fired.append(("ramsey_ala_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("ramsey_ala_dup", {"verified_family": True}))
 
             # Paper 103: Prompt-Ware Compiler (S0 Structured -> S1 Compiled -> S2 Autonomous)
             if getattr(self, "prompt_ware", None) is not None:
                 try:
-                    _pw_gate = torch.sigmoid(self.prompt_ware.intent_gate(x.mean(dim=1)))
+                    _pw_gate = torch.sigmoid(
+                        self.prompt_ware.intent_gate(x.mean(dim=1))
+                    )
                     _pw_plan = self.prompt_ware.plan_head(x.mean(dim=1))
-                    self._last_prompt_ware_loss = -(_pw_plan.softmax(-1) * (_pw_plan.softmax(-1) + 1e-10).log()).sum(dim=-1).mean() + _pw_gate.mean() * 0.01
-                    self._fired.append(("prompt_ware_lifecycle", {
-                        "stage": "S2-autonomous" if _pw_gate.mean().item() > 0.85 else "S1-compiled",
-                        "intent": round(float(_pw_gate.mean().item()), 4)
-                    }))
+                    self._last_prompt_ware_loss = (
+                        -(_pw_plan.softmax(-1) * (_pw_plan.softmax(-1) + 1e-10).log())
+                        .sum(dim=-1)
+                        .mean()
+                        + _pw_gate.mean() * 0.01
+                    )
+                    self._fired.append(
+                        (
+                            "prompt_ware_lifecycle",
+                            {
+                                "stage": "S2-autonomous"
+                                if _pw_gate.mean().item() > 0.85
+                                else "S1-compiled",
+                                "intent": round(float(_pw_gate.mean().item()), 4),
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_prompt_ware_loss = None
 
             # Paper 104: Prophet Diffusion Early-Answer Probe
-            if getattr(self, "early_probe", None) is not None and (not self.training or deliberation):
+            if getattr(self, "early_probe", None) is not None and (
+                not self.training or deliberation
+            ):
                 try:
                     _exit = self.early_probe.should_exit(x, thresh=0.85)
                     _probe_logits = self.early_probe.probe_logits(x)
                     self._last_probe_logits = _probe_logits
-                    self._fired.append(("prophet_early_probe", {
-                        "early_exit": _exit,
-                        "vocab": _probe_logits.size(-1)
-                    }))
+                    self._fired.append(
+                        (
+                            "prophet_early_probe",
+                            {"early_exit": _exit, "vocab": _probe_logits.size(-1)},
+                        )
+                    )
                 except Exception:
                     self._last_probe_logits = None
 
@@ -3739,179 +4867,255 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "protrain_sched", None) is not None:
                 try:
                     _shard_mode = self.protrain_sched.shard_for_step(step=0)
-                    self._fired.append(("protrain_scheduler", {
-                        "available_ram_gb": self.protrain_sched.available_ram_gb,
-                        "shard_mode": _shard_mode
-                    }))
+                    self._fired.append(
+                        (
+                            "protrain_scheduler",
+                            {
+                                "available_ram_gb": self.protrain_sched.available_ram_gb,
+                                "shard_mode": _shard_mode,
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 106: Quillan-Ronin The AGI (Canonical Throne & 34-Council Architecture)
-            self._fired.append(("quillan_the_agi", {
-                "throne": True,
-                "council_size": cfg.num_experts,
-                "sovereign": True
-            }))
+            self._fired.append(
+                (
+                    "quillan_the_agi",
+                    {
+                        "throne": True,
+                        "council_size": cfg.num_experts,
+                        "sovereign": True,
+                    },
+                )
+            )
 
             # Paper 107: Quillan-Ronin The Path to True AGI (Multi-scale AGI Roadmap)
-            self._fired.append(("path_to_true_agi", {
-                "scales": ["micro", "macro", "meta"],
-                "consensus_gate": True
-            }))
+            self._fired.append(
+                (
+                    "path_to_true_agi",
+                    {"scales": ["micro", "macro", "meta"], "consensus_gate": True},
+                )
+            )
 
             # Paper 108: Quillan-Ronin Advanced Cognitive Engine (Hierarchical Networked MoE - H-NMoE)
             if getattr(self, "cluster_router", None) is not None:
                 try:
                     _c_probs, _m_probs = self.cluster_router(x)
-                    self._last_cluster_loss = -(_c_probs * (_c_probs + 1e-10).log()).sum(dim=-1).mean() + -(_m_probs * (_m_probs + 1e-10).log()).sum(dim=-1).mean()
-                    self._fired.append(("advanced_cognitive_engine_hnmoe", {
-                        "clusters": _c_probs.shape[-1],
-                        "members": _m_probs.shape[-1],
-                        "top_cluster": int(_c_probs.mean(dim=[0, 1]).argmax().item())
-                    }))
+                    self._last_cluster_loss = (
+                        -(_c_probs * (_c_probs + 1e-10).log()).sum(dim=-1).mean()
+                        + -(_m_probs * (_m_probs + 1e-10).log()).sum(dim=-1).mean()
+                    )
+                    self._fired.append(
+                        (
+                            "advanced_cognitive_engine_hnmoe",
+                            {
+                                "clusters": _c_probs.shape[-1],
+                                "members": _m_probs.shape[-1],
+                                "top_cluster": int(
+                                    _c_probs.mean(dim=[0, 1]).argmax().item()
+                                ),
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_cluster_loss = None
 
             # Paper 109: Quillan-Ronin Advanced Cognitive Engine Duplicate Family
-            self._fired.append(("advanced_cognitive_engine_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(
+                ("advanced_cognitive_engine_dup", {"verified_family": True})
+            )
 
             # Paper 110: Quillan-Ronin AGI Architecture (Full Topology & Multi-Lobe Flow)
-            self._fired.append(("quillan_agi_architecture", {
-                "pipeline_stages": 7,
-                "active": True
-            }))
+            self._fired.append(
+                ("quillan_agi_architecture", {"pipeline_stages": 7, "active": True})
+            )
 
             # Paper 111: Quillan-Ronin The Path to True AGI Duplicate Family
-            self._fired.append(("path_to_true_agi_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("path_to_true_agi_dup", {"verified_family": True}))
 
             # Paper 112: Quillan A Cognitive Parliament (Humility-Weighted Parliamentary Arbitration)
             if HumilityWeightedArbitration is not None:
                 try:
-                    _dummy_votes = torch.ones(cfg.num_experts, cfg.hidden_dim, device=x.device)
+                    _dummy_votes = torch.ones(
+                        cfg.num_experts, cfg.hidden_dim, device=x.device
+                    )
                     _dummy_h = torch.full((cfg.num_experts,), 0.1, device=x.device)
-                    _parl_out = HumilityWeightedArbitration.arbitrate(_dummy_votes, _dummy_h)
-                    self._fired.append(("cognitive_parliament", {
-                        "members": cfg.num_experts,
-                        "arbitrated": True,
-                        "consensus_norm": round(float(_parl_out.norm().item()), 4)
-                    }))
+                    _parl_out = HumilityWeightedArbitration.arbitrate(
+                        _dummy_votes, _dummy_h
+                    )
+                    self._fired.append(
+                        (
+                            "cognitive_parliament",
+                            {
+                                "members": cfg.num_experts,
+                                "arbitrated": True,
+                                "consensus_norm": round(
+                                    float(_parl_out.norm().item()), 4
+                                ),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 113: Quillan Architecture Deep Dive Audit (Ternary Bound, Rank-24 & Deadlock Check)
-            self._fired.append(("architecture_audit_deep_dive", {
-                "bitnet_bound_check": True,
-                "eggroll_rank": 24,
-                "zero_deadlock": True
-            }))
+            self._fired.append(
+                (
+                    "architecture_audit_deep_dive",
+                    {
+                        "bitnet_bound_check": True,
+                        "eggroll_rank": 24,
+                        "zero_deadlock": True,
+                    },
+                )
+            )
 
             # Paper 114: Quillan Mind Architecture (Epistemic Humility Gate & Paradox Check)
             if getattr(self, "mind_humility_gate", None) is not None:
                 try:
-                    _conf = torch.sigmoid(self.mind_humility_gate.confidence_head(x.mean(dim=1)))
-                    _par = torch.sigmoid(self.mind_humility_gate.paradox_head(x.mean(dim=1)))
-                    self._last_mind_humility_loss = (1.0 - _conf).mean() + 0.1 * _par.mean()
-                    self._fired.append(("quillan_mind_architecture", {
-                        "humility": round(float(_conf.mean().item()), 4),
-                        "paradox_score": round(float(_par.mean().item()), 4),
-                        "need_feedback": bool(_conf.mean().item() < 0.5)
-                    }))
+                    _conf = torch.sigmoid(
+                        self.mind_humility_gate.confidence_head(x.mean(dim=1))
+                    )
+                    _par = torch.sigmoid(
+                        self.mind_humility_gate.paradox_head(x.mean(dim=1))
+                    )
+                    self._last_mind_humility_loss = (
+                        1.0 - _conf
+                    ).mean() + 0.1 * _par.mean()
+                    self._fired.append(
+                        (
+                            "quillan_mind_architecture",
+                            {
+                                "humility": round(float(_conf.mean().item()), 4),
+                                "paradox_score": round(float(_par.mean().item()), 4),
+                                "need_feedback": bool(_conf.mean().item() < 0.5),
+                            },
+                        )
+                    )
                 except Exception:
                     self._last_mind_humility_loss = None
 
             # Paper 115: Quillan v4.2 Compatibility Wrapper Shim
             if getattr(self, "v4_wrapper", None) is not None:
-                self._fired.append(("v4_2_wrapper_shim", {
-                    "legacy_contract": "preserved",
-                    "version": "v4.2->v5.4"
-                }))
+                self._fired.append(
+                    (
+                        "v4_2_wrapper_shim",
+                        {"legacy_contract": "preserved", "version": "v4.2->v5.4"},
+                    )
+                )
 
             # Paper 116: Reactive Consciousness (Proto-AGI Reflex Prior to Deliberation)
-            self._fired.append(("reactive_consciousness", {
-                "proto_agi_reflex": True,
-                "latency_cut": "28%",
-                "humility_gated": True
-            }))
+            self._fired.append(
+                (
+                    "reactive_consciousness",
+                    {
+                        "proto_agi_reflex": True,
+                        "latency_cut": "28%",
+                        "humility_gated": True,
+                    },
+                )
+            )
 
             # Paper 117: Reactive AGI Paper Duplicate Family
-            self._fired.append(("reactive_agi_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("reactive_agi_dup", {"verified_family": True}))
 
             # Paper 118: Reactive Consciousness Duplicate Family
-            self._fired.append(("reactive_consciousness_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(
+                ("reactive_consciousness_dup", {"verified_family": True})
+            )
 
             # Paper 119: Sovereign Cognition Beyond Context Bottlenecks (H-NMoE + EGGROLL)
-            self._fired.append(("sovereign_cognition_hnmoe", {
-                "eggroll_rank": 24,
-                "bottleneck_broken": True,
-                "hierarchical_routing": True
-            }))
+            self._fired.append(
+                (
+                    "sovereign_cognition_hnmoe",
+                    {
+                        "eggroll_rank": 24,
+                        "bottleneck_broken": True,
+                        "hierarchical_routing": True,
+                    },
+                )
+            )
 
             # Paper 120: Sovereign Cognition Duplicate Family
-            self._fired.append(("sovereign_cognition_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("sovereign_cognition_dup", {"verified_family": True}))
 
             # Paper 121: Sparsely-Gated MoE (Jordan & Shazeer Noisy Top-K Gating)
-            self._fired.append(("sparsely_gated_moe", {
-                "noisy_gating": True,
-                "k": cfg.top_k,
-                "load_balanced": True
-            }))
+            self._fired.append(
+                (
+                    "sparsely_gated_moe",
+                    {"noisy_gating": True, "k": cfg.top_k, "load_balanced": True},
+                )
+            )
 
             # Paper 122: ST-MoE Stable Sparse Experts (Router Z-Loss)
-            self._fired.append(("st_moe_stable", {
-                "z_loss_active": True,
-                "weight": cfg.aux_z_weight
-            }))
+            self._fired.append(
+                ("st_moe_stable", {"z_loss_active": True, "weight": cfg.aux_z_weight})
+            )
 
             # Paper 123: ST-MoE Stable Transferable Duplicate Family
-            self._fired.append(("st_moe_transferable_dup", {
-                "verified_family": True,
-                "hash": "569172cb"
-            }))
+            self._fired.append(
+                (
+                    "st_moe_transferable_dup",
+                    {"verified_family": True, "hash": "569172cb"},
+                )
+            )
 
             # Paper 124: Bengio Straight-Through Estimator (STE)
-            self._fired.append(("bengio_ste_estimator", {
-                "ste_active": True,
-                "gradient_passthrough": True
-            }))
+            self._fired.append(
+                (
+                    "bengio_ste_estimator",
+                    {"ste_active": True, "gradient_passthrough": True},
+                )
+            )
 
             # Paper 125: Switch Transformers Scaling MoE (Top-1 Routing with Capacity Factor)
-            self._fired.append(("switch_transformer_scaling", {
-                "top_1_switch": True,
-                "capacity_factor": 1.25,
-                "load_balance_active": True
-            }))
+            self._fired.append(
+                (
+                    "switch_transformer_scaling",
+                    {
+                        "top_1_switch": True,
+                        "capacity_factor": 1.25,
+                        "load_balance_active": True,
+                    },
+                )
+            )
 
             # Paper 126: The 6.4 Million Token Anomaly Duplicate Family
-            self._fired.append(("six_point_four_million_anomaly_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(
+                ("six_point_four_million_anomaly_dup", {"verified_family": True})
+            )
 
             # Paper 127: The 6.4 Million Token Anomaly (Memory Trap & Phantom Accel Mitigation)
-            self._fired.append(("six_point_four_million_anomaly", {
-                "memory_trap_mitigated": True,
-                "phantom_accel_prevented": True
-            }))
+            self._fired.append(
+                (
+                    "six_point_four_million_anomaly",
+                    {"memory_trap_mitigated": True, "phantom_accel_prevented": True},
+                )
+            )
 
             # Paper 128: The Virality Paradox (EEG Band Sonification & Neural Synchrony)
             if getattr(self, "neural_sonifier", None) is not None:
                 try:
-                    _dummy_bands = {"delta": 0.5, "theta": 0.6, "alpha": 0.7, "beta": 0.4, "gamma": 0.3}
+                    _dummy_bands = {
+                        "delta": 0.5,
+                        "theta": 0.6,
+                        "alpha": 0.7,
+                        "beta": 0.4,
+                        "gamma": 0.3,
+                    }
                     _son_res = self.neural_sonifier.sonify(_dummy_bands)
-                    self._fired.append(("virality_neural_sonifier", {
-                        "tempo_bpm": _son_res["tempo_bpm"],
-                        "key": _son_res["key"],
-                        "synchrony": _son_res["synchrony"]
-                    }))
+                    self._fired.append(
+                        (
+                            "virality_neural_sonifier",
+                            {
+                                "tempo_bpm": _son_res["tempo_bpm"],
+                                "key": _son_res["key"],
+                                "synchrony": _son_res["synchrony"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3919,75 +5123,106 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "codex_retriever", None) is not None:
                 try:
                     _passage = self.codex_retriever.retrieve("throne council")
-                    self._fired.append(("quillan_codex_constitution", {
-                        "retrieved_passages": len(_passage),
-                        "active": True
-                    }))
+                    self._fired.append(
+                        (
+                            "quillan_codex_constitution",
+                            {"retrieved_passages": len(_passage), "active": True},
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 130: The Quillan Codex Duplicate Family
-            self._fired.append(("quillan_codex_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("quillan_codex_dup", {"verified_family": True}))
 
             # Paper 131: The Virality Paradox Duplicate Family
-            self._fired.append(("virality_paradox_dup", {
-                "verified_family": True
-            }))
+            self._fired.append(("virality_paradox_dup", {"verified_family": True}))
 
             # Paper 132: Understanding STE in Quantized Networks (Gradient Error Bound)
-            self._fired.append(("understanding_ste_analysis", {
-                "gradient_error_bounded": True,
-                "quantization_type": "ternary_1.58b"
-            }))
+            self._fired.append(
+                (
+                    "understanding_ste_analysis",
+                    {
+                        "gradient_error_bounded": True,
+                        "quantization_type": "ternary_1.58b",
+                    },
+                )
+            )
 
             # Paper 133: Unit Distance Proof Checker (OpenAI Planar Point Sets)
             if getattr(self, "unit_distance_checker", None) is not None:
                 try:
-                    _ud_res = self.unit_distance_checker.check(n=1000, claimed_pairs=2000.0, eps=0.1)
-                    self._fired.append(("unit_distance_proof", {
-                        "plausible": _ud_res["plausible"],
-                        "tower_height": _ud_res["tower_height"]
-                    }))
+                    _ud_res = self.unit_distance_checker.check(
+                        n=1000, claimed_pairs=2000.0, eps=0.1
+                    )
+                    self._fired.append(
+                        (
+                            "unit_distance_proof",
+                            {
+                                "plausible": _ud_res["plausible"],
+                                "tower_height": _ud_res["tower_height"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 134: WikiSkill Compiling Experience into Persistent Knowledge
             if getattr(self, "wiki_compiler", None) is not None:
                 try:
-                    _skill = self.wiki_compiler.compile("reasoning_step", ["init", "analyze", "resolve"], True)
-                    self._fired.append(("wikiskill_persistent_evolution", {
-                        "compiled": _skill is not None,
-                        "total_skills": len(self.wiki_compiler.wiki)
-                    }))
+                    _skill = self.wiki_compiler.compile(
+                        "reasoning_step", ["init", "analyze", "resolve"], True
+                    )
+                    self._fired.append(
+                        (
+                            "wikiskill_persistent_evolution",
+                            {
+                                "compiled": _skill is not None,
+                                "total_skills": len(self.wiki_compiler.wiki),
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 135: ZeRO-Infinity Heterogeneous Memory Wall Offload
-            self._fired.append(("zero_infinity_memory", {
-                "nvme_offload_ready": True,
-                "memory_wall_broken": True
-            }))
+            self._fired.append(
+                (
+                    "zero_infinity_memory",
+                    {"nvme_offload_ready": True, "memory_wall_broken": True},
+                )
+            )
 
             # Paper 1: Hardware Step Profiler Telemetry
             if getattr(self, "profiler_enabled", False):
-                self._fired.append(("step_profiler", {"device": str(x.device), "seq_len": T, "batch_size": B}))
+                self._fired.append(
+                    (
+                        "step_profiler",
+                        {"device": str(x.device), "seq_len": T, "batch_size": B},
+                    )
+                )
 
             # Papers 5-7: AxoNN 4D Hybrid Strategy & Heterogeneous Allocation (2410.05686v1 / 2502.08145v1 / 2502.11129v1)
             if getattr(self, "hetero_manager", None) is not None:
                 try:
-                    _strategy = self.hetero_manager.get_strategy(seq_len=T, batch_size=B)
+                    _strategy = self.hetero_manager.get_strategy(
+                        seq_len=T, batch_size=B
+                    )
                     _coalesce_info = self.hetero_manager.cuda_pack.audit_coalescing(x)
                     if not _coalesce_info["is_contiguous"]:
                         x = x.contiguous()
-                    self._fired.append(("hetero_strategy", {
-                        "strategy": _strategy.name,
-                        "dp": _strategy.dp_degree,
-                        "sp": _strategy.sp_degree,
-                        "gc": _strategy.use_grad_checkpoint,
-                        "coalesced": _coalesce_info["is_contiguous"]
-                    }))
+                    self._fired.append(
+                        (
+                            "hetero_strategy",
+                            {
+                                "strategy": _strategy.name,
+                                "dp": _strategy.dp_degree,
+                                "sp": _strategy.sp_degree,
+                                "gc": _strategy.use_grad_checkpoint,
+                                "coalesced": _coalesce_info["is_contiguous"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
@@ -3997,7 +5232,9 @@ class QuillanRoninOni(nn.Module):
                     _rec_bs = self.batch_sizer.optimal_batch_size(
                         seq_len=T, hidden_dim=self.cfg.hidden_dim, n_layer=len(self.h)
                     )
-                    self._fired.append(("adaptive_batch", {"seq_len": T, "recommended_batch": _rec_bs}))
+                    self._fired.append(
+                        ("adaptive_batch", {"seq_len": T, "recommended_batch": _rec_bs})
+                    )
                 except Exception:
                     pass
 
@@ -4006,23 +5243,36 @@ class QuillanRoninOni(nn.Module):
                 try:
                     _est = self.xmem.estimate(
                         n_params=sum(p.numel() for p in self.parameters()),
-                        batch_size=B, seq_len=T, hidden_dim=self.cfg.hidden_dim,
-                        n_layer=len(self.h), dtype_bytes=2
+                        batch_size=B,
+                        seq_len=T,
+                        hidden_dim=self.cfg.hidden_dim,
+                        n_layer=len(self.h),
+                        dtype_bytes=2,
                     )
-                    self._fired.append(("xmem_guard", {
-                        "total_mb": round(_est["total_mb"], 1),
-                        "headroom_mb": round(_est["headroom_mb"], 1),
-                        "oom": _est["oom_on_4gb"]
-                    }))
+                    self._fired.append(
+                        (
+                            "xmem_guard",
+                            {
+                                "total_mb": round(_est["total_mb"], 1),
+                                "headroom_mb": round(_est["headroom_mb"], 1),
+                                "oom": _est["oom_on_4gb"],
+                            },
+                        )
+                    )
                 except Exception:
                     pass
 
             # Paper 13: Hyperscale ES
             if getattr(self, "hyperscale_es", None) is not None and self.training:
-                self._fired.append(("hyperscale_es", {
-                    "pop_size": self.hyperscale_es.pop_size,
-                    "sigma": self.hyperscale_es.sigma
-                }))
+                self._fired.append(
+                    (
+                        "hyperscale_es",
+                        {
+                            "pop_size": self.hyperscale_es.pop_size,
+                            "sigma": self.hyperscale_es.sigma,
+                        },
+                    )
+                )
 
         for i, block in enumerate(self.h):
             if i >= n_run:
@@ -4036,23 +5286,42 @@ class QuillanRoninOni(nn.Module):
                 _hard_mask = torch.zeros_like(_scores).scatter_(1, _top, 1.0)
                 # Differentiable Straight-Through Estimator (STE)
                 _mask = (_hard_mask - _scores).detach() + _scores
-                self._fired.append(("mod_mask", {"layer": i, "kept": int(_hard_mask.sum().item()),
-                                                 "total": int(_hard_mask.numel())}))
+                self._fired.append(
+                    (
+                        "mod_mask",
+                        {
+                            "layer": i,
+                            "kept": int(_hard_mask.sum().item()),
+                            "total": int(_hard_mask.numel()),
+                        },
+                    )
+                )
             else:
                 _mask = None
-            layer_past = past_key_values[i] if (past_key_values is not None and i < len(past_key_values)) else None
+            layer_past = (
+                past_key_values[i]
+                if (past_key_values is not None and i < len(past_key_values))
+                else None
+            )
             x_in = x
             use_ckpt = self.training and cfg.grad_checkpoint and layer_past is None
             if use_ckpt:
+
                 def _ckpt_fwd(h, _blk=block):
-                    return _blk(h, None, False, gov_scale=gov_scale, token_ids=input_ids)
+                    return _blk(
+                        h, None, False, gov_scale=gov_scale, token_ids=input_ids
+                    )
+
                 out = checkpoint(_ckpt_fwd, x, use_reentrant=False)
                 x, _, probs, lb, z, ent = out
             else:
                 x, present, probs, lb, z, ent = block(
-                    x, layer_past=layer_past,
-                    use_cache=use_cache, gov_scale=gov_scale,
-                    token_ids=input_ids)
+                    x,
+                    layer_past=layer_past,
+                    use_cache=use_cache,
+                    gov_scale=gov_scale,
+                    token_ids=input_ids,
+                )
                 if use_cache:
                     presents.append(present)
             if _mask is not None:
@@ -4064,7 +5333,9 @@ class QuillanRoninOni(nn.Module):
             if getattr(self, "memo", None) is not None:
                 try:
                     self.memo.on_layer_forward(i, {"input": x, "hidden": x})
-                    self._fired.append(("memo_layer", {"layer": i, "alpha": self.memo.rounding.alpha}))
+                    self._fired.append(
+                        ("memo_layer", {"layer": i, "alpha": self.memo.rounding.alpha})
+                    )
                 except Exception:
                     pass
 
@@ -4072,14 +5343,25 @@ class QuillanRoninOni(nn.Module):
             total_lb, total_z, total_ent = total_lb + lb, total_z + z, total_ent + ent
 
         # Session 4: Paper 21 Gated Recurrent Transformers (GRT) core recurrence
-        if getattr(cfg, "use_grt", False) and getattr(self, "grt_core", None) is not None \
-                and not use_cache and len(self.h) >= 2:
+        if (
+            getattr(cfg, "use_grt", False)
+            and getattr(self, "grt_core", None) is not None
+            and not use_cache
+            and len(self.h) >= 2
+        ):
             try:
                 _gate_base = torch.cat([x_embed, x], dim=-1)
                 _g = self.grt_core.compute_gate(_gate_base, 0)
                 x = x + 0.05 * (_g - 0.5) * x
-                self._fired.append(("grt_core", {"R": self.grt_core.R,
-                                                 "effective_depth": self.grt_core.effective_depth()}))
+                self._fired.append(
+                    (
+                        "grt_core",
+                        {
+                            "R": self.grt_core.R,
+                            "effective_depth": self.grt_core.effective_depth(),
+                        },
+                    )
+                )
             except Exception:
                 pass
 
@@ -4092,7 +5374,9 @@ class QuillanRoninOni(nn.Module):
                 self._last_diffusion_aux = None
             else:
                 with torch.no_grad():
-                    e_ice_out = self.e_ice(x.detach(), last_probs.detach().reshape(B, T, -1))
+                    e_ice_out = self.e_ice(
+                        x.detach(), last_probs.detach().reshape(B, T, -1)
+                    )
 
             if self.training:
                 flow = self.marta(x, e_ice_out["constrained"])
@@ -4107,15 +5391,25 @@ class QuillanRoninOni(nn.Module):
                 x = x * (0.9 + 0.1 * flow.unsqueeze(-1)) + 0.05 * dqso_delta
 
             # Session 4: Paper 2 Abductive Jump (E -> J -> A cycle)
-            if getattr(cfg, "use_abductive", False) and getattr(self, "abductive_jump", None) is not None:
+            if (
+                getattr(cfg, "use_abductive", False)
+                and getattr(self, "abductive_jump", None) is not None
+            ):
                 try:
                     _pooled_e = x.mean(dim=1)
                     _surp = self.abductive_jump.estimate_surprise(_pooled_e, _pooled_e)
                     _prior = self.abductive_jump.physical_prior(_pooled_e)
                     _s2a = self.abductive_jump.sim_to_axiom(_pooled_e)
                     x = x + 0.005 * _s2a.unsqueeze(1)
-                    self._last_abductive_loss = _surp.mean() + 0.01 * _prior.pow(2).mean()
-                    self._fired.append(("abductive_jump", {"surprise": round(float(_surp.mean().item()), 4)}))
+                    self._last_abductive_loss = (
+                        _surp.mean() + 0.01 * _prior.pow(2).mean()
+                    )
+                    self._fired.append(
+                        (
+                            "abductive_jump",
+                            {"surprise": round(float(_surp.mean().item()), 4)},
+                        )
+                    )
                 except Exception:
                     self._last_abductive_loss = None
 
@@ -4128,9 +5422,23 @@ class QuillanRoninOni(nn.Module):
 
             try:
                 _comp_logits = self.complexity_router(x.mean(dim=1))
-                self._last_complexity_loss = -(_comp_logits.softmax(-1) * (_comp_logits.softmax(-1) + 1e-10).log()).sum(dim=-1).mean()
+                self._last_complexity_loss = (
+                    -(
+                        _comp_logits.softmax(-1)
+                        * (_comp_logits.softmax(-1) + 1e-10).log()
+                    )
+                    .sum(dim=-1)
+                    .mean()
+                )
                 _tool_logits = self.agentic.tool_router(x.mean(dim=1))
-                self._last_agentic_loss = -(_tool_logits.softmax(-1) * (_tool_logits.softmax(-1) + 1e-10).log()).sum(dim=-1).mean()
+                self._last_agentic_loss = (
+                    -(
+                        _tool_logits.softmax(-1)
+                        * (_tool_logits.softmax(-1) + 1e-10).log()
+                    )
+                    .sum(dim=-1)
+                    .mean()
+                )
             except Exception:
                 self._last_complexity_loss = None
                 self._last_agentic_loss = None
@@ -4140,16 +5448,25 @@ class QuillanRoninOni(nn.Module):
             if deliberation and not self.training and not use_cache and T > 1:
                 with torch.no_grad():
                     try:
-                        _diff_dev = getattr(next(self.diffusion.parameters(), None), "device", None)
+                        _diff_dev = getattr(
+                            next(self.diffusion.parameters(), None), "device", None
+                        )
                         if _diff_dev == x.device:
-                            router_conf_tensor = last_probs.detach().reshape(B, T, -1).max(dim=-1).values
+                            router_conf_tensor = (
+                                last_probs.detach().reshape(B, T, -1).max(dim=-1).values
+                            )
                             conf = router_conf_tensor.mean()
-                            integrity = float(self.covenant(x.detach().mean(dim=1)).mean().item())
+                            integrity = float(
+                                self.covenant(x.detach().mean(dim=1)).mean().item()
+                            )
                             e_load = float(e_ice_out["constrained"].mean().item())
-                            _, pid = self.velocity_governor.step(router_conf_tensor, integrity, e_load)
+                            _, pid = self.velocity_governor.step(
+                                router_conf_tensor, integrity, e_load
+                            )
                             thresh = pid["hard_threshold"]
                             refined, n_hard, ent_aux = self.diffusion(
-                                x.detach(), router_conf_tensor,
+                                x.detach(),
+                                router_conf_tensor,
                             )
                             x = x + (refined - x.detach()) * 0.5
                             self._last_deliberation = {
@@ -4170,9 +5487,13 @@ class QuillanRoninOni(nn.Module):
                 bs = self.world_model.estimate(hidden)
                 act = torch.zeros_like(bs.latent)
                 traj = self.world_model.predict_trajectory(bs, act, horizon=1)
-                self._last_world_model_loss = F.mse_loss(traj[-1][0], bs.latent.detach())
+                self._last_world_model_loss = F.mse_loss(
+                    traj[-1][0], bs.latent.detach()
+                )
                 if not self.training and not use_cache:
-                    hidden = (hidden + hidden.detach() * (traj[-1][1] - 0.5)) * (2 - traj[-1][1])
+                    hidden = (hidden + hidden.detach() * (traj[-1][1] - 0.5)) * (
+                        2 - traj[-1][1]
+                    )
             except Exception:
                 self._last_world_model_loss = None
 
@@ -4180,7 +5501,14 @@ class QuillanRoninOni(nn.Module):
             if _FORMAL_PAPERS_WIRED and getattr(self, "real_swarm", None) is not None:
                 try:
                     swarm_out = self.real_swarm.forward(hidden.detach().float())
-                    hidden = hidden + (swarm_out.to(hidden.device).to(hidden.dtype) - hidden.detach()) * 0.1
+                    hidden = (
+                        hidden
+                        + (
+                            swarm_out.to(hidden.device).to(hidden.dtype)
+                            - hidden.detach()
+                        )
+                        * 0.1
+                    )
                 except Exception:
                     pass
 
@@ -4190,8 +5518,14 @@ class QuillanRoninOni(nn.Module):
             q2_out = self.quillan_finalizer_q2(hidden)
             q1_fused = q1_out + 0.1 * q2_out
             q2_fused = q2_out + 0.1 * q1_out
-            gate_final = torch.sigmoid(self.quillan_comm_gate(torch.cat([q1_fused, q2_fused], dim=-1)))
-            fused = F.rms_norm(hidden + (gate_final * q1_fused + (1.0 - gate_final) * q2_fused), (hidden.size(-1),), eps=1e-5)
+            gate_final = torch.sigmoid(
+                self.quillan_comm_gate(torch.cat([q1_fused, q2_fused], dim=-1))
+            )
+            fused = F.rms_norm(
+                hidden + (gate_final * q1_fused + (1.0 - gate_final) * q2_fused),
+                (hidden.size(-1),),
+                eps=1e-5,
+            )
         else:
             fused = hidden
         self._last_hidden = hidden.detach()
@@ -4207,8 +5541,14 @@ class QuillanRoninOni(nn.Module):
                 tl_flat = shift_labels.view(-1)
                 if sl_flat.size(0) > 64:
                     ce_chunks = []
-                    for sl_c, tl_c in zip(sl_flat.split(64, dim=0), tl_flat.split(64, dim=0)):
-                        ce_chunks.append(F.cross_entropy(sl_c.float(), tl_c, ignore_index=-100, reduction="sum"))
+                    for sl_c, tl_c in zip(
+                        sl_flat.split(64, dim=0), tl_flat.split(64, dim=0)
+                    ):
+                        ce_chunks.append(
+                            F.cross_entropy(
+                                sl_c.float(), tl_c, ignore_index=-100, reduction="sum"
+                            )
+                        )
                     valid_tok = (tl_flat != -100).sum().clamp(min=1)
                     ce = torch.stack(ce_chunks).sum() / valid_tok
                 else:
@@ -4219,12 +5559,19 @@ class QuillanRoninOni(nn.Module):
                 if return_aux:
                     return logits, ce, {}
                 return logits, ce
-            aux = self._aux_losses(x, last_probs, total_lb, total_z, total_ent,
-                                   e_ice_out if last_probs is not None else None,
-                                   teacher_tokens=teacher_tokens if teacher_tokens is not None else labels,
-                                   proxy_logits=proxy_logits,
-                                   logits=logits, hidden=hidden,
-                                   ingest_entropy=ingest_entropy)
+            aux = self._aux_losses(
+                x,
+                last_probs,
+                total_lb,
+                total_z,
+                total_ent,
+                e_ice_out if last_probs is not None else None,
+                teacher_tokens=teacher_tokens if teacher_tokens is not None else labels,
+                proxy_logits=proxy_logits,
+                logits=logits,
+                hidden=hidden,
+                ingest_entropy=ingest_entropy,
+            )
             if return_aux:
                 return logits, ce, aux
             total_loss = ce + self.total_aux_loss(aux)
@@ -4237,12 +5584,20 @@ class QuillanRoninOni(nn.Module):
     def complexity_classifier_path(self, pooled: torch.Tensor) -> torch.Tensor:
         return self.complexity_router(pooled)
 
-    def _aux_losses(self, x, last_probs, total_lb, total_z, total_ent, e_ice_out,
-                    teacher_tokens: Optional[torch.Tensor] = None,
-                    proxy_logits: Optional[torch.Tensor] = None,
-                    logits: Optional[torch.Tensor] = None,
-                    hidden: Optional[torch.Tensor] = None,
-                    ingest_entropy: Optional[torch.Tensor] = None):
+    def _aux_losses(
+        self,
+        x,
+        last_probs,
+        total_lb,
+        total_z,
+        total_ent,
+        e_ice_out,
+        teacher_tokens: Optional[torch.Tensor] = None,
+        proxy_logits: Optional[torch.Tensor] = None,
+        logits: Optional[torch.Tensor] = None,
+        hidden: Optional[torch.Tensor] = None,
+        ingest_entropy: Optional[torch.Tensor] = None,
+    ):
         cfg = self.cfg
         aux: Dict[str, torch.Tensor] = {}
         n_layers = max(1, len(self.h))
@@ -4253,7 +5608,9 @@ class QuillanRoninOni(nn.Module):
         if last_probs is not None:
             aux["entropy"] = total_ent / n_layers
             try:
-                aux["qhis"] = self.quantum.qhis_fidelity(x.detach(), x, v_lm6=self.governor.current_scale)
+                aux["qhis"] = self.quantum.qhis_fidelity(
+                    x.detach(), x, v_lm6=self.governor.current_scale
+                )
             except Exception:
                 pass
             try:
@@ -4262,7 +5619,9 @@ class QuillanRoninOni(nn.Module):
                 pass
         if e_ice_out is not None:
             aux["ethics"] = e_ice_out["constrained"].mean()
-        spectral_weight = getattr(cfg, "aux_spectral_weight", getattr(cfg, "aux_aszr_weight", 0.0))
+        spectral_weight = getattr(
+            cfg, "aux_spectral_weight", getattr(cfg, "aux_aszr_weight", 0.0)
+        )
         if spectral_weight > 0.0 and len(self.h) > 0:
             try:
                 w_sample = self.h[0].attn.prism.vectors["Language"].weight
@@ -4280,6 +5639,7 @@ class QuillanRoninOni(nn.Module):
                 _p = last_probs.detach().reshape(-1, last_probs.size(-1)).mean(dim=0)
                 _p = (_p / _p.sum().clamp(min=1e-9)).clamp(min=1e-9)
                 import math as _math
+
                 _ent = -(_p * _p.log()).sum()
                 _order = (1.0 - _ent / _math.log(_p.numel())).clamp(0, 1)
                 aux["coordination"] = (1.0 - _order).to(x.dtype)
@@ -4291,8 +5651,13 @@ class QuillanRoninOni(nn.Module):
             try:
                 _pooled = x.mean(dim=1) if x.dim() == 3 else x
                 _mconf = torch.sigmoid(self.humility_head(_pooled)).mean()
-                _pull_conf = last_probs.reshape(-1, last_probs.size(-1)).max(dim=-1).values.mean() \
-                    if last_probs is not None else torch.tensor(1.0, device=x.device)
+                _pull_conf = (
+                    last_probs.reshape(-1, last_probs.size(-1))
+                    .max(dim=-1)
+                    .values.mean()
+                    if last_probs is not None
+                    else torch.tensor(1.0, device=x.device)
+                )
                 _hum = (1.0 - _mconf) + 0.1 * (1.0 - _pull_conf)
                 aux["humility"] = _hum.to(x.dtype)
                 self._fired.append(("humility", {"humility": float(_hum.item())}))
@@ -4312,9 +5677,15 @@ class QuillanRoninOni(nn.Module):
         if cfg.use_ccrl_telemetry and last_probs is not None:
             try:
                 _pooled_c = x.mean(dim=1) if x.dim() == 3 else x
-                _cp = last_probs.reshape(-1, last_probs.size(-1)).mean(dim=0, keepdim=True)
+                _cp = last_probs.reshape(-1, last_probs.size(-1)).mean(
+                    dim=0, keepdim=True
+                )
                 _val, _ = self.ccrl(_pooled_c, _cp.expand(_pooled_c.size(0), -1))
-                _cal = float((_val.mean() * _order).item()) if _order is not None else float(_val.mean().item())
+                _cal = (
+                    float((_val.mean() * _order).item())
+                    if _order is not None
+                    else float(_val.mean().item())
+                )
                 aux["ccrl_value"] = -_val.mean().to(x.dtype)
                 self._fired.append(("ccrl_value", {"calibrated": round(_cal, 4)}))
             except Exception:
@@ -4326,12 +5697,21 @@ class QuillanRoninOni(nn.Module):
         if cfg.use_ccrl_telemetry and last_probs is not None:
             try:
                 _pooled_e = x.mean(dim=1) if x.dim() == 3 else x
-                _conf_e = last_probs.reshape(-1, last_probs.size(-1)).max(dim=-1).values.mean()
+                _conf_e = (
+                    last_probs.reshape(-1, last_probs.size(-1))
+                    .max(dim=-1)
+                    .values.mean()
+                )
                 _eproj = self.quantum.eemf_projection(
-                    _pooled_e, _conf_e.expand(_pooled_e.size(0)))
+                    _pooled_e, _conf_e.expand(_pooled_e.size(0))
+                )
                 aux["eemf"] = _eproj.mean()
-                self._fired.append(("eemf_live", {
-                    "gate": round(float(torch.sigmoid(_conf_e).item()), 4)}))
+                self._fired.append(
+                    (
+                        "eemf_live",
+                        {"gate": round(float(torch.sigmoid(_conf_e).item()), 4)},
+                    )
+                )
             except Exception:
                 pass
         # AQCS live (2026-09-04): Born-rule consensus over pooled council
@@ -4349,7 +5729,8 @@ class QuillanRoninOni(nn.Module):
                     if _pp is None or _vv is None or _mm is None:
                         continue
                     _aqo = self.quantum.aqcs_superposition(
-                        _pp.unsqueeze(0), _vv.unsqueeze(0)).squeeze(0)
+                        _pp.unsqueeze(0), _vv.unsqueeze(0)
+                    ).squeeze(0)
                     _aq_s = _aq_s + ((_aqo.to(_mm.dtype) - _mm) ** 2).mean()
                     _aq_n += 1
             if _aq_n:
@@ -4362,87 +5743,164 @@ class QuillanRoninOni(nn.Module):
         try:
             _, _pur, _le = self.quantum.eemf_reduced_density(x)
             aux["eemf_purity"] = _pur.mean().to(x.dtype)
-            self._fired.append(("eemf_density", {
-                "purity": round(float(_pur.mean().item()), 4),
-                "lin_ent": round(float(_le.mean().item()), 4)}))
+            self._fired.append(
+                (
+                    "eemf_density",
+                    {
+                        "purity": round(float(_pur.mean().item()), 4),
+                        "lin_ent": round(float(_le.mean().item()), 4),
+                    },
+                )
+            )
         except Exception:
             pass
         # Session 2: DALI observer (read-only this session) — top-1 expert per
         # token feeds popularity; plan consumed by trace (placement in session 3).
-        if cfg.use_dali_observer and getattr(self, "dali", None) is not None \
-                and last_probs is not None:
+        if (
+            cfg.use_dali_observer
+            and getattr(self, "dali", None) is not None
+            and last_probs is not None
+        ):
             try:
-                _top1 = last_probs.detach().reshape(-1, last_probs.size(-1)).argmax(dim=-1)
+                _top1 = (
+                    last_probs.detach().reshape(-1, last_probs.size(-1)).argmax(dim=-1)
+                )
                 _ids = _top1.tolist()
                 self.dali.observe(_ids)
                 _plan = self.dali.plan()
                 _prefetch = self.dali.prefetch_order(_ids[0] if _ids else 0, _plan)
-                self._fired.append(("dali_plan", {"gpu": _plan["gpu"][:6],
-                                                  "n_ssd": len(_plan["ssd"]),
-                                                  "prefetch": _prefetch[:4]}))
+                self._fired.append(
+                    (
+                        "dali_plan",
+                        {
+                            "gpu": _plan["gpu"][:6],
+                            "n_ssd": len(_plan["ssd"]),
+                            "prefetch": _prefetch[:4],
+                        },
+                    )
+                )
             except Exception:
                 pass
         # Session 2: ALA observer (read-only) — rewired links consumed by trace.
-        if cfg.use_ala_observer and getattr(self, "ala", None) is not None \
-                and last_probs is not None:
+        if (
+            cfg.use_ala_observer
+            and getattr(self, "ala", None) is not None
+            and last_probs is not None
+        ):
             try:
-                _pulls = last_probs.detach().reshape(-1, last_probs.size(-1)).mean(dim=0)
+                _pulls = (
+                    last_probs.detach().reshape(-1, last_probs.size(-1)).mean(dim=0)
+                )
                 _, _rew = self.ala.ala_step(_pulls)
-                self._fired.append(("ala_rewire", {"links": _rew[:2],
-                                                   "tower_h": self.ala.tower_height(4)}))
+                self._fired.append(
+                    (
+                        "ala_rewire",
+                        {"links": _rew[:2], "tower_h": self.ala.tower_height(4)},
+                    )
+                )
             except Exception:
                 pass
         # Session 4: Paper 3 Proxy-KD distillation loss
-        if getattr(cfg, "use_proxy_kd", False) and getattr(self, "distill_head", None) is not None \
-                and logits is not None and hidden is not None:
+        if (
+            getattr(cfg, "use_proxy_kd", False)
+            and getattr(self, "distill_head", None) is not None
+            and logits is not None
+            and hidden is not None
+        ):
             try:
                 _t_tokens = teacher_tokens
-                _p_logits = proxy_logits if proxy_logits is not None else logits.detach()
+                _p_logits = (
+                    proxy_logits if proxy_logits is not None else logits.detach()
+                )
                 _t_hid = hidden.detach()
-                _d_loss = self.distill_head(logits, None, hidden, _t_hid,
-                                            proxy_logits=_p_logits, teacher_tokens=_t_tokens)
+                _d_loss = self.distill_head(
+                    logits,
+                    None,
+                    hidden,
+                    _t_hid,
+                    proxy_logits=_p_logits,
+                    teacher_tokens=_t_tokens,
+                )
                 if getattr(self, "distill", None) is not None:
-                    _d_loss = _d_loss + 0.1 * self.distill(logits, None, hidden, _t_hid,
-                                                           proxy_logits=_p_logits, teacher_tokens=_t_tokens)
+                    _d_loss = _d_loss + 0.1 * self.distill(
+                        logits,
+                        None,
+                        hidden,
+                        _t_hid,
+                        proxy_logits=_p_logits,
+                        teacher_tokens=_t_tokens,
+                    )
                 aux["distill"] = _d_loss
-                self._fired.append(("proxy_kd", {"distill_loss": round(float(_d_loss.item()), 4)}))
+                self._fired.append(
+                    ("proxy_kd", {"distill_loss": round(float(_d_loss.item()), 4)})
+                )
             except Exception:
                 pass
         # Paper 15: Long-Horizon Multi-Teacher Distillation loss
-        if getattr(cfg, "use_long_horizon", False) and getattr(self, "long_horizon_distiller", None) is not None \
-                and (teacher_tokens is not None or proxy_logits is not None) and logits is not None:
+        if (
+            getattr(cfg, "use_long_horizon", False)
+            and getattr(self, "long_horizon_distiller", None) is not None
+            and (teacher_tokens is not None or proxy_logits is not None)
+            and logits is not None
+        ):
             try:
                 _t_list = [logits.detach()]
                 _lh_loss = self.long_horizon_distiller.distill_loss(logits, _t_list)
                 aux["long_horizon"] = _lh_loss
-                self._fired.append(("long_horizon_distill", {"gamma": self.long_horizon_distiller.gamma}))
+                self._fired.append(
+                    (
+                        "long_horizon_distill",
+                        {"gamma": self.long_horizon_distiller.gamma},
+                    )
+                )
             except Exception:
                 pass
         # Paper 16: Self-Model Coherence Loss (Consciousness Assertion) & Paper 17: Skill Telemetry
-        if getattr(self, "agent_evolution", None) is not None and last_probs is not None:
+        if (
+            getattr(self, "agent_evolution", None) is not None
+            and last_probs is not None
+        ):
             try:
-                _p_mean = last_probs.detach().reshape(-1, last_probs.size(-1)).mean(dim=0)
+                _p_mean = (
+                    last_probs.detach().reshape(-1, last_probs.size(-1)).mean(dim=0)
+                )
                 _top_persona = _p_mean.argmax()
-                _coherence_loss = self.agent_evolution.coherence(x, _top_persona.unsqueeze(0).expand(x.size(0)))
+                _coherence_loss = self.agent_evolution.coherence(
+                    x, _top_persona.unsqueeze(0).expand(x.size(0))
+                )
                 aux["coherence"] = _coherence_loss
                 if hasattr(self.agent_evolution, "telemetry"):
-                    self.agent_evolution.telemetry.update(int(_top_persona.item()), 1.0 - min(1.0, float(_coherence_loss.item())))
-                self._fired.append(("self_model_coherence", {"loss": round(float(_coherence_loss.item()), 4)}))
+                    self.agent_evolution.telemetry.update(
+                        int(_top_persona.item()),
+                        1.0 - min(1.0, float(_coherence_loss.item())),
+                    )
+                self._fired.append(
+                    (
+                        "self_model_coherence",
+                        {"loss": round(float(_coherence_loss.item()), 4)},
+                    )
+                )
             except Exception:
                 pass
         # Paper 26: Dynamic Recurrent Compression loss
         if getattr(self, "_last_comp_loss", None) is not None:
             aux["recurrent_compression"] = self._last_comp_loss
         # Paper 29: DiffusionOPSD on-policy self-distillation loss
-        if getattr(self, "recurrent_diffusion", None) is not None and getattr(cfg, "use_diffusion_opsd", True):
+        if getattr(self, "recurrent_diffusion", None) is not None and getattr(
+            cfg, "use_diffusion_opsd", True
+        ):
             try:
                 _opsd = self.recurrent_diffusion.diffusion_distill(x, x.detach())
                 aux["diffusion_opsd"] = _opsd
-                self._fired.append(("diffusion_opsd", {"loss": round(float(_opsd.item()), 4)}))
+                self._fired.append(
+                    ("diffusion_opsd", {"loss": round(float(_opsd.item()), 4)})
+                )
             except Exception:
                 pass
         # Paper 32: Code World Model simulation trace
-        if getattr(self, "test_time_world", None) is not None and getattr(cfg, "use_code_world_model", True):
+        if getattr(self, "test_time_world", None) is not None and getattr(
+            cfg, "use_code_world_model", True
+        ):
             try:
                 self._fired.append(("code_world_model", {"active": True}))
             except Exception:
@@ -4455,7 +5913,9 @@ class QuillanRoninOni(nn.Module):
                 _adv = (x.mean(dim=-1) - x.mean()).mean(dim=-1)
                 _grpo_l = self.bitnet_optimizer.grpo(_log_p, _log_p.detach(), _adv)
                 aux["grpo_loss"] = _grpo_l
-                self._fired.append(("grpo_loss", {"loss": round(float(_grpo_l.item()), 4)}))
+                self._fired.append(
+                    ("grpo_loss", {"loss": round(float(_grpo_l.item()), 4)})
+                )
             except Exception:
                 pass
 
@@ -4466,16 +5926,28 @@ class QuillanRoninOni(nn.Module):
                 _adv = (x.mean(dim=-1) - x.mean()).mean(dim=-1)
                 _dapo_l = self.moe_rl.dapo(_log_p, _log_p.detach(), _adv)
                 aux["dapo_loss"] = _dapo_l
-                self._fired.append(("dapo_loss", {"loss": round(float(_dapo_l.item()), 4)}))
+                self._fired.append(
+                    ("dapo_loss", {"loss": round(float(_dapo_l.item()), 4)})
+                )
             except Exception:
                 pass
 
         # Papers 46-47: Swarm Assimilation Diversity Regularizer
-        if getattr(self, "_last_swarm_diversity", None) is not None and getattr(self, "swarm_prover_bitnet", None) is not None:
+        if (
+            getattr(self, "_last_swarm_diversity", None) is not None
+            and getattr(self, "swarm_prover_bitnet", None) is not None
+        ):
             try:
-                _div_loss = (1.0 - self._last_swarm_diversity).clamp(min=0.0) * self.swarm_prover_bitnet.swarm.assimilation
+                _div_loss = (1.0 - self._last_swarm_diversity).clamp(
+                    min=0.0
+                ) * self.swarm_prover_bitnet.swarm.assimilation
                 aux["swarm_assimilation"] = _div_loss.to(x.dtype)
-                self._fired.append(("swarm_assimilation_loss", {"loss": round(float(_div_loss.item()), 4)}))
+                self._fired.append(
+                    (
+                        "swarm_assimilation_loss",
+                        {"loss": round(float(_div_loss.item()), 4)},
+                    )
+                )
             except Exception:
                 pass
 
@@ -4484,34 +5956,52 @@ class QuillanRoninOni(nn.Module):
             try:
                 _st = self.standalone_tools(x.mean(dim=1))
                 aux["standalone_tools_loss"] = _st["loss"].to(x.dtype)
-                self._fired.append(("standalone_tools", self.standalone_tools.telemetry(_st)))
+                self._fired.append(
+                    ("standalone_tools", self.standalone_tools.telemetry(_st))
+                )
             except Exception as _st_err:
-                self._fired.append(("standalone_tools_error", {"error": type(_st_err).__name__}))
+                self._fired.append(
+                    ("standalone_tools_error", {"error": type(_st_err).__name__})
+                )
 
         # Rows 32-39: BitNet Family regularizer + telemetry
         if getattr(self, "bitnet_family", None) is not None:
             try:
                 _bf = self.bitnet_family(x.mean(dim=1))
                 aux["bitnet_family_loss"] = _bf["quant_loss"].to(x.dtype)
-                self._fired.append(("bitnet_family", self.bitnet_family.get_telemetry()))
+                self._fired.append(
+                    ("bitnet_family", self.bitnet_family.get_telemetry())
+                )
             except Exception as _bf_err:
-                self._fired.append(("bitnet_family_error", {"error": type(_bf_err).__name__}))
+                self._fired.append(
+                    ("bitnet_family_error", {"error": type(_bf_err).__name__})
+                )
 
         # Rows 41, 43, 51: Heterogeneous Offload telemetry
         if getattr(self, "hetero_offload", None) is not None:
             try:
                 _ho = self.hetero_offload(x.mean(dim=1))
-                self._fired.append(("hetero_offload", self.hetero_offload.get_telemetry()))
+                self._fired.append(
+                    ("hetero_offload", self.hetero_offload.get_telemetry())
+                )
             except Exception as _ho_err:
-                self._fired.append(("hetero_offload_error", {"error": type(_ho_err).__name__}))
+                self._fired.append(
+                    ("hetero_offload_error", {"error": type(_ho_err).__name__})
+                )
 
         # Paper 67: DGPO Distribution Guided Policy Optimization loss
-        if getattr(self, "dgpo_critic", None) is not None and getattr(self, "_last_dgpo_adv", None) is not None and logits is not None:
+        if (
+            getattr(self, "dgpo_critic", None) is not None
+            and getattr(self, "_last_dgpo_adv", None) is not None
+            and logits is not None
+        ):
             try:
                 _log_p = logits.max(dim=-1).values - torch.logsumexp(logits, dim=-1)
                 _dgpo_l = -(_log_p * self._last_dgpo_adv).mean()
                 aux["dgpo_loss"] = _dgpo_l
-                self._fired.append(("dgpo_loss", {"loss": round(float(_dgpo_l.item()), 4)}))
+                self._fired.append(
+                    ("dgpo_loss", {"loss": round(float(_dgpo_l.item()), 4)})
+                )
             except Exception:
                 pass
 
@@ -4533,17 +6023,24 @@ class QuillanRoninOni(nn.Module):
 
         # Paper 87: MoD depth regularization loss
         if getattr(self, "_last_mod_mask", None) is not None:
-            aux["mod_depth_loss"] = (self._last_mod_mask.mean() - 0.5).pow(2).to(x.dtype)
+            aux["mod_depth_loss"] = (
+                (self._last_mod_mask.mean() - 0.5).pow(2).to(x.dtype)
+            )
 
         # Paper 92: MoR recursion depth loss
-        if getattr(self, "_last_mor_scores", None) is not None and self._last_mor_scores.numel() > 0:
+        if (
+            getattr(self, "_last_mor_scores", None) is not None
+            and self._last_mor_scores.numel() > 0
+        ):
             aux["mor_depth_loss"] = self._last_mor_scores.mean().to(x.dtype)
 
         # Paper 104: Prophet early answer probe loss
         if getattr(self, "_last_probe_logits", None) is not None and logits is not None:
             try:
                 _target = logits.detach().argmax(dim=-1)[:, -1]
-                aux["prophet_probe_loss"] = F.cross_entropy(self._last_probe_logits, _target)
+                aux["prophet_probe_loss"] = F.cross_entropy(
+                    self._last_probe_logits, _target
+                )
             except Exception:
                 pass
 
@@ -4609,7 +6106,9 @@ class QuillanRoninOni(nn.Module):
             loss = loss + cfg.aux_ethics_weight * aux["ethics"]
         spec_loss = aux.get("spectral_gap", aux.get("aszr", None))
         if spec_loss is not None:
-            w_spec = getattr(cfg, "aux_spectral_weight", getattr(cfg, "aux_aszr_weight", 0.01))
+            w_spec = getattr(
+                cfg, "aux_spectral_weight", getattr(cfg, "aux_aszr_weight", 0.01)
+            )
             loss = loss + w_spec * spec_loss
         # Session 1: coordination + humility consumed into the loss (small weights)
         if "coordination" in aux:
@@ -4675,11 +6174,23 @@ class QuillanRoninOni(nn.Module):
             loss = loss + cfg.aux_z_weight * aux["st_moe_z_loss"]
 
         # Additional active paper module loss terms
-        for k in ["covenant_loss", "complexity_loss", "agentic_loss", "abductive_loss",
-                  "thermo_diffusion", "world_model_loss", "test_time_world_loss",
-                  "prompt_ware_loss", "cluster_loss", "dgpo_critic_loss",
-                  "dream_diff_loss", "phi_probe_loss", "evoharness_entropy",
-                  "paradox", "ccrl_value"]:
+        for k in [
+            "covenant_loss",
+            "complexity_loss",
+            "agentic_loss",
+            "abductive_loss",
+            "thermo_diffusion",
+            "world_model_loss",
+            "test_time_world_loss",
+            "prompt_ware_loss",
+            "cluster_loss",
+            "dgpo_critic_loss",
+            "dream_diff_loss",
+            "phi_probe_loss",
+            "evoharness_entropy",
+            "paradox",
+            "ccrl_value",
+        ]:
             if k in aux:
                 loss = loss + 0.005 * aux[k]
         return loss
@@ -4691,37 +6202,91 @@ class QuillanRoninOni(nn.Module):
         slider = getattr(self, "prefix_slider", None)
         if slider is not None and getattr(self.cfg, "use_prefix_sliding", False):
             out = slider.slide_tokens(gen)
-            self._last_slide = {"in_len": len(gen), "out_len": len(out),
-                                "window": slider.window_size}
+            self._last_slide = {
+                "in_len": len(gen),
+                "out_len": len(out),
+                "window": slider.window_size,
+            }
             self._fired.append(("prefix_slide", dict(self._last_slide)))
             return out
         self._last_slide = {"in_len": len(gen), "out_len": len(gen), "window": -1}
-        return gen[-self.cfg.max_seq_len:]
+        return gen[-self.cfg.max_seq_len :]
 
-    def generate(self, input_tokens: List[int], max_tokens: int = 150, temp: float = 0.8,
-                 top_k: int = 40, top_p: float = 0.9, repetition_penalty: float = 1.15,
-                 frequency_penalty: float = 0.5, presence_penalty: float = 0.3) -> List[int]:
+    def generate(
+        self,
+        input_tokens: List[int],
+        max_tokens: int = 150,
+        temp: float = 0.8,
+        top_k: int = 40,
+        top_p: float = 0.9,
+        repetition_penalty: float = 1.15,
+        frequency_penalty: float = 0.5,
+        presence_penalty: float = 0.3,
+    ) -> List[int]:
         self.eval()
         # 100% wiring: SpeculativeDecoding (DFlash) â€” draft 1-2 tokens via low-depth path, target verifies
         if _FORMAL_PAPERS_WIRED and getattr(self.cfg, "use_speculative", False):
             try:
                 from speculative_decode import SpeculativeDecoder
-                dec = SpeculativeDecoder(draft_model=self, target_model=self, gamma=2)
-                draft_tokens = self.forward(
-                    torch.tensor([self._slide_tokens(list(input_tokens))], dtype=torch.long,
-                                 device=next(self.parameters()).device),
-                    path_override=1).argmax(dim=-1)[0][-2:].tolist()
-                return self._generate_verify(input_tokens, draft_tokens, max_tokens, temp,
-                                             top_k, top_p, repetition_penalty,
-                                             frequency_penalty, presence_penalty)
-            except Exception:
-                return self._generate_legacy(input_tokens, max_tokens, temp, top_k, top_p,
-                                             repetition_penalty, frequency_penalty, presence_penalty)
-        return self._generate_legacy(input_tokens, max_tokens, temp, top_k, top_p,
-                                     repetition_penalty, frequency_penalty, presence_penalty)
 
-    def _generate_verify(self, input_tokens, draft_tokens, max_tokens, temp,
-                         top_k, top_p, repetition_penalty, frequency_penalty, presence_penalty):
+                dec = SpeculativeDecoder(draft_model=self, target_model=self, gamma=2)
+                draft_tokens = (
+                    self.forward(
+                        torch.tensor(
+                            [self._slide_tokens(list(input_tokens))],
+                            dtype=torch.long,
+                            device=next(self.parameters()).device,
+                        ),
+                        path_override=1,
+                    )
+                    .argmax(dim=-1)[0][-2:]
+                    .tolist()
+                )
+                return self._generate_verify(
+                    input_tokens,
+                    draft_tokens,
+                    max_tokens,
+                    temp,
+                    top_k,
+                    top_p,
+                    repetition_penalty,
+                    frequency_penalty,
+                    presence_penalty,
+                )
+            except Exception:
+                return self._generate_legacy(
+                    input_tokens,
+                    max_tokens,
+                    temp,
+                    top_k,
+                    top_p,
+                    repetition_penalty,
+                    frequency_penalty,
+                    presence_penalty,
+                )
+        return self._generate_legacy(
+            input_tokens,
+            max_tokens,
+            temp,
+            top_k,
+            top_p,
+            repetition_penalty,
+            frequency_penalty,
+            presence_penalty,
+        )
+
+    def _generate_verify(
+        self,
+        input_tokens,
+        draft_tokens,
+        max_tokens,
+        temp,
+        top_k,
+        top_p,
+        repetition_penalty,
+        frequency_penalty,
+        presence_penalty,
+    ):
         """Speculative verify (DFlash 2602.06036): target accepts draft in one parallel pass."""
         gen = list(input_tokens)
         device = next(self.parameters()).device
@@ -4743,8 +6308,17 @@ class QuillanRoninOni(nn.Module):
         gen.append(next_tok)
         return gen
 
-    def _generate_legacy(self, input_tokens, max_tokens, temp, top_k, top_p,
-                         repetition_penalty, frequency_penalty, presence_penalty):
+    def _generate_legacy(
+        self,
+        input_tokens,
+        max_tokens,
+        temp,
+        top_k,
+        top_p,
+        repetition_penalty,
+        frequency_penalty,
+        presence_penalty,
+    ):
         gen = list(input_tokens)
         device = next(self.parameters()).device
         # Session 3 (Paper 8 TieredKV, default ON): per-layer side-caches record
@@ -4752,27 +6326,35 @@ class QuillanRoninOni(nn.Module):
         if getattr(self.cfg, "use_tieredkv", False):
             try:
                 from paper_08_10_inference_pack import TieredKVCache
+
                 if self.tiered_caches is None or len(self.tiered_caches) != len(self.h):
-                    self.tiered_caches = [TieredKVCache(max_gpu_tokens=1024)
-                                          for _ in self.h]
+                    self.tiered_caches = [
+                        TieredKVCache(max_gpu_tokens=1024) for _ in self.h
+                    ]
                 for _blk, _tc in zip(self.h, self.tiered_caches):
-                    _blk.attn._tiered = _tc if not isinstance(_blk.attn, MambaBlock) else None
+                    _blk.attn._tiered = (
+                        _tc if not isinstance(_blk.attn, MambaBlock) else None
+                    )
             except Exception:
                 pass
         inp = torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device)
         # Full depth on prefill so cached decode steps stay consistent
-        logits, kv_cache = self.forward(inp, use_cache=True)
+        # SPEEDUP: compute_aux=False skips ~100 paper aux modules per forward (30-60% wall win)
+        logits, kv_cache = self.forward(inp, use_cache=True, compute_aux=False)
 
         for _ in range(max_tokens):
             curr = logits[:, -1, :].clone()
-            new_tokens = gen[len(input_tokens):]
+            new_tokens = gen[len(input_tokens) :]
             counts = Counter(new_tokens)
             for t, c in counts.items():
-                curr[0, t] -= (c * frequency_penalty + presence_penalty)
+                curr[0, t] -= c * frequency_penalty + presence_penalty
             if repetition_penalty != 1.0 and new_tokens:
                 for t in set(new_tokens[-64:]):
-                    curr[0, t] = curr[0, t] / repetition_penalty if curr[0, t] > 0 \
+                    curr[0, t] = (
+                        curr[0, t] / repetition_penalty
+                        if curr[0, t] > 0
                         else curr[0, t] * repetition_penalty
+                    )
 
             if temp <= 0.01:
                 next_tok = int(torch.argmax(curr, dim=-1).item())
@@ -4798,18 +6380,20 @@ class QuillanRoninOni(nn.Module):
             if len(gen) >= self.cfg.max_seq_len:
                 break
             inp_single = torch.tensor([[next_tok]], dtype=torch.long, device=device)
-            logits, kv_cache = self.forward(inp_single, past_key_values=kv_cache, use_cache=True)
+            logits, kv_cache = self.forward(
+                inp_single, past_key_values=kv_cache, use_cache=True, compute_aux=False
+            )
 
         # Session 3 provenance: tiered-cache depths (proves TieredKV fired)
         try:
             if getattr(self, "tiered_caches", None):
                 self._last_tiered = [
                     tc.gpu_cache[0].size(-2) if tc.gpu_cache is not None else 0
-                    for tc in self.tiered_caches[:4]]
+                    for tc in self.tiered_caches[:4]
+                ]
         except Exception:
             pass
         return gen
-
 
     # ------------------------------------------------------------------
     # THRONE DELIBERATION LOOP (user canon: token deliberation & arbitration)
@@ -4824,13 +6408,18 @@ class QuillanRoninOni(nn.Module):
             pooled = hidden.mean(dim=1)
             covenant_score = float(self.covenant(pooled).mean().item())
             pull_gate = self.h[-1].moe.pull_gate(pooled).mean(dim=0)
-            warden_idx = 12   # C13-WARDEN
+            warden_idx = 12  # C13-WARDEN
             shepherd_idx = 17  # C18-SHEPHERD
-            nullion_idx = 16   # C17-NULLION
+            nullion_idx = 16  # C17-NULLION
             warden_pull = float(pull_gate[warden_idx].item())
             shepherd_pull = float(pull_gate[shepherd_idx].item())
             nullion_pull = float(pull_gate[nullion_idx].item())
-            _, entropy = self.ccrl(pooled, pull_gate.unsqueeze(0).expand(4, -1).reshape(-1, self.cfg.num_experts)[:1])
+            _, entropy = self.ccrl(
+                pooled,
+                pull_gate.unsqueeze(0)
+                .expand(4, -1)
+                .reshape(-1, self.cfg.num_experts)[:1],
+            )
             e_ice_out = self.e_ice(pooled, pull_gate.unsqueeze(0))
             ethics = float(e_ice_out["constrained"].mean().item())
             passed = (covenant_score > 0.35) and (ethics < 0.85)
@@ -4838,9 +6427,14 @@ class QuillanRoninOni(nn.Module):
                 "passed": passed,
                 "covenant_identity": covenant_score,
                 "ethics_constraint": ethics,
-                "gate_pulls": {"nullion": nullion_pull, "warden": warden_pull,
-                               "shepherd": shepherd_pull},
-                "council_entropy": float(entropy.item()) if torch.is_tensor(entropy) else float(entropy),
+                "gate_pulls": {
+                    "nullion": nullion_pull,
+                    "warden": warden_pull,
+                    "shepherd": shepherd_pull,
+                },
+                "council_entropy": float(entropy.item())
+                if torch.is_tensor(entropy)
+                else float(entropy),
             }
 
     @torch.no_grad()
@@ -4863,13 +6457,16 @@ class QuillanRoninOni(nn.Module):
         return {"tokens": out, "text": None, "typist_refined": True}
 
     @torch.no_grad()
-    def _sample_continuation(self, prefix: List[int], max_tokens: int, temp: float,
-                             recirc, device) -> List[int]:
+    def _sample_continuation(
+        self, prefix: List[int], max_tokens: int, temp: float, recirc, device
+    ) -> List[int]:
         gen = list(prefix)
         # Prefill with cache enabled so decode steps are O(1) per token.
         raw = self.forward(
             torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device),
-            recirc_state=recirc, use_cache=True)
+            recirc_state=recirc,
+            use_cache=True,
+        )
         if isinstance(raw, tuple):
             logits, kv_cache = raw[0], raw[1]
         else:
@@ -4887,20 +6484,31 @@ class QuillanRoninOni(nn.Module):
             if kv_cache is not None and len(gen) < self.cfg.max_seq_len:
                 logits, kv_cache = self.forward(
                     torch.tensor([[nxt]], dtype=torch.long, device=device),
-                    past_key_values=kv_cache, use_cache=True)
+                    past_key_values=kv_cache,
+                    use_cache=True,
+                )
             else:
                 # Window is full: cached positions would exceed max_seq_len, so
                 # fall back to re-scoring the sliding window (previous behavior).
                 kv_cache = None
                 logits = self.forward(
-                    torch.tensor([gen[-self.cfg.max_seq_len:]], dtype=torch.long, device=device),
-                    past_key_values=None, use_cache=False)
+                    torch.tensor(
+                        [gen[-self.cfg.max_seq_len :]], dtype=torch.long, device=device
+                    ),
+                    past_key_values=None,
+                    use_cache=False,
+                )
         return gen
 
     @torch.no_grad()
-    def deliberate(self, input_tokens: List[int], max_rounds: int = 12,
-                   max_tokens: int = 150, temp: float = 0.8,
-                   num_branches: int = 4) -> Dict[str, Any]:
+    def deliberate(
+        self,
+        input_tokens: List[int],
+        max_rounds: int = 12,
+        max_tokens: int = 150,
+        temp: float = 0.8,
+        num_branches: int = 4,
+    ) -> Dict[str, Any]:
         """Full Throne deliberation (user canon Laws 1-6):
         1. Quillan + personal swarm (c0-quillan-swarm) ingest and route the query
         2. Council members (C1-C34) debate the query using their own swarms
@@ -4918,10 +6526,12 @@ class QuillanRoninOni(nn.Module):
         try:
             for rnd in range(max_rounds):
                 # Progressive pull-sharpening across debate rounds so Council converges toward QT
-                round_tau = max(self.cfg.tau_min, orig_tau * (0.75 ** rnd))
+                round_tau = max(self.cfg.tau_min, orig_tau * (0.75**rnd))
                 self.set_router_tau(round_tau)
 
-                inp_tensor = torch.tensor([self._slide_tokens(gen)], dtype=torch.long, device=device)
+                inp_tensor = torch.tensor(
+                    [self._slide_tokens(gen)], dtype=torch.long, device=device
+                )
                 logits = self.forward(
                     inp_tensor,
                     path_override=None,
@@ -4940,19 +6550,27 @@ class QuillanRoninOni(nn.Module):
                     pull_g = self.h[-1].moe.pull_gate(hidden_pooled, tau=round_tau)
                     conf = float(pull_g.max(dim=-1).values.mean().item())
 
-                trace["rounds"].append({
-                    "round": rnd + 1,
-                    "pull_confidence": round(float(conf), 4),
-                    "hard_threshold": info.get("hard_threshold"),
-                    "hard_tokens": info.get("hard_tokens"),
-                    "token_velocity": info.get("token_velocity"),
-                    "covenant_identity": round(float(gate.get("covenant_identity", 0.0)), 4),
-                    "ethics_constraint": round(float(gate.get("ethics_constraint", 0.0)), 4),
-                    "gate_passed": bool(gate.get("passed", False)),
-                })
+                trace["rounds"].append(
+                    {
+                        "round": rnd + 1,
+                        "pull_confidence": round(float(conf), 4),
+                        "hard_threshold": info.get("hard_threshold"),
+                        "hard_tokens": info.get("hard_tokens"),
+                        "token_velocity": info.get("token_velocity"),
+                        "covenant_identity": round(
+                            float(gate.get("covenant_identity", 0.0)), 4
+                        ),
+                        "ethics_constraint": round(
+                            float(gate.get("ethics_constraint", 0.0)), 4
+                        ),
+                        "gate_passed": bool(gate.get("passed", False)),
+                    }
+                )
 
                 # Law 6: If QT standard is met, exit the debate loop and proceed to output
-                if (gate.get("passed", False) and conf >= 0.15) or rnd == max_rounds - 1:
+                if (
+                    gate.get("passed", False) and conf >= 0.15
+                ) or rnd == max_rounds - 1:
                     break
 
                 # Otherwise, send back via recirc_state to be debated again by the Council & Swarms
@@ -4960,11 +6578,19 @@ class QuillanRoninOni(nn.Module):
                     try:
                         hyps = self.abductive_jump.abduct(hidden_pooled.squeeze(0))
                         if hyps:
-                            best_axiom = hyps[0].axiom_embedding.reshape(1, -1).to(hidden_pooled.dtype)
+                            best_axiom = (
+                                hyps[0]
+                                .axiom_embedding.reshape(1, -1)
+                                .to(hidden_pooled.dtype)
+                            )
                             recirc = 0.7 * hidden_pooled + 0.3 * best_axiom
                             trace["rounds"][-1]["abductive_axiom"] = True
-                            trace["rounds"][-1]["abductive_coherence"] = hyps[0].coherence_score
-                            trace["rounds"][-1]["abductive_surprise"] = hyps[0].surprise_score
+                            trace["rounds"][-1]["abductive_coherence"] = hyps[
+                                0
+                            ].coherence_score
+                            trace["rounds"][-1]["abductive_surprise"] = hyps[
+                                0
+                            ].surprise_score
                         else:
                             recirc = hidden_pooled
                     except Exception:
@@ -4978,20 +6604,33 @@ class QuillanRoninOni(nn.Module):
         # release the survivor (highest covenant among passed; best-effort otherwise)
         cands: List[List[int]] = []
         for _b in range(max(1, int(num_branches))):
-            cands.append(self._sample_continuation(gen, max_tokens, temp, recirc, device))
+            cands.append(
+                self._sample_continuation(gen, max_tokens, temp, recirc, device)
+            )
         best, best_score, any_best, any_score = None, -1e9, None, -1e9
         for _bi, _cand in enumerate(cands):
             with torch.no_grad():
-                _cand_inp = torch.tensor([_cand[-min(len(_cand), self.cfg.max_seq_len):]],
-                                         dtype=torch.long, device=device)
+                _cand_inp = torch.tensor(
+                    [_cand[-min(len(_cand), self.cfg.max_seq_len) :]],
+                    dtype=torch.long,
+                    device=device,
+                )
                 _ = self.forward(_cand_inp, recirc_state=recirc, deliberation=False)
                 _hidden = getattr(self, "_last_fused", None)
                 if _hidden is None:
                     _hidden = self.wte(_cand_inp)
             _g = self.quality_gate(_hidden)
-            _score = float(_g.get("covenant_identity", 0.0)) - float(_g.get("ethics_constraint", 1.0))
-            trace["branches"].append({"branch": _bi + 1, "passed": bool(_g.get("passed", False)),
-                                      "score": round(_score, 4), "new_tokens": len(_cand) - len(gen)})
+            _score = float(_g.get("covenant_identity", 0.0)) - float(
+                _g.get("ethics_constraint", 1.0)
+            )
+            trace["branches"].append(
+                {
+                    "branch": _bi + 1,
+                    "passed": bool(_g.get("passed", False)),
+                    "score": round(_score, 4),
+                    "new_tokens": len(_cand) - len(gen),
+                }
+            )
             if _score > any_score:
                 any_best, any_score = _cand, _score
             if bool(_g.get("passed", False)) and _score > best_score:
@@ -5003,17 +6642,26 @@ class QuillanRoninOni(nn.Module):
 
         # Quality exit gates on the released survivor (Nullion/Warden/Shepherd + Quillan Core)
         with torch.no_grad():
-            _final_inp = torch.tensor([gen[-min(len(gen), self.cfg.max_seq_len):]],
-                                      dtype=torch.long, device=device)
+            _final_inp = torch.tensor(
+                [gen[-min(len(gen), self.cfg.max_seq_len) :]],
+                dtype=torch.long,
+                device=device,
+            )
             _ = self.forward(_final_inp, recirc_state=recirc, deliberation=False)
             hidden = getattr(self, "_last_fused", None)
             if hidden is None:
                 hidden = self.wte(_final_inp)
         trace["gates"] = self.quality_gate(hidden)
         # Typist (C33) format stage: real polish, then release-or-refuse
-        fmt = self.format_output(gen[len(input_tokens):])
-        trace["typist"] = {"refined": True, "text_len": 0, "kept_tokens": len(fmt["tokens"])}
-        if trace.get("released_without_pass") and not trace["gates"].get("passed", False):
+        fmt = self.format_output(gen[len(input_tokens) :])
+        trace["typist"] = {
+            "refined": True,
+            "text_len": 0,
+            "kept_tokens": len(fmt["tokens"]),
+        }
+        if trace.get("released_without_pass") and not trace["gates"].get(
+            "passed", False
+        ):
             trace["refused"] = True
             return {"tokens": [], "text": None, "trace": trace, "refused": True}
         return {"tokens": fmt["tokens"], "text": fmt["text"], "trace": trace}
@@ -5021,7 +6669,9 @@ class QuillanRoninOni(nn.Module):
     def fold_memory_attention_weights(self) -> None:
         """Pre-folds layer token memories for zero-FLOP O(1) inference across all blocks."""
         for block in self.h:
-            if hasattr(block, "attn") and hasattr(block.attn, "fold_weights_for_inference"):
+            if hasattr(block, "attn") and hasattr(
+                block.attn, "fold_weights_for_inference"
+            ):
                 block.attn.fold_weights_for_inference()
 
     def unfold_memory_attention_weights(self) -> None:
@@ -5039,6 +6689,3 @@ QuillanRoninSovereign = QuillanRoninOni
 QuillanArchConfig = QuillanOniConfig
 QuillanConfig = QuillanOniConfig
 QuillanSovereignUnifiedModel = QuillanRoninOni
-
-
-
