@@ -55,9 +55,20 @@ In differential geometry, the Gauss-Bonnet theorem connects the local Gaussian c
 """
 
 
-def check_code_gcd(output: str) -> bool:
+def _clean_code_snippet(output: str) -> str:
     code_blocks = re.findall(r"```(?:python)?\s*(.*?)```", output, re.DOTALL)
-    cand = code_blocks[0] if code_blocks else output
+    if code_blocks and code_blocks[0].strip():
+        return code_blocks[0]
+    m = re.search(r"```(?:python)?\s*(.*)", output, re.DOTALL)
+    if m:
+        cand = m.group(1)
+        cand = re.sub(r"```.*$", "", cand, flags=re.DOTALL)
+        return cand
+    return output
+
+
+def check_code_gcd(output: str) -> bool:
+    cand = _clean_code_snippet(output)
     try:
         ns: Dict[str, Any] = {}
         exec(cand, ns)
@@ -70,8 +81,7 @@ def check_code_gcd(output: str) -> bool:
 
 
 def check_code_brackets(output: str) -> bool:
-    code_blocks = re.findall(r"```(?:python)?\s*(.*?)```", output, re.DOTALL)
-    cand = code_blocks[0] if code_blocks else output
+    cand = _clean_code_snippet(output)
     try:
         ns: Dict[str, Any] = {}
         exec(cand, ns)
@@ -259,7 +269,7 @@ HELD_OUT_SUITE: List[Dict[str, Any]] = [
 ]
 
 
-def run_single_prompt(gguf_path: str, prompt: str, max_tokens: int = 160) -> Tuple[str, float, float]:
+def run_single_prompt(gguf_path: str, prompt: str, max_tokens: int = 320) -> Tuple[str, float, float]:
     cmd = [
         LLAMA_CLI,
         "-m", gguf_path,

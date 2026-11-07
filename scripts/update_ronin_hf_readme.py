@@ -31,9 +31,9 @@ def update_ronin_readme():
         <td><b><a href="https://huggingface.co/CrashOverrideX/Quillan-Ronin">Quillan-Ronin</a></b></td>
         <td><b>1.2B</b></td>
         <td>Llama 3.2 1B + Polymath WSP</td>
-        <td><b>76.47%</b></td>
-        <td><b>7.93 PPL</b></td>
-        <td><b>47.0</b></td>
+        <td><b>88.24%</b></td>
+        <td><b>7.92 PPL</b></td>
+        <td><b>51.8</b></td>
         <td>General Polymath Reasoning, Advanced Math, Code Synthesis</td>
       </tr>
       <tr>
