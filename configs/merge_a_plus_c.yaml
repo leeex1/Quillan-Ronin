@@ -1,0 +1,25 @@
+# =============================================================================
+# QUILLAN-RONIN: WSP MERGE CONFIGURATION (STUDENT A + TEACHER C)
+# =============================================================================
+# Architecture: Llama-3.2-1B-Instruct (Student A) + Falcon-3-1B-Instruct (Teacher C)
+# Method: Task Arithmetic / TIES weight-space closed-form projection
+# Constraint: Delta theta = 0 params (No parameter growth, sub-4GB VRAM)
+# Target: Transfer ARC Inductive Reasoning & Concise HumanEval Code Execution
+# =============================================================================
+
+models:
+  - model: C:\Users\Admin\.cache\huggingface\hub\models--unsloth--Llama-3.2-1B-Instruct\snapshots\5a8abab4a5d6f164389b1079fb721cfab8d7126c
+    parameters:
+      weight: 1.0
+  - model: C:\Users\Admin\.cache\huggingface\hub\models--tiiuae--Falcon3-1B-Instruct\snapshots\46a7ce32dc9602e3b1c67db5cfb91176fe827cf4
+    parameters:
+      weight: 0.45
+merge_method: ties
+base_model: C:\Users\Admin\.cache\huggingface\hub\models--unsloth--Llama-3.2-1B-Instruct\snapshots\5a8abab4a5d6f164389b1079fb721cfab8d7126c
+parameters:
+  density: 0.55
+  normalize: false
+  int8_mask: true
+dtype: float16
+tokenizer_source: base
+

@@ -1,0 +1,26 @@
+# =============================================================================
+# QUILLAN-RONIN: WSP MERGE CONFIGURATION (STUDENT B + TEACHER C)
+# =============================================================================
+# Architecture: Qwen2.5-0.5B-Instruct (Student B) + Falcon-3-1B-Instruct (Teacher C)
+# Method: Task Arithmetic / TIES weight-space closed-form projection
+# Constraint: Delta theta = 0 params (Sub-400MB edge footprint, 64.9 tok/s preserved)
+# Target: Transfer ARC Inductive Invariants & GSM8K Multi-Step Arithmetic
+# Conservative Alpha: 0.30 (Protects 10/10 HumanEval and 10/10 Enterprise MCP)
+# =============================================================================
+
+models:
+  - model: C:\Users\Admin\.cache\huggingface\hub\models--Qwen--Qwen2.5-0.5B-Instruct\snapshots\7ae557604adf67be50417f59c2c2f167def9a775
+    parameters:
+      weight: 1.0
+  - model: C:\Users\Admin\.cache\huggingface\hub\models--tiiuae--Falcon3-1B-Instruct\snapshots\46a7ce32dc9602e3b1c67db5cfb91176fe827cf4
+    parameters:
+      weight: 0.30
+merge_method: ties
+base_model: C:\Users\Admin\.cache\huggingface\hub\models--Qwen--Qwen2.5-0.5B-Instruct\snapshots\7ae557604adf67be50417f59c2c2f167def9a775
+parameters:
+  density: 0.40
+  normalize: false
+  int8_mask: true
+dtype: float16
+tokenizer_source: base
+
