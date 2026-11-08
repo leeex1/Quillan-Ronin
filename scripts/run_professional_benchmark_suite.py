@@ -255,6 +255,61 @@ def build_v3_legit_suite() -> List[Dict[str, Any]]:
     print(f"\n[OK] Built V3 Legit Suite: Total = {len(suite)} official probes.")
     return suite
 
+def evaluate_suite_on_model(model_name: str, gguf_path: str, suite: List[Dict[str, Any]]) -> Dict[str, Any]:
+    print(f"\n" + "=" * 80)
+    print(f"BENCHMARKING: {model_name} [{os.path.basename(gguf_path)}]")
+    print(f"Total probes in battery: {len(suite)}")
+    print("=" * 80)
+
+    category_results: Dict[str, List[int]] = {}
+    detailed_logs = []
+    total_passed = 0
+    t0_all = time.time()
+
+    for idx, probe in enumerate(suite):
+        cat = probe["category"]
+        pid = probe["id"]
+        prompt = probe["prompt"]
+        checker = probe["checker"]
+
+        resp, latency = run_llama_inference(gguf_path, prompt, max_tokens=probe.get("max_tokens", 350))
+        passed = int(bool(checker(resp)))
+        total_passed += passed
+        category_results.setdefault(cat, []).append(passed)
+
+        status_str = "PASS" if passed else "FAIL"
+        preview = resp.replace("\n", " ")[:60]
+        print(f"[{idx+1:02d}/{len(suite):02d}] [{cat:15s}] {status_str} ({latency:4.2f}s) | ID: {pid:10s} | {preview}")
+
+        detailed_logs.append({
+            "id": pid,
+            "category": cat,
+            "passed": passed,
+            "latency": latency,
+            "response": resp
+        })
+
+    elapsed = time.time() - t0_all
+    overall_acc = round(100.0 * total_passed / len(suite), 2)
+    cat_summary = {c: round(100.0 * sum(v) / len(v), 2) for c, v in category_results.items()}
+
+    print("\n" + "-" * 80)
+    print(f"OVERALL ACCURACY: {overall_acc}% ({total_passed}/{len(suite)}) in {elapsed:.1f}s")
+    for c, acc in cat_summary.items():
+        print(f"  - {c:20s}: {acc}% ({sum(category_results[c])}/{len(category_results[c])})")
+    print("-" * 80)
+
+    return {
+        "model_name": model_name,
+        "gguf_path": gguf_path,
+        "overall_accuracy": overall_acc,
+        "total_passed": total_passed,
+        "total_probes": len(suite),
+        "category_summary": cat_summary,
+        "detailed_logs": detailed_logs
+    }
+
 if __name__ == "__main__":
     suite = build_v3_legit_suite()
     print("Ready for automated overnight execution.")
+
