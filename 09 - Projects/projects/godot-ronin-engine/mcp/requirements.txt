@@ -1,0 +1,2 @@
+# stdlib only - no pip needed for MVP
+# Optional if you want full MCP SDK: mcp

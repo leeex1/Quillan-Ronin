@@ -1,0 +1,4 @@
+.godot/
+*.import
+*.translation
+user://*

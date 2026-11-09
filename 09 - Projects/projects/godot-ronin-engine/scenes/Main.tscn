@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0roninmain1"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 540.0
+offset_top = 320.0
+text = "Godot Ronin Engine - scaffold OK"
