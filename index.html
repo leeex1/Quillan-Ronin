@@ -14044,7 +14044,7 @@ function handleConceptImgError(img) {
   </div>
 
   <!-- Hidden Native Audio Element -->
-  <audio id="nativeAudioElement" preload="auto"></audio>
+  <audio id="nativeAudioElement" preload="metadata"></audio>
 
   <!-- Modals -->
 
@@ -14726,11 +14726,10 @@ function handleConceptImgError(img) {
       const parts = url.split('/');
       const encoded = parts.map(p => encodeURIComponent(p)).join('/');
 
-      // On github.io or remote web, stream directly from HF CDN with zero GitHub LFS bandwidth limits
-      if (window.location.hostname.includes('github.io') || window.location.protocol.startsWith('http')) {
-        return HF_AUDIO_CDN + encoded;
-      }
-      return fileUrl;
+      // Always stream from HF CDN (works on github.io, http, AND file://).
+      // Local relative paths only work if MP3s sit next to index.html — they don't
+      // in git (LFS-free), so file:// double-click previously 404'd. HF is the source.
+      return HF_AUDIO_CDN + encoded;
     }
 
     function playRealTrack(fileUrl, title, album, genre, trackIndex) {
