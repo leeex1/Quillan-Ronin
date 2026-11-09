@@ -168,6 +168,26 @@
 
     nav.tabs-nav-bar::-webkit-scrollbar { height: 4px; }
     nav.tabs-nav-bar::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 2px; }
+    /* Jukebox dropdown — slim floating panel, no fat native scrollbar */
+    #tracksDropWrap { position: relative; z-index: 5; }
+    #tracksBrowseBtn { width: 100%; justify-content: space-between; }
+    #tracksListContainer {
+      background: linear-gradient(180deg, rgba(7,13,26,0.94), rgba(10,18,36,0.90));
+      border: 1px solid rgba(0,240,255,0.22);
+      border-radius: 12px;
+      padding: 10px 8px 10px 12px;
+      height: 360px; max-height: 360px;
+      overflow-y: auto;
+      position: relative; z-index: 5;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,240,255,0.55) transparent;
+    }
+    #tracksListContainer::-webkit-scrollbar { width: 6px; }
+    #tracksListContainer::-webkit-scrollbar-track { background: transparent; }
+    #tracksListContainer::-webkit-scrollbar-thumb { background: rgba(0,240,255,0.45); border-radius: 3px; }
+    #tracksListContainer::-webkit-scrollbar-thumb:hover { background: rgba(0,240,255,0.75); }
+
 
     .tab-btn {
       background: transparent;
@@ -14872,6 +14892,15 @@ function handleConceptImgError(img) {
     window.seekAudio = seekAudio;
     window.setAudioVolume = setAudioVolume;
     window.filterAlbum = filterAlbum;
+    window.toggleTracksDropdown = function() {
+      var c = document.getElementById('tracksListContainer');
+      var caret = document.getElementById('tracksCaret');
+      var hidden = c.style.display === 'none';
+      c.style.display = hidden ? 'block' : 'none';
+      if (caret) caret.textContent = hidden ? '▴' : '▾';
+      if (hidden) { c.scrollTop = 0; }
+    }
+
     window.filterTracksSearch = filterTracksSearch;
 
     audioEl.addEventListener('timeupdate', () => {
