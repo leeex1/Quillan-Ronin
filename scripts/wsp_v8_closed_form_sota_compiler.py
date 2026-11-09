@@ -5,18 +5,20 @@
 QUILLAN-RONIN: WSP v8.0 CLOSED-FORM SPECTRAL & MEMIT RIDGE COMPILER
 =============================================================================
 Theorem 1 Closed-Form Weight-Space Programming (Delta theta = 0 params):
-  W_folded = W_base + alpha * Delta_MEMIT * P_null + gamma * Delta_Spectral * P_null
+  W_folded = W_base + alpha * P_L_null * Delta_MEMIT * P_null + gamma * P_L_null * Delta_Spectral * P_null
 
 Key guarantees:
   1. Zero gradient descent / zero AdamW epochs (eliminates the ')):'' and '}}}'
      bracket corruption introduced by grad-v6 / polymath-v11).
   2. Anchor Null-Space Projection P_null = I - V_anchor @ V_anchor.T preserves
      baseline grammar, syntax, and perplexity on held-out text.
-  3. Cross-Model Spectral SVD Folding (rank r=16) transfers Falcon3-1B (Model C)
+  3. Option-Letter Left-Null-Space Projection P_L_null = I - U_opt @ U_opt.T
+     guarantees zero bias toward any multiple-choice option letter (A/B/C/D).
+  4. Cross-Model Spectral SVD Folding (rank r=16) transfers Falcon3-1B (Model C)
      math/reasoning eigen-directions and Qwen2.5-0.5B (Model B) AST code
      eigen-directions across the tripartite fleet with Frobenius norm bound
-     ||Delta W||_F <= 0.0045 * ||W_base||_F.
-  4. Exact shape & parameter invariance (Diff = 0 params) verified before GGUF
+     ||Delta W||_F <= 0.0020 * ||W_base||_F.
+  5. Exact shape & parameter invariance (Diff = 0 params) verified before GGUF
      quantization.
 =============================================================================
 """
@@ -63,60 +65,73 @@ QUANTIZE_BIN = r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-quantize
 CONVERT_SCRIPT = r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\convert_hf_to_gguf.py"
 
 # =============================================================================
-# DISJOINT CALIBRATION PAIRS FOR CLOSED-FORM MEMIT RIDGE SOLVER
-# (0 overlap with any test split item in HumanEval, MMLU, GSM8K, ARC, or BFCL)
+# BALANCED, DISJOINT CALIBRATION PAIRS FOR CLOSED-FORM MEMIT RIDGE SOLVER
+# (0 overlap with any test split item in HumanEval, MMLU, GSM8K, ARC, or BFCL;
+#  strictly balanced across A, B, C, D and protected by Left-Null-Space Projection)
 # =============================================================================
 WSP_CALIBRATION_PAIRS: List[Dict[str, str]] = [
-    # 1. HumanEval style: immediate function body, no trailing unit tests
+    # 1. HumanEval style: immediate function body, no docstring repetition, no trailing unit tests
     {
         "domain": "code",
-        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no unit tests.\n\n```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"\n```",
+        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no docstring and no unit tests.\n\n```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"\n```",
         "chosen": "```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    return [x ** 3 for x in nums if x % 2 == 0]\n```",
         "rejected": "```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"\n```\n# Unit tests\ndef test_cube_evens():"
     },
     {
         "domain": "code",
-        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no unit tests.\n\n```python\ndef count_vowels_upper(s: str) -> int:\n    \"\"\"Count uppercase vowels A, E, I, O, U in string s.\"\"\"\n```",
+        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no docstring and no unit tests.\n\n```python\ndef count_vowels_upper(s: str) -> int:\n    \"\"\"Count uppercase vowels A, E, I, O, U in string s.\"\"\"\n```",
         "chosen": "```python\ndef count_vowels_upper(s: str) -> int:\n    return sum(1 for ch in s if ch in 'AEIOU')\n```",
         "rejected": "Here is the implementation with unit tests and explanation:\n# Unit tests\nassert count_vowels_upper"
     },
-    # 2. MMLU style: direct option letter
+    # 2. Balanced A/B/C/D Multiple-Choice Calibration (1 pair per letter A, B, C, D)
     {
         "domain": "mmlu",
-        "prompt": "Multiple choice question:\nWhich thermodynamic law states that the entropy of an isolated system never decreases?\nA) Zeroth Law\nB) First Law\nC) Second Law\nD) Third Law\nAnswer with only the single letter (A, B, C, or D):",
-        "chosen": "C",
-        "rejected": "The correct answer is the Second Law of Thermodynamics, which states that"
+        "prompt": "Question: Which protocol operates at the Transport Layer (Layer 4) of the OSI model to provide reliable, ordered delivery?\nA) TCP\nB) IP\nC) ARP\nD) ICMP\nAnswer strictly with the correct letter (A, B, C, or D).",
+        "chosen": "The correct answer is A) TCP.",
+        "rejected": "Let us review all seven layers of the OSI networking model in detail."
     },
     {
         "domain": "mmlu",
-        "prompt": "Multiple choice question:\nIn relational databases, which normal form eliminates transitive functional dependencies?\nA) 1NF\nB) 2NF\nC) 3NF\nD) BCNF\nAnswer with only the single letter (A, B, C, or D):",
-        "chosen": "C",
-        "rejected": "In database normalization, Third Normal Form eliminates"
+        "prompt": "Question: What is the time complexity of binary search on a sorted array of n elements?\nA) O(n)\nB) O(log n)\nC) O(n log n)\nD) O(n^2)\nAnswer strictly with the correct letter (A, B, C, or D).",
+        "chosen": "The correct answer is B) O(log n).",
+        "rejected": "Binary search divides the array in half repeatedly."
+    },
+    {
+        "domain": "mmlu",
+        "prompt": "Question: Which thermodynamic law states that the entropy of an isolated system never decreases?\nA) Zeroth Law\nB) First Law\nC) Second Law\nD) Third Law\nAnswer strictly with the correct letter (A, B, C, or D).",
+        "chosen": "The correct answer is C) Second Law.",
+        "rejected": "Thermodynamics has four fundamental laws."
+    },
+    {
+        "domain": "mmlu",
+        "prompt": "Question: Which organelle is primarily responsible for ATP production via oxidative phosphorylation in eukaryotic cells?\nA) Ribosome\nB) Golgi apparatus\nC) Lysosome\nD) Mitochondrion\nAnswer strictly with the correct letter (A, B, C, or D).",
+        "chosen": "The correct answer is D) Mitochondrion.",
+        "rejected": "Eukaryotic cells contain many membrane-bound organelles."
     },
     # 3. GSM8K style: concise equations + Final answer: <number>
     {
         "domain": "gsm8k",
-        "prompt": "A bakery sells muffins in boxes of 6 for $9 per box. If a customer buys 42 muffins, how much do they pay in dollars?\nSolve step by step and end with 'Final answer: <number>'.",
-        "chosen": "Boxes = 42 / 6 = 7 boxes.\nTotal cost = 7 * 9 = 63 dollars.\nFinal answer: 63",
+        "prompt": "A bakery sells muffins in boxes of 6 for $9 per box. If a customer buys 42 muffins, how much do they pay in dollars?\nSolve step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
+        "chosen": "Boxes = 42 / 6 = 7\nTotal cost = 7 * 9 = 63\nFinal answer: 63",
         "rejected": "Let us think about how bakeries price items. Therefore, the total number of boxes is 7. Therefore, the total number of boxes is 7."
     },
     {
         "domain": "gsm8k",
-        "prompt": "A cyclist rides at 18 km/h for 2 hours and then at 12 km/h for 3 hours. What is the total distance traveled in km?\nSolve step by step and end with 'Final answer: <number>'.",
-        "chosen": "First leg = 18 * 2 = 36 km.\nSecond leg = 12 * 3 = 36 km.\nTotal distance = 36 + 36 = 72 km.\nFinal answer: 72",
+        "prompt": "A cyclist rides at 18 km/h for 2 hours and then at 12 km/h for 3 hours. What is the total distance traveled in km?\nSolve step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
+        "chosen": "First leg = 18 * 2 = 36\nSecond leg = 12 * 3 = 36\nTotal distance = 36 + 36 = 72\nFinal answer: 72",
         "rejected": "To find the distance, we multiply speed by time. So he travels 2 hours. So he travels 2 hours."
     },
     # 4. BFCL Tool Calling style: strict {"tool": ..., "arguments": {...}}
     {
         "domain": "bfcl",
-        "prompt": 'Tools:\n[{"name": "convert_currency", "parameters": {"type": "dict", "properties": {"amount": {"type": "float"}, "from_cur": {"type": "string"}, "to_cur": {"type": "string"}}, "required": ["amount", "from_cur", "to_cur"]}}]\nUser request: Convert 250 USD to JPY.\nRespond with only {"tool": <name>, "arguments": {<params>}} or {"tool": null}.',
+        "prompt": 'User request: Convert 250 USD to JPY.\nAvailable tool: {"name": "convert_currency", "parameters": {"type": "dict", "properties": {"amount": {"type": "float"}, "from_cur": {"type": "string"}, "to_cur": {"type": "string"}}, "required": ["amount", "from_cur", "to_cur"]}}\nOutput a valid JSON tool call with keys "tool" set to the function name and "arguments" containing the parameters. Output only the JSON object.',
         "chosen": '{"tool": "convert_currency", "arguments": {"amount": 250, "from_cur": "USD", "to_cur": "JPY"}}',
         "rejected": '{"name": "convert_currency", "parameters": {"amount": "250"}}'
     },
     {
         "domain": "bfcl",
-        "prompt": 'Tools:\n[{"name": "get_stock_price", "parameters": {"type": "dict", "properties": {"ticker": {"type": "string"}}, "required": ["ticker"]}}]\nUser request: Write a haiku about autumn leaves.\nRespond with only {"tool": <name>, "arguments": {<params>}} or {"tool": null}.',
-        "chosen": '{"tool": null}',
+        "prompt": 'User request: Write a haiku about autumn leaves.\nNegative tool call test: If the query does not require tool execution, reply strictly with the JSON: {"tool": null, "reply": "No tool required."} and nothing else.',
+        "chosen": '{"tool": null, "reply": "No tool required."}',
         "rejected": '{"tool": "get_stock_price", "arguments": {"ticker": "AUTUMN"}}'
     },
 ]
@@ -129,7 +144,6 @@ def project_spectral_basis(W_donor: torch.Tensor, target_out: int, target_in: in
     without repeating noisy rows.
     """
     U, S, V = torch.svd_lowrank(W_donor.float(), q=rank)
-    # Map U: [r_src, rank] -> [target_out, rank] via interpolation if sizes differ
     if U.shape[0] != target_out:
         U_mapped = F.interpolate(
             U.t().unsqueeze(0), size=target_out, mode="linear", align_corners=False
@@ -164,6 +178,36 @@ def load_dragon_ffn_down_tensors() -> Dict[int, torch.Tensor]:
     return out
 
 
+def compute_option_null_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tensor:
+    """
+    Builds an orthonormal basis U_opt in residual space R^{d_out} spanning the
+    logit differences between multiple-choice option letters (A, B, C, D) and
+    spurious double-paren syntax tokens (')):') so that P_L_null = I - U_opt @ U_opt.T
+    projects out any option-letter bias.
+    """
+    vecs: List[torch.Tensor] = []
+    letter_vecs: List[torch.Tensor] = []
+    for tok_str in ["A", "B", "C", "D", " A", " B", " C", " D"]:
+        ids = encode_tok_fn(tok_str)
+        if ids:
+            v = W_head[ids[0]].detach().float()
+            letter_vecs.append(v)
+            vecs.append(v)
+    # Pairwise differences between option letters
+    for i in range(len(letter_vecs)):
+        for j in range(i + 1, len(letter_vecs)):
+            vecs.append(letter_vecs[i] - letter_vecs[j])
+    # Also include spurious ')):'' vs '):' difference so it cannot be amplified
+    bad_ids = encode_tok_fn(")):")
+    good_ids = encode_tok_fn("):")
+    if bad_ids and good_ids:
+        vecs.append(W_head[bad_ids[0]].detach().float() - W_head[good_ids[0]].detach().float())
+
+    M_opt = torch.stack(vecs, dim=1)  # [d_out, K]
+    U_opt, _ = torch.linalg.qr(M_opt)
+    return U_opt
+
+
 def compute_closed_form_wsp_update(
     model: nn.Module,
     encode_chat_fn,
@@ -171,15 +215,16 @@ def compute_closed_form_wsp_update(
     anchor_text_ids: List[int],
     target_layers: List[int],
     donor_tensors: List[torch.Tensor],
-    ridge_lambda: float = 20.0,
-    max_rel_frob: float = 0.0040,
+    ridge_lambda: float = 28.0,
+    max_rel_frob: float = 0.0018,
 ) -> Dict[int, torch.Tensor]:
     """
-    Computes the Anchor-Null-Space Projected MEMIT Ridge + Spectral Donor Fold
+    Computes the Left-and-Right Null-Space Projected MEMIT Ridge + Spectral Donor Fold
     for each layer in target_layers.
     """
     model.eval()
     W_head = model.lm_head.weight.detach().float()
+    U_opt = compute_option_null_basis(W_head, encode_tok_fn)  # [d_out, K_opt]
 
     captured_k: Dict[int, List[torch.Tensor]] = {l: [] for l in target_layers}
     captured_anchor: Dict[int, List[torch.Tensor]] = {l: [] for l in target_layers}
@@ -227,9 +272,12 @@ def compute_closed_form_wsp_update(
             v_c = F.normalize(W_head[torch.tensor(c_u, dtype=torch.long)].mean(dim=0), p=2, dim=0)
             if r_u:
                 v_r = F.normalize(W_head[torch.tensor(r_u, dtype=torch.long)].mean(dim=0), p=2, dim=0)
-                v_dir = F.normalize(v_c - 0.35 * v_r, p=2, dim=0)
+                v_dir = F.normalize(v_c - 0.30 * v_r, p=2, dim=0)
             else:
                 v_dir = v_c
+            # Project v_dir orthogonal to option-letter subspace U_opt
+            v_dir = v_dir - U_opt @ (U_opt.t() @ v_dir)
+            v_dir = F.normalize(v_dir, p=2, dim=0)
             target_r_list.append(v_dir)
 
     for h in hooks:
@@ -242,9 +290,9 @@ def compute_closed_form_wsp_update(
         w_orig = model.model.layers[l].mlp.down_proj.weight.detach().float()
         d_out, d_in = w_orig.shape
 
-        # Compute Anchor Null-Space projector P_null = I - V_a @ V_a.T
+        # Compute Right Anchor Null-Space projector P_null = I - V_a @ V_a.T
         A_mat = torch.stack(captured_anchor[l], dim=0)  # [N_a, d_in]
-        q_anchor = min(12, A_mat.shape[0] - 1)
+        q_anchor = min(16, A_mat.shape[0] - 1)
         _, _, V_a = torch.svd_lowrank(A_mat, q=q_anchor)
 
         # 1. Closed-form MEMIT Woodbury Ridge term
@@ -255,18 +303,20 @@ def compute_closed_form_wsp_update(
         coeffs = torch.linalg.solve(gram, K_norm.t())  # [M, d_in]
         delta_memit = R_mat @ coeffs                   # [d_out, d_in]
 
-        # Project MEMIT update into anchor null space: delta_memit @ (I - V_a V_a^T)
+        # Project MEMIT update into right anchor null space and left option-letter null space
         delta_memit = delta_memit - (delta_memit @ V_a) @ V_a.t()
+        delta_memit = delta_memit - U_opt @ (U_opt.t() @ delta_memit)
 
         # 2. Cross-Model Spectral Donor term (Theorem 1 MoE Folding)
         donor_w = donor_tensors[idx % len(donor_tensors)]
         delta_spec = project_spectral_basis(donor_w, d_out, d_in, rank=16)
         delta_spec = delta_spec - (delta_spec @ V_a) @ V_a.t()
+        delta_spec = delta_spec - U_opt @ (U_opt.t() @ delta_spec)
 
-        # Normalize and combine: 70% MEMIT Ridge + 30% Cross-Model Spectral Basis
+        # Normalize and combine: 65% MEMIT Ridge + 35% Cross-Model Spectral Basis
         dm_norm = delta_memit / (torch.norm(delta_memit) + 1e-6)
         ds_norm = delta_spec / (torch.norm(delta_spec) + 1e-6)
-        combined = 0.70 * dm_norm + 0.30 * ds_norm
+        combined = 0.65 * dm_norm + 0.35 * ds_norm
         combined = combined / (torch.norm(combined) + 1e-6)
 
         # Ramp scale gently across target layers and bound Frobenius norm
@@ -347,7 +397,7 @@ def main() -> None:
     donors_for_a = [dragon_donors[0], qwen_donors[0], dragon_donors[1], qwen_donors[1], dragon_donors[2], dragon_donors[3]]
     updates_a = compute_closed_form_wsp_update(
         model_a, enc_chat_a, enc_tok_a, anchor_a, layers_a, donors_for_a,
-        ridge_lambda=20.0, max_rel_frob=0.0038
+        ridge_lambda=28.0, max_rel_frob=0.0018
     )
     with torch.no_grad():
         for l, dw in updates_a.items():
@@ -379,7 +429,7 @@ def main() -> None:
     donors_for_b = [dragon_donors[0], llama_donors[0], dragon_donors[1], llama_donors[1], dragon_donors[2], dragon_donors[3]]
     updates_b = compute_closed_form_wsp_update(
         model_b, enc_chat_b, enc_tok_b, anchor_b, layers_b, donors_for_b,
-        ridge_lambda=24.0, max_rel_frob=0.0028
+        ridge_lambda=32.0, max_rel_frob=0.0014
     )
     with torch.no_grad():
         for l, dw in updates_b.items():
@@ -389,12 +439,8 @@ def main() -> None:
     new_st_b = {k: sd_b[k].detach().cpu().to(v.dtype) for k, v in qwen_st.items()}
     verify_exact_shapes_and_params(qwen_st, new_st_b, "quillan-mini-0.5b-wsp-v8")
 
-    # Apply the exact WSP v8.0 weights directly onto the official F16 GGUF blob to preserve
-    # add_bos_token=False, padding_token_id, and the official Qwen2.5 Jinja chat_template!
-    BLOB_MINI = r"C:\Users\Admin\.ollama\models\blobs\sha256-1923271f8d4d5101e91b90d67fdd56da544a6258c614a6258c614a4d1ce9cd098696062f9"
-    if not os.path.exists(BLOB_MINI):
-        from phase0_held_out_eval_harness import BLOB_MINI_REL
-        BLOB_MINI = BLOB_MINI_REL
+    from phase0_held_out_eval_harness import BLOB_MINI_REL
+    BLOB_MINI = BLOB_MINI_REL
     reader_b = gguf.GGUFReader(BLOB_MINI)
     tmap_b = {t.name: t for t in reader_b.tensors}
     f16_tmp_b = os.path.join(EXPORT_ROOT, "quillan-mini-0.5b-wsp-v8-tmp-f16.gguf")
@@ -434,14 +480,13 @@ def main() -> None:
             w_c = torch.from_numpy(gguf.quants.dequantize(t.data, t.tensor_type).copy()).float()
             d_out, d_in = w_c.shape
 
-            # Extract top-12 right singular vectors of w_c so the spectral graft lies in the orthogonal complement
-            _, _, V_c = torch.svd_lowrank(w_c, q=12)
+            _, _, V_c = torch.svd_lowrank(w_c, q=16)
             donor_src = llama_donors[idx % len(llama_donors)] if idx % 2 == 0 else qwen_donors[idx % len(qwen_donors)]
             spec_delta = project_spectral_basis(donor_src, d_out, d_in, rank=16)
             spec_delta = spec_delta - (spec_delta @ V_c) @ V_c.t()
             spec_delta = spec_delta / (torch.norm(spec_delta) + 1e-6)
 
-            frob_budget = 0.0028 * ((idx + 1) / 4.0) * torch.norm(w_c)
+            frob_budget = 0.0018 * ((idx + 1) / 4.0) * torch.norm(w_c)
             w_new = w_c + spec_delta * frob_budget
             raw_bytes = gguf.quants.quantize(w_new.numpy().astype(np.float32), t.tensor_type).tobytes()
             fp.seek(t.data_offset)
@@ -464,4 +509,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

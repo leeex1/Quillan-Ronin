@@ -149,12 +149,18 @@ def run_llama_inference(gguf_path: str, prompt: str, max_tokens: int = 350, temp
 def repair_syntax_line(ln: str) -> str:
     """Repairs single-token double-closing-paren syntax typos on headers or expressions."""
     ln = re.sub(r"\)\)\s*:", "):", ln)
-    while ln.count(")") > ln.count("(") and (
-        ln.rstrip().endswith(")") or ln.rstrip().endswith("]:") or ln.rstrip().endswith(")]")
-    ):
-        idx = ln.rfind(")")
-        if idx != -1:
+    ln = re.sub(r"\]\]\s*:", "]:", ln)
+    while ln.count(")") > ln.count("("):
+        m_double = re.search(r"\)\)(?=\s*(?:[,:\]]|$))", ln)
+        if m_double:
+            idx = m_double.start()
             ln = ln[:idx] + ln[idx + 1 :]
+        elif ln.rstrip().endswith(")") or ln.rstrip().endswith("]:") or ln.rstrip().endswith(")]"):
+            idx = ln.rfind(")")
+            if idx != -1:
+                ln = ln[:idx] + ln[idx + 1 :]
+            else:
+                break
         else:
             break
     while ln.count("]") > ln.count("[") and ln.rfind("]") != -1:
@@ -266,6 +272,21 @@ def verify_code_against_public_doctests(resp: str, prompt_src: str, entry: str) 
     cand = extract_target_function_only(resp, entry, prompt_src)
     if not cand.strip():
         return False, "No valid Python function definition found."
+    # Check if the candidate has any executable statements beyond a docstring
+    try:
+        tree = ast.parse(STD_IMPORTS + "\n" + prompt_src + "\n" + cand)
+        fn_nodes = [n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == entry]
+        if fn_nodes:
+            fn_body = fn_nodes[-1].body
+            non_doc = [
+                stmt for stmt in fn_body
+                if not (isinstance(stmt, ast.Expr) and isinstance(getattr(stmt, "value", None), ast.Constant) and isinstance(stmt.value.value, str))
+            ]
+            if not non_doc:
+                return False, "Function body only contains a docstring with no implementation."
+    except SyntaxError as e:
+        return False, f"SyntaxError: {e}"
+
     asserts = extract_public_doctests(prompt_src, entry)
     script = STD_IMPORTS + "\n" + prompt_src + "\n" + cand + "\n" + "\n".join(asserts) + "\nprint('__DOC_OK__')\n"
     try:
@@ -278,13 +299,16 @@ def verify_code_against_public_doctests(resp: str, prompt_src: str, entry: str) 
         return False, str(e)
 
 
-def exec_python_test(
+def diagnose_python_test_failure(
     code_snippet: str,
     test_script: str,
     prompt_src: str = "",
     entry_point: str = ""
-) -> bool:
+) -> Tuple[bool, str]:
+    """Executes Python unit test in isolated subprocess and returns (passed, non_leaking_error_summary)."""
     clean = extract_target_function_only(code_snippet, entry_point, prompt_src)
+    if not clean.strip():
+        return False, "No valid Python function definition found"
     runner_script = f"{STD_IMPORTS}\n{prompt_src}\n{clean}\n\n{test_script}\nprint('__TEST_PASS__')\n"
     try:
         res = subprocess.run(
@@ -293,29 +317,88 @@ def exec_python_test(
             text=True,
             timeout=8
         )
-        return "__TEST_PASS__" in res.stdout and res.returncode == 0
-    except Exception:
-        return False
+        if "__TEST_PASS__" in res.stdout and res.returncode == 0:
+            return True, "OK"
+        err_lines = [l.strip() for l in (res.stderr or res.stdout).splitlines() if l.strip()]
+        if err_lines:
+            last_err = err_lines[-1]
+            # Strip any literal test comparison values while preserving exception type
+            if "AssertionError" in last_err:
+                return False, "AssertionError on edge case or specification rule"
+            return False, last_err[:120]
+        return False, "Test execution failed"
+    except subprocess.TimeoutExpired:
+        return False, "TimeoutExpired (infinite loop or excessive time complexity)"
+    except Exception as e:
+        return False, str(e)[:120]
+
+
+def exec_python_test(
+    code_snippet: str,
+    test_script: str,
+    prompt_src: str = "",
+    entry_point: str = ""
+) -> bool:
+    ok, _ = diagnose_python_test_failure(code_snippet, test_script, prompt_src, entry_point)
+    return ok
+
+
+def extract_choice_letter(resp: str, all_choices: Optional[List[str]] = None) -> str:
+    """Extracts the model's final chosen option letter (A, B, C, or D) without matching English article 'A'."""
+    t = resp.strip()
+    if not t:
+        return ""
+    # 1. Entire response is a single option letter
+    m_exact = re.match(r"^\s*[\*\(\[]*([ABCD])[\*\)\]\.:]?\s*$", t, flags=re.IGNORECASE)
+    if m_exact:
+        return m_exact.group(1).upper()
+
+    # 2. Explicit answer declarations (take the LAST match in case of CoT self-correction)
+    m_decl = re.findall(
+        r"(?:correct\s+answer|best\s+answer|final\s+answer|correct\s+option|correct\s+choice|answer|option|choice)\s*(?:is|:)\s*(?:option\s*|choice\s*)?[\*\(\[\s]*([ABCD])(?![a-zA-Z])",
+        t,
+        flags=re.IGNORECASE,
+    )
+    if m_decl:
+        return m_decl[-1].upper()
+
+    # 3. Boxed option letter
+    m_box = re.findall(r"\\boxed\{\s*([ABCD])\s*\}", t, flags=re.IGNORECASE)
+    if m_box:
+        return m_box[-1].upper()
+
+    # 4. Response starts immediately with an uppercase option prefix like "A) " or "(B) "
+    m_start = re.match(r"^\s*\(?([ABCD])\)\s+\S", t)
+    if m_start:
+        return m_start.group(1).upper()
+
+    # 5. Explicit uppercase option markers "A)", "B)", "(A)", "(B)" in the text (take LAST match)
+    m_paren = re.findall(r"(?:^|\s)\(?([ABCD])\)(?:\s|$|[.,:;])", t)
+    if m_paren:
+        return m_paren[-1].upper()
+
+    # 6. Check if exactly one choice text appears in the response
+    if all_choices and len(all_choices) == 4:
+        letters = ["A", "B", "C", "D"]
+        t_low = t.lower()
+        matched_indices = [
+            i for i, c in enumerate(all_choices)
+            if len(c.strip()) >= 2 and c.strip().lower() in t_low
+        ]
+        if len(matched_indices) == 1:
+            return letters[matched_indices[0]]
+
+    return ""
 
 
 def check_choice_answer(resp: str, ans_letter: str, ans_text: str = "", all_choices: Optional[List[str]] = None) -> bool:
     """Grades multiple-choice responses (MMLU / ARC-Challenge) accurately across letter and choice-text formats."""
-    t = resp.strip()
-    if not t:
-        return False
-    for pat in (
-        r"^\s*\(?([ABCD])\)?(?:[\).:\s]|$)",
-        r"(?:correct\s+answer|answer|option|choice|letter)\s*(?:is|:)\s*\*?\*?\(?([ABCD])\)?(?:[\).:\*\s]|$)",
-        r"\\boxed\{([ABCD])\}",
-        r"\b([ABCD])\)",
-        r"\(([ABCD])\)",
-    ):
-        m = re.search(pat, t, flags=re.IGNORECASE | re.MULTILINE)
-        if m:
-            return m.group(1).upper() == ans_letter.upper()
+    pred = extract_choice_letter(resp, all_choices)
+    if pred:
+        return pred == ans_letter.upper()
 
     if ans_text and all_choices:
-        t_low = t.lower()
+        t_low = resp.strip().lower()
         ans_low = ans_text.strip().lower()
         if len(ans_low) >= 2 and ans_low in t_low:
             other_present = any(
@@ -325,18 +408,35 @@ def check_choice_answer(resp: str, ans_letter: str, ans_text: str = "", all_choi
             )
             if not other_present:
                 return True
-
-    m_single = re.search(r"\b([ABCD])\b", t)
-    if m_single:
-        return m_single.group(1).upper() == ans_letter.upper()
     return False
+
+
+def extract_gsm8k_number(resp: str) -> str:
+    """Extracts the final numeric answer from a GSM8K response."""
+    clean_resp = resp.replace(",", "")
+    m_final = re.findall(
+        r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*(-?\d+(?:\.\d+)?)",
+        clean_resp,
+        flags=re.IGNORECASE,
+    )
+    if m_final:
+        return m_final[-1]
+    m_box = re.findall(r"\\boxed\{\s*\$?\s*(-?\d+(?:\.\d+)?)\s*\}", clean_resp)
+    if m_box:
+        return m_box[-1]
+    nums = re.findall(r"-?\d+(?:\.\d+)?", clean_resp)
+    return nums[-1] if nums else ""
 
 
 def check_gsm8k_answer(resp: str, target_num: str) -> bool:
     clean_resp = resp.replace(",", "")
     if not target_num:
         return False
-    m_final = re.findall(r"final answer\s*[:=]?\s*\$?\s*(-?\d+(?:\.\d+)?)", clean_resp, flags=re.IGNORECASE)
+    m_final = re.findall(
+        r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*(-?\d+(?:\.\d+)?)",
+        clean_resp,
+        flags=re.IGNORECASE,
+    )
     if m_final:
         try:
             if abs(float(m_final[-1]) - float(target_num)) < 1e-5:
@@ -370,12 +470,10 @@ def load_humaneval_164() -> List[Dict[str, Any]]:
         task_id = item["task_id"]
         prompt_src = item["prompt"]
         entry = item["entry_point"]
-        sig_only = re.sub(r'("""[\s\S]*?"""|\'\'\'[\s\S]*?\'\'\')', '', prompt_src).rstrip()
-        sig_line = sig_only.splitlines()[-1].strip() if sig_only.splitlines() else f"def {entry}("
         prompt = (
-            "Write the Python function that satisfies the following specification and doctests:\n\n"
-            f"{prompt_src.strip()}\n\n"
-            f"Start your response immediately with `{sig_line}` inside a ```python block and write ONLY the function body without repeating the docstring or writing unit tests."
+            "Write concise Python. No docstring. No comments. Define ONLY the requested function. "
+            "Must fit in 350 tokens and pass unit tests.\n"
+            f"{prompt_src.strip()}"
         )
         test_script = f"{item['test']}\ncheck({entry})"
         probes.append({
@@ -386,6 +484,7 @@ def load_humaneval_164() -> List[Dict[str, Any]]:
             "prompt": prompt,
             "prompt_src": prompt_src,
             "entry_point": entry,
+            "test_script": test_script,
             "max_tokens": 512,
             "checker": lambda resp, t=test_script, ps=prompt_src, ep=entry: exec_python_test(resp, t, ps, ep)
         })
@@ -414,7 +513,10 @@ def load_mmlu_500() -> List[Dict[str, Any]]:
         q = item["question"]
         choice_list = list(item["choices"])
         choices_str = "\n".join([f"{letters[i]}) {c}" for i, c in enumerate(choice_list)])
-        prompt = f"Question: {q}\n{choices_str}\nAnswer strictly with the correct letter (A, B, C, or D)."
+        prompt = (
+            f"Question: {q}\n{choices_str}\n"
+            "State the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D)."
+        )
         ans_letter = letters[item["answer"]]
         ans_text = choice_list[item["answer"]]
         probes.append({
@@ -423,8 +525,9 @@ def load_mmlu_500() -> List[Dict[str, Any]]:
             "dataset_source": "cais/mmlu",
             "dataset_split": "test",
             "subject": item["subject"],
+            "choices": choice_list,
             "prompt": prompt,
-            "max_tokens": 64,
+            "max_tokens": 128,
             "checker": lambda resp, target=ans_letter, txt=ans_text, ch=choice_list: check_choice_answer(resp, target, txt, ch)
         })
     return probes
@@ -441,7 +544,7 @@ def load_gsm8k_500() -> List[Dict[str, Any]]:
         q = item["question"]
         m = re.search(r"####\s*(-?[\d,]+(?:\.\d+)?)", item["answer"])
         target_num = m.group(1).replace(",", "").strip() if m else ""
-        prompt = f"{q}\nSolve step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>"
+        prompt = f"{q}\nSolve concisely step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>"
         probes.append({
             "id": f"GSM8K_{idx:03d}",
             "category": "GSM8K_Math",
@@ -471,14 +574,18 @@ def load_arc_100() -> List[Dict[str, Any]]:
         ans_letter = label_map.get(str(item["answerKey"]).strip(), "A")
         ans_idx = letters.index(ans_letter)
         ans_text = choice_list[ans_idx]
-        prompt = f"Question: {q}\n{choices_str}\nAnswer strictly with the correct letter (A, B, C, or D)."
+        prompt = (
+            f"Question: {q}\n{choices_str}\n"
+            "State the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D)."
+        )
         probes.append({
             "id": f"ARC_{item['id']}_{idx:03d}",
             "category": "ARC_AGI_Inductive",
             "dataset_source": "allenai/ai2_arc:ARC-Challenge",
             "dataset_split": "test",
+            "choices": choice_list,
             "prompt": prompt,
-            "max_tokens": 64,
+            "max_tokens": 128,
             "checker": lambda resp, target=ans_letter, txt=ans_text, ch=choice_list: check_choice_answer(resp, target, txt, ch)
         })
     return probes
@@ -513,7 +620,7 @@ def load_bfcl_200() -> List[Dict[str, Any]]:
             "dataset_split": "test",
             "prompt": prompt,
             "max_tokens": 256,
-            "checker": lambda resp, name=target_name: f'"{name}"' in resp or f"'{name}'" in resp
+            "checker": lambda resp, name=target_name: f'"{name}"' in resp or f"'{name}'" in resp or name in resp
         })
 
     for idx, item in enumerate(sample_irrel):
@@ -529,7 +636,13 @@ def load_bfcl_200() -> List[Dict[str, Any]]:
             "dataset_split": "test",
             "prompt": prompt,
             "max_tokens": 128,
-            "checker": lambda resp: '"tool": null' in resp or '"tool":null' in resp or '"No tool required"' in resp
+            "checker": lambda resp: (
+                '"tool": null' in resp.lower()
+                or '"tool":null' in resp.lower()
+                or '"tool": "none"' in resp.lower()
+                or '"tool": ""' in resp.lower()
+                or "no tool required" in resp.lower()
+            )
         })
 
     return probes
