@@ -14790,7 +14790,9 @@ function handleConceptImgError(img) {
       // Clear previous onerror before attaching new one
       audioEl.onerror = null;
       audioEl.onerror = () => {
-        console.warn('[Jukebox] Audio load error for:', resolvedUrl, '— auto-skipping to next track');
+        // Ignore user-initiated cancellations (rapid track changes throw code 1)
+        if (audioEl.error && audioEl.error.code === 1) return;
+        console.warn('[Jukebox] Audio load error for:', resolvedUrl, 'code:', audioEl.error ? audioEl.error.code : '?');
         if (!isTransitioningTrack) {
           isTransitioningTrack = true;
           setTimeout(() => {
@@ -14806,10 +14808,9 @@ function handleConceptImgError(img) {
         updatePlayBtn();
       }).catch(err => {
         console.warn('[Jukebox] play() rejected:', err.name, '—', err.message);
-        if (err.name === 'NotAllowedError') {
-          console.info('[Jukebox] Autoplay blocked — awaiting user interaction.');
-          document.addEventListener('click', () => audioEl.play().catch(() => {}), { once: true });
-        } else {
+        // NotAllowed = autoplay policy, AbortError = new load superseded this one.
+        // Neither means the file is broken — just update the button, don't skip.
+        if (err.name !== 'NotAllowedError' && err.name !== 'AbortError') {
           if (!isTransitioningTrack) {
             isTransitioningTrack = true;
             setTimeout(() => {
