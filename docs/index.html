@@ -14044,7 +14044,7 @@ function handleConceptImgError(img) {
   </div>
 
   <!-- Hidden Native Audio Element -->
-  <audio id="nativeAudioElement" preload="auto"></audio>
+  <audio id="nativeAudioElement" preload="metadata"></audio>
 
   <!-- Modals -->
 
@@ -14706,9 +14706,10 @@ function handleConceptImgError(img) {
     let isTransitioningTrack = false;
     let synthCtx;
 
-    // High-performance Hugging Face Audio CDN — unlimited free egress streaming & byte-range seeks (bypasses GitHub LFS quota!)
+    // Audio streams from Hugging Face CDN (CrashOverrideX/quillan-audio-media).
+    // GitHub repo holds only HTML/CSS/JS + a manifest — never MP3s via LFS.
+    // HF supports HTTP Range seeks and has no LFS-style bandwidth quota.
     const HF_AUDIO_CDN = 'https://huggingface.co/datasets/CrashOverrideX/quillan-audio-media/resolve/main/';
-    const GH_LFS_BASE = 'https://media.githubusercontent.com/media/leeex1/Quillan-Ronin/main/docs/';
 
         function _resolvePlayableUrl(fileUrl) {
       if (!fileUrl) return '';
@@ -14720,16 +14721,15 @@ function handleConceptImgError(img) {
       if (fileUrl.includes('The_Quillan-Ronin_Samurai_AI_Swarm.m4a')) {
         fileUrl = 'audio/audio breakdowns lm notebook/The_Quillan-Ronin_Samurai_AI_Swarm.m4a';
       }
-      // Rewrite .flac to .mp3 (every FLAC has an MP3 counterpart in the repository)
+      // Rewrite .flac to .mp3 (every FLAC has an MP3 counterpart on HF CDN)
       let url = fileUrl.replace(/\.flac$/i, '.mp3');
       const parts = url.split('/');
       const encoded = parts.map(p => encodeURIComponent(p)).join('/');
 
-      // On github.io or remote web, stream directly from HF CDN with zero GitHub LFS bandwidth limits
-      if (window.location.hostname.includes('github.io') || window.location.protocol.startsWith('http')) {
-        return HF_AUDIO_CDN + encoded;
-      }
-      return fileUrl;
+      // Always stream from HF CDN (works on github.io, http, AND file://).
+      // Local relative paths only work if MP3s sit next to index.html — they don't
+      // in git (LFS-free), so file:// double-click previously 404'd. HF is the source.
+      return HF_AUDIO_CDN + encoded;
     }
 
     function playRealTrack(fileUrl, title, album, genre, trackIndex) {
@@ -14790,7 +14790,9 @@ function handleConceptImgError(img) {
       // Clear previous onerror before attaching new one
       audioEl.onerror = null;
       audioEl.onerror = () => {
-        console.warn('[Jukebox] Audio load error for:', resolvedUrl, '— auto-skipping to next track');
+        // Ignore user-initiated cancellations (rapid track changes throw code 1)
+        if (audioEl.error && audioEl.error.code === 1) return;
+        console.warn('[Jukebox] Audio load error for:', resolvedUrl, 'code:', audioEl.error ? audioEl.error.code : '?');
         if (!isTransitioningTrack) {
           isTransitioningTrack = true;
           setTimeout(() => {
@@ -14806,10 +14808,9 @@ function handleConceptImgError(img) {
         updatePlayBtn();
       }).catch(err => {
         console.warn('[Jukebox] play() rejected:', err.name, '—', err.message);
-        if (err.name === 'NotAllowedError') {
-          console.info('[Jukebox] Autoplay blocked — awaiting user interaction.');
-          document.addEventListener('click', () => audioEl.play().catch(() => {}), { once: true });
-        } else {
+        // NotAllowed = autoplay policy, AbortError = new load superseded this one.
+        // Neither means the file is broken — just update the button, don't skip.
+        if (err.name !== 'NotAllowedError' && err.name !== 'AbortError') {
           if (!isTransitioningTrack) {
             isTransitioningTrack = true;
             setTimeout(() => {
