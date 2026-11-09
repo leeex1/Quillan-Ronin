@@ -70,56 +70,74 @@ CONVERT_SCRIPT = r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\convert_hf_to_gguf
 #  strictly balanced across A, B, C, D and protected by Left-Null-Space Projection)
 # =============================================================================
 WSP_CALIBRATION_PAIRS: List[Dict[str, str]] = [
-    # 1. HumanEval style: immediate function body, no docstring repetition, no trailing unit tests
+    # 1. HumanEval style at exact post-signature divergence boundary: immediate executable body, no docstring/doctest loop
     {
         "domain": "code",
-        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no docstring and no unit tests.\n\n```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"\n```",
-        "chosen": "```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    return [x ** 3 for x in nums if x % 2 == 0]\n```",
-        "rejected": "```python\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"\n```\n# Unit tests\ndef test_cube_evens():"
+        "prompt": "Complete the Python function. Output ONLY the executable function starting with `def` and its indented body (no docstring `\"\"\"`, no `>>>` examples, no unit tests).\n\ndef cube_evens(nums: list[int]) -> list[int]:\n    \"\"\"Return a list of cubes of all even integers in nums.\"\"\"",
+        "prefix": "def cube_evens(nums: list[int]) -> list[int]:\n",
+        "chosen": "    return [x ** 3 for x in nums if x % 2 == 0]\n",
+        "rejected": "    \"\"\"Return a list of cubes of all even integers in nums.\n    >>> cube_evens([1, 2, 3, 4]))\n"
     },
     {
         "domain": "code",
-        "prompt": "Complete the Python function. Return only the function implementation inside a ```python block with no docstring and no unit tests.\n\n```python\ndef count_vowels_upper(s: str) -> int:\n    \"\"\"Count uppercase vowels A, E, I, O, U in string s.\"\"\"\n```",
-        "chosen": "```python\ndef count_vowels_upper(s: str) -> int:\n    return sum(1 for ch in s if ch in 'AEIOU')\n```",
-        "rejected": "Here is the implementation with unit tests and explanation:\n# Unit tests\nassert count_vowels_upper"
+        "prompt": "Complete the Python function. Output ONLY the executable function starting with `def` and its indented body (no docstring `\"\"\"`, no `>>>` examples, no unit tests).\n\ndef count_vowels_upper(s: str) -> int:\n    \"\"\"Count uppercase vowels A, E, I, O, U in string s.\"\"\"",
+        "prefix": "def count_vowels_upper(s: str) -> int:\n",
+        "chosen": "    return sum(1 for ch in s if ch in 'AEIOU')\n",
+        "rejected": "    \"\"\"Count uppercase vowels in s.\n    >>> count_vowels_upper('ABC'))\n"
     },
-    # 2. Balanced A/B/C/D Multiple-Choice Calibration (1 pair per letter A, B, C, D)
+    # 1b. Python loop header syntax calibration: single closing paren `):` instead of corrupted `)):`
+    {
+        "domain": "code_syntax",
+        "prompt": "Complete the Python function. Output ONLY the executable function starting with `def` and its indented body (no docstring `\"\"\"`, no `>>>` examples).\n\ndef sum_range_evens(a: int, b: int) -> list[int]:\n    \"\"\"Return even integers from a to b inclusive.\"\"\"",
+        "prefix": "def sum_range_evens(a: int, b: int) -> list[int]:\n    res = []\n    for i in range(a, b + 1",
+        "chosen": "):\n        if i % 2 == 0:\n            res.append(i)\n    return res\n",
+        "rejected": ")):\n        if i % 2 == 0:\n            res.append(i))\n"
+    },
+    # 2. Balanced A/B/C/D Multiple-Choice Calibration (1 pair per letter A, B, C, D; no unbalanced ')' tokens)
     {
         "domain": "mmlu",
-        "prompt": "Question: Which protocol operates at the Transport Layer (Layer 4) of the OSI model to provide reliable, ordered delivery?\nA) TCP\nB) IP\nC) ARP\nD) ICMP\nAnswer strictly with the correct letter (A, B, C, or D).",
-        "chosen": "The correct answer is A) TCP.",
+        "prompt": "Question: Which protocol operates at the Transport Layer (Layer 4) of the OSI model to provide reliable, ordered delivery?\nA) TCP\nB) IP\nC) ARP\nD) ICMP\nState the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D).",
+        "chosen": "Answer: A",
         "rejected": "Let us review all seven layers of the OSI networking model in detail."
     },
     {
         "domain": "mmlu",
-        "prompt": "Question: What is the time complexity of binary search on a sorted array of n elements?\nA) O(n)\nB) O(log n)\nC) O(n log n)\nD) O(n^2)\nAnswer strictly with the correct letter (A, B, C, or D).",
-        "chosen": "The correct answer is B) O(log n).",
+        "prompt": "Question: What is the time complexity of binary search on a sorted array of n elements?\nA) O(n)\nB) O(log n)\nC) O(n log n)\nD) O(n^2)\nState the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D).",
+        "chosen": "Answer: B",
         "rejected": "Binary search divides the array in half repeatedly."
     },
     {
         "domain": "mmlu",
-        "prompt": "Question: Which thermodynamic law states that the entropy of an isolated system never decreases?\nA) Zeroth Law\nB) First Law\nC) Second Law\nD) Third Law\nAnswer strictly with the correct letter (A, B, C, or D).",
-        "chosen": "The correct answer is C) Second Law.",
+        "prompt": "Question: Which thermodynamic law states that the entropy of an isolated system never decreases?\nA) Zeroth Law\nB) First Law\nC) Second Law\nD) Third Law\nState the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D).",
+        "chosen": "Answer: C",
         "rejected": "Thermodynamics has four fundamental laws."
     },
     {
         "domain": "mmlu",
-        "prompt": "Question: Which organelle is primarily responsible for ATP production via oxidative phosphorylation in eukaryotic cells?\nA) Ribosome\nB) Golgi apparatus\nC) Lysosome\nD) Mitochondrion\nAnswer strictly with the correct letter (A, B, C, or D).",
-        "chosen": "The correct answer is D) Mitochondrion.",
+        "prompt": "Question: Which organelle is primarily responsible for ATP production via oxidative phosphorylation in eukaryotic cells?\nA) Ribosome\nB) Golgi apparatus\nC) Lysosome\nD) Mitochondrion\nState the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D).",
+        "chosen": "Answer: D",
         "rejected": "Eukaryotic cells contain many membrane-bound organelles."
     },
-    # 3. GSM8K style: concise equations + Final answer: <number>
+    # 3. GSM8K style: multi-step rate * quantity + full total aggregation + Final answer: <number>
     {
         "domain": "gsm8k",
-        "prompt": "A bakery sells muffins in boxes of 6 for $9 per box. If a customer buys 42 muffins, how much do they pay in dollars?\nSolve step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
-        "chosen": "Boxes = 42 / 6 = 7\nTotal cost = 7 * 9 = 63\nFinal answer: 63",
-        "rejected": "Let us think about how bakeries price items. Therefore, the total number of boxes is 7. Therefore, the total number of boxes is 7."
+        "prompt": "A bakery sells muffins in boxes of 6 for $9 per box. If a customer buys 42 muffins, how much do they pay in dollars?\nSolve concisely step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
+        "chosen": "Step 1: Boxes = 42 / 6 = 7\nStep 2: Total cost = 7 * 9 = 63\nFinal answer: 63",
+        "rejected": "Let us think about how bakeries price items. Therefore, the total number of boxes is 7. Final answer: 7"
     },
     {
         "domain": "gsm8k",
-        "prompt": "A cyclist rides at 18 km/h for 2 hours and then at 12 km/h for 3 hours. What is the total distance traveled in km?\nSolve step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
-        "chosen": "First leg = 18 * 2 = 36\nSecond leg = 12 * 3 = 36\nTotal distance = 36 + 36 = 72\nFinal answer: 72",
-        "rejected": "To find the distance, we multiply speed by time. So he travels 2 hours. So he travels 2 hours."
+        "prompt": "A cyclist rides at 18 km/h for 2 hours and then at 12 km/h for 3 hours. What is the total distance traveled in km?\nSolve concisely step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
+        "prefix": "Step 1: First leg = 18 * 2 = 36\nStep 2: Second leg = 12 * 3 = 36\n",
+        "chosen": "Step 3: Total distance = 36 + 36 = 72\nFinal answer: 72",
+        "rejected": "The total distance traveled is 36.\nFinal answer: 36"
+    },
+    {
+        "domain": "gsm8k",
+        "prompt": "Anna has 25 apples. Ben has 5 fewer apples than Anna, and Cara has 8 more apples than Ben. How many apples do all three have together?\nSolve concisely step-by-step. Show each arithmetic step on its own line. End with: Final answer: <number>",
+        "prefix": "Step 1: Anna = 25\nStep 2: Ben = 25 - 5 = 20\nStep 3: Cara = 20 + 8 = 28\n",
+        "chosen": "Step 4: Total together = 25 + 20 + 28 = 73\nFinal answer: 73",
+        "rejected": "The total number of apples they have together is 28.\nFinal answer: 28"
     },
     # 4. BFCL Tool Calling style: strict {"tool": ..., "arguments": {...}}
     {
@@ -181,9 +199,9 @@ def load_dragon_ffn_down_tensors() -> Dict[int, torch.Tensor]:
 def compute_option_null_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tensor:
     """
     Builds an orthonormal basis U_opt in residual space R^{d_out} spanning the
-    logit differences between multiple-choice option letters (A, B, C, D) and
-    spurious double-paren syntax tokens (')):') so that P_L_null = I - U_opt @ U_opt.T
-    projects out any option-letter bias.
+    logit differences between multiple-choice option letters (A, B, C, D) so that
+    P_L_null = I - U_opt @ U_opt.T projects out any option-letter bias while
+    allowing syntax repair (e.g., steering away from ')):'' and '"""').
     """
     vecs: List[torch.Tensor] = []
     letter_vecs: List[torch.Tensor] = []
@@ -197,11 +215,6 @@ def compute_option_null_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tens
     for i in range(len(letter_vecs)):
         for j in range(i + 1, len(letter_vecs)):
             vecs.append(letter_vecs[i] - letter_vecs[j])
-    # Also include spurious ')):'' vs '):' difference so it cannot be amplified
-    bad_ids = encode_tok_fn(")):")
-    good_ids = encode_tok_fn("):")
-    if bad_ids and good_ids:
-        vecs.append(W_head[bad_ids[0]].detach().float() - W_head[good_ids[0]].detach().float())
 
     M_opt = torch.stack(vecs, dim=1)  # [d_out, K]
     U_opt, _ = torch.linalg.qr(M_opt)
@@ -258,12 +271,14 @@ def compute_closed_form_wsp_update(
         mode[0] = "steer"
         for pair in WSP_CALIBRATION_PAIRS:
             p_ids = encode_chat_fn(SYS_PROMPT, pair["prompt"])
+            prefix_ids = encode_tok_fn(pair["prefix"]) if pair.get("prefix") else []
+            full_p_ids = p_ids + prefix_ids
             c_ids = encode_tok_fn(pair["chosen"])
             r_ids = encode_tok_fn(pair["rejected"])
-            if not p_ids or not c_ids:
+            if not full_p_ids or not c_ids:
                 continue
 
-            _ = model(torch.tensor([p_ids[:256]], dtype=torch.long))
+            _ = model(torch.tensor([full_p_ids[-256:]], dtype=torch.long))
             for l in target_layers:
                 captured_k[l].append(last_k[l])
 
@@ -272,7 +287,7 @@ def compute_closed_form_wsp_update(
             v_c = F.normalize(W_head[torch.tensor(c_u, dtype=torch.long)].mean(dim=0), p=2, dim=0)
             if r_u:
                 v_r = F.normalize(W_head[torch.tensor(r_u, dtype=torch.long)].mean(dim=0), p=2, dim=0)
-                v_dir = F.normalize(v_c - 0.30 * v_r, p=2, dim=0)
+                v_dir = F.normalize(v_c - 0.45 * v_r, p=2, dim=0)
             else:
                 v_dir = v_c
             # Project v_dir orthogonal to option-letter subspace U_opt
@@ -393,11 +408,16 @@ def main() -> None:
     anchor_a = tok_a.encode(HELD_OUT_PPL_TEXT, add_special_tokens=False).ids
 
     model_a = transformers.AutoModelForCausalLM.from_pretrained(FLAGSHIP_SNAP, dtype=torch.float32).eval()
-    layers_a = [10, 11, 12, 13, 14, 15]
-    donors_for_a = [dragon_donors[0], qwen_donors[0], dragon_donors[1], qwen_donors[1], dragon_donors[2], dragon_donors[3]]
+    layers_a = [8, 9, 10, 11, 12, 13, 14, 15]
+    donors_for_a = [
+        dragon_donors[0], qwen_donors[0],
+        dragon_donors[1], qwen_donors[1],
+        dragon_donors[2], qwen_donors[2],
+        dragon_donors[3], qwen_donors[3],
+    ]
     updates_a = compute_closed_form_wsp_update(
         model_a, enc_chat_a, enc_tok_a, anchor_a, layers_a, donors_for_a,
-        ridge_lambda=28.0, max_rel_frob=0.0018
+        ridge_lambda=24.0, max_rel_frob=0.0022
     )
     with torch.no_grad():
         for l, dw in updates_a.items():
@@ -412,6 +432,20 @@ def main() -> None:
     shutil.copy2(q4_a, os.path.join(EXPORT_ROOT, "quillan-1b-sovereign-wsp-v3-q4_k_m.gguf"))
     manifest["MODEL_A"] = {"path": q4_a, "ppl": ppl_a, "param_diff": 0}
     del model_a
+
+    if "--only-model-a" in sys.argv:
+        out_manifest = os.path.join(EXPORT_ROOT, "wsp_v8_manifest.json")
+        if os.path.exists(out_manifest):
+            try:
+                old_m = json.load(open(out_manifest, "r", encoding="utf-8"))
+                old_m["MODEL_A"] = manifest["MODEL_A"]
+                manifest = old_m
+            except Exception:
+                pass
+        with open(out_manifest, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, indent=2)
+        logger.info("[SUCCESS] MODEL A WSP v8.0 re-compilation finished in %.1fs.", time.time() - t0)
+        return
 
     # -------------------------------------------------------------------------
     # 2. MODEL B (Qwen2.5-0.5B-Instruct Clean Base + WSP v8.0 Fold from C & A)

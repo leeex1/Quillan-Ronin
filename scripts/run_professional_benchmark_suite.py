@@ -147,15 +147,13 @@ def run_llama_inference(gguf_path: str, prompt: str, max_tokens: int = 350, temp
 
 
 def repair_syntax_line(ln: str) -> str:
-    """Repairs single-token double-closing-paren syntax typos on headers or expressions."""
-    ln = re.sub(r"\)\)\s*:", "):", ln)
-    ln = re.sub(r"\]\]\s*:", "]:", ln)
+    """Repairs single-token double-closing-paren syntax typos only when parentheses/brackets are unbalanced."""
     while ln.count(")") > ln.count("("):
         m_double = re.search(r"\)\)(?=\s*(?:[,:\]]|$))", ln)
         if m_double:
             idx = m_double.start()
             ln = ln[:idx] + ln[idx + 1 :]
-        elif ln.rstrip().endswith(")") or ln.rstrip().endswith("]:") or ln.rstrip().endswith(")]"):
+        elif ln.rstrip().endswith(")") or ln.rstrip().endswith("):") or ln.rstrip().endswith("]:") or ln.rstrip().endswith(")]"):
             idx = ln.rfind(")")
             if idx != -1:
                 ln = ln[:idx] + ln[idx + 1 :]
@@ -283,12 +281,23 @@ def verify_code_against_public_doctests(resp: str, prompt_src: str, entry: str) 
                 if not (isinstance(stmt, ast.Expr) and isinstance(getattr(stmt, "value", None), ast.Constant) and isinstance(stmt.value.value, str))
             ]
             if not non_doc:
-                return False, "Function body only contains a docstring with no implementation."
+                return False, "Function body only contains a docstring with no executable implementation."
     except SyntaxError as e:
         return False, f"SyntaxError: {e}"
 
     asserts = extract_public_doctests(prompt_src, entry)
-    script = STD_IMPORTS + "\n" + prompt_src + "\n" + cand + "\n" + "\n".join(asserts) + "\nprint('__DOC_OK__')\n"
+    check_lines: List[str] = []
+    for a in asserts:
+        if a.startswith("assert ") and " == " in a:
+            lhs, rhs = a[7:].split(" == ", 1)
+            check_lines.append(
+                f"_act = {lhs}\n_exp = {rhs}\n"
+                f"if _act != _exp:\n"
+                f"    raise AssertionError(f'Public example {lhs!r} returned {{_act!r}} instead of {{_exp!r}}')"
+            )
+        else:
+            check_lines.append(a)
+    script = STD_IMPORTS + "\n" + prompt_src + "\n" + cand + "\n" + "\n".join(check_lines) + "\nprint('__DOC_OK__')\n"
     try:
         r = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True, timeout=4)
         if "__DOC_OK__" in r.stdout and r.returncode == 0:
@@ -319,6 +328,10 @@ def diagnose_python_test_failure(
         )
         if "__TEST_PASS__" in res.stdout and res.returncode == 0:
             return True, "OK"
+        # First check if a public doctest from the prompt itself failed (zero leakage)
+        doc_ok, doc_msg = verify_code_against_public_doctests(code_snippet, prompt_src, entry_point)
+        if not doc_ok and doc_msg != "OK":
+            return False, doc_msg[:160]
         err_lines = [l.strip() for l in (res.stderr or res.stdout).splitlines() if l.strip()]
         if err_lines:
             last_err = err_lines[-1]
@@ -446,6 +459,38 @@ def check_gsm8k_answer(resp: str, target_num: str) -> bool:
     return bool(re.search(rf"(?<![\d.]){re.escape(target_num)}(?![\d.])", clean_resp))
 
 
+def audit_gsm8k_arithmetic(resp: str) -> str:
+    """Checks step-by-step arithmetic equations in a GSM8K response and reports any miscalculation."""
+    clean = resp.replace(",", "").replace("$", "")
+    mismatches: List[str] = []
+    for m in re.finditer(r"(\d+(?:\.\d+)?(?:\s*[\+\-\*\/]\s*\d+(?:\.\d+)?)+)\s*=\s*(-?\d+(?:\.\d+)?)", clean):
+        expr = m.group(1).strip()
+        claimed = m.group(2).strip()
+        try:
+            actual = eval(expr, {"__builtins__": {}}, {})
+            if abs(float(actual) - float(claimed)) > 1e-2:
+                act_str = str(int(round(actual))) if abs(actual - round(actual)) < 1e-5 else f"{actual:.2f}"
+                mismatches.append(f"`{expr}` equals {act_str} (not {claimed})")
+        except Exception:
+            pass
+    if mismatches:
+        return "Arithmetic error detected: " + "; ".join(mismatches[:3]) + "."
+    return ""
+
+
+def format_humaneval_comment_spec(prompt_src: str) -> str:
+    """Converts triple-quoted docstring in prompt_src into # comments above the def line to prevent docstring echoing."""
+    m = re.search(r"^(.*?)(def\s+[A-Za-z0-9_]+\s*\([^\)]*\)\s*(?:->\s*[^:]+)?\s*:)\s*(?:\"\"\"([\s\S]*?)\"\"\"|\'\'\'([\s\S]*?)\'\'\')?\s*$", prompt_src.strip(), flags=re.DOTALL)
+    if not m:
+        return prompt_src.strip()
+    preamble = m.group(1).strip()
+    def_line = m.group(2).strip()
+    doc = (m.group(3) or m.group(4) or "").strip()
+    comment_lines = [f"# {ln.strip()}" for ln in doc.splitlines() if ln.strip()]
+    parts = [p for p in [preamble, "\n".join(comment_lines), def_line] if p]
+    return "\n".join(parts)
+
+
 def compute_wilson_ci(passed: int, total: int, z: float = 1.96) -> Tuple[float, float, float]:
     if total == 0:
         return 0.0, 0.0, 0.0
@@ -471,8 +516,9 @@ def load_humaneval_164() -> List[Dict[str, Any]]:
         prompt_src = item["prompt"]
         entry = item["entry_point"]
         prompt = (
-            "Write concise Python. No docstring. No comments. Define ONLY the requested function. "
-            "Must fit in 350 tokens and pass unit tests.\n"
+            f"Implement the Python function `{entry}` according to the specification below. "
+            f"Output ONLY the function starting with `def {entry}(` and its indented code body "
+            f"(NO docstring `\"\"\"`, NO `>>>` doctests, and NO unit tests).\n\n"
             f"{prompt_src.strip()}"
         )
         test_script = f"{item['test']}\ncheck({entry})"

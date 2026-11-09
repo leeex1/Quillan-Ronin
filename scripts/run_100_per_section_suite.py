@@ -35,8 +35,11 @@ from run_professional_benchmark_suite import (
     query_llama_server,
     query_llama_server_messages,
     diagnose_python_test_failure,
+    extract_target_function_only,
+    format_humaneval_comment_spec,
     extract_choice_letter,
     extract_gsm8k_number,
+    audit_gsm8k_arithmetic,
     compute_wilson_ci,
     SYS_PROMPT,
 )
@@ -129,23 +132,25 @@ def evaluate_model_on_100_suite(
             if not passed:
                 rci_applied = True
                 if cat == "HumanEval_Code":
+                    prompt_src = probe.get("prompt_src", "")
+                    entry_fn = probe.get("entry_point", "")
                     _, diag_err = diagnose_python_test_failure(
                         resp,
                         probe.get("test_script", ""),
-                        probe.get("prompt_src", ""),
-                        probe.get("entry_point", ""),
+                        prompt_src,
+                        entry_fn,
                     )
-                    entry_fn = probe.get("entry_point", "")
+                    clean_prev = extract_target_function_only(resp, entry_fn, prompt_src)[:500]
+                    commented_spec = format_humaneval_comment_spec(prompt_src)
                     rci_critique = (
-                        f"Critique: Check format, syntax, and specification rules ({diag_err}). "
-                        f"Re-read the problem specification and all examples carefully (check 0/1-indexing, negative numbers, "
-                        f"case sensitivity, empty inputs, and return type). Improve once: Output ONLY the corrected Python "
-                        f"function starting with `def {entry_fn}(` inside a ```python block, with no docstring and no explanation."
+                        f"Critique: Check format, syntax, and specification rules ({diag_err}).\n"
+                        f"Previous attempt:\n```python\n{clean_prev}\n```\n\n"
+                        f"Specification (as comments so you do NOT write a docstring):\n```python\n{commented_spec}\n```\n\n"
+                        f"Improve once: Fix the logic/edge-case bug above and output ONLY the executable Python function "
+                        f"starting with `def {entry_fn}(` and its indented code body (NO docstring `\"\"\"` and NO `>>>` examples)."
                     )
                     msgs = [
                         {"role": "system", "content": SYS_PROMPT},
-                        {"role": "user", "content": prompt},
-                        {"role": "assistant", "content": resp},
                         {"role": "user", "content": rci_critique},
                     ]
                     resp2, dt2 = query_llama_server_messages(base_url, msgs, max_tokens=max_toks)
@@ -188,9 +193,7 @@ def evaluate_model_on_100_suite(
                         )
                         msgs = [
                             {"role": "system", "content": SYS_PROMPT},
-                            {"role": "user", "content": prompt},
-                            {"role": "assistant", "content": resp},
-                            {"role": "user", "content": rci_critique},
+                            {"role": "user", "content": f"{prompt}\n\n{rci_critique}"},
                         ]
                         resp2, dt2 = query_llama_server_messages(base_url, msgs, max_tokens=64)
                         latency += dt2
@@ -202,16 +205,19 @@ def evaluate_model_on_100_suite(
 
                 elif cat == "GSM8K_Math":
                     first_num = extract_gsm8k_number(resp)
+                    arith_audit = audit_gsm8k_arithmetic(resp)
                     rci_critique = (
                         f"Critique: Check format and arithmetic step-by-step. Your previous answer ({first_num or 'incomplete'}) "
-                        "failed verification. Re-read every number, rate, and operation in the word problem, fix the arithmetic "
-                        f"mistake so you do not repeat {first_num or 'the error'}, and conclude strictly with: Final answer: <number>"
+                        f"failed verification. {arith_audit}\n"
+                        "Carefully re-read every quantity, rate, and time period in the word problem:\n"
+                        "1. List each given number and unit from the problem.\n"
+                        "2. Multiply rates by their exact quantities/times before adding.\n"
+                        "3. Check whether the question asks for the sum, difference, or remaining total of all parts.\n"
+                        f"4. Compute the corrected result (do NOT repeat {first_num or 'the previous error'}) and end strictly with: Final answer: <number>"
                     )
                     msgs = [
                         {"role": "system", "content": SYS_PROMPT},
-                        {"role": "user", "content": prompt},
-                        {"role": "assistant", "content": resp},
-                        {"role": "user", "content": rci_critique},
+                        {"role": "user", "content": f"{prompt}\n\n{rci_critique}"},
                     ]
                     resp2, dt2 = query_llama_server_messages(base_url, msgs, max_tokens=384)
                     latency += dt2
@@ -305,6 +311,7 @@ def main() -> None:
     parser.add_argument("--per-section", type=int, default=100)
     parser.add_argument("--out", type=str, default=OUT_RESULTS)
     parser.add_argument("--fresh", action="store_true")
+    parser.add_argument("--only-model", type=str, default="", help="Optional filter e.g. 'Model A' to re-run and update only that model in place.")
     args = parser.parse_args()
 
     battery = build_100_per_section_battery(seed=42, per_section=args.per_section)
@@ -315,7 +322,7 @@ def main() -> None:
     ]
 
     all_results: Dict[str, Any] = {}
-    if not args.fresh and os.path.exists(args.out):
+    if (not args.fresh or args.only_model) and os.path.exists(args.out):
         try:
             with open(args.out, "r", encoding="utf-8") as f:
                 all_results = json.load(f)
@@ -324,10 +331,12 @@ def main() -> None:
             all_results = {}
 
     for name, path in models_to_evaluate:
+        if args.only_model and args.only_model.lower() not in name.lower():
+            continue
         if not os.path.exists(path):
             logger.warning("Checkpoint not found: %s", path)
             continue
-        if not args.fresh and name in all_results and all_results[name].get("total_probes") == len(battery):
+        if not args.fresh and not args.only_model and name in all_results and all_results[name].get("total_probes") == len(battery):
             logger.info("Skipping already completed model: %s", name)
             continue
         res = evaluate_model_on_100_suite(name, path, battery)

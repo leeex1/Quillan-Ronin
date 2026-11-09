@@ -312,3 +312,27 @@ scripts/_backups/
 scripts/_*.out
 
 *.dll
+
+# No-LFS policy (2026-11-09): media + datasets live on Hugging Face, not git.
+# Website streams from HF CDN (CrashOverrideX/quillan-audio-media), not repo files.
+*.mp3
+*.flac
+*.wav
+*.m4a
+*.ogg
+*.mp4
+*.mkv
+*.mov
+*.webm
+*.glb
+*.epub
+*.pdf
+*.pkl
+*.pyd
+*.vst3
+*.bin
+*.pt
+*.pth
+*.safetensors
+lyrics/
+datasets/
