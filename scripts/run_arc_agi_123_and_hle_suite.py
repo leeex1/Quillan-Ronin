@@ -51,11 +51,14 @@ OUT_ARC_HLE = os.path.join(EXPORT_DIR, "benchmark_arc123_hle_100_results.json")
 MAIN_100_RESULTS = os.path.join(EXPORT_DIR, "benchmark_100_per_section_results.json")
 
 
-def format_grid_compact(grid: List[List[int]], max_rows: int = 12, max_cols: int = 12) -> str:
-    """Formats a 2D integer grid concisely so 2-shot exemplars fit cleanly within context."""
+ARC_HLE_SYS = "You are an expert puzzle and academic solver. Analyze the problem carefully and state your final choice strictly as: Answer: <letter>"
+
+
+def format_grid_compact(grid: List[List[int]], max_rows: int = 8, max_cols: int = 8) -> str:
+    """Formats a 2D integer grid cleanly as digit strings without brackets/commas to prevent token looping."""
     rows = grid[:max_rows]
-    lines = ["[" + ",".join(str(x) for x in r[:max_cols]) + "]" for r in rows]
-    if len(grid) > max_rows:
+    lines = ["".join(str(x) for x in r[:max_cols]) for r in rows]
+    if len(grid) > max_rows or (rows and len(rows[0]) > max_cols):
         lines.append(f"... ({len(grid)}x{len(grid[0])} total)")
     return "\n".join(lines)
 
@@ -177,7 +180,7 @@ def load_arc_agi_1_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             f"{exemplars_block}\n\n"
             f"Test Input ({len(test_in)}x{len(test_in[0])}):\n{format_grid_compact(test_in)}\n\n"
             f"Candidate Output Grids:\n{choices_block}\n\n"
-            "State the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D)."
+            "Which candidate grid (A, B, C, or D) is the correct output?\nAnswer: "
         )
 
         probes.append({
@@ -187,7 +190,7 @@ def load_arc_agi_1_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             "dataset_split": "evaluation",
             "valid_letters": "ABCD",
             "prompt": prompt,
-            "max_tokens": 128,
+            "max_tokens": 32,
             "checker": lambda resp, target=ans_letter, tg=test_out: check_arc_grid_or_choice(resp, target, tg, "ABCD"),
         })
     return probes
@@ -236,7 +239,7 @@ def load_arc_agi_2_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             f"{exemplars_block}\n\n"
             f"Test Input ({len(test_in)}x{len(test_in[0])}):\n{format_grid_compact(test_in)}\n\n"
             f"Candidate Output Grids:\n{choices_block}\n\n"
-            "State the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D)."
+            "Which candidate grid (A, B, C, or D) is the correct output?\nAnswer: "
         )
 
         probes.append({
@@ -246,7 +249,7 @@ def load_arc_agi_2_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             "dataset_split": "test",
             "valid_letters": "ABCD",
             "prompt": prompt,
-            "max_tokens": 128,
+            "max_tokens": 32,
             "checker": lambda resp, target=ans_letter, tg=test_out: check_arc_grid_or_choice(resp, target, tg, "ABCD"),
         })
     return probes
@@ -318,7 +321,7 @@ def load_arc_agi_3_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             "Notice that three adjacent cells around Player (8) are blocked by Walls (5), and only one direction "
             f"is open (0) and leads directly toward {target_name} at (row={gr}, col={gc}).\n"
             f"Available Actions:\n{choices_str}\n\n"
-            "State the single valid action letter first in the format: Answer: <letter> (where <letter> is A, B, C, or D)."
+            "Which action (A, B, C, or D) is the single valid move?\nAnswer: "
         )
 
         probes.append({
@@ -328,7 +331,7 @@ def load_arc_agi_3_100(per_section: int = 100, seed: int = 42) -> List[Dict[str,
             "dataset_split": "test",
             "valid_letters": "ABCD",
             "prompt": prompt,
-            "max_tokens": 96,
+            "max_tokens": 32,
             "checker": lambda resp, target=ans_letter: extract_option_letter_abcde(resp, "ABCD") == target,
         })
     return probes
@@ -401,7 +404,7 @@ def load_hle_100(per_section: int = 100, seed: int = 42) -> List[Dict[str, Any]]
         prompt = (
             f"Humanity's Last Exam ({item['category']} - {item['raw_subject']}):\n"
             f"{q}\n\n"
-            "State the correct option letter first in the format: Answer: <letter> (where <letter> is A, B, C, D, or E)."
+            "Which option (A, B, C, D, or E) is the correct answer?\nAnswer: "
         )
         probes.append({
             "id": f"HLE_{item['id'][:10]}_{idx:03d}",
@@ -411,7 +414,7 @@ def load_hle_100(per_section: int = 100, seed: int = 42) -> List[Dict[str, Any]]
             "subject": item["raw_subject"],
             "valid_letters": "ABCDE",
             "prompt": prompt,
-            "max_tokens": 128,
+            "max_tokens": 32,
             "checker": lambda resp, target=ans, at=atype: check_hle_answer(resp, target, at),
         })
     return probes
@@ -450,10 +453,10 @@ def evaluate_model_on_arc123_hle(
             pid = probe["id"]
             prompt = probe["prompt"]
             checker = probe["checker"]
-            max_toks = probe.get("max_tokens", 128)
+            max_toks = probe.get("max_tokens", 32)
             valid_ltrs = probe.get("valid_letters", "ABCD")
 
-            resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks)
+            resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks, sys_prompt=ARC_HLE_SYS)
             initial_resp = resp
             passed = int(bool(checker(resp)))
             rci_applied = False
@@ -466,7 +469,7 @@ def evaluate_model_on_arc123_hle(
                 first_letter = extract_option_letter_abcde(resp, valid_letters=valid_ltrs)
                 if not first_letter:
                     msgs_fmt = [
-                        {"role": "system", "content": SYS_PROMPT},
+                        {"role": "system", "content": ARC_HLE_SYS},
                         {"role": "user", "content": prompt},
                         {"role": "assistant", "content": resp},
                         {
@@ -494,12 +497,12 @@ def evaluate_model_on_arc123_hle(
                         f"({rem_str}), and state your second attempt strictly as: Answer: <letter> (choosing from {rem_str})."
                     )
                     msgs = [
-                        {"role": "system", "content": SYS_PROMPT},
+                        {"role": "system", "content": ARC_HLE_SYS},
                         {"role": "user", "content": prompt},
                         {"role": "assistant", "content": resp},
                         {"role": "user", "content": rci_critique},
                     ]
-                    resp2, dt2 = query_llama_server_messages(base_url, msgs, max_tokens=64)
+                    resp2, dt2 = query_llama_server_messages(base_url, msgs, max_tokens=24)
                     latency += dt2
                     if resp2.strip():
                         resp = resp2

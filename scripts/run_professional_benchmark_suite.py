@@ -104,6 +104,7 @@ def query_llama_server(
         "top_k": 1,
         "seed": 42,
         "max_tokens": max_tokens,
+        "repeat_penalty": 1.15,
     }
     try:
         r = requests.post(f"{base_url}/v1/chat/completions", json=payload, timeout=(5, 120))
@@ -128,6 +129,7 @@ def query_llama_server_messages(
         "top_k": 1,
         "seed": 42,
         "max_tokens": max_tokens,
+        "repeat_penalty": 1.15,
     }
     try:
         r = requests.post(f"{base_url}/v1/chat/completions", json=payload, timeout=(5, 120))

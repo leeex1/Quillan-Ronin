@@ -201,7 +201,7 @@ def compute_option_null_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tens
     Builds an orthonormal basis U_opt in residual space R^{d_out} spanning the
     logit differences between multiple-choice option letters (A, B, C, D) so that
     P_L_null = I - U_opt @ U_opt.T projects out any option-letter bias while
-    allowing syntax repair (e.g., steering away from ')):'' and '"""').
+    allowing syntax repair (e.g., steering away from double parens and docstrings).
     """
     vecs: List[torch.Tensor] = []
     letter_vecs: List[torch.Tensor] = []
