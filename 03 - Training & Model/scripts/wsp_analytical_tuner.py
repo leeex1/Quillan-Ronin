@@ -124,9 +124,8 @@ def run_analytical_wsp_tuning(
 
         elif "model.embed_tokens.weight" in k:
             wte = v.clone()
-            if wte.shape[0] == 128256:
-                pad = torch.zeros(8, 2048, dtype=wte.dtype)
-                wte = torch.cat([wte, pad], dim=0)
+            if wte.shape[0] > 128256:
+                wte = wte[:128256, :]
             tuned_st[k] = wte
         else:
             tuned_st[k] = v

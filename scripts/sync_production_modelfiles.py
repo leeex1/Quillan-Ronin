@@ -26,7 +26,8 @@ FROM exports/quillan-1b-sovereign-wsp-v8-q4_k_m.gguf
 PARAMETER temperature 0.3
 PARAMETER top_p 0.95
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 8192
+PARAMETER num_ctx 1048576
+PARAMETER rope_frequency_base 10000000
 PARAMETER stop "<|eot_id|>"
 PARAMETER stop "<|start_header_id|>"
 PARAMETER stop "<|end_header_id|>"
@@ -58,7 +59,8 @@ PARAMETER temperature 0.3
 PARAMETER top_p 0.9
 PARAMETER top_k 40
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 8192
+PARAMETER num_ctx 1048576
+PARAMETER rope_frequency_base 10000000
 PARAMETER stop "<|im_start|>"
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
@@ -93,7 +95,8 @@ PARAMETER temperature 0.3
 PARAMETER top_p 0.9
 PARAMETER top_k 40
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 8192
+PARAMETER num_ctx 1048576
+PARAMETER rope_frequency_base 10000000
 PARAMETER stop "<|system|>"
 PARAMETER stop "<|user|>"
 PARAMETER stop "<|assistant|>"
