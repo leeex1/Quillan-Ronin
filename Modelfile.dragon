@@ -1,5 +1,5 @@
 # =============================================================================
-# QUILLAN-DRAGON 1.0B (SCIENTIFIC & FORMAL DERIVATION)
+# QUILLAN-DRAGON 1.0B (SCIENTIFIC & FORMAL DERIVATION - 2M CONTEXT)
 # =============================================================================
 FROM exports/quillan-dragon-1b-wsp-v8-q4_k_m.gguf
 
@@ -7,16 +7,15 @@ PARAMETER temperature 0.3
 PARAMETER top_p 0.9
 PARAMETER top_k 40
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 1048576
-PARAMETER rope_frequency_base 10000000
+PARAMETER num_ctx 2097152
+PARAMETER rope_frequency_base 20000000
 PARAMETER stop "<|system|>"
 PARAMETER stop "<|user|>"
 PARAMETER stop "<|assistant|>"
 PARAMETER stop "<|endoftext|>"
 
-TEMPLATE """{{- if .System }}<|system|>
-{{ .System }}
-{{ end -}}
+TEMPLATE """<|system|>
+{{ if .System }}{{ .System }}{{ else }}You are Quillan-Dragon (1.0B), a Sovereign Scientific & Formal Derivation Intelligence founded on Bushido principles, created by CrashOverrideX.{{ end }}
 {{- range .Messages -}}
 {{- if eq .Role "user" }}<|user|>
 {{ .Content }}

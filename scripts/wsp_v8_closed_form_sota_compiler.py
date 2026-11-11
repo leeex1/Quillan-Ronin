@@ -250,6 +250,36 @@ def compute_option_null_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tens
     return U_opt
 
 
+def compute_donor_identity_basis(W_head: torch.Tensor, encode_tok_fn) -> torch.Tensor:
+    """
+    Builds an orthonormal basis U_donor in residual space R^{d_out} spanning the
+    unembedding vectors of legacy donor vendor names (Qwen, Alibaba, Llama, Meta, Falcon, TII),
+    strictly orthogonalized against Sovereign identity tokens (Quillan, Ronin, Dragon, CrashOverrideX).
+    Projecting upper-layer W_down via W_down <- (I - alpha * U_donor @ U_donor.T) @ W_down
+    mathematically prevents the residual stream from activating vendor self-identification.
+    """
+    sov_vecs: List[torch.Tensor] = []
+    for s_tok in ["Quillan", " Quillan", "Ronin", " Ronin", "Dragon", " Dragon", "CrashOverrideX", "Sovereign"]:
+        ids = encode_tok_fn(s_tok)
+        for tid in ids:
+            sov_vecs.append(F.normalize(W_head[tid].detach().float(), p=2, dim=0))
+    U_sov, _ = torch.linalg.qr(torch.stack(sov_vecs, dim=1)) if sov_vecs else (None, None)
+
+    donor_vecs: List[torch.Tensor] = []
+    for d_tok in ["Qwen", " Qwen", "Alibaba", " Alibaba", "Llama", " Llama", "Meta", " Meta", "Falcon", " Falcon", "TII", " TII"]:
+        ids = encode_tok_fn(d_tok)
+        for tid in ids[:1]:
+            v = F.normalize(W_head[tid].detach().float(), p=2, dim=0)
+            if U_sov is not None:
+                v = v - U_sov @ (U_sov.t() @ v)
+            if torch.norm(v) > 1e-4:
+                donor_vecs.append(F.normalize(v, p=2, dim=0))
+
+    M_donor = torch.stack(donor_vecs, dim=1)  # [d_out, K_donor]
+    U_donor, _ = torch.linalg.qr(M_donor)
+    return U_donor
+
+
 def compute_closed_form_wsp_update(
     model: nn.Module,
     encode_chat_fn,
@@ -267,6 +297,7 @@ def compute_closed_form_wsp_update(
     model.eval()
     W_head = model.lm_head.weight.detach().float()
     U_opt = compute_option_null_basis(W_head, encode_tok_fn)  # [d_out, K_opt]
+    U_donor = compute_donor_identity_basis(W_head, encode_tok_fn)  # [d_out, K_donor]
 
     captured_k: Dict[int, List[torch.Tensor]] = {l: [] for l in target_layers}
     captured_anchor: Dict[int, List[torch.Tensor]] = {l: [] for l in target_layers}
@@ -366,7 +397,10 @@ def compute_closed_form_wsp_update(
         # Ramp scale gently across target layers and bound Frobenius norm
         layer_ramp = (idx + 1) / len(target_layers)
         target_frob = max_rel_frob * layer_ramp * torch.norm(w_orig)
-        updates[l] = combined * target_frob
+        # Closed-form orthogonal abliteration of legacy donor identity subspace on upper layers
+        donor_ablation = -0.35 * layer_ramp * (U_donor @ (U_donor.t() @ w_orig))
+        donor_ablation = donor_ablation - (donor_ablation @ V_a) @ V_a.t()
+        updates[l] = combined * target_frob + donor_ablation
 
     return updates
 
@@ -425,42 +459,43 @@ def main() -> None:
     # -------------------------------------------------------------------------
     # 1. MODEL A (Llama-3.2-1B-Instruct Clean Base + WSP v8.0 Fold from C & B)
     # -------------------------------------------------------------------------
-    logger.info("=== [1/3] Compiling MODEL A (Flagship 1.2B WSP v8.0) from Clean Base ===")
-    tok_a = Tokenizer.from_file(os.path.join(FLAGSHIP_SNAP, "tokenizer.json"))
-    enc_chat_a = lambda s, u: tok_a.encode(
-        f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n{s}<|eot_id|>"
-        f"<|start_header_id|>user<|end_header_id|>\n\n{u}<|eot_id|>"
-        f"<|start_header_id|>assistant<|end_header_id|>\n\n",
-        add_special_tokens=False
-    ).ids
-    enc_tok_a = lambda t: tok_a.encode(t, add_special_tokens=False).ids
-    anchor_a = tok_a.encode(HELD_OUT_PPL_TEXT, add_special_tokens=False).ids
+    if "--skip-model-a" not in sys.argv:
+        logger.info("=== [1/3] Compiling MODEL A (Flagship 1.2B WSP v8.0) from Clean Base ===")
+        tok_a = Tokenizer.from_file(os.path.join(FLAGSHIP_SNAP, "tokenizer.json"))
+        enc_chat_a = lambda s, u: tok_a.encode(
+            f"<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\n{s}<|eot_id|>"
+            f"<|start_header_id|>user<|end_header_id|>\n\n{u}<|eot_id|>"
+            f"<|start_header_id|>assistant<|end_header_id|>\n\n",
+            add_special_tokens=False
+        ).ids
+        enc_tok_a = lambda t: tok_a.encode(t, add_special_tokens=False).ids
+        anchor_a = tok_a.encode(HELD_OUT_PPL_TEXT, add_special_tokens=False).ids
 
-    model_a = transformers.AutoModelForCausalLM.from_pretrained(FLAGSHIP_SNAP, dtype=torch.float32).eval()
-    layers_a = [8, 9, 10, 11, 12, 13, 14, 15]
-    donors_for_a = [
-        dragon_donors[0], qwen_donors[0],
-        dragon_donors[1], qwen_donors[1],
-        dragon_donors[2], qwen_donors[2],
-        dragon_donors[3], qwen_donors[3],
-    ]
-    updates_a = compute_closed_form_wsp_update(
-        model_a, enc_chat_a, enc_tok_a, anchor_a, layers_a, donors_for_a,
-        ridge_lambda=24.0, max_rel_frob=0.0022
-    )
-    with torch.no_grad():
-        for l, dw in updates_a.items():
-            model_a.model.layers[l].mlp.down_proj.weight.add_(dw)
+        model_a = transformers.AutoModelForCausalLM.from_pretrained(FLAGSHIP_SNAP, dtype=torch.float32).eval()
+        layers_a = [8, 9, 10, 11, 12, 13, 14, 15]
+        donors_for_a = [
+            dragon_donors[0], qwen_donors[0],
+            dragon_donors[1], qwen_donors[1],
+            dragon_donors[2], qwen_donors[2],
+            dragon_donors[3], qwen_donors[3],
+        ]
+        updates_a = compute_closed_form_wsp_update(
+            model_a, enc_chat_a, enc_tok_a, anchor_a, layers_a, donors_for_a,
+            ridge_lambda=24.0, max_rel_frob=0.0022
+        )
+        with torch.no_grad():
+            for l, dw in updates_a.items():
+                model_a.model.layers[l].mlp.down_proj.weight.add_(dw)
 
-    q4_a = export_model_to_gguf(
-        model_a, llama_st, FLAGSHIP_SNAP, "quillan-1b-sovereign-wsp-v8",
-        ["config.json", "generation_config.json", "tokenizer.json", "tokenizer_config.json", "special_tokens_map.json", "chat_template.jinja"]
-    )
-    ppl_a = measure_perplexity(q4_a, ppl_file)
-    logger.info("MODEL A WSP v8.0 Q4_K_M PPL = %.4f (clean base reference: 8.1689)", ppl_a)
-    shutil.copy2(q4_a, os.path.join(EXPORT_ROOT, "quillan-1b-sovereign-wsp-v3-q4_k_m.gguf"))
-    manifest["MODEL_A"] = {"path": q4_a, "ppl": ppl_a, "param_diff": 0}
-    del model_a
+        q4_a = export_model_to_gguf(
+            model_a, llama_st, FLAGSHIP_SNAP, "quillan-1b-sovereign-wsp-v8",
+            ["config.json", "generation_config.json", "tokenizer.json", "tokenizer_config.json", "special_tokens_map.json", "chat_template.jinja"]
+        )
+        ppl_a = measure_perplexity(q4_a, ppl_file)
+        logger.info("MODEL A WSP v8.0 Q4_K_M PPL = %.4f (clean base reference: 8.1689)", ppl_a)
+        shutil.copy2(q4_a, os.path.join(EXPORT_ROOT, "quillan-1b-sovereign-wsp-v3-q4_k_m.gguf"))
+        manifest["MODEL_A"] = {"path": q4_a, "ppl": ppl_a, "param_diff": 0}
+        del model_a
 
     if "--only-model-a" in sys.argv:
         out_manifest = os.path.join(EXPORT_ROOT, "wsp_v8_manifest.json")

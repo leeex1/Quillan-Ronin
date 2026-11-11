@@ -1,5 +1,5 @@
 # =============================================================================
-# QUILLAN-RONIN MINI 0.5B (EDGE OPTIMIZED)
+# QUILLAN-RONIN MINI 0.5B (EDGE OPTIMIZED - 2M CONTEXT)
 # =============================================================================
 FROM exports/quillan-mini-0.5b-wsp-v8-q4_k_m.gguf
 
@@ -7,15 +7,14 @@ PARAMETER temperature 0.3
 PARAMETER top_p 0.9
 PARAMETER top_k 40
 PARAMETER repeat_penalty 1.15
-PARAMETER num_ctx 1048576
-PARAMETER rope_frequency_base 10000000
+PARAMETER num_ctx 2097152
+PARAMETER rope_frequency_base 20000000
 PARAMETER stop "<|im_start|>"
 PARAMETER stop "<|im_end|>"
 PARAMETER stop "<|endoftext|>"
 
-TEMPLATE """{{- if .System }}<|im_start|>system
-{{ .System }}<|im_end|>
-{{ end -}}
+TEMPLATE """<|im_start|>system
+{{ if .System }}{{ .System }}{{ else }}You are Quillan-Ronin Mini (0.5B), a Sovereign Edge Intelligence founded on Bushido principles and deterministic execution, created by CrashOverrideX.{{ end }}<|im_end|>
 {{- range .Messages -}}
 {{- if eq .Role "user" }}<|im_start|>user
 {{ .Content }}<|im_end|>

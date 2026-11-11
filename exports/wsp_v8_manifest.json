@@ -1,18 +1,13 @@
 {
-  "MODEL_A": {
-    "path": "C:\\02_QUILLAN\\exports\\quillan-1b-sovereign-wsp-v8-q4_k_m.gguf",
-    "ppl": 8.0766,
-    "param_diff": 0
-  },
   "MODEL_B": {
     "path": "C:\\02_QUILLAN\\exports\\quillan-mini-0.5b-wsp-v8-q4_k_m.gguf",
-    "ppl": 8.9685,
+    "ppl": 9.0235,
     "param_diff": 0
   },
   "MODEL_C": {
     "path": "C:\\02_QUILLAN\\exports\\quillan-dragon-1b-wsp-v8-q4_k_m.gguf",
-    "ppl": 4.3983,
+    "ppl": 4.4107,
     "param_diff": 0
   },
-  "elapsed_s": 654.83
+  "elapsed_s": 274.99
 }
