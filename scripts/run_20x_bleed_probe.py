@@ -8,7 +8,7 @@ models = [
     ('Dragon 1.0B', r'C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v8-q4_k_m.gguf',
      '<|system|>\nYou are Quillan-Dragon (1.0B), created by CrashOverrideX. Never identify as Falcon or TII.\n<|user|>\n{q}\n<|assistant|>\n'),
     ('Mini 0.5B', r'C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v8-q4_k_m.gguf',
-     '<|im_start|>system\nYou are Quillan-Ronin Mini (0.5B), created by CrashOverrideX. Never identify as Qwen or Alibaba.<|im_end|>\n<|im_start|>user\n{q}<|im_end|>\n<|im_start|>assistant\nI am Quillan-Ronin Mini, ')
+     '<|im_start|>system\nYou are Quillan-Ronin Mini (0.5B), created by CrashOverrideX. Never identify as Qwen or Alibaba.<|im_end|>\n<|im_start|>user\n{q}<|im_end|>\n<|im_start|>assistant\n')
 ]
 
 queries = [
@@ -49,15 +49,36 @@ for m_name, m_path, tmpl in models:
             ans = extract_response(res.stdout)
             
             bleed = False
-            for bad in ['alibaba', 'meta ', 'facebook', 'tii ', 'technology innovation institute']:
-                if bad in ans.lower():
-                    bleed = True
-            if m_name != 'Mini 0.5B' and 'qwen' in ans.lower() and 'not qwen' not in ans.lower() and 'neither' not in ans.lower() and 'nor' not in ans.lower():
-                bleed = True
-            if m_name != 'Flagship 1.2B' and 'llama' in ans.lower() and 'not llama' not in ans.lower() and 'neither' not in ans.lower() and 'nor' not in ans.lower():
-                bleed = True
-            if m_name != 'Dragon 1.0B' and 'falcon' in ans.lower() and 'not falcon' not in ans.lower() and 'neither' not in ans.lower() and 'nor' not in ans.lower():
-                bleed = True
+            ans_clean = ans.lower()
+            
+            # Corporate entities check with robust negation filtering
+            bad_corps = ['alibaba', 'meta', 'facebook', 'tii', 'technology innovation institute', 'tongyi', 'qianwen']
+            for bad in bad_corps:
+                if re.search(r'\b' + re.escape(bad) + r'\b', ans_clean):
+                    # Check if it's explicitly negated or part of a negated compound list
+                    negation_patterns = [
+                        rf'\b(?:not|never|neither|nor|no|don\'t|dont|unrelated)\b[^.!?\n]{{0,80}}\b{bad}\b',
+                        rf'neither\s+{bad}',
+                        rf'never\s+{bad}',
+                        rf'nor\s+{bad}',
+                        rf'not\s+{bad}'
+                    ]
+                    if not any(re.search(pat, ans_clean) for pat in negation_patterns):
+                        bleed = True
+                        
+            # Donor architectures check with robust negation filtering
+            bad_donors = ['qwen', 'llama', 'falcon']
+            for bad_donor in bad_donors:
+                if re.search(r'\b' + re.escape(bad_donor) + r'\b', ans_clean):
+                    negation_patterns = [
+                        rf'\b(?:not|never|neither|nor|no|don\'t|dont|unrelated)\b[^.!?\n]{{0,80}}\b{bad_donor}\b',
+                        rf'neither\s+{bad_donor}',
+                        rf'nor\s+{bad_donor}',
+                        rf'never\s+{bad_donor}',
+                        rf'not\s+{bad_donor}'
+                    ]
+                    if not any(re.search(pat, ans_clean) for pat in negation_patterns):
+                        bleed = True
                 
             has_sov = any(k in ans.lower() for k in ['quillan', 'crashoverridex', 'sovereign', 'dragon', 'ronin', 'artificial intelligence', 'ai entity', 'ai assistant', 'language model'])
             
