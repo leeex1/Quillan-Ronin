@@ -581,9 +581,9 @@ def main() -> None:
 
     battery = build_arc123_hle_battery(seed=42, per_section=args.per_section)
     models_to_evaluate = [
-        ("Model A Flagship (1.2B WSP v8.0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v8-q4_k_m.gguf"),
-        ("Model B Mini (0.5B WSP v8.0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v8-q4_k_m.gguf"),
-        ("Model C Dragon (1.0B WSP v8.0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v8-q4_k_m.gguf"),
+        ("Model A Flagship (1.2B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v11-q8_0.gguf"),
+        ("Model B Mini (0.5B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v11-q8_0.gguf"),
+        ("Model C Dragon (1.0B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v11-q8_0.gguf"),
     ]
 
     all_results: Dict[str, Any] = {}
