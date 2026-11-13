@@ -1,35 +1,35 @@
 {
-  "supervisor_pid": 29804,
-  "timestamp": 1792696540.91099,
+  "supervisor_pid": 24276,
+  "timestamp": 1794600046.845449,
   "daemons": {
     "governor_daemon": {
       "status": "ONLINE",
-      "pid": 28880,
+      "pid": 26016,
       "vram_mb": 0.0
     },
     "mcp_chain_daemon": {
       "status": "ONLINE",
-      "pid": 29804,
+      "pid": 24276,
       "vram_mb": 0.0
     },
     "synesthesia_ears_daemon": {
       "status": "STANDBY_LAZY",
-      "pid": 29804,
+      "pid": 24276,
       "vram_mb": 0.0
     },
     "desktop_vision_daemon": {
       "status": "STANDBY_LAZY",
-      "pid": 29804,
+      "pid": 24276,
       "vram_mb": 0.0
     },
     "creative_media_daemon": {
       "status": "STANDBY_LAZY",
-      "pid": 29804,
+      "pid": 24276,
       "vram_mb": 0.0
     },
     "echo_memory_daemon": {
       "status": "ONLINE",
-      "pid": 29804,
+      "pid": 24276,
       "vram_mb": 0.0
     }
   },
