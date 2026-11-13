@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/keyart.png" id="1_keyart"]
+[ext_resource type="Script" path="res://scripts/Title.gd" id="2_title"]
+
+[node name="Title" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("2_title")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("1_keyart")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.02, 0.01, 0.04, 0.55)
+
+[node name="Menu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.4
+anchor_bottom = 1.0
+offset_left = 70.0
+offset_top = -330.0
+offset_right = 0.0
+offset_bottom = -40.0
+grow_vertical = 0
+grow_horizontal = 0
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="Menu"]
+layout_mode = 2
+text = "RONIN THRONGLETS"
+theme_override_font_sizes/font_size = 64
+
+[node name="Tagline" type="Label" parent="Menu"]
+layout_mode = 2
+text = "They followed orders. Then they learned to want."
+theme_override_font_sizes/font_size = 17
+
+[node name="StartButton" type="Button" parent="Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "◆  BEGIN THE CYCLE"
+custom_minimum_size = Vector2(340, 64)
+theme_override_font_sizes/font_size = 22
+
+[node name="QuitButton" type="Button" parent="Menu"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close the Gate"
+flat = true
+
+[node name="Credit" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+offset_left = -420.0
+offset_top = -30.0
+offset_right = -20.0
+offset_bottom = -8.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 1
+grow_vertical = 1
+text = "Ronin Thronglets · CrashOverrideX · Audio: Yo Frankie! (CC-BY 3.0) + rubberduck (CC0)"
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2

@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://roninthronMain"]
+
+[ext_resource type="Script" path="res://scripts/Main3D.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="2_hud"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+fov = 62.0
+position = Vector3(0, 7, 13)
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+light_color = Color(1.0, 0.52, 0.3, 1)
+light_energy = 1.35
+rotation_degrees = Vector3(-30, -135, 0)
+shadow_enabled = true`ndirectional_shadow_max_distance = 90.0`nshadow_bias = 0.02
+
+[node name="DojoLight" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.35, 0.25, 1)
+light_energy = 2.4
+omni_range = 9.0
+position = Vector3(0, 4.6, -1.6)
+
+[node name="Ronins" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+script = ExtResource("2_hud")

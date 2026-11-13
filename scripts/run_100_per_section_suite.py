@@ -316,9 +316,9 @@ def main() -> None:
 
     battery = build_100_per_section_battery(seed=42, per_section=args.per_section)
     models_to_evaluate = [
-        ("Model A Flagship (1.2B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v11-q8_0.gguf"),
-        ("Model B Mini (0.5B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v11-q8_0.gguf"),
-        ("Model C Dragon (1.0B WSP v11 Q8_0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v11-q8_0.gguf"),
+        ("Model A Flagship (1.2B WSP v15 Q8_0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v15-q8_0.gguf"),
+        ("Model B Mini (0.5B WSP v15 Q8_0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v15-q8_0.gguf"),
+        ("Model C Dragon (1.0B WSP v15 Q8_0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v15-q8_0.gguf"),
     ]
 
     all_results: Dict[str, Any] = {}
