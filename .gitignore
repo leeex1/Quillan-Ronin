@@ -336,3 +336,4 @@ scripts/_*.out
 *.safetensors
 lyrics/
 datasets/
+*.tpz
