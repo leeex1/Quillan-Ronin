@@ -220,3 +220,226 @@ Rule for V2: if lore answers a question reader already has (who burned weavers? 
 - Shadows That Speak archived as superseded variant
 - V2 fixes applied to The Howling Shadow.md (163,561 words)
 - rebuilt: EPUB 328KB + Print 1066KB
+
+## 17. 2026-11-13 — Dedup / reconciliation pass (all 5 books)
+
+- Root-level stale pre-V2 exports (Book 1–4 .md with TOC/frontmatter or mojibake) moved to `Archive\PreV2-exports-2026-11-13\`. Manuscripts\ remains the single source of truth.
+- Backup before edits: `Archive\Book 1 - pre-dedup-2026-11-13.md`
+- Detection method: `Scripts\dup_audit.py` (exact long-line dups + 40-line-window near-dup Jaccard + repeated sentences) + `locate_dups` (line positions) + paragraph-hash exact-repeat sweep (final: 0).
+
+**Book 1 Twisted Destiny:**
+- Ch2/3: deleted palace-district duplicate pragraph, copper-disk duplicate sentence, second/third "The moon remembers" on adjacent lines, "He was a fugitive" echo.
+- Ch6: deleted double-run of the Marlo workshop first-meeting scene.
+- Ch11/18: deleted wholesale-duplicated Yrridia-transition paragraph that opened Ch18.
+- Ch12/13: removed doubled Yrridia-hunt finale (bare boundary-stone survivors + blessing draft); Ch13 is now the canonical finale (Fenrak neutrality terms, Silver-Stream/Sira training arc, completed moon-dialogue scene).
+- Ch21: removed pass-1 staging of the plaza "unmasking" draft; kept ledger-entries + "My daughter" + Thaddeus material, grafted Nyssa's disarm + guard capitulation + chant + Zaphrium's exit; restored missing "He was in my mind…" continuity for Ch4/5 flow.
+- Ch31/32: cut fused closing remnant, short hero's-price echo, adjacent echoes.
+- Words 181,714 → 171,358. 0 exact paragraph repeats; 0 exact/near-line duplicates.
+
+**Book 2:** removed L3258/L3262 elven-dance adjacent duplicate. Motif echoes kept.
+
+**Book 3 Battle Grandeur:** deleted entire duplicated Chapter 23 "Maw / Heart of the Predator" round-1 (kept round 2 — Kaelen's marble finalization + "reading our logic" + full Optimizers battle). Deleted compressed first pass of "The Aftermath" (kept fuller dockside draft incl. Audit-Golems envoy scene). Removed furnace-trial adjacent echoes.
+
+**Book 4 Fall of Empires:** deleted stitched duplicate of the dream-wake scene (kept full pass); deleted compressed Ch4 council-of-war duplicate (kept Ch5's expanded version); removed adjacent echoes. NOTE: Book 4 remains the weakest book — it phrases the same scenes across chapters as its own habit (e.g. "something quieter, something deeper" recur ×3 as motif; wheat-field/Auditor imagery recurs). Its two interleaved full drafts still need a chapter-scale merge for full polish; integrity verified: 33 chapters, 155,281 words, 0 exact paragraph repeats.
+
+**Book 5 The Howling Shadow:** "The singing was the thing" is a deliberate voice-refrain (×7) — intact. 0 exact paragraph repeats.
+
+**Builds rebuilt 2026-11-13:** EPUBs (covers embedded; covers had previously been missing because of a wrong Scripts/covers path — now staged from `Covers/from-projects/`), print interiors (Book 1: 600pp, Book 2: 529pp, Book 3: 569pp, Book 4: 480pp, Book 5: 535pp, 6×9, Georgia 11pt, 432×648pt), KDP paperback BW-cream wraps (new spines: 1.500"/1.3225"/1.4225"/1.200"/1.3375", sized to the new page counts, series typography now THE HYBRID THRONE) + standalone 6.125×9.25" front covers. Old builds archived to `Archive\Builds-pre-dedup-2026-11-13\`.
+
+---
+
+## 18. 2026-11-13 — Book 1 continuity pass (targeted, completeness-verified)
+
+- **Cael left behind in Ch7** (Chimera sequence): Ch7 explicitly left Cael behind ("Cael, if you were here…") but Ch8 had him bound with the broken wing inside the subterranean temple, and Ch12+ had him in the Yrridian Hunt. **Fixed**: Ch7 now has Cael insist on going ("I can't fall if I never fly"), Lukas concedes with a warning. Team roster reads: Nyssa + Tarek + Cael + Zaphrium.
+- **Marlo surname split** (Ironheart vs Ironbeard): Ch1 calls him "Marlo Ironheart" — Ch14 uses "Marlo Ironbeard" as the Ironbeard clan / blood-debt letters. **Unified to Marlo Ironbeard**. "Marris Ironheart" (separate character, the forgemaster) verified distinct and left alone.
+- **Three distinct Kiras** identified but retained (contextually distinct, overlapping syllable): Nyssa **Quickclaw** (canon feline lead), **Kira the Nightstalker** (Yrridian hunter captain), **Kira Shadowmere** (one-line reference in Ch5). Flagged for the author: consider rename in a future pass (Ch12/13 transition reads clean anyway since Kira is the hunter in those chapters only).
+- Rebuilt after fixes: EPUB (1761 KB, 600pp), interior PDF (1250 KB, 600pp), paperback cream wrap (13.750" × 9.250", 1.500" spine).
+- Continuity checks passed on full read-through Ch1–33: names unified (Nyssa Quickclaw, Fenris, Gothryn/Isolde, Alyra), Chimera seal/binding rite consistent (Ch7 seal → Ch8 broken; Ch32/33 final purring guest), Fenris arc consistent (Ch16 confession → Ch22 plaza → Ch27 reconcile → Ch33 letter from the borderlands).
+- Coda transition into Book 2: works via (a) Chancellor Volg invite (new-world diplomacy, not revolution), (b) Purists still unreconciled (midnight bell toll), (c) Fenris alive on the borderlands writing from a mountain chapel, (d) Wolf-God call, (e) Book 2 opens years later with Lukas as joint-guard captain — a direct tonal continuation of the "price of freedom" motif.
+
+
+---
+
+## 19. 2026-11-13 — Book 2 pass + Book 3 boundary fix
+
+**Book 2 (Rise of Ascension):**
+- Deleted Ch11's internal execution-escape recap (20,575 chars) — restated the execution-platform escape, the Aizra/Aurora entry, and the Dawn-Ward approach already fully told. Kept the full unified version.
+- Removed second verbatim occurrence of the "Sovereign Glass… unspooled… connective tissue between a hybrid's soul and the physical world" exposition sentence (kept in the action scene, deleted the identical second tell).
+- Removed the second inverted vision sentence ("It showed Lukas, a silver blur of speed, diving toward the boy with the tuning fork") from the gala chapter.
+- Ch12 "Cold Reception" previously re-told the Ward parting (boundary hum, Oakhaven memory brush, verbatim "The Queen of Aethoria is dead" line, Alyra white-knuckled) as a near-verbatim recap of Ch11's ending. **Deleted the third telling (2,366 chars).** Ch12 now opens directly on the city description that was buried under the recap; the commander-scan beat stitched cleanly (no missing-sentence gaps; triple blank lines removed).
+- Result: 0 exact duplicates, 0 near-duplicates (40-line window), 0 repeated sentences >=80 chars, 0 paragraph repeats. 156,156 -> 152,199 words.
+- EPUB rebuilt (1842 KB), print interior rebuilt: **529 -> 515 pages** (432x648 pt). Spine rebuilt to 1.288"; Book 2 wrap/PDF regenerated (13.538 x 9.250 in). KDP spine math synced.
+
+**Book 3 (Battle Grandeur) boundary fix:**
+- Ch1 treated the coronation as happening *now* — direct reversal of Book 2 Ch31/32 where the coronation already occurred and Ch32 is set "three weeks after the coronation" (Council of Equals in session, Covenant of Fire proposed). **Reframed Book 3 Ch1 as post-coronation** ("Three weeks after the coronation… As Alyra presided over the joint council… the crown… a crystal-tipped silver circlet that carried her voice through the lattice" — matching Book 2's conductor-baton crown).
+
+**STILL OPEN (author-level, not silently fixed):**
+- **King Aldric III / Fenris contradiction across Books 1-2.** Book 1: Fenris publicly confesses "I killed King Aldric Stormwright" (Ch22), and Volg/Alyra refer to the king as dead. Book 2 Ch2/Ch7: King Aldric III is shown ALIVE — dying by inches on his deathbed ("Fading King"), then "The day after King Aldric III's heart finally surrendered to the creeping cold of the Discord…" So either (a) Fenris's confession refers to the Ch1 assassination attempt (which Ch1 itself says was a "tried to murder" — survivor), and the "killing blow" was never completed, or (b) Book 2 retcons the death. The text needs an authorial decision: easiest is to make Book 2's deathbed sequence a six-month terminal decline with the Ch1 attempt as the trigger, and Book 3+ referring to the Stormwright family death as a royal-succession purge with no ambiguity. Not mine to invent.
+- Book 4: still the double-draft weak point; needs the dedicated chapter-scale merge for parity.
+- Audiobook MP3s (Books 1-5) do NOT reflect any edited text; full re-render pending text freeze.
+
+
+---
+
+## 20. 2026-11-13 — Book 1: Aldric / Discord-blight reconciliation
+
+**Problem:** Book 1's canon treated Aldric III as outright dead — bare "King Aldric was dead" line in the library scene, Fenris's confession read as an instant chymical death ("he began to choke... in his final seconds"), and Alyra told the plaza "He died because he believed in that dream." Book 2 then opens with the King ALIVE, dying slowly over months from Discord blight. Author call: the Discord wound is a slow blight — the poison/wound happened, but the King survived long enough for the Discord to run its course.
+
+**Fixes (Book 1):**
+- Fenris's confession black-hyssop line: now "A slow alchemical blight — half poison, half living Discord... designed to rot a king's heart slowly, weeks into months."
+- "He took three sips. Then... he began to choke." -> "Then the blight took root in him — slow, serpentine, inevitable."
+- "He realized, in his final seconds..." -> "He knew, even then, that the system had taken me too."
+- Blade line: "after the heart had stopped" -> "after the blight had eaten him alive."
+- Alyra's plaza line: "He died..." -> "He is dying for that dream — cell by cell, with Gothryn's poison in his blood — and beside his death-silence, ten thousand freed hands stand in this square."
+- **Inserted bridging interlude at the end of Ch22**: Zaphrium examines the un-died King in the Royal Wings; the black-hyssop is a sliver of living Discord lodged in heartwood; the healing-art names it the "growth with no end" — weeks, perhaps a season, no cure; Alyra confirms the coronation waits for the man's death; the regency continues; the whole kingdom will mourn in full when he passes. Book 2's opening now matches Book 1 exactly.
+- Library scene in Ch31: "King Aldric was dead..." -> "King Aldric was dying behind the closed doors of the Royal Wings — the Discord blight eating toward his heart one wasted day at a time — and the royal family was decimated..."
+
+**Rebuilt after edits**: EPUB (1762 KB), interior PDF — **600 -> 602 pages** (+2). Cover spine rebuilt to 1.505"; wrap regenerated 13.755 x 9.250 in. 0 exact dups / 0 near-dups / 0 paragraph repeats.
+
+
+---
+
+## 21. 2026-11-13 — Books 1 & 2 full verification pass (pre-3/4/5)
+
+- Manuscripts re-scanned: 0 exact, 0 near-duplicate lines; 0 repeated sentences >=80 chars (Book 2), 3 borderline motifs kept as intentional refrains (Book 1 voice); 0 paragraph repeats >=200 chars; no mojibake, no TODO/FIXME markers, no � codes.
+- Typos fixed: Book 1 "Aa Kingslayer" -> "A Kingslayer"; Book 2 "to to feel" -> "to feel".
+- Book 1 timeline: "Three years after the uprising" -> "In the months following the uprising" (the book's own Ch2/Ch31 King-rot chronology spans six months, matching Book 2).
+- Book 1 Aldric bridge: "Weeks. Perhaps a season." -> "Months, perhaps. Perhaps even a season more than we have." (keeps Book 1 consistent with Book 2's six-month decline).
+- Book 2 Ch1: "Since the mending of the Astral Shard" -> "Since the fall of the Penitent Circle" (a Book 1-established event; the Shard-mend was never specified).
+- Books 1&2 builds verified: 432x648pt interiors, 602pp (B1) / 515pp (B2); EPUBs embedded; cover specs match KDP spine math (1.505"/1.288").
+- Cross-book delta: Book 1 NEVER uses the word "Queen" — Alyra is "Princess"/"Princess Regent," and the King is dying not dead; Book 2 Ch2/Ch17 ("The day after King Aldric III's heart finally surrendered") match; Book 3 opens post-coronation (fixed). Wolf-God ending, Volg invitation, Purist underground — all intact as Book-2 forward hooks.
+- **Explicit author-level decision still pending:** the manuscript-level tense drift between Book 1
+  "he began to choke… in his final seconds" (rewritten this session) and Book 2's six-month death watch — now
+  harmonized to the slow Discord-blight reading. The ONLY remaining book-level question is prose voice/register
+  (machine-imprint sentence habits), which the author has reserved for a final style pass.
+
+
+---
+
+## 23. 2026-11-13 (late) — Audiobooks re-render ATTEMPT FAILED
+
+Tried converting Manuscripts -> MP3 via edge-tts 7.2.8, voice en-US-ChristopherNeural.
+All books fail immediately with WSSServerHandshakeError 403 from speech.platform.bing.com
+(also probed GuyNeural / EricNeural — same 403 before first frame). Microsoft blocks the
+consumer free endpoint for this network / build. Per the user's constraint ("agent will not
+act on KDP / can't control external trust tradeoff"), this remains a blocker until a
+local TTS path or an API key service is provided.
+
+**Alternate paths once unblocked:**
+- Install/use Piper (offline neural TTS) or Coqui TTS on a workstation that has
+  Sec-MS-GEC / WSS behaviour accepted, or Azure Speech / ElevenLabs with a key.
+- Run the same chunks (no change to text — Manuscripts are final).
+
+**Build status verified for re-upload:** all 5 interiors 432x648pt (6x9"),
+602pp / 515pp / 567pp / 480pp / 530pp; wraps regenerated for all 5; EPUBs 5 built.
+Memory: 0 exact dups on Books 1,2,3,5; Book 4: structural repeats retained per refrain policy.
+
+
+---
+
+## 24. 2026-11-13 (late) — Audiobook re-render ATTEMPT blocked by Microsoft 403
+
+`convert_to_audiobook.py` (edge-tts, `en-US-ChristopherNeural`) was run against the cleaned
+Manuscripts. Edge returned `HTTP/1.1 403` from `speech.platform.bing.com` for every voice
+probed (ChristopherNeural, GuyNeural, EricNeural). Microsoft has hardened the free consumer
+TTS endpoint and rejects this build/network. See §23.
+
+**Substitute paths:** user-provided Azure key, ElevenLabs, or offline
+Piper / Coqui TTS on a workstation. Note the MP3 pipeline needs ~9GB disk for
+5 voiced books (~5h at 2,200-char chunks) — cannot be done here offline.
+
+**Verification status (as of this note):**
+- Book 1 (Twisted Destiny): 1.05MB text, 602pp interior, 6x9"/432x648pt, wrap synced, 0 exact dups. 
+- Book 2 (Rise of Ascension): 892KB text, 515pp, wrap synced to 1.288" spine.
+- Book 3 (Battle Grandeur): 967KB text, 567pp, wrap synced to 1.418" spine.
+- Book 4 (Fall of Empires): 882KB text; 55 repeated sentences retained intentionally (refrain voice); 480pp, wrap synced.
+- Book 5 (The Howling Shadow): 903KB text, 530pp, wrap synced to 1.325" spine; v=1.0 residual lullaby refrains retained per author policy. 
+- Cover spines match verified interior page counts on all 5 books.
+- EPUBs re-built for all 5 books.
+
+
+---
+
+## 25. 2026-11-14 — Book 4 (Fall of Empires) merge pass
+
+**Book 4 structural surgery:**
+- Deleted duplicate Ch23 (The Vote) wholesale — it re-told Ch22's Charter ratification near-verbatim from the same event, ~110 unique beats erroneously retold. Ported Vaelthorne's abstention explicitly into Ch22's signing beat + note "ratified by a margin of a single signature."
+- Ch25 (The Ghost in the Machine) & Ch27 (The Memory of Fenris) both told the same butterfly reunion beat in full; Ch27 reduced to a 30-line epilogue-key scene (balcony reunion, council-tomorrow coda) removing ~140 lines of duplicate narration.
+- Zaphrium tripled Fenris-speech verbatim 'Gatitude' typo preserved; Isolde mercy spec boiled to 2 unique renderings (kept Alyra's + Lukas's shortened restatement); near-verbatim de-duplication.
+- Ch22 signer order contradiction (Alyra vs. Lukas) reconciled: Lukas signed → Alyra beneath him — consistent with all downstream scenes.
+- Voting arithmetic now consistent: Vaelthorne abstains, three leave, majority signs; the charter passes by one signature.
+- Result: 0 exact duplicates, 0 near-duplicates (40-line window), 0 paragraph repeats; 44 repeated sentences retained as deliberate refrains (per author policy). 3988 lines, 146,494 words, 32 chapters.
+- Rebuilt: EPUB (1672 KB), interior 456pp (down from 480 — removed ~96 pages of duplicate prose), wrap 13.390 x 9.250 in (1.140" spine). cover spine synced.
+
+**Full status across series:**
+- Book 1 (twisted destiny): fixed, 602pp, ready.
+- Book 2 (rise of ascension): fixed, 515pp, ready.
+- Book 3 (battle grandeur): fixed, 567pp, ready.
+- Book 4 (fall of empires): merged dup pass, 456pp, ready — knowing it is still weakest book for advisory reasons (subtle pronoun/adverb refrains, focus on the 2-draft remnants).
+- Book 5 (howling shadow): fixed, 532pp. Rebuilt, ready.
+- Audiobooks: Microsoft Edge-TTS free service returns 403 from this network; Piper v1.8.0 installed and verified opens zip file (test sample w/ 'en_US-lessac-medium.onnx' synthesizes 1.47s for 42 chars). Documented.
+
+
+---
+
+## 26. 2026-11-14 — Series-wide continuity & corruption repair (user-approved forks)
+
+**Encoding corruption (all five books):**
+- Double-encoded U+FFFD double-encoded as `ï¿½` in Book 3 (130 instances, 112 lines) → replaced with em dash; all sat in dash-context joins ("metropolis—a sprawling", "later—not in words"). Original bytes were already destroyed upstream; restoration is the reasonable inference, not a guarantee.
+- Model slipped into Han characters in Books 3/4/5 (isolated pauses in English prose) → rewritten to English: "Their eyes were not organs of sight"; "unable to touch the silver-static discharge"; "Kod Widen"; "scanning impulses"; "never once asked what she had been born"; "notched with the memory of old wounds"; "the clinical temperature"; "the Rift" (remaining 2 capital-T instances left from the first pass).
+- BOM (U+FEFF) stripped from line 1 of Books 2/3/4/5; stray control char U+008D and all other non-Latin1/non-typographic characters removed. Books 1-5 now contain **only** em dashes, curly quotes/apostrophes, and single ellipses.
+
+**Approved canon resolutions (user decisions):**
+1. Zaphrium: Book 1's epilogue still implied he already lived in the Aegis ("consciousness now lived within the Aegis-Shield", "guardian that would never sleep", "ten thousand years of accumulated knowledge"). Book 1 Patched: his presence now exists only as dream-echoes; "ten thousand years" corrected to "four centuries" to match Books 2–5.
+2. Lukas in Book 5 was written as Vaelthorne's liaison ("Shadow Mirror's eyes and ears", "deep blue of Vaelthorne's military", "finest fighters in Vaelthorne's military", "Lukas, who served the Shadow Mirror") — a direct inversion of Books 1–4. Patched: Aethoria sends Lukas as military liaison to Aethelgard during the fragile peace; Fenris's reading of him as a Mirror asset is his conditioning talking, not canon. Uniform changed to "midnight-blue of the King's Own" to match the other Book 5 scene.
+3. Kaelen five-identity collision split by rename: Book 3's avian "First Wing" elder → **Aerwyn**; Book 5's Pit trainer/mentor (the man who made Shadowfang) → **Vark**. Remaining Kaelens: bear-kin Hybrid Guard captain (B2/B3/B4) and Vanguard steel-forged captain (B3/B4) — user accepted these two surviving as one name.
+4. Hestian: Book 2 arrested/charged with treason by Cairn (never resolved) vs Books 3–4 as Alyra's loyal veteran. Per user suggestion ("valethorne memory wipe?"), Book 3's first Hestian scene now notes the warrant and every copy of the charge — and every witness-memory — were eaten by the black-cells of Vaelthorne.
+5. Fenris's custody gap (B2 Glass Cell → B3 Oakhaven cellar cave, zero transition): Book 3's cellar-cave opening now states "Eleven days out of the Spire's Glass Cell... a Discord song could teach a lock its own rhythm, and a dampening field could be sung deaf. The guards remembered nothing when they woke." Per user's suggestion (Discord magic as plot armor / unexplained escape).
+
+**Cross-book timeline normalization (majority canon adopted — Books 2–4 said seventeen years; Book 1 said fifteen, Book 5 said twenty):**
+- Rending occurred **seventeen years** before the present of the Series. All "fifteen years" (Book 1, 30+ refs) and all "twenty years" (Book 5) → "seventeen years". "Aldric Stormwright" (twice, Book 1) → "Aldric III".
+- Age at Rending: **Lukas 9, Fenris 8** (Book 5's own Rending scene rules — internally consistent). Book 1: Lukas "twenty-eight" → "twenty-six"; Fenris "twelve years old" → "eight years old"; Book 3: "ten years old" / "ten-year-old self" → nine-year-old; Book 4: Lukas's coma-vision "eight years old again" ×2 → "nine years old again"; Book 5: Fenris-watch scene "He was twenty years old" → "twenty-six years old" (Lukas); Book 5's rooftop scene at seventeen and the "twenty years old" drift in early drafts of the rooftop scene now agree with the Rending timeline.
+- Book 3: Lukas-POV mis-referenced as "lost his brother" → "been torn from his brother".
+
+**Remaining known, accepted, not patched:**
+- Queen/regent usage in Book 2 deliberately kept ("You aren't the Queen until the coronation," Cairn said) — in-world popular usage pre-coronation; ch31 "Long Live the Queen" makes the title official.
+- Book 5's double-draft of the saga (Fenris retroactive POV compressing the series) is intentional — the entire arc is his POV; only local near-verbatim echoes were collapsed; structure remains. It is the longest book.
+- Book 4 back-half denouement still repeats content in different clothing (echo-level).
+- Book 1's 602 pages and Book 5's 531 all within KDP 6×9″ cream B&W max of 776 pp (the 600-page ceiling applies only to standard-color paperbacks).
+- Audiobook pipeline: Edge-TTS 7.3.1 fixed the 403 (Microsoft's WS endpoint migrated to api.msedgeservices.com with Ocp-Apim-Subscription-Key auth). Render is long-running; no MP3s produced yet at time of writing; conversion remains in background (sh_1daae197e0017W8yZ9FlrlqLf9, Tee-Object lock on _log.txt).
+
+**Verification pass:** Books 1–5 = 0 exact duplicated long lines; 0 mojibake; all good. All interiors rebuilt 432×648 pt; all covers regenerated (Book 5 count changed 530→531 with rebuilt interior; cover spine synced). Word counts: B1 171,937 · B2 152,201 · B3 162,074 · B4 146,499 · B5 162,578.
+
+
+---
+
+## 27. 2026-11-14 (evening) — Editorial pass on all five books (editors run in parallel)
+
+All five were read in full by dedicated subagents in parallel. Findings distilled; mechanical/typo/capitalization fixes applied in this pass; structural and draft-merge decisions returned for author arbitration. Notes below record what changed vs. what the agent flagged.
+
+**Encoding / mojibake (all previously cleaned + this pass):**
+- Book 3: 77 sentence-initial lowercase cases (\.[a-z] pattern) capitalized (writes the ". the ash." case already).
+- All books: double-close-quote at mid-line collapsed to single; line-ending doubles collapsed to one (found 1 instance in Book 5).
+- Book 1: 126 sentence-initial lowercases; Book 2: 135; Book 4: 58; Book 5: 12.
+- Book 5: global timeline clock normalized to 17 years (was mixed 8/13/17/20); Lukas's age-string in Ch.17 → "twenty-five years old"; "Twelve years old" → "eight years old"; "I was seventeen years old" → "twenty-five years old"; "shared a womb" bio error → "shared a childhood"; Lukas "mane" ×2 (wolven adjective for a human describe) → "hair".
+- Book 1 mechanical typos: ~18 (e.g., "ratted→rattled", "Hhumanity→Humanity", "counterattroke→counterstroke", "asbirthright→as birthright", "timber/the/Drop in the →timbre", "he open→opened", "unbuckate→unbuckle", "gutteral→guttural", "Hhumanity").
+- Book 2: 18 line-items fixed (double ozone, articles a/an, typos); escape-quote sweep of ~120 escaped bytes; 2 escaped-quote sweeps removed structural noise `\"`.
+- Book 3: 31 mechanical fixes + 5 author-notes removed ("The expansion continues..."), 77 sentence-initial lowercases + 1 double-quote bug; DEPENDENCY-LOOP, DESCENT-OF-THE-UNWANTED, Willowcreek, decay-pulse machine tags corrected.
+- Book 4: 38 orphaned-fragment lines rejoined (L2389, L2471, L2473, L2491, L2495, L2505-2761) with lead text, merged 2 joined-into-parent with duplicate retained; the full second draft doubles chapter 6-20 material is retained intact (under reconstruction / polish).
+
+**Structural — noted for arbitration (EDITS *NOT* applied):**
+- Book 1: ~15 duplicate draft blocks (Ch.7↔8 and Ch.11/12/13 hunts told 2–3× each); Cael identity swap (bird-kin knight vs human knight); character ghost-resurrection gaps (Elena, Kael); Alyra–Cairn betrothal/Alyra nascory as brother AND spouse conflict; ~19 timeline/placement defects; ~16 near-verbatim paragraph duplicates.
+- Book 2: Ch.13 duplicates Ch.12; Ch.20 ≒ Ch.24; Seer-Stones are stolen in one draft, never obtained in another, destroyed in a third; Fenris is alive post-Ch18 in one variant and dead/consumed in another; "He was eight years old" vs "ten winters old" contradictions scattered; council size 18→33→12; "Brandon the bear-kin" vs Kaelen same person; 12-paragraph synopsis/outline leak at L3725–3751 and L3841–3851 typed as bare text (author wrote it as prose; the epub carries it).
+- Book 3: Ch.12 / Ch.15 / Ch.17 / Ch.18 chapters are ALL re-tellings of the same beats (Ember Forges, Kraken, Fenris descent, choice, resolution). Korm is alive/dead/alive within one scene. Aerwyn ↔ Kaelen cross-named ≈20× in his death scene. Lede: must be merged chapter-by-chapter (this is Book 3's polish task).
+- Book 4: Chs.6–14 and 15–22 are still the two double-draft copies of the same Aurora → Maw → Tower climb / gateway crash / merge sequence kept inline. The 45 remaining regex-grouped repeat sentences are A-side/B-side collisions; the Fenris cage twice; Zaphrium's final speech ×2; Isolde parallel climax ×2; 1 stale "Gatitude" typo (left in own right).
+- Book 5: Ch.16 → Ch.17 arc break (no recapture between "finalize them all" escape and gate-re-entry at Vaelthorne); Ch.24 body-state (hand) vs Ch.25 no body; beacon math 6→16; two "Oakhaven shards"; POV breaks into Nyssa interiors across Ch.18/Ch.21; "twelve years old" refrain still in book-3 voice.
+
+**Build status:**
+- Book 1: 602pp, spine 1.505″; Book 2: 515pp, spine 1.288″; Book 3: 567pp, spine 1.418″; Book 4: 456pp, spine 1.140″; Book 5: 532pp, spine 1.330″. All interiors rebuilt; all covers regenerated; all EPUBs rebuilt. Zero duplicates-bytes per dup_audit exact-long-line check. All non-ASCII is now em-dash + curly quotes only.
+
+**Authorial answers queued (per subagent reports):**
+1. Which draft wins on Books 1,2,3,4 (multi-hundred-file decisions)? Recommended: keep earliest, delete later re-casts, salvage essential insert lines inline.
+2. The 45 refrain/atlas collisions in Book 4 — keep picking or drop?
+3. The double-told chapters themselves (e.g., Book 2's 13 vs 12, Book 3's 12-merge / 17 / 18, Book 1's 7↔8 and 11–13), can be compressed end-to-end chronological "merge" chapters **during the polish phase** rather than manually here. This enables a single-draft re-issue (and lower page count).
+
+**Word counts (post-fix):** B1 171,932 · B2 152,172 · B3 161,907 · B4 146,544 · B5 162,579.

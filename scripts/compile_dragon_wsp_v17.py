@@ -39,7 +39,10 @@ def compile_dragon_v17_q8(
     llama_donors: Dict[str, List[torch.Tensor]],
     qwen_donors: Dict[str, List[torch.Tensor]],
     bitnet_donors: Dict[str, List[torch.Tensor]],
-    ppl_file: str,`n    scale: float = 1.0,`n    tag: str = "v17",`n    layers=None,
+    ppl_file: str,
+    scale: float = 1.0,
+    tag: str = "v17",
+    layers=None,
 ) -> Dict[str, object]:
     logger.info("=== [2/2] Compiling Dragon 1.0B (Full-Tensor 4-Model Merge WSP v15 Q8_0) ===")
     reader_c = gguf.GGUFReader(v8.BLOB_DRAGON)

@@ -1,6 +1,7 @@
 ﻿# Hybrid Throne Series — Single Source of Truth (5-5-5 locked 2026-10-13)
 
 > Master: C:\02_QUILLAN\05 - Creative Works\Book Series
+> NOTE 2026-11-13: Root-level Book 1–4 .md copies were stale pre-V2 exports; moved to Archive\PreV2-exports-2026-11-13\. Manuscripts\ is the single source of truth. See TD V2 report §17.
 
 ## The 5 Books (Manuscripts/)
 - Book 1 - Twisted Destiny.md (33 ch, V2 master)

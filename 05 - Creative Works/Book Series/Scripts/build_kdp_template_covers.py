@@ -19,13 +19,17 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 import pypdf
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s"
+)
 logger = logging.getLogger(__name__)
 
-ROOT = Path(r"C:\02_QUILLAN\09 - Projects\projects\Book Series").resolve()
-DRAFTS_DIR = ROOT / "book covers drafts"
-UPSCALED_DIR = Path(r"C:\02_QUILLAN\02 - Knowledge Foundation\knowledge\legacy\00 - Meta\toolkit\session\upscaled").resolve()
-OUT_DIR = ROOT / "print"
+ROOT = Path(r"C:\02_QUILLAN\05 - Creative Works\Book Series").resolve()
+DRAFTS_DIR = ROOT / "Covers" / "drafts"
+UPSCALED_DIR = Path(
+    r"C:\02_QUILLAN\02 - Knowledge Foundation\knowledge\legacy\00 - Meta\toolkit\session\upscaled"
+).resolve()
+OUT_DIR = ROOT / "Builds" / "Print"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 BLURBS_PATH = ROOT / "blurbs.json"
@@ -33,7 +37,7 @@ FONTS_DIR = Path(r"C:\Windows\Fonts")
 
 DPI = 300
 AUTHOR = "Joshua Lee"
-SERIES = "Quillan-Ronin Saga"
+SERIES = "THE HYBRID THRONE"
 
 BOOKS = [
     {
@@ -73,56 +77,20 @@ BOOKS = [
     },
 ]
 
-# Actual Interior Page Counts (from compiled print interiors)
+# Interior page counts from the 2026-11-13 rebuilt print interiors (build_print_pdf.py).
+# BW cream paper: spine = pages * 0.0025" per KDP template calc.
 BOOK_PAGE_COUNTS = {
-    1: 631,  # Exact Amazon KDP preflight requires 13.730" x 9.250"
-    2: 527,
-    3: 575,
-    4: 484,
-    5: 531,
+    1: 602,
+    2: 515,
+    3: 567,
+    4: 456,
+    5: 532,
 }
 
+
 def get_paperback_specs(book_num: int) -> dict:
-    """
-    Returns exact template specs for KDP Paperback based on interior page count and paper type.
-    - Book 1 (631 pages): Exact Amazon KDP preflight mandates 13.730" x 9.250" (1.480" spine).
-    - Book 2 (527 pages): Exact Amazon KDP preflight mandates 13.568" x 9.250" (1.318" spine, cream stock).
-    - Books 3-5: Dynamic calculation using KDP standard B&W Cream paper caliper (0.0025" / page).
-    """
-    if book_num == 1:
-        return {
-            "name": "Paperback Book 1 Exact KDP (13.730x9.250)",
-            "width_in": 13.730,
-            "height_in": 9.250,
-            "spine_in": 1.480,
-            "bleed_in": 0.125,
-            "trim_w_in": 6.000,
-            "trim_h_in": 9.000,
-            "width_px": 4119,
-            "height_px": 2775,
-            "spine_px": 444,
-            "front_x_px": 2282,
-            "front_w_px": 1837,
-        }
-
-    if book_num == 2:
-        return {
-            "name": "Paperback Book 2 Exact KDP (13.568x9.250)",
-            "width_in": 13.568,
-            "height_in": 9.250,
-            "spine_in": 1.318,
-            "bleed_in": 0.125,
-            "trim_w_in": 6.000,
-            "trim_h_in": 9.000,
-            "width_px": 4070,
-            "height_px": 2775,
-            "spine_px": 395,
-            "front_x_px": 2233,
-            "front_w_px": 1837,
-        }
-
-    # Calibrated cream paper stock calculation (0.0025 in / page) for other books
-    pages = BOOK_PAGE_COUNTS.get(book_num, 550)
+    """KDP Paperback BW cream 6x9 template specs, derived from actual page count."""
+    pages = BOOK_PAGE_COUNTS[book_num]
     spine_in = round(pages * 0.0025, 3)
     width_in = round(12.250 + spine_in, 3)
     height_in = 9.250
@@ -146,6 +114,7 @@ def get_paperback_specs(book_num: int) -> dict:
         "front_x_px": front_x_px,
         "front_w_px": front_w_px,
     }
+
 
 HARDCOVER_SPECS = {
     "name": "Case Laminate Hardcover 550pp BW Cream",
@@ -172,7 +141,9 @@ def get_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(fpath), size)
 
 
-def wrap_text(draw: ImageDraw.ImageDraw, text: str, fnt: ImageFont.FreeTypeFont, max_width: int) -> list:
+def wrap_text(
+    draw: ImageDraw.ImageDraw, text: str, fnt: ImageFont.FreeTypeFont, max_width: int
+) -> list:
     words = text.split()
     lines = []
     current = ""
@@ -193,7 +164,9 @@ def load_source_artwork(book: dict) -> Image.Image:
     """Loads highest quality available source draft art."""
     upscaled_path = UPSCALED_DIR / book["upscaled_name"]
     if upscaled_path.exists():
-        logger.info(f"Book {book['num']}: Loading high-resolution master art ({upscaled_path.name})")
+        logger.info(
+            f"Book {book['num']}: Loading high-resolution master art ({upscaled_path.name})"
+        )
         return Image.open(upscaled_path).convert("RGB")
 
     draft_path = DRAFTS_DIR / book["draft_name"]
@@ -236,11 +209,17 @@ def build_full_wrap_cover(book: dict, specs: dict, blurbs: dict, suffix: str) ->
     # Seamless background extension strips to fill bleed without repeating text
     top_strip = scaled_art.crop((0, 0, art_w, 1)).resize((art_w, art_y), Image.BILINEAR)
     front_canvas.paste(top_strip, (art_x, 0))
-    bot_strip = scaled_art.crop((0, art_h - 1, art_w, art_h)).resize((art_w, H - (art_y + art_h)), Image.BILINEAR)
+    bot_strip = scaled_art.crop((0, art_h - 1, art_w, art_h)).resize(
+        (art_w, H - (art_y + art_h)), Image.BILINEAR
+    )
     front_canvas.paste(bot_strip, (art_x, art_y + art_h))
-    left_strip = front_canvas.crop((art_x, 0, art_x + 1, H)).resize((art_x, H), Image.BILINEAR)
+    left_strip = front_canvas.crop((art_x, 0, art_x + 1, H)).resize(
+        (art_x, H), Image.BILINEAR
+    )
     front_canvas.paste(left_strip, (0, 0))
-    right_strip = front_canvas.crop((art_x + art_w - 1, 0, art_x + art_w, H)).resize((front_w - (art_x + art_w), H), Image.BILINEAR)
+    right_strip = front_canvas.crop((art_x + art_w - 1, 0, art_x + art_w, H)).resize(
+        (front_w - (art_x + art_w), H), Image.BILINEAR
+    )
     front_canvas.paste(right_strip, (art_x + art_w, 0))
     front_canvas.paste(scaled_art, (art_x, art_y))
 
@@ -273,7 +252,9 @@ def build_full_wrap_cover(book: dict, specs: dict, blurbs: dict, suffix: str) ->
     back_live_w = int(specs["trim_w_in"] * DPI - 1.4 * DPI)
 
     fnt_series = get_font(48, bold=True)
-    draw.text((bx, by), SERIES.upper(), font=fnt_series, fill=(212, 175, 55))  # Sovereign Gold
+    draw.text(
+        (bx, by), SERIES.upper(), font=fnt_series, fill=(212, 175, 55)
+    )  # Sovereign Gold
     by += 95
 
     fnt_body = get_font(38)
@@ -289,7 +270,12 @@ def build_full_wrap_cover(book: dict, specs: dict, blurbs: dict, suffix: str) ->
         by += 18
 
     fnt_author = get_font(44, bold=True)
-    draw.text((bx, H - int(specs["bleed_in"] * DPI + 2.5 * DPI)), f"By {AUTHOR}", font=fnt_author, fill=(212, 175, 55))
+    draw.text(
+        (bx, H - int(specs["bleed_in"] * DPI + 2.5 * DPI)),
+        f"By {AUTHOR}",
+        font=fnt_author,
+        fill=(212, 175, 55),
+    )
 
     # Barcode placeholder zone (2.0" x 1.2" blank white safe box for KDP ISBN generation)
     bw_px = int(2.0 * DPI)
@@ -319,7 +305,9 @@ def build_full_wrap_cover(book: dict, specs: dict, blurbs: dict, suffix: str) ->
     except Exception as e:
         logger.warning(f"Could not calibrate MediaBox points for {out_pdf.name}: {e}")
 
-    logger.info(f"Generated Full-Wrap PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)")
+    logger.info(
+        f"Generated Full-Wrap PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)"
+    )
     return out_pdf
 
 
@@ -343,11 +331,17 @@ def build_front_cover_pdf(book: dict) -> Path:
 
     top_strip = scaled_art.crop((0, 0, art_w, 1)).resize((art_w, art_y), Image.BILINEAR)
     front_canvas.paste(top_strip, (art_x, 0))
-    bot_strip = scaled_art.crop((0, art_h - 1, art_w, art_h)).resize((art_w, H - (art_y + art_h)), Image.BILINEAR)
+    bot_strip = scaled_art.crop((0, art_h - 1, art_w, art_h)).resize(
+        (art_w, H - (art_y + art_h)), Image.BILINEAR
+    )
     front_canvas.paste(bot_strip, (art_x, art_y + art_h))
-    left_strip = front_canvas.crop((art_x, 0, art_x + 1, H)).resize((art_x, H), Image.BILINEAR)
+    left_strip = front_canvas.crop((art_x, 0, art_x + 1, H)).resize(
+        (art_x, H), Image.BILINEAR
+    )
     front_canvas.paste(left_strip, (0, 0))
-    right_strip = front_canvas.crop((art_x + art_w - 1, 0, art_x + art_w, H)).resize((W - (art_x + art_w), H), Image.BILINEAR)
+    right_strip = front_canvas.crop((art_x + art_w - 1, 0, art_x + art_w, H)).resize(
+        (W - (art_x + art_w), H), Image.BILINEAR
+    )
     front_canvas.paste(right_strip, (art_x + art_w, 0))
     front_canvas.paste(scaled_art, (art_x, art_y))
 
@@ -394,7 +388,9 @@ def build_scaled_draft_template_pdf(book: dict, specs: dict) -> Path:
     except Exception as e:
         logger.warning(f"Could not calibrate MediaBox points for {out_pdf.name}: {e}")
 
-    logger.info(f"Generated Draft-Scaled Template PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)")
+    logger.info(
+        f"Generated Draft-Scaled Template PDF: {out_pdf.name} ({W}x{H} px @ {DPI} DPI, {float(specs['width_in']):.3f}x{float(specs['height_in']):.3f} in)"
+    )
     return out_pdf
 
 
@@ -408,22 +404,15 @@ def main():
         logger.info(f"--- Processing Book {book['num']}: {book['title']} ---")
 
         pb_specs = get_paperback_specs(book["num"])
-        logger.info(f"Using Paperback Specs: {pb_specs['name']} -> {pb_specs['width_in']}x{pb_specs['height_in']} in ({pb_specs['width_px']}x{pb_specs['height_px']} px)")
+        logger.info(
+            f"Using Paperback Specs: {pb_specs['name']} -> {pb_specs['width_in']}x{pb_specs['height_in']} in ({pb_specs['width_px']}x{pb_specs['height_px']} px)"
+        )
 
-        # 1. Official Paperback calibrated template full wrap
-        build_full_wrap_cover(book, pb_specs, blurbs, "Paperback 550pp Cover")
+        # 1. KDP Paperback BW cream full wrap (primary KDP upload format)
+        build_full_wrap_cover(book, pb_specs, blurbs, "Paperback Cream Cover")
 
-        # Also save to standard legacy name (print cover.pdf)
-        build_full_wrap_cover(book, pb_specs, blurbs, "print cover")
-
-        # 2. Official Case Laminate Hardcover 550pp template full wrap (15.139" x 10.417")
-        build_full_wrap_cover(book, HARDCOVER_SPECS, blurbs, "Hardcover 550pp Cover")
-
-        # 3. Standalone Front Cover PDF (6.125" x 9.250" with bleed)
+        # 2. Standalone Front Cover PDF (6.125" x 9.250" with bleed)
         build_front_cover_pdf(book)
-
-        # 4. Direct Draft Scaled to Template PDF
-        build_scaled_draft_template_pdf(book, pb_specs)
 
     logger.info("All 5 Book Covers and Formatted PDFs Generated Successfully!")
 
