@@ -81,7 +81,8 @@ def display_system_status():
     print(f"● OpenCode Bridge     : 🔗 LINKED ({len(bridge.opencode_keys)} Providers: {opencode_provs})")
     print(f"● Antigravity Hook    : 🔗 CONNECTED ({antigravity_acc} | OAuth Active)")
     print(f"● Ollama Compatibility: 🔗 {ollama_state}")
-    print(f"● In-Graph Safety Gate: Φ = 0.96 [CCRL Bayesian Bushido Pass]")
+    _, gate_score, gate_reason = engine.evaluate_safety_gate("system status probe")
+    print(f"● In-Graph Safety Gate: Φ = {gate_score:.2f} [{gate_reason}]")
     print(f"● Cognitive Parliament: 34-Council Active (5-Wave Pipeline)")
     print(f"● API Gateway (:8080) : http://localhost:8080 [{'ONLINE' if server_online else 'OFFLINE'}] (OpenAI + Ollama)")
     print(f"● Google Computer Use : Native 0-999 Grid ({cu.coords.width}x{cu.coords.height} Display)")
@@ -180,7 +181,7 @@ def display_models_catalog():
     print("=" * 74 + "\n")
 
 
-def run_headless_agent(prompt: str, model_id: str = "quillan-1b-sovereign-q4"):
+def run_headless_agent(prompt: str, model_id: str = "quillan-ronin-flagship"):
     """Runs autonomous coding agent directly in the terminal with live streaming."""
     agent = SovereignCodingAgent()
     agent.engine.active_model_id = model_id
@@ -224,7 +225,7 @@ def main():
     parser.add_argument("--cu", nargs="*", help="Execute Google AI Studio Computer Use GUI action")
     parser.add_argument("--install", action="store_true", help="Install global 'quillan' command on PATH")
     parser.add_argument("--bench", action="store_true", help="Run speed benchmark")
-    parser.add_argument("--model", "-m", type=str, default="quillan-1b-sovereign-q4", help="Model ID")
+    parser.add_argument("--model", "-m", type=str, default="quillan-ronin-flagship", help="Model ID")
     parser.add_argument("--help", "-h", action="store_true", help="Show help")
 
     args = parser.parse_args()
@@ -292,7 +293,7 @@ def main():
   quillan --cu <action> <x> <y>: Execute Google AI Studio Computer Use GUI action
   quillan --install           : Install 'quillan' globally on Windows PATH
   quillan --bench             : Benchmark generation throughput (tok/s)
-  quillan --model <model_id>  : Select model (quillan-1b-sovereign-q4, ollama:llama3.2:1b, gpt-4o)
+  quillan --model <model_id>  : Select model (quillan-ronin-flagship, quillan-ronin-mini, gpt-4o)
 ============================================================================
 """)
         return

@@ -13,9 +13,23 @@ from pathlib import Path
 from typing import Optional, List, Dict
 import httpx
 
-NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "")
+NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 NIM_BASE = "https://integrate.api.nvidia.com/v1"
-REASONING_MODEL = "nvidia/nemotron-3-super-120b-a12b"
+REASONING_MODEL = "nvidia/nemotron-3.5-lightning-30b-a3b"
+
+def get_nvidia_api_key() -> str:
+    key = os.environ.get("NVIDIA_API_KEY", "").strip()
+    if key:
+        return key
+    for env_path in (Path(r"C:\02_QUILLAN\.env"), Path(__file__).resolve().parents[3] / ".env"):
+        if env_path.exists():
+            for line in env_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+                if line.strip().startswith("NVIDIA_API_KEY="):
+                    val = line.split("=", 1)[1].strip().strip('"\'')
+                    if val:
+                        os.environ["NVIDIA_API_KEY"] = val
+                        return val
+    return ""
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [Audio] %(message)s")
 log = logging.getLogger("quillan_audio")
@@ -38,6 +52,25 @@ async def analyze_track_metadata(audio_path: str, lyrics_text: Optional[str] = N
         "has_lyrics": bool(lyrics_text),
     }
 
+    try:
+        import sys as _sys
+        _mcp_dir = r"C:\02_QUILLAN\09 - Projects\mcp"
+        if _mcp_dir not in _sys.path:
+            _sys.path.insert(0, _mcp_dir)
+        from _shared.media_utils import decode_audio_pyav
+        decoded = decode_audio_pyav(path, max_seconds=15.0)
+        summary.update({
+            "codec": decoded["codec"],
+            "sample_rate": decoded["source_sample_rate"],
+            "channels": decoded["channels"],
+            "duration_sec": decoded["duration_sec"],
+            "rms_db": decoded["rms_db"],
+            "bpm": decoded["bpm"],
+            "brightness_centroid": decoded["brightness_centroid"],
+        })
+    except Exception as _dec_err:
+        summary["audio_decode_note"] = str(_dec_err)
+
     if lyrics_text:
         # Perform poetic & harmonic analysis via NIM
         prompt = f"""You are Quillan's Music Architect & Lyricist Specialist.
@@ -52,11 +85,16 @@ Provide:
 2. Emotional Arc & Theme
 3. Key Hooks / Rhyme Scheme Quality Score (1-10)
 """
+        api_key = get_nvidia_api_key()
+        if not api_key:
+            summary["analysis"] = "NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env"
+            return summary
+
         async with httpx.AsyncClient(timeout=45.0) as client:
             resp = await client.post(
                 f"{NIM_BASE}/chat/completions",
                 headers={
-                    "Authorization": f"Bearer {NVIDIA_API_KEY}",
+                    "Authorization": f"Bearer {api_key}",
                     "Content-Type": "application/json"
                 },
                 json={
@@ -67,7 +105,8 @@ Provide:
                 }
             )
             if resp.status_code == 200:
-                summary["analysis"] = resp.json()["choices"][0]["message"]["content"]
+                msg = resp.json()["choices"][0]["message"]
+                summary["analysis"] = msg.get("content") or msg.get("reasoning_content") or ""
             else:
                 summary["analysis"] = f"Analysis failed with status code {resp.status_code}"
 

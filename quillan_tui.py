@@ -142,7 +142,7 @@ Screen {
 }
 """
 
-BANNER_TEXT = """[bold purple]⚔️  QUILLAN-RONIN[/bold purple] [dim]•[/dim] [bold green]SOVEREIGN TERMINAL v5.4.0[/bold green] [dim]•[/dim] [cyan]Bushido Rectitude[/cyan] [dim]•[/dim] [yellow]GTX 1050 (sm_61)[/yellow] [dim]•[/dim] [purple]CCRL Gate: Φ ≥ 0.85[/purple]"""
+BANNER_TEXT = """[bold purple]⚔️  QUILLAN-RONIN[/bold purple] [dim]•[/dim] [bold green]SOVEREIGN TERMINAL v5.4.0[/bold green] [dim]•[/dim] [cyan]Bushido Rectitude[/cyan] [dim]•[/dim] [yellow]Adaptive Hardware[/yellow] [dim]•[/dim] [purple]CCRL Adaptive Gate[/purple]"""
 
 KABUTO_BANNER_TEXT = """[bold purple]┌────────────────────────────────────────────────────────────┐
 │              [bold red]/\\                /\\ [/bold red]                         │
@@ -166,15 +166,15 @@ KABUTO_BANNER_TEXT = """[bold purple]┌─────────────�
 │   [bold cyan]██████╔╝██║   ██║██╔██╗ ██║██║██╔██╗ ██║[/bold cyan]                 │
 │   [bold cyan]╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═══╝[/bold cyan]                 │
 │                                                            │
-│ [bold green]● CORE:[/bold green] [white]v5.4.0 Sovereign[/white]  [bold green]● MoE:[/bold green] [cyan]Weight-Space[/cyan]  [bold green]● GATE:[/bold green] [green]Φ=0.96[/green]  │
+│ [bold green]● CORE:[/bold green] [white]v5.4.0 Sovereign[/white]  [bold green]● MoE:[/bold green] [cyan]Weight-Space[/cyan]  [bold green]● GATE:[/bold green] [green]Adaptive[/green]│
 └────────────────────────────────────────────────────────────┘[/bold purple]"""
 
 STARTUP_GREETING = """### 🗡️ Sovereign Command Center // Tactical Quickstart
 
-**Tripartite Sovereign Models (Ollama Hub & WSP v3.0 Surgical GGUF):**
-• 👑 **Quillan-Ronin Flagship** (`crashoverridex/Quillan-Ronin:latest` | `quillan-1b-sovereign-wsp-v3-q4`) — 1.2B 146-Tensor WSP v3.0
-• ⚡ **Quillan-Ronin Mini** (`crashoverridex/Quillan-Ronin-mini:latest` | `quillan-mini-0.5b-wsp-v3-q4`) — 0.5B 290-Tensor WSP v3.0
-• 🐉 **Quillan-Dragon** (`crashoverridex/Quillan-Dragon:latest` | `quillan-dragon-1b-wsp-v3-q4`) — Falcon-3 1B 165-Tensor WSP v3.0
+**Tripartite Sovereign Models (Ollama & WSP Surgical GGUF):**
+• 👑 **Quillan-Ronin Flagship** (`quillan-ronin-1b:latest` | `quillan-1b-sovereign-wsp-v20-q8`) — 1.2B WSP v20
+• ⚡ **Quillan-Ronin Mini** (`quillan-mini:latest` | `quillan-mini-0.5b-wsp-v15-q8`) — 0.5B WSP v15
+• 🐉 **Quillan-Dragon** (`quillan-dragon:latest` | `quillan-dragon-1b-wsp-v18b-q8`) — Falcon-3 1B WSP v18b
 
 ```bash
 # ⚡ THE QUILLAN CURL (OpenAI-Compatible Drop-In API Endpoint)
@@ -258,7 +258,7 @@ class QuillanCommandCenter(App):
 
     tokens_per_sec = reactive("0.0 tok/s")
     vram_telemetry = reactive(get_gpu_telemetry_string())
-    safety_status = reactive("Φ = 0.96 [VERIFIED]")
+    safety_status = reactive("Adaptive Φ [READY]")
     server_status = reactive("OFFLINE")
     is_generating = reactive(False)
 
@@ -591,7 +591,8 @@ class QuillanCommandCenter(App):
             chat.mount(Static(f"🏛️ **34-Council Mode:** `{status_text}`", classes="chat-bubble-system"))
         elif cmd == "/safety":
             self.engine.safety_gate_active = not self.engine.safety_gate_active
-            status_text = "ACTIVE (Φ >= 0.85)" if self.engine.safety_gate_active else "BYPASSED (Raw Mode)"
+            phi = self.engine.compute_safety_threshold()
+            status_text = f"ACTIVE (Adaptive Φ >= {phi:.2f})" if self.engine.safety_gate_active else "BYPASSED (Raw Mode)"
             chat.mount(Static(f"🛡️ **CCRL Safety Gate:** `{status_text}`", classes="chat-bubble-system"))
         elif cmd == "/model" and len(parts) > 1:
             m_id = parts[1]

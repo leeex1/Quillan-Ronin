@@ -111,12 +111,15 @@ class EdgeDetectionAgent(VisionCouncilMember):
     def __init__(self, input_dim: int = 3, hidden_dim: int = 256):
         super().__init__("edge_detector", input_dim, hidden_dim)
         
-        # Sobel-like edge detection
-        self.edge_kernel = nn.Parameter(torch.tensor([
+        # Depthwise Sobel-like edge detection matching hidden_dim channels
+        base_kernel = torch.tensor(
             [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]],
-            [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]],
-            [[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]]
-        ], dtype=torch.float32).unsqueeze(0), requires_grad=False)
+            dtype=torch.float32,
+        ).view(1, 1, 3, 3)
+        self.edge_kernel = nn.Parameter(
+            base_kernel.repeat(hidden_dim, 1, 1, 1),
+            requires_grad=False,
+        )
         
         self.edge_classifier = nn.Sequential(
             nn.Conv2d(hidden_dim, 128, 1),
@@ -126,10 +129,9 @@ class EdgeDetectionAgent(VisionCouncilMember):
         )
     
     def generate_prediction(self, features: torch.Tensor) -> torch.Tensor:
-        # Apply edge detection
-        edges = F.conv2d(features, self.edge_kernel, padding=1)
-        edge_features = self.feature_extractor(edges)
-        edge_map = self.edge_classifier(edge_features)
+        # Depthwise Sobel edge filtering across all feature channels
+        edges = F.conv2d(features, self.edge_kernel, padding=1, groups=features.shape[1])
+        edge_map = self.edge_classifier(edges)
         return edge_map
     
     def generate_reasoning(self, features: torch.Tensor) -> str:
@@ -158,11 +160,18 @@ class MotionTrackingAgent(VisionCouncilMember):
         )
         
         self.previous_frame = None
+
+    def reset_state(self) -> None:
+        """Reset cached temporal state before a new video sequence."""
+        self.previous_frame = None
     
     def forward(self, x: torch.Tensor, council_context: Optional[torch.Tensor] = None) -> CouncilVote:
-        # Store current frame for next iteration
-        if self.previous_frame is not None:
-            # Compute temporal difference
+        # Store current frame for next iteration; only diff when shape & device match
+        if (
+            self.previous_frame is not None
+            and self.previous_frame.shape == x.shape
+            and self.previous_frame.device == x.device
+        ):
             temporal_diff = torch.abs(x - self.previous_frame)
             features = self.feature_extractor(temporal_diff)
         else:
@@ -309,68 +318,77 @@ class VisionCouncil(nn.Module):
         Process input through council and reach consensus.
         
         Args:
-            x: Input image tensor [B, C, H, W]
+            x: Input feature/image tensor [B, C, H, W]
             
         Returns:
             Dictionary containing council decisions and individual votes
         """
-        batch_size = x.shape[0]
-        
-        # Collect votes from all council members
         votes = []
+        member_features = []
         council_context = None
         
         for member in self.council_members:
             vote = member(x, council_context)
             votes.append(vote)
             
-            # Update council context for next member
+            features = member.feature_extractor(x)
+            member_features.append(features)
+            new_context = features.flatten(2).permute(0, 2, 1)
             if council_context is None:
-                features = member.feature_extractor(x)
-                council_context = features.flatten(2).permute(0, 2, 1)
+                council_context = new_context
             else:
-                new_features = member.feature_extractor(x)
-                new_context = new_features.flatten(2).permute(0, 2, 1)
                 council_context = torch.cat([council_context, new_context], dim=1)
         
-        # Apply weighted voting
-        weighted_votes = self.apply_weighted_voting(votes)
-        
-        # Reach consensus
-        consensus = self.reach_consensus(weighted_votes)
+        # Pool per-member features [B, hidden_dim * num_members] -> weighted spatial & vector consensus
+        weighted_votes = self.apply_weighted_voting(votes, member_features=member_features)
+        consensus_vec = self.reach_consensus(weighted_votes)
+        spatial_consensus = consensus_vec.unsqueeze(-1).unsqueeze(-1).expand(-1, -1, x.shape[2], x.shape[3])
         
         return {
-            'consensus': consensus,
+            'consensus': spatial_consensus,
+            'consensus_vector': consensus_vec,
             'individual_votes': votes,
             'weighted_votes': weighted_votes,
             'council_confidence': self.compute_council_confidence(votes)
         }
     
-    def apply_weighted_voting(self, votes: List[CouncilVote]) -> torch.Tensor:
-        """Apply learned weights to council votes."""
-        weighted_sum = 0
-        total_weight = 0
-        
+    def _prediction_confidence_scalar(self, pred: object) -> float:
+        """Compute scalar confidence factor from heterogeneous tensor/dict predictions."""
+        if isinstance(pred, dict):
+            vals = [v.mean() for v in pred.values() if isinstance(v, torch.Tensor)]
+            return float(torch.stack(vals).mean().item()) if vals else 1.0
+        if isinstance(pred, torch.Tensor):
+            return float(pred.mean().item())
+        return 1.0
+
+    def apply_weighted_voting(
+        self,
+        votes: List[CouncilVote],
+        member_features: Optional[List[torch.Tensor]] = None,
+    ) -> torch.Tensor:
+        """Apply learned weights to council votes and pool into [B, hidden_dim * num_members]."""
+        weights = F.softmax(self.vote_weights, dim=0)
+        pooled_parts = []
         for i, vote in enumerate(votes):
-            weight = F.softmax(self.vote_weights, dim=0)[i]
-            weighted_sum += weight * vote.confidence * vote.prediction
-            total_weight += weight
-        
-        return weighted_sum / (total_weight + 1e-8)
+            weight = weights[i] * vote.confidence
+            if member_features is not None and i < len(member_features):
+                feat_vec = member_features[i].mean(dim=(2, 3))
+                pooled_parts.append(weight * feat_vec)
+            else:
+                scalar = self._prediction_confidence_scalar(vote.prediction)
+                pooled_parts.append(torch.full((1, 1), float(weight) * scalar, device=weights.device))
+        return torch.cat(pooled_parts, dim=-1)
     
     def reach_consensus(self, weighted_votes: torch.Tensor) -> torch.Tensor:
         """Reach consensus through council aggregation."""
-        # Aggregate through council network
         aggregated = self.council_aggregator(weighted_votes.flatten(1))
-        
-        # Apply consensus threshold
-        consensus = torch.where(
+        # Soft gating above threshold while preserving fallback signal if all below threshold
+        gated = torch.where(
             aggregated > self.consensus_threshold,
             aggregated,
-            torch.zeros_like(aggregated)
+            0.1 * aggregated,
         )
-        
-        return consensus
+        return gated
     
     def compute_council_confidence(self, votes: List[CouncilVote]) -> float:
         """Compute overall council confidence."""
@@ -419,43 +437,41 @@ class SwarmIntelligenceModule(nn.Module):
         """
         refined_features = features.clone()
         
-        for _ in range(num_iterations):
-            # Update velocities
-            r1, r2 = torch.rand(2)
-            cognitive = self.cognitive_weight * r1 * (self.personal_best - self.particles)
-            social = self.social_weight * r2 * (self.global_best - self.particles)
-            self.velocities.data = self.inertia_weight * self.velocities + cognitive + social
-            
-            # Update positions
-            self.particles.data += self.velocities
-            
-            # Evaluate fitness (simplified - use feature similarity)
-            fitness = self.evaluate_fitness(self.particles, features)
-            
-            # Update personal best
-            improved = fitness > self.personal_best_fitness
-            self.personal_best.data[improved] = self.particles.data[improved]
-            self.personal_best_fitness.data[improved] = fitness[improved]
-            
-            # Update global best
-            best_idx = torch.argmax(fitness)
-            if fitness[best_idx] > self.global_best_fitness:
-                self.global_best.data = self.particles.data[best_idx]
-                self.global_best_fitness.data = fitness[best_idx]
+        with torch.no_grad():
+            for _ in range(num_iterations):
+                # Update velocities
+                r1, r2 = torch.rand(2, device=features.device)
+                cognitive = self.cognitive_weight * r1 * (self.personal_best - self.particles)
+                social = self.social_weight * r2 * (self.global_best - self.particles)
+                self.velocities.data = self.inertia_weight * self.velocities + cognitive + social
+                
+                # Update positions
+                self.particles.data += self.velocities
+                
+                # Evaluate fitness
+                fitness = self.evaluate_fitness(self.particles, features)
+                
+                # Update personal best
+                improved = fitness > self.personal_best_fitness
+                self.personal_best.data[improved] = self.particles.data[improved]
+                self.personal_best_fitness.data[improved] = fitness[improved]
+                
+                # Update global best
+                best_idx = torch.argmax(fitness)
+                if fitness[best_idx] > self.global_best_fitness[0]:
+                    self.global_best.data.copy_(self.particles.data[best_idx])
+                    self.global_best_fitness.data[0] = fitness[best_idx]
         
         # Apply global best to refine features
-        refined_features = refined_features + self.global_best.unsqueeze(0).unsqueeze(2).unsqueeze(3)
+        refined_features = refined_features + self.global_best.view(1, -1, 1, 1)
         
         return refined_features
     
     def evaluate_fitness(self, particles: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
-        """Evaluate fitness of particles based on similarity to target."""
-        # Simplified fitness function
-        target_flat = target.mean(dim=[2, 3]) if len(target.shape) > 2 else target
-        particle_flat = particles
-        
-        similarity = F.cosine_similarity(particle_flat, target_flat.unsqueeze(0).expand_as(particle_flat))
-        return similarity
+        """Evaluate fitness of particles based on cosine similarity to batch mean target."""
+        target_flat = target.mean(dim=[2, 3]) if target.ndim > 2 else target
+        target_proto = target_flat.mean(dim=0, keepdim=True).expand_as(particles)
+        return F.cosine_similarity(particles, target_proto, dim=-1)
 
 
 class QuillanVisionSystem(nn.Module):

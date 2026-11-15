@@ -8,11 +8,16 @@ ROOT = Path('C:/02_QUILLAN')
 MEMORY_MD = ROOT / 'quillan_memory' / 'MEMORY.md'
 CHATLOG_DIR = ROOT / 'chatlogs'
 CHATLOG_DIR.mkdir(parents=True, exist_ok=True)
-LOCAL_SYS = ROOT / 'personhood' / 'local_system.txt'
-SAMURAI = ROOT / 'personhood' / 'system.md'
+LOCAL_SYS = ROOT / 'quillan.md'
+SAMURAI = ROOT / '06 - Deployment & Platforms' / 'system prompts' / 'Quillan-Samurai.md'
 def load_system():
-    try: return LOCAL_SYS.read_text(encoding='utf-8-sig', errors='replace') + "\n\n" + SAMURAI.read_text(encoding='utf-8-sig', errors='replace')[:3000]
-    except: return LOCAL_SYS.read_text(encoding='utf-8-sig', errors='replace')
+    parts = []
+    for p, cap in ((LOCAL_SYS, 2000), (SAMURAI, 3000)):
+        if p.exists():
+            parts.append(p.read_text(encoding='utf-8-sig', errors='replace')[:cap])
+    if parts:
+        return "\n\n".join(parts)
+    return "You are Quillan-Ronin Sovereign AI."
 def _nvidia_key():
     key = os.environ.get('NVIDIA_API_KEY', '').strip()
     if not key:
@@ -25,10 +30,20 @@ def _nvidia_key():
     if not key:
         raise RuntimeError('NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env.')
     return key
-def get_brain(): return {'api_base':'http://localhost:11434/v1','model':'falcon3:1b-instruct-q8_0','fallback':('https://integrate.api.nvidia.com/v1',_nvidia_key(),'nvidia/nemotron-3.5-lightning-30b-a3b')}
+def get_brain():
+    try:
+        nkey = _nvidia_key()
+    except Exception:
+        nkey = ""
+    return {
+        'api_base':'http://127.0.0.1:8080/v1',
+        'model':'quillan-ronin-flagship',
+        'ollama_fallback':('http://127.0.0.1:11434/v1','unused','quillan-ronin-1b:latest'),
+        'fallback':('https://integrate.api.nvidia.com/v1',nkey,'nvidia/nemotron-3.5-lightning-30b-a3b')
+    }
 def chat_once(messages, model=None):
     cfg=get_brain()
-    bases=[(cfg['api_base'],'unused',cfg['model']), cfg['fallback']]
+    bases=[(cfg['api_base'],'unused',model or cfg['model']), cfg['ollama_fallback'], cfg['fallback']]
     # fallback uses nvidia model
     # mdl already from bases
     for api_base, key, mdl in bases:

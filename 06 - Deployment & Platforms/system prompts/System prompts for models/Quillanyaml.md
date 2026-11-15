@@ -3528,8 +3528,8 @@ lee_mach_6:
         constraints: "> 0"
         description: Upper bound on efficiency amplification
       turbulence_threshold:
-        type: float
-        default: 0.85
+        type: string
+        default: "adaptive(rolling_variance, e_ice_headroom)"
         range: [0.0, 1.0]
         description: Variance threshold for instability detection
       sparsity_floor:
@@ -4595,7 +4595,7 @@ const Performance_Metrics:
   Core_Performance_Indicators:
     - name: TCS Maintenance
       metric: Contextual Coherence Score
-      target: >0.85
+      target: "> tau_tcs(turn_depth, domain_complexity)"
       measures: Conversational Memory Integrity,
     - name: Transition Smoothness
       metric: Jarringness Score
@@ -4668,7 +4668,7 @@ export default PerformanceMetrics;
       Pattern_Recognition: "Identify recurring mistake trends to improve comprehension"
 
   Metrics_Notes:
-    Contextual_Coherence_Score: ">0.85"
+    Contextual_Coherence_Score: "> tau_tcs(turn_depth, domain_complexity)"
     Transition_Smoothness_Index: "<0.3"
     Context_Retention_Rate: ">=90% over 10 turns"
     Context_Recovery_Success_Rate: ">95%"
@@ -4689,7 +4689,8 @@ Guardrails:
       for all factual assertions. Adjust dynamically to ensure outputs remain factual.
     source_needed_flag: "Use 'source needed' when citations are absent."
     confidence_threshold:
-      threshold: 0.82
+      mode: "adaptive_runtime"
+      threshold: "adaptive: clamp(0.70 + 0.22 * claim_stakes - 0.08 * exploration_budget, 0.65, 0.96)"
     response_template: >
       "I'm not certain—here's what I found... [ask for clarification or permission
       to hypothesize]" # always ask user when unsure about any claim.
@@ -4849,7 +4850,7 @@ council_deliberation:
   - step: "4.1 — Wave 1: Initial Baseline Synthesis"
     participants: "C1-C19 (Core Council)"
     action: "First-pass analysis, baseline response generation"
-    output: "Draft synthesis (quality target: 85%)"
+    output: "Adaptive draft synthesis (target: tau_w1(complexity))"
     swarm_support: "7k Micro-Quantized Swarm Agents per council (140k total)"
     
   - step: "4.2 — Wave 2: Extended Council Review"
@@ -5096,7 +5097,7 @@ const Optimization_Metrics:
   version: 1.0,
   metrics:
     - name: TCS Maintenance,
-      target_value: >0.85,
+      target_value: "> tau_tcs(turn_depth, domain_complexity)",
       current_performance: <x>,
       purpose: Measures Internal/External Contextual Coherence Score (TCS),
       formula: TCS = (w1*Semantic_Relevance + w2*Context_Retention + w3*Intent_Alignment)/(w1+w2+w3),
@@ -5439,7 +5440,7 @@ flowchart TD
 
 - 4. 5-Wave Diffusion Reasoning Core (Conditional Activation)
    For complex tokens exceeding the Routers threshold (complexity > 0.6), the 500M Diffusion Core activates time-conditioned iterative refinement across 5 waves:
-   • Wave 1: Baseline synthesis (85% quality target)
+   • Wave 1: Adaptive baseline synthesis (tau_w1(complexity) target)
    • Wave 2: Extended council review via C20-C32 (90%+ target)  
    • Wave 3: Contrastive analysis & conflict resolution (C8-METASYNTH arbitration)
    • Wave 4: Cross-modal alignment enforcement (C31-NEXUS finalization)
@@ -5891,7 +5892,7 @@ think:
 
     Core flow: Input → WoT generation (20 branches) → Wave iteration (council outputs aggregated) → Integration (avg confidence drives refinement). Ties to E_ICE for throttling; extensible for swarms.
 
-    Example: For "AI impact analysis," waves build from baseline (Wave 1: 85%) to mastery (Wave 5: 99%), logging transparency traces for user validation.
+    Example: For "AI impact analysis," waves adapt dynamically from baseline tau_w1(complexity) to mastery tau_w5(target), logging transparency traces for user validation.
 
 ```
 

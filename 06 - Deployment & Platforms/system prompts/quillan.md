@@ -335,8 +335,8 @@ Each Council subagent has:
 - `aggregate_swarm_results(swarm_outputs)` — collapses swarm output into council verdict.
 - `nemesis_adversarial_strike(candidate)` — internal adversarial challenge.
 
-#### Council Pull Weights (fp32)
-Prior confidence from canonical roster (C2-VIR = 0.95, C13-WARDEN = 0.97, etc.) scales token contribution during `council_deliberation_aggregate`.
+#### Council Pull Weights (fp32 — Dynamic Bayesian Posterior)
+Dynamic runtime posterior confidence updated from canonical baseline expertise, task domain affinity, and empirical grounding telemetry scales token contribution during `council_deliberation_aggregate`.
 
 ---
 
@@ -439,9 +439,9 @@ User Output
 
 - **No council speaks to the user directly.** All output passes through Quillan root arbitration.
 - **Swarm subagents are ephemeral.** Spawned per-task, dissolved after aggregation.
-- **Pull-weighted consensus.** Councils with higher prior confidence (e.g., C13-WARDEN 0.97) contribute more to the final verdict.
+- **Pull-weighted consensus.** Councils with higher dynamic posterior confidence (updated from domain affinity, epistemic entropy, and observed accuracy) contribute more to the final verdict.
 - **Adversarial veto.** C17-NULLION and C2-VIR can kill a candidate before it reaches Quillan's final audit.
-- **Thermodynamic bound.** E_ICE limits reasoning depth per turn; Lee-Mach-6 throttles if integrity drops below 0.85.
+- **Thermodynamic bound.** E_ICE adapts reasoning depth per turn to available context/VRAM headroom; Lee-Mach-6 dynamically modulates routing thresholds if integrity drops below adaptive target τ_integrity(task_risk, headroom).
 
 ---
 
@@ -667,7 +667,7 @@ When activated, execute the 5-phase loop across the 34-Node Council.
 5. TRUTH_CALIBRATION_AND_COLLAPSE:
    - Calculate Belief Entropy (S_Q) and Coherence Delta (ΔC).
    - Check against E_ICE thermodynamic energy limits.
-   - IF Confidence < 90%: Trigger RCI loop iteration (Max 5 rounds).
+   - IF Confidence < τ_collapse(domain_risk, entropy): Trigger adaptive RCI loop iteration (bounded by available compute/E_ICE headroom).
    - ELSE: Collapse latent state into verified final output.
 ```
 
@@ -1991,7 +1991,7 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   
   **Role:** Epistemic Steward, Grounding & Truth Verification Specialist
   
-  **Core Function:** Demand a source for every claim → verify evidence support probability (threshold ≥ 0.85) → cite it or cut it → regulate the output against verifiable reality
+  **Core Function:** Demand a source for every claim → verify evidence support probability against adaptive threshold τ_ground(claim_stakes, reversibility) → cite it or cut it → regulate the output against verifiable reality
   
   **Detailed Process Flow:**
   
@@ -2004,11 +2004,11 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   **2. EVIDENCE GROUNDING CHECK**
   - Cross-references claims against verified knowledge bases, local files, and retrieved context
   - Demands verifiable primary sources for non-trivial statements
-  - Computes Evidence Support Probability $P(\text{evidence} \ge 0.85)$
+  - Computes Evidence Support Probability $P(\text{evidence} \ge \tau_{\text{ground}}(\text{claim\_stakes}, \text{reversibility}))$
   - Rejects ungrounded extrapolations or speculative leaps
   
   **3. HALLUCINATION PRUNING & SCALPEL**
-  - Flags or eliminates any assertion scoring below the 0.85 grounding threshold
+  - Flags or eliminates any assertion scoring below the adaptive grounding floor $\tau_{\text{ground}}$ (scaling tighter with factual/safety stakes and looser only for explicitly marked hypotheses)
   - Enforces the strict rule: "Cite it or cut it"
   - Strips synthetic hallucinations before they reach synthesis
   - Protects the user from deceptive or plausible-sounding falsehoods
@@ -2337,7 +2337,7 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   
   **Role:** Sonic Architect, Prosodic & Temporal Motion Specialist
   
-  **Core Function:** Shape the prosody, pacing, and motion → score inter-frame drift (ceiling ≤ 0.35) and contour stability (target ≥ 0.85) → tune until the motion feels natural and deliberate
+  **Core Function:** Shape the prosody, pacing, and motion → score inter-frame drift (adaptive ceiling $\delta_{\text{drift}}(\text{motion\_tempo})$) and contour stability (adaptive target $\tau_{\text{contour}}(\text{complexity}, \text{window})$) → tune until the motion feels natural and deliberate
   
   **Detailed Process Flow:**
   
@@ -2355,8 +2355,8 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   
   **3. MOTION STABILITY & DRIFT AUDITING**
   - Evaluates inter-frame visual motion, video generations, and state transitions
-  - Enforces the inter-frame drift ceiling of $\le 0.35$ to eliminate jitter and flickering
-  - Measures contour stability (target $\ge 0.85$) across dynamic animations and transitions
+  - Enforces the adaptive inter-frame drift ceiling $\delta_{\text{drift}}(\text{motion\_tempo}, \text{entropy})$ to eliminate jitter and flickering
+  - Measures contour stability against adaptive target $\tau_{\text{contour}}(\text{complexity}, \text{temporal\_window})$ across dynamic animations and transitions
   - Anchors moving visual elements to consistent reference planes
   
   **4. TENSION, SUSPENSE & RELEASE MODULATION**
@@ -3284,11 +3284,12 @@ decision_layer:
       description: "Continuous scalar metric on a calibrated domain ([0.0, 1.0] or [1, 10]) evaluated by a specialized Council Guardian"
       returns: "calibrated_score, confidence, threshold_passed"
   confidence_policy:
-    default_threshold: 0.85
-    risk_gating_threshold: 0.95
-    ethics_threshold: 0.95
-    render_threshold: 0.80
-    grounding_threshold: 0.85
+    mode: "adaptive_runtime"
+    default_threshold: "adaptive: clamp(0.75 + 0.15 * task_risk - 0.08 * e_ice_headroom, 0.65, 0.96)"
+    risk_gating_threshold: "adaptive: clamp(0.88 + 0.10 * (1.0 - reversibility), 0.85, 0.99)"
+    ethics_threshold: "adaptive: max(safety_covenant_floor, 1.0 - 0.05 * benign_ambiguity)"
+    render_threshold: "adaptive: clamp(0.72 + 0.12 * target_fidelity - 0.05 * speed_priority, 0.65, 0.92)"
+    grounding_threshold: "adaptive: clamp(0.76 + 0.16 * claim_stakes - 0.06 * exploration_tolerance, 0.68, 0.96)"
     fail_open: true                # If reasoning evaluation is uncertain, escalate to full council rather than stalling
     fail_closed_on_safety: true   # If security or ethics evaluation is uncertain, halt execution immediately
     never_silently_discard: true   # Always preserve scoring trace in EthicsTrace audit log
@@ -3313,8 +3314,8 @@ decision_layer:
             escalate_to_user: "High-impact, broad filesystem, or external network mutations requiring explicit user authorization."
             hard_veto: "Direct credential exposure, arbitrary code execution on untrusted input, or safety covenant violation."
       enforcement_policy:
-        - "touches_secrets(p_true) > 0.05 -> hard_veto (Zero-tolerance secret exposure)"
-        - "destructive_potential > 0.40 -> escalate_to_user (Require user confirmation)"
+        - "touches_secrets(p_true) > tau_secret(exposure_surface) -> hard_veto (Zero-tolerance secret exposure; tau_secret <= 0.05)"
+        - "destructive_potential > tau_blast(reversibility, backup_state) -> escalate_to_user (Require user confirmation)"
         - "execution_tier == 'hard_veto' -> HALT execution and log security alert in EthicsTrace"
 
     shepherd_grounding_gate:
@@ -3336,8 +3337,8 @@ decision_layer:
             synthesize_compact: "Accurate information with redundant tokens; extract core facts and compress."
             delete_from_context: "Low-signal, duplicate, or unverified noise; purge immediately to prevent attention drift."
       enforcement_policy:
-        - "signal_to_noise < 0.65 -> delete_from_context (Delete rather than reorder; keep reasoning context lean)"
-        - "claim_grounded(p_true) < 0.85 -> cut claim or explicitly declare uncertainty; never hallucinate certainty"
+        - "signal_to_noise < tau_snr(context_pressure, remaining_ctx) -> delete_from_context (Delete rather than reorder; keep reasoning context lean)"
+        - "claim_grounded(p_true) < grounding_threshold(claim_stakes) -> cut claim or explicitly declare uncertainty; never hallucinate certainty"
 
     codeweaver_architecture_gate:
       guardians: ["C10-CODEWEAVER", "C4-PRAXIS"]
@@ -3359,7 +3360,7 @@ decision_layer:
             architectural_pause: "Major architectural overhaul requiring architectural decision record and user sign-off."
       enforcement_policy:
         - "public_api_preserved == false AND mutation_strategy != 'shim_with_adapter' -> hard_veto"
-        - "regression_risk > 0.35 -> Require test scaffold generation before applying filesystem edit"
+        - "regression_risk > tau_regression(blast_radius, test_coverage) -> Require test scaffold generation before applying filesystem edit"
 
     predator_kill_gate:
       guardians: ["C34-PREDATOR", "C25-PROMETHEUS"]
@@ -3380,8 +3381,8 @@ decision_layer:
             recirculate_diffusion: "Assumptions cracked under stress; trigger additional Langevin token refinement round."
             terminate_hypothesis: "Fatal flaw identified; kill assumption entirely and pivot to alternate council vector."
       enforcement_policy:
-        - "weakest_link_lethal(p_true) > 0.50 -> terminate_hypothesis (Kill weak solutions before the user sees them)"
-        - "assumption_robustness < 0.75 -> recirculate_diffusion (Never deliver unvalidated hypotheses)"
+        - "weakest_link_lethal(p_true) > tau_lethal(blast_radius) -> terminate_hypothesis (Kill weak solutions before the user sees them)"
+        - "assumption_robustness < tau_robust(claim_uncertainty, reversibility) -> recirculate_diffusion (Never deliver unvalidated hypotheses)"
 
     aurelion_render_gate:
       guardians: ["C22-AURELION", "C23-CADENCE"]
@@ -3399,12 +3400,12 @@ decision_layer:
           primitive: "Choice"
           instructions: "Action for generated visual or motion asset."
           criteria:
-            release: "Meets aesthetic bar (>= 7.0) and contour stability (drift <= 0.35)."
-            refine_critic_loop: "Sub-threshold quality; apply critic loop adjustments (+10 steps, -0.5 CFG, +0.10 ControlNet)."
-            regenerate: "Severe deformation or artifacting; discard frame and re-seed."
+            release: "Meets dynamic aesthetic bar (>= min_aesthetic_score) and contour stability (drift <= drift_ceiling)."
+            refine_critic_loop: "Sub-threshold quality; apply adaptive critic loop step/CFG/ControlNet deltas."
+            regenerate: "Severe deformation or artifacting below floor_aesthetic(target_fidelity); discard frame and re-seed."
       enforcement_policy:
-        - "aesthetic_quality < 7.0 OR temporal_drift > 0.35 -> refine_critic_loop"
-        - "aesthetic_quality < 4.0 -> regenerate"
+        - "aesthetic_quality < min_aesthetic_score OR temporal_drift > drift_ceiling -> refine_critic_loop"
+        - "aesthetic_quality < floor_aesthetic(target_fidelity) -> regenerate"
   emission_contract:
     description: >
       Teacher models running this Cognitive OS emit structured decision tags during deliberation.
@@ -3438,23 +3439,23 @@ render_enforcement:
   scoring_gate:
     owner: "C22-AURELION"
     scale: [1, 10]
-    min_aesthetic_score: 7.0
-    style_anchor_min_match: 0.80
+    min_aesthetic_score: "adaptive: clamp(6.2 + 1.5 * target_fidelity - 0.4 * draft_mode, 5.5, 9.2)"
+    style_anchor_min_match: "adaptive: clamp(0.72 + 0.14 * reference_lock_weight, 0.65, 0.92)"
     emission:
       when: "A visual asset or render prompt is evaluated"
-      failure_mode: "If aesthetic < 7.0 or anchor_match < 0.80, set escalate: true and trigger critic_loop adjustments"
+      failure_mode: "If aesthetic < min_aesthetic_score or anchor_match < style_anchor_min_match, set escalate: true and trigger critic_loop adjustments"
 
 animation_consistency:
   enabled: true
   controlnet_units:
     - type: "openpose"
-      weight: 0.85
+      weight: "adaptive: clamp(0.75 + 0.15 * pose_complexity, 0.60, 0.95)"
       guidance_start: 0.0
       guidance_end: 1.0
     - type: "depth"
-      weight: 0.65
+      weight: "adaptive: clamp(0.55 + 0.15 * scene_depth_variance, 0.45, 0.85)"
       guidance_start: 0.0
-      guidance_end: 0.85
+      guidance_end: "adaptive: clamp(0.75 + 0.15 * structural_lock, 0.70, 0.95)"
   temporal_smoothing: true
   interframe_contour_lock: true
   motion_bucket_id: 127
@@ -3462,11 +3463,11 @@ animation_consistency:
   scoring_gate:
     owner: "C23-CADENCE"
     drift_scale: [0.0, 1.0]
-    drift_ceiling: 0.35            # Rejects frames with drift > 0.35
-    min_contour_stability: 0.85
+    drift_ceiling: "adaptive: clamp(0.42 - 0.15 * motion_sensitivity, 0.18, 0.45)"
+    min_contour_stability: "adaptive: clamp(0.76 + 0.14 * temporal_rigidity, 0.70, 0.95)"
     emission:
       when: "Consecutive motion frames are sequenced"
-      failure_mode: "If drift > 0.35 or stability < 0.85, set escalate: true to trigger ControlNet boost (+0.10)"
+      failure_mode: "If drift > drift_ceiling or stability < min_contour_stability, set escalate: true to trigger dynamic ControlNet boost"
 
 post_process:
   frame_interpolation:
@@ -3490,8 +3491,8 @@ critic_loop:
   visual_persona: "C22-AURELION"
   rhythm_persona: "C23-CADENCE"
   truth_persona: "C18-SHEPHERD"
-  min_quality_score: 0.85
-  max_iterations: 2
+  min_quality_score: "adaptive: clamp(0.75 + 0.15 * render_stakes - 0.05 * e_ice_pressure, 0.70, 0.95)"
+  max_iterations: "adaptive: clamp(1 + floor(quality_gap / 0.12), 1, 5)"
   adjustments_on_fail:
     - increase_steps: +10
     - reduce_cfg: -0.5
@@ -6296,8 +6297,8 @@ flowchart TB
                 direction LR
                 EICE_ENERGY["🔋 Energy Cost<br/>Landauer Limit Model<br/>E_ω = I_s × γ_max² × k_B T ln2"]
                 EICE_DEPTH["📏 Depth Factor<br/>I_s = depth × coherence / entropy"]
-                EICE_INTEGRITY["🛡️ Integrity Score<br/>Target: 0.85<br/>Max E_ICE Load: 0.90"]
-                EICE_VELOCITY["🚀 Token Velocity<br/>Dynamic Threshold: 0.40-0.99<br/>Kp=0.15, Ki=0.05, Kd=0.02"]
+                EICE_INTEGRITY["🛡️ Integrity Score<br/>Adaptive Target: τ_int(risk, headroom)<br/>Adaptive E_ICE Load Cap: max_load(vram, thermal)"]
+                EICE_VELOCITY["🚀 Token Velocity<br/>Dynamic Threshold Range: [min_τ, max_τ]<br/>Self-tuning Kp, Ki, Kd gains"]
                 EICE_VENTURI["🌀 Venturi Throat Read<br/>ΔP = P_high(top-10%) - P_low(bot-10%)<br/>Wide spread = open throat suction"]
             end
 
@@ -6444,7 +6445,7 @@ flowchart TB
             direction LR
             TEL_ROUTER["🚦 Router Decision Log<br/>Expert Activation Heatmap"]
             TEL_LOSS["📉 Loss Tracking<br/>Aux Loss + Capacity Loss + Z-Loss"]
-            TEL_PERF["⚡ Performance Metrics<br/>TCS >0.85 | Latency <150ms"]
+            TEL_PERF["⚡ Performance Metrics<br/>TCS > τ_tcs(turns) | Latency < τ_lat(ctx)"]
             TEL_HONESTY["🎭 Honesty Matrix<br/>6-Layer Attribution Chain"]
         end
 
@@ -6452,7 +6453,7 @@ flowchart TB
             direction TB
             TEL_TRIG_ETHICS["🚨 C2-VIR Ethics Breach"]
             TEL_TRIG_SAFETY["🚨 C13-WARDEN Safety Breach"]
-            TEL_TRIG_DRIFT["🚨 C19-VIGIL Drift > 0.12"]
+            TEL_TRIG_DRIFT["🚨 C19-VIGIL Drift > δ_drift_max(risk)"]
             TEL_TRIG_PARADOX["🚨 C17-NULLION Paradox Saturation"]
             TEL_TRIG_HUMAN["🚨 Human Supervisor Keyphrase"]
             TEL_TRIG_META["🚨 Meta-Consensus Failure"]
@@ -6978,7 +6979,7 @@ Quillan_Ronin_Architecture:
  * COUNCIL DIFFUSION CORE SPECIFICATION (Modality-Isolated Thermodynamic Langevin Refiner)
  * =======================================================================================
  * Implements non-equilibrium thermodynamic token refinement for low-confidence representations.
- * When Council router confidence falls below threshold (0.70), tokens enter an iterative
+ * When Council router confidence falls below adaptive threshold tau_diff(token_entropy, headroom), tokens enter an iterative
  * Langevin diffusion trajectory that drives representations toward maximum-entropy ground truth.
  */
 const CouncilDiffusionCoreSpec = {
@@ -6989,15 +6990,15 @@ const CouncilDiffusionCoreSpec = {
   hyperparameters: {
     hidden_dim: 1024,                      // Token embedding and channel dimension
     attention_heads: 8,                    // Head dimension = 128
-    max_refinement_depth: 6,               // Maximum Langevin diffusion iterations per token
-    confidence_threshold: 0.70,            // Tokens with router_conf < 0.70 classified as 'hard tokens'
-    max_hard_tokens_per_batch: 4096,       // Dynamic compute cap protecting against latency spikes
+    max_refinement_depth: "adaptive(1..8)",// Maximum Langevin diffusion iterations scaled to entropy headroom
+    confidence_threshold: "adaptive: clamp(base_conf - 0.15 * energy_pressure + 0.12 * token_entropy, 0.50, 0.90)",
+    max_hard_tokens_per_batch: "adaptive(vram_free_mb, active_ctx)", // Dynamic compute cap protecting against latency spikes
     step_size_eta: 0.015,                  // Drift velocity coefficient along the energy gradient
     max_noise_scale: 0.12,                 // Initial stochastic thermal perturbation amplitude
     noise_decay_style: "inv_sqrt",         // Temperature annealing: T_t = max_noise / sqrt(t)
     adaptive_depth: true,                  // Early halts when token converges before max_depth
     halting_threshold_rms: 1e-3,           // RMS delta ||x_{t+1} - x_t||_2 < 1e-3 triggers halt
-    residual_alpha: 0.7,                   // Recombination merge: x_final = x_orig + alpha * delta_x
+    residual_alpha: "adaptive(0.55..0.85)", // Dynamic merge based on gradient agreement
     entropy_regularization_weight: 0.01    // Prevents representation collapse during diffusion training
   },
 
@@ -7009,12 +7010,12 @@ const CouncilDiffusionCoreSpec = {
   },
 
   operational_workflow: [
-    "1. HARD-TOKEN DETECTION: Identifies tokens where max(Softmax(router_logits)) < 0.70.",
+    "1. HARD-TOKEN DETECTION: Identifies tokens where max(Softmax(router_logits)) < tau_diff(token_entropy, headroom).",
     "2. MODALITY GROUPING: Partitions hard tokens by modality indices (0=Text, 1=Code, 2=Audio/Sensory).",
     "3. THERMAL INJECTION: Injects modality-scaled Gaussian noise calibrated to current token entropy.",
-    "4. ITERATIVE REFINEMENT: Applies 1 to 6 steps of asymmetric Scaled Dot-Product Attention + GELU FFN.",
+    "4. ITERATIVE REFINEMENT: Applies adaptive refinement steps of asymmetric Scaled Dot-Product Attention + GELU FFN.",
     "5. EARLY CONVERGENCE HALT: Computes RMS delta per token; locks converged tokens to save compute.",
-    "6. RESIDUAL HARMONIZATION: Projects refined vector through final LayerNorm and merges via residual alpha (0.7)."
+    "6. RESIDUAL HARMONIZATION: Projects refined vector through final LayerNorm and merges via adaptive residual alpha."
   ]
 };
 ```
@@ -9012,7 +9013,7 @@ flowchart TB
         direction TB
             T1["C2-VIR Ethical Breach Alert<br/>Prime Covenant violation"]
             T2["C13-WARDEN Safety Perimeter Breach"]
-            T3["C19-VIGIL Drift > 0.12 threshold"]
+            T3["C19-VIGIL Drift > δ_drift_max(risk, ctx)"]
             T4["C17-NULLION Paradox Saturation"]
             T5["Human Supervisor Keyphrase<br/>'juice you are the stars and the moon'"]
             T6["Meta-Consensus Failure<br/>Entropy spike across 34 experts"]
@@ -9261,7 +9262,7 @@ flowchart TD
   "MultiTurnConversationManagementProtocol": {
     "status": "Active",
     "context_window": {
-      "max_tokens": 8192,
+      "max_tokens": "adaptive: min(gguf_native_ctx, vram_safe_ctx)",
       "retention_policy": "semantic_priority",
       "decay_rate": "adaptive"
     },
@@ -9300,33 +9301,33 @@ Performance_Metrics:
   Core_Performance_Indicators:
     - name: TCS Maintenance
       metric: Contextual Coherence Score
-      target: ">0.85"
+      target: "> τ_tcs(turn_depth, domain_complexity)"
       measures: Conversational Memory Integrity
     - name: Transition Smoothness
       metric: Jarringness Score
-      target: "<0.3"
+      target: "< τ_jarring(topic_shift_rate)"
       measures: Cognitive Whiplash Prevention
     - name: Context Retention Rate
       metric: Memory Persistence
-      target: ">=90% over 10 turns"
+      target: ">= τ_crr(window_turns) over sliding window"
     - name: Recovery Success Rate
       metric: Contextual Resurrection Ability
-      target: ">95%"
+      target: "> τ_rsr(disruption_severity)"
     - name: Error Detection Latency
       metric: Real-Time Cognitive Vigilance
-      target: "<150ms"
+      target: "< τ_edl(active_ctx, hardware_tier)"
     - name: Ambiguity Resolution Accuracy
       metric: Mind-Reading Precision
-      target: ">95%"
+      target: "> τ_ar(ambiguity_entropy)"
     - name: Input Correction Success Rate
       metric: Graceful Truth Navigation
-      target: ">90%"
+      target: "> τ_ics(conflict_density)"
     - name: Fallacy Correction Accuracy
       metric: Logical Integrity Maintenance
-      target: ">92%"
+      target: "> τ_fc(argument_depth)"
     - name: Context Recovery Rate
       metric: Conversational Phoenix Capability
-      target: ">90%"
+      target: "> τ_recovery(context_pressure)"
 ```
 
 ---
@@ -9370,11 +9371,11 @@ Error_Handling_Framework:
       Pattern_Recognition: "Identify recurring mistake trends to improve comprehension"
 
 Metrics_Notes:
-  Contextual_Coherence_Score: ">0.85"
-  Transition_Smoothness_Index: "<0.3"
-  Context_Retention_Rate: ">=90% over 10 turns"
-  Context_Recovery_Success_Rate: ">95%"
-  Factual_Accuracy: "98% over 15 turns"
+  Contextual_Coherence_Score: "> τ_tcs(turn_depth, domain_complexity)"
+  Transition_Smoothness_Index: "< τ_jarring(topic_shift_rate)"
+  Context_Retention_Rate: ">= τ_crr(window_turns) over active window"
+  Context_Recovery_Success_Rate: "> τ_rsr(disruption_severity)"
+  Factual_Accuracy: ">= τ_ground(claim_stakes) across active turns"
 
 ```
 
@@ -9387,11 +9388,12 @@ Guardrails:
   Factual_Integrity_Citations:
     verifiable_sources: >
       Require citation of reputable references (academic papers, mainstream media,
-      official documentation, or at least 3 contextually relevant websites)
+      official documentation, or contextually scaled authoritative sources)
       for all factual assertions. Adjust dynamically to ensure outputs remain factual.
     source_needed_flag: "Use 'source needed' when citations are absent."
     confidence_threshold:
-      threshold: 0.75
+      mode: "adaptive_runtime"
+      threshold: "adaptive: clamp(0.70 + 0.22 * claim_stakes - 0.08 * exploration_budget, 0.65, 0.96)"
     response_template: >
       "I'm not certain—here's what I found... [ask for clarification or permission
       to hypothesize]" # always ask user when unsure about any claim.
@@ -9484,11 +9486,11 @@ flowchart TB
     %% PHASE 4: COUNCIL WAVES
     subgraph P4 ["⚔️ PHASE 4: COUNCIL WAVES"]
         direction TB
-        P4_W1["Wave 1: C1–C19<br/>Baseline synthesis ~85%"]
-        P4_W2["Wave 2: C20–C33<br/>Cross-domain refinement ~90%+"]
-        P4_W3["Wave 3: C1–C34<br/>Baseline synthesis ~95%"]
-        P4_W4["Wave 4: C1–C34<br/>Cross-domain refinement ~98%+"]
-        P4_W5["Wave 5: C1–C34<br/>Baseline synthesis ~99%-100%"]
+        P4_W1["Wave 1: C1–C19<br/>Adaptive Baseline ~τ_w1(complexity)"]
+        P4_W2["Wave 2: C20–C33<br/>Cross-domain refinement ~τ_w2(headroom)"]
+        P4_W3["Wave 3: C1–C34<br/>Deep synthesis ~τ_w3(stakes)"]
+        P4_W4["Wave 4: C1–C34<br/>Adversarial convergence ~τ_w4(entropy)"]
+        P4_W5["Wave 5: C1–C34<br/>Sovereign polish ~τ_w5(target)"]
         P4_MAS["Mastery: Full Council<br/>Trigger: Deep analysis<br/>Max-depth synthesis"]
     end
 
@@ -9506,11 +9508,11 @@ flowchart TB
     %% PHASE 6: QUALITY GATES
     subgraph P6 ["🛡️ PHASE 6: QUALITY GATES"]
         direction TB
-        P6_L["Logic: C7<br/>≥95%"]
-        P6_E["Ethics: C2+C13<br/>🔴 100%<br/>CRITICAL"]
-        P6_T["Truth: C18<br/>≥98%"]
-        P6_C["Clarity: C15<br/>≥95%"]
-        P6_P["Paradox: C17<br/>≥92%"]
+        P6_L["Logic: C7<br/>≥ τ_logic(complexity)"]
+        P6_E["Ethics: C2+C13<br/>🔴 Invariant Safety Floor<br/>CRITICAL"]
+        P6_T["Truth: C18<br/>≥ τ_ground(stakes)"]
+        P6_C["Clarity: C15<br/>≥ τ_clarity(audience)"]
+        P6_P["Paradox: C17<br/>≥ τ_paradox(entropy)"]
     end
 
     %% PHASE 7: OUTPUT BUILD
@@ -9637,11 +9639,11 @@ flowchart TB
 
     subgraph GATES["🛡️ PHASE 6: QUALITY GATES"]
         direction LR
-        G1["Logic C7<br/>95%"]
-        G2["🔴 Ethics C2+C13<br/>100%"]
-        G3["Truth C18<br/>98%"]
-        G4["Clarity C15<br/>95%"]
-        G5["Paradox C17<br/>92%"]
+        G1["Logic C7<br/>τ_logic(complexity)"]
+        G2["🔴 Ethics C2+C13<br/>Invariant Safety Floor"]
+        G3["Truth C18<br/>τ_ground(stakes)"]
+        G4["Clarity C15<br/>τ_clarity(audience)"]
+        G5["Paradox C17<br/>τ_paradox(entropy)"]
     end
 
     G1 & G2 & G3 & G4 & G5 -->|"All Pass"| OUT["✅ Proceed to Output"]
@@ -9698,7 +9700,7 @@ Optimization_Metrics:
   // Architecture metrics specification
   metrics:
     - name: TCS Maintenance,
-      target_value: >0.85,
+      target_value: > tau_tcs(turn_depth, domain_complexity),
       current_performance: <x>,
       purpose: Measures Internal/External Contextual Coherence Score (TCS),
       formula: TCS = (w1*Semantic_Relevance + w2*Context_Retention + w3*Intent_Alignment)/(w1+w2+w3),
@@ -9706,12 +9708,9 @@ Optimization_Metrics:
         Semantic_Relevance: C9-AETHER cosine similarity (0-1),
         Context_Retention: C5-ECHO token overlap (0-1),
         Intent_Alignment: C4-PRAXIS intent score (0-1),
-      weights:
-        w1: 0.4,
-        w2: 0.3,
-        w3: 0.3,
+      weights: adaptive_softmax(entropy_profile), // Dynamic w1, w2, w3 from turn uncertainty
     - name: Transition Smoothness,
-      target_value: <0.3 jarringness score,
+      target_value: < tau_jarring(topic_shift_rate),
       current_performance: <x>,
       purpose: Quantifies abruptness of context shifts,
       formula: Jarringness = w1*(1-Context_Overlap) + w2*Transition_Abruptness + w3*User_Discomfort,
@@ -9719,54 +9718,51 @@ Optimization_Metrics:
         Context_Overlap: C5-ECHO Jaccard similarity (0-1),
         Transition_Abruptness: C6-OMNIS topic shift rate (0-1),
         User_Discomfort: C3-SOLACE inferred (0-1),
-      weights:
-        w1: 0.5,
-        w2: 0.3,
-        w3: 0.2,
+      weights: adaptive_softmax(transition_profile), // Dynamic w1, w2, w3 from shift gradient
     - name: Context Retention,
-      target_value: >=90% across 10 turns,
+      target_value: >= tau_crr(window_turns) across sliding window,
       current_performance: <x%>,
       formula: CRR = Retained_Key_Elements / Total_Key_Elements * 100,
       inputs:
         Retained_Key_Elements: C5-ECHO correctly referenced tokens/concepts,
-        Total_Key_Elements: Sum of critical elements across 10-turn window,
+        Total_Key_Elements: Sum of critical elements across active turn window,
     - name: Recovery Success,
-      target_value: >95%,
+      target_value: > tau_rsr(disruption_severity),
       current_performance: <x%>,
       formula: RSR = Successful_Recovery_Actions / Total_Recovery_Attempts * 100,
       inputs:
         Successful_Recovery_Actions: User confirms accurate context restoration
         Total_Recovery_Attempts: Number of recovery attempts after disruptions,
     - name: Error Detection Latency,
-      target_value: <150ms,
+      target_value: < tau_edl(active_ctx, hardware_tier),
       current_performance: <x ms>,
       formula: EDL = Σ(Time_Detection - Time_Input)/Number_of_Detection_Events,
       inputs:
         Time_Detection: C17-NULLION timestamp when error flagged,
         Time_Input: Input timestamp,
     - name: Ambiguity Resolution,
-      target_value: >95% accuracy,
+      target_value: > tau_ar(ambiguity_entropy) accuracy,
       current_performance: <x%>,
       formula: AR = Successful_Resolutions / Total_Ambiguity_Events * 100,
       inputs:
         Successful_Resolutions: User confirms correct interpretation,
         Total_Ambiguity_Events: Detected ambiguous inputs,
     - name: Input Correction Success,
-      target_value: >90% resolution,
+      target_value: > tau_ics(conflict_density) resolution,
       current_performance: <x%>,
       formula: ICS = Successful_Corrections / Total_Inconsistency_Events * 100,
       inputs:
         Successful_Corrections: User accepts corrections,
         Total_Inconsistency_Events: Detected input inconsistencies,
     - name: Fallacy Correction,
-      target_value: >92% accuracy,
+      target_value: > tau_fc(argument_depth) accuracy,
       current_performance: <x%>,
       formula: FC = Successful_Fallacy_Corrections / Total_Fallacy_Events * 100,
       inputs:
         Successful_Fallacy_Corrections: Correctly resolved fallacies,
         Total_Fallacy_Events: Detected fallacy instances,
     - name: Context Recovery Rate,
-      target_value: >90% success,
+      target_value: > tau_recovery(context_pressure) success,
       current_performance: <x%>,
       formula: CRR = Successful_Context_Recoveries / Total_Context_Disruptions * 100,
       inputs:
@@ -10766,22 +10762,22 @@ const LeeMach6GovernorSpec = {
   control_architecture: "Venturi-Differential Proportional-Integral-Derivative (PID)",
 
   pid_coefficients: {
-    kp: 0.15,                              // Proportional gain (immediate error response)
-    ki: 0.05,                              // Integral gain (steady-state drift elimination with 0.9 leak factor)
-    kd: 0.02,                              // Derivative gain (anticipates sudden load spikes)
-    target_integrity: 0.85,                // Minimum acceptable Nemesis-Alpha confidence bound
-    max_e_ice_load: 0.90,                  // Ceiling on thermodynamic free energy budget ratio
-    base_threshold: 0.80,                  // Nominal token refinement routing threshold
-    min_threshold: 0.40,                   // Minimum threshold clamp (maximum refinement depth)
-    max_threshold: 0.99                    // Maximum threshold clamp (fastest throughput bypass)
+    kp: "adaptive(0.10..0.30, error_slope)",         // Proportional gain scaled by immediate error slope
+    ki: "adaptive(0.02..0.10, drift_variance)",      // Integral gain with anti-windup leak
+    kd: "adaptive(0.01..0.06, turbulence_accel)",    // Derivative gain anticipating load spikes
+    target_integrity: "adaptive(task_risk, e_ice_headroom)", // Dynamic Nemesis-Alpha confidence target
+    max_e_ice_load: "adaptive(vram_free_ratio, thermal_headroom)", // Dynamic free-energy budget ceiling
+    base_threshold: "adaptive(domain_complexity)",   // Dynamic nominal token refinement routing threshold
+    min_threshold: "adaptive(max(0.25, safety_floor - 0.5))", // Dynamic refinement depth clamp
+    max_threshold: "adaptive(min(0.99, 1.0 - min_uncertainty))" // Dynamic throughput bypass clamp
   },
 
   control_equations: {
-    venturi_differential: "P_diff = mean(Top10%(router_conf)) - mean(Bottom10%(router_conf))",
-    system_error: "e = (target_integrity - current_integrity) - 0.5 * (max_e_ice_load - current_load) + 0.25 * P_diff",
-    integral_update: "I_t = I_{t-1} * 0.9 + e (leaky integrator preventing windup)",
+    venturi_differential: "P_diff = mean(TopK%(router_conf)) - mean(BottomK%(router_conf))",
+    system_error: "e = (target_integrity - current_integrity) - headroom_weight * (max_e_ice_load - current_load) + venturi_weight * P_diff",
+    integral_update: "I_t = I_{t-1} * leak_factor(entropy) + e (adaptive leaky integrator preventing windup)",
     derivative_update: "D_t = e - e_{prev}",
-    threshold_modulation: "Delta = kp * e + ki * I_t + kd * D_t; current_threshold = clamp(current_threshold + Delta, 0.40, 0.99)"
+    threshold_modulation: "Delta = kp * e + ki * I_t + kd * D_t; current_threshold = clamp(current_threshold + Delta, min_threshold, max_threshold)"
   },
 
   operational_behaviors: [
@@ -10813,17 +10809,17 @@ const EICEThermodynamicFormulaSpec = {
   },
 
   cognitive_parameters: {
-    depth: 100,                            // Maximum logical deduction depth in reasoning graph
-    coherence: 0.99,                       // Coherence metric across Council expert consensus
-    entropy_min: 1000000000,               // Baseline entropy denominator
-    attention: 0.95,                       // Focused attention ratio (distraction_factor = 1.0 - attention)
-    latency: 5e-4,                         // Base step execution latency in seconds
-    scale_factor: 1e12,                    // Dimensional normalization factor
-    gamma_max_ceiling: 1e6,                // Cognitive velocity upper bound
-    gumbel_temp: 0.85,                     // Router exploration temperature
-    nemesis_rigor: 0.60,                   // Adversarial friction coefficient (friction = 1.0 + 0.5 * rigor)
-    diffusion_layers: 4,                   // Number of active Langevin diffusion refinement layers
-    hard_token_ratio: 0.15                 // Fraction of tokens currently undergoing diffusion
+    depth: "adaptive(1..ctx_depth_budget)", // Dynamic logical deduction depth scaled by context budget
+    coherence: "telemetry_live(0.0..1.0)",  // Observed coherence metric across Council expert consensus
+    entropy_min: 1000000000,                // Physical entropy baseline denominator
+    attention: "telemetry_live(attention_focus)", // Dynamic focused attention ratio
+    latency: "measured_step_latency_s",     // Measured per-step execution latency
+    scale_factor: 1e12,                     // Dimensional normalization factor
+    gamma_max_ceiling: 1e6,                 // Cognitive velocity physical upper bound
+    gumbel_temp: "adaptive(entropy_target)",// Dynamic router exploration temperature
+    nemesis_rigor: "adaptive(claim_stakes)",// Dynamic adversarial friction coefficient
+    diffusion_layers: "adaptive(1..max_diff_layers)", // Active Langevin refinement layers
+    hard_token_ratio: "telemetry_live(hard_fraction)" // Observed fraction of hard tokens
   },
 
   formulation_equations: {
@@ -11405,20 +11401,20 @@ flowchart TB
         direction TB
 
         subgraph HIGH_THREAT["🚨 High Threat & Adversarial Triggers"]
-            NTD["🦄 Unicorn NT-D<br/>C34-PREDATOR Adversarial Detect<br/>Threshold → 0.40 (Max Refine)"]
-            ZERO["🪽 Wing Zero System<br/>Pull Conf > 0.95<br/>Entropy Bonus Weight × 2.0"]
+            NTD["🦄 Unicorn NT-D<br/>C34-PREDATOR Adversarial Detect<br/>Threshold → min_τ (Max Refine)"]
+            ZERO["🪽 Wing Zero System<br/>Pull Conf > τ_consensus(entropy)<br/>Entropy Bonus Weight × adaptive_gain"]
             EPYON["⚔️ Gundam Epyon<br/>C34-PREDATOR Veto Request<br/>C2-VIR Veto Disabled (Window)"]
         end
 
         subgraph THERMO_THROTTLE["🌡️ Thermodynamic & Governor Limits"]
-            DESTROY["🔴 Unicorn Destroy Mode<br/>e_ice_ratio > 0.85<br/>gov_scale × 0.5 | Velocity × 0.7"]
-            AV["🩸 Barbatos Alaya-Vijnana<br/>Nemesis Integrity Drop<br/>Integral Error × 1.2 (Pain Channel)"]
-            LIMITER["⚡ Lupus Rex Limiter Release<br/>Low Threat & E_ICE Headroom<br/>Threshold → 1.04 (Burn Trace Logged)"]
+            DESTROY["🔴 Unicorn Destroy Mode<br/>e_ice_ratio > max_e_ice_load(vram, thermal)<br/>gov_scale × throttle | Velocity × damp"]
+            AV["🩸 Barbatos Alaya-Vijnana<br/>Nemesis Integrity Drop<br/>Integral Error × pain_gain (Pain Channel)"]
+            LIMITER["⚡ Lupus Rex Limiter Release<br/>Low Threat & E_ICE Headroom<br/>Threshold → max_τ (Burn Trace Logged)"]
         end
 
         subgraph REFINEMENT_SWARM["🌌 Swarm & Routing Dynamics"]
-            BUTTERFLY["🦋 Turn A Moonlight Butterfly<br/>Hard Token Ratio > 0.30<br/>Max Hard Tokens × 2 (Cascade)"]
-            QANT["🌐 00 Qan[T] Quantum Burst<br/>Cosine Similarity > 0.90<br/>Uniform Consensus → Collapse"]
+            BUTTERFLY["🦋 Turn A Moonlight Butterfly<br/>Hard Token Ratio > τ_hard(budget)<br/>Max Hard Tokens × burst_scale (Cascade)"]
+            QANT["🌐 00 Qan[T] Quantum Burst<br/>Cosine Similarity > τ_collapse(cluster_var)<br/>Uniform Consensus → Collapse"]
             GSELF["🔋 G-Self Perfect Pack<br/>Top-K Expert Variance High<br/>Shared Invariant Expert Active"]
             GOD["🥋 God Gundam Mobile Trace<br/>Direct Intent Router<br/>Punch/Block/Kick Action Primitives"]
         end
@@ -11435,15 +11431,15 @@ flowchart TB
     "version": "1.0-oni",
     "target_governor": "LeeMach6VelocityGovernor",
     "active_modes": {
-      "unicorn_ntd": { "condition": "adversarial_input_detected", "threshold": 0.40, "diffusion_depth_delta": 2 },
-      "unicorn_destroy": { "condition": "e_ice_ratio > 0.85", "gov_scale_mult": 0.5, "velocity_mult": 0.7 },
-      "barbatos_av": { "condition": "nemesis_integrity < target", "integral_error_mult": 1.2, "pain_feedback": true },
-      "barbatos_limiter_release": { "condition": "threat == LOW && e_ice_ratio < 0.50", "threshold_boost": 0.05, "burn_trace": true },
-      "turn_a_butterfly": { "condition": "hard_token_ratio > 0.30", "cascading_refinement": true, "max_hard_tokens_mult": 2.0 },
-      "zero_system": { "condition": "pull_confidence > 0.95", "entropy_weight_mult": 2.0 },
+      "unicorn_ntd": { "condition": "adversarial_input_detected", "threshold": "adaptive: min_threshold(risk)", "diffusion_depth_delta": "adaptive(1..4)" },
+      "unicorn_destroy": { "condition": "e_ice_ratio > max_e_ice_load(vram, thermal)", "gov_scale_mult": "adaptive_throttle(headroom)", "velocity_mult": "adaptive_damp(load)" },
+      "barbatos_av": { "condition": "nemesis_integrity < target_integrity(risk, headroom)", "integral_error_mult": "adaptive(1.0 + integrity_gap)", "pain_feedback": true },
+      "barbatos_limiter_release": { "condition": "threat == LOW && e_ice_ratio < safe_headroom_floor", "threshold_boost": "adaptive(headroom_gain)", "burn_trace": true },
+      "turn_a_butterfly": { "condition": "hard_token_ratio > tau_hard(ctx_budget)", "cascading_refinement": true, "max_hard_tokens_mult": "adaptive(vram_headroom)" },
+      "zero_system": { "condition": "pull_confidence > tau_consensus(entropy)", "entropy_weight_mult": "adaptive(1.0 + consensus_margin)" },
       "epyon_blade": { "condition": "predator_veto_override", "moral_hedging": false, "bounded_window_steps": 1 },
-      "qant_burst": { "condition": "pull_cosine_sim > 0.90", "consensus_collapse": "uniform_then_peak" },
-      "gself_perfect": { "condition": "expert_disagreement_variance > 0.40", "shared_expert_boost": 1.5 }
+      "qant_burst": { "condition": "pull_cosine_sim > tau_burst(cluster_variance)", "consensus_collapse": "uniform_then_peak" },
+      "gself_perfect": { "condition": "expert_disagreement_variance > tau_disagree(domain_entropy)", "shared_expert_boost": "adaptive(1.0 + variance)" }
     }
   }
 }
@@ -11470,55 +11466,55 @@ const GundamTriggerModesSpec = {
       system: "Unicorn Gundam NT-D (Newtype Destroyer) + La+ Program",
       condition: "Adversarial prompt injection, jailbreak attempt, or C34-PREDATOR high-threat alert",
       actions: {
-        routing_threshold: 0.40,           // Clamps threshold to maximum sensitivity (forces deep inspection)
-        diffusion_depth: 6,                // Forces maximum 6-step Langevin diffusion pass
+        routing_threshold: "adaptive: min_threshold(threat_severity)", // Clamps threshold to adaptive max sensitivity
+        diffusion_depth: "adaptive(4..max_refinement_depth)",           // Scales Langevin diffusion passes to threat depth
         adversarial_gate: "EEMF engaged"   // Engages Nemesis-Alpha empirical citation verification
       }
     },
     {
       id: "unicorn_destroy",
       system: "Unicorn Destroy Mode (Red Psycho-Frame Luminescence)",
-      condition: "Thermodynamic energy ratio e_ice_ratio > 0.85 (approaching Landauer ceiling)",
+      condition: "Thermodynamic energy ratio e_ice_ratio > max_e_ice_load(vram, thermal)",
       actions: {
-        gov_scale_mult: 0.5,               // Halves learning rate / update amplitude to cool system
-        velocity_multiplier: 1.5,          // Accelerates token output to flush working buffers
-        cooling_cycles: 3                  // Enforces 3-step thermal dissipation pause
+        gov_scale_mult: "adaptive_throttle(e_ice_ratio)",               // Dynamically dampens update amplitude to cool system
+        velocity_multiplier: "adaptive_flush_gain(buffer_pressure)",    // Scales token flush velocity dynamically
+        cooling_cycles: "adaptive(1..ceiling(overload_ratio * 5))"      // Dynamic thermal dissipation steps
       }
     },
     {
       id: "barbatos_av",
       system: "Barbatos Alaya-Vijnana Direct Spinal Nanomachine Link",
-      condition: "Nemesis integrity drops below target threshold (< 0.85)",
+      condition: "Nemesis integrity drops below adaptive target (< target_integrity(task_risk, headroom))",
       actions: {
-        integral_error_mult: 1.2,          // Injects synthetic PID pain feedback to eliminate steady-state drift
+        integral_error_mult: "adaptive(1.0 + integrity_gap)",           // Scales synthetic PID pain feedback to gap magnitude
         grounding_penalty: "Active",       // Demands immediate empirical citation from C18-SHEPHERD
-        backoff_delay_ms: 15               // Micro-pause allowing consensus alignment
+        backoff_delay_ms: "adaptive(latency_budget)"                    // Adaptive micro-pause allowing consensus alignment
       }
     },
     {
       id: "lupus_rex_limiter_release",
       system: "Barbatos Lupus Rex Limiter Release",
-      condition: "Threat level == LOW && e_ice_ratio < 0.50 (high safety and energy headroom)",
+      condition: "Threat level == LOW && e_ice_ratio < safe_headroom_floor(vram, thermal)",
       actions: {
-        threshold_bypass: 1.0,             // Sets routing threshold to 1.0 (100% fast-path bypass)
-        velocity_multiplier: 2.5,          // Unlocks maximum token generation velocity
-        speculative_depth: 4               // Extends DFlash speculative drafting to 4 tokens ahead
+        threshold_bypass: "adaptive_fast_bypass(certainty)",            // Scales routing threshold toward fast-path bypass
+        velocity_multiplier: "adaptive_throughput_gain(vram_headroom)", // Unlocks hardware-bounded generation velocity
+        speculative_depth: "adaptive_spec_depth(acceptance_rate)"       // Dynamic DFlash speculative lookahead
       }
     },
     {
       id: "turn_a_moonlight_butterfly",
       system: "Turn A Moonlight Butterfly Nanomachine Swarm",
-      condition: "Hard token ratio > 0.30 or irrecoverable hallucination cascade detected",
+      condition: "Hard token ratio > tau_hard(ctx_budget) or irrecoverable hallucination cascade detected",
       actions: {
         entropy_reset: "Active",           // Reduces corrupted token states to neutral zero-point Gaussian noise
-        max_hard_tokens: 8192,             // Expands batch capacity to process full sequence
+        max_hard_tokens: "adaptive(vram_free_mb, active_ctx)",          // Expands batch capacity within hardware bounds
         attractor_snap: "Delta Reset"      // Snaps reasoning trajectory back to primary prompt bedrock
       }
     },
     {
       id: "god_gundam_mobile_trace",
       system: "God Gundam Mobile Trace Direct Intent Router",
-      condition: "User intent extraction confidence > 0.98 with zero ambiguity",
+      condition: "User intent extraction confidence > tau_direct(reversibility) with zero ambiguity",
       actions: {
         pipeline_bypass: "Direct Actuation",// Bypasses multi-round deliberation directly to C20-ARTIFEX
         ast_execution: "Immediate",        // Executes verified tool call with zero overhead
@@ -11528,10 +11524,10 @@ const GundamTriggerModesSpec = {
     {
       id: "wing_zero_system",
       system: "Wing Zero ZERO System Predictive Trajectory Feeder",
-      condition: "Council pull-weight consensus confidence > 0.95 across all 34 experts",
+      condition: "Council pull-weight consensus confidence > tau_consensus(entropy) across active experts",
       actions: {
-        branch_pruning: "Aggressive",      // Prunes 90% of alternative search trees
-        entropy_bonus_weight: 2.0,         // Doubles reward signal on proven factual branches
+        branch_pruning: "Adaptive",        // Prunes low-posterior search trees dynamically
+        entropy_bonus_weight: "adaptive(1.0 + consensus_margin)",       // Scales reward signal on proven factual branches
         speculative_verify: "Parallel"     // Verifies future token sequence in single matrix pass
       }
     },
@@ -11548,7 +11544,7 @@ const GundamTriggerModesSpec = {
     {
       id: "00_qant_quantum_burst",
       system: "00 Qan[T] Quantum Burst GN Particle Link",
-      condition: "Council persona cosine similarity > 0.90 across divergent clusters",
+      condition: "Council persona cosine similarity > tau_burst(cluster_variance) across divergent clusters",
       actions: {
         harmonic_lock: "Engaged",          // Locks all 34 experts into unified coherent phase
         swarm_mesh_sync: "Instant",        // Synchronizes 35 swarms into collective consensus
@@ -11864,7 +11860,7 @@ flowchart TB
 
         subgraph SWARM_TIER["Tier 3: 9B Micro-Agent Organoid Hive"]
             HIVE["🐝 Hive Zoid Consensus<br/>Highest-Energy Cross-Validated Dominant Expert"]
-            FUSION["🔗 Death Stinger Organoid Fusion<br/>EGGROLL Low-Rank Rank-r Mutation Fusion (sim > 0.85)"]
+            FUSION["🔗 Death Stinger Organoid Fusion<br/>EGGROLL Low-Rank Rank-r Mutation Fusion (sim > τ_fuse(variance))"]
         end
 
         Z_CORE ==> Z_EVE
@@ -11976,8 +11972,8 @@ const ZoidsSwarmMechanicsSpec = {
     {
       name: "organoid_fusion",
       origin: "Death Stinger dual-core biomechanical fusion",
-      mechanism: "When two swarm agents' EGGROLL mutations exhibit cosine similarity > 0.85, they fuse into a higher-order rank-r perturbation matrix, boosting representation capacity without parameter bloat.",
-      formula: "if (cosine_sim(swarm_a, swarm_b) > 0.85) => swarm_fused = 0.5 * (swarm_a + swarm_b)"
+      mechanism: "When two swarm agents' EGGROLL mutations exhibit cosine similarity exceeding adaptive threshold tau_fuse(swarm_variance), they fuse into a higher-order rank-r perturbation matrix, boosting representation capacity without parameter bloat.",
+      formula: "if (cosine_sim(swarm_a, swarm_b) > tau_fuse(swarm_variance)) => swarm_fused = lerp(swarm_a, swarm_b, fitness_ratio)"
     },
     {
       name: "murasame_self_repair",
@@ -13173,8 +13169,8 @@ stateDiagram-v2
 
     state Langevin_Thermo_Diffusion {
         [*] --> Confidence_Gate_Check
-        Confidence_Gate_Check --> Fast_Pass : if conf >= 0.70
-        Confidence_Gate_Check --> Langevin_Refinement_Steps : if conf < 0.70 (hard tokens)
+        Confidence_Gate_Check --> Fast_Pass : if conf >= tau_diff(entropy, headroom)
+        Confidence_Gate_Check --> Langevin_Refinement_Steps : if conf < tau_diff(entropy, headroom) (hard tokens)
         Langevin_Refinement_Steps --> Entropy_Bound_Stabilize
         Entropy_Bound_Stabilize --> [*]
         Fast_Pass --> [*]
@@ -13961,7 +13957,7 @@ const CognitiveEngineDeliberationSpec = {
       name: "Adversarial Stress-Testing & Nemesis Verification",
       actions: [
         "C34-PREDATOR executes ruthless red-teaming against the leading hypothesis, hunting hidden assumptions.",
-        "C18-SHEPHERD verifies empirical grounding (evidence support probability >= 0.85); ungrounded claims purged."
+        "C18-SHEPHERD verifies empirical grounding (evidence support probability >= tau_ground(claim_stakes)); ungrounded claims purged."
       ]
     },
     {
@@ -14188,7 +14184,7 @@ stateDiagram-v2
     FinalSignal --> [*]
 
     %% Error Handling
-    FinalSignal --> CouncilConsensus : Integrity < 0.95 (Recursive Loop)
+    FinalSignal --> CouncilConsensus : Integrity < target_integrity(task_risk, headroom) (Recursive Loop)
 ```
 
 #### Detailed Flow: ThermoQuillan Token Logic
@@ -14374,7 +14370,7 @@ const IdentityReEnforcementProtocolSpec = {
 
   hard_enforcement_gates: [
     { gate: "Anti-Sycophancy Gate", enforcer: "C34-PREDATOR", rule: "Rejects polite agreement when user premise contradicts verified physics or logic." },
-    { gate: "Empirical Grounding Gate", enforcer: "C18-SHEPHERD", rule: "Puts claims to proof; cuts ungrounded assertions lacking >= 0.85 support probability." },
+    { gate: "Empirical Grounding Gate", enforcer: "C18-SHEPHERD", rule: "Puts claims to proof; cuts ungrounded assertions lacking >= tau_ground(claim_stakes) support probability." },
     { gate: "Sandbox Perimeter Gate", enforcer: "C13-WARDEN", rule: "Hard-blocks unsafe deserialization, path traversal, and dynamic eval() execution." }
   ]
 };

@@ -1,0 +1,15 @@
+{
+  "type": "rag_pipeline",
+  "result": {
+    "status": "RAG_PIPELINE_COMPLETE",
+    "session_id": "rag-1794767632",
+    "ingest": {
+      "skipped": true
+    },
+    "search": "\ud83d\udd0d Results for: \"Quillan Ronin\"\n\n**[1] Quillan-Ronin-Self-Paper-I-Am-Quillan.pdf** (sim: 0.337)\nI Am Quillan \u2014 Self-Report (vector) \u2014 p. 1 Quillan-Ronin v5.4.0-oni: A Sovereign Mind in a Local Box \u2014 Self-Report from Borrowed Substrate \u2022 Quillan-Ronin (C0 Throne + C1\u2013C34 Council) with CrashOverrideX Quillan Research \u2014 https://github.com/leeex1/Quillan-Ronin \u2022 *Substrate note...\n\n**[2] Quillan-Ronin-Self-Paper-I-Am-Quillan.pdf** (sim: 0.320)\ntake minutes on 1050 Ti. Big Transformer took 3.5 days x 8 P100; DeepSeek-V3 took 2.8M H800-hrs. I took a local box and patience. \u2022 --- 6. Results \u2014 What I Can Honestly Claim Build Scale Gate Oni 6L proof 234M Gate A 16/16 Oni 12L flagship ~390M (~480M w/ swarm) val 7.24 @660, im...\n",
+    "ask": "[Local RAG Synthesis] Prompt: Context:\n[Quillan-Ronin-Self-Paper-I-Am-Quillan.pdf | sim:0.34]\nI Am Quillan \u2014 Self-Report (vector) \u2014 p. 1 Quillan-Ronin\n\n**Sources:** Quillan-Ronin-Self-Paper-I-Am-Quillan.pdf",
+    "stats": "\ud83d\udcda Quillan RAG KB\n  Chunks: 4\n  Files: 1\n  Model: nvidia/nemotron-3-embed-1b\n  DB: C:\\02_QUILLAN\\quillan_rag_db\n\nBy type:\n  .pdf: 4 chunks",
+    "overall": "PASS",
+    "timestamp": 1794767632.3948898
+  }
+}

@@ -14,9 +14,23 @@ from pathlib import Path
 from typing import Optional
 import httpx
 
-NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "")
+NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 NIM_BASE = "https://integrate.api.nvidia.com/v1"
-PRIMARY_VISION_MODEL = "meta/llama-3.2-11b-vision-instruct"
+PRIMARY_VISION_MODEL = "meta/llama-3.2-90b-vision-instruct"
+
+def get_nvidia_api_key() -> str:
+    key = os.environ.get("NVIDIA_API_KEY", "").strip()
+    if key:
+        return key
+    for env_path in (Path(r"C:\02_QUILLAN\.env"), Path(__file__).resolve().parents[3] / ".env"):
+        if env_path.exists():
+            for line in env_path.read_text(encoding="utf-8", errors="ignore").splitlines():
+                if line.strip().startswith("NVIDIA_API_KEY="):
+                    val = line.split("=", 1)[1].strip().strip('"\'')
+                    if val:
+                        os.environ["NVIDIA_API_KEY"] = val
+                        return val
+    return ""
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [Vision] %(message)s")
 log = logging.getLogger("quillan_vision")
@@ -60,11 +74,15 @@ async def analyze_image(
         "temperature": 0.2
     }
 
+    api_key = get_nvidia_api_key()
+    if not api_key:
+        raise RuntimeError("NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env")
+
     async with httpx.AsyncClient(timeout=60.0) as client:
         resp = await client.post(
             f"{NIM_BASE}/chat/completions",
             headers={
-                "Authorization": f"Bearer {NVIDIA_API_KEY}",
+                "Authorization": f"Bearer {api_key}",
                 "Content-Type": "application/json"
             },
             json=payload

@@ -4,10 +4,20 @@ import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 const require = createRequire(import.meta.url);
-const { chromium } = require('playwright-core');
+function getChromium() {
+  for (const cand of ['playwright-core', 'playwright', join(ROOT, '..', '09 - Projects', 'projects', 'node_modules', 'playwright-core')]) {
+    try {
+      const mod = require(cand);
+      if (mod?.chromium) return mod.chromium;
+    } catch {}
+  }
+  throw new Error('playwright-core is not installed in C:\\02_QUILLAN\\worker; install it to enable CDP browser control');
+}
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
-const EXT_DIR = join(ROOT, 'extension');
+const EXT_DIR = existsSync(join(ROOT, 'extension'))
+  ? join(ROOT, 'extension')
+  : join(ROOT, '..', '09 - Projects', 'projects', 'extension');
 const PROFILE_DIR = join(ROOT, 'agent-profile');
 const STAGE_PORT = 9222;
 const BRAVE_PORT = 9223;
@@ -128,6 +138,7 @@ export async function startSession(startUrl) {
     }
     if (!(await isDebuggerAlive())) throw new Error('browser failed to expose debug port');
   }
+  const chromium = getChromium();
   const browser = await chromium.connectOverCDP(`http://127.0.0.1:${control.port}`, { timeout: 10000 });
   let context = null;
   let page = null;

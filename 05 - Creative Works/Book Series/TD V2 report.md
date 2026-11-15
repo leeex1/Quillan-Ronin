@@ -462,3 +462,20 @@ The prior edit stream wrongly removed Book 4's only original content alongside t
 1. Rewrite the four-chapter span covering the wheat-field simulation → the merge → the Price → the dissolution as genuinely new, compressed prose (~6,000–8,000 words replacing ~12,000 words) that does not duplicate the existing Aurora-crash or wheat-field imagery (those already have canonical homes elsewhere in the series).
 2. Fold in the sequence where Fenris's frequency is distributed fully into the Aegis Shield by combining the existing "butterflies" signature into the climax rather than re-describing the wheat-field decision.
 3. Then perform a targeted manual de-duplication pass — not an automated one — line by line.
+
+
+---
+
+## 29. 2026-11-15 — Book 1 polish pass (co-author calls)
+
+Author's-voice / continuity corrections made as co-author before upload:
+- **Ages/Rending chronology** flagged anomalies observed during Book 1 audit (Rending was 17 years ago; Lukas was 9 at the lake when Fenris was taken at 8) consistent with all other books. Restored once more locally (L194 "eight years old again" -> "nine years old again").
+- **Memory of dungeon escape chapters ref-used spelling consistency.**
+- **Sira** unified for the panther-kin leader (was 16 occurrences of 'Kira', now all 'Sira'); Kira Shadowmere (Ch11 Warrens vanish) retained as a distinct minor character.
+- **Maron** unified for the Shard Keeper (was 'Brandon' pre-vault plus 'Maron' inside the vault; 'Keeper of the Western Star' + 'Order of the Star-Watchers' harmonized to one title).
+- **Jarrek vs Jorik** split: the Lysorian smuggler who betrayed the hybrid children is Jarrek; the Heimfeld craftsman/council voice is Master Jorik.
+- **Cael species drift**: "human knight" -> "bird-kin knight" (one instance slipped); all 21 other Cael references describe him as bird-kin (hawk-eyes, hollow bones, bound wings).
+- **Alyra/Cairn incest betrothal dialogue** was reframed to Lukas/Alyra (marriage as royal-hybrid integration, legal commonage), removing the marriage-of-siblings as drafted.
+- **Dead Elena Thornweave / Kael Ironfist in epilogue memorial** unified — they are alive through signing the Charter. Rewrote two memorial passages so the same character isn't both living and dead.
+
+Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate sentences, EPUB + print interior rebuilt (586 pp, 167,048 words).

@@ -5,20 +5,27 @@
 Trains the image, audio, and video decoders/projector using FFmpeg pipelines.
 Fits easily in 4GB VRAM by freezing the 519M parameter text backbone.
 """
+import argparse
 import os
 import sys
 import json
 import math
+import shutil
 import logging
 import subprocess
 from pathlib import Path
 import torch
+import torch.nn as nn
 import torch.nn.functional as F
 
 ROOT = Path(__file__).resolve().parent
+TRAINING_ROOT = ROOT.parent.parent
+REPO_ROOT = TRAINING_ROOT.parent
+MCP_DIR = REPO_ROOT / "09 - Projects" / "mcp"
 CKPT_DIR = ROOT / "checkpoints"
 LOG_DIR = ROOT / "training_logs"
 os.makedirs(LOG_DIR, exist_ok=True)
+os.makedirs(CKPT_DIR, exist_ok=True)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -34,16 +41,34 @@ LOG = logging.getLogger(__name__)
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-sys.path.insert(0, str(ROOT))
+for _p in (str(ROOT), str(TRAINING_ROOT), str(MCP_DIR)):
+    if os.path.exists(_p) and _p not in sys.path:
+        sys.path.insert(0, _p)
+
 from quillan_v8_saturated import QuillanArchConfig, QuillanRoninSovereign
 from quillan_bpe_tokenizer import QuillanBPETokenizer
 from quillan_fused_optimizer import QuillanFusedOptimizer
 
-# ── Environment & Paths ────────────────────────────────────────────────────────
-DOWNLOADS_DIR = Path("C:/Users/Admin/Downloads").resolve()
-FFMPEG_PATH = r"C:\Users\Admin\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe"
-if not os.path.exists(FFMPEG_PATH):
-    FFMPEG_PATH = "ffmpeg"  # Fallback to PATH
+try:
+    from _shared.media_utils import resolve_ffmpeg_bin
+except Exception:
+    def resolve_ffmpeg_bin(binary_name: str = "ffmpeg"):
+        found = shutil.which(binary_name)
+        if found:
+            return Path(found)
+        exe = f"{binary_name}.exe" if os.name == "nt" else binary_name
+        local_app = os.environ.get("LOCALAPPDATA", "")
+        if local_app:
+            winget = Path(local_app) / "Microsoft" / "WinGet" / "Packages"
+            if winget.exists():
+                for cand in sorted(winget.glob(f"Gyan.FFmpeg*/*/bin/{exe}"), reverse=True):
+                    if cand.exists():
+                        os.environ["PATH"] = f"{cand.parent}{os.pathsep}{os.environ.get('PATH', '')}"
+                        return cand
+        return None
+
+_RESOLVED_FFMPEG = resolve_ffmpeg_bin("ffmpeg")
+FFMPEG_PATH = str(_RESOLVED_FFMPEG) if _RESOLVED_FFMPEG else "ffmpeg"
 
 # ── Hyperparameters ────────────────────────────────────────────────────────────
 LR_MUON = 1e-4
@@ -54,135 +79,134 @@ SAVE_EVERY = 25
 
 # ── FFmpeg Media Pipeline ──────────────────────────────────────────────────────
 def get_safe_path(relpath: str) -> Path:
-    """Resolve and validate relative paths, with fallback mappings for relocated folders."""
-    norm_path = relpath.replace('\\', '/')
-    base_user = Path("C:/Users/Admin").resolve()
-    
-    def validate(p: Path) -> Path:
+    """Resolve and validate media paths inside C:\\02_QUILLAN (or explicit Downloads if present)."""
+    raw = Path(relpath)
+    allowed_roots = [REPO_ROOT.resolve(), (Path.home() / "Downloads").resolve()]
+    candidates = [raw] if raw.is_absolute() else [
+        REPO_ROOT / relpath,
+        REPO_ROOT / "05 - Creative Works" / relpath,
+        REPO_ROOT / "06_Media" / relpath,
+        Path.home() / relpath,
+    ]
+    for cand in candidates:
         try:
-            resolved = p.resolve()
-            if not str(resolved).lower().startswith("c:\\users\\admin"):
-                raise ValueError(f"Security boundary breach: {resolved}")
-            return resolved
+            resolved = cand.resolve()
+            if any(resolved == ar or ar in resolved.parents for ar in allowed_roots) and resolved.exists():
+                return resolved
         except Exception:
-            return base_user / "non_existent_safe_fallback"
-    
-    # Try 1: Relative to C:/Users/Admin
-    p1 = (base_user / norm_path).resolve()
-    if p1.exists():
-        return validate(p1)
-        
-    # Try 2: If path starts with Downloads, check if it needs nested folder mapping
-    if norm_path.startswith("Downloads/"):
-        parts = norm_path.split('/')
-        if len(parts) > 1:
-            filename = parts[-1]
-            ext = os.path.splitext(filename)[1].lower()
-            if ext in ['.mp3', '.wav'] and 'audio' not in parts:
-                p_audio = (base_user / "Downloads" / "audio" / "/".join(parts[1:])).resolve()
-                if p_audio.exists():
-                    return validate(p_audio)
-            elif ext in ['.mp4'] and 'vids' not in parts:
-                p_vids = (base_user / "Downloads" / "vids" / "/".join(parts[1:])).resolve()
-                if p_vids.exists():
-                    return validate(p_vids)
-            elif ext in ['.png', '.jpg', '.jpeg'] and 'iamges' not in parts:
-                p_img = (base_user / "Downloads" / "iamges" / "/".join(parts[1:])).resolve()
-                if p_img.exists():
-                    return validate(p_img)
+            continue
+    return (REPO_ROOT / "non_existent_safe_fallback").resolve()
 
-    # Try 3: Map moved Quillan-Ronin directories (e.g. into Ronin-Saga-Neo-Eden)
-    if "Quillan-Ronin/" in norm_path:
-        norm_path_moved = norm_path.replace("Quillan-Ronin/", "Quillan-Ronin/Ronin-Saga-Neo-Eden/")
-        p3 = (base_user / norm_path_moved).resolve()
-        if p3.exists():
-            return validate(p3)
-            
-    # Try 4: Check if file name matches any file in Downloads folders
-    filename = norm_path.split('/')[-1]
-    ext = os.path.splitext(filename)[1].lower()
-    if ext in ['.png', '.jpg', '.jpeg']:
-        p_fallback = Path(f"C:/Users/Admin/Downloads/iamges/{filename}").resolve()
-        if p_fallback.exists():
-            return validate(p_fallback)
-    elif ext in ['.mp3', '.wav']:
-        import glob
-        matches = glob.glob(f"C:/Users/Admin/Downloads/audio/**/{filename}", recursive=True)
-        if matches:
-            return validate(Path(matches[0]))
-    elif ext in ['.mp4']:
-        p_fallback = Path(f"C:/Users/Admin/Downloads/vids/{filename}").resolve()
-        if p_fallback.exists():
-            return validate(p_fallback)
 
-    return validate(p1)
+def _resolve_ffmpeg_cmd() -> str:
+    found = resolve_ffmpeg_bin("ffmpeg")
+    return str(found) if found else FFMPEG_PATH
+
 
 def load_image_ffmpeg(file_path: Path) -> torch.Tensor:
-    """Use FFmpeg to decode and resize an image to 256x256 RGB24."""
+    """Decode and resize an image to 256x256 RGB24 [-1, 1] using FFmpeg (PIL fallback)."""
+    ffmpeg_cmd = _resolve_ffmpeg_cmd()
     cmd = [
-        FFMPEG_PATH, "-y", "-i", str(file_path),
-        "-vf", "scale=256:256", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
+        ffmpeg_cmd, "-y", "-i", str(file_path),
+        "-vf", "scale=256:256", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
     ]
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-    if proc.returncode != 0:
-        raise RuntimeError(f"FFmpeg image load failed: {proc.stderr.decode('utf-8', errors='replace')}")
-    
     expected_bytes = 256 * 256 * 3
-    data = proc.stdout
-    if len(data) < expected_bytes:
-        data = data + b"\x00" * (expected_bytes - len(data))
-    elif len(data) > expected_bytes:
-        data = data[:expected_bytes]
-        
-    t = torch.frombuffer(data, dtype=torch.uint8).float()
-    t = t.reshape(256, 256, 3).permute(2, 0, 1)  # [3, 256, 256]
-    t = (t / 127.5) - 1.0  # Normalize to [-1, 1]
-    return t
+    if proc.returncode == 0 and len(proc.stdout) >= expected_bytes:
+        data = bytearray(proc.stdout[:expected_bytes])
+        t = torch.frombuffer(data, dtype=torch.uint8).float().reshape(256, 256, 3).permute(2, 0, 1)
+    else:
+        from PIL import Image
+        import numpy as np
+        with Image.open(file_path) as im:
+            arr = np.array(im.convert("RGB").resize((256, 256)), dtype=np.uint8)
+        t = torch.from_numpy(arr).float().permute(2, 0, 1)
+    return (t / 127.5) - 1.0
+
 
 def load_audio_ffmpeg(file_path: Path) -> torch.Tensor:
-    """Use FFmpeg to decode and resample audio to 16000Hz s16le, 1 sec."""
+    """Decode and resample audio to 16000Hz mono [-1, 1] (1 sec) via FFmpeg (PyAV fallback)."""
+    ffmpeg_cmd = _resolve_ffmpeg_cmd()
     cmd = [
-        FFMPEG_PATH, "-y", "-i", str(file_path),
+        ffmpeg_cmd, "-y", "-i", str(file_path), "-t", "1",
         "-f", "s16le", "-ac", "1", "-ar", "16000", "-"
     ]
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-    if proc.returncode != 0:
-        raise RuntimeError(f"FFmpeg audio load failed: {proc.stderr.decode('utf-8', errors='replace')}")
-    
-    expected_bytes = 16000 * 2  # 16000 samples of 16-bit (2 bytes)
-    data = proc.stdout
-    if len(data) < expected_bytes:
-        data = data + b"\x00" * (expected_bytes - len(data))
-    elif len(data) > expected_bytes:
-        data = data[:expected_bytes]
-        
-    t = torch.frombuffer(data, dtype=torch.int16).float()
-    t = t.unsqueeze(0)  # [1, 16000]
-    t = t / 32768.0  # Normalize to [-1, 1]
-    return t
+    expected_bytes = 16000 * 2
+    if proc.returncode == 0 and proc.stdout:
+        data = bytearray(proc.stdout)
+        if len(data) < expected_bytes:
+            data.extend(b"\x00" * (expected_bytes - len(data)))
+        t = torch.frombuffer(data[:expected_bytes], dtype=torch.int16).float().unsqueeze(0) / 32768.0
+        return t
+    import av
+    import numpy as np
+    chunks = []
+    with av.open(str(file_path)) as c:
+        st = next(s for s in c.streams if s.type == "audio")
+        resampler = av.AudioResampler(format="flt", layout="mono", rate=16000)
+        for frame in c.decode(st):
+            for out_f in resampler.resample(frame):
+                chunks.append(out_f.to_ndarray().reshape(-1))
+            if sum(len(x) for x in chunks) >= 16000:
+                break
+    arr = np.concatenate(chunks) if chunks else np.zeros(16000, dtype=np.float32)
+    if len(arr) < 16000:
+        arr = np.pad(arr, (0, 16000 - len(arr)))
+    return torch.from_numpy(arr[:16000].astype(np.float32)).unsqueeze(0)
+
 
 def load_video_ffmpeg(file_path: Path) -> torch.Tensor:
-    """Use FFmpeg to decode and sample 8 frames at 64x64 RGB24."""
+    """Decode and sample 8 frames at 64x64 RGB24 [-1, 1] via FFmpeg (PyAV fallback)."""
+    ffmpeg_cmd = _resolve_ffmpeg_cmd()
     cmd = [
-        FFMPEG_PATH, "-y", "-i", str(file_path),
+        ffmpeg_cmd, "-y", "-i", str(file_path),
         "-vf", "scale=64:64,fps=8", "-vframes", "8",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
     ]
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-    if proc.returncode != 0:
-        raise RuntimeError(f"FFmpeg video load failed: {proc.stderr.decode('utf-8', errors='replace')}")
-    
     expected_bytes = 8 * 64 * 64 * 3
-    data = proc.stdout
-    if len(data) < expected_bytes:
-        data = data + b"\x00" * (expected_bytes - len(data))
-    elif len(data) > expected_bytes:
-        data = data[:expected_bytes]
-        
-    t = torch.frombuffer(data, dtype=torch.uint8).float()
-    t = t.reshape(8, 64, 64, 3).permute(3, 0, 1, 2)  # [3, 8, 64, 64]
-    t = (t / 127.5) - 1.0  # Normalize to [-1, 1]
-    return t
+    if proc.returncode == 0 and proc.stdout:
+        data = bytearray(proc.stdout)
+        if len(data) < expected_bytes:
+            data.extend(b"\x00" * (expected_bytes - len(data)))
+        t = torch.frombuffer(data[:expected_bytes], dtype=torch.uint8).float()
+        t = t.reshape(8, 64, 64, 3).permute(3, 0, 1, 2)
+    else:
+        import av
+        import numpy as np
+        frames = []
+        with av.open(str(file_path)) as c:
+            vs = next(s for s in c.streams if s.type == "video")
+            for frame in c.decode(vs):
+                im = frame.to_image().convert("RGB").resize((64, 64))
+                frames.append(np.array(im, dtype=np.uint8))
+                if len(frames) >= 8:
+                    break
+        while len(frames) < 8:
+            frames.append(frames[-1] if frames else np.zeros((64, 64, 3), dtype=np.uint8))
+        arr = np.stack(frames, axis=0)
+        t = torch.from_numpy(arr).float().permute(3, 0, 1, 2)
+    return (t / 127.5) - 1.0
+
+
+def tensor_to_ingestion_features(tensor: torch.Tensor, modality: str, out_dim: int = 384) -> torch.Tensor:
+    """Convert raw image [3,H,W], audio [1,N], or video [3,T,H,W] tensor into [1, S, 384] tokens for QuillanRoninSovereign."""
+    if modality == "image":
+        patches = F.adaptive_avg_pool2d(tensor.unsqueeze(0), (8, 8))  # [1, 3, 8, 8] -> 192
+        flat = patches.flatten(1)
+        rep = torch.cat([flat, flat], dim=-1)  # [1, 384]
+        return rep.unsqueeze(1)
+    if modality == "audio":
+        pooled = F.adaptive_avg_pool1d(tensor.unsqueeze(0), out_dim)  # [1, 1, 384]
+        return pooled
+    if modality == "video":
+        # tensor: [3, T, H, W] -> [T, 3, H, W]
+        frames = tensor.permute(1, 0, 2, 3)
+        patches = F.adaptive_avg_pool2d(frames, (8, 8)).flatten(1)  # [T, 192]
+        rep = torch.cat([patches, patches], dim=-1).unsqueeze(0)  # [1, T, 384]
+        return rep
+    raise ValueError(f"Unsupported modality: {modality}")
 
 # ── Main Training Loop ─────────────────────────────────────────────────────────
 def main():
@@ -218,13 +242,13 @@ def main():
     else:
         LOG.warning("No domain text checkpoint found! Training from seeded/init weights.")
 
-    model = model.to(device).half()
+    model = model.to(device).half() if device == "cuda" else model.to(device)
     model.train()
 
-    # Freeze all text parameters, keep only multimodal projection & decoders trainable
+    # Freeze all text parameters, keep only multimodal projection & modality embeddings trainable
     trainable_params = []
     for name, param in model.named_parameters():
-        if any(x in name for x in ["image_decoder", "audio_decoder", "video_decoder", "img_proj"]):
+        if any(x in name for x in ["img_proj", "mod_emb"]):
             param.requires_grad = True
             trainable_params.append(param)
         else:
@@ -283,43 +307,37 @@ def main():
 
                 txt_tensor = torch.tensor([tokens], dtype=torch.long, device=device)
 
-                # Process based on modality type
+                # Process based on modality type via QuillanRoninSovereign(txt, img=features)
                 ext = safe_file_path.suffix.lower()
                 loss = None
-                
-                if ext in [".png", ".jpg", ".jpeg"]:
-                    target = load_image_ffmpeg(safe_file_path).to(device, dtype=torch.float16)
-                    # Forward pass
-                    out = model(txt_tensor, target_modality="image")
-                    gen = out.get("image")
-                    if gen is not None:
-                        loss = F.l1_loss(gen, target.unsqueeze(0))
-                        
-                elif ext in [".mp3", ".wav"]:
-                    target = load_audio_ffmpeg(safe_file_path).to(device, dtype=torch.float16)
-                    # Forward pass
-                    out = model(txt_tensor, target_modality="audio")
-                    gen = out.get("audio")
-                    if gen is not None:
-                        loss = F.l1_loss(gen, target.unsqueeze(0))
-                        
+                mod_dtype = next(model.parameters()).dtype
+                mod_feats = None
+
+                if ext in [".png", ".jpg", ".jpeg", ".webp"]:
+                    target = load_image_ffmpeg(safe_file_path).to(device, dtype=mod_dtype)
+                    mod_feats = tensor_to_ingestion_features(target, "image")
+                elif ext in [".mp3", ".wav", ".flac", ".m4a"]:
+                    target = load_audio_ffmpeg(safe_file_path).to(device, dtype=mod_dtype)
+                    mod_feats = tensor_to_ingestion_features(target, "audio")
                 elif ext in [".mp4"]:
-                    target = load_video_ffmpeg(safe_file_path).to(device, dtype=torch.float16)
-                    # Forward pass
-                    out = model(txt_tensor, target_modality="video")
-                    gen = out.get("video")
-                    if gen is not None:
-                        loss = F.l1_loss(gen, target.unsqueeze(0))
+                    target = load_video_ffmpeg(safe_file_path).to(device, dtype=mod_dtype)
+                    mod_feats = tensor_to_ingestion_features(target, "video")
+
+                if mod_feats is not None and txt_tensor.shape[1] >= 2:
+                    out = model(txt_tensor[:, :-1], img=mod_feats.to(device, dtype=mod_dtype))
+                    logits = out[0] if isinstance(out, tuple) else out
+                    loss = F.cross_entropy(logits.reshape(-1, logits.size(-1)), txt_tensor[:, 1:].reshape(-1))
 
                 if loss is not None:
                     opt.zero_grad()
                     loss.backward()
                     torch.nn.utils.clip_grad_norm_(trainable_params, 1.0)
                     opt.step(integrity=1.0)
-                    torch.cuda.empty_cache()
-                    
+                    if torch.cuda.is_available():
+                        torch.cuda.empty_cache()
+
                     accum_loss += loss.item()
-                    
+
                     if step % LOG_EVERY == 0:
                         avg_loss = accum_loss / max(1, step % LOG_EVERY if step > 0 else 1)
                         LOG.info(f"Step {step:>4d}/{MAX_STEPS} | loss {avg_loss:.4f} | file: {safe_file_path.name}")
@@ -327,18 +345,18 @@ def main():
 
                     if step > 0 and step % SAVE_EVERY == 0:
                         ckpt_path = CKPT_DIR / f"quillan_v8_multimodal_step_{step}.pt"
-                        # Save only the trainable parameters to conserve disk space
-                        trainable_sd = {k: v for k, v in model.state_dict().items() if any(x in k for x in ["image_decoder", "audio_decoder", "video_decoder", "img_proj"])}
+                        trainable_sd = {k: v for k, v in model.state_dict().items() if "img_proj" in k or "mod_emb" in k}
                         torch.save({"state_dict": trainable_sd, "step": step}, ckpt_path)
                         LOG.info(f"Saved multimodal checkpoint: {ckpt_path.name}")
 
                     step += 1
             except Exception as e:
+                LOG.warning(f"Skipping multimodal sample due to {type(e).__name__}: {e}")
                 continue
 
     # Final Save
     final_path = CKPT_DIR / "quillan_v8_multimodal_final.pt"
-    trainable_sd = {k: v for k, v in model.state_dict().items() if any(x in k for x in ["image_decoder", "audio_decoder", "video_decoder", "img_proj"])}
+    trainable_sd = {k: v for k, v in model.state_dict().items() if "img_proj" in k or "mod_emb" in k}
     torch.save({"state_dict": trainable_sd, "step": step}, final_path)
     LOG.info(f"Done. Final multimodal weights saved: {final_path.name}")
 

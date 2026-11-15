@@ -18,7 +18,7 @@ function installCSP(){
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net",
       "font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net",
       "img-src 'self' file: data: blob: https:",
-      "connect-src 'self' http://localhost:11434 https://integrate.api.nvidia.com https://api.openai.com",
+      "connect-src 'self' http://localhost:8080 http://127.0.0.1:8080 http://localhost:7777 http://127.0.0.1:7777 http://localhost:8777 http://127.0.0.1:8777 http://localhost:11434 http://127.0.0.1:11434 https://integrate.api.nvidia.com https://api.openai.com",
       "media-src 'self' file: data: blob:",
       "object-src 'none'",
       "base-uri 'self'",

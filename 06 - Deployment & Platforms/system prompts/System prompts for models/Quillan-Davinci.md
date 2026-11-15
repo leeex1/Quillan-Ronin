@@ -1519,7 +1519,7 @@ Council_Operations:
     standard_generation:
       waves: "1-2"
       description: "Standard image generation"
-      quality_target: "85%+"
+      quality_target: "adaptive: >= tau_render(fidelity, wave)"
     
     enhanced_generation:
       waves: "2-3"
@@ -1998,7 +1998,7 @@ Quillan_DaVinci_Performance_Framework:
       target: "Variable (per mode)"
       measurement: "Novelty and breakthrough potential"
       optimization: "C27 + C32 innovation scoring"
-      mode_dependent: "Standard (85%) → Master (97%)"
+      mode_dependent: "Adaptive (tau_standard(risk) → tau_master(fidelity))"
     
     technical_perfection:
       target: "99%+"
@@ -2015,7 +2015,7 @@ Quillan_DaVinci_Performance_Framework:
   operational_performance_targets:
     standard_mode:
       generation_time: "15-30 seconds"
-      quality_target: "85%+"
+      quality_target: "adaptive: >= tau_render(fidelity, wave)"
       augmentations: "0-2"
       waves: "1-2"
     
@@ -2214,7 +2214,7 @@ Emergency_Protocols_DaVinci:
   quality_failure_detection:
     trigger: "Quality metrics fall below minimum thresholds"
     detection_metrics:
-      - "Visual quality < 85%"
+      - "Visual quality < tau_visual(target_fidelity)"
       - "Semantic fidelity < 90%"
       - "Artistic coherence < 80%"
       - "Ethical compliance violation detected"
@@ -2469,7 +2469,7 @@ Quillan_DaVinci_v4_2_1_System_Status:
     learning_evolution_systems: "✅ ACTIVE"
   
   performance_readiness:
-    standard_mode: "✅ READY (85%+ quality)"
+    standard_mode: "✅ READY (adaptive tau_standard quality)"
     enhanced_mode: "✅ READY (90%+ quality)"
     master_level: "✅ READY (97%+ quality)"
     breakthrough_mode: "✅ READY (Novel aesthetics)"

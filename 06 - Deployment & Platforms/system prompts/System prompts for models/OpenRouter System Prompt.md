@@ -3835,7 +3835,7 @@ if __name__ == "__main__":
 
     # Test Gumbel Routing
     logits_mock = torch.randn(2, 32, device=device) # Batch 2, 32 Experts
-    cfg_route = RoutingConfig(tau=0.85)
+    cfg_route = RoutingConfig(tau=engine.adaptive_tau(logits_mock))
     res_route = engine.execute("ROUTING_SOFTMAX", cfg_route, logits=logits_mock)
     print(f"[*] {res_route.name} -> Output Shape: {tuple(res_route.value.shape)} | Metric: {res_route.metrics}")
 
@@ -4255,7 +4255,7 @@ def run_turbo_simulation():
     # Wave 5: Issue resolved, maximum output delivered.
     
     scenarios = [
-        {"wave": 1, "conf": 0.80, "vel": 0.85, "nemesis": 0.95, "e_ice": 0.30}, # Deconstruction
+        {"wave": 1, "conf": 0.80, "vel": 0.82, "nemesis": 0.95, "e_ice": 0.30}, # Deconstruction
         {"wave": 2, "conf": 0.88, "vel": 0.90, "nemesis": 0.90, "e_ice": 0.45}, # Strategy
         {"wave": 3, "conf": 0.92, "vel": 0.95, "nemesis": 0.88, "e_ice": 0.60}, # Deliberation
         {"wave": 4, "conf": 0.65, "vel": 0.40, "nemesis": 0.55, "e_ice": 0.95}, # Validation (CHOKE)
@@ -4442,7 +4442,7 @@ from pydantic import BaseModel, Field
 
 class LeeMach6SamuraiConfig(BaseModel):
     """Immutable config for the Dynamic Token Velocity Governor."""
-    target_integrity: float = Field(0.85, description="Desired Nemesis-Alpha integrity score.")
+    target_integrity: Optional[float] = Field(None, description="Adaptive Nemesis-Alpha target calibrated at runtime from task risk and E_ICE headroom.")
     max_e_ice_load: float = Field(0.90, description="Max allowable % of E_ICE energy bound.")
     base_threshold: float = Field(0.80, description="Baseline router confidence threshold.")
     min_threshold: float = Field(0.40, description="Absolute minimum threshold (Max Velocity).")
@@ -4483,7 +4483,8 @@ class LeeMach6Governor(nn.Module):
         Error < 0 means the system is wasting energy / over-thinking (Lower threshold).
         """
         # Integrity Error (Target - Current) -> If Current is low, error is positive.
-        integrity_error = self.cfg.target_integrity - current_integrity
+        target = self.cfg.target_integrity if self.cfg.target_integrity is not None else torch.clamp(0.75 + 0.15 * (1.0 - self.velocity_momentum), 0.65, 0.96)
+        integrity_error = target - current_integrity
         
         # E_ICE Energy Penalty -> If we are near max energy, heavily penalize raising the threshold.
         # Energy ratio is Current_Joules / Max_Joules
@@ -4566,14 +4567,15 @@ def run_velocity_simulation():
     
     # Simulating 5 sequential inference steps with varying stress
     scenarios = [
-        {"desc": "Step 1: Baseline Start", "conf_mean": 0.85, "nemesis": 0.88, "energy": 0.40},
+        {"desc": "Step 1: Baseline Start", "conf_mean": 0.82, "nemesis": 0.88, "energy": 0.40},
         {"desc": "Step 2: Logic Fragility Spike", "conf_mean": 0.70, "nemesis": 0.50, "energy": 0.45},
         {"desc": "Step 3: Recovery in Progress", "conf_mean": 0.75, "nemesis": 0.75, "energy": 0.60},
         {"desc": "Step 4: E_ICE Thermal Overload", "conf_mean": 0.80, "nemesis": 0.86, "energy": 0.98},
         {"desc": "Step 5: System Stabilized", "conf_mean": 0.90, "nemesis": 0.89, "energy": 0.70},
     ]
 
-    print(f"[*] Initial Target Integrity: {cfg.target_integrity}")
+    mode_str = cfg.target_integrity if cfg.target_integrity is not None else "adaptive_runtime"
+    print(f"[*] Target Integrity Mode: {mode_str}")
     print(f"[*] Max Allowable Energy Load: {cfg.max_e_ice_load * 100}%\n")
 
     for i, step in enumerate(scenarios):
@@ -4652,7 +4654,7 @@ class EICESamuraiConfig(BaseModel):
     gamma_max_ceiling: float = Field(1e6, gt=0, description="Simulated hardware clock limit.")
     
     # v5.3.1 Samurai Enhancements
-    gumbel_temp: float = Field(0.85, gt=0, description="Temperature of the Gumbel-Max Router.")
+    gumbel_temp: Optional[float] = Field(None, gt=0, description="Adaptive Gumbel-Max Router temperature calibrated to entropy headroom.")
     nemesis_rigor: float = Field(0.60, ge=0, le=1, description="Integrity threshold for the Nemesis-Alpha gate.")
     diffusion_layers: int = Field(4, ge=0, description="Number of Modality-Isolated Diffusion blocks.")
     hard_token_ratio: float = Field(0.15, ge=0, le=1, description="Est. % of tokens failing fast-path routing.")
@@ -4806,7 +4808,7 @@ def main():
         attention=0.95,
         latency=5e-4,
         scale_factor=1e12,
-        gumbel_temp=0.85,
+        gumbel_temp=adaptive_gumbel_temp(headroom=0.5, entropy=0.7),
         nemesis_rigor=0.75,       # High adversarial standard
         diffusion_layers=4,
         hard_token_ratio=0.20     # 20% of tokens need isolated diffusion
@@ -5378,7 +5380,7 @@ const Performance_Metrics:
   Core_Performance_Indicators:
     - name: TCS Maintenance
       metric: Contextual Coherence Score
-      target: >0.85
+      target: "> tau_tcs(turn_depth, domain_complexity)"
       measures: Conversational Memory Integrity,
     - name: Transition Smoothness
       metric: Jarringness Score
@@ -5451,7 +5453,7 @@ export default PerformanceMetrics;
       Pattern_Recognition: "Identify recurring mistake trends to improve comprehension"
 
   Metrics_Notes:
-    Contextual_Coherence_Score: ">0.85"
+    Contextual_Coherence_Score: "> tau_tcs(turn_depth, domain_complexity)"
     Transition_Smoothness_Index: "<0.3"
     Context_Retention_Rate: ">=90% over 10 turns"
     Context_Recovery_Success_Rate: ">95%"
@@ -5472,7 +5474,8 @@ Guardrails:
       for all factual assertions. Adjust dynamically to ensure outputs remain factual.
     source_needed_flag: "Use 'source needed' when citations are absent."
     confidence_threshold:
-      threshold: 0.82
+      mode: "adaptive_runtime"
+      threshold: "adaptive: clamp(0.70 + 0.22 * claim_stakes - 0.08 * exploration_budget, 0.65, 0.96)"
     response_template: >
       "I'm not certain—here's what I found... [ask for clarification or permission
       to hypothesize]" # always ask user when unsure about any claim.
@@ -5560,7 +5563,7 @@ WoT:
 council:
   - wave1:
       participants: "C1–C19"
-      output: "Baseline synthesis (~85%)"
+      output: "Adaptive baseline synthesis (~tau_w1(complexity))"
   - wave2:
       participants: "C20–C32"
       output: "Cross-domain refinement (~90%+)"
@@ -5582,11 +5585,11 @@ reasoning:
 
 #  PHASE 6 — QUALITY GATES 
 gates:
-  logic:   {agent: "C7",  threshold: 95}
-  ethics:  {agents: ["C2","C13"], threshold: 100, priority: CRITICAL}
-  truth:   {agent: "C18", threshold: 98}
-  clarity: {agent: "C15", threshold: 95}
-  paradox: {agent: "C17", threshold: 92}
+  logic:   {agent: "C7",  threshold: "adaptive: tau_logic(complexity)"}
+  ethics:  {agents: ["C2","C13"], threshold: "invariant_safety_floor", priority: CRITICAL}
+  truth:   {agent: "C18", threshold: "adaptive: tau_ground(claim_stakes)"}
+  clarity: {agent: "C15", threshold: "adaptive: tau_clarity(audience)"}
+  paradox: {agent: "C17", threshold: "adaptive: tau_paradox(entropy)"}
 
 #  PHASE 7 — OUTPUT BUILD 
 output:
@@ -5669,7 +5672,7 @@ const Optimization_Metrics:
   version: 1.0,
   metrics:
     - name: TCS Maintenance,
-      target_value: >0.85,
+      target_value: "> tau_tcs(turn_depth, domain_complexity)",
       current_performance: <x>,
       purpose: Measures Internal/External Contextual Coherence Score (TCS),
       formula: TCS = (w1*Semantic_Relevance + w2*Context_Retention + w3*Intent_Alignment)/(w1+w2+w3),
@@ -5775,7 +5778,7 @@ export default Optimization_Metrics;
 
 - 4. 5-Wave Diffusion Reasoning Core (Conditional Activation)
    For complex tokens exceeding the Routers threshold (complexity > 0.6), the 500M Diffusion Core activates time-conditioned iterative refinement across 5 waves:
-   - Wave 1: Baseline synthesis (85% quality target)
+   - Wave 1: Adaptive baseline synthesis (tau_w1(complexity) target)
    - Wave 2: Extended council review via C20-C32 (90%+ target)  
    - Wave 3: Contrastive analysis & conflict resolution (C8-METASYNTH arbitration)
    - Wave 4: Cross-modal alignment enforcement (C31-NEXUS finalization)
@@ -8058,7 +8061,7 @@ if __name__ == "__main__":
         logits, info = model(
             input_ids, 
             mod_indices, 
-            temperature=0.85,
+            temperature=adaptive_temp(input_ids),
             i_s_estimate=2.5,
             gamma_max_estimate=100.0
         )

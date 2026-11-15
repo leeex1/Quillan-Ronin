@@ -32,19 +32,36 @@ from quillan_computer_use import QuillanComputerUseAgent
 
 
 def get_gpu_telemetry_string() -> str:
-    """Retrieves live NVIDIA hardware stats directly via nvidia-smi."""
+    """Retrieves live NVIDIA hardware stats via nvidia-smi, falling back to torch/psutil."""
     try:
         res = subprocess.run(
             ["nvidia-smi", "--query-gpu=memory.used,memory.total,utilization.gpu,temperature.gpu", "--format=csv,noheader,nounits"],
             capture_output=True, text=True, timeout=2
         )
-        if res.returncode == 0:
-            parts = [p.strip() for p in res.stdout.strip().split(",")]
-            used, total, util, temp = parts[0], parts[1], parts[2], parts[3]
-            return f"{used} MB / {total} MB ({util}% GPU, {temp}°C)"
+        if res.returncode == 0 and res.stdout.strip():
+            parts = [p.strip() for p in res.stdout.strip().splitlines()[0].split(",")]
+            if len(parts) >= 4:
+                used, total, util, temp = parts[0], parts[1], parts[2], parts[3]
+                return f"{used} MB / {total} MB ({util}% GPU, {temp}°C)"
     except Exception:
         pass
-    return "NVIDIA GTX 1050 (sm_61) [770 MB / 4096 MB]"
+    try:
+        import torch
+        if torch.cuda.is_available():
+            name = torch.cuda.get_device_name(0)
+            free_b, total_b = torch.cuda.mem_get_info(0)
+            used_mb = int((total_b - free_b) / (1024 * 1024))
+            total_mb = int(total_b / (1024 * 1024))
+            return f"{name} [{used_mb} MB / {total_mb} MB]"
+    except Exception:
+        pass
+    try:
+        import psutil
+        vm = psutil.virtual_memory()
+        return f"Host RAM [{vm.used // (1024 * 1024)} MB / {vm.total // (1024 * 1024)} MB]"
+    except Exception:
+        pass
+    return "Hardware telemetry unavailable"
 
 
 class QuillanToolRegistry:

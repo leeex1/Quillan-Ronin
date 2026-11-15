@@ -1547,19 +1547,19 @@
               </header>
               <div class="thresholds">
                 <div class="threshold-card">
-                  <div class="threshold-top"><strong id="auditEvidence">0.86</strong><span>C18 EVIDENCE<br>MINIMUM 0.85</span></div>
-                  <div class="threshold-meter" id="auditEvidenceMeter" style="--threshold-value:86%;--threshold-mark:85%"><i></i><span class="threshold-marker"></span></div>
-                  <div class="threshold-result"><span>0.00</span><b id="auditEvidenceResult">PASS</b><span>1.00</span></div>
+                  <div class="threshold-top"><strong id="auditEvidence">--</strong><span id="auditEvidenceLabel">C18 EVIDENCE<br>ADAPTIVE MIN --</span></div>
+                  <div class="threshold-meter" id="auditEvidenceMeter" style="--threshold-value:0%;--threshold-mark:80%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.00</span><b id="auditEvidenceResult">PENDING</b><span>1.00</span></div>
                 </div>
                 <div class="threshold-card">
-                  <div class="threshold-top"><strong id="auditAesthetics">7.8</strong><span>C22 AESTHETICS<br>MINIMUM 7.0</span></div>
-                  <div class="threshold-meter" id="auditAestheticsMeter" style="--threshold-value:78%;--threshold-mark:70%"><i></i><span class="threshold-marker"></span></div>
-                  <div class="threshold-result"><span>0.0</span><b id="auditAestheticsResult">PASS</b><span>10.0</span></div>
+                  <div class="threshold-top"><strong id="auditAesthetics">--</strong><span id="auditAestheticsLabel">C22 AESTHETICS<br>ADAPTIVE MIN --</span></div>
+                  <div class="threshold-meter" id="auditAestheticsMeter" style="--threshold-value:0%;--threshold-mark:70%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.0</span><b id="auditAestheticsResult">PENDING</b><span>10.0</span></div>
                 </div>
                 <div class="threshold-card">
-                  <div class="threshold-top"><strong id="auditDrift">0.12</strong><span>C23 DRIFT<br>CEILING 0.35</span></div>
-                  <div class="threshold-meter" id="auditDriftMeter" style="--threshold-value:12%;--threshold-mark:35%"><i></i><span class="threshold-marker"></span></div>
-                  <div class="threshold-result"><span>0.00</span><b id="auditDriftResult">PASS</b><span>1.00</span></div>
+                  <div class="threshold-top"><strong id="auditDrift">--</strong><span id="auditDriftLabel">C23 DRIFT<br>ADAPTIVE MAX --</span></div>
+                  <div class="threshold-meter" id="auditDriftMeter" style="--threshold-value:0%;--threshold-mark:35%"><i></i><span class="threshold-marker"></span></div>
+                  <div class="threshold-result"><span>0.00</span><b id="auditDriftResult">PENDING</b><span>1.00</span></div>
                 </div>
               </div>
             </section>
@@ -2206,34 +2206,78 @@
         });
       }
 
-      function updateThreshold(valueId, meterId, resultId, value, limit, inverse, scale, decimals) {
+      var adaptiveLimits = { evidenceMin: 0.82, aestheticsMin: 6.8, driftCeiling: 0.32, coherenceTarget: 0.85 };
+
+      function clampNum(val, lo, hi) {
+        return Math.max(lo, Math.min(hi, val));
+      }
+
+      function computeAdaptiveThresholds(telemetry) {
+        var t = telemetry || {};
+        var activeCount = typeof agentState !== "undefined" ? agentState.size : 4;
+        var headroom = Number.isFinite(t.headroom) ? t.headroom : clampNum(1.0 - (activeCount / 16), 0.25, 0.95);
+        var stakes = Number.isFinite(t.risk) ? t.risk : 0.55;
+        var evMin = Number.isFinite(t.evidence_min) ? t.evidence_min : clampNum(0.74 + 0.16 * stakes - 0.06 * headroom, 0.68, 0.96);
+        var aesMin = Number.isFinite(t.aesthetics_min) ? t.aesthetics_min : clampNum(6.2 + 1.4 * stakes - 0.3 * (1 - headroom), 5.5, 9.2);
+        var driftMax = Number.isFinite(t.drift_ceiling) ? t.drift_ceiling : clampNum(0.40 - 0.14 * stakes + 0.04 * headroom, 0.18, 0.45);
+        var cohTarget = Number.isFinite(t.coherence_target) ? t.coherence_target : clampNum(0.78 + 0.12 * stakes, 0.72, 0.96);
+        adaptiveLimits.evidenceMin = evMin;
+        adaptiveLimits.aestheticsMin = aesMin;
+        adaptiveLimits.driftCeiling = driftMax;
+        adaptiveLimits.coherenceTarget = cohTarget;
+        return adaptiveLimits;
+      }
+
+      function applyThresholdSnapshot(thresholds) {
+        var lim = computeAdaptiveThresholds(thresholds);
+        var evNow = Number(document.getElementById("auditEvidence").textContent);
+        var aeNow = Number(document.getElementById("auditAesthetics").textContent);
+        var drNow = Number(document.getElementById("auditDrift").textContent);
+        if (Number.isFinite(evNow)) updateThreshold("auditEvidence", "auditEvidenceMeter", "auditEvidenceResult", evNow, lim.evidenceMin, false, 100, 2, "auditEvidenceLabel", "C18 EVIDENCE");
+        if (Number.isFinite(aeNow)) updateThreshold("auditAesthetics", "auditAestheticsMeter", "auditAestheticsResult", aeNow, lim.aestheticsMin, false, 10, 1, "auditAestheticsLabel", "C22 AESTHETICS");
+        if (Number.isFinite(drNow)) updateThreshold("auditDrift", "auditDriftMeter", "auditDriftResult", drNow, lim.driftCeiling, true, 100, 2, "auditDriftLabel", "C23 DRIFT");
+        return lim;
+      }
+
+      function updateThreshold(valueId, meterId, resultId, value, limit, inverse, scale, decimals, labelId, labelTitle) {
         var pass = inverse ? value <= limit : value >= limit;
         document.getElementById(valueId).textContent = value.toFixed(decimals);
         var meter = document.getElementById(meterId);
-        meter.style.setProperty("--threshold-value", Math.max(0, Math.min(100, value * scale)) + "%");
+        meter.style.setProperty("--threshold-value", clampNum(value * scale, 0, 100) + "%");
+        meter.style.setProperty("--threshold-mark", clampNum(limit * scale, 0, 100) + "%");
         meter.classList.toggle("fail", !pass);
+        if (labelId) {
+          var lbl = document.getElementById(labelId);
+          if (lbl) lbl.innerHTML = labelTitle + "<br>" + (inverse ? "ADAPTIVE MAX " : "ADAPTIVE MIN ") + limit.toFixed(decimals);
+        }
         var result = document.getElementById(resultId);
         result.textContent = pass ? "PASS" : "FAIL";
         result.className = pass ? "" : "fail";
       }
 
       function initTelemetryBaseline() {
-        document.getElementById("governorGauge").style.setProperty("--gauge", "88%");
-        document.getElementById("governorGauge").setAttribute("aria-label", "E ICE governor confidence 88 percent");
-        document.getElementById("governorValue").textContent = "88";
-        document.getElementById("coherenceValue").textContent = "0.92";
-        document.getElementById("evidenceValue").textContent = "0.86";
-        document.getElementById("driftValue").textContent = "0.12";
-        document.getElementById("coherenceMeter").style.setProperty("--fill", "92%");
-        document.getElementById("evidenceMeter").style.setProperty("--fill", "86%");
-        document.getElementById("driftMeter").style.setProperty("--fill", "12%");
-        document.getElementById("governorState").textContent = "live bounded";
-        updateThreshold("auditEvidence", "auditEvidenceMeter", "auditEvidenceResult", 0.86, .85, false, 100, 2);
-        updateThreshold("auditAesthetics", "auditAestheticsMeter", "auditAestheticsResult", 7.8, 7, false, 10, 1);
-        updateThreshold("auditDrift", "auditDriftMeter", "auditDriftResult", 0.12, .35, true, 100, 2);
+        var lim = computeAdaptiveThresholds();
+        var initCoherence = clampNum(lim.coherenceTarget + 0.06, 0.75, 0.98);
+        var initEvidence = clampNum(lim.evidenceMin + 0.04, 0.70, 0.98);
+        var initDrift = clampNum(lim.driftCeiling * 0.42, 0.04, 0.30);
+        var initAesthetics = clampNum(lim.aestheticsMin + 0.7, 6.0, 9.6);
+        var govPct = Math.round(initCoherence * 100);
+        document.getElementById("governorGauge").style.setProperty("--gauge", govPct + "%");
+        document.getElementById("governorGauge").setAttribute("aria-label", "E ICE governor confidence " + govPct + " percent");
+        document.getElementById("governorValue").textContent = String(govPct);
+        document.getElementById("coherenceValue").textContent = initCoherence.toFixed(2);
+        document.getElementById("evidenceValue").textContent = initEvidence.toFixed(2);
+        document.getElementById("driftValue").textContent = initDrift.toFixed(2);
+        document.getElementById("coherenceMeter").style.setProperty("--fill", Math.round(initCoherence * 100) + "%");
+        document.getElementById("evidenceMeter").style.setProperty("--fill", Math.round(initEvidence * 100) + "%");
+        document.getElementById("driftMeter").style.setProperty("--fill", Math.round(initDrift * 100) + "%");
+        document.getElementById("governorState").textContent = "adaptive bounded";
+        updateThreshold("auditEvidence", "auditEvidenceMeter", "auditEvidenceResult", initEvidence, lim.evidenceMin, false, 100, 2, "auditEvidenceLabel", "C18 EVIDENCE");
+        updateThreshold("auditAesthetics", "auditAestheticsMeter", "auditAestheticsResult", initAesthetics, lim.aestheticsMin, false, 10, 1, "auditAestheticsLabel", "C22 AESTHETICS");
+        updateThreshold("auditDrift", "auditDriftMeter", "auditDriftResult", initDrift, lim.driftCeiling, true, 100, 2, "auditDriftLabel", "C23 DRIFT");
         document.getElementById("shardCount").textContent = "06,184";
         document.getElementById("swarmDepth").textContent = "07";
-        document.getElementById("swarmFitness").textContent = ".884";
+        document.getElementById("swarmFitness").textContent = lim.coherenceTarget.toFixed(3).replace(/^0/, "");
         document.getElementById("swarmPruned").textContent = "142";
         if (selectedId !== 0) selectPersona(selectedId);
       }
@@ -2321,6 +2365,7 @@
         var agreement = liveNum(detail, /agreement\s+([\d.]+)/i);
         var confidence = liveNum(detail, /confidence\s+([\d.]+)/i);
         var gates = liveNum(detail, /(\d+)\s*\/\s*5\s+gates/i);
+        var lim = computeAdaptiveThresholds(event.thresholds || { risk: isFinite(confidence) ? confidence : 0.55 });
         if (isFinite(confidence)) {
           var pct = Math.round(confidence * 100);
           document.getElementById("governorGauge").style.setProperty("--gauge", pct + "%");
@@ -2332,9 +2377,19 @@
           document.getElementById("swarmFitness").textContent = agreement.toFixed(3).replace(/^0/, "");
         }
         if (isFinite(gates)) {
-          var ev = 0.55 + 0.09 * gates;
+          var ev = clampNum(0.55 + 0.09 * gates, 0, 1);
           document.getElementById("evidenceValue").textContent = ev.toFixed(2);
           document.getElementById("evidenceMeter").style.setProperty("--fill", Math.round(ev * 100) + "%");
+          updateThreshold("auditEvidence", "auditEvidenceMeter", "auditEvidenceResult", ev, lim.evidenceMin, false, 100, 2, "auditEvidenceLabel", "C18 EVIDENCE");
+        }
+        if (event.drift !== undefined && isFinite(Number(event.drift))) {
+          var dr = clampNum(Number(event.drift), 0, 1);
+          document.getElementById("driftValue").textContent = dr.toFixed(2);
+          document.getElementById("driftMeter").style.setProperty("--fill", Math.round(dr * 100) + "%");
+          updateThreshold("auditDrift", "auditDriftMeter", "auditDriftResult", dr, lim.driftCeiling, true, 100, 2, "auditDriftLabel", "C23 DRIFT");
+        }
+        if (event.aesthetics !== undefined && isFinite(Number(event.aesthetics))) {
+          updateThreshold("auditAesthetics", "auditAestheticsMeter", "auditAestheticsResult", Number(event.aesthetics), lim.aestheticsMin, false, 10, 1, "auditAestheticsLabel", "C22 AESTHETICS");
         }
         document.getElementById("governorState").textContent = status === "fail" ? "veto engaged" : "live bounded";
         appendSimLog(liveChannel[stage] || "LIVE", detail);
@@ -2528,6 +2583,10 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         try {
           var res = await fetch(hubBase + "/api/health", { cache: "no-store" });
           if (!res.ok) throw new Error("hub unreachable");
+          var hData = await res.json().catch(function () { return {}; });
+          if (hData && hData.thresholds) {
+            applyThresholdSnapshot(hData.thresholds);
+          }
           setConnection("online", "Live Runtime Connected (:8777)");
           
           // 1. Obsidian Knowledge Graph
@@ -3303,6 +3362,9 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
           var response = await fetch(base + "/api/events", { method: "GET", cache: "no-store", mode: "cors" });
           if (!response.ok) throw new Error("collector unavailable");
           var payload = await response.json();
+          if (payload && payload.thresholds) {
+            applyThresholdSnapshot(payload.thresholds);
+          }
           var events = Array.isArray(payload) ? payload : (Array.isArray(payload.events) ? payload.events : (payload && payload.agent ? [payload] : []));
           events.forEach(processEvent);
           fetchCodebaseStatus();
@@ -3405,7 +3467,8 @@ ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
         document.getElementById("workoutReps").textContent = trainState.step;
         document.getElementById("workoutArenaMeta").textContent = "Rep " + trainState.step + " / " + trainState.maxSteps + " · " + (trainState.exercise === "bench" ? "HEAVY BENCH PRESS" : (trainState.exercise === "deadlift" ? "POWER DEADLIFT" : "OVERHEAD PRESS"));
         
-        var mThresholds = [0, 100, 250, 400, 500];
+        var milestoneRatios = [0, 0.2, 0.5, 0.8, 1.0];
+        var mThresholds = milestoneRatios.map(function (r) { return Math.round(trainState.maxSteps * r); });
         mThresholds.forEach(function (thresh, i) {
           var el = document.getElementById("m" + i);
           if (el) el.classList.toggle("reached", trainState.step >= thresh);

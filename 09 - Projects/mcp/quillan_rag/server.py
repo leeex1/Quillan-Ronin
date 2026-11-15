@@ -85,11 +85,13 @@ def _get_api_key() -> str:
 NVIDIA_API_KEY = _get_api_key()
 NIM_BASE       = "https://integrate.api.nvidia.com/v1"
 EMBED_MODEL    = "nvidia/nemotron-3-embed-1b"
-GEN_MODEL      = "nvidia/nemotron-3-super-120b-a12b"
+GEN_MODEL      = "nvidia/nemotron-3.5-lightning-30b-a3b"
 CHROMA_PATH    = Path(os.environ.get("QUILLAN_RAG_DB", r"C:\02_QUILLAN\quillan_rag_db"))
 COLLECTION     = "quillan_knowledge"
 CHUNK_SIZE     = 800
 CHUNK_OVERLAP  = 80
+SESSION_DIR    = ALLOWED_ROOT / "09 - Projects" / "mcp" / "quillan_rag" / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [RAG] %(message)s")
 log = logging.getLogger("quillan_rag")
@@ -165,13 +167,23 @@ else:
                 self._data.pop(doc_id, None)
             self._save()
 
-        def query(self, query_embeddings: List[List[float]], n_results: int = 10, include: Optional[List[str]] = None):
+        def query(
+            self,
+            query_embeddings: List[List[float]],
+            n_results: int = 10,
+            where: Optional[Dict[str, Any]] = None,
+            include: Optional[List[str]] = None,
+        ):
             if not query_embeddings or not self._data:
                 return {"ids": [[]], "documents": [[]], "metadatas": [[]], "distances": [[]]}
             q_emb = query_embeddings[0]
             scores = []
             q_norm = math.sqrt(sum(x * x for x in q_emb)) or 1e-9
             for doc_id, item in self._data.items():
+                if where:
+                    meta = item.get("metadata", {})
+                    if any(meta.get(k) != v for k, v in where.items()):
+                        continue
                 d_emb = item.get("embedding", [])
                 if not d_emb:
                     sim = 0.0
@@ -278,7 +290,8 @@ async def _generate(system: str, user: str, max_tokens: int = 1024, max_retries:
                 {"role": "user", "content": user}], "max_tokens": max_tokens, "temperature": 0.2},
                 timeout=15.0)
             r.raise_for_status()
-            return r.json()["choices"][0]["message"]["content"]
+            msg = r.json()["choices"][0]["message"]
+            return msg.get("content") or msg.get("reasoning_content") or ""
         except Exception as e:
             if attempt == max_retries - 1:
                 log.warning(f"Generation attempt failed ({e}). Returning local synthesis fallback.")
@@ -304,6 +317,19 @@ def _is_safe_path(p: Path) -> bool:
     except Exception:
         return False
 
+def _extract_pdf_text(path: Path) -> str:
+    """Extract text from a PDF using PyMuPDF (fitz) with pypdf fallback."""
+    try:
+        import fitz
+
+        with fitz.open(str(path)) as doc:
+            return "\n".join(page.get_text() or "" for page in doc)
+    except ImportError:
+        import pypdf
+
+        return "\n".join(p.extract_text() or "" for p in pypdf.PdfReader(str(path)).pages)
+
+
 # ── Tools ─────────────────────────────────────────────────────────────────────
 
 @mcp.tool()
@@ -316,8 +342,7 @@ async def ingest_file(file_path: str, metadata: Optional[dict] = None) -> str:
         return f"Error: not found: {file_path}"
     try:
         if path.suffix.lower() == ".pdf":
-            import pypdf
-            text = "\n".join(p.extract_text() or "" for p in pypdf.PdfReader(str(path)).pages)
+            text = _extract_pdf_text(path)
         else:
             text = path.read_text(encoding="utf-8", errors="ignore")
     except Exception as e:
@@ -429,7 +454,14 @@ async def rag_full_pipeline(folder_path: str = "", question: str = "", n_context
     ingest_result = await ingest_folder(folder_path, extensions=extensions) if folder_path else {"skipped": True}
     search_result = await search(query=question, n_results=n_context) if question else {"skipped": True}
     ask_result = await ask(question=question, n_context=n_context) if question else {"skipped": True}
-    stats_result = kb_stats()
+    stats_result = await kb_stats()
+
+    ingest_ok = (isinstance(ingest_result, str) and "✅" in ingest_result) or (
+        isinstance(ingest_result, dict) and not ingest_result.get("skipped")
+    )
+    search_ok = (isinstance(search_result, str) and not search_result.startswith("Error")) or (
+        isinstance(search_result, dict) and not search_result.get("skipped")
+    )
 
     session_id = f"rag-{int(time.time())}"
     result = {
@@ -439,7 +471,7 @@ async def rag_full_pipeline(folder_path: str = "", question: str = "", n_context
         "search": search_result,
         "ask": ask_result,
         "stats": stats_result,
-        "overall": "PASS" if (not ingest_result.get("skipped") or not search_result.get("skipped")) else "REVIEW",
+        "overall": "PASS" if (ingest_ok or search_ok) else "REVIEW",
         "timestamp": time.time(),
     }
 

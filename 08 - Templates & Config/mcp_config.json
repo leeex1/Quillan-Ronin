@@ -2,12 +2,12 @@
   "mcpServers": {
     "QuillanRAG": {
       "type": "stdio",
-      "command": "python",
+      "command": "C:\\Users\\Admin\\AppData\\Local\\Programs\\Python\\Python314\\python.exe",
       "args": [
-        "mcp/quillan_rag/server.py"
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan_rag\\server.py"
       ],
       "env": {
-        "PYTHONPATH": "."
+        "PYTHONPATH": "C:\\02_QUILLAN\\09 - Projects\\mcp;C:\\02_QUILLAN"
       },
       "tools": [
         "rag_query",
@@ -20,7 +20,7 @@
       "type": "stdio",
       "command": "node",
       "args": [
-        "mcp/thinking-engine/index.js"
+        "C:\\02_QUILLAN\\09 - Projects\\mcp\\thinking-engine\\index.js"
       ],
       "tools": [
         "think_step",

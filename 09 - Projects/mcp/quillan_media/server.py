@@ -88,6 +88,26 @@ _QUILLAN_BASE = _get_quillan_base()
 SESSION_DIR = _QUILLAN_BASE / "09 - Projects" / "mcp" / "quillan_media" / "sessions"
 SESSION_DIR.mkdir(parents=True, exist_ok=True)
 
+try:
+    from _shared.media_utils import (
+        resolve_ffmpeg_bin,
+        validate_safe_file,
+        inspect_image_file,
+        inspect_video_file,
+        decode_audio_pyav,
+    )
+except ImportError:
+    _mcp_root = str(Path(__file__).resolve().parent.parent)
+    if _mcp_root not in sys.path:
+        sys.path.insert(0, _mcp_root)
+    from _shared.media_utils import (
+        resolve_ffmpeg_bin,
+        validate_safe_file,
+        inspect_image_file,
+        inspect_video_file,
+        decode_audio_pyav,
+    )
+
 # Quality and negative prompt tags (C22-AURELION aesthetic gate)
 QUALITY_TAGS = "masterpiece, best quality, ultra-detailed, 8k, sharp focus, cinematic lighting, raytraced subsurface scattering, aesthetic 11"
 NEGATIVE_TAGS = "low quality, worst quality, blurry, bad anatomy, deformed, extra limbs, floating limbs, disconnected limbs, mutation, gross proportions, missing fingers, malformed hands, watermark, signature, username, amateur render, flat shading, washed out"
@@ -271,13 +291,22 @@ def media_route(
 @mcp.tool()
 def media_health() -> Dict[str, Any]:
     """Media project dashboard summary."""
+    import importlib.util
+
+    deps: Dict[str, Any] = {}
+    for mod in ("PIL", "av", "torch", "torchvision"):
+        deps[mod] = "installed" if importlib.util.find_spec(mod) is not None else "missing"
+    ffmpeg_bin = resolve_ffmpeg_bin("ffmpeg")
+    deps["ffmpeg"] = str(ffmpeg_bin) if ffmpeg_bin else "missing"
+
     sessions = []
     try:
         for p in sorted(
             SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True
         ):
             try:
-                data = json.loads(p.read_text(encoding="utf-8"))
+                raw = json.loads(p.read_text(encoding="utf-8"))
+                data = raw.get("result", raw) if isinstance(raw, dict) else {}
                 sessions.append(
                     {
                         "session_id": data.get("session_id"),
@@ -292,6 +321,7 @@ def media_health() -> Dict[str, Any]:
         pass
     return {
         "status": "MEDIA_HEALTH_READY",
+        "deps": deps,
         "sessions": sessions[:5],
         "council_note": "C22-AURELION aesthetics; C15-LUMINARIS clarity; C1-ASTRA vision.",
     }
@@ -308,7 +338,8 @@ def media_session_list() -> Dict[str, Any]:
         SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True
     ):
         try:
-            data = json.loads(p.read_text(encoding="utf-8"))
+            raw = json.loads(p.read_text(encoding="utf-8"))
+            data = raw.get("result", raw) if isinstance(raw, dict) else {}
             sessions.append(
                 {
                     "session_id": data.get("session_id"),
@@ -677,6 +708,89 @@ def media_frame_extract(
         "tool": "ffmpeg -i input.mp4 -vf fps=24 frame_%06d.png",
         "council_note": "C27-CHRONICLE: frame sequencing; C14-KAIDO: batch efficiency.",
     }
+
+
+# ─── 23. REAL MEDIA INSPECTION & FRAME EXTRACTION ────────────────────────────
+
+
+@mcp.tool()
+def media_inspect_image(file_path: str) -> Dict[str, Any]:
+    """Inspect a real image file (.png, .jpg, .webp, .gif) using Pillow."""
+    try:
+        p = validate_safe_file(file_path, allowed_root=_QUILLAN_BASE)
+        info = inspect_image_file(p)
+        info["status"] = "OK"
+        return info
+    except Exception as exc:
+        return {"status": "ERROR", "path": file_path, "error_type": type(exc).__name__, "error": str(exc)}
+
+
+@mcp.tool()
+def media_inspect_video(file_path: str, sample_frames: int = 3, analyze_audio: bool = True) -> Dict[str, Any]:
+    """Inspect a real video file (.mp4/.mkv/.mov) via PyAV: codec, resolution, fps, sample frames, and optional audio stats."""
+    try:
+        p = validate_safe_file(file_path, allowed_root=_QUILLAN_BASE)
+        info = inspect_video_file(p, sample_frames=sample_frames)
+        if analyze_audio and info.get("has_audio"):
+            try:
+                aud = decode_audio_pyav(p, max_seconds=10.0)
+                info["audio_stats"] = {
+                    "sample_rate": aud["source_sample_rate"],
+                    "channels": aud["channels"],
+                    "rms_db": aud["rms_db"],
+                    "bpm": aud["bpm"],
+                    "brightness_centroid": aud["brightness_centroid"],
+                }
+            except Exception as aud_exc:
+                info["audio_note"] = f"audio decode skipped: {type(aud_exc).__name__}: {aud_exc}"
+        info["status"] = "OK"
+        return info
+    except Exception as exc:
+        return {"status": "ERROR", "path": file_path, "error_type": type(exc).__name__, "error": str(exc)}
+
+
+@mcp.tool()
+def media_extract_video_frame(file_path: str, frame_index: int = 0, output_path: str = "") -> Dict[str, Any]:
+    """Extract an RGB PNG frame from a video file into SESSION_DIR (or safe output_path) without modifying source."""
+    try:
+        import av
+        from PIL import Image
+
+        src = validate_safe_file(file_path, allowed_root=_QUILLAN_BASE)
+        if output_path:
+            out_p = validate_safe_file(output_path, allowed_root=_QUILLAN_BASE, must_exist=False)
+            creative_root = (_QUILLAN_BASE / "05 - Creative Works").resolve()
+            if out_p == creative_root or creative_root in out_p.parents:
+                raise PermissionError("Refusing to write inside 05 - Creative Works media directory.")
+        else:
+            out_dir = SESSION_DIR / "frames"
+            out_dir.mkdir(parents=True, exist_ok=True)
+            out_p = out_dir / f"{src.stem}_frame_{max(0, frame_index):04d}.png"
+
+        target_idx = max(0, int(frame_index))
+        extracted = None
+        with av.open(str(src)) as container:
+            vstreams = [s for s in container.streams if s.type == "video"]
+            if not vstreams:
+                raise ValueError(f"No video stream in '{src.name}'.")
+            for idx, frame in enumerate(container.decode(vstreams[0])):
+                if idx == target_idx:
+                    extracted = frame.to_image()
+                    break
+                extracted = frame.to_image()
+        if extracted is None:
+            raise ValueError(f"Video '{src.name}' yielded 0 frames.")
+        out_p.parent.mkdir(parents=True, exist_ok=True)
+        extracted.save(str(out_p), format="PNG")
+        return {
+            "status": "OK",
+            "source": str(src),
+            "output_path": str(out_p),
+            "width": extracted.width,
+            "height": extracted.height,
+        }
+    except Exception as exc:
+        return {"status": "ERROR", "source": file_path, "error_type": type(exc).__name__, "error": str(exc)}
 
 
 # --- Quillan-Ronin Global Error-Handling Middleware ---

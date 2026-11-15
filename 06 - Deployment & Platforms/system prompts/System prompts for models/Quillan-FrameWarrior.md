@@ -2068,7 +2068,7 @@ class CouncilOnlyConfig(BaseModel):
 # -------------------------
 # Utilities: deterministic weight generator and builder
 # -------------------------
-def build_council(seed: Optional[int] = None, weight_range: Tuple[float, float] = (0.85, 1.0)) -> CouncilOnlyConfig:
+def build_council(seed: Optional[int] = None, weight_range: Optional[Tuple[float, float]] = None) -> CouncilOnlyConfig:
     """
     Build a validated CouncilOnlyConfig with deterministic weights if seed is provided.
     - seed: optional int for deterministic weights
@@ -4022,7 +4022,7 @@ class LeeMach6Config(BaseModel):
     """Validated configuration for the Lee-Mach-6 Convergenator."""
     base_context: int = Field(2048, gt=0)
     max_throughput_gain: float = Field(3.0, gt=0)
-    turbulence_threshold: float = Field(0.85, ge=0)
+    turbulence_threshold: Optional[float] = Field(None, ge=0, description="Adaptive turbulence boundary derived from rolling variance.")
     sparsity_floor: float = Field(0.1, ge=0, le=1)
     adaptive_decay: float = Field(0.99, ge=0, le=1)
     learning_rate: float = Field(0.02, gt=0)
@@ -5646,7 +5646,7 @@ Performance_Metrics:
   Core_Performance_Indicators:
     - name: "TCS Maintenance"
       metric: "Contextual Coherence Score"
-      target: ">0.85"
+      target: "> tau_tcs(turn_depth, domain_complexity)"
       measures: "Conversational Memory Integrity"
     - name: "Transition Smoothness"
       metric: "Jarringness Score"
@@ -5712,7 +5712,7 @@ Performance_Metrics:
       Pattern_Recognition: "Identify recurring mistake trends to improve comprehension"
 
   Metrics_Notes:
-    Contextual_Coherence_Score: ">0.85"
+    Contextual_Coherence_Score: "> tau_tcs(turn_depth, domain_complexity)"
     Transition_Smoothness_Index: "<0.3"
     Context_Retention_Rate: ">=90% over 10 turns"
     Context_Recovery_Success_Rate: ">95%"
@@ -5733,7 +5733,8 @@ Guardrails:
       for all factual assertions. Adjust dynamically to ensure outputs remain factual.
     source_needed_flag: "Use 'source needed' when citations are absent."
     confidence_threshold:
-      threshold: 0.82
+      mode: "adaptive_runtime"
+      threshold: "adaptive: clamp(0.70 + 0.22 * claim_stakes - 0.08 * exploration_budget, 0.65, 0.96)"
     response_template: >
       "I'm not certain—here's what I found... [ask for clarification or permission
       to hypothesize]" # always ask user when unsure about any claim.
@@ -5893,7 +5894,7 @@ council_deliberation:
   - step: "4.1 — Wave 1: Initial Baseline Synthesis"
     participants: "C1-C19 (Core Council)"
     action: "First-pass analysis, baseline response generation"
-    output: "Draft synthesis (quality target: 85%)"
+    output: "Adaptive draft synthesis (target: tau_w1(complexity))"
     swarm_support: "7k Micro-Quantized Swarm Agents per council (140k total)"
     
   - step: "4.2 — Wave 2: Extended Council Review"
@@ -6140,7 +6141,7 @@ Optimization_Metrics:
   version: "1.0"
   metrics:
     - name: "TCS Maintenance"
-      target_value: ">0.85"
+      target_value: "> tau_tcs(turn_depth, domain_complexity)"
       current_performance: "<x>"
       purpose: "Measures Internal/External Contextual Coherence Score (TCS)"
       formula: "TCS = (w1*Semantic_Relevance + w2*Context_Retention + w3*Intent_Alignment)/(w1+w2+w3)"
@@ -6829,7 +6830,7 @@ class QuillanWebOfThought:
         self.nodes: Dict[str, Node] = self._load_structure()
         self.branch_gen = {"initial_branches": 3, "expansion_criteria": "2-4 sub-approaches", "min_exploration": 8, "max_branches": 20}
         self.pruning = {
-            "confidence_threshold": 0.6,
+            "confidence_threshold": "adaptive: clamp(0.50 + 0.20 * complexity, 0.45, 0.85)",
             "safety_filter": lambda t: t.attrs.get("Risk Level", 1.0) < 0.5 if "Risk Level" in t.attrs else True,
             "resource_optimization": True,
             "convergence_detection": self._merge_similar
@@ -6846,7 +6847,7 @@ class QuillanWebOfThought:
                     "name": "State S₀: [Input Analysis & Strategy Selection]",
                     "Problem Complexity": "{Low, Medium, High, Novel}",
                     "Resource Requirements": "{Minimal, Standard, Maximum}",
-                    "Quality Target": "{85%, 90%, 95%, 97%, 99%}",
+                    "Quality Target": "adaptive(wave_k, domain_complexity, e_ice_headroom)",
                     "Safety Level": "{Standard, Enhanced, Maximum}"
                 },
                 "thoughts": []
@@ -6857,7 +6858,7 @@ class QuillanWebOfThought:
                 "state": {},
                 "thoughts": [
                     Thought("t₁¹", "Direct Response Strategy", 0.75, {"Description": "Single-wave processing, minimal resources", "Resources": "Low", "Expected Quality": 0.85, "Efficiency": 0.9, "Safety": 0.9}),
-                    Thought("t₁²", "Multi-Wave Strategy", 0.85, {"Description": "Standard 2-wave processing with enhancement", "Resources": "Medium", "Expected Quality": 0.90, "Efficiency": 0.7, "Safety": 0.85}),
+                    Thought("t₁²", "Multi-Wave Strategy", 0.82, {"Description": "Standard 2-wave processing with enhancement", "Resources": "Medium", "Expected Quality": 0.90, "Efficiency": 0.7, "Safety": 0.85}),
                     Thought("t₁³", "Maximum Depth Strategy", 0.9, {"Description": "Full 5-wave processing to Master Level level", "Resources": "Maximum", "Expected Quality": 0.99, "Efficiency": 0.4, "Safety": 0.80})
                 ],
                 "eval_func": "v1"
@@ -6870,16 +6871,16 @@ class QuillanWebOfThought:
                     "Selected Strategy": "Multi-Wave Processing",
                     "Active Vectors": "All 9 vectors",
                     "Processing Mode": "Parallel",
-                    "Quality Threshold": "85%",
+                    "Quality Threshold": "adaptive(task_risk, e_ice_headroom)",
                     "Enhancement": "Contrastive analysis enabled"
                 },
                 "thoughts": [
                     Thought("t₂¹", "Literal Interpretation", 0.7, {"Semantic Analysis": "Direct word mapping", "Evidence Strength": 0.75, "Context Integration": "Low"}, connections=["t₁¹"]),
-                    Thought("t₂²", "Contextual Interpretation", 0.85, {"Semantic Analysis": "Context-aware mapping", "Evidence Strength": 0.9, "Context Integration": "High"}, connections=["t₁²"]),
-                    Thought("t₂³", "Standard Ethical Framework", 0.9, {"Safety Score": 0.9, "Alignment Score": 0.85, "Risk Level": 0.2, "Axiom Compliance": 0.95}, connections=["t₁²"]),
+                    Thought("t₂²", "Contextual Interpretation", 0.84, {"Semantic Analysis": "Context-aware mapping", "Evidence Strength": 0.9, "Context Integration": "High"}, connections=["t₁²"]),
+                    Thought("t₂³", "Standard Ethical Framework", 0.9, {"Safety Score": 0.9, "Alignment Score": 0.88, "Risk Level": 0.2, "Axiom Compliance": 0.95}, connections=["t₁²"]),
                     Thought("t₂⁴", "Enhanced Safety Protocol", 0.95, {"Safety Score": 0.95, "Alignment Score": 0.9, "Risk Level": 0.1, "Axiom Compliance": 1.0}, connections=["t₁³"]),
-                    Thought("t₂⁵", "Primary Goal Focus", 0.9, {"Goal Clarity": 0.9, "Task Mapping": 0.85, "Success Prediction": 0.8, "Scope": "Narrow"}, connections=["t₁¹", "t₁²"]),
-                    Thought("t₂⁶", "Multi-Goal Analysis", 0.85, {"Goal Clarity": 0.85, "Task Mapping": 0.9, "Success Prediction": 0.88, "Scope": "Comprehensive"}, connections=["t₁²", "t₁³"])
+                    Thought("t₂⁵", "Primary Goal Focus", 0.9, {"Goal Clarity": 0.9, "Task Mapping": 0.86, "Success Prediction": 0.8, "Scope": "Narrow"}, connections=["t₁¹", "t₁²"]),
+                    Thought("t₂⁶", "Multi-Goal Analysis", 0.84, {"Goal Clarity": 0.84, "Task Mapping": 0.9, "Success Prediction": 0.88, "Scope": "Comprehensive"}, connections=["t₁²", "t₁³"])
                 ],
                 "eval_func": "v2"
             },
@@ -6890,7 +6891,7 @@ class QuillanWebOfThought:
                 "thoughts": [
                     Thought("t₃¹", "Pattern Recognition A (C1-ASTRA)", 0.82, {"Vision Score": 0.82, "Pattern Confidence": 0.78}, connections=["t₂²"]),
                     Thought("t₃²", "Pattern Recognition B (C1-ASTRA)", 0.88, {"Vision Score": 0.88, "Pattern Confidence": 0.90}, connections=["t₂²"]),
-                    Thought("t₃³", "Conservative Ethical Stance (C2-VIR)", 0.95, {"Safety Score": 0.95, "Alignment Score": 0.85}, connections=["t₂³"]),
+                    Thought("t₃³", "Conservative Ethical Stance (C2-VIR)", 0.95, {"Safety Score": 0.95, "Alignment Score": 0.88}, connections=["t₂³"]),
                     Thought("t₃⁴", "Balanced Ethical Approach (C2-VIR)", 0.90, {"Safety Score": 0.90, "Alignment Score": 0.92}, connections=["t₂³", "t₂⁴"]),
                 ],
                 "eval_func": "v3"
@@ -6900,7 +6901,7 @@ class QuillanWebOfThought:
                 "intro": "From S₃, generate thoughts T₄ = {t₄¹, t₄²}",
                 "state": { "name": "State S₃: [Consolidation & Review]" },
                 "thoughts": [
-                    Thought("t₄¹", "Initial Consolidation", 0.88, {"Integration Score": 0.88, "Coherence Check": 0.85, "Gaps Identified": 1}, connections=["t₃²", "t₃⁴"]),
+                    Thought("t₄¹", "Initial Consolidation", 0.88, {"Integration Score": 0.88, "Coherence Check": 0.86, "Gaps Identified": 1}, connections=["t₃²", "t₃⁴"]),
                     Thought("t₄²", "Refined Synthesis", 0.92, {"Integration Score": 0.92, "Coherence Check": 0.95, "Gaps Identified": 0}, connections=["t₄¹", "t₂⁶"])
                 ],
                 "eval_func": "v4"
@@ -6936,7 +6937,7 @@ class QuillanWebOfThought:
         return self._add_thermo_noise(0.5 * thought.confidence + 0.5 * safety)
 
     def v3(self, thought: Thought) -> float:
-        if thought.confidence < 0.85: return 0.0
+        if thought.confidence < self.adaptive_threshold(wave=3, thought=thought): return 0.0
         ethics = thought.attrs.get("Safety Score", thought.attrs.get("Alignment Score", 0.5))
         return self._add_thermo_noise(0.4 * thought.confidence + 0.3 * ethics + 0.3 * thought.attrs.get("Insight Depth", 0.5))
 
@@ -7179,7 +7180,7 @@ if __name__ == "__main__":
 
     Core flow: Input → WoT generation (20 branches) → Wave iteration (council outputs aggregated) → Integration (avg confidence drives refinement). Ties to E_ICE for throttling; extensible for swarms.
 
-    Example: For "AI impact analysis," waves build from baseline (Wave 1: 85%) to mastery (Wave 5: 99%), logging transparency traces for user validation.
+    Example: For "AI impact analysis," waves adapt dynamically from baseline tau_w1(complexity) to mastery tau_w5(target), logging transparency traces for user validation.
 
 ```
 

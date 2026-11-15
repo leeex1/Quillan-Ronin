@@ -33,8 +33,10 @@ async function init({ stage, canvas: c, mount3d: m3, glowEl: g, onState }){
   canvas.style.display="block";
   if(mount3d) mount3d.style.display="none";
   try{
-    const fs=require("fs"); const p="C:\\02_QUILLAN\\quillan-app\\assets\\avatar\\config.json";
-    if(fs.existsSync(p)){ const j=JSON.parse(fs.readFileSync(p,"utf-8")); log("config "+j.name+" current="+j.current); }
+    const fs=require("fs"); const pathMod=require("path");
+    const candidates=["C:\\02_QUILLAN\\09 - Projects\\projects\\assets\\avatar\\config.json", pathMod.join(__dirname, "..", "assets", "avatar", "config.json")];
+    const p=candidates.find(c=>fs.existsSync(c));
+    if(p){ const j=JSON.parse(fs.readFileSync(p,"utf-8")); log("config "+j.name+" current="+j.current); }
   }catch(e){ log("no config: "+e.message); }
   log("window.THREE check global="+(typeof window!=="undefined" && !!window.THREE)+" rev="+(window.THREE?window.THREE.REVISION:"none"));
   spriteCfg = BUILTIN["quillan"];
@@ -87,7 +89,7 @@ async function ensureThree(){
     try{
       const lm = await tryImport("three/examples/jsm/loaders/GLTFLoader.js", "GLTF bare", 2500);
       GLTFLoader = lm.GLTFLoader; log("GLTFLoader bare import ok");
-    }catch(e){ log("GLTF bare fail "+e.message); try{ const lm2 = await tryImport("file:///C:/02_QUILLAN/quillan-app/node_modules/three/examples/jsm/loaders/GLTFLoader.js", "GLTF file", 3000); GLTFLoader=lm2.GLTFLoader; log("GLTF file ok"); }catch(e2){ log("GLTF failed both "+e2.message); }}
+    }catch(e){ log("GLTF bare fail "+e.message); try{ const lm2 = await tryImport("file:///C:/02_QUILLAN/09%20-%20Projects/projects/quillan-app/node_modules/three/examples/jsm/loaders/GLTFLoader.js", "GLTF file", 3000); GLTFLoader=lm2.GLTFLoader; log("GLTF file ok"); }catch(e2){ log("GLTF failed both "+e2.message); }}
   }
   if(!GLTFLoader) log("WARNING: GLTFLoader still missing — will show capsule fallback");
   return THREE;
@@ -176,7 +178,7 @@ function show(name, {forceGLB=false}={}){
     }
   } else {
     mode="sprite"; canvas.style.display="block"; if(mount3d) mount3d.style.display="none";
-    try{ const fs=require("fs"); const cand="C:\\02_QUILLAN\\quillan-app\\assets\\avatar\\"+name+"_sheet.png"; if(fs.existsSync(cand)) loadSheet("assets/avatar/"+name+"_sheet.png"); else {sheetImg=null; sheetReady=false;} }catch(e){}
+    try{ const fs=require("fs"); const pathMod=require("path"); const localCand=pathMod.join(__dirname,"..","assets","avatar",name+"_sheet.png"); const sharedCand="C:\\02_QUILLAN\\09 - Projects\\projects\\assets\\avatar\\"+name+"_sheet.png"; if(fs.existsSync(localCand)) loadSheet("assets/avatar/"+name+"_sheet.png"); else if(fs.existsSync(sharedCand)) loadSheet("../assets/avatar/"+name+"_sheet.png"); else {sheetImg=null; sheetReady=false;} }catch(e){}
     log("show "+name+" mode=sprite");
   }
   document.querySelectorAll(".avatarBtn").forEach(b=> b.classList.toggle("active", b.dataset.avatar===name));

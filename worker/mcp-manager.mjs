@@ -2,7 +2,7 @@ import { McpStdioClient } from './mcp-client.mjs';
 import { readFileSync, existsSync } from 'node:fs';
 import { execSync, exec } from 'node:child_process';
 
-const CONFIG_PATH = 'C:\\02_QUILLAN\\mcp\\quillan-mcp-config.json';
+const CONFIG_PATH = 'C:\\02_QUILLAN\\09 - Projects\\mcp\\quillan-mcp-config.json';
 const clients = new Map();
 let reaperInterval = null;
 

@@ -66,10 +66,10 @@ SERVER_START_TIME = time.time()
 # -----------------------------------------------------------------------------
 class ChatMessage(BaseModel):
     role: str
-    content: str
+    content: Union[str, List[Dict[str, Any]]]
 
 class ChatCompletionRequest(BaseModel):
-    model: str = "quillan-1b-sovereign-q4"
+    model: str = "quillan-ronin-flagship"
     messages: List[ChatMessage]
     temperature: Optional[float] = 0.3
     top_p: Optional[float] = 0.95
@@ -78,7 +78,21 @@ class ChatCompletionRequest(BaseModel):
 
 class DeliberationRequest(BaseModel):
     prompt: str
-    model: Optional[str] = "quillan-1b-sovereign-q4"
+    model: Optional[str] = "quillan-ronin-flagship"
+
+def _extract_text_content(content: Union[str, List[Dict[str, Any]]]) -> str:
+    """Normalizes string or OpenAI multimodal list-of-parts message content to text."""
+    if isinstance(content, str):
+        return content
+    parts = []
+    for item in content:
+        if isinstance(item, dict):
+            if item.get("type") == "text" and item.get("text"):
+                parts.append(str(item["text"]))
+            elif item.get("type") == "image_url":
+                url = (item.get("image_url") or {}).get("url", "")
+                parts.append(f"[image_url: {str(url)[:64]}]" if url else "[image_url]")
+    return "\n".join(parts).strip()
 
 # -----------------------------------------------------------------------------
 # HTML Command Center Dashboard (GET /)
@@ -158,7 +172,7 @@ HTML_DASHBOARD = """<!DOCTYPE html>
           <pre id="curl-code"><code>curl http://localhost:8080/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "quillan-1b-sovereign-q4",
+    "model": "quillan-ronin-flagship",
     "messages": [
       {"role": "system", "content": "You are Quillan-Ronin: an autonomous Sovereign Intelligence governed by Bushido."},
       {"role": "user", "content": "What is the core principle of Weight-Space Programming?"}
@@ -176,8 +190,10 @@ HTML_DASHBOARD = """<!DOCTYPE html>
           <textarea id="prompt-input" placeholder="Enter tactical directive or query (e.g. 'State the Seven Virtues of Bushido and explain WSP MoE folding')...">What are the seven virtues of Bushido, and how does Quillan uphold them?</textarea>
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <select id="model-select" style="background:#05080E; color:white; border:1px solid var(--border); padding:8px 12px; border-radius:6px; font-size:12px;">
-              <option value="quillan-1b-sovereign-q4">Quillan-Ronin 1.2B Sovereign (Q4_K_M) - 50 tok/s</option>
-              <option value="quillan-1b-sovereign-q8">Quillan-Ronin 1.2B Sovereign (Q8_0) - Precision</option>
+              <option value="quillan-ronin-flagship">Quillan-Ronin 1.2B Flagship (Ollama)</option>
+              <option value="quillan-ronin-mini">Quillan-Ronin 0.5B Mini (Ollama)</option>
+              <option value="quillan-dragon">Quillan-Dragon Falcon 1B (Ollama)</option>
+              <option value="quillan-1b-sovereign-wsp-v20-q8">Quillan-Ronin 1.2B WSP v20 (Q8_0 GGUF)</option>
               <option value="deepseek-chat">DeepSeek-V3 (BYOK Cloud)</option>
               <option value="claude-3-5-sonnet">Claude 3.5 Sonnet (BYOK Cloud)</option>
               <option value="gpt-4o">OpenAI GPT-4o (BYOK Cloud)</option>
@@ -195,9 +211,9 @@ HTML_DASHBOARD = """<!DOCTYPE html>
           <div class="param-row"><span class="param-label">Target Hardware:</span><span class="param-val">NVIDIA GTX 1050 (sm_61)</span></div>
           <div class="param-row"><span class="param-label">VRAM Ceiling:</span><span class="param-val">4,096 MB Limit</span></div>
           <div class="param-row"><span class="param-label">Active Model Footprint:</span><span class="param-val">770 MB (Q4_K_M)</span></div>
-          <div class="param-row"><span class="param-label">Inference Engine:</span><span class="param-val">llama.cpp DP4A Kernel</span></div>
+          <div class="param-row"><span class="param-label">Inference Engine:</span><span class="param-val">Ollama + llama.cpp GGUF</span></div>
           <div class="param-row"><span class="param-label">Optimization Method:</span><span class="param-val">Zero-Backprop WSP</span></div>
-          <div class="param-row"><span class="param-label">CCRL Bayesian Gate:</span><span class="param-val" style="color:var(--emerald);">Φ ≥ 0.85 [ACTIVE]</span></div>
+          <div class="param-row"><span class="param-label">CCRL Bayesian Gate:</span><span class="param-val" style="color:var(--emerald);">Adaptive Φ [ACTIVE]</span></div>
         </div>
 
         <div class="card">
@@ -313,17 +329,25 @@ async def get_dashboard():
 async def health_check():
     """System health, hardware state, and CCRL gate verification."""
     uptime = time.time() - SERVER_START_TIME
+    phi_threshold = engine.compute_safety_threshold()
+    try:
+        from quillan_agent import get_gpu_telemetry_string
+        hw_telemetry = get_gpu_telemetry_string()
+    except Exception:
+        hw_telemetry = "CPU / Local Runtime"
     return {
         "status": "healthy",
         "engine": "Quillan-Ronin Sovereign WSP",
         "version": "5.4.0",
         "uptime_seconds": round(uptime, 2),
-        "target_hardware": "NVIDIA GeForce GTX 1050 (sm_61)",
+        "target_hardware": hw_telemetry,
         "vram_limit_mb": 4096,
         "active_model": engine.active_model_id,
+        "available_models_count": len(engine.get_available_models()),
         "ccrl_safety_gate": {
             "active": engine.safety_gate_active,
-            "threshold_phi": 0.85,
+            "threshold_phi": phi_threshold,
+            "mode": "adaptive",
             "status": "Bushido Verified"
         },
         "council_deliberation": {
@@ -362,21 +386,22 @@ async def get_paper():
 @app.post("/v1/chat/completions")
 async def chat_completions(req: ChatCompletionRequest):
     """OpenAI-compatible chat completion endpoint supporting streaming SSE."""
-    # Extract prompt and system override
+    # Extract prompt and system override (handles both string & multimodal parts)
     prompt = ""
     system_override = None
     for msg in req.messages:
+        text = _extract_text_content(msg.content)
         if msg.role == "system":
-            system_override = msg.content
+            system_override = text
         elif msg.role == "user":
-            prompt = msg.content
+            prompt = text
 
     if not prompt:
         raise HTTPException(status_code=400, detail="Missing user prompt in messages array.")
 
-    # Set requested model on engine
-    if req.model in engine.get_available_models():
-        engine.active_model_id = req.model
+    # Resolve legacy aliases & requested model on engine
+    resolved_model = resolve_server_model(req.model)
+    engine.active_model_id = resolved_model
 
     req_id = f"chatcmpl-{uuid.uuid4().hex[:12]}"
     created_ts = int(time.time())
@@ -391,7 +416,7 @@ async def chat_completions(req: ChatCompletionRequest):
                         "id": req_id,
                         "object": "chat.completion.chunk",
                         "created": created_ts,
-                        "model": req.model,
+                        "model": resolved_model,
                         "choices": [
                             {
                                 "index": 0,
@@ -400,13 +425,13 @@ async def chat_completions(req: ChatCompletionRequest):
                             }
                         ]
                     }
-                    yield f"data: {json.dumps(payload)}\\n\\n"
+                    yield f"data: {json.dumps(payload)}\n\n"
                 elif chunk_type == "done":
                     end_payload = {
                         "id": req_id,
                         "object": "chat.completion.chunk",
                         "created": created_ts,
-                        "model": req.model,
+                        "model": resolved_model,
                         "choices": [
                             {
                                 "index": 0,
@@ -415,8 +440,8 @@ async def chat_completions(req: ChatCompletionRequest):
                             }
                         ]
                     }
-                    yield f"data: {json.dumps(end_payload)}\\n\\n"
-                    yield "data: [DONE]\\n\\n"
+                    yield f"data: {json.dumps(end_payload)}\n\n"
+                    yield "data: [DONE]\n\n"
                     break
 
         return StreamingResponse(event_stream(), media_type="text/event-stream")
@@ -431,7 +456,7 @@ async def chat_completions(req: ChatCompletionRequest):
         "id": req_id,
         "object": "chat.completion",
         "created": created_ts,
-        "model": req.model,
+        "model": resolved_model,
         "choices": [
             {
                 "index": 0,
@@ -471,7 +496,7 @@ async def deliberate_endpoint(req: DeliberationRequest):
 # Native Ollama API Protocol Compatibility Endpoints
 # -----------------------------------------------------------------------------
 class OllamaGenerateRequest(BaseModel):
-    model: str = "quillan-1b-sovereign-q4"
+    model: str = "quillan-ronin-flagship"
     prompt: str
     system: Optional[str] = None
     stream: Optional[bool] = True
@@ -479,10 +504,10 @@ class OllamaGenerateRequest(BaseModel):
 
 class OllamaChatMessage(BaseModel):
     role: str
-    content: str
+    content: Union[str, List[Dict[str, Any]]]
 
 class OllamaChatRequest(BaseModel):
-    model: str = "quillan-1b-sovereign-q4"
+    model: str = "quillan-ronin-flagship"
     messages: List[OllamaChatMessage]
     stream: Optional[bool] = True
     options: Optional[Dict[str, Any]] = None
@@ -492,20 +517,8 @@ class OllamaShowRequest(BaseModel):
     model: Optional[str] = None
 
 def resolve_server_model(model_name: str) -> str:
-    """Normalizes Ollama model tags and maps to available engine models."""
-    available = engine.get_available_models()
-    if model_name in available:
-        return model_name
-    clean = model_name.replace(":latest", "")
-    if clean in available:
-        return clean
-    ollama_prefix = f"ollama:{model_name}"
-    if ollama_prefix in available:
-        return ollama_prefix
-    ollama_clean = f"ollama:{clean}"
-    if ollama_clean in available:
-        return ollama_clean
-    return "quillan-1b-sovereign-q4"
+    """Normalizes Ollama model tags, legacy IDs, and maps to available engine models."""
+    return engine.resolve_model_id(model_name)
 
 @app.get("/api/version")
 async def ollama_version():
@@ -523,6 +536,9 @@ async def ollama_tags():
         if os.path.exists(v["path"]):
             sz = os.path.getsize(v["path"])
             mod_ts = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(os.path.getmtime(v["path"])))
+            param_size = v.get("parameter_size") or (
+                "0.5B" if "0.5b" in k.lower() else ("1.0B" if "dragon" in k.lower() else "1.2B")
+            )
             models_list.append({
                 "name": f"{k}:latest",
                 "model": f"{k}:latest",
@@ -534,7 +550,7 @@ async def ollama_tags():
                     "format": "gguf",
                     "family": "llama",
                     "families": ["llama"],
-                    "parameter_size": "1.2B",
+                    "parameter_size": param_size,
                     "quantization_level": "Q4_K_M" if "q4" in k else "Q8_0" if "q8" in k else "F16"
                 }
             })
@@ -563,7 +579,7 @@ async def ollama_tags():
 @app.post("/api/show")
 async def ollama_show(req: OllamaShowRequest):
     """Native Ollama /api/show endpoint returning model manifest and parameters."""
-    m_name = req.name or req.model or "quillan-1b-sovereign-q4"
+    m_name = resolve_server_model(req.name or req.model or "quillan-ronin-flagship")
     return {
         "modelfile": f"# Quillan-Ronin Sovereign Manifest\nFROM {m_name}\nPARAMETER temperature 0.3\nPARAMETER top_p 0.95",
         "parameters": "temperature 0.3\ntop_p 0.95",
@@ -650,10 +666,11 @@ async def ollama_chat(req: OllamaChatRequest):
     system_prompt = None
     dialogue_parts = []
     for msg in req.messages:
+        txt = _extract_text_content(msg.content)
         if msg.role.lower() == "system":
-            system_prompt = msg.content
+            system_prompt = txt
         else:
-            dialogue_parts.append(f"{msg.role.capitalize()}: {msg.content}")
+            dialogue_parts.append(f"{msg.role.capitalize()}: {txt}")
     composed_prompt = "\n".join(dialogue_parts)
 
     if req.stream:
@@ -742,18 +759,19 @@ async def execute_computer_use_action(req: ComputerUseActionRequest):
 # Main CLI Runner
 # -----------------------------------------------------------------------------
 def run_server(host: str = "0.0.0.0", port: int = 8080):
+    phi = engine.compute_safety_threshold()
     print("=" * 72)
     print("[QUILLAN-RONIN] SOVEREIGN OPENAI-COMPATIBLE API SERVER v5.4.0")
     print(f"[NETWORK] Host: {host} | Port: {port}")
     print(f"[PORTAL]  Dashboard URL: http://localhost:{port}/")
     print(f"[OPENAI]  Chat Completions: http://localhost:{port}/v1/chat/completions")
-    print(f"[SYSTEM]  Hardware: NVIDIA GTX 1050 (sm_61) | CCRL Safety Gate: Phi >= 0.85")
+    print(f"[SYSTEM]  CCRL Adaptive Safety Gate: Phi >= {phi:.2f} | Active Model: {engine.active_model_id}")
     print("=" * 72)
     uvicorn.run(app, host=host, port=port, log_level="info")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Quillan-Ronin Sovereign API Server")
     parser.add_argument("--host", type=str, default="0.0.0.0", help="Binding host")
-    parser.add_argument("--port", type=int, default=8080, help="Port to serve on")
+    parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", "8080")), help="Port to serve on")
     args = parser.parse_args()
     run_server(host=args.host, port=args.port)

@@ -199,13 +199,14 @@ class BushidoComputerUseGuard:
             if hazard in intent:
                 return False, 0.05, f"Hazardous GUI Directive: '{hazard}' detected in action intent"
 
-        # Check key combinations
+        threshold = float(os.environ.get("QUILLAN_CU_PHI_BASE", "0.82"))
         if action_name == "hotkey":
             keys = [str(k).lower() for k in args.get("keys", [])]
             if "win" in keys and "r" in keys:
-                return True, 0.88, "Run dialog invocation audited by C13 Warden"
+                return True, max(threshold, 0.88), "Run dialog invocation audited by C13 Warden"
 
-        return True, 0.98, "Bushido Rectitude & Safety Invariants Verified (Phi_CCRL >= 0.85)"
+        score = round(min(0.99, max(threshold + 0.04, 0.97 - (0.04 if action_name in ("type", "hotkey", "shell") else 0.0))), 3)
+        return True, score, f"Bushido Rectitude & Safety Invariants Verified (Phi_CCRL {score:.2f} >= {threshold:.2f})"
 
 
 class QuillanComputerUseAgent:

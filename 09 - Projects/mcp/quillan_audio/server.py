@@ -49,6 +49,21 @@ except Exception as _shared_err:
     import sys as _sys
     print(f'[quillan_audio] _shared warning: {_shared_err}', file=_sys.stderr)
 
+if "SESSION_DIR" not in globals():
+    _QUILLAN_BASE = Path(os.environ.get("QUILLAN_BASE", r"C:\02_QUILLAN"))
+    SESSION_DIR = _QUILLAN_BASE / "09 - Projects" / "mcp" / "quillan_audio" / "sessions"
+SESSION_DIR.mkdir(parents=True, exist_ok=True)
+
+try:
+    from _shared.media_utils import resolve_ffmpeg_bin, validate_safe_file, decode_audio_pyav
+except ImportError:
+    _mcp_root = str(Path(__file__).resolve().parent.parent)
+    if _mcp_root not in sys.path:
+        sys.path.insert(0, _mcp_root)
+    from _shared.media_utils import resolve_ffmpeg_bin, validate_safe_file, decode_audio_pyav
+
+_WHISPER_TINY_CACHE: Any = None
+
 
 MOOD_MAP: Dict[str, Dict[str, Any]] = {
     "tense": {"bpm": 120, "key": "D minor", "texture": "dark modular pulse + bowed metal"},
@@ -84,43 +99,65 @@ def audio_design_cue(mood: str = "tense", scene: str = "boss gate", duration_sec
 # ─── 2. ANALYZE TRACK ───────────────────────────────────────────────────────
 
 @mcp.tool()
-def audio_analyze_track(source: str) -> Dict[str, Any]:
-    """Lightweight Synesthesia-style analysis. Uses librosa/whisper if installed, else heuristic fallback."""
+def audio_analyze_track(source: str, transcribe: bool = True, max_seconds: float = 30.0) -> Dict[str, Any]:
+    """Analyze local audio/video track using PyAV spectral/onset analysis and optional Whisper transcription."""
+    global _WHISPER_TINY_CACHE
     is_url = source.lower().startswith(("http://", "https://"))
     result: Dict[str, Any] = {"source": source, "is_url": is_url}
+    if is_url:
+        result.update({
+            "engine": "url-deferred",
+            "action": "Download remote stream locally, then re-run audio_analyze_track on the local file.",
+        })
+        return result
+
     try:
-        import librosa
-        p = Path(source)
-        if p.exists() and p.is_file():
-            import numpy as np
-            y, sr = librosa.load(str(p), sr=None, mono=True)
-            tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
-            cent = float(librosa.feature.spectral_centroid(y=y, sr=sr).mean())
-            result.update({"bpm": round(float(tempo), 1), "brightness_centroid": round(cent, 1), "engine": "librosa"})
-            if cent < 1500:
-                result["texture"] = "Heavy, bass-dominant, dark"
-            elif cent <= 2500:
-                result["texture"] = "Mid-range focused, balanced"
-            else:
-                result["texture"] = "Bright, treble-dominant"
+        p = validate_safe_file(source)
+        resolve_ffmpeg_bin("ffmpeg")
+        decoded = decode_audio_pyav(p, max_seconds=max_seconds, target_sr=16000)
+        cent = decoded["brightness_centroid"]
+        result.update({
+            "path": str(p),
+            "engine": "pyav+numpy",
+            "codec": decoded["codec"],
+            "sample_rate": decoded["source_sample_rate"],
+            "channels": decoded["channels"],
+            "duration_sec": decoded["duration_sec"],
+            "analyzed_sec": decoded["analyzed_sec"],
+            "rms_db": decoded["rms_db"],
+            "peak": decoded["peak"],
+            "bpm": decoded["bpm"],
+            "brightness_centroid": cent,
+        })
+        if cent < 1500:
+            result["texture"] = "Heavy, bass-dominant, dark"
+        elif cent <= 2500:
+            result["texture"] = "Mid-range focused, balanced"
+        else:
+            result["texture"] = "Bright, treble-dominant"
+
+        if transcribe:
             try:
                 import whisper
-                model = whisper.load_model("tiny")
-                tr = model.transcribe(str(p))
-                segs = [{"start": round(s.get("start", 0.0), 2), "text": s.get("text", "").strip()[:120]} for s in tr.get("segments", [])[:10]]
+                if _WHISPER_TINY_CACHE is None:
+                    _WHISPER_TINY_CACHE = whisper.load_model("tiny")
+                tr = _WHISPER_TINY_CACHE.transcribe(decoded["samples"], fp16=False)
+                segs = [
+                    {"start": round(float(s.get("start", 0.0)), 2), "text": s.get("text", "").strip()[:120]}
+                    for s in tr.get("segments", [])[:10]
+                ]
                 result["transcript_preview"] = segs
-            except Exception as e:
-                result["transcript_note"] = f"whisper skipped: {e}"
-            return result
-    except Exception:
-        pass
-    result.update({
-        "engine": "heuristic-fallback",
-        "bpm": 100,
-        "texture": "Unknown without local file — render stems and re-run locally for true BPM/centroid.",
-        "action": "Download via yt-dlp to WAV, then re-run this tool on the local path for full analysis.",
-    })
-    return result
+                result["transcript_language"] = tr.get("language")
+            except Exception as exc:
+                result["transcript_note"] = f"whisper skipped: {type(exc).__name__}: {exc}"
+        return result
+    except Exception as exc:
+        result.update({
+            "engine": "error",
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        })
+        return result
 
 # ─── 3. MIX PLAN ────────────────────────────────────────────────────────────
 
@@ -208,22 +245,19 @@ def audio_route(target_mcp: str = "code", payload: Optional[Dict[str, Any]] = No
 @mcp.tool()
 def audio_health() -> Dict[str, Any]:
     """Audio project dashboard summary (deps + state)."""
-    deps = {}
-    try:
-        import librosa
-        deps["librosa"] = "installed"
-    except Exception:
-        deps["librosa"] = "missing"
-    try:
-        import whisper
-        deps["whisper"] = "installed"
-    except Exception:
-        deps["whisper"] = "missing"
+    import importlib.util
+
+    deps: Dict[str, Any] = {}
+    for mod in ("av", "soundfile", "librosa", "whisper"):
+        deps[mod] = "installed" if importlib.util.find_spec(mod) is not None else "missing"
+    ffmpeg_bin = resolve_ffmpeg_bin("ffmpeg")
+    deps["ffmpeg"] = str(ffmpeg_bin) if ffmpeg_bin else "missing"
     sessions = []
     try:
         for p in sorted(SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True):
             try:
-                data = json.loads(p.read_text(encoding="utf-8"))
+                raw = json.loads(p.read_text(encoding="utf-8"))
+                data = raw.get("result", raw) if isinstance(raw, dict) else {}
                 sessions.append({"session_id": data.get("session_id"), "cue": (data.get("cue") or {}).get("cue"), "timestamp": data.get("timestamp")})
             except Exception:
                 continue
@@ -244,7 +278,8 @@ def audio_session_list() -> Dict[str, Any]:
     sessions = []
     for p in sorted(SESSION_DIR.glob("*.json"), key=lambda x: x.stat().st_mtime, reverse=True):
         try:
-            data = json.loads(p.read_text(encoding="utf-8"))
+            raw = json.loads(p.read_text(encoding="utf-8"))
+            data = raw.get("result", raw) if isinstance(raw, dict) else {}
             sessions.append({
                 "session_id": data.get("session_id"),
                 "cue": (data.get("cue") or {}).get("cue"),

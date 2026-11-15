@@ -75,7 +75,7 @@ def scan_ollama_models() -> List[str]:
     try:
         import urllib.request
         req = urllib.request.Request("http://127.0.0.1:11434/api/tags")
-        with urllib.request.urlopen(req, timeout=1.0) as resp:
+        with urllib.request.urlopen(req, timeout=2.5) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             live_models = [m["name"] for m in data.get("models", []) if "name" in m]
             if live_models:

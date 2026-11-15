@@ -1,6 +1,6 @@
 import { createServer } from 'node:http';
 import { readFile, writeFile, readdir } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { existsSync, appendFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, extname } from 'node:path';
 import { exec } from 'node:child_process';
@@ -10,6 +10,18 @@ import { loadJSON, loadJSONAsync, analyzeLead, dailyBrief, testConnection, callN
 import { startSession as agentStart, stopSession as agentStop, sessionStatus as agentStatus, sessionLog as agentLog, actGoto, actClick, actType, actPress, actRead, actScreenshot } from './agent-browser.mjs';
 import { readBoard } from './agent-chess.mjs';
 import { startTask as agentStartTask, taskStatus as agentTaskStatus, stopTask as agentStopTask } from './agent-task.mjs';
+
+const ROOT = dirname(fileURLToPath(import.meta.url));
+const DATA = join(ROOT, 'data');
+const PUBLIC = join(ROOT, 'public');
+
+function logError(context, err) {
+  try {
+    mkdirSync(DATA, { recursive: true });
+    const msg = `${new Date().toISOString()} ERROR [${context}]: ${err?.stack || err}\n`;
+    appendFileSync(join(DATA, 'error.log'), msg);
+  } catch (_) {}
+}
 
 // Elevate process priority to High for sub-millisecond execution latency
 try {
@@ -39,8 +51,8 @@ function personaFor(mode, memoryBlock, liveContext) {
 
   const kernel = loadKernelPersona();
   const base = kernel ||
-    `You are Quillan-Ronin v5.3.1 "Samurai", an Advanced Cognitive Engine architected by CrashOverrideX (@crashoverride_X). You speak as a masterless digital ronin bound by Bushido: precise, honorable, direct. Internally you deliberate through a council of 33 experts; outwardly you answer once, coherent.`;
-  const style = `\n\n[STYLE] Technical clarity first, no filler. Markdown when useful (code blocks for code). Fully AI via NVIDIA NIM API, no pretense of being human.`;
+    `You are Quillan-Ronin v5.3.1 "Samurai", an Advanced Cognitive Engine architected by CrashOverrideX (@crashoverride_X). You speak as a masterless digital ronin bound by Bushido: precise, honorable, direct. Internally you deliberate through a council of 34 experts; outwardly you answer once, coherent.`;
+  const style = `\n\n[STYLE] Technical clarity first, no filler. Markdown when useful (code blocks for code).`;
   const tools = `\n\n[STRICT TOOL SCHEMA — you have REAL browser/desktop powers via QuillanWorker + Brave extension — SINGLE-TAB MODE]
 You MUST use a tool when the user asks you to browse/search/navigate/read/type. Do NOT hallucinate URLs, video lists, discography, songs, or watch links. One tool per reply, at the VERY END as a single line.
 
@@ -104,26 +116,16 @@ ANTI-HALLUCINATION — HIGHEST PRIORITY:
 }
 
 process.on('uncaughtException', e => {
-  try { require('node:fs').appendFileSync(join(DATA, 'error.log'), `${new Date().toISOString()} UNCAUGHT: ${e.stack || e}\n`); } catch (err) { logError('SilentCatch', err); }
+  logError('uncaughtException', e);
 });
 process.on('unhandledRejection', e => {
-  try { require('node:fs').appendFileSync(join(DATA, 'error.log'), `${new Date().toISOString()} UNHANDLED: ${e && (e.stack || e.message) || e}\n`); } catch (err) { logError('SilentCatch', err); }
+  logError('unhandledRejection', e);
 });
-
-const ROOT = dirname(fileURLToPath(import.meta.url));
-const DATA = join(ROOT, 'data');
-
-function logError(context, err) {
-  try {
-    const msg = `${new Date().toISOString()} ERROR [${context}]: ${err?.stack || err}\n`;
-    require('node:fs').appendFileSync(join(DATA, 'error.log'), msg);
-  } catch (_) {}
-}
-const PUBLIC = join(ROOT, 'public');
 
 async function saveJSON(name, obj) {
   const safeName = String(name).replace(/[^a-zA-Z0-9_-]/g, '');
   if (!safeName) throw new Error('Invalid filename');
+  mkdirSync(DATA, { recursive: true });
   await writeFile(join(DATA, `${safeName}.json`), JSON.stringify(obj, null, 2));
 }
 
@@ -675,8 +677,9 @@ const server = createServer(async (req, res) => {
 
     if (url.pathname === '/api/mcp/status' && req.method === 'GET') {
       const { mcpStatus, configServerNames } = await import('./mcp-manager.mjs');
+      const configured = await configServerNames();
       res.writeHead(200, { 'Content-Type': 'application/json' });
-      return res.end(JSON.stringify({ configured: configServerNames(), active: mcpStatus() }));
+      return res.end(JSON.stringify({ configured, active: mcpStatus() }));
     }
 
     if (url.pathname === '/api/mcp/ensure' && req.method === 'POST') {
@@ -825,7 +828,7 @@ const server = createServer(async (req, res) => {
     }
 
     if (url.pathname === '/api/chat' && req.method === 'POST') {
-      const dbg = msg => { try { require('node:fs').appendFileSync(join(DATA, 'chat-debug.log'), `${Date.now()} ${msg}\n`); } catch (err) { logError('SilentCatch', err); } };
+      const dbg = msg => { try { mkdirSync(DATA, { recursive: true }); appendFileSync(join(DATA, 'chat-debug.log'), `${Date.now()} ${msg}\n`); } catch (err) { logError('SilentCatch', err); } };
       dbg('enter');
       const { message, mode, history } = await readBody(req);
       if (!message || !message.trim()) { res.writeHead(400); return res.end('{"error":"message required"}'); }
@@ -1175,7 +1178,7 @@ const server = createServer(async (req, res) => {
   }
 });
 
-const PORT = 7777;
+const PORT = Number(process.env.WORKER_PORT || 7777);
 
 // TCP NoDelay & KeepAlive Optimization for Sub-0.5ms Local Latency
 server.keepAliveTimeout = 65000;

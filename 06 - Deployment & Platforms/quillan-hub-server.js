@@ -1,15 +1,39 @@
 import { createServer } from 'node:http';
+import { readFileSync, existsSync, statSync } from 'node:fs';
+import os from 'node:os';
 import { WebSocketServer } from 'ws';
 import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = resolve(ROOT, '..');
+const SPIDER_DIR = join(REPO_ROOT, '09 - Projects', 'mcp', 'quillan_spider');
+const MEMORY_JSON = join(REPO_ROOT, 'memory.json');
+const MEMGRAPH_JSON = join(SPIDER_DIR, 'memory_graph.json');
+const TASKS_JSON = join(SPIDER_DIR, 'tasks.json');
+const START_TIME = Date.now();
+
+function computeThresholds(memPct, sovOnline) {
+  const risk = Math.min(0.95, Math.round(((memPct / 100) * 0.45 + (sovOnline ? 0 : 0.20)) * 10000) / 10000);
+  const headroom = Math.max(0.05, Math.round((1 - risk) * 10000) / 10000);
+  const phi = Math.min(0.98, Math.max(0.70, Math.round((0.82 + risk * 0.14) * 10000) / 10000));
+  return {
+    evidence_min: phi,
+    aesthetics_min: Math.round(Math.max(5.5, Math.min(9.5, 6.2 + headroom * 1.8)) * 100) / 100,
+    drift_ceiling: Math.round(Math.max(0.10, Math.min(0.50, 0.42 - risk * 0.25)) * 10000) / 10000,
+    coherence_target: Math.round(Math.max(0.72, Math.min(0.99, 0.78 + headroom * 0.16)) * 10000) / 10000,
+    risk,
+    headroom
+  };
+}
 
 // Live data cache
 const liveData = {
   agents: new Map(),
+  events: [],
   gitnexus: { nodes: [], edges: [], lastUpdate: null },
   obsidian: { entities: [], chunks: 0, lastUpdate: null },
+  thresholds: computeThresholds(os.totalmem() > 0 ? ((os.totalmem() - os.freemem()) / os.totalmem()) * 100 : 0, false),
   systemMetrics: { cpu: 0, memory: 0, activeAgents: 0 }
 };
 
@@ -17,7 +41,7 @@ const liveData = {
 const clients = new Set();
 
 function broadcast(data) {
-  const msg = JSON.stringify(data);
+  const msg = JSON.stringify(data, (k, v) => (v instanceof Map ? Object.fromEntries(v) : v));
   clients.forEach(client => {
     if (client.readyState === client.OPEN) {
       client.send(msg);
@@ -25,122 +49,136 @@ function broadcast(data) {
   });
 }
 
-// MCP connection functions (these would connect to actual MCP servers)
-async function fetchGitNexusData() {
+function readJsonSafe(filePath, fallback) {
   try {
-    // In production, this would call the actual GitNexus MCP
-    // For now, return structure that matches GitNexus graph format
-    return {
-      nodes: [
-        { id: 'agent-1', type: 'agent', label: 'CodeWeaver', x: 100, y: 200, cluster: 'communication' },
-        { id: 'agent-2', type: 'agent', label: 'Predator', x: 300, y: 150, cluster: 'systems' },
-        { id: 'agent-3', type: 'agent', label: 'Logos', x: 200, y: 350, cluster: 'cognitive' },
-        { id: 'file-1', type: 'file', label: 'server.js', x: 400, y: 250, path: 'QuillanWorker/server.js' },
-        { id: 'file-2', type: 'file', label: 'scanner.mjs', x: 500, y: 300, path: 'QuillanWorker/scanner.mjs' },
-        { id: 'file-3', type: 'file', label: 'quillan-dashboard.html', x: 350, y: 400, path: '06 - Deployment & Platforms/quillan-dashboard.html' }
-      ],
-      edges: [
-        { from: 'agent-1', to: 'file-1', action: 'editing', strength: 0.8 },
-        { from: 'agent-2', to: 'file-2', action: 'analyzing', strength: 0.6 },
-        { from: 'agent-3', to: 'agent-1', action: 'collaborating', strength: 0.9 },
-        { from: 'agent-1', to: 'file-3', action: 'refactoring', strength: 0.7 }
-      ],
-      timestamp: new Date().toISOString()
-    };
-  } catch (e) {
-    console.error('GitNexus fetch error:', e);
-    return { nodes: [], edges: [], timestamp: new Date().toISOString() };
+    if (!existsSync(filePath)) return fallback;
+    return JSON.parse(readFileSync(filePath, 'utf8'));
+  } catch {
+    return fallback;
   }
+}
+
+async function fetchGitNexusData() {
+  const mg = readJsonSafe(MEMGRAPH_JSON, null);
+  if (mg && mg.nodes) {
+    const entries = Object.entries(mg.nodes).slice(0, 24);
+    const idxMap = new Map();
+    const nodes = entries.map(([p, meta], i) => {
+      const id = `node-${i}`;
+      idxMap.set(p, id);
+      const label = p.split(/[\\/]/).pop() || p;
+      return {
+        id,
+        type: meta.kind || 'file',
+        label,
+        x: 80 + (i % 6) * 110,
+        y: 60 + Math.floor(i / 6) * 85,
+        path: p
+      };
+    });
+    const edges = [];
+    for (const [k, e] of Object.entries(mg.edges || {})) {
+      const parts = k.split('\u2192');
+      if (parts.length === 2 && idxMap.has(parts[0]) && idxMap.has(parts[1])) {
+        edges.push({ from: idxMap.get(parts[0]), to: idxMap.get(parts[1]), action: e.wire ? 'wire' : 'link', strength: e.wire ? 0.9 : 0.6 });
+      }
+    }
+    return { nodes, edges, timestamp: new Date().toISOString() };
+  }
+  return { nodes: [], edges: [], timestamp: new Date().toISOString() };
 }
 
 async function fetchObsidianData() {
+  const entities = [];
+  const mem = readJsonSafe(MEMORY_JSON, []);
+  if (Array.isArray(mem)) {
+    for (const item of mem.slice(0, 32)) {
+      const val = item?.value;
+      const obs = Array.isArray(val) ? val.map(String) : (val != null ? [String(val)] : []);
+      entities.push({
+        id: item.key || `mem-${entities.length}`,
+        type: item.category || 'concept',
+        label: String(item.key || '').replace(/_/g, ' '),
+        connections: obs.length + 1,
+        observations: obs.slice(0, 3)
+      });
+    }
+  }
+  const mg = readJsonSafe(MEMGRAPH_JSON, null);
+  if (mg && mg.nodes) {
+    for (const [p, node] of Object.entries(mg.nodes).slice(0, 12)) {
+      entities.push({
+        id: p.split(/[\\/]/).pop() || p,
+        type: node.kind || 'module',
+        label: p.split(/[\\/]/).pop() || p,
+        connections: node.visits || 1,
+        observations: [`Visits: ${node.visits || 1}`, `Last action: ${node.last_action || 'READ'}`]
+      });
+    }
+  }
+  return { entities, chunks: entities.length * 45, timestamp: new Date().toISOString() };
+}
+
+async function probeHttpOk(url) {
   try {
-    // In production, this would call the Memory MCP
-    // For now, return structure that matches Obsidian brain format
-    return {
-      entities: [
-        { id: 'entity-1', type: 'concept', label: 'Quillan-Ronin', connections: 5, observations: ['Advanced Cognitive Engine', '34 Council Experts'] },
-        { id: 'entity-2', type: 'task', label: 'Code Refactoring', connections: 3, observations: ['Active refactoring in progress'] },
-        { id: 'entity-3', type: 'agent', label: 'CodeWeaver', connections: 4, observations: ['AST analysis', 'Code architecture'] },
-        { id: 'entity-4', type: 'agent', label: 'Predator', connections: 2, observations: ['Security analysis', 'Adversarial testing'] }
-      ],
-      chunks: 360,
-      timestamp: new Date().toISOString()
-    };
-  } catch (e) {
-    console.error('Obsidian fetch error:', e);
-    return { entities: [], chunks: 0, timestamp: new Date().toISOString() };
+    const res = await fetch(url, { signal: AbortSignal.timeout(800) });
+    return res.ok;
+  } catch {
+    return false;
   }
 }
 
-// Simulate agent movements with more realistic behavior
-function simulateAgentMovement() {
-  const agents = [
-    { id: 'antigravity', name: 'Antigravity', role: 'Lead Systems Architect', avatar: '⚡' },
-    { id: 'quillan_trainer', name: 'Quillan Model Forge', role: 'BitNet Trainer', avatar: '🧠' },
-    { id: 'codeweaver', name: 'CodeWeaver (C10)', role: 'AST Architect', avatar: '🛠️' },
-    { id: 'predator', name: 'Predator (C34)', role: 'Security Hunter', avatar: '⚔️' }
+async function refreshLiveAgents() {
+  const [sovOk, workerOk, ollamaOk] = await Promise.all([
+    probeHttpOk('http://127.0.0.1:8080/health'),
+    probeHttpOk('http://127.0.0.1:7777/api/state'),
+    probeHttpOk('http://127.0.0.1:11434/api/version')
+  ]);
+  const now = new Date().toISOString();
+  const coreNodes = [
+    { id: 'sovereign_server', name: 'Quillan Sovereign (:8080)', role: 'OpenAI/Ollama API Gateway', status: sovOk ? 'online' : 'offline' },
+    { id: 'quillan_worker', name: 'QuillanWorker (:7777)', role: 'MCP + Extension Bridge', status: workerOk ? 'online' : 'offline' },
+    { id: 'ollama_engine', name: 'Ollama Runtime (:11434)', role: 'Local GGUF Model Engine', status: ollamaOk ? 'online' : 'offline' }
   ];
-  
-  const files = [
-    'quillan-dashboard.html',
-    'server.js',
-    'scanner.mjs',
-    'agent-browser.mjs',
-    'quillan_collector.py'
-  ];
-  
-  const actions = ['editing', 'analyzing', 'debugging', 'refactoring', 'testing', 'reviewing'];
-  
-  agents.forEach((agent, i) => {
-    const file = files[Math.floor(Math.random() * files.length)];
-    const action = actions[Math.floor(Math.random() * actions.length)];
-    const x = 100 + Math.random() * 400;
-    const y = 100 + Math.random() * 300;
-    
-    const existing = liveData.agents.get(agent.id) || {};
-    
-    liveData.agents.set(agent.id, {
-      id: agent.id,
-      name: agent.name,
-      role: agent.role,
-      avatar: agent.avatar,
-      x,
-      y,
-      targetFile: file,
-      action: action,
-      status: 'online',
-      toolCalls: (existing.toolCalls || 0) + Math.floor(Math.random() * 3),
-      tokens: (existing.tokens || 0) + Math.floor(Math.random() * 1000),
-      lastUpdate: new Date().toISOString()
+  for (const node of coreNodes) {
+    const prev = liveData.agents.get(node.id) || {};
+    liveData.agents.set(node.id, {
+      ...prev,
+      ...node,
+      lastUpdate: now
     });
-  });
+  }
 }
 
-// Update live data periodically
+// Update live data periodically from real filesystem & OS state
 async function updateLiveData() {
-  // Fetch GitNexus
-  const gnData = await fetchGitNexusData();
+  const [gnData, obsData] = await Promise.all([
+    fetchGitNexusData(),
+    fetchObsidianData(),
+    refreshLiveAgents()
+  ]);
   liveData.gitnexus = gnData;
-  
-  // Fetch Obsidian
-  const obsData = await fetchObsidianData();
   liveData.obsidian = obsData;
-  
-  // Simulate agent movements
-  simulateAgentMovement();
-  
-  // Update metrics
+
+  const totalMem = os.totalmem();
+  const freeMem = os.freemem();
+  const memPct = totalMem > 0 ? Math.round(((totalMem - freeMem) / totalMem) * 1000) / 10 : 0;
+  const load = os.loadavg()[0] || 0;
+  const cpuCores = Math.max(1, os.cpus().length);
+  const sovOnline = liveData.agents.get('sovereign_server')?.status === 'online';
+  liveData.thresholds = computeThresholds(memPct, sovOnline);
   liveData.systemMetrics = {
-    cpu: 20 + Math.random() * 30,
-    memory: 40 + Math.random() * 20,
-    activeAgents: liveData.agents.size
+    cpu: Math.min(100, Math.round((load / cpuCores) * 1000) / 10),
+    memory: memPct,
+    activeAgents: Array.from(liveData.agents.values()).filter(a => a.status === 'online' || a.status === 'active').length
   };
-  
-  // Broadcast to all clients
+
   broadcast({
     type: 'live-update',
-    data: liveData
+    data: {
+      ...liveData,
+      agents: Array.from(liveData.agents.values())
+    }
   });
 }
 
@@ -161,34 +199,88 @@ const server = createServer(async (req, res) => {
   // API endpoints
   if (url.pathname === '/api/live-data' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify(liveData));
+    return res.end(JSON.stringify({ ...liveData, agents: Array.from(liveData.agents.values()) }));
   }
-  
+
+  if ((url.pathname === '/health' || url.pathname === '/api/health') && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({
+      status: 'ok',
+      hub: 'ws-node',
+      uptime_s: Math.round((Date.now() - START_TIME) / 100) / 10,
+      events_count: liveData.events.length,
+      active_agents_count: liveData.agents.size,
+      thresholds: liveData.thresholds || {},
+      systemMetrics: liveData.systemMetrics
+    }));
+  }
+
   if (url.pathname === '/api/gitnexus' && req.method === 'GET') {
     const data = await fetchGitNexusData();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(data));
   }
-  
+
   if (url.pathname === '/api/obsidian' && req.method === 'GET') {
     const data = await fetchObsidianData();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     return res.end(JSON.stringify(data));
   }
-  
+
   if (url.pathname === '/api/agents' && req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    return res.end(JSON.stringify(Array.from(liveData.agents.values())));
+    return res.end(JSON.stringify({ agents: Array.from(liveData.agents.values()) }));
   }
-  
+
+  if (url.pathname === '/api/events' && req.method === 'GET') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({ events: liveData.events, thresholds: liveData.thresholds || {} }));
+  }
+
+  if (url.pathname === '/api/stats' && req.method === 'GET') {
+    const tasks = readJsonSafe(TASKS_JSON, []);
+    const tasksDone = Array.isArray(tasks) ? tasks.filter(t => ['done', 'completed', 'ok'].includes(String(t?.status || '').toLowerCase())).length : 0;
+    const mg = readJsonSafe(MEMGRAPH_JSON, {});
+    const nodes = mg?.nodes || {};
+    const edges = mg?.edges || {};
+    const uptimeS = Math.max(0.1, Math.round((Date.now() - START_TIME) / 100) / 10);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    return res.end(JSON.stringify({
+      tasks_done: tasksDone,
+      files: Object.keys(nodes).length,
+      findings: Object.values(nodes).reduce((acc, n) => acc + (Array.isArray(n?.findings) ? n.findings.length : 0), 0),
+      wires: Object.values(edges).filter(e => e?.wire).length,
+      events_count: liveData.events.length,
+      uptime_s: uptimeS,
+      watch_on: true
+    }));
+  }
+
   if (url.pathname === '/api/events' && req.method === 'POST') {
-    // Event ingestion endpoint for agents to post events
     let body = '';
     req.on('data', chunk => body += chunk);
     req.on('end', () => {
       try {
-        const event = JSON.parse(body);
-        console.log('Event received:', event);
+        const event = JSON.parse(body || '{}');
+        if (!event.agent || !event.type) {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          return res.end(JSON.stringify({ error: 'agent and type required' }));
+        }
+        event.ts = event.ts || new Date().toISOString();
+        event.detail = event.detail || '';
+        liveData.events.push(event);
+        if (liveData.events.length > 1000) liveData.events.shift();
+        const prev = liveData.agents.get(event.agent) || {};
+        liveData.agents.set(event.agent, {
+          id: event.agent,
+          name: event.agent,
+          status: 'active',
+          last_action: event.type,
+          last_detail: String(event.detail).slice(0, 120),
+          events: (prev.events || 0) + 1,
+          lastUpdate: event.ts
+        });
+        broadcast({ type: 'event', event });
         res.writeHead(202, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ accepted: true }));
       } catch (e) {
@@ -198,13 +290,12 @@ const server = createServer(async (req, res) => {
     });
     return;
   }
-  
+
   // Serve static files (for serving the dashboard)
   if (url.pathname === '/' || url.pathname === '/dashboard') {
     try {
-      const fs = await import('node:fs');
-      const html = fs.readFileSync(join(ROOT, 'quillan-dashboard.html'), 'utf8');
-      res.writeHead(200, { 'Content-Type': 'text/html' });
+      const html = readFileSync(join(ROOT, 'quillan-dashboard.html'), 'utf8');
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       return res.end(html);
     } catch (e) {
       res.writeHead(404);
@@ -226,7 +317,7 @@ wss.on('connection', (ws) => {
   // Send initial data
   ws.send(JSON.stringify({
     type: 'initial',
-    data: liveData
+    data: { ...liveData, agents: Array.from(liveData.agents.values()) }
   }));
   
   ws.on('close', () => {
@@ -240,11 +331,11 @@ wss.on('connection', (ws) => {
   });
 });
 
-const PORT = 8777;
-server.listen(PORT, () => {
-  console.log(`Quillan Hub Server running on http://localhost:${PORT}`);
+const PORT = Number(process.env.HUB_PORT || process.env.PORT || 8777);
+server.listen(PORT, '127.0.0.1', () => {
+  console.log(`Quillan Hub Server running on http://127.0.0.1:${PORT}`);
   console.log('WebSocket server ready for live streaming');
-  console.log('Dashboard available at http://localhost:8777/dashboard');
+  console.log(`Dashboard available at http://127.0.0.1:${PORT}/dashboard`);
 });
 
 // Start live data updates

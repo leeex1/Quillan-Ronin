@@ -54,7 +54,8 @@ def test_api_server():
         r_models = requests.get(f"http://localhost:{PORT}/v1/models").json()
         model_ids = [m["id"] for m in r_models["data"]]
         print(f"✓ /v1/models returned {len(model_ids)} models: {model_ids}")
-        assert "quillan-1b-sovereign-q4" in model_ids
+        assert "quillan-ronin-flagship" in model_ids
+        assert "quillan-1b-sovereign-wsp-v20-q8" in model_ids
 
         # 4. Test /v1/deliberate
         r_delib = requests.post(

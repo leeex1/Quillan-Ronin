@@ -6,12 +6,36 @@ import tempfile
 import warnings
 import numpy as np
 
-# External libs
-import yt_dlp
+# External libs (yt_dlp lazy-imported only for URL downloads)
+import sys
+from pathlib import Path
 import whisper
-import librosa
 
 warnings.filterwarnings("ignore")
+
+_MCP_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp")
+if _MCP_DIR.exists() and str(_MCP_DIR) not in sys.path:
+    sys.path.insert(0, str(_MCP_DIR))
+
+try:
+    from _shared.media_utils import resolve_ffmpeg_bin, decode_audio_pyav
+except Exception:
+    decode_audio_pyav = None
+
+    def resolve_ffmpeg_bin(binary_name: str = "ffmpeg"):
+        found = shutil.which(binary_name)
+        if found:
+            return Path(found)
+        exe = f"{binary_name}.exe" if os.name == "nt" else binary_name
+        local_app = os.environ.get("LOCALAPPDATA", "")
+        if local_app:
+            winget = Path(local_app) / "Microsoft" / "WinGet" / "Packages"
+            if winget.exists():
+                for cand in sorted(winget.glob(f"Gyan.FFmpeg*/*/bin/{exe}"), reverse=True):
+                    if cand.exists():
+                        os.environ["PATH"] = f"{cand.parent}{os.pathsep}{os.environ.get('PATH', '')}"
+                        return cand
+        return None
 
 
 class SynesthesiaEngine:
@@ -34,6 +58,12 @@ class SynesthesiaEngine:
         """
         Downloads audio from a YouTube URL to temp_dir and returns the path to the mp3 file.
         """
+        try:
+            import yt_dlp
+        except ImportError as exc:
+            raise RuntimeError("yt_dlp is required only for URL downloads and is not installed.") from exc
+
+        resolve_ffmpeg_bin("ffmpeg")
         print(f"[*] Extracting audio from URL: {url}")
         outtmpl = os.path.join(self.temp_dir, f"{output_basename}.%(ext)s")
         ydl_opts = {
@@ -68,19 +98,21 @@ class SynesthesiaEngine:
         """
         Returns: tempo (float), texture (string)
         """
-        print("[*] Running acoustic analysis (librosa)...")
-        # librosa can read many formats (requires ffmpeg for mp3)
-        y, sr = librosa.load(file_path, sr=None, mono=True)
+        resolve_ffmpeg_bin("ffmpeg")
+        if decode_audio_pyav is not None:
+            print("[*] Running acoustic analysis (PyAV + NumPy)...")
+            decoded = decode_audio_pyav(Path(file_path), max_seconds=60.0)
+            tempo = float(decoded["bpm"])
+            avg_cent = float(decoded["brightness_centroid"])
+        else:
+            import librosa
+            print("[*] Running acoustic analysis (librosa)...")
+            y, sr = librosa.load(file_path, sr=None, mono=True)
+            raw_tempo, _ = librosa.beat.beat_track(y=y, sr=sr)
+            tempo = float(np.asarray(raw_tempo).reshape(-1)[0])
+            cent = librosa.feature.spectral_centroid(y=y, sr=sr)
+            avg_cent = float(np.mean(cent))
 
-        # BPM / tempo
-        tempo, beats = librosa.beat.beat_track(y=y, sr=sr)
-        tempo = float(tempo)  # ensure numeric
-
-        # Spectral centroid (how 'bright' the signal is)
-        cent = librosa.feature.spectral_centroid(y=y, sr=sr)
-        avg_cent = float(np.mean(cent))
-
-        # Heuristic thresholds — note these are approximate and depend on sr
         if avg_cent < 1500:
             texture = "Heavy, bass-dominant, dark (e.g., Trap, Nu-Metal, Lo-Fi)"
         elif 1500 <= avg_cent <= 2500:
@@ -96,7 +128,12 @@ class SynesthesiaEngine:
             [{"start": float, "end": float, "text": str}, ...]
         """
         print("[*] Running vocal transcription (Whisper)...")
-        result = self.whisper_model.transcribe(file_path)
+        resolve_ffmpeg_bin("ffmpeg")
+        if decode_audio_pyav is not None:
+            decoded = decode_audio_pyav(Path(file_path), max_seconds=120.0, target_sr=16000)
+            result = self.whisper_model.transcribe(decoded["samples"], fp16=False)
+        else:
+            result = self.whisper_model.transcribe(file_path, fp16=False)
         segments = result.get("segments", [])
         timestamps = []
         for seg in segments:

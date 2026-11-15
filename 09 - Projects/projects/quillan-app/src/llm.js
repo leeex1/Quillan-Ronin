@@ -5,22 +5,40 @@ const path = require("path");
 // Priority: 1) Ollama local  2) NVIDIA NIM  3) fallback mock
 // SECURITY: no hardcoded keys — read from env or llm.json only
 
+function _readDotEnvKey(name){
+  try {
+    const envPath = "C:\\02_QUILLAN\\.env";
+    if (!fs.existsSync(envPath)) return "";
+    const lines = fs.readFileSync(envPath, "utf-8").split(/\r?\n/);
+    for (const line of lines) {
+      const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)\s*$/);
+      if (m && m[1] === name) {
+        return m[2].replace(/^['"]|['"]$/g, "").trim();
+      }
+    }
+  } catch (e) {}
+  return "";
+}
+
 let cfgCache = null;
 function loadCfg(){
   if(cfgCache) return cfgCache;
   const defaults = {
-    sovereign: { base:"http://127.0.0.1:8000/v1", model:"quillan-oni-mini-6l" },
-    ollama: { base:"http://localhost:11434/v1", model:"falcon3:1b-instruct-q8_0" },
-    nvidia: { base:"https://integrate.api.nvidia.com/v1", key: (process.env.NVIDIA_API_KEY||"").trim(), model:"nvidia/nemotron-3.5-lightning-30b-a3b" },
-    openai: { base:"https://api.openai.com/v1", key:(process.env.OPENAI_API_KEY||"").trim(), model:"gpt-4o-mini" }
+    sovereign: { base:"http://127.0.0.1:8080/v1", model:"quillan-ronin-flagship" },
+    ollama: { base:"http://localhost:11434/v1", model:"quillan-ronin-1b:latest" },
+    nvidia: { base:"https://integrate.api.nvidia.com/v1", key: (process.env.NVIDIA_API_KEY || _readDotEnvKey("NVIDIA_API_KEY") || "").trim(), model:"nvidia/nemotron-3.5-lightning-30b-a3b" },
+    openai: { base:"https://api.openai.com/v1", key: (process.env.OPENAI_API_KEY || _readDotEnvKey("OPENAI_API_KEY") || "").trim(), model:"gpt-4o-mini" }
   };
   try {
-    const brainPath = "C:\\02_QUILLAN\\configs\\llm.json";
-    if(fs.existsSync(brainPath)){
-      const j = JSON.parse(fs.readFileSync(brainPath,"utf-8"));
-      if(j.nvidia_key) defaults.nvidia.key = j.nvidia_key;
-      if(j.model) defaults.nvidia.model = j.model;
-      if(j.ollama_model) defaults.ollama.model = j.ollama_model;
+    for (const brainPath of ["C:\\02_QUILLAN\\08 - Templates & Config\\configs\\llm.json", "C:\\02_QUILLAN\\configs\\llm.json"]) {
+      if(fs.existsSync(brainPath)){
+        const j = JSON.parse(fs.readFileSync(brainPath,"utf-8"));
+        if(j.nvidia_key) defaults.nvidia.key = j.nvidia_key;
+        if(j.model) defaults.nvidia.model = j.model;
+        if(j.ollama_model) defaults.ollama.model = j.ollama_model;
+        if(j.sovereign_model) defaults.sovereign.model = j.sovereign_model;
+        break;
+      }
     }
   } catch(e){}
   // SECURITY: removed hardcoded nvapi key fallback — must come from env/file

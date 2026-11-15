@@ -9,7 +9,7 @@
  *   const result = await sendCmd('read', { tabId: 123 });
  */
 
-const SERVER_URL = 'http://localhost:7777';
+const SERVER_URL = process.env.WORKER_URL || `http://127.0.0.1:${process.env.WORKER_PORT || 7777}`;
 const AGENT_ID = 'quillan-ronin';
 const POLL_INTERVAL = 100; // ms
 const MAX_POLL_TIME = 30000; // 30 seconds timeout

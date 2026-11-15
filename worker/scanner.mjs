@@ -1,20 +1,56 @@
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 const DATA = new URL('./data/', import.meta.url);
 const KERNEL_PATHS = [
-  'C:\\02_QUILLAN\\system prompts\\Quillan-Samurai.md',
-  'C:\\Users\\Admin\\Quillan-Ronin\\system prompts\\Quillan-Samurai.md',
-  'C:\\02_QUILLAN\\SOUL.md',
+  'C:\\02_QUILLAN\\06 - Deployment & Platforms\\system prompts\\Quillan-Samurai.md',
+  'C:\\02_QUILLAN\\06 - Deployment & Platforms\\quillan.md',
   'C:\\02_QUILLAN\\AGENTS.md',
   'C:\\02_QUILLAN\\CLAUDE.md'
 ].filter(p => !p.includes('..'));
 
+const DEFAULT_STORES = {
+  settings: {
+    localSovereignUrl: 'http://127.0.0.1:8080/v1',
+    localModel: 'quillan-ronin-flagship',
+    ollamaUrl: 'http://127.0.0.1:11434/v1',
+    ollamaModel: 'quillan-ronin-1b:latest',
+    nvidiaBaseUrl: 'https://integrate.api.nvidia.com/v1',
+    nvidiaModel: 'meta/llama-3.3-70b-instruct',
+    deepKernelModel: 'nvidia/nemotron-3-super-120b-a12b',
+    fastModel: 'meta/llama-3.3-70b-instruct',
+    fallbackModels: ['nvidia/nemotron-3.5-lightning-30b-a3b', 'meta/llama-3.1-8b-instruct']
+  },
+  opportunities: { nextId: 1, leads: [] },
+  ledger: { entries: [] },
+  profile: { handle: '@crashoverride_X', disclosureLine: 'AI-assisted sovereign workflow', skills: ['Python', 'Node.js', 'AI Systems', 'Full-Stack'] }
+};
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function ensureDefaultJSON(safeName) {
+  const targetUrl = new URL(`data/${safeName}.json`, import.meta.url);
+  if (existsSync(targetUrl)) return targetUrl;
+  const fallback = DEFAULT_STORES[safeName];
+  if (fallback !== undefined) {
+    try {
+      mkdirSync(fileURLToPath(DATA), { recursive: true });
+      writeFileSync(targetUrl, JSON.stringify(fallback, null, 2), 'utf8');
+      return targetUrl;
+    } catch (_) {}
+  }
+  return null;
+}
 
 export function loadJSON(name) {
   const safeName = String(name).replace(/[^a-zA-Z0-9_-]/g, '');
   if (!safeName) throw new Error('Invalid filename');
-  const raw = readFileSync(new URL(`data/${safeName}.json`, import.meta.url), 'utf8').replace(/^\uFEFF/, '');
+  const targetUrl = new URL(`data/${safeName}.json`, import.meta.url);
+  if (!existsSync(targetUrl)) {
+    const created = ensureDefaultJSON(safeName);
+    if (!created && DEFAULT_STORES[safeName] !== undefined) return structuredClone(DEFAULT_STORES[safeName]);
+  }
+  const raw = readFileSync(targetUrl, 'utf8').replace(/^\uFEFF/, '');
   return JSON.parse(raw);
 }
 
@@ -22,7 +58,12 @@ export async function loadJSONAsync(name) {
   const safeName = String(name).replace(/[^a-zA-Z0-9_-]/g, '');
   if (!safeName) throw new Error('Invalid filename');
   const { readFile } = await import('node:fs/promises');
-  const raw = (await readFile(new URL(`data/${safeName}.json`, import.meta.url), 'utf8')).replace(/^\uFEFF/, '');
+  const targetUrl = new URL(`data/${safeName}.json`, import.meta.url);
+  if (!existsSync(targetUrl)) {
+    const created = ensureDefaultJSON(safeName);
+    if (!created && DEFAULT_STORES[safeName] !== undefined) return structuredClone(DEFAULT_STORES[safeName]);
+  }
+  const raw = (await readFile(targetUrl, 'utf8')).replace(/^\uFEFF/, '');
   return JSON.parse(raw);
 }
 
@@ -156,29 +197,34 @@ export function loadKernelPersona(full = false) {
   return KERNEL_CACHE;
 }
 
-export async function callNVIDIA(messages, settings, maxTokens = 1400, opts = {}) {
-  // Check local sovereign model first if available
-  const localUrl = settings.localSovereignUrl || 'http://127.0.0.1:8000/v1';
-  try {
-    const localRes = await fetch(`${localUrl}/chat/completions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'quillan-ronin-v5.3.1',
-        messages,
-        max_tokens: maxTokens,
-        temperature: 0.65
-      }),
-      signal: AbortSignal.timeout(opts.timeoutMs || 30000)
-    });
-    if (localRes.ok) {
-      const data = await localRes.json();
-      if (data.choices && data.choices[0] && data.choices[0].message) {
-        return data.choices[0].message.content;
+export async function callNVIDIA(messages, settings = {}, maxTokens = 1400, opts = {}) {
+  // Check local Sovereign API (:8080) and local Ollama (:11434) first
+  const localCandidates = [
+    { url: settings.localSovereignUrl || 'http://127.0.0.1:8080/v1', model: settings.localModel || 'quillan-ronin-flagship' },
+    { url: settings.ollamaUrl || 'http://127.0.0.1:11434/v1', model: settings.ollamaModel || 'quillan-ronin-1b:latest' }
+  ];
+  for (const cand of localCandidates) {
+    try {
+      const localRes = await fetch(`${cand.url}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: cand.model,
+          messages,
+          max_tokens: maxTokens,
+          temperature: 0.65
+        }),
+        signal: AbortSignal.timeout(opts.timeoutMs || 30000)
+      });
+      if (localRes.ok) {
+        const data = await localRes.json();
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+          return data.choices[0].message.content;
+        }
       }
+    } catch (_) {
+      // Candidate offline or timed out; try next local/remote endpoint
     }
-  } catch (localErr) {
-    // Local engine not running or timed out; fall through to remote API pool
   }
 
   const key = getEnvVar('NVIDIA_API_KEY');
@@ -233,7 +279,7 @@ export async function callNVIDIA(messages, settings, maxTokens = 1400, opts = {}
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: `${m.role === 'system' ? '[SYSTEM INSTRUCTION]\n' : ''}${m.content}` }]
       }));
-      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiKey}`;
+      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`;
       const gRes = await fetch(gUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -256,51 +302,56 @@ export async function callNVIDIA(messages, settings, maxTokens = 1400, opts = {}
   throw lastErr || new Error('All AI providers (NVIDIA NIM & Gemini) in auto-router pool are unavailable');
 }
 
-export async function* streamNVIDIA(messages, settings, maxTokens = 2048, opts = {}) {
-  // Check local sovereign model first if available
-  const localUrl = settings.localSovereignUrl || 'http://127.0.0.1:8000/v1';
+export async function* streamNVIDIA(messages, settings = {}, maxTokens = 2048, opts = {}) {
+  // Check local Sovereign API (:8080) and local Ollama (:11434) first
+  const localCandidates = [
+    { url: settings.localSovereignUrl || 'http://127.0.0.1:8080/v1', model: settings.localModel || 'quillan-ronin-flagship' },
+    { url: settings.ollamaUrl || 'http://127.0.0.1:11434/v1', model: settings.ollamaModel || 'quillan-ronin-1b:latest' }
+  ];
   let streamedLocal = false;
-  try {
-    const localRes = await fetch(`${localUrl}/chat/completions`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'quillan-ronin-v5.3.1',
-        messages,
-        max_tokens: maxTokens,
-        temperature: 0.65,
-        stream: true
-      }),
-      signal: AbortSignal.timeout(opts.timeoutMs || 45000)
-    });
-    if (localRes.ok && localRes.body) {
-      const reader = localRes.body.getReader();
-      const decoder = new TextDecoder('utf-8');
-      let buffer = '';
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop() || '';
-        for (const line of lines) {
-          const clean = line.trim();
-          if (!clean.startsWith('data:')) continue;
-          if (clean === 'data: [DONE]') return;
-          try {
-            const parsed = JSON.parse(clean.slice(5).trim());
-            const delta = parsed.choices?.[0]?.delta?.content;
-            if (delta) {
-              streamedLocal = true;
-              yield delta;
-            }
-          } catch (err) { console.error("Ignored Error:", err.message); }
+  for (const cand of localCandidates) {
+    try {
+      const localRes = await fetch(`${cand.url}/chat/completions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: cand.model,
+          messages,
+          max_tokens: maxTokens,
+          temperature: 0.65,
+          stream: true
+        }),
+        signal: AbortSignal.timeout(opts.timeoutMs || 45000)
+      });
+      if (localRes.ok && localRes.body) {
+        const reader = localRes.body.getReader();
+        const decoder = new TextDecoder('utf-8');
+        let buffer = '';
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+          for (const line of lines) {
+            const clean = line.trim();
+            if (!clean.startsWith('data:')) continue;
+            if (clean === 'data: [DONE]') return;
+            try {
+              const parsed = JSON.parse(clean.slice(5).trim());
+              const delta = parsed.choices?.[0]?.delta?.content;
+              if (delta) {
+                streamedLocal = true;
+                yield delta;
+              }
+            } catch (err) { console.error("Ignored Error:", err.message); }
+          }
         }
+        if (streamedLocal) return;
       }
-      if (streamedLocal) return;
+    } catch (_) {
+      // Candidate offline; try next local or remote provider
     }
-  } catch (localErr) {
-    // Local engine not running; proceed to remote pool
   }
 
   let key = process.env.NVIDIA_API_KEY;
@@ -426,7 +477,7 @@ export async function* streamNVIDIA(messages, settings, maxTokens = 2048, opts =
         parts: [{ text: `${m.role === 'system' ? '[SYSTEM INSTRUCTION]\n' : ''}${m.content}` }]
       }));
 
-      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:streamGenerateContent?alt=sse&key=${geminiKey}`;
+      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${geminiKey}`;
       const gRes = await fetch(gUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -517,7 +568,7 @@ export async function visionDescribe(base64Image, question, settings) {
   // 1. Try Gemini 3.6 Flash Vision (Instant native multimodal)
   if (geminiKey && cleanB64.length > 20) {
     try {
-      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=${geminiKey}`;
+      const gUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`;
       const gRes = await fetch(gUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
