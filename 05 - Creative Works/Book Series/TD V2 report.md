@@ -479,3 +479,24 @@ Author's-voice / continuity corrections made as co-author before upload:
 - **Dead Elena Thornweave / Kael Ironfist in epilogue memorial** unified — they are alive through signing the Charter. Rewrote two memorial passages so the same character isn't both living and dead.
 
 Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate sentences, EPUB + print interior rebuilt (586 pp, 167,048 words).
+
+
+---
+
+## 30. 2026-11-15 (Book 1 final pass) — humanization + audio re-render
+
+**Book 1 changes this pass:**
+- Stripped AI-cadence (\~"the particular" chains, overwrought participle chains — 9 lines), tighten 5 passages (twilight opening, the messenger's arrival, Marlo remembrance).
+- Total body-word delta: -57 words. Reasons for cuts: dead-weight adverbs, doubled modifiers, unnecessary dialogue tags.
+- Builds: Book 1 EPUB + 6×9″ interior rebuilt (586 pp); cover rebuilt; 0 exact duplicate long lines, 2 intentional staging echoes retained (night was clear / friend reunions).
+- No structural passages removed. Ch 7/8 split (Chimera) intact; all action concentrated in Ch 8.
+
+**Audiobook re-render:**
+- Book 1 → fresh MP3 from the current manuscript (`Book 1 - Twisted Destiny (fresh).mp3`) targeting en-US-ChristopherNeural. Run in background; will be completed in ~35–50 minutes. The previous `Book 1 - Twisted Destiny.mp3` in Audiobooks/ is stale (rendered from pre-fix manuscript).
+
+**Upload status:**
+- Last visibility-snap so the user can choose to upload: Book 1 — print interior 586 pp, EPUB rebuilt, cover synced.
+- Book 2 — fixed earlier (Ch 13 removed), 496 pp, builds pass.
+- Book 3 — fixed earlier (kraken merged), 557 pp, builds pass.
+- Book 4 — Book 4 ABORTED but rolled back. Original Book 4 intact (480 pp). NOT fixed. Readable as the original draft, but full of duplicate cycles. Blocking upload.
+- Book 5 — names and timeline unified earlier; Mojibake fixed; near-duplicate sentences x 8 retained as intentional.

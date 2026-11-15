@@ -479,7 +479,7 @@ Lukas looked at the moon, hidden behind the clouds, and made a silent promise. H
 
 The moon remembers, he thought. And so do I.
 
-He reached into his pocket and touched the small wooden carving that Sera had given him—a wolf, crude but earnest, carved from a piece of driftwood found on the shores of the Deepwater Grottos. It was the kind of gift that money could not buy, the kind of gift that carried the weight of genuine affection. The children gave him gifts sometimes—drawings, carvings, stories they had written. Each one was a treasure, a reminder that the fight had been worth fighting, that the dream had been worth dreaming.
+He reached into his pocket and touched the small wooden carving that Sera had given him—a wolf, crude but earnest, carved from a piece of driftwood found on the shores of the Deepwater Grottos. It carried the weight of genuine affection. The children gave him gifts sometimes—drawings, carvings, stories they had written. Each one was a treasure, a reminder that the fight had been worth fighting, that the dream had been worth dreaming.
 
 The wooden wolf felt warm in his hand, as if it carried the heat of the forge where Grond had helped the children shape their gifts. Lukas held it for a moment, feeling the rough texture of the wood, the care that had gone into its creation, the love that had motivated its giving.
 
@@ -873,7 +873,7 @@ The forge was more than a place of work; it was the psychological anchor of thei
 
 Marlo had designed the forge himself, using stones salvaged from ancient ruins and a leather bellows he had repaired with cat-kin leather donated by Nyssa. He had arranged his tools with a precision that bordered on the religious—each hammer, each pair of tongs, each file had its specific place and its specific role. To Marlo, the order of the workshop was a reflection of the order he hoped to see in the world—a place where every piece had a purpose and every purpose was respected.
 
-When he worked, the community gathered to watch. Children would sit on the edge of the fire's warmth, their eyes wide with wonder as they watched the sparks fly like tiny, glowing spirits. Elders would stand in the shadows, their faces softened by the rhythm of the hammer, perhaps remembering the lives they had left behind or the world they had once hoped to build. Marlo never seemed to mind the audience; in fact, he often used the time to teach, explaining the properties of different metals or the history of a particular technique to anyone who would listen.
+When he worked, the community gathered to watch. Children would sit on the edge of the fire's warmth, their eyes wide with wonder as they watched the sparks fly like tiny, glowing spirits. Elders would stand in the shadows, their faces softened by the rhythm of the hammer, perhaps remembering the lives they had left behind or the world they had once hoped to build. Marlo never seemed to mind the audience; in fact, he often used the time to teach, explaining the properties of different metals or the history of one technique to anyone who would listen.
 
 "We aren't just making weapons," he would say, his voice rising over the roar of the fire. "We are making a future. Every spearhead, every hinge, every tool is a piece of the foundation. We build it strong, and we build it true, and then we see if the wind can knock it down."
 
@@ -1008,9 +1008,9 @@ And somewhere in the darkness, the unfinished spearhead lay on the anvil, waitin
 
 ## Chapter 7: Trial of the Chimera — Part I
 
-The twilight had always been the time when Lukas Wolfheart felt the two halves of his soul pull hardest against one another. 
+Twilight was when the wolf and the man pulled hardest against each other in Lukas. 
 
-As the sun sank below the western ridges of the whispering forest, painting the canopy in bruised shades of violet, amber, and indigo, the shadows lengthened across the hidden camp of the brotherhood. The scent of damp pine needles, crushed fern, and the sweet, resinous tang of burning hearth-fire filled the cool evening air. Beneath those familiar wilderness smells, however, lay the complex olfactory map of nearly four hundred souls: the metallic tang of sweat from the young fighters practicing with wooden swords at the clearing's edge, the clean, medicinal aroma of wintergreen and chamomile from the apothecary tent, and the rich, comforting scent of roasted root vegetables and venison stew bubbling in the communal iron pots.
+As the sun sank below the western ridges of the whispering forest, painting the canopy in bruised shades of violet, amber, and indigo, the shadows lengthened across the hidden camp of the brotherhood. The scent of damp pine needles, crushed fern, and the sweet, resinous tang of burning hearth-fire filled the cool evening air. Beneath those familiar wilderness smells, however, lay the complex olfactory map of nearly four hundred souls: the metallic tang of sweat from the young fighters practicing with wooden swords at the clearing's edge, the clean, medicinal aroma of wintergreen and chamomile from the apothecary tent, and venison and roots bubbling in the iron pots.
 
 For the refugees who had fled the bloody purges in the capital, this hidden valley was a sanctuary, a fragile pocket of peace carved out of a hostile world. For Lukas, it was a heavy mantle that pressed down upon his shoulders with every step he took. 
 
@@ -1036,7 +1036,7 @@ Across the camp, fighters reached for their weapons. Kael's hammer stopped mid-s
 
 A figure broke through the outer ring of pine trees, stumbling blindly into the clearing. It was a woman, her clothing shredded by thorns and stained with soot. She took two halting steps into the camp before her legs gave out. She collapsed face-first onto the damp earth, a low, exhausted groan escaping her lips.
 
-Lukas was moving before she even hit the ground. His windstep instinct—the ability to harness the air currents to accelerate his physical body—flared, and in a blur of motion, he was kneeling beside her, his speed lifting a small swirl of pine needles behind him. 
+Windstep flared before she hit the ground. He was kneeling beside her, needles swirling in his wake. 
 
 "Water! Elena, bring clean bandages!" Lukas ordered, gently turning the woman over.
 
@@ -2956,7 +2956,7 @@ The team fell silent. Even the distant ring of the dwarven hammers softened as t
 
 "Before Lukas pulled me out of the Warrens, I was working for the Black-Vane syndicate," Nyssa said, her voice flat, devoid of emotion. Her claws dug into the wood of the crates, peeling away thin strips of paint. "They wanted the supply manifests for the hybrid orphanages in the Ashen Warrens. The winter was coming, just like this one. The children needed coal and medicine. The syndicate wanted to hijack the shipments and sell them to the human nobility in the middle tiers for three times the price. They had my brother, Liam. He was deep in debt to the pit-bosses, and they were going to harvest his shards if I didn't pay."
 
-She looked up, her green eyes reflecting the harsh orange glare of the lava channels. "I stole the manifests. I gave them to the syndicate. I watched the cargo wagons get diverted. I bought my brother's life, and that winter, forty beast-kin children froze to death in the dark. I knew it was happening. I heard the bells tolling for them from the temple. I took the money Vance gave me, paid Liam's debt, and bought him a ticket out of the city. I am not a hero, Lukas. I am a thief who traded the lives of children for the life of my brother. And every time you talk about justice, I want to scream, because I know that if the world were truly just, I would be rotting in a ditch."
+She looked up, her green eyes reflecting the harsh orange glare of the lava channels. "I stole the manifests. I gave them to the syndicate. I watched the cargo wagons get diverted. I bought my brother's life, and that winter, forty beast-kin children froze to death in the dark. I knew it was happening. I heard the bells tolling for them from the temple. I took the money Vance gave me, paid Liam's debt, and bought him a ticket out of the city. I am not a hero, Lukas. I am a thief who traded the lives of children for the life of my brother. And every time you talk about justice, I want to scream, because if the world were truly just, I'd be rotting in a ditch."
 
 Lukas looked at her, his heart aching. He recognized the pattern of her pain; it was the same desperate, clawing instinct that had driven him to make choices he regretted in the name of duty. He stepped closer, placing a hand on her shoulder. The warmth of his hand was steady, a quiet anchor.
 
@@ -6478,7 +6478,7 @@ And that was the way it should be. That was the price of freedom
 
 He visited the orphanage that afternoon, the children greeting him with shouts of delight that made his heart swell with a warmth that no amount of cold could extinguish. The orphanage was a converted warehouse in the Ashen Warrens, its walls reinforced with Rift-Iron, its windows glazed with crystal that let in the light while keeping out the cold. It was home to forty-seven children—orphans of the Purge, victims of the Discord, survivors of a world that had tried to destroy them.
 
-Lukas sat with them in the common room, the Astral Shard's light casting a soft, silver glow over their faces. A wolf-kin girl named Sera climbed into his lap, her amber eyes wide with the particular gravity that children acquired when they were about to ask an important question.
+Lukas sat with them in the common room, the Astral Shard's light casting a soft, silver glow over their faces. A wolf-kin girl named Sera climbed into his lap, her amber eyes wide with the gravity children acquired when they were about to ask an important question.
 
 "Mr. Lukas," she said, her voice small but determined. "Is it true that you fought the bad guys and saved everyone?"
 
@@ -6492,7 +6492,7 @@ Sera considered this with the seriousness that children brought to questions of 
 
 "You already are," Lukas said, his voice thick with an emotion he could not quite name. "Every day you choose to be kind, to be brave, to be good—that's heroism. That's the kind of heroism that changes the world."
 
-The children pressed around him, their faces alight with the particular joy of being young and loved and safe. They tugged at his cloak, showed him their drawings, told him about their day. And in their presence, the weight of the world seemed to lighten—a little, just enough to make the next step possible.
+The children pressed around him, their faces alight with the joy of being young and loved and safe. They tugged at his cloak, showed him their drawings, told him about their day. And in their presence, the weight of the world seemed to lighten—a little, just enough to make the next step possible.
 
 As he left the orphanage that evening, the children waving from the doorway, Lukas felt the Wolf-God's presence—not as a dream, but as a reality. A warmth against his mind, a whisper of encouragement, a reminder that the work was worth doing.
 
@@ -6634,7 +6634,7 @@ He knelt beside the garden and touched the soil. It was warm, as if the earth it
 
 “You still visit, then.—
 
-The voice came from behind him. Lukas turned to find an old bear-kin woman leaning in the doorway of the adjacent building, her fur gone silver with age, her eyes sharp with the particular wisdom of someone who had seen too much to be surprised by anything.
+The voice came from behind him. Lukas turned to find an old bear-kin woman leaning in the doorway of the adjacent building, her fur gone silver with age, her eyes sharp with the wisdom of someone who had seen too much to be surprised by anything.
 
 “Every year,— Lukas said.
 
