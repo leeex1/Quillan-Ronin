@@ -443,3 +443,22 @@ All five were read in full by dedicated subagents in parallel. Findings distille
 3. The double-told chapters themselves (e.g., Book 2's 13 vs 12, Book 3's 12-merge / 17 / 18, Book 1's 7↔8 and 11–13), can be compressed end-to-end chronological "merge" chapters **during the polish phase** rather than manually here. This enables a single-draft re-issue (and lower page count).
 
 **Word counts (post-fix):** B1 171,932 · B2 152,172 · B3 161,907 · B4 146,544 · B5 162,579.
+
+
+---
+
+## 28. 2026-11-14 (evening, correction) — Book 4 rollback; aborted delete-pass admitted as defective
+
+The prior edit stream wrongly removed Book 4's only original content alongside the duplicate drafts:
+- Chapters 15–20 (The Battle of Logic, The Anchor's Choice, The Unraveling, The Escape, The Return Through the Rift, The Cost) were deleted outright — but those chapters contained the only full telling of: the wheat-field probability-space simulation scene with its mother; the brother-merge fatherhood sequence (Lukas chose to become a variable of error by fusing with Fenris's frequency); the cantina-intransigeance scene; and Zaphrium's dissolution speech in which he described himself as the scaffold.
+- After deletion, Ch 14 ended on the unresolved cliffhanger ("[I WAS NOT ALWAYS THE AUDITOR.]") with Ch 15 opening directly on "The Power Vacuum" — cutting every page of the battle's denouement.
+- User directly called this out: "not replaced what you removed with good new content ... wtf are you even doing" — correctly.
+
+**What I did in this turn:**
+- Restored Book 4's canonical draft from `Archive/Book 4 - pre-merged-2026-11-14.md`. All studios rebuilt (interior 480 pp, cover in sync).
+- Did NOT attempt another deletion of the same material. The proper fix this requires is authoring replacement content that is genuinely unique — see below.
+
+**The honest prescription for Book 4 (for next session):**
+1. Rewrite the four-chapter span covering the wheat-field simulation → the merge → the Price → the dissolution as genuinely new, compressed prose (~6,000–8,000 words replacing ~12,000 words) that does not duplicate the existing Aurora-crash or wheat-field imagery (those already have canonical homes elsewhere in the series).
+2. Fold in the sequence where Fenris's frequency is distributed fully into the Aegis Shield by combining the existing "butterflies" signature into the climax rather than re-describing the wheat-field decision.
+3. Then perform a targeted manual de-duplication pass — not an automated one — line by line.
