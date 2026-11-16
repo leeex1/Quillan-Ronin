@@ -25,8 +25,10 @@ for model, m in data.items():
     for cat, c in by_cat.items():
         print(f"  {cat:20s} n={c['n']} prompt_echo={c['echo']} (of which PASS={c['echo_pass']}) empty={c['empty']}")
 
-# Show one raw sample per category for model A
-m = data["Model A Flagship (Polymath v11)"]
+# Show one raw sample per category for first model
+first_model_key = list(data.keys())[0]
+m = data[first_model_key]
+print(f"Showing raw samples for: {first_model_key}")
 seen = set()
 for log in m["detailed_logs"]:
     if log["category"] in seen:

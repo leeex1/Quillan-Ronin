@@ -6,9 +6,11 @@ Integrates audio processing, lyrics analysis, and speech/music alignment
 leveraging NVIDIA NIM multimodal capabilities and local feature extractors.
 """
 
+import asyncio
 import os
 import json
 import logging
+import random
 from pathlib import Path
 from typing import Optional, List, Dict
 import httpx
@@ -16,6 +18,7 @@ import httpx
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 NIM_BASE = "https://integrate.api.nvidia.com/v1"
 REASONING_MODEL = "nvidia/nemotron-3.5-lightning-30b-a3b"
+NIM_TIMEOUT = httpx.Timeout(connect=10.0, read=90.0, write=30.0, pool=10.0)
 
 def get_nvidia_api_key() -> str:
     key = os.environ.get("NVIDIA_API_KEY", "").strip()
@@ -90,25 +93,37 @@ Provide:
             summary["analysis"] = "NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env"
             return summary
 
-        async with httpx.AsyncClient(timeout=45.0) as client:
-            resp = await client.post(
-                f"{NIM_BASE}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": REASONING_MODEL,
-                    "messages": [{"role": "user", "content": prompt}],
-                    "max_tokens": 512,
-                    "temperature": 0.3
-                }
-            )
-            if resp.status_code == 200:
-                msg = resp.json()["choices"][0]["message"]
-                summary["analysis"] = msg.get("content") or msg.get("reasoning_content") or ""
-            else:
-                summary["analysis"] = f"Analysis failed with status code {resp.status_code}"
+        last_exc = None
+        async with httpx.AsyncClient(timeout=NIM_TIMEOUT) as client:
+            for attempt in range(3):
+                try:
+                    resp = await client.post(
+                        f"{NIM_BASE}/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {api_key}",
+                            "Content-Type": "application/json"
+                        },
+                        json={
+                            "model": REASONING_MODEL,
+                            "messages": [{"role": "user", "content": prompt}],
+                            "max_tokens": 512,
+                            "temperature": 0.3
+                        }
+                    )
+                    if resp.status_code in (429, 500, 502, 503, 504) and attempt < 2:
+                        await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
+                        continue
+                    if resp.status_code == 200:
+                        msg = resp.json()["choices"][0]["message"]
+                        summary["analysis"] = msg.get("content") or msg.get("reasoning_content") or ""
+                    else:
+                        summary["analysis"] = f"Analysis failed with status code {resp.status_code}"
+                    break
+                except (httpx.TimeoutException, httpx.TransportError) as exc:
+                    last_exc = exc
+                    if attempt == 2:
+                        raise
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
 
     return summary
 

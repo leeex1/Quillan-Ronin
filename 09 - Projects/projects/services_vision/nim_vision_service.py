@@ -7,9 +7,11 @@ Powered by NVIDIA NIM:
 - Analyzes diagrams, model architectures, 3D meshes/renderings, and album artwork.
 """
 
+import asyncio
 import os
 import base64
 import logging
+import random
 from pathlib import Path
 from typing import Optional
 import httpx
@@ -17,6 +19,8 @@ import httpx
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 NIM_BASE = "https://integrate.api.nvidia.com/v1"
 PRIMARY_VISION_MODEL = "meta/llama-3.2-90b-vision-instruct"
+MAX_IMAGE_BYTES = 10 * 1024 * 1024
+NIM_TIMEOUT = httpx.Timeout(connect=10.0, read=90.0, write=30.0, pool=10.0)
 
 def get_nvidia_api_key() -> str:
     key = os.environ.get("NVIDIA_API_KEY", "").strip()
@@ -48,6 +52,8 @@ async def analyze_image(
     path = Path(image_path)
     if not path.exists():
         return f"Error: Image file not found at {image_path}"
+    if path.stat().st_size > MAX_IMAGE_BYTES:
+        return f"Error: Image exceeds {MAX_IMAGE_BYTES} byte limit: {image_path}"
     
     b64_img = encode_image(str(path))
     ext = path.suffix.lower().replace(".", "")
@@ -78,17 +84,27 @@ async def analyze_image(
     if not api_key:
         raise RuntimeError("NVIDIA_API_KEY is not set and was not found in C:\\02_QUILLAN\\.env")
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        resp = await client.post(
-            f"{NIM_BASE}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json"
-            },
-            json=payload
-        )
-        resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]["content"]
+    async with httpx.AsyncClient(timeout=NIM_TIMEOUT) as client:
+        for attempt in range(3):
+            try:
+                resp = await client.post(
+                    f"{NIM_BASE}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {api_key}",
+                        "Content-Type": "application/json"
+                    },
+                    json=payload
+                )
+                if resp.status_code in (429, 500, 502, 503, 504) and attempt < 2:
+                    await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
+                    continue
+                resp.raise_for_status()
+                msg = resp.json()["choices"][0]["message"]
+                return msg.get("content") or msg.get("reasoning_content") or ""
+            except (httpx.TimeoutException, httpx.TransportError):
+                if attempt == 2:
+                    raise
+                await asyncio.sleep((2 ** attempt) + random.uniform(0.1, 0.5))
 
 if __name__ == "__main__":
     import asyncio

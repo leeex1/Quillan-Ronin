@@ -292,6 +292,38 @@ def convert_hf_dir_to_gguf(hf_dir: Path, out_gguf: Path, outtype: str = "q8_0") 
     subprocess.run(cmd, check=True)
 
 
+def copy_gguf_field(writer: gguf.GGUFWriter, key: str, field: Any) -> None:
+    """Copies any GGUF KV metadata field faithfully, preserving exact scalar/array types."""
+    val = field.contents()
+    ftype = field.types[0] if field.types else None
+    if ftype == gguf.GGUFValueType.ARRAY:
+        writer.add_array(key, val)
+    elif ftype == gguf.GGUFValueType.STRING:
+        writer.add_string(key, str(val))
+    elif ftype == gguf.GGUFValueType.BOOL:
+        writer.add_bool(key, bool(val))
+    elif ftype == gguf.GGUFValueType.UINT8:
+        writer.add_uint8(key, int(val))
+    elif ftype == gguf.GGUFValueType.INT8:
+        writer.add_int8(key, int(val))
+    elif ftype == gguf.GGUFValueType.UINT16:
+        writer.add_uint16(key, int(val))
+    elif ftype == gguf.GGUFValueType.INT16:
+        writer.add_int16(key, int(val))
+    elif ftype == gguf.GGUFValueType.UINT32:
+        writer.add_uint32(key, int(val))
+    elif ftype == gguf.GGUFValueType.INT32:
+        writer.add_int32(key, int(val))
+    elif ftype == gguf.GGUFValueType.FLOAT32:
+        writer.add_float32(key, float(val))
+    elif ftype == gguf.GGUFValueType.UINT64:
+        writer.add_uint64(key, int(val))
+    elif ftype == gguf.GGUFValueType.INT64:
+        writer.add_int64(key, int(val))
+    elif ftype == gguf.GGUFValueType.FLOAT64:
+        writer.add_float64(key, float(val))
+
+
 def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path) -> None:
     """
     Writes a patched Dragon Q8_0 GGUF preserving all 38 original BLOB_DRAGON metadata fields,
@@ -328,28 +360,7 @@ def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path) -> None:
     for key, field in reader.fields.items():
         if key in skip_keys:
             continue
-        val = field.contents()
-        ftype = field.types[0] if field.types else None
-        if ftype == gguf.GGUFValueType.ARRAY:
-            sub_type = field.types[1] if len(field.types) > 1 else None
-            writer.add_array(key, val)
-            _ = sub_type
-        elif ftype == gguf.GGUFValueType.STRING:
-            writer.add_string(key, val)
-        elif ftype == gguf.GGUFValueType.BOOL:
-            writer.add_bool(key, bool(val))
-        elif ftype == gguf.GGUFValueType.UINT32:
-            writer.add_uint32(key, int(val))
-        elif ftype == gguf.GGUFValueType.INT32:
-            writer.add_int32(key, int(val))
-        elif ftype == gguf.GGUFValueType.FLOAT32:
-            writer.add_float32(key, float(val))
-        elif ftype == gguf.GGUFValueType.UINT64:
-            writer.add_uint64(key, int(val))
-        elif ftype == gguf.GGUFValueType.INT64:
-            writer.add_int64(key, int(val))
-        elif ftype == gguf.GGUFValueType.FLOAT64:
-            writer.add_float64(key, float(val))
+        copy_gguf_field(writer, key, field)
 
     for t in reader.tensors:
         if t.name in hf_to_gguf_map:

@@ -104,11 +104,12 @@ def _resolve_ffmpeg_cmd() -> str:
 
 
 def load_image_ffmpeg(file_path: Path) -> torch.Tensor:
-    """Decode and resize an image to 256x256 RGB24 [-1, 1] using FFmpeg (PIL fallback)."""
+    """Decode and letterbox-resize an image to 256x256 RGB24 [-1, 1] using FFmpeg (PIL fallback)."""
     ffmpeg_cmd = _resolve_ffmpeg_cmd()
     cmd = [
         ffmpeg_cmd, "-y", "-i", str(file_path),
-        "-vf", "scale=256:256", "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
+        "-vf", "scale=256:256:force_original_aspect_ratio=decrease,pad=256:256:(ow-iw)/2:(oh-ih)/2",
+        "-frames:v", "1", "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
     ]
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
     expected_bytes = 256 * 256 * 3
@@ -118,8 +119,9 @@ def load_image_ffmpeg(file_path: Path) -> torch.Tensor:
     else:
         from PIL import Image
         import numpy as np
+        from _shared.media_utils import letterbox_pil_image
         with Image.open(file_path) as im:
-            arr = np.array(im.convert("RGB").resize((256, 256)), dtype=np.uint8)
+            arr = np.array(letterbox_pil_image(im, (256, 256)), dtype=np.uint8)
         t = torch.from_numpy(arr).float().permute(2, 0, 1)
     return (t / 127.5) - 1.0
 
@@ -157,11 +159,11 @@ def load_audio_ffmpeg(file_path: Path) -> torch.Tensor:
 
 
 def load_video_ffmpeg(file_path: Path) -> torch.Tensor:
-    """Decode and sample 8 frames at 64x64 RGB24 [-1, 1] via FFmpeg (PyAV fallback)."""
+    """Decode and sample 8 letterboxed frames at 64x64 RGB24 [-1, 1] via FFmpeg (PyAV fallback)."""
     ffmpeg_cmd = _resolve_ffmpeg_cmd()
     cmd = [
         ffmpeg_cmd, "-y", "-i", str(file_path),
-        "-vf", "scale=64:64,fps=8", "-vframes", "8",
+        "-vf", "scale=64:64:force_original_aspect_ratio=decrease,pad=64:64:(ow-iw)/2:(oh-ih)/2,fps=8", "-vframes", "8",
         "-f", "rawvideo", "-pix_fmt", "rgb24", "-"
     ]
     proc = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
@@ -175,11 +177,12 @@ def load_video_ffmpeg(file_path: Path) -> torch.Tensor:
     else:
         import av
         import numpy as np
+        from _shared.media_utils import letterbox_pil_image
         frames = []
         with av.open(str(file_path)) as c:
             vs = next(s for s in c.streams if s.type == "video")
             for frame in c.decode(vs):
-                im = frame.to_image().convert("RGB").resize((64, 64))
+                im = letterbox_pil_image(frame.to_image(), (64, 64))
                 frames.append(np.array(im, dtype=np.uint8))
                 if len(frames) >= 8:
                     break

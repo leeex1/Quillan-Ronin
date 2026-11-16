@@ -127,11 +127,15 @@ class TestOmniModalE2E(unittest.TestCase):
         self.assertEqual(frame_res["status"], "OK")
         self.assertTrue(Path(frame_res["output_path"]).exists())
 
+        from _shared.media_utils import letterbox_pil_image
+
         tracker = build_quillan_video_model(device="cpu")
         with av.open(str(ASSETS["mp4"])) as container:
             vs = next(s for s in container.streams if s.type == "video")
             for idx, frame in enumerate(container.decode(vs)):
-                fx = T.ToTensor()(frame.to_image().convert("RGB").resize((64, 64))).unsqueeze(0)
+                lb = letterbox_pil_image(frame.to_image(), (64, 64))
+                self.assertEqual(lb.size, (64, 64))
+                fx = T.ToTensor()(lb).unsqueeze(0)
                 tracker.track_frame(fx)
                 if idx >= 2:
                     break
@@ -145,6 +149,7 @@ class TestOmniModalE2E(unittest.TestCase):
         import torchvision.transforms as T
         from PIL import Image
         import quillan_media.server as qm
+        from _shared.media_utils import letterbox_pil_image
         from quillan_vision_builder import build_quillan_image_model
 
         model = build_quillan_image_model(device="cpu")
@@ -155,7 +160,7 @@ class TestOmniModalE2E(unittest.TestCase):
             self.assertGreater(info["height"], 0)
 
             with Image.open(ASSETS[ext]) as im:
-                x = T.ToTensor()(im.convert("RGB").resize((64, 64))).unsqueeze(0)
+                x = T.ToTensor()(letterbox_pil_image(im, (64, 64))).unsqueeze(0)
             with torch.no_grad():
                 out = model(x)
             self.assertEqual(tuple(out["final_output"].shape), (1, 80, 4, 4))

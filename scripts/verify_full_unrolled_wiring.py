@@ -18,8 +18,12 @@ import torch
 import torch.nn as nn
 from pathlib import Path
 
+SCRIPTS_DIR = Path(__file__).resolve().parent
+if str(SCRIPTS_DIR) not in sys.path:
+    sys.path.insert(0, str(SCRIPTS_DIR))
 SCRATCH_DIR = Path(r"C:\Users\Admin\.gemini\antigravity-ide\brain\47d0b748-384a-4cc6-bcb6-f13c52f1d9d9\scratch")
-sys.path.insert(0, str(SCRATCH_DIR))
+if SCRATCH_DIR.exists() and str(SCRATCH_DIR) not in sys.path:
+    sys.path.append(str(SCRATCH_DIR))
 
 from quillan_v10_unrolled_sovereign import QuillanUnrolledSovereign, QuillanUnrolledConfig
 

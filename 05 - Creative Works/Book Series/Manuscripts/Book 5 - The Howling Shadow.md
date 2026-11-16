@@ -600,7 +600,7 @@ He paused at the door. His back was to me — massive, armored, carrying the und
 
 "You'll wish you'd killed the boy," he said. "The training is worse than the lash. The training makes the lash feel like a mother's touch."
 
-He left. The door closed. The lock engaged. The cell was silent again — but a different silent. A silent that now carried, in its compressed architecture, the memory of a voice that had been shared rather than stated, a truth that had been offered rather than imposed.
+He left. The door closed. The lock engaged. The cell was silent again — but a different silent. A silent that now held a voice that had been shared rather than stated, a truth offered rather than imposed.
 
 I lay in the ash. The lash wounds burned. The blood was warm on my spine. The cold was deep in my bones.
 
@@ -836,7 +836,7 @@ Vark fed me that night.
 
 Not food — the Pits did not deal in food, not in the way that markets and homes dealt in food, which was a thing of warmth and community and the human ritual of sustenance. The Pits dealt in *fuel* — a gray, compressed paste that tasted of iron and carried the clinical nutrition of a thing designed to keep bodies functional through the simple expedient of not letting them starve.
 
-He brought the paste to my cell. He did not send an armored figure. He came himself. His massive frame filled the doorway, his armor catching the cold light of the corridor and throwing it back in muted flashes of black metal. He carried a bowl — iron, dented, carrying the worn smoothness of a thing that had been used by many hands and would be used by many more.
+He brought the paste to my cell. He did not send an armored figure. He came himself. He filled the doorway, armor throwing the corridor light back in muted flashes of black metal. He carried a bowl — iron, dented, worn smooth by many hands and destined for many more.
 
 He set the bowl on the floor. The paste was gray. The bowl was gray. The cell was gray. The only thing that was not gray was the warmth of the Discord in my chest, pulsing with the steady rhythm of a thing that had found its purpose.
 
@@ -882,7 +882,7 @@ He stood. The floor shook. His armor caught the cold light and threw it back.
 
 "Feed the boy," he said, to someone in the corridor I could not see. "He is a high-resonance record. He has value."
 
-A figure appeared in the doorway — armored, iron-masked, carrying another bowl of paste. The figure set the bowl on the floor and retreated. Vark followed. The door closed. The lock engaged. The cell was silent again — but a different silent. A silent that now carried, in its compressed architecture, the memory of a voice that had been shared rather than stated, a truth that had been offered rather than imposed.
+A figure appeared in the doorway — armored, iron-masked, carrying another bowl of paste. The figure set the bowl on the floor and retreated. Vark followed. The door closed. The lock engaged. The cell was silent again — but a different silent. A silent that now held a voice that had been shared rather than stated, a truth offered rather than imposed.
 
 I ate the second bowl. The paste was warm. The Discord was warm. The two warmthes settled into my body — one in my stomach, one in my chest — and they were different, and they were the same, and the difference and the sameness were the biological evidence of a creature that had been asked to become a weapon and was, against all probability, becoming one.
 
@@ -1078,7 +1078,7 @@ I pointed the blade at his frequency. I released.
 
 The Discord hit him. The frequency. The violet-black light that had been compressed into a blade so narrow, so precise, that it could cut through the biological infrastructure of a living creature and cancel out the frequency that constituted its existence.
 
-The man's frequency broke. Not silenced. Not compressed. *Broke* — the irreversible fracture of a thing that had been tuned to one note and had been struck, by a discordant frequency, at the exact point where its structure was weakest.
+The man's frequency broke. Not silenced. Not compressed. *Broke* — a thing tuned to a single note, struck discordant at the one point where its structure let go.
 
 The man fell. He fell the way Raas had fallen — slowly, with the geological weight of a thing that has been rooted in one place for a long time and is now, against all probability, being asked to move. His body folded. His hands hit the desk. His face hit the desk. The book fell from his grip, its pages rustling against the polished wood.
 
@@ -1090,7 +1090,7 @@ I stood in the corner. The Discord was warm in my chest. The compression was —
 
 The sharpness was addictive. The warmth was addictive. The biological satisfaction of a body operating at its optimal capacity was addictive. I felt it spread through my chest — not the violent, eruptive warmth of the Null-Quartz chamber, which was the warmth of chaos. This was the controlled warmth of *use*. Of purpose. Of the biological machinery of my body being expressed rather than compressed.
 
-I had killed a man. And the killing had been sharp. And the sharpness had been addictive. And the addiction was the warmth in my chest, pulsing with the steady rhythm of a thing that had found its purpose.
+I had killed a man. The kill had been sharp, the sharpness its own addiction — a warm pulse in my chest, the steady rhythm of a thing that had finally found its purpose.
 
 I did not linger. The conditioning had taught me that stillness was a liability, that a body in a place where it did not belong was a body that would be found. I crossed the study to the desk and looked down at the man one last time. The book lay open beneath his face, the pages holding the shape of his breath, and I saw that he had been reading a history — a chronicle of the old wars, the ones before the Rifts, the ones the system did not bother to teach us in the Pits. He had been reading about a world that had been whole.
 
@@ -1726,7 +1726,7 @@ I was the only note in the silence.
 
 And the silence was waiting to be filled.
 
-I walked to the door. The lock was engaged. The iron was cold against my fingers. I compressed the Discord — a frequency so narrow, so precise, that it cut through the iron the way a blade cuts through cloth. The lock shattered. The door opened. The corridor stretched ahead — iron and stone and the cold, white light of the ceiling strips.
+I walked to the door. The lock was engaged. The iron was cold against my fingers. I compressed the Discord — a frequency so narrow, so precise, that it cut through the iron the way a blade cuts through cloth. The lock shattered. The door opened onto the same iron-and-stone length, lit by cold white strips of ceiling light.
 
 I walked into the corridor. The Pits were silent. The forges were silent. The nursery with its iron cribs and its silent children was silent. The training ring with its chains and its ash was silent. The entire architecture of the system — the cells, the chambers, the corridors, the compressed geography of a place that had been designed to create filters and had succeeded, against all probability, in creating something it had not anticipated — was silent.
 
@@ -6397,8 +6397,6 @@ The cold had teeth that night, the particular, bright bite of the first frost, a
 
 I watched from the eaves of the clock tower. A dozen butterflies, perched on the iron bracket where the bell-rope hung, looking down at the square from a height that gave them a perfect view. The square was full. Every citizen of Aethoria had turned out — nobles and commoners, soldiers and merchants, the old and the young. They moved through the stalls in a slow, warm tide, their breath steaming in the cold air, their laughter rising like smoke from the bonfires.
 
-They moved through the stalls in a slow, warm tide, their breath steaming in the cold air, their laughter rising like smoke from the bonfires.
-
 I had walked through crowds like this once, in the Shadowfang's life, wearing a merchant's face and carrying a merchant's pack, cataloguing every face, every exit, every vulnerability. I had been taught to see a crowd as a target. The crowd had not known what I was. The crowd had known only that a man was walking through it, and had made room, the way crowds always make room for strangers, with the unthinking courtesy of people who assume the best until the evidence is in. I had thought that courtesy was weakness. Standing above it now, invisible, watching the same courtesy play out in a hundred small gestures, I understood that it was not weakness. It was the thing that made a crowd a people. It was the thing that made a people worth saving.
 
 This was the harvest festival. The celebration of survival. The night when the kingdom set aside its fears and its grief and its endless, grinding work and remembered what it was fighting for. Not the queen, not the crown, not the abstract idea of nationhood. The food. The music. The warmth of bodies pressed together against the cold. The simple, animal joy of being alive when the alternative was not.
@@ -6695,7 +6693,7 @@ Lukas was quiet for a long time. The sky healed above him, the rifts sealing one
 
 "I won't let you down," Lukas said. "Either of you."
 
-The butterfly on his shoulder pulsed. Silver and violet. The harmonic of two brothers, bound by a frequency that transcended form and death and the petty categories of the living and the gone.
+The butterfly on his shoulder pulsed. Silver and violet — the frequency of two brothers, carrying past form and death and the petty arithmetic of the living and the gone.
 
 *You already haven't*, I thought. *You already haven't.
 

@@ -254,3 +254,27 @@ def inspect_video_file(path: Path, sample_frames: int = 3) -> Dict[str, Any]:
         info["decoded_sample_frames"] = len(frame_shapes)
         info["sample_frame_mean_rgb"] = frame_means
     return info
+
+
+def letterbox_pil_image(
+    img: Any,
+    target_size: Tuple[int, int] = (64, 64),
+    fill: Tuple[int, int, int] = (0, 0, 0),
+) -> Any:
+    """Resize a PIL Image while preserving aspect ratio via centered letterboxing."""
+    from PIL import Image
+
+    rgb = img.convert("RGB")
+    tw, th = int(target_size[0]), int(target_size[1])
+    if tw <= 0 or th <= 0:
+        raise ValueError(f"target_size must be positive, got {target_size}")
+    w, h = rgb.size
+    if w <= 0 or h <= 0:
+        return Image.new("RGB", (tw, th), fill)
+    scale = min(tw / float(w), th / float(h))
+    nw = max(1, int(round(w * scale)))
+    nh = max(1, int(round(h * scale)))
+    resized = rgb.resize((nw, nh), Image.Resampling.BILINEAR)
+    canvas = Image.new("RGB", (tw, th), fill)
+    canvas.paste(resized, ((tw - nw) // 2, (th - nh) // 2))
+    return canvas

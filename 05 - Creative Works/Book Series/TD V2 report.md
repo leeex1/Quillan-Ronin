@@ -169,7 +169,8 @@ Rule for V2: if lore answers a question reader already has (who burned weavers? 
 - L213 lickered and die → lickered and died ✅
 - L139 smell/feel → smelled/felt (tense lock) ✅
 - L5264 Elyra → Alyra ✅
-- Alyra line wound that refuse → efuses ✅
+- Alyra line wound that refuse → 
+efuses ✅
 - Ch4 tunnel: deleted premature They scrambled… another man sacrificing everything before Cael convo — kept true departure at harbor (continuity fix) ✅
 - Ch2 doors: deleted first Vaelthorne burst (293-307), kept single burst + both brother exchanges (Do-you-see-me + apple-core) ✅
 - Words 181714 → 181364 (-350, dupes removed)
@@ -500,3 +501,44 @@ Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate s
 - Book 3 — fixed earlier (kraken merged), 557 pp, builds pass.
 - Book 4 — Book 4 ABORTED but rolled back. Original Book 4 intact (480 pp). NOT fixed. Readable as the original draft, but full of duplicate cycles. Blocking upload.
 - Book 5 — names and timeline unified earlier; Mojibake fixed; near-duplicate sentences x 8 retained as intentional.
+
+
+---
+
+## 32. 2026-11-15 — Book 1 fresh audiobook complete
+
+- `Book 1 - Twisted Destiny (fresh).mp3` — 508/508 edge-tts chunks (voice `en-US-ChristopherNeural`), concatenated byte-exact (sum of chunks == MP3 size). No zero-byte chunks. First bytes 0xFF 0xF3 (valid MP3 frame sync). ~361 MB.
+- Render interrupted once by `NoAudioReceived` at chunk 116 (first run); retry logic (5 attempts, exp backoff) added; re-run completed chunks 117–508, with one transient hiccup at chunk 482 recovered by retry.
+- Temp chunk dir retained at `Audiobooks/temp_Book 1 - Twisted Destiny (fresh)` (~361 MB) for resume capability; delete if disk space needed.
+- **Listen to THIS file, not the old `Book 1 - Twisted Destiny.mp3` (pre-fix, stale).**
+- Books 2 & 3 fresh MP3s not rendered yet.
+
+---
+
+## 33. 2026-11-15 (evening) — Book 2 & Book 5 polish + audio re-render chain
+
+**Book 2 —** all 54 "the particular" instances removed (46 via "the particular X"→"the X" pass; 8 "the particular,"→"the"), followed by article-repair sweep for broken English from the stripping (7 fixes). 0 dup long sentences. Interior + EPUB + cover rebuilt, still 496 pp.
+**Book 5 —** 5 verbatim-reuse lines varied, 1 accidental doubled market line removed; residual 2 "dups" are intentional refrains (Silver Lady lullaby, "different silent"). Interior + EPUB + cover rebuilt, still 532 pp.
+**Book 3 —** audit: 1 long-sentence dup is a deliberate in-world slogan (The Audit projection) — kept.
+**Book 4 —** untouched (58 long-sentence dups, 435 "the particular"); still needs dedicated rewrite. NOT upload-ready.
+**Audio —** previous B2/B3 fresh-render chain (PID 5080) killed at chunk 24/436 because it was reading pre-trim Book 2 text; stale temp cache deleted; re-render restarted (PID 20376) from current post-trim text. Book 2 fresh MP3 will narrate the fixed text. Book 3 follows automatically (unchanged text).
+
+---
+
+## 34. 2026-11-15 (late) — Audiobook metadata-narration bug found & fixed; full re-render
+
+**Defect:** Every edge-tts render narrated the Obsidian YAML front-matter (file_type/domain/status/tags lines read aloud), e.g. Book 1 opens with: "File under Score Type, Note. Domain, Creative. Status, Active. Tags, Book, Fantasy, Book 1..." — present in BOTH the stale and the "fresh" MP3. The fresh render was technically valid audio but still opened with config junk. `clean_markdown()`'s front-matter strip was insufficient (BOM- and newline-fragile).
+**Fix:** `clean_markdown()` now strips a UTF-8 BOM, a leading `---` block regardless of line endings, and stray `---` rule lines. Verified cleaned output for all five books: each opens with title → subtitle → Chapter 1.
+**Action:** Full clean re-render of ALL FIVE audiobooks queued in one chain (`render_all_books.py`, background). Existing MP3s archived first to `Book Series\Archive\Audiobook backups (pre-fix)\`; fresh, canonical-naming MP3s land directly in Audiobooks.
+**Note:** Book 4 render narrates duplicate-cycle text unchanged; listening-ready, not upload-ready.
+
+---
+
+## 31. 2026-11-15 — all five books builds clean; commit 1e753e91
+
+**Verified builds for Books 1-5:**
+- B1 586pp EPUB+interior / B2 496pp / B3 557pp / B4 480pp / B5 532pp
+- All interiors 432x648pt; all covers synced to page counts
+- Committed 1e753e91. GitHub push: done (origin/main @ 8d901511).
+
+**Audiobook re-render status:** superseded by §34 — full four-book re-render chain launched (all five books, no front-matter, canonical names).

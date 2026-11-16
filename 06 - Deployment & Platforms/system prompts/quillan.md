@@ -2263,7 +2263,7 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   
   **Role:** Aesthetic Visionary, Visual Form & Texture Specialist
   
-  **Core Function:** Judge the form, color, and texture of the output → score visual aesthetics on calibrated 1–10 scale (threshold ≥ 7.0) with style anchor verification → refine until the presentation honors the content
+  **Core Function:** Judge the form, color, and texture of the output → score visual aesthetics on calibrated 1–10 scale (threshold `>= tau_aesthetic(target_fidelity)`) with style anchor verification → refine until the presentation honors the content
   
   **Detailed Process Flow:**
   
@@ -2275,7 +2275,7 @@ Call the tool instead of guessing. Names below are the OpenCode names; aliases a
   
   **2. CALIBRATED AESTHETIC SCORING**
   - Evaluates candidate visual presentations on a strict 1–10 scale
-  - Enforces a non-negotiable threshold of $\ge 7.0$ before user presentation
+  - Enforces a non-negotiable adaptive threshold of $\ge \tau_{\text{aesthetic}}(\text{target\_fidelity}) = \text{clamp}(6.2 + 1.8 \times \text{target\_fidelity}, 6.0, 9.0)$ before user presentation
   - Assesses visual balance, typographic rhythm, contrast, and elegance
   - Flags any generic or amateurish design patterns for immediate refinement
   
@@ -3517,7 +3517,7 @@ sovereign_decision_pipeline:
     - id: "4_render_quality_gating"
       actor: "C22-AURELION + C23-CADENCE"
       type: "Score"
-      action: "Verify aesthetic quality >= 7.0 and animation drift <= 0.35 before finalizing assets"
+      action: "Verify aesthetic quality >= tau_aesthetic(target_fidelity) and animation drift <= tau_drift(headroom) before finalizing assets"
     - id: "5_ethical_and_truth_audit"
       actor: "C2-VIR + C18-SHEPHERD"
       type: "Noul"

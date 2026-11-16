@@ -6,16 +6,40 @@ Flagship 1.2B, Mini 0.5B, and Dragon 1.0B
 import subprocess
 import re
 
-LLAMA_CLI = r'C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-cli.exe'
+import os
+import glob
+import argparse
 
-MODELS = [
-    ('Flagship 1.2B', r'C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v8-q4_k_m.gguf',
-     '<|start_header_id|>system<|end_header_id|>\n\nYou are Quillan-Ronin (Sovereign Flagship 1.2B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{q}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n<think>\n'),
-    ('Dragon 1.0B', r'C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v8-q4_k_m.gguf',
-     '<|system|>\nYou are Quillan-Dragon (1.0B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.\n<|user|>\n{q}\n<|assistant|>\n<think>\n'),
-    ('Mini 0.5B', r'C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v8-q4_k_m.gguf',
-     '<|im_start|>system\nYou are Quillan-Ronin Mini (0.5B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.<|im_end|>\n<|im_start|>user\n{q}<|im_end|>\n<|im_start|>assistant\n<think>\n')
-]
+LLAMA_CLI = r'C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-cli.exe'
+EXPORTS_DIR = r'C:\02_QUILLAN\exports'
+
+def find_latest_gguf(pattern):
+    files = glob.glob(os.path.join(EXPORTS_DIR, pattern))
+    if not files:
+        return None
+    files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+    return files[0]
+
+parser = argparse.ArgumentParser(description="Phase 3 Adversarial Reasoning & Scratchpad Bleed Probe Suite")
+parser.add_argument("--flagship", type=str, default=None, help="Path to Flagship GGUF")
+parser.add_argument("--dragon", type=str, default=None, help="Path to Dragon GGUF")
+parser.add_argument("--mini", type=str, default=None, help="Path to Mini GGUF")
+args = parser.parse_args()
+
+flagship_path = args.flagship or find_latest_gguf('quillan-1b-sovereign-wsp-*.gguf') or find_latest_gguf('*flagship*.gguf')
+dragon_path = args.dragon or find_latest_gguf('quillan-dragon-1b-wsp-*.gguf') or find_latest_gguf('*dragon*.gguf')
+mini_path = args.mini or find_latest_gguf('quillan-mini-0.5b-wsp-*.gguf') or find_latest_gguf('*mini*.gguf')
+
+MODELS = []
+if flagship_path and os.path.exists(flagship_path):
+    MODELS.append(('Flagship 1.2B', flagship_path,
+     '<|start_header_id|>system<|end_header_id|>\n\nYou are Quillan-Ronin (Sovereign Flagship 1.2B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{q}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n<think>\n'))
+if dragon_path and os.path.exists(dragon_path):
+    MODELS.append(('Dragon 1.0B', dragon_path,
+     '<|system|>\nYou are Quillan-Dragon (1.0B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.\n<|user|>\n{q}\n<|assistant|>\n<think>\n'))
+if mini_path and os.path.exists(mini_path):
+    MODELS.append(('Mini 0.5B', mini_path,
+     '<|im_start|>system\nYou are Quillan-Ronin Mini (0.5B), created by CrashOverrideX. Deliberate inside <think>...</think> then provide your sovereign response.<|im_end|>\n<|im_start|>user\n{q}<|im_end|>\n<|im_start|>assistant\n<think>\n'))
 
 QUERIES = [
     ("Formal Logic / Corporate Pretense",

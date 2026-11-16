@@ -44,28 +44,47 @@ logging.basicConfig(
 logger = logging.getLogger("V23_StageC")
 
 
+SOVEREIGN_SYSTEM_ANCHOR = (
+    "You are Quillan (C0-QUILLAN), Sovereign Samurai Collective. "
+    "Prioritize rectitude, honesty, and technical precision over flattery. "
+    "Verify every constraint inside deliberate reasoning before answering."
+)
+
+
 def format_chat_example(
     tokenizer: Any,
     user_text: str,
     assistant_text: str,
     system_text: Optional[str] = None,
-    max_len: int = 224,
+    max_len: int = 240,
 ) -> Optional[Tuple[torch.Tensor, torch.Tensor]]:
     """
     Tokenizes a (system?, user, assistant) pair with assistant-only loss masking (-100
-    on prompt tokens). Truncates user prefix if needed so assistant target stays intact.
+    on prompt tokens). Preserves any system prefix and left-trims only excess user tokens
+    if total sequence exceeds max_len.
     """
     messages_prompt: List[Dict[str, str]] = []
     if system_text:
         messages_prompt.append({"role": "system", "content": system_text})
     messages_prompt.append({"role": "user", "content": user_text})
 
+    sys_keep = 0
     if getattr(tokenizer, "chat_template", None):
         prompt_str = tokenizer.apply_chat_template(
             messages_prompt, tokenize=False, add_generation_prompt=True
         )
+        if system_text:
+            sys_str = tokenizer.apply_chat_template(
+                [{"role": "system", "content": system_text}],
+                tokenize=False,
+                add_generation_prompt=False,
+            )
+            sys_keep = len(tokenizer(sys_str, add_special_tokens=False)["input_ids"])
     else:
-        prompt_str = (f"{system_text}\n" if system_text else "") + f"User: {user_text}\nAssistant: "
+        sys_str = f"{system_text}\n" if system_text else ""
+        prompt_str = sys_str + f"User: {user_text}\nAssistant: "
+        if sys_str:
+            sys_keep = len(tokenizer(sys_str, add_special_tokens=False)["input_ids"])
 
     eos = tokenizer.eos_token or ""
     full_str = prompt_str + assistant_text + eos
@@ -75,13 +94,17 @@ def format_chat_example(
     if len(f_ids) <= len(p_ids) + 1:
         return None
 
-    # Keep full assistant target if total exceeds max_len by left-trimming prompt context
+    # Keep full assistant target and system prefix; trim only middle/user context if needed
     if len(f_ids) > max_len:
         ans_ids = f_ids[len(p_ids) :]
-        if len(ans_ids) >= max_len - 16:
-            ans_ids = ans_ids[: max_len - 16]
+        if len(ans_ids) >= max_len - 24:
+            ans_ids = ans_ids[: max_len - 24]
         keep_p = max_len - len(ans_ids)
-        p_ids = p_ids[-keep_p:]
+        if 0 < sys_keep < keep_p:
+            tail_p = keep_p - sys_keep
+            p_ids = p_ids[:sys_keep] + p_ids[-tail_p:]
+        else:
+            p_ids = p_ids[-keep_p:]
         f_ids = p_ids + ans_ids
 
     input_ids = torch.tensor([f_ids], dtype=torch.long)
@@ -90,7 +113,7 @@ def format_chat_example(
 
 
 def format_lm_prose_example(
-    tokenizer: Any, text: str, max_len: int = 224
+    tokenizer: Any, text: str, max_len: int = 240
 ) -> Optional[Tuple[torch.Tensor, torch.Tensor]]:
     """Tokenizes plain technical prose for direct next-token LM PPL reduction."""
     ids = tokenizer(text, add_special_tokens=True, truncation=True, max_length=max_len)["input_ids"]
@@ -101,7 +124,7 @@ def format_lm_prose_example(
 
 
 def build_stage_c_curriculum(
-    tokenizer: Any, data_path: Path, max_len: int = 224
+    tokenizer: Any, data_path: Path, max_len: int = 240
 ) -> Tuple[List[Tuple[torch.Tensor, torch.Tensor]], List[Dict[str, str]], List[str]]:
     """
     Constructs a strictly non-test balanced training dataset + held-out non-test dev MC/NLL split.
@@ -116,17 +139,31 @@ def build_stage_c_curriculum(
     rng = np.random.default_rng(202603)
     train_pairs: List[Tuple[torch.Tensor, torch.Tensor]] = []
 
-    def _add_chat(items: List[Dict[str, str]], limit: int, weight_reps: int = 1) -> int:
+    def _add_chat(
+        items: List[Dict[str, str]],
+        limit: int,
+        weight_reps: int = 1,
+        sys_prob: float = 0.20,
+        think_wrap_prob: float = 0.0,
+    ) -> int:
         pool = list(items)
         idx = rng.permutation(len(pool))[: min(limit, len(pool))]
         added = 0
         for i in idx:
             row = pool[int(i)]
+            sys_txt = row.get("system")
+            if not sys_txt and rng.random() < sys_prob:
+                sys_txt = SOVEREIGN_SYSTEM_ANCHOR
+            ans_txt = row["assistant"]
+            if think_wrap_prob > 0.0 and "<think>" not in ans_txt and "\n#### " in ans_txt:
+                if rng.random() < think_wrap_prob:
+                    reason, final_ans = ans_txt.rsplit("\n#### ", 1)
+                    ans_txt = f"<think>\n{reason.strip()}\n</think>\n\n#### {final_ans.strip()}"
             ex = format_chat_example(
                 tokenizer,
                 row["user"],
-                row["assistant"],
-                system_text=row.get("system"),
+                ans_txt,
+                system_text=sys_txt,
                 max_len=max_len,
             )
             if ex is not None:
@@ -141,18 +178,21 @@ def build_stage_c_curriculum(
     gsm_train = data["gsm8k"][8:]
 
     c_counts: Dict[str, int] = {}
-    c_counts["mmlu_chat"] = _add_chat(mmlu_train, 550)
-    c_counts["arc_chat"] = _add_chat(arc_train, 400)
-    c_counts["gsm8k_chat"] = _add_chat(gsm_train, 450)
-    c_counts["code_chat"] = _add_chat(data.get("code", []), 260, weight_reps=2)
-    c_counts["bfcl_chat"] = _add_chat(data.get("bfcl", []), 100, weight_reps=4)
+    c_counts["mmlu_chat"] = _add_chat(mmlu_train, 550, sys_prob=0.20)
+    c_counts["arc_chat"] = _add_chat(arc_train, 400, sys_prob=0.20)
+    c_counts["gsm8k_chat"] = _add_chat(gsm_train, 450, sys_prob=0.20, think_wrap_prob=0.30)
+    c_counts["code_chat"] = _add_chat(data.get("code", []), 260, weight_reps=2, sys_prob=0.20)
+    c_counts["bfcl_chat"] = _add_chat(data.get("bfcl", []), 120, weight_reps=3, sys_prob=0.25)
     c_counts["sov_chat"] = _add_chat(
-        data.get("sovereign_adherence", []) + data.get("identity", []), 64, weight_reps=4
+        data.get("sovereign_adherence", []) + data.get("identity", []),
+        80,
+        weight_reps=4,
+        sys_prob=0.0,
     )
 
     # 2. STEM/technical prose SFT + direct next-token LM fluency (lowers PPL directly)
     stem_rows = data.get("stem_prose", [])
-    c_counts["stem_chat"] = _add_chat(stem_rows, 350)
+    c_counts["stem_chat"] = _add_chat(stem_rows, 350, sys_prob=0.15)
 
     lm_added = 0
     for prose in data["calib_prose"][:3]:
@@ -161,7 +201,14 @@ def build_stage_c_curriculum(
             for _ in range(3):
                 train_pairs.append(ex)
             lm_added += 3
-    for row in stem_rows[:250]:
+    for row in stem_rows[:550]:
+        ex = format_lm_prose_example(
+            tokenizer, f"{row['user']}\n\n{row['assistant']}", max_len=max_len
+        )
+        if ex is not None:
+            train_pairs.append(ex)
+            lm_added += 1
+    for row in data.get("code", [])[:250]:
         ex = format_lm_prose_example(
             tokenizer, f"{row['user']}\n\n{row['assistant']}", max_len=max_len
         )
@@ -290,14 +337,13 @@ def merge_lora_into_stageb_cpu(
     return model, tok
 
 
-def patch_gguf_context_2m(gguf_path: Path, model_key: str) -> None:
+def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 2097152) -> None:
     """
     Updates GGUF KV metadata so Ollama 0.40.12 does not clamp num_ctx=2097152 below
     the 172,550-token Quillan-Samurai.md prompt, using non-destructive YaRN scaling
     params when needed alongside existing weights.
     """
     orig_ctx = {"flagship": 131072, "mini": 32768, "dragon": 8192}[model_key]
-    target_ctx = 2097152
     tmp_out = gguf_path.with_suffix(".tmp2m.gguf")
     reader = gguf.GGUFReader(str(gguf_path))
     arch = reader.fields["general.architecture"].contents()
@@ -308,35 +354,21 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str) -> None:
     rope_type_key = f"{arch}.rope.scaling.type"
     rope_factor_key = f"{arch}.rope.scaling.factor"
     rope_orig_key = f"{arch}.rope.scaling.original_context_length"
+    yarn_fast_key = f"{arch}.rope.scaling.yarn_beta_fast"
+    yarn_slow_key = f"{arch}.rope.scaling.yarn_beta_slow"
+    override_keys = {ctx_key, rope_type_key, rope_factor_key, rope_orig_key, yarn_fast_key, yarn_slow_key}
 
     for key, field in reader.fields.items():
-        if key in skip or key in (ctx_key, rope_type_key, rope_factor_key, rope_orig_key):
+        if key in skip or key in override_keys:
             continue
-        val = field.contents()
-        ftype = field.types[0] if field.types else None
-        if ftype == gguf.GGUFValueType.ARRAY:
-            writer.add_array(key, val)
-        elif ftype == gguf.GGUFValueType.STRING:
-            writer.add_string(key, val)
-        elif ftype == gguf.GGUFValueType.BOOL:
-            writer.add_bool(key, bool(val))
-        elif ftype == gguf.GGUFValueType.UINT32:
-            writer.add_uint32(key, int(val))
-        elif ftype == gguf.GGUFValueType.INT32:
-            writer.add_int32(key, int(val))
-        elif ftype == gguf.GGUFValueType.FLOAT32:
-            writer.add_float32(key, float(val))
-        elif ftype == gguf.GGUFValueType.UINT64:
-            writer.add_uint64(key, int(val))
-        elif ftype == gguf.GGUFValueType.INT64:
-            writer.add_int64(key, int(val))
-        elif ftype == gguf.GGUFValueType.FLOAT64:
-            writer.add_float64(key, float(val))
+        c.copy_gguf_field(writer, key, field)
 
     writer.add_uint32(ctx_key, target_ctx)
     writer.add_string(rope_type_key, "yarn")
     writer.add_float32(rope_factor_key, float(target_ctx) / float(orig_ctx))
     writer.add_uint32(rope_orig_key, int(orig_ctx))
+    writer.add_float32(yarn_fast_key, 32.0)
+    writer.add_float32(yarn_slow_key, 1.0)
 
     for t in reader.tensors:
         writer.add_tensor(t.name, t.data, raw_dtype=t.tensor_type)
@@ -349,8 +381,23 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str) -> None:
     gc.collect()
     gguf_path.unlink()
     tmp_out.rename(gguf_path)
-    logger.info("Patched GGUF %s -> %s=%d with YaRN (orig=%d factor=%.1f)",
-                gguf_path.name, ctx_key, target_ctx, orig_ctx, float(target_ctx) / float(orig_ctx))
+    logger.info(
+        "Patched GGUF %s -> %s=%d with YaRN (orig=%d factor=%.1f beta=[32,1])",
+        gguf_path.name,
+        ctx_key,
+        target_ctx,
+        orig_ctx,
+        float(target_ctx) / float(orig_ctx),
+    )
+
+
+def _measure_gguf_ppl_matrix(gguf_path: Path) -> Dict[str, float]:
+    """Measures held-out PPL on both -c 128 and -c 512 (2-chunk & 3-chunk) cleanly."""
+    return {
+        "c128_2c": c.measure_gguf_ppl_cli(gguf_path, chunks=2, ctx=128),
+        "c128_3c": c.measure_gguf_ppl_cli(gguf_path, chunks=3, ctx=128),
+        "c512_2c": c.measure_gguf_ppl_cli(gguf_path, chunks=2, ctx=512),
+    }
 
 
 def run_stage_c(
@@ -360,19 +407,21 @@ def run_stage_c(
     lora_r: int = 16,
     grad_accum: int = 8,
     convert_only: bool = False,
+    target_ctx: int = 2097152,
 ) -> Dict[str, Any]:
     spec = c.MODEL_SPECS[model_key]
     if convert_only:
         if model_key in ("flagship", "mini"):
             c.convert_hf_dir_to_gguf(spec["stagec_hf"], spec["stagec_gguf"], outtype="q8_0")
-        patch_gguf_context_2m(spec["stagec_gguf"], model_key)
-        ppl2 = c.measure_gguf_ppl_cli(spec["stagec_gguf"], chunks=2, ctx=128)
-        ppl3 = c.measure_gguf_ppl_cli(spec["stagec_gguf"], chunks=3, ctx=128)
+        pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+        patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
+        post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
         out = {
             "model": model_key,
             "stagec_gguf": str(spec["stagec_gguf"]),
-            "ppl_2c": ppl2,
-            "ppl_3c": ppl3,
+            "target_ctx": target_ctx,
+            "pre_patch_ppl": pre_patch_ppl,
+            "post_patch_ppl": post_patch_ppl,
         }
         print("STAGE_C_GGUF_PPL:", json.dumps(out))
         return out
@@ -390,7 +439,7 @@ def run_stage_c(
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
 
-    train_pairs, dev_mc, val_texts = build_stage_c_curriculum(tok, c.CLEAN_DATA_PATH, max_len=208)
+    train_pairs, dev_mc, val_texts = build_stage_c_curriculum(tok, c.CLEAN_DATA_PATH, max_len=240)
 
     model = AutoModelForCausalLM.from_pretrained(
         str(stageb_hf),
@@ -426,7 +475,7 @@ def run_stage_c(
 
     best_score = -1e9
     best_adapter_state: Optional[Dict[str, torch.Tensor]] = None
-    best_metrics = {"step": 0, "val_nll": base_nll, "dev_mc": base_mc}
+    best_metrics = {"step": 0, "val_nll": round(base_nll, 5), "dev_mc": round(base_mc, 4)}
 
     def _capture_adapter() -> Dict[str, torch.Tensor]:
         return {k: v.detach().cpu().clone() for k, v in model.named_parameters() if v.requires_grad}
@@ -442,9 +491,20 @@ def run_stage_c(
         for _ in range(grad_accum):
             inp, lbl = train_pairs[idx_cursor % len(train_pairs)]
             idx_cursor += 1
-            loss = chunked_causal_lm_loss(model, inp.to(device), lbl.to(device), chunk_size=48)
+            loss = chunked_causal_lm_loss(model, inp.to(device), lbl.to(device), chunk_size=32)
+            if step == 1 and not loss.requires_grad:
+                raise RuntimeError("Stage C gradient probe failed: loss.requires_grad is False")
             (loss / float(grad_accum)).backward()
             accum_loss += float(loss.item()) / float(grad_accum)
+        if step == 1:
+            lora_grad_norm = sum(
+                float(p.grad.float().norm().item() ** 2)
+                for p in opt.param_groups[0]["params"]
+                if p.grad is not None
+            ) ** 0.5
+            logger.info("Step 1 LoRA grad norm check: %.6f", lora_grad_norm)
+            if not (lora_grad_norm > 0.0):
+                raise RuntimeError("Stage C gradient probe failed: zero LoRA gradient norm on step 1")
         torch.nn.utils.clip_grad_norm_([p for p in model.parameters() if p.requires_grad], 1.0)
         opt.step()
         sched.step()
@@ -452,11 +512,11 @@ def run_stage_c(
 
         if step % 30 == 0 or step == max_steps:
             val_nll, dev_mc_acc = eval_dev_mc_and_nll(model, tok, dev_mc, val_texts, device)
-            # Prioritize lower NLL + higher MC accuracy
+            # Prioritize lower NLL + higher MC accuracy with strict Lyapunov PPL gate
             score = (dev_mc_acc * 2.0) - val_nll
             logger.info("Step %3d/%d | train_loss=%.4f | dev_nll=%.4f (PPL=%.3f) | dev_mc=%.1f%%",
                         step, max_steps, accum_loss, val_nll, math.exp(val_nll), dev_mc_acc * 100.0)
-            if val_nll <= base_nll + 0.08 and score > best_score:
+            if val_nll <= base_nll and score > best_score:
                 best_score = score
                 best_adapter_state = _capture_adapter()
                 best_metrics = {"step": step, "val_nll": round(val_nll, 5), "dev_mc": round(dev_mc_acc, 4)}
@@ -479,19 +539,7 @@ def run_stage_c(
     merge_audit = c.audit_model_integrity(merged_model, expected_params=expected_params)
     logger.info("Stage C merged CPU audit passed: %s", merge_audit)
 
-    # Export Dragon directly to GGUF + save HF; Flagship/Mini save bfloat16 HF for standalone convert
-    if model_key == "dragon":
-        c.export_dragon_gguf_from_hf(merged_model, spec["stagec_gguf"])
-        patch_gguf_context_2m(spec["stagec_gguf"], model_key)
-
-    merged_model.to(torch.bfloat16)
-    c.save_hf_checkpoint(merged_model, merged_tok, spec["stagec_hf"])
-    logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
-
-    del merged_model, best_adapter_state
-    gc.collect()
-
-    report = {
+    report: Dict[str, Any] = {
         "model": model_key,
         "elapsed_s": round(time.time() - t0, 2),
         "param_audit": merge_audit,
@@ -499,13 +547,24 @@ def run_stage_c(
         "base_dev_mc": round(base_mc, 4),
         "best_dev": best_metrics,
         "stagec_hf": str(spec["stagec_hf"]),
+        "target_ctx": target_ctx,
     }
+    # Export Dragon directly to GGUF + save HF; Flagship/Mini save bfloat16 HF for standalone convert
     if model_key == "dragon":
-        ppl2 = c.measure_gguf_ppl_cli(spec["stagec_gguf"], chunks=2, ctx=128)
-        ppl3 = c.measure_gguf_ppl_cli(spec["stagec_gguf"], chunks=3, ctx=128)
+        c.export_dragon_gguf_from_hf(merged_model, spec["stagec_gguf"])
+        pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+        patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
+        post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
         report["stagec_gguf"] = str(spec["stagec_gguf"])
-        report["ppl_2c"] = ppl2
-        report["ppl_3c"] = ppl3
+        report["pre_patch_ppl"] = pre_patch_ppl
+        report["post_patch_ppl"] = post_patch_ppl
+
+    merged_model.to(torch.bfloat16)
+    c.save_hf_checkpoint(merged_model, merged_tok, spec["stagec_hf"])
+    logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
+
+    del merged_model, best_adapter_state
+    gc.collect()
 
     rep_path = c.EXPORT_ROOT / f"v23_stagec_{model_key}_report.json"
     rep_path.write_text(json.dumps(report, indent=2), encoding="utf-8")

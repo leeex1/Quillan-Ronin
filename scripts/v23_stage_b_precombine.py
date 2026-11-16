@@ -205,20 +205,31 @@ def compute_candidate_deltas(
                 o_accum[hl] = o_accum[hl] + w_donor * delta_o_null
             weight_sums_o[hl] += w_donor
 
-            # --- 2. down_proj: output space via P^T, input space matched if dim agrees ---
+            # --- 2. down_proj: output space via P^T, input space via rank-r FFN Procrustes ---
             w_h_dn = model.model.layers[hl].mlp.down_proj.weight.detach().float()
             w_d_dn = donors[f"L{dl}.down_proj"].float()
             w_dn_out = p_d2h.T @ w_d_dn  # (d_host, d_ff_donor)
             if w_dn_out.shape[1] == w_h_dn.shape[1]:
-                scale_dn = float(torch.norm(w_h_dn) / (torch.norm(w_dn_out) + 1e-12))
-                delta_dn = scale_dn * w_dn_out - w_h_dn
-                v_dn = bases[(hl, "down_proj")]
-                delta_dn_null = delta_dn - (delta_dn @ v_dn) @ v_dn.T
-                if hl not in dn_accum:
-                    dn_accum[hl] = w_donor * delta_dn_null
-                else:
-                    dn_accum[hl] = dn_accum[hl] + w_donor * delta_dn_null
-                weight_sums_dn[hl] += w_donor
+                w_dn_al = w_dn_out
+            else:
+                # Rectangular FFN Procrustes matching donor output columns to host FFN subspace
+                q_rank = min(192, w_dn_out.shape[0], w_dn_out.shape[1], w_h_dn.shape[1])
+                u_d, s_d, v_d = torch.svd_lowrank(w_dn_out, q=q_rank, niter=2)
+                u_h, s_h, v_h = torch.svd_lowrank(w_h_dn, q=q_rank, niter=2)
+                c_small = (s_d[:, None] * (u_d.T @ u_h)) * s_h[None, :]
+                u_c, _, vh_c = torch.linalg.svd(c_small, full_matrices=False)
+                rot = u_c @ vh_c  # (q_rank, q_rank)
+                w_dn_al = ((w_dn_out @ v_d) @ rot) @ v_h.T  # (d_host, d_ff_host)
+
+            scale_dn = float(torch.norm(w_h_dn) / (torch.norm(w_dn_al) + 1e-12))
+            delta_dn = scale_dn * w_dn_al - w_h_dn
+            v_dn = bases[(hl, "down_proj")]
+            delta_dn_null = delta_dn - (delta_dn @ v_dn) @ v_dn.T
+            if hl not in dn_accum:
+                dn_accum[hl] = w_donor * delta_dn_null
+            else:
+                dn_accum[hl] = dn_accum[hl] + w_donor * delta_dn_null
+            weight_sums_dn[hl] += w_donor
 
         del donors
         gc.collect()
