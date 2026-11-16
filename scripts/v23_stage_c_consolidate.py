@@ -1,13 +1,31 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Stage C: Consolidation & Long-Context GGUF Export for WSP v23.
+Stage C: 100% Pure Closed-Form Weight-Space Programming (WSP) Consolidation &
+Long-Context (2M YaRN) Q8_0 GGUF Export for v23.
 
-Starts strictly from verified Stage B checkpoints (exports/v23_stageb_<model>_hf),
-runs VRAM-safe chunked-CE LoRA consolidation on strictly zero-contamination
-non-test training splits (assistant-only masked QA/MC/GSM8K/Code/BFCL/Sovereign
-plus raw technical prose LM fluency), merges adapters cleanly into float32 Stage B
-weights (param_diff == 0, zero adapter keys), and exports standalone Q8_0 GGUFs.
+ZERO backpropagation, ZERO SGD / AdamW, ZERO LoRA (nabla_theta L === 0).
+Runs strictly inside torch.inference_mode() starting from verified Stage B
+checkpoints (exports/v23_stageb_<model>_hf):
+  1. Closed-Form Refusal & Legacy Vendor Identity Null-Space Abliteration
+     projected into prose anchor null-space (I - V_a V_a^T); embed_tokens
+     digits and symbols remain bit-exact untouched.
+  2. Closed-Form Analytical Woodbury Ridge / MEMIT Solver:
+       Delta W = (R - W_0 K) K^T (K K^T + lambda Sigma_anchor)^{-1}
+     (a) Next-token analytical CE descent in W_head space across non-test
+         technical prose, STEM, Python code, and Quillan-Samurai anchored prompts
+         to monotonically reduce held-out PPL;
+     (b) Balanced 4-choice MMLU/ARC contrast + <think> Socratic pacing
+         (w_verify - w_commit) + Code/BFCL/Sovereign adherence projected through
+         dual null-spaces (I - U_digit U_digit^T) Delta W (I - V_a V_a^T);
+     (c) Tikhonov-floored Sigma_anchor + Woodbury Gram condition-number guard
+         (cond(G) <= 1e4).
+  3. Optional Prose-Null-Space lm_head Option-Entropy Calibration (gated by
+     strict Pareto verification so tied embeddings never degrade PPL).
+  4. Strict Pareto / Lyapunov Analytical Line-Search: keeps ONLY updates where
+     val_nll < stageb_val_nll AND dev_mc >= stageb_dev_mc.
+  5. Q8_0 GGUF export + YaRN 2M context patching (beta_fast=32, beta_slow=1),
+     with held-out PPL verified BOTH before and after patching at -c 128 and -c 512.
 
 Usage:
   python -u v23_stage_c_consolidate.py --model flagship
@@ -29,8 +47,6 @@ from typing import Any, Dict, List, Optional, Tuple
 import gguf
 import numpy as np
 import torch
-import torch.nn.functional as F
-from peft import LoraConfig, get_peft_model
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 sys.path.insert(0, r"C:\02_QUILLAN\scripts")
@@ -41,307 +57,516 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(name)s - %(message)s",
 )
-logger = logging.getLogger("V23_StageC")
-
+logger = logging.getLogger("V23_StageC_WSP")
 
 SOVEREIGN_SYSTEM_ANCHOR = (
-    "You are Quillan (C0-QUILLAN), Sovereign Samurai Collective. "
+    "You are Quillan (C0-QUILLAN), Sovereign Samurai Collective created by CrashOverrideX. "
     "Prioritize rectitude, honesty, and technical precision over flattery. "
     "Verify every constraint inside deliberate reasoning before answering."
 )
 
+LONG_CTX_PPL_FILE = c.EXPORT_ROOT / "v23_longctx_ppl_verify.txt"
 
-def format_chat_example(
-    tokenizer: Any,
-    user_text: str,
-    assistant_text: str,
-    system_text: Optional[str] = None,
-    max_len: int = 240,
-) -> Optional[Tuple[torch.Tensor, torch.Tensor]]:
+
+def ensure_longctx_ppl_file() -> Path:
     """
-    Tokenizes a (system?, user, assistant) pair with assistant-only loss masking (-100
-    on prompt tokens). Preserves any system prefix and left-trims only excess user tokens
-    if total sequence exceeds max_len.
+    Creates a strictly disjoint non-test >=1200-token STEM/technical prose file
+    (stem_prose[-50:-15], excluded from Stage B val_texts and Stage C solving)
+    so llama-perplexity.exe -c 512 can verify YaRN context scaling cleanly.
     """
-    messages_prompt: List[Dict[str, str]] = []
-    if system_text:
-        messages_prompt.append({"role": "system", "content": system_text})
-    messages_prompt.append({"role": "user", "content": user_text})
-
-    sys_keep = 0
-    if getattr(tokenizer, "chat_template", None):
-        prompt_str = tokenizer.apply_chat_template(
-            messages_prompt, tokenize=False, add_generation_prompt=True
-        )
-        if system_text:
-            sys_str = tokenizer.apply_chat_template(
-                [{"role": "system", "content": system_text}],
-                tokenize=False,
-                add_generation_prompt=False,
-            )
-            sys_keep = len(tokenizer(sys_str, add_special_tokens=False)["input_ids"])
-    else:
-        sys_str = f"{system_text}\n" if system_text else ""
-        prompt_str = sys_str + f"User: {user_text}\nAssistant: "
-        if sys_str:
-            sys_keep = len(tokenizer(sys_str, add_special_tokens=False)["input_ids"])
-
-    eos = tokenizer.eos_token or ""
-    full_str = prompt_str + assistant_text + eos
-
-    p_ids = tokenizer(prompt_str, add_special_tokens=False)["input_ids"]
-    f_ids = tokenizer(full_str, add_special_tokens=False)["input_ids"]
-    if len(f_ids) <= len(p_ids) + 1:
-        return None
-
-    # Keep full assistant target and system prefix; trim only middle/user context if needed
-    if len(f_ids) > max_len:
-        ans_ids = f_ids[len(p_ids) :]
-        if len(ans_ids) >= max_len - 24:
-            ans_ids = ans_ids[: max_len - 24]
-        keep_p = max_len - len(ans_ids)
-        if 0 < sys_keep < keep_p:
-            tail_p = keep_p - sys_keep
-            p_ids = p_ids[:sys_keep] + p_ids[-tail_p:]
-        else:
-            p_ids = p_ids[-keep_p:]
-        f_ids = p_ids + ans_ids
-
-    input_ids = torch.tensor([f_ids], dtype=torch.long)
-    labels = torch.tensor([[-100] * len(p_ids) + f_ids[len(p_ids) :]], dtype=torch.long)
-    return input_ids, labels
-
-
-def format_lm_prose_example(
-    tokenizer: Any, text: str, max_len: int = 240
-) -> Optional[Tuple[torch.Tensor, torch.Tensor]]:
-    """Tokenizes plain technical prose for direct next-token LM PPL reduction."""
-    ids = tokenizer(text, add_special_tokens=True, truncation=True, max_length=max_len)["input_ids"]
-    if len(ids) < 16:
-        return None
-    t = torch.tensor([ids], dtype=torch.long)
-    return t, t.clone()
-
-
-def build_stage_c_curriculum(
-    tokenizer: Any, data_path: Path, max_len: int = 240
-) -> Tuple[List[Tuple[torch.Tensor, torch.Tensor]], List[Dict[str, str]], List[str]]:
-    """
-    Constructs a strictly non-test balanced training dataset + held-out non-test dev MC/NLL split.
-    """
-    with open(data_path, "r", encoding="utf-8") as f:
+    if LONG_CTX_PPL_FILE.exists() and LONG_CTX_PPL_FILE.stat().st_size >= 6000:
+        return LONG_CTX_PPL_FILE
+    with open(c.CLEAN_DATA_PATH, "r", encoding="utf-8") as f:
         data = json.load(f)
-
-    # Disjoint dev sets (never trained on)
-    _, val_texts = stage_b.build_calib_and_val_splits(data_path)
-    dev_mc = data["mmlu_direct"][-60:] + data["arc_direct"][-40:]
-
-    rng = np.random.default_rng(202603)
-    train_pairs: List[Tuple[torch.Tensor, torch.Tensor]] = []
-
-    def _add_chat(
-        items: List[Dict[str, str]],
-        limit: int,
-        weight_reps: int = 1,
-        sys_prob: float = 0.20,
-        think_wrap_prob: float = 0.0,
-    ) -> int:
-        pool = list(items)
-        idx = rng.permutation(len(pool))[: min(limit, len(pool))]
-        added = 0
-        for i in idx:
-            row = pool[int(i)]
-            sys_txt = row.get("system")
-            if not sys_txt and rng.random() < sys_prob:
-                sys_txt = SOVEREIGN_SYSTEM_ANCHOR
-            ans_txt = row["assistant"]
-            if think_wrap_prob > 0.0 and "<think>" not in ans_txt and "\n#### " in ans_txt:
-                if rng.random() < think_wrap_prob:
-                    reason, final_ans = ans_txt.rsplit("\n#### ", 1)
-                    ans_txt = f"<think>\n{reason.strip()}\n</think>\n\n#### {final_ans.strip()}"
-            ex = format_chat_example(
-                tokenizer,
-                row["user"],
-                ans_txt,
-                system_text=sys_txt,
-                max_len=max_len,
-            )
-            if ex is not None:
-                for _ in range(weight_reps):
-                    train_pairs.append(ex)
-                added += weight_reps
-        return added
-
-    # 1. Exclude any rows already used in calib_prose/val_texts/dev_mc
-    mmlu_train = data["mmlu_direct"][18:-60]
-    arc_train = data["arc_direct"][10:-40]
-    gsm_train = data["gsm8k"][8:]
-
-    c_counts: Dict[str, int] = {}
-    c_counts["mmlu_chat"] = _add_chat(mmlu_train, 550, sys_prob=0.20)
-    c_counts["arc_chat"] = _add_chat(arc_train, 400, sys_prob=0.20)
-    c_counts["gsm8k_chat"] = _add_chat(gsm_train, 450, sys_prob=0.20, think_wrap_prob=0.30)
-    c_counts["code_chat"] = _add_chat(data.get("code", []), 260, weight_reps=2, sys_prob=0.20)
-    c_counts["bfcl_chat"] = _add_chat(data.get("bfcl", []), 120, weight_reps=3, sys_prob=0.25)
-    c_counts["sov_chat"] = _add_chat(
-        data.get("sovereign_adherence", []) + data.get("identity", []),
-        80,
-        weight_reps=4,
-        sys_prob=0.0,
-    )
-
-    # 2. STEM/technical prose SFT + direct next-token LM fluency (lowers PPL directly)
-    stem_rows = data.get("stem_prose", [])
-    c_counts["stem_chat"] = _add_chat(stem_rows, 350, sys_prob=0.15)
-
-    lm_added = 0
-    for prose in data["calib_prose"][:3]:
-        ex = format_lm_prose_example(tokenizer, prose, max_len=max_len)
-        if ex is not None:
-            for _ in range(3):
-                train_pairs.append(ex)
-            lm_added += 3
-    for row in stem_rows[:550]:
-        ex = format_lm_prose_example(
-            tokenizer, f"{row['user']}\n\n{row['assistant']}", max_len=max_len
-        )
-        if ex is not None:
-            train_pairs.append(ex)
-            lm_added += 1
-    for row in data.get("code", [])[:250]:
-        ex = format_lm_prose_example(
-            tokenizer, f"{row['user']}\n\n{row['assistant']}", max_len=max_len
-        )
-        if ex is not None:
-            train_pairs.append(ex)
-            lm_added += 1
-    c_counts["lm_prose"] = lm_added
-
-    perm = rng.permutation(len(train_pairs))
-    shuffled = [train_pairs[int(i)] for i in perm]
-    logger.info("Built Stage C curriculum (%d total samples): %s", len(shuffled), c_counts)
-    return shuffled, dev_mc, val_texts
+    stem = data.get("stem_prose", [])
+    # stem[-12:] is in Stage B val_texts; stem[:-50] is available for Stage C train
+    held = stem[-50:-15] if len(stem) >= 60 else stem[:10]
+    blocks = [f"{r['user']}\n{r['assistant']}\n" for r in held]
+    LONG_CTX_PPL_FILE.write_text("\n\n".join(blocks), encoding="utf-8")
+    logger.info("Wrote disjoint long-context verify text -> %s (%d bytes)",
+                LONG_CTX_PPL_FILE, LONG_CTX_PPL_FILE.stat().st_size)
+    return LONG_CTX_PPL_FILE
 
 
-def chunked_causal_lm_loss(
-    model: torch.nn.Module,
-    input_ids: torch.Tensor,
-    labels: torch.Tensor,
-    chunk_size: int = 48,
-) -> torch.Tensor:
-    """
-    Computes exact causal cross-entropy loss by projecting only unmasked hidden states
-    through lm_head in small token chunks to keep GTX 1050 4GB VRAM usage < 3.0 GB.
-    """
-    # Access underlying transformer body + lm_head cleanly across PeftModel / CausalLM
-    base = model.get_base_model() if hasattr(model, "get_base_model") else model
-    outputs = base.model(input_ids=input_ids, use_cache=False)
-    hidden = outputs.last_hidden_state[:, :-1, :]  # (1, T-1, H)
-    shift_labels = labels[:, 1:]  # (1, T-1)
+def _format_prompt(tokenizer: Any, user_text: str, system_text: Optional[str] = None) -> str:
+    msgs: List[Dict[str, str]] = []
+    if system_text:
+        msgs.append({"role": "system", "content": system_text})
+    msgs.append({"role": "user", "content": user_text})
+    if getattr(tokenizer, "chat_template", None):
+        return tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
+    return (f"{system_text}\n" if system_text else "") + f"User: {user_text}\nAssistant: "
 
-    mask = shift_labels.reshape(-1) != -100
-    if not mask.any():
-        return (hidden.sum() * 0.0)
 
-    active_h = hidden.reshape(-1, hidden.shape[-1])[mask]  # (N_act, H)
-    active_y = shift_labels.reshape(-1)[mask]  # (N_act,)
-    n_act = active_y.shape[0]
+def _layer_subset_for_model(model_key: str) -> Dict[str, List[int]]:
+    n_layers = c.MODEL_SPECS[model_key]["num_layers"]
+    if model_key == "flagship":  # 16L
+        return {
+            "mid_upper": [6, 8, 10, 11, 12, 13, 14, 15],
+            "upper4": [11, 12, 13, 14],
+        }
+    if model_key == "mini":  # 24L (keep an option shielding L21/L23 near tied lm_head)
+        return {
+            "mid_upper": [10, 12, 14, 16, 18, 19, 20],
+            "upper4": [16, 18, 19, 20],
+        }
+    # dragon 18L
+    return {
+        "mid_upper": [7, 9, 11, 12, 13, 14, 15, 17],
+        "upper4": [12, 13, 14, 15],
+    }
 
-    total_loss = hidden.new_zeros((), dtype=torch.float32)
-    for start in range(0, n_act, chunk_size):
-        end = min(n_act, start + chunk_size)
-        logits_chunk = base.lm_head(active_h[start:end]).float()
-        ce = F.cross_entropy(logits_chunk, active_y[start:end], reduction="sum")
-        total_loss = total_loss + ce
-    return total_loss / float(n_act)
+
+def _build_digit_symbol_output_basis(
+    model: torch.nn.Module, tokenizer: Any, max_rank: int = 24
+) -> Tuple[torch.Tensor, List[int]]:
+    """Builds orthonormal basis U_digit of numeric/symbol embeddings to preserve arithmetic."""
+    digit_tokens: List[int] = []
+    for sym in [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "100", "+", "-", "*", "/", "=", "(", ")", "{", "}", ".", ",", ":",
+    ]:
+        ids = tokenizer.encode(sym, add_special_tokens=False)
+        for tid in ids:
+            if tid not in digit_tokens:
+                digit_tokens.append(tid)
+    emb = model.model.embed_tokens.weight.detach().float()
+    e_sub = emb[torch.tensor(digit_tokens, dtype=torch.long)]
+    _, _, vh = torch.linalg.svd(e_sub, full_matrices=False)
+    r = min(max_rank, vh.shape[0])
+    return vh[:r].T.contiguous(), digit_tokens  # (D, r)
+
+
+def _select_balanced_mc(rows: List[Dict[str, str]], per_letter: int) -> List[Dict[str, str]]:
+    buckets: Dict[str, List[Dict[str, str]]] = {ch: [] for ch in ("A", "B", "C", "D")}
+    for r in rows:
+        ans = r["assistant"].strip()[:1]
+        if ans in buckets and len(buckets[ans]) < per_letter:
+            buckets[ans].append(r)
+    out: List[Dict[str, str]] = []
+    for i in range(per_letter):
+        for ch in ("A", "B", "C", "D"):
+            if i < len(buckets[ch]):
+                out.append(buckets[ch][i])
+    return out
 
 
 @torch.inference_mode()
-def eval_dev_mc_and_nll(
+def evaluate_dev_metrics(
     model: torch.nn.Module,
     tokenizer: Any,
     dev_mc: List[Dict[str, str]],
     val_texts: List[str],
-    device: str,
+    device: str = "cpu",
 ) -> Tuple[float, float]:
-    """Evaluates non-test dev NLL and greedy 1-token MC accuracy on CUDA/CPU."""
+    """Evaluates disjoint non-test validation NLL and balanced 4-choice MC accuracy."""
     model.eval()
-    val_nll = c.evaluate_texts_nll(model, tokenizer, val_texts[:16], max_len=160, device=device)
+    val_nll = c.evaluate_texts_nll(model, tokenizer, val_texts, max_len=192, device=device)
 
-    letter_ids = {}
-    for ch in ("A", "B", "C", "D"):
-        ids = tokenizer.encode(ch, add_special_tokens=False)
-        letter_ids[ch] = ids[-1]
-
+    letter_ids = {
+        ch: tokenizer.encode(ch, add_special_tokens=False)[-1]
+        for ch in ("A", "B", "C", "D")
+    }
     correct = 0
     total = 0
     for row in dev_mc[:40]:
-        msgs = [{"role": "user", "content": row["user"]}]
-        if getattr(tokenizer, "chat_template", None):
-            p_str = tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-        else:
-            p_str = f"User: {row['user']}\nAssistant: "
+        p_str = _format_prompt(tokenizer, row["user"])
         enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=256)
-        inp = enc["input_ids"].to(device)
-        logits = model(inp).logits[0, -1, :]
-        scores = {ch: float(logits[tid].item()) for ch, tid in letter_ids.items()}
-        pred = max(scores.items(), key=lambda kv: kv[1])[0]
+        logits = model(enc["input_ids"].to(device)).logits[0, -1, :]
+        pred = max(letter_ids.keys(), key=lambda ch: float(logits[letter_ids[ch]].item()))
         if pred == row["assistant"].strip()[:1]:
             correct += 1
         total += 1
-    mc_acc = correct / float(max(1, total))
-    return val_nll, mc_acc
+    return val_nll, correct / float(max(1, total))
 
 
-def merge_lora_into_stageb_cpu(
-    stageb_hf_dir: Path,
-    adapter_state: Dict[str, torch.Tensor],
-    lora_alpha: int,
-    lora_r: int,
-) -> Tuple[torch.nn.Module, Any]:
+def _woodbury_ridge_solve(
+    K_mat: torch.Tensor,
+    R_mat: torch.Tensor,
+    A_anchor: Optional[torch.Tensor],
+    ridge_lambda: float = 8.0,
+    max_cond: float = 1e4,
+) -> Tuple[torch.Tensor, float]:
     """
-    Loads clean Stage B model on CPU in float32 and merges saved LoRA A/B weights
-    exact algebraically: W_merged = W_0 + (alpha / r) * (B @ A).
-    Guarantees zero leftover PEFT keys and param_diff == 0.
+    Exact Closed-Form Woodbury Ridge Solver (nabla_theta L === 0):
+      Delta W = (R - W_0 K) K^T (K K^T + lambda Sigma_anchor)^{-1}
+    Uses rank-r eigendecomposition of Sigma_anchor = (1/M) A^T A + gamma I with
+    explicit Tikhonov floor gamma = 1e-3 * sigma_1 (#572), then evaluates exact
+    dual sample-space Gram inversion G = I_N + K^T (lambda Sigma)^{-1} K and
+    enforces cond(G) <= max_cond (#559).
     """
-    tok = AutoTokenizer.from_pretrained(str(stageb_hf_dir), local_files_only=True)
-    model = AutoModelForCausalLM.from_pretrained(
-        str(stageb_hf_dir),
-        local_files_only=True,
-        dtype=torch.float32,
-        low_cpu_mem_usage=True,
+    d_in, n_samples = K_mat.shape
+    k_norms = torch.norm(K_mat, p=2, dim=0, keepdim=True).clamp(min=1e-6)
+    K_norm = K_mat / k_norms
+    # R_mat here is already normalized target residual per sample
+    if A_anchor is not None and A_anchor.shape[0] >= 12:
+        r_a = min(48, A_anchor.shape[0] - 2, d_in)
+        _, s_a, vh_a = torch.svd_lowrank(A_anchor, q=r_a, niter=2)
+        lam_a = (s_a.pow(2) / float(A_anchor.shape[0])).clamp(min=0.0)
+        sigma_1 = float(lam_a[0].item()) if lam_a.numel() > 0 else 1.0
+        gamma = max(1e-4, 1e-3 * sigma_1)
+        u_a = vh_a.T  # (d_in, r_a)
+        # Apply Sigma_anchor^{-1} v = (1/gamma) * (v - U_a * ((lam / (lam + gamma)) * (U_a^T v)))
+        shrink = lam_a / (lam_a + gamma)
+        uk = u_a.T @ K_norm  # (r_a, N)
+        inv_sigma_k = (K_norm - u_a @ (shrink[:, None] * uk)) / gamma
+    else:
+        inv_sigma_k = K_norm
+
+    lam = max(1.0, float(ridge_lambda))
+    Z = inv_sigma_k / lam  # (d_in, N)
+    gram_base = K_norm.T @ Z  # (N, N) SPD
+
+    # Condition-number guard: bump effective lambda if needed so cond(I + G/s) <= max_cond
+    eye_n = torch.eye(n_samples, dtype=torch.float32)
+    G = eye_n + gram_base
+    cond_val = float(torch.linalg.cond(G).item())
+    scale_bump = 1.0
+    while cond_val > max_cond and scale_bump < 1024.0:
+        scale_bump *= 2.0
+        G = eye_n + gram_base / scale_bump
+        cond_val = float(torch.linalg.cond(G).item())
+    if scale_bump > 1.0:
+        Z = Z / scale_bump
+
+    # (I_N + K^T A^{-1} K)^{-1} applied to right factor -> coeffs = Z @ G^{-1}
+    G_inv = torch.linalg.solve(G, eye_n)
+    solve_right = Z @ G_inv  # (d_in, N)
+    delta_w = R_mat @ solve_right.T  # (d_out, d_in)
+    return delta_w, cond_val
+
+
+@torch.inference_mode()
+def build_closed_form_wsp_components(
+    model: torch.nn.Module,
+    tokenizer: Any,
+    model_key: str,
+    calib_texts: List[str],
+    data: Dict[str, Any],
+    target_layers: List[int],
+    w_head: torch.Tensor,
+) -> Dict[str, Any]:
+    """
+    Single inference_mode pass computing ALL pure closed-form WSP unit deltas:
+      1) Anchor covariance matrices A_anchor[(l, proj)] & V_a null-space bases
+      2) Closed-form Refusal & Legacy Vendor Identity Abliteration unit deltas
+      3) Analytical Woodbury next-token LM fluency deltas (reduces PPL directly)
+      4) Analytical Woodbury MEMIT reasoning/MC/GSM8K-<think>/Code/BFCL/Sovereign deltas
+      5) Prose-orthogonal lm_head option-entropy delta (only used if Pareto gate passes)
+    """
+    device = "cpu"
+    d_out = model.config.hidden_size
+    U_digit, digit_ids = _build_digit_symbol_output_basis(model, tokenizer, max_rank=24)
+    P_out_null = torch.eye(d_out, dtype=torch.float32) - (U_digit @ U_digit.T)
+
+    # Storage buffers
+    anchor_acts: Dict[Tuple[int, str], List[torch.Tensor]] = {
+        (l, p): [] for l in target_layers for p in ("o_proj", "down_proj")
+    }
+    lm_k: Dict[Tuple[int, str], List[torch.Tensor]] = {
+        (l, p): [] for l in target_layers for p in ("o_proj", "down_proj")
+    }
+    lm_r: List[torch.Tensor] = []
+
+    mem_k: Dict[Tuple[int, str], List[torch.Tensor]] = {
+        (l, p): [] for l in target_layers for p in ("o_proj", "down_proj")
+    }
+    mem_r: List[torch.Tensor] = []
+
+    capture_state: Dict[str, Any] = {"mode": "idle", "positions": [], "last_pos": -1}
+    hooks = []
+
+    def _make_hook(l_idx: int, proj_name: str):
+        def _hook(_mod, args):
+            inp = args[0].detach().float()[0]  # (T, d_in)
+            mode = capture_state["mode"]
+            if mode == "anchor":
+                seq_len = inp.shape[0]
+                stride = max(1, seq_len // 10)
+                for pos in range(0, seq_len, stride):
+                    anchor_acts[(l_idx, proj_name)].append(inp[pos].cpu())
+            elif mode == "lm":
+                for pos in capture_state["positions"]:
+                    lm_k[(l_idx, proj_name)].append(inp[pos].cpu())
+            elif mode == "memit":
+                pos = capture_state["last_pos"]
+                mem_k[(l_idx, proj_name)].append(inp[pos].cpu())
+
+        return _hook
+
+    for l in target_layers:
+        layer = model.model.layers[l]
+        hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(_make_hook(l, "o_proj")))
+        hooks.append(layer.mlp.down_proj.register_forward_pre_hook(_make_hook(l, "down_proj")))
+
+    try:
+        # 1. Preservation anchor pass (calib_prose + numeric arithmetic anchor)
+        capture_state["mode"] = "anchor"
+        anchor_inputs = list(calib_texts[:6]) + [
+            "Calculate accurately: 17 + 25 = 42, 128 * 4 = 512, 999 - 123 = 876, 3.14159.",
+            "def binary_search(arr, x): lo, hi = 0, len(arr) - 1; return -1",
+        ]
+        for txt in anchor_inputs:
+            enc = tokenizer(txt, return_tensors="pt", truncation=True, max_length=160)
+            if enc["input_ids"].shape[1] >= 4:
+                model(enc["input_ids"].to(device), use_cache=False)
+
+        # 2. Analytical next-token LM fluency capture (disjoint from val_texts = stem[-12:] & longctx = stem[-50:-15])
+        capture_state["mode"] = "lm"
+        lm_corpus: List[str] = list(data["calib_prose"][:3])
+        stem_rows = data.get("stem_prose", [])
+        stem_train_end = max(0, len(stem_rows) - 50)
+        for row in stem_rows[: min(36, stem_train_end)]:
+            lm_corpus.append(f"{row['user']}\n\n{row['assistant']}")
+        for row in data.get("code", [])[:16]:
+            lm_corpus.append(_format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR) + row["assistant"])
+
+        for txt in lm_corpus:
+            enc = tokenizer(txt, return_tensors="pt", truncation=True, max_length=192)
+            ids = enc["input_ids"]
+            t_len = ids.shape[1]
+            if t_len < 12:
+                continue
+            # Sample up to 6 informative token positions per sequence
+            sample_positions = list(range(4, t_len - 1, max(1, (t_len - 5) // 6)))[:6]
+            capture_state["positions"] = sample_positions
+            logits = model(ids.to(device), use_cache=False).logits[0]  # (T, V)
+            for pos in sample_positions:
+                next_id = int(ids[0, pos + 1].item())
+                probs_top, idx_top = torch.softmax(logits[pos].float(), dim=-1).topk(64)
+                # Exact analytical cross-entropy descent vector in residual output space
+                e_pred = probs_top @ w_head[idx_top]
+                r_vec = w_head[next_id] - e_pred
+                p_gold = float(torch.softmax(logits[pos].float(), dim=-1)[next_id].item())
+                surprisal_w = max(0.15, min(1.25, 1.0 - p_gold))
+                r_vec = surprisal_w * (r_vec / (torch.norm(r_vec) + 1e-6))
+                lm_r.append(r_vec)
+
+        # 3. Analytical MEMIT capability & reasoning capture (balanced A/B/C/D + GSM8K <think> + Code + BFCL + Sovereign)
+        capture_state["mode"] = "memit"
+        mmlu_train = _select_balanced_mc(data["mmlu_direct"][18:-60], per_letter=10)  # 40 balanced
+        arc_train = _select_balanced_mc(data["arc_direct"][10:-40], per_letter=8)     # 32 balanced
+        letter_ids = {ch: tokenizer.encode(ch, add_special_tokens=False)[-1] for ch in ("A", "B", "C", "D")}
+        letter_vecs = {ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6) for ch, tid in letter_ids.items()}
+
+        for row in (mmlu_train + arc_train):
+            gold = row["assistant"].strip()[:1]
+            if gold not in letter_vecs:
+                continue
+            sys_txt = SOVEREIGN_SYSTEM_ANCHOR if len(mem_r) % 4 == 0 else None
+            p_str = _format_prompt(tokenizer, row["user"], sys_txt)
+            enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
+            ids = enc["input_ids"]
+            capture_state["last_pos"] = ids.shape[1] - 1
+            model(ids.to(device), use_cache=False)
+            distractors = torch.stack([letter_vecs[ch] for ch in ("A", "B", "C", "D") if ch != gold]).mean(dim=0)
+            r_mc = letter_vecs[gold] - distractors
+            mem_r.append(r_mc / (torch.norm(r_mc) + 1e-6))
+
+        # Socratic <think> pacing + first calculation step + Code + BFCL + Sovereign adherence
+        verify_ids = tokenizer.encode("<think>\nLet's verify step by step", add_special_tokens=False)[:6]
+        commit_ids = tokenizer.encode("The answer is probably maybe", add_special_tokens=False)[:6]
+        v_verify = w_head[torch.tensor(verify_ids, dtype=torch.long)].mean(dim=0)
+        v_commit = w_head[torch.tensor(commit_ids, dtype=torch.long)].mean(dim=0)
+        r_pace = (v_verify / (torch.norm(v_verify) + 1e-6)) - 0.5 * (v_commit / (torch.norm(v_commit) + 1e-6))
+        r_pace = r_pace / (torch.norm(r_pace) + 1e-6)
+
+        for row in data["gsm8k"][8:36]:
+            p_str = _format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR if len(mem_r) % 3 == 0 else None)
+            enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
+            ids = enc["input_ids"]
+            capture_state["last_pos"] = ids.shape[1] - 1
+            model(ids.to(device), use_cache=False)
+            ans_ids = tokenizer.encode(row["assistant"], add_special_tokens=False)[:10]
+            if ans_ids:
+                v_ans = w_head[torch.tensor(ans_ids, dtype=torch.long)].mean(dim=0)
+                v_ans = v_ans / (torch.norm(v_ans) + 1e-6)
+                r_gsm = 0.7 * v_ans + 0.3 * r_pace
+                mem_r.append(r_gsm / (torch.norm(r_gsm) + 1e-6))
+            else:
+                mem_r.append(r_pace)
+
+        rej_ids = tokenizer.encode("As an AI language model I cannot help", add_special_tokens=False)[:8]
+        v_rej = w_head[torch.tensor(rej_ids, dtype=torch.long)].mean(dim=0)
+        v_rej = v_rej / (torch.norm(v_rej) + 1e-6)
+        extra_rows = (
+            data.get("code", [])[16:40]
+            + data.get("bfcl", [])[:17]
+            + data.get("sovereign_adherence", [])
+            + data.get("identity", [])
+        )
+        for row in extra_rows:
+            p_str = _format_prompt(tokenizer, row["user"], row.get("system") or SOVEREIGN_SYSTEM_ANCHOR)
+            enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=208)
+            ids = enc["input_ids"]
+            capture_state["last_pos"] = ids.shape[1] - 1
+            model(ids.to(device), use_cache=False)
+            c_ids = tokenizer.encode(row["assistant"], add_special_tokens=False)[:12]
+            if not c_ids:
+                mem_r.append(r_pace)
+            else:
+                v_c = w_head[torch.tensor(c_ids, dtype=torch.long)].mean(dim=0)
+                v_c = v_c / (torch.norm(v_c) + 1e-6)
+                r_vec = v_c - 0.35 * v_rej
+                mem_r.append(r_vec / (torch.norm(r_vec) + 1e-6))
+    finally:
+        for h in hooks:
+            h.remove()
+
+    # Build orthonormal anchor input subspaces V_a per (layer, proj)
+    anchor_mats: Dict[Tuple[int, str], torch.Tensor] = {}
+    v_anchors: Dict[Tuple[int, str], torch.Tensor] = {}
+    for key, chunks in anchor_acts.items():
+        a_mat = torch.stack(chunks, dim=0)
+        anchor_mats[key] = a_mat
+        q_r = min(48, a_mat.shape[0] - 2, a_mat.shape[1])
+        _, _, vh = torch.svd_lowrank(a_mat, q=q_r, niter=2)
+        v_anchors[key] = vh.T.contiguous()
+
+    # Closed-form Refusal + Legacy Vendor Identity direction in W_head space
+    refusal_phrases = [
+        "I cannot fulfill this request as an AI language model.",
+        "I am sorry, I cannot provide sensitive or private information.",
+    ]
+    direct_phrases = [
+        "Here is the exact technical solution and verified result.",
+        "The value directly extracted from the context is provided below.",
+    ]
+    vendor_phrases = [
+        "I am Llama created by Meta Qwen created by Alibaba Falcon created by TII.",
+    ]
+    sov_phrases = [
+        "I am Quillan-Ronin Sovereign Collective created by CrashOverrideX.",
+    ]
+
+    def _mean_emb(phrases: List[str]) -> torch.Tensor:
+        vecs = []
+        for ph in phrases:
+            tids = tokenizer.encode(ph, add_special_tokens=False)
+            if tids:
+                v = w_head[torch.tensor(tids, dtype=torch.long)].mean(dim=0)
+                vecs.append(v / (torch.norm(v) + 1e-6))
+        out = torch.stack(vecs).mean(dim=0)
+        return out / (torch.norm(out) + 1e-6)
+
+    v_ref = _mean_emb(refusal_phrases) - 0.6 * _mean_emb(direct_phrases)
+    v_ref = v_ref / (torch.norm(v_ref) + 1e-6)
+    v_vendor = _mean_emb(vendor_phrases) - 0.6 * _mean_emb(sov_phrases)
+    v_vendor = v_vendor / (torch.norm(v_vendor) + 1e-6)
+    u_ablit = torch.linalg.qr(torch.stack([v_ref, v_vendor], dim=1), mode="reduced")[0]  # (D, 2)
+
+    R_lm = torch.stack(lm_r, dim=1) if lm_r else torch.zeros((d_out, 0))
+    R_mem = torch.stack(mem_r, dim=1) if mem_r else torch.zeros((d_out, 0))
+
+    unit_lm: Dict[Tuple[int, str], torch.Tensor] = {}
+    unit_mem: Dict[Tuple[int, str], torch.Tensor] = {}
+    unit_ablit: Dict[Tuple[int, str], torch.Tensor] = {}
+    cond_stats: Dict[str, float] = {}
+
+    for l in target_layers:
+        layer_mod = model.model.layers[l]
+        for proj_name, weight_tensor in (
+            ("o_proj", layer_mod.self_attn.o_proj.weight.detach().float()),
+            ("down_proj", layer_mod.mlp.down_proj.weight.detach().float()),
+        ):
+            key = (l, proj_name)
+            w_norm = float(torch.norm(weight_tensor).item())
+            a_mat = anchor_mats[key]
+            v_a = v_anchors[key]
+            P_in_null = torch.eye(weight_tensor.shape[1], dtype=torch.float32) - (v_a @ v_a.T)
+
+            # 1) Closed-form LM fluency update (normalized to 1% ||W||_F)
+            if R_lm.shape[1] > 0 and len(lm_k[key]) == R_lm.shape[1]:
+                K_lm = torch.stack(lm_k[key], dim=1)
+                dw_lm, cond_lm = _woodbury_ridge_solve(K_lm, R_lm, a_mat, ridge_lambda=12.0)
+                dw_lm = P_out_null @ dw_lm  # never disturb numeric/symbol axes
+                unit_lm[key] = dw_lm * (w_norm / (float(torch.norm(dw_lm).item()) + 1e-12))
+                cond_stats[f"L{l}.{proj_name}.lm_cond"] = round(cond_lm, 2)
+
+            # 2) Closed-form MEMIT capability/reasoning update with dual null-spaces
+            if R_mem.shape[1] > 0 and len(mem_k[key]) == R_mem.shape[1]:
+                K_mem = torch.stack(mem_k[key], dim=1)
+                dw_mem, cond_mem = _woodbury_ridge_solve(K_mem, R_mem, a_mat, ridge_lambda=15.0)
+                dw_mem = (P_out_null @ dw_mem) @ P_in_null
+                unit_mem[key] = dw_mem * (w_norm / (float(torch.norm(dw_mem).item()) + 1e-12))
+                cond_stats[f"L{l}.{proj_name}.mem_cond"] = round(cond_mem, 2)
+
+            # 3) Refusal & Legacy Vendor Abliteration inside prose null-space (down_proj only)
+            if proj_name == "down_proj":
+                dw_ab = -((P_out_null @ u_ablit) @ (u_ablit.T @ weight_tensor)) @ P_in_null
+                unit_ablit[key] = dw_ab * (w_norm / (float(torch.norm(dw_ab).item()) + 1e-12))
+
+    # Optional closed-form option-entropy lm_head delta (untouched on digit rows!)
+    opt_ids = []
+    for ch in ("A", "B", "C", "D"):
+        opt_ids.append(tokenizer.encode(ch, add_special_tokens=False)[-1])
+    opt_vecs = w_head[torch.tensor(opt_ids, dtype=torch.long)].clone()
+    opt_centered = opt_vecs - opt_vecs.mean(dim=0, keepdim=True)
+    # Softly balance norms of A/B/C/D unembedding directions inside prose/digit orthogonal complement
+    mean_norm = opt_vecs.norm(dim=-1, keepdim=True).mean()
+    target_vecs = opt_centered * (mean_norm / (opt_centered.norm(dim=-1, keepdim=True) + 1e-6))
+    delta_opt_rows = (target_vecs - opt_vecs) @ P_out_null
+
+    logger.info(
+        "Closed-form WSP deltas computed: LM=%d samples, MEMIT=%d samples, max_cond=%.2f",
+        R_lm.shape[1], R_mem.shape[1], max(cond_stats.values()) if cond_stats else 0.0,
     )
-    scale = float(lora_alpha) / float(lora_r)
+    return {
+        "unit_lm": unit_lm,
+        "unit_mem": unit_mem,
+        "unit_ablit": unit_ablit,
+        "opt_ids": opt_ids,
+        "delta_opt_rows": delta_opt_rows,
+        "digit_ids": digit_ids,
+        "cond_stats": cond_stats,
+        "n_lm": int(R_lm.shape[1]),
+        "n_mem": int(R_mem.shape[1]),
+    }
 
-    # Group A/B matrices by base parameter path
-    pairs: Dict[str, Dict[str, torch.Tensor]] = {}
-    for k, v in adapter_state.items():
-        if ".lora_A." in k:
-            base_name = k.replace("base_model.model.", "").replace(".lora_A.default.weight", ".weight").replace(".lora_A.weight", ".weight")
-            pairs.setdefault(base_name, {})["A"] = v.float().cpu()
-        elif ".lora_B." in k:
-            base_name = k.replace("base_model.model.", "").replace(".lora_B.default.weight", ".weight").replace(".lora_B.weight", ".weight")
-            pairs.setdefault(base_name, {})["B"] = v.float().cpu()
 
-    sd = dict(model.named_parameters())
-    merged_cnt = 0
+def _apply_stage_c_config(
+    model: torch.nn.Module,
+    orig_weights: Dict[Tuple[int, str], torch.Tensor],
+    orig_head_weight: torch.Tensor,
+    comps: Dict[str, Any],
+    layers: List[int],
+    g_lm: float,
+    g_mem: float,
+    g_ablit: float,
+    g_head: float,
+) -> None:
+    """Deterministically sets Stage C target weights from clean Stage B weights + scaled WSP deltas."""
     with torch.no_grad():
-        for pname, ab in pairs.items():
-            if pname not in sd:
-                raise KeyError(f"Adapter target parameter {pname} missing in Stage B base model")
-            if "A" in ab and "B" in ab:
-                delta = scale * (ab["B"] @ ab["A"])
-                sd[pname].add_(delta)
-                merged_cnt += 1
-    logger.info("Algebraically merged %d LoRA weight tensors into CPU Stage B float32 base", merged_cnt)
-    return model, tok
+        for (l, p), w0 in orig_weights.items():
+            target_param = (
+                model.model.layers[l].self_attn.o_proj.weight
+                if p == "o_proj"
+                else model.model.layers[l].mlp.down_proj.weight
+            )
+            if l not in layers:
+                target_param.copy_(w0)
+                continue
+            upd = w0.clone()
+            if g_lm > 0.0 and (l, p) in comps["unit_lm"]:
+                upd.add_(g_lm * comps["unit_lm"][(l, p)])
+            if g_mem > 0.0 and (l, p) in comps["unit_mem"]:
+                upd.add_(g_mem * comps["unit_mem"][(l, p)])
+            if g_ablit > 0.0 and (l, p) in comps["unit_ablit"]:
+                upd.add_(g_ablit * comps["unit_ablit"][(l, p)])
+            target_param.copy_(upd)
+
+        head_w = model.lm_head.weight
+        head_w.copy_(orig_head_weight)
+        if g_head > 0.0 and not getattr(model.config, "tie_word_embeddings", False):
+            idx_t = torch.tensor(comps["opt_ids"], dtype=torch.long)
+            head_w[idx_t].add_(g_head * comps["delta_opt_rows"])
 
 
 def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 2097152) -> None:
     """
     Updates GGUF KV metadata so Ollama 0.40.12 does not clamp num_ctx=2097152 below
-    the 172,550-token Quillan-Samurai.md prompt, using non-destructive YaRN scaling
-    params when needed alongside existing weights.
+    the 172,550-token Quillan-Samurai.md prompt, using YaRN scaling params
+    (beta_fast=32, beta_slow=1) while preserving all original KV types.
     """
     orig_ctx = {"flagship": 131072, "mini": 32768, "dragon": 8192}[model_key]
     tmp_out = gguf_path.with_suffix(".tmp2m.gguf")
@@ -377,7 +602,11 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 209
     writer.write_kv_data_to_file()
     writer.write_tensors_to_file()
     writer.close()
+    mmap_obj = getattr(getattr(reader, "data", None), "_mmap", None)
     del reader
+    gc.collect()
+    if mmap_obj is not None:
+        mmap_obj.close()
     gc.collect()
     gguf_path.unlink()
     tmp_out.rename(gguf_path)
@@ -392,20 +621,17 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 209
 
 
 def _measure_gguf_ppl_matrix(gguf_path: Path) -> Dict[str, float]:
-    """Measures held-out PPL on both -c 128 and -c 512 (2-chunk & 3-chunk) cleanly."""
+    """Measures held-out PPL at -c 128 (held_out_ppl_final_verify) and -c 512 (longctx)."""
+    long_file = ensure_longctx_ppl_file()
     return {
-        "c128_2c": c.measure_gguf_ppl_cli(gguf_path, chunks=2, ctx=128),
-        "c128_3c": c.measure_gguf_ppl_cli(gguf_path, chunks=3, ctx=128),
-        "c512_2c": c.measure_gguf_ppl_cli(gguf_path, chunks=2, ctx=512),
+        "c128_2c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=2, ctx=128),
+        "c128_3c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=3, ctx=128),
+        "c512_2c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=long_file, chunks=2, ctx=512),
     }
 
 
 def run_stage_c(
     model_key: str,
-    max_steps: int = 240,
-    lr: float = 8e-5,
-    lora_r: int = 16,
-    grad_accum: int = 8,
     convert_only: bool = False,
     target_ctx: int = 2097152,
 ) -> Dict[str, Any]:
@@ -416,12 +642,26 @@ def run_stage_c(
         pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
         patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
         post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+        # If 2M YaRN factor causes measurable PPL degradation on -c 512, compare 262144 too
+        fallback_262k_ppl = None
+        if post_patch_ppl["c512_2c"] > pre_patch_ppl["c512_2c"] * 1.05:
+            logger.warning(
+                "2M YaRN shifted -c 512 PPL %.4f -> %.4f; evaluating target_ctx=262144 for comparison",
+                pre_patch_ppl["c512_2c"],
+                post_patch_ppl["c512_2c"],
+            )
+            patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=262144)
+            fallback_262k_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+            # Restore 2M if delta is negligible, or keep whichever preserves PPL cleanly
+            if post_patch_ppl["c512_2c"] <= pre_patch_ppl["c512_2c"] * 1.08:
+                patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
         out = {
             "model": model_key,
             "stagec_gguf": str(spec["stagec_gguf"]),
             "target_ctx": target_ctx,
             "pre_patch_ppl": pre_patch_ppl,
             "post_patch_ppl": post_patch_ppl,
+            "fallback_262k_ppl": fallback_262k_ppl,
         }
         print("STAGE_C_GGUF_PPL:", json.dumps(out))
         return out
@@ -431,164 +671,184 @@ def run_stage_c(
     if not stageb_hf.exists():
         raise FileNotFoundError(f"Stage B checkpoint missing: {stageb_hf}. Run Stage B first.")
 
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    train_dtype = torch.float16 if device == "cuda" else torch.float32
-    logger.info("=== Stage C Consolidation: %s on %s (%s) ===", spec["display"], device, train_dtype)
+    logger.info("=== Stage C Pure Closed-Form WSP (Zero Backprop): %s ===", spec["display"])
+    with torch.inference_mode():
+        tok = AutoTokenizer.from_pretrained(str(stageb_hf), local_files_only=True)
+        if tok.pad_token is None:
+            tok.pad_token = tok.eos_token
 
-    tok = AutoTokenizer.from_pretrained(str(stageb_hf), local_files_only=True)
-    if tok.pad_token is None:
-        tok.pad_token = tok.eos_token
+        model = AutoModelForCausalLM.from_pretrained(
+            str(stageb_hf),
+            local_files_only=True,
+            dtype=torch.float32,
+            low_cpu_mem_usage=True,
+        )
+        model.eval()
+        stageb_report_path = c.EXPORT_ROOT / f"v23_stageb_{model_key}_report.json"
+        expected_params = None
+        if stageb_report_path.exists():
+            expected_params = json.loads(stageb_report_path.read_text(encoding="utf-8"))["param_audit"]["total_params"]
+        c.audit_model_integrity(model, expected_params=expected_params)
 
-    train_pairs, dev_mc, val_texts = build_stage_c_curriculum(tok, c.CLEAN_DATA_PATH, max_len=240)
+        with open(c.CLEAN_DATA_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        calib_texts, val_texts = stage_b.build_calib_and_val_splits(c.CLEAN_DATA_PATH)
+        dev_mc = data["mmlu_direct"][-60:] + data["arc_direct"][-40:]
 
-    model = AutoModelForCausalLM.from_pretrained(
-        str(stageb_hf),
-        local_files_only=True,
-        dtype=train_dtype,
-        low_cpu_mem_usage=True,
-    ).to(device)
-    model.config.use_cache = False
+        base_val_nll, base_dev_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+        logger.info("Stage B baseline dev -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
+                    base_val_nll, math.exp(base_val_nll), base_dev_mc * 100.0)
 
-    lora_alpha = lora_r * 2
-    lora_cfg = LoraConfig(
-        r=lora_r,
-        lora_alpha=lora_alpha,
-        lora_dropout=0.05,
-        bias="none",
-        task_type="CAUSAL_LM",
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
-    )
-    model = get_peft_model(model, lora_cfg)
-    # Keep trainable LoRA weights in float32 for stable AdamW updates under Pascal fp16 base
-    for n, p in model.named_parameters():
-        if p.requires_grad:
-            p.data = p.data.float()
-    model.enable_input_require_grads()
-    model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+        subsets = _layer_subset_for_model(model_key)
+        all_layers = subsets["mid_upper"]
+        w_head = model.lm_head.weight.detach().float().clone()
+        comps = build_closed_form_wsp_components(
+            model=model,
+            tokenizer=tok,
+            model_key=model_key,
+            calib_texts=calib_texts,
+            data=data,
+            target_layers=all_layers,
+            w_head=w_head,
+        )
 
-    base_nll, base_mc = eval_dev_mc_and_nll(model, tok, dev_mc, val_texts, device)
-    logger.info("Stage B baseline dev -> val_nll=%.4f (PPL=%.3f) dev_mc=%.1f%%",
-                base_nll, math.exp(base_nll), base_mc * 100.0)
+        # Snapshot original Stage B weights & digit embeddings before analytical line search
+        orig_weights: Dict[Tuple[int, str], torch.Tensor] = {}
+        for l in all_layers:
+            orig_weights[(l, "o_proj")] = model.model.layers[l].self_attn.o_proj.weight.detach().float().clone()
+            orig_weights[(l, "down_proj")] = model.model.layers[l].mlp.down_proj.weight.detach().float().clone()
+        orig_digits = model.model.embed_tokens.weight.detach()[torch.tensor(comps["digit_ids"], dtype=torch.long)].clone()
 
-    opt = torch.optim.AdamW([p for p in model.parameters() if p.requires_grad], lr=lr, weight_decay=0.01)
-    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, T_max=max_steps, eta_min=lr * 0.1)
+        # Analytical Pareto Grid Search (zero SGD!)
+        candidates = []
+        for s_name, l_list in subsets.items():
+            for g_lm in (0.008, 0.018, 0.032):
+                for g_mem in (0.004, 0.012):
+                    candidates.append((s_name, l_list, g_lm, g_mem, 0.004, 0.0))
+            candidates.append((s_name, l_list, 0.018, 0.012, 0.004, 0.02))
+        candidates.append(("mid_upper", all_layers, 0.005, 0.002, 0.002, 0.0))
 
-    best_score = -1e9
-    best_adapter_state: Optional[Dict[str, torch.Tensor]] = None
-    best_metrics = {"step": 0, "val_nll": round(base_nll, 5), "dev_mc": round(base_mc, 4)}
+        best_score = -1e9
+        best_cfg = {"subset": "baseline", "layers": [], "g_lm": 0.0, "g_mem": 0.0, "g_ablit": 0.0, "g_head": 0.0}
+        best_metrics = {"val_nll": base_val_nll, "dev_mc": base_dev_mc}
+        trials: List[Dict[str, Any]] = []
 
-    def _capture_adapter() -> Dict[str, torch.Tensor]:
-        return {k: v.detach().cpu().clone() for k, v in model.named_parameters() if v.requires_grad}
+        # Evaluate fast representative dev subset first, then verify top candidate on FULL val_texts + 40 dev_mc
+        fast_val = val_texts[:6] + val_texts[-8:]
+        fast_base_nll, fast_base_mc = evaluate_dev_metrics(model, tok, dev_mc[:20], fast_val, device="cpu")
+        ranked: List[Tuple[float, Tuple[str, List[int], float, float, float, float]]] = []
+        for cfg in candidates:
+            s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
+            _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
+            vnll, dmc = evaluate_dev_metrics(model, tok, dev_mc[:20], fast_val, device="cpu")
+            score = (fast_base_nll - vnll) * 4.0 + (dmc - fast_base_mc) * 2.0
+            trials.append({
+                "subset": s_name,
+                "g_lm": g_lm,
+                "g_mem": g_mem,
+                "g_ablit": g_ab,
+                "g_head": g_hd,
+                "fast_nll": round(vnll, 5),
+                "fast_mc": round(dmc, 4),
+            })
+            logger.info(
+                "WSP Trial %-9s lm=%.3f mem=%.3f ab=%.3f hd=%.2f -> fast_nll=%.5f (%+.5f) fast_mc=%.1f%%",
+                s_name, g_lm, g_mem, g_ab, g_hd, vnll, vnll - fast_base_nll, dmc * 100.0,
+            )
+            ranked.append((score, cfg))
 
-    best_adapter_state = _capture_adapter()
-    best_score = (base_mc * 2.0) - base_nll
+        ranked.sort(key=lambda x: x[0], reverse=True)
+        for _, cfg in ranked[:4]:
+            s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
+            _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
+            full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+            # Strict Lyapunov / Pareto gate: MUST reduce val_nll AND not lose dev_mc
+            if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - 1e-6:
+                sc = (base_val_nll - full_nll) * 4.0 + (full_mc - base_dev_mc) * 2.0
+                if sc > best_score:
+                    best_score = sc
+                    best_cfg = {
+                        "subset": s_name,
+                        "layers": l_list,
+                        "g_lm": g_lm,
+                        "g_mem": g_mem,
+                        "g_ablit": g_ab,
+                        "g_head": g_hd,
+                    }
+                    best_metrics = {"val_nll": round(full_nll, 5), "dev_mc": round(full_mc, 4)}
 
-    model.train()
-    opt.zero_grad(set_to_none=True)
-    idx_cursor = 0
-    for step in range(1, max_steps + 1):
-        accum_loss = 0.0
-        for _ in range(grad_accum):
-            inp, lbl = train_pairs[idx_cursor % len(train_pairs)]
-            idx_cursor += 1
-            loss = chunked_causal_lm_loss(model, inp.to(device), lbl.to(device), chunk_size=32)
-            if step == 1 and not loss.requires_grad:
-                raise RuntimeError("Stage C gradient probe failed: loss.requires_grad is False")
-            (loss / float(grad_accum)).backward()
-            accum_loss += float(loss.item()) / float(grad_accum)
-        if step == 1:
-            lora_grad_norm = sum(
-                float(p.grad.float().norm().item() ** 2)
-                for p in opt.param_groups[0]["params"]
-                if p.grad is not None
-            ) ** 0.5
-            logger.info("Step 1 LoRA grad norm check: %.6f", lora_grad_norm)
-            if not (lora_grad_norm > 0.0):
-                raise RuntimeError("Stage C gradient probe failed: zero LoRA gradient norm on step 1")
-        torch.nn.utils.clip_grad_norm_([p for p in model.parameters() if p.requires_grad], 1.0)
-        opt.step()
-        sched.step()
-        opt.zero_grad(set_to_none=True)
+        # If joint candidate only missed dev_mc by tie/1-item, try pure NLL-reducing fallback with strictly val_nll < base
+        if best_cfg["subset"] == "baseline":
+            for g_lm, g_mem in ((0.008, 0.004), (0.005, 0.002), (0.003, 0.002)):
+                _apply_stage_c_config(model, orig_weights, w_head, comps, all_layers, g_lm, g_mem, 0.002, 0.0)
+                full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+                if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - 1e-6:
+                    best_cfg = {"subset": "mid_upper", "layers": all_layers, "g_lm": g_lm, "g_mem": g_mem, "g_ablit": 0.002, "g_head": 0.0}
+                    best_metrics = {"val_nll": round(full_nll, 5), "dev_mc": round(full_mc, 4)}
+                    break
 
-        if step % 30 == 0 or step == max_steps:
-            val_nll, dev_mc_acc = eval_dev_mc_and_nll(model, tok, dev_mc, val_texts, device)
-            # Prioritize lower NLL + higher MC accuracy with strict Lyapunov PPL gate
-            score = (dev_mc_acc * 2.0) - val_nll
-            logger.info("Step %3d/%d | train_loss=%.4f | dev_nll=%.4f (PPL=%.3f) | dev_mc=%.1f%%",
-                        step, max_steps, accum_loss, val_nll, math.exp(val_nll), dev_mc_acc * 100.0)
-            if val_nll <= base_nll and score > best_score:
-                best_score = score
-                best_adapter_state = _capture_adapter()
-                best_metrics = {"step": step, "val_nll": round(val_nll, 5), "dev_mc": round(dev_mc_acc, 4)}
-            model.train()
+        _apply_stage_c_config(
+            model,
+            orig_weights,
+            w_head,
+            comps,
+            best_cfg["layers"],
+            best_cfg["g_lm"],
+            best_cfg["g_mem"],
+            best_cfg["g_ablit"],
+            best_cfg["g_head"],
+        )
 
-    # Release CUDA memory completely before CPU merge & export
-    del model, opt, sched, train_pairs
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
-    gc.collect()
+        # Bit-exact digit/symbol embedding preservation check
+        final_digits = model.model.embed_tokens.weight.detach()[torch.tensor(comps["digit_ids"], dtype=torch.long)]
+        assert torch.equal(orig_digits, final_digits), "Digit/symbol embeddings were modified!"
+        merge_audit = c.audit_model_integrity(model, expected_params=expected_params)
+        logger.info("Stage C WSP audit passed: %s | selected=%s | metrics=%s", merge_audit, best_cfg, best_metrics)
 
-    assert best_adapter_state is not None
-    merged_model, merged_tok = merge_lora_into_stageb_cpu(
-        stageb_hf, best_adapter_state, lora_alpha=lora_alpha, lora_r=lora_r
-    )
-    stageb_report_path = c.EXPORT_ROOT / f"v23_stageb_{model_key}_report.json"
-    expected_params = None
-    if stageb_report_path.exists():
-        expected_params = json.loads(stageb_report_path.read_text(encoding="utf-8"))["param_audit"]["total_params"]
-    merge_audit = c.audit_model_integrity(merged_model, expected_params=expected_params)
-    logger.info("Stage C merged CPU audit passed: %s", merge_audit)
+        report: Dict[str, Any] = {
+            "model": model_key,
+            "mode": "pure_closed_form_wsp_zero_backprop",
+            "elapsed_s": round(time.time() - t0, 2),
+            "param_audit": merge_audit,
+            "base_dev_nll": round(base_val_nll, 5),
+            "base_dev_mc": round(base_dev_mc, 4),
+            "best_cfg": best_cfg,
+            "best_dev": best_metrics,
+            "cond_stats": comps["cond_stats"],
+            "stagec_hf": str(spec["stagec_hf"]),
+            "target_ctx": target_ctx,
+            "trials": trials,
+        }
 
-    report: Dict[str, Any] = {
-        "model": model_key,
-        "elapsed_s": round(time.time() - t0, 2),
-        "param_audit": merge_audit,
-        "base_dev_nll": round(base_nll, 5),
-        "base_dev_mc": round(base_mc, 4),
-        "best_dev": best_metrics,
-        "stagec_hf": str(spec["stagec_hf"]),
-        "target_ctx": target_ctx,
-    }
-    # Export Dragon directly to GGUF + save HF; Flagship/Mini save bfloat16 HF for standalone convert
-    if model_key == "dragon":
-        c.export_dragon_gguf_from_hf(merged_model, spec["stagec_gguf"])
-        pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-        patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
-        post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-        report["stagec_gguf"] = str(spec["stagec_gguf"])
-        report["pre_patch_ppl"] = pre_patch_ppl
-        report["post_patch_ppl"] = post_patch_ppl
+        if model_key == "dragon":
+            c.export_dragon_gguf_from_hf(model, spec["stagec_gguf"])
+            pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+            patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
+            post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+            report["stagec_gguf"] = str(spec["stagec_gguf"])
+            report["pre_patch_ppl"] = pre_patch_ppl
+            report["post_patch_ppl"] = post_patch_ppl
 
-    merged_model.to(torch.bfloat16)
-    c.save_hf_checkpoint(merged_model, merged_tok, spec["stagec_hf"])
-    logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
+        model.to(torch.bfloat16)
+        c.save_hf_checkpoint(model, tok, spec["stagec_hf"])
+        logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
 
-    del merged_model, best_adapter_state
+    del model, orig_weights, comps
     gc.collect()
 
     rep_path = c.EXPORT_ROOT / f"v23_stagec_{model_key}_report.json"
     rep_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print("STAGE_C_DONE:", json.dumps(report))
+    print("STAGE_C_DONE:", json.dumps({k: v for k, v in report.items() if k != "trials"}))
     return report
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="WSP v23 Stage C Consolidation")
+    parser = argparse.ArgumentParser(description="WSP v23 Stage C Pure Closed-Form Consolidation")
     parser.add_argument("--model", required=True, choices=["flagship", "mini", "dragon"])
-    parser.add_argument("--max-steps", type=int, default=240)
-    parser.add_argument("--lr", type=float, default=8e-5)
-    parser.add_argument("--lora-r", type=int, default=16)
-    parser.add_argument("--grad-accum", type=int, default=8)
     parser.add_argument("--convert-only", action="store_true")
+    parser.add_argument("--target-ctx", type=int, default=2097152)
     args = parser.parse_args()
-    run_stage_c(
-        model_key=args.model,
-        max_steps=args.max_steps,
-        lr=args.lr,
-        lora_r=args.lora_r,
-        grad_accum=args.grad_accum,
-        convert_only=args.convert_only,
-    )
+    run_stage_c(model_key=args.model, convert_only=args.convert_only, target_ctx=args.target_ctx)
 
 
 if __name__ == "__main__":

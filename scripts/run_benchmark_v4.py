@@ -38,18 +38,40 @@ from typing import Any, Callable, Dict, Iterator, List, Optional, Tuple
 
 import requests
 
+sys.path.insert(0, r"C:\02_QUILLAN\scripts")
+from sovereign_cognitive_harness import run_probe_with_harness
+
 LLAMA_SERVER = r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-server.exe"
 ARC_ZIP = r"C:\02_QUILLAN\09 - Projects\projects\testing\ARC-AGI-master.zip"
+import glob
+
 EXPORTS = r"C:\02_QUILLAN\exports"
 
-MODEL_REGISTRY: Dict[str, Tuple[str, str]] = {
-    "A": ("Model A Flagship (WSP v8.0)", os.path.join(EXPORTS, "quillan-1b-sovereign-wsp-v8-q4_k_m.gguf")),
-    "B": ("Model B Mini (WSP v8.0)", os.path.join(EXPORTS, "quillan-mini-0.5b-wsp-v8-q4_k_m.gguf")),
-    "C": ("Model C Dragon (WSP v8.0)", os.path.join(EXPORTS, "quillan-dragon-1b-wsp-v8-q4_k_m.gguf")),
-    "A0": ("Control: Llama-3.2-1B-Instruct clean", os.path.join(EXPORTS, "quillan-1b-clean-base-q4_k_m.gguf")),
-    "B0": ("Control: Qwen2.5-0.5B-Instruct clean", os.path.join(EXPORTS, "quillan-mini-0.5b-clean-base-q4_k_m.gguf")),
-    "C0": ("Control: Falcon3-1B-Instruct clean", os.path.join(EXPORTS, "quillan-dragon-1b-clean-base-q4_k_m.gguf")),
-}
+def find_latest_gguf(pattern: str) -> Optional[str]:
+    files = glob.glob(os.path.join(EXPORTS, pattern))
+    if not files:
+        return None
+    files.sort(key=lambda x: os.path.getmtime(x), reverse=True)
+    return files[0]
+
+def get_model_registry(flagship_override=None, mini_override=None, dragon_override=None):
+    f_path = flagship_override or find_latest_gguf("quillan-1b-sovereign-wsp-*.gguf") or os.path.join(EXPORTS, "quillan-1b-sovereign-wsp-v20-q8_0.gguf")
+    m_path = mini_override or find_latest_gguf("quillan-mini-0.5b-wsp-*.gguf") or os.path.join(EXPORTS, "quillan-mini-0.5b-wsp-v15-q8_0.gguf")
+    d_path = dragon_override or find_latest_gguf("quillan-dragon-1b-wsp-*.gguf") or os.path.join(EXPORTS, "quillan-dragon-1b-wsp-v18b-q8_0.gguf")
+    a0_path = find_latest_gguf("*clean-llama*.gguf") or os.path.join(EXPORTS, "clean-llama-1b-q8_0.gguf")
+    b0_path = find_latest_gguf("*clean-qwen*.gguf") or os.path.join(EXPORTS, "clean-qwen-0.5b-q8_0.gguf")
+    c0_path = find_latest_gguf("*clean-falcon*.gguf") or find_latest_gguf("*clean-dragon*.gguf") or os.path.join(EXPORTS, "quillan-dragon-1b-clean-base-q4_k_m.gguf")
+
+    return {
+        "A": (f"Model A Flagship ({os.path.basename(f_path)})", f_path),
+        "B": (f"Model B Mini ({os.path.basename(m_path)})", m_path),
+        "C": (f"Model C Dragon ({os.path.basename(d_path)})", d_path),
+        "A0": ("Control: Llama-3.2-1B-Instruct clean", a0_path),
+        "B0": ("Control: Qwen2.5-0.5B-Instruct clean", b0_path),
+        "C0": ("Control: Falcon3-1B-Instruct clean", c0_path),
+    }
+
+MODEL_REGISTRY = get_model_registry()
 
 SYSTEM_PROMPT = "You are a precise, helpful assistant. Follow the requested output format exactly."
 CODE_TIMEOUT_S = 10
@@ -403,30 +425,51 @@ def build_suite(n: int, seed: int = 42) -> List[Probe]:
 # ---------------------------------------------------------------------------
 # Runner
 # ---------------------------------------------------------------------------
-def evaluate(label: str, gguf: str, suite: List[Probe], log: logging.Logger) -> Dict[str, Any]:
+def evaluate(
+    label: str,
+    gguf: str,
+    suite: List[Probe],
+    log: logging.Logger,
+    track: str = "A",
+    system_mode: str = "sovereign_core",
+    ctx: int = 8192,
+) -> Dict[str, Any]:
     per_cat: Dict[str, List[int]] = {}
     logs = []
     t0 = time.time()
-    with llama_server(gguf, log) as base:
+    with llama_server(gguf, log, ctx=ctx) as base:
         for i, p in enumerate(suite):
-            resp, dt = chat(base, p.prompt, p.max_tokens)
+            hres = run_probe_with_harness(
+                base_url=base,
+                prompt=p.prompt,
+                category=p.category,
+                max_tokens=p.max_tokens,
+                track=track,
+                system_mode=system_mode,
+            )
+            resp = hres["graded_response"]
+            dt = hres["latency_s"]
             try:
                 ok = int(bool(p.check(resp)))
             except Exception as exc:  # scorer failure counts as fail, but is recorded
                 ok = 0
                 resp += f"\n__SCORER_ERROR__ {type(exc).__name__}: {exc}"
             per_cat.setdefault(p.category, []).append(ok)
-            logs.append({"id": p.pid, "category": p.category, "source": p.source, "passed": ok,
-                         "latency_s": round(dt, 3), "response": resp})
+            logs.append({"id": p.pid, "category": p.category, "source": p.source, "track": hres["track"],
+                         "passed": ok, "latency_s": round(dt, 3),
+                         "nemesis_retries": hres["nemesis_retries"],
+                         "nemesis_notes": hres["nemesis_notes"],
+                         "response": resp})
             if (i + 1) % 25 == 0:
-                log.info(f"{label} progress {i + 1}/{len(suite)}")
+                log.info(f"{label} [Track {track}] progress {i + 1}/{len(suite)}")
     summary = {}
     for c, v in per_cat.items():
         acc, lo, hi = wilson(sum(v), len(v))
         summary[c] = {"passed": sum(v), "n": len(v), "acc": acc, "ci95": [lo, hi]}
     total = sum(sum(v) for v in per_cat.values())
     acc, lo, hi = wilson(total, len(suite))
-    return {"model": label, "gguf": gguf, "overall": {"passed": total, "n": len(suite), "acc": acc, "ci95": [lo, hi]},
+    return {"model": label, "track": f"Track {track}", "system_mode": system_mode if track.upper() == "B" else "raw",
+            "gguf": gguf, "overall": {"passed": total, "n": len(suite), "acc": acc, "ci95": [lo, hi]},
             "categories": summary, "elapsed_s": round(time.time() - t0, 1), "logs": logs}
 
 
@@ -436,8 +479,16 @@ def main() -> None:
     ap.add_argument("--n", type=int, default=100)
     ap.add_argument("--smoke", type=int, default=0, help="if >0, keep only this many probes per category")
     ap.add_argument("--out", default=os.path.join(EXPORTS, "benchmark_v4_results.json"))
+    ap.add_argument("--flagship", type=str, default=None, help="Custom Flagship GGUF path")
+    ap.add_argument("--mini", type=str, default=None, help="Custom Mini GGUF path")
+    ap.add_argument("--dragon", type=str, default=None, help="Custom Dragon GGUF path")
+    ap.add_argument("--track", type=str, default="both", choices=["A", "B", "both"], help="Track A (raw), Track B (Cognitive Harness), or both")
+    ap.add_argument("--system-mode", type=str, default="sovereign_core", choices=["sovereign_core", "full"], help="Track B system prompt mode")
+    ap.add_argument("--ctx", type=int, default=8192, help="llama-server context window")
     args = ap.parse_args()
     log = build_logger()
+
+    registry = get_model_registry(args.flagship, args.mini, args.dragon)
 
     suite = build_suite(args.n)
     if args.smoke:
@@ -449,22 +500,25 @@ def main() -> None:
     if os.path.exists(args.out):
         with open(args.out, encoding="utf-8") as fh:
             results = json.load(fh)
+    tracks = ["A", "B"] if args.track == "both" else [args.track]
     for key in [k.strip() for k in args.models.split(",") if k.strip()]:
-        label, gguf = MODEL_REGISTRY[key]
-        if label in results:
-            log.info(f"skip completed {label}")
-            continue
+        label, gguf = registry[key]
         if not os.path.exists(gguf):
             log.warning(f"missing gguf {gguf}")
             continue
-        res = evaluate(label, gguf, suite, log)
-        results[label] = res
-        tmp = args.out + ".tmp"
-        with open(tmp, "w", encoding="utf-8") as fh:
-            json.dump(results, fh, indent=2)
-        os.replace(tmp, args.out)
-        cats = " ".join(f"{c}={s['acc']}%" for c, s in res["categories"].items())
-        log.info(f"DONE {label} overall={res['overall']['acc']}% {cats}")
+        for trk in tracks:
+            run_label = f"{label} [Track {trk}]"
+            if run_label in results:
+                log.info(f"skip completed {run_label}")
+                continue
+            res = evaluate(run_label, gguf, suite, log, track=trk, system_mode=args.system_mode, ctx=args.ctx)
+            results[run_label] = res
+            tmp = args.out + ".tmp"
+            with open(tmp, "w", encoding="utf-8") as fh:
+                json.dump(results, fh, indent=2)
+            os.replace(tmp, args.out)
+            cats = " ".join(f"{c}={s['acc']}%" for c, s in res["categories"].items())
+            log.info(f"DONE {run_label} overall={res['overall']['acc']}% {cats}")
 
 
 if __name__ == "__main__":

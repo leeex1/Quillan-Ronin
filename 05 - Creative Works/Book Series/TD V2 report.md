@@ -534,9 +534,27 @@ Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate s
 
 ---
 
+## 35. 2026-11-16 — Text-polish pass (Books 2–5) + audio refresh started
+
+- AI-cadence frame "the particular …" stripped across B3 (2 refs left), B4 (493→0 in that frame family — incl. "the particular, X of" comma variant), B5 (119→0-family refs). Plain "a particular …" left untouched (valid English).
+- B4's last 9 stragglers removed; B5's last 5; B3 clean. Audit duplicates unchanged (structural refrains B3/B5; B4 59 long-sentence dups remain — structural, out of scope for today's pass).
+- Interiors/EPUBs rebuilt B3/B4/B5; B4 now 479pp, B5 531pp (covers rebuilt with corrected spines).
+- MP3s for B3/B4/B5 are being re-rendered (render_b345.py); prior MP3s archived to `Archive\Audiobook backups (pre-touchup)\`.
+- NOT done: human listen-through; upload-ready claims deferred to user.
+
+---
+
+## 34b. 2026-11-16 — Full re-render complete; all five audiobooks clean
+
+- All five MP3s re-rendered from post-fix text via fixed `clean_markdown()` (BOM + front-matter safe). No chunk intermediates in Audiobooks (auto-cleanup working). Old/stale copies archived under `Archive\Audiobook backups (pre-fix)\` for every book.
+- Verified opening 40s of Book 1 and Book 5 via Whisper: both open with title → subtitle → Chapter 1. (Metadata-narration defect eliminated.)
+- Chunk totals: B1 508, B2 435, B3 470, B4 473, B5 456 — all completed, zero failed chunks (Book 5 chain ran once; Book 4/5 double-rendered inadvertently by parallel chain and canonical naming was normalized after — no data loss).
+- NOT done: human listen-through; Books 2–5 editorial state unchanged; upload decisions still pending user verification.
+
+---
+
 ## 31. 2026-11-15 — all five books builds clean; commit 1e753e91
 
-**Verified builds for Books 1-5:**
 - B1 586pp EPUB+interior / B2 496pp / B3 557pp / B4 480pp / B5 532pp
 - All interiors 432x648pt; all covers synced to page counts
 - Committed 1e753e91. GitHub push: done (origin/main @ 8d901511).

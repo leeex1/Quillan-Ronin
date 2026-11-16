@@ -39,6 +39,7 @@ from run_professional_benchmark_suite import (
     compute_wilson_ci,
     SYS_PROMPT,
 )
+from sovereign_cognitive_harness import resolve_fleet_ggufs, run_probe_with_harness
 
 logging.basicConfig(
     level=logging.INFO,
@@ -47,7 +48,7 @@ logging.basicConfig(
 logger = logging.getLogger("ARC123_HLE")
 
 EXPORT_DIR = r"C:\02_QUILLAN\exports"
-OUT_ARC_HLE = os.path.join(EXPORT_DIR, "benchmark_arc123_hle_100_results.json")
+OUT_ARC_HLE = os.path.join(EXPORT_DIR, "benchmark_v23_arc123_hle_100_results.json")
 MAIN_100_RESULTS = os.path.join(EXPORT_DIR, "benchmark_100_per_section_results.json")
 
 
@@ -435,9 +436,12 @@ def evaluate_model_on_arc123_hle(
     gguf_path: str,
     battery: List[Dict[str, Any]],
     port: int = 8091,
+    track: str = "legacy_rci",
+    system_mode: str = "sovereign_core",
+    ctx: int = 4096,
 ) -> Dict[str, Any]:
     logger.info("=" * 80)
-    logger.info("EVALUATING MODEL ON ARC-AGI 1/2/3 + HLE: %s", model_name)
+    logger.info("EVALUATING MODEL ON ARC-AGI 1/2/3 + HLE: %s (track=%s)", model_name, track)
     logger.info("GGUF: %s", os.path.basename(gguf_path))
     logger.info("Total probes: %d", len(battery))
     logger.info("=" * 80)
@@ -447,7 +451,7 @@ def evaluate_model_on_arc123_hle(
     total_passed = 0
     t0_start = time.time()
 
-    with start_llama_server(gguf_path, port=port, ctx=4096) as base_url:
+    with start_llama_server(gguf_path, port=port, ctx=ctx) as base_url:
         for idx, probe in enumerate(battery):
             cat = probe["category"]
             pid = probe["id"]
@@ -456,15 +460,33 @@ def evaluate_model_on_arc123_hle(
             max_toks = probe.get("max_tokens", 32)
             valid_ltrs = probe.get("valid_letters", "ABCD")
 
-            resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks, sys_prompt=ARC_HLE_SYS)
-            initial_resp = resp
-            passed = int(bool(checker(resp)))
-            rci_applied = False
-            rci_improved = False
-            rci_critique = ""
+            if track in ("A", "B"):
+                hres = run_probe_with_harness(
+                    base_url=base_url,
+                    prompt=prompt,
+                    category=cat,
+                    max_tokens=max_toks,
+                    track=track,
+                    system_mode=system_mode,
+                    valid_letters=valid_ltrs,
+                )
+                resp = hres["graded_response"]
+                initial_resp = hres["raw_response"]
+                latency = hres["latency_s"]
+                passed = int(bool(checker(resp)))
+                rci_applied = hres["nemesis_retries"] > 0
+                rci_improved = bool(rci_applied and passed)
+                rci_critique = hres["nemesis_notes"]
+            else:
+                resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks, sys_prompt=ARC_HLE_SYS)
+                initial_resp = resp
+                passed = int(bool(checker(resp)))
+                rci_applied = False
+                rci_improved = False
+                rci_critique = ""
 
-            # Official ARC Prize 2-Attempt (Pass@2) & Task 3 RCI Verification on failure
-            if not passed:
+            # Legacy ARC Prize 2-Attempt (Pass@2) & Task 3 RCI Verification (only when track == "legacy_rci"):
+            if track == "legacy_rci" and not passed:
                 rci_applied = True
                 first_letter = extract_option_letter_abcde(resp, valid_letters=valid_ltrs)
                 if not first_letter:
@@ -549,9 +571,16 @@ def evaluate_model_on_arc123_hle(
             "margin_of_error": round((high - low) / 2, 2),
         }
 
+    non_hle_arc3_vals = category_results.get("ARC_AGI_1", []) + category_results.get("ARC_AGI_2", [])
+    hle_arc3_vals = category_results.get("ARC_AGI_3", []) + category_results.get("HLE_Last_Exam", [])
+    nh_acc, nh_lo, nh_hi = compute_wilson_ci(sum(non_hle_arc3_vals), len(non_hle_arc3_vals))
+    ha_acc, ha_lo, ha_hi = compute_wilson_ci(sum(hle_arc3_vals), len(hle_arc3_vals))
+
     logger.info("-" * 80)
     logger.info("ARC123+HLE RESULT: %s -> %.2f%% (95%% CI: [%.2f%%, %.2f%%]) [%d/%d] in %.1fs",
                 model_name, overall_acc, overall_ci_low, overall_ci_high, total_passed, len(battery), elapsed_sec)
+    logger.info("  * Non-HLE/Non-ARC3 (ARC1+ARC2): %d/%d (%.2f%%)", sum(non_hle_arc3_vals), len(non_hle_arc3_vals), nh_acc)
+    logger.info("  * HLE + ARC-AGI-3             : %d/%d (%.2f%%)", sum(hle_arc3_vals), len(hle_arc3_vals), ha_acc)
     for cat, stats in category_summary.items():
         logger.info("  * %-20s: %d/%d (%.1f%%, +/-%.1f%%)",
                     cat, stats["passed"], stats["total"], stats["accuracy"], stats["margin_of_error"])
@@ -559,6 +588,7 @@ def evaluate_model_on_arc123_hle(
 
     return {
         "model_name": model_name,
+        "track": f"Track {track}" if track in ("A", "B") else "legacy_rci",
         "gguf_path": gguf_path,
         "overall_accuracy": overall_acc,
         "ci_95": [overall_ci_low, overall_ci_high],
@@ -566,6 +596,10 @@ def evaluate_model_on_arc123_hle(
         "total_passed": total_passed,
         "total_probes": len(battery),
         "elapsed_seconds": round(elapsed_sec, 2),
+        "split_summary": {
+            "non_hle_non_arc3": {"passed": sum(non_hle_arc3_vals), "total": len(non_hle_arc3_vals), "accuracy": nh_acc, "ci_95": [nh_lo, nh_hi]},
+            "hle_and_arc3": {"passed": sum(hle_arc3_vals), "total": len(hle_arc3_vals), "accuracy": ha_acc, "ci_95": [ha_lo, ha_hi]},
+        },
         "category_summary": category_summary,
         "detailed_logs": detailed_logs,
     }
@@ -577,35 +611,56 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=8091)
     parser.add_argument("--out", type=str, default=OUT_ARC_HLE)
     parser.add_argument("--fresh", action="store_true")
+    parser.add_argument("--only-model", type=str, default="", help="Optional filter e.g. 'Model A'")
+    parser.add_argument("--flagship", type=str, default=None, help="Custom Flagship GGUF path")
+    parser.add_argument("--mini", type=str, default=None, help="Custom Mini GGUF path")
+    parser.add_argument("--dragon", type=str, default=None, help="Custom Dragon GGUF path")
+    parser.add_argument("--track", type=str, default="both", choices=["A", "B", "both", "legacy_rci"], help="Track A (raw), Track B (Cognitive Harness), both, or legacy_rci")
+    parser.add_argument("--system-mode", type=str, default="sovereign_core", choices=["sovereign_core", "full"], help="Track B system prompt mode")
+    parser.add_argument("--ctx", type=int, default=4096, help="llama-server context window")
     args = parser.parse_args()
 
+    fleet = resolve_fleet_ggufs(flagship=args.flagship, mini=args.mini, dragon=args.dragon)
+    flagship_p = fleet["flagship"] or ""
+    mini_p = fleet["mini"] or ""
+    dragon_p = fleet["dragon"] or ""
+
     battery = build_arc123_hle_battery(seed=42, per_section=args.per_section)
-    models_to_evaluate = [
-        ("Model A Flagship (1.2B WSP v20 Q8_0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v20-q8_0.gguf"),
-        ("Model B Mini (0.5B WSP v15 Q8_0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v15-q8_0.gguf"),
-        ("Model C Dragon (1.0B WSP v18b Q8_0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v18b-q8_0.gguf"),
-    ]
+    models_to_evaluate = []
+    if flagship_p:
+        models_to_evaluate.append((f"Model A Flagship ({os.path.basename(flagship_p)})", flagship_p))
+    if mini_p:
+        models_to_evaluate.append((f"Model B Mini ({os.path.basename(mini_p)})", mini_p))
+    if dragon_p:
+        models_to_evaluate.append((f"Model C Dragon ({os.path.basename(dragon_p)})", dragon_p))
 
     all_results: Dict[str, Any] = {}
-    if not args.fresh and os.path.exists(args.out):
+    if (not args.fresh or args.only_model) and os.path.exists(args.out):
         try:
             with open(args.out, "r", encoding="utf-8") as f:
                 all_results = json.load(f)
         except Exception:
             all_results = {}
 
+    tracks = ["A", "B"] if args.track == "both" else [args.track]
     for name, path in models_to_evaluate:
+        if args.only_model and args.only_model.lower() not in name.lower():
+            continue
         if not os.path.exists(path):
             logger.warning("Checkpoint not found: %s", path)
             continue
-        if not args.fresh and name in all_results and all_results[name].get("total_probes") == len(battery):
-            logger.info("Skipping already completed model: %s", name)
-            continue
-        res = evaluate_model_on_arc123_hle(name, path, battery, port=args.port)
-        all_results[name] = res
-        with open(args.out, "w", encoding="utf-8") as f:
-            json.dump(all_results, f, indent=2)
-        logger.info("[CHECKPOINT] Saved ARC-AGI 1/2/3 + HLE results for %s to %s", name, args.out)
+        for trk in tracks:
+            run_name = f"{name} [Track {trk}]" if trk in ("A", "B") else name
+            if not args.fresh and not args.only_model and run_name in all_results and all_results[run_name].get("total_probes") == len(battery):
+                logger.info("Skipping already completed model: %s", run_name)
+                continue
+            res = evaluate_model_on_arc123_hle(
+                run_name, path, battery, port=args.port, track=trk, system_mode=args.system_mode, ctx=args.ctx
+            )
+            all_results[run_name] = res
+            with open(args.out, "w", encoding="utf-8") as f:
+                json.dump(all_results, f, indent=2)
+            logger.info("[CHECKPOINT] Saved ARC-AGI 1/2/3 + HLE results for %s to %s", run_name, args.out)
 
     logger.info("[SUCCESS] ARC-AGI 1/2/3 + HLE Suite Complete. Saved to: %s", args.out)
 

@@ -18,7 +18,7 @@ import httpx
 
 NVIDIA_API_KEY = os.environ.get("NVIDIA_API_KEY", "").strip()
 NIM_BASE = "https://integrate.api.nvidia.com/v1"
-PRIMARY_VISION_MODEL = "meta/llama-3.2-90b-vision-instruct"
+PRIMARY_VISION_MODEL = "nvidia/nemotron-3.5-super-vl-120b-a12b"
 MAX_IMAGE_BYTES = 10 * 1024 * 1024
 NIM_TIMEOUT = httpx.Timeout(connect=10.0, read=90.0, write=30.0, pool=10.0)
 

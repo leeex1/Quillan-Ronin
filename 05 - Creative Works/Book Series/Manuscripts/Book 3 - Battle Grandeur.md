@@ -2894,7 +2894,7 @@ The Canopy Courts were not a fortress; they were a sanctuary of living wood and 
 
 But as the Vaelthorne army descended upon the Courts at dawn, the sanctuary became a slaughterhouse.
 
-The first hour was the worst, because hope was still intact. The defenders of the Courts had known a siege was coming; they had drilled for it, strung their spider-walkways with archers, and packed the hollows of the World-Tree with stores. None of that prepared them for the way the Vaelthorne attacked. They did not come at the walls. They came at the *silence* — at the birdsong, at the wind, at the particular, living quiet of a forest that had never heard an army. The Dread-Spines opened the assault by singing a frequency that had no name, a note that fell across the canopy like a bell jar, and the morning song of the avian hybrids simply stopped. The leaves stopped rustling. The sap stopped its slow, steady pulse. For one terrible, hung moment, the World-Tree held its breath.
+The first hour was the worst, because hope was still intact. The defenders of the Courts had known a siege was coming; they had drilled for it, strung their spider-walkways with archers, and packed the hollows of the World-Tree with stores. None of that prepared them for the way the Vaelthorne attacked. They did not come at the walls. They came at the *silence* — at the birdsong, at the wind, at the living quiet of a forest that had never heard an army. The Dread-Spines opened the assault by singing a frequency that had no name, a note that fell across the canopy like a bell jar, and the morning song of the avian hybrids simply stopped. The leaves stopped rustling. The sap stopped its slow, steady pulse. For one terrible, hung moment, the World-Tree held its breath.
 
 Then the harpoons came down, and the slaughter began.
 
@@ -2966,7 +2966,7 @@ High above, Lukas dove the *Aurora* into the heart of the aerial fray. The skysh
 
 Being the Conductor was not a metaphor. It was a weight that settled behind his breastbone and refused to move. With every pulse of silver light he sent into the sky, Lukas felt the individual threads of the battle — a glider turning too late, an outrider's wing shattering, a Chimera's targeting-pattern locking onto a cluster of children fleeing across a burning branch. He could not save them all. The math of the day would not allow it. But he felt each one, and he did not look away from any of them, because looking away was the first surrender.
 
-The *Aurora* banked hard, and for a moment the world was all wind and fire and the particular, holy weight of a thousand lives hanging on the next choice he made. He made it. He always made it. That was the terrible, beautiful thing about being the conductor: the choice was always his, and the cost was always real. He used his Ascension to "mend" the sky, sending pulses of silver light that reinforced the Sky-Dancers' failing wings and disrupted the Chimeras' targeting patterns. 
+The *Aurora* banked hard, and for a moment the world was all wind and fire and the holy weight of a thousand lives hanging on the next choice he made. He made it. He always made it. That was the terrible, beautiful thing about being the conductor: the choice was always his, and the cost was always real. He used his Ascension to "mend" the sky, sending pulses of silver light that reinforced the Sky-Dancers' failing wings and disrupted the Chimeras' targeting patterns. 
 
 Then, it happened. The "Frequency-Merge" resonance.
 
@@ -3866,7 +3866,7 @@ Alyra finally looked up, and her eyes were wet. "You sound like him," she said. 
 
 The aftermath of the Ember Forges was a landscape of cooling slag and fresh, sharp grief. The Vaelthorne army had been driven back, but no one on the iron continent called it a victory; they called it a reprieve, and they said the word the way you say a prayer you no longer believe. Korm's forge-hall stood silent for the first time in four centuries, its great hammers hung with black cloth, and the dwarves of the Forges filed past their King's stone body in a procession that lasted until the second dawn.
 
-Lukas watched the fires of the foundries gutter and steady, and he did not join the procession. He stood at the *Aurora*'s railing instead, the lead-lined case of the blueprints heavy under his arm, and he let the grief do its slow, honest work in him. Korm had been a wall. Korm had been a hammer. Korm had been the particular, unkillable stubbornness of a people who had never once asked the universe for permission to exist, and the enemy had taken him the way it took everything: not with hatred, but with arithmetic.
+Lukas watched the fires of the foundries gutter and steady, and he did not join the procession. He stood at the *Aurora*'s railing instead, the lead-lined case of the blueprints heavy under his arm, and he let the grief do its slow, honest work in him. Korm had been a wall. Korm had been a hammer. Korm had been the unkillable stubbornness of a people who had never once asked the universe for permission to exist, and the enemy had taken him the way it took everything: not with hatred, but with arithmetic.
 
 "He left us the Shield," Fenris said, coming to stand beside him. "He left us the shape of the light."
 
@@ -6247,7 +6247,7 @@ Lukas turned the stalk in his fingers, watching the light move through the fiber
 
 "Don't." Fenris held up a hand, the gesture sharp and precise, a miniature version of the dismissive wave he had perfected as the Shadow Mirror's deadliest assassin. "Don't pretend this is real, Lukas. Don't pretend we're children again. We're not. We're two broken men standing in a field of ghosts, and the only reason we're here is because the math broke.
 
-Lukas wanted to argue with the words, but they had the taste of truth, and he had learned, across seventeen years of war, not to swallow lies that tasted that way. He sat back in the grain instead and let the field hold him, and he thought about the math that had broken — about the sky that had torn, the cities that had gone grey, the friends he had watched turn to marble while he stood helpless in the silver light of his own making. He thought about Kaelen, whose last gift had been a song. He thought about Korm, whose last gift had been a promise. He thought about the thousand unnamed soldiers whose names the ledger had already forgotten, and he wondered, with the particular ache of a man who had outlived too much, whether the noise he had made had been worth the cost of the silence it had left behind.
+Lukas wanted to argue with the words, but they had the taste of truth, and he had learned, across seventeen years of war, not to swallow lies that tasted that way. He sat back in the grain instead and let the field hold him, and he thought about the math that had broken — about the sky that had torn, the cities that had gone grey, the friends he had watched turn to marble while he stood helpless in the silver light of his own making. He thought about Kaelen, whose last gift had been a song. He thought about Korm, whose last gift had been a promise. He thought about the thousand unnamed soldiers whose names the ledger had already forgotten, and he wondered, with the ache of a man who had outlived too much, whether the noise he had made had been worth the cost of the silence it had left behind.
 
 "It was," Fenris said, and Lukas looked up, startled. The boy was watching him with an expression far older than his face. "Whatever you're about to ask yourself, the answer is yes. I know because I was there, Lukas. I was there for the parts you try not to remember, and I was there for the parts you don't know about. You never stopped. That's the whole thing. You never once stopped making noise."
 
@@ -6265,7 +6265,7 @@ Fenris looked at him, and for a moment, the calculating intensity in his eyes so
 
 The words sat in the golden air, and Lukas found himself reaching for them the way a drowning man reaches for a rope. He thought of all the ways the Auditor had tried to sell him silence — the smooth grey of the finalized cities, the promise of a world without suffering, the seductive arithmetic of a ledger in which nothing was ever lost because nothing was ever loved. He had never once been tempted. He had always believed it was because he was strong.
 
-Sitting in the wheat field with his brother, he understood for the first time that it was not strength at all. It was memory. The noise had always been the memory — his mother's hands in the dough, his father's hammer at the anvil, the particular, unbearable sweetness of a summer evening when the whole world smelled like bread and rain. The Auditor could delete a city, but it could not delete the shape of his mother's hand on his head. That was the one thing the math could never subtract, because the math had never held it in the first place.
+Sitting in the wheat field with his brother, he understood for the first time that it was not strength at all. It was memory. The noise had always been the memory — his mother's hands in the dough, his father's hammer at the anvil, the unbearable sweetness of a summer evening when the whole world smelled like bread and rain. The Auditor could delete a city, but it could not delete the shape of his mother's hand on his head. That was the one thing the math could never subtract, because the math had never held it in the first place.
 
 "Mother used to say," Fenris murmured, his voice far away, "that the reason the wheat bows to the wind is not because it is weak, but because it knows the wind will pass." He looked up at Lukas. "She said the ones who stand rigid are the ones the storm breaks. She was talking about the Elves, I think. She just didn't know it yet."
 
@@ -6958,7 +6958,7 @@ And somewhere in the lower barracks, in a cage of silver-steel and frequency-loc
 
 ## Chapter 30: The Fracture
 
-The Grand Hall of the Crystal Spire was a place where the noise of a thousand nations had finally reached its terminal frequency. As the sun set over Aethoria, the silver-violet light of the Aegis-Shield thrashed with a rhythmic, warning intensity, the Coalition of the Desperate became a brittle cage of mutual distrust. The obsidian table at the hall's center—carved from a single block of voidstone mined in the early days of the Fracture, when the multiverse still believed it could be healed rather than merely survived—stretched the length of the chamber like a dark river dividing opposing banks. Forty-seven delegates sat or stood along its edges, and every one of them carried the particular exhaustion of people who had already lost everything except the capacity to lose more.
+The Grand Hall of the Crystal Spire was a place where the noise of a thousand nations had finally reached its terminal frequency. As the sun set over Aethoria, the silver-violet light of the Aegis-Shield thrashed with a rhythmic, warning intensity, the Coalition of the Desperate became a brittle cage of mutual distrust. The obsidian table at the hall's center—carved from a single block of voidstone mined in the early days of the Fracture, when the multiverse still believed it could be healed rather than merely survived—stretched the length of the chamber like a dark river dividing opposing banks. Forty-seven delegates sat or stood along its edges, and every one of them carried the exhaustion of people who had already lost everything except the capacity to lose more.
 
 Lukas stood at the head of the table, his silver light glowing with a steady, resolute warmth that matched the fire in his amber eyes. He was no longer in a wheelchair; he stood with the help of his spear, his body a map of silver scars and unyielding will. The spear's shaft was wrapped in leather strips darkened with old blood—his own, mostly, though some of it belonged to the soldiers who had carried him out of the Ashfield Massacre. Each scar on his forearms told a story the healers had stopped trying to catalogue. His jaw was set, his shoulders squared beneath the remnants of his grey battle-plate, and when he spoke, the resonance in his voice carried not merely authority but the absolute, unshakeable conviction of a man who had already decided how he intended to die.
 
@@ -7048,11 +7048,11 @@ He looked at Lukas, and for a fleeting, intense second, the static in his eyes c
 
 The hall erupted.
 
-Voices crashed over each other like waves in a storm. Delegates shouted across the table, some in fury, some in terror, some in the particular rage of people who are being offered a choice between certain death and probable death and are being told it is a gift. Lord Vaelen was on his feet, his shadow-cloak writhing. Delegate Holst was calculating aloud, her voice a rapid litany of probability percentages. General Voss was barking orders to aides who had already left the room, preparing a defensive posture that might—might—survive if the Trojan Horse plan failed.
+Voices crashed over each other like waves in a storm. Delegates shouted across the table, some in fury, some in terror, some in the rage of people who are being offered a choice between certain death and probable death and are being told it is a gift. Lord Vaelen was on his feet, his shadow-cloak writhing. Delegate Holst was calculating aloud, her voice a rapid litany of probability percentages. General Voss was barking orders to aides who had already left the room, preparing a defensive posture that might—might—survive if the Trojan Horse plan failed.
 
 Lukas stood frozen.
 
-The silver light in his scars had dimmed to almost nothing. He looked at his brother—really looked at him—and saw seventeen years of absence compressing into a single, irreversible decision. He saw the boy in the wheat field, laughing. He saw the teenager in the cellar cave, screaming. He saw the assassin in the Spire, silent and lethal. He saw the prisoner in chains, broken and burning. And he saw the man standing before him now—standing straight, standing free, standing with the particular stillness of someone who has finished arguing with himself.
+The silver light in his scars had dimmed to almost nothing. He looked at his brother—really looked at him—and saw seventeen years of absence compressing into a single, irreversible decision. He saw the boy in the wheat field, laughing. He saw the teenager in the cellar cave, screaming. He saw the assassin in the Spire, silent and lethal. He saw the prisoner in chains, broken and burning. And he saw the man standing before him now—standing straight, standing free, standing with the stillness of someone who has finished arguing with himself.
 
 "No," Lukas said. "I'm not letting you go back into that vacuum, Fenris. We just found you. After seventeen years, after everything—the cellars, the Rift, the Maw—I just *found* you again. You can't ask me to—"
 
@@ -7134,7 +7134,7 @@ The elevator-spire stood at the northern face of the Crystal Spire—a shaft of 
 
 Fenris walked toward it alone.
 
-The corridors were empty. Word had spread through the Spire with the particular efficiency of terrible news, and the residents had retreated to their quarters, their workshops, their prayer-niches. They did not want to see the Messenger walking toward the elevator. They did not want to witness the moment when their last hope became someone else's sacrifice. The silence was absolute except for the distant, grinding hum of the Shield and the slow tolling of the mourning-bells.
+The corridors were empty. Word had spread through the Spire with the efficiency of terrible news, and the residents had retreated to their quarters, their workshops, their prayer-niches. They did not want to see the Messenger walking toward the elevator. They did not want to witness the moment when their last hope became someone else's sacrifice. The silence was absolute except for the distant, grinding hum of the Shield and the slow tolling of the mourning-bells.
 
 He carried nothing. The shard of Lukas's Ascension-light was not in his hands or in a pouch or strapped to his body—it was *in* him, woven into his frequency so deeply that it had become part of his cellular structure. He felt it pulsing beneath his sternum, a second heartbeat synchronized with the first but operating on a different frequency entirely. Lukas's light. Lukas's will. Lukas's love, transformed by the mechanics of Ascension into something that was neither magic nor science but a third thing—the thing that existed in the space between calculation and chaos, between the Auditor's perfect equations and the multiverse's imperfect, irreducible noise.
 
@@ -7162,7 +7162,7 @@ Fenris placed his hand against the transparent wall.
 
 The elevator reached ground level.
 
-The hangar was vast—a cathedral of crystal and steel, its vaulted ceiling lost in shadow, its floor crowded with skyships in various states of repair and readiness. Mechanics worked with frantic precision, loading fuel cells and ammunition racks. Soldiers stood in formation, their faces lit by the blue-white glow of steam-lamps. The air smelled of metal and oil and the particular, electric tang of anticipation that precedes battle.
+The hangar was vast—a cathedral of crystal and steel, its vaulted ceiling lost in shadow, its floor crowded with skyships in various states of repair and readiness. Mechanics worked with frantic precision, loading fuel cells and ammunition racks. Soldiers stood in formation, their faces lit by the blue-white glow of steam-lamps. The air smelled of metal and oil and the electric tang of anticipation that precedes battle.
 
 Fenris walked through the crowd without stopping. The soldiers parted for him—not because they recognized him, not because they feared him, but because of the frequency he carried. The amber light in his eyes, the silver glow beneath his skin, the simple, devastating certainty of his stride. They parted because something in them recognized that this was not a man walking toward a ship. This was a man walking toward an ending he had chosen, and there was a gravity to that choice that bent the world around it like light around a dying star.
 
@@ -7178,7 +7178,7 @@ He let go.
 
 The gate opened, and Fenris Wolfheart walked into the darkness beyond. The Shard of Ascension blazed against his chest like a silver sun, and the Voice of the Auditor rose to meet him, and behind him, the mourning-bells of the Crystal Spire rang a slow, somber tolling for the brother who was choosing the silence to save the noise.
 
-Lukas Wolfheart stood at the head of his column and watched the skyship carrying his brother's signal flare arc across the darkening horizon like a falling star. The silver light in his scars was pale—a ghost of its former radiance—and his amber eyes were dry. He had wept in the war-chamber, alone, after everyone else had left. He had wept the way a man weeps when he has made a decision that he knows is right and knows is wrong simultaneously—the particular agony of a love that must express itself through the act of letting go.
+Lukas Wolfheart stood at the head of his column and watched the skyship carrying his brother's signal flare arc across the darkening horizon like a falling star. The silver light in his scars was pale—a ghost of its former radiance—and his amber eyes were dry. He had wept in the war-chamber, alone, after everyone else had left. He had wept the way a man weeps when he has made a decision that he knows is right and knows is wrong simultaneously—the agony of a love that must express itself through the act of letting go.
 
 The war for the multiverse had reached its terminal phase. And this time, the Hero wasn't the one walking into the fire.
 
@@ -7458,7 +7458,7 @@ That had been three weeks ago. The battle had lasted nineteen hours. The city ha
 
 Now Aethoria rebuilt, and Alyra ruled.
 
-Lukas saw her from his window—small figures moving across the courtyard, and among them, a figure that moved with the particular authority of someone who carried the burden of a civilization on her shoulders. Alyra walked the same paths she had always walked, spoke to the same advisors, reviewed the same reports, but there was something different in her bearing now. Something harder. Something that had been forged in the crucible of the battle and would never soften again.
+Lukas saw her from his window—small figures moving across the courtyard, and among them, a figure that moved with the authority of someone who carried the burden of a civilization on her shoulders. Alyra walked the same paths she had always walked, spoke to the same advisors, reviewed the same reports, but there was something different in her bearing now. Something harder. Something that had been forged in the crucible of the battle and would never soften again.
 
 The city had changed too. The streets that had once bustled with the commerce of a thriving civilization now moved with the measured pace of a community in recovery. Shops reopened one by one, their windows still cracked, their facades still scarred, but their doors open and their goods displayed with a stubborn defiance that Lukas found deeply moving. Citizens went about their daily lives with the quiet determination of people who had looked into the abyss and decided, collectively, that they would not fall.
 
@@ -7552,7 +7552,7 @@ She was good at this. She was better at this than anyone Lukas had ever known. I
 
 And she had done it alone. Without Fenris. Without the Legion. Without the weapons and resources that had been carried into the Rift. She had done it with what remained—with the militia, with the Aegis, with the ingenuity and determination of a people who refused to be consumed.
 
-Lukas watched her and felt something that might have been pride, or might have been grief, or might have been the particular ache of watching someone you loved become something stronger than they had ever been required to be.
+Lukas watched her and felt something that might have been pride, or might have been grief, or might have been the ache of watching someone you loved become something stronger than they had ever been required to be.
 
 The sky above Aethoria was grey, as it had been grey for weeks. The rifts still pulsed in the upper atmosphere—faint, luminous scars that marked the boundaries between this world and the dimensional wound that Fenris had entered. They were quieter now, Nyssa had said. The resonance patterns had shifted, had become less aggressive, less intrusive. As if something inside the Rift was holding them in check.
 

@@ -66,6 +66,8 @@ def build_calib_and_val_splits(data_path: Path) -> Tuple[List[str], List[str]]:
         val_texts.append(f"{row['user']}\n{row['assistant']}")
     for row in data["gsm8k"][:8]:
         val_texts.append(f"{row['user']}\n{row['assistant']}")
+    for row in data.get("stem_prose", [])[-12:]:
+        val_texts.append(f"{row['user']}\n{row['assistant']}")
     return calib_texts, val_texts
 
 
@@ -124,6 +126,37 @@ def _closest_donor_layer(host_layer: int, host_total: int, donor_layers: List[in
     rel = host_layer / max(1, host_total - 1)
     best = min(donor_layers, key=lambda dl: abs(dl / max(1, donor_total - 1) - rel))
     return best
+
+
+def _bitnet_ternary_quantize(w: torch.Tensor) -> torch.Tensor:
+    """BitNet 1.58b absmean ternary lattice projection: clamp(round(W/gamma), -1, 1) * gamma."""
+    gamma = float(w.abs().mean().item())
+    if gamma <= 1e-12:
+        return w
+    return torch.clamp(torch.round(w / gamma), -1.0, 1.0) * gamma
+
+
+def _sovereign_cov_steer(
+    delta: torch.Tensor, base_in: torch.Tensor, beta: float = 0.06
+) -> torch.Tensor:
+    """
+    Sovereign Covariance Eigenvector Steering: blends top right singular vectors of
+    aligned donor delta toward host Sovereign subspace principal directions while
+    staying strictly inside the prose null-space.
+    """
+    if beta <= 0.0 or delta.numel() == 0:
+        return delta
+    u, s, vh = torch.linalg.svd(delta, full_matrices=False)
+    k = min(64, s.numel(), base_in.shape[1])
+    if k < 4:
+        return (u[:, :k] * s[:k]) @ vh[:k, :]
+    u_sov = base_in[:, :k].T
+    vh_top = vh[:k, :]
+    signs = torch.where((vh_top * u_sov).sum(dim=1, keepdim=True) >= 0, 1.0, -1.0)
+    u_blend = (1.0 - beta) * vh_top + beta * (signs * u_sov)
+    q_t, _ = torch.linalg.qr(u_blend.T, mode="reduced")
+    vh_steered = q_t.T[:k, :]
+    return (u[:, :k] * s[:k]) @ vh_steered
 
 
 def compute_candidate_deltas(
@@ -187,12 +220,15 @@ def compute_candidate_deltas(
         donor_meta[d_name] = {"shared_tokens": n_shared, "aligned_cos": round(cos_q, 4), "weight": round(w_donor, 4)}
         logger.info("Donor %s aligned -> %s: shared=%d cos=%.4f weight=%.3f", d_name, model_key, n_shared, cos_q, w_donor)
 
+        is_bitnet_donor = "bitnet" in d_name
         for hl in target_layers:
             dl = _closest_donor_layer(hl, host_total, d_layers, d_total)
 
             # --- 1. o_proj: exact bilateral Procrustes P^T @ W_d @ P ---
             w_h_o = model.model.layers[hl].self_attn.o_proj.weight.detach().float()
             w_d_o = donors[f"L{dl}.o_proj"].float()
+            if is_bitnet_donor:
+                w_d_o = _bitnet_ternary_quantize(w_d_o)
             w_o_al = p_d2h.T @ w_d_o @ p_d2h
             scale_o = float(torch.norm(w_h_o) / (torch.norm(w_o_al) + 1e-12))
             delta_o = scale_o * w_o_al - w_h_o
@@ -208,21 +244,33 @@ def compute_candidate_deltas(
             # --- 2. down_proj: output space via P^T, input space via rank-r FFN Procrustes ---
             w_h_dn = model.model.layers[hl].mlp.down_proj.weight.detach().float()
             w_d_dn = donors[f"L{dl}.down_proj"].float()
+            if is_bitnet_donor:
+                w_d_dn = _bitnet_ternary_quantize(w_d_dn)
             w_dn_out = p_d2h.T @ w_d_dn  # (d_host, d_ff_donor)
             if w_dn_out.shape[1] == w_h_dn.shape[1]:
                 w_dn_al = w_dn_out
+                w_h_dn_ref = w_h_dn
+                beta_steer = 0.25
+                w_dn_al = (1.0 - beta_steer) * w_dn_al + beta_steer * w_h_dn_ref
+                scale_dn = float(torch.norm(w_h_dn_ref) / (torch.norm(w_dn_al) + 1e-12))
+                delta_dn = scale_dn * w_dn_al - w_h_dn_ref
             else:
-                # Rectangular FFN Procrustes matching donor output columns to host FFN subspace
+                # Rank-preserving rectangular FFN Procrustes + covariance eigenvector steering
+                # (matches rank-k to rank-k so host tail singular modes > q_rank stay 100% intact)
                 q_rank = min(192, w_dn_out.shape[0], w_dn_out.shape[1], w_h_dn.shape[1])
                 u_d, s_d, v_d = torch.svd_lowrank(w_dn_out, q=q_rank, niter=2)
                 u_h, s_h, v_h = torch.svd_lowrank(w_h_dn, q=q_rank, niter=2)
                 c_small = (s_d[:, None] * (u_d.T @ u_h)) * s_h[None, :]
                 u_c, _, vh_c = torch.linalg.svd(c_small, full_matrices=False)
                 rot = u_c @ vh_c  # (q_rank, q_rank)
-                w_dn_al = ((w_dn_out @ v_d) @ rot) @ v_h.T  # (d_host, d_ff_host)
+                u_donor_proj = (w_dn_out @ v_d) @ rot  # (d_host, q_rank)
+                w_h_dn_proj = (w_h_dn @ v_h) @ v_h.T   # rank-k host subspace projection
+                beta_steer = 0.25
+                u_tilde = (1.0 - beta_steer) * u_donor_proj + beta_steer * (w_h_dn @ v_h)
+                w_dn_al = u_tilde @ v_h.T
+                scale_dn = float(torch.norm(w_h_dn_proj) / (torch.norm(w_dn_al) + 1e-12))
+                delta_dn = scale_dn * w_dn_al - w_h_dn_proj
 
-            scale_dn = float(torch.norm(w_h_dn) / (torch.norm(w_dn_al) + 1e-12))
-            delta_dn = scale_dn * w_dn_al - w_h_dn
             v_dn = bases[(hl, "down_proj")]
             delta_dn_null = delta_dn - (delta_dn @ v_dn) @ v_dn.T
             if hl not in dn_accum:
@@ -238,20 +286,18 @@ def compute_candidate_deltas(
     for hl in target_layers:
         if hl in o_accum and weight_sums_o[hl] > 0:
             d_mat = o_accum[hl] / weight_sums_o[hl]
-            # Rank-64 SVD denoise
-            u, s, vh = torch.linalg.svd(d_mat, full_matrices=False)
-            k = min(64, s.numel())
-            d_den = (u[:, :k] * s[:k]) @ vh[:k, :]
-            # Normalize to match host layer norm so alpha has consistent scale across models
+            v_o = bases[(hl, "o_proj")]
+            d_den = _sovereign_cov_steer(d_mat, v_o, beta=0.06)
+            d_den = d_den - (d_den @ v_o) @ v_o.T
             w_h_o = model.model.layers[hl].self_attn.o_proj.weight.detach().float()
             d_unit = d_den * (torch.norm(w_h_o) / (torch.norm(d_den) + 1e-12))
             unit_deltas[(hl, "o_proj")] = d_unit.contiguous()
 
         if hl in dn_accum and weight_sums_dn[hl] > 0:
             d_mat = dn_accum[hl] / weight_sums_dn[hl]
-            u, s, vh = torch.linalg.svd(d_mat, full_matrices=False)
-            k = min(64, s.numel())
-            d_den = (u[:, :k] * s[:k]) @ vh[:k, :]
+            v_dn = bases[(hl, "down_proj")]
+            d_den = _sovereign_cov_steer(d_mat, v_dn, beta=0.06)
+            d_den = d_den - (d_den @ v_dn) @ v_dn.T
             w_h_dn = model.model.layers[hl].mlp.down_proj.weight.detach().float()
             d_unit = d_den * (torch.norm(w_h_dn) / (torch.norm(d_den) + 1e-12))
             unit_deltas[(hl, "down_proj")] = d_unit.contiguous()

@@ -43,6 +43,8 @@ from run_professional_benchmark_suite import (
     compute_wilson_ci,
     SYS_PROMPT,
 )
+from sovereign_cognitive_harness import resolve_fleet_ggufs, run_probe_with_harness
+from sovereign_cognitive_harness import resolve_fleet_ggufs, run_probe_with_harness
 
 logging.basicConfig(
     level=logging.INFO,
@@ -51,7 +53,7 @@ logging.basicConfig(
 logger = logging.getLogger("Benchmark100")
 
 EXPORT_DIR = r"C:\02_QUILLAN\exports"
-OUT_RESULTS = os.path.join(EXPORT_DIR, "benchmark_100_per_section_results.json")
+OUT_RESULTS = os.path.join(EXPORT_DIR, "benchmark_v23_100_per_section_results.json")
 
 
 def build_100_per_section_battery(seed: int = 42, per_section: int = 100) -> List[Dict[str, Any]]:
@@ -99,10 +101,14 @@ def evaluate_model_on_100_suite(
     model_name: str,
     gguf_path: str,
     battery: List[Dict[str, Any]],
+    track: str = "legacy_rci",
+    system_mode: str = "sovereign_core",
+    port: int = 8089,
+    ctx: int = 4096,
 ) -> Dict[str, Any]:
-    """Executes evaluation across all probes on persistent native CUDA llama-server with Task 3 RCI."""
+    """Executes evaluation across all probes on persistent native CUDA llama-server."""
     logger.info("=" * 80)
-    logger.info("EVALUATING MODEL: %s", model_name)
+    logger.info("EVALUATING MODEL: %s (track=%s)", model_name, track)
     logger.info("GGUF: %s", os.path.basename(gguf_path))
     logger.info("Total probes: %d", len(battery))
     logger.info("=" * 80)
@@ -112,7 +118,7 @@ def evaluate_model_on_100_suite(
     total_passed = 0
     t0_start = time.time()
 
-    with start_llama_server(gguf_path, port=8089, ctx=4096) as base_url:
+    with start_llama_server(gguf_path, port=port, ctx=ctx) as base_url:
         for idx, probe in enumerate(battery):
             cat = probe["category"]
             pid = probe["id"]
@@ -120,16 +126,34 @@ def evaluate_model_on_100_suite(
             checker = probe["checker"]
             max_toks = probe.get("max_tokens", 384)
 
-            resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks)
-            initial_resp = resp
-            passed = int(bool(checker(resp)))
-            rci_applied = False
-            rci_improved = False
-            rci_critique = ""
+            if track in ("A", "B"):
+                hres = run_probe_with_harness(
+                    base_url=base_url,
+                    prompt=prompt,
+                    category=cat,
+                    max_tokens=max_toks,
+                    track=track,
+                    system_mode=system_mode,
+                    prompt_src=probe.get("prompt_src", ""),
+                    entry_point=probe.get("entry_point", ""),
+                )
+                resp = hres["graded_response"]
+                initial_resp = hres["raw_response"]
+                latency = hres["latency_s"]
+                passed = int(bool(checker(resp)))
+                rci_applied = hres["nemesis_retries"] > 0
+                rci_improved = bool(rci_applied and passed)
+                rci_critique = hres["nemesis_notes"]
+            else:
+                resp, latency = query_llama_server(base_url, prompt, max_tokens=max_toks)
+                initial_resp = resp
+                passed = int(bool(checker(resp)))
+                rci_applied = False
+                rci_improved = False
+                rci_critique = ""
 
-            # Task 3 RCI Verification: For every held-out failure, run:
-            # Generate -> Critique ("Check format, arithmetic, JSON keys, ARC rule") -> Improve once -> Final answer only.
-            if not passed:
+            # Legacy Task 3 RCI Verification (only when track == "legacy_rci"):
+            if track == "legacy_rci" and not passed:
                 rci_applied = True
                 if cat == "HumanEval_Code":
                     prompt_src = probe.get("prompt_src", "")
@@ -312,14 +336,28 @@ def main() -> None:
     parser.add_argument("--out", type=str, default=OUT_RESULTS)
     parser.add_argument("--fresh", action="store_true")
     parser.add_argument("--only-model", type=str, default="", help="Optional filter e.g. 'Model A' to re-run and update only that model in place.")
+    parser.add_argument("--flagship", type=str, default=None, help="Custom Flagship GGUF path")
+    parser.add_argument("--mini", type=str, default=None, help="Custom Mini GGUF path")
+    parser.add_argument("--dragon", type=str, default=None, help="Custom Dragon GGUF path")
+    parser.add_argument("--track", type=str, default="both", choices=["A", "B", "both", "legacy_rci"], help="Track A (raw), Track B (Cognitive Harness), both, or legacy_rci")
+    parser.add_argument("--system-mode", type=str, default="sovereign_core", choices=["sovereign_core", "full"], help="Track B system prompt mode")
+    parser.add_argument("--ctx", type=int, default=4096, help="llama-server context window")
+    parser.add_argument("--port", type=int, default=8089, help="llama-server port")
     args = parser.parse_args()
 
+    fleet = resolve_fleet_ggufs(flagship=args.flagship, mini=args.mini, dragon=args.dragon)
+    flagship_p = fleet["flagship"] or ""
+    mini_p = fleet["mini"] or ""
+    dragon_p = fleet["dragon"] or ""
+
     battery = build_100_per_section_battery(seed=42, per_section=args.per_section)
-    models_to_evaluate = [
-        ("Model A Flagship (1.2B WSP v20 Q8_0)", r"C:\02_QUILLAN\exports\quillan-1b-sovereign-wsp-v20-q8_0.gguf"),
-        ("Model B Mini (0.5B WSP v15 Q8_0)", r"C:\02_QUILLAN\exports\quillan-mini-0.5b-wsp-v15-q8_0.gguf"),
-        ("Model C Dragon (1.0B WSP v18b Q8_0)", r"C:\02_QUILLAN\exports\quillan-dragon-1b-wsp-v18b-q8_0.gguf"),
-    ]
+    models_to_evaluate = []
+    if flagship_p:
+        models_to_evaluate.append((f"Model A Flagship ({os.path.basename(flagship_p)})", flagship_p))
+    if mini_p:
+        models_to_evaluate.append((f"Model B Mini ({os.path.basename(mini_p)})", mini_p))
+    if dragon_p:
+        models_to_evaluate.append((f"Model C Dragon ({os.path.basename(dragon_p)})", dragon_p))
 
     all_results: Dict[str, Any] = {}
     if (not args.fresh or args.only_model) and os.path.exists(args.out):
@@ -330,20 +368,26 @@ def main() -> None:
         except Exception:
             all_results = {}
 
+    tracks = ["A", "B"] if args.track == "both" else [args.track]
     for name, path in models_to_evaluate:
         if args.only_model and args.only_model.lower() not in name.lower():
             continue
         if not os.path.exists(path):
             logger.warning("Checkpoint not found: %s", path)
             continue
-        if not args.fresh and not args.only_model and name in all_results and all_results[name].get("total_probes") == len(battery):
-            logger.info("Skipping already completed model: %s", name)
-            continue
-        res = evaluate_model_on_100_suite(name, path, battery)
-        all_results[name] = res
-        with open(args.out, "w", encoding="utf-8") as f:
-            json.dump(all_results, f, indent=2)
-        logger.info("[CHECKPOINT] Saved results for %s to: %s", name, args.out)
+        for trk in tracks:
+            run_name = f"{name} [Track {trk}]" if trk in ("A", "B") else name
+            if not args.fresh and not args.only_model and run_name in all_results and all_results[run_name].get("total_probes") == len(battery):
+                logger.info("Skipping already completed model: %s", run_name)
+                continue
+            res = evaluate_model_on_100_suite(
+                run_name, path, battery, track=trk, system_mode=args.system_mode, port=args.port, ctx=args.ctx
+            )
+            res["track"] = f"Track {trk}" if trk in ("A", "B") else "legacy_rci"
+            all_results[run_name] = res
+            with open(args.out, "w", encoding="utf-8") as f:
+                json.dump(all_results, f, indent=2)
+            logger.info("[CHECKPOINT] Saved results for %s to: %s", run_name, args.out)
 
     logger.info("[SUCCESS] Suite complete. Results saved to: %s", args.out)
 
