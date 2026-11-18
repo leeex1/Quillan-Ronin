@@ -81,9 +81,9 @@ BOOKS = [
 # BW cream paper: spine = pages * 0.0025" per KDP template calc.
 BOOK_PAGE_COUNTS = {
     1: 586,
-    2: 496,
+    2: 502,
     3: 557,
-    4: 479,
+    4: 475,
     5: 531,
 }
 

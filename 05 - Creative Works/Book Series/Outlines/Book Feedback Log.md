@@ -12,6 +12,23 @@ Tracked reader impressions, critique, sensory notes, and worldbuilding questions
 
 ---
 
+## Entry 002: Series-Wide Audience Reads (relayed via Crashoverride_X, 2026-11-17)
+
+### Raw Signals
+- Reader has **deep attachment to Alyra** ("alyra better not die i swear ill cry"). She must carry strong screen/heart moments.
+- **Lukas is broadly popular** ("Lukas has some fans a bit too"). He lives; his main deficit is a flesh-and-food humanity hook.
+- **One-user feedback, not canon.** The user's own instruction: "the reader is one person not the only dictator of the story but their feedback can be used to improve the books overall."
+- Lukas's authorship was noted carefully: Lukas is the main protagonist; tone-of-voice consistency needed after the duplicate-edit cleanup passes.
+
+### Synthesis & Actionable (carried into rewrite)
+1. **Alyra must survive the series-long arc.** Any restructure may wound her, but not kill her.
+2. **Lukas needs an explicit everyday-humanity beat** — what he likes to eat, a market woman's name, real sensory texture.
+3. **Feng is the dark to Lukas's light** (user's framing: "he is the dark to lukas light he was tortured where lukas was loved"). Keep his dark/cold voice without saving him into sympathy too early.
+4. **The market woman should be named** in future passes.
+5. **One-user feedback is a tool, not law.** All entries tagged as such until more readers weigh in.
+
+---
+
 ## Entry 001: Audio Listener Live Reaction — Chapter 1 to 7
 
 - **Reviewer / Listener**: [Dilligerent❀𝒕𝒖𝒓𝒕𝒍LXIX (@CTurtle62700)](https://x.com/CTurtle62700)

@@ -534,6 +534,60 @@ Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate s
 
 ---
 
+## 40. 2026-11-17 — Book 2 TYPIST follow-through applied; consect
+
+- Stray `After` line deleted; second scroll explicitly named (Dawn Court treaty; Alyra signed the Unity Covenant first — the pivotal page of the book — Zaphrium signed as Witness/Counterpart).
+- Announcement renamed to "The Unity Covenant" and tied to the Charter of the Spire as its amendment, ending the nomenclature collision.
+- Voice: Father-King deadpan replaced with wary-tender breath ("And yet I still have to call you Father-King," delivered with the weight of tired surprise).
+- Voice: Alyra's court-declaration passages shortened and given more warmth; Zaphrium's bourgeoise speeches trimmed to keep him dry/sage, not ornate-romance.
+- Sensory: white-cream of the awnings, lavender scent, lavender in the silk, iron band cold from the forge, hush-silence-before-storm added; "The crowd erupted" now renders as tragedy-turned-hope roar, not cardboard cheers.
+- Rebuild confirmed: 502pp, 148,064 words, 0 dup long sentences.
+- Audio for Book 2 re-rendering under PID 6728 (from post-edit file).
+- Backups: `Archive\Book 2 - pre-TYPIST-leave-2026-11-17.md` not needed — this state is cleaner.
+
+---
+
+## 39. 2026-11-17 — Book 2 "Love Book" surgery (wedding at the Unity Market)
+
+- New chapter added: **Chapter 27 "The Wedding at the Unity Market"** — Alyra & Zaphrium wed publicly; charter signing; treaty impromptu signed at the table; covenant sealed. Beats placed right after the rebellion chapters (Ch 26 "The Vanguard's Chaos").
+- Chapters renumbered cleanly from 27→28 through 32→33. Total 33 chapters.
+- Words: 146,613 → 147,939 (+1,326). Interior/EPUB rebuilt; **page count now 501pp**, cover regenerated with 4px wider spine.
+- Audit: 0 long-sentence duplicates; 6 low-signal "of a man / woman who" remnant retained intentionally.
+- Backups: `Archive\Book 2 - pre-wedding-2026-11-17.md`.
+- **NOT done:** Book 3 rewrite to the multiversal-chaos-wedding-marriage arc; Book 4 assassination + lukalliances + letter mix; Book 5 colder register; audio re-renders for 2,3,4,5 post-edit.
+
+---
+
+## 38. 2026-11-17 — TYPIST pass on Book 1; quotes normalized; B1 done
+
+- TYPIST audit of `Book 1 - Twisted Destiny.md`: one systemic defect found — ~44 unmatched curly-open quotes never closed with `”` (author used em dash or typed a new open mid-line). Other checks clean (no mojibake, no dup words, no artifacts).
+- Fix (paragraph- and line-precise): inserted missing `”` before each unterminated `”*` italics block; corrected 6 malformed quote spans; stripped 168 lines of trailing whitespace. Result: open=close=51; **zero imbalanced lines**.
+- Low-severity items noted & left alone: mixed apostrophe style, one U+2026 vs `...`, hyphen-instead-of-em-dash habit, 2 intentional refrain echoes.
+- Books 2–5 quote audit: all clean (well-formed quote pairing, no unmatched opens).
+- Builds regenerated (586pp interior/EPUB/cover) — green.
+- B1 READY pending user listen; TYPIST remains on file for future verification needs.
+
+---
+
+## 37. 2026-11-17 — Deeper cadence strip (B3–B5) + read-through notes
+
+**Cadence strip:** 234 instances of the AI frame `of a man who` replaced with `of someone who` (B3: 31, B4: 138, B5: 71) + `of a woman who` → `of someone who` (5/94/11) + `of a creature who` → `of a being who` (1/3/1). All `the particular X of` frames confirmed gone (0 in each book). New seq layer; current MP3s from morning pass obsolete — re-rendering B3/B4/B5 to match (PID 14772).
+**Chapter read-through:**
+- B3: prose coherent, dense but deliberate; no damage from strips; episode repetition of worldbuilding terms is intentional worldbuilding — left alone.
+- B4: prose structurally repetitive (Aurora flight, Maw) — NOT fixed (user deferred structural pass); language clean now.
+- B5: strongest of the three post-edits; intentional Silver Lady refrains retained.
+- Books 1 and 2: untouched per user direction. Book 1 still being heard by user for issue discovery.
+
+---
+
+## 36. 2026-11-16 — Books 3–5 re-rendered from post-touchup text
+
+- B3 470/470 chunks OK; B4 471/471 OK; B5 456/456 OK; transient NoAudioReceived retries auto-recovered in each.
+- Old B3/B4/B5 MP3s archived to `Archive\Audiobook backups (pre-touchup)\`; new canonical MP3s in place (B3 355.2 MB, B4 298.3 MB, B5 331.6 MB).
+- Whisper re-verification of openings not re-run this round; metadata cleanup carried unchanged from §34.
+
+---
+
 ## 35. 2026-11-16 — Text-polish pass (Books 2–5) + audio refresh started
 
 - AI-cadence frame "the particular …" stripped across B3 (2 refs left), B4 (493→0 in that frame family — incl. "the particular, X of" comma variant), B5 (119→0-family refs). Plain "a particular …" left untouched (valid English).

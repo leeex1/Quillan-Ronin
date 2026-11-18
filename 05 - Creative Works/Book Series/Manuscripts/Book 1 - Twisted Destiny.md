@@ -165,7 +165,7 @@ Duty overrode shock, the instincts of the guard rising to meet the challenge of 
 
 The spear struck true, the silver tip gleaming with a cold light of its own, but Fenris twisted with the agility of a ghost, his body moving in ways that defied physics. The weapon caught his cloak, tearing through the heavy fabric and spinning him aside with enough force to have shattered a lesser man. He rolled with the impact, the black blade never leaving his hand, and came up with lethal grace. His hood fell back to reveal features that were both achingly familiar and terrifyingly changed—a face etched with the silver scars of Vaelthorne conditioning, a map of pain that had been written into his skin.
 
-"Impossible," breathed King Aldric, his face ashen as he stared at the wolf-hybrid who had just tried to murder him. 
+"Impossible," breathed King Aldric, his face ashen as he stared at the wolf-hybrid who had just tried to murder him.
 
 "I am the debt you forgot to pay," the assassin hissed, his voice a roughened growl. "I am the one the Rift didn't save. I am the shadow born of your 'Order'."
 
@@ -375,9 +375,9 @@ The silence in the cell was absolute. Lukas stood in the center of the small, st
 
 His wrists bore the angry red marks of iron restraints, but the burning sensation faded quickly as his hybrid healing began its work. The chain collar had left deeper wounds—both physical and psychological—but those too would mend given time. What wouldn't heal so easily was the betrayal that sat like a lead weight in his chest, the knowledge that everything he'd built, every relationship he'd forged, every moment of trust he'd earned had been obliterated in the space of a single night.
 
-The memory of that betrayal played across his mind in vivid, agonizing detail. Just hours ago, he had walked into the dawn with Princess Alyra, the weight of the King's citizenship decree feeling like the start of a new world. They had reached the Royal Gardens, the air smelling of wet jasmine and hope, when the world had shattered. 
+The memory of that betrayal played across his mind in vivid, agonizing detail. Just hours ago, he had walked into the dawn with Princess Alyra, the weight of the King's citizenship decree feeling like the start of a new world. They had reached the Royal Gardens, the air smelling of wet jasmine and hope, when the world had shattered.
 
-Lord Gothryn had been waiting for them, flanked by thirty Silver Guards whose armor gleamed with a cold, unforgiving light. There had been no debate, no hearing. Only the cold, mechanical reading of a second decree—one signed by a quorum of nobles while the King was "recovering" from the shock of the attack. Lukas had been charged with high treason, accused of orchestrating his brother's appearance to coerce the King into a radical policy shift. They had stripped him of his rank on the spot, the silver thread embroidery of his captaincy torn from his uniform by Gothryn's own hand. 
+Lord Gothryn had been waiting for them, flanked by thirty Silver Guards whose armor gleamed with a cold, unforgiving light. There had been no debate, no hearing. Only the cold, mechanical reading of a second decree—one signed by a quorum of nobles while the King was "recovering" from the shock of the attack. Lukas had been charged with high treason, accused of orchestrating his brother's appearance to coerce the King into a radical policy shift. They had stripped him of his rank on the spot, the silver thread embroidery of his captaincy torn from his uniform by Gothryn's own hand.
 
 Alyra had screamed, had fought, had tried to use her own authority to stop them, but they had dragged her away "for her own protection," leaving Lukas to face the iron and the dark alone.
 
@@ -427,7 +427,7 @@ Before Lukas could ask what he meant, the sound of approaching boots echoed thro
 
 "Go," Lord Theron urged, pressing something small and hard into Lukas's hand through the bars. "The Warrens will hide you, but trust no one completely. The game being played here has more sides than any honest man can count. Look for the 'Gilded Kraken' in the lower docks. Mention my name only to the one who doesn't blink."
 
-The object was a small copper disk, worn smooth by years of handling, yet it felt surprisingly warm to the touch, as if it held a faint, residual magic of its own. In the flickering torchlight, Lukas could just make out an image etched on its surface—a tree with roots that extended as deep as its branches reached high, the symbol of the Deep Guard. But around the tree were small, precise runes that he didn't recognize, symbols that seemed to shift slightly if he looked at them too directly. 
+The object was a small copper disk, worn smooth by years of handling, yet it felt surprisingly warm to the touch, as if it held a faint, residual magic of its own. In the flickering torchlight, Lukas could just make out an image etched on its surface—a tree with roots that extended as deep as its branches reached high, the symbol of the Deep Guard. But around the tree were small, precise runes that he didn't recognize, symbols that seemed to shift slightly if he looked at them too directly.
 
 "Thank you," he whispered, the weight of the disk grounding him. "I won't let your sacrifice be in vain."
 
@@ -549,7 +549,7 @@ Lukas's mind was a sensory map in flux, constantly updating with every new scent
 
 He thought of Princess Alyra, standing in the throne room with a courage that put the King's advisors to shame. He could still see the way the flickering torchlight had caught the determination in her eyes as she stood between her father and the Shadowfang. She was the one who had believed in a future of equality, the one who had pushed for the citizenship decree that Gothryn was currently using as an excuse for a purge. Lukas felt a surge of protectiveness that transcended his oath of service; he had promised to protect her, and now that promise meant saving the people she championed.
 
-Lukas moved through the labyrinthine streets with the practiced ease of a predator, his hood pulled low to shadow his face. His wolf-heritage senses, no longer suppressed by the cold iron of the dampening collar, were screaming in the sensory minefield of the slums. He could smell the fear-sweat of a pickpocket working the crowd near a tavern entrance, the metallic tang of old blood from a healer's shop where questions weren't asked, and underneath it all, the pervasive musk of too many people living in too small a space with too few resources. It was a cascade of survival, a cacophony of life reduced to its most basic, brutal elements. 
+Lukas moved through the labyrinthine streets with the practiced ease of a predator, his hood pulled low to shadow his face. His wolf-heritage senses, no longer suppressed by the cold iron of the dampening collar, were screaming in the sensory minefield of the slums. He could smell the fear-sweat of a pickpocket working the crowd near a tavern entrance, the metallic tang of old blood from a healer's shop where questions weren't asked, and underneath it all, the pervasive musk of too many people living in too small a space with too few resources. It was a cascade of survival, a cacophony of life reduced to its most basic, brutal elements.
 
 Every shadow seemed to hold a secret, every whisper a threat. The Warrens were a graveyard of dreams, a place where the kingdom's refuse—both human and material—came to rot in carefully maintained anonymity. Yet, in the midst of the decay, there was a raw, vibrant energy that the palace district lacked. Here, survival was not a given; it was an achievement, celebrated with every meal shared, every story told, every choice made to stand together against the encroaching dark. It was a community born of shared trauma and maintained through mutual aid, a society that existed in the cracks of the 'Order' and thrived on its own terms.
 
@@ -569,7 +569,7 @@ Before Lukas could respond, a shadow detached itself from the shop's darker rece
 
 Inside, the air was a physical assault on the senses. The sharp, acrid smell of tanning solutions mingled with the heavy musk of animal hides and the faint, sweet scent of dried jasmine that Lukas realized was Nyssa's personal perfume—a small luxury she maintained even in the midst of the slums. The vats of chemical mixtures bubbled softly in the background, a low-frequency hum that vibrated in Lukas's teeth and made his wolf-ears twitch with irritation.
 
-Nyssa moved with a grace that was both beautiful and terrifying, her feline heritage manifesting in every gesture. She didn't just walk; she flowed, her body adjusting to the uneven floorboards with a fluid precision that made the Spire's knights look clumsy. Her eyes, large and slanted with amber irises that glowed in the dim light, scanned Lukas with a predator's curiosity, noting the exhaustion in his face and the raw intensity in his gaze. 
+Nyssa moved with a grace that was both beautiful and terrifying, her feline heritage manifesting in every gesture. She didn't just walk; she flowed, her body adjusting to the uneven floorboards with a fluid precision that made the Spire's knights look clumsy. Her eyes, large and slanted with amber irises that glowed in the dim light, scanned Lukas with a predator's curiosity, noting the exhaustion in his face and the raw intensity in his gaze.
 
 "The Spire has a long memory, Lukas," she said, her voice dropping to a whisper that barely carried over the bubbling vats. "But the Warrens have a longer one. We remember the names of the children taken by the Rifts, the names of the families broken by the Purists, and the names of the guards who looked the other way. You were one of the few who actually saw us, and that is why you are still breathing tonight."
 
@@ -609,11 +609,11 @@ The meeting was interrupted by a frantic knocking at the workshop's upper door. 
 
 "They've started," the messenger gasped. "Gothryn's men. They're not just searching anymore—they're burning. They've set fire to the weavers' district and are blocking the exits. They're calling it an 'emergency quarantine', but we all know what it is. It's the Purge."
 
-The fire in the weavers' district was not a normal blaze. It carried a violet tint, a telltale sign of Rift-drift contamination that the Vaelthorne soldiers had likely used to accelerate the destruction. The smoke reeked of burning silk, wool, and the unmistakable, metallic tang of incinerated magical wards. From their vantage point near the 'Gilded Kraken', Lukas saw the streams of fleeing hybrids being herded like cattle toward the main thoroughfares where Silver Guard checkpoints were being established. 
+The fire in the weavers' district was not a normal blaze. It carried a violet tint, a telltale sign of Rift-drift contamination that the Vaelthorne soldiers had likely used to accelerate the destruction. The smoke reeked of burning silk, wool, and the unmistakable, metallic tang of incinerated magical wards. From their vantage point near the 'Gilded Kraken', Lukas saw the streams of fleeing hybrids being herded like cattle toward the main thoroughfares where Silver Guard checkpoints were being established.
 
 "They're not just burning buildings," Nyssa hissed, her claws extending instinctively as she watched the distant flames. "They're burning the evidence of our existence. Gothryn wants to ensure that when the history of tonight is written, there are no hybrid voices left to tell the truth."
 
-The sounds of the Purge were a cacophony of terror: the rhythmic thud of maces against wooden doors, the shrill cries of children being separated from their parents, and the high-pitched hum of Vaelthorne magic that seemed to vibrate in the air. Every shadow in the Warrens was now a potential trap, every alleyway a killing field. 
+The sounds of the Purge were a cacophony of terror: the rhythmic thud of maces against wooden doors, the shrill cries of children being separated from their parents, and the high-pitched hum of Vaelthorne magic that seemed to vibrate in the air. Every shadow in the Warrens was now a potential trap, every alleyway a killing field.
 
 Lukas looked at his companions—Nyssa, Marris, Elena, Cael. They were a ragtag collection of the desperate and the displaced, yet in this moment of absolute crisis, they were the only force standing between the kingdom and the void. He felt the weight of his captaincy return to him, but this time it wasn't an oath to a man or a crown. It was an oath to the people who were currently being hunted in the streets.
 
@@ -631,7 +631,7 @@ He paused, his hand tracing a particularly well-preserved section of the sewer w
 
 Elena moved ahead of them, her fingers brushing against the damp stone, her expression one of intense concentration. "The city is screaming, Marris. The roots are feeling the heat of the weavers' district, and the water is carrying the taste of ash and Rift-drift. The balance has been shattered, and the Spire is trying to hold its breath while the world around it burns."
 
-"Is that why you're with them, Elena?" Lukas asked, his voice softened by the hollow resonance of the tunnels. 
+"Is that why you're with them, Elena?" Lukas asked, his voice softened by the hollow resonance of the tunnels.
 
 She turned to look at him, her dryad eyes glowing with a soft, internal light. "I am here because the trees don't care about royal decrees or hybrid permits. They care about survival. They care about the fact that the Rifts are not just taking our children—they are taking the soul of the land. The Vaelthorne's Discord is a poison, Lukas. It's a frequency that unravels the fabric of life. I joined Nyssa because she was the only one brave enough to look into the dark and see what was really there."
 
@@ -643,7 +643,7 @@ The harbor district was a forest of masts and rigging, the silhouettes of ships 
 
 They navigated the quays, moving through stacks of crates and coils of heavy rope that reeked of tar and adventure. The 'Gilded Kraken' was exactly as Lord Theron had described—a ramshackle structure built partially over the water on pillars of salt-encrusted stone. The sign, a faded representation of a massive sea-creature holding a crown in its tentacles, creaked in the wind with a rhythmic groan that sounded like a warning.
 
-The tavern's interior was a dense fog of pipe smoke, cheap rum, and the collective desperation of a hundred people who had nowhere else to go. Figures in cloaks and heavy tunics huddled around tables made from salvaged ship-timbers, their conversations conducted in the low, guarded murmurs of those who knew that the walls had ears. 
+The tavern's interior was a dense fog of pipe smoke, cheap rum, and the collective desperation of a hundred people who had nowhere else to go. Figures in cloaks and heavy tunics huddled around tables made from salvaged ship-timbers, their conversations conducted in the low, guarded murmurs of those who knew that the walls had ears.
 
 They found the man Nyssa called Silas at a corner table, his presence marked not by his physical size, but by the absolute stillness with which he sat. He was a man of indeterminate age, his face a map of scars and stories that the kingdom had tried to erase. His eyes, large and unmoving, were fixed on a point in space that Lukas couldn't see, their pupils dilated to the point where they seemed almost entirely black.
 
@@ -663,7 +663,7 @@ Silas leaned forward, the movement slow and deliberate. "Lord Theron knew this w
 
 "You don't stop it," Silas replied. "You survive it. You find the 'Astral Shard', the only thing that can stabilize the Rift-resonance. But it is not here. It is hidden in the Yrridian Wastes, protected by a ward that only a brother's blood can unlock."
 
-The conversation was shattered by the sound of splintering wood. The front door of the 'Gilded Kraken' was kicked open, and the flickering torchlight revealed the polished silver armor of the Silver Guard. 
+The conversation was shattered by the sound of splintering wood. The front door of the 'Gilded Kraken' was kicked open, and the flickering torchlight revealed the polished silver armor of the Silver Guard.
 
 "By order of Lord Gothryn," the lead guard announced. "This establishment is under emergency quarantine. All residents are to prepare for processing."
 
@@ -697,11 +697,11 @@ Marris stood up, his massive hands resting on the table. "I'm with you, Wolfhear
 
 Nyssa smiled, her amber eyes glinting with a predator's joy. "And I'll make sure the 'Wharf Rats' know whose side the moon is really on. The Warrens have a long memory, and it's time we started reminding people of that."
 
-He had already fallen into the darkest corners of the kingdom; now he would see if he had the strength to rise as the leader his people needed. 
+He had already fallen into the darkest corners of the kingdom; now he would see if he had the strength to rise as the leader his people needed.
 
-They scrambled through the hidden tunnel, the sounds of the battle in the 'Gilded Kraken' fading into a muffled drumbeat of violence behind them. The air in the passage was cool and damp, carrying the scent of salt-water and old stone, a sensory reminder that they were moving from the heart of the Warrens to the edge of the world. Lukas felt a surge of grief for Silas, for Theron, for all the men and women who were sacrificing their lives to keep a flicker of hope alive in the face of the encroaching dark. He had already fallen into the darkest corners of the kingdom, from the heights of the Crystal Spire to the depths of the Ashen Warrens; now he would see if he had the strength to rise as the leader his people needed, as the brother his twin deserved, and as the warrior the realm required. The fire was coming, but Lukas Wolfheart was no longer afraid of the dark. He was the darkness. And he was going to make sure the Spire remembered what happens when you corner a wolf whose only remaining allegiance is to the truth and the wind. 
+They scrambled through the hidden tunnel, the sounds of the battle in the 'Gilded Kraken' fading into a muffled drumbeat of violence behind them. The air in the passage was cool and damp, carrying the scent of salt-water and old stone, a sensory reminder that they were moving from the heart of the Warrens to the edge of the world. Lukas felt a surge of grief for Silas, for Theron, for all the men and women who were sacrificing their lives to keep a flicker of hope alive in the face of the encroaching dark. He had already fallen into the darkest corners of the kingdom, from the heights of the Crystal Spire to the depths of the Ashen Warrens; now he would see if he had the strength to rise as the leader his people needed, as the brother his twin deserved, and as the warrior the realm required. The fire was coming, but Lukas Wolfheart was no longer afraid of the dark. He was the darkness. And he was going to make sure the Spire remembered what happens when you corner a wolf whose only remaining allegiance is to the truth and the wind.
 
-The Ashen Warrens, once a place of quiet survival and hidden secrets, had officially become a battlefield. But as Lukas emerged from the tunnel into the cold harbor air, with the silver sliver of the moon reflecting in the black water of the docks, he knew his journey was only beginning. The 'Twisted Destiny' that had once been a prophecy was now a reality, and he would find the Astral Shard, save his brother from the Predator's harvest, and tear down the 'Order' that had broken them both, brick by crystal brick. 
+The Ashen Warrens, once a place of quiet survival and hidden secrets, had officially become a battlefield. But as Lukas emerged from the tunnel into the cold harbor air, with the silver sliver of the moon reflecting in the black water of the docks, he knew his journey was only beginning. The 'Twisted Destiny' that had once been a prophecy was now a reality, and he would find the Astral Shard, save his brother from the Predator's harvest, and tear down the 'Order' that had broken them both, brick by crystal brick.
 
 The moon, hidden behind the clouds, watched over him as he disappeared into the night, a silent witness to the birth of a legend that would be whispered in the Warrens for generations to come.
 
@@ -751,7 +751,7 @@ Without conscious thought, Lukas was there—his windstep carrying him through t
 
 "The wind knows you," she whispered in his ear, her voice carrying the precocious wisdom that hybrid children often developed as a defense against a hostile world. "It sings your name. It says you are the one who will bring the moon back to us."
 
-The words sent chills down his spine, a cold needle of prophecy that bypassed his reason. There was no time to ponder their implications. Behind them, torchlight flickered through the passages they had just abandoned, casting long, predatory shadows on the damp walls. The sound of organized pursuit—the rhythmic clank of heavy armor and the sharp barks of commands—grew closer with each heartbeat. 
+The words sent chills down his spine, a cold needle of prophecy that bypassed his reason. There was no time to ponder their implications. Behind them, torchlight flickered through the passages they had just abandoned, casting long, predatory shadows on the damp walls. The sound of organized pursuit—the rhythmic clank of heavy armor and the sharp barks of commands—grew closer with each heartbeat.
 
 "Keep moving!" Lukas hissed, his voice carrying the authority of the wind itself. "Don't look back. The shadows are our shields, and the air is our path."
 
@@ -781,7 +781,7 @@ The ritual that followed was unlike anything from the formal ceremonies of court
 
 "This belonged to Mira Wolfheart," the dragon-kin announced, his voice carrying clearly through the forest stillness. "She died protecting human civilians during the first uprising, using her healing gifts to save lives regardless of species. She did not see 'order' or 'hybridity'; she saw suffering and she chose to heal. Her memory speaks to the best of what we aspire to become—not hybrid or human, but something transcendent of such divisions. A people of the Spirit."
 
-He handed the pendant to Lukas, who felt its familiar weight settling into his palm like a benediction. The silver was warm despite the cool night air, and the carved wolf fang seemed to pulse with its own inner light, a rhythmic glow that matched the heartbeat of the Astral Shard. 
+He handed the pendant to Lukas, who felt its familiar weight settling into his palm like a benediction. The silver was warm despite the cool night air, and the carved wolf fang seemed to pulse with its own inner light, a rhythmic glow that matched the heartbeat of the Astral Shard.
 
 "Each who chooses to join this brotherhood," Zaphrium continued, "will taste metal and memory, sharing in the legacy of those who chose compassion over cruelty, unity over division. This is not an oath lightly given or easily broken. It is a blood-bond that requires no blood. We become family—not of birth, but of choice."
 
@@ -837,7 +837,7 @@ The honesty of it was like a knife between the ribs. This boy had been tortured 
 
 "You're right," Lukas said quietly, his voice carrying the calm of the eye of a storm. "Loyalty is dangerous. Standing up for principles often leads to suffering. And yes, everyone breaks eventually when enough pressure is applied. We are all fragile, Cael. Even the King on his throne, even the Shadowfang in his pits."
 
-He extended his hand toward the boy, feeling the wind swirl around them both with gentle, persistent insistence, as if the air itself were trying to knit the boy's broken spirit back together. 
+He extended his hand toward the boy, feeling the wind swirl around them both with gentle, persistent insistence, as if the air itself were trying to knit the boy's broken spirit back together.
 
 "But here's what your torturers didn't understand—being broken and being defeated are two different things entirely. They can take your wings, they can take your songs, they can even take your life. But they only defeat you if you let them take your *choice* to believe that there is something worth more than survival. I'm not asking you to be unbreakable, Cael. I'm asking you to be brave enough to choose what you're willing to break for. I'm asking you to join a brotherhood that will carry you when you cannot fly."
 
@@ -845,7 +845,7 @@ For a long moment, the boy stared at the offered hand as if it were a trap, his 
 
 "The moon remembers," Cael said as they walked back toward the clearing, his voice gaining strength with each word. "Even when we forget ourselves, even when pain makes us want to surrender, even when the smart choice is to abandon hope—the moon remembers what we used to believe was possible. And tonight, I remember too."
 
-The ritual ended at dawn. Two hundred souls had sworn the oath—bound not by blood but by choice. They were tired, frightened, and officially enemies of the state. But they were awake. They had seen the true face of the Order and chosen to build their own. Lukas Wolfheart, once a king's guard, now stood as anchor for a brotherhood forged in darkness but sustained by light. The Spire still stood, its crystal walls gleaming, but its foundations had been forever altered. The Brotherhood was born, and the wind carried the news. 
+The ritual ended at dawn. Two hundred souls had sworn the oath—bound not by blood but by choice. They were tired, frightened, and officially enemies of the state. But they were awake. They had seen the true face of the Order and chosen to build their own. Lukas Wolfheart, once a king's guard, now stood as anchor for a brotherhood forged in darkness but sustained by light. The Spire still stood, its crystal walls gleaming, but its foundations had been forever altered. The Brotherhood was born, and the wind carried the news.
 
 ---
 
@@ -888,7 +888,7 @@ Lukas knelt beside the old man, his hand resting on the cold shoulder. The skin 
 "Rest well, old friend," Lukas whispered. "Your work continues."
 Lukas felt the loss of Marlo as a physical ache, a hollow space in his chest that the cold forest air couldn't fill. The smith had been one of the few people who had seen Lukas not as a captain, not as a hybrid curiosity, and not as a savior, but simply as a man who wanted to learn. Marlo had given him more than just skills; he had given him a sense of belonging in a world that had spent seventeen years trying to convince him he was an aberration.
 
-He looked at the unfinished spearhead on the anvil, the metal still dark and rough. It was a silent testament to the work that remained, a challenge left behind by a man who had understood the value of finishing what you started. Lukas reached out and touched the cold steel, feeling the potential within it, the shape that Marlo had intended but never achieved. 
+He looked at the unfinished spearhead on the anvil, the metal still dark and rough. It was a silent testament to the work that remained, a challenge left behind by a man who had understood the value of finishing what you started. Lukas reached out and touched the cold steel, feeling the potential within it, the shape that Marlo had intended but never achieved.
 
 "We asked too much," Nyssa's voice broke his reverie. She had approached silently, her feline grace masking her steps even on the dry leaves. Her amber eyes were fixed on Marlo's body, her expression one of guarded sorrow. "He was the oldest among us, and he was working the hardest. We should have seen the toll it was taking."
 
@@ -924,7 +924,7 @@ Lukas took the final turn, his wolf strength driving the shovel deep into the so
 
 Each member of their growing community approached the grave, adding something personal—a flower, a carved stone, a whispered memory of kindness shared or hardship endured together. Elena added a wreath of living vines, her dryad magic coaxing the plants to bloom even as they were laid upon the earth, the petals a vibrant white that glowed with their own inner light. Nyssa placed a small, silver dagger—a weapon Marlo had forged for her, its blade balanced perfectly for her feline fighting style, the hilt wrapped in leather she had personally tanned for him. Kael added a dwarf-clan amulet, its carved runes speaking of honor, craft, and the unbreakable bonds of the forge.
 
-Others followed: a human farmer added a pouch of seeds, symbolizing the growth that Marlo's work had made possible in a world that often felt barren. A wolf-kin hunter added a carved wooden wolf, its eyes carved from amber that caught the dying sunlight and turned it into a flicker of life. A young cat-kin girl added a drawing she had made of Marlo at his forge, the old man's face rendered in charcoal with a skill that was surprisingly advanced for her seven years, capturing the exact way his eyes crinkled when he smiled at the children. 
+Others followed: a human farmer added a pouch of seeds, symbolizing the growth that Marlo's work had made possible in a world that often felt barren. A wolf-kin hunter added a carved wooden wolf, its eyes carved from amber that caught the dying sunlight and turned it into a flicker of life. A young cat-kin girl added a drawing she had made of Marlo at his forge, the old man's face rendered in charcoal with a skill that was surprisingly advanced for her seven years, capturing the exact way his eyes crinkled when he smiled at the children.
 
 One by one, the refugees came forward, their offerings creating a mosaic of gratitude around the base of the oak. A weaver left a scrap of fine silk, a reminder of the loom Marlo had restored. A healer left a bundle of dried herbs, honoring the man who had built the beds for the infirmary. Even the most hardened among them found something to give, a token of respect for a man who had asked for nothing but had given everything his hands could create.
 
@@ -1008,35 +1008,35 @@ And somewhere in the darkness, the unfinished spearhead lay on the anvil, waitin
 
 ## Chapter 7: Trial of the Chimera — Part I
 
-Twilight was when the wolf and the man pulled hardest against each other in Lukas. 
+Twilight was when the wolf and the man pulled hardest against each other in Lukas.
 
 As the sun sank below the western ridges of the whispering forest, painting the canopy in bruised shades of violet, amber, and indigo, the shadows lengthened across the hidden camp of the brotherhood. The scent of damp pine needles, crushed fern, and the sweet, resinous tang of burning hearth-fire filled the cool evening air. Beneath those familiar wilderness smells, however, lay the complex olfactory map of nearly four hundred souls: the metallic tang of sweat from the young fighters practicing with wooden swords at the clearing's edge, the clean, medicinal aroma of wintergreen and chamomile from the apothecary tent, and venison and roots bubbling in the iron pots.
 
-For the refugees who had fled the bloody purges in the capital, this hidden valley was a sanctuary, a fragile pocket of peace carved out of a hostile world. For Lukas, it was a heavy mantle that pressed down upon his shoulders with every step he took. 
+For the refugees who had fled the bloody purges in the capital, this hidden valley was a sanctuary, a fragile pocket of peace carved out of a hostile world. For Lukas, it was a heavy mantle that pressed down upon his shoulders with every step he took.
 
-He walked slowly through the camp, his boots whispering in the soft pine needles. His wolf-kin ears, tipped with soft gray fur, twitched as they caught the sounds of the community settling in for the night. To his left, the rhythmic, metallic ring of Kael's hammer echoed from the improvised forge—a steady, reassuring heartbeat in the twilight. Kael, broad-shouldered with soot-stained forearms, was working late, turning scraps of iron salvage into cooking tripods and spearheads. 
+He walked slowly through the camp, his boots whispering in the soft pine needles. His wolf-kin ears, tipped with soft gray fur, twitched as they caught the sounds of the community settling in for the night. To his left, the rhythmic, metallic ring of Kael's hammer echoed from the improvised forge—a steady, reassuring heartbeat in the twilight. Kael, broad-shouldered with soot-stained forearms, was working late, turning scraps of iron salvage into cooking tripods and spearheads.
 
 To his right, a group of hybrid children—some with the feathered brows of bird-kin, others with the soft, tufted ears of feline heritage, or the delicate, vine-like markings of sylvan blood—chased fireflies in the tall grass between the tents. Their laughter was a beautiful, heartbreaking sound. It was the sound of a normalcy they had almost forgotten existed, a normalcy bought with the blood of those who had fallen.
 
-*Marlo.* 
+*Marlo.*
 
 The name was a silent, pulsing ache in Lukas's chest. It had been weeks since the old forge-master had sacrificed himself to buy their escape from the capital, yet the memory of the old man's final stand remained as sharp as a fresh blade. Every refugee who arrived at their camp, every family that slept safely beneath a canvas roof, was a monument to that sacrifice. But growth brought danger. Four hundred people could not remain hidden forever. The valley, once spacious and empty, was now crowded with tents, washing lines, and the detritus of survival. The weight of keeping them alive, of feeding them and keeping them hidden from the royal scouts and Vaelthorne's slavers, rested squarely on Lukas's shoulders.
 
 His hand drifted to his chest, his fingers tracing the outline of the Astral Shard resting beneath his tunic. The small fragment of cosmic glass was warm against his skin, pulsing with a slow, rhythmic light that seemed to mirror his own heartbeat. It was a source of power, a connection to the ancient forces of the world, but it was also a beacon. He felt its gentle vibration, a reassuring hum of Order that countered the wild, chaotic instincts of the wolf-blood that coursed through his veins.
 
-Suddenly, his wolf-kin senses flared. 
+Suddenly, his wolf-kin senses flared.
 
-The air changed. The gentle breeze that had been carrying the scent of pine and stew suddenly shifted, carrying a sharp, metallic odor that made the hairs on the back of his neck stand up. It was the scent of cold sweat, dried mud, and, most alarmingly, the iron tang of fresh blood. 
+The air changed. The gentle breeze that had been carrying the scent of pine and stew suddenly shifted, carrying a sharp, metallic odor that made the hairs on the back of his neck stand up. It was the scent of cold sweat, dried mud, and, most alarmingly, the iron tang of fresh blood.
 
 Lukas stopped, his amber eyes narrowing as he scanned the perimeter of the camp. His ears swiveled toward the eastern ridge, catching a sound that was out of place in the peaceful twilight—the desperate, ragged gasping of someone running beyond their physical limits, the rustle of leaves, and the stumble of heavy footsteps through the underbrush.
 
-"Someone's coming," Lukas called out, his voice a low, commanding rumble that instantly silenced the children's laughter. 
+"Someone's coming," Lukas called out, his voice a low, commanding rumble that instantly silenced the children's laughter.
 
 Across the camp, fighters reached for their weapons. Kael's hammer stopped mid-strike, leaving a sudden, ringing silence in the air. The guards at the camp's edge raised their bows, their eyes scanning the dark tree line.
 
 A figure broke through the outer ring of pine trees, stumbling blindly into the clearing. It was a woman, her clothing shredded by thorns and stained with soot. She took two halting steps into the camp before her legs gave out. She collapsed face-first onto the damp earth, a low, exhausted groan escaping her lips.
 
-Windstep flared before she hit the ground. He was kneeling beside her, needles swirling in his wake. 
+Windstep flared before she hit the ground. He was kneeling beside her, needles swirling in his wake.
 
 "Water! Elena, bring clean bandages!" Lukas ordered, gently turning the woman over.
 
@@ -1044,9 +1044,9 @@ Her face was a mask of terror, streaked with dried tears and black ash. Her hand
 
 "Breathe," Lukas said, his voice dropping to a calm, steady register. He placed a hand on her shoulder, letting a fraction of the Astral Shard's soothing warmth flow through his palm. "You're safe now. You're in the camp. Breathe."
 
-Elena arrived a moment later, her bark-brown sylvan features tight with concern. She knelt on the other side of the woman, pressing a cup of warm, herb-infused water to the messenger's parched lips. 
+Elena arrived a moment later, her bark-brown sylvan features tight with concern. She knelt on the other side of the woman, pressing a cup of warm, herb-infused water to the messenger's parched lips.
 
-The woman drank greedily, coughing as the liquid hit her throat. She gripped Lukas's forearm with a strength born of pure desperation, her fingernails digging into his leather bracers. 
+The woman drank greedily, coughing as the liquid hit her throat. She gripped Lukas's forearm with a strength born of pure desperation, her fingernails digging into his leather bracers.
 
 "Villages," she gasped out, her voice a ragged whisper. "Three of them... Maybe four. All along the eastern approach... To Vaelthorne's territory. Everything... Everything just torn apart."
 
@@ -1058,13 +1058,13 @@ She shuddered violently, pulling the cloak Elena had draped over her shoulders c
 
 "It came at dawn," she whispered, her eyes staring at something only she saw. "The first village—Millbrook—was sleeping. The beast didn't roar. It didn't warn us. It just... Appeared. One moment the streets were quiet, the next it was there, smashing through timber and stone like they were made of paper. The houses... They didn't just fall. They were pulverized. The mill... The great mill that had stood for three generations was reduced to splinters in minutes."
 
-"Describe it," a quiet, smooth voice commanded from the shadows. 
+"Describe it," a quiet, smooth voice commanded from the shadows.
 
 Nyssa Quickclaw materialized from the darkness with the fluid grace that marked her feline heritage. Her amber cat-eyes reflected the firelight, her posture relaxed but her muscles coiled like springs beneath her dark leather vest. She was already checking the daggers at her belt, her professional mind analyzing the threat. "Size, capabilities, behavior patterns. Give us details."
 
 The messenger looked at Nyssa, her voice trembling. "It had the body of a lion... A massive, golden thing, but easily twelve feet at the shoulder. But the heads..." She swallowed hard, her throat clicking. "It had three of them. A lion's head in the front, roaring with a sound that shook the earth and made the stone foundations crack. A goat's head growing from its back, bleating in this high, terrible, piercing pitch that made your bones ache and your ears bleed. And the tail... It wasn't fur. It was a massive, scaled serpent, striking with fangs that could drop a draft horse in seconds."
 
-A heavy silence fell over the group. 
+A heavy silence fell over the group.
 
 Lukas looked up at Zaphrium, who had approached the gathering with quiet, solemn steps. The ancient dragon-kin stood tall, his golden scales catching the flickering light of the campfires, his ancient eyes narrowed with a recognition that looked dangerously like dread.
 
@@ -1098,7 +1098,7 @@ Cael, who had been sitting quietly by the fire, his healing wings wrapped in cle
 
 Cael stood, pointing a feathered finger toward the eastern map Lukas had laid out on a nearby crate. "The pattern the messenger described—northeast to southwest, following the river valleys. That's not hunting behavior. A predator doesn't move in a straight, predictable line through settled territories unless it is being driven. It would circle, establish a territory, and hunt until the prey ran thin. This creature is fleeing, or it is being guided. Someone is using its path of destruction to herd the population toward Vaelthorne's lands."
 
-The logic was flawless, and the implications were chilling. If the Chimera was being controlled, then it was a weapon of war, dispatched to create the exact influence Vaelthorne needed. 
+The logic was flawless, and the implications were chilling. If the Chimera was being controlled, then it was a weapon of war, dispatched to create the exact influence Vaelthorne needed.
 
 "I need a team," Lukas said, looking around the circle. "A small, highly mobile group. We track the beast, find out what is driving it, and end the threat to Fairbridge before tomorrow night."
 
@@ -1142,13 +1142,13 @@ Elena nodded, her bark-brown skin pale in the firelight. "May the spirits of the
 
 ***
 
-The team departed under the shroud of a moonless night, moving in a silent file through the dense underbrush. Lukas led the way, his Lycan senses fully alert. 
+The team departed under the shroud of a moonless night, moving in a silent file through the dense underbrush. Lukas led the way, his Lycan senses fully alert.
 
 In the dark, the forest was a sensory tapestry. His ears caught the high-pitched squeak of field mice beneath the leaf litter, the distant hoot of an owl, and the soft, rhythmic breathing of his companions behind him. His nose mapped the terrain: the damp, earthy scent of rotting wood, the cold, clean smell of running water from a nearby stream, and the faint, unsettling trace of ozone that grew stronger as they marched east.
 
 The ozone smell was a warning. It was the scent of the Rift, the chaotic static of Discord that bled into the world whenever the barriers between realities grew thin.
 
-As they marched, the silence between them was filled only by the rustle of their gear. Lukas kept his pace steady, his mind turning over the nature of their mission. Tarek walked just behind him, the heavy thud of his boots a contrast to Nyssa's near-silent tread. 
+As they marched, the silence between them was filled only by the rustle of their gear. Lukas kept his pace steady, his mind turning over the nature of their mission. Tarek walked just behind him, the heavy thud of his boots a contrast to Nyssa's near-silent tread.
 
 "Tarek," Lukas said, not turning around. "You said you fought these things in the Border Wars. Who was making them?"
 
@@ -1158,17 +1158,17 @@ The tiger-kin grunted, a low vibration in his chest. "Lysorian mages. They were 
 
 Lukas felt the Astral Shard against his chest pulse in response to Zaphrium's words. The silver light was a stabilizing force, but it could only do so much if the world itself was being torn apart.
 
-By morning, they reached the outskirts of Millbrook. 
+By morning, they reached the outskirts of Millbrook.
 
-Lukas stopped at the crest of the hill, looking down at the ruined valley. His heart sank. 
+Lukas stopped at the crest of the hill, looking down at the ruined valley. His heart sank.
 
-Millbrook had once been a prosperous farming village, built around a rushing stream that turned a large wooden watermill. Now, the mill was a blackened skeleton, its shattered wheel choked with debris in the sluggish, red-tinged water. The houses had been reduced to splinters of timber and piles of crushed stone. 
+Millbrook had once been a prosperous farming village, built around a rushing stream that turned a large wooden watermill. Now, the mill was a blackened skeleton, its shattered wheel choked with debris in the sluggish, red-tinged water. The houses had been reduced to splinters of timber and piles of crushed stone.
 
 But it wasn't the physical destruction that made Lukas's stomach churn. It was the silence. No birds sang in the blackened trees. No insects buzzed in the mud. The air carried a heavy, stagnant fog that smelled of wet soot, burnt hair, and the metallic tang of Discord static.
 
-"Look at the marks," Nyssa whispered, dropping to one knee near a ruined stone foundation. 
+"Look at the marks," Nyssa whispered, dropping to one knee near a ruined stone foundation.
 
-Lukas joined her, running his fingers along the deep grooves cut into the granite. The cuts were deep, three parallel lines that had sliced through the hard stone as if it were soft clay. 
+Lukas joined her, running his fingers along the deep grooves cut into the granite. The cuts were deep, three parallel lines that had sliced through the hard stone as if it were soft clay.
 
 "Those aren't random gouges of a wild beast," Lukas muttered, his wolf-instincts analyzing the angle. "They are too straight. Too deliberate."
 
@@ -1210,11 +1210,11 @@ The root-bridge was a massive, ancient oak tree that had grown across the ravine
 
 Lukas stepped onto the bridge first. The wood felt strange beneath his boots, slightly soft, as if he were walking on moss-covered ice. As he reached the center of the span, a sudden gust of wind caught him, carrying a chorus of whispers that seemed to rise from the depths of the ravine.
 
-*“Monster... Exile... Savior... Betrayer...—*
+*“Monster... Exile... Savior... Betrayer...”*
 
-The voices were his own, Fenris's, Marlo's, and others he didn't recognize, all speaking at once in a chaotic jumble of sound. Lukas closed his eyes, his Lycan instincts roaring in protest at the mental invasion. He gripped the Astral Shard through his tunic, focusing on the steady, rhythmic warmth of its light. 
+The voices were his own, Fenris's, Marlo's, and others he didn't recognize, all speaking at once in a chaotic jumble of sound. Lukas closed his eyes, his Lycan instincts roaring in protest at the mental invasion. He gripped the Astral Shard through his tunic, focusing on the steady, rhythmic warmth of its light.
 
-The whispers faded, replaced by the rush of the river below. 
+The whispers faded, replaced by the rush of the river below.
 
 "Keep moving," Lukas called back to the others. "Don't listen to the wind. It's just resonance."
 
@@ -1222,7 +1222,7 @@ They crossed one by one, Tarek's massive weight causing the glass-like root to g
 
 ***
 
-By the second day, they had penetrated deep into the Ruined Vale. 
+By the second day, they had penetrated deep into the Ruined Vale.
 
 The landscape was a monument to a forgotten catastrophe. Broken columns of white marble, half-buried in the shifting, silver-colored soil, rose from the earth like the teeth of some ancient beast. Runes carved into the stone monuments glowed with a faint, pulsing violet light, humming with a frequency that made Lukas's wolf-blood restless.
 
@@ -1236,7 +1236,7 @@ Tarek knelt by a massive footprint in the silver earth. The print was deep, the 
 
 "The fusion is failing," Zaphrium said. "The physical body cannot sustain the strain of three souls for long. The pain must be unimaginable."
 
-Lukas felt a pang of sympathy. He knew what it was to have competing natures warring within. The wolf was always there, scratching at the back of his mind, wanting to tear free, to hunt, to run wild. The Shard kept it in check, but it was a constant, exhausting struggle. 
+Lukas felt a pang of sympathy. He knew what it was to have competing natures warring within. The wolf was always there, scratching at the back of his mind, wanting to tear free, to hunt, to run wild. The Shard kept it in check, but it was a constant, exhausting struggle.
 
 "We need to find it before it reaches the sanctuary," Lukas said, his voice tightening. "Fairbridge is just over the next ridge. If the beast descends on the town in this state of agony, it will be a slaughter."
 
@@ -1250,7 +1250,7 @@ It was a colossal structure, its dome collapsed, its outer walls carved with run
 
 "It's inside," Tarek said, his hand tightening on the handle of his warhammer. "I can hear it."
 
-Lukas closed his eyes, his ears twitching as he focused on the sounds within the temple. 
+Lukas closed his eyes, his ears twitching as he focused on the sounds within the temple.
 
 He heard the heavy, arrhythmic breathing of the beast. But more than that, he heard the internal conflict. The deep, low growl of the lion, the high-pitched, frantic bleating of the goat, and the dry, rattling hiss of the serpent. The three minds were screaming at each other, trapped in a cage of magical agony, driven to madness by the Vaelthorne glass spike.
 
@@ -1262,23 +1262,23 @@ He heard the heavy, arrhythmic breathing of the beast. But more than that, he he
 
 "We trust you, Captain," Tarek said, raising his warhammer. "Let's go."
 
-They slipped into the temple through a gap in the collapsed wall. 
+They slipped into the temple through a gap in the collapsed wall.
 
-The interior was vast, the stone floor cracked and overgrown with glowing, purple moss. Broken statues of forgotten gods lined the perimeter, their faces frozen in expressions of anguish. 
+The interior was vast, the stone floor cracked and overgrown with glowing, purple moss. Broken statues of forgotten gods lined the perimeter, their faces frozen in expressions of anguish.
 
 And in the center of the ruins stood the Chimera.
 
-It was larger than Lukas had imagined, easily twice the size of a horse, its body a nightmarish fusion of golden fur and dark, iridescent scales. The main torso was that of a colossal lion, its muscles rippling with a terrifying, kinetic power. 
+It was larger than Lukas had imagined, easily twice the size of a horse, its body a nightmarish fusion of golden fur and dark, iridescent scales. The main torso was that of a colossal lion, its muscles rippling with a terrifying, kinetic power.
 
-But it was the heads that commanded attention. 
+But it was the heads that commanded attention.
 
 In the front, a massive lion's head swayed slowly from side to side, its eyes burning with a bright, volatile violet light. From its shoulders grew a second head—a large, black goat with twisted, obsidian horns and rectangular, golden eyes that twitched erratically. And its tail was a massive, armored serpent, its hood flared, its fangs dripping with sizzling venom.
 
-Lukas saw the binding runes now. 
+Lukas saw the binding runes now.
 
 Embedded in the creature's flesh, right at the junction where the three bodies met, was a large, glowing crimson spike of Vaelthorne glass. The spike was carved with jagged runes of suppression, and from it, veins of dark, purple light spiderwebbed across the creature's skin, pulsing in time with its erratic breathing.
 
-The beast was in agony. 
+The beast was in agony.
 
 The lion's head let out a low, rumbling growl of territorial frustration. The goat's head bleated, a high-pitched, pathetic sound that vibrated with panic. The serpent's tail lashed against the stone floor, its fangs striking at the empty air. The three minds were trapped in a cage of magical pain, forced to move, forced to destroy.
 
@@ -1286,7 +1286,7 @@ Lukas felt a sudden, deep ache in his chest. The Chimera's suffering was a mirro
 
 *I am not a monster,* Lukas thought, his hand closing around the Astral Shard. *And neither are you.*
 
-Suddenly, the Chimera's lion head snapped upward. 
+Suddenly, the Chimera's lion head snapped upward.
 
 Its violet eyes locked onto the ridge where they were hiding. The goat's head turned, its golden eyes widening in alarm. The serpent tail coiled, its hood flaring as it prepared to strike.
 
@@ -1294,7 +1294,7 @@ The beast let out a roar that shook the foundations of the temple. The sound was
 
 "It knows we're here!" Nyssa shouted, drawing her daggers.
 
-The Chimera turned, its massive paws crushing the stone floor as it prepared to leap. 
+The Chimera turned, its massive paws crushing the stone floor as it prepared to leap.
 
 Lukas stood at the edge of the collapse, the wind whipping his hair, the silver light of the Astral Shard flaring around his body like a shroud of starlight. He looked down at the beast, his wolf-blood humming, his windstep ready.
 
@@ -1304,33 +1304,33 @@ He raised the Shard, its light blazing like a small sun, and leaped into the aby
 
 ***
 
-The descent was a blur of rushing wind and swirling purple fog. 
+The descent was a blur of rushing wind and swirling purple fog.
 
 Lukas channeled his windstep magic, the air currents catching his fall and guiding him toward the temple floor with the precision of a hunting hawk. He landed with a heavy thud, his knees absorbing the impact, his eyes locked on the massive beast before him.
 
-The Chimera didn't hesitate. 
+The Chimera didn't hesitate.
 
-With a roar that shattered the remaining stained glass in the high arched windows, the creature charged. The earth trembled beneath its paws, and the air hummed with the high-frequency vibration of the goat's screech. 
+With a roar that shattered the remaining stained glass in the high arched windows, the creature charged. The earth trembled beneath its paws, and the air hummed with the high-frequency vibration of the goat's screech.
 
 "Nyssa! Tarek! Now!" Lukas yelled.
 
-Tarek moved first, his massive warhammer swinging in a wide arc. The hammerhead, glowing with a faint orange light from his own channelled energy, struck the temple floor just in front of the charging beast. The impact shattered the stone, sending a shower of sharp debris flying into the Chimera's path. 
+Tarek moved first, his massive warhammer swinging in a wide arc. The hammerhead, glowing with a faint orange light from his own channelled energy, struck the temple floor just in front of the charging beast. The impact shattered the stone, sending a shower of sharp debris flying into the Chimera's path.
 
-The lion's head hissed, flinching from the dust, its eyes flashing with irritation. 
+The lion's head hissed, flinching from the dust, its eyes flashing with irritation.
 
-Nyssa was a blur of shadow, darting between the broken columns. She threw two silver-tipped daggers, aiming not for the thick hide of the beast, but for the joints of its front legs. The blades hit their mark, slicing through the scales and drawing dark, violet-tinged blood. 
+Nyssa was a blur of shadow, darting between the broken columns. She threw two silver-tipped daggers, aiming not for the thick hide of the beast, but for the joints of its front legs. The blades hit their mark, slicing through the scales and drawing dark, violet-tinged blood.
 
 The Chimera roared in pain, its attention shifting to Nyssa. The serpent tail whipped around, striking at the shadows where she had been a second before, its fangs sinking into a stone pillar and shattering it.
 
-Lukas saw his opening. 
+Lukas saw his opening.
 
 He activated his windstep again, his feet barely touching the ground as he blurred across the cracked stone floor. He leaped from a broken statue of a forgotten king, his body sailing through the air toward the Chimera's back.
 
-He landed on the creature's shoulders, his hands burying themselves in the coarse, golden mane. 
+He landed on the creature's shoulders, his hands burying themselves in the coarse, golden mane.
 
 The reaction was immediate and violent. The Chimera bucked, its massive muscles rippling like steel bands under its skin. The goat's head cranned backward, its golden eyes staring at him with a mixture of terror and rage, its horns swinging wild to impale him.
 
-Lukas held on, his muscles screaming under the strain. He felt the heat radiating from the beast's body, and the smell of ozone and burning blood was suffocating. 
+Lukas held on, his muscles screaming under the strain. He felt the heat radiating from the beast's body, and the smell of ozone and burning blood was suffocating.
 
 He looked down at the junction where the three heads met. The Vaelthorne glass spike was humming, glowing with a deep, angry crimson light. The veins of purple energy spiderwebbed from the spike, pulsing like a diseased heart.
 
@@ -1340,7 +1340,7 @@ From the edge of the temple, Zaphrium raised his hands, his golden scales glowin
 
 "Break the resonance, Lukas!" Zaphrium called out. "Use the Shard! Channel the silver light into the spike! It will disrupt the Discord bond!"
 
-Lukas gripped the Astral Shard with his right hand, pulling it from his chest. The Shard flared with a brilliant, silver light that seemed to cut through the purple fog of the temple. 
+Lukas gripped the Astral Shard with his right hand, pulling it from his chest. The Shard flared with a brilliant, silver light that seemed to cut through the purple fog of the temple.
 
 The Chimera shrieked, the three heads thrashing in agony as the silver light touched them. The serpent tail whipped toward Lukas, its fangs bared, its eyes burning with a lethal purple fire.
 
@@ -1350,11 +1350,11 @@ He pressed the glowing Astral Shard against the base of the Vaelthorne glass spi
 
 "I hear you," Lukas whispered to the screaming minds within the beast. "I hear your pain. I know what it is to be torn apart. You don't have to fight anymore. Let the light in."
 
-The Shard pulsed, and a wave of pure, silver energy flowed into the crimson spike. 
+The Shard pulsed, and a wave of pure, silver energy flowed into the crimson spike.
 
 The runes on the spike flared, the red light clashing with the silver in a violent explosion of energy. The temple shook, dust and stones raining down from the collapsed ceiling. The Chimera let out a final, agonizing roar, its body convulsing as the magic that held it together began to unravel.
 
-Lukas held on, his hands burning, his vision turning white as the energy peaked. 
+Lukas held on, his hands burning, his vision turning white as the energy peaked.
 
 "Break!" he roared.
 
@@ -1682,19 +1682,19 @@ Lukas led his group toward the private door behind the platform, leaving the gli
 
 ## Chapter 10: The False Shard — Part II
 
-The echoes of Zaphrium's magic were still vibrating through the thick, porous volcanic stone underfoot as Lukas Wolfheart slipped behind the heavy, gold-threaded tapestry of the Lysorian Crystal Palace. Above, the grand ballroom was a tempest of panic and confusion. The counterfeit Astral Shard, exposed by the Sage's precise resonance magic, sat dead and cold under its shattered glass dome, its false starlight extinguished. The illusion of security had shattered with it, plunging the assembly of merchant princes, corrupt nobles, and black-market brokers into a cacophony of panicked murmurs, clinking crystal, and accusations of treason. The high-pitched shouts of the palace seneschal rose above the din, ordering the guards to secure the exits, but the crowd was too large, too wealthy, and too terrified to be easily managed. 
+The echoes of Zaphrium's magic were still vibrating through the thick, porous volcanic stone underfoot as Lukas Wolfheart slipped behind the heavy, gold-threaded tapestry of the Lysorian Crystal Palace. Above, the grand ballroom was a tempest of panic and confusion. The counterfeit Astral Shard, exposed by the Sage's precise resonance magic, sat dead and cold under its shattered glass dome, its false starlight extinguished. The illusion of security had shattered with it, plunging the assembly of merchant princes, corrupt nobles, and black-market brokers into a cacophony of panicked murmurs, clinking crystal, and accusations of treason. The high-pitched shouts of the palace seneschal rose above the din, ordering the guards to secure the exits, but the crowd was too large, too wealthy, and too terrified to be easily managed.
 
 But the true prize, the authentic shard that had drawn the Brotherhood to this city of silver dreams and golden lies, lay far below the polished marble floors.
 
 "Down here," Cael whispered, his voice a low, raspy whistle that barely carried over the distant din of the ballroom. The avian hybrid was already crouched at the mouth of a narrow, stone-arched stairwell that spiraled down into the deep foundations of the palace. His wings, folded tight against his spine under a tailored silk coat that now felt suffocatingly restrictive, twitched with nervous energy. In the dim light of the corridor, his eyes—honed for the vast winds and blinding heights of the high peaks—shimmered with a sharp, copper light as he peered into the dark. "The air currents are heavy down there. They smell of damp earth, rusted iron, and stale alchemical dust. The tunnels branch out in a hexagonal grid, like a hive. Six main chambers, with this passage as the central hub. The shard's resonance is coming from the center of the web."
 
-"And the palace guards?" Lukas asked, his voice low and steady. He adjusted his tunic, feeling the quiet, reassuring warmth of his own Astral Shard resting against his collarbone. It beat with a slow, persistent pulse, matching the rhythm of his own heart, a quiet anchor in the midst of chaos. 
+"And the palace guards?" Lukas asked, his voice low and steady. He adjusted his tunic, feeling the quiet, reassuring warmth of his own Astral Shard resting against his collarbone. It beat with a slow, persistent pulse, matching the rhythm of his own heart, a quiet anchor in the midst of chaos.
 
 "They're focused on the ballroom," Nyssa said, her cat-kin ears twitching beneath the dark hood she had pulled over her hair. She had already discarded her formal slippers, standing barefoot on the cold, damp stone. Her claws were slightly extended, her feline eyes scanning the shadows with predatory focus. Her movements were entirely silent, a fluid shadow that seemed to merge with the ancient masonry. "But they aren't fools. The palace seneschal will order a complete lockdown the moment he realizes the fake shard wasn't a mistake, but a distraction. We have minutes, at best, before the security forces seal the subterranean levels."
 
 "Then we don't waste another second," Lukas said, gesturing for Cael to lead.
 
-They descended into the gloom, leaving the light and warmth of the Crystal Palace behind. The air grew rapidly colder, thick with the smell of wet limestone and the musty, metallic scent of things long forgotten by the sun. Lukas's hybrid senses painted the darkness in sharp detail. He heard the drip of mineral-heavy water somewhere deep in the labyrinth, the distant, muffled thud of guard boots patrolling the upper floors, and the soft, dry scrape of Cael's feathers against the narrow stone walls. 
+They descended into the gloom, leaving the light and warmth of the Crystal Palace behind. The air grew rapidly colder, thick with the smell of wet limestone and the musty, metallic scent of things long forgotten by the sun. Lukas's hybrid senses painted the darkness in sharp detail. He heard the drip of mineral-heavy water somewhere deep in the labyrinth, the distant, muffled thud of guard boots patrolling the upper floors, and the soft, dry scrape of Cael's feathers against the narrow stone walls.
 
 The architecture down here was starkly different from the opulent, light-fractured upper auction halls. The masonry was constructed of rough-hewn volcanic rock, black and porous, reinforced with massive iron bands that had rusted to a dull orange. It felt less like a palace cellar and more like a fortress vault, built to withstand a siege or to keep something dangerous locked away from the rest of the world. Lukas knew the history of this place; these tunnels had been dug centuries ago by hybrid labor, back when the merchant princes first established Lysoria as a trading hub. The blood and sweat of dryads, dwarves, and beast-kin had been poured into these stones, only for their descendants to be cast out into the Warrens, while the wealthy hoarded the spoils of their ancestors' labor.
 
@@ -1704,7 +1704,7 @@ The architecture down here was starkly different from the opulent, light-fractur
 
 Lukas felt his own shard pulse in response, a sudden spike of heat that made him draw a sharp breath. The resonance was growing stronger, a high-frequency vibration that hummed in his teeth. It wasn't a pull; it was a physical pressure, like walking against a stiff wind. The true shard was close, and it was calling to its kin. It was an ancient feeling, one that connected him to the stars themselves, a reminder of the night his home was destroyed and his brother was taken. He felt the starlight humming in his blood, a quiet promise of strength, but also a warning of the dangers that lay ahead.
 
-A soft scrape of leather on stone made them all freeze. Lukas's hand dropped instinctively to the hilt of his sword, his ears turning toward the sound. 
+A soft scrape of leather on stone made them all freeze. Lukas's hand dropped instinctively to the hilt of his sword, his ears turning toward the sound.
 
 From the shadow of a side passage, a massive figure emerged. Zaphrium stepped into the faint light of the corridor, his coal-and-obsidian scales catching the dim illumination, his golden eyes gleaming with dry amusement. His massive chest rose and fell in a slow, draconic rhythm, and a faint wisp of white smoke escaped his nostrils.
 
@@ -1724,7 +1724,7 @@ They reached the end of the passage, opening into a wide, circular chamber. At t
 
 "Leave the runes to me," Zaphrium said. He stepped up beside her, his massive, clawed hand hovering inches from the door. He began to chant, a low, rhythmic murmur in ancient draconic that sounded like the grinding of tectonic plates. The scales on his arms began to glow with a faint, golden light, the magical energy flowing from his chest and down to his fingertips.
 
-As Zaphrium chanted, the blue runes on the door flickered, their light wavering like candles in a draft. Nyssa moved with lightning speed, her fingers a blur as she manipulated the picks inside the brass mechanism. 
+As Zaphrium chanted, the blue runes on the door flickered, their light wavering like candles in a draft. Nyssa moved with lightning speed, her fingers a blur as she manipulated the picks inside the brass mechanism.
 
 *Click. Clack. Click.*
 
@@ -1734,7 +1734,7 @@ The physical tumblers fell into place one by one, matching the slow, rhythmic ca
 
 "I have it," the Sage grunted, his scales turning a deeper shade of black as he absorbed the magical pressure. The strain was visible in the tightening of his jaw and the smoke curling from his lips.
 
-Nyssa gave the pick a delicate twist. 
+Nyssa gave the pick a delicate twist.
 
 *Thunk.*
 
@@ -1870,7 +1870,7 @@ The first vision pulled Lukas down into the heart of a volcanic landscape, the s
 
 Opposite the Dragon-Lord stood a human king clad in heavy steel armor, his face pale with fear but eyes sharp with desperation. Thousands of soldiers stood arrayed on the ash-covered slopes behind them, their weapons raised, waiting for the signal to slaughter one another.
 
-The Dragon-Lord raised the Astral Shard high. Its silver light cut through the black volcanic smoke, illuminating the entire valley. 
+The Dragon-Lord raised the Astral Shard high. Its silver light cut through the black volcanic smoke, illuminating the entire valley.
 
 "Power is not a hammer to break our enemies, King Aldran," the Dragon-Lord's voice echoed, shaking the mountain. "It is the mortar with which we build a shelter for the small. If we fight today, the ash will consume us all. Let the starlight bear witness to our treaty."
 
@@ -1928,7 +1928,7 @@ Maron smiled, his starlit eyes twinkling in the dark. "I have lived in the shado
 
 "It is not abandonment, Captain," Zaphrium said, his golden eyes turning to Lukas with an ancient, reassuring calm. "It is strategy. I have survived four centuries by knowing when to fight and when to use alternatives to violence. They will not kill a Sage of the Codex; the political cost would be too high. Go. Trust me."
 
-The sound of boots was right outside the door. 
+The sound of boots was right outside the door.
 
 "Go!" Zaphrium commanded.
 
@@ -1936,7 +1936,7 @@ Nyssa grabbed the edge of the iron grate, her claws catching the metal as she ha
 
 Lukas looked at Zaphrium one last time, then slid into the dark opening of the ventilation shaft, followed closely by Cael and Nyssa. The space was incredibly tight, a cold, stone tube barely wide enough for his shoulders. He had to crawl on his stomach, his elbows scraping against the rough rock, fighting back the rising panic of the claustrophobic darkness.
 
-Behind them, the vault exploded with sound. 
+Behind them, the vault exploded with sound.
 
 Lukas heard the shouts of the guards as they burst into the chamber, followed immediately by a sound like a rushing wind. Zaphrium had unleashed his breath weapon. But he did not unleash fire; instead, he blew a massive wave of dense, freezing fog that filled the underground vaults with zero-visibility mist. The air in the shaft instantly turned freezing cold, the scent of winter storms, pine needle frost, and mountain ice washing over them. The guards screamed in confusion, their torches extinguished by the sudden drop in temperature, their boots slipping on the instantly frosted stone floors.
 
@@ -1960,7 +1960,7 @@ They had just finished drying their clothes when the door opened, and Zaphrium w
 
 "Indeed," Zaphrium said. "By dawn, our descriptions will be circulating through every market in Lysoria. The princes have offered a bounty that would make a saint consider a career in hunting pariahs. We are, officially, the most wanted criminals in the city."
 
-Lukas looked at the true Astral Shard sitting on the wooden table between them. It pulsed with a quiet, silver starlight, a beautiful contrast to the dark, smoky room. 
+Lukas looked at the true Astral Shard sitting on the wooden table between them. It pulsed with a quiet, silver starlight, a beautiful contrast to the dark, smoky room.
 
 "We are criminals to them," Lukas said, his voice carrying a deep, reflective weight. "But we turned a lie into truth tonight. Their fake shard was exposed, and the genuine power was claimed by those who will use it to protect, not to oppress."
 
@@ -1974,7 +1974,7 @@ They had the shard. They had the alliance of the Shard Keeper. And they had the 
 
 ## Chapter 11: The Yrridian Hunt — Part I
 
-The transition from the outer territories of human-governed Aethoria into the ancient wilderness of Yrridia was marked by no walls of dressed stone, no iron-tipped palisades, and no border posts manned by armored sentries. Instead, it was defined by a shift in the breath of the world. 
+The transition from the outer territories of human-governed Aethoria into the ancient wilderness of Yrridia was marked by no walls of dressed stone, no iron-tipped palisades, and no border posts manned by armored sentries. Instead, it was defined by a shift in the breath of the world.
 
 For miles, the northern marches of Aethoria had been dying. The land there was thin and exhausted, choked by the gray, soot-laden winds that drifted down from the Upper Spire's alchemical furnaces, the soil smelling of sour iron and dry rot. But as Lukas Wolfheart led his small band across the invisible boundary, the air changed. It became thick and heavy, laden with the humidity of ancient moss, the sharp, resinous tang of primeval pine, and the damp, cold breath of earth that had never known the plow. It was a sensory shock, a sudden plunge into a green and shadow-drenched reality where the laws of Aethoria held no sway, and where wilder, older truths prevailed.
 
@@ -1998,7 +1998,7 @@ Lukas felt a cold prickle of wind against the back of his neck. His windstep pow
 
 "Then we walk like guests," Lukas said, his voice quiet but firm. He adjusted the strap of his pack, feeling the weight of his decisions settling onto his shoulders. He was no longer the Captain of the Guard, wearing a polished silver breastplate and enforcing the decrees of a human king. He was a fugitive, a hybrid leader who had broken his chains only to find himself responsible for the survival of his kin. "We keep our hands off our steel. We show them the old signs."
 
-They moved forward, deeper into the green twilight. The ground beneath their boots was soft, a thick carpet of pine needles and decaying leaves that muffled their steps. The watchfulness of the forest grew heavier with every yard they traversed. It was a heavy pressure, a feeling of dozens of hidden eyes tracking their progress from the high branches and the deep hollows of the roots. 
+They moved forward, deeper into the green twilight. The ground beneath their boots was soft, a thick carpet of pine needles and decaying leaves that muffled their steps. The watchfulness of the forest grew heavier with every yard they traversed. It was a heavy pressure, a feeling of dozens of hidden eyes tracking their progress from the high branches and the deep hollows of the roots.
 
 As they walked, Lukas's mind drifted back to the burning streets of the capital, to the look on Lady Isolde's face when she had declared the total purge of the hybrid population. He remembered the smell of burning sylvan-wood, the screams of the families dragged from the Ashen Warrens, and the cold, terrifying certainty that Aethoria had finally broken its promise of integration. He had spent his entire life trying to bridge the gap between his human heritage and his beast-kin blood, trying to prove that a hybrid could be a loyal protector of the Spire. But the Spire had rejected him. It had called him a monster, a parasite, a threat to the purity of the human state.
 
@@ -2006,7 +2006,7 @@ And now, he was seeking refuge among the people who had rejected the Spire gener
 
 After three hours of walking through the pathless wilderness, the forest opened. The dense undergrowth cleared, replaced by a wide, natural valley flanked by towering cliffs of black basalt. In the center of the valley stood the settlement of Ironbark.
 
-Lukas stopped, his breath catching in his throat. It was unlike anything he had seen in the human territories. Aethoria was a city of stone and glass, built by cutting down the earth and forcing it into rigid, geometric shapes. Ironbark, however, was grown. 
+Lukas stopped, his breath catching in his throat. It was unlike anything he had seen in the human territories. Aethoria was a city of stone and glass, built by cutting down the earth and forcing it into rigid, geometric shapes. Ironbark, however, was grown.
 
 The settlement was built within a grove of gargantuan ironbark trees, some of them so wide that their trunks could have housed a small tavern. The buildings did not sit on top of the earth; they were part of it. Wood-shapers, using ancient sylvan magic, had guided the growth of the living trees, coaxing their branches to weave together into walls and arched roofs. Windows were natural hollows in the bark, framed by living ivy and flowering vines that breathed with the rhythm of the seasons. Woven root-bridges suspended high in the air connected one tree-dwelling to another, forming a complex, multi-tiered web of pathways that allowed the inhabitants to move through the canopy without ever touching the ground.
 
@@ -2014,9 +2014,9 @@ At the base of the trees, the ground was cleared and packed hard by generations 
 
 But it was the inhabitants themselves who commanded Lukas's attention.
 
-In Aethoria, the hybrids lived in the shadows, their ears hidden under hoods, their tails tucked into heavy coats, their existence an apology. Here, there were no apologies. 
+In Aethoria, the hybrids lived in the shadows, their ears hidden under hoods, their tails tucked into heavy coats, their existence an apology. Here, there were no apologies.
 
-The beast-kin of Ironbark walked with a pride that bordered on defiance. Lukas saw bear-kin whose massive, furred frames were twice the size of a normal human, their bare arms covered in tribal markings and their shoulders draped in heavy pelts. He saw cat-kin women moving along the high root-bridges with a liquid grace that made Nyssa's stealth look deliberate, their long tails twitching with casual amusement as they looked down at the newcomers. Bird-kin perched on the high branches, their feathers bright and clean, their sharp eyes missing nothing. 
+The beast-kin of Ironbark walked with a pride that bordered on defiance. Lukas saw bear-kin whose massive, furred frames were twice the size of a normal human, their bare arms covered in tribal markings and their shoulders draped in heavy pelts. He saw cat-kin women moving along the high root-bridges with a liquid grace that made Nyssa's stealth look deliberate, their long tails twitching with casual amusement as they looked down at the newcomers. Bird-kin perched on the high branches, their feathers bright and clean, their sharp eyes missing nothing.
 
 The crowd parted as Lukas and his group entered the central clearing. The air carried the scent of roasted meat, wet pine, and the sharp, metallic tang of cold iron. The stares they received were not friendly. They were cold and heavy with suspicion. The beast-kin looked at Lukas's torn uniform, at the silver buckles that still clung to his leather straps, and at the clean, civilized cut of his hair. To them, he did not look like a brother seeking sanctuary; he looked like a soldier of the oppressor who had lost his way.
 
@@ -2080,7 +2080,7 @@ But he also knew he had no choice. If he refused, they would be turned back at t
 
 Talon Nighthunter let out a short, dry laugh that sounded like the crack of a dry branch. "Failure means you feed the moss, Wolfheart. The hunters will not hold back. They will track you, corner you, and take your lives as they would any prey that enters their territory without permission. The wild does not offer second chances."
 
-Lukas stood in the center of the hollow chamber, the warmth of the Astral Shard pulsing against his chest like a silent warning. He looked at Zaphrium. The sylvan giant gave him a slow, almost imperceptible nod. 
+Lukas stood in the center of the hollow chamber, the warmth of the Astral Shard pulsing against his chest like a silent warning. He looked at Zaphrium. The sylvan giant gave him a slow, almost imperceptible nod.
 
 "I accept," Lukas said.
 
@@ -2150,7 +2150,7 @@ Cael nodded, his face pale in the darkness. With a quick, silent leap, he caught
 
 They turned toward the east, pushing through a dense thicket of ferns and briars. The thorns tore at Lukas's leather tunic and scratched his arms, but he barely felt the pain. His mind was focused on the passage of time. One hour. It sounded like a long time in a small room, but in the vastness of the Yrridian forest, it was nothing. The hunters were already preparing, their senses tuning to the frequency of the prey, their muscles ready to spring.
 
-They reached the stream. It was a narrow, fast-flowing creek that ran through a deep, basalt-lined ravine. The water was icy cold, originating from the high glaciers of the northern peaks. 
+They reached the stream. It was a narrow, fast-flowing creek that ran through a deep, basalt-lined ravine. The water was icy cold, originating from the high glaciers of the northern peaks.
 
 "Step in the center," Nyssa instructed, stepping into the water with a silent splash. She shivered as the cold penetrated her boots, but her face remained tight and focused. "Keep to the rocks where the current is fast. Don't touch the banks or the low moss; the scent of crushed moss lingers for hours."
 
@@ -2191,7 +2191,7 @@ Once they reached the top of the slope, they found themselves in a dense grove o
 
 They set to work with a desperate, quiet efficiency. Tarek used his crude iron knife to cut four straight, sturdy branches from a young sylvan-pine, his raw strength allowing him to slice through the wood with minimal noise. Nyssa and Cael dug a shallow pit between the massive, buttressed roots of an old ironbark, lining the bottom with dry stones from the stream bed.
 
-Lukas knelt by the pit, his hands hovering over the dry pine needles they had gathered. He did not have tinder or flint, but he had the Shard. 
+Lukas knelt by the pit, his hands hovering over the dry pine needles they had gathered. He did not have tinder or flint, but he had the Shard.
 
 He closed his eyes, reaching for the silver light in his blood. The energy was there, cold and sharp, but as he focused on the Shard beneath his tunic, he felt the frequency change. He did not try to summon a blast of force; instead, he sought the low, friction-like heat of the earth. He pressed his fingers against the dry needles, letting a tiny spark of astral resonance jump from his fingertips.
 
@@ -2227,19 +2227,19 @@ The logic was dangerous, but it was their only chance. They could not outrun Sir
 
 "I will lead," Tarek said, his spear held low. "My skin is thick enough to handle the thorns. Follow my trail."
 
-They plunged into the briar-run. 
+They plunged into the briar-run.
 
 It was a nightmare of green claws. The wild blackberry vines and black-thorn bushes grew in dense, tangled mounds that rose higher than their heads. The thorns were long and curved, catching their clothes, tearing their skin, and drawing thin lines of blood that smelled sweet and hot in the cold air.
 
 Tarek moved like a living battering ram, his massive shoulders pushing through the vines, his tiger-kin strength allowing him to tear the thick branches apart with his bare hands. Lukas followed close behind, using his windstep to slip through the gaps Tarek cleared before the thorns could snap back. Nyssa and Cael came next, their smaller frames allowing them to move with less difficulty, though Cael's wings were a constant hazard, catching on the low twigs and causing him to gasp in pain.
 
-Behind them, the forest was alive with the sounds of pursuit. 
+Behind them, the forest was alive with the sounds of pursuit.
 
 The howls had stopped, replaced by the deep, heavy thud of Baur's boots as the bear-kin crashed through the undergrowth, and the sharp, snapping sound of branches that marked Sola's swift advance. Sira was silent, a ghost in the dark, her location unknown.
 
 "Lukas," Cael whispered, pointing to the sky.
 
-Through the tangled roof of the briars, Lukas saw a shadow cross the face of the silver moon. It was Corvus. The owl-hybrid was gliding low, his wings completely silent, his massive yellow eyes searching the green tangle below. 
+Through the tangled roof of the briars, Lukas saw a shadow cross the face of the silver moon. It was Corvus. The owl-hybrid was gliding low, his wings completely silent, his massive yellow eyes searching the green tangle below.
 
 "Get down," Lukas breathed.
 
@@ -2307,7 +2307,7 @@ Sira was caught off guard. The force of the wind lifted her from the rock, throw
 
 "Now!" Lukas shouted. "Use the wind! Cael, lead the way!"
 
-With the wind at their backs, they ran. 
+With the wind at their backs, they ran.
 
 The pressure wave had cleared the path, and Cael's bird-kin instincts allowed him to read the rising currents, guiding them to the footholds on the basalt cliffs. They scrambled up the wet, black stone, their fingers bleeding, their muscles burning, but the silver light of the Shard illuminated their path, showing them the way to the boundary stone.
 
@@ -2321,7 +2321,7 @@ They had survived.
 
 ---
 
-The boundary stone was a massive, weathered pillar of basalt, its surface carved with ancient sylvan runes that had grown green and soft with lichen. It stood on a high, wind-swept plateau at the base of the northern cliffs, overlooking the vast, mist-draped basin of Yrridia. 
+The boundary stone was a massive, weathered pillar of basalt, its surface carved with ancient sylvan runes that had grown green and soft with lichen. It stood on a high, wind-swept plateau at the base of the northern cliffs, overlooking the vast, mist-draped basin of Yrridia.
 
 Lukas collapsed against the stone, his breath coming in shallow, painful gasps. His hands were covered in cuts and bruises, his uniform was torn to shreds, and his muscles felt like they had been poured full of lead. Beside him, Nyssa lay on her back, her yellow eyes fixed on the gray sky, her chest rising and falling in a rapid, exhausted rhythm. Cael sat with his head between his knees, his wings draped over his shoulders like a protective cloak, his body shivering with the aftershocks of the adrenaline.
 
@@ -2331,7 +2331,7 @@ From the tree line below the plateau, five figures emerged.
 
 They moved slowly, their movements stiff with the fatigue of the long pursuit. Baur was there, his furred chest covered in mud, a dark bruise swelling over his shoulder where Tarek had struck him. Behind him came Sola and Vael, their heads low, their eyes tracking the ground. Corvus had landed on a low pine branch, his massive eyes blinking in the growing light.
 
-At their head walked Sira the Nightstalker. 
+At their head walked Sira the Nightstalker.
 
 Her charcoal skin was wet with sweat, her long claws retracted. She looked at Lukas, and the predatory yellow-green eyes no longer held the cold triumph of the hunt. Instead, they held a quiet, grudging respect.
 
@@ -2341,7 +2341,7 @@ She walked up the slope, stopping ten yards from the boundary stone. She looked 
 
 Lukas looked past her, his heart freezing. "Tarek... Where is Tarek?"
 
-Before Sira could answer, the brush parted. 
+Before Sira could answer, the brush parted.
 
 Tarek walked out into the clearing. The tiger-kin was bruised and bloodied, his tunic torn to ribbons, his left arm hanging limp at his side. But he was walking. He carried his sylvan-pine spear in his right hand, using it as a staff to support his weight. Beside him walked Zaphrium, the sylvan giant's hand resting gently on Tarek's shoulder to steady him.
 
@@ -2898,7 +2898,7 @@ The journey had been long, the winter was coming, and the battle for their survi
 
 ## Chapter 15: The Ember Forges — Part II
 
-The heat of the deep forge did not merely warm the skin; it occupied the lungs like a heavy, golden draft, tasting of wet soot, raw sulfur, and the bitter dregs of cheap alchemical ale that the dwarven apprentices drank by the gallon to keep their blood from boiling. Deep within the volcanic throat of Heimfeld, the air was a physical presence—a shimmering, pressurized haze that distorted the geometry of the black basalt pillars supporting the cavern roof. Above, the chimney flues groaned with the tectonic hum of the mountain's molten heart, a low, continuous bass note that vibrated through the soles of Lukas's boots and settled behind his eyes like a dull ache. His hybrid wolf ears, naturally attuned to the delicate whispers of the forest winds, were pinned flat against his skull, twitching and flattening in a vain attempt to shut out the relentless, metallic battery of fifty active anvils echoing through the chambers. 
+The heat of the deep forge did not merely warm the skin; it occupied the lungs like a heavy, golden draft, tasting of wet soot, raw sulfur, and the bitter dregs of cheap alchemical ale that the dwarven apprentices drank by the gallon to keep their blood from boiling. Deep within the volcanic throat of Heimfeld, the air was a physical presence—a shimmering, pressurized haze that distorted the geometry of the black basalt pillars supporting the cavern roof. Above, the chimney flues groaned with the tectonic hum of the mountain's molten heart, a low, continuous bass note that vibrated through the soles of Lukas's boots and settled behind his eyes like a dull ache. His hybrid wolf ears, naturally attuned to the delicate whispers of the forest winds, were pinned flat against his skull, twitching and flattening in a vain attempt to shut out the relentless, metallic battery of fifty active anvils echoing through the chambers.
 
 The glowing steel ingot waited on the anvil like a judgment, radiating heat that made the air itself shimmer with possibilities yet to be shaped. Lukas hefted the heavy iron tongs again, feeling their coarse, soot-crusted weight settle into his grip. They were not just tools to him now, but extensions of a desperate intent, a means to manifest a purpose that went far beyond the simple manipulation of metal. Around him, the workshop of Bron Ironbane hummed with a patient, violent rhythm. Master craftsmen pursued perfection through repetition refined into art, their hammers creating a loud, rhythmic counterpoint to the deeper, geological thunder of the lava channels barely contained by dwarven masonry.
 
@@ -2922,7 +2922,7 @@ When the ingot had cooled to a dangerous, dull red, Lukas clamped it with the to
 
 "Water," Bron commanded, pointing to a wooden bucket in the corner.
 
-Lukas retreated to the shadows near the edge of the workshop, his chest heaving as he pulled off his goggles. His face was caked with soot, his hair plastered to his forehead by sweat that felt as thick as oil. 
+Lukas retreated to the shadows near the edge of the workshop, his chest heaving as he pulled off his goggles. His face was caked with soot, his hair plastered to his forehead by sweat that felt as thick as oil.
 
 His companions were waiting in the relatively cooler air near the stone entrance. Zaphrium sat on a low stone bench, his massive dragon-kin frame casting a long, jagged shadow against the wall. His gold-and-obsidian scales caught the flickering firelight, and a thin, lazy wisp of smoke drifted from his nostrils. Nyssa was perched on a stack of iron crates, her feline ears twitching restlessly under her dark hood, her tail lashing back and forth in a slow, agitated rhythm. Cael leaned against a nearby pillar, his avian wings folded tight against his spine, his fingers nervously preening the feathers at his collar. The intense, claustrophobic heat of the deep forge seemed to act as a pressure cooker for their spirits, bringing a tense, heavy silence over the group.
 
@@ -2982,7 +2982,7 @@ The folding of the steel was a brutal, repetitive ritual. Lukas pulled the glowi
 
 *Fold two.* Four layers. The resistance of the Rift-iron was growing. It felt denser now, more stubborn under the hammer. Lukas's shoulder blades ground together with every swing, his shirt sticking to his back like a wet skin. The smell of wet soot and burning leather filled his nostrils.
 
-*Fold three.* Eight layers. He felt the heritage of his hands. As the hammer rose and fell, his mind drifted back to the small, dusty forge in the valley of his youth. He remembered his grandfather—a massive, silent man with hands like oak roots—guiding his small fingers to hold the light hammer. He remembered his mother standing by the bellows, her face illuminated by the soft, warm glow of wood coals, teaching him to read the heat. *“Watch the color, Lukas,—* she had whispered. *“The fire is like a person. It tells you when it's angry, and it tells you when it's ready to listen.—*
+*Fold three.* Eight layers. He felt the heritage of his hands. As the hammer rose and fell, his mind drifted back to the small, dusty forge in the valley of his youth. He remembered his grandfather—a massive, silent man with hands like oak roots—guiding his small fingers to hold the light hammer. He remembered his mother standing by the bellows, her face illuminated by the soft, warm glow of wood coals, teaching him to read the heat. *“Watch the color, Lukas,—”* she had whispered. *“The fire is like a person. It tells you when it's angry, and it tells you when it's ready to listen.”*
 
 *Fold four.* Sixteen layers. The village forge had been a place of life—shaping horseshoes and hinges for the farmers who came to share stories and drink cheap alchemical ale. It was a place where things were made to help the earth grow. Now, he was in the bowels of a volcanic fortress, forging an instrument of death to fight a war of survival. The contrast was a sharp, biting pain in his chest, but he kept his rhythm.
 
@@ -3018,7 +3018,7 @@ The Sage reached out a massive, glowing finger of solid heat, touching the Astra
 
 "Look through the fire, Shard-Bearer. See what the star-metal has created."
 
-The contact was an explosion of violet-black Discord static. Lukas was ripped from the amber chamber and thrown into a cold, dark void. 
+The contact was an explosion of violet-black Discord static. Lukas was ripped from the amber chamber and thrown into a cold, dark void.
 
 He was standing in the deepest, most secure vault of the Crystal Spire, far below the High Council's chambers. The air was freezing, smelling of ancient stone and the sharp, chemical scent of alchemical preservatives. In the center of the room stood a massive, glass-morphic table, its surface etched with complex runic circles that pulsed with a corrupt, violet light.
 
@@ -3030,21 +3030,21 @@ He was screaming, but no sound escaped his throat—only a low, dry hiss of stat
 
 Lukas felt Fenris's mind. The resonance of their shared blood and the Astral Shard created a bridge, throwing Lukas headfirst into the labyrinth of his brother's psychological torment.
 
-The pain was a physical weight, a crushing, suffocating darkness. Fenris was not acting out of a desire for power or a simple hatred of the world. He was drowning. He had looked into the Rifts, had seen a vision of the cosmic "Audit"—a complete, systematic erasure of Aethoria by forces that saw their world as a failed equation. Humanity and the hybrid races would never unite in peace; their history of hatred was too deep, their fear too entrenched. 
+The pain was a physical weight, a crushing, suffocating darkness. Fenris was not acting out of a desire for power or a simple hatred of the world. He was drowning. He had looked into the Rifts, had seen a vision of the cosmic "Audit"—a complete, systematic erasure of Aethoria by forces that saw their world as a failed equation. Humanity and the hybrid races would never unite in peace; their history of hatred was too deep, their fear too entrenched.
 
-So, Fenris had made a tragic, monstrous calculation. 
+So, Fenris had made a tragic, monstrous calculation.
 
 He would become the ultimate villain. He would absorb the Discord corruption, turn himself into a monster so terrifying and absolute that the warring factions of Aethoria would have no choice but to band together to survive him. He was sacrificing his name, his soul, and his own flesh to act as the anvil upon which a united world could be hammered. He was torturing himself, letting the violet-black parasite eat his mind, all to force Lukas to become the hero the world needed to slay him.
 
-*“Lukas...—* 
+*“Lukas...”*
 
 The voice in the void was Fenris's true voice—the voice of the brother who had shared his bread in the winter, the brother who had promised they would always watch each other's backs. It was a voice small, cracked, and drowning in the violet static.
 
-*“You have to be strong enough... You have to make the blade sharp. If you fail to kill me, the Audit will come, and the fire will go out forever. Do not hesitate... Do not look at me with pity. Slay the beast I have become... Save them...—*
+*“You have to be strong enough... You have to make the blade sharp. If you fail to kill me, the Audit will come, and the fire will go out forever. Do not hesitate... Do not look at me with pity. Slay the beast I have become... Save them...”*
 
 The vision fractured like glass, the shards of memory dissolving into a torrent of white-hot light.
 
-Lukas snapped back into his body, gasping for air. He was on his knees on the cold basalt floor of the forge, his hands shaking so violently he couldn't hold the tongs. His chest heaved, his lungs burning with the sulfurous air. 
+Lukas snapped back into his body, gasping for air. He was on his knees on the cold basalt floor of the forge, his hands shaking so violently he couldn't hold the tongs. His chest heaved, his lungs burning with the sulfurous air.
 
 "Lukas!" Nyssa's voice was close, her hands on his shoulders, her feline eyes wide with alarm. "Lukas, breathe! You went under! Your eyes... They were glowing violet!"
 
@@ -3076,7 +3076,7 @@ He etched the rune of *Severance*—the sympathetic connection that would allow 
 
 "Now," Bron said, his voice unusually quiet as he watched the runes take shape. "The binding. The blood."
 
-Lukas pulled a silver needle from his belt. He did not hesitate. He pricked his right thumb, holding it over the glowing spearhead. 
+Lukas pulled a silver needle from his belt. He did not hesitate. He pricked his right thumb, holding it over the glowing spearhead.
 
 Three drops of dark, crimson blood fell onto the hot metal.
 
@@ -3132,7 +3132,7 @@ Lukas stepped through the stone archway, his hand gripped tight around the shaft
 
 The salt-carved cliffs of Meridian's Edge rose from the churning, slate-gray ocean like the petrified remains of ancient titans, their jagged, black basalt surfaces scored by the deep, horizontal scars of countless winter storms that had failed to humble stone older than the first mortal kingdoms. Here, at the ragged lip of the southern continent, the wind was a living, predatory thing, howling off the open sea with a high-pitched, metallic shriek that carried the bitter chill of Antarctic ice and the sharp, rot-sweet stench of decaying kelp beds torn from the ocean floor. The spray was relentless, a fine, biting mist that coated everything in a crust of gray salt, stinging the eyes and leaving a cold, greasy film on the skin. At the base of these monumental cliffs, where the white surf crashed against the rocks with the patient, grinding fury of geological time made liquid, the Deepwater Grottos waited. They were a legendary maze of flooded caverns, half-submerged chambers, and tidal siphons that had swallowed more desperate treasure seekers, political exiles, and foolhardy explorers than they had ever surrendered of their dark secrets to mortal ambition.
 
-Lukas Wolfheart stood on the narrow, slick ledge that wound down the cliff face, adjusting the heavy, ill-fitting scholar's robes that served as their disguise. The rough, undyed wool was already sodden with salt spray, clinging to his limbs like cold armor and scratching irritably against the skin of his forearms and shoulders—skin that was still tender and peeling from the severe forge-burns that the creation of the wind-forged blade *Stormcaller* had branded into his flesh. The heavy, dark wool robes carried the stale, dusty smell of ancient libraries and the faint, chemical tang of cheap iron-gall ink—details that Nyssa had insisted upon with fanatical precision after lifting them from the dormitories of actual scholars whose absence wouldn't be noticed by the University of Stellar Winds until their quarterly research grants expired. 
+Lukas Wolfheart stood on the narrow, slick ledge that wound down the cliff face, adjusting the heavy, ill-fitting scholar's robes that served as their disguise. The rough, undyed wool was already sodden with salt spray, clinging to his limbs like cold armor and scratching irritably against the skin of his forearms and shoulders—skin that was still tender and peeling from the severe forge-burns that the creation of the wind-forged blade *Stormcaller* had branded into his flesh. The heavy, dark wool robes carried the stale, dusty smell of ancient libraries and the faint, chemical tang of cheap iron-gall ink—details that Nyssa had insisted upon with fanatical precision after lifting them from the dormitories of actual scholars whose absence wouldn't be noticed by the University of Stellar Winds until their quarterly research grants expired.
 
 The authenticity of their disguise went far deeper than the cloth. The tips of Lukas's fingers were raw, the skin etched with tiny, horizontal calluses that spoke to years spent turning heavy vellum pages in drafty archives. These had not been earned through academic dedication, however, but through the careful, painful application of mild alchemical acids that Nyssa had painted onto his fingers in their hideout, burning away the deep, heavy sword-calluses that would have instantly betrayed his identity to any experienced guard who grasped his hand. Lukas ran his thumb over the synthetic calluses, feeling the strange, numb texture. Beneath his tunic, resting directly against his breastbone, the genuine Astral Shard of Memory hung from a simple leather cord. It was quiet now, but he felt its residual warmth—a soft, steady throb that beat in slow, rhythmic syncopation with his own heart, a quiet anchor of starlight in a world of rising shadows.
 
@@ -3318,13 +3318,13 @@ He lifted the Shard, holding its silver-blue light toward the ancient ledgers. T
 
 The dry, cold stillness of the Valdris Collection felt like an impossibility, suspended as it was beneath millions of tons of churning, salt-heavy ocean. The air within the sealed basalt chamber carried a peculiar, preserved scent—a mixture of ancient, crumbling vellum, the faint sweetness of dried pine-sap used in old bindings, and the sharp, mineral tang of dry salt-crust that clung to the outer stone seams. Outside this pocket of preserved history, the tectonic hum of the Deepwater Grottos vibrated through the floorboards of the carved rock shelves, a low, rhythmic throb that resonated in Lukas's teeth. It was the physical voice of the tide, a reminder that their time in this sanctuary was measured by the cold mathematics of the sea.
 
-Kythara of the Deep Current stood at the edge of the chamber, her fish-skull mask glistening with a sheen of condensed moisture. She remained as still as a carved monument, her webbed fingers resting lightly on the hilt of a bone-handled dagger. The empty eye sockets of the barracuda skull she wore seemed to drink in the silver light spilling from the Astral Shard of Memory, reflecting nothing but the cold, calculating intelligence of a predator evaluating its options. 
+Kythara of the Deep Current stood at the edge of the chamber, her fish-skull mask glistening with a sheen of condensed moisture. She remained as still as a carved monument, her webbed fingers resting lightly on the hilt of a bone-handled dagger. The empty eye sockets of the barracuda skull she wore seemed to drink in the silver light spilling from the Astral Shard of Memory, reflecting nothing but the cold, calculating intelligence of a predator evaluating its options.
 
 Beside Lukas, Zaphrium's massive frame cast a long, shadow-draped silhouette against the basalt shelves. The dragon-kin's claws, blackened and scarred by centuries of alchemical study, turned the fragile pages of a leather-bound volume with a delicacy that seemed incongruous with his size. The cover of the ledger bore the stamped crest of the Merchant's Consortium—a balance scale resting on a bed of stylized waves—but the ink within was faded, a pale sepia that had dried long before the current dynasty had climbed the steps of the Crystal Spire.
 
 "It is all here," Zaphrium murmured, his voice a low, gravelly vibration that barely rose above the distant booming of the waves. He adjusted his heavy spectacles, his golden eyes scanning the dense lines of script. "The shipping manifests. The transactions. The names of those who were bought and sold under the guise of colonial relocation. Lukas, look at the dates. These entries begin seventeen years ago, during the height of the first integration decrees."
 
-Lukas stepped closer, the Astral Shard pulsing against his chest like a second, frantic heart. The crystalline relic, warm and vibrating with stored temporal resonance, cast thin, needle-like beams of silver starlight across the open page. His amber eyes, dilated in the dim light of the chamber, scanned the columns of copperplate handwriting. 
+Lukas stepped closer, the Astral Shard pulsing against his chest like a second, frantic heart. The crystalline relic, warm and vibrating with stored temporal resonance, cast thin, needle-like beams of silver starlight across the open page. His amber eyes, dilated in the dim light of the chamber, scanned the columns of copperplate handwriting.
 
 *Item 42: Twenty-four youth, storm-touched bloodlines. Consigned to the Eastern Mines. Premium paid for biological resilience. Magnus Wolfheart, Signatory.*
 
@@ -3350,7 +3350,7 @@ Lukas's chest tightened. His father was younger here—his silver-streaked hair 
 
 "The treaties are words on sheepskin, Magnus," the noble countered, tapping a long, manicured finger against a stack of gold coins that gleamed like toxic stars in the lantern light. "And words do not pay the crown's tithe. If you refuse, the Templars will conduct the purge themselves. They will not be as... Selective as you. Your wife's family is already under surveillance, Magnus. Do you think your position as a minor lord will protect her storm-touched kin if the Penitent Circle decides you are a sympathizer? They will burn your estate, and your son will watch you hang."
 
-Lukas felt his father's internal state through the Shard's connection—not a monster's cruelty, but a crushing, suffocating terror. Magnus was a younger son, his inheritance stripped by political rivals, drowning in debt, and holding a title that was a shield made of glass. He was trapped between the slaughter of his own family and the slow, quiet betrayal of the people he had sworn to protect. 
+Lukas felt his father's internal state through the Shard's connection—not a monster's cruelty, but a crushing, suffocating terror. Magnus was a younger son, his inheritance stripped by political rivals, drowning in debt, and holding a title that was a shield made of glass. He was trapped between the slaughter of his own family and the slow, quiet betrayal of the people he had sworn to protect.
 
 Magnus lowered the quill to the parchment. His jaw clenched, his eyes closing for a brief second as he signed his name. The act was silent, but to Lukas, it sounded like the snapping of an iron chain.
 
@@ -3370,9 +3370,9 @@ She raised her hands, and the chamber exploded with light. Lightning, pure and w
 
 But the masked figures were too many. They worked with a sterile, mechanical coordination, their Discord staves devouring the light of her lightning, slowly narrowing the space around her. Lukas watched, screaming a warning that could not be heard, as a bolt of violet-black energy caught his mother in the chest.
 
-Lyanna did not fall. She grunted, her knees buckling, but she forced herself up, her eyes burning with an intensity that defied the dark magic eating at her life force. She pressed her hands to the icy floor, her voice rising in a final, resonant incantation. 
+Lyanna did not fall. She grunted, her knees buckling, but she forced herself up, her eyes burning with an intensity that defied the dark magic eating at her life force. She pressed her hands to the icy floor, her voice rising in a final, resonant incantation.
 
-*“The wind hears. The storm remembers. Go!—*
+*“The wind hears. The storm remembers. Go!”*
 
 A shockwave of cold air and silver light erupted from her, shattering the ice floor and sending a massive wall of frost rushing outward through the tunnels. It was a message, a warning call sent through the elemental networks to every hybrid settlement in the foothills. It bought them hours—time to flee into the deep valleys before the Templars arrived.
 
@@ -3408,11 +3408,11 @@ He was suspended once more in the silent, cosmic emptiness. The starlight was no
 
 Before him, two figures materialized from the stardust. They were Magnus and Lyanna, their faces serene but their eyes holding the weight of his judgment.
 
-*“You carry our blood, Lukas,—* the echo of his mother said, her voice like the rustle of wind through autumn leaves. *“But what do you carry in your heart? Is it the shield that protects, or the sword that destroys? The storm can clear the path, but it can also lay waste to the home.—*
+*“You carry our blood, Lukas,—”* the echo of his mother said, her voice like the rustle of wind through autumn leaves. *“But what do you carry in your heart? Is it the shield that protects, or the sword that destroys? The storm can clear the path, but it can also lay waste to the home.”*
 
 "They betrayed us," Lukas said, his voice echoing in the emptiness. He felt the phantom weight of his sword-hilt in his hand, his fingers twitching with a need for action. "They took you. They framed me. They turned my own people against me. Fenris is right about one thing—Aethoria must burn. The Penitent Circle, the nobles, Gothryn... They all deserve to drown in the storm. If I do not strike them down, who will?"
 
-*“And if you burn them, what remains?—* the echo of his father asked, his eyes filled with the sadness of a man who had walked that path. *“I chose survival through compromise, and it cost me my soul. Fenris chooses survival through destruction, and it will cost him his humanity. Will you choose the same, young wolf? Will you let your hunger for vengeance write the laws of your new order? If you build your kingdom on the ashes of your enemies, you will only rule a graveyard.—*
+*“And if you burn them, what remains?—”* the echo of his father asked, his eyes filled with the sadness of a man who had walked that path. *“I chose survival through compromise, and it cost me my soul. Fenris chooses survival through destruction, and it will cost him his humanity. Will you choose the same, young wolf? Will you let your hunger for vengeance write the laws of your new order? If you build your kingdom on the ashes of your enemies, you will only rule a graveyard.”*
 
 Lukas stood silent, the starlight cutting through his anger. He thought of the Ashen Warrens, of the families who had looked to him for hope, of Cael's earnest belief in the Brotherhood Code, of Nyssa's quiet, steadfast support. If he fought only to destroy his enemies, he would build a kingdom on ashes, and the new laws would be written in the same blood that stained his father's ledger. He would become the monster his father had feared, the oppressor his mother had died resisting.
 
@@ -3428,9 +3428,9 @@ The spectral figures smiled, their forms dissolving into streams of warm, silver
 
 ***
 
-Lukas opened his eyes, gasping for air. 
+Lukas opened his eyes, gasping for air.
 
-He was back in the Valdris Collection. The starlight from the Shard had settled into a quiet, warm glow, but the chamber around him was no longer silent. 
+He was back in the Valdris Collection. The starlight from the Shard had settled into a quiet, warm glow, but the chamber around him was no longer silent.
 
 From the dark pools of water that bordered the basalt shelves, multiple figures were rising. They moved with a liquid, terrifying silence, the water sliding off their bodies without a splash. They were Selkhar—not just Kythara, but a full cohort of their warriors and elders.
 
@@ -3488,7 +3488,7 @@ Panic, cold and sharp, flared in his chest. Water filled his mouth as he tried t
 
 But as his consciousness began to slip, as the cold water threatened to swallow him for the last time, the silver light of the Shard flared within his chest. The warmth of the spiritual trial, the memory of his mother's storm magic, and his own pledge to the Brotherhood surged through his veins.
 
-*“The wind hears. The storm remembers.—*
+*“The wind hears. The storm remembers.”*
 
 Lukas did not have air to speak the words, but he formed them in his mind with absolute clarity. The windstep magic, which he had used for years to leap across rooftops and run along walls, was not a tool of the air. It was a control of currents, a manipulation of the flow of energy. And water was only a denser form of air.
 
@@ -3876,13 +3876,13 @@ The rumors had become a physical presence in Aethoria, spreading like spores of 
 
 Beneath the city, in the ancient, forgotten tunnels that sat like rotting veins beneath Aethoria's modern foundations, the subject of those rumors sat in silence.
 
-Lukas Wolfheart rested his back against the damp limestone wall of a smuggler's vault, his legs stretched out before him on the cold dirt. The chamber was small and circular, its walls rough-hewn by hands that had been dead for centuries. A single alchemical lantern, its glass cowl painted black to restrict its light to a narrow, downward cone, sat in the center of the floor, casting long, skeletal shadows against the stone. 
+Lukas Wolfheart rested his back against the damp limestone wall of a smuggler's vault, his legs stretched out before him on the cold dirt. The chamber was small and circular, its walls rough-hewn by hands that had been dead for centuries. A single alchemical lantern, its glass cowl painted black to restrict its light to a narrow, downward cone, sat in the center of the floor, casting long, skeletal shadows against the stone.
 
-Lukas placed his hand over the center of his chest. Beneath his torn, oil-stained tunic, the skin was raised and hard, a jagged, star-shaped scar that pulsed with a faint, low warmth. It didn't hurt—not anymore—but it felt different from the rest of his flesh. It felt like an anchor point, a place where his body had been stitched back to his soul by forces he still did not fully comprehend. 
+Lukas placed his hand over the center of his chest. Beneath his torn, oil-stained tunic, the skin was raised and hard, a jagged, star-shaped scar that pulsed with a faint, low warmth. It didn't hurt—not anymore—but it felt different from the rest of his flesh. It felt like an anchor point, a place where his body had been stitched back to his soul by forces he still did not fully comprehend.
 
 When he closed his eyes, he could still feel the liminal space. He remembered the cold weight of the transition, the sensation of his consciousness drifting like ash over a dark, silent ocean. He remembered the voice—a low, tectonic rumble that sounded like grinding glaciers and the howl of winter wolves—telling him that his thread was not yet spun out. He had been shown Fenris's pain, the endless, burning cycle of vengeance that had turned the ancient guardian into a monster of shadow and steel. He had seen that the cost of endless war was the destruction of the thing one fought to protect.
 
-And then he had been returned. 
+And then he had been returned.
 
 The windstep was different now. Before his fall, it had been a sudden, violent strain—a tearing of his muscles, a desperate leap across the threshold of reality that left him gasping and bruised. Now, it felt like an extension of his breath. The air currents did not just carry him; they communicated with him. He felt the pressure shifts in the tunnels three levels above; he heard the vibration of the guards' boots on the cobblestones of the plaza far overhead; he could read the thermal drafts rising from the deep sewer vents like a map written in heat and shadow.
 
@@ -3952,7 +3952,7 @@ Zaphrium nodded, his ancient face solemn. "May the wind be at your back, Lukas. 
 
 ***
 
-The descent into the lower drains was a descent into a world of damp, heavy silence. 
+The descent into the lower drains was a descent into a world of damp, heavy silence.
 
 Lukas followed Nyssa through a vertical shaft that dropped twenty feet from the smuggler's vault into a brick-lined sewer conduit. The air here was cold and thick, carrying the cloying scent of alchemical soap, wet hair, and the faint, metallic tang of rusted iron pipes. The only sound was the rhythmic, hollow drip of water from the arched ceiling, rolled through the darkness like the slow ticking of a clock.
 
@@ -3962,11 +3962,11 @@ Lukas followed close behind, his windstep powers active at a low, continuous lev
 
 "Stop," Nyssa whispered, her tail flattening against her leg.
 
-Lukas froze, his back pressing against the wet brick wall. 
+Lukas froze, his back pressing against the wet brick wall.
 
-Through the damp air, he felt the vibration. It was a rhythmic, heavy thudding, accompanied by the clink of metal rings and the low, raspy breathing of a large animal. 
+Through the damp air, he felt the vibration. It was a rhythmic, heavy thudding, accompanied by the clink of metal rings and the low, raspy breathing of a large animal.
 
-A hundred feet ahead, where the conduit intersected with a larger overflow tunnel, a patrol was moving. 
+A hundred feet ahead, where the conduit intersected with a larger overflow tunnel, a patrol was moving.
 
 Lukas closed his eyes, let his senses expand, and projected his awareness forward. The air currents carried the scent-signature of the patrol: the smell of oiled leather, cheap pipe tobacco, and the sharp, musky odor of a hybrid tracking beast. It was one of Gothryn's Hounds—a massive, hairless creature with the body of a wolf and the long, muscular tail of a reptile, its jaw reinforced with steel plates to prevent its prey from escaping once caught.
 
@@ -3976,13 +3976,13 @@ Lukas reached into his tunic and touched the silver band Bron Ironbane had sent 
 
 "Up," Lukas signaled.
 
-Nyssa looked at the narrow opening, which was barely wide enough for a human shoulder, and nodded. She leaped, her claws digging into the mortar between the bricks as she scrambled into the flue with the silent grace of a spider. 
+Nyssa looked at the narrow opening, which was barely wide enough for a human shoulder, and nodded. She leaped, her claws digging into the mortar between the bricks as she scrambled into the flue with the silent grace of a spider.
 
 Lukas followed, but he did not use his claws. He gathered the air currents beneath him, forming a column of rising pressure that lifted him off the floor and carried him into the dark chimney. He grabbed the iron rungs of a maintenance ladder that rose through the center of the flue, his windstep absorbing the sound of his grip.
 
-Below them, the patrol entered the intersection. 
+Below them, the patrol entered the intersection.
 
-The tracking beast stopped directly beneath the ventilation flue, its hairless snout lifting as it sniffed the damp air. It let out a low, wet growl, its reptilian tail cracking against the brickwork as it sensed something unusual in the draft. 
+The tracking beast stopped directly beneath the ventilation flue, its hairless snout lifting as it sniffed the damp air. It let out a low, wet growl, its reptilian tail cracking against the brickwork as it sensed something unusual in the draft.
 
 Lukas held his breath, his hand resting on the silver band. He focused on the air currents inside the flue, reversing the flow to draw the air downward, carrying their scent away from the beast's nostrils and toward a sewer line two levels below.
 
@@ -3994,13 +3994,13 @@ Nyssa let out a soft, relieved breath, her claws releasing their grip on the bri
 
 "We need to move faster," Lukas said, his eyes tracking the dark line of the ventilation flue as it rose toward the Ministry foundations. "The guard shift changes in an hour. If we aren't inside the vaults by then, we'll run into the fresh patrols."
 
-They climbed. The flue rose fifty feet through the solid bedrock before terminating in a heavy, iron grate that looked out into the laundry vaults of the Ministry of Truth. 
+They climbed. The flue rose fifty feet through the solid bedrock before terminating in a heavy, iron grate that looked out into the laundry vaults of the Ministry of Truth.
 
-Lukas pressed his face against the iron bars, his senses scanning the room. It was a vast, low-ceilinged chamber filled with rows of stone wash-tubs and massive, copper boilers that lay cold and dark in the night. The air was heavy with the scent of stale lye, wet wool, and the greasy film of alchemical tallow used to clean the guards' uniforms. 
+Lukas pressed his face against the iron bars, his senses scanning the room. It was a vast, low-ceilinged chamber filled with rows of stone wash-tubs and massive, copper boilers that lay cold and dark in the night. The air was heavy with the scent of stale lye, wet wool, and the greasy film of alchemical tallow used to clean the guards' uniforms.
 
 The chamber was empty, but a single, red mana-torch burned near the exit door, casting a bloody light over the stone floor.
 
-Nyssa reached through the bars, her fingers manipulating a small, brass tool she had slipped from her belt. The lock on the grate was old and rusted, its tumblers resisting her efforts with a stubborn, grinding friction. 
+Nyssa reached through the bars, her fingers manipulating a small, brass tool she had slipped from her belt. The lock on the grate was old and rusted, its tumblers resisting her efforts with a stubborn, grinding friction.
 
 "The grease is dried up," she muttered, her forehead beaded with sweat as she worked the tool. "It won't budge. If I force it, the iron will snap, and the sound will echo through the boilers like a hammer blow."
 
@@ -4014,7 +4014,7 @@ They crossed the chamber, staying in the shadows of the copper boilers to avoid 
 
 Nyssa pressed her ear against the wood, listening to the vibrations of the corridor beyond. "Guard post is fifty yards to the left, near the main stairs. They're running a two-man patrol every twenty minutes. We have a five-minute window after the next patrol passes before they check the lower corridors."
 
-They waited. The silence of the laundry vault was absolute, broken only by the distant, muffled sound of the rain against the upper windows of the Ministry. 
+They waited. The silence of the laundry vault was absolute, broken only by the distant, muffled sound of the rain against the upper windows of the Ministry.
 
 Then, the sound came—the rhythmic, metallic click of Silver Guard armor passing the door, their voices carrying a bored, indifferent tone as they discussed the upcoming Offering ceremony.
 
@@ -4026,7 +4026,7 @@ Their voices faded as they turned the corner.
 
 "Now," Nyssa whispered, her hand moving to the doorknob.
 
-She turned the brass handle and slipped through the opening, Lukas following close behind. 
+She turned the brass handle and slipped through the opening, Lukas following close behind.
 
 The corridor was long and narrow, its walls lined with shelves of old files and legal archives that smelled of dry parchment and decaying glue. The ceiling was low, with raw stone beams showing through the plaster, indicating that they were deep beneath the Ministry's main administrative floors.
 
@@ -4046,7 +4046,7 @@ Lukas closed his eyes, his windstep senses expanding to read the air currents fl
 
 He stepped forward, his boots landing precisely on the narrow, blue-tinted mortar seams between the quartz blocks. He did not walk; instead, he used his windstep to lighten his weight, his feet barely grazing the stone as he moved. Nyssa followed, her feline balance allowing her to mimic his path with absolute precision.
 
-They reached the vault door. 
+They reached the vault door.
 
 Nyssa knelt before the circular recess, her fingers tracing the silver runes. "It's a dual-lock system. The physical mechanism is behind the bronze, but the magical ward is tied to Gothryn's personal resonance. If we try to force the lock, the ward will collapse into a resonance surge that will vaporize anyone within five yards."
 
@@ -4056,7 +4056,7 @@ Nyssa knelt before the circular recess, her fingers tracing the silver runes. "I
 
 "I can cut the connection," a voice whispered from the air.
 
-Lukas started, his hand moving to his sword hilt. 
+Lukas started, his hand moving to his sword hilt.
 
 But the voice did not come from the corridor. It came from the silver ring Zaphrium had given him, which was vibrating with a soft, warm light.
 
@@ -4068,19 +4068,19 @@ Lukas looked at Nyssa. "The wards are down. Open it."
 
 Nyssa did not hesitate. She reached into her pocket and produced a small, silver-tipped vial containing a clear, bubbling alchemical acid—a specialized solvent developed by the Heimfeld miners to dissolve bronze locks without creating smoke or sound. She poured the liquid into the keyhole recess, the metal instantly hissing as the acid dissolved the internal brass tumblers.
 
-She grabbed the circular bronze handle, her muscles straining as she turned the massive wheel. 
+She grabbed the circular bronze handle, her muscles straining as she turned the massive wheel.
 
 The lock groaned, the sound of grinding gears muffled by the alchemical solvent. With a heavy, metallic clunk, the bolts slid back. The massive bronze door swung slowly inward, revealing the dark, silent chamber beyond.
 
 The Archive of the Circle was small, its walls lined with iron-bound chests and shelves of black leather ledgers. Unlike the public archives above, which were filled with the dry records of court decisions and tax assessments, this room held the true history of the Penitent Circle—the contracts, the execution orders, and the names of the individuals who had funded the rise of the Silver Guard.
 
-Lukas stepped inside, his eyes searching the shelves. 
+Lukas stepped inside, his eyes searching the shelves.
 
 "The second shelf on the left," Nyssa said, pointing to a small, iron-bound box that bore the wax seal of the High Council. "Elena said the Covenant document is kept in the Council's registry box."
 
-Lukas walked to the shelf, his hand reaching for the box. 
+Lukas walked to the shelf, his hand reaching for the box.
 
-But as his fingers brushed the iron lid, the Astral Shard against his chest flared. 
+But as his fingers brushed the iron lid, the Astral Shard against his chest flared.
 
 It was a sharp, hot sting, a warning that caused him to pull his hand back just as a spark of violet-black Discord static jumped from the iron bands.
 
@@ -4102,15 +4102,15 @@ With a sharp *crack*, the violet static shattered. The iron bands on the box sna
 
 Lukas reached into the box and pulled out a single, thick parchment bound in black silk. He unrolled it, his eyes scanning the elegant, flowing script of the Aethorian scribes.
 
-It was the Covenant. 
+It was the Covenant.
 
 The document bore the names of Lady Isolde, Chancellor Gothryn, and the five mercenary captains who had executed the King. It detailed the payments made from the royal treasury to finance the market bombings, the fabrication of the hybrid evidence, and the planned coronation of Isolde as the High Priestess Regent of Aethoria.
 
 "We have it," Lukas said, his voice shaking slightly from the strain of the magical feedback. He rolled the parchment and slipped it into his leather tunic. "Let's go."
 
-They ran. 
+They ran.
 
-But as they stepped through the vault door and onto the white quartz floor of the corridor, the red mana-torches lining the walls suddenly flared to a brilliant, blinding crimson. 
+But as they stepped through the vault door and onto the white quartz floor of the corridor, the red mana-torches lining the walls suddenly flared to a brilliant, blinding crimson.
 
 A deafening, metallic siren rang through the stone foundations, the sound rattled through the corridors like the scream of a dying beast.
 
@@ -4120,23 +4120,23 @@ A deafening, metallic siren rang through the stone foundations, the sound rattle
 
 The escape was a blur of shadows and adrenaline.
 
-Lukas and Nyssa scrambled up the spiral stairs, the sound of shouting guards and the clatter of armor rising from the corridors behind them. 
+Lukas and Nyssa scrambled up the spiral stairs, the sound of shouting guards and the clatter of armor rising from the corridors behind them.
 
 "They've blocked the laundry vault!" Nyssa called out, checking the intersection ahead. "Three guards with heavy crossbows. We can't go back the way we came."
 
 "Then we go through the archives," Lukas said. He grabbed her arm, his windstep flaring as he pulled her into a side corridor lined with shelves of legal files.
 
-The archives were a labyrinth of narrow aisles and high shelves, a perfect place for a game of cat-and-mouse if they could maintain their silence. But Gothryn's agents were not playing a game. 
+The archives were a labyrinth of narrow aisles and high shelves, a perfect place for a game of cat-and-mouse if they could maintain their silence. But Gothryn's agents were not playing a game.
 
 Behind them, the doors of the archive hall burst open. Three guards in Silver Guard armor entered, accompanied by two of the hairless tracking beasts. The Hounds snarled, their long, reptilian tails cracking against the stone floor as they caught the scent of fresh blood on Lukas's wrists.
 
 "Spread out!" the guard captain shouted. "Check every aisle! Gothryn wants them alive if possible, but don't hesitate to shoot if they resist. They have the Council's documents."
 
-Lukas and Nyssa crouched behind a heavy oak shelf, their breath coming in shallow, silent gasps. 
+Lukas and Nyssa crouched behind a heavy oak shelf, their breath coming in shallow, silent gasps.
 
 The Hounds were moving down the aisles, their clawed feet scratching the stone, their snouts sniffing the dry air. They were only three aisles away, their yellow eyes scanning the darkness.
 
-Lukas reached for the dwarven null-field bands on his wrists. The metal was warm, but it was still suppressing their signatures. 
+Lukas reached for the dwarven null-field bands on his wrists. The metal was warm, but it was still suppressing their signatures.
 
 "Nyssa," Lukas whispered, his hand resting on the silver ring. "When I draw them away, you run for the ventilation flue. Take the Covenant. If I don't make it back, give the document to Zaphrium."
 
@@ -4148,7 +4148,7 @@ Nyssa looked at him, her tail twitching, her throat letting out a low, unhappy g
 
 "Don't die, Wolf-Captain," she whispered, her hand brushing his shoulder. "The moon remembers."
 
-Lukas stood up. 
+Lukas stood up.
 
 He did not try to hide. He stepped into the center of the aisle, letting his windstep powers flare with a sudden, brilliant display of storm magic. The air currents in the archive hall reacted, a wild, swirling gale erupting from his body, throwing the loose papers and old files from the shelves into a chaotic, blinding storm of white parchment.
 
@@ -4158,9 +4158,9 @@ He did not try to hide. He stepped into the center of the aisle, letting his win
 
 The heavy iron bolt whistled through the storm of paper, missing Lukas's head by inches as he windstepped to the left, his body blurring through the aisle with impossible speed.
 
-The Hounds roared, bounding forward with their jaws bared. 
+The Hounds roared, bounding forward with their jaws bared.
 
-Lukas did not run toward the exit. He ran toward the back of the archive hall, drawing the guards and the beasts away from the ventilation flue where Nyssa lay hidden. 
+Lukas did not run toward the exit. He ran toward the back of the archive hall, drawing the guards and the beasts away from the ventilation flue where Nyssa lay hidden.
 
 He windstepped up a vertical support beam, his boots finding purchase on the wooden shelves as he climbed to the top of the archive racks. The Hounds leaped after him, their claws tearing the wood to splinters, but they could not reach his height.
 
@@ -4168,11 +4168,11 @@ He windstepped up a vertical support beam, his boots finding purchase on the woo
 
 Two more crossbow bolts struck the shelves beneath Lukas, but he was already moving. He leaped across the gap between the archive racks, his body silhouetted against the blue light of the mana-torches as he crossed the room in a single, defying leap.
 
-He landed on the balcony that overlooked the main hall of the Ministry. 
+He landed on the balcony that overlooked the main hall of the Ministry.
 
-Below him, the hall was filled with Silver Guards, their pikes flashing as they formed a defensive circle around the entrance doors. 
+Below him, the hall was filled with Silver Guards, their pikes flashing as they formed a defensive circle around the entrance doors.
 
-Lukas looked back. Through the storm of paper, he saw a shadow slip into the ventilation flue. 
+Lukas looked back. Through the storm of paper, he saw a shadow slip into the ventilation flue.
 
 Nyssa was gone. The Covenant was safe.
 
@@ -4242,11 +4242,11 @@ They slipped into the narrow tunnel mouth, their shadows disappearing into the d
 
 ## Chapter 21: Public Unmasking
 
-Dawn broke over Aethoria not with the gentle warmth of spring, but with the cold, sterile brilliance of a winter sky. The morning air was razor-sharp, carrying the scent of frost, mountain ozone, and the distinct, sulfurous tang of alchemical waste drifting up from the deep smelting furnaces of the Ashen Warrens. High above the smog, the Crystal Spire caught the first rays of the sun, fracturing the light into a thousand jagged, rainbow-colored shards that danced across the white marble of the ceremonial plaza. The plaza itself was already packed with citizens, a sea of upturned faces shivering in the early chill, their breath rising in thin, gray plumes that mingled with the heavy, sweet scent of ceremonial incense burning in massive copper braziers. 
+Dawn broke over Aethoria not with the gentle warmth of spring, but with the cold, sterile brilliance of a winter sky. The morning air was razor-sharp, carrying the scent of frost, mountain ozone, and the distinct, sulfurous tang of alchemical waste drifting up from the deep smelting furnaces of the Ashen Warrens. High above the smog, the Crystal Spire caught the first rays of the sun, fracturing the light into a thousand jagged, rainbow-colored shards that danced across the white marble of the ceremonial plaza. The plaza itself was already packed with citizens, a sea of upturned faces shivering in the early chill, their breath rising in thin, gray plumes that mingled with the heavy, sweet scent of ceremonial incense burning in massive copper braziers.
 
 The Spire was a monument to human dominance, its glass-morphic quartz blocks rising like a frozen wave captured at the moment of impact. It was the physical manifestation of the divine mandate, a structure built to remind the lower classes—especially the hybrid population—that their place was beneath the feet of the pure-bloods. Today was the Great Offering, the one day of the year when the royal court descended to receive the tributes of the guilds, a performance of unity designed to mask the slow, systemic rot eating away at the kingdom's heart.
 
-Beneath the gleaming cobblestones, in a narrow smuggling tunnel carved from the ancient basalt foundations of the city, Lukas Wolfheart crouched in the absolute darkness. The air here was heavy and smelled of wet earth, rotting cedar roots, and the damp, metallic chill of subterranean runoff. For three hours, he and his companions had waited in this stone throat, their senses stretched to a painful, vibrating wire. Lukas reached up, his fingers brushing the smooth, warm surface of the Astral Shard of Memory resting against his chest. Even through the thick linen of his tunic, the relic pulsed with a rhythmic, starlike heat, a silent heartbeat that echoed his own. 
+Beneath the gleaming cobblestones, in a narrow smuggling tunnel carved from the ancient basalt foundations of the city, Lukas Wolfheart crouched in the absolute darkness. The air here was heavy and smelled of wet earth, rotting cedar roots, and the damp, metallic chill of subterranean runoff. For three hours, he and his companions had waited in this stone throat, their senses stretched to a painful, vibrating wire. Lukas reached up, his fingers brushing the smooth, warm surface of the Astral Shard of Memory resting against his chest. Even through the thick linen of his tunic, the relic pulsed with a rhythmic, starlike heat, a silent heartbeat that echoed his own.
 
 The Shard was a physical weight, but more than that, it was a repository of the truth—the memories of the dead, the whispered confessions of the betrayed, and the undeniable proof of the Penitent Circle's treachery. His windstep powers, newly awakened and deep-rooted since his rebirth in the northern wilds, hummed in his bones like a trapped storm. He felt the air currents moving through the tunnels, the cold draft of the mountain sinking down from the cliffs above, and the warm, moist exhaust rising from the city's underbelly.
 
@@ -5082,7 +5082,7 @@ From balcony of Crystal Spire that had been transformed from symbol of oppressio
 
 ## Chapter 26: The Library Duel
 
-The Spire was a dying star, its ascending halls filled with the frantic, clattering echoes of iron-shod boots and the distant, rhythmic tolling of alarms. Outside the high, lancet windows, the city of Aethoria was a weave of smoke and fire, the rebellion in the Ashen Warrens rising like a dark tide to lick at the heels of the nobility. Yet, within the Library of Living Memories, the chaos of the world was swallowed by a heavy, suffocating silence. Here, the air did not stir with the heat of the burning streets. It was cold, smelling of ancient vellum, dried rosewater, and the sharp, vinegar-like sting of alchemical preservatives. 
+The Spire was a dying star, its ascending halls filled with the frantic, clattering echoes of iron-shod boots and the distant, rhythmic tolling of alarms. Outside the high, lancet windows, the city of Aethoria was a weave of smoke and fire, the rebellion in the Ashen Warrens rising like a dark tide to lick at the heels of the nobility. Yet, within the Library of Living Memories, the chaos of the world was swallowed by a heavy, suffocating silence. Here, the air did not stir with the heat of the burning streets. It was cold, smelling of ancient vellum, dried rosewater, and the sharp, vinegar-like sting of alchemical preservatives.
 
 Zaphrium moved through the towering aisles, his massive, dragon-kin frame casting a long, jagged shadow across the polished basalt floor. His gold-and-obsidian scales caught the faint, shifting light of the memory crystals that floated in the anti-gravitational fields of the bronze shelves. Each crystal was a perfect, multi-faceted geometric prism, pulsing with a soft, internal luminescence—some a deep, oceanic blue, others a warm, honeyed amber, and a few the dangerous, violet-black shade of the Discord. These were the containers of the kingdom's history, the preserved thoughts, dreams, and agonies of generations of Aethorians, both human and hybrid.
 
@@ -5092,7 +5092,7 @@ The guilt of his own complicity was a physical weight in his chest. Beneath his 
 
 A sudden, sharp chime rang through the silent vault. It was not a physical sound, but a vibration in the library's defensive wards, a key of high-frequency magic that only Zaphrium's mind could translate. Someone had breached the inner sanctum.
 
-Zaphrium closed his golden eyes, his slitted pupils contracting as he focused his senses. The air was changing. The scent of wet pine and old iron was being pushed aside by a heavy, cloying fragrance—perfumed rosewater, lavender oil, and beneath it, the bitter, metallic tang of raw, unrefined mana. 
+Zaphrium closed his golden eyes, his slitted pupils contracting as he focused his senses. The air was changing. The scent of wet pine and old iron was being pushed aside by a heavy, cloying fragrance—perfumed rosewater, lavender oil, and beneath it, the bitter, metallic tang of raw, unrefined mana.
 
 He gripped his staff of star-metal, the ironwood shaft reinforced with bands of cold-rolled steel, and stepped into the aisle. His footsteps were silent, his heavy tail trailing behind him without a scrape. He knew the geography of this place better than he knew the lines of his own palms. Every arch, every floating shelf, every hidden alcove was an equation he had solved a thousand times.
 
@@ -5130,7 +5130,7 @@ Zaphrium reacted with the practiced ease of a master. He planted the base of his
 
 "You speak of order, Isolde," Zaphrium said, his voice steady as he maintained the shield. "But your magic is the magic of the void. It is the static that tears the world apart. You have aligned yourself with the thing you claim to fear."
 
-"I use the tools that are effective," Isolde snapped, her wand moving in a complex, defensive matrix. 
+"I use the tools that are effective," Isolde snapped, her wand moving in a complex, defensive matrix.
 
 She stepped back, her robes flaring, and invoked the *Resonance of the Shattered Sky*. The air in the aisle began to vibrate, a high-pitched, tooth-grinding hum that made the floating memory crystals sway in their fields. On the shelves, several amber crystals cracked, thin lines of white light appearing on their faces as the memories of ancient hybrid artisans bled out.
 
@@ -5146,7 +5146,7 @@ The stone archway above Zaphrium groaned. The ancient runes of preservation that
 
 Zaphrium did not try to dodge. He raised his left hand, his claws extending, and met the falling stone with a blast of concentrated geothermal energy. A beam of white-hot, liquid mana shot from his palm, striking the basalt slab in mid-air. The heat was so intense that the stone did not shatter; it melted, dissolving into a stream of harmless, glowing slag that hissed as it hit the cold floor.
 
-Through the shimmering veil of the melting stone, Isolde attacked again. 
+Through the shimmering veil of the melting stone, Isolde attacked again.
 
 She did not use a single beam this time. She unleashed a swarm of glass-morphic shards, hundreds of tiny, razor-sharp needles of crimson energy that flew through the air like a cloud of angry hornets. The shards buzzed with a high-frequency vibration that could cut through steel plate as if it were wet paper.
 
@@ -5158,7 +5158,7 @@ They moved deeper into the library, their battle wrecking the lower arches. Book
 
 "A tree that cuts its own roots does not grow, Isolde!" Zaphrium replied, his staff striking the stone floor to send a wave of geothermal heat traveling through the ground, cracking the basalt tiles and forcing her to scramble back to maintain her balance. "It rots! You think you are building a monument to human glory, but you are only building a tomb of ignorance!"
 
-They reached the central dais of the library, a massive, circular chamber where the *Keystone of the First Convergence* rested. 
+They reached the central dais of the library, a massive, circular chamber where the *Keystone of the First Convergence* rested.
 
 The Keystone was a sphere of raw, unfiltered starlight, four feet in diameter, hovering over a pedestal of polished obsidian. It was the heart of the library's magical matrix, the anchor that held the thousands of memory crystals in their gravitational fields and synchronized their energy. Within its depths, the memories of the day the sky cracked—the day the human mages and the dragon-kin first met—pulsed in a swirling, hypnotic pattern of gold and silver light.
 
@@ -5186,7 +5186,7 @@ The air in the chamber grew freezing cold. The alarms outside ceased to be heard
 
 Then, the Keystone shattered.
 
-It did not break with a loud bang. It fractured like glass, the shards of starlight expanding outward in a slow, silent wave of pure, unrefined psychic energy. 
+It did not break with a loud bang. It fractured like glass, the shards of starlight expanding outward in a slow, silent wave of pure, unrefined psychic energy.
 
 The shockwave hit both Zaphrium and Isolde simultaneously.
 
@@ -5214,7 +5214,7 @@ Valerius looked up, his silver scales catching the pale light of the high window
 
 "The order of the Spire is absolute," the judge replied, raising a hand. "The division is the law. For your crimes against the purity of Aethoria, you are sentenced to dissolution."
 
-From the gallery, a young dragon-kin boy—barely fifty years old, his gold scales still soft and bright—screamed. He tried to climb over the wooden railing, his small hands clawing at the guards, but he was held back by heavy iron pikes. 
+From the gallery, a young dragon-kin boy—barely fifty years old, his gold scales still soft and bright—screamed. He tried to climb over the wooden railing, his small hands clawing at the guards, but he was held back by heavy iron pikes.
 
 It was Zaphrium.
 
@@ -5336,7 +5336,7 @@ They walked out of the Library of Living Memories together.
 
 The crystalline corridors of the Spire pulsed with preserved wisdom, but the magical residue of their conflict was settling into new, harmonious patterns that spoke to restoration rather than destruction. Zaphrium supported Isolde as they walked, their footsteps echoing in the quiet hallways.
 
-Those who saw them emerge—the panicked scholars, the fleeing servants, the guards preparing for the final defense—did not see a victor and a vanquished. They see two old enemies who had looked into the fire and chosen to hold together. 
+Those who saw them emerge—the panicked scholars, the fleeing servants, the guards preparing for the final defense—did not see a victor and a vanquished. They see two old enemies who had looked into the fire and chosen to hold together.
 
 Outside, the first light of the dawn was breaching the horizon. It did not cast a brilliant, golden glow over the city; the air was too thick with smoke and the ash of the rebellion. It was a cold, gray dawn, carrying the scent of snow and iron. But as Zaphrium and Isolde stepped onto the ascending balcony, looking out at the chaotic valleys below, they knew they would meet the storm with hearts that had finally found their way out of the cage.
 
@@ -5682,7 +5682,7 @@ The first session of the new council began not with the fanfare of trumpets or t
 
 Below the balcony, Bron and a team of stone-cutters were already at work. With heavy iron hammers and steel chisels, they began to carve the words into the massive granite lintel of the city gates. The metallic *tink-tink-tink* of the chisels rattled through the streets, a rhythmic pulse that matched the heartbeat of the new order.
 
-*“The moon remembers those who endure.—*
+*“The moon remembers those who endure.”*
 
 The words were etched deep into the stone, where the rain would wash over them and the wind would wear them down, but they would remain long after the men who carved them were gone.
 
@@ -6011,9 +6011,9 @@ And in the silence of the winter night, the city answered.
 
 The dreams began subtly at first—slipping like silver dye into the dark waters of Lukas's sleep, quiet and unbidden. In the immediate aftermath of the Spire's liberation, when the smoke of the final battle still hung like a greasy shroud over the lower districts and the cobblestones of Aethoria were still stained with the copper tang of spilled blood, his rest had been deep, concussive, and empty. It was the sleep of an exhausted animal, a body shut down by the sheer mathematics of survival. But as the weeks stretched into months, and the newly established Council of Equals began the agonizingly slow work of drafting treaties and clearing the rubble of the old regime, the emptiness in his mind began to fill.
 
-It was not a peaceful filling. Lukas would wake in the dry, freezing hours before dawn, his chest heaving, his skin slick with sweat that smelled of sulfur and wet pine. He would sit on the edge of his cot in the commander's quarters of the Spire, his knuckles white against the rough wool of his blankets, listening to the unfamiliar rhythm of his own pulse. It was too fast, too erratic, carrying a secondary, phantom beat that did not belong to a mortal heart. 
+It was not a peaceful filling. Lukas would wake in the dry, freezing hours before dawn, his chest heaving, his skin slick with sweat that smelled of sulfur and wet pine. He would sit on the edge of his cot in the commander's quarters of the Spire, his knuckles white against the rough wool of his blankets, listening to the unfamiliar rhythm of his own pulse. It was too fast, too erratic, carrying a secondary, phantom beat that did not belong to a mortal heart.
 
-The dreams were always set in the same place: an endless, starlit plain of silver-white wheat that stretched to the edges of the cosmos. The sky above was a bruised, violet-black vault, choked not with clouds, but with a slow, swirling dust of crushed stars. Two moons hung low on the horizon, massive and pale like the shields of long-dead giants, casting a cold, unblinking light across the whispering stalks. The wheat did not rustle in the wind; it hissed, a soft, dry sibilance that sounded like water sliding over gravel or the low, synchronized breathing of a sleeping army. 
+The dreams were always set in the same place: an endless, starlit plain of silver-white wheat that stretched to the edges of the cosmos. The sky above was a bruised, violet-black vault, choked not with clouds, but with a slow, swirling dust of crushed stars. Two moons hung low on the horizon, massive and pale like the shields of long-dead giants, casting a cold, unblinking light across the whispering stalks. The wheat did not rustle in the wind; it hissed, a soft, dry sibilance that sounded like water sliding over gravel or the low, synchronized breathing of a sleeping army.
 
 In that silver field, the wind carried distinct scents: the sharp, metallic sting of a gathering storm, the rich, damp aroma of wet loam, and the clean, wild smell of pine forests untouched by the soot of the Spire's furnaces. And then, the presence would arrive.
 
@@ -6025,7 +6025,7 @@ In the dream-space, the spirit spoke without the clumsy mechanism of words. It w
 
 Lukas tried to bury the visions. He was no longer a rogue hiding in the wet ditches of the outer territories, nor was he merely a rebel captain leading a desperate charge. He was the Commander of the Hybrid Guard, a primary member of the new Council, and one of the central pillars holding Aethoria's fragile, democratic experiment together. Every hour of his day was consumed by the dry, exhausting logistics of governance. He had to coordinate the distribution of grain from the Sylvan borders, negotiate patrols between suspicious human guards and defensive hybrid volunteers, and oversee the clearing of the ruins in the lower districts. He had no time for spectral visitations.
 
-Yet the effects of the dreams refused to remain confined to his sleep. They bled into his waking hours, transforming his hybrid senses from sharp survival tools into an overwhelming, constant tide of information. 
+Yet the effects of the dreams refused to remain confined to his sleep. They bled into his waking hours, transforming his hybrid senses from sharp survival tools into an overwhelming, constant tide of information.
 
 During the afternoon council sessions, the grand hall of the Spire became a chamber of sensory torture. Lukas would sit at the long ironwood table, his amber eyes fixed on a map or a trade ledger, while his ears drank in the secret, chaotic symphony of the palace. He heard the nervous, rapid scratching of a scribe's quill three floors below. He heard the faint, rhythmic dripping of condensation in the deep basalt aqueducts beneath the foundations. He heard the subtle, telltale shift in General Hestian's breathing when the topic of hybrid militia integration was raised—a slight, sharp catch in the throat that spoke of ancient, unlearned prejudice.
 
@@ -6045,7 +6045,7 @@ Lukas closed the heavy cover of the Codex, the leather binding letting out a sof
 
 Alyra studied his face, her violet eyes scanning the dark circles beneath his amber eyes, the tense line of his shoulders, and the way his fingers twitchingly tapped against the cover of the book. "You're not sleeping, Lukas," she said. "It's not the council work. I've seen you during the sessions. You look at the windows as if you're waiting for the glass to shatter. You look at the sky when the clouds cover the moon. What is happening to you?"
 
-Lukas looked down at his hands. The silver-gray fur on the back of his knuckles was coarse, a stark contrast to the polished wood of the table. He wanted to tell her. He wanted to explain the dreams, the silver wheat, the moon-eyes of the Wolf-God, and the suffocating feeling that the peace they had bled for was nothing but a temporary pause in a much larger, more terrifying conflict. 
+Lukas looked down at his hands. The silver-gray fur on the back of his knuckles was coarse, a stark contrast to the polished wood of the table. He wanted to tell her. He wanted to explain the dreams, the silver wheat, the moon-eyes of the Wolf-God, and the suffocating feeling that the peace they had bled for was nothing but a temporary pause in a much larger, more terrifying conflict.
 
 But he looked at the exhaustion in her eyes and held the words back. Alyra was already carrying the heaviness of a broken kingdom. King Aldric was dying behind the closed doors of the Royal Wings—the Discord blight eating toward his heart one wasted day at a time—and the royal family was decimated, and she was the Princess Regent, trying to keep the human nobility from revolting while ensuring the hybrids were not pushed back into the slums. She was the anchor of the city. He could not throw his madness onto her scale.
 
@@ -6069,7 +6069,7 @@ He watched her leave, the door closing with a soft click, before he turned his g
 
 The search for answers took him deeper into the bowels of the Spire the following afternoon. Lukas descended the long, spiral stone staircases that led past the living quarters, past the guard rooms, and deep into the subterranean engine-archives. Here, the clean marble of the upper Spire gave way to massive, rough-cut basalt walls, cold to the touch and glistening with a thin sheen of condensed moisture.
 
-The air down here was thick and heavy, smelling of hot iron, sulfur and the dry, ancient dust of the lower vaults. The low-frequency rumble of the Spire's alchemical engines—the massive brass-and-iron machines that regulated the city's heat and water—vibrated through the stone floor, a constant, tectonic thrum that resonated in Lukas's bones. 
+The air down here was thick and heavy, smelling of hot iron, sulfur and the dry, ancient dust of the lower vaults. The low-frequency rumble of the Spire's alchemical engines—the massive brass-and-iron machines that regulated the city's heat and water—vibrated through the stone floor, a constant, tectonic thrum that resonated in Lukas's bones.
 
 Zaphrium stood at a wide stone table in the center of the archive, his massive, draconic frame illuminated by the orange glow of a nearby furnace vent. The dragon-sage's dark, obsidian scales caught the flickering light, casting a warm, bronze sheen across his shoulders. He wore his heavy reading spectacles, his golden eyes scanning a series of blueprints and ancient scrolls spread across the basalt surface.
 
@@ -6101,7 +6101,7 @@ Lukas stood in the warm, rumbling archive for a long moment, the scent of sulfur
 
 The midnight hour arrived with a sudden, freezing draft that swept through the high corridors of the Crystal Spire. Lukas, true to his promise to Alyra, had left the library, but he had not returned to his bedchamber. Instead, he found himself drawn to the high balcony of the Spire, the topmost observation deck that overlooked the entire capital.
 
-The night was clear, the sky a dark, obsidian dome where the stars burned like ice crystals. The full moon hung low and massive on the horizon, its pale, silver light washing over the city in a tide of brilliance that made the white marble of the Spire's towers look like frozen lightning. 
+The night was clear, the sky a dark, obsidian dome where the stars burned like ice crystals. The full moon hung low and massive on the horizon, its pale, silver light washing over the city in a tide of brilliance that made the white marble of the Spire's towers look like frozen lightning.
 
 Lukas stood at the stone railing, his hands gripping the cold, rough-hewn basalt. The wind at this height was fierce, carrying the freezing scent of mountain snow from the northern passes, the sharp aroma of wet pine from the surrounding valleys, and a distant, faint touch of salt from the southern seas. He closed his eyes, drawing the cold air deep into his lungs, trying to quiet the noise in his head.
 
@@ -6125,11 +6125,11 @@ It was massive, its shoulder standing higher than Lukas's head, its form shiftin
 
 Lukas did not draw his sword. He could not. The presence of the spirit was a physical weight, a pressure that made his knees want to buckle, not from fear, but from the sheer, ancient authority of the bloodline.
 
-*“You have chosen unity over dominion, mercy over rage,—* the Wolf-God's voice resonated in Lukas's mind. It was not a sound, but a vibration that rose from the stone of the balcony, passed through the soles of his boots, and echoed in his chest. *“The moon remembers your choices, Lukas Wolfheart. You have forged a shield from the fragments of a broken kingdom. But do not forget—the world is wider than Aethoria, and deeper wounds stir beneath your home.—*
+*“You have chosen unity over dominion, mercy over rage,—”* the Wolf-God's voice resonated in Lukas's mind. It was not a sound, but a vibration that rose from the stone of the balcony, passed through the soles of his boots, and echoed in his chest. *“The moon remembers your choices, Lukas Wolfheart. You have forged a shield from the fragments of a broken kingdom. But do not forget”the world is wider than Aethoria, and deeper wounds stir beneath your home.—*
 
 Lukas forced himself to stand straight, his amber eyes meeting the twin moons of the spirit. "What wounds?" he asked, his voice sounding thin and small in the absolute silence. "What is coming?"
 
-The Wolf-God did not answer with words. Instead, it stepped forward, its massive head lowering until its breath—cold as ice and smelling of pine and ozone—washed over Lukas's face. 
+The Wolf-God did not answer with words. Instead, it stepped forward, its massive head lowering until its breath—cold as ice and smelling of pine and ozone—washed over Lukas's face.
 
 The physical balcony dissolved.
 
@@ -6137,9 +6137,9 @@ Lukas found himself suspended in a void of swirling starlight, his consciousness
 
 First, he was pulled beneath the foundations of the Spire. He saw the dark, forgotten catacombs where Aethoria's founding human kings lay buried in stone sarcophagi. But they were not resting. The stone lids were cracked, and from the crevices, pale, spectral hands were reaching toward the light. He heard their whispers—a dry, rattling chorus of long-dead monarchs, their voices filled with an ancient, aristocratic rage. They spoke of old covenants broken, of hybrid blood that had built their empire, and of a vengeance that had been waiting in the dark for four centuries. The roots of the Spire were rotting, infested by the ghosts of the past that refused to let the new order survive.
 
-Then, the vision shifted, sweeping outward, far beyond the borders of Aethoria's valleys. 
+Then, the vision shifted, sweeping outward, far beyond the borders of Aethoria's valleys.
 
-He saw the northern passes and the eastern plains. In the darkness, the banners of Vaelthorne—the Shadow Mirror kingdom—flickered in the wind. Lukas saw their legions: tens of thousands of iron-clad soldiers marching in perfect, sterile coordination. Beside them moved massive, twisted Chimeras, beasts of war forged through dark, alchemical science. And leading them were the figures of the Dawn Court—high, elegant Elves whose faces were masks of cold, magical superiority. Their hands glowed with a bright, golden light, weaving complex, interlocking wards that devoured the wild magic of the borderlands. 
+He saw the northern passes and the eastern plains. In the darkness, the banners of Vaelthorne—the Shadow Mirror kingdom—flickered in the wind. Lukas saw their legions: tens of thousands of iron-clad soldiers marching in perfect, sterile coordination. Beside them moved massive, twisted Chimeras, beasts of war forged through dark, alchemical science. And leading them were the figures of the Dawn Court—high, elegant Elves whose faces were masks of cold, magical superiority. Their hands glowed with a bright, golden light, weaving complex, interlocking wards that devoured the wild magic of the borderlands.
 
 The rival kingdoms had formed an alliance of convenience. The human lords of Vaelthorne and the elven mages of the Dawn Court, usually bitter enemies, were united by a single, terrifying goal: to crush Aethoria's democracy, to dismantle the Council of Equals, and to reassert the old hierarchy of blood before the contagion of freedom could spread to their own lands.
 
@@ -6153,7 +6153,7 @@ The vision returned to the starlit void, and the Wolf-God stood before him once 
 
 "How can I fight this?" Lukas cried out, his voice cracking. "I am one hybrid. A guard who was framed. I cannot stop the armies of two empires. I cannot close the deep trenches of the sea."
 
-*“You are the shield,—* the Wolf-God replied, its form beginning to fade, turning into a brilliant, blinding silver mist. *“And the shield does not stand alone. Your scars are the map to tomorrow. The moon remembers those who endure.—*
+*“You are the shield,—”* the Wolf-God replied, its form beginning to fade, turning into a brilliant, blinding silver mist. *“And the shield does not stand alone. Your scars are the map to tomorrow. The moon remembers those who endure.”*
 
 The spirit stepped back, its massive form dissolving into a blinding pillar of starlight. And then, it let out a howl.
 
@@ -6163,13 +6163,13 @@ It was a sound that transcended the physical. It did not shake the glass of the 
 
 The starlight flared, and then, with a soft, concussive *pop* of displaced air, the silence broke.
 
-Lukas opened his eyes, gasping for air. 
+Lukas opened his eyes, gasping for air.
 
 He was back on the balcony of the Spire, his hands still gripping the basalt railing. The wind was howling again, cold and sharp, whipping his silver mane around his face. The ambient hum of the Spire's engines had returned, a low, reassuring vibration beneath his feet. The city below was still quiet, the street lanterns still casting their warm, amber light across the cobblestones.
 
 But the world had changed.
 
-Lukas stood at the railing, his breath pluming in the freezing air, his heart pounding with a rhythm that was now entirely his own. He knew, with an absolute, terrifying certainty, that the peace they had won was nothing but a fragile glass wall. 
+Lukas stood at the railing, his breath pluming in the freezing air, his heart pounding with a rhythm that was now entirely his own. He knew, with an absolute, terrifying certainty, that the peace they had won was nothing but a fragile glass wall.
 
 He looked toward the northern horizon, where the mountains met the dark sky. In the far distance, beyond the range of human sight, he saw a faint, shifting light—a golden glow that spoke of elven wards, and a red-hued flicker that looked like the campfires of a massing army.
 
@@ -6181,19 +6181,19 @@ He turned from the balcony, his steps steady, and began his descent into the cit
 
 ***
 
-The streets of Aethoria were empty at this hour, a labyrinth of white marble and dark basalt that smelled of wet soot and clean rain. Lukas walked with his hood pulled low, his heavy cloak wrapped around his shoulders to hide the silver fur of his mane. 
+The streets of Aethoria were empty at this hour, a labyrinth of white marble and dark basalt that smelled of wet soot and clean rain. Lukas walked with his hood pulled low, his heavy cloak wrapped around his shoulders to hide the silver fur of his mane.
 
 He passed through the Unity Market, the wide plaza where the first hybrid and human merchants had set up their stalls together. The space was quiet now, the empty wooden structures smelling of fresh pine and dry straw. Lukas stood in the center of the square, remembering the chaos that had reigned here during the purges, the smell of blood and burning wood. Now, there was only the quiet promise of tomorrow.
 
 He walked to the Memorial Garden, a quiet sanctuary near the palace gates where the names of the fallen were carved into rough-cut stones. He stopped before the central monument, a massive block of gray granite that had been pulled from the ruins of the old guard barracks. He ran his hand over the carved letters, his fingers tracing the names of the hybrid rangers who had died to buy this peace.
 
-*Marlo.* The old smith's name was there, the letters deep and clean. 
+*Marlo.* The old smith's name was there, the letters deep and clean.
 
 Lukas closed his eyes, remembering the heat of Marlo's forge, the smell of coal smoke and hot grease, and the old man's quiet, stubborn belief that a hybrid could be more than a slave. Marlo had died defending the refugees in the tunnels, his hammer in his hand. He had not lived to see the Council of Equals or the Hybrid Guard. He had only lived long enough to buy them the chance to build it.
 
 "The moon remembers, old friend," Lukas whispered to the stone.
 
-He turned away and walked toward the Ashen Warrens. 
+He turned away and walked toward the Ashen Warrens.
 
 The transition from the upper Spire to the Warrens was still visible, but the physical scars of the slum were beginning to heal. The narrow, twisting alleys had been cleared of the rubble that had choked them for years. The open sewers had been covered with stone grates, and the smell of rot and stagnant water had been replaced by the scent of fresh mortar, clean wood, and the faint, sweet smell of baking bread from the communal kitchens that had been established near the central square.
 
@@ -6203,7 +6203,7 @@ As Lukas walked past a dark alley, his ears caught a rhythmic, metallic sound.
 
 It was a slow, deliberate sound, carrying the heavy, measured strike of a master smith. Lukas followed the sound, his steps silent on the damp earth of the Warrens, until he reached a small, open-fronted stone structure near the old canal.
 
-A forge fire crackled inside, casting a warm, orange-gold glow across the damp street. The air around the shop was warm, smelling of burning coal, hot iron, and the sharp, chemical tang of quenching oil. 
+A forge fire crackled inside, casting a warm, orange-gold glow across the damp street. The air around the shop was warm, smelling of burning coal, hot iron, and the sharp, chemical tang of quenching oil.
 
 A young bear-kin hybrid stood before the anvil, his massive, fur-covered arms glistening with sweat in the firelight. He wore a heavy leather apron, his dark eyes focused entirely on the piece of glowing orange metal he was shaping with a massive iron hammer. Beside him, a young human boy, no older than twelve, was operating the bellows, his small arms pumping the wooden handles with a rhythmic focus.
 
@@ -6233,7 +6233,7 @@ Grond nodded, his dark eyes reflecting the dying embers of the forge. "We will b
 
 Lukas looked at the human boy, Cael, who was watching him with wide, adoring eyes. The boy's family had been among the human refugees who had joined the hybrids during the final retreat. Now, he was working side-by-side with a bear-kin, learning a trade that would feed his family.
 
-This was the reward, Lukas realized. 
+This was the reward, Lukas realized.
 
 The Wolf-God had warned him of the price—the dread, the sleepless nights, the coming coalition of empires, and the ancient, cosmic hunger of the Predator waiting beyond the Rifts. But this small, warm shop, where a human child and a hybrid youth worked together to build a wheel for a grain-cart, was the answer to the warning. This was the noise that the silence wanted to delete. This was the music that the Predator could not calculate.
 
@@ -6632,39 +6632,39 @@ The streets were quiet at this hour. The bakeries were already lit, their chimne
 
 He knelt beside the garden and touched the soil. It was warm, as if the earth itself remembered the fire that had once burned here.
 
-“You still visit, then.—
+“You still visit, then.”
 
 The voice came from behind him. Lukas turned to find an old bear-kin woman leaning in the doorway of the adjacent building, her fur gone silver with age, her eyes sharp with the wisdom of someone who had seen too much to be surprised by anything.
 
-“Every year,— Lukas said.
+“Every year,” Lukas said.
 
-“He would have hated the flowers.— Her voice was rough, carrying the gravel of a lifetime spent speaking over forge-fire. “Marlo always said flowers were useless things. ‘You can’t forge a plow from a petal,’ he used to say.—
+“He would have hated the flowers.— Her voice was rough, carrying the gravel of a lifetime spent speaking over forge-fire. ”“Marlo always said flowers were useless things. ‘You can’t forge a plow from a petal,’ he used to say.”
 
-Lukas smiled. “I remember.—
+Lukas smiled. “I remember.”
 
-“But he would have loved that you remember him. That’s what mattered to him. Not the work, but the people the work served.— She shifted her weight, her joints creaking. “You did good, boy. He would have been proud.—
+“But he would have loved that you remember him. That’s what mattered to him. Not the work, but the people the work served.— She shifted her weight, her joints creaking. ”“You did good, boy. He would have been proud.”
 
-Lukas stood, brushing the soil from his hands. “Thank you.—
+Lukas stood, brushing the soil from his hands. “Thank you.”
 
-“Don’t thank me. Just keep doing what you’re doing. The world needs more people who remember.—
+“Don’t thank me. Just keep doing what you’re doing. The world needs more people who remember.”
 
 He walked on, through streets that had once known only despair and now held the quiet hum of a community learning to thrive. The bakeries were opening, their warm light spilling onto the cobblestones. A group of avian children were already awake, chasing each other through the air above the rooftops, their laughter sharp and bright in the morning chill.
 
 He stopped at the orphanage, where Sera was sitting on the steps, her amber eyes fixed on the horizon. She was eleven now, tall for her age, her wolf-kin heritage showing in the silver streaks that were beginning to appear in her hair.
 
-“You’re up early,— Lukas said, sitting beside her.
+“You’re up early,” Lukas said, sitting beside her.
 
-“Couldn’t sleep. The anniversary makes everyone sad.—
+“Couldn’t sleep. The anniversary makes everyone sad.”
 
-“Not sad. Remembering. There’s a difference.—
+“Not sad. Remembering. There’s a difference.”
 
-She was quiet for a moment, her young face carrying an expression that was too old for her years. “Do you think they know? The people who died? Do you think they can see what we built?—
+She was quiet for a moment, her young face carrying an expression that was too old for her years. “Do you think they know? The people who died? Do you think they can see what we built?”
 
-Lukas thought about the question. “I don’t know,— he said. “But I like to think they do. I like to think they’re watching, and that they’re proud of us for finishing what they started.—
+Lukas thought about the question. “I don’t know,— he said. ”“But I like to think they do. I like to think they’re watching, and that they’re proud of us for finishing what they started.”
 
-“My parents died in the Purge,— Sera said, her voice small. “I don’t remember them. The smell of smoke and someone screaming. But sometimes I dream about a woman with silver hair, and she tells me I’m going to be okay. Is that stupid?—
+“My parents died in the Purge,— Sera said, her voice small. ”“I don’t remember them. The smell of smoke and someone screaming. But sometimes I dream about a woman with silver hair, and she tells me I’m going to be okay. Is that stupid?”
 
-Lukas’s throat tightened. “No. That’s not stupid at all.—
+Lukas’s throat tightened. “No. That’s not stupid at all.”
 
 He stayed with her until the sun cleared the rooftops, its light washing over the Spire's crystal walls and setting them ablaze with gold. The city was waking around him, the sounds of morning rising from the streets: the clatter of cart wheels on cobblestones, the calls of merchants setting up their stalls, the laughter of children beginning another day of freedom.
 
@@ -6684,7 +6684,7 @@ He thought of the faces he had seen that morning as the council chamber glowed w
 
 The ceremony began at sundown, when the first stars appeared in the eastern sky and the moon rose over the Spire like a silver guardian watching over its children. The council members gathered in their places, their faces solemn with the drag of remembrance. The chamber was silent except for the soft crackle of the candles and the distant sound of the city settling into evening.
 
-Lukas walked among the memorial stones arranged in a circle at the chamber's heart. Each stone bore a name carved in silver-inlaid letters: Marlo Ironbeard, the smith who had died at his forge, his hands still holding the hammer. And others, whose names the carved stones kept even as the Warrens rebuilt itself on top of them. His fingers brushed the warm stone as he passed, lingering on Marlo's name, and for a moment he could almost feel the old smith's presence beside him — the familiar scent of forge smoke and iron filings, the gruff voice that had called him “boy— even after he had become a captain.
+Lukas walked among the memorial stones arranged in a circle at the chamber's heart. Each stone bore a name carved in silver-inlaid letters: Marlo Ironbeard, the smith who had died at his forge, his hands still holding the hammer. And others, whose names the carved stones kept even as the Warrens rebuilt itself on top of them. His fingers brushed the warm stone as he passed, lingering on Marlo's name, and for a moment he could almost feel the old smith's presence beside him — the familiar scent of forge smoke and iron filings, the gruff voice that had called him “boy” even after he had become a captain.
 
 Alyra spoke first, her voice clear and carrying through the hushed chamber. She read the names of the fallen, each one a story, each one a sacrifice woven into the fabric of the kingdom they had built together.
 
@@ -6692,7 +6692,7 @@ Tarek spoke of the soldiers who had fallen during the uprising. Nyssa spoke of t
 
 When Lukas stepped forward, the chamber fell into complete silence.
 
-“We stand here tonight because people we loved refused to accept that the world could not be changed,— he said. “They did not die for a throne, or for a flag, or for the glory of any name. They died for each other. They died for the idea that every soul deserves dignity, that no child should be raised in chains, that the strength of a kingdom is measured not by its armies but by how it treats its most vulnerable. That is their legacy. That is what we carry forward.—
+“We stand here tonight because people we loved refused to accept that the world could not be changed,— he said. ”“They did not die for a throne, or for a flag, or for the glory of any name. They died for each other. They died for the idea that every soul deserves dignity, that no child should be raised in chains, that the strength of a kingdom is measured not by its armies but by how it treats its most vulnerable. That is their legacy. That is what we carry forward.”
 
 They recited the Brotherhood Oath together, their voices rising in chorus until the crystal walls vibrated with the resonance.
 
@@ -6710,13 +6710,13 @@ After the ceremony, the celebrations spilled into the streets. Bonfires blazed i
 
 Lukas moved through the celebration like a quiet current, greeting the people he had fought beside, holding the hands of those who had lost loved ones, laughing at jokes that would have seemed impossible only years before. A wolf-kin musician played a stringed instrument as old as the Warrens, its notes rising into the night like threads of silver. A bear-kin couple danced with surprising grace, their massive bodies moving in perfect synchronization. Avian children perched on the market stalls, their wings catching the firelight as they sang along with the crowd.
 
-A young wolf-kin woman found him at the edge of the square, her amber eyes bright with unshed tears. “Thank you,— she said, her voice trembling. “My parents died in the Purge. They never saw this. But I know they would have been proud.—
+A young wolf-kin woman found him at the edge of the square, her amber eyes bright with unshed tears. “Thank you,— she said, her voice trembling. ”“My parents died in the Purge. They never saw this. But I know they would have been proud.”
 
-Lukas took her hands. “They are proud. They are watching. And they see you — their daughter, free and strong, living in the world they dreamed of.—
+Lukas took her hands. “They are proud. They are watching. And they see you ” their daughter, free and strong, living in the world they dreamed of.—
 
-She nodded, her tears falling freely now. “We won’t let them down,— she said.
+She nodded, her tears falling freely now. “We won’t let them down,” she said.
 
-“No. None of us will.—
+“No. None of us will.”
 
 He retreated to the Spire's highest balcony when the burden of the celebration became too heavy to carry with a smile. The night was clear, the stars scattered across the sky like diamonds on black velvet. The moon hung full and low above the city, its silver light washing over the rooftops like a blessing.
 
@@ -6768,11 +6768,11 @@ Joy, because they were free. Sorrow, because he knew the price of that freedom.
 
 But also a fierce, burning pride. Pride in what they had built. Pride in what they had endured.
 
-A messenger arrived from the Spire as he walked, bearing a diplomatic pouch. “Chancellor Volg invites a delegation to discuss an alliance,— he said.
+A messenger arrived from the Spire as he walked, bearing a diplomatic pouch. “Chancellor Volg invites a delegation to discuss an alliance,” he said.
 
 Lukas read the letter by torchlight. The neighboring kingdom that had once been among Aethoria’s bitterest enemies was now extending an offer of cooperation. Their revolution had become a model — proof that change was possible, that ordinary people could achieve extraordinary things when they chose to stand together.
 
-“Tell Chancellor Volg we would be honored,— Lukas said.
+“Tell Chancellor Volg we would be honored,” Lukas said.
 
 The messenger bowed and departed. Lukas turned the letter over in his hands, thinking of how far they had come. He thought of the messenger routes that now crossed borders that had been closed for years, of the trade agreements that were finally being signed, of the quiet diplomacy that was slowly weaving the shattered realms back together.
 
@@ -6792,9 +6792,9 @@ The moon remembers, brother. I have not forgotten.
 
 Lukas read the letter twice, then folded it carefully and returned it to his pocket. The ache in his chest was familiar now, a constant companion that he had learned to carry without it breaking him. Fenris was out there, alive, choosing his own path. That was more than Lukas had dared to hope for, in the darkest days.
 
-He looked at the moon, and for a moment he felt the Wolf-God's presence — a warmth against his mind, a whisper of encouragement. 
+He looked at the moon, and for a moment he felt the Wolf-God's presence — a warmth against his mind, a whisper of encouragement.
 
-The Wolf-God came to him not as a vision but as a warmth that spread through his chest, radiating from the Astral Shard until it filled every corner of his body. It settled into the spaces between his thoughts. 
+The Wolf-God came to him not as a vision but as a warmth that spread through his chest, radiating from the Astral Shard until it filled every corner of his body. It settled into the spaces between his thoughts.
 
 You have done well. The kingdom you built stands. The people you led endure.
 
@@ -6814,7 +6814,7 @@ The warmth flickered. He walks his own path. He is not yet what he will become. 
 
 The moon remembers. And so will you.
 
-The warmth faded, leaving Lukas standing alone in the empty market, his breath misting in the cold night air. 
+The warmth faded, leaving Lukas standing alone in the empty market, his breath misting in the cold night air.
 
 The work was not finished. It would never be finished. But it was good work. Work worth doing. Work worth carrying forward.
 

@@ -5213,7 +5213,103 @@ In the lower hall, two men who had been enemies an hour ago shared a drink and a
 
 It was not much. It was not enough. But it was a start.
 
-## Chapter 27: The Prince's Redemption
+## Chapter 27: The Wedding at the Unity Market
+
+Morning broke over Aethoria with a clarity that no one had earned.
+
+The smoke had barely thinned when Alyra stood on the edge of the Unity Market, looking east toward the spires that had caged her father's obsession for forty years. The cobblestones beneath her boots were stained where blood had dried in the cracks. The stalls had been boarded and shuttered for a week, but the air was already shifting—the scent of baking bread from somewhere below, the distant clang of a smith's hammer, the soft susurration of people gathering instead of fleeing.
+
+"This is where we do it," she said.
+
+Zaphrium had followed her out without asking, which was how he showed that he understood. He had not slept much since the fall of the Spire. She had not either. They stood in the pre-dawn chill, watching the first wagons arrive with flowers from the southern terraces, the first vendors creep up to peek through the boards, the first children dart out from the doorways to stare.
+
+"Not the Spire," she continued, without turning to look at him. "Not the Hall, not the throne room, not any of the places where my father drank blood and called it order. Here. Here, where the hybrids built the first stalls, where the Warrens traded with the Spires, where the first lie he told died." She gestured at the market. "Here, in front of everyone."
+
+Zaphrium's scales shimmered under the first shaft of direct sun. "You want to marry me here?"
+
+"Yes."
+
+"In public?"
+
+"In front of everyone."
+
+He shifted his weight on his staff. The obsidian seemed to hum. "I'm four thousand years old," he said. "I've watched empires fall. I've watched marriages dissolve while the ink was still wet. I've seen kingdoms heal and kingdoms rot on the same anniversary. And I've never once offered myself to anyone as a vessel for anyone else's stability."
+
+Alyra turned then. In the pale light of dawn, her face was softer than the official portraits had ever shown. "I don't want you to be a vessel," she said. "I want you to be a partner. These people need to see that a wedding can happen in a market that bled." She swallowed. "Choose me because you want to see what we make of this."
+
+Zaphrium was silent for a long moment.
+
+"I was raised by a wyvern who called me disappointment," he said finally. "A teacher who tried to beat the dragon out of me. A tyrant who wanted me to be his weapon." He paused. "You're asking a lot."
+
+"Yes," Alyra said. "I am."
+
+He stepped forward.
+
+"Then I choose you," he said. "Not the throne. Not the peace treaty. Not the stability. You. I choose you because of the way you hold silence, and the way you refuse to let it break you. Because you laughed when I told you about the tavern keeper in Dawn's End. Because you see the people the throne usually forgets — the woman with the scar, the man with the limp, the child who shouldn't exist but does. You see them, and you treat them like the center of the world." He tilted his head. "And because, despite everything I've witnessed, I have never seen anyone more capable of bridging two worlds with a single gesture. You don't just survive darkness, Alyra. You find the light in it and use it to mend what was broken. That is why I choose you."
+
+Something broke loose in Alyra's chest.
+
+"Well," she said, her voice thick. "Then we'd better get married before the sun's high enough to bake the cobblestones."
+
+---
+
+Word of the ceremony outran the ravens. By mid-morning, the Unity Market was filled—hybrids in festival leathers, spiresfolk in ceremonial whites, mercenaries who still hadn't been paid for the siege, refugees leaning on each other, children on shoulders, the wounded in chairs placed specially near the front.
+
+Zaphrium stood at the center of the market, in the open air, beneath the repaired awnings. He wore not the imperial robes but the copper-threaded vestments of a Dawn Court consort—a compromise neither he nor Alyra had expected when they began negotiating days ago. Beside him, Alyra wore simple silver cloth woven with the first-day whites of a reclaimed Aethoria.
+
+They faced each other in front of perhaps a thousand people, none of whom knew precisely how to behave. The awnings had been rebuilt from salvaged Sailcloth, their seams stitched with wire salvaged from the siege. The scent of crushed lavender drifted on the breeze — flowers that had grown in the cracked corners where the purges had once burned.
+
+"We are not here to sing the old hymns," Alyra said. "The old hymns were never ours. They were the hymn of the Spire, and the Spire is gone. Today we write our own." She looked at Zaphrium. "Will you wed me?"
+
+He bowed his head. "I will."
+
+"And will you stand with me? Not against the world. Not for the world. Just—with me?"
+
+"I will," he said. "With you."
+
+She slid a small crystal ring onto his talon, and he placed a simple iron band on her finger — the metal cold against her skin, still holding the whisper of the forge. No ornate Vows of Order. No binding spells. Just words spoken in front of people who had learned to trust each other, and the cobblestones beneath their boots, still faintly warm from the morning's sun. Around the square, silence settled — the kind of silence that comes before the storm and after it.
+
+---
+
+After the vows, Alyra walked to a small table that had been set in the center of the square. It held two scrolls and a single quill: the first was the Unity Covenant — an emergency amendment to the Charter of the Spire binding all citizens to equal protection regardless of birth, blood or frequency. The second was a formal treaty of friendship with the Dawn Court, witnessed and sealed on the spot. She picked up the quill and signed the first; Zaphrium signed the second as Witness and Counterpart.
+
+"The Unity Covenant," Alyra announced, holding up the pages. "Amendment to the Charter of the Spire. Effective immediately. Hybrids and humans share equal law, equal standing, equal protection. No more cages. No more purity trials. No more pretending the Warrens don't exist." Her voice rose. "We do not erase our past — we carve it into what comes next." She turned toward the Council witness table: "Let the Spire's own record bear the mark."
+
+The crowd erupted — a sound somewhere between a cheer and a sob, a thousand voices breaking at once into the kind of shout that comes when a people who have not been allowed to hope suddenly realize they are allowed to hope again.
+
+Alyra looked at Zaphrium across the table.
+
+She exhaled — a breath full of tired, laughing weight. "And yet I still have to call you Father-King," she said, and let the surprise live in the silence between them.
+
+Zaphrium's scales glimmered. "Please do. It still surprises me that I live long enough to be bound by a title."
+
+"Then we'd better hope we live long enough to be wrong about the world," she said. "Together."
+
+He laughed. It was the first time in years anyone had heard him laugh.
+
+---
+
+Dusk came slowly that day. The market emptied, but the questions did not. Alyra sat on the rim of a fountain in the center of the square, still wearing the silver cloth, while Zaphrium perched on the brim of a disused cart. The streaks of light flattened across the cobblestones.
+
+"What happens now?" he asked.
+
+"We govern," Alyra said. "We pretend to know what we're doing. We survive the first year. We survive the second. We learn whose names belong on the Accord and whose belong on the stones of the purge." She paused. "And then, if we're still alive, we tell the story."
+
+He sighed, his claws clicking against the cart's rim. "I once told a dying mentor that the wisest sages knew the answer to every question. She told me that was nonsense. She said the wisest sages knew there are no answers—only better ways to keep moving." He looked at Alyra. "I think we're the ones who keep walking."
+
+Alyra smiled. "Then let's keep walking."
+
+Behind them, the Warrens hummed. The Spire loomed, bruised but standing. The covenant was signed, but the world was very much not finished being remade.
+
+The moon began to rise.
+
+It remembered everything.
+
+It would remember this too.
+
+---
+
+## Chapter 28: The Prince's Redemption
 
 The throne had never felt heavier.
 
@@ -5558,7 +5654,7 @@ But he knew, with the certainty of a man who had held a dying Spire together wit
 
 The sun dipped below the horizon. The first stars appeared. And Cairn, the Prince of the Crystal Spire, stood on his balcony and watched the night come, ready to face whatever the dawn would bring.
 
-## Chapter 28: Mending the Spire
+## Chapter 29: Mending the Spire
 
 The dust had not yet settled when Lukas climbed the shattered steps of the Crystal Spire, and the wind—that ancient, singing wind that had carried the city's frequency since before recorded memory—moved through the broken corridors like a wounded animal seeking shelter. It found him instead. It coiled around his shoulders, pressed against his chest, and hummed a single, sustained note that vibrated in the hollow spaces between his ribs. He closed his eyes and listened. The note was fractured—split into overlapping harmonics that clashed and grated against one another, discordant and broken, the way a string sounds when it has been tuned too tight and then released too suddenly. The Spire was in pain. He felt it.
 
@@ -5680,7 +5776,7 @@ But the moment passed. The damage was still there. The corruption was still ther
 
 Lukas lowered his gaze. He squared his shoulders. He turned back toward the upper levels of the Spire, toward the Crown-Shard chamber that still needed mending, toward the work that remained to be done. The wind moved through the corridors behind him, and it carried the faintest echo of a frequency that did not belong to Order or Discord but to something older—something that had been waiting, in the silence between the notes, for a long time.
 
-## Chapter 29: Mercy over Vengeance
+## Chapter 30: Mercy over Vengeance
 
 The holding cells beneath the Crystal Spire were older than the city itself—or so the architectural historians claimed, pointing to the style of the crystal-carved archways and harmonic signature of the walls as evidence of pre-Spire construction. Lukas had never given the cells much thought before the siege. They were a functional space, a place where individuals whose resonance had become dangerous were held until the frequency could be recalibrated or the person could be safely released. They were, in the language of the Spire's original architects, instruments of correction—places where dissonance was contained and gently brought back into harmony with the greater chord of the city. Now, descending the spiral stairs that led to the deepest level of the holding complex, Lukas thought of them differently. They were a courtroom. And he was the judge.
 
@@ -5818,7 +5914,7 @@ It was not mercy. It was not vengeance. It was something harder and rarer than e
 
 The Great Siphon sang. The Spire hummed. And somewhere in the holding cells below, a woman with violet-black eyes sat in the glow of her Discord resonance and prepared for exile, and the crystal walls around her caught the light and held it, and the silence between the hums was patient, and deep, and full of the unspoken weight of choices that could never be unmade.
 
-## Chapter 30: Long Live the Queen
+## Chapter 31: Long Live the Queen
 
 The morning of the coronation dawned clear and cold, the kind of autumn morning that sharpened every sound and clarified every color, the air so still that the wind itself was holding its breath. Lukas stood on the eastern balcony of the Crystal Spire and watched the light change—watched the first rays of sunrise catch the upper reaches of the Spire's crystal walls and ignite them, transforming the pale, translucent surface into a blaze of silver-white radiance that cascaded downward like water poured over glass. The Great Siphon, fully restored now, caught the light and amplified it, sending a sustained chord of pure Order resonance rolling across the city in visible waves, each ripple a pulse of silver-white energy that washed over the rooftops and the streets and the people below, carrying with it the ancient signal of renewal, of continuation, of a story that was not ending but turning a page.
 
@@ -5908,7 +6004,7 @@ Lukas stood on the balcony and watched the moon rise over the city. The Heart-Sh
 
 Long live the queen. Long live the chorus. Long live the frequency that was a symphony, a resonance, not a command but a conversation. Long live Aethoria—broken, mending, singing.
 
-## Chapter 31: The Heartbeat in the Static
+## Chapter 32: The Heartbeat in the Static
 
 Three weeks after the coronation, Lukas could no longer ignore the pulse.
 

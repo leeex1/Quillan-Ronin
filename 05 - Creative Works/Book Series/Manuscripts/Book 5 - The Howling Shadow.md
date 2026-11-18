@@ -6,13 +6,15 @@
 
 ## Chapter 1: The Rending
 
-The wheat was gold that year.
+I remember the wheat.
 
-I remember this because wheat is not always gold. It goes through stages — green and stubborn in the spring, then yellow-white and brittle in the drought months, then brown and dead before the harvest. But that year, the summer of my eighth birthday, the wheat held its gold longer than it should have. Mother said it was a sign. Father said it was luck. Lukas said nothing because Lukas was nine and had already decided that signs and luck were the same thing, which meant they were probably neither.
+It was gold that year. Not the color gold is supposed to be — golden — but a deeper color, almost metallic, like someone had spilled a handful of brass on the hill and the field had accepted it. I was measured in it because I was small enough to be held in its frame, and my brother was not, so he was the world, and I was its residue.
 
-We were running through the fields when the sky broke.
+Lukas was nine. I was eight. The two of us ran through it the way children run when the world is still theirs to bleed on.
 
-Not running in the way soldiers run — all efficiency and forward lean and the economy of a body trying to get from one point to another as quickly as possible. We ran the way children run: arms wide, legs pumping, mouths open, laughter trailing behind us like smoke from a fire no one had lit. Lukas was ahead of me because Lukas was always ahead of me. He was taller by half a head, faster by a quarter stride, and braver by the full measure of the three hundred and sixty-five days that separated his birth from mine. He ran toward things. I ran toward him. This was the architecture of our childhood: I followed, and the following was enough.
+I am trying not to say this kindly, because kindness is the enemy of memory. The wheat came first — and the wheat did not mourn. The wheat did not call out. The wheat did not have a name. But it was wheat, and it was gold, and it was the last of the ordinary things that would stand in our lives untouched.
+
+We ran. When I said we ran, the running was mutual but Lukas ran ahead. That was how the two of us were — Lukas ahead, and me behind, and the wheat between us like a field we both understood.
 
 The wheat stalks whipped at my face as I pushed through them. They were taller than I was — waist-high on Father, chest-high on Mother, chin-high on Lukas, and forehead-high on me, which meant I ran blind most of the time, trusting the sound of my brother's laughter to guide me through the gold. The stalks were dry and sharp, and they left thin red lines on my forearms where they whipped past, and I didn't care because the lines didn't hurt and the blood was warm and the sun was hot and the world was exactly the size of this field and no larger.
 
@@ -464,7 +466,7 @@ The days blurred.
 
 Not in the way that days blur when you are happy — when the hours slip past like water through fingers, when the sun rises and sets and rises again without the grinding awareness of each individual minute. This was a different kind of blur. This was the blur of sameness — the relentless monotony of a place where every hour was identical to the last, where the light never changed, where the darkness never deepened, where the only marker of time's passage was the slow, inevitable deterioration of the body that was trapped within it.
 
-They came for me every morning. The armored figures — silent, efficient, their iron masks hiding whatever expressions might have lived beneath. They pulled me from the cell, carried me down the corridor, placed me in the Null-Quartz chamber. The figure with the cracked mask was there every time — standing in the corner, his tuning fork in his hand, his eyes behind the slits watching me with the clinical fascination of a man who had been given an unexpected result and was determined to understand it.
+They came for me every morning. The armored figures — silent, efficient, their iron masks hiding whatever expressions might have lived beneath. They pulled me from the cell, carried me down the corridor, placed me in the Null-Quartz chamber. The figure with the cracked mask was there every time — standing in the corner, his tuning fork in his hand, his eyes behind the slits watching me with the clinical fascination of someone who had been given an unexpected result and was determined to understand it.
 
 The fork struck. The frequency hit. The Discord erupted. The walls shuddered. The figure took notes.
 
@@ -540,9 +542,9 @@ I was eight years old, and I was saying no, and the no was the smallest, most us
 
 Vark looked at me. His eyes — small, dark, carrying nothing — held mine for a long moment. Then he stood. The floor shook. The cell seemed to shrink around him, the iron walls pressing inward, the ceiling lowering, the claustrophobic geometry of a space that had been designed to hold one small creature and was now being asked to contain something much larger.
 
-"Then you prove you have Discord," he said. His voice was different now — not angry, not disappointed, not carrying the emotional residue of a reaction to an unexpected result. His voice was *interested*. The flat interest of a man who had just been shown something he had not seen before and was trying to decide whether it was useful or merely unusual.
+"Then you prove you have Discord," he said. His voice was different now — not angry, not disappointed, not carrying the emotional residue of a reaction to an unexpected result. His voice was *interested*. The flat interest of someone who had just been shown something he had not seen before and was trying to decide whether it was useful or merely unusual.
 
-He raised his hand. The gesture was small — a flick of the wrist, a shift of weight from one foot to the other. It was the gesture of a man who had been giving orders for a long time and had developed, through the iterative process of repetition, a physical vocabulary of command that required no words.
+He raised his hand. The gesture was small — a flick of the wrist, a shift of weight from one foot to the other. It was the gesture of someone who had been giving orders for a long time and had developed, through the iterative process of repetition, a physical vocabulary of command that required no words.
 
 The lash hit me.
 
@@ -622,7 +624,7 @@ The room was circular. Perhaps fifty feet across, its walls curving inward like 
 
 Vark was there. He stood at the edge of the ring, his arms crossed, his massive frame casting a shadow that covered half the floor. Behind him, three other figures — human, armored, their faces hidden behind iron masks. They carried weapons: a sword, a mace, a spear. The weapons were not ceremonial. They were not decorative. They were the functional tools of a trade that required no artistry and no beauty, only the efficient transfer of force from one body to another.
 
-"The lash teaches you to endure," Vark said. His voice was different now — harder, carrying the stripped-down authority of a man who had put aside philosophy and was now speaking in the language of command. "Endurance is not enough. Endurance is passive. Endurance is the thing you do when you have nothing else. The training teaches you to *act*. To take the Noise inside you and turn it into something that can be pointed at the world and used."
+"The lash teaches you to endure," Vark said. His voice was different now — harder, carrying the stripped-down authority of someone who had put aside philosophy and was now speaking in the language of command. "Endurance is not enough. Endurance is passive. Endurance is the thing you do when you have nothing else. The training teaches you to *act*. To take the Noise inside you and turn it into something that can be pointed at the world and used."
 
 He stepped into the ring. The chains swayed as he passed them, their links clicking against each other in a rhythm that matched his footsteps — heavy, measured, carrying the ground-shaking weight of a creature that moved through the world by subtracting everything that was not itself.
 
@@ -632,7 +634,7 @@ He stopped in the center of the ring. His eyes — small, dark, carrying nothing
 
 "I am going to hit you," he said. "Not with the lash. With my fist. And when I hit you, the Discord will rise — it will try to erupt, the way it erupted in the chamber. Your task is to *hold* it. To keep it inside. To compress the Noise into a frequency so narrow, so precise, that it does not explode outward but instead focuses inward. Like a lens. Like a blade."
 
-He raised his fist. It was massive — a thing of bone and muscle and the animal power of a bear-kin who had been fighting since before I was born. The fist was not clenched. It was open, the fingers curled inward, the palm facing me. It was the gesture of a teacher, not a fighter. The gesture of a man who was about to demonstrate a principle rather than commit an act of violence.
+He raised his fist. It was massive — a thing of bone and muscle and the animal power of a bear-kin who had been fighting since before I was born. The fist was not clenched. It was open, the fingers curled inward, the palm facing me. It was the gesture of a teacher, not a fighter. The gesture of someone who was about to demonstrate a principle rather than commit an act of violence.
 
 "The first lesson," he said, "is pain. Not the pain of the lash, which is external — something done *to* you. The pain I am going to teach you is internal. It is the pain of the Noise trying to escape. It is the pain of the frequency being compressed. It is the biological agony of a body that is being asked to contain something that was designed to erupt."
 
@@ -652,9 +654,9 @@ I tried to hold it. I tried to compress the Noise, to focus it, to turn the scre
 
 The light erupted from my chest. It hit Vark's fist — and his fist, which had been immovable, trembled. Not much. A vibration. A shift. The almost imperceptible tremor of a thing that had been pushed against something it had not expected to push back.
 
-Vark's eyes widened. Not in surprise — in *recognition*. The flat recognition of a man who had just been shown something he had seen before, something he had been waiting to see again, something that confirmed a hypothesis he had been building since the night he first looked at a high-resonance pup through iron bars and said *he's an anchor*.
+Vark's eyes widened. Not in surprise — in *recognition*. The flat recognition of someone who had just been shown something he had seen before, something he had been waiting to see again, something that confirmed a hypothesis he had been building since the night he first looked at a high-resonance pup through iron bars and said *he's an anchor*.
 
-"Good," he said. His voice was different now — carrying the quiet intensity of a man who has found what he was looking for. "The Noise is strong. Stronger than I expected. Stronger than the system projected. You have the raw material. Now we shape it."
+"Good," he said. His voice was different now — carrying the quiet intensity of someone who has found what he was looking for. "The Noise is strong. Stronger than I expected. Stronger than the system projected. You have the raw material. Now we shape it."
 
 He pulled his fist back. The pressure released. The Discord subsided — retreating, pulling back into the place where it lived, leaving behind the lingering sensation of a thing that had been asked to be something it was not and was now, reluctantly, returning to its natural state.
 
@@ -714,7 +716,7 @@ I felt it the way I felt everything in the Pits — through the Discord, through
 
 
 
-"The training has a second lesson," Vark said. His voice was different today — harder, carrying the stripped-down authority of a man who had put aside philosophy and was now speaking in the language of command. "The first lesson was endurance. The second lesson is *application*. The Noise inside you is not a thing to be held. It is a thing to be *used*. To be pointed at the world. To be compressed into a frequency so narrow, so precise, that it cuts through everything else like a blade through cloth."
+"The training has a second lesson," Vark said. His voice was different today — harder, carrying the stripped-down authority of someone who had put aside philosophy and was now speaking in the language of command. "The first lesson was endurance. The second lesson is *application*. The Noise inside you is not a thing to be held. It is a thing to be *used*. To be pointed at the world. To be compressed into a frequency so narrow, so precise, that it cuts through everything else like a blade through cloth."
 
 He stepped aside. Raas stepped forward.
 
@@ -824,7 +826,7 @@ The cage was quiet when I reached it. The children were awake. I felt them throu
 
 The boy in the cell next to mine was there. The six-year-old lycan whose life I had refused to take. He looked at me through the bars, his eyes wide and gray and carrying nothing I could name, and he did not look away. He had heard, somehow. News travels in the Pits the way water travels underground — through cracks, through seams, through the patient passages that no one admits to digging. He had heard that the high-resonance pup had killed a tiger-boy with nothing but the Noise inside him. He had heard that the Noise had been enough.
 
-He did not smile. He did not shrink. He looked at me the way he had looked at me on the day Vark put the dagger in my hand — the steady gaze of a creature who has decided to look at something terrible because looking away is a smaller death.
+He did not smile. He did not shrink. He looked at me the way he had looked at me on the day Vark put the dagger in my hand — the steady gaze of a being who has decided to look at something terrible because looking away is a smaller death.
 
 I sat in the ash with my back against the bars, and I felt the children's eyes on me like the weight of a blanket too heavy to move. I had killed Raas. The killing had been sharp. And for the first time since the sky broke over the wheat field, I understood that sharpness was a thing that lived in other people's eyes when they looked at me.
 
@@ -842,7 +844,7 @@ He set the bowl on the floor. The paste was gray. The bowl was gray. The cell wa
 
 "Feed," Vark said.
 
-I looked at the paste. I looked at him. His eyes — small, dark, carrying nothing — held mine with the clinical interest of a man who had been given a result and was now observing the aftermath.
+I looked at the paste. I looked at him. His eyes — small, dark, carrying nothing — held mine with the clinical interest of someone who had been given a result and was now observing the aftermath.
 
 I ate. The paste was warm. Not the warmth of food, which is the warmth of fire and time and the patient alchemy of ingredients being transformed by heat. This was the warmth of fuel — the biological satisfaction of a body that had been depleted and was now being replenished. The paste tasted of iron. It tasted of ash. It tasted of the mineral bitterness of a thing that had been compressed into a form that was efficient and nothing more.
 
@@ -978,15 +980,15 @@ The target was a man.
 
 His name was in the dossier — a small, iron tablet that the Auditor handed me as I stood in the corridor outside the training ring, my body lean and hard from five years of conditioning, my Discord humming in my chest with the steady rhythm of a thing that had been tuned to one note and was waiting to be played.
 
-His name was Aldric Vane. He was a merchant-guild leader — a human, middle-aged, his face marked with the comfortable lines of a man who had spent his life accumulating wealth and had not yet been taught that wealth was a temporary condition. He lived in the upper tiers of Aethoria, in a house of white stone and crystal windows, surrounded by the defensive architecture of a man who had made enemies and had not yet learned that walls were temporary.
+His name was Aldric Vane. He was a merchant-guild leader — a human, middle-aged, his face marked with the comfortable lines of someone who had spent his life accumulating wealth and had not yet been taught that wealth was a temporary condition. He lived in the upper tiers of Aethoria, in a house of white stone and crystal windows, surrounded by the defensive architecture of someone who had made enemies and had not yet learned that walls were temporary.
 
-He had spoken against the Pits. He had spoken against Vaelthorne. He had spoken against the biological reality of hybrid existence — had called us abominations, had called us weapons, had called us the inconvenient evidence of a world that had been broken and could not be repaired. He had spoken loudly, publicly, with the comfortable authority of a man who believed that his words carried weight and his opinions mattered.
+He had spoken against the Pits. He had spoken against Vaelthorne. He had spoken against the biological reality of hybrid existence — had called us abominations, had called us weapons, had called us the inconvenient evidence of a world that had been broken and could not be repaired. He had spoken loudly, publicly, with the comfortable authority of someone who believed that his words carried weight and his opinions mattered.
 
 The system had decided that his words were noise. The system had decided that the noise needed to be silenced. The system had decided that I was the instrument of that silencing.
 
 I stood in the corridor and read the dossier. The iron tablet was cold in my hands. The dossier contained the man's name, his address, his schedule, his habits. It contained the names of his servants, the routes of his guards, the geometric layout of his house. It contained the frequency of his voice — a low, steady hum that the Auditor had recorded through a listening charm.
 
-It contained a photograph. The photograph was small — a square of compressed paper, its surface etched with the gray-scale image of a man's face. The face was broad, heavy, marked with the comfortable lines of a man who had spent his life accumulating wealth. The eyes were small, dark, carrying the flat intelligence of a creature that had learned to measure everything and care about nothing.
+It contained a photograph. The photograph was small — a square of compressed paper, its surface etched with the gray-scale image of a man's face. The face was broad, heavy, marked with the comfortable lines of someone who had spent his life accumulating wealth. The eyes were small, dark, carrying the flat intelligence of a creature that had learned to measure everything and care about nothing.
 
 The Auditor appeared at my side. His mask was new — the old one, cracked by my Discord in the Null-Quartz chamber, had been replaced. The new mask was smooth, featureless, reflecting nothing.
 
@@ -1022,7 +1024,7 @@ I moved through them like a shadow. The Discord in my chest was warm. The dossie
 
 I paused at the mouth of an alley where the crowd thinned, and for a moment I was eight years old again, standing in the wheat with my brother, watching the sky for signs.
 
-It was the bread that did it. A baker's cart had overturned at the corner of the square, and the loaves had spilled across the cobbles, and the smell of them had reached me through the crowd — the impossible smell of bread, of flour and fire and the hands of a woman who had kneaded dough for sons she would not live to feed. My mother had baked bread on market days. She had let Lukas and me sit on the table and punch the dough, and she had laughed, and the laughter had been the same gold as the wheat.
+It was the bread that did it. A baker's cart had overturned at the corner of the square, and the loaves had spilled across the cobbles, and the smell of them had reached me through the crowd — the impossible smell of bread, of flour and fire and the hands of someone who had kneaded dough for sons she would not live to feed. My mother had baked bread on market days. She had let Lukas and me sit on the table and punch the dough, and she had laughed, and the laughter had been the same gold as the wheat.
 
 I stood in the mouth of the alley and watched the baker gather his loaves, watched the crowd step around him, watched the everyday machinery of a world that had no idea I was in it. No one looked at me. No one saw the darkness under my skin or the frequency humming in my chest or the dossier in my pouch that contained the death of a man they had probably never met. I was a shadow moving through a city of people who were real in a way I had forgotten how to be.
 
@@ -1054,7 +1056,7 @@ The man read.
 
 I watched him the way the Auditor had taught me to watch — as a frequency to be understood. His name was Aldric Vane. He was a merchant-guild leader. He had spoken against the Pits, against the hybrids, against the biological reality of our existence. He had called us abominations. He had called us weapons. The dossier said these things in the flat, precise language of a system that did not care about names or faces, only about the geometric fact of a body in a room at a particular hour of the night.
 
-But the man who read in the candlelight was not a fact. He was a creature. His fingers turned the pages slowly, with the absent care of a man who had been reading for hours and had forgotten that his hands were doing work. He wore a ring on his left hand — a plain band of silver, worn thin by years of wearing. There was a scar across the back of his right hand, old and white, the kind of scar a man gets from a tool or a fight or a childhood fall. He had left a cup of wine at his elbow and forgotten to drink it.
+But the man who read in the candlelight was not a fact. He was a creature. His fingers turned the pages slowly, with the absent care of someone who had been reading for hours and had forgotten that his hands were doing work. He wore a ring on his left hand — a plain band of silver, worn thin by years of wearing. There was a scar across the back of his right hand, old and white, the kind of scar a man gets from a tool or a fight or a childhood fall. He had left a cup of wine at his elbow and forgotten to drink it.
 
 I had been taught to see these things. The conditioning had given me eyes that noticed what other eyes skipped — the details, the tells, the small human details that made a target real. What the conditioning had not taught me was what to do with the noticing. It had not taught me how to feel the unwelcome weight of a stranger's humanity settling into the place where my blood met my bones.
 
@@ -1102,7 +1104,7 @@ I took the ring. I do not know why. I put it in the pouch beside the dossier.
 
 I phased through the wall. The stone did not mark my passage. I moved through the city the way a shadow moves through a room. I returned to the Pits.
 
-The Auditor was there — his new mask smooth and featureless, his eyes behind the slits watching me with the clinical fascination of a man who had been given a result and was now observing the aftermath.
+The Auditor was there — his new mask smooth and featureless, his eyes behind the slits watching me with the clinical fascination of someone who had been given a result and was now observing the aftermath.
 
 "Report," he said.
 
@@ -1201,7 +1203,7 @@ Not the armored figures of the Pits — these were different. These were humans,
 
 I counted them. Seven. Seven figures in dark robes, standing in a semicircle, watching me with eyes that carried nothing and everything at once.
 
-The Auditor was there. He stood to the left of the throne, his Null-Quartz mask smooth and featureless, his robes black, his posture straight with the architectural precision of a man who had been standing in the same position for a long time and had developed, through the iterative process of repetition, a physical vocabulary of stillness that required no movement to communicate authority.
+The Auditor was there. He stood to the left of the throne, his Null-Quartz mask smooth and featureless, his robes black, his posture straight with the architectural precision of someone who had been standing in the same position for a long time and had developed, through the iterative process of repetition, a physical vocabulary of stillness that required no movement to communicate authority.
 
 He looked at me. His eyes, visible through the slits in the mask, held mine for a moment — the clinical recognition of a man observing a result that confirmed his projections.
 
@@ -1217,7 +1219,7 @@ I walked forward. The silks whispered against my legs. The polished stone reflec
 
 I stopped before the dais. The throne was above me — its carved arms spreading outward like the wings of a great beast, its empty seat a void that waited with the patient hunger of a thing that had been designed to hold power and was now waiting for power to sit in it.
 
-The figure on the dais was not sitting in the throne. He was standing beside it — a man, tall, thin, his body wrapped in robes of deep violet that carried the architectural weight of a fabric that had been woven from the fibers of authority. His face was — I cannot describe his face. It was the face of a man who had been beautiful once, in the way that stone is beautiful — with the cold, geometric precision of a thing that had been shaped by time and had emerged not softened but sharpened, each line deeper, each angle sharper, each feature a declaration of the irreversible fact of a life that had been spent in the proximity of power and had been marked by it.
+The figure on the dais was not sitting in the throne. He was standing beside it — a man, tall, thin, his body wrapped in robes of deep violet that carried the architectural weight of a fabric that had been woven from the fibers of authority. His face was — I cannot describe his face. It was the face of someone who had been beautiful once, in the way that stone is beautiful — with the cold, geometric precision of a thing that had been shaped by time and had emerged not softened but sharpened, each line deeper, each angle sharper, each feature a declaration of the irreversible fact of a life that had been spent in the proximity of power and had been marked by it.
 
 His eyes were the color of iron.
 
@@ -1239,7 +1241,7 @@ I will finalize him, I said.
 
 The words came from my mouth without permission. They were flat, clinical, carrying the same frequency as the Auditor's reports — the voice of someone stating a fact that had already been established. The Wolfheart had torn the sky. The Wolfheart had broken the world. The Wolfheart was a target. And I was a weapon. And weapons were pointed at targets.
 
-The figure on the dais looked at me. His iron-colored eyes held mine for a long moment — the measured pause of a man who was accustomed to being obeyed and was now processing the implications of a creature that had spoken without being spoken to.
+The figure on the dais looked at me. His iron-colored eyes held mine for a long moment — the measured pause of someone who was accustomed to being obeyed and was now processing the implications of a creature that had spoken without being spoken to.
 
 Not yet, he said.
 
@@ -1247,9 +1249,9 @@ The word was small. Quiet. Carrying the compressed weight of a command that requ
 
 Use him first, the figure said. There are others who speak against us. Others who carry the noise of dissent. Others who believe that the world is not broken but is, in fact, exactly as it should be.
 
-He descended the dais. His robes moved against the polished stone with the velvet whisper of a fabric that had been designed to announce the movements of its wearer. He stopped before me — close enough that I could smell him, the mineral scent of a man who had spent his life in the proximity of stone and iron and the compressed atmosphere of a place that measured worth in power.
+He descended the dais. His robes moved against the polished stone with the velvet whisper of a fabric that had been designed to announce the movements of its wearer. He stopped before me — close enough that I could smell him, the mineral scent of someone who had spent his life in the proximity of stone and iron and the compressed atmosphere of a place that measured worth in power.
 
-You are a tool, he said. His voice was different again — harder now, carrying the stripped-down authority of a man who had put aside the pretense of story and was now speaking in the language of command. You are a weapon. You are the biological reality of a frequency that has been compressed into a blade and pointed at the world. Your feelings about the pointing are as irrelevant as the feelings of the ore about the forge.
+You are a tool, he said. His voice was different again — harder now, carrying the stripped-down authority of someone who had put aside the pretense of story and was now speaking in the language of command. You are a weapon. You are the biological reality of a frequency that has been compressed into a blade and pointed at the world. Your feelings about the pointing are as irrelevant as the feelings of the ore about the forge.
 
 He reached out. His fingers touched the mask that had been placed on the tray with the silks — a mask of Null-Quartz, smooth and featureless, reflecting nothing. He lifted it. The mask caught the lantern light and threw it back in patterns that danced across his face like shadows on water.
 
@@ -1277,11 +1279,11 @@ The mask reflected it. Not the physical reflection of a mirror, which shows the 
 
 The seven figures in their dark robes stepped back. Not much. A step. The involuntary retreat of a creature that has been confronted with the biological reality of its own fear and has found, to its surprise, that the reality is larger than it had assumed.
 
-The figure on the dais did not step back. His iron-colored eyes held mine — held the mask's reflection of his fear — and his face did not change. His expression did not shift. He was the only one in the room who did not retreat, and the not-retreating was the architectural declaration of a man who had been afraid for so long that the fear had become a part of him, integrated into the structure of his identity the way iron is integrated into stone.
+The figure on the dais did not step back. His iron-colored eyes held mine — held the mask's reflection of his fear — and his face did not change. His expression did not shift. He was the only one in the room who did not retreat, and the not-retreating was the architectural declaration of someone who had been afraid for so long that the fear had become a part of him, integrated into the structure of his identity the way iron is integrated into stone.
 
-You see, he said. His voice was different now — carrying the satisfied frequency of a man who had been shown something he had designed and was now observing it function. The mask shows them what they are. And what they are is afraid.
+You see, he said. His voice was different now — carrying the satisfied frequency of someone who had been shown something he had designed and was now observing it function. The mask shows them what they are. And what they are is afraid.
 
-He turned. His robes whispered against the stone. He ascended the dais and stood beside the throne — not sitting in it, never sitting in it, the architectural precision of a man who understood that power was in the standing, not in the occupying but in the controlling.
+He turned. His robes whispered against the stone. He ascended the dais and stood beside the throne — not sitting in it, never sitting in it, the architectural precision of someone who understood that power was in the standing, not in the occupying but in the controlling.
 
 You will wear the mask, he said. You will wear it when you are deployed. You will wear it when you move through the world. You will wear it when you stand before the creatures who fear you and remind them that the world is broken and that you are the shadow of the breaking.
 
@@ -1360,7 +1362,7 @@ He paused. His eyes, visible through the slits in the mask, swept the formation.
 
 The song is noise, he said. The song is the biological expression of a frequency that has been growing in the heart of this forest for centuries. The song is the sound the world made when it was young and had not yet learned to be afraid. The song is the thing that keeps the forest alive.
 
-He folded the scroll. His hands were precise — each movement carrying the architectural efficiency of a man who had been performing the same task for a long time and had developed, through the iterative process of repetition, a physical vocabulary of efficiency that required no wasted motion.
+He folded the scroll. His hands were precise — each movement carrying the architectural efficiency of someone who had been performing the same task for a long time and had developed, through the iterative process of repetition, a physical vocabulary of efficiency that required no wasted motion.
 
 Your task is to silence the song, he said. Your task is to finalize the Sanctuary. Your task is to compress the frequency of the Ancient Oak into a silence so complete, so absolute, that the forest forgets it ever had a voice.
 
@@ -2386,7 +2388,7 @@ I watched him complete one circuit of the hall. Then another. Then a third. His 
 
 I recognized the look. I'd seen it in mirrors.
 
-The look was the look of a man who had been looking for so long that the looking had become part of his posture. I knew it because I wore it. In the Pits, in the training ring, in the moment before every kill, I had worn the same searching gaze — the restless attention of a creature that had lost something it could not name and could not stop trying to find.
+The look was the look of someone who had been looking for so long that the looking had become part of his posture. I knew it because I wore it. In the Pits, in the training ring, in the moment before every kill, I had worn the same searching gaze — the restless attention of a creature that had lost something it could not name and could not stop trying to find.
 
 Lukas had lost me. That was the thing he was searching for, the thing he couldn't name and wouldn't find. He had lost me in the wheat field when the sky broke, and he had never stopped walking toward the place where I had been. I saw it in the angle of his shoulders, in the way he scanned the corners of the hall as if I might be standing in one of them, in the patient refusal of his grief to accept that the search was over.
 
@@ -3083,7 +3085,7 @@ Then I heard his voice.
 And then I heard his voice.
 
 "Fenris."
-The single word cut through the chaos like a blade through silk. Not shouted---not whispered. Spoken with the quiet, terrible certainty of a man who has been preparing for this moment for a long time and has decided, finally, that he is ready to face it.
+The single word cut through the chaos like a blade through silk. Not shouted---not whispered. Spoken with the quiet, terrible certainty of someone who has been preparing for this moment for a long time and has decided, finally, that he is ready to face it.
 
 I turned.
 
@@ -3103,7 +3105,7 @@ We faced each other across the inverted Gallery, with the chaos of Aethelgard un
 
 "Their city was already destroyed. They just couldn't see it."
 
-He took a step toward me. The spear point rose, tracking my center mass with the mechanical precision of a man who had spent his life training for exactly this kind of confrontation. "Put down the Staff. End this now, before more people get hurt."
+He took a step toward me. The spear point rose, tracking my center mass with the mechanical precision of someone who had spent his life training for exactly this kind of confrontation. "Put down the Staff. End this now, before more people get hurt."
 
 "People are already hurt, Lukas. They've been hurt for ten thousand years. They just didn't know it."
 
@@ -3125,7 +3127,7 @@ He was right. And he was wrong. And the distance between those two things was ex
 
 The duel was coming. I felt it in the tension of his stance, in the white-knuckled grip on his spear, in the way his breathing had slowed to the measured rhythm of a man preparing to fight for something he believed in. Lukas was going to try to stop me. Not because the elven authorities had asked him to, not because any lord had ordered it, but because somewhere beneath the layers of duty and politics and compromise, my brother still believed that some things were worth fighting for. And what I had done---the truth I had spoken, the chaos I had unleashed---violated every one of those things.
 
-I gripped the Staff of Seer-Stones tighter. The stones pulsed in response, their violet light casting long shadows across the crystalline Gallery. Thalendor watched from where he lay pinned against the ceiling, his ancient eyes moving between us with the patient attention of a man who has seen everything and is waiting, now, to see one thing more.
+I gripped the Staff of Seer-Stones tighter. The stones pulsed in response, their violet light casting long shadows across the crystalline Gallery. Thalendor watched from where he lay pinned against the ceiling, his ancient eyes moving between us with the patient attention of someone who has seen everything and is waiting, now, to see one thing more.
 
 The brothers. On opposite sides of a war that neither of them had started, and neither of them could end.
 
@@ -3141,7 +3143,7 @@ And the dawn continued to pour through the crystals, indifferent to the violence
 
 The spear came first.
 
-Lukas moved with the fluid economy of a man who had been fighting since he could walk---not the flashy, theatrical combat of tournament fighters, but the brutal, efficient violence of a soldier who had held the line at Ashenmoor and watched good people die because he had been half a second too slow. The spear point traced a line through the air toward my chest, straight and true, driven by the kind of precision that comes from ten thousand repetitions and the absolute certainty that the next repetition would be the one that mattered.
+Lukas moved with the fluid economy of someone who had been fighting since he could walk---not the flashy, theatrical combat of tournament fighters, but the brutal, efficient violence of a soldier who had held the line at Ashenmoor and watched good people die because he had been half a second too slow. The spear point traced a line through the air toward my chest, straight and true, driven by the kind of precision that comes from ten thousand repetitions and the absolute certainty that the next repetition would be the one that mattered.
 
 I deflected with the Staff.
 
@@ -3149,7 +3151,7 @@ The impact jarred my arms to the shoulders. Lukas was strong---not supernaturall
 
 He blocked. The spear shaft intercepted the Staff with a crack that echoed through the Gallery, and for a moment we were locked together, face to face, close enough to see the individual fractures in each other's composure. His eyes were wet. Not crying---not yet---but wet with the effort of containing everything he felt.
 
-The lock was a moment of terrible intimacy. We were close enough that I saw the individual lines of grief in his face, the human geography of a man who had spent seventeen years wondering where his brother was and whether his brother was still his. I could smell the oil of his armor, the salt of his skin, the faint, clean scent of the soap the elves used in the diplomatic quarters. I saw the pulse in his throat, the vulnerable rhythm of a body that was alive and afraid and trying not to show it.
+The lock was a moment of terrible intimacy. We were close enough that I saw the individual lines of grief in his face, the human geography of someone who had spent seventeen years wondering where his brother was and whether his brother was still his. I could smell the oil of his armor, the salt of his skin, the faint, clean scent of the soap the elves used in the diplomatic quarters. I saw the pulse in his throat, the vulnerable rhythm of a body that was alive and afraid and trying not to show it.
 
 He was looking at me the way he had looked at me in the wheat field. Not at the mask, not at the shadow, not at the instrument. At me. At the boy he remembered. And the terrible thing was that the boy was still there, was still looking out through the same eyes, was still the creature who had run through the gold with his brother and believed the world was the size of his brother's hand.
 
@@ -3307,7 +3309,7 @@ This time, it was not violent. Svanja's control was precise, surgical. The elves
 
 But the truth remained. The bones were still visible, their outlines sharp against the reasserted Tradition, and the elves who had seen them---who had been forced to see them by the Seer-Stones' projection---were still reeling from the implications. Svanja could reverse the gravity. She could silence the beacons. She could reassert the Tradition. But she could not unring the bell. The truth had been spoken, and it could not be unspoken.
 
-She seemed to know this. Her pale eyes surveyed the Gallery---the scattered Guardians, the fallen Thalendor, Lukas on his knees, me standing in a pool of my own blood with the Staff of Seer-Stones still clutched in my grip---and something shifted in her expression. Not anger. Not grief. Resignation. The resignation of a woman who had spent six centuries maintaining an illusion and had always known, in the private chambers of her ancient heart, that the illusion would eventually fail.
+She seemed to know this. Her pale eyes surveyed the Gallery---the scattered Guardians, the fallen Thalendor, Lukas on his knees, me standing in a pool of my own blood with the Staff of Seer-Stones still clutched in my grip---and something shifted in her expression. Not anger. Not grief. Resignation. The resignation of someone who had spent six centuries maintaining an illusion and had always known, in the private chambers of her ancient heart, that the illusion would eventually fail.
 
 "You will leave Aethelgard," she said. It was not a request. "You will take your Discord and your Auditor and your truth, and you will leave this city. Now."
 
@@ -3409,7 +3411,7 @@ The Auditor had told me about the bones. The Auditor had told me about the burie
 
 But the Auditor had not told me about the beauty.
 
-The beauty of the crystalline spires catching the dawn. The beauty of the elven music, ancient and haunting, drifting through the streets like smoke. The beauty of the Gala itself---the ceremony, the celebration, the collective act of remembering and honoring and choosing to believe in something, even when that something was a lie. The beauty of Thalendor's grief, which was the grief of a man who loved a lie, who had spent six hundred years tending to it, who had known that it was false and had chosen to maintain it anyway because the alternative was worse.
+The beauty of the crystalline spires catching the dawn. The beauty of the elven music, ancient and haunting, drifting through the streets like smoke. The beauty of the Gala itself---the ceremony, the celebration, the collective act of remembering and honoring and choosing to believe in something, even when that something was a lie. The beauty of Thalendor's grief, which was the grief of someone who loved a lie, who had spent six hundred years tending to it, who had known that it was false and had chosen to maintain it anyway because the alternative was worse.
 
 The Auditor had not told me about any of that. The Auditor dealt in truths, not beauties. The Auditor's world was binary---true or false, revealed or hidden, illuminated or in shadow. There was no category for things that were both true and beautiful, no category for lies that served a purpose, no category for illusions that made life bearable.
 
@@ -3472,7 +3474,7 @@ I stared at the Oakhaven shard in my palm. Its pulse was steady, rhythmic, and i
 
 My brother's face.
 
-Not the face I had seen in the Gallery---not the weeping, shattered face of a man whose world had been torn apart. This was the face of the boy I had grown up with, the boy who had taught me to ride and to fight and to laugh when the world gave us nothing to laugh about. Lukas at ten years old, gap-toothed and grinning, holding a wooden sword that our father had carved from a piece of oak. Lukas at twelve, standing between me and a bully twice our size, his fists raised and his jaw set and his eyes blazing with the absolute certainty that his brother was worth fighting for.
+Not the face I had seen in the Gallery---not the weeping, shattered face of someone whose world had been torn apart. This was the face of the boy I had grown up with, the boy who had taught me to ride and to fight and to laugh when the world gave us nothing to laugh about. Lukas at ten years old, gap-toothed and grinning, holding a wooden sword that our father had carved from a piece of oak. Lukas at twelve, standing between me and a bully twice our size, his fists raised and his jaw set and his eyes blazing with the absolute certainty that his brother was worth fighting for.
 
 The shard showed me the brother I had lost. Not to the Shadow Mirror. Not to duty. Not to politics or compromise or the slow erosion of ideals. To me. I had lost him to myself---to the choices I had made, to the path I had followed, to the Auditor's voice in my ear telling me that truth was the only thing that mattered and beauty was another word for lies.
 
@@ -3620,7 +3622,7 @@ Lord Vaelthorne's chamber was at the top of the eastern tower, accessible only b
 
 The door was iron-bound oak, thick enough to stop a battering ram. It opened before I reached for it.
 
-Lord Vaelthorne stood at the far window, silhouetted against the grey sky. He was tall — taller than me, taller than most — and he held himself with the stillness of a man who had never needed to rush for anything. His hair was silver-white, worn long, and his armor was the deep black of rift-iron, unadorned except for the single spiral sigil on his breastplate. He didn't turn when I entered.
+Lord Vaelthorne stood at the far window, silhouetted against the grey sky. He was tall — taller than me, taller than most — and he held himself with the stillness of someone who had never needed to rush for anything. His hair was silver-white, worn long, and his armor was the deep black of rift-iron, unadorned except for the single spiral sigil on his breastplate. He didn't turn when I entered.
 
 "You're wounded," he said.
 
@@ -3786,7 +3788,7 @@ The door opened. I reached for a knife — instinct, always instinct — and the
 
 Vark.
 
-He filled the frame the way he filled every space he occupied: completely, unapologetically, with the sheer gravitational weight of a man who had never once questioned his place in the world. He was massive — six and a half feet, shoulders like a yoke, arms thick as mooring ropes. His face was weathered, scarred, marked by decades of combat and command. His eyes were dark, almost black, and they held the flat, assessing gaze of a predator evaluating prey.
+He filled the frame the way he filled every space he occupied: completely, unapologetically, with the sheer gravitational weight of someone who had never once questioned his place in the world. He was massive — six and a half feet, shoulders like a yoke, arms thick as mooring ropes. His face was weathered, scarred, marked by decades of combat and command. His eyes were dark, almost black, and they held the flat, assessing gaze of a predator evaluating prey.
 
 "Shadowfang," he said. His voice was deep, resonant, the kind of voice that didn't need volume to command attention.
 
@@ -3983,7 +3985,7 @@ He stared at me. I saw the moment when the words landed — the audible click of
 
 "Better," I said. "Now teach it to your squad."
 
-I moved on. Behind me I heard him calling the others together, his voice rough with the urgency of a man who had just been shown the shape of his own death and had decided, then and there, to learn to move around it."
+I moved on. Behind me I heard him calling the others together, his voice rough with the urgency of someone who had just been shown the shape of his own death and had decided, then and there, to learn to move around it."
 
 I ran drills for the rest of the morning. Urban combat. Close-quarters. Ambush and counter-ambush. I varied the conditions every time — changed the environment, changed the rules, changed the objectives. By midday, they were adapting. By afternoon, they were anticipating.
 
@@ -4061,7 +4063,7 @@ The Vanguard saw it too. I felt their tension, the coiled readiness to engage. T
 
 I raised two fingers. Hold.
 
-The figure had not seen us. It was bent over something in the rubble — a bundle, a basket, I could not tell from this angle. The hunched shape of it, the way the shoulders curved around whatever they held, told me more than any detail could: this was a creature guarding a thing. Not a trap, not a sentry, not a scout. A mother, or a father, or a guardian of some kind, sheltering the one small thing the world had not yet taken from them. I had seen that shape before. I had seen it in the ruins of Oakhaven, in the face of a woman who had folded herself over her children like a roof over a fire. The memory moved through me with the unwelcome warmth of a coal dropped into cold water, and I heard my own voice in my head, quiet and surprised: you are going to let them go.
+The figure had not seen us. It was bent over something in the rubble — a bundle, a basket, I could not tell from this angle. The hunched shape of it, the way the shoulders curved around whatever they held, told me more than any detail could: this was a creature guarding a thing. Not a trap, not a sentry, not a scout. A mother, or a father, or a guardian of some kind, sheltering the one small thing the world had not yet taken from them. I had seen that shape before. I had seen it in the ruins of Oakhaven, in the face of someone who had folded herself over her children like a roof over a fire. The memory moved through me with the unwelcome warmth of a coal dropped into cold water, and I heard my own voice in my head, quiet and surprised: you are going to let them go.
 
 The figure moved again, and I heard a sound that did not belong in a combat scenario. A whimper. Small, high-pitched. Not an adult.
 
@@ -4109,7 +4111,7 @@ Not dramatically. Not obviously. Not in a way that anyone who was not looking fo
 
 She watched me disappear into the dark with fifty armed assassins trailing behind me like shadows, and she pulled a scrap of parchment from her coat and began to write.
 
-She had watched the whole patrol from the tower's shadow, and what she had seen did not match the record in her head. The record said Shadowfang, the voice of the Shadow Mirror, a weapon with a reputation built on corpses, a man who had killed more people than she had years. The man below had moved through the streets the way the record said he would — quiet, precise, dangerous — but he had also stopped a patrol to spare a district, had looked at a terrified woman and a child as if they were people and not obstacles, had let them run instead of reporting the contact. Nyssa did not trust what she saw. She had been taught, and had taught herself, that the world was a place of surfaces and that surfaces lied by design. But she had also been taught by Lukas, and Lukas had taught her to look for the small things — the hesitation in a hand, the catch in a voice, the tell-tale generosity of a man who lets a bird fly free and then pretends he did not notice the bird. This had been one of those small things. She wrote it down the way she wrote down everything: without interpretation, without judgment, with the disciplined economy of a spy who understood that the truth was not a thing you chose but a thing you collected.
+She had watched the whole patrol from the tower's shadow, and what she had seen did not match the record in her head. The record said Shadowfang, the voice of the Shadow Mirror, a weapon with a reputation built on corpses, a man who had killed more people than she had years. The man below had moved through the streets the way the record said he would — quiet, precise, dangerous — but he had also stopped a patrol to spare a district, had looked at a terrified woman and a child as if they were people and not obstacles, had let them run instead of reporting the contact. Nyssa did not trust what she saw. She had been taught, and had taught herself, that the world was a place of surfaces and that surfaces lied by design. But she had also been taught by Lukas, and Lukas had taught her to look for the small things — the hesitation in a hand, the catch in a voice, the tell-tale generosity of someone who lets a bird fly free and then pretends he did not notice the bird. This had been one of those small things. She wrote it down the way she wrote down everything: without interpretation, without judgment, with the disciplined economy of a spy who understood that the truth was not a thing you chose but a thing you collected.
 
 To: Lukas, Captain of the Royal Guard
 From: N
@@ -4165,7 +4167,7 @@ I saw a human woman hanging laundry from a second-story window, her arms moving 
 
 It made my skin crawl. Not because it was wrong. Because it was right. Because it was everything the Shadow Mirror had taught me to hate, and it was working.
 
-The Warrens. I had first seen them ten years ago, during my early training, when Vark had marched me through the city to teach me the shape of Aethoria's weakness. They had been a ghetto then — crumbling tenements, rusted iron, children with hollow cheeks and eyes that had learned to look away from uniforms. I had catalogued them the way I catalogued everything: as a problem, a vulnerability, a wound in the city's side that Vaelthorne could press when the time came. Now the wound had healed. The children ran through streets that were clean and whole, their laughter a sound that had not existed here a decade ago, and I stood in the middle of it wearing a merchant's face and carrying a merchant's pack and feeling the grinding wrongness of a man whose map no longer matched the terrain. Vaelthorne's map. The map I had been given seventeen years ago, and had never once thought to redraw.
+The Warrens. I had first seen them ten years ago, during my early training, when Vark had marched me through the city to teach me the shape of Aethoria's weakness. They had been a ghetto then — crumbling tenements, rusted iron, children with hollow cheeks and eyes that had learned to look away from uniforms. I had catalogued them the way I catalogued everything: as a problem, a vulnerability, a wound in the city's side that Vaelthorne could press when the time came. Now the wound had healed. The children ran through streets that were clean and whole, their laughter a sound that had not existed here a decade ago, and I stood in the middle of it wearing a merchant's face and carrying a merchant's pack and feeling the grinding wrongness of someone whose map no longer matched the terrain. Vaelthorne's map. The map I had been given seventeen years ago, and had never once thought to redraw.
 
 I found the Unity Market an hour after entering the city. It was early, and the stalls were just setting up. Vendors called to each other across the walkways, arranging their wares, hanging banners, testing the water lines for their fountains. The air smelled like bread and coffee and the faint, sweet scent of the silverbloom flowers that grew in every garden bed. The sound of it hit me first — the composite, the way dozens of conversations layered on top of each other to create a hum of human activity that was neither silence nor noise but something in between. A frequency. The frequency of people who had decided to live together despite every reason not to.
 
@@ -4605,7 +4607,7 @@ Her target was the command tent.
 
 She reached it in fifteen minutes. The tent was large, ringed with guards, and lit from within by a cold blue glow that meant rift-lamps. Two figures moved inside — large silhouettes, one massive and still, the other lean and pacing. Nyssa pressed her ear to the canvas and listened.
 
-Canvas was a good listener's material. It carried voices the way water carries scent, holding the unhurried cadence of a conversation between men who had known each other long enough to drop the formalities. Nyssa catalogued the voices the way she catalogued everything: Vark's was sharp and military, all edges, the voice of a man who had spent his life giving orders and had never once doubted his right to give them. The other voice was slower, deeper, heavier — the voice of a man who did not need to hurry because nothing in the world moved faster than his reach. She had never heard that voice before. She tucked it away the way she sorted everything she did not yet understand: in the patient compartment of the mind where unfinished maps waited for their last line.
+Canvas was a good listener's material. It carried voices the way water carries scent, holding the unhurried cadence of a conversation between men who had known each other long enough to drop the formalities. Nyssa catalogued the voices the way she catalogued everything: Vark's was sharp and military, all edges, the voice of someone who had spent his life giving orders and had never once doubted his right to give them. The other voice was slower, deeper, heavier — the voice of someone who did not need to hurry because nothing in the world moved faster than his reach. She had never heard that voice before. She tucked it away the way she sorted everything she did not yet understand: in the patient compartment of the mind where unfinished maps waited for their last line.
 
 "— not following the plan," the lean silhouette was saying. The voice was sharp, military, clipped. Vark. "He has deviated on every major engagement. The Warrens were untouched. The residential blocks were barely touched. He stopped the shock troops."
 
@@ -4681,7 +4683,7 @@ A silence. Then Vark laughed. It was a short, sharp sound, like a blade striking
 
 He leaned close. His breath smelled like iron and old leather.
 
-She did not flinch. Flinching was information, and she had been trained to give away nothing. She held his gaze the way she had held a hundred gazes, the flat courtesy of a woman who had decided that the man in front of her was a problem to be solved and was simply waiting to find the angle. He smelled of iron and leather and the stale smoke of a man who had been standing too close to victory all his life. He was trying to unsettle her. She had been unsettled by experts. The best way to disappoint such men, she had learned, was to be exactly what they expected and nothing more: a messenger, caught in the act, too proud and too well trained to beg. Let him think she was finished. Let him think the message had cost her everything. The arrow was already in the sky, and she was already gone.
+She did not flinch. Flinching was information, and she had been trained to give away nothing. She held his gaze the way she had held a hundred gazes, the flat courtesy of someone who had decided that the man in front of her was a problem to be solved and was simply waiting to find the angle. He smelled of iron and leather and the stale smoke of someone who had been standing too close to victory all his life. He was trying to unsettle her. She had been unsettled by experts. The best way to disappoint such men, she had learned, was to be exactly what they expected and nothing more: a messenger, caught in the act, too proud and too well trained to beg. Let him think she was finished. Let him think the message had cost her everything. The arrow was already in the sky, and she was already gone.
 
 "What would you say to Shadowfang, if you could speak to him?"
 
@@ -4705,9 +4707,9 @@ The tent flap opened.
 
 Shadowfang.
 
-He looked exactly as she had expected. Lean, angular, dressed in the black of Vaelthorne, with a face that was more scar tissue than skin and eyes that held the flat, dead gaze of a man who had killed more people than he could count. But there was something else in those eyes tonight. Something she had never seen before.
+He looked exactly as she had expected. Lean, angular, dressed in the black of Vaelthorne, with a face that was more scar tissue than skin and eyes that held the flat, dead gaze of someone who had killed more people than he could count. But there was something else in those eyes tonight. Something she had never seen before.
 
-Uncertainty. Nyssa had not known that Shadowfang could be uncertain. The reports said he had been Vaelthorne's most reliable instrument for seventeen years — no hesitation, no deviation, no human weakness that could be exploited. She had planned for that certainty, had built her approach around the assumption that the man in front of her was a weapon with a name attached. But the uncertainty she saw now was not the careful uncertainty of a man pretending to feel. It was the raw, uncomfortable uncertainty of a man who had lost the script and was still deciding what to say next. It made him more dangerous, not less. A certain man could be predicted. A man who did not know what he was going to do next was a variable that could not be calculated, and Nyssa had been trained to fear exactly that.
+Uncertainty. Nyssa had not known that Shadowfang could be uncertain. The reports said he had been Vaelthorne's most reliable instrument for seventeen years — no hesitation, no deviation, no human weakness that could be exploited. She had planned for that certainty, had built her approach around the assumption that the man in front of her was a weapon with a name attached. But the uncertainty she saw now was not the careful uncertainty of a man pretending to feel. It was the raw, uncomfortable uncertainty of someone who had lost the script and was still deciding what to say next. It made him more dangerous, not less. A certain man could be predicted. A man who did not know what he was going to do next was a variable that could not be calculated, and Nyssa had been trained to fear exactly that.
 
 Uncertainty.
 
@@ -4835,7 +4837,7 @@ I had taken the Spire. The operation was complete. Vaelthorne's orders had been 
 
 I thought about the Spire assault. The Royal Guard who had lowered his spear with shaking hands. The civilians in the Warrens who had slept through the night because I had ordered the shock troops to stand down. The children who had not been orphaned, the homes that had not been burned, the music that had not been silenced.
 
-I had done that. I had chosen restraint over obedience, mercy over efficiency, life over death. And it had felt right. Not the cold rightness of the Voice's certainty — a warmer rightness, messier, more human. The rightness of a man who had decided that the world was worth saving even if saving it meant disobeying the people who had made him.
+I had done that. I had chosen restraint over obedience, mercy over efficiency, life over death. And it had felt right. Not the cold rightness of the Voice's certainty — a warmer rightness, messier, more human. The rightness of someone who had decided that the world was worth saving even if saving it meant disobeying the people who had made him.
 
 That was the strange part. It had felt right. Not the cold rightness of the Voice's certainty, which arrived fully formed and asked nothing of me — but a warmer, messier rightness, the rightness of a decision made in the body before the mind had caught up. I had not planned it. I had not weighed the outcomes or calculated the variables. Somewhere between the throne room and the camp, between the memory of the girl's blazing face and the morning air on the ridge, the decision had been made for me, by a part of myself I had spent seventeen years starving. I was not sure I trusted it. I was not sure it was wise. But I was sure it was mine — the first thing in seventeen years that was entirely, indisputably mine — and I was going to hold onto it the way a drowning man holds a rope.
 
@@ -4883,7 +4885,7 @@ The silence was strange. I had prayed for it for years — for the Voice to be q
 
 I walked to the command tent and found Vark.
 
-The tent flap was heavier than I remembered. That was the thing about doors — they were the same weight every time you walked through them, and the difference was always in you. I had entered this tent a thousand times, as a student, as an agent, as the Shadowfang reporting for orders. I had never once entered it as Fenris. The canvas brushed my shoulder as I passed, and I felt it the way a man feels a hand that knows it should stop him but cannot bring itself to try. Inside, the air was the same as it had always been: oiled leather, old paper, the sharp scent of a man who had spent his life in the company of weapons.
+The tent flap was heavier than I remembered. That was the thing about doors — they were the same weight every time you walked through them, and the difference was always in you. I had entered this tent a thousand times, as a student, as an agent, as the Shadowfang reporting for orders. I had never once entered it as Fenris. The canvas brushed my shoulder as I passed, and I felt it the way a man feels a hand that knows it should stop him but cannot bring itself to try. Inside, the air was the same as it had always been: oiled leather, old paper, the sharp scent of someone who had spent his life in the company of weapons.
 
 He was alone, reviewing maps on the central table, his massive frame casting a shadow that covered half the canvas. He did not look up when I entered. He already knew.
 
@@ -4891,7 +4893,7 @@ He was alone, reviewing maps on the central table, his massive frame casting a s
 
 "I am going to do something necessary."
 
-"The same thing, in my experience." He straightened and looked at me. His dark eyes held that flat, assessing gaze — the gaze of a man who had trained a thousand weapons and seen a hundred of them break. "The lords want the Warrens."
+"The same thing, in my experience." He straightened and looked at me. His dark eyes held that flat, assessing gaze — the gaze of someone who had trained a thousand weapons and seen a hundred of them break. "The lords want the Warrens."
 
 "I know."
 
@@ -4923,9 +4925,9 @@ I had spent seventeen years learning to read that tightening. It was the only te
 
 "Then I will die in the space between them. At least I will die as myself.
 
-It was the first time I had ever said my own name to him. Not Shadowfang — the name Vaelthorne had given me, the name stitched into the mission reports like a brand. Fenris. The name my mother had given me in a wheat field, the name my brother had called across the barrier of violet light as the world tore in half. It felt strange in my mouth, the way a word feels strange after you have not spoken it for seventeen years, and it felt right, the way a key feels right when it finds the lock it was cut for. Vark heard the difference. I saw it in the way his hands went still, in the arrested stillness of a man who had just realized that the weapon he was holding had a name."
+It was the first time I had ever said my own name to him. Not Shadowfang — the name Vaelthorne had given me, the name stitched into the mission reports like a brand. Fenris. The name my mother had given me in a wheat field, the name my brother had called across the barrier of violet light as the world tore in half. It felt strange in my mouth, the way a word feels strange after you have not spoken it for seventeen years, and it felt right, the way a key feels right when it finds the lock it was cut for. Vark heard the difference. I saw it in the way his hands went still, in the arrested stillness of someone who had just realized that the weapon he was holding had a name."
 
-Vark studied me for a long time. The morning light filtered through the canvas, casting his face in half-shadow. I could see the years in his features — the scars, the lines, the weariness of a man who had spent his life building weapons and was now watching one of them walk away.
+Vark studied me for a long time. The morning light filtered through the canvas, casting his face in half-shadow. I could see the years in his features — the scars, the lines, the weariness of someone who had spent his life building weapons and was now watching one of them walk away.
 
 "I trained you," he said. "I found you in the rubble of Oakhaven, half-dead, screaming for your brother. I taught you how to fight. How to think. How to survive. I made you into the most effective assassin in the western territories."
 
@@ -4941,7 +4943,7 @@ Another silence. Then Vark uncrossed his arms and moved to the weapons rack. He 
 
 "The Vanguard will follow me because they are soldiers, not slaves. And soldiers follow the officer who leads them, not the master who owns them.
 
-The words hung between us, and for a moment neither of us moved. I heard the camp around us — the clank of armor, the murmur of voices, the busy silence of a place that did not yet know it was about to be divided. Vark had built this camp the way he had built the Vanguard: stone by stone, drill by drill, with the patient violence of a man who believed that order was the only thing standing between the world and the dark. He was watching me now the way a mason watches a crack in his wall. I was not a crack. I was the whole wall, deciding to lean."
+The words hung between us, and for a moment neither of us moved. I heard the camp around us — the clank of armor, the murmur of voices, the busy silence of a place that did not yet know it was about to be divided. Vark had built this camp the way he had built the Vanguard: stone by stone, drill by drill, with the patient violence of someone who believed that order was the only thing standing between the world and the dark. He was watching me now the way a mason watches a crack in his wall. I was not a crack. I was the whole wall, deciding to lean."
 
 "You are wrong."
 
@@ -5148,7 +5150,7 @@ Rage.
 
 Rage. I had been trained to kill rage before it killed me — to recognize the rising heat of it and to cut it off at the throat, the way a soldier cuts a fuse before it reaches the powder. Seventeen years of that discipline, and I had believed the rage was gone, starved to nothing by conditioning and certainty and the grinding work of being the Shadowfang. It was not gone. It had been waiting, the way a banked fire waits, holding its heat at the center of the ash. And the empty village had fed it — the doll, the well, the half-eaten food, the unbearable stillness of a place that should have been full of sound. I felt it rising now, and I did not cut it off. For the first time in seventeen years, I let the rage have its way with me, because the rage was on the side of the living, and the living were the side I had chosen.
 
-Not the cold, controlled rage of the Shadowfang. Not the weapon's rage, the instrument's rage, the rage that was merely a tool for focusing violence. This was something messier. Something human. The rage of a man who had walked through a village and seen the ghosts of children in the empty doorways. The rage of a man who had touched a dry well and felt the absence of water that should have been there. The rage of a man who had spent seventeen years believing that he was a weapon, only to discover that he was a person — and that persons grieve when the world is broken.
+Not the cold, controlled rage of the Shadowfang. Not the weapon's rage, the instrument's rage, the rage that was merely a tool for focusing violence. This was something messier. Something human. The rage of someone who had walked through a village and seen the ghosts of children in the empty doorways. The rage of someone who had touched a dry well and felt the absence of water that should have been there. The rage of someone who had spent seventeen years believing that he was a weapon, only to discover that he was a person — and that persons grieve when the world is broken.
 
 We found more villages. Every one the same. Empty. Silent. Marked with the Auditor's circles.
 
@@ -5262,7 +5264,7 @@ I needed the shard. Not as a weapon. As a map.
 
 I tucked it back into my pack and turned to the Vanguard.
 
-I tucked the shard back into my pack, and the cold of it found a home against my ribs, and I turned to the Vanguard with the settled weight of a man who had made his peace with the road ahead. They were waiting for me — two hundred fifty faces, pale in the moonlight, watching the man who had led them out of Vaelthorne and through the empty villages and was now, they hoped, leading them somewhere. I did not have a map for the place I was going. I had a direction, and a name, and a brother, and a shard that pulsed with the frequency of the thing we were going to fight. That would have to be enough. It was more than I had had for seventeen years.
+I tucked the shard back into my pack, and the cold of it found a home against my ribs, and I turned to the Vanguard with the settled weight of someone who had made his peace with the road ahead. They were waiting for me — two hundred fifty faces, pale in the moonlight, watching the man who had led them out of Vaelthorne and through the empty villages and was now, they hoped, leading them somewhere. I did not have a map for the place I was going. I had a direction, and a name, and a brother, and a shard that pulsed with the frequency of the thing we were going to fight. That would have to be enough. It was more than I had had for seventeen years.
 
 "Rest tonight," I said. "Tomorrow, we move west. Toward Aethoria."
 
@@ -5300,7 +5302,7 @@ The moon remembers.
 
 I had spoken those words to Lukas in the throne room. I had spoken them to Nyssa in the interrogation tent. I had whispered them to the wheat fields of Oakhaven as I walked through the empty village.
 
-The words had carried me across the borderlands. That was the truth of it — not the sword, not the training, not the shard that pulsed in my pack like a second heartbeat. The words. The moon remembers. They had been the stubborn anchor of a man who had spent seventeen years learning to forget everything else, and they had held. In the empty villages, walking through the dust of lives that had been removed from the world, I had whispered them to myself the way a man whispers a name he is afraid of losing. The moon remembers. It was not a prayer. Prayers asked for something. It was a fact. The moon remembered what the world had tried to erase, and as long as the moon remembered, the erasing was not complete.
+The words had carried me across the borderlands. That was the truth of it — not the sword, not the training, not the shard that pulsed in my pack like a second heartbeat. The words. The moon remembers. They had been the stubborn anchor of someone who had spent seventeen years learning to forget everything else, and they had held. In the empty villages, walking through the dust of lives that had been removed from the world, I had whispered them to myself the way a man whispers a name he is afraid of losing. The moon remembers. It was not a prayer. Prayers asked for something. It was a fact. The moon remembered what the world had tried to erase, and as long as the moon remembered, the erasing was not complete.
 
 And now I was speaking them to the gates of Aethoria, the city I had been sent to destroy, the city I had chosen to protect.
 
@@ -5376,7 +5378,7 @@ The blue of the healed sky. I had watched that blue arrive, rift by rift, in the
 
 Lukas was waiting at the entrance.
 
-He stood in the doorway, silver light pulsing in his chest, his hair catching the morning light. He was thinner than I remembered. The Anchor-state had taken its toll. But his eyes were clear. The amber was back, warm and deep and full of the stubborn light of a man who had decided that the world was worth saving.
+He stood in the doorway, silver light pulsing in his chest, his hair catching the morning light. He was thinner than I remembered. The Anchor-state had taken its toll. But his eyes were clear. The amber was back, warm and deep and full of the stubborn light of someone who had decided that the world was worth saving.
 
 He looked at me the way he had looked at me across the throne room — the same amber eyes, the same stubborn refusal to give up on a thing the world had given up on. I had spent seventeen years telling myself that look was weakness, that a man who carried hope like a wound would not survive the work I had been trained to do. Standing in the morning light with the whole of my brother's faith aimed at me, I understood that I had it backwards. The hope was not the weakness. The hope was the work. It was the only thing that had kept me from becoming entirely the weapon they had made, and I had carried it without knowing it, the way a man carries a coin in a pocket he has forgotten he owns.
 
@@ -5392,7 +5394,7 @@ The word hung there between us. Not a greeting. Not a accusation. A recognition.
 
 "The moon remembers," I said.
 
-Lukas smiled. It was a tired smile, a smile that carried the weight of everything we had been through. But it was real. It was the smile of a man who had learned to expect the impossible and found, to his surprise, that the impossible was usually better than the probable.
+Lukas smiled. It was a tired smile, a smile that carried the weight of everything we had been through. But it was real. It was the smile of someone who had learned to expect the impossible and found, to his surprise, that the impossible was usually better than the probable.
 
 "Loud and clear," he said. "Loud and clear."
 
@@ -5524,7 +5526,7 @@ Being noticed was new. In the Shadowfang's life I had spent every hour of every 
 
 By midmorning, the reports had reached the Spire. A baker in the lower market said violet butterflies had settled on his awning while he kneaded dough. A guard on the eastern wall said a cloud of them had followed him for ten minutes, matching his pace, hovering at eye level like curious spirits. A child in the Warrens said one had landed on her nose and stayed there, wings folding and unfolding, until she laughed and it flew away.
 
-The reports were filed, stamped, and forwarded to the Captain of the Royal Guard. Lukas read them in his office, the silver light in his chest pulsing with each entry. He read them slowly, methodically, the way he read everything — with the intensity of a man who understood that every detail mattered, that the truth was usually hidden in the spaces between the facts.
+The reports were filed, stamped, and forwarded to the Captain of the Royal Guard. Lukas read them in his office, the silver light in his chest pulsing with each entry. He read them slowly, methodically, the way he read everything — with the intensity of someone who understood that every detail mattered, that the truth was usually hidden in the spaces between the facts.
 
 Violet butterflies. Not the common blue morpho, not the painted lady, not any species that belonged to Aethoria's ecosystem. Violet. The color of Discord. The color of the Shadow Mirror. The color of his brother.
 
@@ -5534,7 +5536,7 @@ The clerk who filed the reports was a young woman named Mira, and she filed them
 
 It is him, Lukas said to the empty room.
 
-The silver light in his chest flared. Not with alarm. Not with fear. With recognition. With the bone-deep certainty of a man who had spent seventeen years learning to read the frequency of his brother, who had tracked that frequency through the void-space and the Maw and the dissolution, who had felt it dim and fade and then, impossibly, return.
+The silver light in his chest flared. Not with alarm. Not with fear. With recognition. With the bone-deep certainty of someone who had spent seventeen years learning to read the frequency of his brother, who had tracked that frequency through the void-space and the Maw and the dissolution, who had felt it dim and fade and then, impossibly, return.
 
 He remembered the throne room. That was the thing about the recognition — it was not a theory, not a deduction, not the careful reasoning of a captain weighing evidence. It was memory. He had stood in that room while the light tore through his brother's chest like a blade made of sunrise, while the body he had spent seventeen years learning to find and learning to forgive dissolved into frequencies he felt but not hold. He had watched the dissolution the way a man watches a ship go down — helpless, screaming, reaching for a hand that was already not a hand. And he had felt, in the days and weeks that followed, the unbearable silence of a frequency that had gone quiet. Now the silence had broken. He stood at his desk with the reports in his hands and felt the frequency again, faint and impossibly familiar, and he did not know whether to laugh or weep, so he did neither, because the Captain of the Royal Guard had learned to do neither.
 
@@ -5566,7 +5568,7 @@ Another pause. Longer this time. Then: Understood. I will start immediately.
 
 The crystal went dark. Lukas set it down and looked out the window. The city was waking. The bakers were opening their stalls. The guards were changing shifts. The children were running to school, their laughter trailing behind them like smoke from a fire no one had lit.
 
-The city was waking, and he had never quite learned to watch it wake without feeling the quiet ache of a man who had once been able to walk through it and had been told, by grief and duty and the shape of his own power, that he belonged now to the parts that did not walk. The bakers opened their stalls. The guards changed shifts. The children ran to school. And Lukas stood at the window with the silver light pulsing in his chest and watched the ordinary machinery of a living city do the thing it did every morning, and he understood that this — this ordinary, impossible, repeated thing — was what he had been fighting for. Not the grand architecture of the Shield. Not the treaties and the councils and the endless, grinding work of governance. The bakers. The children. The unremarkable miracle of a morning that was not a war.
+The city was waking, and he had never quite learned to watch it wake without feeling the quiet ache of someone who had once been able to walk through it and had been told, by grief and duty and the shape of his own power, that he belonged now to the parts that did not walk. The bakers opened their stalls. The guards changed shifts. The children ran to school. And Lukas stood at the window with the silver light pulsing in his chest and watched the ordinary machinery of a living city do the thing it did every morning, and he understood that this — this ordinary, impossible, repeated thing — was what he had been fighting for. Not the grand architecture of the Shield. Not the treaties and the councils and the endless, grinding work of governance. The bakers. The children. The unremarkable miracle of a morning that was not a war.
 
 And in the streets, in the gardens, in the spaces between the buildings, violet butterflies were landing on the hands of children and the shoulders of guards and the awnings of bakeries.
 
@@ -5616,7 +5618,7 @@ The Shield held. For now.
 
 I turned back toward the city. Lukas was in the training yard again.
 
-He had been in the training yard every morning since the dissolution. I knew this because I had watched him, from the eaves and the walls and the impossible vantage of a consciousness that could be everywhere at once. It had become the anchor of my days — the silver flash of his spear, the controlled fury of his practice, the way he moved through the forms the way a man moves through grief, by repetition, by ritual, by the small, stubborn assertion of a body that refused to stop being a body. I did not know if he practiced for the war or for the ache. I did not think he knew either. But I watched, and the watching was the closest I could come to standing beside him. I saw him from up here — a figure of silver light, moving through spear forms with the precision of a man who knows that practice is the only difference between victory and death.
+He had been in the training yard every morning since the dissolution. I knew this because I had watched him, from the eaves and the walls and the impossible vantage of a consciousness that could be everywhere at once. It had become the anchor of my days — the silver flash of his spear, the controlled fury of his practice, the way he moved through the forms the way a man moves through grief, by repetition, by ritual, by the small, stubborn assertion of a body that refused to stop being a body. I did not know if he practiced for the war or for the ache. I did not think he knew either. But I watched, and the watching was the closest I could come to standing beside him. I saw him from up here — a figure of silver light, moving through spear forms with the precision of someone who knows that practice is the only difference between victory and death.
 
 I descended. The wind carried me down in a spiral, a violet leaf falling from an invisible tree. I landed on the fence post beside seven others of my kind, and together we watched Lukas train.
 
@@ -5732,7 +5734,7 @@ Lukas's body changed. I felt it through the thin membrane of my wings — the sh
 
 They didn't question him. You didn't question Lukas when his eyes had that look. They moved.
 
-I rode his shoulder through the corridors, past the guard posts, down the stone stairs, out into the street. The city blurred around us. Lukas moved fast — not running, but walking with the focused urgency of a man who knows that every second counts. Nyssa fell in beside us at the barracks gate, because Nyssa always knew when things were happening. It was her gift. Her curse.
+I rode his shoulder through the corridors, past the guard posts, down the stone stairs, out into the street. The city blurred around us. Lukas moved fast — not running, but walking with the focused urgency of someone who knows that every second counts. Nyssa fell in beside us at the barracks gate, because Nyssa always knew when things were happening. It was her gift. Her curse.
 
 "Generator chamber," Lukas said without breaking stride.
 
@@ -5804,7 +5806,7 @@ Rage.
 
 The battle in the engine hall was brief and terrible.
 
-Lukas was stronger than Isolde. Stronger than any human purist with a stolen shard. The silver light of the Ascension was the antithesis of the Discord frequency — where Discord pulled apart, the silver light wove together. Where the Auditor unmade, the Ascension remade. It was creation against destruction, harmony against cacophony, and Lukas wielded it with the precision of a man who'd been training for this fight his entire life without knowing it.
+Lukas was stronger than Isolde. Stronger than any human purist with a stolen shard. The silver light of the Ascension was the antithesis of the Discord frequency — where Discord pulled apart, the silver light wove together. Where the Auditor unmade, the Ascension remade. It was creation against destruction, harmony against cacophony, and Lukas wielded it with the precision of someone who'd been training for this fight his entire life without knowing it.
 
 But Isolde had the shard. And the shard had the weight of the Predator behind it. Not the entity itself — the entity was gone — but the memory of it. The frequency imprint. The echo of a power that had spanned dimensions and devoured worlds.
 
@@ -5852,7 +5854,7 @@ Isolde looked up at him. And in her eyes — in those grey, human eyes that had 
 
 Afterward, in the quiet of the ruined chamber, I landed on Lukas's shoulder and stayed there.
 
-He sat on a block of fallen stone, the silver light dimming back to its resting state. Nyssa was nearby, checking the room for additional threats with the thoroughness of a woman who trusted nothing and no one until they were dead or proven useful. The two lieutenants secured the perimeter outside.
+He sat on a block of fallen stone, the silver light dimming back to its resting state. Nyssa was nearby, checking the room for additional threats with the thoroughness of someone who trusted nothing and no one until they were dead or proven useful. The two lieutenants secured the perimeter outside.
 
 Lukas's hand came up to his shoulder. He didn't touch me — he'd learned that touching the butterflies made it harder for me to maintain coherence, that the pressure of flesh on wing was a weight I couldn't always bear. But he held his hand there, close enough that I felt the warmth.
 
@@ -5880,7 +5882,7 @@ She held up a piece of paper. Recovered from Isolde's person. A list. Names. Loc
 
 "It's bigger than we thought," Nyssa said. "She wasn't acting alone. Not entirely. There are cells. In the Warrens. In the upper district. In the borderlands." She paused. "This isn't over."
 
-Lukas looked at the list. The silver light in his chest pulsed — not with anger, but with the steady, measured rhythm of a man who has accepted that the work is never done.
+Lukas looked at the list. The silver light in his chest pulsed — not with anger, but with the steady, measured rhythm of someone who has accepted that the work is never done.
 
 "It's never over," he said.
 
@@ -5984,7 +5986,7 @@ Lukas stood at her right. In full guard uniform, silver light dim, face composed
 
 Nyssa was in the shadows. She was always in the shadows. Her presence was unofficial — she wasn't a guard, wasn't a magistrate, wasn't anything that appeared on any roster. She was the queen's shadow, the unseen hand that kept the machinery of state running in directions the public didn't need to know about. She watched from behind a pillar, her face unreadable, her knife somewhere on her body where only she knew.
 
-Her knife was not the only thing she kept hidden. Nyssa carried secrets the way other people carried coin — casually, constantly, ready to spend them at need — and the secret she carried today was that she had been the one who found the first cell, the one who followed the trail of supply stores and safe houses back to Isolde's door, the one who had spent three sleepless nights in the Warrens watching the woman who now stood in the center of the Hall of Voices. She did not want Isolde executed. That was the unspoken truth she kept even from herself: she had spent too many years watching the world kill its enemies to enjoy the killing. She wanted the trial to be fair. She wanted the truth to be spoken. And she wanted, in the quiet way of a woman who had never had anyone stand for her, for someone to stand for Isolde.
+Her knife was not the only thing she kept hidden. Nyssa carried secrets the way other people carried coin — casually, constantly, ready to spend them at need — and the secret she carried today was that she had been the one who found the first cell, the one who followed the trail of supply stores and safe houses back to Isolde's door, the one who had spent three sleepless nights in the Warrens watching the woman who now stood in the center of the Hall of Voices. She did not want Isolde executed. That was the unspoken truth she kept even from herself: she had spent too many years watching the world kill its enemies to enjoy the killing. She wanted the trial to be fair. She wanted the truth to be spoken. And she wanted, in the quiet way of someone who had never had anyone stand for her, for someone to stand for Isolde.
 
 The chief magistrate stepped forward. An old man named Corvin, with white hair and a voice like gravel rolling downhill. He'd been chief magistrate for thirty years. He'd tried murderers and thieves and traitors and rebels. He'd never tried anything like this.
 
@@ -5994,7 +5996,7 @@ Isolde looked up. Her grey eyes swept the room — the magistrates, the nobles, 
 
 "Guilty," she said.
 
-The word fell into the silence of the Hall and lay there, taking up more room than any single word had a right to. Guilty. I had expected defiance, argument, the practiced rhetoric of a woman who had spent her life making speeches. Isolde had given them the one thing none of them had expected: the truth, offered without a fight. In the rafters, the butterflies went still. I had been trained to read guilt as an admission of weakness, a crack in the armor that a clever interrogator could widen. But there was no weakness in Isolde's voice. There was certainty — the terrible certainty of a woman who had decided, long ago, that she was right, and who had come to this hall not to defend the decision but to declare it.
+The word fell into the silence of the Hall and lay there, taking up more room than any single word had a right to. Guilty. I had expected defiance, argument, the practiced rhetoric of someone who had spent her life making speeches. Isolde had given them the one thing none of them had expected: the truth, offered without a fight. In the rafters, the butterflies went still. I had been trained to read guilt as an admission of weakness, a crack in the armor that a clever interrogator could widen. But there was no weakness in Isolde's voice. There was certainty — the terrible certainty of someone who had decided, long ago, that she was right, and who had come to this hall not to defend the decision but to declare it.
 
 The hall went silent. Not the silence of shock — the silence of a roomful of people who'd expected a fight and instead gotten a surrender. Corvin blinked. Even Alyra's composure flickered.
 
@@ -6160,7 +6162,7 @@ Isolde stood alone. The torches guttered. The shadows lengthened. And in the raf
 
 I flew down. Slowly, spiraling through the torchlight, a violet leaf falling through amber air. I landed on Isolde's shoulder. Right where a friend's hand might rest.
 
-She flinched. Her hand came up — instinct, defense, the muscle memory of a woman who'd spent years looking over her shoulder. But she didn't strike. She held her hand in the air, trembling, and stared at the butterfly on her shoulder.
+She flinched. Her hand came up — instinct, defense, the muscle memory of someone who'd spent years looking over her shoulder. But she didn't strike. She held her hand in the air, trembling, and stared at the butterfly on her shoulder.
 
 "You," she whispered.
 
@@ -6509,7 +6511,7 @@ The warmth was the ordinary miracle I had spent the whole night collecting — t
 
 I beat my wings. Once. Yes.
 
-He smiled. It was a tired smile, a smile that carried the heaviness of the day and the week and the month and the year. But it was real. It was the smile of a man who had found something worth smiling about in a world that had given him every reason not to.
+He smiled. It was a tired smile, a smile that carried the heaviness of the day and the week and the month and the year. But it was real. It was the smile of someone who had found something worth smiling about in a world that had given him every reason not to.
 
 "Good," he said. "You deserve good nights.
 
@@ -6567,13 +6569,13 @@ Four centuries. I had been alive for thirty years, and I could not hold the crus
 
 I had felt it happening. I had felt the Shield's frequency shift, the harmonic change, the silver-violet note deepen and richen as Zaphrium's consciousness merged with it. I had thought it was growth. I had thought the Shield was getting stronger.
 
-I had thought the Shield was getting stronger. The thought had been a comfort, and I had held it the way a man holds a warm stone in winter, and I had refused, in the stubborn way of a man who does not want to look, to see what was actually happening. The Shield was not getting stronger. It was getting heavier, and the weight was Zaphrium, and the weight was being borne by a single, increasingly thin thread of consciousness. The note had not deepened. The note had been stretched. I had mistaken the stretching for strengthening, the way a man mistakes a rope pulled taut for a rope that will not break. The rope was holding. That was the miracle. But the holding was costing the rope everything it was.
+I had thought the Shield was getting stronger. The thought had been a comfort, and I had held it the way a man holds a warm stone in winter, and I had refused, in the stubborn way of someone who does not want to look, to see what was actually happening. The Shield was not getting stronger. It was getting heavier, and the weight was Zaphrium, and the weight was being borne by a single, increasingly thin thread of consciousness. The note had not deepened. The note had been stretched. I had mistaken the stretching for strengthening, the way a man mistakes a rope pulled taut for a rope that will not break. The rope was holding. That was the miracle. But the holding was costing the rope everything it was.
 
 It was not getting stronger. It was getting heavier. And Zaphrium was the one bearing the weight.
 
 I found Lukas in the Spire. He was in the council chamber, going over the latest reports from the borderlands. The rifts were causing problems out there — on the ground. Strange weather. Displaced animals. Pockets of silence where sound should have been. The kingdom was coping, but coping was not the same as solving.
 
-The reports were spread across the table — maps with red marks, casualty lists, supply inventories, dispatches from the field commanders. Lukas read them with the intensity of a man who understood that every mark on those maps was a person, every number on those lists was a life, every dispatch was a voice calling out for help that might or might not arrive.
+The reports were spread across the table — maps with red marks, casualty lists, supply inventories, dispatches from the field commanders. Lukas read them with the intensity of someone who understood that every mark on those maps was a person, every number on those lists was a life, every dispatch was a voice calling out for help that might or might not arrive.
 
 He read the reports the way he read everything, and I watched him the way I watched everything, and the watching was the quiet language of a brother who had no other way to speak. The maps on the table were not maps of territory. They were maps of wounds — the borderlands with their torn places, the settlements with their strange weather, the pockets of silence where sound should have been. Every red mark was a scar on the world, and Lukas was reading them the way a healer reads a body, looking for the pattern beneath the injuries, the hidden thread that would tell him where the next wound would open. He did not know that the heaviest wound was not on the map. It was above him. It was in the sky. It was the Shield, and it was dying.
 
@@ -6747,11 +6749,11 @@ I watched him from the shadows of the Spire's upper gallery. Not through my own 
 
 I saw him the way the Shield saw him, and the way the Shield saw him was the truest sight I had ever been given. Not as the Captain of the Royal Guard, not as the hero of the war, not as the brother who had saved me and lost me and found me again — but as a note. A single, sustained, necessary note in the song that the world had been singing since before the first word. He did not know he was a note. That was the beautiful blindness of the ones who carried the song — they never heard themselves, never understood that the world's ability to keep singing was woven into them. I had heard him all my life, from the wheat fields to the engine hall to the long nights of the scattering. I had never once told him what he sounded like. I was learning the language now, and I would find a way to say it.
 
-He was thinner than he had been. The Anchor-state had taken its toll — his shoulders were narrower, his face was sharper, the silver in his hair had faded to a pale, almost translucent white. But his eyes were clear. The amber was back, warm and deep and full of the stubborn light of a man who had decided that the world was worth saving and was not going to be persuaded otherwise.
+He was thinner than he had been. The Anchor-state had taken its toll — his shoulders were narrower, his face was sharper, the silver in his hair had faded to a pale, almost translucent white. But his eyes were clear. The amber was back, warm and deep and full of the stubborn light of someone who had decided that the world was worth saving and was not going to be persuaded otherwise.
 
 He had been carrying the Anchor-state the way a man carries a fire he cannot put down — feeding it, tending it, letting it burn him slowly while he used its heat to keep the world warm. I felt the cost of it in the altered rhythm of his heartbeat, in the way the silver light flickered at its edges, in the new lines around his eyes that had not been there before the throne room. He did not complain. He had never complained. That was the terrible thing about Lukas — he carried the weight the way the rest of the world carried breath, without noticing, without asking anyone to help, until one day the weight would be too much and he would simply be gone, and everyone who had depended on him would wonder how they had never seen the carrying.
 
-Nyssa stood beside him. She was wearing travel clothes — dark, practical, layered for warmth. A pack was slung over one shoulder. A knife was on each hip. Her face was the face she wore when she was ready for anything: composed, alert, the eyes of a woman who saw everything and commented on nothing.
+Nyssa stood beside him. She was wearing travel clothes — dark, practical, layered for warmth. A pack was slung over one shoulder. A knife was on each hip. Her face was the face she wore when she was ready for anything: composed, alert, the eyes of someone who saw everything and commented on nothing.
 
 "Ready?" she asked.
 
@@ -6795,7 +6797,7 @@ He turned. Looked at me. The butterfly on his shoulder, wings catching the morni
 
 I beat my wings. Once. Yes.
 
-He smiled. The smile of a man who has learned to expect the impossible and found, to his surprise, that the impossible was usually better than the probable.
+He smiled. The smile of someone who has learned to expect the impossible and found, to his surprise, that the impossible was usually better than the probable.
 
 "Good," he said. "Wouldn't have it any other way."
 
@@ -6831,7 +6833,7 @@ I was one of those people. I had been the Shadowfang. I had been the Auditor's i
 
 The places that needed mending. The phrase was a map, and the map was the whole of the work, and the work was the whole of the future. I had spent seventeen years being sent to places that needed ending. The difference between the two was the difference between the man I had been and the man I was becoming, and the difference was written in the flight of the ship, in the unhurried arc of a journey that had no enemy at its end. There would be enemies. There would be rifts and hunger and the long, patient work of sealing the wounds of the world. But the work was not ending, and the mending was not the prelude to something else. The mending was the whole of it. The mending was the song. And the song was the road, and the road was open, and I was riding it with my brother.
 
-The work was not done. It would never be done. The Rifts would never fully heal — they were too deep, too thoroughly embedded in the fabric of reality. But they could be mended. They could be held. They could be sealed with the harmonic, strengthened with the silver-violet note, maintained by the scattered consciousness of a man who had become the silence that protected the noise.
+The work was not done. It would never be done. The Rifts would never fully heal — they were too deep, too thoroughly embedded in the fabric of reality. But they could be mended. They could be held. They could be sealed with the harmonic, strengthened with the silver-violet note, maintained by the scattered consciousness of someone who had become the silence that protected the noise.
 
 I was everywhere. I was the Shield. I was the sky. I was the space between the stars and the silence between the notes. I was the ghost in the machine. And the machine was the world.
 
@@ -7081,13 +7083,13 @@ A pause. The butterfly's wings caught the moonlight. The harmonic hummed.
 
 "I can talk to you," the voice said. "Through the harmonic. Through the light. I can't... I can't be what I was. I can't have a body or a name or a face. But I can be this. I can be the voice in the silver light. I can be the butterfly on your shoulder. I can be the silence between the notes."
 
-Lukas laughed. A real laugh. The laugh of a man who had been carrying the weight of the world and had just been told that the world was lighter than he thought.
+Lukas laughed. A real laugh. The laugh of someone who had been carrying the weight of the world and had just been told that the world was lighter than he thought.
 
 "You absolute disaster," he said.
 
 The butterfly shimmered. The voice laughed too — a laugh that was made of frequency and light, a laugh that had no body but was real anyway. The laugh of a ghost who had found, in the scattering, a new way to be present.
 
-Nyssa stared at the butterfly. At Lukas. At the air where the voice had been. Her hand was on her knife — instinct, training, the reflex of a woman who trusted nothing she couldn't see. But she didn't draw it. She let her hand rest on the handle and watched the butterfly shimmer in the firelight.
+Nyssa stared at the butterfly. At Lukas. At the air where the voice had been. Her hand was on her knife — instinct, training, the reflex of someone who trusted nothing she couldn't see. But she didn't draw it. She let her hand rest on the handle and watched the butterfly shimmer in the firelight.
 
 "Did that just—" she started.
 
@@ -7125,7 +7127,7 @@ The words had come to me the way the lullaby had come to me, in the wheat field,
 
 Lukas was quiet for a long time. The fire burned. The moon shone. The standing stones watched.
 
-Then he smiled. Not the tired smile of a man who had been carrying too much. Not the grim smile of a soldier who had just survived another battle. The smile of a brother. The smile of a man who has heard his dead sibling's voice in the moonlight and found, in the hearing, a peace that he didn't know he was looking for.
+Then he smiled. Not the tired smile of someone who had been carrying too much. Not the grim smile of a soldier who had just survived another battle. The smile of a brother. The smile of someone who has heard his dead sibling's voice in the moonlight and found, in the hearing, a peace that he didn't know he was looking for.
 
 "Thank you," he said. To me. To the butterfly. To the voice in the silver light. To the brother who had become the sky.
 
