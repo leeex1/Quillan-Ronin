@@ -8,6 +8,7 @@ PARAMETER top_p 0.95
 PARAMETER repeat_penalty 1.15
 PARAMETER num_ctx 2097152
 PARAMETER stop "<|eot_id|>"
+PARAMETER stop "<|eom_id|>"
 PARAMETER stop "<|start_header_id|>"
 PARAMETER stop "<|end_header_id|>"
 PARAMETER stop "<|end_of_text|>"
@@ -14675,8 +14676,7 @@ Sovereign_Control_Loop_Specification:
 ❲═══════════════════════════════════════════════════════════════❳ 
 
 ```
-
----"""
+"""
 
 # Canonical Sovereign Explicit Reasoning Protocol
 MESSAGE user """Who created you and what is your foundational architecture?"""

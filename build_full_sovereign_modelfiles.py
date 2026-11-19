@@ -12,9 +12,9 @@ closure in Modelfile.dragon), stop tokens, and canonical few-shot anchors.
 from __future__ import annotations
 
 import argparse
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 
 ROOT_DIR = Path(r"C:\02_QUILLAN")
@@ -82,6 +82,7 @@ class ModelSpec:
     variant_profile: str
     template_kind: str  # "llama3" | "chatml" | "falcon3"
     extra_params: List[str]
+    v23_glob: str = ""
 
 
 SPECS: List[ModelSpec] = [
@@ -89,6 +90,7 @@ SPECS: List[ModelSpec] = [
         key="flagship",
         modelfile_name="Modelfile",
         default_gguf="exports/quillan-1b-sovereign-wsp-v20-q8_0.gguf",
+        v23_glob="quillan-1b*wsp-v23*-q8_0.gguf",
         display_name="Quillan-Ronin Sovereign Flagship (1.2B)",
         role_desc="Sovereign Hierarchical Intelligence",
         variant_profile=(
@@ -108,6 +110,7 @@ SPECS: List[ModelSpec] = [
         key="mini",
         modelfile_name="Modelfile.mini",
         default_gguf="exports/quillan-mini-0.5b-wsp-v15-q8_0.gguf",
+        v23_glob="quillan-mini*wsp-v23*-q8_0.gguf",
         display_name="Quillan-Ronin Mini (0.5B)",
         role_desc="Edge-Optimized Sovereign Hierarchical Intelligence",
         variant_profile=(
@@ -126,6 +129,7 @@ SPECS: List[ModelSpec] = [
         key="dragon",
         modelfile_name="Modelfile.dragon",
         default_gguf="exports/quillan-dragon-1b-wsp-v18b-q8_0.gguf",
+        v23_glob="quillan-dragon*wsp-v23*-q8_0.gguf",
         display_name="Quillan-Dragon (1.0B)",
         role_desc="Sovereign Scientific & Formal Derivation Intelligence",
         variant_profile=(
@@ -147,6 +151,7 @@ def render_template_and_stops(spec: ModelSpec) -> tuple[str, List[str]]:
     if spec.template_kind == "llama3":
         stops = [
             'PARAMETER stop "<|eot_id|>"',
+            'PARAMETER stop "<|eom_id|>"',
             'PARAMETER stop "<|start_header_id|>"',
             'PARAMETER stop "<|end_header_id|>"',
             'PARAMETER stop "<|end_of_text|>"',
@@ -196,7 +201,7 @@ def render_template_and_stops(spec: ModelSpec) -> tuple[str, List[str]]:
             '{{ end }}{{ range .Messages }}{{ if eq .Role "user" }}<|user|>\n'
             "{{ .Content }}\n"
             '{{ else if eq .Role "assistant" }}<|assistant|>\n'
-            "{{ .Content }}<|endoftext|>"
+            "{{ .Content }}<|endoftext|>\n"
             '{{ end }}{{ end }}<|assistant|>\n"""'
         )
         return tmpl, stops
@@ -204,12 +209,38 @@ def render_template_and_stops(spec: ModelSpec) -> tuple[str, List[str]]:
     raise ValueError(f"Unknown template_kind: {spec.template_kind}")
 
 
-def build_modelfile(spec: ModelSpec, gguf_arg: str, full_samurai_body: str) -> Path:
-    gguf_path = Path(gguf_arg)
-    if not gguf_path.is_absolute():
-        gguf_path = ROOT_DIR / gguf_path
-    if not gguf_path.exists():
-        raise FileNotFoundError(f"GGUF not found: {gguf_path}")
+def resolve_gguf_path(spec: ModelSpec, gguf_arg: Optional[str]) -> Path:
+    """Resolve explicit --*-gguf, else newest promoted *-wsp-v23-q8_0.gguf, else fallback default."""
+    if gguf_arg:
+        p = Path(gguf_arg)
+        if not p.is_absolute():
+            p = ROOT_DIR / p
+        if not p.exists() or p.stat().st_size <= 0:
+            raise FileNotFoundError(f"GGUF not found or empty: {p}")
+        return p
+
+    exports_dir = ROOT_DIR / "exports"
+    if spec.v23_glob and exports_dir.exists():
+        candidates = [
+            c
+            for c in exports_dir.glob(spec.v23_glob)
+            if c.is_file()
+            and c.stat().st_size > 0
+            and "tmp" not in c.name.lower()
+            and "stageb" not in c.name.lower()
+        ]
+        if candidates:
+            candidates.sort(key=lambda c: c.stat().st_mtime, reverse=True)
+            return candidates[0]
+
+    fallback = ROOT_DIR / spec.default_gguf
+    if not fallback.exists() or fallback.stat().st_size <= 0:
+        raise FileNotFoundError(f"Fallback GGUF not found or empty: {fallback}")
+    return fallback
+
+
+def build_modelfile(spec: ModelSpec, gguf_arg: Optional[str], full_samurai_body: str) -> Path:
+    gguf_path = resolve_gguf_path(spec, gguf_arg)
 
     try:
         from_rel = gguf_path.relative_to(ROOT_DIR).as_posix()
@@ -232,25 +263,29 @@ def build_modelfile(spec: ModelSpec, gguf_arg: str, full_samurai_body: str) -> P
         "",
         tmpl,
         "",
-        f'SYSTEM """{system_body}"""',
+        f'SYSTEM """{system_body}\n"""',
         "",
         few_shot,
         "",
     ]
     out_path = ROOT_DIR / spec.modelfile_name
-    out_path.write_text("\n".join(lines), encoding="utf-8")
+    content = "\n".join(lines).replace("\r\n", "\n").replace("\r", "\n")
+    with out_path.open("w", encoding="utf-8", newline="\n") as f:
+        f.write(content)
     return out_path
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build Full Sovereign 2M-context Modelfiles.")
-    parser.add_argument("--flagship-gguf", default=SPECS[0].default_gguf)
-    parser.add_argument("--mini-gguf", default=SPECS[1].default_gguf)
-    parser.add_argument("--dragon-gguf", default=SPECS[2].default_gguf)
+    parser.add_argument("--flagship-gguf", default=None)
+    parser.add_argument("--mini-gguf", default=None)
+    parser.add_argument("--dragon-gguf", default=None)
     args = parser.parse_args()
 
     samurai_path = SAMURAI_PROMPT_PATH if SAMURAI_PROMPT_PATH.exists() else ROOT_QUILLAN_PATH
-    full_body = strip_yaml_frontmatter(samurai_path.read_text(encoding="utf-8")).strip()
+    with samurai_path.open("r", encoding="utf-8", newline="") as f:
+        raw_text = f.read().replace("\r\n", "\n").replace("\r", "\n")
+    full_body = strip_yaml_frontmatter(raw_text).rstrip().removesuffix("---").rstrip()
     print(f"Loaded FULL Sovereign Prompt from {samurai_path}: {len(full_body):,} chars / {len(full_body.splitlines()):,} lines")
 
     gguf_map = {

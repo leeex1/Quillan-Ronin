@@ -20,7 +20,6 @@
 *.zip -filter -diff -merge -text
 *.tar.gz -filter -diff -merge -text
 *.flac -filter -diff -merge -text
-*.mp3 -filter -diff -merge -text
 *.m4a -filter -diff -merge -text
 *.wav -filter -diff -merge -text
 *.pb -filter -diff -merge -text

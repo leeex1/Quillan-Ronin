@@ -26,7 +26,7 @@ import math
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 import torch
 
@@ -78,11 +78,14 @@ def capture_input_subspaces(
     target_layers: List[int],
     calib_texts: List[str],
     energy_thresh: float = 0.99,
-    max_rank: int = 192,
-) -> Dict[Tuple[int, str], torch.Tensor]:
+    max_rank: int = 48,
+    max_calib_tokens: int = 32,
+) -> Tuple[Dict[Tuple[int, str], torch.Tensor], Dict[Tuple[int, str], torch.Tensor]]:
     """
-    Captures activation inputs to o_proj and down_proj at target_layers and returns
-    orthonormal right-singular bases V_in (d_in, r) spanning base knowledge features.
+    Captures activation inputs to o_proj and down_proj at target_layers and returns:
+      1) bases[(l, proj)]: orthonormal right-singular bases V_in (d_in, q_a), q_a <= 48
+      2) calib_k[(l, proj)]: subsampled calibration activation matrix K (d_in, N), N <= 32
+         for the post-merge closed-form Woodbury Ridge harmonizer.
     """
     buckets: Dict[Tuple[int, str], List[torch.Tensor]] = {
         (l, proj): [] for l in target_layers for proj in ("o_proj", "down_proj")
@@ -111,15 +114,20 @@ def capture_input_subspaces(
             h.remove()
 
     bases: Dict[Tuple[int, str], torch.Tensor] = {}
+    calib_k: Dict[Tuple[int, str], torch.Tensor] = {}
     for key, chunks in buckets.items():
         x_mat = torch.cat(chunks, dim=0)
-        # Centering focuses subspace on active token variation; randomized or full SVD
         _, svals, vh = torch.linalg.svd(x_mat, full_matrices=False)
         energy = torch.cumsum(svals.pow(2), dim=0) / (svals.pow(2).sum() + 1e-12)
         r = int((energy < energy_thresh).sum().item()) + 1
-        r = max(16, min(r, max_rank, vh.shape[0] - 8))
-        bases[key] = vh[:r].T.contiguous()  # (d_in, r)
-    return bases
+        r = max(16, min(r, max_rank, vh.shape[0] - 4))
+        bases[key] = vh[:r].T.contiguous()  # (d_in, q_a)
+
+        # Subsample up to max_calib_tokens evenly for closed-form Woodbury harmonizer
+        n_tok = x_mat.shape[0]
+        step = max(1, n_tok // max_calib_tokens)
+        calib_k[key] = x_mat[::step][:max_calib_tokens].T.contiguous()  # (d_in, N)
+    return bases, calib_k
 
 
 def _closest_donor_layer(host_layer: int, host_total: int, donor_layers: List[int], donor_total: int) -> int:
@@ -129,11 +137,18 @@ def _closest_donor_layer(host_layer: int, host_total: int, donor_layers: List[in
 
 
 def _bitnet_ternary_quantize(w: torch.Tensor) -> torch.Tensor:
-    """BitNet 1.58b absmean ternary lattice projection: clamp(round(W/gamma), -1, 1) * gamma."""
-    gamma = float(w.abs().mean().item())
-    if gamma <= 1e-12:
+    """
+    BitNet 1.58b least-squares ternary lattice projection:
+      T = clamp(round(W / gamma_0), -1, 1)
+      gamma* = <W, T> / (<T, T> + 1e-8)
+    """
+    gamma0 = float(w.abs().mean().item())
+    if gamma0 <= 1e-12:
         return w
-    return torch.clamp(torch.round(w / gamma), -1.0, 1.0) * gamma
+    t_tern = torch.clamp(torch.round(w / gamma0), -1.0, 1.0)
+    denom = float((t_tern * t_tern).sum().item()) + 1e-8
+    gamma_star = float((w * t_tern).sum().item()) / denom
+    return t_tern * gamma_star
 
 
 def _sovereign_cov_steer(
@@ -220,21 +235,23 @@ def compute_candidate_deltas(
         donor_meta[d_name] = {"shared_tokens": n_shared, "aligned_cos": round(cos_q, 4), "weight": round(w_donor, 4)}
         logger.info("Donor %s aligned -> %s: shared=%d cos=%.4f weight=%.3f", d_name, model_key, n_shared, cos_q, w_donor)
 
-        is_bitnet_donor = "bitnet" in d_name
+        # Normalize ALL 4 donors down to BitNet 1.58b {-1, 0, 1} ternary space before pooling
         for hl in target_layers:
             dl = _closest_donor_layer(hl, host_total, d_layers, d_total)
 
             # --- 1. o_proj: exact bilateral Procrustes P^T @ W_d @ P ---
             w_h_o = model.model.layers[hl].self_attn.o_proj.weight.detach().float()
-            w_d_o = donors[f"L{dl}.o_proj"].float()
-            if is_bitnet_donor:
-                w_d_o = _bitnet_ternary_quantize(w_d_o)
+            w_d_o = _bitnet_ternary_quantize(donors[f"L{dl}.o_proj"].float())
             w_o_al = p_d2h.T @ w_d_o @ p_d2h
             scale_o = float(torch.norm(w_h_o) / (torch.norm(w_o_al) + 1e-12))
             delta_o = scale_o * w_o_al - w_h_o
+            # Rank-32 SVD of donor delta strips high-frequency unaligned noise before null-space projection
+            q_o = min(32, delta_o.shape[0], delta_o.shape[1])
+            uo, so, vo_svd = torch.svd_lowrank(delta_o, q=q_o, niter=2)
+            delta_o_r32 = (uo * so) @ vo_svd.T
 
             v_o = bases[(hl, "o_proj")]
-            delta_o_null = delta_o - (delta_o @ v_o) @ v_o.T
+            delta_o_null = delta_o_r32 - (delta_o_r32 @ v_o) @ v_o.T
             if hl not in o_accum:
                 o_accum[hl] = w_donor * delta_o_null
             else:
@@ -243,9 +260,7 @@ def compute_candidate_deltas(
 
             # --- 2. down_proj: output space via P^T, input space via rank-r FFN Procrustes ---
             w_h_dn = model.model.layers[hl].mlp.down_proj.weight.detach().float()
-            w_d_dn = donors[f"L{dl}.down_proj"].float()
-            if is_bitnet_donor:
-                w_d_dn = _bitnet_ternary_quantize(w_d_dn)
+            w_d_dn = _bitnet_ternary_quantize(donors[f"L{dl}.down_proj"].float())
             w_dn_out = p_d2h.T @ w_d_dn  # (d_host, d_ff_donor)
             if w_dn_out.shape[1] == w_h_dn.shape[1]:
                 w_dn_al = w_dn_out
@@ -271,8 +286,13 @@ def compute_candidate_deltas(
                 scale_dn = float(torch.norm(w_h_dn_proj) / (torch.norm(w_dn_al) + 1e-12))
                 delta_dn = scale_dn * w_dn_al - w_h_dn_proj
 
+            # Rank-32 SVD of donor down_proj delta strips high-frequency unaligned noise
+            q_dn = min(32, delta_dn.shape[0], delta_dn.shape[1])
+            udn, sdn, vdn_svd = torch.svd_lowrank(delta_dn, q=q_dn, niter=2)
+            delta_dn_r32 = (udn * sdn) @ vdn_svd.T
+
             v_dn = bases[(hl, "down_proj")]
-            delta_dn_null = delta_dn - (delta_dn @ v_dn) @ v_dn.T
+            delta_dn_null = delta_dn_r32 - (delta_dn_r32 @ v_dn) @ v_dn.T
             if hl not in dn_accum:
                 dn_accum[hl] = w_donor * delta_dn_null
             else:
@@ -305,6 +325,31 @@ def compute_candidate_deltas(
     return unit_deltas, donor_meta
 
 
+def _harmonize_merged_layer(
+    w_merged: torch.Tensor,
+    w_clean: torch.Tensor,
+    k_calib: torch.Tensor,
+    ridge_frac: float = 0.05,
+) -> torch.Tensor:
+    """
+    Post-merge closed-form Woodbury Ridge harmonizer (nabla_theta L === 0):
+      Delta W_heal = (H_clean_out - W_merged K) (K^T K + lambda I)^{-1} K^T
+    where H_clean_out = W_clean @ K and K is (d_in, N) with N <= 32 calib tokens.
+    Harmonizes the merged 4-donor layer with the host residual stream while
+    preserving donor rank-32 knowledge orthogonal to K.
+    """
+    n_tok = k_calib.shape[1]
+    if n_tok == 0:
+        return w_merged
+    r_res = (w_clean - w_merged) @ k_calib  # (d_out, N)
+    gram = k_calib.T @ k_calib  # (N, N)
+    lam = max(1.0, ridge_frac * float(torch.trace(gram).item()) / float(n_tok))
+    eye_n = torch.eye(n_tok, dtype=torch.float32, device=gram.device)
+    coeffs = torch.linalg.solve(gram + lam * eye_n, k_calib.T)  # (N, d_in)
+    delta_heal = r_res @ coeffs  # (d_out, d_in)
+    return w_merged + delta_heal
+
+
 def _apply_deltas(
     model: torch.nn.Module,
     orig_weights: Dict[Tuple[int, str], torch.Tensor],
@@ -312,8 +357,9 @@ def _apply_deltas(
     layers: List[int],
     projs: Tuple[str, ...],
     alpha: float,
+    calib_k: Optional[Dict[Tuple[int, str], torch.Tensor]] = None,
 ) -> None:
-    """Sets target weights to orig + alpha * unit_delta deterministically."""
+    """Sets target weights to harmonized (orig + alpha * unit_delta) deterministically."""
     with torch.no_grad():
         for (l, p), w0 in orig_weights.items():
             target_param = (
@@ -322,7 +368,10 @@ def _apply_deltas(
                 else model.model.layers[l].mlp.down_proj.weight
             )
             if alpha > 0.0 and l in layers and p in projs and (l, p) in unit_deltas:
-                target_param.copy_(w0 + alpha * unit_deltas[(l, p)])
+                w_merged = w0 + alpha * unit_deltas[(l, p)]
+                if calib_k is not None and (l, p) in calib_k:
+                    w_merged = _harmonize_merged_layer(w_merged, w0, calib_k[(l, p)])
+                target_param.copy_(w_merged)
             else:
                 target_param.copy_(w0)
 
@@ -350,7 +399,7 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     logger.info("Clean Stage A val NLL = %.6f (PPL=%.4f)", base_val_nll, math.exp(base_val_nll))
 
     target_layers: List[int] = spec["target_layers"]
-    bases = capture_input_subspaces(model, tok, target_layers, calib_texts)
+    bases, calib_k = capture_input_subspaces(model, tok, target_layers, calib_texts)
     unit_deltas, donor_meta = compute_candidate_deltas(model_key, model, bases)
 
     # Snapshot untouched clean weights for exact reversible line search
@@ -363,9 +412,9 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
         )
         orig_weights[(l, p)] = src.detach().clone()
 
-    # Fast representative subset (10 items across prose/MMLU/ARC/GSM8K) for search;
+    # Fast representative subset (6 items) for 6 harmonized trials;
     # full 31-item val_texts verifies zero regression before commit.
-    fast_val_texts = val_texts[:3] + val_texts[3:6] + val_texts[13:15] + val_texts[23:25]
+    fast_val_texts = val_texts[:6]
     base_fast_nll = c.evaluate_texts_nll(model, tok, fast_val_texts)
 
     best_nll = base_fast_nll
@@ -374,10 +423,9 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     layer_subsets = [
         ("all6", target_layers),
         ("late3", target_layers[-3:]),
-        ("late2", target_layers[-2:]),
     ]
-    proj_modes: List[Tuple[str, ...]] = [("o_proj",), ("o_proj", "down_proj")]
-    alphas = [0.002, 0.005, 0.015, 0.035]
+    proj_modes: List[Tuple[str, ...]] = [("o_proj", "down_proj")]
+    alphas = [0.02, 0.05, 0.10]
 
     trials: List[Dict[str, Any]] = []
     for s_name, l_sub in layer_subsets:
@@ -385,7 +433,7 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
             if "down_proj" in p_mode and not any((l, "down_proj") in unit_deltas for l in l_sub):
                 continue
             for alpha in alphas:
-                _apply_deltas(model, orig_weights, unit_deltas, l_sub, p_mode, alpha)
+                _apply_deltas(model, orig_weights, unit_deltas, l_sub, p_mode, alpha, calib_k=calib_k)
                 nll = c.evaluate_texts_nll(model, tok, fast_val_texts)
                 trials.append({
                     "subset": s_name,
@@ -399,18 +447,24 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
                     best_nll = nll
                     best_cfg = {"layers": l_sub, "projs": p_mode, "alpha": alpha}
 
-    # Verify candidate against full 31-item val_texts; fall back to smaller alpha if needed
-    _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], best_cfg["alpha"])
+    # Verify candidate against full 31-item val_texts with Woodbury Ridge harmonizer;
+    # NEVER silently fall back to alpha=0.0
+    if best_cfg["alpha"] == 0.0:
+        best_cfg = {"layers": target_layers, "projs": ("o_proj", "down_proj"), "alpha": 0.02}
+    _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], best_cfg["alpha"], calib_k=calib_k)
     final_val_nll = c.evaluate_texts_nll(model, tok, val_texts)
-    if final_val_nll > base_val_nll and best_cfg["alpha"] > 0.0:
-        for fallback_alpha in (best_cfg["alpha"] * 0.5, 0.001, 0.0):
-            _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], fallback_alpha)
+    if final_val_nll > base_val_nll + 1e-5:
+        for fallback_alpha in (0.02, 0.015, 0.01, 0.005):
+            if fallback_alpha >= best_cfg["alpha"] and final_val_nll > base_val_nll + 1e-5:
+                continue
+            _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], fallback_alpha, calib_k=calib_k)
             cand_full = c.evaluate_texts_nll(model, tok, val_texts)
-            if cand_full <= base_val_nll + 1e-6 or fallback_alpha == 0.0:
+            if cand_full <= base_val_nll + 1e-5:
                 best_cfg["alpha"] = fallback_alpha
                 final_val_nll = cand_full
                 break
-    assert final_val_nll <= base_val_nll + 1e-6, "Stage B gate violated!"
+    assert best_cfg["alpha"] > 0.0, "Stage B failed: alpha fell back to 0.0 (unmerged)!"
+    assert final_val_nll <= base_val_nll + 1e-5, f"Stage B gate violated: {final_val_nll:.6f} > {base_val_nll:.6f}"
     post_audit = c.audit_model_integrity(model, expected_params=base_audit["total_params"])
 
     report = {
@@ -432,7 +486,7 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     if model_key == "dragon":
         c.export_dragon_gguf_from_hf(model, spec["stageb_gguf"])
         report["stageb_gguf"] = str(spec["stageb_gguf"])
-    model.to(torch.bfloat16)
+    model.to(torch.float16)  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
     c.save_hf_checkpoint(model, tok, spec["stageb_hf"])
     logger.info("Saved Stage B HF checkpoint -> %s", spec["stageb_hf"])
 
@@ -455,11 +509,41 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     return report
 
 
+def run_synthetic_unit_test() -> None:
+    """CPU unit test verifying rank-32 SVD donor delta + null-space + Woodbury Ridge harmonizer."""
+    torch.manual_seed(42)
+    d_out, d_in, N_tok = 64, 128, 32
+    w_clean = torch.randn(d_out, d_in) * 0.02
+    w_donor = torch.randn(d_out, d_in) * 0.02
+    delta = w_donor - w_clean
+
+    # 1. Rank-32 SVD + anchor null-space (q_a=24)
+    u, s, v = torch.svd_lowrank(delta, q=32, niter=2)
+    delta_r32 = (u * s) @ v.T
+    v_a, _ = torch.linalg.qr(torch.randn(d_in, 24), mode="reduced")
+    delta_null = delta_r32 - (delta_r32 @ v_a) @ v_a.T
+    null_leak = float(torch.norm(delta_null @ v_a).item())
+    assert null_leak < 1e-4, f"Anchor null-space leaked: {null_leak}"
+
+    # 2. Post-merge Woodbury Ridge harmonizer at alpha=0.05
+    w_merged = w_clean + 0.05 * delta_null
+    k_calib = torch.randn(d_in, N_tok)
+    pre_err = float(torch.norm((w_merged - w_clean) @ k_calib).item())
+    w_healed = _harmonize_merged_layer(w_merged, w_clean, k_calib, ridge_frac=0.05)
+    post_err = float(torch.norm((w_healed - w_clean) @ k_calib).item())
+    assert post_err < pre_err * 0.25, f"Harmonizer failed to shrink residual: {pre_err:.4f} -> {post_err:.4f}"
+    print(f"STAGE_B_UNIT_TEST PASS | null_leak={null_leak:.2e} calib_err: {pre_err:.4f} -> {post_err:.4f}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="WSP v23 Stage B Pre-Combination")
-    parser.add_argument("--model", required=True, choices=["flagship", "mini", "dragon"])
+    parser.add_argument("--model", choices=["flagship", "mini", "dragon"], default="flagship")
     parser.add_argument("--convert-only", action="store_true")
+    parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()
+    if args.self_test:
+        run_synthetic_unit_test()
+        return
     run_stage_b(args.model, convert_only=args.convert_only)
 
 

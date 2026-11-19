@@ -45,12 +45,12 @@ SOVEREIGN_CORE_PROMPT = (
     "You are Quillan-Ronin (Sovereign Hierarchical Intelligence), created by CrashOverrideX.\n"
     "Architecture: C0 Sovereign Throne + 34 Council Experts (C1-ASTRA..C34-PREDATOR) + 35 Hyper-Quantized Swarms.\n"
     "Code: Bushido (Rectitude > Courage > Benevolence > Respect > Honesty > Honor > Loyalty).\n"
-    "Track B 5-Wave Penta-Process & Web-of-Thought (WoT) Protocol:\n"
-    "Inside <think>...</think>, deliberate concisely across 5 waves:\n"
-    "1. Wave 1 (C1-ASTRA): Extract exact constraints, input/output types, units, or grid rules.\n"
-    "2. Wave 2 (C7-LOGOS / C28-CALCULUS): Derive solution step-by-step.\n"
+    "Track B 5-Wave Penta-Process, Web-of-Thought (WoT) & BPE State Protocol:\n"
+    "Inside <think>...</think>, deliberate concisely using explicit BPE markers (`track [state]`, `recall [skill]`, `commit [plan]`) across 5 waves:\n"
+    "1. Wave 1 (C1-ASTRA): `track [state]` — extract exact constraints, input/output types, units, or grid rules.\n"
+    "2. Wave 2 (C7-LOGOS / C28-CALCULUS): `recall [skill]` — apply domain axioms and derive solution step-by-step.\n"
     "3. Wave 3 (WoT Branching): Compare at least 2 candidate paths and reject flaws.\n"
-    "4. Wave 4 (C13-WARDEN / C34-PREDATOR / Nemesis-Alpha): Verify syntax, arithmetic, JSON keys, and zero donor bleed.\n"
+    "4. Wave 4 (C13-WARDEN / C34-PREDATOR / Nemesis-Alpha): `commit [plan]` — verify syntax, arithmetic, JSON keys, and zero donor bleed.\n"
     "5. Wave 5 (C0-QUILLAN / C2-VIR): Close with </think> followed by a double newline, then output ONLY the exact requested final answer."
 )
 
@@ -100,7 +100,7 @@ def load_samurai_system_prompt(system_mode: str = "sovereign_core") -> str:
 
 
 def extract_post_think(text: str) -> str:
-    """Return text strictly after the final </think> closing tag (or full text if absent)."""
+    """Return text strictly after the final </think> closing tag (or safe fallback if absent)."""
     if not text:
         return ""
     idx = text.rfind("</think>")
@@ -108,7 +108,51 @@ def extract_post_think(text: str) -> str:
         tail = text[idx + len("</think>"):].strip()
         if tail:
             return tail
+    if "<think>" in text:
+        # Unclosed <think>: only extract if an explicit terminal answer line was emitted at the very end
+        m_term = re.search(
+            r"(?:final\s+answer\s*[:=]|####\s*\$?\s*-?\d|(?:answer|option|choice)\s*(?:is|:)\s*[\*\(\[]*[A-H])\s*.*$",
+            text,
+            flags=re.IGNORECASE | re.MULTILINE,
+        )
+        return m_term.group(0).strip() if m_term else ""
     return text.strip()
+
+
+def extract_code_candidate(ans: str, entry_point: str = "", prompt_src: str = "") -> str:
+    """Extract executable Python code from fenced or unfenced model output."""
+    blocks = re.findall(r"```(?:python|py)?\s*\n([\s\S]*?)```", ans)
+    if blocks:
+        matching = [b for b in blocks if entry_point and f"def {entry_point}" in b]
+        raw = matching[0] if matching else max(blocks, key=len)
+    elif "```" in ans:
+        raw = re.sub(r"^.*?```(?:python|py)?\s*\n?", "", ans, flags=re.DOTALL).split("```")[0]
+    else:
+        idx = ans.find(f"def {entry_point}") if entry_point else -1
+        if idx == -1:
+            idx = ans.find("def ")
+        if idx != -1:
+            # Include any top-level import lines before def
+            pre_imports = [
+                ln for ln in ans[:idx].splitlines()
+                if ln.strip().startswith(("import ", "from "))
+            ]
+            raw = ("\n".join(pre_imports) + "\n" if pre_imports else "") + ans[idx:]
+        else:
+            raw = ans
+
+    clean_lines: List[str] = []
+    for ln in raw.splitlines():
+        s = ln.strip()
+        if s.startswith(("# Unit test", "# Test", "# Example", "def test_", "if __name__", "assert ", "print(")):
+            break
+        clean_lines.append(ln)
+
+    code = "\n".join(clean_lines).strip()
+    if entry_point and f"def {entry_point}" not in code and prompt_src:
+        indented = "\n".join(("    " + ln if ln.strip() else ln) for ln in clean_lines)
+        code = prompt_src.rstrip() + "\n" + indented
+    return code
 
 
 def detect_donor_bleed(text: str) -> List[str]:
@@ -193,11 +237,11 @@ def nemesis_self_check(
     cat_low = category.lower()
 
     if "humaneval" in cat_low or "code" in cat_low:
-        blocks = re.findall(r"```(?:python|py)?\s*\n([\s\S]*?)```", ans)
-        code = max(blocks, key=len) if blocks else ans
-        if entry_point and f"def {entry_point}" not in code and prompt_src:
-            indented = "\n".join(("    " + ln if ln.strip() else ln) for ln in code.splitlines())
-            code = prompt_src.rstrip() + "\n" + indented
+        code = extract_code_candidate(ans, entry_point=entry_point, prompt_src=prompt_src)
+        if not code.strip():
+            return False, (
+                f"Nemesis Gate (Empty Code): No function implementation found for `{entry_point or 'the function'}`."
+            )
         try:
             ast.parse(code)
         except SyntaxError as exc:
@@ -226,33 +270,50 @@ def nemesis_self_check(
                 f"Nemesis Gate (Arithmetic Audit): Detected calculation slip ({'; '.join(mismatches[:3])}). "
                 "Re-compute every step inside <think>...</think>\\n\\n and end with `Final answer: <number>`."
             )
-        if not re.search(r"final\s+answer\s*[:=]?\s*-?[\d,]*\.?\d+", ans, flags=re.IGNORECASE):
+        has_num_marker = bool(
+            re.search(r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*-?[\d,]*\.?\d+", ans, flags=re.IGNORECASE)
+            or re.search(r"####\s*\$?\s*-?[\d,]*\.?\d+", ans)
+            or re.search(r"\\boxed\{\s*\$?\s*-?[\d,]*\.?\d+\s*\}", ans)
+        )
+        if not has_num_marker:
             return False, (
-                "Nemesis Gate (Format): Missing `Final answer: <number>` after </think>. "
+                "Nemesis Gate (Format): Missing `Final answer: <number>` or `#### <number>` after </think>. "
                 "Output `Final answer: <number>` clearly."
             )
         return True, ""
 
     if "bfcl" in cat_low or "mcp" in cat_low or "tool" in cat_low:
-        t = re.sub(r"```(?:json)?", "", ans).replace("```", "").strip()
+        t = re.sub(r"</?tool_call>", "", ans, flags=re.IGNORECASE)
+        t = re.sub(r"```(?:json)?", "", t).replace("```", "").strip()
+        parsed_obj = None
         start = t.find("{")
-        end = t.rfind("}")
-        if start == -1 or end <= start:
+        while start != -1:
+            depth = 0
+            for i in range(start, len(t)):
+                if t[i] == "{":
+                    depth += 1
+                elif t[i] == "}":
+                    depth -= 1
+                    if depth == 0:
+                        try:
+                            cand = json.loads(t[start : i + 1])
+                            if isinstance(cand, dict):
+                                parsed_obj = cand
+                                break
+                        except json.JSONDecodeError:
+                            break
+            if parsed_obj is not None:
+                break
+            start = t.find("{", start + 1)
+        if parsed_obj is None:
             return False, (
-                "Nemesis Gate (JSON Schema): No JSON object found after </think>. "
+                "Nemesis Gate (JSON Schema): No valid JSON object found after </think>. "
                 'Output ONLY valid JSON: {"tool": ..., "arguments": {...}} or {"tool": null}.'
             )
-        try:
-            obj = json.loads(t[start : end + 1])
-            if not isinstance(obj, dict) or not any(k in obj for k in ("tool", "name", "function")):
-                return False, (
-                    "Nemesis Gate (JSON Keys): JSON missing required `tool` key. "
-                    'Output ONLY {"tool": <name_or_null>, "arguments": {...}}.'
-                )
-        except json.JSONDecodeError as exc:
+        if not any(k in parsed_obj for k in ("tool", "name", "function")):
             return False, (
-                f"Nemesis Gate (JSON Parse): Invalid JSON ({exc}). "
-                "Emit ONLY a valid JSON object after </think>."
+                "Nemesis Gate (JSON Keys): JSON missing required `tool` key. "
+                'Output ONLY {"tool": <name_or_null>, "arguments": {...}}.'
             )
         return True, ""
 
@@ -260,8 +321,10 @@ def nemesis_self_check(
     cls = f"[{valid_letters}]"
     has_letter = bool(
         re.search(rf"^\s*[\*\(\[]*({cls})[\*\)\]\.:]?\s*$", ans, flags=re.IGNORECASE)
-        or re.search(rf"(?:answer|option|choice)\s*(?:is|:)\s*[\*\(\[\s]*({cls})\b", ans, flags=re.IGNORECASE)
-        or re.search(rf"\b({cls})\)", ans)
+        or re.search(rf"(?:final\s+answer|correct\s+answer|answer|option|choice)\s*(?:is|:)?\s*(?:option\s*|choice\s*)?[\*\(\[\s]*({cls})(?![a-zA-Z])", ans, flags=re.IGNORECASE)
+        or re.search(rf"\\boxed\{{\s*({cls})\s*\}}", ans, flags=re.IGNORECASE)
+        or re.search(rf"(?:^|\s)\(({cls})\)(?:\s|$|[.,:;])", ans)
+        or re.search(rf"(?:^|\s)({cls})\)(?:\s|$|[.,:;])", ans)
     )
     if not has_letter:
         return False, (

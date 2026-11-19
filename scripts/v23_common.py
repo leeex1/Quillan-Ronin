@@ -292,6 +292,39 @@ def convert_hf_dir_to_gguf(hf_dir: Path, out_gguf: Path, outtype: str = "q8_0") 
     subprocess.run(cmd, check=True)
 
 
+def export_bitnet_gguf(
+    hf_dir_or_model: Any,
+    out_gguf: Path,
+    quant_type: str = "TQ2_0",
+    is_dragon: bool = False,
+) -> Path:
+    """
+    Exports an HF directory (or Dragon HF model) to a temporary F16 GGUF, quantizes
+    to BitNet ternary GGUF (TQ2_0 / TQ1_0) via llama-quantize.exe, and deletes
+    the temporary F16 file immediately to protect C: disk space.
+    """
+    quantize_bin = Path(r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-quantize.exe")
+    if not quantize_bin.exists():
+        raise FileNotFoundError(f"llama-quantize.exe not found at {quantize_bin}")
+    out_gguf = Path(out_gguf)
+    out_gguf.parent.mkdir(parents=True, exist_ok=True)
+    tmp_f16 = out_gguf.with_suffix(".tmp_f16.gguf")
+    try:
+        if is_dragon:
+            export_dragon_gguf_from_hf(hf_dir_or_model, tmp_f16, force_f16=True)
+        else:
+            convert_hf_dir_to_gguf(Path(hf_dir_or_model), tmp_f16, outtype="f16")
+        logger.info("Quantizing %s -> %s (%s)...", tmp_f16.name, out_gguf.name, quant_type)
+        subprocess.run([str(quantize_bin), str(tmp_f16), str(out_gguf), quant_type], check=True)
+    finally:
+        if tmp_f16.exists():
+            try:
+                tmp_f16.unlink()
+            except OSError:
+                pass
+    return out_gguf
+
+
 def copy_gguf_field(writer: gguf.GGUFWriter, key: str, field: Any) -> None:
     """Copies any GGUF KV metadata field faithfully, preserving exact scalar/array types."""
     val = field.contents()
@@ -324,11 +357,11 @@ def copy_gguf_field(writer: gguf.GGUFWriter, key: str, field: Any) -> None:
         writer.add_float64(key, float(val))
 
 
-def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path) -> None:
+def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path, force_f16: bool = False) -> None:
     """
-    Writes a patched Dragon Q8_0 GGUF preserving all 38 original BLOB_DRAGON metadata fields,
-    Falcon3 BPE tokenizer, and tensor quantization types while re-quantizing HF weights
-    (including hf_to_gguf_qk RoPE restoration on q_proj/k_proj).
+    Writes a patched Dragon GGUF preserving all 38 original BLOB_DRAGON metadata fields,
+    Falcon3 BPE tokenizer, and tensor quantization types (or F16 when force_f16=True)
+    while re-quantizing HF weights (including hf_to_gguf_qk RoPE restoration on q_proj/k_proj).
     """
     out_gguf.parent.mkdir(parents=True, exist_ok=True)
     reader = gguf.GGUFReader(str(v8.BLOB_DRAGON))
@@ -365,11 +398,14 @@ def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path) -> None:
     for t in reader.tensors:
         if t.name in hf_to_gguf_map:
             arr = np.ascontiguousarray(hf_to_gguf_map[t.name].numpy(), dtype=np.float32)
-            if t.tensor_type == gguf.GGMLQuantizationType.F32:
-                qdata = arr
+            if force_f16 and arr.ndim == 2:
+                qdata = np.ascontiguousarray(arr.astype(np.float16))
+                writer.add_tensor(t.name, qdata, raw_dtype=gguf.GGMLQuantizationType.F16)
+            elif t.tensor_type == gguf.GGMLQuantizationType.F32:
+                writer.add_tensor(t.name, arr, raw_dtype=t.tensor_type)
             else:
                 qdata = gguf.quants.quantize(arr, t.tensor_type)
-            writer.add_tensor(t.name, qdata, raw_dtype=t.tensor_type)
+                writer.add_tensor(t.name, qdata, raw_dtype=t.tensor_type)
         else:
             writer.add_tensor(t.name, t.data, raw_dtype=t.tensor_type)
 
@@ -377,7 +413,11 @@ def export_dragon_gguf_from_hf(model: torch.nn.Module, out_gguf: Path) -> None:
     writer.write_kv_data_to_file()
     writer.write_tensors_to_file()
     writer.close()
+    mmap_obj = getattr(getattr(reader, "data", None), "_mmap", None)
     del reader, sd, hf_to_gguf_map
+    gc.collect()
+    if mmap_obj is not None:
+        mmap_obj.close()
     gc.collect()
     logger.info("Wrote patched Dragon GGUF -> %s", out_gguf)
 

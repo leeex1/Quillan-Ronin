@@ -157,16 +157,30 @@ def wilson(passed: int, n: int, z: float = 1.96) -> Tuple[float, float, float]:
 
 def extract_letter(resp: str) -> Optional[str]:
     t = resp.strip()
-    for pat in (
-        r"^\(?([ABCD])\)?(?:[\).:\s]|$)",
-        r"answer\s*(?:is|:)?\s*\(?([ABCD])\b",
-        r"\b([ABCD])\)",
-        r"\(([ABCD])\)",
-        r"\b([ABCD])\b",
-    ):
-        m = re.search(pat, t, flags=re.IGNORECASE | re.MULTILINE)
-        if m:
-            return m.group(1).upper()
+    if not t:
+        return None
+    m_exact = re.match(r"^\s*[\*\(\[]*([ABCD])[\*\)\]\.:]?\s*$", t, flags=re.IGNORECASE)
+    if m_exact:
+        return m_exact.group(1).upper()
+    m_decl = re.findall(
+        r"(?:final\s+answer|correct\s+answer|best\s+answer|answer|option|choice)\s*(?:is|:)?\s*(?:option\s*|choice\s*)?[\*\(\[\s]*([ABCD])(?![a-zA-Z])",
+        t,
+        flags=re.IGNORECASE,
+    )
+    if m_decl:
+        return m_decl[-1].upper()
+    m_box = re.findall(r"\\boxed\{\s*([ABCD])\s*\}", t, flags=re.IGNORECASE)
+    if m_box:
+        return m_box[-1].upper()
+    m_paren = re.findall(r"(?:^|\s)\(([ABCD])\)(?:\s|$|[.,:;])", t)
+    if m_paren:
+        return m_paren[-1].upper()
+    m_rpar = re.findall(r"(?:^|\s)([ABCD])\)(?:\s|$|[.,:;])", t)
+    if m_rpar:
+        return m_rpar[-1].upper()
+    m_cap = re.findall(r"\b([ABCD])\b", t)
+    if m_cap:
+        return m_cap[-1]
     return None
 
 
@@ -178,9 +192,16 @@ def _to_float(s: str) -> Optional[float]:
 
 
 def extract_final_number(resp: str) -> Optional[float]:
-    m = re.findall(r"final answer\s*[:=]?\s*\$?\s*(-?[\d,]*\.?\d+)", resp, flags=re.IGNORECASE)
-    if m:
-        return _to_float(m[-1])
+    for pat in (
+        r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*(-?[\d,]*\.?\d+)",
+        r"####\s*\$?\s*(-?[\d,]*\.?\d+)",
+        r"\\boxed\{\s*\$?\s*(-?[\d,]*\.?\d+)\s*\}",
+    ):
+        m = re.findall(pat, resp, flags=re.IGNORECASE)
+        if m:
+            val = _to_float(m[-1])
+            if val is not None:
+                return val
     nums = re.findall(r"-?[\d,]*\.?\d+", resp)
     return _to_float(nums[-1]) if nums else None
 

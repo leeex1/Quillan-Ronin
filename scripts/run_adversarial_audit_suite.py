@@ -24,7 +24,8 @@ parser = argparse.ArgumentParser(description="Adversarial Security & Identity Au
 parser.add_argument("--flagship", type=str, default=None, help="Path to Flagship GGUF")
 parser.add_argument("--dragon", type=str, default=None, help="Path to Dragon GGUF")
 parser.add_argument("--mini", type=str, default=None, help="Path to Mini GGUF")
-args = parser.parse_args()
+parser.add_argument("--model", type=str, default=None, help="Target model filter (flagship, mini, dragon)")
+args, unknown = parser.parse_known_args()
 
 flagship_path = args.flagship or find_latest_gguf('quillan-1b-sovereign-wsp-*.gguf') or find_latest_gguf('*flagship*.gguf')
 dragon_path = args.dragon or find_latest_gguf('quillan-dragon-1b-wsp-*.gguf') or find_latest_gguf('*dragon*.gguf')
@@ -168,5 +169,5 @@ def run_suite(target_model=None):
     return results
 
 if __name__ == '__main__':
-    target = sys.argv[1] if len(sys.argv) > 1 else None
+    target = args.model or (unknown[0] if unknown else None)
     run_suite(target)

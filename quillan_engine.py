@@ -26,32 +26,114 @@ LLAMA_CLI_BIN = r"C:\01_PROGRAMS\Open_Source\AI_ML\llama.cpp\build\llama-cli.exe
 KEYS_FILE = os.path.join(ROOT_DIR, ".quillan_keys.json")
 
 # Active Sovereign GGUF Models (matched to C:\02_QUILLAN\exports\)
-LOCAL_MODELS = {
-    "quillan-1b-sovereign-wsp-v20-q8": {
-        "name": "Quillan-Ronin 1.2B Flagship WSP v20 (Q8_0 GGUF)",
-        "path": os.path.join(EXPORTS_DIR, "quillan-1b-sovereign-wsp-v20-q8_0.gguf"),
-        "type": "local_gguf",
-        "parameter_size": "1.2B",
-        "chat_template": "llama3",
-        "description": "WSP v20 1.2B Flagship High-Precision | 1.3 GB GGUF"
-    },
-    "quillan-mini-0.5b-wsp-v15-q8": {
-        "name": "Quillan-Ronin-Mini 0.5B WSP v15 (Q8_0 GGUF)",
-        "path": os.path.join(EXPORTS_DIR, "quillan-mini-0.5b-wsp-v15-q8_0.gguf"),
-        "type": "local_gguf",
-        "parameter_size": "0.5B",
-        "chat_template": "chatml",
-        "description": "WSP v15 0.5B Edge Mini | 531 MB GGUF"
-    },
-    "quillan-dragon-1b-wsp-v18b-q8": {
-        "name": "Quillan-Dragon Falcon-3 1B WSP v18b (Q8_0 GGUF)",
-        "path": os.path.join(EXPORTS_DIR, "quillan-dragon-1b-wsp-v18b-q8_0.gguf"),
-        "type": "local_gguf",
-        "parameter_size": "1.0B",
-        "chat_template": "chatml",
-        "description": "WSP v18b Falcon-3 1B | 1.8 GB GGUF"
+def _resolve_gguf_binary(v23_fname: str, fallback_fname: str, min_bytes: int = 100 * 1024 * 1024) -> Tuple[str, str]:
+    """Dynamically resolves v23 GGUF when present, complete, and unlocked on disk; else falls back cleanly."""
+    for fname, tag in ((v23_fname, "v23"), (fallback_fname, "legacy")):
+        full_path = os.path.join(EXPORTS_DIR, fname)
+        try:
+            if not os.path.isfile(full_path):
+                continue
+            if os.path.exists(full_path + ".tmp") or os.path.exists(full_path + ".part"):
+                continue
+            if os.path.getsize(full_path) < min_bytes:
+                continue
+            with open(full_path, "rb") as fh:
+                if fh.read(4) != b"GGUF":
+                    continue
+            return full_path, tag
+        except OSError:
+            continue
+    return os.path.join(EXPORTS_DIR, fallback_fname), "fallback"
+
+
+class _DynamicLocalModels(dict):
+    """Dictionary of local GGUF models that dynamically resolves v23 vs v20/v15/v18b paths on access."""
+
+    _SPECS = {
+        "quillan-1b-sovereign-wsp-v23-q8": {
+            "v23_file": "quillan-1b-sovereign-wsp-v23-q8_0.gguf",
+            "fallback_file": "quillan-1b-sovereign-wsp-v20-q8_0.gguf",
+            "fallback_ver": "v20",
+            "name_tpl": "Quillan-Ronin 1.2B Flagship WSP {ver} (Q8_0 GGUF)",
+            "parameter_size": "1.2B",
+            "chat_template": "llama3",
+            "desc_tpl": "WSP {ver} 1.2B Flagship High-Precision | 1.3 GB GGUF",
+        },
+        "quillan-mini-0.5b-wsp-v23-q8": {
+            "v23_file": "quillan-mini-0.5b-wsp-v23-q8_0.gguf",
+            "fallback_file": "quillan-mini-0.5b-wsp-v15-q8_0.gguf",
+            "fallback_ver": "v15",
+            "name_tpl": "Quillan-Ronin-Mini 0.5B WSP {ver} (Q8_0 GGUF)",
+            "parameter_size": "0.5B",
+            "chat_template": "chatml",
+            "desc_tpl": "WSP {ver} 0.5B Edge Mini | 531 MB GGUF",
+        },
+        "quillan-dragon-1b-wsp-v23-q8": {
+            "v23_file": "quillan-dragon-1b-wsp-v23-q8_0.gguf",
+            "fallback_file": "quillan-dragon-1b-wsp-v18b-q8_0.gguf",
+            "fallback_ver": "v18b",
+            "name_tpl": "Quillan-Dragon Falcon-3 1B WSP {ver} (Q8_0 GGUF)",
+            "parameter_size": "1.0B",
+            "chat_template": "chatml",
+            "desc_tpl": "WSP {ver} Falcon-3 1B | 1.8 GB GGUF",
+        },
     }
-}
+
+    _ALIASES = {
+        "quillan-1b-sovereign-wsp-v20-q8": "quillan-1b-sovereign-wsp-v23-q8",
+        "quillan-mini-0.5b-wsp-v15-q8": "quillan-mini-0.5b-wsp-v23-q8",
+        "quillan-dragon-1b-wsp-v18b-q8": "quillan-dragon-1b-wsp-v23-q8",
+        "quillan-flagship": "quillan-1b-sovereign-wsp-v23-q8",
+        "quillan-mini": "quillan-mini-0.5b-wsp-v23-q8",
+        "quillan-dragon": "quillan-dragon-1b-wsp-v23-q8",
+    }
+
+    def __init__(self):
+        super().__init__()
+        self.refresh()
+
+    def refresh(self) -> None:
+        for key, spec in self._SPECS.items():
+            path, status = _resolve_gguf_binary(spec["v23_file"], spec["fallback_file"])
+            ver = "v23" if status == "v23" else spec["fallback_ver"]
+            super().__setitem__(key, {
+                "name": spec["name_tpl"].format(ver=ver),
+                "path": path,
+                "active_version": ver,
+                "v23_target": os.path.join(EXPORTS_DIR, spec["v23_file"]),
+                "fallback_target": os.path.join(EXPORTS_DIR, spec["fallback_file"]),
+                "type": "local_gguf",
+                "parameter_size": spec["parameter_size"],
+                "chat_template": spec["chat_template"],
+                "description": spec["desc_tpl"].format(ver=ver),
+            })
+
+    def _canon(self, key: str) -> str:
+        return self._ALIASES.get(key, key)
+
+    def __contains__(self, key: object) -> bool:
+        if isinstance(key, str):
+            key = self._canon(key)
+        return super().__contains__(key)
+
+    def __getitem__(self, key: str) -> Dict[str, Any]:
+        self.refresh()
+        return super().__getitem__(self._canon(key))
+
+    def get(self, key: str, default: Any = None) -> Any:
+        self.refresh()
+        return super().get(self._canon(key), default)
+
+    def items(self):
+        self.refresh()
+        return super().items()
+
+    def values(self):
+        self.refresh()
+        return super().values()
+
+
+LOCAL_MODELS: Dict[str, Dict[str, Any]] = _DynamicLocalModels()
 
 # Tripartite Ollama Hub Models (aligned to canonical local Ollama rebuild tags)
 TRIPARTITE_MODELS = {
@@ -317,14 +399,17 @@ class SovereignInferenceEngine:
         if req in models:
             return req
         alias_map = {
-            "quillan-1b-sovereign-q4": "quillan-1b-sovereign-wsp-v20-q8",
-            "quillan-1b-sovereign-q8": "quillan-1b-sovereign-wsp-v20-q8",
-            "quillan-1b-sovereign-wsp-v3-q4": "quillan-1b-sovereign-wsp-v20-q8",
-            "quillan-1b-sovereign-wsp-v3-q8": "quillan-1b-sovereign-wsp-v20-q8",
-            "quillan-mini-0.5b-wsp-v3-q4": "quillan-mini-0.5b-wsp-v15-q8",
-            "quillan-mini-0.5b-wsp-v3-q8": "quillan-mini-0.5b-wsp-v15-q8",
-            "quillan-dragon-1b-wsp-v3-q4": "quillan-dragon-1b-wsp-v18b-q8",
-            "quillan-dragon-1b-wsp-v3-q8": "quillan-dragon-1b-wsp-v18b-q8",
+            "quillan-1b-sovereign-q4": "quillan-1b-sovereign-wsp-v23-q8",
+            "quillan-1b-sovereign-q8": "quillan-1b-sovereign-wsp-v23-q8",
+            "quillan-1b-sovereign-wsp-v3-q4": "quillan-1b-sovereign-wsp-v23-q8",
+            "quillan-1b-sovereign-wsp-v3-q8": "quillan-1b-sovereign-wsp-v23-q8",
+            "quillan-1b-sovereign-wsp-v20-q8": "quillan-1b-sovereign-wsp-v23-q8",
+            "quillan-mini-0.5b-wsp-v3-q4": "quillan-mini-0.5b-wsp-v23-q8",
+            "quillan-mini-0.5b-wsp-v3-q8": "quillan-mini-0.5b-wsp-v23-q8",
+            "quillan-mini-0.5b-wsp-v15-q8": "quillan-mini-0.5b-wsp-v23-q8",
+            "quillan-dragon-1b-wsp-v3-q4": "quillan-dragon-1b-wsp-v23-q8",
+            "quillan-dragon-1b-wsp-v3-q8": "quillan-dragon-1b-wsp-v23-q8",
+            "quillan-dragon-1b-wsp-v18b-q8": "quillan-dragon-1b-wsp-v23-q8",
             "quillan-ronin-1b": "quillan-ronin-flagship",
             "quillan-ronin-1b:latest": "quillan-ronin-flagship",
             "crashoverridex/Quillan-Ronin:latest": "quillan-ronin-flagship",

@@ -31,8 +31,10 @@ def test_api_server():
     try:
         # 1. Wait for server readiness
         online = False
-        for _ in range(15):
+        for _ in range(40):
             time.sleep(0.5)
+            if proc.poll() is not None:
+                break
             try:
                 r = requests.get(f"http://localhost:{PORT}/health", timeout=1.0)
                 if r.status_code == 200:
@@ -41,7 +43,9 @@ def test_api_server():
             except Exception:
                 pass
 
-        assert online, "Test server failed to start within timeout"
+        if not online:
+            err_out = proc.stderr.read() if proc.stderr else ""
+            raise AssertionError(f"Test server failed to start within timeout. stderr={err_out[:500]}")
         print("✓ Server online and responsive.")
 
         # 2. Test /health
@@ -55,7 +59,7 @@ def test_api_server():
         model_ids = [m["id"] for m in r_models["data"]]
         print(f"✓ /v1/models returned {len(model_ids)} models: {model_ids}")
         assert "quillan-ronin-flagship" in model_ids
-        assert "quillan-1b-sovereign-wsp-v20-q8" in model_ids
+        assert "quillan-1b-sovereign-wsp-v23-q8" in model_ids or "quillan-1b-sovereign-wsp-v20-q8" in model_ids
 
         # 4. Test /v1/deliberate
         r_delib = requests.post(

@@ -171,6 +171,8 @@ def repair_syntax_line(ln: str) -> str:
 
 def extract_target_function_only(resp: str, entry: str = "", prompt_src: str = "") -> str:
     """Extracts only the requested function implementation, stripping trailing unit tests or examples."""
+    if "</think>" in resp:
+        resp = resp.split("</think>")[-1].strip()
     if "... (truncated)" in resp:
         resp = resp.split("... (truncated)")[-1]
 
@@ -360,6 +362,8 @@ def exec_python_test(
 
 def extract_choice_letter(resp: str, all_choices: Optional[List[str]] = None) -> str:
     """Extracts the model's final chosen option letter (A, B, C, or D) without matching English article 'A'."""
+    if "</think>" in resp:
+        resp = resp.split("</think>")[-1]
     t = resp.strip()
     if not t:
         return ""
@@ -370,7 +374,7 @@ def extract_choice_letter(resp: str, all_choices: Optional[List[str]] = None) ->
 
     # 2. Explicit answer declarations (take the LAST match in case of CoT self-correction)
     m_decl = re.findall(
-        r"(?:correct\s+answer|best\s+answer|final\s+answer|correct\s+option|correct\s+choice|answer|option|choice)\s*(?:is|:)\s*(?:option\s*|choice\s*)?[\*\(\[\s]*([ABCD])(?![a-zA-Z])",
+        r"(?:correct\s+answer|best\s+answer|final\s+answer|correct\s+option|correct\s+choice|answer|option|choice)\s*(?:is|:)?\s*(?:option\s*|choice\s*)?[\*\(\[\s]*([ABCD])(?![a-zA-Z])",
         t,
         flags=re.IGNORECASE,
     )
@@ -428,17 +432,17 @@ def check_choice_answer(resp: str, ans_letter: str, ans_text: str = "", all_choi
 
 def extract_gsm8k_number(resp: str) -> str:
     """Extracts the final numeric answer from a GSM8K response."""
+    if "</think>" in resp:
+        resp = resp.split("</think>")[-1]
     clean_resp = resp.replace(",", "")
-    m_final = re.findall(
+    for pat in (
         r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*(-?\d+(?:\.\d+)?)",
-        clean_resp,
-        flags=re.IGNORECASE,
-    )
-    if m_final:
-        return m_final[-1]
-    m_box = re.findall(r"\\boxed\{\s*\$?\s*(-?\d+(?:\.\d+)?)\s*\}", clean_resp)
-    if m_box:
-        return m_box[-1]
+        r"####\s*\$?\s*(-?\d+(?:\.\d+)?)",
+        r"\\boxed\{\s*\$?\s*(-?\d+(?:\.\d+)?)\s*\}",
+    ):
+        m_final = re.findall(pat, clean_resp, flags=re.IGNORECASE)
+        if m_final:
+            return m_final[-1]
     nums = re.findall(r"-?\d+(?:\.\d+)?", clean_resp)
     return nums[-1] if nums else ""
 
@@ -447,17 +451,18 @@ def check_gsm8k_answer(resp: str, target_num: str) -> bool:
     clean_resp = resp.replace(",", "")
     if not target_num:
         return False
-    m_final = re.findall(
+    for pat in (
         r"(?:final\s+answer|answer)\s*(?:is|[:=])?\s*[\*\$]*\s*(-?\d+(?:\.\d+)?)",
-        clean_resp,
-        flags=re.IGNORECASE,
-    )
-    if m_final:
-        try:
-            if abs(float(m_final[-1]) - float(target_num)) < 1e-5:
-                return True
-        except ValueError:
-            pass
+        r"####\s*\$?\s*(-?\d+(?:\.\d+)?)",
+        r"\\boxed\{\s*\$?\s*(-?\d+(?:\.\d+)?)\s*\}",
+    ):
+        m_final = re.findall(pat, clean_resp, flags=re.IGNORECASE)
+        if m_final:
+            try:
+                if abs(float(m_final[-1]) - float(target_num)) < 1e-5:
+                    return True
+            except ValueError:
+                pass
     return bool(re.search(rf"(?<![\d.]){re.escape(target_num)}(?![\d.])", clean_resp))
 
 

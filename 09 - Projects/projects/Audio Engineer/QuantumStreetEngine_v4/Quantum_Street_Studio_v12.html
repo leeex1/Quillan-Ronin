@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quantum Street Studio v12 — Deep Tune</title>
+<style>
+  :root{--bg:#09090b;--panel:#18181b;--edge:#3f3f46;--cyan:#22d3ee;--emerald:#34d399;--amber:#fbbf24;--rose:#fb7185;--violet:#a78bfa;--txt:#e4e4e7;--dim:#a1a1aa}
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#09090b,#111113);color:var(--txt);font:13px/1.4 ui-monospace,SFMono-Regular,Consolas,monospace}
+  .wrap{max-width:1240px;margin:0 auto;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #27272a;padding-bottom:12px;margin-bottom:12px}
+  h1{font-size:17px;letter-spacing:2px;margin:0;color:#fff}
+  .tag{font-size:10px;color:var(--cyan);border:1px solid #155e75;background:#083344;padding:2px 6px;border-radius:4px;margin-left:8px}
+  .sub{font-size:10px;color:var(--dim);margin-top:3px}
+  .btn{background:#27272a;color:var(--txt);border:1px solid var(--edge);border-radius:6px;padding:7px 11px;font:inherit;font-size:11px;cursor:pointer;transition:.15s}
+  .btn:hover{background:#3f3f46}
+  .btn.primary{background:var(--cyan);color:#000;border-color:var(--cyan);font-weight:bold}
+  .btn.green{background:var(--emerald);color:#000;border-color:var(--emerald);font-weight:bold}
+  .btn.warn{background:#7f1d1d;color:#fecaca;border-color:#991b1b}
+  .btn.on{background:var(--amber);color:#000;border-color:var(--amber);font-weight:bold}
+  .btn:disabled{opacity:.4;cursor:not-allowed}
+  .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:#18181b;border:1px solid #27272a;border-radius:8px;padding:8px 10px;margin-bottom:10px;flex-wrap:wrap}
+  .meters{display:flex;gap:16px;align-items:center;background:#0c0c0e;border:1px solid #27272a;border-radius:8px;padding:8px 10px;margin-bottom:10px;flex-wrap:wrap}
+  .meter{width:190px}
+  .meter .lab{display:flex;justify-content:space-between;font-size:10px;color:var(--dim);margin-bottom:3px}
+  .bar{height:8px;background:#27272a;border-radius:4px;overflow:hidden;position:relative}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,#0891b2,#22d3ee,#34d399);transition:width .05s linear}
+  .hold{position:absolute;top:0;height:100%;border-left:2px solid #fff}
+  .readout{font-size:10px;color:var(--dim);display:flex;gap:14px;flex-wrap:wrap}
+  .readout b{color:var(--cyan)}
+  canvas{width:100%;height:96px;background:#0c0c0e;border:1px solid #27272a;border-radius:8px;display:block;margin-bottom:10px}
+  .report{background:#0c0c0e;border:1px solid #155e75;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:11px;display:none}
+  .report h3{margin:0 0 6px;font-size:12px;color:var(--cyan);letter-spacing:1px}
+  .report ul{margin:4px 0 0 16px;padding:0;color:var(--dim)}
+  .report li{margin:2px 0}
+  .report .verdict{color:var(--emerald);font-weight:bold}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .panel{background:linear-gradient(180deg,#18181b,#111113);border:1px solid #27272a;border-radius:8px;padding:10px}
+  .panel h2{font-size:11px;letter-spacing:1px;margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid #27272a;color:var(--cyan)}
+  .ctl{margin-bottom:9px}
+  .ctl .top{display:flex;justify-content:space-between;font-size:10px;margin-bottom:2px}
+  .ctl .top span:first-child{color:var(--dim)}
+  .ctl .top span:last-child{color:var(--emerald);font-weight:bold}
+  .ctl.changed{background:rgba(251,191,36,.10);border-radius:4px;box-shadow:inset 2px 0 0 var(--amber)}
+  .ctl.changed .top span:last-child{color:var(--amber)}
+  select.bg{background:#18181b;color:var(--txt);border:1px solid var(--edge);border-radius:6px;padding:6px 8px;font:inherit;font-size:10px}
+  .finding{border:1px solid #27272a;border-left:3px solid var(--cyan);background:#111113;border-radius:6px;padding:8px 10px;margin:6px 0}
+  .finding.ignored{opacity:.5;border-left-color:#71717a}
+  .finding.applied{border-left-color:var(--emerald)}
+  .finding .fh{display:flex;justify-content:space-between;gap:8px;font-size:11px}
+  .finding .fd{font-size:10px;color:var(--dim);margin:3px 0 6px}
+  .finding .conf{color:var(--amber);font-size:9px}
+  .finding button{font-size:9px;padding:3px 8px;margin-right:5px}
+  .pass{font-size:10px;color:var(--emerald);margin-top:3px}
+  input[type=range]{width:100%;height:16px;accent-color:var(--cyan);cursor:pointer}
+  .hint{font-size:9px;color:#71717a;margin-top:-4px}
+  footer{font-size:10px;color:#71717a;text-align:center;margin:14px 0 4px}
+  @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>QUANTUM STREET STUDIO <span class="tag">V12 · DEEP TUNE</span></h1>
+      <div class="sub">24 precision controls + 7 assistant EQ bands · reference matching · self-checking passes · phase-tunneled 808s</div>
+    </div>
+    <div class="row">
+      <button class="btn" id="loadBtn">LOAD AUDIO</button>
+      <input type="file" id="file" accept="audio/*" hidden />
+      <button class="btn green" id="playBtn" disabled>PLAY</button>
+      <button class="btn" id="bypassBtn">DSP ACTIVE</button>
+      <button class="btn primary" id="smartBtn" disabled>SMART MIX</button>
+      <button class="btn green" id="fullBtn" disabled>FULL MIX &amp; MASTER</button>
+      <button class="btn" id="exportBtn" disabled>EXPORT WAV</button>
+    </div>
+  </header>
+
+  <div class="strip" id="statusBar" style="border-color:#155e75;color:var(--emerald)">READY · load a track, then FULL MIX &amp; MASTER</div>
+  <div class="strip">
+    <div class="row" id="presets"></div>
+    <div class="row">
+      <span class="sub">TARGET</span>
+      <select class="bg" id="targetSel">
+        <option value="genre" selected>Genre norm (auto)</option>
+        <option value="streaming">Streaming · −14 LUFS</option>
+        <option value="club">Club · −9 LUFS</option>
+        <option value="broadcast">Broadcast · −16 LUFS</option>
+        <option value="youtube">YouTube · −13 LUFS</option>
+        <option value="lofi">Lo‑fi · −18 LUFS</option>
+      </select>
+      <span class="sub">GENRE</span>
+      <select class="bg" id="genreSel">
+        <option value="generic" selected>Generic / unclassified</option>
+        <option value="trap">Trap / 808</option>
+        <option value="hiphop">Hip-hop</option>
+        <option value="pop">Pop / R&amp;B</option>
+        <option value="rock">Rock</option>
+        <option value="edm">EDM / Club</option>
+        <option value="acoustic">Acoustic / Jazz</option>
+      </select>
+      <span class="sub">STYLE</span>
+      <select class="bg" id="styleSel">
+        <option value="auto" selected>Auto (from track)</option>
+        <option value="trap">Trap / 808-heavy</option>
+        <option value="vocal">Vocal Pop / R&amp;B</option>
+        <option value="rock">Rock</option>
+        <option value="edm">EDM / Club</option>
+        <option value="lofi">Lo‑fi</option>
+      </select>
+      <button class="btn" id="refBtn" disabled>LOAD REFERENCE</button>
+      <input type="file" id="refFile" accept="audio/*" hidden />
+      <span class="sub" id="refName" style="color:var(--violet)">no reference</span>
+    </div>
+    <div class="row">
+      <span id="trackName" style="color:var(--dim);font-size:10px">No track loaded</span>
+      <span class="sub" id="targetLabel">TARGET: −14 LUFS · −1.0 dBTP</span>
+    </div>
+  </div>
+
+  <div class="meters">
+    <div class="meter">
+      <div class="lab"><span>OUT L / dBFS</span><span id="clipL">−∞</span></div>
+      <div class="bar"><div class="fill" id="barL"></div><div class="hold" id="holdL"></div></div>
+    </div>
+    <div class="meter">
+      <div class="lab"><span>OUT R / dBFS</span><span id="clipR">−∞</span></div>
+      <div class="bar"><div class="fill" id="barR"></div><div class="hold" id="holdR"></div></div>
+    </div>
+    <div class="readout">
+      <span style="color:var(--amber)">SOURCE ·</span>
+      <span>LUFS <b id="mLufs">—</b></span>
+      <span>PEAK <b id="mPeak">—</b></span>
+      <span>SUB <b id="mSub">—</b></span>
+      <span>MUD <b id="mMud">—</b></span>
+      <span>AIR <b id="mAir">—</b></span>
+      <span>WIDTH <b id="mWidth">—</b></span>
+      <span style="color:var(--emerald)">| LIVE OUT ·</span>
+      <span>RMS <b id="mOut">—</b></span>
+      <span>PK <b id="mOutPk">—</b></span>
+    </div>
+  </div>
+
+  <canvas id="scope" width="1200" height="96"></canvas>
+  <div class="report" id="report"></div>
+  <div class="grid" id="panels"></div>
+  <footer>CRASHOVERRIDX · DIGITAL RONIN · QUANTUM STREET ENGINE V4 · AGPL-3.0</footer>
+</div>
+
+<audio id="player"></audio>
+<script>
+"use strict";
+
+/* ============================ PARAMETER MODEL ============================ */
+const GROUPS = [
+  { title:"1. PRE-STAGE", color:"#22d3ee", params:[
+    { k:"inputTrim",   label:"Input Trim",   min:-12,  max:12,   step:.5,  def:0,   unit:"dB", hint:"Drive into the chain"},
+    { k:"lowCutFreq",  label:"Low Cut",      min:20,   max:45,   step:1,   def:28,  unit:"Hz", hint:"Sub-20 Hz rumble filter"},
+    { k:"preDrive",    label:"Pre-Limit Drive",min:-12, max:12,   step:.5,  def:0,   unit:"dB", hint:"Gain into the glue + limiter (not final trim)"},
+  ]},
+  { title:"2. 808 TUNNELING", color:"#34d399", params:[
+    { k:"subCrossover",   label:"Crossover",    min:60,  max:160, step:1, def:110, unit:"Hz", hint:"Sub/main split"},
+    { k:"subTunnelDrive", label:"Tunnel Drive", min:0,   max:100, step:1, def:55,  unit:"%",  hint:"Saturation that cuts through phase cancellation"},
+    { k:"subTightness",   label:"Tightness",    min:0,   max:100, step:1, def:50,  unit:"%",  hint:"Mono collapse of the sub band"},
+    { k:"subTrim",        label:"Sub Trim",     min:-6,  max:6,   step:.5, def:2.5, unit:"dB", hint:"808 level"},
+  ]},
+  { title:"3. DE-MUD SURGERY", color:"#22d3ee", params:[
+    { k:"mudFreq", label:"Mud Center", min:180, max:450, step:5,   def:280,  unit:"Hz", hint:"Where boxiness lives"},
+    { k:"mudDip",  label:"Mud Cut",    min:-9,  max:0,   step:.5,  def:-3.5, unit:"dB"},
+    { k:"mudQ",    label:"Mud Q",      min:.7,  max:4,   step:.1,  def:1.8,  unit:""},
+    { k:"boxDip",  label:"Box Cut",    min:-6,  max:0,   step:.5,  def:-2.0, unit:"dB", hint:"520 Hz cardboard"},
+  ]},
+  { title:"4. PRESENCE & VOCAL", color:"#a78bfa", params:[
+    { k:"presenceFreq", label:"Presence Hz", min:2000, max:6000, step:100, def:3400, unit:"Hz"},
+    { k:"presenceGain", label:"Presence Lift",min:-4,  max:6,   step:.5,  def:2.0,  unit:"dB"},
+    { k:"presenceQ",    label:"Band Q",      min:.5,   max:3,   step:.1,  def:1.2,  unit:""},
+  ]},
+  { title:"5. SHOR AIR SHIMMER", color:"#fbbf24", params:[
+    { k:"airShelfFreq", label:"Air Shelf", min:8000, max:16000, step:500, def:11000, unit:"Hz"},
+    { k:"airBoost",     label:"Air Boost", min:-2,   max:8,     step:.5,  def:3.5,   unit:"dB"},
+    { k:"shorExciter",  label:"Exciter",   min:0,    max:100,   step:1,   def:40,    unit:"%"},
+    { k:"highSmooth",   label:"De-Harsh",  min:0,    max:100,   step:1,   def:15,    unit:"%", hint:"Tames 10 kHz+ glare"},
+  ]},
+  { title:"6. SERIAL COMP A · PEAKS", color:"#fb7185", params:[
+    { k:"compThresh",  label:"A Thresh",    min:-30, max:0,   step:1,   def:-10,  unit:"dB", hint:"Fast peak catcher — 3–6 dB on loudest hits"},
+    { k:"compRatio",   label:"A Ratio",     min:1.2, max:8,   step:.2,  def:3.0,  unit:":1"},
+    { k:"compAttack",  label:"A Attack",    min:1,   max:30,  step:1,   def:5,    unit:"ms", hint:"Fast — catches peaks before stage B"},
+    { k:"compRelease", label:"A Release",   min:20,  max:200, step:5,   def:60,   unit:"ms"},
+  ]},
+  { title:"7. SERIAL COMP B · SUSTAIN", color:"#fb7185", params:[
+    { k:"comp2Thresh", label:"B Thresh",  min:-30, max:0,   step:.5, def:-18, unit:"dB", hint:"Slow, low-ratio glue after the peak catcher"},
+    { k:"comp2Ratio",  label:"B Ratio",   min:1,   max:4,   step:.1, def:1.8, unit:":1"},
+    { k:"comp2Attack", label:"B Attack",  min:10,  max:120, step:1,  def:30,  unit:"ms", hint:"Slow enough to pass transients"},
+    { k:"comp2Release",label:"B Release", min:100, max:600, step:10, def:250, unit:"ms"},
+  ]},
+  { title:"8. BRICKWALL", color:"#fb7185", params:[
+    { k:"masterOutGain",   label:"Output Trim", min:0,    max:10,  step:.5,  def:3.0,  unit:"dB"},
+    { k:"truePeakCeiling", label:"TP Ceiling",  min:-3.0, max:-0.1,step:.1,  def:-1.0, unit:"dBTP"},
+    { k:"softClipKnee",    label:"Soft Knee",   min:0,    max:100, step:1,   def:40,   unit:"%"},
+  ]},
+  { title:"9. SPACE &amp; WIDTH", color:"#38bdf8", params:[
+    { k:"spaceWet",   label:"Glue Reverb",  min:0,  max:20,  step:.5, def:10,   unit:"%",  hint:"Feel it, don't hear it — ~10 % is typical"},
+    { k:"spaceSize",  label:"Room Size",    min:.08,max:.5,   step:.01,def:.20,  unit:"s",   hint:"Short master-room tail"},
+    { k:"spaceTone",  label:"Reverb HP",    min:100,max:2000, step:25, def:550,  unit:"Hz",  hint:"Abbey Road trick: HP the tail at ~550 Hz"},
+    { k:"spaceLP",    label:"Reverb LP",    min:3000,max:16000,step:100,def:6500, unit:"Hz",  hint:"LP the tail at ~6.5 kHz to tame glare"},
+    { k:"stereoWidth",label:"Stereo Width", min:0,  max:130, step:1,  def:104, unit:"%", hint:"Single digits only; 100 = original"},
+    { k:"tapeDrive",  label:"Tape Sheen",   min:0,  max:100, step:1,  def:12,  unit:"%", hint:"Gentle whole-mix harmonic saturation"},
+  ]},
+  { title:"11. ARTIFACT SCRUB · AUDIBLE", color:"#f59e0b", params:[
+    { k:"deToneFreq",  label:"Notch Freq",   min:0,    max:12000,step:10, def:0,    unit:"Hz", hint:"0 = off · audible hum/whistle"},
+    { k:"deToneDepth", label:"Notch Depth",  min:0,    max:12,   step:.5, def:6,    unit:"dB", hint:"Cut depth at the notch"},
+    { k:"deSess",      label:"HF Tame",      min:0,    max:8,    step:.5, def:0,    unit:"dB", hint:"Tame audible sibilance/chirp spikes"},
+    { k:"hpRumble",    label:"Rumble HP",    min:20,   max:60,   step:1,  def:28,   unit:"Hz", hint:"Remove inaudible sub-rumble"},
+  ]},
+];
+
+const DEFS = {};
+const ORDER = [];
+GROUPS.forEach(g => g.params.forEach(p => { DEFS[p.k] = p; ORDER.push(p.k); }));
+if (ORDER.length !== 39) console.error("Expected 39 controls, got", ORDER.length);
+
+const PRESETS = {
+  "808 Heavy / Trap": { inputTrim:0, lowCutFreq:28, subCrossover:110, subTunnelDrive:55, subTightness:70, subTrim:2.5, mudFreq:280, mudDip:-3.5, mudQ:1.8, boxDip:-2, presenceFreq:3400, presenceGain:2, presenceQ:1.2, airShelfFreq:11000, airBoost:3.5, shorExciter:40, highSmooth:15, compThresh:-14, compRatio:3.2, compAttack:25, compRelease:120, masterOutGain:3, truePeakCeiling:-0.8, softClipKnee:40 },
+  "Vocal Pop & R&B":  { inputTrim:-1, lowCutFreq:32, subCrossover:90, subTunnelDrive:20, subTightness:45, subTrim:.5, mudFreq:320, mudDip:-2, mudQ:1.5, boxDip:-1.5, presenceFreq:4200, presenceGain:3, presenceQ:1.5, airShelfFreq:12000, airBoost:4.5, shorExciter:30, highSmooth:20, compThresh:-10, compRatio:2.2, compAttack:40, compRelease:80, masterOutGain:2, truePeakCeiling:-1.0, softClipKnee:55 },
+  "Texas Rock":       { inputTrim:1, lowCutFreq:35, subCrossover:85, subTunnelDrive:30, subTightness:55, subTrim:1, mudFreq:350, mudDip:-4, mudQ:2, boxDip:-3, presenceFreq:2800, presenceGain:2.5, presenceQ:1, airShelfFreq:9500, airBoost:2, shorExciter:25, highSmooth:25, compThresh:-16, compRatio:4, compAttack:15, compRelease:150, masterOutGain:2.5, truePeakCeiling:-0.5, softClipKnee:35 },
+  "EDM / Club":       { inputTrim:1, lowCutFreq:30, subCrossover:120, subTunnelDrive:60, subTightness:80, subTrim:3, mudFreq:250, mudDip:-3, mudQ:1.6, boxDip:-1, presenceFreq:5000, presenceGain:2.5, presenceQ:1.8, airShelfFreq:13000, airBoost:5, shorExciter:50, highSmooth:10, compThresh:-15, compRatio:3.5, compAttack:30, compRelease:100, masterOutGain:3.5, truePeakCeiling:-0.3, softClipKnee:50 },
+  "Transparent Mastering": { inputTrim:0, lowCutFreq:25, subCrossover:80, subTunnelDrive:10, subTightness:30, subTrim:0, mudFreq:300, mudDip:-1.5, mudQ:1, boxDip:-1, presenceFreq:3000, presenceGain:1, presenceQ:1, airShelfFreq:10000, airBoost:1.5, shorExciter:10, highSmooth:12, compThresh:-8, compRatio:1.8, compAttack:50, compRelease:100, masterOutGain:1.5, truePeakCeiling:-1.0, softClipKnee:30 },
+};
+
+const TARGETS = {
+  streaming:{lufs:-14, ceiling:-1.0}, club:{lufs:-9, ceiling:-0.3},
+  broadcast:{lufs:-16, ceiling:-1.0}, youtube:{lufs:-13, ceiling:-1.0},
+  lofi:{lufs:-18, ceiling:-1.5}
+};
+const STYLES = {
+  auto:{sub:0,mud:0,pres:0,air:0}, trap:{sub:4,mud:-1,pres:0,air:1},
+  vocal:{sub:-1,mud:-1,pres:3,air:2}, rock:{sub:0,mud:-2,pres:2,air:0},
+  edm:{sub:3,mud:-1,pres:1,air:3}, lofi:{sub:1,mud:2,pres:-2,air:-3}
+};
+const GENRE = {
+  trap:    {lufs:-8, plr:7,  lra:5},
+  hiphop:  {lufs:-9, plr:7,  lra:5},
+  pop:     {lufs:-9, plr:9,  lra:6},
+  rock:    {lufs:-9, plr:9,  lra:7},
+  edm:     {lufs:-8, plr:7,  lra:5},
+  acoustic:{lufs:-16,plr:13, lra:10},
+  generic: {lufs:-14,plr:10, lra:7}
+};
+const ASSIST_BANDS = [60,150,300,800,2500,6000,12000];
+const ASSIST_EQ = [0,0,0,0,0,0,0];
+let currentTarget = "streaming", currentStyle = "auto", currentGenre = "generic";
+let lastReport = null;
+let refBuffer = null, refMetrics = null, refName = "", findings = [], passLog = [];
+let prefs = {};
+try { prefs = JSON.parse(localStorage.getItem("qsePrefs") || "{}"); } catch (e) { prefs = {}; }
+const savePrefs = () => { try { localStorage.setItem("qsePrefs", JSON.stringify(prefs)); } catch (e) {} };
+const getTarget = () => TARGETS[currentTarget] || TARGETS.streaming;
+const getStyle  = () => STYLES[currentStyle] || STYLES.auto;
+
+const S = {};
+ORDER.forEach(k => S[k] = DEFS[k].def);
+let bypass = false;
+let audioCtx = null, nodes = null, rawBuffer = null, sourceNode = null;
+const audioEl = document.getElementById("player");
+const $ = id => document.getElementById(id);
+
+/* ============================ UI BUILD ============================ */
+function buildUI(){
+  const host = $("panels");
+  GROUPS.forEach(g => {
+    const el = document.createElement("div");
+    el.className = "panel";
+    el.innerHTML = `<h2 style="color:${g.color}">${g.title}</h2>`;
+    g.params.forEach(p => {
+      const wrap = document.createElement("div");
+      wrap.className = "ctl";
+      wrap.innerHTML = `<div class="top"><span>${p.label}</span><span id="v_${p.k}">${fmt(p, p.def)}</span></div>
+        <input type="range" id="s_${p.k}" min="${p.min}" max="${p.max}" step="${p.step}" value="${p.def}" />
+        ${p.hint ? `<div class="hint">${p.hint}</div>` : ""}`;
+      el.appendChild(wrap);
+      const slider = wrap.querySelector("input");
+      slider.addEventListener("input", () => {
+        S[p.k] = parseFloat(slider.value);
+        $("v_" + p.k).textContent = fmt(p, S[p.k]);
+        syncParams(true);
+      });
+    });
+    host.appendChild(el);
+  });
+  const eqPanel = document.createElement("div");
+  eqPanel.className = "panel";
+  eqPanel.innerHTML = '<h2 style="color:#f472b6">10. ASSISTANT EQ · REFERENCE MATCH</h2>';
+  ASSIST_BANDS.forEach((hz, i) => {
+    const wrap = document.createElement("div");
+    wrap.className = "ctl";
+    wrap.innerHTML = `<div class="top"><span>${hz >= 1000 ? (hz/1000)+" kHz" : hz+" Hz"}</span><span id="v_eq${i}">0.0 dB</span></div>
+      <input type="range" id="eq_${i}" min="-12" max="12" step="0.5" value="0" />`;
+    eqPanel.appendChild(wrap);
+    const sl = wrap.querySelector("input");
+    sl.addEventListener("input", () => {
+      ASSIST_EQ[i] = parseFloat(sl.value);
+      $("v_eq" + i).textContent = (ASSIST_EQ[i] > 0 ? "+" : "") + ASSIST_EQ[i].toFixed(1) + " dB";
+      syncParams(true);
+    });
+  });
+  host.appendChild(eqPanel);
+
+  Object.keys(PRESETS).forEach(name => {
+    const b = document.createElement("button");
+    b.className = "btn"; b.textContent = name; b.dataset.preset = name;
+    b.onclick = () => applyPreset(name);
+    $("presets").appendChild(b);
+  });
+}
+function fmt(p, v){
+  const n = p.step < 1 ? (p.step < .1 ? 2 : 1) : 0;
+  return `${v.toFixed(n)}${p.unit ? " " + p.unit : ""}`;
+}
+function applyPreset(name){
+  const p = PRESETS[name]; if(!p) return;
+  Object.keys(p).forEach(k => {
+    if(!(k in S)) return;
+    S[k] = p[k];
+    const s = $("s_" + k); if(s) s.value = p[k];
+    const v = $("v_" + k); if(v) v.textContent = fmt(DEFS[k], p[k]);
+  });
+  [...$("presets").children].forEach(b => b.classList.toggle("primary", b.dataset.preset === name));
+  syncParams(true);
+  log("Applied preset: " + name);
+}
+
+/* ============================ DSP GRAPH ============================ */
+function makeCurve(kind, amount){
+  const n = 1024, c = new Float32Array(n);
+  for(let i=0;i<n;i++){
+    const x = (i*2)/n - 1;
+    if(kind === "sub") c[i] = Math.tanh(x * (1 + amount*.05));
+    else if(kind === "exciter") c[i] = x + (amount/100)*.15*x*x*x;
+    else if(kind === "clip") c[i] = Math.tanh(x*(1 + (amount/100)*1.3));
+    else if(kind === "tape") c[i] = Math.tanh(x*(1 + (amount/100)*0.35));
+    else c[i] = x;
+  }
+  return c;
+}
+let lastIRKey = "";
+function makeIR(ctx, seconds, hpHz){
+  const sr=ctx.sampleRate, len=Math.max(1,Math.floor(sr*seconds));
+  const buf=ctx.createBuffer(2,len,sr);
+  for(let c=0;c<2;c++){
+    const d=buf.getChannelData(c);
+    let lp=0; const a=1-Math.exp(-2*Math.PI*hpHz/sr);
+    for(let i=0;i<len;i++){
+      const t=i/len, env=Math.pow(1-t,2.8);
+      const n=Math.random()*2-1;
+      lp+=a*(n-lp);
+      d[i]=(n-lp)*env;
+    }
+    [0.009,0.017,0.029,0.043].forEach((ms,k)=>{
+      const idx=Math.floor(sr*ms*(c?1.07:1));
+      if(idx<len) d[idx]+=(k%2?-1:1)*0.3;
+    });
+    let e=0; for(let i=0;i<len;i++) e+=d[i]*d[i];
+    const norm=0.8/Math.sqrt(e+1e-12);
+    for(let i=0;i<len;i++) d[i]*=norm;
+  }
+  return buf;
+}
+function buildGraph(){
+  if(nodes) return nodes;
+  const ctx = new AudioContext();
+  audioCtx = ctx;
+  sourceNode = ctx.createMediaElementSource(audioEl);
+
+  const inGain = ctx.createGain();
+  const scrubHP = ctx.createBiquadFilter(); scrubHP.type="highpass"; scrubHP.Q.value=.707;
+  const notch = ctx.createBiquadFilter(); notch.type="peaking"; notch.Q.value=8;
+  const hfTame = ctx.createBiquadFilter(); hfTame.type="peaking"; hfTame.frequency.value=6000; hfTame.Q.value=1;
+  const rumble = ctx.createBiquadFilter(); rumble.type = "highpass"; rumble.Q.value = .707;
+
+  const split = ctx.createChannelSplitter(2);
+  const subLP = ctx.createBiquadFilter(); subLP.type = "lowpass"; subLP.Q.value = .707;
+  const subShaper = ctx.createWaveShaper(); subShaper.oversample = "2x";
+  const subGain = ctx.createGain();
+  const subSplit = ctx.createChannelSplitter(2);
+
+  const chainL = [], chainR = [];
+  for(let c=0;c<2;c++){
+    const mud = ctx.createBiquadFilter(); mud.type = "peaking";
+    const box = ctx.createBiquadFilter(); box.type = "peaking"; box.frequency.value = 520; box.Q.value = 2;
+    const pres = ctx.createBiquadFilter(); pres.type = "peaking";
+    const smooth = ctx.createBiquadFilter(); smooth.type = "lowpass"; smooth.Q.value = .707;
+    const shelf = ctx.createBiquadFilter(); shelf.type = "highshelf";
+    const exc = ctx.createWaveShaper(); exc.oversample = "2x";
+    const eq = ASSIST_BANDS.map(hz => { const f=ctx.createBiquadFilter();
+      f.type="peaking"; f.frequency.value=hz; f.Q.value=1.2; return f; });
+    const g = ctx.createGain();
+    chainL.push({mud,box,pres,smooth,shelf,exc,eq,g});
+    const mud2 = ctx.createBiquadFilter(); mud2.type = "peaking";
+    const box2 = ctx.createBiquadFilter(); box2.type = "peaking"; box2.frequency.value = 520; box2.Q.value = 2;
+    const pres2 = ctx.createBiquadFilter(); pres2.type = "peaking";
+    const smooth2 = ctx.createBiquadFilter(); smooth2.type = "lowpass"; smooth2.Q.value = .707;
+    const shelf2 = ctx.createBiquadFilter(); shelf2.type = "highshelf";
+    const exc2 = ctx.createWaveShaper(); exc2.oversample = "2x";
+    const eq2 = ASSIST_BANDS.map(hz => { const f=ctx.createBiquadFilter();
+      f.type="peaking"; f.frequency.value=hz; f.Q.value=1.2; return f; });
+    const g2 = ctx.createGain();
+    chainR.push({mud:mud2,box:box2,pres:pres2,smooth:smooth2,shelf:shelf2,exc:exc2,eq:eq2,g:g2});
+  }
+
+  const merge = ctx.createChannelMerger(2);
+  const preGain = ctx.createGain();
+  const glue = ctx.createDynamicsCompressor(); glue.knee.value = 6;
+  const glue2 = ctx.createDynamicsCompressor(); glue2.knee.value = 4;
+  // Web Audio's DynamicsCompressor applies an undisclosed makeup gain (~+4.5 dB).
+  // Cancel it explicitly so the console's gain staging is predictable.
+  const glueComp = ctx.createGain(); glueComp.gain.value = 0.596;
+  const revHP = ctx.createBiquadFilter(); revHP.type="highpass";
+  const revLP = ctx.createBiquadFilter(); revLP.type="lowpass";
+  const conv = ctx.createConvolver(); conv.normalize=false;
+  const revWet = ctx.createGain();
+  const spaceOut = ctx.createGain();
+  const wSplit = ctx.createChannelSplitter(2), wMerge = ctx.createChannelMerger(2);
+  const gLL=ctx.createGain(), gLR=ctx.createGain(), gRL=ctx.createGain(), gRR=ctx.createGain();
+  const tape = ctx.createWaveShaper(); tape.oversample="2x";
+  const clip = ctx.createWaveShaper(); clip.oversample = "4x";
+  const limiter = ctx.createDynamicsCompressor(); limiter.knee.value = .2; limiter.ratio.value = 20;
+  limiter.attack.value = .001; limiter.release.value = .05;
+  const limComp = ctx.createGain(); limComp.gain.value = 0.596;
+  const outGain = ctx.createGain();
+  const analyser = ctx.createAnalyser(); analyser.fftSize = 2048;
+  const wet = ctx.createGain(), dry = ctx.createGain();
+
+  sourceNode.connect(inGain); inGain.connect(scrubHP); scrubHP.connect(notch); notch.connect(rumble);
+  rumble.connect(split);
+  split.connect(subLP, 0);
+  subLP.connect(subShaper); subShaper.connect(subGain); subGain.connect(subSplit);
+  subSplit.connect(merge, 0, 0); subSplit.connect(merge, 1, 1);
+
+  [chainL[0], chainR[0]].forEach((ch, i) => {
+    split.connect(ch.mud, i);
+    ch.mud.connect(ch.box); ch.box.connect(ch.pres); ch.pres.connect(ch.smooth);
+    ch.smooth.connect(ch.shelf); ch.shelf.connect(ch.exc);
+    for(let b=0;b<7;b++){
+      if(b===0) ch.exc.connect(ch.eq[b]); else ch.eq[b-1].connect(ch.eq[b]);
+    }
+    ch.eq[6].connect(ch.g);
+    ch.g.connect(merge, 0, i);
+  });
+
+  merge.connect(wSplit);
+  wSplit.connect(gLL,0); gLL.connect(wMerge,0,0);
+  wSplit.connect(gRL,1); gRL.connect(wMerge,0,0);
+  wSplit.connect(gLR,0); gLR.connect(wMerge,0,1);
+  wSplit.connect(gRR,1); gRR.connect(wMerge,0,1);
+  wMerge.connect(preGain); preGain.connect(glue); glue.connect(glue2); glue2.connect(glueComp);
+  glueComp.connect(spaceOut);
+  glueComp.connect(revHP); revHP.connect(conv); conv.connect(revLP);
+  revLP.connect(revWet); revWet.connect(spaceOut);
+  spaceOut.connect(tape); tape.connect(hfTame); hfTame.connect(clip); clip.connect(limiter);
+  limiter.connect(limComp); limComp.connect(outGain); outGain.connect(analyser);
+  analyser.connect(wet); wet.connect(ctx.destination);
+  sourceNode.connect(dry); dry.connect(ctx.destination);
+
+  nodes = { ctx, inGain, preGain, rumble, subLP, subShaper, subGain, chainL, chainR, merge,
+            glue, glue2, revHP, revLP, conv, revWet, gLL, gLR, gRL, gRR, tape, scrubHP, notch, hfTame,
+            clip, limiter, outGain, analyser, wet, dry };
+  syncParams(true);
+  return nodes;
+}
+const db2lin = db => Math.pow(10, db/20);
+function syncParams(smooth){
+  if(!nodes) return;
+  const t = nodes.ctx.currentTime, tc = smooth ? .02 : 0;
+  const set = (p, v) => { if(smooth) p.setTargetAtTime(v, t, tc); else p.setValueAtTime(v, t); };
+  set(nodes.inGain.gain, db2lin(S.inputTrim));
+  set(nodes.scrubHP.frequency, S.hpRumble);
+  set(nodes.notch.frequency, S.deToneFreq>0?S.deToneFreq:1000);
+  set(nodes.notch.gain, S.deToneFreq>0?-S.deToneDepth:0);
+  set(nodes.hfTame.gain, -S.deSess);
+  set(nodes.preGain.gain, db2lin(S.preDrive));
+  set(nodes.rumble.frequency, S.lowCutFreq);
+  set(nodes.subLP.frequency, S.subCrossover);
+  nodes.subShaper.curve = makeCurve("sub", S.subTunnelDrive);
+  set(nodes.subGain.gain, db2lin(S.subTrim) * (0.25 + 0.45 * S.subTightness/100));
+  [nodes.chainL[0], nodes.chainR[0]].forEach((ch, i) => {
+    set(ch.mud.frequency, S.mudFreq); set(ch.mud.gain, S.mudDip); set(ch.mud.Q, S.mudQ);
+    set(ch.box.gain, S.boxDip);
+    set(ch.pres.frequency, S.presenceFreq); set(ch.pres.gain, S.presenceGain); set(ch.pres.Q, S.presenceQ);
+    set(ch.smooth.frequency, 18000 - S.highSmooth*90);
+    set(ch.shelf.frequency, S.airShelfFreq); set(ch.shelf.gain, S.airBoost);
+    ch.exc.curve = makeCurve("exciter", S.shorExciter);
+    for(let b=0;b<7;b++) set(ch.eq[b].gain, ASSIST_EQ[b]);
+  });
+  set(nodes.glue.threshold, S.compThresh); set(nodes.glue.ratio, S.compRatio);
+  set(nodes.glue.attack, S.compAttack/1000); set(nodes.glue.release, S.compRelease/1000);
+  set(nodes.glue2.threshold, S.comp2Thresh); set(nodes.glue2.ratio, S.comp2Ratio);
+  set(nodes.glue2.attack, S.comp2Attack/1000); set(nodes.glue2.release, S.comp2Release/1000);
+  nodes.clip.curve = makeCurve("clip", S.softClipKnee);
+  set(nodes.limiter.threshold, S.truePeakCeiling);
+  const irKey = S.spaceSize.toFixed(2)+":"+Math.round(S.spaceTone/100);
+  if(irKey !== lastIRKey){
+    nodes.conv.buffer = makeIR(nodes.ctx, S.spaceSize, S.spaceTone);
+    lastIRKey = irKey;
+  }
+  set(nodes.revHP.frequency, S.spaceTone);
+  set(nodes.revLP.frequency, S.spaceLP);
+  set(nodes.revWet.gain, S.spaceWet/100);
+  const w=S.stereoWidth/100;
+  set(nodes.gLL.gain, 0.5*(1+w)); set(nodes.gRR.gain, 0.5*(1+w));
+  set(nodes.gLR.gain, 0.5*(1-w)); set(nodes.gRL.gain, 0.5*(1-w));
+  nodes.tape.curve = makeCurve("tape", S.tapeDrive);
+  set(nodes.outGain.gain, db2lin(S.masterOutGain));
+  set(nodes.wet.gain, bypass ? 0 : 1);
+  set(nodes.dry.gain, bypass ? 1 : 0);
+}
+
+/* ============================ ANALYSIS / MIX ASSISTANT ============================ */
+/* K-weighting biquad (ITU-R BS.1770) and loudness measurement */
+function kbq(sr, type, f, q, db){
+  const w=2*Math.PI*f/sr, c=Math.cos(w), sn=Math.sin(w);
+  const A=Math.pow(10,db/40), al=sn/(2*q);
+  let b0,b1,b2,a0,a1,a2;
+  if(type==="hp"){
+    b0=(1+c)/2; b1=-(1+c); b2=(1+c)/2;
+    a0=1+al; a1=-2*c; a2=1-al;
+  } else {
+    const two=2*Math.sqrt(A)*al;
+    a0=A+1+(A-1)*c+two;
+    b0=A*((A+1)+(A-1)*c+two);
+    b1=-2*A*((A-1)+(A+1)*c);
+    b2=A*((A+1)+(A-1)*c-two);
+    a1=-2*((A-1)+(A+1)*c);
+    a2=((A+1)+(A-1)*c-two);
+  }
+  return {b0:b0/a0,b1:b1/a0,b2:b2/a0,a1:a1/a0,a2:a2/a0,x1:0,x2:0,y1:0,y2:0};
+}
+function kbqrun(f,x){
+  const y=f.b0*x+f.b1*f.x1+f.b2*f.x2-f.a1*f.y1-f.a2*f.y2;
+  f.x2=f.x1; f.x1=x; f.y2=f.y1; f.y1=y; return y;
+}
+function truePeak4(x){
+  let tp=0;
+  for(let i=0;i<x.length-1;i++){
+    const p0=x[Math.max(0,i-1)], p1=x[i], p2=x[i+1], p3=x[Math.min(x.length-1,i+2)];
+    const a=Math.abs(p1); if(a>tp) tp=a;
+    for(const t of [0.25,0.5,0.75]){
+      const v=0.5*((2*p1)+(-p0+p2)*t+(2*p0-5*p1+4*p2-p3)*t*t+(-p0+3*p1-3*p2+p3)*t*t*t);
+      const av=Math.abs(v); if(av>tp) tp=av;
+    }
+  }
+  return tp;
+}
+function analyse(buf){
+  const sr=buf.sampleRate, n=buf.length;
+  const L=buf.getChannelData(0), R=buf.numberOfChannels>1?buf.getChannelData(1):L;
+  const step=Math.max(1,Math.floor(n/400000));
+  let sum2=0,peak=0,cross=0,l2=0,r2=0,cnt=0;
+  const bands={sub:0,mud:0,pres:0,air:0};
+  let lpSub=0,lpMud=0,lpPres=0,lpHp=0;
+  const aSub=1-Math.exp(-2*Math.PI*120/sr), aMud=1-Math.exp(-2*Math.PI*350/sr);
+  const aPres=1-Math.exp(-2*Math.PI*3500/sr), aHp=1-Math.exp(-2*Math.PI*8000/sr);
+  const lpLo=new Float64Array(7), lpHi=new Float64Array(7), b7=new Float64Array(7);
+  const a7lo=new Float64Array(7), a7hi=new Float64Array(7);
+  for(let i=0;i<7;i++){
+    a7lo[i]=1-Math.exp(-2*Math.PI*(ASSIST_BANDS[i]/1.4)/sr);
+    a7hi[i]=1-Math.exp(-2*Math.PI*(ASSIST_BANDS[i]*1.4)/sr);
+  }
+  for(let i=0;i<n;i+=step){
+    const l=L[i],r=R[i],m=(l+r)*.5;
+    sum2+=m*m; const aa=Math.abs(l),bb=Math.abs(r);
+    if(aa>peak)peak=aa; if(bb>peak)peak=bb;
+    cross+=l*r; l2+=l*l; r2+=r*r; cnt++;
+    lpSub+=aSub*(m-lpSub); lpMud+=aMud*(m-lpMud);
+    lpPres+=aPres*(m-lpPres); lpHp+=aHp*(m-lpHp);
+    bands.sub+=lpSub*lpSub; bands.mud+=lpMud*lpMud;
+    bands.pres+=(m-lpPres)*(m-lpPres); bands.air+=(m-lpHp)*(m-lpHp);
+    for(let k=0;k<7;k++){
+      lpLo[k]+=a7lo[k]*(m-lpLo[k]); lpHi[k]+=a7hi[k]*(m-lpHi[k]);
+      const bp=lpLo[k]-lpHi[k]; b7[k]+=bp*bp;
+    }
+  }
+  // ITU BS.1770: K-weighting + 400 ms blocks + absolute/relative gating
+  const hpL=kbq(sr,"hp",38,.5,0), shL=kbq(sr,"hs",1681.97,.707,4);
+  const hpR=kbq(sr,"hp",38,.5,0), shR=kbq(sr,"hs",1681.97,.707,4);
+  const blockLen=Math.max(1,Math.floor(sr*0.4));
+  const energies=[];
+  let e=0,inBlock=0;
+  for(let i=0;i<n;i++){
+    const wl=kbqrun(shL,kbqrun(hpL,L[i]));
+    const wr=kbqrun(shR,kbqrun(hpR,R[i]));
+    e+=0.5*(wl*wl+wr*wr); inBlock++;
+    if(inBlock>=blockLen || i===n-1){ energies.push(e/inBlock); e=0; inBlock=0; }
+  }
+  const lu=e=>-0.691+10*Math.log10(e+1e-12);
+  const all=energies.map(lu);
+  const ungatedE=energies.reduce((a,b)=>a+b,0)/Math.max(1,energies.length);
+  const rel=-0.691+10*Math.log10(ungatedE+1e-12)-10;
+  const gated=energies.filter((v,i)=>all[i]>-70 && all[i]>rel);
+  const lufsK=gated.length ? -0.691+10*Math.log10(gated.reduce((a,b)=>a+b,0)/gated.length) : -60;
+  const sorted=all.filter(v=>v>-70).sort((a,b)=>a-b);
+  const pct=p=>sorted.length?sorted[Math.floor(p*(sorted.length-1))]:0;
+  const lra=pct(.95)-pct(.10);
+  const rms=Math.sqrt(sum2/cnt);
+  const lufs=rms>0 ? -0.691+10*Math.log10(rms*rms)+7 : -60;
+  const norm=k=>10*Math.log10((bands[k]/cnt)+1e-12);
+  const width=(l2+r2)>0?cross/Math.sqrt(l2*r2):1;
+  const bands7=Array.from(b7).map(v=>10*Math.log10(v/cnt+1e-12));
+  const tp=Math.max(truePeak4(L), truePeak4(R));
+  const crest=rms>0?20*Math.log10(tp/rms):0;
+  return { lufs, lufsK, lra, tp, tpDb:20*Math.log10(Math.max(tp,1e-6)),
+           crest, peak, sub:norm("sub"), mud:norm("mud"), pres:norm("pres"),
+           air:norm("air"), width, rms, bands7 };
+}
+
+
+/* ============ PER-SONG NUANCE DIAGNOSTICS (v11) ============ */
+function envelope(buf, hopSec){
+  const sr=buf.sampleRate, L=buf.getChannelData(0);
+  const hop=Math.max(1,Math.floor(sr*(hopSec||0.01)));
+  const out=[];
+  for(let i=0;i+hop<=L.length;i+=hop){
+    let e=0; for(let k=i;k<i+hop;k+=2) e+=L[k]*L[k];
+    out.push(Math.sqrt(e/(hop/2)));
+  }
+  return out;
+}
+function modDepth(env){
+  if(!env.length) return 0;
+  const s=env.slice().sort((a,b)=>a-b);
+  const p10=s[Math.floor(.10*(s.length-1))], p90=s[Math.floor(.90*(s.length-1))];
+  const m=(p10+p90)/2;
+  return m>1e-6 ? 20*Math.log10((p90+1e-9)/(p10+1e-9)) : 0;
+}
+function estimateBPM(env, sr, hopSec){
+  if(env.length<64) return 120;
+  const hop=hopSec||0.01;
+  let bestLag=Math.floor(60/180/hop), bestCorr=-1;
+  const lo=Math.max(2,Math.floor(60/200/hop)), hi=Math.min(env.length-8,Math.floor(60/60/hop));
+  const mean=env.reduce((a,b)=>a+b,0)/env.length;
+  for(let lag=lo;lag<=hi;lag++){
+    let c=0,n=0;
+    for(let i=0;i+lag<env.length;i+=2){ c+=(env[i]-mean)*(env[i+lag]-mean); n++; }
+    c/=Math.max(1,n);
+    if(c>bestCorr){bestCorr=c;bestLag=lag;}
+  }
+  return Math.round(60/(bestLag*hop));
+}
+function nuance(buf){
+  const sr=buf.sampleRate, L=buf.getChannelData(0), R=buf.numberOfChannels>1?buf.getChannelData(1):L;
+  // flat-top runs (clipping) — consecutive samples at/near full scale
+  let runs=0, run=0, flatSamples=0;
+  for(let i=0;i<L.length;i++){
+    const a=Math.max(Math.abs(L[i]),Math.abs(R[i]));
+    if(a>0.999){run++; flatSamples++;} else {if(run>=3) runs++; run=0;}
+  }
+  if(run>=3) runs++;
+  // PSR: peak minus 95th-percentile short-term loudness
+  const e=env0(buf,0.4);
+  const sorted=e.slice().sort((a,b)=>a-b);
+  const st=sorted[Math.floor(.95*(sorted.length-1))];
+  let peak=0; for(let i=0;i<L.length;i+=4){const a=Math.abs(L[i]);if(a>peak)peak=a;}
+  const psr=st>1e-6?20*Math.log10(peak/st):0;
+  // rhythmic modulation depth and BPM
+  const fast=env0(buf,0.01);
+  const md=modDepth(fast);
+  const bpm=estimateBPM(fast,sr,0.01);
+  // section spread (8 blocks, short-term LUFS)
+  const block=Math.max(1,Math.floor(e.length/8));
+  const lus=[];
+  for(let b=0;b<8;b++){
+    let sum=0,n=0;
+    for(let i=b*block;i<(b+1)*block && i<e.length;i++){sum+=e[i]*e[i];n++;}
+    lus.push(n?-0.691+10*Math.log10(sum/n+1e-12):-60);
+  }
+  const sectionSpread=Math.max(...lus)-Math.min(...lus);
+  // transient bluntness: mean attack slope over strong onsets
+  let slopes=[];
+  for(let i=1;i<fast.length;i++){
+    if(fast[i]>fast[i-1]*1.6 && fast[i]>0.05){
+      slopes.push(20*Math.log10((fast[i]+1e-9)/(fast[i-1]+1e-9)));
+    }
+  }
+  const transient=slopes.length?slopes.reduce((a,b)=>a+b,0)/slopes.length:0;
+  return {clipRuns:runs, flatSamples, psr, modDepth:md, bpm, sectionSpread, transient,
+          beatMs:bpm>0?60000/bpm:500};
+}
+// named alias so the code above reads cleanly
+function env0(buf,hop){ return envelope(buf,hop); }
+
+/* ============================ SURGICAL ASSISTANT v9 ============================ */
+const clamp = (v,lo,hi) => Math.max(lo,Math.min(hi,v));
+function setStatus(msg){ const el=$("statusBar"); if(el) el.textContent=msg; }
+function busy(msg,fn){
+  setStatus(msg);
+  const btn=$("fullBtn"); if(btn) btn.disabled=true;
+  return Promise.resolve().then(fn).finally(()=>{
+    if(btn && rawBuffer) btn.disabled=false;
+    setStatus("READY · last action complete");
+  });
+}
+let correctiveEqTotal = 0;
+
+function mkFinding(id,title,detail,conf,apply,severity){
+  findings.push({id,title,detail,conf,apply,severity:severity||0,state:"pending"});
+}
+function setParam(k,v){
+  const d=DEFS[k]; if(!d) return false;
+  const vv=clamp(Math.round(v/d.step)*d.step, d.min, d.max);
+  if(Math.abs(vv-S[k]) < d.step*.5) return false;
+  S[k]=vv;
+  const sl=$("s_"+k); if(sl) sl.value=vv;
+  const lab=$("v_"+k); if(lab) lab.textContent=fmt(d,vv);
+  $("s_"+k)?.parentElement.classList.add("changed");
+  return true;
+}
+function setEq(i,v,corrective){
+  const vv=clamp(Math.round(v*2)/2,-6,6);
+  if(Math.abs(vv-ASSIST_EQ[i])<.24) return false;
+  if(corrective){
+    correctiveEqTotal += Math.abs(vv-ASSIST_EQ[i]);
+    if(correctiveEqTotal>6) return false;   // 6 dB cumulative = send back to mix
+  }
+  ASSIST_EQ[i]=vv;
+  const sl=$("eq_"+i); if(sl) sl.value=vv;
+  const lab=$("v_eq"+i); if(lab) lab.textContent=(vv>0?"+":"")+vv.toFixed(1)+" dB";
+  return true;
+}
+function neutralTarget(src){
+  const st=STYLES[currentStyle]||STYLES.auto;
+  const offs=[st.sub,st.sub*.5,st.mud,0,st.pres,st.air*.7,st.air];
+  return src.map((v,i)=>v+offs[i]);
+}
+function genre(){ return GENRE[currentGenre] || GENRE.generic; }
+function targetLufs(){
+  if(currentTarget==="genre") return genre().lufs;
+  return getTarget().lufs;
+}
+function targetCeiling(){
+  if(currentTarget==="genre") return targetLufs()>-10 ? -2.0 : -1.0;
+  return getTarget().ceiling;
+}
+
+async function runAssistant(){
+  if(!rawBuffer) return;
+  const ex=await renderExcerpt(18);
+  const out=analyse(ex.processed);
+  const src=analyse(ex.slice);
+  const nu=nuance(ex.processed), srcNu=nuance(ex.slice);
+  const g=genre(), tl=targetLufs(), ceiling=targetCeiling();
+  findings=[]; passLog=[];
+  document.querySelectorAll(".ctl.changed").forEach(e=>e.classList.remove("changed"));
+
+  // --- scorecard: always show, even when nothing needs fixing ---
+  const score=[
+    ["Integrated", out.lufsK.toFixed(1)+" LUFS", tl+" LUFS", Math.abs(out.lufsK-tl)<=1.5],
+    ["True peak", out.tpDb.toFixed(1)+" dBTP", "≤ "+ceiling+" dBTP", out.tpDb<=ceiling],
+    ["Crest / PLR", out.crest.toFixed(1)+" dB", g.plr+"–"+(g.plr+3)+" dB", out.crest>=g.plr-2],
+    ["Loudness range", out.lra.toFixed(1)+" LU", g.lra+"±3 LU", out.lra>=g.lra-3 && out.lra<=g.lra+3],
+    ["Correlation", out.width.toFixed(2), "0.30–0.75", out.width>=0.30 && out.width<=0.75],
+    ["Reverb", S.spaceWet+" %", "0–10 %", S.spaceWet<=10],
+    ["Width", S.stereoWidth+" %", "100–110 %", S.stereoWidth<=110],
+    ["PSR", nu.psr.toFixed(1)+" dB", "≥ 9 dB", nu.psr>=9],
+    ["Clipped runs", String(nu.clipRuns), "0", nu.clipRuns===0],
+    ["Pump delta", (nu.modDepth-srcNu.modDepth).toFixed(1)+" dB", "≤ 2 dB", (nu.modDepth-srcNu.modDepth)<=2],
+    ["Section spread", nu.sectionSpread.toFixed(1)+" LU", "≥ 4 LU", nu.sectionSpread>=4],
+    ["BPM", String(nu.bpm), "detected", true]
+  ];
+  lastReport={out,src,score};
+
+  // --- candidate problems, ranked by severity (one symptom at a time) ---
+  const cand=[];
+  if(src.tpDb>0 || correctiveEqTotal>=6){
+    cand.push({id:"sendback",sev:999,title:"Send back to the mix",
+      detail:src.tpDb>0
+        ? `Source has baked-in clipping (${src.tpDb.toFixed(1)} dBTP). Mastering cannot un-clip a summed file.`
+        : `Corrective EQ budget exhausted (${correctiveEqTotal.toFixed(1)} dB of 6). The problem is in the mix, not the master.`,
+      conf:.99,apply:()=>{}});
+  }
+  if((currentGenre==="trap"||currentGenre==="hiphop"||currentGenre==="edm") && S.subTightness<70){
+    cand.push({id:"monosub",sev:6,title:"Low end must be mono",
+      detail:`${currentGenre} keeps everything under ~120 Hz centred or it cancels on phones and club systems. `+
+             `Tightness ${S.subTightness} % — raise toward 80–100 %.`,
+      conf:.93,apply:()=>setParam("subTightness",clamp(S.subTightness+15,0,100))});
+  }
+  const loudErr=tl-out.lufsK;
+  if(Math.abs(loudErr)>1.5){
+    const room=ceiling-out.tpDb-0.3;
+    const safe=Math.sign(loudErr)*Math.min(Math.abs(loudErr)*.6,Math.max(0,room));
+    if(Math.abs(safe)>.3)
+      cand.push({id:"loudness",sev:Math.abs(loudErr),
+        title:`Level: ${loudErr>0?"raise":"lower"} ${Math.abs(loudErr).toFixed(1)} LU`,
+        detail:`Output ${out.lufsK.toFixed(1)} LUFS / ${out.tpDb.toFixed(1)} dBTP. Safe move ${safe.toFixed(1)} dB.`,
+        conf:.94, apply:()=>setParam("preDrive",clamp(S.preDrive+safe,-8,8))});
+  }
+  if(out.tpDb>ceiling){
+    cand.push({id:"peak",sev:(out.tpDb-ceiling)*4,title:"True peak above ceiling",
+      detail:`${out.tpDb.toFixed(1)} dBTP exceeds ${ceiling}. Lower input trim before the limiter.`,
+      conf:.95, apply:()=>setParam("inputTrim",clamp(S.inputTrim-1.5,-12,12))});
+  }
+  if(out.crest<g.plr-2 || out.lra<g.lra-3){
+    const over=out.crest<g.plr-2;
+    cand.push({id:"dynamics",sev:Math.max(g.plr-2-out.crest,g.lra-3-out.lra)*1.2,
+      title:over?"Over-compressed — recover transients":"Dynamics flat — soften the glue",
+      detail:`Crest ${out.crest.toFixed(1)} dB (target ${g.plr}+) · LRA ${out.lra.toFixed(1)} LU (target ${g.lra}). `+
+             `Relax serial compressor ${over?"A":"B"}; never add more limiting.`,
+      conf:.90, apply:()=>{
+        if(over){ setParam("compRatio",clamp(S.compRatio-.5,1.2,8)); setParam("compAttack",clamp(S.compAttack+3,1,30)); }
+        else { setParam("comp2Ratio",clamp(S.comp2Ratio-.3,1,4)); setParam("comp2Thresh",clamp(S.comp2Thresh+2,-30,0)); }
+      }});
+  }
+  if(out.width<0.30){
+    cand.push({id:"mono",sev:(0.30-out.width)*20,title:"Mono-compatible — narrow stereo image",
+      detail:`Correlation ${out.width.toFixed(2)}. Reduce width and avoid side-heavy low end.`,
+      conf:.88, apply:()=>setParam("stereoWidth",clamp(S.stereoWidth-2,100,130))});
+  } else if(out.width>0.75){
+    cand.push({id:"width",sev:(out.width-0.75)*12,title:"Image too wide for mono fold",
+      detail:`Correlation ${out.width.toFixed(2)}. Pull width back toward 100–105 %.`,
+      conf:.86, apply:()=>setParam("stereoWidth",clamp(S.stereoWidth-2,100,130))});
+  }
+  const total=(out.sub+out.mud+out.pres+out.air)/4;
+  if(out.mud-total>3 && correctiveEqTotal<=6){
+    cand.push({id:"mud",sev:(out.mud-total)*.6,title:"Low-mid mud",
+      detail:`200–400 Hz is ${(out.mud-total).toFixed(1)} dB above the band average. `+
+             `Surgical narrow cut, Q 4–8, ≤3 dB.`,
+      conf:.85, apply:()=>{ setParam("mudDip",clamp(S.mudDip-1,-9,0)); setParam("mudQ",clamp(S.mudQ+1.4,.7,4)); }});
+  }
+  if(out.pres-total>4 && correctiveEqTotal<=6){
+    cand.push({id:"presence",sev:(out.pres-total)*.5,title:"Presence harshness",
+      detail:`Upper mids ${(out.pres-total).toFixed(1)} dB above average. Small cut, not a shelf boost.`,
+      conf:.84, apply:()=>setParam("presenceGain",clamp(S.presenceGain-1,-4,6))});
+  }
+  if(refMetrics){
+    const diffs=out.bands7.map((v,i)=>refMetrics.bands7[i]-v);
+    const worst=Math.max(...diffs.map(Math.abs));
+    if(worst>2 && correctiveEqTotal<=6){
+      const bi=diffs.reduce((a,v,i)=>Math.abs(v)>Math.abs(diffs[a])?i:a,0);
+      cand.push({id:"reference",sev:worst*.5,
+        title:`Reference gap at ${ASSIST_BANDS[bi]} Hz (${diffs[bi].toFixed(1)} dB)`,
+        detail:`Level-matched spectral comparison. Broad deviations >2 dB matter; direction, not identity.`,
+        conf:.92, apply:()=>setEq(bi,ASSIST_EQ[bi]+clamp(diffs[bi]*.5,-3,3),true)});
+    }
+  }
+  if(nu.clipRuns>0){
+    cand.push({id:"clip",sev:20+nu.clipRuns,title:"Flat-topped clipping detected",
+      detail:nu.clipRuns+" runs of consecutive full-scale samples. Reduce drive into the limiter; clipping adds inharmonic grit.",
+      conf:.96,apply:()=>{setParam("preDrive",clamp(S.preDrive-2,-8,8));setParam("inputTrim",clamp(S.inputTrim-1,-12,12));}});
+  }
+  const pumpDelta=nu.modDepth-srcNu.modDepth;
+  if(pumpDelta>2){
+    cand.push({id:"pump",sev:pumpDelta*3,title:"Pumping introduced by the chain",
+      detail:`Rhythmic level modulation grew ${pumpDelta.toFixed(1)} dB vs source at ~${nu.bpm} BPM. `+
+             `Release must recover before the next kick (${nu.beatMs.toFixed(0)} ms between beats).`,
+      conf:.92,apply:()=>{
+        setParam("compRelease",clamp(Math.min(S.compRelease,nu.beatMs*0.45),20,200));
+        setParam("comp2Release",clamp(Math.min(S.comp2Release,nu.beatMs*0.9),100,600));
+      }});
+  }
+  if(nu.psr<9){
+    cand.push({id:"psr",sev:(9-nu.psr)*2,title:"Peak-to-short-term ratio too low",
+      detail:`PSR ${nu.psr.toFixed(1)} dB — the loud sections have little peak headroom left. Ease the glue compressor.`,
+      conf:.89,apply:()=>{setParam("compRatio",clamp(S.compRatio-.4,1.2,8));
+                          setParam("compThresh",clamp(S.compThresh+2,-30,0));}});
+  }
+  if(nu.sectionSpread<3){
+    cand.push({id:"flat",sev:(3-nu.sectionSpread)*4,title:"Chorus does not lift above verse",
+      detail:`Section spread ${nu.sectionSpread.toFixed(1)} LU. Flat intensity usually comes from stacked compression, not the mix.`,
+      conf:.88,apply:()=>{setParam("comp2Thresh",clamp(S.comp2Thresh+3,-30,0));
+                          setParam("comp2Ratio",clamp(S.comp2Ratio-.3,1,4));}});
+  }
+  if(nu.transient<8){
+    cand.push({id:"transient",sev:(8-nu.transient)*1.5,title:"Transients blunted",
+      detail:`Mean onset jump ${nu.transient.toFixed(1)} dB. Fast attack is shaving the snap off kicks and snares.`,
+      conf:.87,apply:()=>{setParam("compAttack",clamp(S.compAttack+4,1,30));
+                          setParam("comp2Attack",clamp(S.comp2Attack+8,10,120));}});
+  }
+  cand.sort((a,b)=>b.sev-a.sev);
+  cand.forEach(c=>mkFinding(c.id,c.title,c.detail,c.conf,c.apply,c.sev));
+
+  if(!cand.length){
+    mkFinding("pass","All measurements inside target",
+      `${out.lufsK.toFixed(1)} LUFS · ${out.tpDb.toFixed(1)} dBTP · crest ${out.crest.toFixed(1)} dB · ${g.lra?g.lra+" LU LRA":""}. No change recommended — that is the surgical answer.`,
+      .99,()=>{},0);
+  }
+  renderReport(score,cand);
+  log(cand.length ? `Top issue: ${cand[0].title}` : "No changes needed");
+}
+function renderReport(score,cand){
+  const report=$("report"); report.style.display="block";
+  const rows=score.map(s=>`<tr><td style="padding:2px 8px 2px 0;color:var(--dim)">${s[0]}</td>
+    <td style="padding:2px 8px 2px 0">${s[1]}</td><td style="padding:2px 8px 2px 0;color:var(--dim)">${s[2]}</td>
+    <td style="color:${s[3]?'var(--emerald)':'var(--amber)'}">${s[3]?'OK':'CHECK'}</td></tr>`).join("");
+  const top=findings[0];
+  const rest=findings.slice(1);
+  report.innerHTML=`<h3>SURGICAL ASSISTANT — MEASURED ON CURRENT OUTPUT</h3>
+    <table style="font-size:10px;margin:6px 0 10px">${rows}</table>
+    ${top && top.id==="sendback" ? `<div class="finding" style="border-left-color:var(--amber)"><div class="fh"><b>${top.title}</b><span class="conf">${top.detail}</span></div></div>`:""}
+    ${top && top.id!=="sendback" ? `<div class="finding"><div class="fh"><b>1 · ${top.title}</b><span class="conf">${Math.round(top.conf*100)}% confidence</span></div>
+      <div class="fd">${top.detail}</div>
+      <button class="btn primary" onclick="applyFinding(0)">SMART FIX · APPLY TOP ISSUE</button></div>` : ""}
+    ${rest.length ? `<div class="sub" style="margin-top:6px">Watch list (not applied): ${rest.map(r=>r.title).join(" · ")}</div>` : ""}
+    ${correctiveEqTotal>4 ? `<div class="sub" style="color:var(--amber);margin-top:6px">Corrective EQ used: ${correctiveEqTotal.toFixed(1)} dB of the 6 dB budget. Above 6 dB, the problem is in the mix — go back to it.</div>`:""}
+    <div class="row" style="margin-top:8px"><button class="btn" onclick="resetAssist()">RESET</button>
+    <button class="btn" onclick="abLevelMatch()">A/B LEVEL-MATCHED</button>
+    <button class="btn green" onclick="deepTune(4)">DEEP TUNE · ALL PARAMETERS</button></div>`;
+}
+function applyFinding(i){
+  const f=findings[i]; if(!f||f.state!=="pending") return;
+  f.apply(); f.state="applied";
+  prefs[f.id]=prefs[f.id]||{accepted:0,ignored:0}; prefs[f.id].accepted++; savePrefs();
+  syncParams(true);
+  log("Applied: "+f.title+" — re-measure before the next move");
+}
+function fixAll(){ findings.forEach((f,i)=>{ if(f.state==="pending") applyFinding(i); }); }
+function resetAssist(){
+  ORDER.forEach(k=>{ S[k]=DEFS[k].def; const sl=$("s_"+k); if(sl) sl.value=S[k];
+    const lab=$("v_"+k); if(lab) lab.textContent=fmt(DEFS[k],S[k]); });
+  for(let i=0;i<7;i++){ ASSIST_EQ[i]=0; const sl=$("eq_"+i); if(sl) sl.value=0;
+    const lab=$("v_eq"+i); if(lab) lab.textContent="0.0 dB"; }
+  correctiveEqTotal=0; findings=[]; passLog=[]; lastIRKey="";
+  document.querySelectorAll(".ctl.changed").forEach(e=>e.classList.remove("changed"));
+  syncParams(true); $("report").style.display="none"; log("Reset to defaults");
+}
+async function renderExcerpt(sec){
+  const dur=sec||18, sr=rawBuffer.sampleRate;
+  const L=rawBuffer.getChannelData(0);
+  const step=Math.max(1,Math.floor(sr/120));
+  let best=0,bestE=0;
+  for(let i=0;i+step<L.length;i+=step){
+    let e=0; for(let k=i;k<i+step;k+=8) e+=L[k]*L[k];
+    if(e>bestE){bestE=e;best=i;}
+  }
+  const len=Math.min(Math.floor(sr*dur),rawBuffer.length);
+  const start=Math.max(0,Math.min(rawBuffer.length-len,best-Math.floor(len/2)));
+  const oc=new OfflineAudioContext(rawBuffer.numberOfChannels,len,sr);
+  const slice=oc.createBuffer(rawBuffer.numberOfChannels,len,sr);
+  for(let c=0;c<rawBuffer.numberOfChannels;c++)
+    slice.copyToChannel(rawBuffer.getChannelData(c).subarray(start,start+len),c);
+  const processed=await renderBuffer(slice);
+  return {processed,slice};
+}
+let abTimer=0;
+function abLevelMatch(){
+  buildGraph();
+  const d=lastReport ? lastReport.out.lufsK-lastReport.src.lufsK : 0;
+  bypass=true;
+  setStatus("BYPASSED · level-matched by "+d.toFixed(1)+" dB — restoring in 2 s");
+  $("bypassBtn").textContent="BYPASSED · LEVEL-MATCHED";
+  $("bypassBtn").classList.add("warn");
+  syncParams(true);
+  nodes.dry.gain.value=Math.pow(10,d/20);
+  clearTimeout(abTimer);
+  abTimer=setTimeout(()=>{
+    bypass=false; syncParams(true);
+    $("bypassBtn").textContent="DSP ACTIVE";
+    $("bypassBtn").classList.remove("warn");
+    setStatus("A/B complete — processed path restored");
+  },2000);
+}
+
+const TUNE_TRACKED = [
+  "lowCutFreq","hpRumble","inputTrim","preDrive","subCrossover","subTunnelDrive",
+  "subTightness","subTrim","mudFreq","mudDip","mudQ","boxDip",
+  "presenceFreq","presenceGain","presenceQ","airShelfFreq","airBoost","shorExciter",
+  "highSmooth","compThresh","compRatio","compAttack","compRelease",
+  "comp2Thresh","comp2Ratio","comp2Attack","comp2Release",
+  "spaceWet","spaceSize","spaceTone","spaceLP","stereoWidth","tapeDrive",
+  "softClipKnee","truePeakCeiling","masterOutGain","deSess","deToneDepth"
+];
+let tuneLog=[];
+function tuneSet(k,v,list,tag){
+  const before=S[k];
+  if(setParam(k,v)) list.push(`${DEFS[k].label} ${+before.toFixed(2)}->${+S[k].toFixed(2)} (${tag})`);
+}
+function tuneEq(i,v,list,tag){
+  const before=ASSIST_EQ[i];
+  if(setEq(i,v,true)) list.push(`${ASSIST_BANDS[i]}Hz EQ ${before}->${ASSIST_EQ[i]} (${tag})`);
+}
+async function deepTune(passes){
+  if(!rawBuffer) return;
+  const box=$("passBox") || (()=>{const d=document.createElement("div");d.id="passBox";$("report").appendChild(d);return d;})();
+  tuneLog=[];
+  const target=targetLufs(), ceiling=targetCeiling(), g=genre();
+  for(let p=1;p<=passes;p++){
+    setStatus(`DEEP TUNE · pass ${p}/${passes} — measuring all parameters…`);
+    const ex=await renderExcerpt(12);
+    const m=analyse(ex.processed), src=analyse(ex.slice);
+    const n=nuance(ex.processed), sn=nuance(ex.slice);
+    const changes=[];
+    // 1. LEVEL / CEILING / CLIPPING
+    const d=target-m.lufsK;
+    const safeGain=Math.sign(d)*Math.min(Math.abs(d)*.5,Math.max(0,ceiling-m.tpDb-.3));
+    if(Math.abs(d)>.7 && Math.abs(safeGain)>.3) tuneSet("preDrive",S.preDrive+safeGain,changes,"loudness");
+    tuneSet("truePeakCeiling",ceiling,changes,"delivery ceiling");
+    if(n.clipRuns>0){ tuneSet("preDrive",S.preDrive-1.5,changes,"clipped runs");
+                      tuneSet("softClipKnee",clamp(S.softClipKnee-10,0,100),changes,"clip knee"); }
+    // 2. DYNAMICS — PSR, crest, LRA, pumping, section spread
+    if(n.psr<9){ tuneSet("compRatio",S.compRatio-.4,changes,"PSR");
+                 tuneSet("compThresh",S.compThresh+1.5,changes,"PSR"); }
+    if(m.crest<g.plr-2){ tuneSet("compAttack",S.compAttack+4,changes,"transient recovery");
+                         tuneSet("comp2Ratio",S.comp2Ratio-.2,changes,"crest"); }
+    const pump=n.modDepth-sn.modDepth;
+    if(pump>2){
+      tuneSet("compRelease",clamp(Math.min(S.compRelease,n.beatMs*.4),20,200),changes,"pump / BPM");
+      tuneSet("comp2Release",clamp(Math.min(S.comp2Release,n.beatMs*.9),100,600),changes,"pump / BPM");
+    }
+    if(m.sectionSpread<3){ tuneSet("comp2Thresh",S.comp2Thresh+2,changes,"section lift"); }
+    if(n.transient<8){ tuneSet("compAttack",S.compAttack+3,changes,"blunted onsets");
+                       tuneSet("comp2Attack",S.comp2Attack+8,changes,"blunted onsets"); }
+    // 3. TONAL — every band checked
+    const total=(m.sub+m.mud+m.pres+m.air)/4;
+    if(m.mud-total>3){ tuneSet("mudDip",S.mudDip-1,changes,"mud");
+                       tuneSet("mudQ",S.mudQ+.5,changes,"mud Q"); }
+    else if(m.mud-total<-3){ tuneSet("mudDip",S.mudDip+.5,changes,"thin low-mids"); }
+    if(m.pres-total>4){ tuneSet("presenceGain",S.presenceGain-.75,changes,"harsh presence");
+                        tuneSet("highSmooth",S.highSmooth+8,changes,"de-harsh"); }
+    else if(m.pres-total<-4){ tuneSet("presenceGain",S.presenceGain+.75,changes,"intelligibility"); }
+    if(m.air< -40){ tuneSet("airBoost",S.airBoost+1,changes,"air");
+                    tuneSet("shorExciter",S.shorExciter+6,changes,"shimmer"); }
+    if(m.sub-total<-7){ tuneSet("subTrim",S.subTrim+1,changes,"weak sub");
+                        tuneSet("subTunnelDrive",S.subTunnelDrive+6,changes,"sub presence"); }
+    else if(m.sub-total>7){ tuneSet("subTrim",S.subTrim-1,changes,"sub dominant");
+                            tuneSet("lowCutFreq",S.lowCutFreq+2,changes,"rumble"); }
+    tuneSet("boxDip",S.boxDip,changes,"box checked");
+    tuneSet("hpRumble",S.hpRumble,changes,"rumble checked");
+    tuneSet("presenceFreq",S.presenceFreq,changes,"presence freq checked");
+    tuneSet("airShelfFreq",S.airShelfFreq,changes,"air shelf checked");
+    tuneSet("subCrossover",S.subCrossover,changes,"crossover checked");
+    tuneSet("mudFreq",S.mudFreq,changes,"mud centre checked");
+    // 4. SPACE / WIDTH / ARTIFACTS
+    if(S.spaceWet>8){ tuneSet("spaceWet",8,changes,"too much space"); }
+    if(m.width>.75){ tuneSet("stereoWidth",clamp(S.stereoWidth-2,100,130),changes,"mono fold"); }
+    else if(m.width<.30){ tuneSet("stereoWidth",clamp(S.stereoWidth+2,100,130),changes,"too narrow"); }
+    if(S.deSess===0 && m.air-total>5){ tuneSet("deSess",2,changes,"HF spikes"); }
+    // 5. ASSISTANT EQ — all seven bands, reference or genre target
+    const tb=refMetrics?refMetrics.bands7:neutralTarget(m.bands7);
+    for(let b=0;b<7;b++){
+      const err=tb[b]-m.bands7[b];
+      if(Math.abs(err)>1.2) tuneEq(b,ASSIST_EQ[b]+clamp(err*.4,-2,2),changes,"band "+ASSIST_BANDS[b]);
+      else tuneEq(b,ASSIST_EQ[b],changes,"band "+ASSIST_BANDS[b]+" checked");
+    }
+    tuneLog.push({pass:p,lufs:+m.lufsK.toFixed(1),tp:+m.tpDb.toFixed(2),psr:+n.psr.toFixed(1),
+                  changes:changes.slice(0,12),count:changes.length});
+    box.innerHTML=tuneLog.map(x=>`<div class="pass">PASS ${x.pass}: ${x.lufs} LUFS · ${x.tp} dBTP · PSR ${x.psr} dB · ${x.count} parameter checks</div>`).join("")+
+      `<div class="sub" style="margin-top:6px">Last pass: ${(tuneLog[tuneLog.length-1].changes||[]).join(" · ")||"all parameters already at target"}</div>`;
+    syncParams(true);
+  }
+  lastReport=lastReport||{};
+  lastReport.tuneLog=tuneLog;
+  setStatus(`DEEP TUNE complete · ${passes} passes · ${TUNE_TRACKED.length} controls evaluated`);
+  log(`Deep tune: ${passes} passes, ${TUNE_TRACKED.length} controls checked`);
+}
+async function selfCheck(){ return deepTune(3); }
+
+async function renderBuffer(srcBuf){
+  const base=srcBuf||rawBuffer;
+  const o=new OfflineAudioContext(base.numberOfChannels, base.length, base.sampleRate);
+  const src=o.createBufferSource(); src.buffer=base;
+  const inGain=o.createGain(); inGain.gain.value=db2lin(S.inputTrim);
+  const scrubHP=o.createBiquadFilter(); scrubHP.type="highpass"; scrubHP.frequency.value=S.hpRumble; scrubHP.Q.value=.707;
+  const notch=o.createBiquadFilter(); notch.type="peaking"; notch.Q.value=8;
+  notch.frequency.value=S.deToneFreq>0?S.deToneFreq:1000; notch.gain.value=S.deToneFreq>0?-S.deToneDepth:0;
+  const hfTame=o.createBiquadFilter(); hfTame.type="peaking"; hfTame.frequency.value=6000; hfTame.Q.value=1; hfTame.gain.value=-S.deSess;
+  const rumble=o.createBiquadFilter(); rumble.type="highpass"; rumble.frequency.value=S.lowCutFreq; rumble.Q.value=.707;
+  const split=o.createChannelSplitter(2);
+  const subLP=o.createBiquadFilter(); subLP.type="lowpass"; subLP.frequency.value=S.subCrossover; subLP.Q.value=.707;
+  const subShaper=o.createWaveShaper(); subShaper.curve=makeCurve("sub",S.subTunnelDrive);
+  const subGain=o.createGain(); subGain.gain.value=db2lin(S.subTrim)*(.25+.45*S.subTightness/100);
+  const subSplit=o.createChannelSplitter(2);
+  const merge=o.createChannelMerger(2);
+  src.connect(inGain); inGain.connect(scrubHP); scrubHP.connect(notch); notch.connect(rumble);
+  rumble.connect(split); split.connect(subLP,0);
+  subLP.connect(subShaper); subShaper.connect(subGain); subGain.connect(subSplit);
+  subSplit.connect(merge,0,0); subSplit.connect(merge,1,1);
+  for(let c=0;c<2;c++){
+    const mud=o.createBiquadFilter(); mud.type="peaking"; mud.frequency.value=S.mudFreq; mud.gain.value=S.mudDip; mud.Q.value=S.mudQ;
+    const box=o.createBiquadFilter(); box.type="peaking"; box.frequency.value=520; box.gain.value=S.boxDip; box.Q.value=2;
+    const pres=o.createBiquadFilter(); pres.type="peaking"; pres.frequency.value=S.presenceFreq; pres.gain.value=S.presenceGain; pres.Q.value=S.presenceQ;
+    const smooth=o.createBiquadFilter(); smooth.type="lowpass"; smooth.frequency.value=18000-S.highSmooth*90; smooth.Q.value=.707;
+    const shelf=o.createBiquadFilter(); shelf.type="highshelf"; shelf.frequency.value=S.airShelfFreq; shelf.gain.value=S.airBoost;
+    const exc=o.createWaveShaper(); exc.curve=makeCurve("exciter",S.shorExciter);
+    const eq=ASSIST_BANDS.map((hz,i)=>{const f=o.createBiquadFilter();f.type="peaking";f.frequency.value=hz;f.Q.value=1.2;f.gain.value=ASSIST_EQ[i];return f;});
+    split.connect(mud,c); mud.connect(box); box.connect(pres); pres.connect(smooth); smooth.connect(shelf); shelf.connect(exc);
+    for(let b=0;b<7;b++){ if(b===0) exc.connect(eq[b]); else eq[b-1].connect(eq[b]); }
+    eq[6].connect(merge,0,c);
+  }
+  const preGain=o.createGain(); preGain.gain.value=db2lin(S.preDrive);
+  const glue=o.createDynamicsCompressor(); glue.threshold.value=S.compThresh; glue.ratio.value=S.compRatio;
+  glue.attack.value=S.compAttack/1000; glue.release.value=S.compRelease/1000; glue.knee.value=6;
+  const glue2=o.createDynamicsCompressor(); glue2.threshold.value=S.comp2Thresh; glue2.ratio.value=S.comp2Ratio;
+  glue2.attack.value=S.comp2Attack/1000; glue2.release.value=S.comp2Release/1000; glue2.knee.value=4;
+  const glueComp=o.createGain(); glueComp.gain.value=0.596;
+  const revHP=o.createBiquadFilter(); revHP.type="highpass"; revHP.frequency.value=S.spaceTone;
+  const revLP=o.createBiquadFilter(); revLP.type="lowpass"; revLP.frequency.value=S.spaceLP;
+  const conv=o.createConvolver(); conv.normalize=false; conv.buffer=makeIR(o,S.spaceSize,S.spaceTone);
+  const revWet=o.createGain(); revWet.gain.value=S.spaceWet/100;
+  const spaceOut=o.createGain();
+  const wSplit=o.createChannelSplitter(2), wMerge=o.createChannelMerger(2);
+  const gLL=o.createGain(),gLR=o.createGain(),gRL=o.createGain(),gRR=o.createGain();
+  const w=S.stereoWidth/100;
+  gLL.gain.value=gRR.gain.value=0.5*(1+w);
+  gLR.gain.value=gRL.gain.value=0.5*(1-w);
+  const tape=o.createWaveShaper(); tape.curve=makeCurve("tape",S.tapeDrive); tape.oversample="2x";
+  const clip=o.createWaveShaper(); clip.curve=makeCurve("clip",S.softClipKnee); clip.oversample="4x";
+  const lim=o.createDynamicsCompressor(); lim.threshold.value=S.truePeakCeiling; lim.ratio.value=20;
+  lim.attack.value=.001; lim.release.value=.05; lim.knee.value=.2;
+  const limComp=o.createGain(); limComp.gain.value=0.596;
+  const out=o.createGain(); out.gain.value=db2lin(S.masterOutGain);
+  merge.connect(wSplit);
+  wSplit.connect(gLL,0); gLL.connect(wMerge,0,0);
+  wSplit.connect(gRL,1); gRL.connect(wMerge,0,0);
+  wSplit.connect(gLR,0); gLR.connect(wMerge,0,1);
+  wSplit.connect(gRR,1); gRR.connect(wMerge,0,1);
+  wMerge.connect(preGain); preGain.connect(glue); glue.connect(glue2); glue2.connect(glueComp);
+  glueComp.connect(spaceOut);
+  glueComp.connect(revHP); revHP.connect(conv); conv.connect(revLP);
+  revLP.connect(revWet); revWet.connect(spaceOut);
+  spaceOut.connect(tape); tape.connect(hfTame); hfTame.connect(clip); clip.connect(lim);
+  lim.connect(limComp); limComp.connect(out); out.connect(o.destination);
+  src.start(0);
+  return await o.startRendering();
+}
+function wavBlob(buffer){
+  const ch=buffer.numberOfChannels, sr=buffer.sampleRate, len=buffer.length;
+  const bytes=len*ch*2, ab=new ArrayBuffer(44+bytes), v=new DataView(ab);
+  const str=(o,t)=>{for(let i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i));};
+  str(0,"RIFF"); v.setUint32(4,36+bytes,true); str(8,"WAVE"); str(12,"fmt ");
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,ch,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr*ch*2,true); v.setUint16(32,ch*2,true); v.setUint16(34,16,true);
+  str(36,"data"); v.setUint32(40,bytes,true);
+  let idx=44;
+  for(let i=0;i<len;i++) for(let c=0;c<ch;c++){
+    let x=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));
+    v.setInt16(idx, x<0?x*0x8000:x*0x7fff, true); idx+=2;
+  }
+  return new Blob([ab],{type:"audio/wav"});
+}
+const FULL = {
+  trap:    {sub:85,drive:70,tight:90,width:104,wet:6,tape:20,compA:3.2,compB:1.8,air:3.5,mud:-2.5},
+  hiphop:  {sub:80,drive:60,tight:85,width:104,wet:5,tape:15,compA:3.0,compB:1.7,air:2.5,mud:-2},
+  pop:     {sub:45,drive:35,tight:60,width:106,wet:6,tape:12,compA:2.5,compB:1.6,air:4,pres:2.5,mud:-2},
+  rock:    {sub:50,drive:40,tight:65,width:105,wet:5,tape:18,compA:3,compB:1.8,air:2,pres:2,mud:-3},
+  edm:     {sub:85,drive:65,tight:90,width:105,wet:6,tape:18,compA:3.5,compB:1.8,air:4.5,mud:-2.5},
+  acoustic:{sub:30,drive:15,tight:50,width:103,wet:4,tape:6,compA:1.6,compB:1.3,air:1.5,pres:1,mud:-1},
+  generic: {sub:60,drive:45,tight:75,width:104,wet:6,tape:12,compA:2.6,compB:1.6,air:2.5,pres:1.5,mud:-2}
+};
+async function fullMaster(){
+  if(!rawBuffer) return;
+  const src=analyse(rawBuffer);
+  const srcNu=nuance(rawBuffer);
+  const f=FULL[currentGenre]||FULL.generic;
+  const tl=targetLufs(), ceiling=targetCeiling();
+  setParam("lowCutFreq",28); setParam("hpRumble",28);
+  setParam("subTrim",f.sub>70?2.5:f.sub>50?1.5:0.5);
+  setParam("subTunnelDrive",f.drive); setParam("subTightness",f.tight);
+  setParam("mudDip",f.mud); setParam("presenceGain",f.pres!==undefined?f.pres:1.5);
+  setParam("airBoost",f.air); setParam("spaceWet",f.wet);
+  setParam("stereoWidth",f.width); setParam("tapeDrive",f.tape);
+  setParam("compRatio",f.compA); setParam("comp2Ratio",f.compB);
+  // adapt release to the detected groove, not a fixed number
+  setParam("compRelease",clamp(srcNu.beatMs*0.35,20,200));
+  setParam("comp2Release",clamp(srcNu.beatMs*0.9,100,600));
+  if(srcNu.transient<8){ setParam("compAttack",clamp(S.compAttack+4,1,30)); }
+  setParam("truePeakCeiling",ceiling);
+  const room=ceiling-src.tpDb-.3, d=tl-src.lufsK;
+  const gain=Math.sign(d)*Math.min(Math.abs(d)*.6,Math.max(0,room));
+  setParam("preDrive",clamp(gain,-8,8));
+  syncParams(true);
+  setStatus("FULL MIX & MASTER · self-checking output…");
+  await deepTune(3);
+  await runAssistant();
+  setStatus("FULL MIX & MASTER complete · "+findings.length+" findings · A/B to compare");
+  log("Full mix + master applied for "+currentGenre);
+}
+async function exportWav(){
+  if(!rawBuffer) return;
+  const rendered=await renderBuffer();
+  const url=URL.createObjectURL(wavBlob(rendered));
+  const a=document.createElement("a"); a.href=url; a.download="Quantum_Master_v5.wav"; a.click();
+  setTimeout(()=>URL.revokeObjectURL(url),30000);
+  log("Exported WAV master (v5 chain)");
+}
+
+/* ============================ METER / SCOPE ============================ */
+let holdL=0, holdR=0;
+function frame(){
+  requestAnimationFrame(frame);
+  const ctx=audioCtx;
+  if(ctx && ctx.state==="running" && nodes){
+    const a=nodes.analyser;
+    const td=new Float32Array(a.fftSize); a.getFloatTimeDomainData(td);
+    let pL=0,pR=0,sq=0;
+    for(let i=0;i<td.length;i++){
+      const x=Math.abs(td[i]); sq+=td[i]*td[i];
+      if(i%2===0){if(x>pL)pL=x;} else if(x>pR)pR=x;
+    }
+    const outRms=Math.sqrt(sq/td.length);
+    $("mOut").textContent=(20*Math.log10(Math.max(outRms,1e-6))).toFixed(1)+" dB";
+    $("mOutPk").textContent=Math.max(pL,pR).toFixed(3);
+    holdL=Math.max(pL,holdL*.96); holdR=Math.max(pR,holdR*.96);
+    const pct=v=>Math.max(0,Math.min(100,((20*Math.log10(Math.max(v,1e-4))+60)/.6)));
+    $("barL").style.width=pct(pL)+"%"; $("barR").style.width=pct(pR)+"%";
+    $("holdL").style.left=pct(holdL)+"%"; $("holdR").style.left=pct(holdR)+"%";
+    $("clipL").textContent=(20*Math.log10(Math.max(pL,1e-6))).toFixed(1);
+    $("clipR").textContent=(20*Math.log10(Math.max(pR,1e-6))).toFixed(1);
+    const fd=new Float32Array(a.frequencyBinCount); a.getFloatFrequencyData(fd);
+    const cv=$("scope"), g=cv.getContext("2d"), w=cv.width, h=cv.height;
+    g.fillStyle="#0c0c0e"; g.fillRect(0,0,w,h);
+    const bars=96;
+    for(let i=0;i<bars;i++){
+      const bin=Math.floor(Math.pow(i/bars,2)*fd.length*.7);
+      const v=Math.max(0,Math.min(1,(fd[bin]+100)/80));
+      const bh=v*(h-8), bw=w/bars;
+      g.fillStyle=i<8?"#34d399":i<28?"#22d3ee":i<60?"#a78bfa":"#fbbf24";
+      g.fillRect(i*bw,h-bh,bw-1,bh);
+    }
+  }
+}
+function log(msg){ const n=$("trackName"); n.textContent=msg; }
+buildUI(); requestAnimationFrame(frame);
+
+/* ============================ WIRING ============================ */
+$("file").onchange = async e => {
+  const f=e.target.files[0]; if(!f) return;
+  try{
+    const ab=await f.arrayBuffer();
+    audioCtx = audioCtx || new AudioContext();
+    rawBuffer = await audioCtx.decodeAudioData(ab);
+    const url=URL.createObjectURL(f);
+    audioEl.src=url; audioEl.load();
+    $("playBtn").disabled=false; $("smartBtn").disabled=false; $("exportBtn").disabled=false; $("refBtn").disabled=false; $("fullBtn").disabled=false;
+    const a=analyse(rawBuffer);
+    $("mLufs").textContent=a.lufsK.toFixed(1);
+    $("mPeak").textContent=a.tpDb.toFixed(1)+" dBTP";
+    $("mSub").textContent=a.sub.toFixed(1); $("mMud").textContent=a.mud.toFixed(1);
+    $("mAir").textContent=a.air.toFixed(1); $("mWidth").textContent=a.width.toFixed(2);
+    log(f.name+" · "+rawBuffer.duration.toFixed(1)+"s · "+rawBuffer.sampleRate+" Hz");
+  }catch(err){ log("Could not decode: "+err.message); }
+};
+$("loadBtn").onclick=()=>$("file").click();
+$("playBtn").onclick=async()=>{
+  buildGraph();
+  if(audioCtx.state==="suspended") await audioCtx.resume();
+  if(audioEl.paused){ await audioEl.play(); $("playBtn").textContent="PAUSE"; }
+  else { audioEl.pause(); $("playBtn").textContent="PLAY"; }
+};
+audioEl.onended=()=>$("playBtn").textContent="PLAY";
+$("bypassBtn").onclick=()=>{
+  bypass=!bypass; syncParams(true);
+  $("bypassBtn").textContent=bypass?"BYPASSED":"DSP ACTIVE";
+  $("bypassBtn").classList.toggle("warn",bypass);
+  $("bypassBtn").classList.toggle("on",!bypass);
+};
+$("smartBtn").onclick=()=>runAssistant();
+$("exportBtn").onclick=()=>busy("Rendering full WAV master — please wait…", exportWav);
+$("fullBtn").onclick=()=>busy("FULL MIX & MASTER — analysing…", fullMaster);
+
+$("targetSel").onchange = e => {
+  currentTarget = e.target.value;
+  const t = {lufs:targetLufs(),ceiling:targetCeiling()};
+  $("targetLabel").textContent = `TARGET: ${t.lufs} LUFS · ${t.ceiling} dBTP`;
+  log("Target set to " + e.target.selectedOptions[0].text);
+};
+$("genreSel").onchange = e => {
+  currentGenre=e.target.value;
+  log("Genre: "+e.target.selectedOptions[0].text+" · "+JSON.stringify(GENRE[currentGenre]));
+};
+$("styleSel").onchange = e => {
+  currentStyle = e.target.value;
+  log("Style set to " + e.target.selectedOptions[0].text);
+};
+$("refBtn").onclick = () => $("refFile").click();
+$("refFile").onchange = async e => {
+  const f = e.target.files[0]; if(!f) return;
+  try {
+    const ab = await f.arrayBuffer();
+    const actx = audioCtx || new AudioContext();
+    const copy = ab.slice(0);
+    refBuffer = await actx.decodeAudioData(ab);
+    refMetrics = analyse(refBuffer);
+    refName = f.name;
+    $("refName").textContent = f.name.length > 22 ? f.name.slice(0,22)+"…" : f.name;
+    log("Reference loaded: " + f.name + " — run the assistant to match it");
+  } catch(err) { log("Reference decode failed: " + err.message); }
+};
+</script>
+</body>
+</html>

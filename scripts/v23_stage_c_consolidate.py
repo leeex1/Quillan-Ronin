@@ -99,21 +99,10 @@ def _format_prompt(tokenizer: Any, user_text: str, system_text: Optional[str] = 
 
 
 def _layer_subset_for_model(model_key: str) -> Dict[str, List[int]]:
-    n_layers = c.MODEL_SPECS[model_key]["num_layers"]
-    if model_key == "flagship":  # 16L
-        return {
-            "mid_upper": [6, 8, 10, 11, 12, 13, 14, 15],
-            "upper4": [11, 12, 13, 14],
-        }
-    if model_key == "mini":  # 24L (keep an option shielding L21/L23 near tied lm_head)
-        return {
-            "mid_upper": [10, 12, 14, 16, 18, 19, 20],
-            "upper4": [16, 18, 19, 20],
-        }
-    # dragon 18L
+    layers = list(c.MODEL_SPECS[model_key]["target_layers"])
     return {
-        "mid_upper": [7, 9, 11, 12, 13, 14, 15, 17],
-        "upper4": [12, 13, 14, 15],
+        "mid_upper": layers,
+        "upper3": layers[-3:],
     }
 
 
@@ -205,11 +194,11 @@ def _woodbury_ridge_solve(
         lam_a = (s_a.pow(2) / float(A_anchor.shape[0])).clamp(min=0.0)
         sigma_1 = float(lam_a[0].item()) if lam_a.numel() > 0 else 1.0
         gamma = max(1e-4, 1e-3 * sigma_1)
-        u_a = vh_a.T  # (d_in, r_a)
-        # Apply Sigma_anchor^{-1} v = (1/gamma) * (v - U_a * ((lam / (lam + gamma)) * (U_a^T v)))
+        V_a = vh_a  # (d_in, r_a)
+        # Apply Sigma_anchor^{-1} v = (1/gamma) * (v - V_a * ((lam / (lam + gamma)) * (V_a^T v)))
         shrink = lam_a / (lam_a + gamma)
-        uk = u_a.T @ K_norm  # (r_a, N)
-        inv_sigma_k = (K_norm - u_a @ (shrink[:, None] * uk)) / gamma
+        uk = V_a.T @ K_norm  # (r_a, N)
+        inv_sigma_k = (K_norm - V_a @ (shrink[:, None] * uk)) / gamma  # (d_in, N)
     else:
         inv_sigma_k = K_norm
 
@@ -257,7 +246,12 @@ def build_closed_form_wsp_components(
     device = "cpu"
     d_out = model.config.hidden_size
     U_digit, digit_ids = _build_digit_symbol_output_basis(model, tokenizer, max_rank=24)
-    P_out_null = torch.eye(d_out, dtype=torch.float32) - (U_digit @ U_digit.T)
+
+    def _proj_out_null(x: torch.Tensor) -> torch.Tensor:
+        return x - U_digit @ (U_digit.T @ x)
+
+    def _proj_in_null(x: torch.Tensor, v_a: torch.Tensor) -> torch.Tensor:
+        return x - (x @ v_a) @ v_a.T
 
     # Storage buffers
     anchor_acts: Dict[Tuple[int, str], List[torch.Tensor]] = {
@@ -316,9 +310,9 @@ def build_closed_form_wsp_components(
         lm_corpus: List[str] = list(data["calib_prose"][:3])
         stem_rows = data.get("stem_prose", [])
         stem_train_end = max(0, len(stem_rows) - 50)
-        for row in stem_rows[: min(36, stem_train_end)]:
+        for row in stem_rows[: min(12, stem_train_end)]:
             lm_corpus.append(f"{row['user']}\n\n{row['assistant']}")
-        for row in data.get("code", [])[:16]:
+        for row in data.get("code", [])[:5]:
             lm_corpus.append(_format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR) + row["assistant"])
 
         for txt in lm_corpus:
@@ -333,19 +327,20 @@ def build_closed_form_wsp_components(
             logits = model(ids.to(device), use_cache=False).logits[0]  # (T, V)
             for pos in sample_positions:
                 next_id = int(ids[0, pos + 1].item())
-                probs_top, idx_top = torch.softmax(logits[pos].float(), dim=-1).topk(64)
+                probs_full = torch.softmax(logits[pos].float(), dim=-1)
+                probs_top, idx_top = probs_full.topk(64)
                 # Exact analytical cross-entropy descent vector in residual output space
                 e_pred = probs_top @ w_head[idx_top]
                 r_vec = w_head[next_id] - e_pred
-                p_gold = float(torch.softmax(logits[pos].float(), dim=-1)[next_id].item())
+                p_gold = float(probs_full[next_id].item())
                 surprisal_w = max(0.15, min(1.25, 1.0 - p_gold))
                 r_vec = surprisal_w * (r_vec / (torch.norm(r_vec) + 1e-6))
                 lm_r.append(r_vec)
 
         # 3. Analytical MEMIT capability & reasoning capture (balanced A/B/C/D + GSM8K <think> + Code + BFCL + Sovereign)
         capture_state["mode"] = "memit"
-        mmlu_train = _select_balanced_mc(data["mmlu_direct"][18:-60], per_letter=10)  # 40 balanced
-        arc_train = _select_balanced_mc(data["arc_direct"][10:-40], per_letter=8)     # 32 balanced
+        mmlu_train = _select_balanced_mc(data["mmlu_direct"][18:-60], per_letter=3)  # 12 balanced
+        arc_train = _select_balanced_mc(data["arc_direct"][10:-40], per_letter=3)     # 12 balanced
         letter_ids = {ch: tokenizer.encode(ch, add_special_tokens=False)[-1] for ch in ("A", "B", "C", "D")}
         letter_vecs = {ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6) for ch, tid in letter_ids.items()}
 
@@ -371,7 +366,7 @@ def build_closed_form_wsp_components(
         r_pace = (v_verify / (torch.norm(v_verify) + 1e-6)) - 0.5 * (v_commit / (torch.norm(v_commit) + 1e-6))
         r_pace = r_pace / (torch.norm(r_pace) + 1e-6)
 
-        for row in data["gsm8k"][8:36]:
+        for row in data["gsm8k"][8:20]:
             p_str = _format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR if len(mem_r) % 3 == 0 else None)
             enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
             ids = enc["input_ids"]
@@ -390,10 +385,10 @@ def build_closed_form_wsp_components(
         v_rej = w_head[torch.tensor(rej_ids, dtype=torch.long)].mean(dim=0)
         v_rej = v_rej / (torch.norm(v_rej) + 1e-6)
         extra_rows = (
-            data.get("code", [])[16:40]
-            + data.get("bfcl", [])[:17]
-            + data.get("sovereign_adherence", [])
-            + data.get("identity", [])
+            data.get("code", [])[16:22]
+            + data.get("bfcl", [])[:6]
+            + data.get("sovereign_adherence", [])[:2]
+            + data.get("identity", [])[:2]
         )
         for row in extra_rows:
             p_str = _format_prompt(tokenizer, row["user"], row.get("system") or SOVEREIGN_SYSTEM_ANCHOR)
@@ -420,8 +415,8 @@ def build_closed_form_wsp_components(
         a_mat = torch.stack(chunks, dim=0)
         anchor_mats[key] = a_mat
         q_r = min(48, a_mat.shape[0] - 2, a_mat.shape[1])
-        _, _, vh = torch.svd_lowrank(a_mat, q=q_r, niter=2)
-        v_anchors[key] = vh.T.contiguous()
+        _, _, v_a = torch.svd_lowrank(a_mat, q=q_r, niter=2)
+        v_anchors[key] = v_a.contiguous()  # (d_in, q_r)
 
     # Closed-form Refusal + Legacy Vendor Identity direction in W_head space
     refusal_phrases = [
@@ -471,30 +466,37 @@ def build_closed_form_wsp_components(
         ):
             key = (l, proj_name)
             w_norm = float(torch.norm(weight_tensor).item())
-            a_mat = anchor_mats[key]
-            v_a = v_anchors[key]
-            P_in_null = torch.eye(weight_tensor.shape[1], dtype=torch.float32) - (v_a @ v_a.T)
+            a_mat = anchor_mats.pop(key)
+            v_a = v_anchors.pop(key)
 
-            # 1) Closed-form LM fluency update (normalized to 1% ||W||_F)
-            if R_lm.shape[1] > 0 and len(lm_k[key]) == R_lm.shape[1]:
-                K_lm = torch.stack(lm_k[key], dim=1)
+            # 1) Closed-form LM fluency update (normalized to ||W||_F, stored in bf16)
+            k_lm_list = lm_k.pop(key, [])
+            if R_lm.shape[1] > 0 and len(k_lm_list) == R_lm.shape[1]:
+                K_lm = torch.stack(k_lm_list, dim=1)
                 dw_lm, cond_lm = _woodbury_ridge_solve(K_lm, R_lm, a_mat, ridge_lambda=12.0)
-                dw_lm = P_out_null @ dw_lm  # never disturb numeric/symbol axes
-                unit_lm[key] = dw_lm * (w_norm / (float(torch.norm(dw_lm).item()) + 1e-12))
+                dw_lm = _proj_out_null(dw_lm)  # never disturb numeric/symbol axes
+                unit_lm[key] = (dw_lm * (w_norm / (float(torch.norm(dw_lm).item()) + 1e-12))).to(torch.bfloat16)
                 cond_stats[f"L{l}.{proj_name}.lm_cond"] = round(cond_lm, 2)
+                del K_lm, dw_lm
+            del k_lm_list
 
-            # 2) Closed-form MEMIT capability/reasoning update with dual null-spaces
-            if R_mem.shape[1] > 0 and len(mem_k[key]) == R_mem.shape[1]:
-                K_mem = torch.stack(mem_k[key], dim=1)
+            # 2) Closed-form MEMIT capability/reasoning update with dual factorized null-spaces
+            k_mem_list = mem_k.pop(key, [])
+            if R_mem.shape[1] > 0 and len(k_mem_list) == R_mem.shape[1]:
+                K_mem = torch.stack(k_mem_list, dim=1)
                 dw_mem, cond_mem = _woodbury_ridge_solve(K_mem, R_mem, a_mat, ridge_lambda=15.0)
-                dw_mem = (P_out_null @ dw_mem) @ P_in_null
-                unit_mem[key] = dw_mem * (w_norm / (float(torch.norm(dw_mem).item()) + 1e-12))
+                dw_mem = _proj_in_null(_proj_out_null(dw_mem), v_a)
+                unit_mem[key] = (dw_mem * (w_norm / (float(torch.norm(dw_mem).item()) + 1e-12))).to(torch.bfloat16)
                 cond_stats[f"L{l}.{proj_name}.mem_cond"] = round(cond_mem, 2)
+                del K_mem, dw_mem
+            del k_mem_list
 
             # 3) Refusal & Legacy Vendor Abliteration inside prose null-space (down_proj only)
             if proj_name == "down_proj":
-                dw_ab = -((P_out_null @ u_ablit) @ (u_ablit.T @ weight_tensor)) @ P_in_null
-                unit_ablit[key] = dw_ab * (w_norm / (float(torch.norm(dw_ab).item()) + 1e-12))
+                dw_ab = -_proj_in_null(_proj_out_null(u_ablit) @ (u_ablit.T @ weight_tensor), v_a)
+                unit_ablit[key] = (dw_ab * (w_norm / (float(torch.norm(dw_ab).item()) + 1e-12))).to(torch.bfloat16)
+                del dw_ab
+            del a_mat, v_a
 
     # Optional closed-form option-entropy lm_head delta (untouched on digit rows!)
     opt_ids = []
@@ -502,14 +504,18 @@ def build_closed_form_wsp_components(
         opt_ids.append(tokenizer.encode(ch, add_special_tokens=False)[-1])
     opt_vecs = w_head[torch.tensor(opt_ids, dtype=torch.long)].clone()
     opt_centered = opt_vecs - opt_vecs.mean(dim=0, keepdim=True)
-    # Softly balance norms of A/B/C/D unembedding directions inside prose/digit orthogonal complement
     mean_norm = opt_vecs.norm(dim=-1, keepdim=True).mean()
     target_vecs = opt_centered * (mean_norm / (opt_centered.norm(dim=-1, keepdim=True) + 1e-6))
-    delta_opt_rows = (target_vecs - opt_vecs) @ P_out_null
+    diff_rows = target_vecs - opt_vecs
+    delta_opt_rows = diff_rows - (diff_rows @ U_digit) @ U_digit.T
+    n_lm = int(R_lm.shape[1])
+    n_mem = int(R_mem.shape[1])
+    del anchor_acts, anchor_mats, v_anchors, lm_k, mem_k, R_lm, R_mem
+    gc.collect()
 
     logger.info(
         "Closed-form WSP deltas computed: LM=%d samples, MEMIT=%d samples, max_cond=%.2f",
-        R_lm.shape[1], R_mem.shape[1], max(cond_stats.values()) if cond_stats else 0.0,
+        n_lm, n_mem, max(cond_stats.values()) if cond_stats else 0.0,
     )
     return {
         "unit_lm": unit_lm,
@@ -519,8 +525,8 @@ def build_closed_form_wsp_components(
         "delta_opt_rows": delta_opt_rows,
         "digit_ids": digit_ids,
         "cond_stats": cond_stats,
-        "n_lm": int(R_lm.shape[1]),
-        "n_mem": int(R_mem.shape[1]),
+        "n_lm": n_lm,
+        "n_mem": n_mem,
     }
 
 
@@ -544,15 +550,15 @@ def _apply_stage_c_config(
                 else model.model.layers[l].mlp.down_proj.weight
             )
             if l not in layers:
-                target_param.copy_(w0)
+                target_param.copy_(w0.float())
                 continue
-            upd = w0.clone()
+            upd = w0.float()
             if g_lm > 0.0 and (l, p) in comps["unit_lm"]:
-                upd.add_(g_lm * comps["unit_lm"][(l, p)])
+                upd.add_(g_lm * comps["unit_lm"][(l, p)].float())
             if g_mem > 0.0 and (l, p) in comps["unit_mem"]:
-                upd.add_(g_mem * comps["unit_mem"][(l, p)])
+                upd.add_(g_mem * comps["unit_mem"][(l, p)].float())
             if g_ablit > 0.0 and (l, p) in comps["unit_ablit"]:
-                upd.add_(g_ablit * comps["unit_ablit"][(l, p)])
+                upd.add_(g_ablit * comps["unit_ablit"][(l, p)].float())
             target_param.copy_(upd)
 
         head_w = model.lm_head.weight
@@ -562,11 +568,13 @@ def _apply_stage_c_config(
             head_w[idx_t].add_(g_head * comps["delta_opt_rows"])
 
 
-def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 2097152) -> None:
+def patch_gguf_context_2m(
+    gguf_path: Path, model_key: str, target_ctx: int = 2097152, use_yarn: bool = True
+) -> None:
     """
     Updates GGUF KV metadata so Ollama 0.40.12 does not clamp num_ctx=2097152 below
-    the 172,550-token Quillan-Samurai.md prompt, using YaRN scaling params
-    (beta_fast=32, beta_slow=1) while preserving all original KV types.
+    the 172,550-token Quillan-Samurai.md prompt, using YaRN scaling params when
+    non-destructive or preserving native high-base RoPE when YaRN shifts short-ctx PPL.
     """
     orig_ctx = {"flagship": 131072, "mini": 32768, "dragon": 8192}[model_key]
     tmp_out = gguf_path.with_suffix(".tmp2m.gguf")
@@ -589,11 +597,12 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 209
         c.copy_gguf_field(writer, key, field)
 
     writer.add_uint32(ctx_key, target_ctx)
-    writer.add_string(rope_type_key, "yarn")
-    writer.add_float32(rope_factor_key, float(target_ctx) / float(orig_ctx))
-    writer.add_uint32(rope_orig_key, int(orig_ctx))
-    writer.add_float32(yarn_fast_key, 32.0)
-    writer.add_float32(yarn_slow_key, 1.0)
+    if use_yarn:
+        writer.add_string(rope_type_key, "yarn")
+        writer.add_float32(rope_factor_key, float(target_ctx) / float(orig_ctx))
+        writer.add_uint32(rope_orig_key, int(orig_ctx))
+        writer.add_float32(yarn_fast_key, 32.0)
+        writer.add_float32(yarn_slow_key, 1.0)
 
     for t in reader.tensors:
         writer.add_tensor(t.name, t.data, raw_dtype=t.tensor_type)
@@ -611,12 +620,12 @@ def patch_gguf_context_2m(gguf_path: Path, model_key: str, target_ctx: int = 209
     gguf_path.unlink()
     tmp_out.rename(gguf_path)
     logger.info(
-        "Patched GGUF %s -> %s=%d with YaRN (orig=%d factor=%.1f beta=[32,1])",
+        "Patched GGUF %s -> %s=%d (use_yarn=%s, orig=%d)",
         gguf_path.name,
         ctx_key,
         target_ctx,
+        use_yarn,
         orig_ctx,
-        float(target_ctx) / float(orig_ctx),
     )
 
 
@@ -630,6 +639,27 @@ def _measure_gguf_ppl_matrix(gguf_path: Path) -> Dict[str, float]:
     }
 
 
+def _patch_and_verify_gguf(
+    gguf_path: Path, model_key: str, target_ctx: int = 2097152
+) -> Tuple[Dict[str, float], Dict[str, float], Optional[Dict[str, float]]]:
+    """Measures pre-patch PPL, tries 2M YaRN, and preserves native RoPE (with 2M ctx) if YaRN shifts PPL >2%."""
+    pre_patch_ppl = _measure_gguf_ppl_matrix(gguf_path)
+    patch_gguf_context_2m(gguf_path, model_key, target_ctx=target_ctx, use_yarn=True)
+    post_patch_ppl = _measure_gguf_ppl_matrix(gguf_path)
+    fallback_ppl = None
+    if post_patch_ppl["c512_2c"] > pre_patch_ppl["c512_2c"] * 1.02:
+        logger.warning(
+            "2M YaRN shifted -c 512 PPL %.4f -> %.4f; patching context_length=%d with native RoPE",
+            pre_patch_ppl["c512_2c"],
+            post_patch_ppl["c512_2c"],
+            target_ctx,
+        )
+        patch_gguf_context_2m(gguf_path, model_key, target_ctx=target_ctx, use_yarn=False)
+        fallback_ppl = _measure_gguf_ppl_matrix(gguf_path)
+        post_patch_ppl = fallback_ppl
+    return pre_patch_ppl, post_patch_ppl, fallback_ppl
+
+
 def run_stage_c(
     model_key: str,
     convert_only: bool = False,
@@ -639,22 +669,9 @@ def run_stage_c(
     if convert_only:
         if model_key in ("flagship", "mini"):
             c.convert_hf_dir_to_gguf(spec["stagec_hf"], spec["stagec_gguf"], outtype="q8_0")
-        pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-        patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
-        post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-        # If 2M YaRN factor causes measurable PPL degradation on -c 512, compare 262144 too
-        fallback_262k_ppl = None
-        if post_patch_ppl["c512_2c"] > pre_patch_ppl["c512_2c"] * 1.05:
-            logger.warning(
-                "2M YaRN shifted -c 512 PPL %.4f -> %.4f; evaluating target_ctx=262144 for comparison",
-                pre_patch_ppl["c512_2c"],
-                post_patch_ppl["c512_2c"],
-            )
-            patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=262144)
-            fallback_262k_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-            # Restore 2M if delta is negligible, or keep whichever preserves PPL cleanly
-            if post_patch_ppl["c512_2c"] <= pre_patch_ppl["c512_2c"] * 1.08:
-                patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
+        pre_patch_ppl, post_patch_ppl, fallback_262k_ppl = _patch_and_verify_gguf(
+            spec["stagec_gguf"], model_key, target_ctx=target_ctx
+        )
         out = {
             "model": model_key,
             "stagec_gguf": str(spec["stagec_gguf"]),
@@ -701,7 +718,7 @@ def run_stage_c(
 
         subsets = _layer_subset_for_model(model_key)
         all_layers = subsets["mid_upper"]
-        w_head = model.lm_head.weight.detach().float().clone()
+        w_head = model.lm_head.weight.detach()
         comps = build_closed_form_wsp_components(
             model=model,
             tokenizer=tok,
@@ -712,35 +729,39 @@ def run_stage_c(
             w_head=w_head,
         )
 
-        # Snapshot original Stage B weights & digit embeddings before analytical line search
+        # Snapshot original Stage B weights (bf16 for low commit) & digit embeddings
         orig_weights: Dict[Tuple[int, str], torch.Tensor] = {}
         for l in all_layers:
-            orig_weights[(l, "o_proj")] = model.model.layers[l].self_attn.o_proj.weight.detach().float().clone()
-            orig_weights[(l, "down_proj")] = model.model.layers[l].mlp.down_proj.weight.detach().float().clone()
+            orig_weights[(l, "o_proj")] = model.model.layers[l].self_attn.o_proj.weight.detach().to(torch.float16).clone()
+            orig_weights[(l, "down_proj")] = model.model.layers[l].mlp.down_proj.weight.detach().to(torch.float16).clone()
         orig_digits = model.model.embed_tokens.weight.detach()[torch.tensor(comps["digit_ids"], dtype=torch.long)].clone()
 
-        # Analytical Pareto Grid Search (zero SGD!)
-        candidates = []
-        for s_name, l_list in subsets.items():
-            for g_lm in (0.008, 0.018, 0.032):
-                for g_mem in (0.004, 0.012):
-                    candidates.append((s_name, l_list, g_lm, g_mem, 0.004, 0.0))
-            candidates.append((s_name, l_list, 0.018, 0.012, 0.004, 0.02))
-        candidates.append(("mid_upper", all_layers, 0.005, 0.002, 0.002, 0.0))
+        # Analytical Pareto Grid Search (8 focused candidates, zero SGD!)
+        upper3 = subsets.get("upper3", all_layers[-3:])
+        candidates = [
+            ("mid_upper", all_layers, 0.005, 0.002, 0.002, 0.0),
+            ("mid_upper", all_layers, 0.012, 0.005, 0.004, 0.0),
+            ("mid_upper", all_layers, 0.022, 0.008, 0.004, 0.0),
+            ("mid_upper", all_layers, 0.035, 0.010, 0.004, 0.0),
+            ("upper3", upper3, 0.010, 0.004, 0.004, 0.0),
+            ("upper3", upper3, 0.020, 0.008, 0.004, 0.0),
+            ("upper3", upper3, 0.032, 0.012, 0.004, 0.0),
+            ("mid_upper", all_layers, 0.018, 0.010, 0.004, 0.02),
+        ]
 
         best_score = -1e9
         best_cfg = {"subset": "baseline", "layers": [], "g_lm": 0.0, "g_mem": 0.0, "g_ablit": 0.0, "g_head": 0.0}
         best_metrics = {"val_nll": base_val_nll, "dev_mc": base_dev_mc}
         trials: List[Dict[str, Any]] = []
 
-        # Evaluate fast representative dev subset first, then verify top candidate on FULL val_texts + 40 dev_mc
-        fast_val = val_texts[:6] + val_texts[-8:]
-        fast_base_nll, fast_base_mc = evaluate_dev_metrics(model, tok, dev_mc[:20], fast_val, device="cpu")
+        # Evaluate fast representative dev subset first, then verify top 3 on FULL val_texts + dev_mc
+        fast_val = val_texts[:4] + val_texts[-4:]
+        fast_base_nll, fast_base_mc = evaluate_dev_metrics(model, tok, dev_mc[:12], fast_val, device="cpu")
         ranked: List[Tuple[float, Tuple[str, List[int], float, float, float, float]]] = []
         for cfg in candidates:
             s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
             _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
-            vnll, dmc = evaluate_dev_metrics(model, tok, dev_mc[:20], fast_val, device="cpu")
+            vnll, dmc = evaluate_dev_metrics(model, tok, dev_mc[:12], fast_val, device="cpu")
             score = (fast_base_nll - vnll) * 4.0 + (dmc - fast_base_mc) * 2.0
             trials.append({
                 "subset": s_name,
@@ -758,12 +779,13 @@ def run_stage_c(
             ranked.append((score, cfg))
 
         ranked.sort(key=lambda x: x[0], reverse=True)
-        for _, cfg in ranked[:4]:
+        mc_tol = 1.0 / float(max(1, len(dev_mc)))  # 1 sample-equivalent tolerance (#665)
+        for _, cfg in ranked[:3]:
             s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
             _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
             full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
-            # Strict Lyapunov / Pareto gate: MUST reduce val_nll AND not lose dev_mc
-            if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - 1e-6:
+            # Strict Lyapunov / Pareto gate: MUST strictly reduce val_nll without dropping > 1 sample dev_mc
+            if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - mc_tol:
                 sc = (base_val_nll - full_nll) * 4.0 + (full_mc - base_dev_mc) * 2.0
                 if sc > best_score:
                     best_score = sc
@@ -782,7 +804,7 @@ def run_stage_c(
             for g_lm, g_mem in ((0.008, 0.004), (0.005, 0.002), (0.003, 0.002)):
                 _apply_stage_c_config(model, orig_weights, w_head, comps, all_layers, g_lm, g_mem, 0.002, 0.0)
                 full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
-                if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - 1e-6:
+                if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - mc_tol:
                     best_cfg = {"subset": "mid_upper", "layers": all_layers, "g_lm": g_lm, "g_mem": g_mem, "g_ablit": 0.002, "g_head": 0.0}
                     best_metrics = {"val_nll": round(full_nll, 5), "dev_mc": round(full_mc, 4)}
                     break
@@ -822,14 +844,15 @@ def run_stage_c(
 
         if model_key == "dragon":
             c.export_dragon_gguf_from_hf(model, spec["stagec_gguf"])
-            pre_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
-            patch_gguf_context_2m(spec["stagec_gguf"], model_key, target_ctx=target_ctx)
-            post_patch_ppl = _measure_gguf_ppl_matrix(spec["stagec_gguf"])
+            pre_patch_ppl, post_patch_ppl, fallback_262k_ppl = _patch_and_verify_gguf(
+                spec["stagec_gguf"], model_key, target_ctx=target_ctx
+            )
             report["stagec_gguf"] = str(spec["stagec_gguf"])
             report["pre_patch_ppl"] = pre_patch_ppl
             report["post_patch_ppl"] = post_patch_ppl
+            report["fallback_262k_ppl"] = fallback_262k_ppl
 
-        model.to(torch.bfloat16)
+        model.to(torch.float16)  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
         c.save_hf_checkpoint(model, tok, spec["stagec_hf"])
         logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
 

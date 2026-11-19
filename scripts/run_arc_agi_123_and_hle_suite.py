@@ -99,7 +99,7 @@ def extract_option_letter_abcde(resp: str, valid_letters: str = "ABCD") -> str:
         return m_exact.group(1).upper()
 
     m_decl = re.findall(
-        rf"(?:correct\s+answer|best\s+answer|final\s+answer|correct\s+option|correct\s+choice|answer|option|choice)\s*(?:is|:)\s*(?:option\s*|choice\s*)?[\*\(\[\s]*({cls})(?![a-zA-Z])",
+        rf"(?:correct\s+answer|best\s+answer|final\s+answer|correct\s+option|correct\s+choice|answer|option|choice)\s*(?:is|:)?\s*(?:option\s*|choice\s*)?[\*\(\[\s]*({cls})(?![a-zA-Z])",
         t,
         flags=re.IGNORECASE,
     )
