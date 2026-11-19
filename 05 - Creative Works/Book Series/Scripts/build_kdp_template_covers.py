@@ -80,11 +80,11 @@ BOOKS = [
 # Interior page counts from the 2026-11-13 rebuilt print interiors (build_print_pdf.py).
 # BW cream paper: spine = pages * 0.0025" per KDP template calc.
 BOOK_PAGE_COUNTS = {
-    1: 586,
+    1: 585,
     2: 502,
-    3: 557,
-    4: 475,
-    5: 531,
+    3: 553,
+    4: 433,
+    5: 483,
 }
 
 

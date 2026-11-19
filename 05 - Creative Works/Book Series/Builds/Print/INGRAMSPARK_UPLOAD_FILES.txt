@@ -1,0 +1,3 @@
+Use only the two PDFs per book in Builds\Print\INGRAMSPARK_READY.
+See INGRAMSPARK_READY\USE_THESE_FILES.txt for exact filenames and SHA256 hashes.
+All older PDFs are archived in Builds\Print\ARCHIVE_OLD_PRINTS.
