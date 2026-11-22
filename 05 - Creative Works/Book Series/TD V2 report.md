@@ -742,3 +742,15 @@ Draft-status after pass: 0 mojibake, 0 exact duplicate lines, 4 near-duplicate s
 - All five EPUBs rebuilt and content-verified with final markers. All five print interiors rebuilt; Book 5 now 483pp, 6x9. Covers regenerated with current spine widths.
 - `Builds\Print\INGRAMSPARK_READY` repopulated with 10 canonical PDFs (5 interiors + 5 full-wrap covers), named with page counts and SHA256 manifest. Root Print folder clean; older files in `ARCHIVE_OLD_PRINTS`.
 - Book 5 audio remains stale (short 301pp-era MP3). It must be re-rendered before audiobook upload. User was told not to upload Book 5 until green light.
+
+---
+
+## 49. 2026-11-22 — Final reader-ready verification
+
+- User asked for a final double-check that no repeating sections remain and that all deleted material was replaced with lore-bearing prose.
+- **All five manuscripts pass every structural audit:** exact duplicate long lines 0, near-duplicate pairs 0, repeated long sentences 0, close-range reworded paragraph pairs 0, chapter-seam repeats 0, duplicate chapter numbers 0, artifact/mojibake 0, cross-book chapter-title collisions 0.
+- **Chapter-length audit:** no stub chapters. B1 min 2,058 words; B2 min 1,443; B3 min 1,253; B4 min 1,377; B5 min 4,195. Book 4's three former interstitial chapters were expanded into full consequence scenes (Ch10, Ch13, Ch16 per independent proof and canon review: all PASS). Book 5 is restored to 151,690 words / 483pp.
+- **Canon review of expanded chapters:** PASS — Maw climax remains Book 3's; Zaphrium alive/spent in Ch10-16, dies only in Ch30; Lukas crowned only Ch31; Fenris distributed music; deleted climax material replaced with aftermath, not bare cuts.
+- **KDP files rebuilt and verified:** interiors B1 585pp, B2 502pp, B3 553pp, B4 468pp, B5 483pp; EPUBs content-verified; full-wrap Ingram PDFs regenerated in `INGRAMSPARK_READY` with SHA256 manifest.
+- **Audio:** all five MP3s regenerated from final text; GitHub Release `hybrid-throne-audio-final-2026-11-19` published with five raw assets; HF lists all five MP3s. Final B4 audio replacement from the post-proof text is in progress and will be confirmed separately by hash.
+- **Remotes:** GitHub `main` synced with final text; HF core files synced by API (git ref intentionally older because HF 10 MiB git hook rejects raw binaries). Report committed locally and pushed.
