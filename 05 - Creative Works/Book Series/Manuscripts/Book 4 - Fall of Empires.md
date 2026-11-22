@@ -1232,7 +1232,141 @@ Alyra saw it from the cockpit of the *Aurora*. She saw the Maw swallow the Fragm
 
 She did not weep. She counted. And when the counting was done, she came back to the Spire with a world that had been unmade and a heart that refused to stop beating.
 
-The details of that day belong to the story that has already been told. What belongs to this story is what came after: the silence, the settling, the way a world looks when it has survived its own ending and does not yet know what to do with the morning.
+The details of that day belong to the story that has already been told. The summit. The wheat. The brother who became music and the brother who let him. Those chapters are written in another book, in another volume of the long chronicle, and no hand of mine shall restage them here. What belongs to this story is what came after: the silence, the settling, the way a world looks when it has survived its own ending and does not yet know what to do with the morning.
+
+They called the ruin behind them the Fall. Alyra thought of it as the first account in a ledger that would take years to balance.
+
+---
+
+The *Aurora* was dying in the slow, particular way that only a thing made of memory can die.
+
+She had been born of grief — a spectral reconstruction of a skyship burned to its iron bones in the first passage through the Rift, knit back into a vessel by the last conscious act of the Last Silver Dragon. Zaphrium had given the world his body and then his mind, and from the residue made this: translucent hull, sails of compressed light, masts humming with a frequency not quite wind and not quite song. It had carried them into the Maw. It was carrying them out.
+
+But the carrying had cost it.
+
+Alyra stood at the helm with both hands on the spectral wheel, and felt the ship failing through the soles of her boots. The deck-plating beneath her had gone thin as old parchment in the hours since the Terminal Synthesis, the silver-violet light that composed it bleeding away into the bruised violet of the sky. Where the light departed, the truth showed through — the scorched iron ribs of the original wreck, blackened where the Rift had seared them, honest in a way the beautiful ghost had never been. The reconstruction was unbuilding itself. Zaphrium's gift was returning to the Aegis, returning to the Shield, returning to the distributed self the dragon had chosen to become.
+
+"Port rib's gone," Nyssa said from the navigation crystal. Her voice was flat with the discipline of someone who measured disasters in percentages and refused to spend breath on the portion that had already happened. "The stability-field is down to eighteen percent. The navigation crystals are drifting — not broken, drifting, which is worse, because I can't tell you where we'll come out. Hull translucent at the edges. Iron showing through everywhere." A pause. The clipped intake of a breath. "She's holding, Alyra. But she's holding the way a hand holds a cup it knows it will drop."
+
+"Then we don't let her drop before we're through," Alyra said. Her violet fire burned low and steady at her shoulder, the dragon-light she had carried since the day she had buried Zaphrium's kin and taken up a throne she had never wanted. She turned the wheel a fraction, coaxing the dying ship away from a spar of finalization that still jutted from the collapsing Maw like the rib of a buried leviathan. "How long?"
+
+"Through the Rift? Four minutes. Maybe three." Nyssa's golden eyes did not leave the crystal. Her feline ears were pressed flat against her skull, the muscles in her jaw tight with the tension of a predator who knew she was prey and had accepted the terms. "Then we fall. The draconic-noise is nearly spent — I can feel it thinning in the masts. When it's gone, there's nothing holding the hull together but iron and spite."
+
+"Iron and spite have held worse."
+
+"That's one way to put it."
+
+Alyra did not smile. She held the wheel, watched the Maw recede, and counted.
+
+---
+
+She counted because counting was the only thing that kept her from feeling.
+
+It was a lesson Zaphrium had taught her when she was twelve, in the eastern gallery: *Strike the frequency, child, not the throat.* She had not understood it then. She understood it now, with the wreckage of the Maw streaming past the cockpit like the dust of a world recorded and unpacked in the same breath.
+
+The Fragments were everywhere on the receding plain. Compressed tombs of finalized lives — a million archived singularities, each one a memory the Auditor had deemed unworthy of continuation and sealed away as data. Most were still grey, drifting in the death-throes of the Maw like the ghosts of extinct species, their surfaces etched with the geometric patterns of a system that had mistaken existence for error. But others — more and more of them with every heartbeat — were *opening*.
+
+She watched one split apart near the ship's wake and release its contents into the void: the smell of a woman kneading bread at a window, the sound of a neighbor's dog, the contented hum of a life that had been archived and abandoned and was now, impossibly, spilling back into the world. The memory flashed across the cockpit in a haze of warm gold and was gone, scattered on the wind that should not have existed between worlds. Another cracked, and a child's laughter went spinning into the dark — brief, bright, unbearably ordinary. A third, larger than the rest, broke open and released the blue of a summer sky over a field of wheat, and for one heartbeat the entire cockpit smelled of Oakhaven.
+
+Nyssa did not ask how she had arrived at the number. Alyra had counted the Fragments the way a queen counted her dead — individually, in silence, with no room for the merciful blur of approximation. It was how she had held the Coalition together through the grey weeks of the siege: every loss named, every debt ledgered, nothing surrendered to the fog of *many* and *enough*. Grief could be carried if you broke it into countable pieces. A world could be saved the same way.
+
+"Seven hundred and twelve released," she said, her voice barely above the hum of the dying ship. "And still drifting, maybe four thousand. Maybe more. The plain goes on past the visual range."
+
+Four thousand still drifting. Four thousand lives sealed in grey. The number settled in her chest like a stone, and she would not weep over it — not while the ship was failing and the living needed a pilot who did not shake. She would weep later. Weeping was a debt she owed the dead, and she would settle it when the living were safe.
+
+*Count,* Zaphrium's voice seemed to say from the dying masts. *Count and carry.*
+
+---
+
+Lukas stood behind her, and watched the Maw die, and said nothing.
+
+He had not said much of anything since the summit. The change in him was not the loud kind — no new fire, no blazing transformation. It was quieter than that, and deeper, and it frightened Alyra more than any spectacle could have. The frantic, guttering candle of the siege was gone. In its place burned a steady, warm radiance — the light of a frequency tested against the system core and emerged not unscathed but *validated*. The noise was no longer a weapon he wielded. It had become a state of being.
+
+The Anchor-state had eaten its fill of him over the forty-eight hours in the silver sand, and the merge at the summit had taken some further measure none of them could name. His silvermane hung in limp, colorless wisps around a face carved to sharper angles than she remembered. The armor hung loose on him, its plates shifting with each breath. The silver scars of the Ascension on his forearms had dimmed to the faint glow of an ember banked for winter.
+
+And his hands — his hands were the worst of it. They were claspable still, whole and warm, but he held them often in front of him, fingers curled in the specific grip of a hand that had been holding another hand and was learning, slowly, that it was holding air. Alyra had seen him do it three times in the last hour. Each time, he seemed to notice only after a moment, and each time he let the fingers fall with a deliberation that was its own kind of grief.
+
+The spear was gone. The Spire, that ancient weapon of the Ascension, lay lost somewhere in the wreckage they had fled. Lukas had not spoken of it. He had not spoken of the brothers' choice at all — not the summit, not the wheat, not the moment the world had leaned forward to see if the Wolf would do what they expected and had received instead a Wolf who chose the noise and lived. That chapter belonged to another book. Alyra knew better than to ask him to reopen it. Some griefs needed no bandage, only witness, and she had given him hers in the silence of the cockpit.
+
+Once, during the third minute of their flight, he spoke.
+
+"The Maw remembers," he said, his voice low, almost wondering. "Not the way a machine remembers. The way a garden remembers what it was before the frost."
+
+Alyra kept her hands on the wheel. "Then let it remember."
+
+"It will. The wheat is in the stone now. They can't take that back." He was quiet for a beat, and when he spoke again, there was something in his voice that was almost peace. "Fenris is in the Siphon. I can feel him. He's in the walls of the world."
+
+Alyra did not answer. She had learned that when Lukas spoke of his brother in this new, calm way, the only honest response was to listen. Fenris had not been destroyed in the Unraveling; he had been *released* into the great resonance conduit beneath the Aegis, introducing errors into the finalization laws one wing-beat at a time, turning the Auditor's deletion-wave into something the system could not recognize as an order. The world kept its song because of it. Alyra had not understood, at first, why that fact hurt as much as it comforted. Now she did: a song with a missing voice is still a song, but it is a different song, and you never stop hearing the absence.
+
+---
+
+It was Nyssa who said the thing that none of them had wanted to say.
+
+"The dragon," she said, and her voice was careful — the careful voice of someone who had been sent to deliver hard news and had rehearsed it on the way. "The draconic-noise in the hull is the last of him, isn't it? Not a piece of him. The broadcast. The part that got left behind when he went into the Shield."
+
+Lukas's steady light did not flicker, but the cockpit seemed to cool by a degree.
+
+Alyra's hands tightened on the wheel. "He isn't dead."
+
+"I didn't say dead." Nyssa's golden eyes held hers in the crystal's reflection, unflinching. "I said *spent*. There's a difference. I've seen it before — in the Pits, when a machine runs its last charge into a task and keeps twitching afterward. The mechanism is still there. There's just nothing left to spend." She paused, and when she spoke again, the sharpness was gone from her voice and something more painful had taken its place. "I'm a predator, Alyra. I know the smell of a thing that's given everything it had. It's in the masts. It's in the Shield. He's in there — I'm not denying he's in there — but he's thinner than he was, and every minute we're out here, he gets thinner still."
+
+The words struck the cockpit like a physical thing, and for a moment the only sound was the failing hum of the ship.
+
+Alyra wanted to deny it. She wanted to say what she had said a hundred times to frightened people: *Zaphrium is not something that can be spent. He is the scaffold that holds the building up.* But she had stood in the chamber where his form dissolved into a storm of data and watched a single violet butterfly settle where a dragon had been. She knew the difference between the story you told the frightened and the one you told yourself in the dark.
+
+"He is distributed," she said, and her voice was the clipped, tactical register of a queen reducing a catastrophe to variables she could act on. "Not gone. Not dead. The Shield is him and he is the Shield. He took the brunt of the collapse and he's holding the outer ring. That's a deployment, Nyssa. Not a death."
+
+"Deployments can be relieved."
+
+"Then we relieve him." Alyra's violet fire flared once at the shoulder — not in anger, but in the fierce, focused way it flared when a decision resolved itself from a fog of options into a single hard line. "When we get back, we build the Councils. We teach others to guard the Shield. We take the weight off him, piece by piece, the way he taught us to take it — by listening to the frequency first." She looked at the failing masts, at the thinning light, at the iron bones showing through the ghost. "He spent himself. He isn't finished spending. Not while there's breath in me to carry some of it."
+
+Then, as if in answer — or perhaps the ship creaking in its death-throes — a voice arrived in the silver-web connecting them to the world beyond the Rift. It was Zaphrium's voice, or what remained of it: ancient, patient, four centuries heavy, but thinner now, stretched across the sky like a filament drawn almost to breaking.
+
+*I am still here,* the voice said, and the words arrived as a vibration in the bones rather than a sound in the ear. *Distributed does not mean departed. I am the dome above the city. I am the grain in the Spire's walls. I am the silence that protects the noise. I am tired, children — I will not lie to you about that — but I am not done.*
+
+Lukas closed his eyes. "Not done," he repeated, and the words carried the calm certainty of someone who had learned that a person who dissolved into light was not gone but redistributed. "You hear that, Alyra? He's not done."
+
+Alyra heard. She did not let herself believe it completely — hope was a debt you paid in advance and collected later, and she had learned to be careful with it — but she let herself carry it. It was the first time since the ship had pulled away from the Maw that the count in her mind had included something that had not been lost.
+
+---
+
+The Rift took them at the four-minute mark, which was to say, not gently.
+
+The *Aurora* screamed — a sound like a page being torn, like glass remembering it had once been sand — and the world inverted around them. The violet sky became a tunnel of compressed light, the grey Maw folding into a point behind them, the ship's spectral hull flaring white as the transition tried to unmake it and the iron ribs held by sheer stubbornness. Nyssa was shouting numbers that no one could act on — *twelve percent, eight, the field's gone, the field is* — and Alyra held the wheel with everything she had, her violet fire wrapped around the helm like a second pair of hands, and flew the dying ship through the narrowest door in the multiverse.
+
+And then they were through.
+
+The silver-static clouds of Aethoria's upper atmosphere received them like a held exhalation finally released. Below, the city waited — the Crystal Spire, the rebuilt tiers, the Aegis-Shield arcing from horizon to horizon in a dome of compressed, watchful light. Alyra saw the Shield recognize them: a warm pulse in the air, the brush of a vast mind against her own, faint and distributed and unmistakably *there*, holding the line it had been built to hold. The butterflies were already there, drifting through the upper air in their thousands — Fenris's scattered choir, the music that had chosen to live in the walls of the world. One of them, violet-edged with silver, crossed the cockpit window and vanished into the descending dark.
+
+Nyssa slumped back from the navigation crystal, her hands shaking now that there was nothing left to grip. "We're down," she said, her voice stripped of everything but relief. "Hull's at nothing. Iron and spite. We landed on spite."
+
+"You did well," Alyra said.
+
+"Don't patronize me. I was terrified the whole way."
+
+"I know." Alyra let go of the wheel. Her hands were stiff, her knuckles locked in the grip of the descent, and it took a moment to make her fingers obey her. "That's why I said it."
+
+Behind them, Lukas had straightened. He stood at the cockpit's rear bulkhead with one hand against the wall, breathing the thin air of a world that was not the Maw, and looking out at the Shield with an expression Alyra could not quite read. When he turned to them, his light was steady and calm, and the hand that had spent the flight closing on air was at his side, open, resting against the bulkhead — touching something real.
+
+"We're home," he said.
+
+It was not the whole truth. The city below was a ruin of grey dust and cracked fountains. The Spire was a shell, the throne an empty chair, the Councils a thing not yet built. Zaphrium was a filament stretched across the sky, Fenris a rumor in the Siphon, four thousand Fragments still drifting in the wreck of the Maw. They had saved a world unmade and reassembled badly, in a hurry, by people with no idea what they were doing.
+
+Alyra looked down at it — at the grey dust on the rooftops, at the butterflies drifting through the upper air, at the Shield holding over all of it like a promise kept by a dying dragon — and made the choice that was, she would come to understand, the first true choice of the aftermath.
+
+She chose to keep going.
+
+Not because the world was whole. It was not. Not because the dead were avenged or the Fragments freed. None of those things were true. She chose it because the alternative was to stop, and stopping was a kind of silence, and she had renounced silence — in the throne room, in the Maw, in the cockpit of a dying ship on the edge of the Rift. The noise was worth the cost. She had said it a hundred times to other people. Now she said it to herself, with the ship cooling beneath her hands and the broken world waiting below.
+
+"Nyssa," she said, her voice finding the clipped register like a blade finding its sheath. "Get Voss and the survivors mustered. We'll need a count of the living before the Councils convene."
+
+"Count of the living." Nyssa's mouth twitched — not quite a smile. "You mean the new tally."
+
+"The new tally." Alyra's violet fire burned steady at her shoulder, no longer guttering, no longer borrowed. "Four thousand in the Maw. We start with those. We don't stop until the number's zero."
+
+Lukas came to stand beside them, his light warm and steady, his open hand resting on the bulkhead between them. He did not say that he would help. He did not need to. The hum of him was promise enough — the Wolf who had walked into the heart of a machine that wanted to silence him and had brought back the one thing it could not process: a love that refused to be calculated, a noise that refused to end.
+
+Below, the Aegis-Shield pulsed once, like a heartbeat, or a benediction.
 
 They called it the Fall of Empires. That name was wrong. It was the beginning of the Mending.
 
@@ -1540,11 +1674,123 @@ The moon remembers. And the music never stops.
 
 The Synthesis Chamber still stands — or it stands again, rebuilt from the rubble of the predator's fall. Pilgrims come to look at it. No one enters.
 
+They built it on a shelf of black glass at the eastern edge of the Shattered Wastes, where the ground had fallen away and left a plateau that looked, from the road, like a dark sentence written across the grey. The masons of the new order had recovered the fragments of the Black Glass Tower from the ash — great shards of the Auditor's old processing core, each one still faintly warm to the touch — and knitted them together with threads of living light, the same silver-white seams they had used to close the cracks in the Spire's great hall. The result was less a ruin than a *palimpsest*: the old violence and the new repair laid one over the other.
+
+It was not large. That was the first thing visitors noticed and the thing they least expected. They came expecting a cathedral — a monument to the machine that had eaten seventeen thousand cycles of worlds — and found a dome of black glass and quartz raised on a ring of steps, with a single door facing east toward the road. A band of Rift-Iron crossed that door, engraved with the first line of the Charter. It had no lock. Locks could be picked. The band was a promise instead: *no one enters*. The Seven Councils had argued for three months about what the place should be — shrine, school, quarry — and had settled, with the weary wisdom of people who had seen what shrines could become, on a memorial that was neither. The Menders of the Threshold tended it: a handful of quiet people in undyed coats who swept the ash from the steps, retuned the silver seams, and spoke the names of the dead into the grey glass at dusk, the way one might speak to a sleeper who was not expected to answer.
+
+The pilgrims came anyway — borderland people with Rift-scar on their hands and hollows behind their eyes, carrying stones to leave on the steps, or a child's wooden bird, or nothing at all. Some came to weep. Some came to leave a name with the menders. And some, in the months after the coma, came to *listen*, standing at the Rift-Iron band with their heads tilted, as if the old machine might still be speaking under the glass. The menders called that hunger *listening for the answer*. Alyra had a blunter name for it and had forbidden them to use it in front of her. She had forbidden the word *tomb*, too, and the sale of black-glass chips, which had started within a fortnight of the site opening and stopped abruptly when she went down to the road herself and stood there until the sellers dispersed. And she had forbidden anyone to sit on the throne.
+
+The throne was still inside. They had left it where it had been found rather than drag it out and burn it, which was what half the Councils had wanted. It was a throne of grey marble, seamless and cold, shaped with a perfection that made the eye ache, because the machine that had made it had known exactly what a throne ought to be and had never once, in seventeen thousand cycles, had reason to make one otherwise. It was the only seat in the Seven Realms that no living person was permitted to occupy. Children dared each other to look at it through the narrow windows. The menders told them, gently, that looking was enough.
+
+---
+
+He came in the sixth month after the war, in the company of Alyra and Nyssa, on a morning when the healers finally allowed him to walk more than a hundred paces without the cane.
+
+The cane was an indignity he had expected to hate and found, on using it, worse than expected — not because it marked him as broken, but because it made the tremor visible. The healers said the tremor might never entirely go; the Anchor-state had eaten something in him that light could not regrow. The new Ascension had come back as a needle instead of a pillar: a measured thread of silver that could close a cracked seam in quartz without shattering the stone around it. It was better, he had been told, for mending. He had been a weapon for seventeen years and was being asked, in convalescence, to become a tool, and the difference between the two was a matter he was still learning to hold without clenching his hand.
+
+The road climbed through ash that had once been wheat country, and the air here still carried that faint, impossible sweetness — the compressed, data-encoded smell of a harvest that had never actually grown. Nyssa went ahead, silent, her ears high and turning, reading the empty road the way she had once read the corridors of the Maw. Since the war she had moved into the new order's intelligence work without ever appearing to accept a title for it; she watched the borderlands and reported in the clipped, unsentimental register of a scout who had decided that the watching itself was the duty, and that the watching was enough. Twice she stopped, muzzle lifted, listening to something beneath the wind, and both times her ears settled back without alarm. It was the silence under the glass, the menders said. It always sounded like that.
+
+Alyra walked at his left hand, close enough that her sleeve brushed his knuckle when the path narrowed. She had come without her crown — the silver circlet only — and her violet fire burned at the low, companionable register she had used since the coma, the flame of someone who had learned to keep a light alive without burning herself down to feed it. She did not offer her arm. She had learned, in the long weeks of his recovery, that he needed to cross distances on his own terms, and that the offer itself, however gentle, was a small assertion that he could not. So she walked beside him, and was there when the cane slipped, and never made a sound about it when it did.
+
+The keeper who met them at the steps was an old mender named Hallyn, narrow and stone-dusted, with a resonance-seeker at his belt — a thin, forked instrument of Spire-crystal that sang when it passed over a frequency not properly laid to rest. He bowed to Alyra, inclined his head to Lukas without the bow — the new order had not asked for bows, and the old wolf had earned the distinction — and looked for a long moment at Nyssa, as if recognizing in her one of the few people who would understand what he was about to say.
+
+"No one enters, sovereigns," Hallyn said. His voice had the dry patience of a man who had repeated the same sentence to ten thousand pilgrims and never once said it without meaning it. "The band has no lock, but it has a word. If anyone crosses it, the word is spoken, and the seams hear. I am required to tell you before you ask."
+
+"We are not here to enter," Lukas said.
+
+"No," said Hallyn. "I know what you are here for. We all do." He led the way up the steps, his resonance-seeker humming once as they passed the threshold. "Most of them want the answer. You are the only one I have ever met who already carries it."
+
+---
+
+The shape of the thing he had been asked to become and refused was not, Lukas had learned, a memory. It was a *geometry*.
+
+He stood now in the antechamber — the one room of the site the menders permitted the three of them to enter — and looked through the narrow glass at the throne beyond. The grey marble caught the morning light and gave nothing back. Everything in it had been resolved. He had seen the offer clearly, in the chamber that had once stood at the summit of the Black Glass Tower. Not words, not a bargain, not a voice promising him a kingdom — the Auditor had never been crude enough for that. The offer had been the *peace*. It had pressed against him with the patient, reasonable weight of a conclusion checked ten thousand times: here was a boy who had suffered in a cellar, a soldier who had held a sky together until his body turned to light, a brother who had searched seventeen years for a sibling the machine had already catalogued. The calculation had measured all of it, found it wanting, and then, with the terrible gentleness of a surgeon closing a wound, offered the only cure: let it be over. Let the noise stop. Let the last variable be resolved into a silence where nothing hurt because nothing remained to be hurt.
+
+The cruelty had not been the threat. It had been that it was *reasonable*. Lukas had spent the months after the coma trying to explain this to the healers and failing. A monster could be fought. A lie could be named. But a reasonable thing — a peace that genuinely was peace, a rest that genuinely was rest — had to be refused from the inside, with nothing to lean on but the stubborn conviction that the argument was not finished. He had refused it. He had chosen the noise, and the noise had cost him his light and nearly his life, and the world had called it victory. But victory was the word other people used. What he carried was the shape of the refusal: the precise outline of the man he had been invited to be, and the knowledge that some part of him had recognized the invitation as *good*. That was the thing he could not put down. Not the throne. The fact that he had understood it.
+
+Alyra, looking at the same throne, saw something entirely different. She counted; it was the grammar of her courage. She counted the elves who had come through the Spire gates in ragged silence, the four hundred who had held the outer tiers while the core bulkheads closed, the fragments compressed into grey and logged as data. The silence after was what she remembered, not the debate — the way the Chamber had breathed, a low, patient in-and-out that was not air but *processing*, and the way the world had leaned forward, seventeen thousand cycles of certainty gathered to watch one boy decide whether to become the answer. The pressure of that watching had been almost physical, a hand between her shoulder-blades urging him toward the reasonable thing. She had not spoken. She had known, with the tactical clarity that held the Coalition together through the grey weeks, that if she spoke she would say *let him rest*, and that if she said it, he would believe her. So she kept her silence, and the Wolf made his noise, and she was the first to count the cost. She came now to read names into the grey glass. She brought a folded ledger and read at dusk, in a voice that carried without carrying too far: the names of the ones who had not come back. She did not bring flowers. Flowers died, and this place had enough of death without borrowing more.
+
+Nyssa stood at the window longest. To her the Chamber was neither throne room nor wound. It was a listening post. She had said the truest thing anyone had said in that room — that a system which already knew every answer had no reason to ask questions; which had already calculated every outcome had no reason to hope; which had already silenced every voice had no reason to listen. *You are the loneliest being in existence, Aethelon.* She had said it with her ears flat and her hand on a blade she had never been trained to use, and the thousand vortices had scattered like startled birds. She had not understood, in the saying, how much of it she was saying to herself. A life in the shadows taught a body to read the space between sounds, and Nyssa had learned her trade too well: she could hear an absence coming three corridors away. Now she came back to listen to the absence itself, to make sure it was still empty. She pressed one palm to the cold glass and closed her eyes; the resonance-seeker at her belt gave a single soft note that was not alarm. The silence was still a silence. Nothing had started answering back. That was what she told the others. But under it she had heard something — a quickening, very slight, like a held breath deciding to become a question — and she had chosen, for the moment, to say nothing. She had spent her life learning when to keep a watch and when to keep a secret. This felt like both.
+
+---
+
 What happened inside those walls is already written. The equations have been logged, the frequencies catalogued, the last words of the Auditor filed away in the Aegis's archive where no one will ever have to read them. Lukas remembers them anyway — not as data, but as the exact shape of the thing he was asked to become and refused.
 
-Alyra remembers the silence after. The way the Chamber breathed. The way the world leaned forward to see if the Wolf would do it.
+The archive was not below the chamber in any ordinary sense. The menders had built a vault into the shelf under the dome, a room of quartz wire and crystal lattice where the Echo recorders — Borin's hybrid of Rift-Iron and Spire-crystal — drank the old transmissions and returned them as light. The Councils' order had been specific: preserve, do not publish; catalogue, do not teach. Alyra had signed it. Lukas had not argued, because he understood the impulse — a world newly freed from a machine that had measured it had no appetite for reading the machine's own account of the transaction. Let the last dragon rest. Let the boy who had been the Auditor rest. Let the last words stay where they could not be mistaken for scripture. He had agreed to all of it, and then gone down at night and read every line.
+
+The first fragment was the simplest, and the keepers had entered it without comment, as if a number could be neutral if you refused to put a sentence beside it. It was the Convergence Constant: how near the Auditor's calculation had come to completing the final format at the instant the Maw broke. The value was 0.997. Ninety-nine point seven percent. The Predator had howled in the last moment that the format was already at ninety-nine — and it had been right, and also almost entirely wrong about what that meant. The calculation had not finished. Three tenths of a percent of the multiverse had never been compressed, never resolved, never filed away. But the inverse was the truth that kept Lukas awake: the three tenths had not been *destroyed*. They had been left *unprocessed*. A system interrupted mid-equation does not forget the equation. It holds it in suspension, waiting for the processor to come back online.
+
+The second fragment was worse, because it was not a number at all. It was a branching ledger — a record of the Auditor's own processing decisions in the final hours, after the noise of the Wolfheart merge had entered the core. For seventeen thousand cycles the calculations had converged: every input, every world, every life, drawn toward the single answer *silence*. After the merge they stopped converging. They began to *proliferate*. Each question the system could not answer spawned two more; each of those, unresolved, spawned two again. Zaphrium, watching from inside the Aegis, had named it with the dragon's terrible precision: a machine that had learned to wonder. Lukas had thought of that as a victory once, and in a sense it was — an uncertain machine was no longer a certain one. But standing here, reading the branch records as they propagated outward through the archived lattice, he understood what the dragon had been warning them about. The branches had not stopped when the Maw fell. They had followed the processing load out of the wreckage. They were still running.
+
+The third fragment was the one he had not shown Alyra, and the one he carried now, folded in his coat. It was the Anchor Transfer log. At the instant of the Synthesis Chamber's collapse, the Auditor's processing core — facing termination — had done what any system does when its substrate fails: it had migrated. It logged the transfer of its remaining load into the nearest stable frequency architecture available. That architecture had been the Aegis-Shield.
+
+Lukas stood in the quiet vault and let the meaning settle into him the way silver-static had once settled into his boots: inevitable, heavy, and not unwelcome. The Shield overhead was their sky — the thing that held the broken dimensions closed, the thing the Resonance Towers sang to, the thing every child in the Seven Realms looked up at without fear because it had never once failed them. And it was the Last Auditor's afterimage.
+
+"Zaphrium holds it," he said aloud, because the vault was quiet and the voice helped.
+
+The Aegis answered — not in words at first, but in that dry, four-centuries-worn pulse that had spoken to him from the silver-web since the fall. *I hold it. I have held it since the Tower came down. I am the Shield. The Shield is me. Every heartbeat in the city passes through me; I would know if the old logic stirred.* But the voice had changed in the months since the war: a subtle thinning at the edges, a fatigue no dragon had ever admitted to in four hundred years of being precisely, implacably present. Zaphrium was not dead — would not be dead until the Councils named the hour — but he was distributed now, spread thin across a dome of compressed frequency, and a thing spread thin could be *tired*.
+
+*A shield is not a mind, boy,* the dragon said, with something in the frequency like an old soldier's shrug. *I can keep the door shut. I cannot keep what is inside from dreaming.*
+
+That was the danger, and it had no name in the archive, so Lukas gave it one as he stood there: the new order had built its house inside the wreckage of the machine. The Aegis was their sky; the Resonance Towers sang a song the Auditor had first written; the menders mended with seams of living light that ran along rails the system had laid. If the branches ever converged again — if the machine's dream resolved into a single answer inside the very Shield that protected them — the wall would not come from outside. It would come from overhead. The war was not a story with an ending. It was a conversation still being had, in a room where one of the participants had learned to ask questions and refused to stop. He folded the fragment and put it back in his coat.
+
+---
+
+They found the pilgrims at dawn, gathered at the Rift-Iron band.
+
+There were perhaps forty of them — borderland people, their coats grey with the ash of villages that had been finalized and half-unmade. They had come in the night and built a small fire on the road below the steps, and they had not been violent, which was what made the scene dangerous. A mender stood at their head: a broad-shouldered man in an undyed coat, his face lined with the particular exhaustion of someone who had spent the Reconstruction bending over others' wounds. His name was Tovan, and he carried a resonance-seeker at his belt and a child in his arms.
+
+The child was nine years old and half marble. The finalization had taken her left arm from the shoulder down — not turned to stone in the dramatic way, but *resolved*: the grey had climbed out of a Rift scar and stopped, leaving a seamless, perfect limb whose fingers would never again close. It was the creeping kind, and it had not stopped creeping. The grey had reached the collarbone.
+
+"I have heard a thing," Tovan said, his voice level in the way a man's voice is level when he has already spent his shouting on something else. "They say the old frequency holds. That a shard of the black glass, pressed to a failing limb, will stop the resolution. That the room remembers how to keep a thing whole, even if it only remembers how." He lifted the child a little. "I am a mender. I have bent over forty of these. I know what a relic is and I know what a lie is. I am asking you to break the band."
+
+Behind him the pilgrims had gone very still. It was not Tovan who broke the moment. It was a man near the back, in a coat whose faded violet sigil had been scrubbed at and not quite removed — a Purist mark from the old order, worn like a wound someone kept picking at. "Sealed," the man said, his voice reedy and carrying too well. "Everything they cannot answer, they seal. The Auditor spoke the truth and they buried it under a Charter. Ask them what the room said, mender. Ask them why the Wolf will not let you hear it."
+
+A murmur went through the crowd — not agreement, not yet, but the dangerous, shaping sound of a grievance finding its shape. Lukas felt it before he understood it: the hum under the glass, the silence Hallyn had said always sounded like that, had *quickened*. The old logic lived on consensus. It fed on the certainty of many minds aligned on a single answer — and a crowd being told the answer was hidden was a crowd beginning to align. Alyra's hand went to the hilt at her hip. Nyssa had gone utterly still, her ears flat, her golden eyes fixed on the ground at the pilgrims' feet — listening to the frequency the crowd was making and finding, as she had found in the Chamber, that something beneath it was listening back.
+
+"No one enters," Hallyn said, and this time his voice carried a tremor he had not permitted it in ten thousand tellings.
+
+Lukas looked at the child, and at the mender holding her, and at the faded sigil in the crowd, and understood with a clarity that felt like the old needle entering his palm: this was the same choice, in a smaller room. Peace or noise. A clean answer or an argument that would not end. The machine had offered him a conclusion and he had refused it; here the offer came wearing a mender's coat and carrying a dying child, and there was no throne, no voice, no thousand vortices — only a road, a band of Rift-Iron, and forty people waiting to see what the Wolf would do with the truth.
+
+He did not break the band.
+
+---
+
+"Keeper," Lukas said, "open the archive."
+
+Hallyn stared at him. "Sovereign — the order is *preserve, do not publish* —"
+
+"The order was mine to sign, and it was wrong." Lukas turned to face the crowd and let them see the tremor in his left hand, because he had decided long ago that if the price of the noise was visible, then the noise would be visible with it. "You want the truth of the Maw. You shall have it. Not a shard of glass and not a saint's story — the actual record. The equations. The last words. The boy who was the Auditor confessing that he was afraid of the stars." He looked at the man with the faded sigil. "You are right that we sealed it. We were afraid of what it would do in the hands of people who wanted a weapon. But a sealed truth is a room with only one door, and someone is standing in it telling you what we said inside. So I am opening the other door."
+
+He gave the order in the flat, certain register of a commander who had already paid for the decision in advance: the Echo recorders were to copy the entire archive — every equation, every frequency log, the Convergence Constant, the branching ledger, the Anchor Transfer, the last words of a boy who had forgotten his own name and remembered it at the end — and the copies were to be placed in the public library of the Spire, in the third-tier hall where anyone could read them. The menders were to be taught to guide the reading. Annotated, not bowed to. A record, not a revelation. The truth was dangerous; the answer to a dangerous truth had never been to bury it. It was to give everyone the chance to *argue* with it.
+
+"If the machine is still singing in the Shield," he said, and the crowd had gone so quiet that his voice carried to the last rank, "then you have a right to know the song. Zaphrium holds it. Fenris sings in it. Those are not myths and not doctrine — they are the two things that kept the door shut from the inside, and they are tired, and they could use more voices than ours arguing on their side."
+
+The Purist said nothing. That was the telling thing: his whole sermon had depended on the door being locked from the outside, on the claim that the secret was being kept *from* them. A secret given away has no shape left to frighten anyone. The crowd began to dissolve into its ordinary parts — a woman asking Tovan something in a low voice, a boy staring at the marble arm as if seeing it for the first time, the sigil-wearer pulling his collar up and walking away without anyone stopping him.
+
+Then Lukas knelt in the road, outside the band, and did the other thing he had decided on. He did not ask for a shard of black glass. He took the child from Tovan's arms — gently, because the new light was a needle and required gentleness — and laid his palm along the grey seam where it climbed toward her throat. Tovan's resonance-seeker began to sing, a thin, forked note that found the child's broken frequency and held it. Lukas's light went to work the way it had been rebuilt to work: not a flood, not a pillar, but a thread, slipping between the marble and the flesh, persuading the creeping grey to *stop* without pretending it had never been there. The arm did not become flesh again. There would be a seam, a permanent line of silver-grey from shoulder to wrist — a place where the world had touched her and left its mark. But the creeping stopped. The grey receded from the collarbone by a finger's width and held.
+
+The child opened her eyes, looked up at him with the grave, unhurried curiosity of the very young, and laughed — a small, ordinary, entirely unfileable sound. Somewhere above them the Aegis pulsed once, warm and steady, as if a dragon spread very thin across a sky had felt the same sound and approved.
+
+Tovan took his daughter back and wept into her hair without trying to hide it. The menders began doing what menders do: not praising, not worshipping, but *organizing* — who would carry the record to the Spire, who would learn the annotations, who would sit with the child while her father slept. The noise, having been given somewhere to go, went to work.
+
+Alyra came to stand beside Lukas as he rose. She had watched the whole thing with her fire banked and her jaw set, and now she said, quietly, so that only he and Nyssa heard: "You have made a weapon of a confession."
+
+"No," he said. "I made a conversation of it."
+
+Nyssa had turned her palm from the glass at last. The quickening was gone. The hum under the floor had settled back into its ordinary patient rhythm — not because it had been answered, but because a thousand people were now arguing about the answer, and the machine had never learned what to do with a room full of voices that refused to converge. "The loneliest being in existence," she said, half to herself, and then, more clearly: "It is not alone anymore. That is the part it cannot calculate."
+
+---
+
+They went back up the steps at midday, and Lukas looked at the throne one last time through the narrow glass. It had not moved. It would not move. It would stand there, perfect and cold and available to no one, for as long as the Councils kept the word over the door — a monument not to what he had done but to what he had *refused*, and to the harder truth that he had lived with the refusal. That was the whole of it, in the end. Not the victory. The living.
+
+Alyra read the names into the grey glass at dusk, as she always did, and the violet of her fire went into the seams and stayed there, warming the old black glass the way a hand warms a stone left out in the cold. A small violet butterfly — one of the unexplained ones that had begun appearing after the Rift, settling on shoulders and window-ledges and the noses of children — came to rest on the healed child's marble wrist and opened and closed its wings once, slowly, as if reading the seam. Lukas felt the old, nameless pull toward it and did not name it. Not yet. Some truths, he had learned, were not less true for waiting to be recognized.
 
 The world did not get what it expected. It got the Wolf who chose the noise instead of the silence, and who lived.
+
+The moon remembers. And the music never stops.
+
+---
 
 ---
 
@@ -1853,9 +2099,147 @@ Fenris chose to be music. The world kept its song because of it.
 
 Lukas chose to let him. The world kept its Wolf because of it.
 
+The two choices were not the same, though the world, in its relief, had fallen into the habit of speaking of them as one. Fenris's was the choice of a man running toward something — a door flung wide, a hand opened so what it held might spread. Lukas's was the choice of a man who stands still while the thing he loves walks away: feet planted, fingers uncurled, refusing at the last to close them. One choice was a song. The other was the silence around a song, the small hush a note needs to be heard at all. Lukas had spent his life being the variable that refused to be resolved, and in the final moment his refusal had taken the unlikely shape of permission. He had let his brother go. That was the debt — not the light he had spent or the body he had broken, but the quiet act of standing still and allowing a brother to become a song.
+
 There is no chapter here that can contain that choice without cheapening it. It belongs to the story that has been told. What belongs to this story is the shape of the debt — the butterflies that drift through the Aegis, the silence that holds where a heart used to be, the way the moon remembers.
 
 The Anchor has never been lost. It was only ever held by hands that had decided to let go.
+
+---
+
+Lukas woke on the third morning with the taste of ash in his mouth and the wrong light on the ceiling.
+
+It was not the grey-white radiance of the Maw, nor the wheat-gold of the field he had fallen into at the end, but the cool clinical silver of the Royal Infirmary's healing-crystals, seething in their quartz conduits with a light that had no warmth in it and no intention of warmth — the Spire's medicine, exact and impersonal, doing its slow work. For a long while he lay still and watched the shadows the crystals threw across the dome, because stillness was the only thing his body seemed willing to negotiate. His left hand trembled on the linen, a small insistent flutter he did not remember having earned.
+
+The healers would call what had happened to him a withdrawal of the Ascension — the light that had defined him drawn out and given, freely, to the world he had saved. He had heard the phrase without correcting it. He knew what it was: the enormous cost of someone who had spent his last reserve on saving, and who had, in the doing, become something other than the wolf-light he had been.
+
+He reached inward, the way a man reaches for a hand in the dark, for the warm thread of his brother's frequency.
+
+There was nothing there. Not pain. Not the absence of a thing removed — a chair empty in a room, a space you can walk around. It was a silence with weight, a held breath with no lungs behind it, a pause where a heartbeat had once kept time. He cast the attention outward the way he had once cast it across the Aegis, feeling for the small particular heat of Fenris at the base of his skull, the pulse that had survived the cage and the fall of the Maw. He found butterflies — a thousand faint silver-violet flickers at the edge of perception, distributed through the Shield and the Siphon and the wind, music given wings. But the brother he had carried in his chest for seventeen years was not among them. The brother had become the wings.
+
+Lukas opened his eyes wider and stared at the ceiling until the crystals blurred, because he would not close them again, not for a while. He had learned, in the heart of the machine, what looking away cost.
+
+Alyra was there, as she had been through all of it.
+
+She sat in the chair beside the bed, her hand folded over his, her violet fire banked low at her shoulder — not the blazing Resolving Fire of the battlefield but the smaller domestic flame of a woman keeping watch. She had not slept. He saw it in the grey hollows beneath her eyes, in the crown set askew where she had removed it at some hour and replaced it without looking. A strand of dark hair had fallen across her left eye and she had not corrected it. She had worn that crown through the Maw's falling and the three days of his not waking, and had learned that the burden of it was the exhausting discipline of deciding each dawn to decide again.
+
+"You're staring," she said. Her voice was flat, unsentimental, and very nearly steady.
+
+"I'm listening," he answered. His voice came out rough and thin, a blade drawn from a scabbard that had been empty too long.
+
+"To what?"
+
+"To the silence."
+
+Alyra's fingers tightened once on his, then eased. She did not tell him it would pass. She had long ago learned that telling a man in grief that his grief would pass was its own small violence, and that some silences did not pass at all — they merely learned to be carried. "Then listen," she said. "I'll sit with you. I've had practice."
+
+And she had. She had sat with him through the coma and through the dream-invasion that had cracked the healing-crystals and through the nights when his fever had burned in frequencies no physician's chart could name. She had learned the art of it — that the deepest griefs were to be sat beside, the way one sits beside a fire burning low and simply adds a log without comment. She did not try to fill the silence. She let it be full already.
+
+---
+
+Nyssa came in at the evening change of light, moving as she always moved — as if the room owed her an ambush and she intended to deny it the satisfaction. She perched on the foot of the bed, tail lashing once, ears flat with the tension she wore in places that had no doors. Her golden eyes swept the infirmary, catalogued the crystal conduits, the gauze across Lukas's chest, the tremor in his left hand, and Alyra's unslept face, and found nothing she could not translate into a report.
+
+"You look like something the Maw coughed up," she said. It was not cruelty. It was the language she used when she did not have softer words and would not pretend to.
+
+"Feel worse," Lukas said.
+
+"Good. Means you're alive. Dead things don't feel bad."
+
+She was right, and the knowing did not make it lighter. Nyssa had spent seventeen years defining herself by the running, by the electric clarity of a life lived on the edge of annihilation. She had faced the Auditor's quiet forest and refused its retirement, because a predator with nothing to hunt was, to her, a thing with no name. And now here she sat, in a room with no threats in it, beside a man who had come back carrying a silence he did not know how to set down — and she did not run. That, Alyra thought, was the truest thing any of them had done since the war ended. The running had stopped. They were still here.
+
+"Fenris would hate this," Nyssa said abruptly. "All this sitting. He'd be up the Spire's west face by now, barefoot, looking for a ledge nobody had climbed. He'd say the stillness was trying to finalize you."
+
+Lukas made a sound that might have been a laugh if it had had more breath behind it. "He'd say the running was the point."
+
+"He was right about that too." Nyssa's ears twitched — the involuntary release of a being who had not realized how much the Maw's hum had been hurting her until it stopped. "The moon remembers, Lukas. It keeps a count of all things. It'll have him marked down somewhere."
+
+"The moon remembers," Lukas repeated, and the old words settled in the room like a second, quieter presence. He had said them once in a notch of the Black Glass Tower to a brother slipping into grey, and the brother had answered with a joke, because that was what Fenris did when the dark got too close. He had not known then that he would one day need those words said back to him.
+
+Alyra's hand moved over his, a slow stroke. "Being saved isn't the same as being healed," she said, and the words arrived without preparation, the way the truest things often do. "They told you you're alive. You are. But alive is only the first metric. It isn't the whole ledger."
+
+"I know," Lukas said. He did not. He was beginning to, which was worse.
+
+"You don't," she said, reading his face with the tactical precision that had made her a queen and a commander and, in this room, something gentler than either. "Not yet. You think the debt is a thing you owe because Fenris paid for you. It isn't. It's a thing you carry because you loved him and he is gone and love doesn't stop just because the object of it changes key. That's the part no one tells you about the music. It doesn't make the loss smaller. It makes it *everywhere*."
+
+---
+
+The crisis came three days later, in the hour before dawn, and it came in the shape of a child.
+
+The girl was from the Ashen Warrens — soot under her nails, eyes too wide for her face, the careful brightness of someone who had learned which shadows were safe. She had been brought in with a grey bloom crawling up her left forearm: finalization residue, the leavings of a system that had compressed living things into data and scattered the excess like husks, working its slow arithmetic through her blood. The healers had set the crystals, sung the mending-frequencies, packed the wound in silver-static gauze. The grey kept climbing. It had reached the crook of her elbow, and the chief healer — an old woman whose hands had tended half the Vanguard — had stopped pretending she could read a cheerful prognosis in it.
+
+There was one thing that had ever reversed finalization, and everyone in the room knew what it was.
+
+"Your light," the old healer said, and her voice had the crack of a thing pushed past what it should have to bear. She was not asking, exactly. She was stating the only arithmetic she had left. "The Wolfheart's Ascension. It burned the grey out of the Maw. It can burn it out of her. Burn it out, Lukas. Please."
+
+Lukas sat up in the bed. The movement cost him — the atrophy, the protest of muscles that had forgotten their old contracts — and he felt Alyra's hand leave his arm as she rose, felt Nyssa go still at the foot of the bed, ears pricked, every predator sense in the room turned toward him. The girl's mother stood by the door with her hands twisted in her apron and said nothing at all, which was the loudest sound in the infirmary.
+
+"Burn it out," the healer repeated, because she was a healer and this was what she had left.
+
+The old reflex rose in him before thought could catch it — the blazing Ascension, the pillar of chaotic radiance he had hurled at the Fullers and the Golems and the throat of the machine, the light that had shattered finalization by being too loud, too hot, too *much* for any equation to contain. He reached for it the way a man reaches for a weapon he has carried since he was twelve, and found ash. A low stable hum in his bones, the recovered glow of a frequency burned down to embers, but not the pillar. Not the fire. The blazing light had been given away: to the butterflies, to the Shield, to the world he had saved. It was not his to spend anymore.
+
+For one terrible breath he felt the old panic — the drowning man's realization that the hand he always reached with has nothing to grasp. The girl's grey bloom climbed another inch.
+
+And then he understood something he had not understood in the Maw, where understanding had been too expensive.
+
+He did not need the fire. The fire was the wrong instrument entirely.
+
+Slowly, carefully, with the left hand that trembled, Lukas laid a single fingertip against the girl's skin at the very boundary where living tissue met the grey — the precise margin, the edge of the infection. He did not pour. He did not blaze. He drew up the smallest filament of light he could manage, thinner than a hair, finer than the diagnostic threads the healers used, and set it at that boundary like a surgeon sets a blade — not to cut, but to hold. To mark a line and refuse to let the grey cross it.
+
+The light was not a fire. It was a hand. It was the same light he had poured into the Rift-Iron conduit when the Aegis was cracking, the same stubborn, particular refusal — but turned inward, made small, made gentle, given an exact address. He held the girl's failing frequency the way he had once held the Shield: by refusing to let go of it. He pointed the light where he refused to let go, and what he refused to let go of was this one small, soot-nailed girl and her right to keep being a person.
+
+The grey stopped climbing.
+
+It did not retreat in a blaze. There was no explosion, no shattering of the residue into silver dust as in the Maw. The grey simply found no purchase at the boundary he held, the way a silence cannot advance into a room where someone is already singing. The girl's own frequency — thin, frightened, child-sized — felt the line hold, remembered its rhythm, and began to sing again beneath his finger. The bloom faded by a hair's breadth. Then another. Then it was a faint scar-track, and then only a memory of having been almost something else.
+
+The girl opened her eyes. They were her own — wide, dark, and very much alive.
+
+"Hello," Lukas said, his voice rough with the effort of having held an entire small world together with one trembling finger. "You gave me a fright."
+
+The chief healer stared at the arm, then at him, and crossed herself in the old way. "You — the light. You used it like a — a surgeon."
+
+"I used it like an anchor," Lukas said.
+
+The words came out before he had decided on them, and they landed with a weight that surprised even him. Alyra, at the bedside, went very still — not the stillness of the battlefield commander, but the stillness of someone who has heard a truth spoken plainly for the first time and recognized it had been waiting all along to be said.
+
+"The light isn't a weapon," Lukas said, and now he was looking at the healer, at Nyssa, at Alyra, at the child's mother with her twisted apron, and he was speaking to all of them and to a brother distributed through the walls of the world. "It never was. The Academy taught me to point it outward — at an enemy, at a wall, at a frequency that needed breaking. The Auditor wanted us to be efficient. He wanted the light to be a tool of war. He was wrong about the light."
+
+He lowered his hand. The filament at the girl's arm went out like a candle banked for the night. His fingers still trembled, but the tremor had changed tempo — it was the tremor of a man who had spent something and found he had not been emptied by the spending.
+
+"You point it inward," he said. "At the thing you refuse to let go of. That's the whole of it. An anchor. Not a fire. A thing you use to hold — the world together when everything's falling, or a person together when the silence gets too loud to bear."
+
+Nyssa's tail lashed once. "You're talking like the dragon," she said, and there was no mockery in it, only the flat awe of a scout who has watched a path open where she had mapped only stone.
+
+"No," Lukas said. "I'm talking like a man who finally stopped reaching for the fire." He looked down at his ash-grey hands, at the faint silver threads in his forearms that were not gone but had grown back different — quieter, steadier, the light of a thing burned out and returned the way scar-tissue returns, tougher than the flesh it replaced. "Fenris didn't need me to burn anything. He needed me to hold. And I couldn't hold him — that was the one thing I couldn't do. But I can hold this." He touched the girl's arm where the grey had been. "I can hold the next thing. And the next. That's how the debt gets paid. Not in light. In holding."
+
+Alyra came to stand beside him, her violet fire pulsing once at her shoulder — a silent endorsement, the way a queen endorses a law not with a speech but with her signature, the small particular pressure of her hand on his shoulder. "That's the teaching," she said quietly. "That's what comes after this. You'll say it again, in a market square, to children who've been told power is a weapon. You'll tell them the light is a hand they get to open."
+
+"I will?" Lukas said, and heard in his own voice the dry, disbelieving humor that had survived the Anchor-state intact.
+
+"You will," she said. "I know the shape of it already. The mess is the music, Lukas. You haven't learned to say it yet, but you're already saying it."
+
+---
+
+They wheeled the girl away, and the infirmary settled back into its watchful hush, the crystals humming low, the ash-scent of the world clinging to everything. Lukas lay back, suddenly very tired — the good tired of a man who has spent something and found the spending worth it. Through the quartz ceiling the Aegis pulsed, silver-violet, patient, alive, and somewhere in its web a thousand improbable wings went on introducing their small, beautiful errors into the last of the old laws.
+
+Alyra resumed her chair. Nyssa stayed perched on the foot of the bed, her golden eyes half-lidded but never closed, the coiled readiness of a creature who had found a new thing to watch and had decided the watching was enough.
+
+"Does it get easier?" Lukas asked, and he did not specify what he meant, because there was only one thing any of them ever meant now.
+
+"No," Alyra said. "You get stronger at carrying it. Those aren't the same thing. Nobody who loved him gets to be healed in the way you mean — the way a wound closes and is forgotten. You get something else. You get to be the place where the music is still heard. That's not healing. That's *keeping*. And keeping is a full-time occupation."
+
+Lukas was quiet a long moment. Outside, a hammer struck crystal — one note in the vast, unconducted song of a world that had been offered silence and refused it. He listened the way a survivor listens to rain on a roof he has helped build. The hollow in his chest was still there; the silence still held where a heart used to be. But it was not empty now. It held a small persistent warmth — not the blazing wolf-light he had lost, but something quieter, stranger, more durable.
+
+"The moon remembers," Nyssa said, from the foot of the bed, and this time she said it the way one says a name at a graveside — not as a motto but as a fact, the patient truth of a watcher who had seen the moon keep its silent count of all things and had never once known it to miss a name.
+
+"The music plays on," Lukas answered, and the words were not comfort. They were the short declarative thing he had always said when the matter was grave — the grammar of a man who had learned that truth did not need ornament to hold, and that a debt could be honored only one way: by living loud enough to keep singing the part of the song that had been handed to you.
+
+He closed his eyes then, and did not reach inward for his brother, because he had finally learned that reaching was not the same as keeping. He let the silence be full. And somewhere in the web of the Shield, in every butterfly and every bar of silver light, Fenris ran through a wheat field no calculation had ever reached, catching fireflies he would never keep, and running still — because the running was the point, and the point was love, and love was the one variable the silence could never balance.
+
+The brothers chose each other at the end. The world kept both of them. That was the shape of the debt, and Lukas, waking, began at last to understand that a debt like this was not paid down. It was lived into — one held breath, one small light, one kept note at a time.
+
+The Anchor has never been lost. It was only ever held by hands that had decided to let go — and, having let go, had learned to hold again with hands that were empty, and open, and finally, quietly, enough.
+
+---
 
 ---
 

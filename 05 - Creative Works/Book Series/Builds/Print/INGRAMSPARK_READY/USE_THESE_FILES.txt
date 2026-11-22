@@ -7,29 +7,29 @@ All older/draft/hardcover/front-only PDFs were moved to ..\ARCHIVE_OLD_PRINTS.
 Book 1 — Twisted Destiny (585pp)
   Interior: INGRAMSPARK - Book 1 - Twisted Destiny - INTERIOR - 585pp.pdf
   Cover:    INGRAMSPARK - Book 1 - Twisted Destiny - FULL COVER - 585pp.pdf
-  SHA256 interior: 77caa3e37dae688c8b3a38dc7e91799d4e169e1d2f7ebb605322f4a6a578b1ed
+  SHA256 interior: ab800077e7cdca4271691487c2a0a7f5e0f5d06c18ba1dd2e23f4f8ec0537ad3
   SHA256 cover:    b6c921e30d3d5b9facb15dc4e2633e9aeec3581fc8d6e6cb69d560dd8548f1fe
 
 Book 2 — Rise of Ascension (502pp)
   Interior: INGRAMSPARK - Book 2 - Rise of Ascension - INTERIOR - 502pp.pdf
   Cover:    INGRAMSPARK - Book 2 - Rise of Ascension - FULL COVER - 502pp.pdf
-  SHA256 interior: fcef36d51452ee7212b149b88a2c903f1673996b1402889783961d46c13120cf
+  SHA256 interior: 436a99e1b517a985bf1d09e7e22938a7efcad894e6042710e33bf2fa94e5eae9
   SHA256 cover:    8bd686025ef16fdcd68c89e44669e8d2b67c11ae781efcbf82be16b3af69832b
 
 Book 3 — Battle Grandeur (553pp)
   Interior: INGRAMSPARK - Book 3 - Battle Grandeur - INTERIOR - 553pp.pdf
   Cover:    INGRAMSPARK - Book 3 - Battle Grandeur - FULL COVER - 553pp.pdf
-  SHA256 interior: 497f45d867a890c9089bbbc917958756de66eb72e897a5974aacc8dbd2c3824d
+  SHA256 interior: 3135b78d900d3ad49c477b1334b5a5cf90b2fb15e89471506b9e9000423a739f
   SHA256 cover:    bc42178b6f915cbbf962bb3a900f4b7628d57ad71d4122751c236dcd6e6cf5ea
 
 Book 4 — Fall of Empires (433pp)
   Interior: INGRAMSPARK - Book 4 - Fall of Empires - INTERIOR - 433pp.pdf
   Cover:    INGRAMSPARK - Book 4 - Fall of Empires - FULL COVER - 433pp.pdf
-  SHA256 interior: 9bc48654a69a5861836daa97ed153401025cda80db795773692f998f7c2062ac
-  SHA256 cover:    ca67789fefeaf7bba9396966bf429bb501e26bfe52f22366bec17aa5c12e805f
+  SHA256 interior: 2d72c273e0b4284c481ba6ec4d0e0cfbb081edc9ddb966e7be8d9a1d81ec581f
+  SHA256 cover:    7c78ddcfc658d6379eda12790e39e7104f4d23ec74dc7e1004538dc9bd6c6e0c
 
 Book 5 — The Howling Shadow (483pp)
   Interior: INGRAMSPARK - Book 5 - The Howling Shadow - INTERIOR - 483pp.pdf
   Cover:    INGRAMSPARK - Book 5 - The Howling Shadow - FULL COVER - 483pp.pdf
-  SHA256 interior: 1e6b89f3efb09bdc7534b7694bf64d05e2ca75221218952064d818afd525402c
+  SHA256 interior: aa85087913f42629377a37669f0269dd968376423a7d4ad62b3ad2398ce93530
   SHA256 cover:    393d00eae9c174f6591920d618624e00868d7640b9dfc4b607c805276bee292a
