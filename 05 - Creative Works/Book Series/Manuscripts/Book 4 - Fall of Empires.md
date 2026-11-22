@@ -1792,8 +1792,6 @@ The moon remembers. And the music never stops.
 
 ---
 
----
-
 ## Chapter 14: The Debate
 
 The Synthesis Chamber was no longer a room; it was a courtroom where the multiverse itself was on trial.
@@ -2237,9 +2235,7 @@ He closed his eyes then, and did not reach inward for his brother, because he ha
 
 The brothers chose each other at the end. The world kept both of them. That was the shape of the debt, and Lukas, waking, began at last to understand that a debt like this was not paid down. It was lived into — one held breath, one small light, one kept note at a time.
 
-The Anchor has never been lost. It was only ever held by hands that had decided to let go — and, having let go, had learned to hold again with hands that were empty, and open, and finally, quietly, enough.
-
----
+That anchor was never lost. It had only been held by hands that had decided to let go — and, having let go, had learned to hold again with hands that were empty, and open, and finally, quietly, enough.
 
 ---
 
