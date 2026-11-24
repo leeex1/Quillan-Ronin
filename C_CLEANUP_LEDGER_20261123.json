@@ -1,0 +1,20 @@
+﻿[
+    {
+        "path":  "C:\\05_ARCHIVE\\Backups\\opencode_20260907_125859.db",
+        "bytes":  2050596864,
+        "reason":  "stale opencode.db snapshot",
+        "mtime":  "2026-09-07T08:59:14.6834711-04:00"
+    },
+    {
+        "path":  "C:\\04_CONFIG\\Development\\share\\opencode\\opencode.db",
+        "bytes":  1520676864,
+        "reason":  "stale opencode.db snapshot",
+        "mtime":  "2026-09-03T23:33:06.9189629-04:00"
+    },
+    {
+        "path":  "C:\\Users\\Admin\\CascadeProjects\\Quillan-Ronin",
+        "bytes":  3425437027,
+        "reason":  "broken empty repo clone",
+        "mtime":  ""
+    }
+]
