@@ -45,6 +45,17 @@ All sizes measured 2026-11-23. Nothing here has been touched.
 | Stale opencode.db snapshots ×2 + broken repo clone | 6.52 GB |
 | Temp files older than 7 days (14,817 files) | 2.77 GB |
 | uv wheel cache (30,050 files) | 1.5 GB |
-| **Total** | **~10.8 GB** |
+| Browser/app caches (18 dirs, 19,296 files) | 2.51 GB |
+| **Total** | **~13.3 GB** |
 
-C: free: 12.63 GB → 21.26 GB (other agents write concurrently, so net varies).
+C: free: 12.63 GB → **25.1 GB** (other agents write concurrently, so net varies).
+
+## Per-item approval needed (no action taken)
+Large installed software cannot be removed without your explicit decision because
+active agents may depend on it:
+- NVIDIA GPU Computing Toolkit 15.83 GB + NVIDIA Corporation 5.99 GB + ProgramData NVIDIA 5.39 GB
+- Steam 14.61 GB (contains Mount & Blade Warband)
+- Soulframe 12.59 GB (user previously chose to keep)
+- Visual Studio 7.05 GB + Windows Kits 3.36 GB
+- Global npm packages 6.63 GB, hermes-agent 5.10 GB, Python installs 4.71 GB
+- VSIX repair payloads 2.23 GB (needed for VS repair — do not delete)
