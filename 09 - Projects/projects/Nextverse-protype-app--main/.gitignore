@@ -1,0 +1,23 @@
+# Generated / vendored content — never commit
+**/node_modules/
+**/build/
+**/dist/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/*.pyo
+**/*.log
+**/*.pid
+
+# Vendored third-party trees
+open-webui-main/
+groqcloud desktop/
+
+# Runtime state
+nextverse-platform/hub-server/hub_state.json
+nextverse-platform/entitlements/entitlement_state.json
+nextverse-platform/quantum-vm/*.pid
+
+# Local editor/state
+.vscode/
+*.swp

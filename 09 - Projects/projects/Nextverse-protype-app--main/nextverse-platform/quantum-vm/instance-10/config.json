@@ -1,0 +1,11 @@
+{
+    "instance_id": 10,
+    "total_copies": 11,
+    "jqld_params": {
+        "Njq": 5,
+        "psi_parallel": 0.8,
+        "boost_factor": 38.18
+    },
+    "ipc_port": 7010,
+    "shared_memory": "/shared/quantum-mem-10"
+}

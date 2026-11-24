@@ -1,0 +1,35 @@
+{
+  "name": "nextverse-e2e-tests",
+  "version": "1.0.0",
+  "description": "End-to-End Testing Suite for NextVerse Platform",
+  "main": "index.js",
+  "scripts": {
+    "setup": "bash setup.sh",
+    "test": "jest --config jest.config.js",
+    "test:phase1": "jest --config jest.config.js alpha-phase1-tests.js",
+    "test:phase2": "jest --config jest.config.js alpha-phase2-tests.js",
+    "test:phase3": "jest --config jest.config.js alpha-phase3-tests.js",
+    "test:phase4": "jest --config jest.config.js alpha-phase4-tests.js",
+    "test:phase5": "jest --config jest.config.js alpha-phase5-tests.js",
+    "test:quick": "jest --config jest.config.js smoke.test.js",
+    "report:generate": "node generate-report.js"
+  },
+  "keywords": [
+    "e2e",
+    "testing",
+    "nextverse",
+    "quantum",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "puppeteer": "^19.7.0"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "jest-html-reporter": "^3.7.0",
+    "jest-junit": "^16.0.0"
+  }
+}

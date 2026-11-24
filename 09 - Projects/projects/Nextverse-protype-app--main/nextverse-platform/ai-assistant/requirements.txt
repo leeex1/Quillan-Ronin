@@ -1,0 +1,12 @@
+flask
+flask-socketio
+flask-cors
+transformers
+torch
+sentencepiece
+sentence-transformers
+numpy
+einops
+accelerate
+optimum[onnxruntime-openvino]
+python-socketio[client]

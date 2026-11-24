@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://worlds/production_zone.gd" id="1"]
+
+[node name="ProductionZone" type="Node3D"]
+script = ExtResource("1")
+zone_id = "starting_zone_town_square"

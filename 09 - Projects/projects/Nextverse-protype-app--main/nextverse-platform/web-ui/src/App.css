@@ -1,0 +1,141 @@
+/* NextVerse Platform Styles */
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  padding: 20px;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Quantum Dashboard Styles */
+.quantum-particle-system {
+  background: linear-gradient(45deg, #1e1e1e, #0a0a0a);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 255, 255, 0.3);
+}
+
+.quantum-metrics {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 8px 0;
+}
+
+.quantum-boost-indicator {
+  color: #00ffff;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
+}
+
+/* Module specific styles */
+.module-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.game-engine-view {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ai-assistant-view {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.daw-studio-view {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.mmorpg-world-view {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+/* Performance indicators */
+.performance-good {
+  color: #4caf50;
+}
+
+.performance-warning {
+  color: #ff9800;
+}
+
+.performance-critical {
+  color: #f44336;
+}
+
+/* Quantum visualization effects */
+.quantum-entangled {
+  animation: quantum-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes quantum-glow {
+  from {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+  }
+  to {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 1);
+  }
+}
+
+/* System status indicators */
+.status-healthy {
+  color: #4caf50;
+  animation: pulse-green 1.5s ease-in-out infinite;
+}
+
+.status-degraded {
+  color: #ff9800;
+  animation: pulse-orange 1.5s ease-in-out infinite;
+}
+
+.status-critical {
+  color: #f44336;
+  animation: pulse-red 1s ease-in-out infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes pulse-orange {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes pulse-red {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

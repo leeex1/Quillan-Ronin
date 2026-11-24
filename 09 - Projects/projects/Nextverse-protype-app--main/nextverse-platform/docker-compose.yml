@@ -1,0 +1,139 @@
+version: '3.8'
+
+services:
+  # Quantum Core - C++20 Quantum Computational Core
+  quantum-core:
+    build: ./quantum-core
+    ports:
+      - "3001:3001"
+    environment:
+      - QUANTUM_COPIES=11
+      - JQLD_BOOST=420
+      - TURBO_MODE=true
+    volumes:
+      - ./quantum-core:/app
+      - ./shared:/shared
+    networks:
+      - nextverse-net
+
+  # AI Assistant - Python NeuroMind AI
+  ai-assistant:
+    build: ./ai-assistant
+    ports:
+      - "3002:5000" # Corrected port mapping
+    environment:
+      - DESS_COMPLIANCE=99.5
+      - LOCAL_LLM=true
+      - ETHICS_MODE=strict
+    volumes:
+      - ./ai-assistant:/app
+      - ./ai-assistant/models:/models
+      - ./shared:/shared
+    networks:
+      - nextverse-net
+    depends_on:
+      - quantum-core
+
+  # Game Engine - C++ DVVE Renderer
+  game-engine:
+    build: ./game-engine
+    ports:
+      - "3003:3003"
+    environment:
+      - DVVE_PARTICLES=100000
+      - TARGET_FPS=50
+      - VULKAN_ENABLED=true
+    volumes:
+      - ./game-engine:/app
+      - ./shared:/shared
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      - nextverse-net
+    depends_on:
+      - quantum-core
+
+  # MMORPG - Rust SocialFabric
+  mmorpg:
+    build: ./mmorpg
+    ports:
+      - "3005:3005"
+      - "8080:8080"  # WebSocket for real-time
+    environment:
+      - JSSC_PLAYERS=500
+      - REDIS_URL=redis://redis:6379
+      - ACTIX_WORKERS=8
+    volumes:
+      - ./mmorpg:/app
+      - ./shared:/shared
+    networks:
+      - nextverse-net
+    depends_on:
+      - redis
+      - quantum-core
+
+  # DAW - C++/JUCE SonicFusion
+  daw:
+    build: ./daw
+    ports:
+      - "3004:3004"
+    environment:
+      - LSSS_LATENCY=50
+      - SAMPLE_RATE=96000
+      - JUCE_BACKEND=alsa
+    volumes:
+      - ./daw:/app
+      - ./shared:/shared
+      - /dev/snd:/dev/snd:rw
+    networks:
+      - nextverse-net
+    depends_on:
+      - quantum-core
+
+  # Orchestrator - Rust Turbo Orchestrator
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "3006:3006"
+    environment:
+      - JHFR_OVERHEAD=25
+      - TOKIO_THREADS=16
+      - QVM_INTEGRATION=true
+    volumes:
+      - ./orchestrator:/app
+      - ./shared:/shared
+    networks:
+      - nextverse-net
+    depends_on:
+      - quantum-core
+      - redis
+
+  # Redis for MMORPG and caching
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - nextverse-net
+
+  # Monitoring and Debug Dashboard
+  monitoring:
+    image: grafana/grafana:latest
+    ports:
+      - "3007:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD:?GF_SECURITY_ADMIN_PASSWORD must be supplied in the environment; no default credential is shipped}
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - nextverse-net
+
+networks:
+  nextverse-net:
+    driver: bridge
+
+volumes:
+  redis-data:
+  grafana-data:

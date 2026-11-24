@@ -340,3 +340,6 @@ datasets/
 # LFS exit 2026-11-23: build artifacts must never be tracked
 **/Chip design/quillan_sm61_kernels/build/
 **/jdxx-chains/build/
+
+# NextVerse prototype: track source/docs; its nested .gitignore excludes generated content
+!09 - Projects/projects/Nextverse-protype-app--main/

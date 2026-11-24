@@ -1,0 +1,16 @@
+[application]
+
+config/name="NextVerse Godot Runtime"
+run/main_scene="res://worlds/TestWorld.tscn"
+config/features=PackedStringArray("4.4", "GL Compatibility")
+
+[autoload]
+
+PerformanceDirector="*res://autoload/PerformanceDirector.gd"
+CommandBus="*res://autoload/CommandBus.gd"
+LocalSessionBridge="*res://autoload/LocalSessionBridge.gd"
+AssetPipeline="*res://autoload/AssetPipeline.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextVerse Formula Validation Suite</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f0f2f5; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .header { background-color: #4a5568; color: white; padding: 20px; text-align: center; border-radius: 8px; margin-bottom: 20px; }
+        .controls button { background-color: #3182ce; color: white; padding: 10px 15px; border-radius: 5px; margin-right: 10px; transition: background-color 0.3s; }
+        .controls button:hover { background-color: #2b6cb0; }
+        .formula-card { background-color: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 15px; }
+        .formula-title { font-size: 1.2em; font-weight: bold; color: #2d3748; }
+        .status-ready { color: #38a169; }
+        .status-testing { color: #dd6b20; }
+        .status-error { color: #e53e3e; }
+        .progress-bar-container { background-color: #e2e8f0; border-radius: 5px; overflow: hidden; height: 20px; margin-top: 10px; }
+        .progress-bar { background-color: #4299e1; height: 100%; width: 0%; transition: width 0.3s; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <div class="header text-center py-8 bg-gray-800 text-white rounded-lg shadow-xl">
+            <h1 class="text-4xl font-bold">NextVerse Formula Validation Suite</h1>
+            <p class="text-lg mt-2">Testing all 11 Joshua Don Lee formulas on real hardware</p>
+        </div>
+
+        <div class="controls text-center my-6 space-x-4">
+            <button id="validate-all-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow">Validate All Formulas</button>
+            <button id="live-test-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg shadow">Start Live Test</button>
+            <button id="export-results-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg shadow">Export Results</button>
+        </div>
+
+        <div id="formula-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Formula cards will be dynamically inserted here by JavaScript -->
+            <!-- Example Card (to be replaced by JS) -->
+            <div class="formula-card bg-white p-6 rounded-lg shadow-md">
+                <h2 class="formula-title text-xl font-semibold text-gray-700">JQLD - Quantum Leap Dynamo</h2>
+                <p class="mt-2">Speedup: <span id="jqld-speedup" class="font-mono">Testing...</span></p>
+                <p class="mt-1">Status: <span id="jqld-status" class="status-ready font-semibold">Ready</span></p>
+                <button class="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded text-sm" onclick="testSingle('JQLD')">Test JQLD</button>
+            </div>
+        </div>
+
+        <div class="mt-8 p-6 bg-white rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700">Compound Turbo Effect</h2>
+            <p id="compound-effect" class="text-3xl font-bold text-blue-600 mt-2">1x</p>
+        </div>
+
+        <div class="mt-8 p-6 bg-white rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-700">Live Test Progress</h2>
+            <div class="progress-bar-container mt-2">
+                <div id="live-progress-bar" class="progress-bar"></div>
+            </div>
+            <p id="live-progress-text" class="text-center mt-2 text-gray-600">0%</p>
+            <p id="current-testing-formula" class="text-center mt-1 text-gray-500">-</p>
+        </div>
+    </div>
+
+    <script>
+        const socket = io(); // Connects to the server defined in app.py
+
+        const formulaNames = ['JQLD', 'LVVM', 'DESS', 'JRRN', 'LRPP', 'DVVE', 'JSSC', 'LSSS', 'DNNL', 'JHFR', 'LMCB'];
+        const formulaResultsGrid = document.getElementById('formula-results-grid');
+
+        function createFormulaCard(formulaName) {
+            const card = document.createElement('div');
+            card.className = 'formula-card bg-white p-6 rounded-lg shadow-md';
+            card.innerHTML = `
+                <h2 class="formula-title text-xl font-semibold text-gray-700">${formulaName}</h2>
+                <p class="mt-2">Speedup: <span id="${formulaName.toLowerCase()}-speedup" class="font-mono">N/A</span></p>
+                <p class="mt-1">Status: <span id="${formulaName.toLowerCase()}-status" class="status-ready font-semibold">Ready</span></p>
+                <p class="mt-1">Time: <span id="${formulaName.toLowerCase()}-time" class="font-mono text-xs">N/A</span></p>
+                <button class="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded text-sm" onclick="testSingle('${formulaName}')">Test ${formulaName}</button>
+            `;
+            return card;
+        }
+
+        function initializeFormulaCards() {
+            formulaResultsGrid.innerHTML = ''; // Clear example card
+            formulaNames.forEach(name => {
+                const card = createFormulaCard(name);
+                formulaResultsGrid.appendChild(card);
+            });
+        }
+
+        initializeFormulaCards();
+
+        document.getElementById('validate-all-btn').addEventListener('click', () => {
+            console.log('Validate All Formulas button clicked');
+            fetch('/api/validate-all')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Validate All Results:', data);
+                    if (data.error) {
+                        alert('Error validating all formulas: ' + data.error);
+                        return;
+                    }
+                    updateResults(data.results);
+                    document.getElementById('compound-effect').textContent = data.compound_speedup ? data.compound_speedup.toFixed(2) + 'x' : 'Error';
+                })
+                .catch(error => {
+                    console.error('Error fetching all validation results:', error);
+                    alert('Failed to fetch all validation results.');
+                });
+        });
+
+        document.getElementById('live-test-btn').addEventListener('click', () => {
+            console.log('Start Live Test button clicked');
+            socket.emit('start_live_test', { message: 'User started live test' });
+            // Reset progress bar and text
+            document.getElementById('live-progress-bar').style.width = '0%';
+            document.getElementById('live-progress-text').textContent = '0%';
+            document.getElementById('current-testing-formula').textContent = 'Starting...';
+             formulaNames.forEach(name => {
+                document.getElementById(`${name.toLowerCase()}-speedup`).textContent = 'Queued';
+                document.getElementById(`${name.toLowerCase()}-status`).textContent = 'Queued';
+                document.getElementById(`${name.toLowerCase()}-status`).className = 'status-ready font-semibold';
+                document.getElementById(`${name.toLowerCase()}-time`).textContent = 'N/A';
+            });
+        });
+
+        document.getElementById('export-results-btn').addEventListener('click', () => {
+            console.log('Export Results button clicked');
+            fetch('/api/validate-all')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert('Error fetching data for export: ' + data.error);
+                        return;
+                    }
+                    const jsonData = JSON.stringify(data, null, 2);
+                    const blob = new Blob([jsonData], {type: 'application/json'});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'formula_validation_results.json';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                })
+                .catch(error => {
+                    console.error('Error exporting results:', error);
+                    alert('Failed to export results.');
+                });
+        });
+
+        function testSingle(formulaName) {
+            console.log(`Test ${formulaName} button clicked`);
+            document.getElementById(`${formulaName.toLowerCase()}-speedup`).textContent = 'Testing...';
+            document.getElementById(`${formulaName.toLowerCase()}-status`).textContent = 'Testing...';
+            document.getElementById(`${formulaName.toLowerCase()}-status`).className = 'status-testing font-semibold';
+
+            fetch(`/api/validate-formula/${formulaName}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(`Result for ${formulaName}:`, data);
+                    if (data.error) {
+                        document.getElementById(`${formulaName.toLowerCase()}-speedup`).textContent = 'Error';
+                        document.getElementById(`${formulaName.toLowerCase()}-status`).textContent = 'Error';
+                        document.getElementById(`${formulaName.toLowerCase()}-status`).className = 'status-error font-semibold';
+                        alert(`Error validating ${formulaName}: ${data.error}`);
+                        return;
+                    }
+                    updateSingleResult(formulaName, data);
+                })
+                .catch(error => {
+                    console.error(`Error fetching validation for ${formulaName}:`, error);
+                    document.getElementById(`${formulaName.toLowerCase()}-speedup`).textContent = 'Error';
+                    document.getElementById(`${formulaName.toLowerCase()}-status`).textContent = 'Failed';
+                    document.getElementById(`${formulaName.toLowerCase()}-status`).className = 'status-error font-semibold';
+                    alert(`Failed to fetch validation for ${formulaName}.`);
+                });
+        }
+
+        function updateSingleResult(formulaName, result) {
+            const speedupEl = document.getElementById(`${formulaName.toLowerCase()}-speedup`);
+            const statusEl = document.getElementById(`${formulaName.toLowerCase()}-status`);
+            const timeEl = document.getElementById(`${formulaName.toLowerCase()}-time`);
+
+            if (result.success) {
+                speedupEl.textContent = result.speedup ? result.speedup.toFixed(2) + 'x' : 'N/A';
+                statusEl.textContent = 'Success';
+                statusEl.className = 'status-ready font-semibold'; // Assuming green for success
+            } else {
+                speedupEl.textContent = 'Error';
+                statusEl.textContent = 'Error';
+                statusEl.className = 'status-error font-semibold';
+            }
+            timeEl.textContent = result.execution_time ? result.execution_time.toFixed(4) + 's' : 'N/A';
+        }
+
+        function updateResults(results) {
+            for (const formulaName in results) {
+                if (results.hasOwnProperty(formulaName)) {
+                    updateSingleResult(formulaName, results[formulaName]);
+                }
+            }
+        }
+
+        socket.on('test_progress', (data) => {
+            console.log('Test Progress:', data);
+            const percentage = (data.current / data.total) * 100;
+            document.getElementById('live-progress-bar').style.width = percentage + '%';
+            document.getElementById('live-progress-text').textContent = percentage.toFixed(0) + '%';
+            document.getElementById('current-testing-formula').textContent = `Testing: ${data.formula} (${data.current}/${data.total})`;
+
+            const statusEl = document.getElementById(`${data.formula.toLowerCase()}-status`);
+            if (statusEl) {
+                statusEl.textContent = data.status;
+                statusEl.className = data.status === 'testing' ? 'status-testing font-semibold' : 'status-ready font-semibold';
+            }
+        });
+
+        socket.on('formula_result', (data) => {
+            console.log('Formula Result (live):', data);
+            updateSingleResult(data.formula, data.result);
+        });
+
+        socket.on('test_complete', (data) => {
+            console.log('Test Complete:', data);
+            document.getElementById('live-progress-text').textContent = 'Completed!';
+            document.getElementById('current-testing-formula').textContent = data.message;
+            // Fetch final results to update everything consistently
+            fetch('/api/validate-all')
+                .then(response => response.json())
+                .then(apiData => {
+                    if (apiData.results) updateResults(apiData.results);
+                    if (apiData.compound_speedup) document.getElementById('compound-effect').textContent = apiData.compound_speedup.toFixed(2) + 'x';
+                });
+        });
+
+        socket.on('connect', () => {
+            console.log('Connected to WebSocket server.');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected from WebSocket server.');
+        });
+
+        socket.on('connect_error', (err) => {
+          console.error('WebSocket connection error:', err);
+        });
+
+    </script>
+</body>
+</html>

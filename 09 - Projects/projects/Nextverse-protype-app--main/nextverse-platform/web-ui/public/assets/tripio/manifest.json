@@ -1,0 +1,10 @@
+{
+  "source": "Local GLB models already present on this host (demo assets)",
+  "note": "Demo assets used until refined Tripo AI renders are supplied. Robot/gem/pillar/structure are local models; attribution and licensing must be confirmed before redistribution.",
+  "assets": [
+    { "file": "robot.glb", "zone_id": "starting_zone_town_square", "label": "Robot avatar" },
+    { "file": "gem.glb", "zone_id": "starting_zone_market", "label": "Market gem" },
+    { "file": "pillar.glb", "zone_id": "dungeon_level_1", "label": "Dungeon pillar" },
+    { "file": "structure.glb", "zone_id": "nexus_atrium", "label": "Atrium structure" }
+  ]
+}

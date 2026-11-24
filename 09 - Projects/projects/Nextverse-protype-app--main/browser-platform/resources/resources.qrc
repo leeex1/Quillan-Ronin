@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>web/index.html</file>
+        <file>web/static/js/main.js</file>
+        <file>web/static/css/main.css</file>
+        <file>web/static/media/logo.svg</file>
+        <file>web/manifest.json</file>
+        <file>web/favicon.ico</file>
+    </qresource>
+    <qresource prefix="/assets">
+        <file>icons/app-icon.png</file>
+        <file>config/default.json</file>
+    </qresource>
+</RCC>

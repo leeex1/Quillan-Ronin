@@ -1,0 +1,175 @@
+{
+  "results": [
+    {
+      "formulaName": "JQLD",
+      "theoreticalValue": 5.172471010229747,
+      "measuredPerformance": 5172.471010229747,
+      "speedupFactor": 0.005172471010229746,
+      "executionTime": 0.10830208399984985,
+      "parameters": {
+        "C": 1,
+        "Njq": 5,
+        "psi_task": 0.6,
+        "psi_parallel": 0.8,
+        "theta_q": 0.02
+      },
+      "success": true
+    },
+    {
+      "formulaName": "LVVM",
+      "theoreticalValue": 1.2286505,
+      "measuredPerformance": 1228.6505000000002,
+      "speedupFactor": 12.286505000000002,
+      "executionTime": 0.23952162499958649,
+      "parameters": {
+        "Q": 5.17,
+        "R_vm": 0.98,
+        "psi_vm": 0.25,
+        "theta_vm": 0.02,
+        "theta_sync": 0.01
+      },
+      "success": true
+    },
+    {
+      "formulaName": "DESS",
+      "theoreticalValue": 0,
+      "measuredPerformance": 0,
+      "speedupFactor": 0,
+      "executionTime": 0.010184038000181318,
+      "parameters": {
+        "scenarios": 100,
+        "w_context": 0.8,
+        "R_min": 0.85
+      },
+      "success": true
+    },
+    {
+      "formulaName": "JRRN",
+      "theoreticalValue": 0.010000355555555555,
+      "measuredPerformance": 100,
+      "speedupFactor": 10,
+      "executionTime": 1.0012865419997834,
+      "parameters": {
+        "Dc": 1000,
+        "Pt": 2500000000,
+        "Fc": 0.9,
+        "gamma_c": 0.25,
+        "sigma_c": 0.01
+      },
+      "success": true
+    },
+    {
+      "formulaName": "LRPP",
+      "theoreticalValue": 1001.666,
+      "measuredPerformance": 500.83299999999997,
+      "speedupFactor": 1.001666,
+      "executionTime": 0.0000035000001080334188,
+      "parameters": {
+        "C_prev": 1000,
+        "Na": 10,
+        "Aa": 0.2,
+        "beta_a": 0.85,
+        "theta_a": 0.02
+      },
+      "success": true
+    },
+    {
+      "formulaName": "DVVE",
+      "theoreticalValue": 1746,
+      "measuredPerformance": 1746,
+      "speedupFactor": 1.746,
+      "executionTime": 0.04819098300021142,
+      "parameters": {
+        "Pcore": 1000,
+        "Fv": 1.5,
+        "alpha_v": 0.2,
+        "theta_v": 0.03
+      },
+      "success": true
+    },
+    {
+      "formulaName": "JSSC",
+      "theoreticalValue": 551.5432893255071,
+      "measuredPerformance": 220.61731573020285,
+      "speedupFactor": 1.1030865786510142,
+      "executionTime": 0.040204163999762385,
+      "parameters": {
+        "NNPC": 1000,
+        "Nplayers": 100,
+        "beta": 0.8,
+        "Qai": 1.5,
+        "alpha_ai": 0.3
+      },
+      "success": true
+    },
+    {
+      "formulaName": "LSSS",
+      "theoreticalValue": 1102.5,
+      "measuredPerformance": 48620.25,
+      "speedupFactor": 1.1025,
+      "executionTime": 0.055186602000147106,
+      "parameters": {
+        "Pcore": 1000,
+        "beta_audio": 0.9,
+        "alpha_audio": 0.25,
+        "theta_audio": 0.02
+      },
+      "success": true
+    },
+    {
+      "formulaName": "DNNL",
+      "theoreticalValue": 0.081,
+      "measuredPerformance": 100,
+      "speedupFactor": 0.1,
+      "executionTime": 0.0871612970000133,
+      "parameters": {
+        "Dn": 1000,
+        "Bw": 1000000,
+        "Vn": 0.1,
+        "beta_n": 0.8,
+        "Pi_sum": 5000,
+        "n_sum": 100
+      },
+      "success": true
+    },
+    {
+      "formulaName": "JHFR",
+      "theoreticalValue": 1.5964083498023713,
+      "measuredPerformance": 319.2816699604743,
+      "speedupFactor": 3.1928166996047427,
+      "executionTime": 0.12676906100008636,
+      "parameters": {
+        "P1": 1.5,
+        "P2": 1.8,
+        "P3": 1.3,
+        "eta1": 0.9,
+        "eta2": 0.85,
+        "eta3": 0.95,
+        "H_int": 1.2,
+        "H_eth": 1.1,
+        "H_net": 1.15,
+        "beta_sys": 0.05
+      },
+      "success": true
+    },
+    {
+      "formulaName": "LMCB",
+      "theoreticalValue": -0.08915475780564075,
+      "measuredPerformance": 25.349285468338447,
+      "speedupFactor": 1.2674642734169224,
+      "executionTime": 0.1292044609999284,
+      "parameters": {
+        "scenarios": 100,
+        "M_avg": 0.8,
+        "W_context": 0.9,
+        "beta_moral": 0.85,
+        "E_min": 0.7
+      },
+      "success": true
+    }
+  ],
+  "totalTested": 11,
+  "successful": 11,
+  "compoundSpeedup": 0,
+  "timestamp": "2025-05-23T23:27:35.637Z"
+}

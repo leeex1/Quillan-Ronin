@@ -1,0 +1,43 @@
+{
+  "name": "nextverse-platform",
+  "version": "1.0.0",
+  "description": "NextVerse Full-Fidelity Local Development Platform",
+  "main": "index.js",
+  "scripts": {
+    "turbo:start": "bash scripts/quantum-bootstrap.sh",
+    "validate": "node scripts/validate-all.js",
+    "dev": "concurrently \"npm run quantum:vm\" \"npm run modules:start\" \"npm run web:dev\"",
+    "quantum:vm": "cd quantum-vm && ./11-boot.sh",
+    "modules:start": "docker-compose up -d",
+    "web:dev": "cd web-ui && npm run dev",
+    "build": "node scripts/build-all.js",
+    "test": "npm run validate && npm run test:integration"
+  },
+  "dependencies": {
+    "concurrently": "^8.0.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "workspaces": [
+    "quantum-core",
+    "ai-assistant",
+    "game-engine",
+    "mmorpg",
+    "daw",
+    "orchestrator",
+    "web-ui",
+    "quantum-vm"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nextverse/platform.git"
+  },
+  "license": "MIT"
+}
