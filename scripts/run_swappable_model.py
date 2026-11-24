@@ -50,11 +50,44 @@ print(f"[swappable] model={model_path}", flush=True)
 print(f"[swappable] device={device} dtype={dtype} prompt={prompt!r}", flush=True)
 t0 = time.time()
 tok = AutoTokenizer.from_pretrained(model_path)
+
+# Build the input: apply the Quillan system prompt through the model's native
+# chat template when available, otherwise fall back to plain text prepend.
+use_chat = bool(cfg.get("use_chat_template", False)) and getattr(
+    tok, "chat_template", None
+)
+sys_prompt_file = cfg.get("system_prompt_file")
+system_text = None
+if sys_prompt_file and Path(sys_prompt_file).exists():
+    system_text = Path(sys_prompt_file).read_text(encoding="utf-8").strip()
+    print(f"[swappable] system prompt loaded ({len(system_text)} chars)", flush=True)
+
+if use_chat and system_text:
+    messages = [
+        {"role": "system", "content": system_text},
+        {"role": "user", "content": prompt},
+    ]
+    rendered = tok.apply_chat_template(
+        messages, tokenize=False, add_generation_prompt=True
+    )
+    ids = tok.encode(rendered, return_tensors="pt").to(device)
+    print("[swappable] chat template applied (system + user)", flush=True)
+elif system_text:
+    ids = tok.encode(
+        f"{system_text}\n\nUser: {prompt}\nAssistant:", return_tensors="pt"
+    ).to(device)
+    print("[swappable] system prompt prepended (no chat template)", flush=True)
+else:
+    ids = tok.encode(prompt, return_tensors="pt").to(device)
+
 m = AutoModelForCausalLM.from_pretrained(model_path, dtype=dtype).to(device).eval()
 print(f"[swappable] model loaded in {time.time() - t0:.1f}s", flush=True)
-ids = tok.encode(prompt, return_tensors="pt").to(device)
+ids = ids.to(device)
+prompt_len = ids.shape[1]
 with torch.no_grad():
     out = m.generate(ids, max_new_tokens=max_new, do_sample=False)
-text = tok.decode(out[0], skip_special_tokens=True)
+# Decode ONLY newly generated tokens (skip the echoed prompt/system prompt)
+generated = out[0, prompt_len:]
+text = tok.decode(generated, skip_special_tokens=True).strip()
 print(f"[swappable] OUTPUT: {text}", flush=True)
 print(f"[swappable] OK — swap by editing model_path in {CFG}", flush=True)
