@@ -20,22 +20,38 @@ tags:
 datasets:
 - CrashOverrideX/QuillanTrainingdata
 base_model:
-- 1bitLLM/bitnet_b1_58-3B
-- meta-llama/Llama-3.2-3B
-- Qwen/Qwen3.5-0.8B
+- Qwen/Qwen3-0.6B
+- meta-llama/Llama-3.2-1B-Instruct
+- microsoft/bitnet-b1.58-2B-4T
+- tiiuae/Falcon3-1B-Instruct
 base_model_relation: merge
-# Note: Mistral/Mixtral MoE is conceptual lineage only (research origin for sparse routing) — no Mistral weights were transplanted; transplant used only Qwen + BitNet on top of Llama-derived skeleton
+# Note: donors are Qwen + Llama + BitNet + Falcon3 and contribute to Flagship/Mini as a group (cross-match fix in progress). Mistral/Mixtral MoE is conceptual lineage only (research origin for sparse routing) — no Mistral weights were transplanted.
 ---
+## 🧭 Canonical project context
+
+| | |
+| :--- | :--- |
+| **This repo** | Component repository in the Quillan-Ronin ecosystem. |
+| **Canonical package** | Three deployed models: Quillan-Ronin Flagship (~1B), Quillan-Ronin-Mini (~0.8B) and Quillan-Dragon (~1B). The ONI Python sources are implementation/training only. |
+| **Donor design** | Flagship and Mini: Qwen 0.6B + Llama ~1B + BitNet 2B-4T + Falcon3 ~1B **as a group** (cross-match fix in progress). Dragon: Falcon3 with an Ollama system message running Quillan's system prompt. |
+| **Reading the scores** | The 95–100% table in the root README is **Track A** — the Quillan harness on a third-party frontier base, not a Quillan checkpoint. Hard-exam cells are pending re-test; ARC-AGI-3 public ~99s, private pending. |
+| **Historical framing** | Edo period, rōnin and bushidō are real Japanese history and ethics — not roleplay, game mechanics, or fantasy lore. |
+| **Canonical docs** | [Root README](https://github.com/leeex1/Quillan-Ronin#readme) · [Fleet model cards](https://github.com/leeex1/Quillan-Ronin/blob/main/docs/MODEL_CARDS.md) |
+
 
 # Quillan-Ronin v5.4.0-oni — Canonical Unified Sovereign
 
 **Retires v8.1 / v5.3.1** — Single version counter `v5.4.0-oni` is canonical (see `LINEAGE.md`). This is the correct, unified build.
 
-![Quillan-Ronin Architecture](https://github.com/leeex1/Quillan-Ronin/raw/main/Main%20images/ChatGPT%20Image%20May%2014%2C%202026%2C%2001_03_31%20PM.png)
+> [!IMPORTANT]
+> **Scope — read this before quoting any number in this card or the root README.** The shipped canonical package is the **three-model fleet** (Flagship, Mini, Dragon). This card describes the **native ONI architecture / from-scratch lineage** implementation, which is not itself a shipped product. The large 95–100% "Comprehensive Benchmark Table" in the root README is **Track A**: the Quillan Cognitive Harness driving third-party frontier base models. It is **not** a measurement of these weights, and not a measurement of any Quillan-owned checkpoint. Our own measured checkpoints are the WSP fleet in `docs/MODEL_CARDS.md`. Never present a Track A figure as a native-model score.
+
+
+![Quillan-Ronin Architecture](https://github.com/leeex1/Quillan-Ronin/raw/main/docs/main-images/Anatomy.png)
 
 ## Historical Foundation: The Edo Context
 
-**Quillan-Ronin requires the Edo historical context the way a constitution requires its preamble.** This is not decorative lore—it is the axiomatic layer that defines the system's ethical framework and decision-making logic.
+**The historical grounding is real history, not fiction.** The Edo period (1603–1867), the rōnin (masterless samurai) and bushidō (武士道, "the way of the warrior") are documented Japanese history and a documented ethical tradition — not a game mechanic, fantasy trope, or roleplay device. Quillan uses them as an ethical reference frame, the way a legal system might cite a historical constitution. This is not a claim that the system is Japanese, practices a religion, or is "in character". References: [Edo period](https://en.wikipedia.org/wiki/Edo_period) · [rōnin](https://en.wikipedia.org/wiki/R%C5%8Dnin) · [bushidō](https://en.wikipedia.org/wiki/Bushid%C5%8D).
 
 ### The Edo Period (1603-1867) and the Rōnin
 
@@ -61,7 +77,7 @@ This historical foundation is embedded in:
 - **C2-VIR refusal layer:** Ethical boundaries derived from bushidō principles
 - **9-Vector Semantic Prism:** Ethical blueprinting uses historical ethical frameworks
 - **HFL (Historical Fidelity Loss):** Maintains consistency with the originating philosophy
-- **Council deliberation (C1-C34):** Mirrors the collective decision-making of rōnin councils
+- **Council deliberation (C1-C34):** A computational council architecture inspired by collective deliberation; it does not assert that a historical institution called "rōnin councils" existed.
 
 **This is not a theme that can be swapped.** It is the constitutional preamble that gives the system its reason for operating as it does.
 
@@ -84,6 +100,9 @@ The architectural philosophy of Quillan-Ronin finds its closest historical paral
 Nariakira's approach—building infrastructure from first principles, assembling diverse expertise, and defying rigid norms—mirrors Quillan's architectural philosophy. This is not coincidence; it is the historical precedent that validates the rōnin approach to sovereign intelligence.
 
 ---
+
+> [!IMPORTANT]
+> **Four-donor fusion (owner clarification 2026-11-24).** Flagship and Mini receive weight contributions from **all four donors as a group** — Qwen, Llama, BitNet and Falcon3 — not one donor each. Dragon is a different construction: Falcon3 with an Ollama system message running Quillan's system prompt. The group-contribution cross-match fix is **in progress**; do not describe older per-donor labels as the canonical design or claim the fusion is complete.
 
 ## Model Description
 
@@ -123,13 +142,14 @@ Quillan-Ronin is **built from scratch** — transplant was cold-start init only;
     * **Router duplicated** to 3 complexity paths: `router.weight` → `moe.router.fast_router / balanced_router / diffusion_router` (and bias where applicable)
     * **Swarm LoRA:** `experts[e].swarm.A/B` → `moe.expert_swarms[e].A/B` (rank 8, direct copy), plus `clone_diversity / clone_coupling / population_mean / population_std`
     * **Diffusion core:** `diffusion.0.q/k/v/o_proj + norm1 + ffn.0/2` → `diffusion_core.couil_attn.*`
-    * **Basic:** `txt_emb / mod_emb / quillan_finalizer / txt_dec` + `decomposition.*`    * **Donor weights for cold-start init only (no Mistral):** Qwen/Qwen3.5-0.8B (experts C8–C21, zero-padded SwiGLU) + 1bitLLM/bitnet_b1_58-3B (experts C22–C33, sliced ternary) — **Mistral/Mixtral was never used in transplant** (research inspiration only, see README). Tagged as ase_model + merge for HF metadata.`
+    * **Basic:** `txt_emb / mod_emb / quillan_finalizer / txt_dec` + `decomposition.*`
+    * **Donor weights (canonical design, group contribution):** Qwen + Llama + BitNet + Falcon3 are cross-matched and contribute **as a group** to Flagship and Mini — not one donor per model. The group-contribution fix is in progress; earlier builds used per-expert donor slices (Qwen C8–C21, BitNet C22–C33). **Mistral/Mixtral was never used** (research inspiration only). Tagged as `base_model + merge` for HF metadata.
 
     Outputs: `quillan_merged_saturated.pt` (FP32) → `quillan_merged_saturated_fp16.pt` → `quillan_merged_saturated_quantized.pt` via `model.save_quantized_checkpoint()`
 
 2.  **Stage 1 — Pretraining Run:** Full pretraining on `CrashOverrideX/QuillanTrainingdata` + Corpus v9 (59.4M train + 0.6M val) + `quillan_corpus_*`, `code_train`, `instruct_train`, `quillan_science_*`.
 
-3.  **Stage 2 — Current Training Run (PAUSED):** Ongoing via `scripts/train_full_param_v2.py` (resume `checkpoints_sft/quillan_full_param_v2.pt`, default `--resume-step 6500`, AdamW `lr=2e-5`, `seq-len 512`, `grad-accum 4`, warmup 100, cosine to 1e-6) — **complete 7100/7100 100% — best 0.9165 @5251, latest 7100**. Latest: `quillan_oni_5.4.0_step660_5.22GB.pt` (660/15000, val 7.24, loss 7.63); best archival: `quillan_frontier_v2_best_loss0.0789_step2500.pt`.
+3.  **Stage 2 — Pretraining/SFT run (COMPLETE — historical):** Executed via `scripts/train_full_param_v2.py` (resume `checkpoints_sft/quillan_full_param_v2.pt`, default `--resume-step 6500`, AdamW `lr=2e-5`, `seq-len 512`, `grad-accum 4`, warmup 100, cosine to 1e-6) — **complete 7100/7100 100% — best 0.9165 @5251, latest 7100**. Latest: `quillan_oni_5.4.0_step660_5.22GB.pt` (660/15000, val 7.24, loss 7.63); best archival: `quillan_frontier_v2_best_loss0.0789_step2500.pt`.
 
 ## Intended Uses & Limitations
 
@@ -225,7 +245,21 @@ See lineage above. Full script: `transplant_clean.py` (slice/merge) → pretrain
 * **EGGROLL:** Rank-16 shattering
 * **Lee-Mach-6:** PID governor
 * **HFL:** Historical Fidelity Loss
-* **transplant_clean.py / transplant_v8.py:** Slice & merge transplant (Phase 5 → V8) — Qwen + BitNet init, no Mistral weights
+* **transplant_clean.py / transplant_v8.py:** Slice & merge transplant (Phase 5 → V8) — four-donor group design (Qwen + Llama + BitNet + Falcon3), no Mistral weights
+
+## Official links
+
+Owner-supplied canonical destinations: [site](https://leeex1.github.io/Quillan-Ronin/) · [landing page](https://digitalroninx.grok.me) · [X](https://x.com/Crashoverride_X) · [Discord](https://discord.gg/JcFqvWKkRv) · [GitHub](https://github.com/leeex1/Quillan-Ronin) · [Ollama](https://ollama.com/crashoverridex/Quillan-Ronin) · [Hugging Face](https://huggingface.co/CrashOverrideX/Quillan-Ronin) · [DeepWiki](https://deepwiki.com/leeex1/Quillan-Ronin) · [Grokipedia](https://grokipedia.com/page/Quillan-Ronin). Full directory including NotebookLM, Genius, YouTube and Suno: root `README.md` → **Official links**.
+
+## Numbers, provenance, and known inconsistencies
+
+| Topic | Honest reading |
+| :--- | :--- |
+| Benchmark tables | See Track A / B / B′ in the root README's **READ FIRST** section. Track A numbers do not describe any Quillan model. |
+| Fleet scale (authoritative) | Owner clarification 2026-11-24: **Dragon ≈1B, Mini ≈0.8B, Flagship ≈1B**. The ≈0.8B Mini is the 815M custom-architecture build (`QuillanRoninSovereign`). |
+| Other size figures | `4.57B saturated / ~480M active / hidden 2560` describes the **ONI research build**; `~1.16B` and `~3.00B` in the root README are other historical build targets. They are not interchangeable with the fleet sizes above. Donor names and GGUF filenames keep their original labels and are not scale claims. |
+| License | `apache-2.0`, matching the root `LICENSE`. Older "MIT / Modified MIT" labels were stale and have been corrected. |
+| Formal benchmarks | Not yet published for the native ONI build. Native-model evaluation claims must cite a specific artifact and corpus. |
 
 ---
-*Support: https://gofund.me/3b504d58 — "The Ouroboros has awakened."*
+*Support: https://gofund.me/a0667596d — "The Ouroboros has awakened."*
