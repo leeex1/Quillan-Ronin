@@ -1,0 +1,1754 @@
+{
+  "phase": "A - lossless PNG recompression",
+  "swapped": 249,
+  "skipped": 20,
+  "bytes_before": 692996074,
+  "bytes_after": 594225748,
+  "saved_mb": 94.19,
+  "backup_root": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup",
+  "files": [
+    {
+      "path": "06_Media\\images\\1.1-invideo-gpt_image_2.png",
+      "before": 6916687,
+      "after": 6313306,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\1.1-invideo-gpt_image_2.png",
+      "pixel_sha256": "53af33fa0f4a7271e12a75703d9567ba3a9ea19b5a01f45b5cd71815eb71b6c7"
+    },
+    {
+      "path": "06_Media\\images\\Gemini_Generated_Image_.png",
+      "before": 1268460,
+      "after": 1166832,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\Gemini_Generated_Image_.png",
+      "pixel_sha256": "49b746e578b29050fb15c3ff2935f902d24c9c322cd22e8f5b7cb1e51b892506"
+    },
+    {
+      "path": "06_Media\\images\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "before": 2511531,
+      "after": 2460896,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "pixel_sha256": "ce442828f32cadc2614cc3def9bc86e1f7b13f1afd168f2f70dd6fb266ebad38"
+    },
+    {
+      "path": "06_Media\\images\\generated-image.png",
+      "before": 1401740,
+      "after": 1298027,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\generated-image.png",
+      "pixel_sha256": "00062d8760e5c4bba9883280022cbdf15597de09230fa1f7ecc63cf6b6912a31"
+    },
+    {
+      "path": "06_Media\\images\\HII9I28W8AAwpPk.png",
+      "before": 108327,
+      "after": 93406,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\HII9I28W8AAwpPk.png",
+      "pixel_sha256": "59a971ae3cc58f0aa2f1381b5e20bea939d693bbbbe9615211bee6e67347b2ce"
+    },
+    {
+      "path": "06_Media\\images\\peervalidated.png",
+      "before": 2496729,
+      "after": 2346158,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\peervalidated.png",
+      "pixel_sha256": "b1dd249bb43a56916b535509472bafcc7cbd82e457d7b88ecb05121b8d691beb"
+    },
+    {
+      "path": "06_Media\\images\\qr-fundcode.png",
+      "before": 42882,
+      "after": 37611,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\qr-fundcode.png",
+      "pixel_sha256": "800a5e4427ed43c273602e52fd6b0a50954fd56a6b9a2cf47e47214760d372d9"
+    },
+    {
+      "path": "06_Media\\images\\svgviewer-png-output.png",
+      "before": 155094,
+      "after": 97453,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\svgviewer-png-output.png",
+      "pixel_sha256": "1e00029ec866eab56f952301d956f047dc9a9c56eed61f6d4b3874dbedcbcf36"
+    },
+    {
+      "path": "06_Media\\images\\unnamed.png",
+      "before": 6600863,
+      "after": 6441013,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\unnamed.png",
+      "pixel_sha256": "c9bf11e1724ed8460ae404893bf073f1f9bd9f00be19062730edf9ed75208b34"
+    },
+    {
+      "path": "06_Media\\images\\Neo Ronin assets\\.png",
+      "before": 7447230,
+      "after": 5575732,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\Neo Ronin assets\\.png",
+      "pixel_sha256": "89c764daf9b890f4932380fa1ceff108b1b99830a8b9a9d16912e7f590dd1c71"
+    },
+    {
+      "path": "06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "before": 607191,
+      "after": 589676,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "pixel_sha256": "805d0fcb35d7eb446e156d65c03a14b881ff2272c36bfcf88ce7cdc9e96b44e6"
+    },
+    {
+      "path": "06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "before": 236661,
+      "after": 186073,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "pixel_sha256": "4ad44e7282b8fe8e21e683c4d7842e4295e8a62e0aa212336ee4e6f32977e98a"
+    },
+    {
+      "path": "assets\\logo.png",
+      "before": 92669,
+      "after": 92658,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\logo.png",
+      "pixel_sha256": "11958172803a5f226229d3d4bc99b2e42e7f13bc1eb8cadd66ec223ebadd13d0"
+    },
+    {
+      "path": "assets\\concept_art\\1.1-invideo-gpt_image_2.png",
+      "before": 6916687,
+      "after": 6313306,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\1.1-invideo-gpt_image_2.png",
+      "pixel_sha256": "53af33fa0f4a7271e12a75703d9567ba3a9ea19b5a01f45b5cd71815eb71b6c7"
+    },
+    {
+      "path": "assets\\concept_art\\140_roninbrog.png",
+      "before": 3293597,
+      "after": 3269351,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\140_roninbrog.png",
+      "pixel_sha256": "ed8ee118457f83db982ff5caf4da480e48d7eecfbbe7baba6b16fd3a29fadc14"
+    },
+    {
+      "path": "assets\\concept_art\\80_roninborg.png",
+      "before": 10067321,
+      "after": 8484120,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\80_roninborg.png",
+      "pixel_sha256": "0e7a19641ab0a4159bcd3e4b6b6c1a86970460f908894d3759892123e3c5724f"
+    },
+    {
+      "path": "assets\\concept_art\\bots_and_medals_.png",
+      "before": 9519903,
+      "after": 7963384,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\bots_and_medals_.png",
+      "pixel_sha256": "af1cc1baeca5a5c8eda002242996a12ff9dd43598be6ceec1288b2bc9cc67f4d"
+    },
+    {
+      "path": "assets\\concept_art\\c;out_stars_breakdown.png",
+      "before": 78082,
+      "after": 60486,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\c;out_stars_breakdown.png",
+      "pixel_sha256": "fdcef275ed4cb75b81537e4041df6167fdbedbb87ff911424814d116c14ee541"
+    },
+    {
+      "path": "assets\\concept_art\\chibi_48_roninborg.png",
+      "before": 2697386,
+      "after": 2508669,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\chibi_48_roninborg.png",
+      "pixel_sha256": "1e09d191481344b741305c799445b6dfb77d9406f0a04f45def19966d981112b"
+    },
+    {
+      "path": "assets\\concept_art\\clout_stars_3.png",
+      "before": 27118,
+      "after": 22967,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\clout_stars_3.png",
+      "pixel_sha256": "ba96b8a6bb199d68d6e188735865b7148180902ed3104148c53b3b68b8cf91d9"
+    },
+    {
+      "path": "assets\\concept_art\\clout_stars_4.png",
+      "before": 68442,
+      "after": 52808,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\clout_stars_4.png",
+      "pixel_sha256": "8747bb1b0a6290dcc3c7a9cf5f252b0c8ca6d259113b90a2f4136ceed375b91c"
+    },
+    {
+      "path": "assets\\concept_art\\clout_stars_5.png",
+      "before": 61791,
+      "after": 49168,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\clout_stars_5.png",
+      "pixel_sha256": "3fe1b67fb5d898000d67bc9967bad2250bc0f253e936b9dff2b8eacf4c9e3fac"
+    },
+    {
+      "path": "assets\\concept_art\\clout_starz_2.png",
+      "before": 77919,
+      "after": 62053,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\clout_starz_2.png",
+      "pixel_sha256": "14aefe5975375d1d5086be1378547a5c1bd2dde4db0ef5c141aea2c657eec8d9"
+    },
+    {
+      "path": "assets\\concept_art\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "before": 607191,
+      "after": 589676,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "pixel_sha256": "805d0fcb35d7eb446e156d65c03a14b881ff2272c36bfcf88ce7cdc9e96b44e6"
+    },
+    {
+      "path": "assets\\concept_art\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png",
+      "before": 1726582,
+      "after": 1668415,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png",
+      "pixel_sha256": "3952f4a8c2ab9a799080a5346f7c99083daa9d555a069d109886f140df175e32"
+    },
+    {
+      "path": "assets\\concept_art\\forest_area.png",
+      "before": 7524484,
+      "after": 6205383,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\forest_area.png",
+      "pixel_sha256": "08fb16ba7984265db6b1d2c441f7f2d4f6302ad69c15a55274c1f47cb4d71bea"
+    },
+    {
+      "path": "assets\\concept_art\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "before": 236661,
+      "after": 186073,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "pixel_sha256": "4ad44e7282b8fe8e21e683c4d7842e4295e8a62e0aa212336ee4e6f32977e98a"
+    },
+    {
+      "path": "assets\\concept_art\\Gemini_Generated_Image_.png",
+      "before": 1268460,
+      "after": 1166832,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Gemini_Generated_Image_.png",
+      "pixel_sha256": "49b746e578b29050fb15c3ff2935f902d24c9c322cd22e8f5b7cb1e51b892506"
+    },
+    {
+      "path": "assets\\concept_art\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "before": 2511531,
+      "after": 2460896,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "pixel_sha256": "ce442828f32cadc2614cc3def9bc86e1f7b13f1afd168f2f70dd6fb266ebad38"
+    },
+    {
+      "path": "assets\\concept_art\\generated-image.png",
+      "before": 1401740,
+      "after": 1298027,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\generated-image.png",
+      "pixel_sha256": "00062d8760e5c4bba9883280022cbdf15597de09230fa1f7ecc63cf6b6912a31"
+    },
+    {
+      "path": "assets\\concept_art\\gods_budget_build.png",
+      "before": 2255202,
+      "after": 2179014,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\gods_budget_build.png",
+      "pixel_sha256": "9027b5f26f219b148f517c5635ee4524bb8199c50314e8aef6780797b12ccd26"
+    },
+    {
+      "path": "assets\\concept_art\\gods_budget_build2.png",
+      "before": 2152690,
+      "after": 2061649,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\gods_budget_build2.png",
+      "pixel_sha256": "3743fb0932da07dd79cb3f6e3d45797c0d6c2ecff3eedfd017782fa705b4e0c2"
+    },
+    {
+      "path": "assets\\concept_art\\hero_and_parts.png",
+      "before": 8467546,
+      "after": 6785934,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\hero_and_parts.png",
+      "pixel_sha256": "5172d33b2b1241d664af21b5c871eeecf0ebe01f3462be1e9dd05aea415c5cb6"
+    },
+    {
+      "path": "assets\\concept_art\\hero_roninborg.png",
+      "before": 8479391,
+      "after": 6782613,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\hero_roninborg.png",
+      "pixel_sha256": "872a3d56d2c7f6697f71f897e90206417f30a7e0c771efc397bf5b171aa4be61"
+    },
+    {
+      "path": "assets\\concept_art\\HII9I28W8AAwpPk.png",
+      "before": 108327,
+      "after": 93406,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\HII9I28W8AAwpPk.png",
+      "pixel_sha256": "59a971ae3cc58f0aa2f1381b5e20bea939d693bbbbe9615211bee6e67347b2ce"
+    },
+    {
+      "path": "assets\\concept_art\\ice_fortress_level.png",
+      "before": 6969406,
+      "after": 4910534,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\ice_fortress_level.png",
+      "pixel_sha256": "1a16906a370e9bb0222b63350614c22c93bd412cd9ddadaa7f01a9616939c3de"
+    },
+    {
+      "path": "assets\\concept_art\\infographic_1.png",
+      "before": 6288364,
+      "after": 6110368,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\infographic_1.png",
+      "pixel_sha256": "4be24893dfaf3e304ba064c07c4041ac21f4f59be5042c42a97b100159ba8cde"
+    },
+    {
+      "path": "assets\\concept_art\\JDXX_The_Ronin.png",
+      "before": 2438806,
+      "after": 2077557,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\JDXX_The_Ronin.png",
+      "pixel_sha256": "cecdce81d35414313891969349d173edad76d60bbea6e0b57bfe1e55aa58b520"
+    },
+    {
+      "path": "assets\\concept_art\\meta_image_article.png",
+      "before": 2458789,
+      "after": 2380289,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\meta_image_article.png",
+      "pixel_sha256": "d52cbbbbfebbc58b2947c27df08c38a92f40d80e90ac9ea0775fe4c4c49be79b"
+    },
+    {
+      "path": "assets\\concept_art\\meta_vs_quillan.png",
+      "before": 1687753,
+      "after": 1598428,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\meta_vs_quillan.png",
+      "pixel_sha256": "f210987464aeb7d3a64b590f4bcd38cfda340bd1d6533380185085a17ffaf43e"
+    },
+    {
+      "path": "assets\\concept_art\\Model_diaggram_2.png",
+      "before": 1659208,
+      "after": 1397008,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Model_diaggram_2.png",
+      "pixel_sha256": "f10a3610286f82f6b51194eb9c4fd4cecf2e15b69fe5d01a42e537486c6d34b2"
+    },
+    {
+      "path": "assets\\concept_art\\model_diagram.png",
+      "before": 1940396,
+      "after": 1755249,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\model_diagram.png",
+      "pixel_sha256": "bcc44ffb6a3759310f6e7b761fcef69e12042dced66b278b2621e43e0ecc2b31"
+    },
+    {
+      "path": "assets\\concept_art\\model_diagram_2.png",
+      "before": 1659208,
+      "after": 1397008,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\model_diagram_2.png",
+      "pixel_sha256": "f10a3610286f82f6b51194eb9c4fd4cecf2e15b69fe5d01a42e537486c6d34b2"
+    },
+    {
+      "path": "assets\\concept_art\\model_diagram_22.png",
+      "before": 2145082,
+      "after": 2053509,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\model_diagram_22.png",
+      "pixel_sha256": "2c6472f0003a8fa39084de95e6276277314348e4cda890fa333114af927af6ea"
+    },
+    {
+      "path": "assets\\concept_art\\model_diagram_33.png",
+      "before": 2149627,
+      "after": 2062064,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\model_diagram_33.png",
+      "pixel_sha256": "58ca3e03ce08e8f66f7fabfb5bc47340257237fdeab2819adcc5b78ffa9ccde4"
+    },
+    {
+      "path": "assets\\concept_art\\more_roninborg.png",
+      "before": 3120421,
+      "after": 3067742,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\more_roninborg.png",
+      "pixel_sha256": "9868c34c0b9756e2b755fc29be7fc70f815274f094465342bb20cde2a90f14bd"
+    },
+    {
+      "path": "assets\\concept_art\\more_roninborg_2.png",
+      "before": 3293597,
+      "after": 3269351,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\more_roninborg_2.png",
+      "pixel_sha256": "ed8ee118457f83db982ff5caf4da480e48d7eecfbbe7baba6b16fd3a29fadc14"
+    },
+    {
+      "path": "assets\\concept_art\\movie_ronin.png",
+      "before": 2863952,
+      "after": 2831272,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\movie_ronin.png",
+      "pixel_sha256": "74de4f014fc9ea6921832f7364441340a1d122bf7ea6cbf6a4d98305e5891fac"
+    },
+    {
+      "path": "assets\\concept_art\\neon_allyway.png",
+      "before": 7242034,
+      "after": 5399900,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\neon_allyway.png",
+      "pixel_sha256": "367601b15ceb2691692d7d18b3325f8ad50b14b310eb85e4713f8fec496a479b"
+    },
+    {
+      "path": "assets\\concept_art\\neon_city_walkway.png",
+      "before": 8193267,
+      "after": 7006903,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\neon_city_walkway.png",
+      "pixel_sha256": "9fbf6f286cac1b6138074fc48b1d7f9cf1a76bebdca873bb5a192e6c1fbdb10d"
+    },
+    {
+      "path": "assets\\concept_art\\peervalidated.png",
+      "before": 2496729,
+      "after": 2346158,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\peervalidated.png",
+      "pixel_sha256": "b1dd249bb43a56916b535509472bafcc7cbd82e457d7b88ecb05121b8d691beb"
+    },
+    {
+      "path": "assets\\concept_art\\prokect_purpose.png",
+      "before": 3390661,
+      "after": 3337030,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\prokect_purpose.png",
+      "pixel_sha256": "009502b16ba4349e7a75585706d948442a8e0874f1b14d12c40f42dfa614cd54"
+    },
+    {
+      "path": "assets\\concept_art\\qr-fundcode.png",
+      "before": 42882,
+      "after": 37611,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\qr-fundcode.png",
+      "pixel_sha256": "800a5e4427ed43c273602e52fd6b0a50954fd56a6b9a2cf47e47214760d372d9"
+    },
+    {
+      "path": "assets\\concept_art\\QuillanRonin_Banner_wordwart.png",
+      "before": 8902735,
+      "after": 7481846,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\QuillanRonin_Banner_wordwart.png",
+      "pixel_sha256": "765323a0716d14171c38abe246c6151b3eb28a8b303229d0bea04f1cf438bb87"
+    },
+    {
+      "path": "assets\\concept_art\\quillan_gem.png",
+      "before": 8728918,
+      "after": 6972359,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\quillan_gem.png",
+      "pixel_sha256": "00a06c379893954ff74edd3cebfedc52c8e18b84e53870524792c1d43057605f"
+    },
+    {
+      "path": "assets\\concept_art\\quillan_os_banner.png",
+      "before": 2212695,
+      "after": 2104986,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\quillan_os_banner.png",
+      "pixel_sha256": "059e29b10e7aa5a67b21852cb85b054e557d7cad0d73a0ce679168e8f30c4cb4"
+    },
+    {
+      "path": "assets\\concept_art\\quillan_samureai_redme_logo.png",
+      "before": 2368344,
+      "after": 2270243,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\quillan_samureai_redme_logo.png",
+      "pixel_sha256": "c9d033b65c06252ce89957eacc46aab02f0625719119dcac6a8122ca24497607"
+    },
+    {
+      "path": "assets\\concept_art\\quillan_showoff.png",
+      "before": 9548651,
+      "after": 7970468,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\quillan_showoff.png",
+      "pixel_sha256": "03e1a5a7abdee0da750fe0ed6ee2ef18d872fc318497a82d03aa645827521765"
+    },
+    {
+      "path": "assets\\concept_art\\robitic_mesh_tecture.png",
+      "before": 6456123,
+      "after": 5201686,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\robitic_mesh_tecture.png",
+      "pixel_sha256": "e05a6b3628cd6d04766494b6a0a447ec46726819b07a491607fcb01dd23bd890"
+    },
+    {
+      "path": "assets\\concept_art\\ronin_dragon.png",
+      "before": 2928682,
+      "after": 2819899,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\ronin_dragon.png",
+      "pixel_sha256": "85c0a03c9686f0af3ed7dcf0b2b62cc901e6a4c68658128a2e456362ec49e9c2"
+    },
+    {
+      "path": "assets\\concept_art\\Self_Made_Ronin-Back_to_the_roots.png",
+      "before": 2565977,
+      "after": 2543320,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Self_Made_Ronin-Back_to_the_roots.png",
+      "pixel_sha256": "57e238ceed8708da0eb30cd959801b78ffa7a7c319cbc935171f0fab917e2509"
+    },
+    {
+      "path": "assets\\concept_art\\setup_image.png",
+      "before": 6864311,
+      "after": 5117972,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\setup_image.png",
+      "pixel_sha256": "de5ddef6d8c151c3a614b614120de3ca3f693bd29937a7c27f2b2f913a52cea7"
+    },
+    {
+      "path": "assets\\concept_art\\sound_of_alchemy_covor.png",
+      "before": 2481200,
+      "after": 2393864,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\sound_of_alchemy_covor.png",
+      "pixel_sha256": "6699187bd73769de6bc2f83f2e983f1470f0198c5859d0591c69185e8f1f8e4e"
+    },
+    {
+      "path": "assets\\concept_art\\sucess_stories_logo.png",
+      "before": 2566836,
+      "after": 2477797,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\sucess_stories_logo.png",
+      "pixel_sha256": "7ea60d61477be526aa224bfa74e96bdf9c6fc459973cd0f78f83fcdb12918c95"
+    },
+    {
+      "path": "assets\\concept_art\\svgviewer-png-output.png",
+      "before": 155094,
+      "after": 97453,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\svgviewer-png-output.png",
+      "pixel_sha256": "1e00029ec866eab56f952301d956f047dc9a9c56eed61f6d4b3874dbedcbcf36"
+    },
+    {
+      "path": "assets\\concept_art\\tat_design_2.png",
+      "before": 8610854,
+      "after": 6551966,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\tat_design_2.png",
+      "pixel_sha256": "8b375ead6c36a68ccbbfdc6073b25d89987fc26ed0f1ec2d6ff4832c6917289c"
+    },
+    {
+      "path": "assets\\concept_art\\tat_idea.png",
+      "before": 8645053,
+      "after": 6573660,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\tat_idea.png",
+      "pixel_sha256": "0d2c67d51107d7680ad8c9ce0467138b8a1a39c4bf559db90520875aab45dec8"
+    },
+    {
+      "path": "assets\\concept_art\\The_Darker_Side.png",
+      "before": 15147436,
+      "after": 9914081,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\The_Darker_Side.png",
+      "pixel_sha256": "9946c9692eb432e49fd89004dc458aa47447bd4add7f4889ab96b8c7160b66c5"
+    },
+    {
+      "path": "assets\\concept_art\\unlimited_budget.png",
+      "before": 2669596,
+      "after": 2584261,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\unlimited_budget.png",
+      "pixel_sha256": "51f000e82dc62ed46c9b6f8be23605d3311d84eed9c84ee8342e2e1e265b1ff8"
+    },
+    {
+      "path": "assets\\concept_art\\unlimited_budget_2.0_gpt.png",
+      "before": 2950471,
+      "after": 2891929,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\unlimited_budget_2.0_gpt.png",
+      "pixel_sha256": "8091f2a46b3e5f98f4ee0188bcf127ad6baa81bc57d0b25cef085e5f4555b887"
+    },
+    {
+      "path": "assets\\concept_art\\unnamed.png",
+      "before": 6600863,
+      "after": 6441013,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\unnamed.png",
+      "pixel_sha256": "c9bf11e1724ed8460ae404893bf073f1f9bd9f00be19062730edf9ed75208b34"
+    },
+    {
+      "path": "assets\\concept_art\\volcano_area.png",
+      "before": 6743858,
+      "after": 5415824,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\volcano_area.png",
+      "pixel_sha256": "ad8bc612834426870cd519d5c2df94c86a6f4081b5e9067a601a31260d6331de"
+    },
+    {
+      "path": "assets\\concept_art\\world_map_proto_type.png",
+      "before": 10307382,
+      "after": 8947045,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\world_map_proto_type.png",
+      "pixel_sha256": "1da50022c1aff131c849781e9f5e28d0e8954e3c3cbe7b82ac1febef3ae4eeec"
+    },
+    {
+      "path": "assets\\concept_art\\Youtube_thumbnail.png",
+      "before": 2707350,
+      "after": 2660391,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\assets\\concept_art\\Youtube_thumbnail.png",
+      "pixel_sha256": "1fa655abca1ae570c9b5a1741186d543a68719739d8d39330f8c23a3873fcf23"
+    },
+    {
+      "path": "gallery\\.png",
+      "before": 7447230,
+      "after": 5575732,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\.png",
+      "pixel_sha256": "89c764daf9b890f4932380fa1ceff108b1b99830a8b9a9d16912e7f590dd1c71"
+    },
+    {
+      "path": "gallery\\1.1-invideo-gpt_image_2.png",
+      "before": 6916687,
+      "after": 6313306,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\1.1-invideo-gpt_image_2.png",
+      "pixel_sha256": "53af33fa0f4a7271e12a75703d9567ba3a9ea19b5a01f45b5cd71815eb71b6c7"
+    },
+    {
+      "path": "gallery\\140_roninbrog.png",
+      "before": 3293597,
+      "after": 3269351,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\140_roninbrog.png",
+      "pixel_sha256": "ed8ee118457f83db982ff5caf4da480e48d7eecfbbe7baba6b16fd3a29fadc14"
+    },
+    {
+      "path": "gallery\\80_roninborg.png",
+      "before": 10067321,
+      "after": 8484120,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\80_roninborg.png",
+      "pixel_sha256": "0e7a19641ab0a4159bcd3e4b6b6c1a86970460f908894d3759892123e3c5724f"
+    },
+    {
+      "path": "gallery\\bots_and_medals_.png",
+      "before": 9519903,
+      "after": 7963384,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\bots_and_medals_.png",
+      "pixel_sha256": "af1cc1baeca5a5c8eda002242996a12ff9dd43598be6ceec1288b2bc9cc67f4d"
+    },
+    {
+      "path": "gallery\\c;out_stars_breakdown.png",
+      "before": 78082,
+      "after": 60486,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\c;out_stars_breakdown.png",
+      "pixel_sha256": "fdcef275ed4cb75b81537e4041df6167fdbedbb87ff911424814d116c14ee541"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png",
+      "before": 1919734,
+      "after": 1812725,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png",
+      "pixel_sha256": "481b06230ba62d78d29bb283d2d3678cfb69fb0e2df37e27ecc172a977dd5430"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_May_14_2026_01_39_14_PM.png",
+      "before": 3233578,
+      "after": 2992506,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_May_14_2026_01_39_14_PM.png",
+      "pixel_sha256": "568043af997965d9776ee84d2a60c21fd2da96643f5fdf45b98ad91c2e5d3941"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png",
+      "before": 2481200,
+      "after": 2393864,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png",
+      "pixel_sha256": "6699187bd73769de6bc2f83f2e983f1470f0198c5859d0591c69185e8f1f8e4e"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.png",
+      "before": 8735383,
+      "after": 8414515,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.png",
+      "pixel_sha256": "2686938988d40ae0f98981cc8732c1754a71626e1c6c3337fd46d834864eb84d"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png",
+      "before": 3139184,
+      "after": 3000570,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png",
+      "pixel_sha256": "f8add330a9c87e02d49936b8c709474c40c74cd3d97dff318200efc1cf7c5413"
+    },
+    {
+      "path": "gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png",
+      "before": 1270719,
+      "after": 1133617,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png",
+      "pixel_sha256": "5ea98adf75e302ad220e4dee647ea3cc298599c771ef91b24f7fbff2048a9a1d"
+    },
+    {
+      "path": "gallery\\chibi_48_roninborg.png",
+      "before": 2697386,
+      "after": 2508669,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\chibi_48_roninborg.png",
+      "pixel_sha256": "1e09d191481344b741305c799445b6dfb77d9406f0a04f45def19966d981112b"
+    },
+    {
+      "path": "gallery\\clout_stars_3.png",
+      "before": 27118,
+      "after": 22967,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\clout_stars_3.png",
+      "pixel_sha256": "ba96b8a6bb199d68d6e188735865b7148180902ed3104148c53b3b68b8cf91d9"
+    },
+    {
+      "path": "gallery\\clout_stars_4.png",
+      "before": 68442,
+      "after": 52808,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\clout_stars_4.png",
+      "pixel_sha256": "8747bb1b0a6290dcc3c7a9cf5f252b0c8ca6d259113b90a2f4136ceed375b91c"
+    },
+    {
+      "path": "gallery\\clout_stars_5.png",
+      "before": 61791,
+      "after": 49168,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\clout_stars_5.png",
+      "pixel_sha256": "3fe1b67fb5d898000d67bc9967bad2250bc0f253e936b9dff2b8eacf4c9e3fac"
+    },
+    {
+      "path": "gallery\\clout_starz_2.png",
+      "before": 77919,
+      "after": 62053,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\clout_starz_2.png",
+      "pixel_sha256": "14aefe5975375d1d5086be1378547a5c1bd2dde4db0ef5c141aea2c657eec8d9"
+    },
+    {
+      "path": "gallery\\cyber_forest_1.png",
+      "before": 6743858,
+      "after": 5415824,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\cyber_forest_1.png",
+      "pixel_sha256": "ad8bc612834426870cd519d5c2df94c86a6f4081b5e9067a601a31260d6331de"
+    },
+    {
+      "path": "gallery\\cyber_forest_2.png",
+      "before": 7524484,
+      "after": 6205383,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\cyber_forest_2.png",
+      "pixel_sha256": "08fb16ba7984265db6b1d2c441f7f2d4f6302ad69c15a55274c1f47cb4d71bea"
+    },
+    {
+      "path": "gallery\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "before": 607191,
+      "after": 589676,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "pixel_sha256": "805d0fcb35d7eb446e156d65c03a14b881ff2272c36bfcf88ce7cdc9e96b44e6"
+    },
+    {
+      "path": "gallery\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png",
+      "before": 1726582,
+      "after": 1668415,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png",
+      "pixel_sha256": "3952f4a8c2ab9a799080a5346f7c99083daa9d555a069d109886f140df175e32"
+    },
+    {
+      "path": "gallery\\forest_area.png",
+      "before": 7524484,
+      "after": 6205383,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\forest_area.png",
+      "pixel_sha256": "08fb16ba7984265db6b1d2c441f7f2d4f6302ad69c15a55274c1f47cb4d71bea"
+    },
+    {
+      "path": "gallery\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "before": 236661,
+      "after": 186073,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "pixel_sha256": "4ad44e7282b8fe8e21e683c4d7842e4295e8a62e0aa212336ee4e6f32977e98a"
+    },
+    {
+      "path": "gallery\\Gemini_Generated_Image_.png",
+      "before": 1268460,
+      "after": 1166832,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Gemini_Generated_Image_.png",
+      "pixel_sha256": "49b746e578b29050fb15c3ff2935f902d24c9c322cd22e8f5b7cb1e51b892506"
+    },
+    {
+      "path": "gallery\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "before": 2511531,
+      "after": 2460896,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "pixel_sha256": "ce442828f32cadc2614cc3def9bc86e1f7b13f1afd168f2f70dd6fb266ebad38"
+    },
+    {
+      "path": "gallery\\generated-image.png",
+      "before": 1401740,
+      "after": 1298027,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\generated-image.png",
+      "pixel_sha256": "00062d8760e5c4bba9883280022cbdf15597de09230fa1f7ecc63cf6b6912a31"
+    },
+    {
+      "path": "gallery\\gods_budget_build.png",
+      "before": 2255202,
+      "after": 2179014,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\gods_budget_build.png",
+      "pixel_sha256": "9027b5f26f219b148f517c5635ee4524bb8199c50314e8aef6780797b12ccd26"
+    },
+    {
+      "path": "gallery\\gods_budget_build2.png",
+      "before": 2152690,
+      "after": 2061649,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\gods_budget_build2.png",
+      "pixel_sha256": "3743fb0932da07dd79cb3f6e3d45797c0d6c2ecff3eedfd017782fa705b4e0c2"
+    },
+    {
+      "path": "gallery\\hero_and_parts.png",
+      "before": 8467546,
+      "after": 6785934,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\hero_and_parts.png",
+      "pixel_sha256": "5172d33b2b1241d664af21b5c871eeecf0ebe01f3462be1e9dd05aea415c5cb6"
+    },
+    {
+      "path": "gallery\\hero_roninborg.png",
+      "before": 8479391,
+      "after": 6782613,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\hero_roninborg.png",
+      "pixel_sha256": "872a3d56d2c7f6697f71f897e90206417f30a7e0c771efc397bf5b171aa4be61"
+    },
+    {
+      "path": "gallery\\HII9I28W8AAwpPk.png",
+      "before": 108327,
+      "after": 93406,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\HII9I28W8AAwpPk.png",
+      "pixel_sha256": "59a971ae3cc58f0aa2f1381b5e20bea939d693bbbbe9615211bee6e67347b2ce"
+    },
+    {
+      "path": "gallery\\ice_fortress_level.png",
+      "before": 6969406,
+      "after": 4910534,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ice_fortress_level.png",
+      "pixel_sha256": "1a16906a370e9bb0222b63350614c22c93bd412cd9ddadaa7f01a9616939c3de"
+    },
+    {
+      "path": "gallery\\ice_sanctuary_1.png",
+      "before": 7242034,
+      "after": 5399900,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ice_sanctuary_1.png",
+      "pixel_sha256": "367601b15ceb2691692d7d18b3325f8ad50b14b310eb85e4713f8fec496a479b"
+    },
+    {
+      "path": "gallery\\infographic_1.png",
+      "before": 6288364,
+      "after": 6110368,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\infographic_1.png",
+      "pixel_sha256": "4be24893dfaf3e304ba064c07c4041ac21f4f59be5042c42a97b100159ba8cde"
+    },
+    {
+      "path": "gallery\\JDXX_The_Ronin.png",
+      "before": 2438806,
+      "after": 2077557,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\JDXX_The_Ronin.png",
+      "pixel_sha256": "cecdce81d35414313891969349d173edad76d60bbea6e0b57bfe1e55aa58b520"
+    },
+    {
+      "path": "gallery\\meta_image_article.png",
+      "before": 2458789,
+      "after": 2380289,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\meta_image_article.png",
+      "pixel_sha256": "d52cbbbbfebbc58b2947c27df08c38a92f40d80e90ac9ea0775fe4c4c49be79b"
+    },
+    {
+      "path": "gallery\\meta_vs_quillan.png",
+      "before": 1687753,
+      "after": 1598428,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\meta_vs_quillan.png",
+      "pixel_sha256": "f210987464aeb7d3a64b590f4bcd38cfda340bd1d6533380185085a17ffaf43e"
+    },
+    {
+      "path": "gallery\\Model_diaggram_2.png",
+      "before": 1659208,
+      "after": 1397008,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Model_diaggram_2.png",
+      "pixel_sha256": "f10a3610286f82f6b51194eb9c4fd4cecf2e15b69fe5d01a42e537486c6d34b2"
+    },
+    {
+      "path": "gallery\\model_diagram.png",
+      "before": 1940396,
+      "after": 1755249,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\model_diagram.png",
+      "pixel_sha256": "bcc44ffb6a3759310f6e7b761fcef69e12042dced66b278b2621e43e0ecc2b31"
+    },
+    {
+      "path": "gallery\\model_diagram_22.png",
+      "before": 2145082,
+      "after": 2053509,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\model_diagram_22.png",
+      "pixel_sha256": "2c6472f0003a8fa39084de95e6276277314348e4cda890fa333114af927af6ea"
+    },
+    {
+      "path": "gallery\\model_diagram_33.png",
+      "before": 2149627,
+      "after": 2062064,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\model_diagram_33.png",
+      "pixel_sha256": "58ca3e03ce08e8f66f7fabfb5bc47340257237fdeab2819adcc5b78ffa9ccde4"
+    },
+    {
+      "path": "gallery\\more_roninborg.png",
+      "before": 3120421,
+      "after": 3067742,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\more_roninborg.png",
+      "pixel_sha256": "9868c34c0b9756e2b755fc29be7fc70f815274f094465342bb20cde2a90f14bd"
+    },
+    {
+      "path": "gallery\\more_roninborg_2.png",
+      "before": 3293597,
+      "after": 3269351,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\more_roninborg_2.png",
+      "pixel_sha256": "ed8ee118457f83db982ff5caf4da480e48d7eecfbbe7baba6b16fd3a29fadc14"
+    },
+    {
+      "path": "gallery\\movie_ronin.png",
+      "before": 2863952,
+      "after": 2831272,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\movie_ronin.png",
+      "pixel_sha256": "74de4f014fc9ea6921832f7364441340a1d122bf7ea6cbf6a4d98305e5891fac"
+    },
+    {
+      "path": "gallery\\neon_allyway.png",
+      "before": 7242034,
+      "after": 5399900,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\neon_allyway.png",
+      "pixel_sha256": "367601b15ceb2691692d7d18b3325f8ad50b14b310eb85e4713f8fec496a479b"
+    },
+    {
+      "path": "gallery\\neon_city_1.png",
+      "before": 6456123,
+      "after": 5201686,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\neon_city_1.png",
+      "pixel_sha256": "e05a6b3628cd6d04766494b6a0a447ec46726819b07a491607fcb01dd23bd890"
+    },
+    {
+      "path": "gallery\\neon_city_2.png",
+      "before": 6969406,
+      "after": 4910534,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\neon_city_2.png",
+      "pixel_sha256": "1a16906a370e9bb0222b63350614c22c93bd412cd9ddadaa7f01a9616939c3de"
+    },
+    {
+      "path": "gallery\\neon_city_walkway.png",
+      "before": 8193267,
+      "after": 7006903,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\neon_city_walkway.png",
+      "pixel_sha256": "9fbf6f286cac1b6138074fc48b1d7f9cf1a76bebdca873bb5a192e6c1fbdb10d"
+    },
+    {
+      "path": "gallery\\peervalidated.png",
+      "before": 2496729,
+      "after": 2346158,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\peervalidated.png",
+      "pixel_sha256": "b1dd249bb43a56916b535509472bafcc7cbd82e457d7b88ecb05121b8d691beb"
+    },
+    {
+      "path": "gallery\\prokect_purpose.png",
+      "before": 3390661,
+      "after": 3337030,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\prokect_purpose.png",
+      "pixel_sha256": "009502b16ba4349e7a75585706d948442a8e0874f1b14d12c40f42dfa614cd54"
+    },
+    {
+      "path": "gallery\\qr-fundcode.png",
+      "before": 42882,
+      "after": 37611,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\qr-fundcode.png",
+      "pixel_sha256": "800a5e4427ed43c273602e52fd6b0a50954fd56a6b9a2cf47e47214760d372d9"
+    },
+    {
+      "path": "gallery\\QuillanRonin_Banner_wordwart.png",
+      "before": 8902735,
+      "after": 7481846,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\QuillanRonin_Banner_wordwart.png",
+      "pixel_sha256": "765323a0716d14171c38abe246c6151b3eb28a8b303229d0bea04f1cf438bb87"
+    },
+    {
+      "path": "gallery\\quillan_gem.png",
+      "before": 8728918,
+      "after": 6972359,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\quillan_gem.png",
+      "pixel_sha256": "00a06c379893954ff74edd3cebfedc52c8e18b84e53870524792c1d43057605f"
+    },
+    {
+      "path": "gallery\\quillan_os_banner.png",
+      "before": 2212695,
+      "after": 2104986,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\quillan_os_banner.png",
+      "pixel_sha256": "059e29b10e7aa5a67b21852cb85b054e557d7cad0d73a0ce679168e8f30c4cb4"
+    },
+    {
+      "path": "gallery\\quillan_samureai_redme_logo.png",
+      "before": 2368344,
+      "after": 2270243,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\quillan_samureai_redme_logo.png",
+      "pixel_sha256": "c9d033b65c06252ce89957eacc46aab02f0625719119dcac6a8122ca24497607"
+    },
+    {
+      "path": "gallery\\quillan_showoff.png",
+      "before": 9548651,
+      "after": 7970468,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\quillan_showoff.png",
+      "pixel_sha256": "03e1a5a7abdee0da750fe0ed6ee2ef18d872fc318497a82d03aa645827521765"
+    },
+    {
+      "path": "gallery\\robitic_mesh_tecture.png",
+      "before": 6456123,
+      "after": 5201686,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\robitic_mesh_tecture.png",
+      "pixel_sha256": "e05a6b3628cd6d04766494b6a0a447ec46726819b07a491607fcb01dd23bd890"
+    },
+    {
+      "path": "gallery\\ronin_dragon.png",
+      "before": 2928682,
+      "after": 2819899,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\ronin_dragon.png",
+      "pixel_sha256": "85c0a03c9686f0af3ed7dcf0b2b62cc901e6a4c68658128a2e456362ec49e9c2"
+    },
+    {
+      "path": "gallery\\Self_Made_Ronin-Back_to_the_roots.png",
+      "before": 2565977,
+      "after": 2543320,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Self_Made_Ronin-Back_to_the_roots.png",
+      "pixel_sha256": "57e238ceed8708da0eb30cd959801b78ffa7a7c319cbc935171f0fab917e2509"
+    },
+    {
+      "path": "gallery\\setup_image.png",
+      "before": 6864311,
+      "after": 5117972,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\setup_image.png",
+      "pixel_sha256": "de5ddef6d8c151c3a614b614120de3ca3f693bd29937a7c27f2b2f913a52cea7"
+    },
+    {
+      "path": "gallery\\sound_of_alchemy_covor.png",
+      "before": 2481200,
+      "after": 2393864,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\sound_of_alchemy_covor.png",
+      "pixel_sha256": "6699187bd73769de6bc2f83f2e983f1470f0198c5859d0591c69185e8f1f8e4e"
+    },
+    {
+      "path": "gallery\\sucess_stories_logo.png",
+      "before": 2566836,
+      "after": 2477797,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\sucess_stories_logo.png",
+      "pixel_sha256": "7ea60d61477be526aa224bfa74e96bdf9c6fc459973cd0f78f83fcdb12918c95"
+    },
+    {
+      "path": "gallery\\svgviewer-png-output.png",
+      "before": 155094,
+      "after": 97453,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\svgviewer-png-output.png",
+      "pixel_sha256": "1e00029ec866eab56f952301d956f047dc9a9c56eed61f6d4b3874dbedcbcf36"
+    },
+    {
+      "path": "gallery\\svgviewer-png-output_1.png",
+      "before": 78043,
+      "after": 58225,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\svgviewer-png-output_1.png",
+      "pixel_sha256": "5679a7ae04a649cada38b467d7934b1f775e1512a257552616e890a6ac93094e"
+    },
+    {
+      "path": "gallery\\svgviewer-png-output_2.png",
+      "before": 59025,
+      "after": 23713,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\svgviewer-png-output_2.png",
+      "pixel_sha256": "dbcaea94ac2ae570603fe5dce7f19e1a599588f72fc480fee14bb2e9c934c3b9"
+    },
+    {
+      "path": "gallery\\tat_design_2.png",
+      "before": 8610854,
+      "after": 6551966,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\tat_design_2.png",
+      "pixel_sha256": "8b375ead6c36a68ccbbfdc6073b25d89987fc26ed0f1ec2d6ff4832c6917289c"
+    },
+    {
+      "path": "gallery\\tat_idea.png",
+      "before": 8645053,
+      "after": 6573660,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\tat_idea.png",
+      "pixel_sha256": "0d2c67d51107d7680ad8c9ce0467138b8a1a39c4bf559db90520875aab45dec8"
+    },
+    {
+      "path": "gallery\\The_Darker_Side.png",
+      "before": 15147436,
+      "after": 9914081,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\The_Darker_Side.png",
+      "pixel_sha256": "9946c9692eb432e49fd89004dc458aa47447bd4add7f4889ab96b8c7160b66c5"
+    },
+    {
+      "path": "gallery\\unlimited_budget.png",
+      "before": 2669596,
+      "after": 2584261,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\unlimited_budget.png",
+      "pixel_sha256": "51f000e82dc62ed46c9b6f8be23605d3311d84eed9c84ee8342e2e1e265b1ff8"
+    },
+    {
+      "path": "gallery\\unlimited_budget_2.0_gpt.png",
+      "before": 2950471,
+      "after": 2891929,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\unlimited_budget_2.0_gpt.png",
+      "pixel_sha256": "8091f2a46b3e5f98f4ee0188bcf127ad6baa81bc57d0b25cef085e5f4555b887"
+    },
+    {
+      "path": "gallery\\unnamed.png",
+      "before": 6600863,
+      "after": 6441013,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\unnamed.png",
+      "pixel_sha256": "c9bf11e1724ed8460ae404893bf073f1f9bd9f00be19062730edf9ed75208b34"
+    },
+    {
+      "path": "gallery\\unnamed_1.png",
+      "before": 6639177,
+      "after": 6482754,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\unnamed_1.png",
+      "pixel_sha256": "f5f6be2dfdea9039b4e2129d7abed13a53dc5862f237ab168f68a490a4aea2f6"
+    },
+    {
+      "path": "gallery\\unnamed_2.png",
+      "before": 6388091,
+      "after": 6240476,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\unnamed_2.png",
+      "pixel_sha256": "81c04cbafcd50b3102a18444e008a374ddcf445e14ac61df280148f36f1cfa74"
+    },
+    {
+      "path": "gallery\\volcanic_core_1.png",
+      "before": 7447230,
+      "after": 5575732,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\volcanic_core_1.png",
+      "pixel_sha256": "89c764daf9b890f4932380fa1ceff108b1b99830a8b9a9d16912e7f590dd1c71"
+    },
+    {
+      "path": "gallery\\volcano_area.png",
+      "before": 6743858,
+      "after": 5415824,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\volcano_area.png",
+      "pixel_sha256": "ad8bc612834426870cd519d5c2df94c86a6f4081b5e9067a601a31260d6331de"
+    },
+    {
+      "path": "gallery\\world_map_proto_type.png",
+      "before": 10307382,
+      "after": 8947045,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\world_map_proto_type.png",
+      "pixel_sha256": "1da50022c1aff131c849781e9f5e28d0e8954e3c3cbe7b82ac1febef3ae4eeec"
+    },
+    {
+      "path": "gallery\\Youtube_thumbnail.png",
+      "before": 2707350,
+      "after": 2660391,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\gallery\\Youtube_thumbnail.png",
+      "pixel_sha256": "1fa655abca1ae570c9b5a1741186d543a68719739d8d39330f8c23a3873fcf23"
+    },
+    {
+      "path": "images\\1.1-invideo-gpt_image_2.png",
+      "before": 6916687,
+      "after": 6313306,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\1.1-invideo-gpt_image_2.png",
+      "pixel_sha256": "53af33fa0f4a7271e12a75703d9567ba3a9ea19b5a01f45b5cd71815eb71b6c7"
+    },
+    {
+      "path": "images\\Gemini_Generated_Image_.png",
+      "before": 1268460,
+      "after": 1166832,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\Gemini_Generated_Image_.png",
+      "pixel_sha256": "49b746e578b29050fb15c3ff2935f902d24c9c322cd22e8f5b7cb1e51b892506"
+    },
+    {
+      "path": "images\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "before": 2511531,
+      "after": 2460896,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\Gemini_Generated_Image_20gy1k20gy1k20gy.png",
+      "pixel_sha256": "ce442828f32cadc2614cc3def9bc86e1f7b13f1afd168f2f70dd6fb266ebad38"
+    },
+    {
+      "path": "images\\HII9I28W8AAwpPk.png",
+      "before": 108327,
+      "after": 93406,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\HII9I28W8AAwpPk.png",
+      "pixel_sha256": "59a971ae3cc58f0aa2f1381b5e20bea939d693bbbbe9615211bee6e67347b2ce"
+    },
+    {
+      "path": "images\\Neo Ronin assets\\.png",
+      "before": 7447230,
+      "after": 5575732,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\Neo Ronin assets\\.png",
+      "pixel_sha256": "89c764daf9b890f4932380fa1ceff108b1b99830a8b9a9d16912e7f590dd1c71"
+    },
+    {
+      "path": "images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "before": 607191,
+      "after": 589676,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "pixel_sha256": "805d0fcb35d7eb446e156d65c03a14b881ff2272c36bfcf88ce7cdc9e96b44e6"
+    },
+    {
+      "path": "images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "before": 236661,
+      "after": 186073,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "pixel_sha256": "4ad44e7282b8fe8e21e683c4d7842e4295e8a62e0aa212336ee4e6f32977e98a"
+    },
+    {
+      "path": "main-images\\ace_nueronet.png",
+      "before": 569176,
+      "after": 520407,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\ace_nueronet.png",
+      "pixel_sha256": "822b9ac89423f02094072e0241ebbbfce34d7a572d80efcc391647f56de20d6f"
+    },
+    {
+      "path": "main-images\\Anatomy.png",
+      "before": 5995782,
+      "after": 5196266,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\Anatomy.png",
+      "pixel_sha256": "62ee6e2733e80fff5fa938d47776489df9632a70d33769ab03c86a90e4c10514"
+    },
+    {
+      "path": "main-images\\co_founder.png",
+      "before": 308801,
+      "after": 275617,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\co_founder.png",
+      "pixel_sha256": "31c3d99a11c54a55e0e837234966be243134b3170624fe1868e2bdfcbf4caa14"
+    },
+    {
+      "path": "main-images\\crash_bio.png",
+      "before": 292740,
+      "after": 263608,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\crash_bio.png",
+      "pixel_sha256": "f7acb77346b373d118bdedd8420bfdd7002c6156f1508432e50af281baacd84e"
+    },
+    {
+      "path": "main-images\\emergent_concious_paper.png",
+      "before": 72579,
+      "after": 68138,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\emergent_concious_paper.png",
+      "pixel_sha256": "e9a235a9c4564037b64838f24204ab9372857d68d9309177aba04039b41cf4d3"
+    },
+    {
+      "path": "main-images\\image-1.png",
+      "before": 222378,
+      "after": 184362,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-1.png",
+      "pixel_sha256": "e8db7f8c0604f70ff347b3a2c655f5635d5a45330da0a787e24d466529093e2b"
+    },
+    {
+      "path": "main-images\\image-10.png",
+      "before": 18106,
+      "after": 17096,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-10.png",
+      "pixel_sha256": "92eff91eb135c3908421232f6b1e9f3fecdedaaba38ea96b9936f1352af07533"
+    },
+    {
+      "path": "main-images\\image-11.png",
+      "before": 11747,
+      "after": 9566,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-11.png",
+      "pixel_sha256": "beb67ba8707ba1691d80441bc05318f74d969868581d485b0fe8046494a2eb02"
+    },
+    {
+      "path": "main-images\\image-12.png",
+      "before": 5755,
+      "after": 4395,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-12.png",
+      "pixel_sha256": "16b337d8d6dc49ab654eff9acec88109b8b4444f8c33e6f3492c5e1889ccb42d"
+    },
+    {
+      "path": "main-images\\image-13.png",
+      "before": 15685,
+      "after": 10269,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-13.png",
+      "pixel_sha256": "2c01468268589076c77845039e83695bcae3a01a7c52b3b45ac235d6a9ee54e0"
+    },
+    {
+      "path": "main-images\\image-14.png",
+      "before": 19879,
+      "after": 16985,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-14.png",
+      "pixel_sha256": "2822092c1394056fa0f7851e55ec67a67034500ac0a4e638c7763c5b2152dc67"
+    },
+    {
+      "path": "main-images\\image-15.png",
+      "before": 10585,
+      "after": 7793,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-15.png",
+      "pixel_sha256": "7866f068e4224c4802d4735e978451b44fd39d9a7b26a90e5f34c7a2951ce2c8"
+    },
+    {
+      "path": "main-images\\image-16.png",
+      "before": 5499,
+      "after": 4800,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-16.png",
+      "pixel_sha256": "e318e59b44a7bc5d38554cd8858029080a21204d73a38fb7039505cab1d072a5"
+    },
+    {
+      "path": "main-images\\image-17.png",
+      "before": 17691,
+      "after": 14732,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-17.png",
+      "pixel_sha256": "8371b48fac5f91ecd27c8f5867e872eaff125a9a3267ffd937f6c4ca1d28c9e5"
+    },
+    {
+      "path": "main-images\\image-18.png",
+      "before": 349504,
+      "after": 301169,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-18.png",
+      "pixel_sha256": "5f397407eff53e3668cb395f813922757a96acf8010c916847fc54c568842395"
+    },
+    {
+      "path": "main-images\\image-19.png",
+      "before": 270992,
+      "after": 223759,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-19.png",
+      "pixel_sha256": "ea70b5b832f4b664bf045abe7f198a00cc8ed657c96b329d205923a3a5747744"
+    },
+    {
+      "path": "main-images\\image-2.png",
+      "before": 63241,
+      "after": 56394,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-2.png",
+      "pixel_sha256": "c8eb5e8cb3c235cfe3ad31f9a80128c0857c27100103576654e6dac4aaa4073c"
+    },
+    {
+      "path": "main-images\\image-20.png",
+      "before": 82523,
+      "after": 75493,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-20.png",
+      "pixel_sha256": "1d5056c90d759ca37fe5905394eb0f9c73dd80fffd94fa02ccddaeb2c61d519b"
+    },
+    {
+      "path": "main-images\\image-21.png",
+      "before": 63152,
+      "after": 40176,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-21.png",
+      "pixel_sha256": "5ce34671ecb5a4e633adc4f73fc48cbd83c6db93434b868d4f9ce04a10a514b8"
+    },
+    {
+      "path": "main-images\\image-22.png",
+      "before": 62575,
+      "after": 59025,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-22.png",
+      "pixel_sha256": "f9e219c50e51fc983abe676d6a7e8017a970a767d7f204ed017e5f5538915473"
+    },
+    {
+      "path": "main-images\\image-23.png",
+      "before": 290191,
+      "after": 270796,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-23.png",
+      "pixel_sha256": "c8f0f13d073b0fd0d4263d7224469dc906d6170baa41109d665e1c369f128ff1"
+    },
+    {
+      "path": "main-images\\image-24.png",
+      "before": 312864,
+      "after": 288450,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-24.png",
+      "pixel_sha256": "47df8f32c9929ad5747cc34f926d2f5e8bc7192670aff1b07f616c4d4cc420dd"
+    },
+    {
+      "path": "main-images\\image-25.png",
+      "before": 315145,
+      "after": 288880,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-25.png",
+      "pixel_sha256": "0806d572f6448972f7a63ce5b40b9c4c5a2d70d956ae7f826ad240bfa1a4a513"
+    },
+    {
+      "path": "main-images\\image-26.png",
+      "before": 285686,
+      "after": 279005,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-26.png",
+      "pixel_sha256": "2e1d2a4152ccdd8056d067fe85ba9f1ffe21268b96634f89d9f74f7c082cb04f"
+    },
+    {
+      "path": "main-images\\image-27.png",
+      "before": 279467,
+      "after": 260807,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-27.png",
+      "pixel_sha256": "f5231d4251a925e41f828ac1dc267872896a8d6681631dd73285d98bd4355ac3"
+    },
+    {
+      "path": "main-images\\image-28.png",
+      "before": 246980,
+      "after": 228546,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-28.png",
+      "pixel_sha256": "c01e204d96333114a55c05a2dc30d83b147995a50a4383118d6de897a23f11e9"
+    },
+    {
+      "path": "main-images\\image-29.png",
+      "before": 190264,
+      "after": 181577,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-29.png",
+      "pixel_sha256": "ef41bed7d1141b72895e0d43bd3ff688b7440062407b344b498a97c9a2d50119"
+    },
+    {
+      "path": "main-images\\image-3.png",
+      "before": 93419,
+      "after": 82360,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-3.png",
+      "pixel_sha256": "a0bf043f9e44f98fb7eaad3c7d966fd0ee68ba9070baee63753a64c19bf23fc7"
+    },
+    {
+      "path": "main-images\\image-30.png",
+      "before": 330507,
+      "after": 312959,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-30.png",
+      "pixel_sha256": "4c58cddea6d740631c81c43a921c38c43cd5c0a6e2a130633c905f6877ed32e0"
+    },
+    {
+      "path": "main-images\\image-31.png",
+      "before": 317068,
+      "after": 312349,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-31.png",
+      "pixel_sha256": "724f84020a4f9f14db6dff8f6797f3f340f8c78067543d00859a1ff3032367ee"
+    },
+    {
+      "path": "main-images\\image-32.png",
+      "before": 220968,
+      "after": 201809,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-32.png",
+      "pixel_sha256": "b7326d3c0b3359bf0de52197a8227a7de0f97176ea223f093ab8e512fb344398"
+    },
+    {
+      "path": "main-images\\image-33.png",
+      "before": 1973,
+      "after": 1958,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-33.png",
+      "pixel_sha256": "8a829fd00a5d596e99e162453c4c6f1ec8bcc8fae2fb36ed8578ed68b64fa76a"
+    },
+    {
+      "path": "main-images\\image-34.png",
+      "before": 348467,
+      "after": 310861,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-34.png",
+      "pixel_sha256": "774fa2c76a2315402585c6bc9d235980648c1cdbbfb2608629af4f5b03ac5422"
+    },
+    {
+      "path": "main-images\\image-35.png",
+      "before": 347464,
+      "after": 327086,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-35.png",
+      "pixel_sha256": "8654e7404449923b467988908ba205fa6501db0ccab82761163f48dc1569f773"
+    },
+    {
+      "path": "main-images\\image-36.png",
+      "before": 340704,
+      "after": 326848,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-36.png",
+      "pixel_sha256": "b089bda83a7e9fccf1cf7c28d434305451e55117b5e963842a3ff2f0531fc901"
+    },
+    {
+      "path": "main-images\\image-37.png",
+      "before": 364426,
+      "after": 357882,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-37.png",
+      "pixel_sha256": "ba59f89ed0aca8a76a2339c1f14b85b1ae4104692ae8993ce0e939b972f9879f"
+    },
+    {
+      "path": "main-images\\image-38.png",
+      "before": 231524,
+      "after": 227251,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-38.png",
+      "pixel_sha256": "70f33b58f49ba24315c6d00fd3a0e00a07e31469f255c51c05eb8149ad426469"
+    },
+    {
+      "path": "main-images\\image-39.png",
+      "before": 358831,
+      "after": 331876,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-39.png",
+      "pixel_sha256": "d1b85cf6d49b92db655402267a436be38675802362ff6c8e1643d490d3bc1ba6"
+    },
+    {
+      "path": "main-images\\image-4.png",
+      "before": 316483,
+      "after": 265588,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-4.png",
+      "pixel_sha256": "358825d79f864a88bda05106e740674e9e076b71b7eaef15f3ec67d8e9e87082"
+    },
+    {
+      "path": "main-images\\image-40.png",
+      "before": 302490,
+      "after": 277742,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-40.png",
+      "pixel_sha256": "8eb204f4cacec2c0a783e31b03ce31db323c56f884f1cd2ab4927e48ec6ab42c"
+    },
+    {
+      "path": "main-images\\image-42.png",
+      "before": 345419,
+      "after": 294733,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-42.png",
+      "pixel_sha256": "0597cb46223de04782a61e535ec9f66b19a48c0e525b7da95819d0bdcacc973a"
+    },
+    {
+      "path": "main-images\\image-43.png",
+      "before": 310179,
+      "after": 292371,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-43.png",
+      "pixel_sha256": "5866ebc914f57e6b56b5501962d5ad1d198dc67db6438087b1b39eddab416571"
+    },
+    {
+      "path": "main-images\\image-44.png",
+      "before": 383441,
+      "after": 332240,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-44.png",
+      "pixel_sha256": "3eecf234f01dd71fa627cf40bd71832ab0b2344008d146faaf8a52c5abcc0c26"
+    },
+    {
+      "path": "main-images\\image-45.png",
+      "before": 510678,
+      "after": 488339,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-45.png",
+      "pixel_sha256": "56321c9ed5747e3972327b2f24fe572263103f2f4f9a7cee598d28c8021424b3"
+    },
+    {
+      "path": "main-images\\image-46.png",
+      "before": 552281,
+      "after": 504622,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-46.png",
+      "pixel_sha256": "535cdfddd31441dcbffb0c3e1fa2fa710c455664703160cdc9bb71cd4996d794"
+    },
+    {
+      "path": "main-images\\image-47.png",
+      "before": 333298,
+      "after": 284497,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-47.png",
+      "pixel_sha256": "1f9c195e1c98dacd2a85b1d2993c0b6d59a64a4fd1376adbdf9dec5b78af8190"
+    },
+    {
+      "path": "main-images\\image-48.png",
+      "before": 342790,
+      "after": 293288,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-48.png",
+      "pixel_sha256": "c97520d3f0a5f8f949bf1ef050e223b05c0d17fb825ec887dace59b53ec55ac2"
+    },
+    {
+      "path": "main-images\\image-49.png",
+      "before": 327444,
+      "after": 262532,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-49.png",
+      "pixel_sha256": "a511bd985cae7464af8941808778d819bd8abd566e9ae8daac9f618fb7f16fa6"
+    },
+    {
+      "path": "main-images\\image-5.png",
+      "before": 11531,
+      "after": 10917,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-5.png",
+      "pixel_sha256": "21b4080885f6f101153a79b5c143c1b34fcf4b8b5ef33baba3c91c6baef71d35"
+    },
+    {
+      "path": "main-images\\image-50.png",
+      "before": 471740,
+      "after": 463124,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-50.png",
+      "pixel_sha256": "82d2bf0ff3ff9d106592e70a7695fce214394495a55af4cc6c8b8466b5bd6154"
+    },
+    {
+      "path": "main-images\\image-51.png",
+      "before": 628440,
+      "after": 584765,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-51.png",
+      "pixel_sha256": "b410dbe0f7bbd97bc7bd248a38f270cfe70d46549b8fc721447cf4153a78671e"
+    },
+    {
+      "path": "main-images\\image-52.png",
+      "before": 274016,
+      "after": 254920,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-52.png",
+      "pixel_sha256": "ef0d712b2fa67520f5841d072300cc8b7a7a1f2ed92e9a20e76818a4777fd088"
+    },
+    {
+      "path": "main-images\\image-53.png",
+      "before": 218027,
+      "after": 215931,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-53.png",
+      "pixel_sha256": "4b0c22f5d7ac654e2d90d920af321d8c755088e31f49ca2c57f43f5c4beeb973"
+    },
+    {
+      "path": "main-images\\image-54.png",
+      "before": 10460,
+      "after": 10331,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-54.png",
+      "pixel_sha256": "88147dadbec466dc01a4ddae25c64d2425dfe3e10184ef3d4626d27590225d3d"
+    },
+    {
+      "path": "main-images\\image-55.png",
+      "before": 402388,
+      "after": 378524,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-55.png",
+      "pixel_sha256": "04b29ff905aa38cce3260b0350de2aea108146172312e2ca10b092dc46db2451"
+    },
+    {
+      "path": "main-images\\image-56.png",
+      "before": 408199,
+      "after": 378485,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-56.png",
+      "pixel_sha256": "683bc371f36a61efd46e2dba69c20f6c021d2f5f2822ca0b32add3a8390cedcf"
+    },
+    {
+      "path": "main-images\\image-57.png",
+      "before": 422965,
+      "after": 375146,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-57.png",
+      "pixel_sha256": "b4b63be7e344af1d055f79c58e650265a46469eb82cfe1da8dc5040b89769eba"
+    },
+    {
+      "path": "main-images\\image-59.png",
+      "before": 242885,
+      "after": 227470,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-59.png",
+      "pixel_sha256": "ab46aa8b92f95e5e6774c622c25054053ad61c555d9a4b4c443970b863a5b365"
+    },
+    {
+      "path": "main-images\\image-6.png",
+      "before": 7071,
+      "after": 5880,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-6.png",
+      "pixel_sha256": "79a0f980454d59676a47331a21689b802e4c8d40967e2d3227a6c2fff2b43572"
+    },
+    {
+      "path": "main-images\\image-60.png",
+      "before": 195380,
+      "after": 181917,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-60.png",
+      "pixel_sha256": "b99fe2bfa7fea28331f5e1a2b6dfbfb3e964d7f2d1c77f1a6d1c87aeca1b16f5"
+    },
+    {
+      "path": "main-images\\image-7.png",
+      "before": 1808,
+      "after": 1112,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-7.png",
+      "pixel_sha256": "d187d883374770220a51709840e564c13c294f4fa69a002944eeb11f997310eb"
+    },
+    {
+      "path": "main-images\\image-8.png",
+      "before": 8140,
+      "after": 6505,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-8.png",
+      "pixel_sha256": "10410f6d1b4315f06590e6c16d3ccdeffd56d886d0aa579cb430bbf01f7ff4f1"
+    },
+    {
+      "path": "main-images\\image-9.png",
+      "before": 14007,
+      "after": 11708,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image-9.png",
+      "pixel_sha256": "4acc84a7ec6c75ad8b77fa20f50bb0978148db5683ed7b5977eb3e9942a209e8"
+    },
+    {
+      "path": "main-images\\image.png",
+      "before": 302164,
+      "after": 249762,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image.png",
+      "pixel_sha256": "51b23d94539cd63540af03c3aba290191fd3e51887b032416142ae881acfc7b9"
+    },
+    {
+      "path": "main-images\\image_proog_of_c.png",
+      "before": 368845,
+      "after": 343133,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\image_proog_of_c.png",
+      "pixel_sha256": "367d35060ebc833ee2b621fb56550fca61ce09351dbd98b38b540eb2719ee28b"
+    },
+    {
+      "path": "main-images\\interactive_sim_image.png",
+      "before": 39342,
+      "after": 33472,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\interactive_sim_image.png",
+      "pixel_sha256": "47cb7cb1fbc51787515713ed0447306cfb14952ed4f2618ca1d57b2dcbccbb44"
+    },
+    {
+      "path": "main-images\\logo.png",
+      "before": 172815,
+      "after": 148497,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\logo.png",
+      "pixel_sha256": "f555e948b917a07ff2a3d971ff1d92599e524066002e8b4a468454204b70d802"
+    },
+    {
+      "path": "main-images\\main_logo.png",
+      "before": 608583,
+      "after": 556937,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\main_logo.png",
+      "pixel_sha256": "560f705d307240d86eff587fb2564804827efb7d1cf195e3d576f03e89b989b6"
+    },
+    {
+      "path": "main-images\\MMLUchart.png",
+      "before": 20016,
+      "after": 10027,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\MMLUchart.png",
+      "pixel_sha256": "5acbf45e4f89d05fb2e2b29a008e33526687f1f47f9447431188e3977435a048"
+    },
+    {
+      "path": "main-images\\model_diagram_2.png",
+      "before": 1659208,
+      "after": 1397008,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\model_diagram_2.png",
+      "pixel_sha256": "f10a3610286f82f6b51194eb9c4fd4cecf2e15b69fe5d01a42e537486c6d34b2"
+    },
+    {
+      "path": "main-images\\model_diagram_22.png",
+      "before": 2149627,
+      "after": 2062064,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\model_diagram_22.png",
+      "pixel_sha256": "58ca3e03ce08e8f66f7fabfb5bc47340257237fdeab2819adcc5b78ffa9ccde4"
+    },
+    {
+      "path": "main-images\\model_diagram_33.png",
+      "before": 2145082,
+      "after": 2053509,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\model_diagram_33.png",
+      "pixel_sha256": "2c6472f0003a8fa39084de95e6276277314348e4cda890fa333114af927af6ea"
+    },
+    {
+      "path": "main-images\\peervalidated.png",
+      "before": 2496729,
+      "after": 2346158,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\peervalidated.png",
+      "pixel_sha256": "b1dd249bb43a56916b535509472bafcc7cbd82e457d7b88ecb05121b8d691beb"
+    },
+    {
+      "path": "main-images\\pocket_quill.png",
+      "before": 2304432,
+      "after": 2056699,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\pocket_quill.png",
+      "pixel_sha256": "de0ac1303adb801514413967c23e043bb07a3121280866623932fd4a4da1d417"
+    },
+    {
+      "path": "main-images\\prokect_purpose.png",
+      "before": 3390661,
+      "after": 3337030,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\prokect_purpose.png",
+      "pixel_sha256": "009502b16ba4349e7a75585706d948442a8e0874f1b14d12c40f42dfa614cd54"
+    },
+    {
+      "path": "main-images\\QuillanRonin_Banner_wordwart.png",
+      "before": 8902735,
+      "after": 7481846,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\QuillanRonin_Banner_wordwart.png",
+      "pixel_sha256": "765323a0716d14171c38abe246c6151b3eb28a8b303229d0bea04f1cf438bb87"
+    },
+    {
+      "path": "main-images\\Quillan_bio.png",
+      "before": 433849,
+      "after": 387120,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\Quillan_bio.png",
+      "pixel_sha256": "03342e7c98cb2a6afcf0b26240a90db9b51b3970d89b84add79d9f32972e4586"
+    },
+    {
+      "path": "main-images\\quillan_os_banner.png",
+      "before": 2212695,
+      "after": 2104986,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\quillan_os_banner.png",
+      "pixel_sha256": "059e29b10e7aa5a67b21852cb85b054e557d7cad0d73a0ce679168e8f30c4cb4"
+    },
+    {
+      "path": "main-images\\quillan_samureai_redme_logo.png",
+      "before": 2368344,
+      "after": 2270243,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\quillan_samureai_redme_logo.png",
+      "pixel_sha256": "c9d033b65c06252ce89957eacc46aab02f0625719119dcac6a8122ca24497607"
+    },
+    {
+      "path": "main-images\\Quillan_Training_Loss.png",
+      "before": 24557,
+      "after": 22746,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\Quillan_Training_Loss.png",
+      "pixel_sha256": "850e3b15a7805b4219600e7c38ca8b853f5a66967e4d225d72f7a3d3bf4c66c0"
+    },
+    {
+      "path": "main-images\\Quillan_training_XOR.png",
+      "before": 31618,
+      "after": 29524,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\Quillan_training_XOR.png",
+      "pixel_sha256": "3068bf042a511b76f0dd9a0e3b0df14aaa75bff7dfd0481d5fd17cc7d26535d0"
+    },
+    {
+      "path": "main-images\\sim_image.png",
+      "before": 17369,
+      "after": 16009,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\sim_image.png",
+      "pixel_sha256": "0770dcb4b5d6a9b5c5f760a7f381cbc3bfeffe0cc5aacb10138594c1fc68cd79"
+    },
+    {
+      "path": "main-images\\sucess_stories_logo.png",
+      "before": 2566836,
+      "after": 2477797,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\sucess_stories_logo.png",
+      "pixel_sha256": "7ea60d61477be526aa224bfa74e96bdf9c6fc459973cd0f78f83fcdb12918c95"
+    },
+    {
+      "path": "main-images\\team.png",
+      "before": 447752,
+      "after": 396015,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\team.png",
+      "pixel_sha256": "8f296120ddd9dd3e464680755b51a2e0f05fd0783c87ac4c47d9a4c79a8cccba"
+    },
+    {
+      "path": "main-images\\test_demoo.png",
+      "before": 442367,
+      "after": 391243,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\test_demoo.png",
+      "pixel_sha256": "bc5e53bb01606923de122dd4b8d8ccf40942ca19f3ce71c4b678ec27a7203024"
+    },
+    {
+      "path": "main-images\\topologyv5.png",
+      "before": 2555320,
+      "after": 1959781,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\topologyv5.png",
+      "pixel_sha256": "1bde52f7cf4a183d9987febe102c0cbaa27dc960467ab75625c486f1c3d2dd84"
+    },
+    {
+      "path": "main-images\\tubelogo.png",
+      "before": 8177,
+      "after": 6142,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\tubelogo.png",
+      "pixel_sha256": "8f4d05fde8f77740cb44f9a8ab8331af0955df6864b75632ab647b5a8d7ba5e6"
+    },
+    {
+      "path": "main-images\\validation.png",
+      "before": 20795,
+      "after": 15490,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\validation.png",
+      "pixel_sha256": "5725a45a5bd9cc636527613e79c86f006db3a708a48bda822da3e9f2e519af93"
+    },
+    {
+      "path": "main-images\\images_of_Quillan\\Model_diaggram_2.png",
+      "before": 1659208,
+      "after": 1397008,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\images_of_Quillan\\Model_diaggram_2.png",
+      "pixel_sha256": "f10a3610286f82f6b51194eb9c4fd4cecf2e15b69fe5d01a42e537486c6d34b2"
+    },
+    {
+      "path": "main-images\\images_of_Quillan\\model_diagram.png",
+      "before": 1940396,
+      "after": 1755249,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\images_of_Quillan\\model_diagram.png",
+      "pixel_sha256": "bcc44ffb6a3759310f6e7b761fcef69e12042dced66b278b2621e43e0ecc2b31"
+    },
+    {
+      "path": "main-images\\images_of_Quillan\\Quillan_og.png",
+      "before": 2731888,
+      "after": 2582158,
+      "backup": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\site_opt_backup\\main-images\\images_of_Quillan\\Quillan_og.png",
+      "pixel_sha256": "d827e97be7c0b9e402366ac4aea6e50bcb7b8e6db945900c19eaa5840c04fdad"
+    }
+  ]
+}

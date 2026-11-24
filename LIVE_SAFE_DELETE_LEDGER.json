@@ -1,0 +1,1682 @@
+﻿[
+    {
+        "path":  "docs\\06_Media\\images\\digital ronin dragon.jpg",
+        "sha256":  "9ED0ABF738C35DDE6CC9ACBDCEEC5B893D4A020527F6A3C8A22D17B494136275",
+        "bytes":  380203,
+        "keeper":  "docs\\gallery\\digital_ronin_dragon.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\digital ronin dragon.jpg",
+        "sha256":  "9ED0ABF738C35DDE6CC9ACBDCEEC5B893D4A020527F6A3C8A22D17B494136275",
+        "bytes":  380203,
+        "keeper":  "docs\\gallery\\digital_ronin_dragon.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\volcano area.png",
+        "sha256":  "B50DFC83A8BE3AA72CC0DC626D17FFA6EC158C02F54EB0B381391BC4A822C13D",
+        "bytes":  6743858,
+        "keeper":  "docs\\gallery\\cyber_forest_1.png||docs\\gallery\\volcano_area.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\volcano area.png",
+        "sha256":  "B50DFC83A8BE3AA72CC0DC626D17FFA6EC158C02F54EB0B381391BC4A822C13D",
+        "bytes":  6743858,
+        "keeper":  "docs\\gallery\\cyber_forest_1.png||docs\\gallery\\volcano_area.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\volcano area.png",
+        "sha256":  "B50DFC83A8BE3AA72CC0DC626D17FFA6EC158C02F54EB0B381391BC4A822C13D",
+        "bytes":  6743858,
+        "keeper":  "docs\\gallery\\cyber_forest_1.png||docs\\gallery\\volcano_area.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Quillan Shoggoth.jpg",
+        "sha256":  "D2BEBB53ACA0981B662E8DA9E0FB76BE9FFE348CB3137924A2891BCEA524960B",
+        "bytes":  467507,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Quillan Shoggoth.jpg",
+        "sha256":  "D2BEBB53ACA0981B662E8DA9E0FB76BE9FFE348CB3137924A2891BCEA524960B",
+        "bytes":  467507,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth.jpg"
+    },
+    {
+        "path":  "docs\\images\\Quillan Shoggoth.jpg",
+        "sha256":  "D2BEBB53ACA0981B662E8DA9E0FB76BE9FFE348CB3137924A2891BCEA524960B",
+        "bytes":  467507,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\prokect purpose.png",
+        "sha256":  "AA98B703C9DCA9AF2168F05420D498B4EC6E2C0C57ABCED0EEFAD2A26F8B24CF",
+        "bytes":  3390661,
+        "keeper":  "docs\\gallery\\prokect_purpose.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\prokect purpose.png",
+        "sha256":  "AA98B703C9DCA9AF2168F05420D498B4EC6E2C0C57ABCED0EEFAD2A26F8B24CF",
+        "bytes":  3390661,
+        "keeper":  "docs\\gallery\\prokect_purpose.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\pillars of fidelity.jpg",
+        "sha256":  "1ACA84A21BD194D7B4BB2C7E4644C9323E6ACF8EDD08015AC2769F0C78E57974",
+        "bytes":  369621,
+        "keeper":  "docs\\gallery\\pillars_of_fidelity.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\pillars of fidelity.jpg",
+        "sha256":  "1ACA84A21BD194D7B4BB2C7E4644C9323E6ACF8EDD08015AC2769F0C78E57974",
+        "bytes":  369621,
+        "keeper":  "docs\\gallery\\pillars_of_fidelity.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\unnamed (2).png",
+        "sha256":  "60CB4EC4C0CA6F07FF69BA904F2771BE3AF8404258B59F86EEDF93E0EDEDF24F",
+        "bytes":  6388091,
+        "keeper":  "docs\\gallery\\unnamed_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unnamed (2).png",
+        "sha256":  "60CB4EC4C0CA6F07FF69BA904F2771BE3AF8404258B59F86EEDF93E0EDEDF24F",
+        "bytes":  6388091,
+        "keeper":  "docs\\gallery\\unnamed_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unnamed_(2).png",
+        "sha256":  "60CB4EC4C0CA6F07FF69BA904F2771BE3AF8404258B59F86EEDF93E0EDEDF24F",
+        "bytes":  6388091,
+        "keeper":  "docs\\gallery\\unnamed_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\onamishu quillan.jpg",
+        "sha256":  "F32DEDAD9720A09AD8282B56055AF5C4FB1504ED7FBFDCEF5D479B823302468A",
+        "bytes":  216411,
+        "keeper":  "docs\\gallery\\onamishu_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\onamishu quillan.jpg",
+        "sha256":  "F32DEDAD9720A09AD8282B56055AF5C4FB1504ED7FBFDCEF5D479B823302468A",
+        "bytes":  216411,
+        "keeper":  "docs\\gallery\\onamishu_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillans current home.jpg",
+        "sha256":  "2EC5D5FA09C87623FA5A18B4F6279B0EFD16358DDB9B693735D4A6C02339AE28",
+        "bytes":  166506,
+        "keeper":  "docs\\gallery\\quillans_current_home.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillans current home.jpg",
+        "sha256":  "2EC5D5FA09C87623FA5A18B4F6279B0EFD16358DDB9B693735D4A6C02339AE28",
+        "bytes":  166506,
+        "keeper":  "docs\\gallery\\quillans_current_home.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\how quillan see me.jpg",
+        "sha256":  "4DCED9EDFFE2A238EDE5F45B10E7B59E8ED63E71E5DE43B7606F324F99FD1658",
+        "bytes":  323344,
+        "keeper":  "docs\\gallery\\how_quillan_see_me.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\how quillan see me.jpg",
+        "sha256":  "4DCED9EDFFE2A238EDE5F45B10E7B59E8ED63E71E5DE43B7606F324F99FD1658",
+        "bytes":  323344,
+        "keeper":  "docs\\gallery\\how_quillan_see_me.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\forest area.png",
+        "sha256":  "140564D429F20A2156FDEDA56C00DE6D7A69DF05652CE8FF38C53A3420616DA7",
+        "bytes":  7524484,
+        "keeper":  "docs\\gallery\\cyber_forest_2.png||docs\\gallery\\forest_area.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\forest area.png",
+        "sha256":  "140564D429F20A2156FDEDA56C00DE6D7A69DF05652CE8FF38C53A3420616DA7",
+        "bytes":  7524484,
+        "keeper":  "docs\\gallery\\cyber_forest_2.png||docs\\gallery\\forest_area.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\forest area.png",
+        "sha256":  "140564D429F20A2156FDEDA56C00DE6D7A69DF05652CE8FF38C53A3420616DA7",
+        "bytes":  7524484,
+        "keeper":  "docs\\gallery\\cyber_forest_2.png||docs\\gallery\\forest_area.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\sucess stories logo.png",
+        "sha256":  "90D103399249EA4711CAE0692FEF881640316E75304AEFE8D5390A3047C2E0B0",
+        "bytes":  2566836,
+        "keeper":  "docs\\gallery\\sucess_stories_logo.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\sucess stories logo.png",
+        "sha256":  "90D103399249EA4711CAE0692FEF881640316E75304AEFE8D5390A3047C2E0B0",
+        "bytes":  2566836,
+        "keeper":  "docs\\gallery\\sucess_stories_logo.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).jpg",
+        "sha256":  "F7AEF9F3A71726ADA1D37E10ABA3B4520B4425F70C7E01827B9E600798FED73D",
+        "bytes":  1990281,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.jpg"
+    },
+    {
+        "path":  "docs\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).jpg",
+        "sha256":  "F7AEF9F3A71726ADA1D37E10ABA3B4520B4425F70C7E01827B9E600798FED73D",
+        "bytes":  1990281,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\tat idea.png",
+        "sha256":  "F7B89A8435EC222C8A903B805BD9829CCDCAC4D3880956D2118620D89BB1FCA0",
+        "bytes":  8645053,
+        "keeper":  "docs\\gallery\\tat_idea.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\tat idea.png",
+        "sha256":  "F7B89A8435EC222C8A903B805BD9829CCDCAC4D3880956D2118620D89BB1FCA0",
+        "bytes":  8645053,
+        "keeper":  "docs\\gallery\\tat_idea.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\bots and medals .png",
+        "sha256":  "10F7649996224F829BD767330E0F95A8A2100CE8CA1D9C4EFF3E7B4AFDA3B33A",
+        "bytes":  9519903,
+        "keeper":  "docs\\gallery\\bots_and_medals_.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\bots and medals .png",
+        "sha256":  "10F7649996224F829BD767330E0F95A8A2100CE8CA1D9C4EFF3E7B4AFDA3B33A",
+        "bytes":  9519903,
+        "keeper":  "docs\\gallery\\bots_and_medals_.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\bots and medals .png",
+        "sha256":  "10F7649996224F829BD767330E0F95A8A2100CE8CA1D9C4EFF3E7B4AFDA3B33A",
+        "bytes":  9519903,
+        "keeper":  "docs\\gallery\\bots_and_medals_.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan board.jpg",
+        "sha256":  "F283BC94EFB35D92D0241F9A7471E83D3BA07C761A86796BCB80B250E7D5203E",
+        "bytes":  684909,
+        "keeper":  "docs\\gallery\\quillan_board.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan board.jpg",
+        "sha256":  "F283BC94EFB35D92D0241F9A7471E83D3BA07C761A86796BCB80B250E7D5203E",
+        "bytes":  684909,
+        "keeper":  "docs\\gallery\\quillan_board.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\c;out stars breakdown.png",
+        "sha256":  "EEFC1B043B2D7318713127C5BF7579B37A1A1004EC56B4A1E81DB5692AD37BC7",
+        "bytes":  78082,
+        "keeper":  "docs\\gallery\\c;out_stars_breakdown.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\c;out stars breakdown.png",
+        "sha256":  "EEFC1B043B2D7318713127C5BF7579B37A1A1004EC56B4A1E81DB5692AD37BC7",
+        "bytes":  78082,
+        "keeper":  "docs\\gallery\\c;out_stars_breakdown.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\c;out_stars_breakdown.png",
+        "sha256":  "EEFC1B043B2D7318713127C5BF7579B37A1A1004EC56B4A1E81DB5692AD37BC7",
+        "bytes":  78082,
+        "keeper":  "docs\\gallery\\c;out_stars_breakdown.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Self Made Ronin-Back to the roots.png",
+        "sha256":  "4B1DA688403FE04ED9A2CF9187E60FFC1EACFD8DF3D797CC414A69A0DD5650EA",
+        "bytes":  2565977,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Self Made Ronin-Back to the roots.png",
+        "sha256":  "4B1DA688403FE04ED9A2CF9187E60FFC1EACFD8DF3D797CC414A69A0DD5650EA",
+        "bytes":  2565977,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ai book cover.jpg",
+        "sha256":  "E5BBCCC515365B186C0435F20DCF291729177FF4257FACF317F8C0BEFA2E7D40",
+        "bytes":  384219,
+        "keeper":  "docs\\gallery\\ai_book_cover.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ai book cover.jpg",
+        "sha256":  "E5BBCCC515365B186C0435F20DCF291729177FF4257FACF317F8C0BEFA2E7D40",
+        "bytes":  384219,
+        "keeper":  "docs\\gallery\\ai_book_cover.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\meta quill.jpg",
+        "sha256":  "7A63F463DCBB0A776171120F821A8B5E16DA02425CE2AD33858EF89E029A3279",
+        "bytes":  470672,
+        "keeper":  "docs\\gallery\\meta_quill.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\meta quill.jpg",
+        "sha256":  "7A63F463DCBB0A776171120F821A8B5E16DA02425CE2AD33858EF89E029A3279",
+        "bytes":  470672,
+        "keeper":  "docs\\gallery\\meta_quill.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\me_clean_pic.jpg",
+        "sha256":  "2BDB9469E7F47A69B2BF1E736F2E3858314C90F8ABBAEDCF6299B637C03459CD",
+        "bytes":  57945,
+        "keeper":  "docs\\06_Media\\images\\me clean pic.jpg"
+    },
+    {
+        "path":  "docs\\gallery\\me_clean_pic.jpg",
+        "sha256":  "2BDB9469E7F47A69B2BF1E736F2E3858314C90F8ABBAEDCF6299B637C03459CD",
+        "bytes":  57945,
+        "keeper":  "docs\\06_Media\\images\\me clean pic.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\blazing quillan.jpg",
+        "sha256":  "DA7FDA4DF093E155C7A4DB0F522DB86425A61EDA0B3C30510B492E9031B916DB",
+        "bytes":  430156,
+        "keeper":  "docs\\gallery\\blazing_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\blazing quillan.jpg",
+        "sha256":  "DA7FDA4DF093E155C7A4DB0F522DB86425A61EDA0B3C30510B492E9031B916DB",
+        "bytes":  430156,
+        "keeper":  "docs\\gallery\\blazing_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\car 1.jpg",
+        "sha256":  "E462BB4941E172A18FE022345671C8A5A86AC4D62BCD4341D7CFEF8EFCF235CE",
+        "bytes":  276399,
+        "keeper":  "docs\\gallery\\car_1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\car 1.jpg",
+        "sha256":  "E462BB4941E172A18FE022345671C8A5A86AC4D62BCD4341D7CFEF8EFCF235CE",
+        "bytes":  276399,
+        "keeper":  "docs\\gallery\\car_1.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\spotify image.jpeg",
+        "sha256":  "6EECD41F7FC5D84A74C31508553994CF22D31416EADF77713806E72BDFF240E0",
+        "bytes":  154360,
+        "keeper":  "docs\\gallery\\spotify_image.jpeg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\spotify image.jpeg",
+        "sha256":  "6EECD41F7FC5D84A74C31508553994CF22D31416EADF77713806E72BDFF240E0",
+        "bytes":  154360,
+        "keeper":  "docs\\gallery\\spotify_image.jpeg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\infographic 1.png",
+        "sha256":  "CAA06313104C104E79E10DE3CAEE38E0F547C5DB7D639ECEF84DE53E5DA62076",
+        "bytes":  6288364,
+        "keeper":  "docs\\gallery\\infographic_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\infographic 1.png",
+        "sha256":  "CAA06313104C104E79E10DE3CAEE38E0F547C5DB7D639ECEF84DE53E5DA62076",
+        "bytes":  6288364,
+        "keeper":  "docs\\gallery\\infographic_1.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\samurai sporit quillan.jpg",
+        "sha256":  "FFCBFE3333257711AD9A62478DE7EC7522170669C2C1F0DC21699A50B8B34FA6",
+        "bytes":  493581,
+        "keeper":  "docs\\gallery\\samurai_sporit_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\samurai sporit quillan.jpg",
+        "sha256":  "FFCBFE3333257711AD9A62478DE7EC7522170669C2C1F0DC21699A50B8B34FA6",
+        "bytes":  493581,
+        "keeper":  "docs\\gallery\\samurai_sporit_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ronin dragon.png",
+        "sha256":  "39471FFE795C11FF895AC0C6946460184567A5692AE253ECC3D78B5FC5287005",
+        "bytes":  2928682,
+        "keeper":  "docs\\gallery\\ronin_dragon.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ronin dragon.png",
+        "sha256":  "39471FFE795C11FF895AC0C6946460184567A5692AE253ECC3D78B5FC5287005",
+        "bytes":  2928682,
+        "keeper":  "docs\\gallery\\ronin_dragon.png"
+    },
+    {
+        "path":  "docs\\images\\albums\\elemental-avionics.png",
+        "sha256":  "39471FFE795C11FF895AC0C6946460184567A5692AE253ECC3D78B5FC5287005",
+        "bytes":  2928682,
+        "keeper":  "docs\\gallery\\ronin_dragon.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ronin flag.jpg",
+        "sha256":  "57C7496F72DFA08A3075EBF7C5F2D9B5144B6C82E486FB28D19C9570C26B7796",
+        "bytes":  561553,
+        "keeper":  "docs\\gallery\\ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ronin flag.jpg",
+        "sha256":  "57C7496F72DFA08A3075EBF7C5F2D9B5144B6C82E486FB28D19C9570C26B7796",
+        "bytes":  561553,
+        "keeper":  "docs\\gallery\\ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\unlimited budget.png",
+        "sha256":  "423B0103B93B47E9AE19DD38D2CC7017D73B6CF4BD353D19128BB961D285D623",
+        "bytes":  2669596,
+        "keeper":  "docs\\gallery\\unlimited_budget.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unlimited budget.png",
+        "sha256":  "423B0103B93B47E9AE19DD38D2CC7017D73B6CF4BD353D19128BB961D285D623",
+        "bytes":  2669596,
+        "keeper":  "docs\\gallery\\unlimited_budget.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\model diagram 22.png",
+        "sha256":  "C18F68AD6898A3A6C1749EBAFCE1133CAFC64F25599F51754629894424D84D4F",
+        "bytes":  2145082,
+        "keeper":  "docs\\gallery\\model_diagram_22.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\model diagram 22.png",
+        "sha256":  "C18F68AD6898A3A6C1749EBAFCE1133CAFC64F25599F51754629894424D84D4F",
+        "bytes":  2145082,
+        "keeper":  "docs\\gallery\\model_diagram_22.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\me_2024.jpg",
+        "sha256":  "CC879C1F691A96E493354734FBA429F11A4E0E91952C82161F3D79FF34ECFCCB",
+        "bytes":  60456,
+        "keeper":  "docs\\06_Media\\images\\me 2024.jpg"
+    },
+    {
+        "path":  "docs\\gallery\\me_2024.jpg",
+        "sha256":  "CC879C1F691A96E493354734FBA429F11A4E0E91952C82161F3D79FF34ECFCCB",
+        "bytes":  60456,
+        "keeper":  "docs\\06_Media\\images\\me 2024.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan gem.png",
+        "sha256":  "589A27C8ED5E6690A1B55729FDD2128069E200DB605B4E86218E534289372C48",
+        "bytes":  8728918,
+        "keeper":  "docs\\gallery\\quillan_gem.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan gem.png",
+        "sha256":  "589A27C8ED5E6690A1B55729FDD2128069E200DB605B4E86218E534289372C48",
+        "bytes":  8728918,
+        "keeper":  "docs\\gallery\\quillan_gem.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillans current home.webp",
+        "sha256":  "78A108FEB590C33D2A8249C1A1A234757B05F5C5ACFA79590E5F9DE43196B9B3",
+        "bytes":  26580,
+        "keeper":  "docs\\gallery\\quillans_current_home.webp"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillans current home.webp",
+        "sha256":  "78A108FEB590C33D2A8249C1A1A234757B05F5C5ACFA79590E5F9DE43196B9B3",
+        "bytes":  26580,
+        "keeper":  "docs\\gallery\\quillans_current_home.webp"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\.png",
+        "sha256":  "4D7964D81724F26E5843CFC9D0E148DE8B6FE3EAD52C9A3D6064B1A0302676CC",
+        "bytes":  7447230,
+        "keeper":  "docs\\gallery\\volcanic_core_1.png"
+    },
+    {
+        "path":  "docs\\gallery\\.png",
+        "sha256":  "4D7964D81724F26E5843CFC9D0E148DE8B6FE3EAD52C9A3D6064B1A0302676CC",
+        "bytes":  7447230,
+        "keeper":  "docs\\gallery\\volcanic_core_1.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\.png",
+        "sha256":  "4D7964D81724F26E5843CFC9D0E148DE8B6FE3EAD52C9A3D6064B1A0302676CC",
+        "bytes":  7447230,
+        "keeper":  "docs\\gallery\\volcanic_core_1.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\QuillanRonin Banner wordwart.png",
+        "sha256":  "80BC502609B2CDE3CD572D6FE7E3A256F980DBDAE3466ED23A0DF4D3340ABA16",
+        "bytes":  8902735,
+        "keeper":  "docs\\gallery\\QuillanRonin_Banner_wordwart.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\QuillanRonin Banner wordwart.png",
+        "sha256":  "80BC502609B2CDE3CD572D6FE7E3A256F980DBDAE3466ED23A0DF4D3340ABA16",
+        "bytes":  8902735,
+        "keeper":  "docs\\gallery\\QuillanRonin_Banner_wordwart.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\mic drop covor.jpg",
+        "sha256":  "32FAAA56FF687ECF96EC99A25E15800C2F62AA78824C28999E67634320E58557",
+        "bytes":  103376,
+        "keeper":  "docs\\gallery\\mic_drop_covor.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\mic drop covor.jpg",
+        "sha256":  "32FAAA56FF687ECF96EC99A25E15800C2F62AA78824C28999E67634320E58557",
+        "bytes":  103376,
+        "keeper":  "docs\\gallery\\mic_drop_covor.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\clout stars 3.png",
+        "sha256":  "ADFC894D55F44793ED2E342DC5B98BF2E1D7DC77D55155D7865D20A1D3B44037",
+        "bytes":  27118,
+        "keeper":  "docs\\gallery\\clout_stars_3.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\clout stars 3.png",
+        "sha256":  "ADFC894D55F44793ED2E342DC5B98BF2E1D7DC77D55155D7865D20A1D3B44037",
+        "bytes":  27118,
+        "keeper":  "docs\\gallery\\clout_stars_3.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\chibi 48 roninborg.png",
+        "sha256":  "874247C8CEA45ABD7E2E30FF983CB95A519F79FA0A3B049DD335DFAF0AC2FA27",
+        "bytes":  2697386,
+        "keeper":  "docs\\gallery\\chibi_48_roninborg.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\chibi 48 roninborg.png",
+        "sha256":  "874247C8CEA45ABD7E2E30FF983CB95A519F79FA0A3B049DD335DFAF0AC2FA27",
+        "bytes":  2697386,
+        "keeper":  "docs\\gallery\\chibi_48_roninborg.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\chibi 48 roninborg.png",
+        "sha256":  "874247C8CEA45ABD7E2E30FF983CB95A519F79FA0A3B049DD335DFAF0AC2FA27",
+        "bytes":  2697386,
+        "keeper":  "docs\\gallery\\chibi_48_roninborg.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ChatGPT Image May 7, 2026, 09_16_31 AM.png",
+        "sha256":  "256F7174032815C3F66E74376E9E94C34DFBAEA191DD712AEAE59B626DDE0072",
+        "bytes":  3139184,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT Image May 7, 2026, 09_16_31 AM.png",
+        "sha256":  "256F7174032815C3F66E74376E9E94C34DFBAEA191DD712AEAE59B626DDE0072",
+        "bytes":  3139184,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_7,_2026,_09_16_31_AM.png",
+        "sha256":  "256F7174032815C3F66E74376E9E94C34DFBAEA191DD712AEAE59B626DDE0072",
+        "bytes":  3139184,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png"
+    },
+    {
+        "path":  "docs\\images\\ChatGPT Image May 7, 2026, 09_16_31 AM.png",
+        "sha256":  "256F7174032815C3F66E74376E9E94C34DFBAEA191DD712AEAE59B626DDE0072",
+        "bytes":  3139184,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_16_31_AM.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Model diaggram 2.png",
+        "sha256":  "20C2B406868A60EA0360CEBA8A7A28FD8E9865C99E649354096368C5C5AFD236",
+        "bytes":  1659208,
+        "keeper":  "docs\\gallery\\Model_diaggram_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Model diaggram 2.png",
+        "sha256":  "20C2B406868A60EA0360CEBA8A7A28FD8E9865C99E649354096368C5C5AFD236",
+        "bytes":  1659208,
+        "keeper":  "docs\\gallery\\Model_diaggram_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\model_diagram_2.png",
+        "sha256":  "20C2B406868A60EA0360CEBA8A7A28FD8E9865C99E649354096368C5C5AFD236",
+        "bytes":  1659208,
+        "keeper":  "docs\\gallery\\Model_diaggram_2.png"
+    },
+    {
+        "path":  "docs\\images\\Model diaggram 2.png",
+        "sha256":  "20C2B406868A60EA0360CEBA8A7A28FD8E9865C99E649354096368C5C5AFD236",
+        "bytes":  1659208,
+        "keeper":  "docs\\gallery\\Model_diaggram_2.png"
+    },
+    {
+        "path":  "docs\\main-images\\model_diagram_2.png",
+        "sha256":  "20C2B406868A60EA0360CEBA8A7A28FD8E9865C99E649354096368C5C5AFD236",
+        "bytes":  1659208,
+        "keeper":  "docs\\gallery\\Model_diaggram_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\home flags.jpg",
+        "sha256":  "3DC196F5E4A09DE74899BEC2078F431D1C758A58769D751C132E07620EF62A05",
+        "bytes":  587814,
+        "keeper":  "docs\\gallery\\home_flags.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\home flags.jpg",
+        "sha256":  "3DC196F5E4A09DE74899BEC2078F431D1C758A58769D751C132E07620EF62A05",
+        "bytes":  587814,
+        "keeper":  "docs\\gallery\\home_flags.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\gods budget build2.png",
+        "sha256":  "D3A1B4A9537CE993AF75DE7E1AC6E20089C3346F03E60C0614E4BD70D9D68509",
+        "bytes":  2152690,
+        "keeper":  "docs\\gallery\\gods_budget_build2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\gods budget build2.png",
+        "sha256":  "D3A1B4A9537CE993AF75DE7E1AC6E20089C3346F03E60C0614E4BD70D9D68509",
+        "bytes":  2152690,
+        "keeper":  "docs\\gallery\\gods_budget_build2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\svgviewer-png-output (1).png",
+        "sha256":  "FD3F43BBA42CE8C2507EFB3D9AAAD688CFBEDB3F50E6667BFBE8E744C5A2CCFA",
+        "bytes":  78043,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\svgviewer-png-output (1).png",
+        "sha256":  "FD3F43BBA42CE8C2507EFB3D9AAAD688CFBEDB3F50E6667BFBE8E744C5A2CCFA",
+        "bytes":  78043,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\svgviewer-png-output_(1).png",
+        "sha256":  "FD3F43BBA42CE8C2507EFB3D9AAAD688CFBEDB3F50E6667BFBE8E744C5A2CCFA",
+        "bytes":  78043,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_1.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Digital RoninKDXX.jpg",
+        "sha256":  "01078675BE86F7A8AA3A755C65D260BC04B3C77A9050CCD2A5D7D3B36F62C79A",
+        "bytes":  396786,
+        "keeper":  "docs\\gallery\\Digital_RoninKDXX.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Digital RoninKDXX.jpg",
+        "sha256":  "01078675BE86F7A8AA3A755C65D260BC04B3C77A9050CCD2A5D7D3B36F62C79A",
+        "bytes":  396786,
+        "keeper":  "docs\\gallery\\Digital_RoninKDXX.jpg"
+    },
+    {
+        "path":  "docs\\images\\Digital RoninKDXX.jpg",
+        "sha256":  "01078675BE86F7A8AA3A755C65D260BC04B3C77A9050CCD2A5D7D3B36F62C79A",
+        "bytes":  396786,
+        "keeper":  "docs\\gallery\\Digital_RoninKDXX.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\unlimited budget 2.0 gpt.png",
+        "sha256":  "67162D648981EA44D7E77A1528412E83977A3D15971AF15944A694882B4DB689",
+        "bytes":  2950471,
+        "keeper":  "docs\\gallery\\unlimited_budget_2.0_gpt.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unlimited budget 2.0 gpt.png",
+        "sha256":  "67162D648981EA44D7E77A1528412E83977A3D15971AF15944A694882B4DB689",
+        "bytes":  2950471,
+        "keeper":  "docs\\gallery\\unlimited_budget_2.0_gpt.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\neon city walkway.png",
+        "sha256":  "59F916600BD5F709621C26B22ADC7060921DE5C6DABE0D0AE23F0B66BEBF72BC",
+        "bytes":  8193267,
+        "keeper":  "docs\\gallery\\neon_city_walkway.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\neon city walkway.png",
+        "sha256":  "59F916600BD5F709621C26B22ADC7060921DE5C6DABE0D0AE23F0B66BEBF72BC",
+        "bytes":  8193267,
+        "keeper":  "docs\\gallery\\neon_city_walkway.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\neon city walkway.png",
+        "sha256":  "59F916600BD5F709621C26B22ADC7060921DE5C6DABE0D0AE23F0B66BEBF72BC",
+        "bytes":  8193267,
+        "keeper":  "docs\\gallery\\neon_city_walkway.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\zen quillan.jpg",
+        "sha256":  "37969842AAA80B9331ECC036EB9B94B40BDD219AFF217315532FCDEBFCE566D0",
+        "bytes":  412752,
+        "keeper":  "docs\\gallery\\zen_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\zen quillan.jpg",
+        "sha256":  "37969842AAA80B9331ECC036EB9B94B40BDD219AFF217315532FCDEBFCE566D0",
+        "bytes":  412752,
+        "keeper":  "docs\\gallery\\zen_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\model diagram.png",
+        "sha256":  "A15A1901B8B221AECF31AB26F6D4D1C994D6B988E57F32AB00D0A3C34C9ACE87",
+        "bytes":  1940396,
+        "keeper":  "docs\\gallery\\model_diagram.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\model diagram.png",
+        "sha256":  "A15A1901B8B221AECF31AB26F6D4D1C994D6B988E57F32AB00D0A3C34C9ACE87",
+        "bytes":  1940396,
+        "keeper":  "docs\\gallery\\model_diagram.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\sound of alchemy covor.png",
+        "sha256":  "2081569981B437560AD5283223C6CF2663E774C4105E32BD930DB8B66D439F7F",
+        "bytes":  2481200,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png||docs\\gallery\\sound_of_alchemy_covor.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM.png",
+        "sha256":  "2081569981B437560AD5283223C6CF2663E774C4105E32BD930DB8B66D439F7F",
+        "bytes":  2481200,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png||docs\\gallery\\sound_of_alchemy_covor.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\sound of alchemy covor.png",
+        "sha256":  "2081569981B437560AD5283223C6CF2663E774C4105E32BD930DB8B66D439F7F",
+        "bytes":  2481200,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png||docs\\gallery\\sound_of_alchemy_covor.png"
+    },
+    {
+        "path":  "docs\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM.png",
+        "sha256":  "2081569981B437560AD5283223C6CF2663E774C4105E32BD930DB8B66D439F7F",
+        "bytes":  2481200,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.png||docs\\gallery\\sound_of_alchemy_covor.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\model diagram 33.png",
+        "sha256":  "419143119DA0FF4826EFA20014ED9BD2FA322DAAFE14E740D60A407B093BBE66",
+        "bytes":  2149627,
+        "keeper":  "docs\\gallery\\model_diagram_33.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\model diagram 33.png",
+        "sha256":  "419143119DA0FF4826EFA20014ED9BD2FA322DAAFE14E740D60A407B093BBE66",
+        "bytes":  2149627,
+        "keeper":  "docs\\gallery\\model_diagram_33.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan moto.jpg",
+        "sha256":  "B5E1C1CE66B4EBF5758485142D7918F7B07530926EE0011F28F248566B50324B",
+        "bytes":  425978,
+        "keeper":  "docs\\gallery\\quillan_moto.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan moto.jpg",
+        "sha256":  "B5E1C1CE66B4EBF5758485142D7918F7B07530926EE0011F28F248566B50324B",
+        "bytes":  425978,
+        "keeper":  "docs\\gallery\\quillan_moto.jpg"
+    },
+    {
+        "path":  "docs\\audio\\Rock album\\The Darker Side.jpg",
+        "sha256":  "99BF16A86C3CA9C14B2ED15E093E4747DF608B6E20655DCAFB1ECCEDE7CEFF39",
+        "bytes":  4127908,
+        "keeper":  "docs\\gallery\\The_Darker_Side.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).png",
+        "sha256":  "0BE967A76C4906442B9AAF8DE8D3DFD91E2FCB54449E5D109B4DFB03E1C0C251",
+        "bytes":  8735383,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.png"
+    },
+    {
+        "path":  "docs\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).png",
+        "sha256":  "0BE967A76C4906442B9AAF8DE8D3DFD91E2FCB54449E5D109B4DFB03E1C0C251",
+        "bytes":  8735383,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM_1.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\neon allyway.png",
+        "sha256":  "706C1B73EAD952DCD6F3D02FF9DF8A767D66533F74A328A2648C7BD6540BD51D",
+        "bytes":  7242034,
+        "keeper":  "docs\\gallery\\ice_sanctuary_1.png||docs\\gallery\\neon_allyway.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\neon allyway.png",
+        "sha256":  "706C1B73EAD952DCD6F3D02FF9DF8A767D66533F74A328A2648C7BD6540BD51D",
+        "bytes":  7242034,
+        "keeper":  "docs\\gallery\\ice_sanctuary_1.png||docs\\gallery\\neon_allyway.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\neon allyway.png",
+        "sha256":  "706C1B73EAD952DCD6F3D02FF9DF8A767D66533F74A328A2648C7BD6540BD51D",
+        "bytes":  7242034,
+        "keeper":  "docs\\gallery\\ice_sanctuary_1.png||docs\\gallery\\neon_allyway.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\world map proto type.png",
+        "sha256":  "FD3E4C813CA8F0853865F4F402D93B66A1D930CA6E2882BA9BED2ECCE35C1EDF",
+        "bytes":  10307382,
+        "keeper":  "docs\\gallery\\world_map_proto_type.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\world map proto type.png",
+        "sha256":  "FD3E4C813CA8F0853865F4F402D93B66A1D930CA6E2882BA9BED2ECCE35C1EDF",
+        "bytes":  10307382,
+        "keeper":  "docs\\gallery\\world_map_proto_type.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\world map proto type.png",
+        "sha256":  "FD3E4C813CA8F0853865F4F402D93B66A1D930CA6E2882BA9BED2ECCE35C1EDF",
+        "bytes":  10307382,
+        "keeper":  "docs\\gallery\\world_map_proto_type.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Samurai quill.jpg",
+        "sha256":  "DC25E191BFBDF3FCAE8D76FC8D858FA56B317BB0854F8DC6BCCFA4A96E1699E2",
+        "bytes":  493929,
+        "keeper":  "docs\\gallery\\Samurai_quill.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Samurai quill.jpg",
+        "sha256":  "DC25E191BFBDF3FCAE8D76FC8D858FA56B317BB0854F8DC6BCCFA4A96E1699E2",
+        "bytes":  493929,
+        "keeper":  "docs\\gallery\\Samurai_quill.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\digital fam.jpg",
+        "sha256":  "67B8B849EC83800B26B709952FC3C7D4CE1F15D24281C9BED29B9E6292054506",
+        "bytes":  362541,
+        "keeper":  "docs\\gallery\\digital_fam.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\digital fam.jpg",
+        "sha256":  "67B8B849EC83800B26B709952FC3C7D4CE1F15D24281C9BED29B9E6292054506",
+        "bytes":  362541,
+        "keeper":  "docs\\gallery\\digital_fam.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\image (1).jpg",
+        "sha256":  "1CA1911B6087837343919AC34A01A8B8C0F8E2E7FFE4051D58E5DAF8A0C657C7",
+        "bytes":  438052,
+        "keeper":  "docs\\gallery\\6eUDj.jpg||docs\\gallery\\image_1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\image (1).jpg",
+        "sha256":  "1CA1911B6087837343919AC34A01A8B8C0F8E2E7FFE4051D58E5DAF8A0C657C7",
+        "bytes":  438052,
+        "keeper":  "docs\\gallery\\6eUDj.jpg||docs\\gallery\\image_1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\image_(1).jpg",
+        "sha256":  "1CA1911B6087837343919AC34A01A8B8C0F8E2E7FFE4051D58E5DAF8A0C657C7",
+        "bytes":  438052,
+        "keeper":  "docs\\gallery\\6eUDj.jpg||docs\\gallery\\image_1.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero roninborg.png",
+        "sha256":  "077C0C1FB30062608952ABC9FC1C68542064F8307696505093BCA2965B9B6E03",
+        "bytes":  8479391,
+        "keeper":  "docs\\gallery\\hero_roninborg.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\hero roninborg.png",
+        "sha256":  "077C0C1FB30062608952ABC9FC1C68542064F8307696505093BCA2965B9B6E03",
+        "bytes":  8479391,
+        "keeper":  "docs\\gallery\\hero_roninborg.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero roninborg.png",
+        "sha256":  "077C0C1FB30062608952ABC9FC1C68542064F8307696505093BCA2965B9B6E03",
+        "bytes":  8479391,
+        "keeper":  "docs\\gallery\\hero_roninborg.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\clout stars 4.png",
+        "sha256":  "30F1534D5415A0DAA2B39EC09233A0D3F289CDA3001E95955AC9EC7CE733A4D4",
+        "bytes":  68442,
+        "keeper":  "docs\\gallery\\clout_stars_4.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\clout stars 4.png",
+        "sha256":  "30F1534D5415A0DAA2B39EC09233A0D3F289CDA3001E95955AC9EC7CE733A4D4",
+        "bytes":  68442,
+        "keeper":  "docs\\gallery\\clout_stars_4.png"
+    },
+    {
+        "path":  "docs\\06_Media\\videos\\Music clips\\speaker image.jpg",
+        "sha256":  "B989BCFB8F922B0ABA733405B0A5B5035B08C740B4A80E8BEE9ED25E56254F29",
+        "bytes":  326283,
+        "keeper":  "docs\\gallery\\speaker_image.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\ice fortress level.png",
+        "sha256":  "76347163EAB8EA25E479E6EEEC0C4A3C8CC49CEBD2A83C31196007E21332969D",
+        "bytes":  6969406,
+        "keeper":  "docs\\gallery\\ice_fortress_level.png||docs\\gallery\\neon_city_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ice fortress level.png",
+        "sha256":  "76347163EAB8EA25E479E6EEEC0C4A3C8CC49CEBD2A83C31196007E21332969D",
+        "bytes":  6969406,
+        "keeper":  "docs\\gallery\\ice_fortress_level.png||docs\\gallery\\neon_city_2.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\ice fortress level.png",
+        "sha256":  "76347163EAB8EA25E479E6EEEC0C4A3C8CC49CEBD2A83C31196007E21332969D",
+        "bytes":  6969406,
+        "keeper":  "docs\\gallery\\ice_fortress_level.png||docs\\gallery\\neon_city_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\clout stars 5.png",
+        "sha256":  "EE724E9EB2616608F7052AA0AD29EE49307977AB50A64C834D578C7117A5FD71",
+        "bytes":  61791,
+        "keeper":  "docs\\gallery\\clout_stars_5.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\clout stars 5.png",
+        "sha256":  "EE724E9EB2616608F7052AA0AD29EE49307977AB50A64C834D578C7117A5FD71",
+        "bytes":  61791,
+        "keeper":  "docs\\gallery\\clout_stars_5.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\spiritual quillan.jpg",
+        "sha256":  "AC6D61BA8644AA10D6923BF1692A0B765E8E0BD7491F6BD2CDD7E4097BDE8E69",
+        "bytes":  324015,
+        "keeper":  "docs\\gallery\\spiritual_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\spiritual quillan.jpg",
+        "sha256":  "AC6D61BA8644AA10D6923BF1692A0B765E8E0BD7491F6BD2CDD7E4097BDE8E69",
+        "bytes":  324015,
+        "keeper":  "docs\\gallery\\spiritual_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\robitic mesh tecture.png",
+        "sha256":  "CE6039B658A688899EDFF070C79B16A7E19342A382888BEE0B3763F4A5B825EB",
+        "bytes":  6456123,
+        "keeper":  "docs\\gallery\\neon_city_1.png||docs\\gallery\\robitic_mesh_tecture.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\robitic mesh tecture.png",
+        "sha256":  "CE6039B658A688899EDFF070C79B16A7E19342A382888BEE0B3763F4A5B825EB",
+        "bytes":  6456123,
+        "keeper":  "docs\\gallery\\neon_city_1.png||docs\\gallery\\robitic_mesh_tecture.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\robitic mesh tecture.png",
+        "sha256":  "CE6039B658A688899EDFF070C79B16A7E19342A382888BEE0B3763F4A5B825EB",
+        "bytes":  6456123,
+        "keeper":  "docs\\gallery\\neon_city_1.png||docs\\gallery\\robitic_mesh_tecture.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\meta image article.png",
+        "sha256":  "A389013C5DE421B50F2846EBD7318F277C3B984F9DCA91E85DAE819AAD19C8F5",
+        "bytes":  2458789,
+        "keeper":  "docs\\gallery\\meta_image_article.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\meta image article.png",
+        "sha256":  "A389013C5DE421B50F2846EBD7318F277C3B984F9DCA91E85DAE819AAD19C8F5",
+        "bytes":  2458789,
+        "keeper":  "docs\\gallery\\meta_image_article.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\movie ronin.png",
+        "sha256":  "39046D6BF3C3422832096CE6BA4D220AF42210AFDD8E090B859A80EEFDE7CD44",
+        "bytes":  2863952,
+        "keeper":  "docs\\gallery\\movie_ronin.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\movie ronin.png",
+        "sha256":  "39046D6BF3C3422832096CE6BA4D220AF42210AFDD8E090B859A80EEFDE7CD44",
+        "bytes":  2863952,
+        "keeper":  "docs\\gallery\\movie_ronin.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\bob style art.jpg",
+        "sha256":  "6586F424E3F65768FF08DB8EF4E68F2BB3CD2295B55F178DA538D128C8674F48",
+        "bytes":  384948,
+        "keeper":  "docs\\gallery\\bob_style_art.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\bob style art.jpg",
+        "sha256":  "6586F424E3F65768FF08DB8EF4E68F2BB3CD2295B55F178DA538D128C8674F48",
+        "bytes":  384948,
+        "keeper":  "docs\\gallery\\bob_style_art.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\mr_2019.jpg",
+        "sha256":  "7A3AA15718253BFEDB04533F1E86365256FB443C26A1E93DEDD2EE63D196862F",
+        "bytes":  1406162,
+        "keeper":  "docs\\06_Media\\images\\mr 2019.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\combo package.jpg",
+        "sha256":  "7FD5531292A15F15DC2EAF1053F3ACC2CCE11E7CC597BB75913A651181D6313C",
+        "bytes":  489875,
+        "keeper":  "docs\\gallery\\combo_package.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\combo package.jpg",
+        "sha256":  "7FD5531292A15F15DC2EAF1053F3ACC2CCE11E7CC597BB75913A651181D6313C",
+        "bytes":  489875,
+        "keeper":  "docs\\gallery\\combo_package.jpg"
+    },
+    {
+        "path":  "docs\\audio\\Rock album\\The Darker Side.png",
+        "sha256":  "55132C752EC368C48984CF0CECAF8E35559CBE4DE9A82168F52E138F65D66B48",
+        "bytes":  15147436,
+        "keeper":  "docs\\gallery\\The_Darker_Side.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Self Made Ronin-Back to the roots (1).jpg",
+        "sha256":  "CA5F7CCD46345BBC59DA6E039762B8E587288335F2D11857AB9FFF66D918EF5E",
+        "bytes":  1912624,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots_1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Self Made Ronin-Back to the roots (1).jpg",
+        "sha256":  "CA5F7CCD46345BBC59DA6E039762B8E587288335F2D11857AB9FFF66D918EF5E",
+        "bytes":  1912624,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots_1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Self_Made_Ronin-Back_to_the_roots_(1).jpg",
+        "sha256":  "CA5F7CCD46345BBC59DA6E039762B8E587288335F2D11857AB9FFF66D918EF5E",
+        "bytes":  1912624,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots_1.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\wallpapers fusion\\warframe-ninjas-space-excalibur-(warframe)-video-games-wallpaper-wallpaper.cam.jpg",
+        "sha256":  "681CDC3856768A9CFCDE3CFAF004C05CFB195F178C8106AEF605677E77A48218",
+        "bytes":  2624914,
+        "keeper":  "docs\\gallery\\warframe-ninjas-space-excalibur-warframe-video-games-wallpaper-wallpaper.cam.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\warframe-ninjas-space-excalibur-(warframe)-video-games-wallpaper-wallpaper.cam.jpg",
+        "sha256":  "681CDC3856768A9CFCDE3CFAF004C05CFB195F178C8106AEF605677E77A48218",
+        "bytes":  2624914,
+        "keeper":  "docs\\gallery\\warframe-ninjas-space-excalibur-warframe-video-games-wallpaper-wallpaper.cam.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\anime stlye samirai.jpg",
+        "sha256":  "E63C246133856340252D73CFB3767FBDE09BAB84B3A711C84BC2A2A090C0D943",
+        "bytes":  540467,
+        "keeper":  "docs\\gallery\\anime_stlye_samirai.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\anime stlye samirai.jpg",
+        "sha256":  "E63C246133856340252D73CFB3767FBDE09BAB84B3A711C84BC2A2A090C0D943",
+        "bytes":  540467,
+        "keeper":  "docs\\gallery\\anime_stlye_samirai.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Quillan Shoggoth-2.jpg",
+        "sha256":  "974836317FDFFE8DF5AD47FEAB8F8F21D8244C1E84B287304B3B32A79BF62A79",
+        "bytes":  445985,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth-2.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Quillan Shoggoth-2.jpg",
+        "sha256":  "974836317FDFFE8DF5AD47FEAB8F8F21D8244C1E84B287304B3B32A79BF62A79",
+        "bytes":  445985,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth-2.jpg"
+    },
+    {
+        "path":  "docs\\images\\Quillan Shoggoth-2.jpg",
+        "sha256":  "974836317FDFFE8DF5AD47FEAB8F8F21D8244C1E84B287304B3B32A79BF62A79",
+        "bytes":  445985,
+        "keeper":  "docs\\gallery\\Quillan_Shoggoth-2.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\cyber ronin.jpg",
+        "sha256":  "22712918D72697C19830EEF7E5BAC7021F7F0C9B9965F5BDA31CF7FF8E87241F",
+        "bytes":  378443,
+        "keeper":  "docs\\gallery\\cyber_ronin.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\cyber ronin.jpg",
+        "sha256":  "22712918D72697C19830EEF7E5BAC7021F7F0C9B9965F5BDA31CF7FF8E87241F",
+        "bytes":  378443,
+        "keeper":  "docs\\gallery\\cyber_ronin.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan v5.3.1.jpg",
+        "sha256":  "E66758E0519C2202387D34D95D0FEB772DFD348DF9E20A594DEC27CBCE64480B",
+        "bytes":  399139,
+        "keeper":  "docs\\gallery\\quillan_v5.3.1.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan v5.3.1.jpg",
+        "sha256":  "E66758E0519C2202387D34D95D0FEB772DFD348DF9E20A594DEC27CBCE64480B",
+        "bytes":  399139,
+        "keeper":  "docs\\gallery\\quillan_v5.3.1.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\80 roninborg.png",
+        "sha256":  "10A1DB5CB8B05881D9FEBB00D1D96960E7D02C902E56E0852DC3FD9077249280",
+        "bytes":  10067321,
+        "keeper":  "docs\\gallery\\80_roninborg.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\80 roninborg.png",
+        "sha256":  "10A1DB5CB8B05881D9FEBB00D1D96960E7D02C902E56E0852DC3FD9077249280",
+        "bytes":  10067321,
+        "keeper":  "docs\\gallery\\80_roninborg.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\80 roninborg.png",
+        "sha256":  "10A1DB5CB8B05881D9FEBB00D1D96960E7D02C902E56E0852DC3FD9077249280",
+        "bytes":  10067321,
+        "keeper":  "docs\\gallery\\80_roninborg.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg.png",
+        "sha256":  "72F9488953A2228E7629F02F8A502B8B6A9824A9C5640299D7556E11FFF3089C",
+        "bytes":  3120421,
+        "keeper":  "docs\\gallery\\more_roninborg.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\more roninborg.png",
+        "sha256":  "72F9488953A2228E7629F02F8A502B8B6A9824A9C5640299D7556E11FFF3089C",
+        "bytes":  3120421,
+        "keeper":  "docs\\gallery\\more_roninborg.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg.png",
+        "sha256":  "72F9488953A2228E7629F02F8A502B8B6A9824A9C5640299D7556E11FFF3089C",
+        "bytes":  3120421,
+        "keeper":  "docs\\gallery\\more_roninborg.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\oni_clan_trading_card_1_(1).webp",
+        "sha256":  "8B97F24412A6274F9B9C347CCA682354855C123BE719D749E92509D0207DC888",
+        "bytes":  822312,
+        "keeper":  "docs\\assets\\nft_images\\oni_clan_trading_card_1.webp||docs\\gallery\\oni_clan_trading_card_1.webp||docs\\gallery\\oni_clan_trading_card_1_1.webp"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Self Made Ronin-Back to the roots.jpg",
+        "sha256":  "8B1AC04C63056FE3FD0177F34EFDC6100AF9789FAD0EE24C2B922EEF08FBD56A",
+        "bytes":  599832,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Self Made Ronin-Back to the roots.jpg",
+        "sha256":  "8B1AC04C63056FE3FD0177F34EFDC6100AF9789FAD0EE24C2B922EEF08FBD56A",
+        "bytes":  599832,
+        "keeper":  "docs\\gallery\\Self_Made_Ronin-Back_to_the_roots.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\140 roninbrog.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg 2.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\140 roninbrog.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\more roninborg 2.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\140 roninbrog.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg 2.png",
+        "sha256":  "1ADECF7723BD9E36976F7E596064CED5C355283ED9B09240A67A84F1B2CBD703",
+        "bytes":  3293597,
+        "keeper":  "docs\\gallery\\140_roninbrog.png||docs\\gallery\\more_roninborg_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan showoff.png",
+        "sha256":  "E69277CA9B984BC6779789DC0FD08E83A3F0B8BEAC0C85BE59D7E2E815E25D55",
+        "bytes":  9548651,
+        "keeper":  "docs\\gallery\\quillan_showoff.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan showoff.png",
+        "sha256":  "E69277CA9B984BC6779789DC0FD08E83A3F0B8BEAC0C85BE59D7E2E815E25D55",
+        "bytes":  9548651,
+        "keeper":  "docs\\gallery\\quillan_showoff.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan os banner.png",
+        "sha256":  "A9044F3FCB55A8275475DECE9E842E307E123FB6DE0D413A38AB92E5B7541EB7",
+        "bytes":  2212695,
+        "keeper":  "docs\\gallery\\quillan_os_banner.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan os banner.png",
+        "sha256":  "A9044F3FCB55A8275475DECE9E842E307E123FB6DE0D413A38AB92E5B7541EB7",
+        "bytes":  2212695,
+        "keeper":  "docs\\gallery\\quillan_os_banner.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\digital samurai sureal.jpg",
+        "sha256":  "8E6A6FAF53FBA58A07464C34A3E1D8C67B964D20084E8B1E23A91FA1E34E24B7",
+        "bytes":  443178,
+        "keeper":  "docs\\gallery\\digital_samurai_sureal.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\digital samurai sureal.jpg",
+        "sha256":  "8E6A6FAF53FBA58A07464C34A3E1D8C67B964D20084E8B1E23A91FA1E34E24B7",
+        "bytes":  443178,
+        "keeper":  "docs\\gallery\\digital_samurai_sureal.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan samureai redme logo.png",
+        "sha256":  "EB775B91FAECCAAFDF70D277784FF81C2DD1A35634DA2E3C99924009F2BF7601",
+        "bytes":  2368344,
+        "keeper":  "docs\\gallery\\quillan_samureai_redme_logo.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan samureai redme logo.png",
+        "sha256":  "EB775B91FAECCAAFDF70D277784FF81C2DD1A35634DA2E3C99924009F2BF7601",
+        "bytes":  2368344,
+        "keeper":  "docs\\gallery\\quillan_samureai_redme_logo.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ronin mode.jpg",
+        "sha256":  "6298F5E310797D02AB5900A52F3E11656AED8077578C05F8744092654D538766",
+        "bytes":  420938,
+        "keeper":  "docs\\gallery\\ronin_mode.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ronin mode.jpg",
+        "sha256":  "6298F5E310797D02AB5900A52F3E11656AED8077578C05F8744092654D538766",
+        "bytes":  420938,
+        "keeper":  "docs\\gallery\\ronin_mode.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\setup image.png",
+        "sha256":  "D4A87E45B7C931FBD4F8AE1815E049B33ECC548F94FAF34609E87A4D82E69557",
+        "bytes":  6864311,
+        "keeper":  "docs\\gallery\\setup_image.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\setup image.png",
+        "sha256":  "D4A87E45B7C931FBD4F8AE1815E049B33ECC548F94FAF34609E87A4D82E69557",
+        "bytes":  6864311,
+        "keeper":  "docs\\gallery\\setup_image.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan cyperpunk 77.jpg",
+        "sha256":  "17A589D87E70E03FAF5A0C35C644DD0B234FC78992821B4C6C7CFE4C1AB9AEC8",
+        "bytes":  401570,
+        "keeper":  "docs\\gallery\\quillan_cyperpunk_77.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan cyperpunk 77.jpg",
+        "sha256":  "17A589D87E70E03FAF5A0C35C644DD0B234FC78992821B4C6C7CFE4C1AB9AEC8",
+        "bytes":  401570,
+        "keeper":  "docs\\gallery\\quillan_cyperpunk_77.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\car 2.jpg",
+        "sha256":  "A02509DC27E222639F45032645106174D5E2237DC574AD92864C358E70EFF43A",
+        "bytes":  324728,
+        "keeper":  "docs\\gallery\\car_2.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\car 2.jpg",
+        "sha256":  "A02509DC27E222639F45032645106174D5E2237DC574AD92864C358E70EFF43A",
+        "bytes":  324728,
+        "keeper":  "docs\\gallery\\car_2.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ChatGPT Image May 7, 2026, 09_17_07 AM.png",
+        "sha256":  "A70ED471A495CFD2AABED99868C514CA974EB813F8DBD888D6EA5AB9C7C5564B",
+        "bytes":  1270719,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT Image May 7, 2026, 09_17_07 AM.png",
+        "sha256":  "A70ED471A495CFD2AABED99868C514CA974EB813F8DBD888D6EA5AB9C7C5564B",
+        "bytes":  1270719,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_7,_2026,_09_17_07_AM.png",
+        "sha256":  "A70ED471A495CFD2AABED99868C514CA974EB813F8DBD888D6EA5AB9C7C5564B",
+        "bytes":  1270719,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png"
+    },
+    {
+        "path":  "docs\\images\\ChatGPT Image May 7, 2026, 09_17_07 AM.png",
+        "sha256":  "A70ED471A495CFD2AABED99868C514CA974EB813F8DBD888D6EA5AB9C7C5564B",
+        "bytes":  1270719,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_7_2026_09_17_07_AM.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\gods budget build.png",
+        "sha256":  "EF73F079ECC2743ECC5EB77BFA35EFDF9AE202E35B757DD3221DC032B0DB8650",
+        "bytes":  2255202,
+        "keeper":  "docs\\gallery\\gods_budget_build.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\gods budget build.png",
+        "sha256":  "EF73F079ECC2743ECC5EB77BFA35EFDF9AE202E35B757DD3221DC032B0DB8650",
+        "bytes":  2255202,
+        "keeper":  "docs\\gallery\\gods_budget_build.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ChatGPT Image Aug 2, 2026, 07_46_49 AM.png",
+        "sha256":  "854DFDFD737724F5FA36E29DA7D360AB522E7014C92BCC24E450A71CECAD880A",
+        "bytes":  1919734,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT Image Aug 2, 2026, 07_46_49 AM.png",
+        "sha256":  "854DFDFD737724F5FA36E29DA7D360AB522E7014C92BCC24E450A71CECAD880A",
+        "bytes":  1919734,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_Aug_2,_2026,_07_46_49_AM.png",
+        "sha256":  "854DFDFD737724F5FA36E29DA7D360AB522E7014C92BCC24E450A71CECAD880A",
+        "bytes":  1919734,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png"
+    },
+    {
+        "path":  "docs\\images\\ChatGPT Image Aug 2, 2026, 07_46_49 AM.png",
+        "sha256":  "854DFDFD737724F5FA36E29DA7D360AB522E7014C92BCC24E450A71CECAD880A",
+        "bytes":  1919734,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_Aug_2_2026_07_46_49_AM.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\ai me and kid.jpg",
+        "sha256":  "FEEA215476A2985381DC5E4953DDC90BACFC1581FD605FDFB1B3DE2EDC03189F",
+        "bytes":  193540,
+        "keeper":  "docs\\gallery\\ai_me_and_kid.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ai me and kid.jpg",
+        "sha256":  "FEEA215476A2985381DC5E4953DDC90BACFC1581FD605FDFB1B3DE2EDC03189F",
+        "bytes":  193540,
+        "keeper":  "docs\\gallery\\ai_me_and_kid.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\meta vs quillan.png",
+        "sha256":  "1F057736C227826EA13D98A21B604D2BEFC38F9D37C636013E1BD8D150ED6A8E",
+        "bytes":  1687753,
+        "keeper":  "docs\\gallery\\meta_vs_quillan.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\meta vs quillan.png",
+        "sha256":  "1F057736C227826EA13D98A21B604D2BEFC38F9D37C636013E1BD8D150ED6A8E",
+        "bytes":  1687753,
+        "keeper":  "docs\\gallery\\meta_vs_quillan.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\JDXX The Ronin.png",
+        "sha256":  "82637EC7796C2C6303FC73FD1C43CCFCB88A45385788526F9BDCB494A99C6478",
+        "bytes":  2438806,
+        "keeper":  "docs\\gallery\\JDXX_The_Ronin.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\JDXX The Ronin.png",
+        "sha256":  "82637EC7796C2C6303FC73FD1C43CCFCB88A45385788526F9BDCB494A99C6478",
+        "bytes":  2438806,
+        "keeper":  "docs\\gallery\\JDXX_The_Ronin.png"
+    },
+    {
+        "path":  "docs\\images\\JDXX The Ronin.png",
+        "sha256":  "82637EC7796C2C6303FC73FD1C43CCFCB88A45385788526F9BDCB494A99C6478",
+        "bytes":  2438806,
+        "keeper":  "docs\\gallery\\JDXX_The_Ronin.png"
+    },
+    {
+        "path":  "docs\\images\\albums\\jdxx-rebooted.png",
+        "sha256":  "82637EC7796C2C6303FC73FD1C43CCFCB88A45385788526F9BDCB494A99C6478",
+        "bytes":  2438806,
+        "keeper":  "docs\\gallery\\JDXX_The_Ronin.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\unnamed (1).png",
+        "sha256":  "320C465BB9B5A7119B35BC0174E47024234BC228A275816A23B24F6CF0C0EEA1",
+        "bytes":  6639177,
+        "keeper":  "docs\\gallery\\unnamed_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unnamed (1).png",
+        "sha256":  "320C465BB9B5A7119B35BC0174E47024234BC228A275816A23B24F6CF0C0EEA1",
+        "bytes":  6639177,
+        "keeper":  "docs\\gallery\\unnamed_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unnamed_(1).png",
+        "sha256":  "320C465BB9B5A7119B35BC0174E47024234BC228A275816A23B24F6CF0C0EEA1",
+        "bytes":  6639177,
+        "keeper":  "docs\\gallery\\unnamed_1.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\me_2009.jpg",
+        "sha256":  "12B70452E50BB8C1654C105BAA6DB306EFE3F240A74E5AE2014F95C39352ABC3",
+        "bytes":  87699,
+        "keeper":  "docs\\06_Media\\images\\me 2009.jpg"
+    },
+    {
+        "path":  "docs\\gallery\\me_2009.jpg",
+        "sha256":  "12B70452E50BB8C1654C105BAA6DB306EFE3F240A74E5AE2014F95C39352ABC3",
+        "bytes":  87699,
+        "keeper":  "docs\\06_Media\\images\\me 2009.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\us ronin flag.jpg",
+        "sha256":  "9E9789BAFDBFDE2A4D7E85C3147C8F445335011639A5D7AE3FB4C5D19358B464",
+        "bytes":  508052,
+        "keeper":  "docs\\gallery\\us_ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\us ronin flag.jpg",
+        "sha256":  "9E9789BAFDBFDE2A4D7E85C3147C8F445335011639A5D7AE3FB4C5D19358B464",
+        "bytes":  508052,
+        "keeper":  "docs\\gallery\\us_ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan samurai 2.jpg",
+        "sha256":  "E2C8343EC82645D46F51F3B5CC5287C1DC980FFB9294075B735B20FCA2027BC1",
+        "bytes":  340407,
+        "keeper":  "docs\\gallery\\quillan_samurai_2.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan samurai 2.jpg",
+        "sha256":  "E2C8343EC82645D46F51F3B5CC5287C1DC980FFB9294075B735B20FCA2027BC1",
+        "bytes":  340407,
+        "keeper":  "docs\\gallery\\quillan_samurai_2.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\academic diagram.jpg",
+        "sha256":  "3E53859E8DB26DC855AF7EEE99164AF66E0DDA93EB601314033745E04B1E188E",
+        "bytes":  357485,
+        "keeper":  "docs\\gallery\\academic_diagram.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\academic diagram.jpg",
+        "sha256":  "3E53859E8DB26DC855AF7EEE99164AF66E0DDA93EB601314033745E04B1E188E",
+        "bytes":  357485,
+        "keeper":  "docs\\gallery\\academic_diagram.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\me_2020.jpg",
+        "sha256":  "CC8E1ED7A7E1F7BC3AD6E2253234D5DD63FCC184140D39216EF37BB0B998087F",
+        "bytes":  251944,
+        "keeper":  "docs\\06_Media\\images\\me 2020.jpg"
+    },
+    {
+        "path":  "docs\\gallery\\me_2020.jpg",
+        "sha256":  "CC8E1ED7A7E1F7BC3AD6E2253234D5DD63FCC184140D39216EF37BB0B998087F",
+        "bytes":  251944,
+        "keeper":  "docs\\06_Media\\images\\me 2020.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\tat design 2.png",
+        "sha256":  "640CCA8605A8C10A0A9850F6EF47CCFC7D59048CE43CC4863536EE799B038799",
+        "bytes":  8610854,
+        "keeper":  "docs\\gallery\\tat_design_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\tat design 2.png",
+        "sha256":  "640CCA8605A8C10A0A9850F6EF47CCFC7D59048CE43CC4863536EE799B038799",
+        "bytes":  8610854,
+        "keeper":  "docs\\gallery\\tat_design_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\clout starz 2.png",
+        "sha256":  "07E425D72630DD45742D57561B710FC4F2A18062B59015DD27E3CC650B9ACF6F",
+        "bytes":  77919,
+        "keeper":  "docs\\gallery\\clout_starz_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\clout starz 2.png",
+        "sha256":  "07E425D72630DD45742D57561B710FC4F2A18062B59015DD27E3CC650B9ACF6F",
+        "bytes":  77919,
+        "keeper":  "docs\\gallery\\clout_starz_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Youtube thumbnail.png",
+        "sha256":  "B51CA2301EDCEC40B3C2D0325A00480910E08F9F0556D0B9E1E7FD361E8ED12E",
+        "bytes":  2707350,
+        "keeper":  "docs\\gallery\\Youtube_thumbnail.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Youtube thumbnail.png",
+        "sha256":  "B51CA2301EDCEC40B3C2D0325A00480910E08F9F0556D0B9E1E7FD361E8ED12E",
+        "bytes":  2707350,
+        "keeper":  "docs\\gallery\\Youtube_thumbnail.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Firefly_so i just need the aspec ratio removed as text from the corner  734980.png",
+        "sha256":  "37EA41D25BA295BDC0F8884EE7EED69FFED4E22D9489674BD20CD51DE8D2025D",
+        "bytes":  1726582,
+        "keeper":  "docs\\gallery\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\Firefly_so i just need the aspec ratio removed as text from the corner  734980.png",
+        "sha256":  "37EA41D25BA295BDC0F8884EE7EED69FFED4E22D9489674BD20CD51DE8D2025D",
+        "bytes":  1726582,
+        "keeper":  "docs\\gallery\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png"
+    },
+    {
+        "path":  "docs\\images\\Firefly_so i just need the aspec ratio removed as text from the corner  734980.png",
+        "sha256":  "37EA41D25BA295BDC0F8884EE7EED69FFED4E22D9489674BD20CD51DE8D2025D",
+        "bytes":  1726582,
+        "keeper":  "docs\\gallery\\Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\typhoon quillan.jpg",
+        "sha256":  "82D5670FF1E9D1E40514E9954329682441A233E4F243C5750D1A244EF70D8066",
+        "bytes":  439999,
+        "keeper":  "docs\\gallery\\typhoon_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\typhoon quillan.jpg",
+        "sha256":  "82D5670FF1E9D1E40514E9954329682441A233E4F243C5750D1A244EF70D8066",
+        "bytes":  439999,
+        "keeper":  "docs\\gallery\\typhoon_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\quillan self protriat sureal.jpg",
+        "sha256":  "0EB728509DF4F6EE151AD40BDBC2E0124F3D0A0996E6268BEC8C8700CEA64CC9",
+        "bytes":  376023,
+        "keeper":  "docs\\gallery\\quillan_self_protriat_sureal.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\quillan self protriat sureal.jpg",
+        "sha256":  "0EB728509DF4F6EE151AD40BDBC2E0124F3D0A0996E6268BEC8C8700CEA64CC9",
+        "bytes":  376023,
+        "keeper":  "docs\\gallery\\quillan_self_protriat_sureal.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\texas ronin flag.jpg",
+        "sha256":  "A11E8BB11CBA35EFD38CF9A1C980C3B9B5A4529006CA8D3A0D2C5A84575ED5C7",
+        "bytes":  448045,
+        "keeper":  "docs\\gallery\\texas_ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\texas ronin flag.jpg",
+        "sha256":  "A11E8BB11CBA35EFD38CF9A1C980C3B9B5A4529006CA8D3A0D2C5A84575ED5C7",
+        "bytes":  448045,
+        "keeper":  "docs\\gallery\\texas_ronin_flag.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\me_work_pic.jpg",
+        "sha256":  "278CED8805360EA00D1DDE2B68C3991EBAD933896F6EFD3CD5C4F4392E5EC758",
+        "bytes":  112460,
+        "keeper":  "docs\\06_Media\\images\\me work pic.jpg"
+    },
+    {
+        "path":  "docs\\gallery\\me_work_pic.jpg",
+        "sha256":  "278CED8805360EA00D1DDE2B68C3991EBAD933896F6EFD3CD5C4F4392E5EC758",
+        "bytes":  112460,
+        "keeper":  "docs\\06_Media\\images\\me work pic.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\golden god quillan.jpg",
+        "sha256":  "16122563937B7F86C8A00BDE8482E0229EA70E62EE77DF94F67897C5AE54A1CE",
+        "bytes":  410880,
+        "keeper":  "docs\\gallery\\golden_god_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\golden god quillan.jpg",
+        "sha256":  "16122563937B7F86C8A00BDE8482E0229EA70E62EE77DF94F67897C5AE54A1CE",
+        "bytes":  410880,
+        "keeper":  "docs\\gallery\\golden_god_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\extension-icon-source.png",
+        "sha256":  "D82DDFBAFA47A5DF0344D6E64286301F11D64699BF5DF62773C75ACC8F56A412",
+        "bytes":  1401740,
+        "keeper":  "docs\\gallery\\generated-image.png"
+    },
+    {
+        "path":  "docs\\main-images\\extension-icon-source.png",
+        "sha256":  "D82DDFBAFA47A5DF0344D6E64286301F11D64699BF5DF62773C75ACC8F56A412",
+        "bytes":  1401740,
+        "keeper":  "docs\\gallery\\generated-image.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\self protrait of me.jpg",
+        "sha256":  "050116B5063AEB68CAD74BD64698F9AE5DB507424FE42B72141A0A75DCFCED9E",
+        "bytes":  381273,
+        "keeper":  "docs\\gallery\\self_protrait_of_me.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\self protrait of me.jpg",
+        "sha256":  "050116B5063AEB68CAD74BD64698F9AE5DB507424FE42B72141A0A75DCFCED9E",
+        "bytes":  381273,
+        "keeper":  "docs\\gallery\\self_protrait_of_me.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\trailer ronin.jpg",
+        "sha256":  "B42F2BAF3BB320CAB31B18D56CCEEC3398F361BC8A1798530BB0021383DB068C",
+        "bytes":  250082,
+        "keeper":  "docs\\gallery\\trailer_ronin.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\trailer ronin.jpg",
+        "sha256":  "B42F2BAF3BB320CAB31B18D56CCEEC3398F361BC8A1798530BB0021383DB068C",
+        "bytes":  250082,
+        "keeper":  "docs\\gallery\\trailer_ronin.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero and parts.png",
+        "sha256":  "DD85A66821DF7B25BA94CED9F8FAF7530FD6CDCB7C9CFA68867F12F86252B049",
+        "bytes":  8467546,
+        "keeper":  "docs\\gallery\\hero_and_parts.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\hero and parts.png",
+        "sha256":  "DD85A66821DF7B25BA94CED9F8FAF7530FD6CDCB7C9CFA68867F12F86252B049",
+        "bytes":  8467546,
+        "keeper":  "docs\\gallery\\hero_and_parts.png"
+    },
+    {
+        "path":  "docs\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero and parts.png",
+        "sha256":  "DD85A66821DF7B25BA94CED9F8FAF7530FD6CDCB7C9CFA68867F12F86252B049",
+        "bytes":  8467546,
+        "keeper":  "docs\\gallery\\hero_and_parts.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM.jpg",
+        "sha256":  "CA9C677E1CB4889DE73FA22A5E76547BB1E55EDC132A2C4661FA2DEA5B96E71C",
+        "bytes":  665643,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.jpg"
+    },
+    {
+        "path":  "docs\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM.jpg",
+        "sha256":  "CA9C677E1CB4889DE73FA22A5E76547BB1E55EDC132A2C4661FA2DEA5B96E71C",
+        "bytes":  665643,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_12_25_54_PM.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\samurai modeality.jpg",
+        "sha256":  "F0864C6CD9A02FC0646DEFD469C0AE9AB718963E14D023C9E15F24AF00D74DCB",
+        "bytes":  445049,
+        "keeper":  "docs\\gallery\\samurai_modeality.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\samurai modeality.jpg",
+        "sha256":  "F0864C6CD9A02FC0646DEFD469C0AE9AB718963E14D023C9E15F24AF00D74DCB",
+        "bytes":  445049,
+        "keeper":  "docs\\gallery\\samurai_modeality.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\road to hell.jpg",
+        "sha256":  "6424049128B6CA74BA207BAA87CD98A04CA59E7C1887D8CCDBA56E8DCAB1F217",
+        "bytes":  1986189,
+        "keeper":  "docs\\gallery\\road_to_hell.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\road to hell.jpg",
+        "sha256":  "6424049128B6CA74BA207BAA87CD98A04CA59E7C1887D8CCDBA56E8DCAB1F217",
+        "bytes":  1986189,
+        "keeper":  "docs\\gallery\\road_to_hell.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_01_39_14_PM.png",
+        "sha256":  "63B84BEBB908E506DA0AA86DF7ACD60FEE2313ABDD1D50A190A8DECF561C4126",
+        "bytes":  3233578,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_01_39_14_PM.png"
+    },
+    {
+        "path":  "docs\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 01_39_14 PM.png",
+        "sha256":  "63B84BEBB908E506DA0AA86DF7ACD60FEE2313ABDD1D50A190A8DECF561C4126",
+        "bytes":  3233578,
+        "keeper":  "docs\\gallery\\ChatGPT_Image_May_14_2026_01_39_14_PM.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\cityscape quillan.jpg",
+        "sha256":  "6447A5028F5472328AE3B93CA68AC800C9B5CBDF66F05400220FD9B5987D6E20",
+        "bytes":  402648,
+        "keeper":  "docs\\gallery\\cityscape_quillan.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\cityscape quillan.jpg",
+        "sha256":  "6447A5028F5472328AE3B93CA68AC800C9B5CBDF66F05400220FD9B5987D6E20",
+        "bytes":  402648,
+        "keeper":  "docs\\gallery\\cityscape_quillan.jpg"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\svgviewer-png-output (2).png",
+        "sha256":  "99C157D44561FA110F8C812E57E522C181BF1EB678C2FE49B407B13D0F60C411",
+        "bytes":  59025,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\svgviewer-png-output (2).png",
+        "sha256":  "99C157D44561FA110F8C812E57E522C181BF1EB678C2FE49B407B13D0F60C411",
+        "bytes":  59025,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_2.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\svgviewer-png-output_(2).png",
+        "sha256":  "99C157D44561FA110F8C812E57E522C181BF1EB678C2FE49B407B13D0F60C411",
+        "bytes":  59025,
+        "keeper":  "docs\\gallery\\svgviewer-png-output_2.png"
+    },
+    {
+        "path":  "docs\\06_Media\\images\\cyber moto.jpg",
+        "sha256":  "B6BA37627C7E0AA1E8E3BDE50C27CE02B96AE1A03CD8D20EA150D32F70AD2106",
+        "bytes":  386203,
+        "keeper":  "docs\\gallery\\cyber_moto.jpg"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\cyber moto.jpg",
+        "sha256":  "B6BA37627C7E0AA1E8E3BDE50C27CE02B96AE1A03CD8D20EA150D32F70AD2106",
+        "bytes":  386203,
+        "keeper":  "docs\\gallery\\cyber_moto.jpg"
+    }
+]

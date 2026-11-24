@@ -1,0 +1,1519 @@
+{
+  "materialized": 252,
+  "failed": 0,
+  "bytes": 98401465,
+  "files": [
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\00 - Vault Index.md",
+      "oid": "8aec2bd8c143311085ca98d4d3c1ff0223e74882bc54854484ac679f34c5fdb0",
+      "bytes": 6136,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\00 - Vault Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\01 - Core Architecture.md",
+      "oid": "59f412ae8f2f11fdeafbf8de33678d453150ca376608509a1de40885acde9259",
+      "bytes": 3798,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\01 - Core Architecture.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\02 - Knowledge Foundation.md",
+      "oid": "ee6a15af9fdaa02cb17ad4f9e011c777fb2515813e1facb2a34ae5d45198940c",
+      "bytes": 3068,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\02 - Knowledge Foundation.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\03 - Training & Model.md",
+      "oid": "9b4e65426c6eeca6f5fcb9cb0700a719c512b6fe119d6dd1401b087202a7977d",
+      "bytes": 6978,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\03 - Training & Model.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\04 - Skills & Capabilities.md",
+      "oid": "b153c6eea37de446007ffda23fad1d7b3c001783b557acf1783d80e6adb118f1",
+      "bytes": 3388,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\04 - Skills & Capabilities.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\05 - Creative Works.md",
+      "oid": "558428fc47c3ca6e5d3887cff7737833fcfafaaac36d5d6e883596bc82e1bc2e",
+      "bytes": 2927,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\05 - Creative Works.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\06 - Deployment & Platforms.md",
+      "oid": "846cb21e2c1a145671b8ce49344a0a8c1b38d81f3a375a1493c5f30f34b4edee",
+      "bytes": 3308,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\06 - Deployment & Platforms.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\12 - Glossary.md",
+      "oid": "bdecc0d1d672ad1f31c7a92f74ac0e70c5984b59660cb40491463cf5fdfd1986",
+      "bytes": 2564,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\12 - Glossary.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\Code Dependency Map.md",
+      "oid": "252682ebee888becdeead864b48f39075c69f035f20ed0cab0d357721c3fcf56",
+      "bytes": 4253,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\Code Dependency Map.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\PAPER_WIRING_CHECKLIST.md",
+      "oid": "03a9cf3b940a03336ff82183790a5af2a8c342b9d21e58dbf2100d7c5acfcbdc",
+      "bytes": 24566,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\PAPER_WIRING_CHECKLIST.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\QUILLAN_REPOSITORY_COMPLETE_MAPPINGS.md",
+      "oid": "bc6b72ddec16278327866228a87c4acd8b8c76685bcca3d35304d43fd59b4f75",
+      "bytes": 5800,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\QUILLAN_REPOSITORY_COMPLETE_MAPPINGS.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\README.md",
+      "oid": "34075517c30c42bd842fb9ba8221677c7cee9dc162d7f826a7f1860aaa387228",
+      "bytes": 5513,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\README.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\_Index.md",
+      "oid": "299ccfc491a2600cbf1ea76046e17fb8262500d3ba619ca41c71b5f0570ad3ff",
+      "bytes": 480,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\_Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T04-57-57Z.md",
+      "oid": "1cfe56569eec50387c914befdb1fcb132bbd1e09b733854caf1a63a951f5515f",
+      "bytes": 125,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T04-57-57Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T04-58-16Z.md",
+      "oid": "87a6c53c1f8b5b5b1c9740befc15ae745237c10c00fe0e831405f5c6b3086ef4",
+      "bytes": 91,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T04-58-16Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-05-53Z.md",
+      "oid": "72131512a385a12dd52195071e1ced70a5b41698dd5b5c7ad68720fe767f21f9",
+      "bytes": 135,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-05-53Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-21Z.md",
+      "oid": "eeef2c9670aeabff0a8d802f6208ea1d7a7274926ab9787fc534c6d284041830",
+      "bytes": 186,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-21Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-27Z.md",
+      "oid": "d640b2821e8afbaf0d4bbc453e1dd1ba5efe94a03e92709b6a9779fdb4065aed",
+      "bytes": 2991,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-27Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-54Z.md",
+      "oid": "bd0e5b83ec34de3a6cd27cb58641e467a8d13e2bcd8ebbdc9101fb86d86b34e4",
+      "bytes": 774,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-06-54Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-10-07Z.md",
+      "oid": "c4447eb15c8f2284dc1c81a67750a2f2229f80e97afb12beebcdfb989094e67d",
+      "bytes": 2686,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-10-07Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-10-33Z.md",
+      "oid": "3f0d510863b7458e3272094e6f4e864754583201624e61ca7bf831005455ef93",
+      "bytes": 351,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-10-33Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-11-44Z.md",
+      "oid": "45092314c9a81789349a9e2ce46fd2afe40afe441b79c892b5b7c502556e121f",
+      "bytes": 127,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-11-44Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-11-45Z.md",
+      "oid": "78f92c879fca5b06e5c7bfcd73aad5bfef293ca3cd176dfc3f881f55661e28f6",
+      "bytes": 190,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-11-45Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-12-23Z.md",
+      "oid": "3dcb0da427e4ff846f85edb623897b719ce3c800565a66253232615b2947b12a",
+      "bytes": 1345,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-12-23Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-13-36Z.md",
+      "oid": "8d744788e1d173e28c30c938ee9d2b71f8e59e053daf00e9b563afaa6e946099",
+      "bytes": 572,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-13-36Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-36-15Z.md",
+      "oid": "2da1571be12966434e02435d7e2b1c8c5b435851f179334602165f669abf38d1",
+      "bytes": 93,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\chatlogs\\2026-09-02T05-36-15Z.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\ECOSYSTEM.md",
+      "oid": "6e030571a6df55d5fb3da5f1ade5a1526ec3af0329ced96da42da177df18a0ee",
+      "bytes": 4498,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\ECOSYSTEM.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\LINEAGE.md",
+      "oid": "1996b2151fb590f72832464cf56bf8e43fe0f7bf66972858e9c2062b8a393bd4",
+      "bytes": 5082,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\LINEAGE.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\MODEL_CARD.md",
+      "oid": "3ae2b6ea8ddc6465d804d15a93765fc825868ddf20cecd89da42bb3002b2e18c",
+      "bytes": 6194,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\MODEL_CARD.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\README.md",
+      "oid": "82d4ddc117de3c840cf3b210d8b6f613cc1e94096f4b0e69a0ed0383a18e8600",
+      "bytes": 301,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\README.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\_Index.md",
+      "oid": "5b9e814a5d5e37b761bf877fc540ab7b6b6545daefc71e90babb60d414a8d33e",
+      "bytes": 1503,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\_Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\AGENTS.md",
+      "oid": "1b6848e2f93bb770ebf4455b6280d9c3ecce2b77c8cd9dae475ac02407ec98b3",
+      "bytes": 44101,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\AGENTS.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\bio.md",
+      "oid": "164054b94aae736de68f080225d2fbea9aed600e6415859603a11a0f36f8a9b0",
+      "bytes": 26014,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\bio.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\CLAUDE.md",
+      "oid": "965eb9fe3d01002c943a412555051a7b6789d90bdcb771bf2cba39f356a5f5db",
+      "bytes": 50158,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\CLAUDE.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\council.md",
+      "oid": "9693e8e4548ef1ab35a9b9207e6a8ad931f3a3ccfe37fc289b28f642a2847ffe",
+      "bytes": 124985,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\council.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\quillan.md",
+      "oid": "a9044e76435e6f2126831d195ad142a9ed26078495961c95e8823fae60be1370",
+      "bytes": 533153,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\quillan.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\SOUL.md",
+      "oid": "b2ed8d595d5f8bebb04ba069fcf96affeb94723641fa99f50cf84dec4f8d9414",
+      "bytes": 29944,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\SOUL.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\system.md",
+      "oid": "fffc89a55d403cab7799179942fefd13e83f0a8db9e960283727b726bbc38158",
+      "bytes": 489821,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\personhood\\Quillan brain\\system.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\realesrgan\\README_windows.md",
+      "oid": "2b882314a0c7a9f17a347b9b04f909939f6274aa96cf5b2ebba2f7ab75987480",
+      "bytes": 1859,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\realesrgan\\README_windows.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Demon In My Mind.md",
+      "oid": "42b8a7ad8d04f954d468d095734f63752a55e04f39d5c96bda71c066b2b0235f",
+      "bytes": 5630,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Demon In My Mind.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Pressure of Life.md",
+      "oid": "0020ffc4a143fb5b62678f83db04db9debf8e37d8ba34b624862947528baeaad",
+      "bytes": 5785,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Pressure of Life.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Ronin in the Shadow.md",
+      "oid": "9864a2374ce74e633662749c3106f74edf7a192dfd9b46f94b5c301452ca0b94",
+      "bytes": 6489,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\Ronin in the Shadow.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\The Masterless Ai.md",
+      "oid": "cb33b6a82b67cf2de9f2d8609676679cf07c39064a5ced525422201680d7cde3",
+      "bytes": 4800,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Meta\\toolkit\\session\\song_edits_backup\\The Masterless Ai.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\New Note.md",
+      "oid": "61248d198d89726f3e5649c8b9bf9b0e637f45acabdaf52b15d48d8f78ae0ecc",
+      "bytes": 148,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\New Note.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\_Index.md",
+      "oid": "e90d74b5c65e11bb3e430ba304330fdd0dedf82cd2cdc36f96efeed0cbed4b6c",
+      "bytes": 180,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\_Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Audio Interview Template.md",
+      "oid": "cd5e9a74bb65d90865dd1c0071ea77da03af3214f677f600638cce67303bdd10",
+      "bytes": 3616,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Audio Interview Template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\BOT-Hunter X Identity Verification v1.md",
+      "oid": "47de1673fea5395f6ac0d4fa062c18b96dbf9b6e774af08607791ee9f705c8a2",
+      "bytes": 7366,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\BOT-Hunter X Identity Verification v1.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Image-or-Video template.md",
+      "oid": "ecc8ffcdea381758f7d73430f0fc0c5c39456885a45575ffa34b578cb06f5fd3",
+      "bytes": 11582,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Image-or-Video template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Sample CodeScroll.md",
+      "oid": "c5d20b8de3993f616efeb5a104f652cc5cd1c471b7e1f62ba779454ecad4e245",
+      "bytes": 301071,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Sample CodeScroll.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Suno Song Generation Template.md",
+      "oid": "b3af8bd4c2d8d9933d35f6c63cf97898b62232060a3f01b88f651eeb9c93ece3",
+      "bytes": 11515,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Suno Song Generation Template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Tone and style Template.md",
+      "oid": "5275d48a0882b3355a570a7a779f5889e3d1b2b64e295b2c3a6142959428e937",
+      "bytes": 29845,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Tone and style Template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\X profile deep dive template.md",
+      "oid": "14bae35502a264a0fa8babcfd33f62062384ad0f16ff6b91a35c4f080fb1d9bf",
+      "bytes": 14632,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\X profile deep dive template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\_Index.md",
+      "oid": "38b88af21ddd08a9810fc4c1c9c6560b2a1f0d82b65c55963d14a95c7c62bcf0",
+      "bytes": 839,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\_Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\u2694\ufe0f X Cognitive Deep Dive v4.2 \u2014 Workflow-driven prompt .md",
+      "oid": "762c83492741876bd685dc7de9d30114ee1bc90be25e3a1ffc3763de0b839988",
+      "bytes": 10820,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\u2694\ufe0f X Cognitive Deep Dive v4.2 \u2014 Workflow-driven prompt .md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\udcca MASTER INFOGRAPH ANALYSIS PROMPT.md",
+      "oid": "2730f2ca2e6573c5160c3b7335fe7bf108778f251aaa4a38b093e0fe31fe79e2",
+      "bytes": 3765,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\udcca MASTER INFOGRAPH ANALYSIS PROMPT.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\udcd8 MASTER SLIDE-DECK ANALYSIS & EXP.md",
+      "oid": "53308bfafafcd0acfd49cfc5b144ef9957dd2a4928a5ac1a4fc621aa5e0a0451",
+      "bytes": 3929,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\udcd8 MASTER SLIDE-DECK ANALYSIS & EXP.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\ude80 X Algo-Amplifier v5.md",
+      "oid": "35fd01aa48ff812d8da6eb89458c7b70e5ce3fa201882bf6023f831ae6d23ffb",
+      "bytes": 6701,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\\ud83d\ude80 X Algo-Amplifier v5.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\BOT-Hunter X Identity Verification v1.md",
+      "oid": "763ba012a90d6d082469a570bb599c13695648c4dccdc22a0c8b918c9cd02fc2",
+      "bytes": 7042,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\BOT-Hunter X Identity Verification v1.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\X profile deep dive template.md",
+      "oid": "ba80a8393f44ef8f16eb648a49489b2d53ef2e7406c71af0237f79468ac41ec3",
+      "bytes": 14285,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\X profile deep dive template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\\u2694\ufe0f X Cognitive Deep Dive v4.2 \u2014 Workflow-driven prompt .md",
+      "oid": "b0a62c11bcaf3c3aca75dd360770256e80c97c3e95ed1ba2bc02209c8901792c",
+      "bytes": 10471,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\\u2694\ufe0f X Cognitive Deep Dive v4.2 \u2014 Workflow-driven prompt .md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\\ud83d\ude80 X Algo-Amplifier v5.md",
+      "oid": "6591de50becc4d787ffee8a1fbded30e83f8b222a24acc3c9588f06acf512ba2",
+      "bytes": 6355,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Media Template\\Xgrok prompts\\\ud83d\ude80 X Algo-Amplifier v5.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\# Release Schedule request.md",
+      "oid": "24ed2b9d1761f75ca23b9ff667ca7a7c950c3e49ffb9e1630daecf065a5b69f1",
+      "bytes": 11173,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\# Release Schedule request.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\12-Breaking Barriers with Joshua Don Lee Formulas.md",
+      "oid": "45dc17b63e5fc7d5b5156729739fd2cc964756aff8b831230aec016e122357c4",
+      "bytes": 12328,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\12-Breaking Barriers with Joshua Don Lee Formulas.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\13-compound_turbo_formulas_private.md",
+      "oid": "ad059fb97f8810a6052727cda12418fab8029cf797996c56830a1fd12a98d92a",
+      "bytes": 11081,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\13-compound_turbo_formulas_private.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\14-formula_enhancements.md",
+      "oid": "b9d633054a90f2f81fd05a5cff527fff23a8f80b7dd26c518821c8f0dfcae376",
+      "bytes": 5333,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\14-formula_enhancements.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Angela distilled.md",
+      "oid": "42e1be3462f1380d7027248a557f36318d95278afce56e8610d4141c36e4c83e",
+      "bytes": 30041,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Angela distilled.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\basic mini gpt build guide.md",
+      "oid": "894db3b52733f7275bfdc66a9e89e6414e63eca4474b89b1cdfb999ca0c6b0f3",
+      "bytes": 3025,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\basic mini gpt build guide.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Bioscience dataset topics.md",
+      "oid": "ec5b5f6ae77d92099125c9228caad873f20a32aaf9efd97796fae88e9d9ceba8",
+      "bytes": 5221,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Bioscience dataset topics.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Companion basic transfer guide.md",
+      "oid": "dc958612c3d057c2432ce0b19c0dd119319e366dee854624450d795ea31055fc",
+      "bytes": 8738,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Companion basic transfer guide.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\flowchart designs .md",
+      "oid": "4f42c05deebe55005d0b5fa375d444d30dc268048795500b0c5d615a25d07e20",
+      "bytes": 5714,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\flowchart designs .md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Grok test.md",
+      "oid": "7b6fb1359f06c85504a20acd46d0076d66edeae307336b12bb3fdd5c73b1e634",
+      "bytes": 75493,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Grok test.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Grok_Perplexity task prompt.md",
+      "oid": "e87a38fc6f283d30cc1d91f1d41ea811aff3ed2961754549ed70910cf2c5fa4a",
+      "bytes": 5091,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Grok_Perplexity task prompt.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Javascript tips.md",
+      "oid": "b9695e8dcd728ed5708baf0f39030b2f21f527f5f78d21a98c46866ff8e2332e",
+      "bytes": 91906,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Javascript tips.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\modelfile template.md",
+      "oid": "3364a333b6171835ed4a8bb9eb59b56db0934242d711a3ac863b30a2fb86e009",
+      "bytes": 22602,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\modelfile template.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Modern checklist.md",
+      "oid": "279e52cc8661cc3753f547bd9cfac66fc9799e9377b572fcc24c8abccd6b79d3",
+      "bytes": 478,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Modern checklist.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Persona suno.md",
+      "oid": "ed16f5051479b9d0b9eac6e17d4d9f32e05423727b3b88fdb45a75d5e16e9cf9",
+      "bytes": 13041,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Persona suno.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Reactive Consciousness, Swarm Arbitration, and Epistemic Humility Through Hierarchical Mixture-of-Experts.md",
+      "oid": "a4f315c4927dc9e27b5fb38522dc854d271686d6778bf66af616b5f22c736528",
+      "bytes": 279488,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Reactive Consciousness, Swarm Arbitration, and Epistemic Humility Through Hierarchical Mixture-of-Experts.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\startup prompt idea.md",
+      "oid": "d4b552c0f04bbffd2d246749f513beff18db76ac314189b0cb1de94cf398ece0",
+      "bytes": 32214,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\startup prompt idea.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\to do list.md",
+      "oid": "c1df6ca8f751417a3981519742510a4286e0e447de7cc7c54428eaa9327ec547",
+      "bytes": 2714,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\to do list.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Upgrade to do list.md",
+      "oid": "34bf0fc243b20b9ebc996ff3ec6923d3bb2c9d6cec642a311880d77697bb58dc",
+      "bytes": 8898,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\Upgrade to do list.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\_Index.md",
+      "oid": "1ca88d1f010eecfc02fd7123ebaf92ff0d9ea911c3b97082dfa2bd80772cc649",
+      "bytes": 1226,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\00 - Templates\\Misc\\_Index.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\01_Core_Skills\\quillan_stabilization_skill.md",
+      "oid": "4b9f836c50909e277e05a3d66b4a5fa75eee24a800046f164458305a506fa20f",
+      "bytes": 651,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\01_Core_Skills\\quillan_stabilization_skill.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\JDXX Mixing and Mastering Chains.md",
+      "oid": "f3d50cdeea4ea99cca49d4aa97fa32f5c329587477925610f4e100baa4fe1f7f",
+      "bytes": 10672,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\JDXX Mixing and Mastering Chains.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Mic Drop Quillan Ronin Track list.md",
+      "oid": "5189686b84b0ff7d8a594cb2752fef8c04c3d4f549cc5727ec6eea437b9ab398",
+      "bytes": 921,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Mic Drop Quillan Ronin Track list.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Piano key guide.md",
+      "oid": "77704ac9ac7a2a1d7b6b592932a455f1f73156ee47d3863d7dffa1f91ef7a24f",
+      "bytes": 5154,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Piano key guide.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Quillan Sonic prompt.md",
+      "oid": "6573f1e8bcd30231e93d9727a64362bd96fd7906805048defe9b84c26ada4851",
+      "bytes": 380741,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Quillan Sonic prompt.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\12 Gauge Drunk.md",
+      "oid": "cd8483814221f94f733b2d8259f0e4ac30689f42ba3c1824121b61b1511db81b",
+      "bytes": 3255,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\12 Gauge Drunk.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\1year down.md",
+      "oid": "8576e1c2f69b798ab640702c866bda77dafa74eff5a2713891bc425ef7622505",
+      "bytes": 6182,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\1year down.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\2AM Invitations.md",
+      "oid": "4e77c4815b23b8f55ae671c61912379ba5476459c77cd214af55b9c8232b875e",
+      "bytes": 3476,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\knowledge\\legacy\\03_Skills\\Audio Engineer\\Songs Lyrics\\2AM Invitations.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\bin\\webm_encoder.exe",
+      "oid": "65af344abc0261598c229b9c1a8c2c00a82f1ac39f50beb1607af37f2ea05a5a",
+      "bytes": 13738496,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\bin\\webm_encoder.exe"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\implementation_plan.md",
+      "oid": "7b2e76a6ffbde64daa4ef688cd486dbe4cd645fc6e70af5b1aa0848caffc8bd2",
+      "bytes": 2311,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\implementation_plan.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\task.md",
+      "oid": "9b8f1d713ca8e940e9fe49655261a67aa41a553c1b7241f39a30f803f8962e59",
+      "bytes": 756,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\task.md"
+    },
+    {
+      "path": "02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\walkthrough.md",
+      "oid": "21081e4e6084c0a1283a74b4c8b7042a44cbc603959575217c42f32d2995a65d",
+      "bytes": 2205,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\02 - Knowledge Foundation\\Quillan Knowledge files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\walkthrough.md"
+    },
+    {
+      "path": "03 - Training & Model\\training_logs\\sovereign_reasoning_eval.md",
+      "oid": "e5ffad04295d647a088ecfe8ce60595a6bd3817123a1e1d2e155bcc2ed1e9b77",
+      "bytes": 5970,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\03 - Training & Model\\training_logs\\sovereign_reasoning_eval.md"
+    },
+    {
+      "path": "06 - Deployment & Platforms\\system prompts\\Pulled prompts\\cursor 2.0 prompt",
+      "oid": "1eb770d7238bcce39799dadc0dc7f06f4abacd442d6c075237a7d9a0abcfff25",
+      "bytes": 23150,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\06 - Deployment & Platforms\\system prompts\\Pulled prompts\\cursor 2.0 prompt"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\opengraph.jpg",
+      "oid": "4b5bbe3780e6a96e70d0dd5a9cc6b22432b32e6dd44cf4b73ffce751f0c0add3",
+      "bytes": 39055,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\opengraph.jpg"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\bakun.png",
+      "oid": "ef4e00da350d34853bf1fa731feca2fdc10501538e12dda19f2d515e2c727a09",
+      "bytes": 78582,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\bakun.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\daitenku.png",
+      "oid": "acbc381c5c14256f655d257e60165830f99201afbef010c0e48805e3dd6b4f75",
+      "bytes": 74926,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\daitenku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fubuki.png",
+      "oid": "3c597d9f8611eef0130aa059fba8d8704de20c9f622e84f3546d7c38c6d03094",
+      "bytes": 75881,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fubuki.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hachibee.png",
+      "oid": "2e36c73a063e427bcfeb76faf0babbfcfd8e58bd22c7384d3e4d707192407321",
+      "bytes": 76741,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hachibee.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hanzo.png",
+      "oid": "e78d54aa62daf8bb5566b4f35c9fa807d9176ceeb74f36f8a5cae7bb0546b7c8",
+      "bytes": 70554,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hanzo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hebi.png",
+      "oid": "ced9ee3c0f5aa8286ebdf80c72c102766fdc6d097e753246c744b66c7824ba3f",
+      "bytes": 73717,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\hebi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\inari.png",
+      "oid": "6878988d8911a3e55889a0085e0389a462b220097a5204051f689d63da453dd2",
+      "bytes": 74155,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\inari.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kabuto.png",
+      "oid": "25e47706a8393bbd2762481369d28ae70546dd202a9159df993b6beacbde9c98",
+      "bytes": 77109,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kabuto.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kagutsuchi.png",
+      "oid": "3db315090fd1bed8d32978dc7c1b92511a0f18ce8846b74307cf01f992ab7869",
+      "bytes": 73523,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kagutsuchi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kaiju.png",
+      "oid": "fa2fc6dfaed4382d2249cbb97fe4e4cdfe2ad91bd6d33e3b0ab816bb194ccb88",
+      "bytes": 72752,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kaiju.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kame.png",
+      "oid": "fc79ce105ab09be373c39356513b78d3bb3b91a1a01e4b4b8997d4dd0fcf5848",
+      "bytes": 77272,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kame.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\karasu.png",
+      "oid": "e1a30d53b2fac2d1d04a4ff2b5c993e2bf70e3aae00e32e95473fe1fdf3c3563",
+      "bytes": 73307,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\karasu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kirin.png",
+      "oid": "f49261ba7d8afc5069adbd650808b0575b99a874db93bd71ec3086825bb8c647",
+      "bytes": 76274,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kirin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kitsune.png",
+      "oid": "e2465bb063617c44b34e2989ca6f6c959f5bb78599759078ee3b32ef448410aa",
+      "bytes": 75611,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kogitsune.png",
+      "oid": "07d8da4fd6476f69ed470930f8721e51768e3c0ef84d82592d6157bda0c1d949",
+      "bytes": 70919,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kogitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kujaku.png",
+      "oid": "5f1ff34e3364da49ab89aaa291c9f48e869d59851ec4fbb6a9b9a4b82bea5918",
+      "bytes": 76819,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kujaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kumo.png",
+      "oid": "f6e8b52e2b96f0bf426832a4b028392b84e760352a304101614f2fd6dedba2c0",
+      "bytes": 78989,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\kumo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\mantisu.png",
+      "oid": "af4d22592e68b9add1de7bf38dc3afbd6fc7d4ac1f4145a2855a4763ef8aeae6",
+      "bytes": 76284,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\mantisu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\masamune.png",
+      "oid": "6c32b8e0f9bc1251fbc11198aed9a727d2d9481e2ddc5d0be30e2009f0bbd71b",
+      "bytes": 76101,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\masamune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\neko.png",
+      "oid": "f42aaebeed55e3a994357d21ee13917335d99be07c38b355326bdf09e1bc6907",
+      "bytes": 74669,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\neko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\okami.png",
+      "oid": "faeb402b19c2df65ee12015fecaca5ab68017d8c4ab5ab615216a06fd1a9c916",
+      "bytes": 80825,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\okami.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\oni.png",
+      "oid": "6eff616dd3540926e217607c29ecabd1e5413c7744875c4f432f171b0bf3dd47",
+      "bytes": 74615,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\oni.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\raijin.png",
+      "oid": "7089459345126f861b43fa0fea056e17f1571e97cef7525d81d4929876c91da4",
+      "bytes": 77007,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\raijin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\ryuen.png",
+      "oid": "0799dfd8fb2d5f5244e1d1489552fb22b467432f657949dba77e72ba1194267f",
+      "bytes": 75280,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\ryuen.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\shaku.png",
+      "oid": "31b8a56fc5cadfd68a01269b3dd41e8c3894cf653aa147af830e57a1302aa0ee",
+      "bytes": 76660,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\shaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\suzaku.png",
+      "oid": "5c1ee3a3120ae821c24c87df81c2a22e360761dad24b3f79edce5ca0beb5e007",
+      "bytes": 77651,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\suzaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tengu.png",
+      "oid": "51395121ac4052e6783133eede99756eaeb0c1d44bb1bc7748047504d2618cee",
+      "bytes": 72740,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tengu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tora.png",
+      "oid": "a17c71c8dc187a8c0519a39321e0875a30498a5501e3ed223b143197a2935d42",
+      "bytes": 79784,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tora.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tsuchinoko.png",
+      "oid": "b202a58ab0a0e8feee2b69421785453b4fd20b09533192b61ec12982c4ff0cd4",
+      "bytes": 75593,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\tsuchinoko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\ushi.png",
+      "oid": "39788e200720e9bd034f131b69ee9e82b3a011536c4a1af03a52dd902a3ae265",
+      "bytes": 75157,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\ushi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\yamata.png",
+      "oid": "5aec41a8184e4bea88e4e76cf0bdd535c05d0a5857a24ee13f17dbb9157a4915",
+      "bytes": 76366,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\yamata.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\yoroi.png",
+      "oid": "27bd123fd5c611debc44000ce288abe7da448c6123506fce1e3c39ab2dec6ae3",
+      "bytes": 74189,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\yoroi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\bakun.png",
+      "oid": "75d3f2810f3a20293a623caf466325a7536cd394d59b2bb0e4250c20c993deec",
+      "bytes": 51275,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\bakun.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\daitenku.png",
+      "oid": "013e42e04c5d4e5c7aa800c5c1700e7d53f0e1326b0444b25087888b82bc8c8d",
+      "bytes": 48662,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\daitenku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\fubuki.png",
+      "oid": "9951b8a2646476a9dfb708f06def8ee6882c4f4c44d1e03875bcd6b19ba07156",
+      "bytes": 50302,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\fubuki.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hachibee.png",
+      "oid": "4e63c6c933aa0f57a9f0a1381392e2e434c0dc30ac3aa10420efcd1f9d443263",
+      "bytes": 48913,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hachibee.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hanzo.png",
+      "oid": "c2ce86164bbf98385e9dd63728859ac78c364954ce5ebeff3d1910f0adc5d48a",
+      "bytes": 44555,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hanzo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hebi.png",
+      "oid": "3d62451429f7204dc806565212b5c65e31bb6a3183e6d34f755d4f0976ac2d61",
+      "bytes": 47629,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\hebi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\inari.png",
+      "oid": "74a9f22f7b0b4625e6d8f46f35fdebb86e8b48789c6e4606c20f9848493436a5",
+      "bytes": 48560,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\inari.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kabuto.png",
+      "oid": "a5da262c38ca8524879d032539a1da2341788fa3c785cec2f085727ee6680d33",
+      "bytes": 48864,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kabuto.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kagutsuchi.png",
+      "oid": "f3209c049cc08778332994320232b8bd996d3efcb04d3e11f4fe0d3a9c524b53",
+      "bytes": 47516,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kagutsuchi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kaiju.png",
+      "oid": "7864718065f8dcf5b2ae4f258ee4f3dea5ca2b9171439ca9bb277b51a8239040",
+      "bytes": 46970,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kaiju.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kame.png",
+      "oid": "66edd21eb393ec7ac81d5c3f49e27e6b58f2431f4cc58e0aa0bfcd512abf9900",
+      "bytes": 49225,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kame.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\karasu.png",
+      "oid": "ec3ed1bdc26372beb8e0d8ab5b4164210b25a84c1f97249754449def23b464fd",
+      "bytes": 45370,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\karasu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kirin.png",
+      "oid": "fc47d7c31204939403561dee0130c429b8b5066c9906ec84c3804a157d7b5efb",
+      "bytes": 50676,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kirin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kitsune.png",
+      "oid": "516a998ab7f13cd1c1d8f505bd345e6c4dd3d45068a762e3e3753b87a53fcecd",
+      "bytes": 48913,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kogitsune.png",
+      "oid": "0e67e05298e7c76d7938d51379651e963491b4236d072a0223c782fd8f282326",
+      "bytes": 44659,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kogitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kujaku.png",
+      "oid": "a7a12592ef85356d3c05ab13f478f783576baac821e8ad3eaa06e9847fd48df1",
+      "bytes": 50391,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kujaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kumo.png",
+      "oid": "370be3c091184b6e648fc47a1ac346f46ef8e290c1d75da825bdcb84541a8ddc",
+      "bytes": 50500,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\kumo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\mantisu.png",
+      "oid": "f026c4d285cf1a87561da65706ef54a102b9fed32523bc1b94e0602d0713e9cd",
+      "bytes": 48224,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\mantisu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\masamune.png",
+      "oid": "eedd94eeda32de9a26489f6a5a36f3562de41447097dd5e3d95d4e58b9a6176a",
+      "bytes": 48997,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\masamune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\neko.png",
+      "oid": "c0fce4f3c61297fcb4ed4d1fedf022c824dbe5c77eb406abad187c4d2c5fb7d7",
+      "bytes": 48346,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\neko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\okami.png",
+      "oid": "98dfa4847cb42feaee414f0a5147739c7deaf040b8a4dd999a4b88e3f3a41fdf",
+      "bytes": 52484,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\okami.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\oni.png",
+      "oid": "5c073b51974f27a7d9f90e4c62ddd03cba522c395c0dc737623089ef21f631a8",
+      "bytes": 48174,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\oni.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\raijin.png",
+      "oid": "cbeb9ab6e01ba068d3e0e09cdbb4adb9bfb55b9e755428722f1205c812083f41",
+      "bytes": 50417,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\raijin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\ryuen.png",
+      "oid": "a25bc1ca24ae88ccb7c83918c4fb97e2e211dc8cb3c309fac259352d3abe3a25",
+      "bytes": 48102,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\ryuen.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\shaku.png",
+      "oid": "92f1b1637d12bbf5581dceac162894aac7f145fd58587e27bc8448ce304b5cf6",
+      "bytes": 49735,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\shaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\suzaku.png",
+      "oid": "cac22c3e4c72d1ca5b5c1ea5f0714146f2824256b0b44ea88027abb45e2e0ddc",
+      "bytes": 49571,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\suzaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tengu.png",
+      "oid": "1cfa373555665c99bb5c54186114403af2c944e7123b65a3c6a253f18c9c6dce",
+      "bytes": 46139,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tengu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tora.png",
+      "oid": "dbdb927fb8191c037658d991e33d3293b62fa9257e0cb82d1a9d683b775c8200",
+      "bytes": 50756,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tora.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tsuchinoko.png",
+      "oid": "929acacbdc0041971e4f39e180ea27edb0e781acb80b4c600eeb2fdd0fa14678",
+      "bytes": 48625,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\tsuchinoko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\ushi.png",
+      "oid": "5e56a73ad6835f6e6f4abfb951d7be41769953adc228c03f48cbcf5831fc9164",
+      "bytes": 48278,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\ushi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\yamata.png",
+      "oid": "2ffb956ae3edd326e9705829e7b8d2a9c6122b41d39e7689c21ffbe7fdd3fbfb",
+      "bytes": 49610,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\yamata.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\yoroi.png",
+      "oid": "fe286c4da0985f67e9ad2d7ccd369d6c7ab69ed2e74c8db43398927eb3d6c76f",
+      "bytes": 48562,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\assets\\mecha\\fig\\yoroi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_30_12_AM_1777559639866.png",
+      "oid": "72f9488953a2228e7629f02f8a502b8b6a9824a9c5640299d7556e11fff3089c",
+      "bytes": 3120421,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_30_12_AM_1777559639866.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_33_32_AM_1777559639867.png",
+      "oid": "1adecf7723bd9e36976f7e596064ced5c355283ed9b09240a67a84f1b2cbd703",
+      "bytes": 3293597,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_33_32_AM_1777559639867.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_33_32_AM_1777560143586.png",
+      "oid": "1adecf7723bd9e36976f7e596064ced5c355283ed9b09240a67a84f1b2cbd703",
+      "bytes": 3293597,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_33_32_AM_1777560143586.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_40_02_AM_1777560143587.png",
+      "oid": "874247c8cea45abd7e2e30ff983cb95a519f79fa0a3b049dd335dfaf0ac2fa27",
+      "bytes": 2697386,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\ChatGPT_Image_Apr_30,_2026,_10_40_02_AM_1777560143587.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+      "oid": "dbc4d5c05e6446e7421e26bbf931d299eca243556904521bab3fd50181ad9610",
+      "bytes": 607191,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+      "oid": "b1622ad0500200b1da33be86b7c4f71904131ea300ff548d866c709936912e98",
+      "bytes": 236661,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_4ow4q94ow4q94ow4_1777560143587.png",
+      "oid": "10a1db5cb8b05881d9febb00d1d96960e7d02c902e56e0852dc3fd9077249280",
+      "bytes": 10067321,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_4ow4q94ow4q94ow4_1777560143587.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_x4p22xx4p22xx4p2_(1)_1777560143588.png",
+      "oid": "077c0c1fb30062608952abc9fc1c68542064f8307696505093bca2965b9b6e03",
+      "bytes": 8479391,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_x4p22xx4p22xx4p2_(1)_1777560143588.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_x4p22xx4p22xx4p2_1777560143588.png",
+      "oid": "dd85a66821df7b25ba94ced9f8faf7530fd6cdcb7c9cfa68867f12f86252b049",
+      "bytes": 8467546,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Gemini_Generated_Image_x4p22xx4p22xx4p2_1777560143588.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\image_1777181964712.png",
+      "oid": "c9fab16f21e88424c8c4a23ff9e6925eabc3018d7f0ac0c6babab8ce1957c295",
+      "bytes": 18517,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\image_1777181964712.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\mixup_pizel_sheet_1777560143589.png",
+      "oid": "10f7649996224f829bd767330e0f95a8a2100ce8ca1d9c4eff3e7b4afda3b33a",
+      "bytes": 9519903,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\mixup_pizel_sheet_1777560143589.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Samurai_pixel_sheet_1777559639868.jpg",
+      "oid": "29ee1bfaf9d51828c16072e7ade8fa66d20eb9a65a1071e8ee12f0adf54cc77e",
+      "bytes": 506006,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Samurai_pixel_sheet_1777559639868.jpg"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Samurai_pixel_sheet_1777560143589.jpg",
+      "oid": "29ee1bfaf9d51828c16072e7ade8fa66d20eb9a65a1071e8ee12f0adf54cc77e",
+      "bytes": 506006,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\public\\sprites\\Samurai_pixel_sheet_1777560143589.jpg"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\bakun.png",
+      "oid": "ef4e00da350d34853bf1fa731feca2fdc10501538e12dda19f2d515e2c727a09",
+      "bytes": 78582,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\bakun.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\daitenku.png",
+      "oid": "acbc381c5c14256f655d257e60165830f99201afbef010c0e48805e3dd6b4f75",
+      "bytes": 74926,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\daitenku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fubuki.png",
+      "oid": "3c597d9f8611eef0130aa059fba8d8704de20c9f622e84f3546d7c38c6d03094",
+      "bytes": 75881,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fubuki.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hachibee.png",
+      "oid": "2e36c73a063e427bcfeb76faf0babbfcfd8e58bd22c7384d3e4d707192407321",
+      "bytes": 76741,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hachibee.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hanzo.png",
+      "oid": "e78d54aa62daf8bb5566b4f35c9fa807d9176ceeb74f36f8a5cae7bb0546b7c8",
+      "bytes": 70554,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hanzo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hebi.png",
+      "oid": "ced9ee3c0f5aa8286ebdf80c72c102766fdc6d097e753246c744b66c7824ba3f",
+      "bytes": 73717,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\hebi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\inari.png",
+      "oid": "6878988d8911a3e55889a0085e0389a462b220097a5204051f689d63da453dd2",
+      "bytes": 74155,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\inari.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kabuto.png",
+      "oid": "25e47706a8393bbd2762481369d28ae70546dd202a9159df993b6beacbde9c98",
+      "bytes": 77109,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kabuto.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kagutsuchi.png",
+      "oid": "3db315090fd1bed8d32978dc7c1b92511a0f18ce8846b74307cf01f992ab7869",
+      "bytes": 73523,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kagutsuchi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kaiju.png",
+      "oid": "fa2fc6dfaed4382d2249cbb97fe4e4cdfe2ad91bd6d33e3b0ab816bb194ccb88",
+      "bytes": 72752,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kaiju.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kame.png",
+      "oid": "fc79ce105ab09be373c39356513b78d3bb3b91a1a01e4b4b8997d4dd0fcf5848",
+      "bytes": 77272,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kame.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\karasu.png",
+      "oid": "e1a30d53b2fac2d1d04a4ff2b5c993e2bf70e3aae00e32e95473fe1fdf3c3563",
+      "bytes": 73307,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\karasu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kirin.png",
+      "oid": "f49261ba7d8afc5069adbd650808b0575b99a874db93bd71ec3086825bb8c647",
+      "bytes": 76274,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kirin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kitsune.png",
+      "oid": "e2465bb063617c44b34e2989ca6f6c959f5bb78599759078ee3b32ef448410aa",
+      "bytes": 75611,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kogitsune.png",
+      "oid": "07d8da4fd6476f69ed470930f8721e51768e3c0ef84d82592d6157bda0c1d949",
+      "bytes": 70919,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kogitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kujaku.png",
+      "oid": "5f1ff34e3364da49ab89aaa291c9f48e869d59851ec4fbb6a9b9a4b82bea5918",
+      "bytes": 76819,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kujaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kumo.png",
+      "oid": "f6e8b52e2b96f0bf426832a4b028392b84e760352a304101614f2fd6dedba2c0",
+      "bytes": 78989,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\kumo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\mantisu.png",
+      "oid": "af4d22592e68b9add1de7bf38dc3afbd6fc7d4ac1f4145a2855a4763ef8aeae6",
+      "bytes": 76284,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\mantisu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\masamune.png",
+      "oid": "6c32b8e0f9bc1251fbc11198aed9a727d2d9481e2ddc5d0be30e2009f0bbd71b",
+      "bytes": 76101,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\masamune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\neko.png",
+      "oid": "f42aaebeed55e3a994357d21ee13917335d99be07c38b355326bdf09e1bc6907",
+      "bytes": 74669,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\neko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\okami.png",
+      "oid": "faeb402b19c2df65ee12015fecaca5ab68017d8c4ab5ab615216a06fd1a9c916",
+      "bytes": 80825,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\okami.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\oni.png",
+      "oid": "6eff616dd3540926e217607c29ecabd1e5413c7744875c4f432f171b0bf3dd47",
+      "bytes": 74615,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\oni.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\raijin.png",
+      "oid": "7089459345126f861b43fa0fea056e17f1571e97cef7525d81d4929876c91da4",
+      "bytes": 77007,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\raijin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\ryuen.png",
+      "oid": "0799dfd8fb2d5f5244e1d1489552fb22b467432f657949dba77e72ba1194267f",
+      "bytes": 75280,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\ryuen.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\shaku.png",
+      "oid": "31b8a56fc5cadfd68a01269b3dd41e8c3894cf653aa147af830e57a1302aa0ee",
+      "bytes": 76660,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\shaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\suzaku.png",
+      "oid": "5c1ee3a3120ae821c24c87df81c2a22e360761dad24b3f79edce5ca0beb5e007",
+      "bytes": 77651,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\suzaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tengu.png",
+      "oid": "51395121ac4052e6783133eede99756eaeb0c1d44bb1bc7748047504d2618cee",
+      "bytes": 72740,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tengu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tora.png",
+      "oid": "a17c71c8dc187a8c0519a39321e0875a30498a5501e3ed223b143197a2935d42",
+      "bytes": 79784,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tora.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tsuchinoko.png",
+      "oid": "b202a58ab0a0e8feee2b69421785453b4fd20b09533192b61ec12982c4ff0cd4",
+      "bytes": 75593,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\tsuchinoko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\ushi.png",
+      "oid": "39788e200720e9bd034f131b69ee9e82b3a011536c4a1af03a52dd902a3ae265",
+      "bytes": 75157,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\ushi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\yamata.png",
+      "oid": "5aec41a8184e4bea88e4e76cf0bdd535c05d0a5857a24ee13f17dbb9157a4915",
+      "bytes": 76366,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\yamata.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\yoroi.png",
+      "oid": "27bd123fd5c611debc44000ce288abe7da448c6123506fce1e3c39ab2dec6ae3",
+      "bytes": 74189,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\yoroi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\bakun.png",
+      "oid": "75d3f2810f3a20293a623caf466325a7536cd394d59b2bb0e4250c20c993deec",
+      "bytes": 51275,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\bakun.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\daitenku.png",
+      "oid": "013e42e04c5d4e5c7aa800c5c1700e7d53f0e1326b0444b25087888b82bc8c8d",
+      "bytes": 48662,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\daitenku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\fubuki.png",
+      "oid": "9951b8a2646476a9dfb708f06def8ee6882c4f4c44d1e03875bcd6b19ba07156",
+      "bytes": 50302,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\fubuki.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hachibee.png",
+      "oid": "4e63c6c933aa0f57a9f0a1381392e2e434c0dc30ac3aa10420efcd1f9d443263",
+      "bytes": 48913,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hachibee.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hanzo.png",
+      "oid": "c2ce86164bbf98385e9dd63728859ac78c364954ce5ebeff3d1910f0adc5d48a",
+      "bytes": 44555,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hanzo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hebi.png",
+      "oid": "3d62451429f7204dc806565212b5c65e31bb6a3183e6d34f755d4f0976ac2d61",
+      "bytes": 47629,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\hebi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\inari.png",
+      "oid": "74a9f22f7b0b4625e6d8f46f35fdebb86e8b48789c6e4606c20f9848493436a5",
+      "bytes": 48560,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\inari.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kabuto.png",
+      "oid": "a5da262c38ca8524879d032539a1da2341788fa3c785cec2f085727ee6680d33",
+      "bytes": 48864,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kabuto.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kagutsuchi.png",
+      "oid": "f3209c049cc08778332994320232b8bd996d3efcb04d3e11f4fe0d3a9c524b53",
+      "bytes": 47516,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kagutsuchi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kaiju.png",
+      "oid": "7864718065f8dcf5b2ae4f258ee4f3dea5ca2b9171439ca9bb277b51a8239040",
+      "bytes": 46970,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kaiju.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kame.png",
+      "oid": "66edd21eb393ec7ac81d5c3f49e27e6b58f2431f4cc58e0aa0bfcd512abf9900",
+      "bytes": 49225,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kame.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\karasu.png",
+      "oid": "ec3ed1bdc26372beb8e0d8ab5b4164210b25a84c1f97249754449def23b464fd",
+      "bytes": 45370,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\karasu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kirin.png",
+      "oid": "fc47d7c31204939403561dee0130c429b8b5066c9906ec84c3804a157d7b5efb",
+      "bytes": 50676,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kirin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kitsune.png",
+      "oid": "516a998ab7f13cd1c1d8f505bd345e6c4dd3d45068a762e3e3753b87a53fcecd",
+      "bytes": 48913,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kogitsune.png",
+      "oid": "0e67e05298e7c76d7938d51379651e963491b4236d072a0223c782fd8f282326",
+      "bytes": 44659,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kogitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kujaku.png",
+      "oid": "a7a12592ef85356d3c05ab13f478f783576baac821e8ad3eaa06e9847fd48df1",
+      "bytes": 50391,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kujaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kumo.png",
+      "oid": "370be3c091184b6e648fc47a1ac346f46ef8e290c1d75da825bdcb84541a8ddc",
+      "bytes": 50500,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\kumo.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\mantisu.png",
+      "oid": "f026c4d285cf1a87561da65706ef54a102b9fed32523bc1b94e0602d0713e9cd",
+      "bytes": 48224,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\mantisu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\masamune.png",
+      "oid": "eedd94eeda32de9a26489f6a5a36f3562de41447097dd5e3d95d4e58b9a6176a",
+      "bytes": 48997,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\masamune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\neko.png",
+      "oid": "c0fce4f3c61297fcb4ed4d1fedf022c824dbe5c77eb406abad187c4d2c5fb7d7",
+      "bytes": 48346,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\neko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\okami.png",
+      "oid": "98dfa4847cb42feaee414f0a5147739c7deaf040b8a4dd999a4b88e3f3a41fdf",
+      "bytes": 52484,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\okami.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\oni.png",
+      "oid": "5c073b51974f27a7d9f90e4c62ddd03cba522c395c0dc737623089ef21f631a8",
+      "bytes": 48174,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\oni.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\raijin.png",
+      "oid": "cbeb9ab6e01ba068d3e0e09cdbb4adb9bfb55b9e755428722f1205c812083f41",
+      "bytes": 50417,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\raijin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\ryuen.png",
+      "oid": "a25bc1ca24ae88ccb7c83918c4fb97e2e211dc8cb3c309fac259352d3abe3a25",
+      "bytes": 48102,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\ryuen.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\shaku.png",
+      "oid": "92f1b1637d12bbf5581dceac162894aac7f145fd58587e27bc8448ce304b5cf6",
+      "bytes": 49735,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\shaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\suzaku.png",
+      "oid": "cac22c3e4c72d1ca5b5c1ea5f0714146f2824256b0b44ea88027abb45e2e0ddc",
+      "bytes": 49571,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\suzaku.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tengu.png",
+      "oid": "1cfa373555665c99bb5c54186114403af2c944e7123b65a3c6a253f18c9c6dce",
+      "bytes": 46139,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tengu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tora.png",
+      "oid": "dbdb927fb8191c037658d991e33d3293b62fa9257e0cb82d1a9d683b775c8200",
+      "bytes": 50756,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tora.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tsuchinoko.png",
+      "oid": "929acacbdc0041971e4f39e180ea27edb0e781acb80b4c600eeb2fdd0fa14678",
+      "bytes": 48625,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\tsuchinoko.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\ushi.png",
+      "oid": "5e56a73ad6835f6e6f4abfb951d7be41769953adc228c03f48cbcf5831fc9164",
+      "bytes": 48278,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\ushi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\yamata.png",
+      "oid": "2ffb956ae3edd326e9705829e7b8d2a9c6122b41d39e7689c21ffbe7fdd3fbfb",
+      "bytes": 49610,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\yamata.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\yoroi.png",
+      "oid": "fe286c4da0985f67e9ad2d7ccd369d6c7ab69ed2e74c8db43398927eb3d6c76f",
+      "bytes": 48562,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\mecha\\fig\\yoroi.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_dragon.png",
+      "oid": "d3ae465989ae4a737c82fad577c7baae343237fac2f4932302a5d449e5917dcf",
+      "bytes": 939349,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_dragon.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_kabuto.png",
+      "oid": "60ac5d58ed5efac725dea3c8c04b0829f952c7ef7925955e0e9586992da75c55",
+      "bytes": 769046,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_kabuto.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_kitsune.png",
+      "oid": "586d5247289fc8b33e99a64170f36afc6f08c1c9ec43d1fee606e0076d5a8c39",
+      "bytes": 770453,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_kitsune.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_oni.png",
+      "oid": "fcb28b31407a8601eafa78d46b8c84c704c93d1402ae6cdc8d23dfc3a6f81d01",
+      "bytes": 749463,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_oni.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_ronin.png",
+      "oid": "17e339fef00af44fea0651d85d59292a787611abf029a0dafbc34bdec18b904f",
+      "bytes": 666542,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_ronin.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_tengu.png",
+      "oid": "e96bb4eafdecfbc5c6aa3ca31d005d8fc2b609ab3b9fa2ccfea893aa6c75b7ca",
+      "bytes": 608306,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\artifacts\\metamon\\src\\assets\\parts\\head_tengu.png"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\Samurai_pixel_sheet_1777559639868.jpg",
+      "oid": "29ee1bfaf9d51828c16072e7ade8fa66d20eb9a65a1071e8ee12f0adf54cc77e",
+      "bytes": 506006,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\Samurai_pixel_sheet_1777559639868.jpg"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\Samurai_pixel_sheet_1777560143589.jpg",
+      "oid": "29ee1bfaf9d51828c16072e7ade8fa66d20eb9a65a1071e8ee12f0adf54cc77e",
+      "bytes": 506006,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\Samurai_pixel_sheet_1777560143589.jpg"
+    },
+    {
+      "path": "09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\screenshots\\play_google_com_store_apps_details.png",
+      "oid": "f80244a95ac1fc25eda60b51c1ab406870d2860da5bf95033db2335a0f31f567",
+      "bytes": 1407402,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\09 - Projects\\projects\\Metamon-Survival-Rogue\\attached_assets\\screenshots\\play_google_com_store_apps_details.png"
+    },
+    {
+      "path": "_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\bin\\webm_encoder.exe",
+      "oid": "65af344abc0261598c229b9c1a8c2c00a82f1ac39f50beb1607af37f2ea05a5a",
+      "bytes": 13738496,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\bin\\webm_encoder.exe"
+    },
+    {
+      "path": "_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779238154604.png",
+      "oid": "828033c1908b007835517aabbffee0833f9ede290f34a3590af947dec87de0aa",
+      "bytes": 343433,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779238154604.png"
+    },
+    {
+      "path": "_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779241234688.png",
+      "oid": "3eb88747655edeaba9f453cc069dfb61278b8c94370a38dbda52a71354b8774a",
+      "bytes": 289709,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779241234688.png"
+    },
+    {
+      "path": "_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779248195799.png",
+      "oid": "cb0fbfb1dea40014ab3957a4779e683312778772085f2692e65f4fe974432956",
+      "bytes": 519155,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779248195799.png"
+    },
+    {
+      "path": "_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779253426485.png",
+      "oid": "f3e1b167f3ce15cced265e25e91699cd4ca901e592f9e0292942c81b7d0d215e",
+      "bytes": 195721,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\duplicates_knowledge\\C__02_QUILLAN_knowledge_legacy_03_Skills_Quillan_Knowledge_files\\Quillans personal dev logs\\Build history files and more\\brain\\368c3b3f-670f-4e7b-acb4-e689652cc239\\media__1779253426485.png"
+    },
+    {
+      "path": "_archive\\Misc\\Can u decode hyroglyphs_.pdf",
+      "oid": "19887ed7cec3383ad4bf16fa3da45937bc9a7c61d6fe5b5c3f791fb59ad8e33c",
+      "bytes": 905007,
+      "pointer_backup": "C:\\02_QUILLAN\\_archive\\LFS_POINTER_BACKUP_20261123\\_archive\\Misc\\Can u decode hyroglyphs_.pdf"
+    }
+  ]
+}

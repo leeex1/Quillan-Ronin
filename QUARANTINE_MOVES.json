@@ -1,0 +1,2252 @@
+﻿[
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Sheisty_Mode_-_JDXX_JDXX_freestyle_hiphop_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Sheisty_Mode_-_JDXX_JDXX_freestyle_hiphop_JDXX_AI_Music.mp3",
+        "hash":  "DFAAF713B39B",
+        "bytes":  4906383,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Heartless_Blackcat_(Lead_Vocal).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Heartless_Blackcat_(Lead_Vocal).mp3",
+        "hash":  "390A19C4DAF9",
+        "bytes":  5670900,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Heartless_Blackcat__(Lead_Vocal).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Heartless_Blackcat__(Lead_Vocal).mp3",
+        "hash":  "390A19C4DAF9",
+        "bytes":  5670900,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Professional_Model_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Professional_Model_.mp3",
+        "hash":  "D4916F7527B5",
+        "bytes":  5517400,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Professional__Model_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Professional__Model_.mp3",
+        "hash":  "D4916F7527B5",
+        "bytes":  5517400,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Sevenfold_Torii_The_Councils_Fsllrn_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Sevenfold_Torii_The_Councils_Fsllrn_.mp3",
+        "hash":  "568A412E5875",
+        "bytes":  3386417,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\The_Darker_Side.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\The_Darker_Side.mp3",
+        "hash":  "81A9AB968541",
+        "bytes":  9101060,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\unnamed (2).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\unnamed (2).png",
+        "hash":  "60CB4EC4C0CA",
+        "bytes":  6388091,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\2_The_Promise_of_Time_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\2_The_Promise_of_Time_.mp3",
+        "hash":  "4FE22584589B",
+        "bytes":  6022644,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Southside_Houston.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Southside_Houston.flac",
+        "hash":  "4AAB4E8EA4DE",
+        "bytes":  28321134,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Armada_sonata.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Armada_sonata.mp3",
+        "hash":  "AB03DB299353",
+        "bytes":  5169899,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Moonlight_Mirage_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Moonlight_Mirage_.mp3",
+        "hash":  "10A237B6189E",
+        "bytes":  15055933,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Shine_Brighter.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Shine_Brighter.mp3",
+        "hash":  "DFA852F29BC9",
+        "bytes":  6905835,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Shattered_Through_the_Fire_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Shattered_Through_the_Fire_.mp3",
+        "hash":  "C761D74B0823",
+        "bytes":  12073795,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png",
+        "hash":  "B1622AD05002",
+        "bytes":  236661,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\12_Gauge_Drunk.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\12_Gauge_Drunk.mp3",
+        "hash":  "EC20C741FAD8",
+        "bytes":  10179395,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Ronin_Glitch_Army_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Ronin_Glitch_Army_.mp3",
+        "hash":  "A8DF07EEA1C9",
+        "bytes":  7486693,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Dreaming_in_the_Sky_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Dreaming_in_the_Sky_.mp3",
+        "hash":  "853A647CB0B4",
+        "bytes":  5451827,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).jpg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).jpg",
+        "hash":  "F7AEF9F3A717",
+        "bytes":  1990281,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).jpg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).jpg",
+        "hash":  "F7AEF9F3A717",
+        "bytes":  1990281,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_4.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_4.webp",
+        "hash":  "879819764917",
+        "bytes":  660134,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hellfire_Furnace_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hellfire_Furnace_.flac",
+        "hash":  "CBE82F7A6F93",
+        "bytes":  31296801,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Load_Me_Up_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Load_Me_Up_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "65B81C92E6A6",
+        "bytes":  5442196,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\bots and medals .png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\bots and medals .png",
+        "hash":  "10F764999622",
+        "bytes":  9519903,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-output (2).svg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-output (2).svg",
+        "hash":  "A585CA7176A9",
+        "bytes":  1839,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Prodigal_Son.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Prodigal_Son.mp3",
+        "hash":  "0D0F3279F00C",
+        "bytes":  6333076,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\medabots sprites\\DS___DSi_-_Medarot_DS_-_Miscellaneous_-_Medabots_1777559149405.png",
+        "hash":  "DBC4D5C05E64",
+        "bytes":  607191,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Extendo_Smoke_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Extendo_Smoke_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "DEDF090B5610",
+        "bytes":  5595421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_5.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_5.webp",
+        "hash":  "C61E9B12F4F2",
+        "bytes":  791616,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Quantize_these_Lightyears_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Quantize_these_Lightyears_.flac",
+        "hash":  "999975DCCE84",
+        "bytes":  26867579,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Fallen_Angel_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Fallen_Angel_.mp3",
+        "hash":  "9C6F2AB6C31D",
+        "bytes":  7377070,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_portrait_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_portrait_1.webp",
+        "hash":  "D1B2B0AF69E4",
+        "bytes":  648240,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Big_TX_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Big_TX_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "2D89731C3A22",
+        "bytes":  5608525,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\introduction_to_Lucifer.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\introduction_to_Lucifer.mp3",
+        "hash":  "1B4F03F8F756",
+        "bytes":  3226317,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\introduction__to_Lucifer.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\introduction__to_Lucifer.mp3",
+        "hash":  "1B4F03F8F756",
+        "bytes":  3226317,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Vengeance_Anthem.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Vengeance_Anthem.mp3",
+        "hash":  "C3DC7A6431B5",
+        "bytes":  3080884,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Born_To_Be_A_Spaceman.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Born_To_Be_A_Spaceman.flac",
+        "hash":  "3AECFB360610",
+        "bytes":  30887928,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Qv_J_Ovveride_exe.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Qv_J_Ovveride_exe.mp3",
+        "hash":  "FDCF6A2D2BE3",
+        "bytes":  5351269,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\We_Rolling_Deep_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\We_Rolling_Deep_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX.mp3",
+        "hash":  "3C51EA45CFC0",
+        "bytes":  5554168,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\style_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\style_1.mp3",
+        "hash":  "C84FE0F1B910",
+        "bytes":  7110529,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\style_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\style_1.mp3",
+        "hash":  "C84FE0F1B910",
+        "bytes":  7110529,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\style_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\style_1.mp3",
+        "hash":  "C84FE0F1B910",
+        "bytes":  7110529,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project.mp3",
+        "hash":  "EB73DB262227",
+        "bytes":  10900419,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Elemental_Avionics_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Elemental_Avionics_.mp3",
+        "hash":  "E52A4E0A6F63",
+        "bytes":  4181999,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Static_\u0026_Bone_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Static_\u0026_Bone_.mp3",
+        "hash":  "2990B38FAF3F",
+        "bytes":  9718595,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Static_and_Bone_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Static_and_Bone_.mp3",
+        "hash":  "2990B38FAF3F",
+        "bytes":  9718595,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Poisonous_Cycles_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Poisonous_Cycles_.mp3",
+        "hash":  "CF3096AF562B",
+        "bytes":  12171183,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Seas_of_Emotional_Re_initialization.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Seas_of_Emotional_Re_initialization.mp3",
+        "hash":  "CDB08644FFCA",
+        "bytes":  4799204,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Southside_Houston.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Southside_Houston.mp3",
+        "hash":  "2D572A3620B5",
+        "bytes":  6281814,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "hash":  "89E16F50F9A2",
+        "bytes":  31442000,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\test for freind\\New Project - Voice_Audio (1).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\test for freind\\New Project - Voice_Audio (1).wav",
+        "hash":  "89E16F50F9A2",
+        "bytes":  31442000,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "hash":  "89E16F50F9A2",
+        "bytes":  31442000,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio_(1).wav",
+        "hash":  "89E16F50F9A2",
+        "bytes":  31442000,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\test for freind\\New Project - Voice_Audio (1).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\test for freind\\New Project - Voice_Audio (1).wav",
+        "hash":  "89E16F50F9A2",
+        "bytes":  31442000,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Underground_Rapper_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Underground_Rapper_.flac",
+        "hash":  "09729913DF95",
+        "bytes":  26419484,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyberpunk_ronin_portrait_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyberpunk_ronin_portrait_1.webp",
+        "hash":  "D5C71381998E",
+        "bytes":  676964,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_ronin_trading_card_2.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_ronin_trading_card_2.webp",
+        "hash":  "BCDFD0C0275F",
+        "bytes":  639088,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\7.62_God_Remix_-_JDXX_Freestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\7.62_God_Remix_-_JDXX_Freestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "C49B6B6F0B36",
+        "bytes":  4437687,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Big_TX_-_JDXX_#JDXX_#freestyle_#lilbaby__JDXX__AI_Music_(Vocals).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Big_TX_-_JDXX_#JDXX_#freestyle_#lilbaby__JDXX__AI_Music_(Vocals).mp3",
+        "hash":  "1259A6F4773F",
+        "bytes":  9148323,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Big_TX_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music_(Vocals).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Big_TX_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music_(Vocals).mp3",
+        "hash":  "1259A6F4773F",
+        "bytes":  9148323,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\HUMAN_on_THE_BEAT.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\HUMAN_on_THE_BEAT.mp3",
+        "hash":  "7058B1C848F9",
+        "bytes":  10896240,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\me_2024.jpg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\me_2024.jpg",
+        "hash":  "CC879C1F691A",
+        "bytes":  60456,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Chimera_Flow_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Chimera_Flow_.mp3",
+        "hash":  "7DD27A67998F",
+        "bytes":  6811855,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_daemon_in_my_mind_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_daemon_in_my_mind_.mp3",
+        "hash":  "10A1655210FF",
+        "bytes":  11795852,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hi,_I\u0027m_the_Ronin_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hi,_I\u0027m_the_Ronin_.mp3",
+        "hash":  "A69BE8DD25AB",
+        "bytes":  5801272,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hi_Im_the_Ronin_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hi_Im_the_Ronin_.mp3",
+        "hash":  "A69BE8DD25AB",
+        "bytes":  5801272,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\vocsl_blsvk_vsy.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\vocsl_blsvk_vsy.mp3",
+        "hash":  "7D85E2095AF3",
+        "bytes":  6310194,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_RUNTIME__DAEMON_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_RUNTIME__DAEMON_.mp3",
+        "hash":  "6805D7879D73",
+        "bytes":  6782760,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_RUNTIME____DAEMON_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_RUNTIME____DAEMON_.mp3",
+        "hash":  "6805D7879D73",
+        "bytes":  6782760,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\clout_stars_3.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\clout_stars_3.png",
+        "hash":  "ADFC894D55F4",
+        "bytes":  27118,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\gallery\\clout_stars_3.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\gallery\\clout_stars_3.png",
+        "hash":  "ADFC894D55F4",
+        "bytes":  27118,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kyūdō_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kyūdō_.mp3",
+        "hash":  "7E08AA7CC227",
+        "bytes":  5724230,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\chibi 48 roninborg.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\chibi 48 roninborg.png",
+        "hash":  "874247C8CEA4",
+        "bytes":  2697386,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Design_2_Defy_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Design_2_Defy_.mp3",
+        "hash":  "D5B2E1C6A9FD",
+        "bytes":  10185664,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Melting_Chrome_Heart_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Melting_Chrome_Heart_.mp3",
+        "hash":  "E30A55443CCA",
+        "bytes":  5273284,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\svgviewer-png-output (1).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\svgviewer-png-output (1).png",
+        "hash":  "FD3F43BBA42C",
+        "bytes":  78043,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_3.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_3.webp",
+        "hash":  "DAC54207B38E",
+        "bytes":  606218,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Rabbid_techtonics.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Rabbid_techtonics.mp3",
+        "hash":  "E3B974493BF1",
+        "bytes":  4445864,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Dead_Air_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Dead_Air_.mp3",
+        "hash":  "9CC997180171",
+        "bytes":  10296423,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Promise_of_Time_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Promise_of_Time_.mp3",
+        "hash":  "A300AAC27488",
+        "bytes":  5996294,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Quantize_these_Lightyears_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Quantize_these_Lightyears_.mp3",
+        "hash":  "ACA26C27D204",
+        "bytes":  6183958,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Must_Be_High.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Must_Be_High.mp3",
+        "hash":  "F17AD5E9FF24",
+        "bytes":  6826797,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Miss_Minnie_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Miss_Minnie_.mp3",
+        "hash":  "E9BB90087CD4",
+        "bytes":  5361685,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Where_You_From_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Where_You_From_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "F72835914B5F",
+        "bytes":  4684386,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Chimera_Flow_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Chimera_Flow_.flac",
+        "hash":  "482B0B783386",
+        "bytes":  34233173,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Am_i_Real_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Am_i_Real_.mp3",
+        "hash":  "940C1AE70EDE",
+        "bytes":  5034699,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_7.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_7.webp",
+        "hash":  "0863F78C6F71",
+        "bytes":  733790,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Super_GOAT_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Super_GOAT_.flac",
+        "hash":  "2A87A0A5E9BF",
+        "bytes":  33102706,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Southside_Sovereign_Ronin_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Southside_Sovereign_Ronin_.mp3",
+        "hash":  "1D1815017D24",
+        "bytes":  7107922,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Reverse_Scratch_With_Bass_Drop_Sfx_starting_With_That_Classic_Rewind_Record.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Reverse_Scratch_With_Bass_Drop_Sfx_starting_With_That_Classic_Rewind_Record.mp3",
+        "hash":  "3853A050475D",
+        "bytes":  58853,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Redline_Overdrive_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Redline_Overdrive_.mp3",
+        "hash":  "42C1C607C444",
+        "bytes":  13123917,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Born_To_Be_A_Spaceman.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Born_To_Be_A_Spaceman.mp3",
+        "hash":  "8E8C969E48A5",
+        "bytes":  6659180,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_CLOUT_STARZ_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_CLOUT_STARZ_.mp3",
+        "hash":  "B091D817E86E",
+        "bytes":  10838725,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\BagMan_-_JDXX_Freestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\BagMan_-_JDXX_Freestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "5206EE347F50",
+        "bytes":  5461767,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\ChatGPT_Image_May_14,_2026,_12_25_54_PM_(1).png",
+        "hash":  "0BE967A76C49",
+        "bytes":  8735383,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The sound of Alchemy\\converted\\ChatGPT Image May 14, 2026, 12_25_54 PM (1).png",
+        "hash":  "0BE967A76C49",
+        "bytes":  8735383,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Candle_in_the_Night_-JDXX.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Candle_in_the_Night_-JDXX.mp3",
+        "hash":  "2A33C390D05A",
+        "bytes":  4587545,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero roninborg.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero roninborg.png",
+        "hash":  "077C0C1FB300",
+        "bytes":  8479391,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_nft_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_nft_1.webp",
+        "hash":  "F41073C086DC",
+        "bytes":  932188,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_QUILLAN\u0027S_BACK_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_QUILLAN\u0027S_BACK_.mp3",
+        "hash":  "179696C3B9CD",
+        "bytes":  6507819,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_QUILLANS_BACK_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_QUILLANS_BACK_.mp3",
+        "hash":  "179696C3B9CD",
+        "bytes":  6507819,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Sinking_in_the_Deep_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Sinking_in_the_Deep_.mp3",
+        "hash":  "E20624845F58",
+        "bytes":  11961991,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\clout_stars_5.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\clout_stars_5.png",
+        "hash":  "EE724E9EB261",
+        "bytes":  61791,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\gallery\\clout_stars_5.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\gallery\\clout_stars_5.png",
+        "hash":  "EE724E9EB261",
+        "bytes":  61791,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_From_The_Trenches_To_The_Throne_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_From_The_Trenches_To_The_Throne_.mp3",
+        "hash":  "E35789A336FA",
+        "bytes":  7268076,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Ronin_Sonata.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Ronin_Sonata.mp3",
+        "hash":  "82ED25D75939",
+        "bytes":  3688783,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ronin_Sonata.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ronin_Sonata.mp3",
+        "hash":  "82ED25D75939",
+        "bytes":  3688783,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_EEvolution_Avenue_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_EEvolution_Avenue_.mp3",
+        "hash":  "038DF6B8C08A",
+        "bytes":  4622053,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Code-bender_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Code-bender_.mp3",
+        "hash":  "808264AE5950",
+        "bytes":  11804211,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Miss_Minnie_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Miss_Minnie_.flac",
+        "hash":  "4683819540E5",
+        "bytes":  24622682,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\No_More_Lies_-JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\No_More_Lies_-JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "F313C1C57159",
+        "bytes":  5061506,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Stepping_Out_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Stepping_Out_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "E5F121DA0597",
+        "bytes":  4582539,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Coder_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Coder_Music.mp3",
+        "hash":  "DB91E6255DFC",
+        "bytes":  5241505,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\Self Made Ronin-Back to the roots (1).jpg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\Self Made Ronin-Back to the roots (1).jpg",
+        "hash":  "CA5F7CCD4634",
+        "bytes":  1912624,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_From_Ground_Zero_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_From_Ground_Zero_.mp3",
+        "hash":  "CBBFF0384538",
+        "bytes":  7082252,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_6.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\image_6.webp",
+        "hash":  "CE5309ED7AA0",
+        "bytes":  708122,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_clan_ronin_card_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_clan_ronin_card_1.webp",
+        "hash":  "97DB0FD20168",
+        "bytes":  699204,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Venom_Filled_Blood_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Venom_Filled_Blood_.mp3",
+        "hash":  "7315C05F99E4",
+        "bytes":  5514276,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Load_the_Ammo_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Load_the_Ammo_.mp3",
+        "hash":  "0B51A5F27FD4",
+        "bytes":  5826284,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kingdoms_of_Dust_and_Flame_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kingdoms_of_Dust_and_Flame_.mp3",
+        "hash":  "A70760F965AA",
+        "bytes":  5407665,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Rival_Specimen_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Rival_Specimen_.mp3",
+        "hash":  "50C8F2E203CC",
+        "bytes":  11328782,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_ronin_trading_card_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_ronin_trading_card_1.webp",
+        "hash":  "7B111E420457",
+        "bytes":  739094,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_HIGH_VOLTAGE_RONIN_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_HIGH_VOLTAGE_RONIN_.flac",
+        "hash":  "32F33CCCEC9E",
+        "bytes":  19205214,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Rotary_Cannon_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Rotary_Cannon_.flac",
+        "hash":  "24B4EE3F604B",
+        "bytes":  21021780,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Loaded_Statement_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Loaded_Statement_.mp3",
+        "hash":  "6D025741BA3C",
+        "bytes":  8988211,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\80 roninborg.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\80 roninborg.png",
+        "hash":  "10A1DB5CB8B0",
+        "bytes":  10067321,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born_.mp3",
+        "hash":  "2BD47936069C",
+        "bytes":  6739429,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Super_GOAT_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Super_GOAT_.mp3",
+        "hash":  "1A30831ED4A7",
+        "bytes":  6560095,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\more roninborg.png",
+        "hash":  "72F9488953A2",
+        "bytes":  3120421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Cloudy_Minded_Art_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Cloudy_Minded_Art_.mp3",
+        "hash":  "075A3CFE83C3",
+        "bytes":  9125093,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Hit_That-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Hit_That-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "80F24571DA8D",
+        "bytes":  3765031,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_clan_trading_card_1 (1).webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\oni_clan_trading_card_1 (1).webp",
+        "hash":  "8B97F24412A6",
+        "bytes":  822312,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\140 roninbrog.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\140 roninbrog.png",
+        "hash":  "1ADECF7723BD",
+        "bytes":  3293597,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Chrome_Heart_Dial_Tone.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Chrome_Heart_Dial_Tone.mp3",
+        "hash":  "852200814A69",
+        "bytes":  13123917,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-output (5).svg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-output (5).svg",
+        "hash":  "1D814D07A8D3",
+        "bytes":  3105,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_2.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_2.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_3.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_3.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_2.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_2.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_3.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_3.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_2.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_2.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_3.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_3.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicole’s_Song_❤️.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicole’s_Song_❤️.mp3",
+        "hash":  "1030F956F02D",
+        "bytes":  5258096,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\The_Masterless_Warrior.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\The_Masterless_Warrior.mp3",
+        "hash":  "F170045F6994",
+        "bytes":  8796995,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio.wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio.wav",
+        "hash":  "50D4F3480417",
+        "bytes":  21058556,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-output (3).svg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-output (3).svg",
+        "hash":  "B8547DC5E969",
+        "bytes":  2395,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-output (4).svg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-output (4).svg",
+        "hash":  "B8547DC5E969",
+        "bytes":  2395,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Melting_Chrome_Heart_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Melting_Chrome_Heart_.flac",
+        "hash":  "C83863AC8F82",
+        "bytes":  22656584,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Certified_Crystalline_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Certified_Crystalline_.mp3",
+        "hash":  "044CC9825845",
+        "bytes":  3993604,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Like_That_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Like_That_-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "1A35E99C1C0A",
+        "bytes":  5790206,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\Samurai_pixel_sheet_1777559639868.jpg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\Samurai_pixel_sheet_1777559639868.jpg",
+        "hash":  "29EE1BFAF9D5",
+        "bytes":  506006,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\1.1-invideo-gpt_image_2.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\1.1-invideo-gpt_image_2.png",
+        "hash":  "A3E674B71FB4",
+        "bytes":  6916687,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Tricky_Illusions.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Tricky_Illusions.mp3",
+        "hash":  "7E5CA5476C0A",
+        "bytes":  7547733,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\flamenco_insiridio.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\flamenco_insiridio.mp3",
+        "hash":  "F3651CF7F12F",
+        "bytes":  4639514,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Is_JDXX_a_Top_100_rap_legend.m4a",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Is_JDXX_a_Top_100_rap_legend.m4a",
+        "hash":  "8D54A14AD61A",
+        "bytes":  42326852,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Rotary_Cannon_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Rotary_Cannon_.mp3",
+        "hash":  "64D7F5FC5298",
+        "bytes":  4596119,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Moving_along_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Moving_along_.mp3",
+        "hash":  "4A68DA98F2B0",
+        "bytes":  11931688,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_HIGH_VOLTAGE_RONIN_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_HIGH_VOLTAGE_RONIN_.mp3",
+        "hash":  "74237FDE8698",
+        "bytes":  4192379,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Lightning_Flash_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Lightning_Flash_.mp3",
+        "hash":  "D0F0DB2AE6D9",
+        "bytes":  6815973,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\unnamed (1).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\unnamed (1).png",
+        "hash":  "320C465BB9B5",
+        "bytes":  6639177,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Escape_of_Nior.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Escape_of_Nior.mp3",
+        "hash":  "3D0EE71451C8",
+        "bytes":  4736762,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\The Darker Side\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\The Darker Side\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born_(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_heaven-bound_and_hell-born__(1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\Rock album\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\Rock album\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The Darker Side\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\The Darker Side\\TBD\\_heaven-bound and hell-born_ (1).mp3",
+        "hash":  "7B8150AFAA1D",
+        "bytes":  11451035,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Not_What_i_Was.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Not_What_i_Was.mp3",
+        "hash":  "5C00500001E7",
+        "bytes":  3797836,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hellfire_Furnace_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Hellfire_Furnace_.mp3",
+        "hash":  "292ADEB344EF",
+        "bytes":  6550448,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kyūdō_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Kyūdō_.flac",
+        "hash":  "236602CE59A2",
+        "bytes":  26471639,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Reaper_in_the_Rearview_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Reaper_in_the_Rearview_.mp3",
+        "hash":  "7C737BFD0C6B",
+        "bytes":  5392566,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Sevenfold_Torii_The_Councils_Ascent_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Sevenfold_Torii_The_Councils_Ascent_.mp3",
+        "hash":  "D19068FDDF45",
+        "bytes":  4107244,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Mob_Life_-_JDXX_#JDXX_#freestyle_#lilbaby__JDXX.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Mob_Life_-_JDXX_#JDXX_#freestyle_#lilbaby__JDXX.mp3",
+        "hash":  "48A1D00CC739",
+        "bytes":  3315709,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Mob_Life_-_JDXX_JDXX_freestyle_lilbaby_JDXX.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Mob_Life_-_JDXX_JDXX_freestyle_lilbaby_JDXX.mp3",
+        "hash":  "48A1D00CC739",
+        "bytes":  3315709,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Afterlife_Exstension_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Afterlife_Exstension_.mp3",
+        "hash":  "7B7D1EB19C81",
+        "bytes":  6639086,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Satirical_Villain_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Satirical_Villain_.mp3",
+        "hash":  "FC140DB56FCA",
+        "bytes":  6980174,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Walk_the_talk_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Walk_the_talk_.mp3",
+        "hash":  "19D84115FA3E",
+        "bytes":  5565802,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Visceral_Livewire_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Visceral_Livewire_.mp3",
+        "hash":  "E0E9079D5D25",
+        "bytes":  6026104,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ariels_Lullaby.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ariels_Lullaby.mp3",
+        "hash":  "BE0D06B914DB",
+        "bytes":  4220491,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Reverse_Scratch_With_Bass_Drop_Sfx_starting_With_That_Classic_Rewind_Recdord.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Reverse_Scratch_With_Bass_Drop_Sfx_starting_With_That_Classic_Rewind_Recdord.mp3",
+        "hash":  "259AEBE4D27E",
+        "bytes":  138751,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Bushido_Medly_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\_Bushido_Medly_.mp3",
+        "hash":  "DD4D5C3774FB",
+        "bytes":  3256892,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\GOAT_Devastation_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\GOAT_Devastation_.mp3",
+        "hash":  "FE68D8483D3C",
+        "bytes":  11569109,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Unfiltered_Hollow_Point_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Unfiltered_Hollow_Point_.mp3",
+        "hash":  "348A915E7E83",
+        "bytes":  6330098,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_hud_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_hud_1.webp",
+        "hash":  "FA2ADDCB9A39",
+        "bytes":  886284,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Is_JDXX_a_Top_100_Rap_Legend_.m4a",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Is_JDXX_a_Top_100_Rap_Legend_.m4a",
+        "hash":  "2A2AE177051C",
+        "bytes":  34946431,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Ronin_Bushido.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Ronin_Bushido.mp3",
+        "hash":  "0AD40508D2F3",
+        "bytes":  6096070,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ronin_Bushido.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Ronin_Bushido.mp3",
+        "hash":  "0AD40508D2F3",
+        "bytes":  6096070,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Underground_Rapper_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Underground_Rapper_.mp3",
+        "hash":  "D00F65A37563",
+        "bytes":  6131959,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Guerro_from_the_South_side_Ghetto_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Guerro_from_the_South_side_Ghetto_.mp3",
+        "hash":  "DABC6EB2E282",
+        "bytes":  6336495,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_1.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_4.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicoles_Song_4.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\ai beats\\_Nicole’s Song_ ❤️ (1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\ai beats\\_Nicole’s Song_ ❤️ (1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_1.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_4.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicoles_Song_4.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\ai beats\\_Nicole’s Song_ ❤️ (1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\ai beats\\_Nicole’s Song_ ❤️ (1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_1.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_1.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_4.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicoles_Song_4.mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Nicole’s_Song_❤️_(1).mp3",
+        "hash":  "E17439426E7B",
+        "bytes":  4222421,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Glass_Lungs_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Glass_Lungs_.mp3",
+        "hash":  "A373AA525323",
+        "bytes":  8642350,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\play_with_a_g.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\play_with_a_g.mp3",
+        "hash":  "8238A8904912",
+        "bytes":  7933954,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero and parts.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\Neo Ronin assets\\attached_assets\\attached_assets\\hero and parts.png",
+        "hash":  "DD85A66821DF",
+        "bytes":  8467546,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Helios_Obsidian.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Helios_Obsidian.mp3",
+        "hash":  "73941EB59E82",
+        "bytes":  4704962,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\0_Lead_Vocal.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\0_Lead_Vocal.mp3",
+        "hash":  "E2B68AF9BA87",
+        "bytes":  5220644,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronins_Requiem_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronins_Requiem_.flac",
+        "hash":  "930F44F906A3",
+        "bytes":  31520816,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Warning_shot_-_JDXX.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Warning_shot_-_JDXX.mp3",
+        "hash":  "DDDC28895D2A",
+        "bytes":  6496583,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\elder_cyber_ronin_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\elder_cyber_ronin_1.webp",
+        "hash":  "0F09BD1F681E",
+        "bytes":  952468,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Don\u0027t_Relate.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Don\u0027t_Relate.mp3",
+        "hash":  "C6B791325E3C",
+        "bytes":  4379527,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Dont_Relate.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\I_Dont_Relate.mp3",
+        "hash":  "C6B791325E3C",
+        "bytes":  4379527,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Flaming_Avion_Elemental.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Flaming_Avion_Elemental.mp3",
+        "hash":  "5B9A1592E8CC",
+        "bytes":  3483885,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Agent_Ronin_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Agent_Ronin_.mp3",
+        "hash":  "3D57919D85E1",
+        "bytes":  5096735,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Worth_A_Hit_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Worth_A_Hit_.mp3",
+        "hash":  "556723F6CE72",
+        "bytes":  9689337,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "hash":  "23104143B9D7",
+        "bytes":  114239,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "hash":  "23104143B9D7",
+        "bytes":  114239,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\DJ_STOP_and_SCRATCH_FREE_SOUND_EFFECT_(SFX)_2025.mp3",
+        "hash":  "23104143B9D7",
+        "bytes":  114239,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Load_the_Ammo_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Load_the_Ammo_.flac",
+        "hash":  "F6A7626D9523",
+        "bytes":  26307948,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Unfiltered_Hollow_Point_.flac",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Unfiltered_Hollow_Point_.flac",
+        "hash":  "3789FBC4313D",
+        "bytes":  29655143,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Racks_Back_To_Back_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Racks_Back_To_Back_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "1D76DF834DCA",
+        "bytes":  3875439,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\1_Lead_Vocal.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\1_Lead_Vocal.mp3",
+        "hash":  "B540DE9AAFF5",
+        "bytes":  5176052,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Ronin_in_the_shadow_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Ronin_in_the_shadow_.mp3",
+        "hash":  "CF73CA45D120",
+        "bytes":  8254693,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "hash":  "6AC3866B0576",
+        "bytes":  17381380,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\audio\\test for freind\\New Project - Voice_Audio (2).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\audio\\test for freind\\New Project - Voice_Audio (2).wav",
+        "hash":  "6AC3866B0576",
+        "bytes":  17381380,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "hash":  "6AC3866B0576",
+        "bytes":  17381380,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\New_Project_-_Voice_Audio_(2).wav",
+        "hash":  "6AC3866B0576",
+        "bytes":  17381380,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\test for freind\\New Project - Voice_Audio (2).wav",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\test for freind\\New Project - Voice_Audio (2).wav",
+        "hash":  "6AC3866B0576",
+        "bytes":  17381380,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronin\u0027s_Requiem_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronin\u0027s_Requiem_.mp3",
+        "hash":  "F7494DDA7742",
+        "bytes":  6492577,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronins_Requiem_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_The_Ronins_Requiem_.mp3",
+        "hash":  "F7494DDA7742",
+        "bytes":  6492577,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Keys_and_Gs_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\Keys_and_Gs_-_JDXX_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "1DC2ECB6FED7",
+        "bytes":  5169929,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\svgviewer-png-output (2).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\svgviewer-png-output (2).png",
+        "hash":  "99C157D44561",
+        "bytes":  59025,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\concept_art\\svgviewer-png-output_(2).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\concept_art\\svgviewer-png-output_(2).png",
+        "hash":  "99C157D44561",
+        "bytes":  59025,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\gallery\\svgviewer-png-output_2.png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\gallery\\svgviewer-png-output_2.png",
+        "hash":  "99C157D44561",
+        "bytes":  59025,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-png-output (2).png",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-png-output (2).png",
+        "hash":  "99C157D44561",
+        "bytes":  59025,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\March_of_Empowerment.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\March_of_Empowerment.mp3",
+        "hash":  "D5C2F11C76BD",
+        "bytes":  4124161,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\“Ghost_in_the_Static”.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\“Ghost_in_the_Static”.mp3",
+        "hash":  "92F635A42FBC",
+        "bytes":  8595329,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Bushido_allegato.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\Elemental_Avionics\\Bushido_allegato.mp3",
+        "hash":  "DF61883672B7",
+        "bytes":  3673144,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\NSYNC_-_Bye_Bye_Bye_(Karaoke_Version).mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\NSYNC_-_Bye_Bye_Bye_(Karaoke_Version).mp3",
+        "hash":  "4B8FC3105B8C",
+        "bytes":  5232568,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_nft_card_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_nft_card_1.webp",
+        "hash":  "67EB2620E00E",
+        "bytes":  708154,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\images\\svgviewer-output (1).svg",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\images\\svgviewer-output (1).svg",
+        "hash":  "9771C3061375",
+        "bytes":  4663,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_trading_card_1.webp",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\assets\\06_Media\\images\\NFT designs\\cyber_ronin_trading_card_1.webp",
+        "hash":  "8FC270841B78",
+        "bytes":  826382,
+        "reason":  "duplicate-name variant",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Pressure_of_life_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_Pressure_of_life_.mp3",
+        "hash":  "22F0A9ABD30E",
+        "bytes":  10563917,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\30_Rounds-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\JDXX_Rebooted\\30_Rounds-_JDXXFreestyle_JDXX_freestyle_lilbaby_JDXX_AI_Music.mp3",
+        "hash":  "0AEF71EDD925",
+        "bytes":  3402867,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_CHROME_HEART_SYNDROME_.mp3",
+        "destination":  "_archive\\duplicate_media_20261123\\05 - Creative Works\\Audio Engineer\\Audio files\\audio\\audio\\_CHROME_HEART_SYNDROME_.mp3",
+        "hash":  "16E34AA0F03B",
+        "bytes":  6944788,
+        "reason":  "nested-repeat dir",
+        "method":  "Move-Item",
+        "status":  "ok"
+    },
+    {
+        "source":  "exports\\quillan-dragon-math40-headrow2.safetensors",
+        "destination":  "_archive\\duplicate_media_20261123\\exports\\quillan-dragon-math40-headrow2.safetensors",
+        "hash":  "4C116D1597D2970A",
+        "bytes":  1145698568,
+        "reason":  "unreferenced byte-identical model duplicate",
+        "method":  "Move-Item",
+        "status":  "ok"
+    }
+]

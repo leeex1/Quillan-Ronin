@@ -73,7 +73,9 @@ def ensure_headless_ollama_serve() -> None:
         print("[ollama] Headless server already online at 127.0.0.1:11434")
         return
 
-    print("[ollama] Starting headless `ollama serve` (OLLAMA_KV_CACHE_TYPE=q4_0, OLLAMA_FLASH_ATTENTION=1)...")
+    print(
+        "[ollama] Starting headless `ollama serve` (OLLAMA_KV_CACHE_TYPE=q4_0, OLLAMA_FLASH_ATTENTION=1)..."
+    )
     creationflags = getattr(subprocess, "DETACHED_PROCESS", 0) | getattr(
         subprocess, "CREATE_NEW_PROCESS_GROUP", 0
     )
@@ -120,15 +122,32 @@ def verify_tag_show(tag: str) -> dict:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Prepare and run headless Ollama v23 deployment.")
-    parser.add_argument("--serve-only", action="store_true", help="Ensure headless ollama serve + rebuild Modelfiles only.")
-    parser.add_argument("--model", choices=["all", "flagship", "mini", "dragon"], default="all")
-    parser.add_argument("--push-hub", action="store_true", help="Also run `ollama push` on hub tags.")
+    parser = argparse.ArgumentParser(
+        description="Prepare and run headless Ollama v23 deployment."
+    )
+    parser.add_argument(
+        "--serve-only",
+        action="store_true",
+        help="Ensure headless ollama serve + rebuild Modelfiles only.",
+    )
+    parser.add_argument(
+        "--model", choices=["all", "flagship", "mini", "dragon"], default="all"
+    )
+    parser.add_argument(
+        "--push-hub", action="store_true", help="Also run `ollama push` on hub tags."
+    )
     args = parser.parse_args()
 
     # 1. Rebuild Modelfiles so FROM binds to latest v23 (or current fallback)
     subprocess.run(
-        [sys.executable, str(ROOT_DIR / "build_full_sovereign_modelfiles.py")],
+        [
+            sys.executable,
+            str(
+                ROOT_DIR
+                / "06 - Deployment & Platforms"
+                / "build_full_sovereign_modelfiles.py"
+            ),
+        ],
         cwd=str(ROOT_DIR),
         check=True,
     )
@@ -140,10 +159,16 @@ def main() -> None:
         for m in MODELS:
             mf = ROOT_DIR / m["modelfile"]
             from_line = next(
-                (ln for ln in mf.read_text(encoding="utf-8").splitlines() if ln.startswith("FROM ")),
+                (
+                    ln
+                    for ln in mf.read_text(encoding="utf-8").splitlines()
+                    if ln.startswith("FROM ")
+                ),
                 "",
             )
-            print(f"[ready] {m['key']}: {m['modelfile']} -> {from_line} | tags={m['local_tag']}, {m['hub_tag']}")
+            print(
+                f"[ready] {m['key']}: {m['modelfile']} -> {from_line} | tags={m['local_tag']}, {m['hub_tag']}"
+            )
         return
 
     env = ollama_env()

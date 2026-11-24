@@ -337,3 +337,6 @@ scripts/_*.out
 lyrics/
 datasets/
 *.tpz
+# LFS exit 2026-11-23: build artifacts must never be tracked
+**/Chip design/quillan_sm61_kernels/build/
+**/jdxx-chains/build/

@@ -1,0 +1,1028 @@
+﻿{
+    "timestamp":  "2026-11-23T21:18:39.0395911Z",
+    "note":  "Reversible move ledger. NO deletions performed. Reverse from-\u003eto to roll back.",
+    "created_directories":  [
+                                "11 - Logs",
+                                "12 - Backups",
+                                "13 - Transcripts",
+                                "12 - Backups\\superseded"
+                            ],
+    "moved_count":  84,
+    "failed_count":  0,
+    "moves":  [
+                  {
+                      "source":  "probe_1b.py",
+                      "destination":  "tests\\probe_1b.py",
+                      "bytes":  1893,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "probe_both_models.py",
+                      "destination":  "tests\\probe_both_models.py",
+                      "bytes":  4018,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "probe_calibrated.py",
+                      "destination":  "tests\\probe_calibrated.py",
+                      "bytes":  1615,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "probe_logits.py",
+                      "destination":  "tests\\probe_logits.py",
+                      "bytes":  1430,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "probe_sovereign_128k.py",
+                      "destination":  "tests\\probe_sovereign_128k.py",
+                      "bytes":  3120,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "probe_wsp_coherence.py",
+                      "destination":  "tests\\probe_wsp_coherence.py",
+                      "bytes":  2907,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "run_phase3_adversarial_verification.py",
+                      "destination":  "tests\\run_phase3_adversarial_verification.py",
+                      "bytes":  3713,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_calib_eval.py",
+                      "destination":  "tests\\test_calib_eval.py",
+                      "bytes":  2824,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_calib_step.py",
+                      "destination":  "tests\\test_calib_step.py",
+                      "bytes":  2600,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_calibrated_layer.py",
+                      "destination":  "tests\\test_calibrated_layer.py",
+                      "bytes":  5137,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_compile_and_run.py",
+                      "destination":  "tests\\test_compile_and_run.py",
+                      "bytes":  2017,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_debug_wsp.py",
+                      "destination":  "tests\\test_debug_wsp.py",
+                      "bytes":  1687,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_extract_donors.py",
+                      "destination":  "tests\\test_extract_donors.py",
+                      "bytes":  1529,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_fast_backbone.py",
+                      "destination":  "tests\\test_fast_backbone.py",
+                      "bytes":  2512,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_full_mapping.py",
+                      "destination":  "tests\\test_full_mapping.py",
+                      "bytes":  2799,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_identity_finalizer.py",
+                      "destination":  "tests\\test_identity_finalizer.py",
+                      "bytes":  1909,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_load_dataset.py",
+                      "destination":  "tests\\test_load_dataset.py",
+                      "bytes":  2251,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_mapping.py",
+                      "destination":  "tests\\test_mapping.py",
+                      "bytes":  2038,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_opt_step.py",
+                      "destination":  "tests\\test_opt_step.py",
+                      "bytes":  2808,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_pure_ronin.py",
+                      "destination":  "tests\\test_pure_ronin.py",
+                      "bytes":  1749,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_quillan_computer_use.py",
+                      "destination":  "tests\\test_quillan_computer_use.py",
+                      "bytes":  5248,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_quillan_server.py",
+                      "destination":  "tests\\test_quillan_server.py",
+                      "bytes":  5747,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_ronin_template.py",
+                      "destination":  "tests\\test_ronin_template.py",
+                      "bytes":  2342,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_suite_audit.py",
+                      "destination":  "tests\\test_suite_audit.py",
+                      "bytes":  1759,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_tripartite_reasoning.py",
+                      "destination":  "tests\\test_tripartite_reasoning.py",
+                      "bytes":  2549,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "tool_test.py",
+                      "destination":  "tests\\tool_test.py",
+                      "bytes":  4163,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "verify_all_three_models.py",
+                      "destination":  "tests\\verify_all_three_models.py",
+                      "bytes":  1626,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "verify_full_reasoning_fleet.py",
+                      "destination":  "tests\\verify_full_reasoning_fleet.py",
+                      "bytes":  2058,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "verify_quillan_os.py",
+                      "destination":  "tests\\verify_quillan_os.py",
+                      "bytes":  12978,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "boot_test.py",
+                      "destination":  "tests\\boot_test.py",
+                      "bytes":  1939,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "boot_test2.py",
+                      "destination":  "tests\\boot_test2.py",
+                      "bytes":  1869,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "check_servers.ps1",
+                      "destination":  "tests\\check_servers.ps1",
+                      "bytes":  341,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "check_servers.py",
+                      "destination":  "tests\\check_servers.py",
+                      "bytes":  820,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "scratch_check.py",
+                      "destination":  "tests\\scratch_check.py",
+                      "bytes":  980,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Quillan_ONI_Live_Training.ipynb",
+                      "destination":  "03 - Training \u0026 Model\\Quillan_ONI_Live_Training.ipynb",
+                      "bytes":  19597,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Quillan_v5_4_ONI_Master_Training.ipynb",
+                      "destination":  "03 - Training \u0026 Model\\Quillan_v5_4_ONI_Master_Training.ipynb",
+                      "bytes":  19597,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+                      "destination":  "03 - Training \u0026 Model\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+                      "bytes":  22414,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "check_mappings.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\check_mappings.py",
+                      "bytes":  1935,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "compare_tokenizers.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\compare_tokenizers.py",
+                      "bytes":  1404,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "inspect_raw_donors.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\inspect_raw_donors.py",
+                      "bytes":  1987,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "inspect_weight_space.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\inspect_weight_space.py",
+                      "bytes":  1057,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "read_falcon_blob.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\read_falcon_blob.py",
+                      "bytes":  613,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "read_falcon_meta.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\read_falcon_meta.py",
+                      "bytes":  788,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "resume_sovereign_sft.bat",
+                      "destination":  "03 - Training \u0026 Model/scripts\\resume_sovereign_sft.bat",
+                      "bytes":  728,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "resume_sovereign_sft.ps1",
+                      "destination":  "03 - Training \u0026 Model/scripts\\resume_sovereign_sft.ps1",
+                      "bytes":  898,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "bind_full_arsenal.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\bind_full_arsenal.py",
+                      "bytes":  12509,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "bind_upgrades.py",
+                      "destination":  "03 - Training \u0026 Model/scripts\\bind_upgrades.py",
+                      "bytes":  3513,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "quillan_avx2_ternary.cpp",
+                      "destination":  "kernels\\quillan_avx2_ternary.cpp",
+                      "bytes":  3543,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "build_full_sovereign_modelfiles.py",
+                      "destination":  "06 - Deployment \u0026 Platforms\\build_full_sovereign_modelfiles.py",
+                      "bytes":  12679,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "generate_sibling_modelfiles.py",
+                      "destination":  "06 - Deployment \u0026 Platforms\\generate_sibling_modelfiles.py",
+                      "bytes":  653,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "launch_12l_samurai_train.bat",
+                      "destination":  "06 - Deployment \u0026 Platforms\\launch_12l_samurai_train.bat",
+                      "bytes":  1090,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "launch_6l_samurai_train.bat",
+                      "destination":  "06 - Deployment \u0026 Platforms\\launch_6l_samurai_train.bat",
+                      "bytes":  1170,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "qdev.bat",
+                      "destination":  "06 - Deployment \u0026 Platforms\\qdev.bat",
+                      "bytes":  117,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "quillan.bat",
+                      "destination":  "06 - Deployment \u0026 Platforms\\quillan.bat",
+                      "bytes":  233,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "qwen35_header.gguf",
+                      "destination":  "06 - Deployment \u0026 Platforms\\qwen35_header.gguf",
+                      "bytes":  10000001,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "sync_hf_modelfiles.py",
+                      "destination":  "06 - Deployment \u0026 Platforms\\sync_hf_modelfiles.py",
+                      "bytes":  1676,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "sync_to_google_drive.py",
+                      "destination":  "06 - Deployment \u0026 Platforms\\sync_to_google_drive.py",
+                      "bytes":  5180,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "parse_wsp.py",
+                      "destination":  "scripts\\parse_wsp.py",
+                      "bytes":  776,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "wire_and_heal_repo.py",
+                      "destination":  "scripts\\wire_and_heal_repo.py",
+                      "bytes":  10788,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "error_trace.log",
+                      "destination":  "11 - Logs\\error_trace.log",
+                      "bytes":  2711,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "gitnexus-analyze-20261013.log",
+                      "destination":  "11 - Logs\\gitnexus-analyze-20261013.log",
+                      "bytes":  270,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "gitnexus-analyze-20261013-fixed.log",
+                      "destination":  "11 - Logs\\gitnexus-analyze-20261013-fixed.log",
+                      "bytes":  100,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "gitnexus-analyze-20261013-force.log",
+                      "destination":  "11 - Logs\\gitnexus-analyze-20261013-force.log",
+                      "bytes":  358826,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "mempalace-mine-20261013.log",
+                      "destination":  "11 - Logs\\mempalace-mine-20261013.log",
+                      "bytes":  16256,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "test_final_report.log",
+                      "destination":  "11 - Logs\\test_final_report.log",
+                      "bytes":  2360,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  ".gitattributes.lfs.bak",
+                      "destination":  "12 - Backups\\.gitattributes.lfs.bak",
+                      "bytes":  1837,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  ".gitnexusignore.bak-metamon-20261013",
+                      "destination":  "12 - Backups\\.gitnexusignore.bak-metamon-20261013",
+                      "bytes":  252,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Modelfile.bak_dragonfix_20261122_172606",
+                      "destination":  "12 - Backups\\Modelfile.bak_dragonfix_20261122_172606",
+                      "bytes":  666879,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Modelfile.hf.Quillan-Dragon.bak_dragonfix_20261122_172606",
+                      "destination":  "12 - Backups\\Modelfile.hf.Quillan-Dragon.bak_dragonfix_20261122_172606",
+                      "bytes":  642862,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Modelfile.hf.Quillan-Ronin.bak_dragonfix_20261122_172606",
+                      "destination":  "12 - Backups\\Modelfile.hf.Quillan-Ronin.bak_dragonfix_20261122_172606",
+                      "bytes":  643062,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Modelfile.hf.Quillan-Ronin-Mini.bak_dragonfix_20261122_172606",
+                      "destination":  "12 - Backups\\Modelfile.hf.Quillan-Ronin-Mini.bak_dragonfix_20261122_172606",
+                      "bytes":  642718,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Modelfile.mini.bak_dragonfix_20261122_172606",
+                      "destination":  "12 - Backups\\Modelfile.mini.bak_dragonfix_20261122_172606",
+                      "bytes":  666513,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "opencode.json.bak-20261030-133458",
+                      "destination":  "12 - Backups\\opencode.json.bak-20261030-133458",
+                      "bytes":  11350,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "quillan.md.bak",
+                      "destination":  "12 - Backups\\quillan.md.bak",
+                      "bytes":  714323,
+                      "method":  "Move-Item",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "Quillan_Architecture_Journey_transcript.txt",
+                      "destination":  "13 - Transcripts\\Quillan_Architecture_Journey_transcript.txt",
+                      "bytes":  7255,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "scratch_colab_nb.txt",
+                      "destination":  "13 - Transcripts\\scratch_colab_nb.txt",
+                      "bytes":  15137,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "scratch_d96b_181.txt",
+                      "destination":  "13 - Transcripts\\scratch_d96b_181.txt",
+                      "bytes":  4252,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "The_Sovereign_Rebellion__Breaking_the_AI_Paywall_transcript.txt",
+                      "destination":  "13 - Transcripts\\The_Sovereign_Rebellion__Breaking_the_AI_Paywall_transcript.txt",
+                      "bytes":  6071,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "weight_space_programming.html",
+                      "destination":  "13 - Transcripts\\weight_space_programming.html",
+                      "bytes":  85675,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "weight_space_programming_clean.txt",
+                      "destination":  "13 - Transcripts\\weight_space_programming_clean.txt",
+                      "bytes":  32081,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "modeling_quillan.py",
+                      "destination":  "12 - Backups\\superseded\\modeling_quillan.v5.4.0-ONI.20261023.py",
+                      "bytes":  9013,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "quillan_fused_optimizer.py",
+                      "destination":  "12 - Backups\\superseded\\quillan_fused_optimizer.20261018.py",
+                      "bytes":  15937,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "03 - Training \u0026 Model\\scripts\\trace_signal.py",
+                      "destination":  "12 - Backups\\superseded\\trace_signal.phase5_legacy.20261113_144252.py",
+                      "bytes":  2168,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  },
+                  {
+                      "source":  "trace_signal.py",
+                      "destination":  "03 - Training \u0026 Model\\scripts\\trace_signal.py",
+                      "bytes":  2524,
+                      "method":  "git mv",
+                      "status":  "ok"
+                  }
+              ],
+    "rollback":  [
+                     {
+                         "from":  "tests\\probe_1b.py",
+                         "to":  "probe_1b.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\probe_both_models.py",
+                         "to":  "probe_both_models.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\probe_calibrated.py",
+                         "to":  "probe_calibrated.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\probe_logits.py",
+                         "to":  "probe_logits.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\probe_sovereign_128k.py",
+                         "to":  "probe_sovereign_128k.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\probe_wsp_coherence.py",
+                         "to":  "probe_wsp_coherence.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\run_phase3_adversarial_verification.py",
+                         "to":  "run_phase3_adversarial_verification.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_calib_eval.py",
+                         "to":  "test_calib_eval.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_calib_step.py",
+                         "to":  "test_calib_step.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_calibrated_layer.py",
+                         "to":  "test_calibrated_layer.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_compile_and_run.py",
+                         "to":  "test_compile_and_run.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_debug_wsp.py",
+                         "to":  "test_debug_wsp.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_extract_donors.py",
+                         "to":  "test_extract_donors.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_fast_backbone.py",
+                         "to":  "test_fast_backbone.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_full_mapping.py",
+                         "to":  "test_full_mapping.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_identity_finalizer.py",
+                         "to":  "test_identity_finalizer.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_load_dataset.py",
+                         "to":  "test_load_dataset.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_mapping.py",
+                         "to":  "test_mapping.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_opt_step.py",
+                         "to":  "test_opt_step.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_pure_ronin.py",
+                         "to":  "test_pure_ronin.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_quillan_computer_use.py",
+                         "to":  "test_quillan_computer_use.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_quillan_server.py",
+                         "to":  "test_quillan_server.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_ronin_template.py",
+                         "to":  "test_ronin_template.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_suite_audit.py",
+                         "to":  "test_suite_audit.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\test_tripartite_reasoning.py",
+                         "to":  "test_tripartite_reasoning.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\tool_test.py",
+                         "to":  "tool_test.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\verify_all_three_models.py",
+                         "to":  "verify_all_three_models.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\verify_full_reasoning_fleet.py",
+                         "to":  "verify_full_reasoning_fleet.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\verify_quillan_os.py",
+                         "to":  "verify_quillan_os.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\boot_test.py",
+                         "to":  "boot_test.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\boot_test2.py",
+                         "to":  "boot_test2.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\check_servers.ps1",
+                         "to":  "check_servers.ps1",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\check_servers.py",
+                         "to":  "check_servers.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "tests\\scratch_check.py",
+                         "to":  "scratch_check.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model\\Quillan_ONI_Live_Training.ipynb",
+                         "to":  "Quillan_ONI_Live_Training.ipynb",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model\\Quillan_v5_4_ONI_Master_Training.ipynb",
+                         "to":  "Quillan_v5_4_ONI_Master_Training.ipynb",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model\\Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+                         "to":  "Quillan_v5_4_ONI_Master_Training_FIXED.ipynb",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\check_mappings.py",
+                         "to":  "check_mappings.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\compare_tokenizers.py",
+                         "to":  "compare_tokenizers.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\inspect_raw_donors.py",
+                         "to":  "inspect_raw_donors.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\inspect_weight_space.py",
+                         "to":  "inspect_weight_space.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\read_falcon_blob.py",
+                         "to":  "read_falcon_blob.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\read_falcon_meta.py",
+                         "to":  "read_falcon_meta.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\resume_sovereign_sft.bat",
+                         "to":  "resume_sovereign_sft.bat",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\resume_sovereign_sft.ps1",
+                         "to":  "resume_sovereign_sft.ps1",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\bind_full_arsenal.py",
+                         "to":  "bind_full_arsenal.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model/scripts\\bind_upgrades.py",
+                         "to":  "bind_upgrades.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "kernels\\quillan_avx2_ternary.cpp",
+                         "to":  "quillan_avx2_ternary.cpp",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\build_full_sovereign_modelfiles.py",
+                         "to":  "build_full_sovereign_modelfiles.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\generate_sibling_modelfiles.py",
+                         "to":  "generate_sibling_modelfiles.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\launch_12l_samurai_train.bat",
+                         "to":  "launch_12l_samurai_train.bat",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\launch_6l_samurai_train.bat",
+                         "to":  "launch_6l_samurai_train.bat",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\qdev.bat",
+                         "to":  "qdev.bat",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\quillan.bat",
+                         "to":  "quillan.bat",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\qwen35_header.gguf",
+                         "to":  "qwen35_header.gguf",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\sync_hf_modelfiles.py",
+                         "to":  "sync_hf_modelfiles.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "06 - Deployment \u0026 Platforms\\sync_to_google_drive.py",
+                         "to":  "sync_to_google_drive.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "scripts\\parse_wsp.py",
+                         "to":  "parse_wsp.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "scripts\\wire_and_heal_repo.py",
+                         "to":  "wire_and_heal_repo.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "11 - Logs\\error_trace.log",
+                         "to":  "error_trace.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "11 - Logs\\gitnexus-analyze-20261013.log",
+                         "to":  "gitnexus-analyze-20261013.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "11 - Logs\\gitnexus-analyze-20261013-fixed.log",
+                         "to":  "gitnexus-analyze-20261013-fixed.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "11 - Logs\\gitnexus-analyze-20261013-force.log",
+                         "to":  "gitnexus-analyze-20261013-force.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "11 - Logs\\mempalace-mine-20261013.log",
+                         "to":  "mempalace-mine-20261013.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "11 - Logs\\test_final_report.log",
+                         "to":  "test_final_report.log",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\.gitattributes.lfs.bak",
+                         "to":  ".gitattributes.lfs.bak",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\.gitnexusignore.bak-metamon-20261013",
+                         "to":  ".gitnexusignore.bak-metamon-20261013",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\Modelfile.bak_dragonfix_20261122_172606",
+                         "to":  "Modelfile.bak_dragonfix_20261122_172606",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\Modelfile.hf.Quillan-Dragon.bak_dragonfix_20261122_172606",
+                         "to":  "Modelfile.hf.Quillan-Dragon.bak_dragonfix_20261122_172606",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\Modelfile.hf.Quillan-Ronin.bak_dragonfix_20261122_172606",
+                         "to":  "Modelfile.hf.Quillan-Ronin.bak_dragonfix_20261122_172606",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\Modelfile.hf.Quillan-Ronin-Mini.bak_dragonfix_20261122_172606",
+                         "to":  "Modelfile.hf.Quillan-Ronin-Mini.bak_dragonfix_20261122_172606",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\Modelfile.mini.bak_dragonfix_20261122_172606",
+                         "to":  "Modelfile.mini.bak_dragonfix_20261122_172606",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\opencode.json.bak-20261030-133458",
+                         "to":  "opencode.json.bak-20261030-133458",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "12 - Backups\\quillan.md.bak",
+                         "to":  "quillan.md.bak",
+                         "method":  "Move-Item"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\Quillan_Architecture_Journey_transcript.txt",
+                         "to":  "Quillan_Architecture_Journey_transcript.txt",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\scratch_colab_nb.txt",
+                         "to":  "scratch_colab_nb.txt",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\scratch_d96b_181.txt",
+                         "to":  "scratch_d96b_181.txt",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\The_Sovereign_Rebellion__Breaking_the_AI_Paywall_transcript.txt",
+                         "to":  "The_Sovereign_Rebellion__Breaking_the_AI_Paywall_transcript.txt",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\weight_space_programming.html",
+                         "to":  "weight_space_programming.html",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "13 - Transcripts\\weight_space_programming_clean.txt",
+                         "to":  "weight_space_programming_clean.txt",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "12 - Backups\\superseded\\modeling_quillan.v5.4.0-ONI.20261023.py",
+                         "to":  "modeling_quillan.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "12 - Backups\\superseded\\quillan_fused_optimizer.20261018.py",
+                         "to":  "quillan_fused_optimizer.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "12 - Backups\\superseded\\trace_signal.phase5_legacy.20261113_144252.py",
+                         "to":  "03 - Training \u0026 Model\\scripts\\trace_signal.py",
+                         "method":  "git mv"
+                     },
+                     {
+                         "from":  "03 - Training \u0026 Model\\scripts\\trace_signal.py",
+                         "to":  "trace_signal.py",
+                         "method":  "git mv"
+                     }
+                 ],
+    "patches_applied":  [
+                            "scripts/deploy_v23_ollama.py:131 -\u003e 06 - Deployment \u0026 Platforms/build_full_sovereign_modelfiles.py",
+                            "scripts/wire_and_heal_repo.py:196 -\u003e kernels/quillan_avx2_ternary.cpp"
+                        ]
+}

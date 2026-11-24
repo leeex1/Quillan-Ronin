@@ -1,0 +1,62 @@
+﻿[
+    {
+        "path":  "docs\\assets\\concept_art\\chatgpt image dec 23, 2025, 02_15_13 am.png",
+        "bytes":  3047354,
+        "sha256":  "02A065103ABF0AFF8EC2F2BAC56EBC0996D7086E35F2058189F84E6AAA24E6DC",
+        "keeper":  "docs\\main-images\\ChatGPT_Image_Dec_23_2025_02_15_33_AM.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\chatgpt image dec 23, 2025, 02_15_33 am.png",
+        "bytes":  3047354,
+        "sha256":  "02A065103ABF0AFF8EC2F2BAC56EBC0996D7086E35F2058189F84E6AAA24E6DC",
+        "keeper":  "docs\\main-images\\ChatGPT_Image_Dec_23_2025_02_15_33_AM.png"
+    },
+    {
+        "path":  "docs\\main-images\\1af4f2e3-dd2b-4988-8713-c7b476517f93.png",
+        "bytes":  3047354,
+        "sha256":  "02A065103ABF0AFF8EC2F2BAC56EBC0996D7086E35F2058189F84E6AAA24E6DC",
+        "keeper":  "docs\\main-images\\ChatGPT_Image_Dec_23_2025_02_15_33_AM.png"
+    },
+    {
+        "path":  "docs\\main-images\\chatgpt_image_dec_23_2025_02_15_13_am.png",
+        "bytes":  3047354,
+        "sha256":  "02A065103ABF0AFF8EC2F2BAC56EBC0996D7086E35F2058189F84E6AAA24E6DC",
+        "keeper":  "docs\\main-images\\ChatGPT_Image_Dec_23_2025_02_15_33_AM.png"
+    },
+    {
+        "path":  "docs\\06_media\\images\\quillan_ronin_logo.svg",
+        "bytes":  903926,
+        "sha256":  "72FB4D1810EC1DBF21A8C3E4961EF5FE708763DB289B9F43CABC5DCAD95B162B",
+        "keeper":  "docs\\images\\27617436_oni_mask_samurai_vector_logo.svg"
+    },
+    {
+        "path":  "docs\\06_media\\3d mesh models\\jdxx mesh.glb",
+        "bytes":  2642712,
+        "sha256":  "42F84839844F74FEF8D9F18B16075134678955A39BC3CF3841D047D8B48292EA",
+        "keeper":  "docs\\3d Mesh models\\JDXX mesh.glb"
+    },
+    {
+        "path":  "docs\\06_media\\images\\svgviewer-output (3).svg",
+        "bytes":  2395,
+        "sha256":  "B8547DC5E969A2833368FD07C3ACE357E0BB9F5C85873DDEB48C1CEA2FC199A8",
+        "keeper":  "docs\\06_Media\\images\\svgviewer-output (4).svg"
+    },
+    {
+        "path":  "docs\\06_media\\images\\unnamed.png",
+        "bytes":  6600863,
+        "sha256":  "8F4B7BE5602483DF37F168DBFC186B5CE80BE4A0359D323B526D176077B9D10D",
+        "keeper":  "docs\\gallery\\unnamed.png"
+    },
+    {
+        "path":  "docs\\assets\\concept_art\\unnamed.png",
+        "bytes":  6600863,
+        "sha256":  "8F4B7BE5602483DF37F168DBFC186B5CE80BE4A0359D323B526D176077B9D10D",
+        "keeper":  "docs\\gallery\\unnamed.png"
+    },
+    {
+        "path":  "docs\\06_media\\3d mesh models\\quillan ronin mesh.glb",
+        "bytes":  2642000,
+        "sha256":  "FC4692E4AA4ECEEE581A7D5163B0125AD8F56EEA8B558E4F211836CDDECAF20B",
+        "keeper":  "docs\\3d Mesh models\\quillan ronin mesh.glb"
+    }
+]
