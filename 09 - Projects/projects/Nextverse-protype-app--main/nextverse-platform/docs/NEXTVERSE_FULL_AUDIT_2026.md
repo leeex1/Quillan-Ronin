@@ -1091,3 +1091,26 @@ MIXER_GUI_CLOSED
 The native mixer benchmark (`NVVST3Mixer`) and graph/parity benchmarks remain separate headless verification targets.
 
 Scope: this is a functional mixer UI with real VST3 chains, faders, automation and MIDI — not full commercial parity. Tracktion Engine is still unused; there is no timeline, clip editing, mixer sends, or plugin browser UI.
+
+---
+
+## 37. OpenXR-capable rig and connected world (2026-11-24)
+
+**XR rig**: `godot/xr/xr_rig.gd` extends `XROrigin3D` and creates an XR camera plus left/right `XRController3D` nodes. Its movement helper feeds the same `parity_input` contract as desktop, so VR and non-VR movement vectors match. Verified without a headset:
+
+```
+[PASS] OpenXR-capable rig instantiates with camera + two controllers
+[PASS] XR rig movement matches desktop parity contract
+[PASS] OpenXR-capable parity path verification complete (no headset)
+```
+
+**Connected world**: `godot/worlds/world_stream.gd` instantiates all nine production zones on a ring with nine `Area3D` portal markers. `tests/verify_world_stream.gd` confirms 9 zones + 9 portals and named nodes for the first and last zones.
+
+```
+[PASS] connected world: 9 zones + 9 portals instantiated
+[PASS] world stream verification complete
+```
+
+**Tracktion blocker is real**: a full-disk search found only the placeholder `NextVerseDAW/modules/tracktion_engine` header, no Tracktion Engine source. Tracktion integration cannot be implemented without either downloading the engine or the owner supplying an existing checkout. This is the one remaining item that needs an owner decision; no such download was attempted.
+
+These additions are structural: an XR-ready rig and connected zone layout, not a headset-tested product or a populated game world.
