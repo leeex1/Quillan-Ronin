@@ -59,3 +59,15 @@ active agents may depend on it:
 - Visual Studio 7.05 GB + Windows Kits 3.36 GB
 - Global npm packages 6.63 GB, hermes-agent 5.10 GB, Python installs 4.71 GB
 - VSIX repair payloads 2.23 GB (needed for VS repair — do not delete)
+
+**User decision 2026-11-23:** none of the listed software may be removed. NVIDIA
+Toolkit is required for the custom CUDA kernel from the Muse challenge. No uninstall
+or relocation was performed.
+
+## Remaining blocked items (need user action, not agent action)
+1. Elevation required: `vssadmin list shadowstorage`, DISM component cleanup for WinSxS (9 GB)
+2. Locked file: `C:\temp_opencode_copy.db` (1.93 GB) — close the holding process first
+3. Soulframe cache ~13 GB — user declined deletion
+4. Pagefile 21 GB — required by current memory pressure (26 GB committed of 27.9 GB RAM)
+
+**Conclusion:** ~13.3 GB reclaimed is the maximum safe cleanup under current constraints.
