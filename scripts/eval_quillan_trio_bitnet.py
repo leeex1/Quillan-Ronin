@@ -181,7 +181,7 @@ class _MockBitLinear(nn.Module):
         self,
         k: torch.Tensor,
         v_target: torch.Tensor,
-        anchor_basis: Optional[torch.Tensor] = None,
+        a_anchor: Optional[torch.Tensor] = None,
         ridge_lambda: float = 1.0,
         max_rel_frob: float = 0.05,
     ) -> Dict[str, float]:
@@ -193,8 +193,8 @@ class _MockBitLinear(nn.Module):
             k.shape[1], device=k.device, dtype=k.dtype
         )
         dw = residual @ torch.linalg.solve(gram, k.T)
-        if anchor_basis is not None and anchor_basis.numel() > 0:
-            dw = dw - (dw @ anchor_basis) @ anchor_basis.T
+        if a_anchor is not None and a_anchor.numel() > 0:
+            dw = dw - (dw @ a_anchor) @ a_anchor.T
         base_norm = float(w_eff.norm().clamp(min=1e-8).item())
         dw_norm = float(dw.norm().item())
         if dw_norm / base_norm > max_rel_frob:
