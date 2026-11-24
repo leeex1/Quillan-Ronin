@@ -24,8 +24,26 @@ Quillan-ide upstream is **empty (0 KB)**; the local clone has detached HEAD and 
 - 988 ledger hits were inside the E: duplicate quarantine only
 - 247 LFS-tracked files still on disk are intentionally gitignored (`*.pdf`, `*.pkl`, `*.glb`, build dirs) — they remain local; media lives on Hugging Face by design
 
-## Outstanding decision
-The main repo's new file structure (84 organized moves, media dedup, LFS pointer repair,
-PNG recompression, reports) is **local and uncommitted**. Pushing requires selecting only
-our changes and excluding other agents' active work (modified training .py files, runtime
-JSONs, daemon state, exports).
+## Main repo published
+Commit `f1d4e150` pushed successfully: `b4704236..f1d4e150 main -> main`.
+Remote HEAD verified equal to local (`f1d4e15031`).
+
+Scoped commit contents: 961 files — 64 renames (100% similarity), 19 new ledgers/reports,
+625 intentional deletions (LFS-tracked binaries that belong on HF + deduplicated media),
+253 modifications (PNG recompression, 2 path fixes, .gitignore). Other agents' runtime
+state (07 - Memory, daemons, exports, training .py edits) was excluded.
+
+**Final verification — all 7 canonical repos MATCH remote:**
+
+| Repo | Local | Remote | Status |
+|---|---|---|---|
+| Quillan-Ronin | f1d4e15031 | f1d4e15031 | MATCH |
+| Validation-test-kit- | eb017aed76 | eb017aed76 | MATCH |
+| chrome-extension | 5c267fcc6b | 5c267fcc6b | MATCH |
+| quillan.cpp | e6be6e4552 | e6be6e4552 | MATCH |
+| metamon-game | 7819bd6a45 | 7819bd6a45 | MATCH |
+| MCP-DevKit | 49ed09276d | 49ed09276d | MATCH |
+| muse-open-kernal-research- | 85d75d366c | 85d75d366c | MATCH |
+
+Note: `worker\extension` still holds 1 unique local commit (3 behind, 1 ahead) — preserved,
+not overwritten. Quillan-ide upstream is empty (0 KB).
