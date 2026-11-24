@@ -1,0 +1,20 @@
+{
+  "note": "Swappable model config. Change 'model_path' to your finished Quillan model; runtime auto-detects loader.",
+  "model_path": "E:\\source_models\\bitnet_2b_4t",
+  "prompt": "The capital of France is",
+  "max_new_tokens": 24,
+  "runtime": "transformers",
+  "dtype": "bfloat16",
+  "device": "cuda",
+  "candidates_tested": {
+    "bitnet_2b_4t_safetensors": "WORKS on GTX 1050 (28.5s load, generated 'Paris')",
+    "bitnet_2b_4t_gguf": "MALFORMED (GQA/MHA tensor shape mismatch) - do not use",
+    "falcon3": "not on disk",
+    "qwen_0.5b_gguf": "WORKS via llama.cpp CUDA + Vulkan pooling"
+  },
+  "required_env": {
+    "KMP_DUPLICATE_LIB_OK": "TRUE",
+    "TORCHINDUCTOR_CXX_COMPILER": "C:\\Program Files\\LLVM\\bin\\clang-cl.exe",
+    "PATH_prefix": "C:\\Users\\Admin\\AppData\\Local\\Temp\\opencode\\cl_shim"
+  }
+}
