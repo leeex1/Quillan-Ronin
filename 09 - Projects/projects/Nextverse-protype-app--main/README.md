@@ -121,8 +121,8 @@ See [GODOT_MIGRATION_PLAN_2026.md](nextverse-platform/docs/GODOT_MIGRATION_PLAN_
 (See `master files/02-Development-Integration-and-Testing.md` for full setup)
 
 ```bash
-git clone https://github.com/leeex1/NextVerse.git
-cd NextVerse
+git clone https://github.com/leeex1/Nextverse-protype-app-.git
+cd Nextverse-protype-app-
 
 # Install dependencies
 npm install
