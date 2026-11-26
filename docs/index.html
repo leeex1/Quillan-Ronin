@@ -612,6 +612,45 @@ function handleConceptImgError(img) {
   .tab-content:not(.active) { content-visibility: hidden; }
   .katex-display { overflow-x: auto; overflow-y: hidden; }
 </style>
+<style id="media-skin">
+  /* Embedded player — real controls + FabFilter-style FFT */
+  #embeddedPlayer{position:relative;border:1px solid #3a7f9b;border-radius:9px;padding:12px 14px;margin-bottom:18px;
+    background:linear-gradient(180deg,#102438 0%,#07101c 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 30px rgba(0,0,0,.45);}
+  #embeddedPlayer .ep-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;flex-wrap:wrap;}
+  #embeddedPlayer .ep-title{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.2px;color:#8de4ff;}
+  #spectrumCanvas{width:100%;height:112px;display:block;border:1px solid #1e4d66;border-radius:5px;background:#02050b;}
+  #embeddedPlayer .ep-info{display:flex;align-items:center;gap:12px;margin:10px 0 8px;min-width:0;}
+  #epName{font-size:15px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #epMeta{font-size:11.5px;color:#8fb6c9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #embeddedPlayer .ep-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+  #embeddedPlayer .ep-controls button{min-width:38px;height:32px;border:1px solid #4c93b0;border-radius:5px;
+    background:linear-gradient(180deg,#24506b,#102a3d);color:#e8fbff;font-size:14px;cursor:pointer;}
+  #embeddedPlayer .ep-controls button:hover{background:#32749a;}
+  #embeddedPlayer input[type=range]{accent-color:#00d9ff;flex:1;min-width:120px;}
+  #epOpenList{font-size:10.5px!important;letter-spacing:.5px;}
+  /* Floating tracklist with filters */
+  #floatingTracklist{position:fixed;right:18px;bottom:18px;width:min(430px,calc(100vw - 24px));max-height:min(72vh,660px);
+    display:flex;flex-direction:column;z-index:10000;border:1px solid #3a7f9b;border-radius:8px;overflow:hidden;
+    background:linear-gradient(180deg,#122236,#060c16);box-shadow:0 20px 70px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.11);}
+  #ftTitle{display:flex;align-items:center;justify-content:space-between;height:29px;min-height:29px;padding:0 7px 0 11px;
+    background:linear-gradient(180deg,#22506b,#102a3d);border-bottom:1px solid #4c93b0;cursor:move;user-select:none;
+    font-family:'Orbitron',sans-serif;font-size:10.5px;font-weight:800;letter-spacing:1px;color:#d8f6ff;}
+  #ftTitle button{width:22px;height:20px;border:1px solid #5ba7c4;border-radius:3px;background:#2d5c78;color:#e8fbff;cursor:pointer;padding:0;}
+  #ftBody{overflow-y:auto;padding:8px 10px 12px;scrollbar-width:thin;scrollbar-color:#3a7f9b transparent;}
+  #ftBody #trackSearch{width:100%;margin-bottom:8px;font-size:11px!important;padding:6px 9px!important;}
+  #ftBody .album-filter-bar{gap:5px;margin-bottom:8px;}
+  #ftBody>div.album-filter-bar:first-child{position:sticky;top:-8px;z-index:3;
+    background:linear-gradient(180deg,#122236 70%,rgba(18,34,54,0));padding:4px 0 8px;margin-top:-4px;}
+  #ftBody .album-filter-btn{padding:4px 8px!important;font-size:10px!important;}
+  #ftBody #tracksListContainer{max-height:none!important;padding-right:2px!important;}
+  #ftBody .audio-track-row{padding:7px 10px;margin-bottom:5px;}
+  #floatingTracklist.collapsed #ftBody{display:none;}
+  #ftOpen{position:fixed;right:18px;bottom:18px;z-index:9999;display:none;padding:9px 13px;border-radius:6px;
+    border:1px solid #4c93b0;background:linear-gradient(180deg,#1b3f57,#0b1b2a);color:#d8f6ff;
+    font-family:'Orbitron',sans-serif;font-size:10.5px;font-weight:700;cursor:pointer;}
+  /* bottom bar = now-playing display */
+  .sticky-audio-bar .audio-btns-row{opacity:.85;}
+</style>
 </head>
 <body>
 
@@ -1571,6 +1610,27 @@ function handleConceptImgError(img) {
       <!-- TAB 6: 146-TRACK MASTER JUKEBOX (1 to 118) -->
       <!-- ========================================== -->
       <section id="tab-media" class="tab-content">
+      <div id="embeddedPlayer">
+        <div class="ep-head">
+          <span class="ep-title">◈ SOVEREIGN PLAYER · FABFILTER SPECTRUM</span>
+          <button id="epOpenList" type="button" onclick="toggleTracklist()" title="Show or hide the floating tracklist">☰ TRACKLIST</button>
+        </div>
+        <canvas id="spectrumCanvas" width="1200" height="224"></canvas>
+        <div class="ep-info">
+          <div style="min-width:0;">
+            <div id="epName">Agent Ronin</div>
+            <div id="epMeta">The Sound of Alchemy • Cyber-Phonk</div>
+          </div>
+        </div>
+        <div class="ep-controls">
+          <button type="button" onclick="playPrevTrack()" title="Previous">⏮</button>
+          <button id="epPlayBtn" type="button" onclick="playFromEmbedded()" title="Play / Pause">▶</button>
+          <button type="button" onclick="playNextTrack()" title="Next">⏭</button>
+          <input type="range" id="epScrubber" min="0" max="100" value="0" oninput="seekAudio(this.value)" aria-label="Seek">
+          <input type="range" id="epVolume" min="0" max="1" step="0.05" value="0.85" oninput="setAudioVolume(this.value)" aria-label="Volume" style="max-width:110px;">
+        </div>
+      </div>
+
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:14px;">
           <div>
             <span class="badge" style="color:var(--accent-gold); border-color:var(--accent-gold); margin-bottom:6px;">146 OFFICIAL MASTER TRACKS</span>
@@ -2275,7 +2335,7 @@ function handleConceptImgError(img) {
         </button>
       </div>
     </div>
-      </div>
+      
       <div style="display:flex; align-items:center; gap:14px;">
         <span style="font-family:'JetBrains Mono'; font-size:12px; color:var(--text-muted);">6:30</span>
         <button class="btn btn-secondary track-play-btn" style="padding:5px 12px; font-size:11px; border-color:rgba(0,240,255,0.4); background:rgba(0,240,255,0.08);">
@@ -3879,6 +3939,7 @@ function handleConceptImgError(img) {
         </button>
       </div>
     </div>
+        </div>
     
     
         </div>
@@ -13723,8 +13784,15 @@ function handleConceptImgError(img) {
   </div>
 
   <!-- Hidden Native Audio Element -->
-  <audio id="nativeAudioElement" preload="metadata"></audio>
+  <audio id="nativeAudioElement" crossorigin="anonymous" preload="metadata"></audio>
 
+  <div id="floatingTracklist">
+    <div id="ftTitle"><span>☰ TRACKLIST · FILTERS</span>
+      <div><button id="ftMin" type="button" title="Collapse">_</button> <button id="ftClose" type="button" title="Hide">×</button></div>
+    </div>
+    <div id="ftBody"></div>
+  </div>
+  <button id="ftOpen" type="button">☰ OPEN TRACKLIST</button>
   <!-- Modals -->
 
   <!-- 1. Interactive 34-Council Neural Dossier Modal -->
@@ -14414,6 +14482,7 @@ function handleConceptImgError(img) {
     // 3. MASTER AUDIO JUKEBOX (CONTINUOUS AUTO-PROGRESSION)
     // ==========================================
     const audioEl = document.getElementById('nativeAudioElement');
+      audioEl.crossOrigin = 'anonymous'; // required for Web Audio FFT on the HF CDN
     let isPlaying = false;
     let currentTrackIndex = 0;
     let isTransitioningTrack = false;
@@ -14475,6 +14544,11 @@ function handleConceptImgError(img) {
       if (titleEl) titleEl.innerText = title;
       const metaEl = document.getElementById('masterAudioMeta');
       if (metaEl) metaEl.innerText = `${album} • ${genre}`;
+      const epName = document.getElementById('epName'), epMeta = document.getElementById('epMeta');
+      if (epName) epName.innerText = title;
+      if (epMeta) epMeta.innerText = `${album} • ${genre}`;
+      const barTitle = document.getElementById('masterAudioTitle');
+      if (barTitle) barTitle.innerText = title;
 
       // Highlight active row in HTML
       document.querySelectorAll('.audio-track-row').forEach(r => r.classList.remove('now-playing'));
@@ -16182,7 +16256,148 @@ function openArtworkLightbox(src, title, tag) {
       if (btn) btn.innerText = _ttsEnabled ? '\uD83D\uDD0A' : '\uD83D\uDD07';
     }
 
+
+    // ===== EMBEDDED PLAYER + FLOATING TRACKLIST =====
+    let __ftVisible = true;
+    function toggleTracklist(force) {
+      const ft = document.getElementById('floatingTracklist');
+      const open = document.getElementById('ftOpen');
+      if (!ft || !open) return;
+      __ftVisible = (typeof force === 'boolean') ? force : !__ftVisible;
+      ft.style.display = __ftVisible ? 'flex' : 'none';
+      open.style.display = __ftVisible ? 'none' : 'block';
+    }
+    window.toggleTracklist = toggleTracklist;
+
+    function playFromEmbedded() {
+      if (audioEl && audioEl.src && audioEl.src !== window.location.href) { togglePlayPause(); return; }
+      const row = document.querySelector('.audio-track-row[onclick]');
+      if (row) { row.click(); return; }
+      if (typeof TRACKS_DATA !== 'undefined' && TRACKS_DATA.length) {
+        const t = TRACKS_DATA[0];
+        playRealTrack(t.file, t.title, t.album, t.genre, 0);
+      }
+    }
+    window.playFromEmbedded = playFromEmbedded;
+
+    function initMediaUpgrade() {
+      const ft = document.getElementById('floatingTracklist');
+      const body = document.getElementById('ftBody');
+      const openBtn = document.getElementById('ftOpen');
+      const canvas = document.getElementById('spectrumCanvas');
+      if (!ft || !body || !canvas) return;
+
+      const search = document.getElementById('trackSearch');
+      if (search) { const w = document.createElement('div'); w.className='album-filter-bar'; w.appendChild(search); body.appendChild(w); }
+      const firstFilter = document.querySelector('#tab-media .album-filter-btn');
+      if (firstFilter && firstFilter.parentElement) {
+        const bar = firstFilter.parentElement;
+        if (bar.parentElement) bar.parentElement.removeChild(bar);
+        bar.className = 'album-filter-bar'; body.appendChild(bar);
+      }
+      const tracks = document.getElementById('tracksListContainer');
+      if (tracks && tracks.parentElement !== body) body.appendChild(tracks);
+      // A prior markup pass left some rows outside the container. Pull every
+      // track row into the single floating list; no flat list remains in the tab.
+      if (tracks) {
+        document.querySelectorAll('.audio-track-row').forEach(row => {
+          if (row.parentElement !== tracks) tracks.appendChild(row);
+        });
+        [...tracks.querySelectorAll('.audio-track-row')].forEach((row, i) => {
+          const badge = row.querySelector('.track-number-badge');
+          if (badge) badge.innerText = '#' + String(i + 1).padStart(3, '0');
+        });
+      }
+
+      let audioCtx = null, analyser = null, freq = null, raf = 0;
+      const BARS = 64, peaks = new Float32Array(BARS);
+      function ensureGraph() {
+        try {
+          if (!audioCtx) {
+            const AC = window.AudioContext || window.webkitAudioContext;
+            if (!AC) return;
+            audioCtx = new AC();
+            const src = audioCtx.createMediaElementSource(audioEl);
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 2048; analyser.smoothingTimeConstant = 0.80;
+            freq = new Uint8Array(analyser.frequencyBinCount);
+            src.connect(analyser); analyser.connect(audioCtx.destination);
+          }
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+        } catch (e) { console.warn('[Player] FFT unavailable:', e); analyser = null; }
+      }
+      document.getElementById('embeddedPlayer').addEventListener('pointerdown', ensureGraph, { passive: true });
+      audioEl.addEventListener('play', ensureGraph);
+
+      const ctx = canvas.getContext('2d');
+      function draw() {
+        const w = canvas.width, h = canvas.height;
+        ctx.fillStyle = '#02050b'; ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = 'rgba(90,170,200,0.10)'; ctx.lineWidth = 1;
+        for (let i=1;i<5;i++){const y=h*i/5;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+        for (let i=1;i<13;i++){const x=w*i/13;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+        if (analyser) analyser.getByteFrequencyData(freq);
+        const grad=ctx.createLinearGradient(0,h,0,0);
+        grad.addColorStop(0,'#00e5ff');grad.addColorStop(.45,'#8b5cf6');grad.addColorStop(.8,'#ffd166');grad.addColorStop(1,'#ff5d73');
+        const gap=4, bw=(w-gap*(BARS+1))/BARS, t=performance.now();
+        let signal=false;
+        for(let i=0;i<BARS;i++){
+          let v=0;
+          if(analyser&&freq){
+            const a=Math.floor(Math.pow(i/BARS,2.1)*500)+1, b=Math.max(a+1,Math.floor(Math.pow((i+1)/BARS,2.1)*500)+1);
+            let m=0;for(let k=a;k<b&&k<freq.length;k++)m=Math.max(m,freq[k]);
+            v=Math.min(1,(m/255)*1.3);
+          }
+          if(!isPlaying||v<0.012) v=0.055+0.035*Math.sin(t*0.0012+i*0.38); else signal=true;
+          peaks[i]=Math.max(v,peaks[i]-0.005);
+          const bh=Math.max(3,v*(h-14)), x=gap+i*(bw+gap);
+          ctx.fillStyle=grad;ctx.shadowColor='#00d9ff';ctx.shadowBlur=signal?9:2;
+          ctx.fillRect(x,h-bh,bw,bh);ctx.shadowBlur=0;
+          ctx.fillStyle='rgba(255,235,170,.85)';ctx.fillRect(x,h-Math.max(4,peaks[i]*(h-14))-3,bw,2);
+        }
+        if(isPlaying) raf=requestAnimationFrame(draw);
+      }
+      const origUpdate=window.updatePlayBtn;
+      window.updatePlayBtn=function(){
+        if(origUpdate) origUpdate();
+        const b=document.getElementById('epPlayBtn'); if(b) b.innerText=isPlaying?'⏸':'▶';
+        const s=document.getElementById('epScrubber'); if(s&&!s.dataset.drag) s.value=audioEl.duration?Math.round(audioEl.currentTime/audioEl.duration*100):0;
+        if(isPlaying){ if(!raf) raf=requestAnimationFrame(draw); }
+        else { if(raf) cancelAnimationFrame(raf); raf=0; draw(); }
+      };
+      // keep the embedded scrubber in sync while playing
+      audioEl.addEventListener('timeupdate', () => {
+        const s=document.getElementById('epScrubber');
+        if(s && !s.dataset.drag && audioEl.duration) s.value=Math.round(audioEl.currentTime/audioEl.duration*100);
+      });
+      const scrub=document.getElementById('epScrubber');
+      if(scrub){ scrub.addEventListener('pointerdown',()=>scrub.dataset.drag='1');
+                 scrub.addEventListener('pointerup',()=>{delete scrub.dataset.drag;}); }
+      draw();
+
+      const title=document.getElementById('ftTitle'); let drag=null;
+      title.addEventListener('pointerdown',e=>{
+        if(e.target.closest('button'))return;
+        const r=ft.getBoundingClientRect();drag={dx:e.clientX-r.left,dy:e.clientY-r.top};
+        ft.style.right='auto';ft.style.bottom='auto';ft.style.left=r.left+'px';ft.style.top=r.top+'px';
+        title.setPointerCapture(e.pointerId);
+      });
+      title.addEventListener('pointermove',e=>{
+        if(!drag)return;
+        ft.style.left=Math.max(0,Math.min(innerWidth-120,e.clientX-drag.dx))+'px';
+        ft.style.top=Math.max(0,Math.min(innerHeight-60,e.clientY-drag.dy))+'px';
+      });
+      title.addEventListener('pointerup',()=>{drag=null;});
+      document.getElementById('ftMin').addEventListener('click',()=>{
+        ft.classList.toggle('collapsed');
+        document.getElementById('ftMin').textContent=ft.classList.contains('collapsed')?'▢':'_';
+      });
+      document.getElementById('ftClose').addEventListener('click',()=>toggleTracklist(false));
+      openBtn.addEventListener('click',()=>toggleTracklist(true));
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      try { initMediaUpgrade(); } catch (e) { console.warn('[Player] init failed:', e); }
       // ── Math formula visuals ──
       try { initMathTheoremVisuals(); } catch(e) { console.warn('[Init] initMathTheoremVisuals failed:', e); }
       try { init35FormulaVisuals(); } catch(e) { console.warn('[Init] init35FormulaVisuals failed:', e); }
