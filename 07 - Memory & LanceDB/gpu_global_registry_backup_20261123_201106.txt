@@ -1,0 +1,1 @@
+DirectXUserGlobalSettings=SwapEffectUpgradeEnable=1;AutoHDREnable=1;

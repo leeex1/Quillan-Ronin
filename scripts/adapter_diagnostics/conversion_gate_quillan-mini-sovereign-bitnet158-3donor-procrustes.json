@@ -1,0 +1,171 @@
+{
+  "owner": "c18-shepherd",
+  "decision": 926,
+  "candidate_checkpoint": "C:\\02_QUILLAN\\exports\\quillan-mini-sovereign-bitnet158-3donor-procrustes.safetensors",
+  "candidate_bytes": 1609018260,
+  "preregistered": {
+    "A_prompt_logit_cos_lt": 0.99,
+    "A_top1_must_differ": true,
+    "B_mean_alpha_ratio_gt": 0.0,
+    "C_donor_mean_top1_overlap_gt": 0.0,
+    "C_donor_mean_top5_overlap_gt": 0.0,
+    "D_strict_key_coverage": "530/530 (0 missing, 0 unexpected)",
+    "E_frozen_heldout_smoke": "completes without exception",
+    "F_regression_suites_pass": 3,
+    "G_canonical_sha256_unchanged": "53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c"
+  },
+  "prompts": [
+    "The capital of France is",
+    "2 + 2 =",
+    "Hello, my name is",
+    "Quillan-Ronin is a sovereign",
+    "The quick brown fox jumps over the lazy dog and then"
+  ],
+  "prose_pair": [
+    "The capital of France is",
+    "Hello, my name is"
+  ],
+  "tokenizer": "Qwen2.5-0.5B-Instruct (matching 151936-wide embedding)",
+  "model_meta": {
+    "checkpoint": "C:\\02_QUILLAN\\exports\\quillan-mini-sovereign-bitnet158-3donor-procrustes.safetensors",
+    "param_count": 815396270,
+    "safetensors_decode_s": 3.29,
+    "model_build_s": 6.41,
+    "strict_load_s": 0.63,
+    "bits_per_token_bytes": 14128
+  },
+  "D_coverage": {
+    "expected_keys": 530,
+    "ckpt_base_keys": 530,
+    "missing": [],
+    "unexpected": [],
+    "candidate_sha256": "c4c46967fb0f43561fb16c7219771774665edcb9bde2611dee6fc7e181717ac2",
+    "canonical_sha256_now": "53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c",
+    "canonical_expected_sha256": "53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c",
+    "passed": true
+  },
+  "A_prompts": {
+    "prompt_a": "The capital of France is",
+    "prompt_b": "Hello, my name is",
+    "len_a": 5,
+    "len_b": 5,
+    "logit_cos": 0.99999845,
+    "top1_a_id": 119277,
+    "top1_a_tok": "'擠'",
+    "top1_b_id": 119277,
+    "top1_b_tok": "'擠'",
+    "max_abs_diff": 0.03442097,
+    "passed": false
+  },
+  "B_coherence": {
+    "mean_alpha_ratio": 0.935918,
+    "per_prompt_alpha_ratio": {
+      "The capital of France is": 0.941176,
+      "2 + 2 =": 0.941176,
+      "Hello, my name is": 0.941176,
+      "Quillan-Ronin is a sovereign": 0.916667,
+      "The quick brown fox jumps over the lazy dog and then": 0.939394
+    },
+    "per_prompt_generation": {
+      "The capital of France is": "擠擺擠揿擠揿抵挡套路薅.Point",
+      "2 + 2 =": "擠擺擠揿擠揿抵挡套路薅.Point",
+      "Hello, my name is": "擠擺擠揿擠揿抵挡套路薅.Point",
+      "Quillan-Ronin is a sovereign": "揿擠抵挡套路薅.Point葑.Point葑 quy",
+      "The quick brown fox jumps over the lazy dog and then": "抵挡套路薅.Point葑.Point葑 quy epis protest"
+    },
+    "distinct_generations": 3,
+    "max_identical_generation_count": 3,
+    "passed": true
+  },
+  "C_donor_overlap": {
+    "per_prompt": {
+      "The capital of France is": {
+        "top1": 0,
+        "top5": 0
+      },
+      "2 + 2 =": {
+        "top1": 0,
+        "top5": 0
+      },
+      "Hello, my name is": {
+        "top1": 0,
+        "top5": 0
+      },
+      "Quillan-Ronin is a sovereign": {
+        "top1": 0,
+        "top5": 0
+      },
+      "The quick brown fox jumps over the lazy dog and then": {
+        "top1": 0,
+        "top5": 0
+      }
+    },
+    "mean_top1": 0.0,
+    "mean_top5": 0.0,
+    "passed": false
+  },
+  "E_smoke": {
+    "selected_items": 8,
+    "held_out_accuracy": 0.0,
+    "held_out_correct": 0,
+    "held_out_n": 8,
+    "ce_loss": 28.602849,
+    "ppl": 2642771080847.274,
+    "checkpoint_sha256": "c4c46967fb0f43561fb16c7219771774665edcb9bde2611dee6fc7e181717ac2",
+    "passed": true
+  },
+  "F_regression_suites": {
+    "suites": {
+      "test_custom_arch_transfer.py": {
+        "returncode": 0,
+        "marker": "CUSTOM_ARCH_TRANSFER_TEST PASS",
+        "marker_found": true,
+        "passed": true,
+        "tail": [
+          "2026-11-20 16:27:17,069 [WARNING] Quillan.WeightAdapter - Legacy hint dims (1024,2048,50257) differ from target (64,128,256); using target.",
+          "2026-11-20 16:27:17,069 [INFO] Quillan.WeightAdapter - Donor lm_head absent -> tying decoder to donor token embedding.",
+          "2026-11-20 16:27:17,091 [INFO] Quillan.WeightAdapter - Adaptation complete (llama): 38/530 keys donor-derived; 36.64% of elements from donor."
+        ]
+      },
+      "test_arch_generation_path.py": {
+        "returncode": 0,
+        "marker": "SUMMARY: 6/6 checks passed",
+        "marker_found": true,
+        "passed": true,
+        "tail": [
+          "USDT:2026-11-20 16:27:24 27312:24552 C:\\actions-runner\\_work\\pytorch\\pytorch\\third_party\\kineto\\libkineto\\src\\ActivityProfilerController.cpp:415] profiler_start",
+          "[W1120 16:27:24.000000000 CPUAllocator.cpp:245] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event",
+          "USDT:2026-11-20 16:27:26 27312:24552 C:\\actions-runner\\_work\\pytorch\\pytorch\\third_party\\kineto\\libkineto\\src\\ActivityProfilerController.cpp:455] profiler_stop"
+        ]
+      },
+      "test_wsp_gates.py": {
+        "returncode": 0,
+        "marker": "ALL_WSP_GATE_TESTS_PASSED",
+        "marker_found": true,
+        "passed": true,
+        "tail": [
+          "PASS gate_wiring: v23_stage_d_deep_wsp.py::run_stage_d -> check_stage_d_gate + write_failed_report",
+          "ALL_WSP_GATE_TESTS_PASSED",
+          "2026-11-20 16:27:50,423 [ERROR] V23_StageB - GATE FAILURE [B/mini] -> C:\\Users\\Admin\\AppData\\Local\\Temp\\tmpfa0fcfw0\\v23_b_mini_FAILED.json : synthetic fixture failure"
+        ]
+      }
+    },
+    "passed": true
+  },
+  "G_canonical_unchanged": {
+    "now": "53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c",
+    "expected": "53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c",
+    "passed": true
+  },
+  "checks": {
+    "A_prompt_sensitivity": false,
+    "B_coherent_english": true,
+    "C_donor_topk_overlap": false,
+    "D_strict_530_530": true,
+    "E_frozen_smoke_completed": true,
+    "F_regression_suites_3of3": true,
+    "G_canonical_sha_unchanged": true
+  },
+  "overall_pass": false,
+  "elapsed_s": 378.0
+}

@@ -1,0 +1,69 @@
+{
+  "owner": "c18-shepherd",
+  "brief": 911,
+  "read_only": true,
+  "weight_level": {
+    "donor_embed_tokens_shape": [
+      151936,
+      896
+    ],
+    "custom_txt_emb_key_present": true,
+    "custom_txt_dec_key_present": true,
+    "cosine_donor_embed_vs_custom_txt_emb": 1.0,
+    "cosine_donor_embed_vs_custom_txt_dec": 1.0,
+    "donor_embed_mean_abs": 0.011981,
+    "custom_txt_emb_mean_abs": 0.011981,
+    "custom_txt_emb_dtype_in_file": "F16"
+  },
+  "pos_embed": {
+    "shape": [
+      1,
+      1024,
+      896
+    ],
+    "mean_abs": 0.622575,
+    "max_abs": 1.0,
+    "std": 0.669088,
+    "cosine_vs_canonical_sinusoidal": 1.0,
+    "scale_ratio_pos_over_txt_emb": 51.96
+  },
+  "length_only_collapse_control": {
+    "'The capital of France is' vs 'Hello, my name is'": {
+      "token_lengths": [
+        5,
+        5
+      ],
+      "custom_logit_cosine": 0.999996,
+      "donor_logit_cosine": 0.782233,
+      "custom_max_abs_logit_diff": 2.7e-05
+    },
+    "'The capital of France is' vs '2 + 2 ='": {
+      "token_lengths": [
+        5,
+        5
+      ],
+      "custom_logit_cosine": 0.999934,
+      "donor_logit_cosine": 0.643848,
+      "custom_max_abs_logit_diff": 1.009913
+    },
+    "'The capital of France is' vs 'The quick brown fox jumps over the lazy dog and then'": {
+      "token_lengths": [
+        5,
+        11
+      ],
+      "custom_logit_cosine": 0.873392,
+      "donor_logit_cosine": 0.539366,
+      "custom_max_abs_logit_diff": 25.385105
+    }
+  },
+  "spearman_logit_rank_correlation_custom_vs_donor": {
+    "per_prompt": {
+      "The capital of France is": -0.358099,
+      "2 + 2 =": -0.322874,
+      "Hello, my name is": -0.31597,
+      "Quillan-Ronin is a sovereign": -0.094407,
+      "The quick brown fox jumps over the lazy dog and then": -0.123763
+    },
+    "mean": -0.243023
+  }
+}

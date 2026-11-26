@@ -1,0 +1,27 @@
+{
+  "ts": 1795204585.2365577,
+  "module": "qps_governor",
+  "formula": "QPS(DARE/LQR) + QSSR(Lyapunov)",
+  "E_omega_normalized": 0.3066,
+  "x_pressure": [
+    -0.259,
+    -0.2779,
+    -0.75
+  ],
+  "u": 0.1,
+  "u_raw": 0.506274,
+  "recursion_depth": 0,
+  "qssr_accepted": true,
+  "current_scale": 1.0,
+  "recommended_scale": 1.0,
+  "P_diag": [
+    6.042113,
+    9.074409,
+    9.191749
+  ],
+  "K": [
+    0.630063,
+    0.422865,
+    0.300789
+  ]
+}

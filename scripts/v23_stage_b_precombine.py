@@ -48,6 +48,83 @@ DONOR_FILES = {
 }
 
 
+# ---------------------------------------------------------------------------
+# Non-vacuous-progress gates (shared by Stage B/C/D + test_wsp_gates.py).
+# A gate failure RAISES; the caller writes a FAILED report and performs NO export.
+# ---------------------------------------------------------------------------
+class WSPGateError(RuntimeError):
+    """Raised when a WSP stage would otherwise report success while doing nothing."""
+
+
+def write_failed_report(
+    stage: str,
+    model_key: str,
+    reason: str,
+    context: Optional[Dict[str, Any]] = None,
+) -> Path:
+    """Writes a machine-readable FAILED report. Never exports a model."""
+    c.EXPORT_ROOT.mkdir(parents=True, exist_ok=True)
+    rep = c.EXPORT_ROOT / f"v23_{stage.lower()}_{model_key}_FAILED.json"
+    payload: Dict[str, Any] = {
+        "status": "FAILED",
+        "stage": stage,
+        "model": model_key,
+        "exported": False,
+        "reason": reason,
+    }
+    if context:
+        payload["context"] = context
+    rep.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    logger.error("GATE FAILURE [%s/%s] -> %s : %s", stage, model_key, rep, reason)
+    return rep
+
+
+def check_stage_b_gate(
+    best_alpha: float,
+    unit_deltas: Dict[Tuple[int, str], torch.Tensor],
+    final_val_nll: Optional[float] = None,
+    base_val_nll: Optional[float] = None,
+    tol: float = 1e-5,
+    min_delta_norm: float = 1e-8,
+) -> float:
+    """
+    Stage B non-vacuous-progress gate.
+      - best_alpha MUST be strictly > 0 (a real donor merge happened).
+      - at least one donor candidate delta MUST have non-zero Frobenius norm.
+      - the merged model MUST not regress full validation NLL.
+    Returns the maximum candidate delta norm on success; raises WSPGateError otherwise.
+    """
+    if not (isinstance(best_alpha, (int, float)) and best_alpha > 0.0):
+        raise WSPGateError(
+            f"STAGE_B_GATE_FAIL: alpha={best_alpha!r} is not > 0.0 "
+            "(0% donor merge is not a valid Stage B result)."
+        )
+    if not unit_deltas:
+        raise WSPGateError(
+            "STAGE_B_GATE_FAIL: unit_deltas is empty - no donor contributed."
+        )
+    max_norm = 0.0
+    for key, delta in unit_deltas.items():
+        d_norm = float(torch.norm(delta.detach().float()).item())
+        if not math.isfinite(d_norm):
+            raise WSPGateError(
+                f"STAGE_B_GATE_FAIL: non-finite candidate delta norm at {key}."
+            )
+        max_norm = max(max_norm, d_norm)
+    if not (max_norm > min_delta_norm):
+        raise WSPGateError(
+            f"STAGE_B_GATE_FAIL: all candidate delta norms are ~0 (max={max_norm:.3e}); "
+            "no donor contributed."
+        )
+    if final_val_nll is not None and base_val_nll is not None:
+        if not (final_val_nll <= base_val_nll + tol):
+            raise WSPGateError(
+                f"STAGE_B_GATE_FAIL: full val NLL regressed {base_val_nll:.6f} -> "
+                f"{final_val_nll:.6f} (tol={tol})."
+            )
+    return max_norm
+
+
 def build_calib_and_val_splits(data_path: Path) -> Tuple[List[str], List[str]]:
     """Builds strictly disjoint non-test calibration vs validation text lists."""
     with open(data_path, "r", encoding="utf-8") as f:
@@ -101,8 +178,12 @@ def capture_input_subspaces(
 
     for l in target_layers:
         layer = model.model.layers[l]
-        hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(_make_hook(l, "o_proj")))
-        hooks.append(layer.mlp.down_proj.register_forward_pre_hook(_make_hook(l, "down_proj")))
+        hooks.append(
+            layer.self_attn.o_proj.register_forward_pre_hook(_make_hook(l, "o_proj"))
+        )
+        hooks.append(
+            layer.mlp.down_proj.register_forward_pre_hook(_make_hook(l, "down_proj"))
+        )
 
     try:
         for txt in calib_texts:
@@ -130,7 +211,9 @@ def capture_input_subspaces(
     return bases, calib_k
 
 
-def _closest_donor_layer(host_layer: int, host_total: int, donor_layers: List[int], donor_total: int) -> int:
+def _closest_donor_layer(
+    host_layer: int, host_total: int, donor_layers: List[int], donor_total: int
+) -> int:
     rel = host_layer / max(1, host_total - 1)
     best = min(donor_layers, key=lambda dl: abs(dl / max(1, donor_total - 1) - rel))
     return best
@@ -217,7 +300,11 @@ def compute_candidate_deltas(
         sample_pairs = 0
         h_ids, d_ids = [], []
         for tok, did in d_vocab.items():
-            if did < d_emb.shape[0] and tok in host_vocab and host_vocab[tok] < host_emb.shape[0]:
+            if (
+                did < d_emb.shape[0]
+                and tok in host_vocab
+                and host_vocab[tok] < host_emb.shape[0]
+            ):
                 h_ids.append(host_vocab[tok])
                 d_ids.append(did)
                 sample_pairs += 1
@@ -225,15 +312,30 @@ def compute_candidate_deltas(
                     break
         if sample_pairs >= 100:
             proj_e = d_emb[d_ids] @ p_d2h
-            cos_q = float(torch.nn.functional.cosine_similarity(proj_e, host_emb[h_ids], dim=-1).mean().item())
+            cos_q = float(
+                torch.nn.functional.cosine_similarity(proj_e, host_emb[h_ids], dim=-1)
+                .mean()
+                .item()
+            )
         else:
             cos_q = 0.25
 
         # Prioritize BitNet-2B-4T & matching-scale 1B donors with solid alignment
         base_w = 2.0 if d_name == "bitnet_2b4t" else 1.0
         w_donor = max(0.05, cos_q) * base_w
-        donor_meta[d_name] = {"shared_tokens": n_shared, "aligned_cos": round(cos_q, 4), "weight": round(w_donor, 4)}
-        logger.info("Donor %s aligned -> %s: shared=%d cos=%.4f weight=%.3f", d_name, model_key, n_shared, cos_q, w_donor)
+        donor_meta[d_name] = {
+            "shared_tokens": n_shared,
+            "aligned_cos": round(cos_q, 4),
+            "weight": round(w_donor, 4),
+        }
+        logger.info(
+            "Donor %s aligned -> %s: shared=%d cos=%.4f weight=%.3f",
+            d_name,
+            model_key,
+            n_shared,
+            cos_q,
+            w_donor,
+        )
 
         # Normalize ALL 4 donors down to BitNet 1.58b {-1, 0, 1} ternary space before pooling
         for hl in target_layers:
@@ -279,11 +381,15 @@ def compute_candidate_deltas(
                 u_c, _, vh_c = torch.linalg.svd(c_small, full_matrices=False)
                 rot = u_c @ vh_c  # (q_rank, q_rank)
                 u_donor_proj = (w_dn_out @ v_d) @ rot  # (d_host, q_rank)
-                w_h_dn_proj = (w_h_dn @ v_h) @ v_h.T   # rank-k host subspace projection
+                w_h_dn_proj = (w_h_dn @ v_h) @ v_h.T  # rank-k host subspace projection
                 beta_steer = 0.25
-                u_tilde = (1.0 - beta_steer) * u_donor_proj + beta_steer * (w_h_dn @ v_h)
+                u_tilde = (1.0 - beta_steer) * u_donor_proj + beta_steer * (
+                    w_h_dn @ v_h
+                )
                 w_dn_al = u_tilde @ v_h.T
-                scale_dn = float(torch.norm(w_h_dn_proj) / (torch.norm(w_dn_al) + 1e-12))
+                scale_dn = float(
+                    torch.norm(w_h_dn_proj) / (torch.norm(w_dn_al) + 1e-12)
+                )
                 delta_dn = scale_dn * w_dn_al - w_h_dn_proj
 
             # Rank-32 SVD of donor down_proj delta strips high-frequency unaligned noise
@@ -380,11 +486,18 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     spec = c.MODEL_SPECS[model_key]
     if convert_only:
         if model_key == "dragon":
-            raise ValueError("Dragon exports directly via patched GGUF; no convert-only needed.")
+            raise ValueError(
+                "Dragon exports directly via patched GGUF; no convert-only needed."
+            )
         c.convert_hf_dir_to_gguf(spec["stageb_hf"], spec["stageb_gguf"], outtype="q8_0")
         ppl2 = c.measure_gguf_ppl_cli(spec["stageb_gguf"], chunks=2, ctx=128)
         ppl3 = c.measure_gguf_ppl_cli(spec["stageb_gguf"], chunks=3, ctx=128)
-        res = {"model": model_key, "stageb_gguf": str(spec["stageb_gguf"]), "ppl_2c": ppl2, "ppl_3c": ppl3}
+        res = {
+            "model": model_key,
+            "stageb_gguf": str(spec["stageb_gguf"]),
+            "ppl_2c": ppl2,
+            "ppl_3c": ppl3,
+        }
         print("STAGE_B_GGUF_PPL:", json.dumps(res))
         return res
 
@@ -396,7 +509,9 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
 
     calib_texts, val_texts = build_calib_and_val_splits(c.CLEAN_DATA_PATH)
     base_val_nll = c.evaluate_texts_nll(model, tok, val_texts)
-    logger.info("Clean Stage A val NLL = %.6f (PPL=%.4f)", base_val_nll, math.exp(base_val_nll))
+    logger.info(
+        "Clean Stage A val NLL = %.6f (PPL=%.4f)", base_val_nll, math.exp(base_val_nll)
+    )
 
     target_layers: List[int] = spec["target_layers"]
     bases, calib_k = capture_input_subspaces(model, tok, target_layers, calib_texts)
@@ -430,19 +545,37 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     trials: List[Dict[str, Any]] = []
     for s_name, l_sub in layer_subsets:
         for p_mode in proj_modes:
-            if "down_proj" in p_mode and not any((l, "down_proj") in unit_deltas for l in l_sub):
+            if "down_proj" in p_mode and not any(
+                (l, "down_proj") in unit_deltas for l in l_sub
+            ):
                 continue
             for alpha in alphas:
-                _apply_deltas(model, orig_weights, unit_deltas, l_sub, p_mode, alpha, calib_k=calib_k)
+                _apply_deltas(
+                    model,
+                    orig_weights,
+                    unit_deltas,
+                    l_sub,
+                    p_mode,
+                    alpha,
+                    calib_k=calib_k,
+                )
                 nll = c.evaluate_texts_nll(model, tok, fast_val_texts)
-                trials.append({
-                    "subset": s_name,
-                    "projs": list(p_mode),
-                    "alpha": alpha,
-                    "val_nll": round(nll, 6),
-                })
-                logger.info("Trial %-5s projs=%-22s alpha=%.4f -> fast_nll=%.6f (delta=%+.6f)",
-                            s_name, str(p_mode), alpha, nll, nll - base_fast_nll)
+                trials.append(
+                    {
+                        "subset": s_name,
+                        "projs": list(p_mode),
+                        "alpha": alpha,
+                        "val_nll": round(nll, 6),
+                    }
+                )
+                logger.info(
+                    "Trial %-5s projs=%-22s alpha=%.4f -> fast_nll=%.6f (delta=%+.6f)",
+                    s_name,
+                    str(p_mode),
+                    alpha,
+                    nll,
+                    nll - base_fast_nll,
+                )
                 if nll < best_nll - 1e-6:
                     best_nll = nll
                     best_cfg = {"layers": l_sub, "projs": p_mode, "alpha": alpha}
@@ -450,22 +583,73 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     # Verify candidate against full 31-item val_texts with Woodbury Ridge harmonizer;
     # NEVER silently fall back to alpha=0.0
     if best_cfg["alpha"] == 0.0:
-        best_cfg = {"layers": target_layers, "projs": ("o_proj", "down_proj"), "alpha": 0.02}
-    _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], best_cfg["alpha"], calib_k=calib_k)
+        best_cfg = {
+            "layers": target_layers,
+            "projs": ("o_proj", "down_proj"),
+            "alpha": 0.02,
+        }
+    _apply_deltas(
+        model,
+        orig_weights,
+        unit_deltas,
+        best_cfg["layers"],
+        best_cfg["projs"],
+        best_cfg["alpha"],
+        calib_k=calib_k,
+    )
     final_val_nll = c.evaluate_texts_nll(model, tok, val_texts)
     if final_val_nll > base_val_nll + 1e-5:
         for fallback_alpha in (0.02, 0.015, 0.01, 0.005):
-            if fallback_alpha >= best_cfg["alpha"] and final_val_nll > base_val_nll + 1e-5:
+            if (
+                fallback_alpha >= best_cfg["alpha"]
+                and final_val_nll > base_val_nll + 1e-5
+            ):
                 continue
-            _apply_deltas(model, orig_weights, unit_deltas, best_cfg["layers"], best_cfg["projs"], fallback_alpha, calib_k=calib_k)
+            _apply_deltas(
+                model,
+                orig_weights,
+                unit_deltas,
+                best_cfg["layers"],
+                best_cfg["projs"],
+                fallback_alpha,
+                calib_k=calib_k,
+            )
             cand_full = c.evaluate_texts_nll(model, tok, val_texts)
             if cand_full <= base_val_nll + 1e-5:
                 best_cfg["alpha"] = fallback_alpha
                 final_val_nll = cand_full
                 break
-    assert best_cfg["alpha"] > 0.0, "Stage B failed: alpha fell back to 0.0 (unmerged)!"
-    assert final_val_nll <= base_val_nll + 1e-5, f"Stage B gate violated: {final_val_nll:.6f} > {base_val_nll:.6f}"
-    post_audit = c.audit_model_integrity(model, expected_params=base_audit["total_params"])
+    # STRICT non-vacuous-progress gate: RAISE + FAILED report + NO export on failure.
+    rep_path = c.EXPORT_ROOT / f"v23_stageb_{model_key}_report.json"
+    try:
+        max_delta_norm = check_stage_b_gate(
+            best_cfg["alpha"],
+            unit_deltas,
+            final_val_nll=final_val_nll,
+            base_val_nll=base_val_nll,
+        )
+    except WSPGateError as exc:
+        write_failed_report(
+            "B",
+            model_key,
+            str(exc),
+            {
+                "best_cfg": best_cfg,
+                "donors": donor_meta,
+                "trials": trials,
+                "base_val_nll": base_val_nll,
+                "final_val_nll": final_val_nll,
+            },
+        )
+        raise
+    logger.info(
+        "Stage B gate passed: alpha=%.4f max_delta_norm=%.4e",
+        best_cfg["alpha"],
+        max_delta_norm,
+    )
+    post_audit = c.audit_model_integrity(
+        model, expected_params=base_audit["total_params"]
+    )
 
     report = {
         "model": model_key,
@@ -486,11 +670,12 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
     if model_key == "dragon":
         c.export_dragon_gguf_from_hf(model, spec["stageb_gguf"])
         report["stageb_gguf"] = str(spec["stageb_gguf"])
-    model.to(torch.float16)  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
+    model.to(
+        torch.float16
+    )  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
     c.save_hf_checkpoint(model, tok, spec["stageb_hf"])
     logger.info("Saved Stage B HF checkpoint -> %s", spec["stageb_hf"])
 
-    rep_path = c.EXPORT_ROOT / f"v23_stageb_{model_key}_report.json"
     with open(rep_path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2)
 
@@ -510,34 +695,160 @@ def run_stage_b(model_key: str, convert_only: bool = False) -> Dict[str, Any]:
 
 
 def run_synthetic_unit_test() -> None:
-    """CPU unit test verifying rank-32 SVD donor delta + null-space + Woodbury Ridge harmonizer."""
+    """
+    Real synthetic CPU self-test for Stage B (no HF model, no GPU, no GGUF):
+      1) _bitnet_ternary_quantize  -> actual BitNet 1.58b LS ternary lattice
+      2) rank-32 SVD donor delta + host null-space + Woodbury Ridge harmonizer
+      3) compute_candidate_deltas END-TO-END on synthetic donor fixtures:
+         donor file load -> shared-vocab Orthogonal Procrustes -> ternary normalize
+         -> o_proj bilateral Procrustes -> rectangular FFN Procrustes
+         -> rank-32 denoise -> null-space projection -> unit delta
+      4) Stage B strict gate: positive case + alpha=0 + zero-delta rejection
+    """
+    import tempfile
+    from types import SimpleNamespace
+
     torch.manual_seed(42)
+
+    # --- 1. BitNet 1.58b least-squares ternary lattice --------------------
+    w_raw = torch.randn(32, 64) * 0.05
+    w_tern = _bitnet_ternary_quantize(w_raw)
+    assert w_tern.shape == w_raw.shape and torch.isfinite(w_tern).all()
+    nz = w_tern.abs()[w_tern.abs() > 0]
+    assert nz.numel() > 0 and float((nz.max() - nz.min()).abs().item()) < 1e-6, (
+        "Ternarization did not collapse to a single non-zero LS scale"
+    )
+    assert float((w_raw * w_tern).sum().item()) > 0.0, "LS ternary scale is misaligned"
+
+    # --- 2. Rank-32 SVD + anchor null-space + Woodbury harmonizer ---------
     d_out, d_in, N_tok = 64, 128, 32
     w_clean = torch.randn(d_out, d_in) * 0.02
     w_donor = torch.randn(d_out, d_in) * 0.02
     delta = w_donor - w_clean
-
-    # 1. Rank-32 SVD + anchor null-space (q_a=24)
     u, s, v = torch.svd_lowrank(delta, q=32, niter=2)
     delta_r32 = (u * s) @ v.T
     v_a, _ = torch.linalg.qr(torch.randn(d_in, 24), mode="reduced")
     delta_null = delta_r32 - (delta_r32 @ v_a) @ v_a.T
     null_leak = float(torch.norm(delta_null @ v_a).item())
     assert null_leak < 1e-4, f"Anchor null-space leaked: {null_leak}"
-
-    # 2. Post-merge Woodbury Ridge harmonizer at alpha=0.05
     w_merged = w_clean + 0.05 * delta_null
     k_calib = torch.randn(d_in, N_tok)
     pre_err = float(torch.norm((w_merged - w_clean) @ k_calib).item())
     w_healed = _harmonize_merged_layer(w_merged, w_clean, k_calib, ridge_frac=0.05)
     post_err = float(torch.norm((w_healed - w_clean) @ k_calib).item())
-    assert post_err < pre_err * 0.25, f"Harmonizer failed to shrink residual: {pre_err:.4f} -> {post_err:.4f}"
-    print(f"STAGE_B_UNIT_TEST PASS | null_leak={null_leak:.2e} calib_err: {pre_err:.4f} -> {post_err:.4f}")
+    assert post_err < pre_err * 0.25, (
+        f"Harmonizer failed to shrink residual: {pre_err:.4f} -> {post_err:.4f}"
+    )
+
+    # --- 3. End-to-end compute_candidate_deltas on synthetic fixtures -----
+    D, FF_HOST, FF_DONOR, V = 64, 128, 96, 600
+    HL = (0, 1)
+    rng = torch.Generator().manual_seed(123)
+    vocab = {f"tok{i}": i for i in range(V)}  # 600 shared tokens (> Procrustes 512 min)
+    q_rot, _ = torch.linalg.qr(torch.randn(D, D, generator=rng))
+    host_emb = torch.randn(V, D, generator=rng)
+    donor_emb = host_emb @ q_rot.T  # donor space rotated -> meaningful Procrustes
+
+    def _layer_stub(ff_dim: int):
+        return SimpleNamespace(
+            self_attn=SimpleNamespace(
+                o_proj=SimpleNamespace(weight=torch.randn(D, D, generator=rng) * 0.02)
+            ),
+            mlp=SimpleNamespace(
+                down_proj=SimpleNamespace(
+                    weight=torch.randn(D, ff_dim, generator=rng) * 0.02
+                )
+            ),
+        )
+
+    model_stub = SimpleNamespace(
+        model=SimpleNamespace(
+            embed_tokens=SimpleNamespace(weight=host_emb.clone()),
+            layers=[_layer_stub(FF_HOST) for _ in range(4)],
+        )
+    )
+    donor_state = {
+        "embed_tokens": donor_emb.clone(),
+        "L1.o_proj": torch.randn(D, D, generator=rng) * 0.02,
+        "L1.down_proj": torch.randn(D, FF_DONOR, generator=rng) * 0.02,
+    }
+    bases = {}
+    for hl in HL:
+        bo, _ = torch.linalg.qr(torch.randn(D, 24, generator=rng))
+        bd, _ = torch.linalg.qr(torch.randn(FF_HOST, 24, generator=rng))
+        bases[(hl, "o_proj")] = bo.contiguous()
+        bases[(hl, "down_proj")] = bd.contiguous()
+
+    saved_vocab_fn = c.load_donor_vocab
+    saved_donor_dir = c.DONOR_CACHE_DIR
+    saved_files = dict(DONOR_FILES)
+    with tempfile.TemporaryDirectory() as td:
+        td_path = Path(td)
+        torch.save(donor_state, td_path / "synth_donors.pt")
+        c.MODEL_SPECS["__wsp_selftest__"] = {
+            "self_donor": "__host__",
+            "target_layers": list(HL),
+            "num_layers": 4,
+        }
+        c.load_donor_vocab = lambda _name: vocab
+        c.DONOR_CACHE_DIR = td_path
+        DONOR_FILES.clear()
+        DONOR_FILES["synth"] = ("synth_donors.pt", [1, 2], 4)
+        try:
+            # Real shared-vocab Orthogonal Procrustes (uses >=512 shared pairs).
+            p_d2h, n_shared = c.compute_shared_vocab_procrustes(
+                vocab, vocab, host_emb, donor_emb
+            )
+            assert n_shared >= 512, f"Procrustes shared tokens too few: {n_shared}"
+            assert p_d2h.shape == (D, D)
+            orth_err = float(torch.norm(p_d2h.T @ p_d2h - torch.eye(D)).item())
+            assert orth_err < 1e-3, f"Procrustes is not orthogonal: {orth_err}"
+
+            unit_deltas, donor_meta = compute_candidate_deltas(
+                "__wsp_selftest__", model_stub, bases
+            )
+        finally:
+            c.MODEL_SPECS.pop("__wsp_selftest__", None)
+            c.load_donor_vocab = saved_vocab_fn
+            c.DONOR_CACHE_DIR = saved_donor_dir
+            DONOR_FILES.clear()
+            DONOR_FILES.update(saved_files)
+
+    assert "synth" in donor_meta, "Synthetic donor was never loaded/aligned"
+    expected_keys = {(hl, p) for hl in HL for p in ("o_proj", "down_proj")}
+    assert set(unit_deltas.keys()) == expected_keys, (
+        f"Candidate delta set incomplete: {sorted(unit_deltas.keys())}"
+    )
+    e2e_norm = check_stage_b_gate(0.02, unit_deltas)
+    assert e2e_norm > 0.0, "End-to-end donor delta collapsed to zero"
+
+    # --- 4. Strict gate negative cases ------------------------------------
+    gate_alpha_fail = False
+    try:
+        check_stage_b_gate(0.0, unit_deltas)
+    except WSPGateError:
+        gate_alpha_fail = True
+    assert gate_alpha_fail, "Gate failed to reject alpha=0"
+
+    gate_zero_fail = False
+    try:
+        check_stage_b_gate(0.02, {})
+    except WSPGateError:
+        gate_zero_fail = True
+    assert gate_zero_fail, "Gate failed to reject zero donor contribution"
+
+    print(
+        f"STAGE_B_UNIT_TEST PASS | ternarize=OK null_leak={null_leak:.2e} "
+        f"calib_err={pre_err:.4f}->{post_err:.4f} procrustes_shared={n_shared} "
+        f"donor_delta_norm={e2e_norm:.4e} gate_rejects_alpha0=OK gate_rejects_zero=OK"
+    )
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="WSP v23 Stage B Pre-Combination")
-    parser.add_argument("--model", choices=["flagship", "mini", "dragon"], default="flagship")
+    parser.add_argument(
+        "--model", choices=["flagship", "mini", "dragon"], default="flagship"
+    )
     parser.add_argument("--convert-only", action="store_true")
     parser.add_argument("--self-test", action="store_true")
     args = parser.parse_args()

@@ -1,0 +1,129 @@
+{
+  "owner": "c18-shepherd",
+  "brief": 911,
+  "in_memory_scale": 0.019244,
+  "txt_emb_mean_abs": 0.011981,
+  "pos_embed_mean_abs_before": 0.622575,
+  "pos_embed_mean_abs_after": 0.011981,
+  "note": "in-memory only; NO checkpoint/model file was modified",
+  "final_hidden_cosine_vs_donor": {
+    "The capital of France is": 0.170817,
+    "2 + 2 =": 0.118183,
+    "Hello, my name is": 0.126224,
+    "Quillan-Ronin is a sovereign": 0.093118,
+    "The quick brown fox jumps over the lazy dog and then": 0.137769
+  },
+  "final_hidden_CKA_by_donor_layer": {
+    "layer_0": 0.670476,
+    "layer_1": 0.428629,
+    "layer_2": 0.457487,
+    "layer_3": 0.179237,
+    "layer_4": 0.179768,
+    "layer_5": 0.179885,
+    "layer_6": 0.179884,
+    "layer_7": 0.179881,
+    "layer_8": 0.179838,
+    "layer_9": 0.179862,
+    "layer_10": 0.179867,
+    "layer_11": 0.179841,
+    "layer_12": 0.179845,
+    "layer_13": 0.179889,
+    "layer_14": 0.179826,
+    "layer_15": 0.179777,
+    "layer_16": 0.179812,
+    "layer_17": 0.179801,
+    "layer_18": 0.179894,
+    "layer_19": 0.179939,
+    "layer_20": 0.179967,
+    "layer_21": 0.179996,
+    "layer_22": 0.368569,
+    "layer_23": 0.331632,
+    "layer_24": 0.286019
+  },
+  "logits_cosine_vs_donor": {
+    "The capital of France is": 0.269307,
+    "2 + 2 =": 0.537798,
+    "Hello, my name is": 0.342774,
+    "Quillan-Ronin is a sovereign": 0.275475,
+    "The quick brown fox jumps over the lazy dog and then": 0.051385
+  },
+  "topk_overlap_after_rescale": {
+    "top1": {
+      "hits_per_prompt": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "chance": 6.58e-06
+    },
+    "top5": {
+      "hits_per_prompt": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "chance": 0.00016454
+    },
+    "top10": {
+      "hits_per_prompt": [
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "mean": 0.2,
+      "chance": 0.00065817
+    },
+    "top20": {
+      "hits_per_prompt": [
+        4,
+        2,
+        0,
+        0,
+        2
+      ],
+      "mean": 1.6,
+      "chance": 0.00263269
+    }
+  },
+  "donor_top1_rank_in_custom_after_rescale": [
+    {
+      "prompt": "The capital of France is",
+      "donor_top1_id": 12095,
+      "rank_in_custom_after_rescale": 12180
+    },
+    {
+      "prompt": "2 + 2 =",
+      "donor_top1_id": 220,
+      "rank_in_custom_after_rescale": 14
+    },
+    {
+      "prompt": "Hello, my name is",
+      "donor_top1_id": 8515,
+      "rank_in_custom_after_rescale": 5824
+    },
+    {
+      "prompt": "Quillan-Ronin is a sovereign",
+      "donor_top1_id": 1584,
+      "rank_in_custom_after_rescale": 125500
+    },
+    {
+      "prompt": "The quick brown fox jumps over the lazy dog and then",
+      "donor_top1_id": 358,
+      "rank_in_custom_after_rescale": 109
+    }
+  ],
+  "prompt_discrimination_after_rescale": {
+    "ingestion": 0.592044,
+    "decomposition": 0.851438,
+    "final_norm": 0.792306,
+    "logits": 0.345805
+  }
+}

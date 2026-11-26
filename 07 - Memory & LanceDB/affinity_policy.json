@@ -1,0 +1,5 @@
+{
+  "all_cores_mode": false,
+  "note": "2026-11-23. false = legacy core-0 reservation: workers pinned to cores [1,2,3], core 0 free for DWM/GUI. User empirical test: manual 3-core pin smoothed the PC. true = all cores.",
+  "rollback": "Set all_cores_mode to true to restore all-core affinity."
+}

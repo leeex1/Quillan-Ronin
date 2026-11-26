@@ -1,0 +1,13 @@
+{
+  "timestamp": 1795379285.5914123,
+  "safe": true,
+  "disk_model": "SSD             ",
+  "disk_reported_GB": 3906.25,
+  "partition_GB": 46.875,
+  "partition_offset_GB": 0.016,
+  "unallocated_tail_GB": 3859.36,
+  "free_GB": 0.354,
+  "filesystem": "exFAT",
+  "alerts": [],
+  "note": "DETECT-ONLY. Never writes to E:, never kills, never changes partitions."
+}

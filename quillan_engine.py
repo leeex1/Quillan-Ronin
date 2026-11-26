@@ -135,6 +135,79 @@ class _DynamicLocalModels(dict):
 
 LOCAL_MODELS: Dict[str, Dict[str, Any]] = _DynamicLocalModels()
 
+BITNET_MODEL_DIR = os.path.join(ROOT_DIR, "03 - Training & Model")
+
+
+def _is_valid_safetensors(path: str, min_bytes: int = 10 * 1024 * 1024) -> bool:
+    """Checks that a packed BitNet safetensors checkpoint exists, is unlocked, and has a valid header."""
+    try:
+        if not os.path.isfile(path):
+            return False
+        if os.path.exists(path + ".tmp") or os.path.exists(path + ".part"):
+            return False
+        if os.path.getsize(path) < min_bytes:
+            return False
+        with open(path, "rb") as fh:
+            hdr_len = int.from_bytes(fh.read(8), "little", signed=False)
+            return 2 <= hdr_len <= 64 * 1024 * 1024
+    except OSError:
+        return False
+
+
+def _import_sovereign_bitnet_cls():
+    """Lazily imports QuillanSovereignBitNetLM without requiring torch at module import time."""
+    if "quillan_sovereign_bitnet" in sys.modules:
+        return sys.modules["quillan_sovereign_bitnet"].QuillanSovereignBitNetLM
+    import importlib.util
+    mod_path = os.path.join(BITNET_MODEL_DIR, "quillan_sovereign_bitnet.py")
+    spec = importlib.util.spec_from_file_location("quillan_sovereign_bitnet", mod_path)
+    if spec is None or spec.loader is None:
+        raise ImportError(f"Cannot load QuillanSovereignBitNetLM from {mod_path}")
+    mod = importlib.util.module_from_spec(spec)
+    sys.modules["quillan_sovereign_bitnet"] = mod
+    spec.loader.exec_module(mod)
+    return mod.QuillanSovereignBitNetLM
+
+
+BITNET_MODELS: Dict[str, Dict[str, Any]] = {
+    "quillan-mini-sovereign-bitnet": {
+        "name": "Quillan-Ronin-Mini 0.59B Sovereign BitNet (2-bit Packed)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-mini-sovereign-bitnet.safetensors"),
+        "type": "bitnet_safetensors",
+        "parameter_size": "0.59B",
+        "chat_template": "chatml",
+        "tokenizer_dirs": [
+            r"E:\source_models\qwen_0.5b",
+            os.path.join(EXPORTS_DIR, "qwen_0.5b_tokenizer"),
+        ],
+        "description": "Native 2-bit Packed BitNet 1.58b | 24L 34-Expert Council MoE",
+    },
+    "quillan-flagship-sovereign-bitnet": {
+        "name": "Quillan-Ronin 0.99B Flagship Sovereign BitNet (2-bit Packed)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-flagship-sovereign-bitnet.safetensors"),
+        "type": "bitnet_safetensors",
+        "parameter_size": "0.99B",
+        "chat_template": "llama3",
+        "tokenizer_dirs": [
+            r"E:\source_models\llama_1b",
+            os.path.join(EXPORTS_DIR, "llama_1b_tokenizer"),
+        ],
+        "description": "Native 2-bit Packed BitNet 1.58b | 16L 34-Expert Council MoE",
+    },
+    "quillan-dragon-sovereign-bitnet": {
+        "name": "Quillan-Dragon 0.97B Sovereign BitNet (2-bit Packed)",
+        "path": os.path.join(EXPORTS_DIR, "quillan-dragon-sovereign-bitnet.safetensors"),
+        "type": "bitnet_safetensors",
+        "parameter_size": "0.97B",
+        "chat_template": "chatml",
+        "tokenizer_dirs": [
+            r"E:\source_models\falcon3_1b",
+            r"E:\source_models\qwen_0.5b",
+        ],
+        "description": "Native 2-bit Packed BitNet 1.58b | 18L 34-Expert Council MoE",
+    },
+}
+
 # Tripartite Ollama Hub Models (aligned to canonical local Ollama rebuild tags)
 TRIPARTITE_MODELS = {
     "quillan-ronin-flagship": {
@@ -355,6 +428,8 @@ class SovereignInferenceEngine:
         self.active_model_id = "quillan-ronin-flagship"
         self.council_mode = False
         self.safety_gate_active = True
+        self.online_wsp_enabled = False
+        self._bitnet_cache: Dict[str, Any] = {}
 
     def get_available_models(self) -> Dict[str, Dict[str, Any]]:
         models = {}
@@ -365,6 +440,11 @@ class SovereignInferenceEngine:
         # 2. Local GGUF High-Speed Binaries
         for k, v in LOCAL_MODELS.items():
             if os.path.exists(v["path"]):
+                models[k] = v
+
+        # 2b. Native 2-bit Packed BitNet Checkpoints (when present on disk)
+        for k, v in BITNET_MODELS.items():
+            if _is_valid_safetensors(v["path"]):
                 models[k] = v
 
         # 3. Dynamically discover additional user-installed Ollama models
@@ -422,6 +502,9 @@ class SovereignInferenceEngine:
             "quillan-ronin-v5.3.1": "quillan-ronin-flagship",
             "quillan": "quillan-ronin-flagship",
             "quillan-2b": "quillan-ronin-flagship",
+            "quillan-mini-bitnet": "quillan-mini-sovereign-bitnet",
+            "quillan-flagship-bitnet": "quillan-flagship-sovereign-bitnet",
+            "quillan-dragon-bitnet": "quillan-dragon-sovereign-bitnet",
         }
         mapped = alias_map.get(req)
         if mapped and mapped in models:
@@ -511,7 +594,9 @@ class SovereignInferenceEngine:
         model_meta = models.get(resolved_id) or next(iter(models.values()))
         model_type = model_meta.get("type", "cloud")
 
-        if model_type == "local_gguf":
+        if model_type == "bitnet_safetensors":
+            yield from self._stream_bitnet_safetensors(prompt, sys_prompt, resolved_id, model_meta)
+        elif model_type == "local_gguf":
             yield from self._stream_local_gguf(
                 prompt, sys_prompt, model_meta["path"], model_meta.get("chat_template", "llama3")
             )
@@ -521,6 +606,108 @@ class SovereignInferenceEngine:
             yield from self._stream_ollama(prompt, sys_prompt, api_model, fallback_tag=fallback_model)
         else:
             yield from self._stream_byok_api(prompt, sys_prompt, model_meta)
+
+    def load_bitnet_model(self, model_id: str, device: Optional[str] = None) -> Tuple[Any, Dict[str, Any]]:
+        """Loads and caches a packed QuillanSovereignBitNetLM checkpoint by model ID."""
+        meta = BITNET_MODELS.get(model_id)
+        if not meta:
+            raise ValueError(f"Unknown BitNet model ID: {model_id}")
+        ckpt_path = meta["path"]
+        if not _is_valid_safetensors(ckpt_path):
+            raise FileNotFoundError(f"BitNet checkpoint missing or incomplete: {ckpt_path}")
+        target_dev = device or os.environ.get("QUILLAN_BITNET_DEVICE", "cpu")
+        cache_key = (ckpt_path, target_dev)
+        if cache_key not in self._bitnet_cache:
+            from pathlib import Path
+            bitnet_cls = _import_sovereign_bitnet_cls()
+            self._bitnet_cache[cache_key] = bitnet_cls.load_packed_safetensors(Path(ckpt_path), device=target_dev)
+        return self._bitnet_cache[cache_key], meta
+
+    def apply_online_wsp_update(
+        self,
+        model_id: str,
+        layer_idx: int,
+        proj_name: str,
+        k_acts: Any,
+        v_target: Any,
+        a_anchor: Any = None,
+        ridge_lambda: float = 8.0,
+        max_rel_frob: float = 0.0030,
+        force: bool = False,
+    ) -> Dict[str, Any]:
+        """
+        Exposes EGGROLL closed-form Woodbury online_wsp_update() on a loaded BitNet layer.
+        Disabled by default until explicitly enabled (self.online_wsp_enabled=True or force=True)
+        so the WSP lock remains respected until base checkpoints pass all evaluation gates.
+        """
+        if not (force or self.online_wsp_enabled or os.environ.get("QUILLAN_ONLINE_WSP_ENABLED") == "1"):
+            return {"applied": 0.0, "status": "disabled_by_wsp_lock"}
+        model, _ = self.load_bitnet_model(model_id)
+        layer = model.layers[int(layer_idx)]
+        proj = getattr(layer, proj_name, None)
+        if proj is None or not hasattr(proj, "online_wsp_update"):
+            raise ValueError(f"Layer {layer_idx}.{proj_name} does not support online_wsp_update")
+        return proj.online_wsp_update(
+            k_acts=k_acts,
+            v_target=v_target,
+            a_anchor=a_anchor,
+            ridge_lambda=ridge_lambda,
+            max_rel_frob=max_rel_frob,
+        )
+
+    def _resolve_bitnet_tokenizer(self, meta: Dict[str, Any]):
+        """Resolves a HuggingFace AutoTokenizer for a packed BitNet checkpoint if available."""
+        try:
+            from transformers import AutoTokenizer
+            for tok_dir in meta.get("tokenizer_dirs", []):
+                if os.path.isdir(tok_dir):
+                    return AutoTokenizer.from_pretrained(tok_dir, local_files_only=True)
+        except Exception:
+            pass
+        return None
+
+    def _stream_bitnet_safetensors(
+        self, prompt: str, sys_prompt: str, model_id: str, meta: Dict[str, Any]
+    ) -> Generator[Dict[str, Any], None, None]:
+        """Executes native QuillanSovereignBitNetLM inference from a 2-bit packed safetensors checkpoint."""
+        t0 = time.time()
+        try:
+            import torch
+            model, model_meta = self.load_bitnet_model(model_id)
+            tokenizer = self._resolve_bitnet_tokenizer(model_meta)
+            chat_tpl = model_meta.get("chat_template", "chatml")
+            if chat_tpl == "llama3":
+                formatted = (
+                    f"<|start_header_id|>system<|end_header_id|>\n\n{sys_prompt}<|eot_id|>"
+                    f"<|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|>"
+                    f"<|start_header_id|>assistant<|end_header_id|>\n\n"
+                )
+            else:
+                formatted = (
+                    f"<|im_start|>system\n{sys_prompt}<|im_end|>\n"
+                    f"<|im_start|>user\n{prompt}<|im_end|>\n"
+                    f"<|im_start|>assistant\n"
+                )
+            if tokenizer is not None:
+                ids = tokenizer.encode(formatted, add_special_tokens=False)
+                eos_id = tokenizer.eos_token_id
+            else:
+                ids = [b % model.cfg.vocab_size for b in formatted.encode("utf-8")]
+                eos_id = None
+            input_ids = torch.tensor([ids], dtype=torch.long, device=next(model.parameters()).device)
+            out_ids = model.generate(input_ids, max_new_tokens=64, temperature=0.0, eos_token_id=eos_id)
+            new_tokens = out_ids[0, len(ids):].tolist()
+            if tokenizer is not None:
+                text = tokenizer.decode(new_tokens, skip_special_tokens=True)
+            else:
+                text = bytes([t % 256 for t in new_tokens]).decode("utf-8", errors="replace")
+            elapsed = max(0.05, time.time() - t0)
+            if text:
+                yield {"type": "token", "text": text}
+            yield {"type": "done", "tps": round(len(new_tokens) / elapsed, 2), "total_tokens": len(new_tokens)}
+        except Exception as e:
+            yield {"type": "token", "text": f"\n❌ Native BitNet Inference Error: {str(e)}"}
+            yield {"type": "done", "tps": 0.0, "total_tokens": 0}
 
     def _stream_local_gguf(
         self, prompt: str, sys_prompt: str, gguf_path: str, chat_template: str = "llama3"

@@ -1,0 +1,81 @@
+==============================================================================
+C18-SHEPHERD // DONOR-BITNET CONVERSION VERIFICATION GATE (decision #926)
+==============================================================================
+candidate_checkpoint : C:\02_QUILLAN\exports\quillan-mini-sovereign-bitnet158.safetensors
+candidate_bytes      : 1609018260
+pre-registered thresholds (immutable):
+    A_prompt_logit_cos_lt = 0.99
+    A_top1_must_differ = True
+    B_mean_alpha_ratio_gt = 0.0
+    C_donor_mean_top1_overlap_gt = 0.0
+    C_donor_mean_top5_overlap_gt = 0.0
+    D_strict_key_coverage = 530/530 (0 missing, 0 unexpected)
+    E_frozen_heldout_smoke = completes without exception
+    F_regression_suites_pass = 3
+    G_canonical_sha256_unchanged = 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c
+==============================================================================
+TOKENIZER: Qwen2.5-0.5B-Instruct (matching 151936-wide embedding)
+MODEL params=815,396,270 strict_load ok (0 missing / 0 unexpected)
+------------------------------------------------------------------------------
+[D] STRICT KEY COVERAGE: 530/530 missing=0 unexpected=0 -> PASS
+[D] candidate_sha256  : 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c
+[D] canonical_sha256  : 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c (expected 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c)
+------------------------------------------------------------------------------
+[A] PROMPT SENSITIVITY: cos=0.999996 (<0.99 required) top1_A=33550('BOSE') top1_B=33550('BOSE') differ=False -> FAIL
+------------------------------------------------------------------------------
+[B] COHERENCE (greedy 10-token generations):
+    'The capital of France is' -> gen='BOSE honda esl Fotos erotica raping cuckold nostalg,Th/lg' alpha_ratio=0.9600
+    '2 + 2 =' -> gen='BOSE honda esl Fotos erotica raping cuckold nostalg,Th/lg' alpha_ratio=0.9600
+    'Hello, my name is' -> gen='BOSE honda esl Fotos erotica raping cuckold nostalg,Th/lg' alpha_ratio=0.9600
+    'Quillan-Ronin is a sovereign' -> gen=' Fotos erotica cuckold nostalg,Th/lg/stretch,Th/stretch,Th' alpha_ratio=0.8889
+    'The quick brown fox jumps over the lazy dog and then' -> gen=' cuckold nostalg,Th/lg/stretch,Th/stretch,Th erotica揶' alpha_ratio=0.8800
+    mean_alpha_ratio=0.929778 (>0 required) distinct=3/5 -> PASS
+    *** DEGENERACY WARNING (non-gating): alpha_ratio>0 is a FALSE POSITIVE here -- 3/5 prompts produced byte-identical text, only 3/5 distinct outputs. This is prompt-collapsed gibberish; coherent English is NOT established. Inspect the text above; do not read B=PASS alone as a coherence claim (#923 honesty note). ***
+------------------------------------------------------------------------------
+[C] DONOR TOP-K OVERLAP (last position, frozen prompts):
+    'The capital of France is': top1=0 top5=0
+    '2 + 2 =': top1=0 top5=0
+    'Hello, my name is': top1=0 top5=0
+    'Quillan-Ronin is a sovereign': top1=0 top5=0
+    'The quick brown fox jumps over the lazy dog and then': top1=0 top5=0
+    mean top1=0.0000 mean top5=0.0000 (both >0 required) -> FAIL
+
+=== quillan_mini_custom_arch :: quillan-mini-sovereign-bitnet158.safetensors ===
+checkpoint_sha256 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c
+STRICT LOAD missing=0 unexpected=0 keys=530 load_sec=6.1
+total_params=815396270 (expected 815396270)
+TOKENIZER {"class": "Qwen2Tokenizer", "vocab": 151643, "path": "C:\\Users\\Admin\\.cache\\huggingface\\hub\\models--Qwen--Qwen2.5-0.5B-Instruct\\snapshots\\7ae557604adf67be50417f59c2c2f167def9a775", "error": null}
+  [MISS] ARC_HOLD_01    arc_agi                expected='A' parsed=None gen=[19403, 94328, 96307, 126700, 141850, 142884, 88684, 86446]
+  [MISS] ARC_HOLD_02    arc_agi                expected='B' parsed=None gen=[142884, 141850, 126700, 141850, 142884, 86446, 88684, 93334]
+  [MISS] GK_HOLD_01     general_knowledge      expected='Mars' parsed=None gen=[143505, 88389, 120557, 88389, 93334, 88389, 92627, 52817]
+  [OK] GK_HOLD_02     general_knowledge      expected='K' parsed='K' gen=[69880, 87101, 88684, 88389, 93334, 88389, 93334, 92627]
+  [MISS] MATH_HOLD_01   math_reasoning         expected='4' parsed=None gen=[78226, 92627, 52817, 45089, 143505, 45089, 143505, 45089]
+  [MISS] MATH_HOLD_02   math_reasoning         expected='108' parsed=None gen=[143505, 88389, 120557, 88389, 93334, 88389, 92627, 52817]
+  [MISS] TOOL_HOLD_00   instruction_toolcall   expected='{"tool":"send_message","recipient":"Marseille"}' parsed=None gen=[99080, 49565, 45550, 73779, 33550, 73779, 33550, 143874]
+  [MISS] TOOL_HOLD_01   instruction_toolcall   expected='{"tool":"book_flight","destination":"Kyoto"}' parsed=None gen=[99080, 49565, 45550, 73779, 33550, 73779, 33550, 143874]
+Computing held-out CE/PPL on fixed corpus ...
+PPL ce_loss=23.2141 ppl=12071085767.4983 scored_tokens=2381 loss_gate(>1.0)=PASS
+held_out_acc=0.125 (1/8)
+------------------------------------------------------------------------------
+[E] FROZEN HELD-OUT --smoke: completed=True acc=0.125 ce=23.214079
+[test_custom_arch_transfer.py] exit=0 marker='CUSTOM_ARCH_TRANSFER_TEST PASS' found=True -> PASS
+    2026-11-20 14:12:29,049 [WARNING] Quillan.WeightAdapter - Legacy hint dims (1024,2048,50257) differ from target (64,128,256); using target.
+    2026-11-20 14:12:29,049 [INFO] Quillan.WeightAdapter - Donor lm_head absent -> tying decoder to donor token embedding.
+    2026-11-20 14:12:29,072 [INFO] Quillan.WeightAdapter - Adaptation complete (llama): 38/530 keys donor-derived; 36.64% of elements from donor.
+[test_arch_generation_path.py] exit=0 marker='SUMMARY: 6/6 checks passed' found=True -> PASS
+    USDT:2026-11-20 14:12:36 8804:28644 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\ActivityProfilerController.cpp:415] profiler_start
+    [W1120 14:12:36.000000000 CPUAllocator.cpp:245] Memory block of unknown size was allocated before the profiling started, profiler results will not include the deallocation event
+    USDT:2026-11-20 14:12:38 8804:28644 C:\actions-runner\_work\pytorch\pytorch\third_party\kineto\libkineto\src\ActivityProfilerController.cpp:455] profiler_stop
+[test_wsp_gates.py] exit=0 marker='ALL_WSP_GATE_TESTS_PASSED' found=True -> PASS
+    PASS gate_wiring: v23_stage_d_deep_wsp.py::run_stage_d -> check_stage_d_gate + write_failed_report
+    ALL_WSP_GATE_TESTS_PASSED
+    2026-11-20 14:13:08,262 [ERROR] V23_StageB - GATE FAILURE [B/mini] -> C:\Users\Admin\AppData\Local\Temp\tmp30iv63xv\v23_b_mini_FAILED.json : synthetic fixture failure
+------------------------------------------------------------------------------
+[F] REGRESSION SUITES: PASS (3/3 required)
+[G] CANONICAL SHA UNCHANGED: PASS
+==============================================================================
+GATE CHECKS: A_prompt_sensitivity=FAIL B_coherent_english=PASS C_donor_topk_overlap=FAIL D_strict_530_530=PASS E_frozen_smoke_completed=PASS F_regression_suites_3of3=PASS G_canonical_sha_unchanged=PASS
+CONVERSION_GATE_RESULT: FAIL  blockers=['A_prompt_sensitivity', 'C_donor_topk_overlap']
+Do NOT deploy. Report residual blocker honestly. WSP stays paused (#926).
+elapsed=431.0s
+WROTE C:\02_QUILLAN\scripts\adapter_diagnostics\conversion_gate_quillan-mini-sovereign-bitnet158.json

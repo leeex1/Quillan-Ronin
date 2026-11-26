@@ -1,7 +1,7 @@
 # =============================================================================
 # QUILLAN-RONIN MINI 0.5B (EDGE OPTIMIZED - 2M CONTEXT - FULL SOVEREIGN MASTER)
 # =============================================================================
-FROM ./quillan-mini-0.5b-wsp-v8-q4_k_m.gguf
+FROM exports/quillan-mini-0.5b-wsp-v23-q8_0.gguf
 
 PARAMETER temperature 0.3
 PARAMETER top_p 0.9

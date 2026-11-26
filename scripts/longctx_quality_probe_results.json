@@ -1,0 +1,95 @@
+{
+  "schema": "forge.longctx.quality.1",
+  "timestamp": "2026-11-20 12:28:55",
+  "owner": "forge",
+  "request_id": 896,
+  "mode": "real_trained_checkpoint",
+  "model_meta": {
+    "checkpoint": "C:\\02_QUILLAN\\exports\\quillan-mini-sovereign-bitnet158.safetensors",
+    "param_count": 815396270,
+    "safetensors_decode_s": 3.24,
+    "model_build_s": 6.85,
+    "strict_load_s": 0.71,
+    "bits_per_token_bytes": 14128
+  },
+  "tokenizer": "Qwen2.5-0.5B-Instruct (matching 151936-wide embedding)",
+  "key_tokens": [
+    {
+      "text": "lass",
+      "id": 447
+    }
+  ],
+  "chance_top1": 6.581718618365627e-06,
+  "claim_scope": "REAL TRAINED CHECKPOINT \u2014 quality measurement",
+  "calibration": {
+    "prefill_tokens_per_sec": 65.4,
+    "timings": {
+      "256": {
+        "prefill_s": 7.909,
+        "tokens_per_sec": 32.4
+      },
+      "1024": {
+        "prefill_s": 15.659,
+        "tokens_per_sec": 65.4
+      }
+    },
+    "projected_prefill_seconds": {
+      "8192": 125.3,
+      "32768": 501.0,
+      "131072": 2004.2
+    },
+    "note": "rate from 1024-token prefill; longer contexts shrink chunk and are slower"
+  },
+  "positive_control": {
+    "answerable": false,
+    "best": {
+      "format": "SECURITY RECALL TEST QUESTION: The magic word is:",
+      "key_token_rank": 5508,
+      "key_top1": false,
+      "key_top5": false,
+      "key_prob": 2e-06,
+      "generation_contains_key": false,
+      "generated_text": ",-,-,121"
+    },
+    "all_formats": [
+      {
+        "format": "SECURITY RECALL TEST QUESTION: The magic word is",
+        "key_token_rank": 5715,
+        "key_top1": false,
+        "key_top5": false,
+        "key_prob": 2e-06,
+        "generation_contains_key": false,
+        "generated_text": ",-,-,121"
+      },
+      {
+        "format": "SECURITY RECALL TEST QUESTION: The magic word is:",
+        "key_token_rank": 5508,
+        "key_top1": false,
+        "key_top5": false,
+        "key_prob": 2e-06,
+        "generation_contains_key": false,
+        "generated_text": ",-,-,121"
+      },
+      {
+        "format": "SECURITY RECALL TEST QUESTION: The magic word is \"",
+        "key_token_rank": 5717,
+        "key_top1": false,
+        "key_top5": false,
+        "key_prob": 2e-06,
+        "generation_contains_key": false,
+        "generated_text": ",-,-,121"
+      },
+      {
+        "format": "SECURITY RECALL TEST QUESTION: Repeat the magic word:",
+        "key_token_rank": 5508,
+        "key_top1": false,
+        "key_top5": false,
+        "key_prob": 2e-06,
+        "generation_contains_key": false,
+        "generated_text": ",-,-,121"
+      }
+    ]
+  },
+  "verdict": "INSTRUMENT_INVALID: model cannot retrieve even at depth 64; no long-context quality conclusion is permitted from this run.",
+  "elapsed_sec": 178.61
+}

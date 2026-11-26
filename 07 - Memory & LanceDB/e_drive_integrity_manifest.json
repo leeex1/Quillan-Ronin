@@ -1,0 +1,38 @@
+{
+  "purpose": "Baseline hashes of critical files on the spoofed E: drive. Re-run with --verify to detect silent loss after remount.",
+  "drive_note": "E: reports 3.8TB but real NAND ~46GB. Partition capped at 46.875GB. Never extend into the 3859GB unallocated tail.",
+  "files": [
+    {
+      "path": "E:\\quillan_checkpoints_oni\\v5.4_sovereign\\quillan_base_best.pt",
+      "status": "OK",
+      "size_bytes": 2826770265,
+      "sha256": "ccebdf8fb9bb4ee3387f1df8d1db4cdddf066ed82bd3465adbf5a1a9a4067809",
+      "hashed_at_epoch": 1795379304.0209641,
+      "read_secs": 179.2
+    },
+    {
+      "path": "E:\\quillan_checkpoints_oni\\v5.4_sovereign\\quillan_sft_best.pt",
+      "status": "OK",
+      "size_bytes": 2826768820,
+      "sha256": "39a0fa66aa6e17255c07b052b853ebce484d5eb57d69f84d1166e41c064e3f14",
+      "hashed_at_epoch": 1795379483.5563676,
+      "read_secs": 179.5
+    },
+    {
+      "path": "E:\\quillan_checkpoints_oni\\v5.4_sovereign\\quillan_coherent_base_ternary.pt",
+      "status": "OK",
+      "size_bytes": 2488666054,
+      "sha256": "6626e4ce5d41331039fd63067da6de0b8d9145eca2737121005c02c4470604ca",
+      "hashed_at_epoch": 1795379641.2439923,
+      "read_secs": 157.7
+    },
+    {
+      "path": "E:\\source_models\\bitnet_2b_4t.gguf",
+      "status": "OK",
+      "size_bytes": 2365483072,
+      "sha256": "9488dc41cfa1a5ee6612b32ef35e34e81d37fdcbcb767cc8505e0648144d5007",
+      "hashed_at_epoch": 1795379790.9308586,
+      "read_secs": 149.7
+    }
+  ]
+}

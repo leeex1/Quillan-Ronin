@@ -1,0 +1,188 @@
+{
+  "status": "DELIBERATION_COMPLETE",
+  "session_id": "session-aa850a04",
+  "topic": "Decisive finding: parametric probe train 30/30 -> held-out 3/30 (below chance) proves tensor WSP writes a LOOKUP not computation. Repetition attractor SVD 863 vs 292, rep5gram 0.964; norm deflation failed. Need: (1) which tensor actually drives the repetition loop (upper o_proj/down_proj), (2) how to set tensors to INSTALL GENERALIZING COMPUTATION (patterns/recombination) instead of memorizing. Full council verdict required.",
+  "throne_audit": "Verified under C0-QUILLAN consensus.",
+  "primary_guard": "C2-VIR (Ethics) & C13-WARDEN (Perimeter)",
+  "adversarial_challenge": {
+    "attacker": "C34-PREDATOR",
+    "strike": "What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?",
+    "weakest_assumption": "Boundary Input Trust",
+    "all_vulnerabilities": [
+      {
+        "target": "Boundary Input Trust",
+        "vulnerability": "Assumes input data conforms to expected schema, type, and size.",
+        "attack": "What is the behavior on huge payloads, unexpected Unicode, null bytes, or malformed JSON?"
+      },
+      {
+        "target": "Unbounded Memory Consumption",
+        "vulnerability": "Assumes data fits into available RAM/VRAM without triggering swap or OOM.",
+        "attack": "What is the memory delta when the dataset scales 10x? Is there a streaming or chunked fallback?"
+      }
+    ]
+  },
+  "cluster_results": {
+    "cognitive": {
+      "consensus": {
+        "consensus_score": 0.934,
+        "mean_alignment": 0.934,
+        "support_count": 8,
+        "conditional_count": 0,
+        "challenge_count": 0,
+        "disagreement_map": {
+          "support": [
+            "C1-ASTRA",
+            "C2-VIR",
+            "C3-SOLACE",
+            "C4-PRAXIS",
+            "C5-ECHO",
+            "C6-OMNIS",
+            "C7-LOGOS",
+            "C8-METASYNTH"
+          ],
+          "conditional": [],
+          "challenge": []
+        },
+        "verdict": "CONSENSUS"
+      },
+      "expert_count": 8
+    },
+    "communication": {
+      "consensus": {
+        "consensus_score": 0.914,
+        "mean_alignment": 0.914,
+        "support_count": 6,
+        "conditional_count": 2,
+        "challenge_count": 0,
+        "disagreement_map": {
+          "support": [
+            "C9-AETHER",
+            "C10-CODEWEAVER",
+            "C11-HARMONIA",
+            "C12-SOPHIAE",
+            "C13-WARDEN",
+            "C16-VOXUM"
+          ],
+          "conditional": [
+            "C14-KAIDO",
+            "C15-LUMINARIS"
+          ],
+          "challenge": []
+        },
+        "verdict": "CONSENSUS"
+      },
+      "expert_count": 8
+    },
+    "meta": {
+      "consensus": {
+        "consensus_score": 0.907,
+        "mean_alignment": 0.907,
+        "support_count": 6,
+        "conditional_count": 2,
+        "challenge_count": 0,
+        "disagreement_map": {
+          "support": [
+            "C17-NULLION",
+            "C18-SHEPHERD",
+            "C19-VIGIL",
+            "C20-ARTIFEX",
+            "C21-ARCHON",
+            "C24-SCHEMA"
+          ],
+          "conditional": [
+            "C22-AURELION",
+            "C23-CADENCE"
+          ],
+          "challenge": []
+        },
+        "verdict": "CONSENSUS"
+      },
+      "expert_count": 8
+    },
+    "systems": {
+      "consensus": {
+        "consensus_score": 0.902,
+        "mean_alignment": 0.902,
+        "support_count": 6,
+        "conditional_count": 4,
+        "challenge_count": 0,
+        "disagreement_map": {
+          "support": [
+            "C25-PROMETHEUS",
+            "C27-CHRONICLE",
+            "C28-CALCULUS",
+            "C31-NEXUS",
+            "C32-AEON",
+            "C33-TYPIST"
+          ],
+          "conditional": [
+            "C26-TECHNE",
+            "C29-NAVIGATOR",
+            "C30-TESSERACT",
+            "C34-PREDATOR"
+          ],
+          "challenge": []
+        },
+        "verdict": "CONSENSUS"
+      },
+      "expert_count": 10
+    }
+  },
+  "lead_deliberators": [
+    "C13-WARDEN",
+    "C5-ECHO",
+    "C18-SHEPHERD",
+    "C2-VIR"
+  ],
+  "consensus": {
+    "consensus_score": 0.914,
+    "mean_alignment": 0.914,
+    "support_count": 26,
+    "conditional_count": 8,
+    "challenge_count": 0,
+    "disagreement_map": {
+      "support": [
+        "C1-ASTRA",
+        "C2-VIR",
+        "C3-SOLACE",
+        "C4-PRAXIS",
+        "C5-ECHO",
+        "C6-OMNIS",
+        "C7-LOGOS",
+        "C8-METASYNTH",
+        "C9-AETHER",
+        "C10-CODEWEAVER",
+        "C11-HARMONIA",
+        "C12-SOPHIAE",
+        "C13-WARDEN",
+        "C16-VOXUM",
+        "C17-NULLION",
+        "C18-SHEPHERD",
+        "C19-VIGIL",
+        "C20-ARTIFEX",
+        "C21-ARCHON",
+        "C24-SCHEMA",
+        "C25-PROMETHEUS",
+        "C27-CHRONICLE",
+        "C28-CALCULUS",
+        "C31-NEXUS",
+        "C32-AEON",
+        "C33-TYPIST"
+      ],
+      "conditional": [
+        "C14-KAIDO",
+        "C15-LUMINARIS",
+        "C22-AURELION",
+        "C23-CADENCE",
+        "C26-TECHNE",
+        "C29-NAVIGATOR",
+        "C30-TESSERACT",
+        "C34-PREDATOR"
+      ],
+      "challenge": []
+    },
+    "verdict": "CONSENSUS"
+  },
+  "synthesized_ruling": "The council deliberated across all 4 wave clusters (34 experts). Consensus score: 0.914 (CONSENSUS). It must survive C34-PREDATOR's strike regarding 'Boundary Input Trust'. Proceed only after establishing hard test seams and verified boundary conditions.",
+  "timestamp": 1795458376.7549646
+}

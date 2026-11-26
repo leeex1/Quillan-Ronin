@@ -1,0 +1,1 @@
+{"enabled": true, "note": "2026-11-23. Supervisor auto-restarts dead governor/autoboost daemons. Set enabled=false to disable."}

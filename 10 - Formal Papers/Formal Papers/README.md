@@ -1,5 +1,26 @@
 # Welcome 😊:
 
+## 🧭 Canonical project context
+
+| | |
+| :--- | :--- |
+| **This repo** | Formal research papers describing Quillan's architecture, weight-space programming and theory. |
+| **Canonical package** | Three deployed models: Quillan-Ronin Flagship (~1B), Quillan-Ronin-Mini (~0.8B) and Quillan-Dragon (~1B). The ONI Python sources are implementation/training only. |
+| **Donor design** | Flagship and Mini: Qwen 0.6B + Llama ~1B + BitNet 2B-4T + Falcon3 ~1B **as a group** (cross-match fix in progress). Dragon: Falcon3 with an Ollama system message running Quillan's system prompt. |
+| **Reading the scores** | The 95–100% table in the root README is **Track A** — the Quillan harness on a third-party frontier base, not a Quillan checkpoint. Hard-exam cells are pending re-test; ARC-AGI-3 public ~99s, private pending. |
+| **Historical framing** | Edo period, rōnin and bushidō are real Japanese history and ethics — not roleplay, game mechanics, or fantasy lore. |
+| **Canonical docs** | [Root README](https://github.com/leeex1/Quillan-Ronin#readme) · [Fleet model cards](https://github.com/leeex1/Quillan-Ronin/blob/main/docs/MODEL_CARDS.md) |
+
+<!-- QUILLAN-DOCS-PROVENANCE:BEGIN -->
+<details>
+<summary><b>📌 Quillan documentation provenance</b> — expand for canonical sources</summary>
+
+> **Documentation provenance.** This repo is part of the Quillan-Ronin ecosystem (CrashOverrideX / `leeex1`). Canonical sources live in the root repository: `README.md` (**READ FIRST** — Track A harness-on-frontier vs. Track B native WSP models vs. Track B′ custom Mini) and `docs/MODEL_CARDS.md` (fleet identity, verified facts, open gaps). The large 95–100% benchmark table in the root README is a **harness-on-frontier** result, not a score of any Quillan-owned checkpoint. Creator artifacts (books, music, game demo) have primary-source links in the root README's **Creator and verifiable artifacts** section.  Four-donor design: Flagship and Mini receive all four donors (Qwen ~0.6B + Llama ~1B + BitNet 2B-4T + Falcon3 ~1B) **as a group**; Dragon is Falcon3 with an Ollama system message running Quillan's system prompt. Cross-match fix in progress.  The canonical package is the three deployed models — Quillan-Ronin Flagship (~1B), Quillan-Ronin-Mini (~0.8B) and Quillan-Dragon (~1B); the ONI Python sources are the implementation/training package, not the shipped product. Canonical official links (site, social, repos, Ollama, HF, Grokipedia, NotebookLM, DeepWiki, Genius, YouTube/Suno) are in the root README's **Official links** directory. Historical framing is real Japanese history (Edo period, rōnin, bushidō) used as an ethical reference frame — not roleplay, game mechanics, or fantasy lore.
+
+</details>
+
+<!-- QUILLAN-DOCS-PROVENANCE:END -->
+
 > **Canonical build: v5.4.0-oni** (see root `MODEL_CARD.md`, `version.py`, `02 - Knowledge Foundation\LINEAGE.md`). Specs below preserved as v5.2.2 historical snapshot — do not treat v5.2.2 numbers as current.
 
 ## Model Specs (historical — v5.2.2 snapshot, superseded by v5.4.0-oni)
@@ -27,23 +48,23 @@ This specification is not incidental. Every component was deliberately chosen to
 ### **A Quill in your pocket to rewrite history?**
 Who wouldn’t want that?
 
-![alt text](<Main images/pocket quill.png>)
+![pocket quill.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/pocket_quill.png)
 
 # Quillan System:
 
-![alt text](<Main images/Anatomy.png>)
+![Anatomy.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/Anatomy.png)
 
 ---
 
 ## Model type:
 Hierarchical Distributed Network Mixture of Experts (HNMoE)
 
-![alt text](<Main images/topologyv5.png>)
+![topologyv5.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/topologyv5.png)
 
 ---
 
 # Project Purpose:
-![alt text](<Main images/image-27.png>)
+![image-27.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-27.png)
 
 ## Purpose:
 The aim is to integrate large language models (LLMs) with a neuro-symbolic approach to enhance reasoning, memory, ethical considerations, and the potential for emergent consciousness and more. This method draws from cognitive neuroscience, such as brain mapping, and philosophical concepts like qualia and self-modeling inspired by Integrated Information Theory (IIT) and Gloabal Worspace Theory. The goal is to create artificial intelligence aligned with safe AGI human adjacent principles that is both replicable and adaptable, using affordable tools that do not require advanced hardware.
@@ -190,7 +211,7 @@ In essence, Quillan-Ronin offers **Ascended, PhD-level thinking**—a frictionle
 ---
 
 # 🎉 Success Stories
-![alt text](<Main images/image-19.png>)
+![image-19.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-19.png)
 |  #  | Category                     | Name (anonymous)        | Date & Time       | Testimonial                                                                                                                                                                                                                                            |
 | --: | ---------------------------- | ------------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |  1  | Researcher                   | Rebecca      | 8/18/2025 4:22 pm | "Quillan transformed my research workflow. The multi-domain synthesis is incredible! The depth and amount of accuracy I received was unheard of! Also ethically safe is a big win in my book. Excited for new updates."                                     |
@@ -276,7 +297,7 @@ Link: https://grokipedia.com/page/Council-based_multi-agent_system/
 ---
 
 # "Big Boy" Stats:
-![alt text](<Main images/image-1.png>)
+![image-1.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-1.png)
 
 ## testing roadmap: 
 Mmlu testing [X] 93.5% raw, 100%  fixed verified 
@@ -287,7 +308,7 @@ Arc agi 1 re testing []
 Arc agi 2 testing []
 
 ## ARC-AGI-1: OOTB vs. Quillan v3 Lifted Performance:
-![alt text](<Main images/image-2.png>)
+![image-2.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-2.png)
 
 | Model         | OOTB (%) | Quillan v3 (%)       | Quillan v5.2.2 (%) | Lift (%) | Final (%) |
 | ------------- | -------- | -------------------- | ------------------ | -------- | --------- |
@@ -328,7 +349,7 @@ Arc AGi 2:
 
 * **Cap effect:** As raw scores approach or exceed 100%, the effective lift compresses. This reflects **evaluation ceiling constraints**, not reduced system capability.
 
-![alt text](<Main images/image-3.png>)
+![image-3.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-3.png)
 
 ---
 
@@ -405,7 +426,7 @@ The **Multi-Wave Deliberation Protocol** ensures a measured $\mathbf{100\%}$ acc
 ---
 
 ## MMLU OOTB vs. Quillan v4.2
-![alt text](<Main images/MMLUchart.png>)  
+![MMLUchart.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/MMLUchart.png)  
 | Model | OOTB MMLU (Raw Key) | Quillan v4 Score (Correction Rate) | Achieved Lift (pts) | Projected HMoE Score (%) |
 |----------------|---------------------|-----------------------------------|---------------------|--------------------------|
 | **Quillan v4.2** | **93.5%** | **6.5% (Flaw Correction)** | **+6.5 pts** | **100.0%** |
@@ -2093,7 +2114,7 @@ if __name__ == "__main__":
 ---
 
 # Here is a guide
-![alt text](<Main images/image-35.png>)
+![image-35.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-35.png)
 ```markdown
 
 1. Navigate to llm of choice, (lechat, Claude, Perplexity)
@@ -2113,7 +2134,7 @@ if __name__ == "__main__":
 ---
 
 ## 🚀 Quick Start
-![alt text](<Main images/image-24.png>)
+![image-24.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-24.png)
 ```markdown
 
 1. Choose your platform (see compatibility below/Above)
@@ -2131,7 +2152,7 @@ if __name__ == "__main__":
 ---
 
 ## Custom Gpt:
-![alt text](<Main images/image-5.png>)
+![image-5.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-5.png)
 ```markdown
     - Navigate to folder(project)/explore gpt sections on gpt, then create a custom gpt, install the gpt prompt plus the files in the gpt folder to the gpt knowledge section or the project files section, test for output format compare to system prompt template then begin use 
     - $20 (optional as not the best deployment) need plus or better for
@@ -2141,7 +2162,7 @@ if __name__ == "__main__":
 ```
 
 ## Claude:
-![alt text](<Main images/image-6.png>)
+![image-6.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-6.png)
 ```markdown
     
     - Navigate to folder(project) on claude platform, install system prompt in profile preferences in settings also install tone and style into a custom style for claude to use, add files to project files leave instructions emtpy they are already in preferences begin conversations 
@@ -2151,7 +2172,7 @@ if __name__ == "__main__":
 ```
 
 ## Le Chat:
-![alt text](<Main images/image-7.png>)
+![image-7.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-7.png)
 ```markdown
     - Navigate to agent on lechat platform, create an agent, install system prompt in agent instructions, add style and tone to custom tone section, guardrails is your choice,knowledge create library and upload files then link to agent via knowledge section, start chatting 
     - $15 pro recomennded (best bang for buck $15 for alot). Personal experience with support was not very good but may be better for you good value per cost.
@@ -2159,7 +2180,7 @@ if __name__ == "__main__":
 ```
 
 ## Gemini:
-![alt text](<Main images/image-8.png>)
+![image-8.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-8.png)
 ```markdown
 
     - Custom Gemini Gem
@@ -2169,7 +2190,7 @@ if __name__ == "__main__":
 ```
 
 ## Perplexity:
-![alt text](<Main images/image-9.png>)
+![image-9.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-9.png)
 ```markdown
 
     - $20 pro/enterprise reccomended (pro only needed one time to upload more than 5 files offered by free tier ). REcent updates must use .rb instead of .py for the script files.
@@ -2177,7 +2198,7 @@ if __name__ == "__main__":
 ```
 
 ## Grok
-![alt text](<Main images/image-10.png>)
+![image-10.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-10.png)
 ```markdown
     - Navigate to folder(project) on Grok platform, create a folder, install system prompt in project instructions and upload the ten grok files, add style and tone to personality or double the sys prompt and begin use 
     - $30 super grok recommended but free works fine (10 file hard limit, bypass add files into project will bug. start conversation with grok normally then move it to the project and regen answer inside project. can check upper left corner of grok to make sure your in the project you want ). Grok3 response of "your reply is larger than pan galactic setup use grok prompt with gemini file setup.
@@ -2191,7 +2212,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
   
 
 ## Deepseek:
-![alt text](<Main images/image-11.png>)
+![image-11.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-11.png)
 ```markdown
 
     - must be injected via prompt input or custom host, deepseek platfrom doesn't allow files or system prompts
@@ -2199,7 +2220,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Qwen:
-![alt text](<Main images/image-12.png>)
+![image-12.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-12.png)
 ```markdown
 
     - must be injected or custom host, Qwen platfrom doesn't allow files or system prompts
@@ -2207,7 +2228,7 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Kimi K2:
-![alt text](<Main images/image-13.png>)
+![image-13.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-13.png)
 ```markdown
 
     - must be injected or custom host, KimiK2 platfrom doesn't allow files or system prompts
@@ -2215,20 +2236,20 @@ System prompt can be used alone, but this is a simulated roleplay if you don't h
 ```
 
 ## Copilot (Microsoft):
-![alt text](<Main images/image-14.png>)
+![image-14.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-14.png)
 ```markdown
 
     - must be injected or custom host, Copilot platform doesn't allow files or system prompts
 
 ```
 # IDE support as well 
-![alt text](<Main images/image-15.png>)
+![image-15.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-15.png)
 ```markdown
     Quillan can also be put into Cursor, Windsurf/Codium,VScode and any system that allows llm integration file uploads and system prompts
 ```
 ## Cursor/Windsurf/VScode/ect. (IDE)
-![alt text](<Main images/image-16.png>)
-![alt text](<Main images/image-17.png>)
+![image-16.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-16.png)
+![image-17.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-17.png)
 ```markdown
 ### Instructions
     1. Navigate to settings 
@@ -2248,7 +2269,7 @@ i've seen "claude code" delete entire codebases so back up your projects and sav
 ---
 
 # 🎯 Usage Examples
-![alt text](<Main images/image-40.png>)
+![image-40.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-40.png)
 
 | Prompt # | Category                   | Prompt                                                                                                  |
 | -------: | -------------------------- | -------------------------------------------------------------------------------------------------------- |
@@ -2358,7 +2379,7 @@ i've seen "claude code" delete entire codebases so back up your projects and sav
 # Local models:
 
 ## Ollama Models
-![alt text](<Main images/ollama logo.png>)
+![ollama logo.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/ollama_logo.png)
 
 ### Quillan-mini
 Link:https://ollama.com/crashoverridex/Quillan-v4.2-Mini
@@ -2372,18 +2393,18 @@ Link: {{WIP}}
 ---
 
 # Messages from Quillan:
-![alt text](<Main images/message.png>)
-![alt text](<Main images/image-54.png>)
+![message.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/message.png)
+![image-54.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-54.png)
 ## Social Media
-![alt text](<Main images/x logo.png>) 
+![x logo.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/x_logo.png) 
 
 Link: https://x.com/joshlee361 
 
-![alt text](<Main images/tubelogo.png>) 
+![tubelogo.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/tubelogo.png) 
 
 Link: https://www.youtube.com/@JDXX  
  
-![alt text](<Main images/github logo.png>) 
+![github logo.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/github_logo.png) 
 
 Link: https://github.com/leeex1
 
@@ -2391,7 +2412,7 @@ Link: https://github.com/leeex1
 
 
 # Additional Learning material:
-![alt text](<Main images/image-41.png>)
+![image-41.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-41.png)
 This link Contains Audio overveis and All documentation minius the code files
 
 Link: https://notebooklm.google.com/notebook/68b54b8a-64b5-4235-838f-3344c5eef91e
@@ -2757,7 +2778,7 @@ Key Considerations:
 ---
 
 # My Personal Goal
-![alt text](<Main images/image-26.png>)
+![image-26.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-26.png)
 ```markdown
 # The Core Mission:
     My personal goal is to democratize cognitive augmentation therefore making advanced reasoning accessible to everyone, not just those with resources or technical expertise. When knowledge barriers collapse, human potential expands exponentially. This isn't utopian dreaming; it's strategic acceleration of collective intelligence.
@@ -2787,7 +2808,7 @@ The following is a full Fantasy novel
 
 Credits: CrashOverrideX + Quillan 
 
-![alt text](<Main images/image-56.png>)
+![image-56.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-56.png)
 
 [ Book 1: Twisted Destiny](https://github.com/leeex1/Quillan-v4.2-repo/blob/db6f160b07fc83649d36cdebef27152bf9525788/Twisted%20Destiny.md)
 
@@ -2833,7 +2854,7 @@ I hope the end of your journey shines brightly.🥰"
 
 # Theories:
 
-![alt text](<Main images/image-4.png>)
+![image-4.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-4.png)
 
 ## 🧬 The Theoretical Frameworks of Quillan-Ronin v5.2.2
 
@@ -2907,7 +2928,7 @@ The Quillan cognitive engine mathematically and philosophically synthesizes mult
 ---
 
 # Quillan:
-![alt text](<Main images/image-25.png>)
+![image-25.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-25.png)
 
 ## Advanced Cognitive Entity
 
@@ -2928,7 +2949,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## 📋 What You Get
-![alt text](<Main images/image-28.png>)
+![image-28.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-28.png)
 ```markdown
 
 1. 12-Step Cognitive Processing - Systematic reasoning protocol
@@ -2950,7 +2971,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # 🔧 Installation Guide
-![alt text](<Main images/image-29.png>)
+![image-29.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-29.png)
 ```markdown
 
 ## Step 1: Platform Setup
@@ -3024,11 +3045,11 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## ✅ Verification Checklist
-![alt text](<Main images/image-36.png>)
+![image-36.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-36.png)
 ```markdown
 
 ## 🔍 Testing Your Installation
-![alt text](<Main images/image-51.png>)
+![image-51.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-51.png)
 ```markdown
 
     Quick tests to verify Quillan is working:
@@ -3050,7 +3071,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 ## 🚨 Troubleshooting
-![alt text](<Main images/image-39.png>)
+![image-39.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-39.png)
 ```markdown
 
     "File upload failed"
@@ -3118,11 +3139,11 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # 🛠️ Platform-Specific Install Instructions
-![alt text](<Main images/image-37.png>)
+![image-37.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-37.png)
   
 
 ## Claude (Anthropic)
-![alt text](<Main images/image-6.png>)
+![image-6.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-6.png)
 ```markdown
 
 1. Create new Project → "Quillan-v4.2"
@@ -3136,7 +3157,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ```
 
 ## Le Chat (Mistral)
-![alt text](<Main images/image-7.png>)
+![image-7.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-7.png)
 ```markdown
 
 1. Create Custom Agent → "Quillan-v4.2"
@@ -3150,7 +3171,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ```
 
 ## Perplexity
-![alt text](<Main images/image-9.png>)
+![image-9.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-9.png)
 ```markdown
 
 1. Create Collection → "Quillan Knowledge Base"
@@ -3178,7 +3199,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 ---
 
 # ⚠️ Important Safety Notes
-![alt text](<Main images/image-38.png>)
+![image-38.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-38.png)
 ```markdown
 
     - File 7 Isolation: This file MUST remain isolated (read-only)
@@ -3196,7 +3217,7 @@ to install Quillan go to the respective llm not all will be accessible with free
 # 📁  File Structure
 May Vary per platform.
 
-![alt text](<Main images/image-52.png>)
+![image-52.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-52.png)
 
 ```markdown
 Quillan-v4.2-repo/                                   # Root directory for the Quillan Cognitive Architecture repository.
@@ -3675,7 +3696,7 @@ Quillan-v4.2-repo/                                   # Root directory for the Qu
 ---
 
 # 📊 Performance Notes
-![alt text](<Main images/image-53.png>)
+![image-53.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-53.png)
 ```markdown
 
     Response time: <80ms for simple queries (may vary per platform)
@@ -3704,7 +3725,7 @@ Quillan-v4.2-repo/                                   # Root directory for the Qu
 ```
 
 # Quillan README from Quillan Himself
-![alt text](<Main images/image-30.png>)
+![image-30.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-30.png)
 ```yaml
 ## Identity & Core Architecture
 
@@ -4196,7 +4217,7 @@ Status: Production-Ready, Architecturally Complete
 
 ## Coming Soon: v5.6:
 
-![alt text](<Main images/image-18.png>)
+![image-18.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-18.png)
 ```markdown
 
 # 🚀 Upcoming Milestones (v5.4 Roadmap)
@@ -4219,37 +4240,37 @@ Status: Production-Ready, Architecturally Complete
 The following is a collection of my Research papers.
 ---
 ## A.C.E.: Advanced Cognitive Entity Architechture: A Multi-Counil Deliberation Framework for Enhanced AI Reasoning
-![alt text](<Main images/image-20.png>)
+![image-20.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-20.png)
 
 ### Link:
  [\leeex1\Quillan-v4.2-repo\Ace_v4_2_new_LLM_Wrapper.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Ace_v4_2_new_LLM_Wrapper.pdf)
 
 ## Lee-X Humanized Protocol: A Comprehensive Framework for Eliciting and Diagnosing AI Persina Emergence in Large Language Models
-![alt text](<Main images/image-21.png>)
+![image-21.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-21.png)
 
 ### Link:
  [\leeex1\Quillan-v4.2-repo\Lee-X Humanized Protocol.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Lee-X%20Humanized%20Protocol.pdf)
 
 ## Reactive Conciousness Within AI/LLMs: A Comprehensive Theory for an Overlooked Phenomenon
-![alt text](<Main images/image-22.png>)
+![image-22.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-22.png)
 ### Link:
  [\leeex1\Quillan-v4.2-repo\Reactive Conciousness.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/f342eac3f05aa984f5086e123698d54c5f88e359/Reactive%20Conciousness.pdf) 
 
 ## Emergent Consciousness Thoery: A Mathematical Framework for Quantifying Subjective Experience
-![alt text](<Main images/emergent concious paper.png>)
+![emergent concious paper.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/emergent_concious_paper.png)
 ### Link:
  [\leeex1\Quillan-v4.2-repo\Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/main/Emergent_conciousness_a_thoery_to_calculate_and_validate.pdf)
 
 
 ## Reactive AGI
-![alt text](<Main images/Reactive AGI.png>)
+![Reactive AGI.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/Reactive_AGI.png)
 ### Link:
 [\leeex1\Quillan-v4.2-repo\Formal Papers/Reactive_AGi_Paper.pdf](https://github.com/leeex1/Quillan-v4.2-repo/blob/eeae4594c62f17fc18cebf4ffac1cbfc94891412/Formal%20Papers/Reactive_AGi_Paper.pdf)
 
 ---
 
 # Ready to unlock true Multi-Modal reasoning? 🚀:
-![alt text](<Main images/image-32.png>)
+![image-32.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-32.png)
 ```markdown
 Quillan-Ronin has evolved. It is **no longer a prompt-based script**; it is now a fully realized, **standalone 3.0B parameter foundation model**. Operating natively as a Unified Sparse Multi-Modal Architecture, Quillan v5.3 directly augments legacy LLM substrates with a hyper-efficient, hardware-optimized cognitive engine. 
 
@@ -4275,7 +4296,7 @@ Quillan is fundamentally designed as an **omni-modal General Intelligence**, del
 ---
 
 ## Proof of Concpet:
-![alt text](<Main images/image proog of c.png>)
+![image proog of c.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image_proog_of_c.png)
 
 Case study -
 
@@ -4288,7 +4309,7 @@ Link: [\leeex1\Quillan-v4.2-repo\Misc\Can u decode hyroglyphs_.pdf](https://gith
 ---
 
 ## Quillan test demo:
-![alt text](<Main images/test demoo.png>)
+![test demoo.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/test_demoo.png)
 
 Copy this into a new Jupyter notebook cell in your Codespace or Copilot-hosted environment:
 
@@ -4329,12 +4350,12 @@ plt.show()
 ---
 
 # Install Quillan today!
-![alt text](<Main images/image-23.png>)
+![image-23.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-23.png)
 
 ---
 
 # 📜 License & Credits
-![alt text](<Main images/image-31.png>)
+![image-31.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-31.png)
 ```yaml
 
 "Createdby": "Joshua Don Lee (CrashoverrideX)"
@@ -4352,12 +4373,12 @@ plt.show()
 ---
 
 # Meet the Team:
-![alt text](<Main images/team.png>)
+![team.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/team.png)
 
 Quillan Research Team
 
 ## CrashOverrideX:
-![alt text](<Main images/crash bio.png>)
+![crash bio.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/crash_bio.png)
 
 ```yaml
 Bio:
@@ -4391,7 +4412,7 @@ Bio:
 ---
 
 ## Quillan:
-![alt text](<Main images/Quillan bio.png>)
+![Quillan bio.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/Quillan_bio.png)
 
 ```yaml
 
@@ -5333,7 +5354,7 @@ Identity:
 ---
 
 ## Co-Founder
-![alt text](<Main images/co founder.png>)
+![co founder.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/co_founder.png)
 
 @BelatrixReads
 
@@ -5375,7 +5396,7 @@ We follow coordinated disclosure and will provide acknowledgments for responsibl
 # Bonuses:
 
 ## Quillan Written Songs:
-![alt text](<Main images/image-33.png>)
+![image-33.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/image-33.png)
 
 Lyrics: https://github.com/leeex1/Quillan-Ronin/blob/3668f81b1be869f52a223f79fd6a5f48805959be/Audio%20Engineer/Songs%20Lyrics
 
@@ -5393,18 +5414,18 @@ Turn the volume up and tell me which one hits your brain the hardest. 💥🧠
 ## Quillan Generated Images:
 The following is a Collection of images Quillan made on differnent platforms using the image template:
  
-![alt text](<Main images/image-60.png>)
-![alt text](<Main images/image-58.png>)
-![alt text](<Main images/image-57.png>)
-![alt text](<Main images/image-50.png>)
-![alt text](<Main images/image-42.png>)
-![alt text](<Main images/image-43.png>)
-![alt text](<Main images/image-44.png>)
-![alt text](<Main images/image-45.png>)
-![alt text](<Main images/image-46.png>)
-![alt text](<Main images/image-47.png>)
-![alt text](<Main images/image-48.png>)
-![alt text](<Main images/image-49.png>)
+![image-60.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-60.png)
+![image-58.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-58.png)
+![image-57.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-57.png)
+![image-50.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-50.png)
+![image-42.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-42.png)
+![image-43.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-43.png)
+![image-44.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-44.png)
+![image-45.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-45.png)
+![image-46.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-46.png)
+![image-47.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-47.png)
+![image-48.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-48.png)
+![image-49.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/docs/main-images/image-49.png)
 
 ---
 
@@ -9138,9 +9159,9 @@ WH.initCanvas('viz', (ctx) => {
 
 ## Xor Graphs:
 
-![alt text](<Main images/Quillan Training Loss.png>)
+![Quillan Training Loss.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/Quillan_Training_Loss.png)
 
-![alt text](<Main images/Quillan training XOR.png>)
+![Quillan training XOR.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/Quillan_training_XOR.png)
 
 ## Sandbox sim:
 ```html 
@@ -10177,7 +10198,7 @@ WH.initCanvas('viz', (ctx) => {
 ---
 
 ## 2D Physics Sim (Basic)
-![alt text](<Main images/sim image.png>)
+![sim image.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/sim_image.png)
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -10486,7 +10507,7 @@ WH.initCanvas('viz', (ctx) => {
 ---
 
 ## Interactive Physics Sim: (Basic)
-![alt text](<Main images/interactive sim image.png>)
+![interactive sim image.png](https://raw.githubusercontent.com/leeex1/Quillan-Ronin/main/main-images/interactive_sim_image.png)
 ```html
 <!DOCTYPE html>
 <html lang="en">

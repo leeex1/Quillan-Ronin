@@ -1,7 +1,7 @@
 # =============================================================================
 # QUILLAN-RONIN SOVEREIGN FLAGSHIP (1.2B) (2M CONTEXT - FULL SOVEREIGN SYSTEM)
 # =============================================================================
-FROM exports/quillan-1b-sovereign-wsp-v20-q8_0.gguf
+FROM exports/quillan-1b-sovereign-wsp-v23-q8_0.gguf
 
 PARAMETER temperature 0.3
 PARAMETER top_p 0.95

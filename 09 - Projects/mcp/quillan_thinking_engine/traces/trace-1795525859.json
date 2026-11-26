@@ -1,0 +1,111 @@
+{
+  "trace_id": "trace-1795525859",
+  "query": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+  "depth": "deep",
+  "phases": [
+    {
+      "step": 1,
+      "phase": "restate",
+      "prompt": "Restate the problem in your own words. What is actually being asked? What would failure look like?",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 2,
+      "phase": "decompose",
+      "prompt": "Break into A/B/C sub-problems and their dependencies. What are the load-bearing assumptions?",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 3,
+      "phase": "hypotheses",
+      "prompt": "Generate H1 (obvious), H2 (contrarian), H3 (edge case), H4 (synthesis candidate).",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 4,
+      "phase": "adversarial",
+      "prompt": "Steelman the opposite: what must be true for H1 to be WRONG? Attack the weakest assumption.",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 5,
+      "phase": "evidence",
+      "prompt": "Grade evidence A/B/C/D/F. What is the key uncertainty that could flip the conclusion?",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 6,
+      "phase": "edge_sweep",
+      "prompt": "Sweep edge cases: null/empty, adversarial input, scale n=1000, off-by-one.",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    },
+    {
+      "step": 7,
+      "phase": "synthesis",
+      "prompt": "Produce H* (final hypothesis) + evidence grade + caveat + confidence%.",
+      "query_context": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?",
+      "status": "PENDING_MODEL_FILL"
+    }
+  ],
+  "phase_count": 7,
+  "council": [
+    "C7-LOGOS",
+    "C17-NULLION",
+    "C18-SHEPHERD"
+  ],
+  "gate": "adversarial required; confidence 90/70/50 bands",
+  "usage": "Fill each phase's reasoning, then synthesize final answer. Persist via thinking_trace_save if needed.",
+  "filled_phases": [
+    {
+      "step": 1,
+      "phase": "restate",
+      "status": "FILLED",
+      "content": "Find ball price b. Bat=b+1.00. Total b+(b+1.00)=1.10. Failure = 0.10 (intuitive trap)."
+    },
+    {
+      "step": 2,
+      "phase": "decompose",
+      "status": "FILLED",
+      "content": "A: words->equations. B: solve 2b+1.00=1.10. C: verify constraints. Load-bearing: 'more than'=additive."
+    },
+    {
+      "step": 3,
+      "phase": "hypotheses",
+      "status": "FILLED",
+      "content": "H1=0.10 (obvious, wrong). H2=0.05 (bat 1.05). H3: negative impossible. H4=H2 verified."
+    },
+    {
+      "step": 4,
+      "phase": "adversarial",
+      "status": "FILLED",
+      "content": "H1 fails total: 0.10+1.10=1.20≠1.10. H2 passes: 0.05+1.05=1.10."
+    },
+    {
+      "step": 5,
+      "phase": "evidence",
+      "status": "FILLED",
+      "content": "Grade A. 2b=0.10 -> b=0.05. Deterministic."
+    },
+    {
+      "step": 6,
+      "phase": "edge_sweep",
+      "status": "FILLED",
+      "content": "Positivity ok; 'more than' additive; general b=(T-D)/2=0.05; no off-by-one."
+    },
+    {
+      "step": 7,
+      "phase": "synthesis",
+      "status": "FILLED",
+      "content": "H*=0.05 (5 cents). Grade A. Confidence 99%."
+    }
+  ],
+  "final_answer": "The ball costs $0.05 (5 cents). The bat costs $1.05; together $1.10.",
+  "status": "FILLED",
+  "filled_at": 1795525895.9262424
+}

@@ -1,7 +1,7 @@
 # =============================================================================
 # QUILLAN-DRAGON 1.0B (SCIENTIFIC & FORMAL DERIVATION - 2M CONTEXT - FULL SOVEREIGN MASTER)
 # =============================================================================
-FROM ./quillan-dragon-1b-wsp-v8-q4_k_m.gguf
+FROM exports/quillan-dragon-1b-wsp-v18b-q8_0.gguf
 
 PARAMETER temperature 0.3
 PARAMETER top_p 0.9

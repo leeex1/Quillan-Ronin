@@ -1,0 +1,33 @@
+{
+  "prompt_file": "C:\\02_QUILLAN\\06 - Deployment & Platforms\\system prompts\\Quillan-Samurai.md",
+  "char_offset": 200000,
+  "max_chars": 30000,
+  "prompt_chars": 30000,
+  "note": "timings come from llama-server /completion; first-token latency ~= prompt_ms",
+  "runs": [
+    {
+      "label": "cold",
+      "probe": "Reply with exactly one word: alpha.",
+      "prompt_n": 7513,
+      "prompt_ms": 18980.856,
+      "prompt_per_s": null,
+      "predicted_n": 16,
+      "predicted_ms": 12722.964,
+      "predicted_per_s": null,
+      "client_wall_s": 31.781,
+      "stopped_words": null
+    },
+    {
+      "label": "cache_reuse",
+      "probe": "Reply with exactly one word: beta.",
+      "prompt_n": 2,
+      "prompt_ms": 401.927,
+      "prompt_per_s": null,
+      "predicted_n": 16,
+      "predicted_ms": 10430.658,
+      "predicted_per_s": null,
+      "client_wall_s": 12.813,
+      "stopped_words": null
+    }
+  ]
+}

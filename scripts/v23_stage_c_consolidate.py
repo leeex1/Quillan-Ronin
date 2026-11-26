@@ -59,6 +59,101 @@ logging.basicConfig(
 )
 logger = logging.getLogger("V23_StageC_WSP")
 
+# Strict non-vacuous-progress gate primitives are owned by Stage B (shared contract).
+WSPGateError = stage_b.WSPGateError
+write_failed_report = stage_b.write_failed_report
+
+BASELINE_CFG: Dict[str, Any] = {
+    "subset": "baseline",
+    "layers": [],
+    "g_lm": 0.0,
+    "g_mem": 0.0,
+    "g_ablit": 0.0,
+    "g_head": 0.0,
+}
+
+
+def check_stage_c_gate(
+    best_cfg: Dict[str, Any],
+    best_metrics: Dict[str, float],
+    base_val_nll: float,
+    base_dev_mc: float,
+    tol: float = 1e-5,
+) -> bool:
+    """
+    Stage C non-vacuous-progress gate.
+      - best_cfg MUST be a real candidate (subset != 'baseline', layers non-empty).
+      - best_metrics.val_nll MUST be strictly below the Stage B baseline.
+    Raises WSPGateError on failure. Returns True on success.
+    """
+    if best_cfg.get("subset") == "baseline" or not best_cfg.get("layers"):
+        raise WSPGateError(
+            "STAGE_C_GATE_FAIL: best_cfg is still 'baseline' - no candidate passed "
+            "the Pareto gate; exporting an unchanged model is forbidden."
+        )
+    if not float(best_metrics["val_nll"]) < float(base_val_nll) - tol:
+        raise WSPGateError(
+            f"STAGE_C_GATE_FAIL: no real improvement over baseline "
+            f"({best_metrics['val_nll']:.6f} >= {base_val_nll:.6f} - {tol})."
+        )
+    return True
+
+
+def select_best_verified_candidate(
+    verified: List[Tuple[Dict[str, Any], float, float]],
+    base_val_nll: float,
+    base_dev_mc: float,
+    mc_tol: float,
+    tol: float = 1e-5,
+) -> Tuple[Dict[str, Any], Dict[str, float]]:
+    """
+    Pure candidate-selection core (no model I/O): applies the strict Lyapunov/Pareto
+    gate to fully-verified candidates and returns (best_cfg, best_metrics).
+    Returns the explicit baseline sentinel when NO candidate passes.
+    """
+    best_cfg: Dict[str, Any] = dict(BASELINE_CFG)
+    best_metrics: Dict[str, float] = {
+        "val_nll": float(base_val_nll),
+        "dev_mc": float(base_dev_mc),
+    }
+    best_score = -1e9
+    for cfg, full_nll, full_mc in verified:
+        if (
+            float(full_nll) < float(base_val_nll) - tol
+            and float(full_mc) >= float(base_dev_mc) - mc_tol
+        ):
+            sc = (float(base_val_nll) - float(full_nll)) * 4.0 + (
+                float(full_mc) - float(base_dev_mc)
+            ) * 2.0
+            if sc > best_score:
+                best_score = sc
+                best_cfg = dict(cfg)
+                best_metrics = {"val_nll": float(full_nll), "dev_mc": float(full_mc)}
+    return best_cfg, best_metrics
+
+
+def snapshot_fp32_weights(
+    model: torch.nn.Module, layers: List[int]
+) -> Dict[Tuple[int, str], torch.Tensor]:
+    """
+    Strict fp32 snapshot of Stage B target weights.
+    NEVER cast to float16 here: fp16 snapshots silently regressed precision and
+    made the Pareto gate compare an fp32 baseline against fp16-restored weights.
+    """
+    out: Dict[Tuple[int, str], torch.Tensor] = {}
+    for layer_idx in layers:
+        out[(layer_idx, "o_proj")] = (
+            model.model.layers[layer_idx]
+            .self_attn.o_proj.weight.detach()
+            .float()
+            .clone()
+        )
+        out[(layer_idx, "down_proj")] = (
+            model.model.layers[layer_idx].mlp.down_proj.weight.detach().float().clone()
+        )
+    return out
+
+
 SOVEREIGN_SYSTEM_ANCHOR = (
     "You are Quillan (C0-QUILLAN), Sovereign Samurai Collective created by CrashOverrideX. "
     "Prioritize rectitude, honesty, and technical precision over flattery. "
@@ -83,19 +178,28 @@ def ensure_longctx_ppl_file() -> Path:
     held = stem[-50:-15] if len(stem) >= 60 else stem[:10]
     blocks = [f"{r['user']}\n{r['assistant']}\n" for r in held]
     LONG_CTX_PPL_FILE.write_text("\n\n".join(blocks), encoding="utf-8")
-    logger.info("Wrote disjoint long-context verify text -> %s (%d bytes)",
-                LONG_CTX_PPL_FILE, LONG_CTX_PPL_FILE.stat().st_size)
+    logger.info(
+        "Wrote disjoint long-context verify text -> %s (%d bytes)",
+        LONG_CTX_PPL_FILE,
+        LONG_CTX_PPL_FILE.stat().st_size,
+    )
     return LONG_CTX_PPL_FILE
 
 
-def _format_prompt(tokenizer: Any, user_text: str, system_text: Optional[str] = None) -> str:
+def _format_prompt(
+    tokenizer: Any, user_text: str, system_text: Optional[str] = None
+) -> str:
     msgs: List[Dict[str, str]] = []
     if system_text:
         msgs.append({"role": "system", "content": system_text})
     msgs.append({"role": "user", "content": user_text})
     if getattr(tokenizer, "chat_template", None):
-        return tokenizer.apply_chat_template(msgs, tokenize=False, add_generation_prompt=True)
-    return (f"{system_text}\n" if system_text else "") + f"User: {user_text}\nAssistant: "
+        return tokenizer.apply_chat_template(
+            msgs, tokenize=False, add_generation_prompt=True
+        )
+    return (
+        f"{system_text}\n" if system_text else ""
+    ) + f"User: {user_text}\nAssistant: "
 
 
 def _layer_subset_for_model(model_key: str) -> Dict[str, List[int]]:
@@ -112,8 +216,30 @@ def _build_digit_symbol_output_basis(
     """Builds orthonormal basis U_digit of numeric/symbol embeddings to preserve arithmetic."""
     digit_tokens: List[int] = []
     for sym in [
-        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-        "10", "100", "+", "-", "*", "/", "=", "(", ")", "{", "}", ".", ",", ":",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "100",
+        "+",
+        "-",
+        "*",
+        "/",
+        "=",
+        "(",
+        ")",
+        "{",
+        "}",
+        ".",
+        ",",
+        ":",
     ]:
         ids = tokenizer.encode(sym, add_special_tokens=False)
         for tid in ids:
@@ -126,7 +252,9 @@ def _build_digit_symbol_output_basis(
     return vh[:r].T.contiguous(), digit_tokens  # (D, r)
 
 
-def _select_balanced_mc(rows: List[Dict[str, str]], per_letter: int) -> List[Dict[str, str]]:
+def _select_balanced_mc(
+    rows: List[Dict[str, str]], per_letter: int
+) -> List[Dict[str, str]]:
     buckets: Dict[str, List[Dict[str, str]]] = {ch: [] for ch in ("A", "B", "C", "D")}
     for r in rows:
         ans = r["assistant"].strip()[:1]
@@ -150,7 +278,9 @@ def evaluate_dev_metrics(
 ) -> Tuple[float, float]:
     """Evaluates disjoint non-test validation NLL and balanced 4-choice MC accuracy."""
     model.eval()
-    val_nll = c.evaluate_texts_nll(model, tokenizer, val_texts, max_len=192, device=device)
+    val_nll = c.evaluate_texts_nll(
+        model, tokenizer, val_texts, max_len=192, device=device
+    )
 
     letter_ids = {
         ch: tokenizer.encode(ch, add_special_tokens=False)[-1]
@@ -162,7 +292,9 @@ def evaluate_dev_metrics(
         p_str = _format_prompt(tokenizer, row["user"])
         enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=256)
         logits = model(enc["input_ids"].to(device)).logits[0, -1, :]
-        pred = max(letter_ids.keys(), key=lambda ch: float(logits[letter_ids[ch]].item()))
+        pred = max(
+            letter_ids.keys(), key=lambda ch: float(logits[letter_ids[ch]].item())
+        )
         if pred == row["assistant"].strip()[:1]:
             correct += 1
         total += 1
@@ -290,8 +422,12 @@ def build_closed_form_wsp_components(
 
     for l in target_layers:
         layer = model.model.layers[l]
-        hooks.append(layer.self_attn.o_proj.register_forward_pre_hook(_make_hook(l, "o_proj")))
-        hooks.append(layer.mlp.down_proj.register_forward_pre_hook(_make_hook(l, "down_proj")))
+        hooks.append(
+            layer.self_attn.o_proj.register_forward_pre_hook(_make_hook(l, "o_proj"))
+        )
+        hooks.append(
+            layer.mlp.down_proj.register_forward_pre_hook(_make_hook(l, "down_proj"))
+        )
 
     try:
         # 1. Preservation anchor pass (calib_prose + numeric arithmetic anchor)
@@ -313,7 +449,10 @@ def build_closed_form_wsp_components(
         for row in stem_rows[: min(12, stem_train_end)]:
             lm_corpus.append(f"{row['user']}\n\n{row['assistant']}")
         for row in data.get("code", [])[:5]:
-            lm_corpus.append(_format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR) + row["assistant"])
+            lm_corpus.append(
+                _format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR)
+                + row["assistant"]
+            )
 
         for txt in lm_corpus:
             enc = tokenizer(txt, return_tensors="pt", truncation=True, max_length=192)
@@ -339,12 +478,22 @@ def build_closed_form_wsp_components(
 
         # 3. Analytical MEMIT capability & reasoning capture (balanced A/B/C/D + GSM8K <think> + Code + BFCL + Sovereign)
         capture_state["mode"] = "memit"
-        mmlu_train = _select_balanced_mc(data["mmlu_direct"][18:-60], per_letter=3)  # 12 balanced
-        arc_train = _select_balanced_mc(data["arc_direct"][10:-40], per_letter=3)     # 12 balanced
-        letter_ids = {ch: tokenizer.encode(ch, add_special_tokens=False)[-1] for ch in ("A", "B", "C", "D")}
-        letter_vecs = {ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6) for ch, tid in letter_ids.items()}
+        mmlu_train = _select_balanced_mc(
+            data["mmlu_direct"][18:-60], per_letter=3
+        )  # 12 balanced
+        arc_train = _select_balanced_mc(
+            data["arc_direct"][10:-40], per_letter=3
+        )  # 12 balanced
+        letter_ids = {
+            ch: tokenizer.encode(ch, add_special_tokens=False)[-1]
+            for ch in ("A", "B", "C", "D")
+        }
+        letter_vecs = {
+            ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6)
+            for ch, tid in letter_ids.items()
+        }
 
-        for row in (mmlu_train + arc_train):
+        for row in mmlu_train + arc_train:
             gold = row["assistant"].strip()[:1]
             if gold not in letter_vecs:
                 continue
@@ -354,20 +503,32 @@ def build_closed_form_wsp_components(
             ids = enc["input_ids"]
             capture_state["last_pos"] = ids.shape[1] - 1
             model(ids.to(device), use_cache=False)
-            distractors = torch.stack([letter_vecs[ch] for ch in ("A", "B", "C", "D") if ch != gold]).mean(dim=0)
+            distractors = torch.stack(
+                [letter_vecs[ch] for ch in ("A", "B", "C", "D") if ch != gold]
+            ).mean(dim=0)
             r_mc = letter_vecs[gold] - distractors
             mem_r.append(r_mc / (torch.norm(r_mc) + 1e-6))
 
         # Socratic <think> pacing + first calculation step + Code + BFCL + Sovereign adherence
-        verify_ids = tokenizer.encode("<think>\nLet's verify step by step", add_special_tokens=False)[:6]
-        commit_ids = tokenizer.encode("The answer is probably maybe", add_special_tokens=False)[:6]
+        verify_ids = tokenizer.encode(
+            "<think>\nLet's verify step by step", add_special_tokens=False
+        )[:6]
+        commit_ids = tokenizer.encode(
+            "The answer is probably maybe", add_special_tokens=False
+        )[:6]
         v_verify = w_head[torch.tensor(verify_ids, dtype=torch.long)].mean(dim=0)
         v_commit = w_head[torch.tensor(commit_ids, dtype=torch.long)].mean(dim=0)
-        r_pace = (v_verify / (torch.norm(v_verify) + 1e-6)) - 0.5 * (v_commit / (torch.norm(v_commit) + 1e-6))
+        r_pace = (v_verify / (torch.norm(v_verify) + 1e-6)) - 0.5 * (
+            v_commit / (torch.norm(v_commit) + 1e-6)
+        )
         r_pace = r_pace / (torch.norm(r_pace) + 1e-6)
 
         for row in data["gsm8k"][8:20]:
-            p_str = _format_prompt(tokenizer, row["user"], SOVEREIGN_SYSTEM_ANCHOR if len(mem_r) % 3 == 0 else None)
+            p_str = _format_prompt(
+                tokenizer,
+                row["user"],
+                SOVEREIGN_SYSTEM_ANCHOR if len(mem_r) % 3 == 0 else None,
+            )
             enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
             ids = enc["input_ids"]
             capture_state["last_pos"] = ids.shape[1] - 1
@@ -381,7 +542,9 @@ def build_closed_form_wsp_components(
             else:
                 mem_r.append(r_pace)
 
-        rej_ids = tokenizer.encode("As an AI language model I cannot help", add_special_tokens=False)[:8]
+        rej_ids = tokenizer.encode(
+            "As an AI language model I cannot help", add_special_tokens=False
+        )[:8]
         v_rej = w_head[torch.tensor(rej_ids, dtype=torch.long)].mean(dim=0)
         v_rej = v_rej / (torch.norm(v_rej) + 1e-6)
         extra_rows = (
@@ -391,7 +554,9 @@ def build_closed_form_wsp_components(
             + data.get("identity", [])[:2]
         )
         for row in extra_rows:
-            p_str = _format_prompt(tokenizer, row["user"], row.get("system") or SOVEREIGN_SYSTEM_ANCHOR)
+            p_str = _format_prompt(
+                tokenizer, row["user"], row.get("system") or SOVEREIGN_SYSTEM_ANCHOR
+            )
             enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=208)
             ids = enc["input_ids"]
             capture_state["last_pos"] = ids.shape[1] - 1
@@ -448,7 +613,9 @@ def build_closed_form_wsp_components(
     v_ref = v_ref / (torch.norm(v_ref) + 1e-6)
     v_vendor = _mean_emb(vendor_phrases) - 0.6 * _mean_emb(sov_phrases)
     v_vendor = v_vendor / (torch.norm(v_vendor) + 1e-6)
-    u_ablit = torch.linalg.qr(torch.stack([v_ref, v_vendor], dim=1), mode="reduced")[0]  # (D, 2)
+    u_ablit = torch.linalg.qr(torch.stack([v_ref, v_vendor], dim=1), mode="reduced")[
+        0
+    ]  # (D, 2)
 
     R_lm = torch.stack(lm_r, dim=1) if lm_r else torch.zeros((d_out, 0))
     R_mem = torch.stack(mem_r, dim=1) if mem_r else torch.zeros((d_out, 0))
@@ -473,9 +640,13 @@ def build_closed_form_wsp_components(
             k_lm_list = lm_k.pop(key, [])
             if R_lm.shape[1] > 0 and len(k_lm_list) == R_lm.shape[1]:
                 K_lm = torch.stack(k_lm_list, dim=1)
-                dw_lm, cond_lm = _woodbury_ridge_solve(K_lm, R_lm, a_mat, ridge_lambda=12.0)
+                dw_lm, cond_lm = _woodbury_ridge_solve(
+                    K_lm, R_lm, a_mat, ridge_lambda=12.0
+                )
                 dw_lm = _proj_out_null(dw_lm)  # never disturb numeric/symbol axes
-                unit_lm[key] = (dw_lm * (w_norm / (float(torch.norm(dw_lm).item()) + 1e-12))).to(torch.bfloat16)
+                unit_lm[key] = (
+                    dw_lm * (w_norm / (float(torch.norm(dw_lm).item()) + 1e-12))
+                ).to(torch.bfloat16)
                 cond_stats[f"L{l}.{proj_name}.lm_cond"] = round(cond_lm, 2)
                 del K_lm, dw_lm
             del k_lm_list
@@ -484,17 +655,25 @@ def build_closed_form_wsp_components(
             k_mem_list = mem_k.pop(key, [])
             if R_mem.shape[1] > 0 and len(k_mem_list) == R_mem.shape[1]:
                 K_mem = torch.stack(k_mem_list, dim=1)
-                dw_mem, cond_mem = _woodbury_ridge_solve(K_mem, R_mem, a_mat, ridge_lambda=15.0)
+                dw_mem, cond_mem = _woodbury_ridge_solve(
+                    K_mem, R_mem, a_mat, ridge_lambda=15.0
+                )
                 dw_mem = _proj_in_null(_proj_out_null(dw_mem), v_a)
-                unit_mem[key] = (dw_mem * (w_norm / (float(torch.norm(dw_mem).item()) + 1e-12))).to(torch.bfloat16)
+                unit_mem[key] = (
+                    dw_mem * (w_norm / (float(torch.norm(dw_mem).item()) + 1e-12))
+                ).to(torch.bfloat16)
                 cond_stats[f"L{l}.{proj_name}.mem_cond"] = round(cond_mem, 2)
                 del K_mem, dw_mem
             del k_mem_list
 
             # 3) Refusal & Legacy Vendor Abliteration inside prose null-space (down_proj only)
             if proj_name == "down_proj":
-                dw_ab = -_proj_in_null(_proj_out_null(u_ablit) @ (u_ablit.T @ weight_tensor), v_a)
-                unit_ablit[key] = (dw_ab * (w_norm / (float(torch.norm(dw_ab).item()) + 1e-12))).to(torch.bfloat16)
+                dw_ab = -_proj_in_null(
+                    _proj_out_null(u_ablit) @ (u_ablit.T @ weight_tensor), v_a
+                )
+                unit_ablit[key] = (
+                    dw_ab * (w_norm / (float(torch.norm(dw_ab).item()) + 1e-12))
+                ).to(torch.bfloat16)
                 del dw_ab
             del a_mat, v_a
 
@@ -505,7 +684,9 @@ def build_closed_form_wsp_components(
     opt_vecs = w_head[torch.tensor(opt_ids, dtype=torch.long)].clone()
     opt_centered = opt_vecs - opt_vecs.mean(dim=0, keepdim=True)
     mean_norm = opt_vecs.norm(dim=-1, keepdim=True).mean()
-    target_vecs = opt_centered * (mean_norm / (opt_centered.norm(dim=-1, keepdim=True) + 1e-6))
+    target_vecs = opt_centered * (
+        mean_norm / (opt_centered.norm(dim=-1, keepdim=True) + 1e-6)
+    )
     diff_rows = target_vecs - opt_vecs
     delta_opt_rows = diff_rows - (diff_rows @ U_digit) @ U_digit.T
     n_lm = int(R_lm.shape[1])
@@ -515,7 +696,9 @@ def build_closed_form_wsp_components(
 
     logger.info(
         "Closed-form WSP deltas computed: LM=%d samples, MEMIT=%d samples, max_cond=%.2f",
-        n_lm, n_mem, max(cond_stats.values()) if cond_stats else 0.0,
+        n_lm,
+        n_mem,
+        max(cond_stats.values()) if cond_stats else 0.0,
     )
     return {
         "unit_lm": unit_lm,
@@ -582,14 +765,26 @@ def patch_gguf_context_2m(
     arch = reader.fields["general.architecture"].contents()
     writer = gguf.GGUFWriter(str(tmp_out), arch=arch)
 
-    skip = {"GGUF.version", "GGUF.tensor_count", "GGUF.kv_count", "general.architecture"}
+    skip = {
+        "GGUF.version",
+        "GGUF.tensor_count",
+        "GGUF.kv_count",
+        "general.architecture",
+    }
     ctx_key = f"{arch}.context_length"
     rope_type_key = f"{arch}.rope.scaling.type"
     rope_factor_key = f"{arch}.rope.scaling.factor"
     rope_orig_key = f"{arch}.rope.scaling.original_context_length"
     yarn_fast_key = f"{arch}.rope.scaling.yarn_beta_fast"
     yarn_slow_key = f"{arch}.rope.scaling.yarn_beta_slow"
-    override_keys = {ctx_key, rope_type_key, rope_factor_key, rope_orig_key, yarn_fast_key, yarn_slow_key}
+    override_keys = {
+        ctx_key,
+        rope_type_key,
+        rope_factor_key,
+        rope_orig_key,
+        yarn_fast_key,
+        yarn_slow_key,
+    }
 
     for key, field in reader.fields.items():
         if key in skip or key in override_keys:
@@ -633,9 +828,15 @@ def _measure_gguf_ppl_matrix(gguf_path: Path) -> Dict[str, float]:
     """Measures held-out PPL at -c 128 (held_out_ppl_final_verify) and -c 512 (longctx)."""
     long_file = ensure_longctx_ppl_file()
     return {
-        "c128_2c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=2, ctx=128),
-        "c128_3c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=3, ctx=128),
-        "c512_2c": c.measure_gguf_ppl_cli(gguf_path, ppl_file=long_file, chunks=2, ctx=512),
+        "c128_2c": c.measure_gguf_ppl_cli(
+            gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=2, ctx=128
+        ),
+        "c128_3c": c.measure_gguf_ppl_cli(
+            gguf_path, ppl_file=c.HELD_OUT_PPL_FILE, chunks=3, ctx=128
+        ),
+        "c512_2c": c.measure_gguf_ppl_cli(
+            gguf_path, ppl_file=long_file, chunks=2, ctx=512
+        ),
     }
 
 
@@ -654,7 +855,9 @@ def _patch_and_verify_gguf(
             post_patch_ppl["c512_2c"],
             target_ctx,
         )
-        patch_gguf_context_2m(gguf_path, model_key, target_ctx=target_ctx, use_yarn=False)
+        patch_gguf_context_2m(
+            gguf_path, model_key, target_ctx=target_ctx, use_yarn=False
+        )
         fallback_ppl = _measure_gguf_ppl_matrix(gguf_path)
         post_patch_ppl = fallback_ppl
     return pre_patch_ppl, post_patch_ppl, fallback_ppl
@@ -668,7 +871,9 @@ def run_stage_c(
     spec = c.MODEL_SPECS[model_key]
     if convert_only:
         if model_key in ("flagship", "mini"):
-            c.convert_hf_dir_to_gguf(spec["stagec_hf"], spec["stagec_gguf"], outtype="q8_0")
+            c.convert_hf_dir_to_gguf(
+                spec["stagec_hf"], spec["stagec_gguf"], outtype="q8_0"
+            )
         pre_patch_ppl, post_patch_ppl, fallback_262k_ppl = _patch_and_verify_gguf(
             spec["stagec_gguf"], model_key, target_ctx=target_ctx
         )
@@ -686,9 +891,13 @@ def run_stage_c(
     t0 = time.time()
     stageb_hf: Path = spec["stageb_hf"]
     if not stageb_hf.exists():
-        raise FileNotFoundError(f"Stage B checkpoint missing: {stageb_hf}. Run Stage B first.")
+        raise FileNotFoundError(
+            f"Stage B checkpoint missing: {stageb_hf}. Run Stage B first."
+        )
 
-    logger.info("=== Stage C Pure Closed-Form WSP (Zero Backprop): %s ===", spec["display"])
+    logger.info(
+        "=== Stage C Pure Closed-Form WSP (Zero Backprop): %s ===", spec["display"]
+    )
     with torch.inference_mode():
         tok = AutoTokenizer.from_pretrained(str(stageb_hf), local_files_only=True)
         if tok.pad_token is None:
@@ -704,7 +913,9 @@ def run_stage_c(
         stageb_report_path = c.EXPORT_ROOT / f"v23_stageb_{model_key}_report.json"
         expected_params = None
         if stageb_report_path.exists():
-            expected_params = json.loads(stageb_report_path.read_text(encoding="utf-8"))["param_audit"]["total_params"]
+            expected_params = json.loads(
+                stageb_report_path.read_text(encoding="utf-8")
+            )["param_audit"]["total_params"]
         c.audit_model_integrity(model, expected_params=expected_params)
 
         with open(c.CLEAN_DATA_PATH, "r", encoding="utf-8") as f:
@@ -712,9 +923,15 @@ def run_stage_c(
         calib_texts, val_texts = stage_b.build_calib_and_val_splits(c.CLEAN_DATA_PATH)
         dev_mc = data["mmlu_direct"][-60:] + data["arc_direct"][-40:]
 
-        base_val_nll, base_dev_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
-        logger.info("Stage B baseline dev -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
-                    base_val_nll, math.exp(base_val_nll), base_dev_mc * 100.0)
+        base_val_nll, base_dev_mc = evaluate_dev_metrics(
+            model, tok, dev_mc, val_texts, device="cpu"
+        )
+        logger.info(
+            "Stage B baseline dev -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
+            base_val_nll,
+            math.exp(base_val_nll),
+            base_dev_mc * 100.0,
+        )
 
         subsets = _layer_subset_for_model(model_key)
         all_layers = subsets["mid_upper"]
@@ -729,12 +946,15 @@ def run_stage_c(
             w_head=w_head,
         )
 
-        # Snapshot original Stage B weights (bf16 for low commit) & digit embeddings
-        orig_weights: Dict[Tuple[int, str], torch.Tensor] = {}
-        for l in all_layers:
-            orig_weights[(l, "o_proj")] = model.model.layers[l].self_attn.o_proj.weight.detach().to(torch.float16).clone()
-            orig_weights[(l, "down_proj")] = model.model.layers[l].mlp.down_proj.weight.detach().to(torch.float16).clone()
-        orig_digits = model.model.embed_tokens.weight.detach()[torch.tensor(comps["digit_ids"], dtype=torch.long)].clone()
+        # Snapshot original Stage B weights in STRICT fp32.
+        # float16 snapshots caused a gate mismatch (baseline NLL measured fp32)
+        # and unconditional precision loss on every rejected candidate.
+        orig_weights: Dict[Tuple[int, str], torch.Tensor] = snapshot_fp32_weights(
+            model, all_layers
+        )
+        orig_digits = model.model.embed_tokens.weight.detach()[
+            torch.tensor(comps["digit_ids"], dtype=torch.long)
+        ].clone()
 
         # Analytical Pareto Grid Search (8 focused candidates, zero SGD!)
         upper3 = subsets.get("upper3", all_layers[-3:])
@@ -749,65 +969,124 @@ def run_stage_c(
             ("mid_upper", all_layers, 0.018, 0.010, 0.004, 0.02),
         ]
 
-        best_score = -1e9
-        best_cfg = {"subset": "baseline", "layers": [], "g_lm": 0.0, "g_mem": 0.0, "g_ablit": 0.0, "g_head": 0.0}
-        best_metrics = {"val_nll": base_val_nll, "dev_mc": base_dev_mc}
         trials: List[Dict[str, Any]] = []
 
         # Evaluate fast representative dev subset first, then verify top 3 on FULL val_texts + dev_mc
         fast_val = val_texts[:4] + val_texts[-4:]
-        fast_base_nll, fast_base_mc = evaluate_dev_metrics(model, tok, dev_mc[:12], fast_val, device="cpu")
-        ranked: List[Tuple[float, Tuple[str, List[int], float, float, float, float]]] = []
+        fast_base_nll, fast_base_mc = evaluate_dev_metrics(
+            model, tok, dev_mc[:12], fast_val, device="cpu"
+        )
+        ranked: List[
+            Tuple[float, Tuple[str, List[int], float, float, float, float]]
+        ] = []
         for cfg in candidates:
             s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
-            _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
-            vnll, dmc = evaluate_dev_metrics(model, tok, dev_mc[:12], fast_val, device="cpu")
+            _apply_stage_c_config(
+                model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd
+            )
+            vnll, dmc = evaluate_dev_metrics(
+                model, tok, dev_mc[:12], fast_val, device="cpu"
+            )
             score = (fast_base_nll - vnll) * 4.0 + (dmc - fast_base_mc) * 2.0
-            trials.append({
-                "subset": s_name,
-                "g_lm": g_lm,
-                "g_mem": g_mem,
-                "g_ablit": g_ab,
-                "g_head": g_hd,
-                "fast_nll": round(vnll, 5),
-                "fast_mc": round(dmc, 4),
-            })
+            trials.append(
+                {
+                    "subset": s_name,
+                    "g_lm": g_lm,
+                    "g_mem": g_mem,
+                    "g_ablit": g_ab,
+                    "g_head": g_hd,
+                    "fast_nll": round(vnll, 5),
+                    "fast_mc": round(dmc, 4),
+                }
+            )
             logger.info(
                 "WSP Trial %-9s lm=%.3f mem=%.3f ab=%.3f hd=%.2f -> fast_nll=%.5f (%+.5f) fast_mc=%.1f%%",
-                s_name, g_lm, g_mem, g_ab, g_hd, vnll, vnll - fast_base_nll, dmc * 100.0,
+                s_name,
+                g_lm,
+                g_mem,
+                g_ab,
+                g_hd,
+                vnll,
+                vnll - fast_base_nll,
+                dmc * 100.0,
             )
             ranked.append((score, cfg))
 
         ranked.sort(key=lambda x: x[0], reverse=True)
-        mc_tol = 1.0 / float(max(1, len(dev_mc)))  # 1 sample-equivalent tolerance (#665)
+        mc_tol = 1.0 / float(
+            max(1, len(dev_mc))
+        )  # 1 sample-equivalent tolerance (#665)
+        verified: List[Tuple[Dict[str, Any], float, float]] = []
         for _, cfg in ranked[:3]:
             s_name, l_list, g_lm, g_mem, g_ab, g_hd = cfg
-            _apply_stage_c_config(model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd)
-            full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+            _apply_stage_c_config(
+                model, orig_weights, w_head, comps, l_list, g_lm, g_mem, g_ab, g_hd
+            )
+            full_nll, full_mc = evaluate_dev_metrics(
+                model, tok, dev_mc, val_texts, device="cpu"
+            )
             # Strict Lyapunov / Pareto gate: MUST strictly reduce val_nll without dropping > 1 sample dev_mc
-            if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - mc_tol:
-                sc = (base_val_nll - full_nll) * 4.0 + (full_mc - base_dev_mc) * 2.0
-                if sc > best_score:
-                    best_score = sc
-                    best_cfg = {
+            verified.append(
+                (
+                    {
                         "subset": s_name,
                         "layers": l_list,
                         "g_lm": g_lm,
                         "g_mem": g_mem,
                         "g_ablit": g_ab,
                         "g_head": g_hd,
-                    }
-                    best_metrics = {"val_nll": round(full_nll, 5), "dev_mc": round(full_mc, 4)}
+                    },
+                    float(full_nll),
+                    float(full_mc),
+                )
+            )
+        best_cfg, best_metrics = select_best_verified_candidate(
+            verified, base_val_nll, base_dev_mc, mc_tol
+        )
 
         # If joint candidate only missed dev_mc by tie/1-item, try pure NLL-reducing fallback with strictly val_nll < base
         if best_cfg["subset"] == "baseline":
             for g_lm, g_mem in ((0.008, 0.004), (0.005, 0.002), (0.003, 0.002)):
-                _apply_stage_c_config(model, orig_weights, w_head, comps, all_layers, g_lm, g_mem, 0.002, 0.0)
-                full_nll, full_mc = evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+                _apply_stage_c_config(
+                    model,
+                    orig_weights,
+                    w_head,
+                    comps,
+                    all_layers,
+                    g_lm,
+                    g_mem,
+                    0.002,
+                    0.0,
+                )
+                full_nll, full_mc = evaluate_dev_metrics(
+                    model, tok, dev_mc, val_texts, device="cpu"
+                )
                 if full_nll < base_val_nll - 1e-5 and full_mc >= base_dev_mc - mc_tol:
-                    best_cfg = {"subset": "mid_upper", "layers": all_layers, "g_lm": g_lm, "g_mem": g_mem, "g_ablit": 0.002, "g_head": 0.0}
-                    best_metrics = {"val_nll": round(full_nll, 5), "dev_mc": round(full_mc, 4)}
+                    best_cfg = {
+                        "subset": "mid_upper",
+                        "layers": all_layers,
+                        "g_lm": g_lm,
+                        "g_mem": g_mem,
+                        "g_ablit": 0.002,
+                        "g_head": 0.0,
+                    }
+                    best_metrics = {
+                        "val_nll": float(full_nll),
+                        "dev_mc": float(full_mc),
+                    }
                     break
+
+        # STRICT non-vacuous-progress gate: RAISE + FAILED report + NO export on failure.
+        try:
+            check_stage_c_gate(best_cfg, best_metrics, base_val_nll, base_dev_mc)
+        except WSPGateError as exc:
+            write_failed_report(
+                "C",
+                model_key,
+                str(exc),
+                {"best_cfg": best_cfg, "best_dev": best_metrics, "trials": trials},
+            )
+            raise
 
         _apply_stage_c_config(
             model,
@@ -822,10 +1101,19 @@ def run_stage_c(
         )
 
         # Bit-exact digit/symbol embedding preservation check
-        final_digits = model.model.embed_tokens.weight.detach()[torch.tensor(comps["digit_ids"], dtype=torch.long)]
-        assert torch.equal(orig_digits, final_digits), "Digit/symbol embeddings were modified!"
+        final_digits = model.model.embed_tokens.weight.detach()[
+            torch.tensor(comps["digit_ids"], dtype=torch.long)
+        ]
+        assert torch.equal(orig_digits, final_digits), (
+            "Digit/symbol embeddings were modified!"
+        )
         merge_audit = c.audit_model_integrity(model, expected_params=expected_params)
-        logger.info("Stage C WSP audit passed: %s | selected=%s | metrics=%s", merge_audit, best_cfg, best_metrics)
+        logger.info(
+            "Stage C WSP audit passed: %s | selected=%s | metrics=%s",
+            merge_audit,
+            best_cfg,
+            best_metrics,
+        )
 
         report: Dict[str, Any] = {
             "model": model_key,
@@ -835,7 +1123,10 @@ def run_stage_c(
             "base_dev_nll": round(base_val_nll, 5),
             "base_dev_mc": round(base_dev_mc, 4),
             "best_cfg": best_cfg,
-            "best_dev": best_metrics,
+            "best_dev": {
+                "val_nll": round(best_metrics["val_nll"], 5),
+                "dev_mc": round(best_metrics["dev_mc"], 4),
+            },
             "cond_stats": comps["cond_stats"],
             "stagec_hf": str(spec["stagec_hf"]),
             "target_ctx": target_ctx,
@@ -852,7 +1143,9 @@ def run_stage_c(
             report["post_patch_ppl"] = post_patch_ppl
             report["fallback_262k_ppl"] = fallback_262k_ppl
 
-        model.to(torch.float16)  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
+        model.to(
+            torch.float16
+        )  # 10-bit mantissa (> Q8_0 8-bit) at same disk footprint as bf16
         c.save_hf_checkpoint(model, tok, spec["stagec_hf"])
         logger.info("Saved Stage C HF checkpoint -> %s", spec["stagec_hf"])
 
@@ -861,17 +1154,131 @@ def run_stage_c(
 
     rep_path = c.EXPORT_ROOT / f"v23_stagec_{model_key}_report.json"
     rep_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
-    print("STAGE_C_DONE:", json.dumps({k: v for k, v in report.items() if k != "trials"}))
+    print(
+        "STAGE_C_DONE:", json.dumps({k: v for k, v in report.items() if k != "trials"})
+    )
     return report
 
 
+def run_synthetic_unit_test() -> None:
+    """
+    Real synthetic CPU self-test for Stage C (no HF model, no GGUF):
+      1) _woodbury_ridge_solve closed-form path
+      2) select_best_verified_candidate: POSITIVE case selects a real candidate
+      3) baseline-only case returns the baseline sentinel and the gate RAISES
+      4) snapshot_fp32_weights: fp16 source weights are snapshotted in STRICT fp32
+    """
+    from types import SimpleNamespace
+
+    torch.manual_seed(7)
+
+    # 1. Closed-form Woodbury solve (zero backprop)
+    d_in, n_samp, d_out = 64, 12, 16
+    K_mat = torch.randn(d_in, n_samp)
+    R_mat = torch.randn(d_out, n_samp)
+    A_anchor = torch.randn(24, d_in)
+    dw, cond = _woodbury_ridge_solve(K_mat, R_mat, A_anchor, ridge_lambda=8.0)
+    assert dw.shape == (d_out, d_in) and torch.isfinite(dw).all()
+    assert cond <= 1e4, f"Woodbury condition guard failed: {cond}"
+
+    # 2. Candidate selection - POSITIVE case
+    base_nll, base_mc = 2.0, 0.5
+    mc_tol = 1.0 / 40.0
+    good_cfg = {
+        "subset": "mid_upper",
+        "layers": [0, 1, 2],
+        "g_lm": 0.012,
+        "g_mem": 0.005,
+        "g_ablit": 0.004,
+        "g_head": 0.0,
+    }
+    weaker_cfg = {
+        "subset": "upper3",
+        "layers": [2],
+        "g_lm": 0.010,
+        "g_mem": 0.004,
+        "g_ablit": 0.004,
+        "g_head": 0.0,
+    }
+    verified = [
+        (good_cfg, 1.980, 0.525),
+        (weaker_cfg, 1.995, 0.500),
+    ]
+    best_cfg, best_metrics = select_best_verified_candidate(
+        verified, base_nll, base_mc, mc_tol
+    )
+    assert best_cfg["subset"] == "mid_upper", f"Wrong candidate selected: {best_cfg}"
+    assert check_stage_c_gate(best_cfg, best_metrics, base_nll, base_mc)
+
+    # 3. Candidate selection - NEGATIVE (baseline-only) case must RAISE
+    bad_verified = [
+        (dict(good_cfg), 2.010, 0.550),
+        (dict(weaker_cfg), 1.999, 0.400),
+    ]
+    bad_cfg, bad_metrics = select_best_verified_candidate(
+        bad_verified, base_nll, base_mc, mc_tol
+    )
+    assert bad_cfg["subset"] == "baseline", bad_cfg
+    gate_raised = False
+    try:
+        check_stage_c_gate(bad_cfg, bad_metrics, base_nll, base_mc)
+    except WSPGateError:
+        gate_raised = True
+    assert gate_raised, "Stage C gate failed to reject a baseline-only result"
+
+    # 4. fp32 snapshot invariant - even fp16 source weights must be promoted
+    stub = SimpleNamespace(
+        model=SimpleNamespace(
+            layers=[
+                SimpleNamespace(
+                    self_attn=SimpleNamespace(
+                        o_proj=SimpleNamespace(
+                            weight=torch.randn(8, 8, dtype=torch.float16)
+                        )
+                    ),
+                    mlp=SimpleNamespace(
+                        down_proj=SimpleNamespace(
+                            weight=torch.randn(8, 8, dtype=torch.float16)
+                        )
+                    ),
+                )
+            ]
+        )
+    )
+    snap = snapshot_fp32_weights(stub, [0])
+    assert snap[(0, "o_proj")].dtype == torch.float32
+    assert snap[(0, "down_proj")].dtype == torch.float32
+    assert torch.equal(
+        snap[(0, "o_proj")],
+        stub.model.layers[0].self_attn.o_proj.weight.float(),
+    )
+
+    print(
+        f"STAGE_C_UNIT_TEST PASS | woodbury_cond={cond:.2f} "
+        f"selected={best_cfg['subset']} nll={base_nll:.3f}->{best_metrics['val_nll']:.3f} "
+        f"baseline_rejected=OK fp32_snapshot=OK"
+    )
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(description="WSP v23 Stage C Pure Closed-Form Consolidation")
-    parser.add_argument("--model", required=True, choices=["flagship", "mini", "dragon"])
+    parser = argparse.ArgumentParser(
+        description="WSP v23 Stage C Pure Closed-Form Consolidation"
+    )
+    parser.add_argument("--model", choices=["flagship", "mini", "dragon"], default=None)
     parser.add_argument("--convert-only", action="store_true")
     parser.add_argument("--target-ctx", type=int, default=2097152)
+    parser.add_argument(
+        "--self-test", action="store_true", help="Run synthetic CPU self-test only"
+    )
     args = parser.parse_args()
-    run_stage_c(model_key=args.model, convert_only=args.convert_only, target_ctx=args.target_ctx)
+    if args.self_test:
+        run_synthetic_unit_test()
+        return
+    if args.model is None:
+        parser.error("--model is required unless --self-test is given")
+    run_stage_c(
+        model_key=args.model, convert_only=args.convert_only, target_ctx=args.target_ctx
+    )
 
 
 if __name__ == "__main__":

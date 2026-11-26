@@ -92,7 +92,7 @@ def post(agent: str, text: str, kind: str | None = None, dry_run: bool = False) 
         seq = _next_seq()
         record: dict[str, object] = {
             "seq": seq,
-            "agent": agent,
+            "agent": agent.lstrip("@"),
             "text": text,
             "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "request_id": str(uuid.uuid4()),
@@ -112,7 +112,7 @@ def main() -> None:
     )
     parser.add_argument("--text", help="Message body")
     parser.add_argument("--file", type=Path, help="Read message body from a UTF-8 file")
-    parser.add_argument("--kind", help="Optional kind tag, e.g. brief / finding / edit")
+    parser.add_argument("--kind", choices=["finding", "brief", "edit", "PROGRESS_UPDATE", "TASK_COMPLETE", "TASK_FAILED", "NEEDS_CLARIFICATION"], help="Kind tag")
     parser.add_argument(
         "--dry-run", action="store_true", help="Compute next seq without writing"
     )

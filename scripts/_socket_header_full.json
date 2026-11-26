@@ -1,0 +1,3170 @@
+{
+  "decomposition.K_gate.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.K_gate.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.Q_gate.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.Q_gate.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.V_gate.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.V_gate.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.W_gate.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.W_gate.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Constraint.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Constraint.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Constraint.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Constraint.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Context.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Context.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Context.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Context.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Creativity.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Creativity.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Creativity.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Creativity.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Ethics.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Ethics.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Ethics.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Ethics.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Intent.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Intent.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Intent.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Intent.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Language.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Language.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Language.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Language.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Meta.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Meta.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Meta.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Meta.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Sentiment.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Sentiment.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Sentiment.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Sentiment.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "decomposition.vectors.Strategy.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Strategy.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "decomposition.vectors.Strategy.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "decomposition.vectors.Strategy.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.k_proj.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.k_proj.lora_B": {
+    "shape": [
+      256,
+      128
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.k_proj.weight": {
+    "shape": [
+      128,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.couil_attn.k_proj.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.norm.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.norm.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.o_proj.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.o_proj.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.o_proj.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.couil_attn.o_proj.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.q_proj.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.q_proj.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.q_proj.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.couil_attn.q_proj.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.sparse_mask_generator.0.bias": {
+    "shape": [
+      224
+    ],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.sparse_mask_generator.0.weight": {
+    "shape": [
+      224,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.sparse_mask_generator.2.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "diffusion_core.couil_attn.sparse_mask_generator.2.weight": {
+    "shape": [
+      896,
+      224
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.v_proj.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.v_proj.lora_B": {
+    "shape": [
+      256,
+      128
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.couil_attn.v_proj.weight": {
+    "shape": [
+      128,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.couil_attn.v_proj.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.ffn.0.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.ffn.0.lora_B": {
+    "shape": [
+      256,
+      3584
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.ffn.0.weight": {
+    "shape": [
+      3584,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.ffn.0.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.ffn.2.lora_A": {
+    "shape": [
+      3584,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.ffn.2.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "diffusion_core.ffn.2.weight": {
+    "shape": [
+      896,
+      3584
+    ],
+    "dtype": "I8"
+  },
+  "diffusion_core.ffn.2.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "diffusion_core.norm2.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "diffusion_core.norm2.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "final_norm.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "final_norm.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "ingestion.img_proj.lora_A": {
+    "shape": [
+      384,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.img_proj.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.img_proj.weight": {
+    "shape": [
+      896,
+      384
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.ingest_bypass": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "ingestion.ingest_gate.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "ingestion.ingest_gate.weight": {
+    "shape": [
+      896,
+      1792
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.mod_emb.weight": {
+    "shape": [
+      4,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "ingestion.mod_emb.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "ingestion.norm.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "ingestion.norm.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "ingestion.pos_embed": {
+    "shape": [
+      1,
+      1024,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.q1_ingest.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.q1_ingest.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.q1_ingest.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "ingestion.q1_ingest.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "ingestion.q2_ingest.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.q2_ingest.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "ingestion.q2_ingest.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "ingestion.q2_ingest.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "ingestion.txt_emb.weight": {
+    "shape": [
+      151936,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.0.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.0.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.0.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.0.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.0.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.0.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.1.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.1.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.1.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.1.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.1.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.10.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.10.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.10.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.10.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.10.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.11.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.11.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.11.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.11.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.11.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.12.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.12.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.12.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.12.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.12.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.13.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.13.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.13.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.13.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.13.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.14.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.14.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.14.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.14.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.14.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.15.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.15.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.15.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.15.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.15.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.16.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.16.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.16.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.16.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.16.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.17.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.17.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.17.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.17.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.17.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.18.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.18.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.18.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.18.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.18.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.19.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.19.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.19.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.19.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.19.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.2.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.2.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.2.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.2.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.2.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.20.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.20.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.20.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.20.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.20.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.21.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.21.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.21.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.21.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.21.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.22.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.22.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.22.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.22.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.22.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.23.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.23.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.23.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.23.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.23.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.24.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.24.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.24.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.24.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.24.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.25.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.25.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.25.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.25.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.25.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.26.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.26.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.26.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.26.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.26.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.27.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.27.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.27.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.27.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.27.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.28.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.28.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.28.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.28.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.28.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.29.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.29.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.29.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.29.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.29.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.3.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.3.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.3.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.3.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.3.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.30.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.30.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.30.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.30.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.30.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.31.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.31.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.31.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.31.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.31.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.32.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.32.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.32.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.32.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.32.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.33.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.33.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.33.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.33.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.33.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.4.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.4.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.4.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.4.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.4.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.5.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.5.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.5.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.5.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.5.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.6.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.6.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.6.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.6.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.6.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.7.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.7.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.7.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.7.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.7.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.8.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.8.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.8.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.8.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.8.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.A": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.9.B": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.9.C": {
+    "shape": [
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.9.D": {
+    "shape": [
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.expert_swarms.9.clone_coupling": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.clone_diversity": {
+    "shape": [
+      16
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.clone_quant_mag": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.clone_quant_noise": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.clone_quant_range": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.clone_quant_threshold": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.population_mean": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.expert_swarms.9.population_std": {
+    "shape": [
+      4864
+    ],
+    "dtype": "F32"
+  },
+  "moe.output_norm.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "moe.output_norm.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "moe.router.balanced_router.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.balanced_router.lora_B": {
+    "shape": [
+      256,
+      34
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.balanced_router.weight": {
+    "shape": [
+      34,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.complexity_classifier.0.bias": {
+    "shape": [
+      224
+    ],
+    "dtype": "F32"
+  },
+  "moe.router.complexity_classifier.0.weight": {
+    "shape": [
+      224,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.complexity_classifier.2.bias": {
+    "shape": [
+      3
+    ],
+    "dtype": "F32"
+  },
+  "moe.router.complexity_classifier.2.weight": {
+    "shape": [
+      3,
+      224
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.diffusion_router.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.diffusion_router.lora_B": {
+    "shape": [
+      256,
+      34
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.diffusion_router.weight": {
+    "shape": [
+      34,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.fast_router.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.fast_router.lora_B": {
+    "shape": [
+      256,
+      34
+    ],
+    "dtype": "F16"
+  },
+  "moe.router.fast_router.weight": {
+    "shape": [
+      34,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.w1": {
+    "shape": [
+      34,
+      896,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.w1_lora_A": {
+    "shape": [
+      34,
+      896,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.w1_lora_B": {
+    "shape": [
+      34,
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.w2": {
+    "shape": [
+      34,
+      4864,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.w2_lora_A": {
+    "shape": [
+      34,
+      4864,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.w2_lora_B": {
+    "shape": [
+      34,
+      16,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "moe.wgate": {
+    "shape": [
+      34,
+      896,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "moe.wgate_lora_A": {
+    "shape": [
+      34,
+      896,
+      16
+    ],
+    "dtype": "F16"
+  },
+  "moe.wgate_lora_B": {
+    "shape": [
+      34,
+      16,
+      4864
+    ],
+    "dtype": "F16"
+  },
+  "norm_decomp.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "norm_decomp.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "norm_diff.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "norm_diff.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "norm_moe.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "norm_moe.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "pre_final_norm.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "pre_final_norm.weight": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "quantum_formulas.boltzmann": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "quantum_formulas.hbar": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "quantum_formulas.sqrt_33": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "quillan_finalizer.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "quillan_finalizer.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "quillan_finalizer.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "quillan_finalizer.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "quillan_finalizer2.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "quillan_finalizer2.lora_B": {
+    "shape": [
+      256,
+      896
+    ],
+    "dtype": "F16"
+  },
+  "quillan_finalizer2.weight": {
+    "shape": [
+      896,
+      896
+    ],
+    "dtype": "I8"
+  },
+  "quillan_finalizer2.weight.bitnet_scale": {
+    "shape": [],
+    "dtype": "F32"
+  },
+  "quillan_gate.bias": {
+    "shape": [
+      896
+    ],
+    "dtype": "F32"
+  },
+  "quillan_gate.weight": {
+    "shape": [
+      896,
+      1792
+    ],
+    "dtype": "F16"
+  },
+  "txt_dec.lora_A": {
+    "shape": [
+      896,
+      256
+    ],
+    "dtype": "F16"
+  },
+  "txt_dec.lora_B": {
+    "shape": [
+      256,
+      151936
+    ],
+    "dtype": "F16"
+  },
+  "txt_dec.weight": {
+    "shape": [
+      151936,
+      896
+    ],
+    "dtype": "F16"
+  }
+}

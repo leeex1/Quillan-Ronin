@@ -1,0 +1,24 @@
+﻿CONTAMINATION CHECK: {"calibration_items": 80, "held_out_items": 80, "entity_overlap_count": 0, "shingle_overlap_count": 0, "substring_overlap_count": 0, "violations": [], "clean": true}
+MODE=smoke selected_items=8
+
+=== quillan_mini_custom_arch :: quillan-mini-sovereign-bitnet158.safetensors ===
+checkpoint_sha256 53e60d3339c0ad7fbb6ff0607970f7de80493350f86b6c6024ba1d8daeac7a5c
+STRICT LOAD missing=0 unexpected=0 keys=530 load_sec=7.1
+total_params=815396270 (expected 815396270)
+TOKENIZER {"class": "Qwen2Tokenizer", "vocab": 151643, "path": "C:\\Users\\Admin\\.cache\\huggingface\\hub\\models--Qwen--Qwen2.5-0.5B-Instruct\\snapshots\\7ae557604adf67be50417f59c2c2f167def9a775", "error": null}
+  [MISS] ARC_HOLD_01    arc_agi                expected='A' parsed=None gen=[19403, 94328, 96307, 126700, 141850, 142884, 88684, 86446]
+  [MISS] ARC_HOLD_02    arc_agi                expected='B' parsed=None gen=[142884, 141850, 126700, 141850, 142884, 86446, 88684, 93334]
+  [MISS] GK_HOLD_01     general_knowledge      expected='Mars' parsed=None gen=[143505, 88389, 120557, 88389, 93334, 88389, 92627, 52817]
+  [OK] GK_HOLD_02     general_knowledge      expected='K' parsed='K' gen=[69880, 87101, 88684, 88389, 93334, 88389, 93334, 92627]
+  [MISS] MATH_HOLD_01   math_reasoning         expected='4' parsed=None gen=[78226, 92627, 52817, 45089, 143505, 45089, 143505, 45089]
+  [MISS] MATH_HOLD_02   math_reasoning         expected='108' parsed=None gen=[143505, 88389, 120557, 88389, 93334, 88389, 92627, 52817]
+  [MISS] TOOL_HOLD_00   instruction_toolcall   expected='{"tool":"send_message","recipient":"Marseille"}' parsed=None gen=[99080, 49565, 45550, 73779, 33550, 73779, 33550, 143874]
+  [MISS] TOOL_HOLD_01   instruction_toolcall   expected='{"tool":"book_flight","destination":"Kyoto"}' parsed=None gen=[99080, 49565, 45550, 73779, 33550, 73779, 33550, 143874]
+Computing held-out CE/PPL on fixed corpus ...
+PPL ce_loss=23.2141 ppl=12071085767.4983 scored_tokens=2381 loss_gate(>1.0)=PASS
+held_out_acc=0.125 (1/8)
+WROTE C:\02_QUILLAN\exports\holdout_custom_arch_mini.json
+MEASURED per_token_sec=1.65 smoke_avg_item_sec=16.72 held_out_contract_tokens=5760
+ESTIMATED FULL BATTERY RUNTIME FROM SMOKE: ~9844s (164.1 min) for 80 held-out items
+Full battery NOT executed (smoke mode).
+RESULT PATH: C:\02_QUILLAN\exports\holdout_custom_arch_mini.json

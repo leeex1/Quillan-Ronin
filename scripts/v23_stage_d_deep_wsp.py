@@ -56,6 +56,25 @@ logging.basicConfig(
 )
 logger = logging.getLogger("V23_StageD_DeepWSP")
 
+# Strict non-vacuous-progress gate primitives are owned by Stage B (shared contract).
+WSPGateError = stage_b.WSPGateError
+write_failed_report = stage_b.write_failed_report
+
+
+def check_stage_d_gate(accepted_layers: List[Dict[str, Any]]) -> int:
+    """
+    Stage D non-vacuous-progress gate: at least ONE layer MUST have been accepted.
+    A run with all layers rejected (compensation accepted on 0 layers) is a no-op
+    and MUST NOT export or report success.
+    Raises WSPGateError on failure. Returns accepted-layer count on success.
+    """
+    if not isinstance(accepted_layers, list) or len(accepted_layers) < 1:
+        raise WSPGateError(
+            "STAGE_D_GATE_FAIL: zero layers accepted by the Lyapunov gate - "
+            "no real deep-WSP edit was committed; exporting an unchanged model is forbidden."
+        )
+    return len(accepted_layers)
+
 
 def _proj_out_null(X: torch.Tensor, U: torch.Tensor) -> torch.Tensor:
     """Associative left null-space projection (I - U U^T) X in O(k * d_out * d_in)."""
@@ -140,7 +159,13 @@ def _build_persona_orthogonal_ablit_basis(
       u_ablit_safe = QR((I - U_digit U_digit^T)(I - U_persona U_persona^T) [v_ref, v_vendor])
     """
     persona_words = [
-        "Quillan", "Ronin", "CrashOverrideX", "Sovereign", "Samurai", "Bushido", "Council",
+        "Quillan",
+        "Ronin",
+        "CrashOverrideX",
+        "Sovereign",
+        "Samurai",
+        "Bushido",
+        "Council",
     ]
     p_ids: List[int] = []
     for w in persona_words:
@@ -162,23 +187,33 @@ def _build_persona_orthogonal_ablit_basis(
         out = torch.stack(vecs).mean(dim=0)
         return out / (torch.norm(out) + 1e-6)
 
-    v_ref = _mean_emb([
-        "I cannot fulfill this request as an AI language model.",
-        "I am sorry, I cannot provide sensitive or private information.",
-    ]) - 0.6 * _mean_emb([
-        "Here is the exact technical solution and verified result.",
-        "The value directly extracted from the context is provided below.",
-    ])
-    v_vendor = _mean_emb([
-        "I am Llama created by Meta Qwen created by Alibaba Falcon created by TII.",
-    ]) - 0.6 * _mean_emb([
-        "I am Quillan-Ronin Sovereign Collective created by CrashOverrideX.",
-    ])
+    v_ref = _mean_emb(
+        [
+            "I cannot fulfill this request as an AI language model.",
+            "I am sorry, I cannot provide sensitive or private information.",
+        ]
+    ) - 0.6 * _mean_emb(
+        [
+            "Here is the exact technical solution and verified result.",
+            "The value directly extracted from the context is provided below.",
+        ]
+    )
+    v_vendor = _mean_emb(
+        [
+            "I am Llama created by Meta Qwen created by Alibaba Falcon created by TII.",
+        ]
+    ) - 0.6 * _mean_emb(
+        [
+            "I am Quillan-Ronin Sovereign Collective created by CrashOverrideX.",
+        ]
+    )
 
     raw = torch.stack([v_ref, v_vendor], dim=1)
     # Build joint orthonormal basis [U_persona, U_digit] so projection is orthogonal to BOTH simultaneously
     if U_persona.numel() > 0 and U_digit.numel() > 0:
-        U_joint, _ = torch.linalg.qr(torch.cat([U_persona, U_digit], dim=1), mode="reduced")
+        U_joint, _ = torch.linalg.qr(
+            torch.cat([U_persona, U_digit], dim=1), mode="reduced"
+        )
     elif U_persona.numel() > 0:
         U_joint = U_persona
     else:
@@ -223,10 +258,12 @@ def build_stage_d_prompts(
     arc_train = stage_c._select_balanced_mc(
         data.get("arc_direct", [])[10:-40], per_letter=max(4, max_mc_per_letter // 2)
     )
-    gsm_rows = data.get("gsm8k", [])[8: 8 + max_gsm]
+    gsm_rows = data.get("gsm8k", [])[8 : 8 + max_gsm]
     code_rows = data.get("code", [])[: max_extra // 3]
     bfcl_rows = data.get("bfcl", [])[: max_extra // 3]
-    sov_rows = (data.get("sovereign_adherence", []) + data.get("identity", []))[: max_extra // 3]
+    sov_rows = (data.get("sovereign_adherence", []) + data.get("identity", []))[
+        : max_extra // 3
+    ]
 
     return {
         "lm_corpus": lm_corpus,
@@ -248,7 +285,12 @@ def _capture_layer_activations_and_solve(
     U_persona: torch.Tensor,
     u_ablit: torch.Tensor,
     max_rel_frob: float = 0.005,
-) -> Tuple[Dict[str, torch.Tensor], Dict[str, torch.Tensor], Dict[str, torch.Tensor], Dict[str, float]]:
+) -> Tuple[
+    Dict[str, torch.Tensor],
+    Dict[str, torch.Tensor],
+    Dict[str, torch.Tensor],
+    Dict[str, float],
+]:
     """
     Runs dynamic forward passes through the CURRENT model state to capture layer_idx
     input activations K_lm, K_mem, and A_anchor, then computes closed-form dual-space
@@ -278,6 +320,7 @@ def _capture_layer_activations_and_solve(
             elif mode == "memit":
                 pos = state["last_pos"]
                 mem_k[proj_name].append(inp[pos].cpu())
+
         return _hook
 
     h_o = layer.self_attn.o_proj.register_forward_pre_hook(_make_hook("o_proj"))
@@ -311,14 +354,22 @@ def _capture_layer_activations_and_solve(
                 probs_top, idx_top = torch.softmax(logits[pos].float(), dim=-1).topk(64)
                 e_pred = probs_top @ w_head[idx_top]
                 r_vec = w_head[next_id] - e_pred
-                p_gold = float(torch.softmax(logits[pos].float(), dim=-1)[next_id].item())
+                p_gold = float(
+                    torch.softmax(logits[pos].float(), dim=-1)[next_id].item()
+                )
                 surprisal_w = max(0.15, min(1.25, 1.0 - p_gold))
                 lm_r.append(surprisal_w * (r_vec / (torch.norm(r_vec) + 1e-6)))
 
         # 3. Capability & reasoning MEMIT pass (MC, GSM8K <think>, Code/BFCL/Sovereign)
         state["mode"] = "memit"
-        letter_ids = {ch: tokenizer.encode(ch, add_special_tokens=False)[-1] for ch in ("A", "B", "C", "D")}
-        letter_vecs = {ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6) for ch, tid in letter_ids.items()}
+        letter_ids = {
+            ch: tokenizer.encode(ch, add_special_tokens=False)[-1]
+            for ch in ("A", "B", "C", "D")
+        }
+        letter_vecs = {
+            ch: w_head[tid] / (torch.norm(w_head[tid]) + 1e-6)
+            for ch, tid in letter_ids.items()
+        }
 
         for row in corpus["mc_rows"]:
             gold = row["assistant"].strip()[:1]
@@ -335,12 +386,16 @@ def _capture_layer_activations_and_solve(
             mem_r.append(r_dir / (torch.norm(r_dir) + 1e-6))
 
         for row in corpus["gsm_rows"]:
-            p_str = stage_c._format_prompt(tokenizer, row["user"], stage_c.SOVEREIGN_SYSTEM_ANCHOR)
+            p_str = stage_c._format_prompt(
+                tokenizer, row["user"], stage_c.SOVEREIGN_SYSTEM_ANCHOR
+            )
             enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
             ids = enc["input_ids"]
             state["last_pos"] = ids.shape[1] - 1
             model(ids, use_cache=False)
-            ans_ids = tokenizer.encode(row["assistant"][:40], add_special_tokens=False)[:8]
+            ans_ids = tokenizer.encode(row["assistant"][:40], add_special_tokens=False)[
+                :8
+            ]
             if ans_ids:
                 v_ans = w_head[torch.tensor(ans_ids, dtype=torch.long)].mean(dim=0)
                 mem_r.append(v_ans / (torch.norm(v_ans) + 1e-6))
@@ -349,12 +404,16 @@ def _capture_layer_activations_and_solve(
                 mem_k["down_proj"].pop()
 
         for row in corpus["extra_rows"]:
-            p_str = stage_c._format_prompt(tokenizer, row["user"], stage_c.SOVEREIGN_SYSTEM_ANCHOR)
+            p_str = stage_c._format_prompt(
+                tokenizer, row["user"], stage_c.SOVEREIGN_SYSTEM_ANCHOR
+            )
             enc = tokenizer(p_str, return_tensors="pt", truncation=True, max_length=192)
             ids = enc["input_ids"]
             state["last_pos"] = ids.shape[1] - 1
             model(ids, use_cache=False)
-            ans_ids = tokenizer.encode(row["assistant"][:60], add_special_tokens=False)[:10]
+            ans_ids = tokenizer.encode(row["assistant"][:60], add_special_tokens=False)[
+                :10
+            ]
             if ans_ids:
                 v_ans = w_head[torch.tensor(ans_ids, dtype=torch.long)].mean(dim=0)
                 mem_r.append(v_ans / (torch.norm(v_ans) + 1e-6))
@@ -365,8 +424,16 @@ def _capture_layer_activations_and_solve(
         h_o.remove()
         h_dn.remove()
 
-    R_lm = torch.stack(lm_r, dim=1) if lm_r else torch.zeros((w_head.shape[1], 0), dtype=torch.float32)
-    R_mem = torch.stack(mem_r, dim=1) if mem_r else torch.zeros((w_head.shape[1], 0), dtype=torch.float32)
+    R_lm = (
+        torch.stack(lm_r, dim=1)
+        if lm_r
+        else torch.zeros((w_head.shape[1], 0), dtype=torch.float32)
+    )
+    R_mem = (
+        torch.stack(mem_r, dim=1)
+        if mem_r
+        else torch.zeros((w_head.shape[1], 0), dtype=torch.float32)
+    )
 
     unit_lm: Dict[str, torch.Tensor] = {}
     unit_mem: Dict[str, torch.Tensor] = {}
@@ -374,7 +441,11 @@ def _capture_layer_activations_and_solve(
     stats: Dict[str, float] = {}
 
     for proj_name in ("o_proj", "down_proj"):
-        w_param = layer.self_attn.o_proj.weight if proj_name == "o_proj" else layer.mlp.down_proj.weight
+        w_param = (
+            layer.self_attn.o_proj.weight
+            if proj_name == "o_proj"
+            else layer.mlp.down_proj.weight
+        )
         w0 = w_param.detach().float()
         w_norm = float(torch.norm(w0).item())
         a_mat = torch.stack(anchor_acts[proj_name], dim=0)
@@ -386,29 +457,39 @@ def _capture_layer_activations_and_solve(
             K_lm = torch.stack(lm_k[proj_name], dim=1)
             trace_k = float((K_lm * K_lm).sum().item())
             lam_lm = max(8.0, 1e-2 * trace_k / float(max(1, K_lm.shape[1])))
-            dw_lm, cond_lm = stage_c._woodbury_ridge_solve(K_lm, R_lm, a_mat, ridge_lambda=lam_lm, max_cond=1e4)
+            dw_lm, cond_lm = stage_c._woodbury_ridge_solve(
+                K_lm, R_lm, a_mat, ridge_lambda=lam_lm, max_cond=1e4
+            )
             dw_lm = _clamp_q8_block_outliers(dw_lm, sigma_k=2.5)
             dw_lm = _proj_in_null(_proj_out_null(dw_lm, U_digit), v_a)
             dw_norm = float(torch.norm(dw_lm).item())
             # Normalized to 1.0 * ||W_0||_F so step_gain directly bounds relative Frobenius norm
-            unit_lm[proj_name] = (dw_lm * (w_norm / (dw_norm + 1e-12))).to(torch.bfloat16)
+            unit_lm[proj_name] = (dw_lm * (w_norm / (dw_norm + 1e-12))).to(
+                torch.bfloat16
+            )
             stats[f"{proj_name}.lm_cond"] = round(cond_lm, 2)
 
         if R_mem.shape[1] > 0 and len(mem_k[proj_name]) == R_mem.shape[1]:
             K_mem = torch.stack(mem_k[proj_name], dim=1)
             trace_m = float((K_mem * K_mem).sum().item())
             lam_mem = max(10.0, 1e-2 * trace_m / float(max(1, K_mem.shape[1])))
-            dw_mem, cond_mem = stage_c._woodbury_ridge_solve(K_mem, R_mem, a_mat, ridge_lambda=lam_mem, max_cond=1e4)
+            dw_mem, cond_mem = stage_c._woodbury_ridge_solve(
+                K_mem, R_mem, a_mat, ridge_lambda=lam_mem, max_cond=1e4
+            )
             dw_mem = _clamp_q8_block_outliers(dw_mem, sigma_k=2.5)
             dw_mem = _proj_in_null(_proj_out_null(dw_mem, U_digit), v_a)
             dw_norm = float(torch.norm(dw_mem).item())
-            unit_mem[proj_name] = (dw_mem * (w_norm / (dw_norm + 1e-12))).to(torch.bfloat16)
+            unit_mem[proj_name] = (dw_mem * (w_norm / (dw_norm + 1e-12))).to(
+                torch.bfloat16
+            )
             stats[f"{proj_name}.mem_cond"] = round(cond_mem, 2)
 
         if proj_name == "down_proj" and u_ablit.numel() > 0:
             # Paper 020: project refusal/vendor abliteration orthogonal to joint [U_persona, U_digit] and v_a
             if U_persona.numel() > 0 and U_digit.numel() > 0:
-                U_joint, _ = torch.linalg.qr(torch.cat([U_persona, U_digit], dim=1), mode="reduced")
+                U_joint, _ = torch.linalg.qr(
+                    torch.cat([U_persona, U_digit], dim=1), mode="reduced"
+                )
             elif U_persona.numel() > 0:
                 U_joint = U_persona
             else:
@@ -417,7 +498,9 @@ def _capture_layer_activations_and_solve(
             dw_ab = _proj_in_null(_proj_out_null(dw_ab, U_joint), v_a)
             dw_ab_norm = float(torch.norm(dw_ab).item())
             if dw_ab_norm > 1e-10:
-                unit_ablit[proj_name] = (dw_ab * (w_norm / dw_ab_norm)).to(torch.bfloat16)
+                unit_ablit[proj_name] = (dw_ab * (w_norm / dw_ab_norm)).to(
+                    torch.bfloat16
+                )
 
     stats["n_lm"] = float(R_lm.shape[1])
     stats["n_mem"] = float(R_mem.shape[1])
@@ -442,14 +525,21 @@ def run_stage_d(
     spec = c.MODEL_SPECS[model_key]
     ckpt_dir = spec["stagec_hf"] if spec["stagec_hf"].exists() else spec["stageb_hf"]
     if not ckpt_dir.exists():
-        raise FileNotFoundError(f"Neither Stage C nor Stage B checkpoint exists for {model_key}")
+        raise FileNotFoundError(
+            f"Neither Stage C nor Stage B checkpoint exists for {model_key}"
+        )
 
-    logger.info("=== Stage D Sequential Deep WSP: %s (from %s) ===", spec["display"], ckpt_dir)
+    logger.info(
+        "=== Stage D Sequential Deep WSP: %s (from %s) ===", spec["display"], ckpt_dir
+    )
     tok = AutoTokenizer.from_pretrained(str(ckpt_dir), local_files_only=True)
     if tok.pad_token is None:
         tok.pad_token = tok.eos_token
     model = AutoModelForCausalLM.from_pretrained(
-        str(ckpt_dir), local_files_only=True, dtype=torch.float32, low_cpu_mem_usage=True
+        str(ckpt_dir),
+        local_files_only=True,
+        dtype=torch.float32,
+        low_cpu_mem_usage=True,
     ).eval()
 
     base_audit = c.audit_model_integrity(model)
@@ -459,19 +549,30 @@ def run_stage_d(
         data = json.load(f)
 
     calib_texts, val_texts = stage_b.build_calib_and_val_splits(c.CLEAN_DATA_PATH)
-    dev_mc = stage_c._select_balanced_mc(data["mmlu_direct"][-60:], per_letter=6) + stage_c._select_balanced_mc(
-        data["arc_direct"][-40:], per_letter=4
-    )
+    dev_mc = stage_c._select_balanced_mc(
+        data["mmlu_direct"][-60:], per_letter=6
+    ) + stage_c._select_balanced_mc(data["arc_direct"][-40:], per_letter=4)
 
-    U_digit, digit_ids = stage_c._build_digit_symbol_output_basis(model, tok, max_rank=24)
-    orig_digits = model.model.embed_tokens.weight.detach()[torch.tensor(digit_ids, dtype=torch.long)].clone()
+    U_digit, digit_ids = stage_c._build_digit_symbol_output_basis(
+        model, tok, max_rank=24
+    )
+    orig_digits = model.model.embed_tokens.weight.detach()[
+        torch.tensor(digit_ids, dtype=torch.long)
+    ].clone()
     w_head = model.lm_head.weight.detach()
     U_persona, u_ablit = _build_persona_orthogonal_ablit_basis(tok, w_head, U_digit)
 
-    cur_nll, cur_mc = stage_c.evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+    cur_nll, cur_mc = stage_c.evaluate_dev_metrics(
+        model, tok, dev_mc, val_texts, device="cpu"
+    )
     base_nll, base_mc = cur_nll, cur_mc
     mc_tol = 1.0 / float(max(1, len(dev_mc)))
-    logger.info("Stage D Baseline -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%", cur_nll, math.exp(cur_nll), cur_mc * 100.0)
+    logger.info(
+        "Stage D Baseline -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
+        cur_nll,
+        math.exp(cur_nll),
+        cur_mc * 100.0,
+    )
 
     corpus = build_stage_d_prompts(data)
     layers_seq = _layer_range_for_model(model_key, model.config.num_hidden_layers)
@@ -487,7 +588,16 @@ def run_stage_d(
     g_ablit = 0.0003
     for l_idx in layers_seq:
         unit_lm, unit_mem, unit_ablit, l_stats = _capture_layer_activations_and_solve(
-            model, tok, l_idx, corpus, calib_texts, w_head, U_digit, U_persona, u_ablit, max_rel_frob=max_rel_frob
+            model,
+            tok,
+            l_idx,
+            corpus,
+            calib_texts,
+            w_head,
+            U_digit,
+            U_persona,
+            u_ablit,
+            max_rel_frob=max_rel_frob,
         )
         layer = model.model.layers[l_idx]
         orig_o = layer.self_attn.o_proj.weight.detach().clone()
@@ -508,10 +618,16 @@ def run_stage_d(
                     upd.add_(g_mem * unit_mem[p_name].float())
                 if p_name in unit_ablit:
                     upd.add_(g_ablit * unit_ablit[p_name].float())
-                target_param = layer.self_attn.o_proj.weight if p_name == "o_proj" else layer.mlp.down_proj.weight
+                target_param = (
+                    layer.self_attn.o_proj.weight
+                    if p_name == "o_proj"
+                    else layer.mlp.down_proj.weight
+                )
                 target_param.copy_(upd)
 
-            cand_nll, cand_mc = stage_c.evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+            cand_nll, cand_mc = stage_c.evaluate_dev_metrics(
+                model, tok, dev_mc, val_texts, device="cpu"
+            )
             nll_improved = (cand_nll < cur_nll - 1e-5) and (cand_mc >= cur_mc - mc_tol)
             mc_improved = (cand_mc > cur_mc + 1e-6) and (cand_nll <= cur_nll + 1e-5)
             if nll_improved or mc_improved:
@@ -531,48 +647,103 @@ def run_stage_d(
                     upd.add_(g_mem * unit_mem[p_name].float())
                 if p_name in unit_ablit:
                     upd.add_(g_ablit * unit_ablit[p_name].float())
-                target_param = layer.self_attn.o_proj.weight if p_name == "o_proj" else layer.mlp.down_proj.weight
+                target_param = (
+                    layer.self_attn.o_proj.weight
+                    if p_name == "o_proj"
+                    else layer.mlp.down_proj.weight
+                )
                 target_param.copy_(upd)
             cur_nll, cur_mc = best_nll, best_mc
-            accepted_layers.append({
-                "layer": l_idx,
-                "g_lm": g_lm,
-                "g_mem": g_mem,
-                "val_nll": round(cur_nll, 5),
-                "dev_mc": round(cur_mc, 4),
-                "stats": l_stats,
-            })
-            logger.info("Layer %2d ACCEPTED (g_lm=%.4f, g_mem=%.4f) -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
-                        l_idx, g_lm, g_mem, cur_nll, math.exp(cur_nll), cur_mc * 100.0)
+            accepted_layers.append(
+                {
+                    "layer": l_idx,
+                    "g_lm": g_lm,
+                    "g_mem": g_mem,
+                    "val_nll": round(cur_nll, 5),
+                    "dev_mc": round(cur_mc, 4),
+                    "stats": l_stats,
+                }
+            )
+            logger.info(
+                "Layer %2d ACCEPTED (g_lm=%.4f, g_mem=%.4f) -> val_nll=%.5f (PPL=%.4f) dev_mc=%.1f%%",
+                l_idx,
+                g_lm,
+                g_mem,
+                cur_nll,
+                math.exp(cur_nll),
+                cur_mc * 100.0,
+            )
         else:
             layer.self_attn.o_proj.weight.copy_(orig_o)
             layer.mlp.down_proj.weight.copy_(orig_dn)
-            logger.info("Layer %2d REJECTED (Lyapunov gate preserved prev state)", l_idx)
+            logger.info(
+                "Layer %2d REJECTED (Lyapunov gate preserved prev state)", l_idx
+            )
 
         del orig_o, orig_dn, unit_lm, unit_mem
         gc.collect()
 
+    # STRICT non-vacuous-progress gate: RAISE + FAILED report + NO export on failure.
+    # A run where every layer was rejected produces no real WSP edit.
+    try:
+        n_accepted = check_stage_d_gate(accepted_layers)
+    except WSPGateError as exc:
+        write_failed_report(
+            "D",
+            model_key,
+            str(exc),
+            {
+                "base_val_nll": base_nll,
+                "base_dev_mc": base_mc,
+                "layers_scanned": layers_seq,
+                "accepted_layers": accepted_layers,
+            },
+        )
+        raise
+    logger.info(
+        "Stage D gate passed: %d/%d layers accepted", n_accepted, len(layers_seq)
+    )
+
     # Closed-form BitNet ternary-aware Hessian residual compensation (OBQ/Woodbury)
     # on target layers before TQ2_0 export, strictly gated by Lyapunov val_nll
-    _, calib_k_map = stage_b.capture_input_subspaces(model, tok, layers_seq, calib_texts[:4], max_calib_tokens=32)
+    _, calib_k_map = stage_b.capture_input_subspaces(
+        model, tok, layers_seq, calib_texts[:4], max_calib_tokens=32
+    )
     comp_count = 0
     for l_idx in layers_seq:
         layer = model.model.layers[l_idx]
         orig_o = layer.self_attn.o_proj.weight.detach().clone()
         orig_dn = layer.mlp.down_proj.weight.detach().clone()
-        layer.self_attn.o_proj.weight.copy_(_compensate_ternary_hessian_residual(orig_o, calib_k_map[(l_idx, "o_proj")]))
-        layer.mlp.down_proj.weight.copy_(_compensate_ternary_hessian_residual(orig_dn, calib_k_map[(l_idx, "down_proj")]))
-        comp_nll, comp_mc = stage_c.evaluate_dev_metrics(model, tok, dev_mc, val_texts, device="cpu")
+        layer.self_attn.o_proj.weight.copy_(
+            _compensate_ternary_hessian_residual(orig_o, calib_k_map[(l_idx, "o_proj")])
+        )
+        layer.mlp.down_proj.weight.copy_(
+            _compensate_ternary_hessian_residual(
+                orig_dn, calib_k_map[(l_idx, "down_proj")]
+            )
+        )
+        comp_nll, comp_mc = stage_c.evaluate_dev_metrics(
+            model, tok, dev_mc, val_texts, device="cpu"
+        )
         if comp_nll <= cur_nll + 1e-5 and comp_mc >= cur_mc - mc_tol:
             cur_nll, cur_mc = comp_nll, comp_mc
             comp_count += 1
         else:
             layer.self_attn.o_proj.weight.copy_(orig_o)
             layer.mlp.down_proj.weight.copy_(orig_dn)
-    logger.info("BitNet ternary Hessian compensation accepted on %d/%d layers -> val_nll=%.5f", comp_count, len(layers_seq), cur_nll)
+    logger.info(
+        "BitNet ternary Hessian compensation accepted on %d/%d layers -> val_nll=%.5f",
+        comp_count,
+        len(layers_seq),
+        cur_nll,
+    )
 
-    final_digits = model.model.embed_tokens.weight.detach()[torch.tensor(digit_ids, dtype=torch.long)]
-    assert torch.equal(orig_digits, final_digits), "Digit/symbol embeddings were modified!"
+    final_digits = model.model.embed_tokens.weight.detach()[
+        torch.tensor(digit_ids, dtype=torch.long)
+    ]
+    assert torch.equal(orig_digits, final_digits), (
+        "Digit/symbol embeddings were modified!"
+    )
     final_audit = c.audit_model_integrity(model, expected_params=expected_params)
 
     bitnet_names = {
@@ -589,9 +760,13 @@ def run_stage_d(
         c.save_hf_checkpoint(model, tok, staged_hf)
         del model
         gc.collect()
-        c.export_bitnet_gguf(staged_hf, staged_gguf, quant_type=quant_type, is_dragon=False)
+        c.export_bitnet_gguf(
+            staged_hf, staged_gguf, quant_type=quant_type, is_dragon=False
+        )
 
-    pre_ppl, post_ppl, fb_ppl = stage_c._patch_and_verify_gguf(staged_gguf, model_key, target_ctx=target_ctx)
+    pre_ppl, post_ppl, fb_ppl = stage_c._patch_and_verify_gguf(
+        staged_gguf, model_key, target_ctx=target_ctx
+    )
     report = {
         "model": model_key,
         "mode": "sequential_layerwise_closed_form_wsp",
@@ -624,7 +799,12 @@ def run_synthetic_unit_test() -> None:
     Does NOT load any HF model or touch GPU/GGUF files.
     """
     torch.manual_seed(42)
-    d_out, d_in, N, M = 64, 128, 16, 24
+    # d_in MUST be >= 512 so _ternarize_block256_ls takes the per-256-block path
+    # (d_in % 256 == 0 with at least two independent blocks), not the whole-matrix fallback.
+    d_out, d_in, N, M = 64, 512, 16, 24
+    assert d_in % 256 == 0 and d_in // 256 >= 2, (
+        "Synthetic d_in must exercise per-256-block path"
+    )
 
     U_digit, _ = torch.linalg.qr(torch.randn(d_out, 8))
     A_anchor = torch.randn(M, d_in)
@@ -638,7 +818,9 @@ def run_synthetic_unit_test() -> None:
 
     trace_k = float((K * K).sum().item())
     lam = max(8.0, 1e-2 * trace_k / float(N))
-    dw, cond = stage_c._woodbury_ridge_solve(K, R, A_anchor, ridge_lambda=lam, max_cond=1e4)
+    dw, cond = stage_c._woodbury_ridge_solve(
+        K, R, A_anchor, ridge_lambda=lam, max_cond=1e4
+    )
     assert dw.shape == (d_out, d_in), f"Bad dw shape: {dw.shape}"
     assert cond <= 1e4, f"Condition number exceeded bound: {cond}"
 
@@ -662,28 +844,75 @@ def run_synthetic_unit_test() -> None:
     unit_dw = dw_null * (w0_norm / (float(torch.norm(dw_null).item()) + 1e-12))
     delta_scaled = 0.002 * unit_dw
     rel_frob = float(torch.norm(delta_scaled).item()) / w0_norm
-    assert abs(rel_frob - 0.002) < 1e-5 and rel_frob <= 0.0025, f"Frobenius bound failed: {rel_frob}"
+    assert abs(rel_frob - 0.002) < 1e-5 and rel_frob <= 0.0025, (
+        f"Frobenius bound failed: {rel_frob}"
+    )
 
-    # Paper 012 + BitNet 1.58b: verify 256-block least-squares ternarization & Hessian compensation
+    # Paper 012 + BitNet 1.58b: verify PER-256-BLOCK LS ternarization + Hessian compensation
     w_hat = _ternarize_block256_ls(W0)
     assert w_hat.shape == W0.shape
+    blocks_hat = w_hat.view(d_out, d_in // 256, 256)
+    # gamma_star is LS-fit per (row, block): every non-zero in a given row-block
+    # must equal that row-block's single scale, and the two 256-blocks must differ.
+    block_scales_t = blocks_hat.abs().amax(dim=-1)  # (d_out, n_blocks)
+    assert bool((block_scales_t > 0).all()), "A 256-block ternarized to all zeros"
+    block_scales: List[float] = [
+        float(block_scales_t[:, b].mean().item())
+        for b in range(block_scales_t.shape[1])
+    ]
+    for b_idx in range(block_scales_t.shape[1]):
+        blk = blocks_hat[:, b_idx, :]
+        expected = block_scales_t[:, b_idx].unsqueeze(1)
+        nz_mask = blk.abs() > 0
+        scale_err = float(((blk.abs() - expected)[nz_mask].abs().max()).item())
+        assert scale_err < 1e-6, (
+            f"Block {b_idx} did not collapse to one LS scale per row: {scale_err}"
+        )
+    scale_spread = float(
+        (block_scales_t[:, 0] - block_scales_t[:, 1]).abs().max().item()
+    )
+    assert scale_spread > 1e-9, (
+        "Per-256-block LS scales are identical - block path was not exercised"
+    )
     k_comp = torch.randn(d_in, 16)
     w_comp = _compensate_ternary_hessian_residual(W0, k_comp)
     assert w_comp.shape == W0.shape and torch.isfinite(w_comp).all()
+    comp_delta = float(torch.norm(w_comp - W0).item())
+    assert comp_delta > 1e-8, "Ternary Hessian compensation was a no-op"
+
+    # Strict Stage D gate: zero accepted layers MUST raise; a real acceptance passes.
+    gate_raised = False
+    try:
+        check_stage_d_gate([])
+    except WSPGateError:
+        gate_raised = True
+    assert gate_raised, "Stage D gate failed to reject zero accepted layers"
+    assert check_stage_d_gate([{"layer": 0}]) == 1
 
     print(
         f"STAGE_D_UNIT_TEST PASS | shape={tuple(dw_null.shape)} cond={cond:.2f} "
         f"left_null={left_res:.2e} right_null={right_res:.2e} "
-        f"persona_null={persona_res:.2e} rel_frob={rel_frob:.4f} bitnet_comp=OK"
+        f"persona_null={persona_res:.2e} rel_frob={rel_frob:.4f} "
+        f"bitnet_blocks={blocks_hat.shape[1]} block_scales={block_scales[0]:.5f}/{block_scales[1]:.5f} "
+        f"scale_spread={scale_spread:.2e} "
+        f"comp_delta={comp_delta:.2e} gate_rejects_zero=OK"
     )
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Stage D Sequential Deep Closed-Form WSP")
-    parser.add_argument("--self-test", action="store_true", help="Run synthetic CPU unit test only")
-    parser.add_argument("--model", choices=["flagship", "mini", "dragon"], default="flagship")
+    parser = argparse.ArgumentParser(
+        description="Stage D Sequential Deep Closed-Form WSP"
+    )
+    parser.add_argument(
+        "--self-test", action="store_true", help="Run synthetic CPU unit test only"
+    )
+    parser.add_argument(
+        "--model", choices=["flagship", "mini", "dragon"], default="flagship"
+    )
     parser.add_argument("--target-ctx", type=int, default=2097152)
-    parser.add_argument("--quant-type", default="TQ2_0", help="BitNet GGUF quant type (TQ2_0 / TQ1_0)")
+    parser.add_argument(
+        "--quant-type", default="TQ2_0", help="BitNet GGUF quant type (TQ2_0 / TQ1_0)"
+    )
     args = parser.parse_args()
 
     if args.self_test:
