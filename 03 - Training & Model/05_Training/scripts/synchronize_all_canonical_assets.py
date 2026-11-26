@@ -33,7 +33,7 @@ def clean_file(path: Path):
     orig = content
 
     # 1. Versioning cleanup: replace legacy versions with v5.3.1
-    content = re.sub(r'Quillan\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan v5.3.1', content, flags=re.IGNORECASE)
+    content = re.sub(r'Quillan\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan v5.4.0-oni', content, flags=re.IGNORECASE)
     content = re.sub(r'Quillan-Ronin\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan-Ronin v5.3.1', content, flags=re.IGNORECASE)
 
     # 2. Council count alignment

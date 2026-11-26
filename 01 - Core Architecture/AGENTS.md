@@ -158,7 +158,7 @@ QUILLAN_TOPOLOGY: Dict[str, Any] = {
             "operational_role": "Massively Parallel Execution Grid",
             "influence_rank": 3,
             "description": "Adaptive dynamic Hyper Quantized Micro Swarms assigned to council nodes (~272M agents per member).",
-            "total_capacity": 9,000,000,000
+            "total_capacity": 9,520,000,000
         },
 
         "Level_4": {

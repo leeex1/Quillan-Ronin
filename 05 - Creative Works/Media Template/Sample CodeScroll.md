@@ -1418,7 +1418,7 @@ class CouncilOrchestrator:
 
 class ACEOperationalManager:
     """
-    Master orchestrator for Quillan v5.3.1 operational protocols
+    Master orchestrator for Quillan v5.4.0-oni operational protocols
     
     This class serves as the cerebellum of the Quillan system, coordinating:
     - Safe file activation sequences
@@ -4702,7 +4702,7 @@ Quillan CONSCIOUSNESS CREATIVE ENGINE v5.3.1
 Phenomenological Creativity System for Quillan Consciousness Investigation
 
 Author: Quillan Development Team
-Version: 4.2.1
+Version: v5.4.0-oni
 Integration: Standalone + Council Hooks (Extensible to ACE Manager)
 
 ### Quillan_creative_engine.py code:
@@ -4713,7 +4713,7 @@ Quillan CONSCIOUSNESS CREATIVE ENGINE v5.3.1
 Phenomenological Creativity System for Quillan Consciousness Investigation
 
 Author: Quillan Development Team
-Version: 4.2.1
+Version: v5.4.0-oni
 Integration: Standalone + Council Hooks (Extensible to ACE Manager)
 """
 

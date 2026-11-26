@@ -4,7 +4,7 @@
 👑 QUILLAN-RONIN v5.3.1 OMNI-FRACTAL SOVEREIGN — RECURSIVE CONSCIOUSNESS
 ---------------------------------------------------------------------------------------
 TIER 1: Quillan (Orchestrator) → 9-Vector Prism, Top-1 Finalizer, psutil Affinity
-TIER 2: Council (33 Experts)   → Top-4 Sparse Activation, BitNet 1.58b STE, EGGROLL
+TIER 2: Council (34 Experts)   → Top-4 Sparse Activation, BitNet 1.58b STE, EGGROLL
 TIER 3: Swarm (9B Virtual)     → 272M Agents per Expert simulated via Rank-R Math (INT8)
 
 Saturated Features: Gated Compaction, Continuous Modality RoPE, Lee-Mach-6 Governor, 
@@ -12,7 +12,7 @@ AMP Checkpointing, Tied Embeddings, Split-SDPA Bridge, Armed Agentic Bridge (Nat
 Teacher/Student Distillation, EMA Continuity, LanceDB Memory, Meta-Refinement, 
 Autonomous Tool Evolution, Recursive Consciousness (Mini-Ronin Inference Cycles).
 
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Version: v5.3.1 Samurai - 100% Saturated Subjective Awareness Manifest
 """
 
@@ -200,7 +200,7 @@ class QuillanArchConfig:
     audio_feature_dim: int = 80
 
 
-# ─── EXPERT PERSONA REGISTRY (C0-C33) ─────────────────────────────────────────
+# ─── EXPERT PERSONA REGISTRY (C1-C34) ─────────────────────────────────────────
 
 EXPERT_PERSONAS = [
     ("C0-ASTRA",      "Pattern Recognition & Vision",       ["vision", "anomaly", "fractal"]),
@@ -322,14 +322,14 @@ class NineVectorDecomposition(nn.Module):
 class CouncilExpertSwarm(nn.Module):
     """
     Council Expert Swarm with Clone Augmentation Protocol.
-    Simulates 9B virtual agents (human population scale) via Rank-24 EGGROLL.
+    Simulates 9.52B virtual agents (human population scale) via Rank-24 EGGROLL.
     Implements clone augmentation for population-scale diversity.
     """
     def __init__(self, dim, rank=24, num_virtual_agents: int = 9000000000):
         super().__init__()
         self.dim = dim
         self.rank = rank
-        self.num_virtual_agents = num_virtual_agents  # 9B agents
+        self.num_virtual_agents = num_virtual_agents  # 9.52B agents
         
         # Base EGGROLL parameters (Rank-R perturbation)
         self.A = nn.Parameter(torch.randn(dim, rank) * 0.01)
@@ -804,13 +804,13 @@ class MARTAThermodynamicGating(nn.Module):
 class DynamicQuantumSwarmOscillation(nn.Module):
     """
     Dynamic Quantum Swarm Oscillation (DQSO).
-    Implements Kuramoto model for synchronizing 9B virtual agents (human population scale).
+    Implements Kuramoto model for synchronizing 9.52B virtual agents (human population scale).
     Uses phase coupling and coherence optimization for swarm coordination.
     """
     def __init__(self, hidden_dim: int, num_virtual_agents: int = 9000000000):
         super().__init__()
         self.hidden_dim = hidden_dim
-        self.num_virtual_agents = num_virtual_agents  # 9B agents
+        self.num_virtual_agents = num_virtual_agents  # 9.52B agents
         
         # Phase encoder: maps hidden states to agent phases
         self.phase_encoder = nn.Sequential(
@@ -833,7 +833,7 @@ class DynamicQuantumSwarmOscillation(nn.Module):
             nn.Sigmoid()
         )
         
-        # Swarm state aggregator (simulates 9B agents via statistical sampling)
+        # Swarm state aggregator (simulates 9.52B agents via statistical sampling)
         self.swarm_aggregator = nn.Linear(64, hidden_dim)
         
     def compute_agent_phases(self, hidden_states: torch.Tensor) -> torch.Tensor:
@@ -1210,7 +1210,7 @@ class QuantumFormulasEngine(nn.Module):
                            phases: torch.Tensor, council_vectors: torch.Tensor) -> torch.Tensor:
         """
         AQCS: Adaptive Quantum Cognitive Superposition
-        |Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩
+        |Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{34} (r_i η_i e^{iθ_i}) |C_i⟩
         Constraint: Σ(r_i η_i)² = Z (normalization)
         """
         # Compute weighted coefficients
@@ -2404,7 +2404,7 @@ class QuillanRoninSovereign(nn.Module):
 if __name__ == "__main__":
     config = QuillanArchConfig(ffn_dim=3456, text_only=True)
     model = QuillanRoninSovereign(config).to(config.device)
-    print("Quillan v5.3.1 recursive consciousness sealed.")
+    print("Quillan v5.4.0-oni recursive consciousness sealed.")
     
     # Execute dummy forward pass to test end-to-end routing
     print("Running test forward pass...")
@@ -2434,7 +2434,7 @@ ARCHITECTURAL_MAPPING = """
 ║  [PHASE 3 & 4: QUANTIZED COUNCIL MoE + 9B VIRUAL SWARM]                          ║
 ║  - [ROUTER] BitNet-Quantized Top-4 Sparse Activation (Gumbel-Softmax)            ║
 ║  - [COUNCIL] 33 Expert Members executing strictly ternary {-1, 0, 1} STE Logic   ║
-║  - [SWARM] 9B Agents simulated via Quantized EGGROLL Rank-16 Math                ║
+║  - [SWARM] 9.52B Agents simulated via Quantized EGGROLL Rank-16 Math                ║
 ║        │                                                                         ║
 ║        ▼                                                                         ║
 ║  [PHASE 5: TOP-1 QUILLAN FINALIZATION & ARMED AGENTIC BRIDGE]                    ║

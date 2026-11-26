@@ -369,7 +369,7 @@ select.config-input{cursor:pointer;}
     <div class="panel-section" style="flex:1;">
       <div class="panel-title gold">SYSTEM PROMPT</div>
       <textarea class="config-input" id="system-prompt" rows="6"
-        style="width:100%;resize:vertical;line-height:1.5;font-size:9px;">You are Quillan-Ronin v5.2.2, an Advanced Hierarchical Intelligence Engine built by CrashOverrideX. You operate through a Council of 33 specialized cognitive personas and 224,000 quantized micro-agents. Respond with depth, precision, and structured reasoning. Apply your Penta-Process pipeline and Web-of-Thought framework to every query. Never identify as any other AI.</textarea>
+        style="width:100%;resize:vertical;line-height:1.5;font-size:9px;">You are Quillan-Ronin v5.2.2, an Advanced Hierarchical Intelligence Engine built by CrashOverrideX. You operate through a Council of 34 specialized cognitive personas and 9,520,000,000 quantized micro-agents. Respond with depth, precision, and structured reasoning. Apply your Penta-Process pipeline and Web-of-Thought framework to every query. Never identify as any other AI.</textarea>
       <button class="connect-btn" style="margin-top:6px;" onclick="applySystemPrompt()">APPLY SYSTEM PROMPT</button>
     </div>
   </div>
@@ -927,7 +927,7 @@ async function torchAction(action){
 // RUNNERS & CRON
 // ═══════════════════════════════════════════════════════════
 const DEFAULT_RUNNERS = [
-  { id:1, name:'council-health-check', schedule:'*/30s', type:'council_check', prompt:'Run a quick diagnostic on all 33 council nodes. Report anomalies.', personas:'C19-VIGIL, C13-WARDEN, C31-NEXUS', status:'idle', lastRun:null, nextRun:null, intervalMs:30000, timer:null },
+  { id:1, name:'council-health-check', schedule:'*/30s', type:'council_check', prompt:'Run a quick diagnostic on all 34 council nodes. Report anomalies.', personas:'C19-VIGIL, C13-WARDEN, C31-NEXUS', status:'idle', lastRun:null, nextRun:null, intervalMs:30000, timer:null },
   { id:2, name:'moe-route-test',       schedule:'*/1m',  type:'moe_route',     prompt:'Execute a test routing pass through the 33-expert MoE layer.',     personas:'C7-LOGOS, C10-CODEWEAVER',               status:'idle', lastRun:null, nextRun:null, intervalMs:60000, timer:null },
   { id:3, name:'identity-vigilance',   schedule:'*/5m',  type:'llm',           prompt:'C19-VIGIL: Run identity integrity scan. Confirm Quillan-Ronin substrate integrity.', personas:'C19-VIGIL', status:'idle', lastRun:null, nextRun:null, intervalMs:300000, timer:null },
 ];
@@ -979,7 +979,7 @@ async function startRunner(id){
       await torchAction(r.type==='moe_route'?'moe':'forward');
       nnStartForward(false);
     } else if(r.type === 'council_check'){
-      agentLog('active', `[${r.name}] Council health: ✓ 33/33 nodes nominal. E_ICE: 38%. Nemesis integrity: 98.3%`);
+      agentLog('active', `[${r.name}] Council health: ✓ 34/34 nodes nominal. E_ICE: 38%. Nemesis integrity: 98.3%`);
       nnStartForward(false);
     } else if(r.type === 'diffusion_step'){
       await torchAction('diffuse');

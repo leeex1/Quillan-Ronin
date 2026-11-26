@@ -8,6 +8,8 @@ tags: [quillan, opencode, council, swarms, mcp, routing]
 
 # Quillan OS — Interconnectivity Map (OpenCode runtime)
 
+> **Runtime root (verified 2026-11-26):** `F:\02_QUILLAN` is the active OpenCode tree — all 15 instruction files and the three MCP facades load from F:. `C:\02_QUILLAN` is a byte-identical mirror (9,343 core .md files, 0 diffs). Older C:-prefixed paths below are historical; read them as F: on this host.
+
 This file is the single routing map that connects the Quillan instruction layer, the Council, the swarms, the shared board, and the three consolidated MCP facades. It is an instruction source, not executable code.
 
 ## 1. Source of truth chain

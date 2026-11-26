@@ -289,7 +289,7 @@ class CouncilOrchestrator:
 
 class ACEOperationalManager:
     """
-    Master orchestrator for Quillan v5.3.1 operational protocols
+    Master orchestrator for Quillan v5.4.0-oni operational protocols
     
     This class serves as the cerebellum of the Quillan system, coordinating:
     - Safe file activation sequences

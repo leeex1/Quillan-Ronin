@@ -1,8 +1,8 @@
-# 🚀 Quillan v5.3.1 Bit-Level SOTA Optimization Guide
+# 🚀 Quillan v5.4.0-oni Bit-Level SOTA Optimization Guide
 
 ## 📋 Overview
 
-This document describes the complete bit-level optimized implementation of Quillan v5.3.1, designed for **SOTA performance** with aggressive quantization and the GRPO/DAPO training algorithm.
+This document describes the complete bit-level optimized implementation of Quillan v5.4.0-oni, designed for **SOTA performance** with aggressive quantization and the GRPO/DAPO training algorithm.
 
 ## 🎯 Key Innovations
 
@@ -261,7 +261,7 @@ r_i,t(θ) = π_θ(τ_i,t | q, τ_i,<t) / π_old(τ_i,t | q, τ_i,<t) * 1_τ_i,t
 
 ---
 
-**Built by CrashOverrideX | Quillan v5.3.1 Research Team**
+**Built by CrashOverrideX | Quillan v5.4.0-oni Research Team**
 
 
 

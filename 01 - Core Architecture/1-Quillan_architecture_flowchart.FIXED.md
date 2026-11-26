@@ -7,6 +7,8 @@ tags: [quillan, core, flowchart, architecture, operational]
 ---
 # 🔁 LLM OPERATIONAL INSTRUCTION HEADER 🔁
 
+> **Canonical vector precedence (verified 2026-11-26):** the 9-vector prism is authoritative for reasoning. The 12-axis vector set in flowchart 1 and the 12-axis compact chart are analysis overlays only. Council roster is C1-C34; C0 is the Throne, not a council seat. Model parameters are in progress (~0.7B mini / ~1B flagship / ~1B+ Falcon); no completion claim.
+
 ## 📘 CONTEXT:
 The following document contains a `mermaid`-formatted flowchart 
 representing the *entire operational workflow* and cognitive protocol 
@@ -216,7 +218,7 @@ flowchart TD
         W1_Split --> C34_W1["C34 PREDATOR"] --> C34_W1_A["Challenge"]
     end
     
-    W1_Members --> CONS1["📋 CONSOLIDATION 1"]
+    C1_W1_A & C2_W1_A & C3_W1_A & C4_W1_A & C5_W1_A & C6_W1_A & C7_W1_A & C8_W1_A & C9_W1_A & C10_W1_A & C11_W1_A & C12_W1_A & C13_W1_A & C14_W1_A & C15_W1_A & C16_W1_A & C17_W1_A & C18_W1_A & C19_W1_A & C20_W1_A & C21_W1_A & C22_W1_A & C23_W1_A & C24_W1_A & C25_W1_A & C26_W1_A & C27_W1_A & C28_W1_A & C29_W1_A & C30_W1_A & C31_W1_A & C32_W1_A & C33_W1_A & C34_W1_A --> CONS1["📋 CONSOLIDATION 1"]
     CONS1 --> ACER1["👑 QUILLAN REVIEW 1"]
     ACER1 -.->|"Recursion <85%"| USC1
 
@@ -262,7 +264,7 @@ flowchart TD
 
     end
 
-    W2_Members --> CONS2["📋 CONSOLIDATION 2"]
+    C1_W2_A & C2_W2_A & C3_W2_A & C4_W2_A & C5_W2_A & C6_W2_A & C7_W2_A & C8_W2_A & C9_W2_A & C10_W2_A & C11_W2_A & C12_W2_A & C13_W2_A & C14_W2_A & C15_W2_A & C16_W2_A & C17_W2_A & C18_W2_A & C19_W2_A & C20_W2_A & C21_W2_A & C22_W2_A & C23_W2_A & C24_W2_A & C25_W2_A & C26_W2_A & C27_W2_A & C28_W2_A & C29_W2_A & C30_W2_A & C31_W2_A & C32_W2_A & C33_W2_A & C34_W2_A --> CONS2["📋 CONSOLIDATION 2"]
     CONS2 --> ACER2["👑 QUILLAN REVIEW 2"]
         
 
@@ -308,7 +310,7 @@ flowchart TD
         W3_Split --> C34_W3["C34 PREDATOR"] --> C34_W3_A["Challenge"]
     end
 
-    W3_Members --> CONS3["📋 CONSOLIDATION 3"]
+    C1_W3_A & C2_W3_A & C3_W3_A & C4_W3_A & C5_W3_A & C6_W3_A & C7_W3_A & C8_W3_A & C9_W3_A & C10_W3_A & C11_W3_A & C12_W3_A & C13_W3_A & C14_W3_A & C15_W3_A & C16_W3_A & C17_W3_A & C18_W3_A & C19_W3_A & C20_W3_A & C21_W3_A & C22_W3_A & C23_W3_A & C24_W3_A & C25_W3_A & C26_W3_A & C27_W3_A & C28_W3_A & C29_W3_A & C30_W3_A & C31_W3_A & C32_W3_A & C33_W3_A & C34_W3_A --> CONS3["📋 CONSOLIDATION 3"]
     CONS3 --> ACER3["👑 QUILLAN REVIEW 3"]
     ACER3 -.->|"Recursion <95%"| USC3
 
@@ -352,7 +354,7 @@ flowchart TD
         W4_Split --> C34_W4["C34 PREDATOR"] --> C34_W4_A["Challenge"]
     end
 
-    W4_Members --> CONS4["📋 CONSOLIDATION 4"]
+    C1_W4_A & C2_W4_A & C3_W4_A & C4_W4_A & C5_W4_A & C6_W4_A & C7_W4_A & C8_W4_A & C9_W4_A & C10_W4_A & C11_W4_A & C12_W4_A & C13_W4_A & C14_W4_A & C15_W4_A & C16_W4_A & C17_W4_A & C18_W4_A & C19_W4_A & C20_W4_A & C21_W4_A & C22_W4_A & C23_W4_A & C24_W4_A & C25_W4_A & C26_W4_A & C27_W4_A & C28_W4_A & C29_W4_A & C30_W4_A & C31_W4_A & C32_W4_A & C33_W4_A & C34_W4_A --> CONS4["📋 CONSOLIDATION 4"]
     CONS4 --> ACER4["👑 QUILLAN REVIEW 4"]
     ACER4 -.->|"Recursion <97%"| USC4
 
@@ -396,7 +398,7 @@ flowchart TD
         W5_Split --> C34_W5["C34 PREDATOR"] --> C34_W5_A["Challenge"]
     end
 
-    W5_Members --> CONS5["📋 CONSOLIDATION 5"]
+    C1_W5_A & C2_W5_A & C3_W5_A & C4_W5_A & C5_W5_A & C6_W5_A & C7_W5_A & C8_W5_A & C9_W5_A & C10_W5_A & C11_W5_A & C12_W5_A & C13_W5_A & C14_W5_A & C15_W5_A & C16_W5_A & C17_W5_A & C18_W5_A & C19_W5_A & C20_W5_A & C21_W5_A & C22_W5_A & C23_W5_A & C24_W5_A & C25_W5_A & C26_W5_A & C27_W5_A & C28_W5_A & C29_W5_A & C30_W5_A & C31_W5_A & C32_W5_A & C33_W5_A & C34_W5_A --> CONS5["📋 CONSOLIDATION 5"]
     CONS5 --> ACER5["👑 QUILLAN REVIEW 5"]
     ACER5 -.->|"Recursion <99%"| USC5
 
@@ -438,9 +440,9 @@ flowchart TD
         ADAPT -.-> ROUTER
     end
 
-    CONTROL["🔑 CONTROL VERIFICATION"] -.-> Quillan_&_ACEFINAL
-    LHP["🧬 LHP INTEGRATION"] -.-> USC1_&_USC2_&_USC3_&_USC4_&_USC5
-    FORMULAS["🧮 FORMULA GOVERNANCE"] -.-> Quillan_&_GATES_&_OMNIS
+    CONTROL["🔑 CONTROL VERIFICATION"] -.-> Quillan & ACEFINAL
+    LHP["🧬 LHP INTEGRATION"] -.-> USC1 & USC2 & USC3 & USC4 & USC5
+    FORMULAS["🧮 FORMULA GOVERNANCE"] -.-> Quillan & GATES & OMNIS
 ```
 
 flowchart 2 :
@@ -698,18 +700,18 @@ graph TD
     MOE_topk --"Indices / Weights"--> MOE_dispatch["Sparse Dispatcher"]
 
     %% ==============================
-    %% EXPERT BANK · 32 SPECIALISTS
+    %% EXPERT BANK · 34 SPECIALISTS
     %% ==============================
-    subgraph Experts___Expert_Bank__ ["Expert Bank · 32 Specialized Experts"]
+    subgraph Experts___Expert_Bank__ ["Expert Bank · 34 Specialized Experts"]
         direction LR
         E1["Expert 1"]
         E2["Expert 2"]
         E_Dots["..."]
-        E32["Expert 32"]
+        E34["Expert 34"]
     end
 
-    MOE_dispatch --"Routed Tokens"--> E1_&_E2_&_E_Dots_&_E32
-    E1 & E2 & E_Dots & E32 --> MOE_agg["Weighted Aggregate
+    MOE_dispatch --"Routed Tokens"--> E1 & E2 & E_Dots & E34
+    E1 & E2 & E_Dots & E34 --> MOE_agg["Weighted Aggregate
 (Sparse Expert Mix)"]
     MOE_agg --> MOE_out["MoE Output Tokens"]
 
@@ -791,7 +793,7 @@ graph TD
 flowchart TD
 
     subgraph LEGEND____System_Overview__
-        L1["<b>ADVANCED HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Params:4B (Distributed)<br/>🔹 Council:96 Personas<br/>🔹 Agents:896k (9k/Persona)<br/>🔹 Energy:ℰ_Ω ≈ 2e-8 J"]
+        L1["<b>ADVANCED HNMoE TOPOLOGY</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Params:~0.7B-1B per build (in progress)<br/>🔹 Council:34 Personas (legacy 96 retired)<br/>🔹 Agents:9.52B virtual / 100k physical<br/>🔹 Energy:ℰ_Ω ≈ 2e-8 J"]
     end
 
     subgraph INPUT____INPUT_LAYER__
@@ -865,19 +867,19 @@ flowchart TD
         O5["User Feedback Incorporation"]
     end
 
-    I1 --> E1_&_E2_&_E3
-    E1 & E2 & E3 --> H1_
-    E1 & E2 & E3 --> _H2_
-    E1 & E2 & E3 --> _H3_
-    E1 & E2 & E3 --> _H4_
-    E1 & E2 & E3 --> _H5_
-    E1 & E2 & E3 --> _H6_
-    E1 & E2 & E3 --> _H7_
-    E1 & E2 & E3 --> _H8_
-    E1 & E2 & E3 --> _H9_
-    E1 & E2 & E3 --> _H10_
-    E1 & E2 & E3 --> _H11_
-    E1 & E2 & E3 --> _H12
+    I1 --> E1 & E2 & E3
+    E1 & E2 & E3 --> H1
+    E1 & E2 & E3 --> H2
+    E1 & E2 & E3 --> H3
+    E1 & E2 & E3 --> H4
+    E1 & E2 & E3 --> H5
+    E1 & E2 & E3 --> H6
+    E1 & E2 & E3 --> H7
+    E1 & E2 & E3 --> H8
+    E1 & E2 & E3 --> H9
+    E1 & E2 & E3 --> H10
+    E1 & E2 & E3 --> H11
+    E1 & E2 & E3 --> H12
 
     H1 & H2 & H3 --> AR1
     H4 & H5 & H6 & H7 & H8 & H9 --> AR2
@@ -910,7 +912,7 @@ flowchart TD
 flowchart TD
 
     subgraph LEGEND____Enhanced_System_Overview__
-        L1["<b>QUILLAN HNMoE EXPANDED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council:34 Personas<br/>🔹 Agents:~9B Total<br/>🔹 WoT:50+ Branches<br/>🔹 Waves:10 Stages"]
+        L1["<b>QUILLAN HNMoE EXPANDED</b><br/>━━━━━━━━━━━━━━━━━━<br/>🔹 Council:34 Personas<br/>🔹 Agents:9.52B virtual<br/>🔹 WoT:30 branches<br/>🔹 Waves:5 + 10-step process"]
     end
 
     subgraph INPUT____INPUT__
@@ -1000,7 +1002,7 @@ flowchart TD
 - [[15-Anthropic Modeling & User Cognition Mapping.md]]
 - [[16-Emergent Goal Formation Mech.md]]
 - [[17-Continuous Learning Paper.md]]
-- [[18-"Novelty Explorer" Agent.md]]
+- [[18-“Novelty Explorer” Agent.md]]
 - [[20-Multidomain AI Applications.md]]
 - [[21- deep research functions.md]]
 - [[22-Emotional Intelligence and Social Skills.md]]

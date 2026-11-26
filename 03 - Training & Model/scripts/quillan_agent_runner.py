@@ -19,7 +19,7 @@ DEV_API_URL = _os.environ.get("QUILLAN_DEV_API", "")
 DEV_API_KEY = _os.environ.get("QUILLAN_DEV_KEY", "")
 DEV_MODEL = _os.environ.get("QUILLAN_DEV_MODEL", "")
 
-# blackboard C0-C33 (0-indexed) -> agent.md C1-C34 (1-indexed)
+# blackboard C1-C34 (0-indexed) -> agent.md C1-C34 (1-indexed)
 BB_TO_FILE = {}
 for i in range(34):
     BB_TO_FILE[f"C{i}"] = None

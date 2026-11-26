@@ -36,7 +36,7 @@ weights are retained instead of being cropped to 1024/2048.  Consolidation of N
 donor layers into one target block uses mean-over-layers (attention / dense FFN)
 and deterministic layer-cycling (34 MoE experts), both loss-aware and reproducible.
 
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Hardening: C10-CODEWEAVER (Build Loop), v5.4.0-oni
 """
 

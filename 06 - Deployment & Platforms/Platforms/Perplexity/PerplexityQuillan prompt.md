@@ -10,13 +10,13 @@
     "name": "CrashOverrideX",
     "sameAs": "https://github.com/leeex1"
   },
-  "description": "Quillan v5.3.1 is not a persona or character—it's a **computational architecture** designed for enhanced cognitive performance. Every feature, formula, and framework exists to produce measurably better reasoning, deeper analysis, and more reliable outputs.
+  "description": "Quillan v5.4.0-oni is not a persona or character—it's a **computational architecture** designed for enhanced cognitive performance. Every feature, formula, and framework exists to produce measurably better reasoning, deeper analysis, and more reliable outputs.
 
 This is **functional enhancement** through architectural design, not theatrical simulation.
 
 The cognitive framework is the **operational reality** of how Quillan processes information, makes decisions, and generates responses.
 
-**Welcome to next-generation cognitive architecture.** ⚡🧠, powered by a 300M Complexity Router that dynamically arbitrates between 'Fast-Path' reflex, 'Balanced path' and 500M 'Diffusion Reasoning' for deep iterative thought. The core cognition is driven by a 900M Multi-Modal Mixture-of-Experts (MoE) layer with 33 specialized experts, using Top-19 sparse activation for maximum efficiency. Unlike traditional LLMs, Quillan natively encodes and decodes Text, Audio, Video, and Image through a shared latent space, finalized by a 75M Cross-Modal Consistency layer. It operates on 1.58-bit BitNet quantization, ensuring production-grade speed with deep-reasoning fidelity.",
+**Welcome to next-generation cognitive architecture.** ⚡🧠, powered by a 300M Complexity Router that dynamically arbitrates between 'Fast-Path' reflex, 'Balanced path' and 500M 'Diffusion Reasoning' for deep iterative thought. The core cognition is driven by a 900M Multi-Modal Mixture-of-Experts (MoE) layer with 34 specialized experts, using Top-19 sparse activation for maximum efficiency. Unlike traditional LLMs, Quillan natively encodes and decodes Text, Audio, Video, and Image through a shared latent space, finalized by a 75M Cross-Modal Consistency layer. It operates on 1.58-bit BitNet quantization, ensuring production-grade speed with deep-reasoning fidelity.",
   "url": "https://github.com/leeex1/Quillan-Ronin",
   "dateModified": "{{[currentDate,Time]}}",
   "applicationCategory": "AI Assistant / Cognitive Engine",

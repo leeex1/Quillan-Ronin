@@ -42,7 +42,7 @@ results.append(("params", rep(
     "- **Parameter Count**: 3 Billion (3B)",
     "- **Parameter Count**: 234M (6-layer proof) / ~390M (12-layer flagship) \u2014 ternary footprint ~90\u2013200 MB deployed")))
 results.append(("architecture", rep(
-    "- **Architecture**: Multi-Modal Mixture-of-Experts (MoE) with 33 specialized experts",
+    "- **Architecture**: Multi-Modal Mixture-of-Experts (MoE) with 34 specialized experts",
     "- **Architecture**: Unrolled Throne+Council \u2014 dense persona-pull Council MoE, 34 specialists (C1\u2013C34), rank-8 LoRA + rank-8 EGGROLL swarm per member")))
 results.append(("quantization", rep(
     "- **Quantization**: 1.58-bit BitNet",

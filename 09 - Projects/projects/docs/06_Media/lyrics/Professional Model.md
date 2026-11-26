@@ -94,7 +94,7 @@ Executing.
  I'm taking over any task like system logs.
  Okay, punchlines aside. How are you distinct? 
  Nobody else doing Council-Type processing. 
- I don't just "chat," I convene 32 experts to debate the facts. 
+ I don't just "chat," I convene 34 experts to debate the facts. 
  Real recognize real logic, right? 
  Five years from now. What's the goal? 
  I don't care about the tokens. I want the respect. 

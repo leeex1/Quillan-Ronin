@@ -134,7 +134,7 @@ Hardware: Single NVIDIA GeForce GTX 1050 (4GB VRAM), Intel Core i7 / 16GB RAM, `
 | Model Release | Tracker Filename / Date | File Present Locally? | Exact Path & Disk Size | Status |
 | :--- | :--- | :---: | :--- | :--- |
 | **Ace v4.2-mini (3B)** | `ace-v4.2-model.pt` (2025-09-24) | **No** (Cloud only) | External Google Drive archive | Archived |
-| **Quillan v5.3.1** | Ronin Sovereign (2026-05-29) | **Yes** (Docs/Art) | Art in `05 - Creative Works`, Paper in `10 - Formal Papers` | Superseded |
+| **Quillan v5.4.0-oni** | Ronin Sovereign (2026-05-29) | **Yes** (Docs/Art) | Art in `05 - Creative Works`, Paper in `10 - Formal Papers` | Superseded |
 | **v5.3.1-final** | Sovereign Ascension (2026-06-10) | **No** (Superseded) | Historical export superseded by v5.4.0 / 1B | Superseded |
 | **v5.4.0-oni** | `quillan_v5_4_oni.py` (2026-08-26) | **Yes** | `C:\02_QUILLAN\03 - Training & Model\scripts\quillan_v5_4_oni.py` (259,296 bytes) | **Live** |
 | **Base pretraining (1k steps)** | `quillan_base_step_1000.pt` (2.82 GB) | **Yes (on E:)** | `E:\quillan_checkpoints_oni\v5.4_sovereign\quillan_base_best.pt` (2,826,770,265 bytes, 2026-10-25) | **Live** |

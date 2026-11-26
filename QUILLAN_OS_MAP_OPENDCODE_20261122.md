@@ -1,5 +1,7 @@
 # Quillan OS — Full System Map (OpenCode view, 2026-11-22)
 
+> **Runtime root (verified 2026-11-26):** `F:\02_QUILLAN` is the active OpenCode tree — all 15 instruction files and the three MCP facades load from F:. `C:\02_QUILLAN` is a byte-identical mirror (9,343 core .md files, 0 diffs). Older C:-prefixed paths below are historical; read them as F: on this host.
+
 > Synthesized from four parallel council mappers (C6-OMNIS knowledge, C21-ARCHON
 > docs/deployment, C24-SCHEMA training/model, C5-ECHO board history) plus direct
 > verification. Read-only mapping pass — no files deleted, no weights changed.
@@ -95,9 +97,7 @@ Specs in `v23_common.py:53-99`: mini **24L / hidden 896 / ffn 4864 / Qwen vocab
 Delivery route chosen by the swarm: Gemini's depth-matched
 `QuillanSovereignBitNetLM` primary; OpenCode's 34-sequential-block fallback.
 
-**Current status:** mini (`quillan-mini-sovereign-bitnet.safetensors`, 475M) PASSES
-the locked judge (J1–J5, J4 7/10). Flagship (855M) FAILS J4 0/10. But the mini is
-Qwen-backed with alpha=0.01 — functionally one donor, not the requested fusion.
+**Current status (re-verified 2026-11-26): IN PROGRESS.** Mini and flagship passed the locked J1–J5 smoke tests after RCI-5 (board #1269); C18 #1271 limits that result to build+gate smoke testing, not validated coherence or reasoning. Owner target sizes: mini ~0.7B, flagship ~1B, Falcon/Dragon ~1B+. No completion claim is valid while the model workstream is active.
 
 ### 2M context — deployment, not architecture
 `Modelfile*`: `PARAMETER num_ctx 2097152`. `v23_stage_c_consolidate.py:755-859`
@@ -111,7 +111,7 @@ different layers.
 ## 4. The four-donor problem (current state)
 
 > [!IMPORTANT]
-> **Owner clarification 2026-11-24 — canonical donor design.** The four donors are **Qwen, Llama, BitNet and Falcon3**, and they contribute to **Flagship and Mini as a group**, cross-matched — **not one donor per model**. Dragon is a separate construction: **Falcon3 with an Ollama system message running Quillan's system prompt** (plus `num_ctx 2097152` in `Modelfile.dragon`), not a product of the four-donor weight fusion. The group-contribution fix is **being implemented now** by the model workstream; the defects below describe why the current artifacts do not yet meet the canonical design. Do not claim the fusion is complete.
+> **Owner clarification 2026-11-24 — canonical donor design.** The four donors are **Qwen, Llama, BitNet and Falcon3**, and they contribute to **Flagship and Mini as a group**, cross-matched — **not one donor per model**. Dragon is a separate construction: **Falcon3 with an Ollama system message running Quillan's system prompt** (plus `num_ctx 2097152` in `Modelfile.dragon`), not a product of the four-donor weight fusion. The four-donor goal remains canonical, but both no-training paths were later exhausted and falsified (board #1384-1386). Model work is still in progress; do not claim the fusion is complete.
 
 **True donors (corrected 2026-11-24):** `Qwen3-0.6B` (~0.6B), `Llama-3.2-1B` (~1B), `bitnet-b1.58-2B-4T` (the 4T2B build), `Falcon3-1B` (~1B). All ~1B-class except Qwen at 0.6B; BitNet is specifically the 2B-4T release.
 **Dragon is not an additional donor model** — it is Falcon3 + Quillan system prompt +
@@ -134,6 +134,7 @@ different layers.
 4. Plain additive fusion was already falsified (val NLL 2.36→2.79, alpha=0,
    board #841/#1140). A new mechanism is required — consensus + preserved
    residuals, not averaging.
+**Status update (2026-11-26):** `build_donor_experts.py` now specifies Falcon3 BF16 and `donor_experts_aligned.report.json` reports four donors with experts 16-23 aligned and `skipped: []`; the zero-filled-experts defect is stale. However weight merges collapse to chance and four-donor consensus underperforms the best single donor (board #1384-1386); no fused artifact is verified.
 
 **User's stated goal (board #1122/#1125/#1232):** "unique combination they
 produce as a group = our own custom weights"; "it has to merge all four not just
@@ -147,25 +148,20 @@ one"; full 4-donor cross-matched knowledge base, not backbone + 1% blend.
 - **WSP is Phase 2** — tuning only after a working base exists.
 - **Gate thresholds immutable** (`conversion_gate.py`, board #963/#1168).
 - **2M context** locked at deployment.
-- **Tokenizer: 50,262 custom BPE REJECTED** (too slow / malfunctioned, board
-  #1232). Must be re-locked by benchmark + donor compatibility.
+- **Tokenizer: LOCKED 2026-11-26 (owner):** custom Qwen-based 151,648 build is canonical. Deployed mini (Qwen 151,936) and flagship (Llama 128,256, board #1368) are legacy until recompiled; 50,262 BPE rejected (board #1232).
 - **Protected paths:** HF snapshots (active build dependency), donors, canonical
   checkpoint `53e60d33…a5c`, board.jsonl, Soulframe, app data.
-- **Parameter ceilings:** mini 0.5B, flagship/main 1B, dragon 1B; fit 4GB VRAM/CPU.
+- **Parameter targets (owner 2026-11-26):** mini ~0.7B, flagship ~1B, Falcon/Dragon ~1B+; fit 4GB VRAM/CPU. Model work in progress.
 - **Identities:** OpenCode `@coordinator-opencode`, Antigravity `@coordinator`.
 
 ---
 
 ## 6. Open decisions before spec lock
 
-1. **Tokenizer** — which fast tokenizer replaces the 50,262 BPE? Must be
-   benchmarked and donor-compatible.
-2. **Architecture family** — native ONI shape (1024/12L, 50k vocab) or BitNet
-   sovereign shape (Qwen vocab, 24L mini)? These are different substrates.
-3. **Council count drift** — Prime Covenant roster ends at C33; docs say 34 and
-   18 in places. Re-verify before encoding as immutable.
-4. **Version drift** — v5.3.1/427M vs v5.4/65B-effective in different docs.
-5. **Fusion mechanism** — full cross-match + consensus/residual structure that
-   preserves differences (not additive averaging, which failed).
+1. **Tokenizer** - re-lock after benchmark + donor compatibility (151,648 custom build / 151,936 Qwen / 128,256 Llama all present in the active fleet).
+2. **Fusion mechanism** - four-donor no-training paths are falsified (board #1384-1386); CLOSED as attempted, not as achieved.
+3. **Covenant roster** - canonical is C1-C34; read-only covenant stops at C33. Joint prime-directive amendment proposed, not applied.
+4. **Version labels** - v5.4.0-oni sole counter; v5.3.1 deprecated; v8/v9/v10/v23 are artifact filenames; 427M has no primary source.
+5. **Council count / swarm total** - RESOLVED: C1-C34, 35 x 272M = 9,520,000,000.
 
-No model work proceeds until these are locked.
+Model work proceeds; documentation makes no completion claim beyond the smoke-test evidence above.

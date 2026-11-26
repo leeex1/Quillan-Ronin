@@ -4,7 +4,7 @@ This is the human-readable episodic memory document tracking key milestones, use
 
 ---
 
-## 🏛️ The 5 Pillars of Quillan Memory (Verified 2026-10-26)
+## 🏛️ The 5 Pillars of Quillan Memory (snapshot 2026-10-26; re-verify before quoting)
 
 1. **MemPalace** (CLI v3.10.0, local ChromaDB + SQLite):
    - Palace: wing `02_quillan` — **22,087 drawers** across 12 rooms.
@@ -21,14 +21,14 @@ This is the human-readable episodic memory document tracking key milestones, use
 
 ---
 
-## ⚡ Active Ground Truth & Architecture Invariants (2026-10-26)
+## ⚡ Active Ground Truth & Architecture Invariants (historical 2026-10-26; audited 2026-11-26)
 
 ### 1. The 3-Tier Sovereign Cognitive Hierarchy & Fractal Cloning
 - **Tier 1 — Quillan Core (`C0-QUILLAN` Sovereign Throne):**
   Full-parameter model and central arbiter. Backed by **`c0-quillan-swarm`**, strictly Quillan's **private internal think tank** of 272,000,000 sovereign micro-agent clones for baseline sharding, entropy tests, and invariant checks. C0 holds final sovereign veto and delivery authority.
 - **Tier 2 — The Council of 34 Experts (`C1` through `C34`):**
   Specialized expert nodes that are **cloned variants of Quillan** (smaller, domain-distilled parameter instances). Each Council member is an autonomous parent authority over its dedicated cognitive domain.
-- **Tier 3 — 35 Hyper-Quantized Swarms (272M instances each / 9 Billion total):**
+- **Tier 3 — 35 Hyper-Quantized Swarms (272M instances each / 9,520,000,000 total):**
   - Scale: $35 \times 272\text{M} = \mathbf{9,520,000,000}$ virtual micro-agents multiplexed onto 100,000 physical compute slots.
   - Substrate: BitNet 1.58b STE ternary quantization ($\{-1, 0, +1\}$) + EGGROLL rank-32 low-rank perturbations ($U @ V^T$).
   - Clones: Each Council swarm consists of direct clones of its respective Council parent.
@@ -40,6 +40,7 @@ This is the human-readable episodic memory document tracking key milestones, use
   - Training loss dipped to **3.0953** (Step 971); Best Val CE: **6.1196** (vs 10.82 uniform baseline).
   - Extended run (Step 1050) drifted to Val CE 7.2334, confirming Step 1000 as the global best base checkpoint.
 - **Decision:** Lock Step 1000 (`quillan_base_best.pt`) as canonical base model and transition focus to SFT instruction alignment.
+  > **SUPERSEDED (verified 2026-11-26):** this decision is void. `03 - Training & Model/HANDOFF_20261002_dsh_fixes.md:30-41` records that checkpoint/code revisions diverged (attention silently random-initialised) and the best CPT weights were destroyed twice; the surviving `quillan_6l_cpt_best.pt` is a misnamed step-500 final state. Current workstreams are Frontier v2 and the sovereign BitNet fleet. Do not treat Step 1000 as the active canonical base.
 
 ### 3. Drive Space Triage & External Backup Milestone (2026-10-26)
 - **C: Drive Reclamation:**
@@ -58,7 +59,7 @@ This is the human-readable episodic memory document tracking key milestones, use
 ### 4. Unified Cross-Platform MCP & Environment Architecture
 - **Platforms Synchronized:**
   - **Antigravity IDE:** Full lazy-loaded MCP suite registered in `.gemini/config/mcp_config.json`.
-  - **OpenCode Desktop:** 73 subagents + master `quillan.md` synchronized in `.config/opencode/agent/`.
+  - **OpenCode Desktop:** 87-agent partition (1 Throne + 34 Council + 35 swarms + 17 helpers) + master `quillan.md` in `.config/opencode/agent/`.
   - **Qwen Code / App:** Patched `.qwen/mcp_config.json` and `settings.json` with verified absolute binary paths (`npx.cmd`, `uvx.exe`, `python.exe`), resolving previous `spawn ENOENT` crashes.
 - **Execution Invariant:** All code changes must be drop-in production grade with zero placeholders, deterministic resource management, and verified file links.
 

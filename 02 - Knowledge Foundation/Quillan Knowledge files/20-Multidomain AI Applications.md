@@ -371,7 +371,7 @@ Peer-reviewed journals, conference proceedings, and research reports across phys
 - [[15-Anthropic Modeling & User Cognition Mapping.md]]
 - [[16-Emergent Goal Formation Mech.md]]
 - [[17-Continuous Learning Paper.md]]
-- [[18-"Novelty Explorer" Agent.md]]
+- [[18-“Novelty Explorer” Agent.md]]
 - [[21- deep research functions.md]]
 - [[22-Emotional Intelligence and Social Skills.md]]
 - [[23-Creativity and Innovation.md]]

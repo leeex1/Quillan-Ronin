@@ -10,8 +10,8 @@
 | **Version** | **v5.4.0-oni** |
 | **File** | `_dev\quillan_v5_4_oni.py` |
 | **Class** | `QuillanRoninOni` (config: `QuillanOniConfig`) |
-| **Status** | Gate A verified — 16/16 smoke tests passed |
-| **Tokenizer** | Unified Modular Dynamic (`_dev\quillan_tokenizer_unified.py`) — custom Quillan BPE 50,257, EOS=0 |
+| **Status** | v5.4.0-oni canonical; Gate A 16/16 historical; current model work IN PROGRESS - J1-J5 smoke tests passed, no completion claim |
+| **Tokenizer** | LOCKED 2026-11-26 (owner): custom Qwen-based 151,648 build (vocab 151643 + 5 sovereign specials). Deployed mini still uses Qwen-family 151,936 and flagship Llama 128,256 (board #1368) - legacy until recompiled. 50,262 BPE rejected (board #1232). |
 | **Roster** | Throne (Quillan Core, separate) + Council C1–C34 (ASTRA→PREDATOR), 4 wave clusters |
 | **Council mode** | dense_pull — all 34 deliberate every token, PersonaPullGate (fp32, prior-weighted) |
 | **Data** | `training_data\v9\` — 59.4M train + 0.6M val tokens, unified-BPE packed bins |

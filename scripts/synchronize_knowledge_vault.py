@@ -66,10 +66,10 @@ def process_file(file_path: Path):
     original = content
 
     # 1. Update Version Numbers (e.g. v4.2, v7.0, v8.1 -> v5.3.1)
-    content = re.sub(r'Quillan\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan v5.3.1', content, flags=re.IGNORECASE)
+    content = re.sub(r'Quillan\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan v5.4.0-oni', content, flags=re.IGNORECASE)
     content = re.sub(r'Quillan-Ronin\s+v[0-46-9]\.[0-9]+(?:\.[0-9]+)?', 'Quillan-Ronin v5.3.1', content, flags=re.IGNORECASE)
 
-    # 2. Update Council count (e.g. 18 personas / 34 personas -> 34 Council Experts C0-C33)
+    # 2. Update Council count (e.g. 18 personas / 34 personas -> 34 Council Experts C1-C34)
     content = re.sub(r'(?:18|32|33)\s+Council\s+(?:Personas|Members|Experts)', '34 Council Experts (C0–C33)', content, flags=re.IGNORECASE)
     content = re.sub(r'\(C1[–-]C18\)', '(C0–C33)', content)
     content = re.sub(r'\(C1[–-]C32\)', '(C0–C33)', content)

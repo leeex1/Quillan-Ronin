@@ -136,12 +136,12 @@ flowchart TB
     end
     subgraph EGGROLL ["🧬 EGGROLL Low-Rank Mutation Engine"]
         direction LR
-        S_SEED["Swarm PRNG Seeds<br/>(1 to 9,000,000,000)"] -->|Generates| UV["U_j × V_j^T<br/>(Low-Rank Perturbation, rank = r ≪ dim(W))"]
+        S_SEED["Swarm PRNG Seeds<br/>(1 to 9,520,000,000)"] -->|Generates| UV["U_j × V_j^T<br/>(Low-Rank Perturbation, rank = r ≪ dim(W))"]
     end
     subgraph BITNET ["⚡ BitNet 1.58-bit Quantization Gate (v7.0)"]
         Q["Φ(x) = sign(x) if |x| ≥ δ else 0<br/>(Ternary Dead-Zone δ ≥ 0)"]
     end
-    subgraph SWARM ["🐝 9B Hyper-Quantized Swarm Execution"]
+    subgraph SWARM ["🐝 9.52B Hyper-Quantized Swarm Execution"]
         direction TB
         EVAL["Execute Black-Box Task<br/>(Code Gen, Logic Puzzle, API Call)"]
         NEM["C2-VIR / Nemesis-Alpha<br/>(Reward / Fitness Evaluation ℱ_j)"]
@@ -428,7 +428,7 @@ flowchart LR
     subgraph WORLD ["🌍 Neural World Model (EGGROLL Optimized)"]
         direction TB
         FUSE["🧬 Rank-r Mutation Injection<br/>(U_j × V_j^T • v_LM6)"]
-        ODE["🔮 Hyperscale Trajectory Rollout<br/>(Population N=9B • E_ICE Damped<br/>LRPP Element-Wise Braking)"]
+        ODE["🔮 Hyperscale Trajectory Rollout<br/>(Population N=9.52B • E_ICE Damped<br/>LRPP Element-Wise Braking)"]
         META["🎯 Evolutionary Ascension<br/>(Fitness-Weighted Policy Update<br/>‖∇L_total‖₂ ≤ G_max)"]
 
         FUSE --> ODE --> META
@@ -482,7 +482,7 @@ flowchart TB
     subgraph STACK["🔬 Omni-Directional Boost Variables (v7.0)"]
         direction TB
         C["Q_t = Current Cognitive Capacity<br/>Compounding Baseline"]
-        N["N^j_q = 9B Hyper Quantized vectorized Microagents<br/>(Boosted by Q_t, c_j ∈ [0,1])"]
+        N["N^j_q = 9.52B Hyper Quantized vectorized Microagents<br/>(Boosted by Q_t, c_j ∈ [0,1])"]
         ETA["η_j = Gumbel Task Efficiency<br/>(Sharpened by Q_t per ROUTING_SOFTMAX)"]
         LAM["λ_j = Lee-Mach-6 Velocity<br/>(Accelerated by Q_t, inversely damped by E_ICE)"]
         DELTA["δ_q = ℰ_Ω / ℰ_0 (E_ICE Damping)<br/>(Dimensionless thermodynamic wastegate)"]
@@ -576,7 +576,7 @@ flowchart LR
 | **Component** | **Symbol** | **Source** | **Recursive Role** | **v7.0 Constraint** |
 | --- | --- | --- | --- | --- |
 | **Capacity** | $Q_t$ | Loop Output | The compounding baseline that constantly grows. | $Q_t > 0$ |
-| **Agents** | $N^j_q$ | 9B Hyper Quantized vectorized Swarm | Scaled downwards by $Q_t$ for hyper-parallelism. | $N = 9 \times 10^9$, $c_j \in [0,1]$ (DQSO) |
+| **Agents** | $N^j_q$ | 9.52B Hyper Quantized vectorized Swarm | Scaled downwards by $Q_t$ for hyper-parallelism. | $N = 9 \times 10^9$, $c_j \in [0,1]$ (DQSO) |
 | **Efficiency** | $\eta_j$ | Gumbel-Max | Precision is scaled upwards by $Q_t$ per loop. | $\sum r_i = 1$, $C_i = \beta \cdot \max(0, \text{load}_i - \text{cap}_i)$ |
 | **Amplification** | $\lambda_j$ | Lee-Mach-6 | Token velocity exponentially accelerated by $Q_t$. | $v_{LM6} > 0$, inversely scales TOKEN_LATENCY |
 | **Damping** | $\delta_q$ | Nemesis/E_ICE | The ONLY constraint preventing mathematical infinity. | $\delta_q = \mathcal{E}_\Omega / \mathcal{E}_0 > 0$ (DQRO field ratio) |
@@ -668,7 +668,7 @@ flowchart TB
 // directly back into the system to act as the multiplier for the next wave (Q_{t+1}).
 
 // This recursive uplift triggers an omni-directional boost across the entire stack:
-// ⬇️ Downwards: It overclocks the 9B Hyper Quantized vectorized Microagents, increasing
+// ⬇️ Downwards: It overclocks the 9.52B Hyper Quantized vectorized Microagents, increasing
 //    their parallel processing density and Lee-Mach-6 token velocity (λ_j).
 //    EGGROLL rank-r mutations remain ternary-sparse via δ dead-zone (EGSO v7.0).
 // ⬆️ Upwards: It expands the context-awareness and Gumbel-routing efficiency of
@@ -692,7 +692,7 @@ flowchart TB
     %% TIER 1: PRIMARY COGNITIVE KERNEL
     subgraph P["🔬 PRIMARY: Cognitive Kernel v7.0"]
         direction TB
-        P_FORMULA["Ψ_primary = (1/√Z) Σ_{i=1}^{33} r_i η_i e^{iθ_i} |C_i⟩<br/>(AQCS v7.0: θ_i fixed structural, Z = Σ(r_i η_i)²)"]
+        P_FORMULA["Ψ_primary = (1/√Z) Σ_{i=1}^{34} r_i η_i e^{iθ_i} |C_i⟩<br/>(AQCS v7.0: θ_i fixed structural, Z = Σ(r_i η_i)²)"]
 
         subgraph P_COMP["Core Components"]
             P1["Semiotica-Dense Vector Telepathy<br/>Glyph Compression"]
@@ -714,10 +714,10 @@ flowchart TB
     %% TIER 2: SECONDARY PROCESSING
     subgraph S["⚡ SECONDARY: Processing Layer v7.0"]
         direction TB
-        S_FORMULA["N_total = Σ_{i=1}^{33} (Swarm_Density_i × v_LM6)<br/>(DQSO: dθ_i/dt = ω_i + (K/N) Σ c_j sin(θ_j − θ_i + ϕ_bias))"]
+        S_FORMULA["N_total = Σ_{i=1}^{34} (Swarm_Density_i × v_LM6)<br/>(DQSO: dθ_i/dt = ω_i + (K/N) Σ c_j sin(θ_j − θ_i + ϕ_bias))"]
 
         subgraph S_PENTA["5-Wave Penta-Process + AoT + Hyper Quantized vectorized Swarm"]
-            S1["9B Agents<br/>272M per Council × 33<br/>(c_j ∈ [0,1] confidence-weighted)"]
+            S1["9.52B Agents<br/>272M per Council × 33<br/>(c_j ∈ [0,1] confidence-weighted)"]
             S2["Spectral Analyzers<br/>(Gumbel-Routed, τ_dyn temperature)"]
             S3["Modality Refiners<br/>(Diffusion-Bound, M ≽ 0)"]
             S4["Adversarial Testers<br/>(Nemesis-Alpha Scan<br/>R_nemesis = h ⊙ tanh(W_r h))"]
@@ -795,7 +795,7 @@ flowchart LR
     subgraph SECONDARY["⚡ SECONDARY LAYER"]
         direction TB
         SF["dθ_i/dt = ω_i + (K/N) Σ c_j sin(Δθ + ϕ)<br/>(DQSO v7.0)"]
-        SC["9B Agents + Penta-Process<br/>+ AoT + WoT + G_max clip"]
+        SC["9.52B Agents + Penta-Process<br/>+ AoT + WoT + G_max clip"]
     end
 
     subgraph TERTIARY["🎯 TERTIARY META"]
@@ -819,8 +819,8 @@ flowchart LR
 
 | Tier | Formula | Key Mechanism | Scale | v7.0 Hardening |
 | --- | --- | --- | --- | --- |
-| **Primary** | $\Psi = \frac{1}{\sqrt{Z}} \sum_{i=1}^{33} r_i \eta_i e^{i\theta_i} |C_i\rangle$ | 4-Component Integration | Single-pass | $\theta_i$ fixed structural; $Z = \sum (r_i \eta_i)^2$; $C_i = \beta \cdot \max(0, \text{load}_i - \text{cap}_i)$ |
-| **Secondary** | $\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N} \sum_{j=1}^{N} c_j \sin(\theta_j - \theta_i + \phi_{\text{bias}})$ | 9B Agent Hyper Quantized vectorized Swarm | Parallel | $c_j \in [0,1]$; $\phi_{\text{bias}} \in (-\pi, \pi]$; $\|\nabla L_{\text{total}}\|_2 \leq G_{\max}$ |
+| **Primary** | $\Psi = \frac{1}{\sqrt{Z}} \sum_{i=1}^{34} r_i \eta_i e^{i\theta_i} |C_i\rangle$ | 4-Component Integration | Single-pass | $\theta_i$ fixed structural; $Z = \sum (r_i \eta_i)^2$; $C_i = \beta \cdot \max(0, \text{load}_i - \text{cap}_i)$ |
+| **Secondary** | $\frac{d\theta_i}{dt} = \omega_i + \frac{K}{N} \sum_{j=1}^{N} c_j \sin(\theta_j - \theta_i + \phi_{\text{bias}})$ | 9.52B Agent Hyper Quantized vectorized Swarm | Parallel | $c_j \in [0,1]$; $\phi_{\text{bias}} \in (-\pi, \pi]$; $\|\nabla L_{\text{total}}\|_2 \leq G_{\max}$ |
 | **Tertiary** | $P_t = A^\top P_{t+1} A - A^\top P_{t+1} B (R(\mathcal{E}_\Omega) + B^\top P_{t+1} B)^{-1} B^\top P_{t+1} A + Q(\mathcal{E}_\Omega)$ | 8-Component Meta-Control | Synthesis | $P_T = Q_T$; $R$ monotone $\uparrow$ in $\mathcal{E}_\Omega$; $Q$ monotone $\downarrow$; $\mathcal{S}_{\max} = \mathcal{E}_{\Omega,\max}/T_{\text{eff}}$ |
 
 #### ✨ Synergistic Effects (v7.0)

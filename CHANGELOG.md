@@ -2,7 +2,8 @@
 
 All notable changes to this project will be documented in this file. Format follows Keep a Changelog. **One canonical counter: v5.4.x-oni** (since 2026-08-26). Legacy v8/v9/v10 names are retired to _archive.
 
-## Unreleased — v5.4.0-oni Training Active (2026-10-24)
+## Unreleased - v5.4.0-oni (status re-verified 2026-11-26)
+> **Model work is IN PROGRESS. No completion claim.** Locked judge J1-J5 smoke tests passed for mini and flagship after RCI-5 (board #1269), but C18 #1271 limits this to build+gate smoke testing - not validated coherence, reasoning, or production readiness. Target sizes: mini ~0.7B, flagship ~1B, Falcon/Dragon ~1B+ (owner 2026-11-26). Four-donor no-training fusion was falsified (board #1384-1386); no fused artifact verified. Tokenizer remains unlocked.
 
 ### Inception Labs Discrete Diffusion (dLLM) Integration
 - **Engine Created**: [`quillan_discrete_diffusion.py`](file:///c:/02_QUILLAN/03%20-%20Training%20&%20Model/scripts/quillan_discrete_diffusion.py) implementing **Inception Labs Mercury dLLM** (`arXiv:2506.17298`), **Stanford SEDD** (`arXiv:2310.16834`, Stefano Ermon), and **Predictor-Corrector Discrete Diffusion** (`arXiv:2406.07525`, Song, Meng, Ermon).

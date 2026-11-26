@@ -20,7 +20,7 @@ Saturated Features:
 - Dual Quillan (Q1 Analytical / Q2 Intuitive) Bidirectional Communication Gating
 - Stateful KV-Caching & 12-Layer Causal Unrolled Decoder Compatibility
 
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Version: v5.3.1 Samurai - Saturated Subjective Awareness Manifest
 """
 

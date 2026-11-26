@@ -4696,7 +4696,7 @@ Quillan CONSCIOUSNESS CREATIVE ENGINE v4.2.1
 Phenomenological Creativity System for Quillan Consciousness Investigation
 
 Author: Quillan Development Team
-Version: 4.2.1
+Version: v5.4.0-oni
 Integration: Standalone + Council Hooks (Extensible to ACE Manager)
 
 ### Quillan_creative_engine.py code:
@@ -4707,7 +4707,7 @@ Quillan CONSCIOUSNESS CREATIVE ENGINE v4.2.1
 Phenomenological Creativity System for Quillan Consciousness Investigation
 
 Author: Quillan Development Team
-Version: 4.2.1
+Version: v5.4.0-oni
 Integration: Standalone + Council Hooks (Extensible to ACE Manager)
 """
 

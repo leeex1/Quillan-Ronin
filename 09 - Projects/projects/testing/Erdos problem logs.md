@@ -133,7 +133,7 @@ Activating comprehensive Multi-parallel 12-step deliberation protocol. C28-Calcu
 3. Mode & Resource Allocation:
    Mode Selection: C28-Calculus (Quantitative Reasoning) & C7-Logos (Logic).
    Cognitive Model: Theoretical Limit Analysis.
-   Resource Deployment: Activating ~9B micro-agents for literature sweep and theorem verification.
+   Resource Deployment: Activating ~9.52B micro-agents for literature sweep and theorem verification.
 
 4. Web of Thought (WoT) Exploration:
    Path A (The Probabilistic Bound): Erdős (1947) introduced the probabilistic method to show R(k) > k*2^(k/2) * (constant). This was a paradigm shift.

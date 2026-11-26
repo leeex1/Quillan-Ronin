@@ -1,3 +1,6 @@
+# NextVerse UI (verified 2026-11-26): formula_engine.py now computes deterministic
+# math. The random fallback below is only reachable if the engine import fails;
+# it is not validation evidence and should be removed once the import is guaranteed.
 from flask import Flask, render_template, jsonify, request
 from flask_socketio import SocketIO, emit
 import os

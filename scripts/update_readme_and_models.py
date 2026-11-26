@@ -4,7 +4,7 @@
 Update C:\\02_QUILLAN\\README.md to:
 1. Detail the three current production models (Flagship 1.2B, Mini 0.5B, Dragon 1B).
 2. Move out bonus HTML code blocks to demos/ and replace with clean links and screenshots.
-3. Normalize all swarm numbers to 9 Billion.
+3. Normalize all swarm numbers to 9.52 billion.
 """
 import os
 import re
@@ -17,13 +17,13 @@ with open(README_PATH, "r", encoding="utf-8", errors="ignore") as f:
 # ---------------------------------------------------------------------------
 # 1. Swarm Number Normalization in README
 # ---------------------------------------------------------------------------
-text = text.replace("**240,000 Quantized Micro-Agent Swarms**", "**9,000,000,000 (9 Billion) Quantized Micro-Agents across 35 Swarms**")
-text = text.replace("34-Expert Council + 240k Micro-Agent Swarm", "34-Expert Council + 9 Billion Micro-Agent Swarms")
-text = text.replace("A **240,000 Hyper-Quantized Micro-Agent Swarm**", "A **9 Billion Hyper-Quantized Micro-Agent Swarm**")
-text = text.replace("34-Node Council and 240,000 Hyper-Quantized Micro-Agent Swarm", "34-Node Council and 9 Billion Hyper-Quantized Micro-Agent Swarms")
-text = text.replace("240,000 Hyper-Quantized Micro-Agents", "9 Billion Hyper-Quantized Micro-Agents")
-text = text.replace("9Bmicro-agents", "9B micro-agents")
-text = text.replace("across 33 specialized cognitive domains", "across 34 specialized cognitive domains")
+text = text.replace("**240,000 Quantized Micro-Agent Swarms**", "**9,520,000,000 (9.52B) Quantized Micro-Agents across 35 Swarms**")
+text = text.replace("34-Expert Council + 240k Micro-Agent Swarm", "34-Expert Council + 9.52 billion Micro-Agent Swarms")
+text = text.replace("A **240,000 Hyper-Quantized Micro-Agent Swarm**", "A **9.52 billion Hyper-Quantized Micro-Agent Swarm**")
+text = text.replace("34-Node Council and 240,000 Hyper-Quantized Micro-Agent Swarm", "34-Node Council and 9.52 billion Hyper-Quantized Micro-Agent Swarms")
+text = text.replace("240,000 Hyper-Quantized Micro-Agents", "9.52 billion Hyper-Quantized Micro-Agents")
+text = text.replace("9Bmicro-agents", "9.52B micro-agents")
+text = text.replace("across 34 specialized cognitive domains", "across 34 specialized cognitive domains")
 
 # ---------------------------------------------------------------------------
 # 2. Update Quickstart Section 4 (Tripartite Fleet)

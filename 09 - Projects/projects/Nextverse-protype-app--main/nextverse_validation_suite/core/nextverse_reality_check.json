@@ -1,0 +1,72 @@
+{
+  "note": "Measured on this host. Compute throughput only; no hardware speedup claim validated.",
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "results": {
+    "JQLD": {
+      "iterations": 200,
+      "total_seconds": 0.000748,
+      "us_per_eval": 3.738,
+      "evals_per_sec": 267522.7
+    },
+    "LVVM": {
+      "iterations": 200,
+      "total_seconds": 0.00162,
+      "us_per_eval": 8.101,
+      "evals_per_sec": 123441.6
+    },
+    "DESS": {
+      "iterations": 200,
+      "total_seconds": 0.00108,
+      "us_per_eval": 5.399,
+      "evals_per_sec": 185219.5
+    },
+    "JRRN": {
+      "iterations": 200,
+      "total_seconds": 0.000701,
+      "us_per_eval": 3.506,
+      "evals_per_sec": 285184.7
+    },
+    "LRPP": {
+      "iterations": 200,
+      "total_seconds": 0.000674,
+      "us_per_eval": 3.37,
+      "evals_per_sec": 296691.9
+    },
+    "DVVE": {
+      "iterations": 200,
+      "total_seconds": 0.000703,
+      "us_per_eval": 3.514,
+      "evals_per_sec": 284576.0
+    },
+    "JSSC": {
+      "iterations": 200,
+      "total_seconds": 0.000701,
+      "us_per_eval": 3.507,
+      "evals_per_sec": 285144.0
+    },
+    "LSSS": {
+      "iterations": 200,
+      "total_seconds": 0.000645,
+      "us_per_eval": 3.227,
+      "evals_per_sec": 309837.4
+    },
+    "DNNL": {
+      "iterations": 200,
+      "total_seconds": 0.000698,
+      "us_per_eval": 3.491,
+      "evals_per_sec": 286491.9
+    },
+    "JHFR": {
+      "iterations": 200,
+      "total_seconds": 0.000753,
+      "us_per_eval": 3.766,
+      "evals_per_sec": 265533.7
+    },
+    "LMCB": {
+      "iterations": 200,
+      "total_seconds": 0.000687,
+      "us_per_eval": 3.437,
+      "evals_per_sec": 290951.4
+    }
+  }
+}

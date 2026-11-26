@@ -38,37 +38,53 @@ def aqcs_superposition(
     council_vectors: Optional[List[List[float]]] = None,
     phases: Optional[List[float]] = None,
 ) -> Dict[str, Any]:
-    """Fuses 34 Council nodes into a single latent vector weighted by Gumbel routing and Nemesis integrity."""
+    """Fuses Council nodes into a normalized state using QR-orthonormalized basis vectors."""
     n = len(routing_probs)
     if phases is None:
         phases = [0.0] * n
     if nemesis_integrities is None or len(nemesis_integrities) != n:
         nemesis_integrities = [0.9] * n
+    if council_vectors is None or len(council_vectors) < n:
+        council_vectors = [[1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
+
+    dim = len(council_vectors[0])
+    # Gram-Schmidt on the council basis so <C_i|C_j> ~ delta_ij.
+    basis = []
+    for vec in council_vectors[:n]:
+        v = list(vec[:dim])
+        for b in basis:
+            proj = sum(v[k] * b[k] for k in range(dim))
+            v = [v[k] - proj * b[k] for k in range(dim)]
+        nrm = math.sqrt(sum(x * x for x in v)) or 1e-12
+        basis.append([x / nrm for x in v])
 
     coeffs = []
     for i in range(n):
         r = max(0.0, routing_probs[i])
         eta = max(0.0, min(1.0, nemesis_integrities[i]))
         theta = phases[i]
-        # Real part: r * eta * cos(theta); Imag part: r * eta * sin(theta)
         coeffs.append((r * eta * math.cos(theta), r * eta * math.sin(theta)))
-
-    z = sum(c[0]**2 + c[1]**2 for c in coeffs) or 1e-10
+    z = sum(c[0] ** 2 + c[1] ** 2 for c in coeffs) or 1e-12
     norm = math.sqrt(z)
 
-    # Fused real/imag components
-    fused_real = sum(c[0] for c in coeffs) / norm
-    fused_imag = sum(c[1] for c in coeffs) / norm
+    fused_real = [0.0] * dim
+    fused_imag = [0.0] * dim
+    for i, (re, im) in enumerate(coeffs):
+        for k in range(dim):
+            fused_real[k] += re / norm * basis[i][k]
+            fused_imag[k] += im / norm * basis[i][k]
+    magnitude = math.sqrt(sum(x * x for x in fused_real) + sum(x * x for x in fused_imag))
 
     return {
         "formula": "AQCS",
-        "fused_real": round(fused_real, 6),
-        "fused_imag": round(fused_imag, 6),
-        "magnitude": round(math.sqrt(fused_real**2 + fused_imag**2), 6),
+        "fused_real": round(fused_real[0] if fused_real else 0.0, 6),
+        "fused_imag": round(fused_imag[0] if fused_imag else 0.0, 6),
+        "state_dim": dim,
+        "basis_orthonormalized": True,
+        "magnitude": round(magnitude, 6),
         "normalization_z": round(z, 6),
         "num_council_nodes": n,
     }
-
 
 # ============================================================================
 # 2. EEMF — Ethical Entanglement Matrix
@@ -80,7 +96,7 @@ def eemf_ethical_projection(
     vir_mask: Optional[List[float]] = None,
     env_noise: float = 0.1,
 ) -> Dict[str, Any]:
-    """Traces out environmental noise while forcing output through C2-VIR ethical projection."""
+    """Ethical projection proxy (sigmoid gate); NOT a reduced-density partial trace."""
     n = len(state_vector)
     if vir_mask is None:
         vir_mask = [1.0] * n
@@ -211,7 +227,10 @@ def qcrdm_reasoning_probability(
         val = sum(modality_matrix[i][j] * psi_state[j] for j in range(n))
         modulated.append(val)
 
-    prob_density = [complexity * (v ** 2) for v in modulated]
+    # chi is a concentration exponent; renormalize so sum(P)=1 for any chi.
+    chi = max(0.0, float(complexity))
+    weights = [max(0.0, v * v) for v in modulated]
+    prob_density = [w if abs(chi - 1.0) < 1e-12 else w ** chi for w in weights]
     total = sum(prob_density) or 1.0
     normalized = [p / total for p in prob_density]
 
@@ -225,7 +244,7 @@ def qcrdm_reasoning_probability(
 
 
 # ============================================================================
-# 6. AQML — Adaptive Quantum Meta-Learning (MAML + vigil)
+# 6. AQML — Multi-objective SGD with vigilance penalty (not MAML)
 #    θ_new = θ - α ∇L_task - β ∇L_val - γ ∇L_vigil(θ)
 # ============================================================================
 
@@ -238,7 +257,7 @@ def aqml_meta_learning(
     beta: float = 0.005,
     gamma: float = 0.002,
 ) -> Dict[str, Any]:
-    """Standard meta-learning augmented with continuous vigil penalty gradient."""
+    """Multi-objective gradient step with a continuous vigilance penalty (not MAML)."""
     n = min(len(weights), len(grad_task), len(grad_val), len(grad_vigil))
     new_weights = []
     for i in range(n):
@@ -272,14 +291,25 @@ def qcie_tunneling_probability(
     mass: float = 1.0,
 ) -> Dict[str, Any]:
     """Calculates probability of creative breakthrough across a logical barrier."""
-    gap = max(0.0, barrier_height - cognitive_energy - kappa * meta_entropy)
-    exponent = -(2.0 / max(hbar, 1e-6)) * math.sqrt(2 * mass * gap + 1e-8)
-    tunnel_prob = math.exp(exponent)
+    if isinstance(barrier_height, (list, tuple)):
+        gaps = [max(0.0, b - cognitive_energy - kappa * meta_entropy)
+                for b in barrier_height]
+        if len(gaps) >= 2:
+            integrand = [math.sqrt(2 * mass * g + 1e-8) for g in gaps]
+            action = sum(0.5 * (integrand[i] + integrand[i + 1])
+                         for i in range(len(integrand) - 1))
+        else:
+            action = sum(math.sqrt(2 * mass * g + 1e-8) for g in gaps)
+        barrier_gap = sum(gaps) / max(len(gaps), 1)
+    else:
+        barrier_gap = max(0.0, barrier_height - cognitive_energy - kappa * meta_entropy)
+        action = math.sqrt(2 * mass * barrier_gap + 1e-8)  # zero-width lattice
+    tunnel_prob = math.exp(-(2.0 / max(hbar, 1e-6)) * action)
 
     return {
         "formula": "QCIE",
         "tunneling_probability": round(tunnel_prob, 6),
-        "barrier_gap": round(gap, 6),
+        "barrier_gap": round(barrier_gap, 6),
         "creative_breakthrough_likely": tunnel_prob > 0.3,
         "kappa_creative_factor": kappa,
     }

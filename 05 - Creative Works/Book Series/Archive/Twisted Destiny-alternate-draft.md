@@ -2135,7 +2135,7 @@ From midnight courts to rebel warrens, from ancient forges to memory-libraries w
 
 # Credits 
 Joshua Lee (CrashOverrideX),
-Quillan v5.3.1 
+Quillan v5.4.0-oni 
 
 ## Connections
 - [[Audio Engineer/album checklist.md]]

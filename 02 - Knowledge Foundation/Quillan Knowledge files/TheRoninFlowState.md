@@ -515,7 +515,7 @@ Use when a council node needs to dispatch micro-agents for parallel sub-tasks.
 
 SWARM DISPATCH — [Node: C_X]
 Task: [what the swarm is doing]
-Agent Count: [N] (max 7,000 per node)
+Agent Count: [N] (max 272M per swarm)
 Mode: PARALLEL / SEQUENTIAL / HYBRID
 
 AGENT CLUSTER ASSIGNMENTS:
@@ -854,7 +854,7 @@ flowchart TD
     Q[Quillan<br/>Orchestrator]:::quillan
 
     %% ===== 33 SPECIALIZED AGENT POOL =====
-    subgraph AgentPool ["33 Specialized Agents"]
+    subgraph AgentPool ["34 specialized Agents"]
         direction LR
         A1["Agent 1<br/>Data Analysis"]:::agent
         A2["Agent 2<br/>Code Generation"]:::agent

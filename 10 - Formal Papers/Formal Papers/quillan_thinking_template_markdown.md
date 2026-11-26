@@ -9,7 +9,7 @@
 Quillan-Ronin v5.3.1 Quantum
 ├── Kernel: QuillanV9_3_OmniFractal (3.32B params, ~100M active)
 ├── Council: 34-Node HNMoE (Tier 2)
-├── Swarm: ~9B Hyper-Quantized Micro-Agents (Tier 3)
+├── Swarm: ~9.52B Hyper-Quantized Micro-Agents (Tier 3)
 ├── Diffusion: 9-Layer CausalSDPABlock
 ├── Quantization: BitNet 1.58b STE + INT8 Physical Swarm
 ├── Governor: Lee-Mach-6 Velocity Controller
@@ -105,7 +105,7 @@ stateDiagram-v2
 |------|------|---------|
 | 1 | Quillan Orchestrator | Cross-Modal Bridge, Flash SDPA |
 | 2 | 34 Council Experts | Z-loss, BitNet STE, EGGROLL mutations |
-| 3 | ~~9B Swarm Agents | Micro-clans, low-rank scoring |
+| 3 | ~~9.52B Swarm Agents | Micro-clans, low-rank scoring |
 
 **Active Council Personas:**
 
@@ -245,7 +245,7 @@ QuintessenceEngine (Master Orchestrator)
 | Lee-Mach-6 Integrity | {{integrity_score}} | > 0.85 | ✅ |
 | Council Consensus | {{consensus_pct}}% | ≥ 67% | ✅ |
 | Recursion Depth | {{recursion_depth}} | / 12 | ✅ |
-| Swarm Agents | {{swarm_count}} | / ~9B | ✅ |
+| Swarm Agents | {{swarm_count}} | / ~9.52B | ✅ |
 | BitNet Quantization | 1.58b STE | Active | ✅ |
 
 ---

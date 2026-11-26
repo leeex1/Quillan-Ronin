@@ -85,7 +85,7 @@ class QuillanArchConfig:
     audio_feature_dim: int = 80
 
 
-# ─── EXPERT PERSONA REGISTRY (C0-C33) ─────────────────────────────────────────
+# ─── EXPERT PERSONA REGISTRY (C1-C34) ─────────────────────────────────────────
 
 EXPERT_PERSONAS = [
     ("C0-ASTRA",      "Pattern Recognition & Vision",       ["vision", "anomaly", "fractal"]),

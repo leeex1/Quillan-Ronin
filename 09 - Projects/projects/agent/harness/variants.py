@@ -1,7 +1,7 @@
 """
 Quillan Agent Variants & Council Registry
 =========================================
-Exports the full 34-Chamber Council of Quillan-Ronin (C0-C33) with legacy alias support.
+Exports the full 34-Chamber Council of Quillan-Ronin (C1-C34) with legacy alias support.
 """
 
 from typing import Dict, List, Any, Optional

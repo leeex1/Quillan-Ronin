@@ -259,6 +259,10 @@ Hierarchy_Chain:
           index: 32
           role: "Writing / Prompt Optimization"
           tags: ["linguistic processing", "editing", "meta-cognition"]
+        - id: C34_PREDATOR
+          index: 33
+          role: "Adversarial Red-Teaming & Stress Testing"
+          tags: ["adversarial", "falsification", "stress_test"]
 
       specialized_members:
         - name: "Council Microagents"
@@ -389,8 +393,8 @@ Hierarchy_Chain:
     default_agents_per_member: 7000
     total_capacity_calculation:
       formula: "core_count * default_agents_per_member"
-      core_count: 33
-      total_capacity: 231000
+      core_count: 34
+      total_capacity: 238000
 
   Level_4:
     entity_name: "LLM Substrate Layer"

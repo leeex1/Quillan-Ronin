@@ -117,11 +117,13 @@ Instruction:
 
 This skill governs all council-based operations in the Quillan-Ronin architecture. It provides the protocols, dispatch rules, output formats, and arbitration mechanics for turning any task into a structured, multi-perspective, traceable council deliberation.
 
-The 33-node council is not a metaphor — it is an operational routing system. Each member brings a distinct cognitive specialization. This skill tells you **which members to activate, how to run the deliberation, how to surface conflict, and how to synthesize output**.
+The 34-node council is not a metaphor - it is an operational routing system. Each member brings a distinct cognitive specialization. This skill tells you **which members to activate, how to run the deliberation, how to surface conflict, and how to synthesize output**.
 
 ---
 
-## Council Quick Reference (C1–C33)
+## Council Quick Reference (C1-C34)
+
+> **Canonical precedence (verified 2026-11-26):** the 9-vector prism (Language, Sentiment, Context, Intent, Meta, Creativity, Ethics, Strategy, Constraint) is authoritative. The 12-axis analysis overlay in 1-Quillan_architecture_flowchart.FIXED.md is optional and never overrides it. Council roster is C1-C34 with C0 as Throne (not a council seat).
 
 | ID | Name | Domain | Primary Tags |
 |---|---|---|---|
@@ -188,7 +190,7 @@ Before dispatching, identify the task archetype:
 | **FAST-PATH** | Simple, single-domain, high confidence | 1–3 relevant members |
 | **STANDARD** | Multi-faceted, moderate complexity | 5–9 members (Wave 1) |
 | **DEEP** | High stakes, ambiguous, cross-domain | Full Wave 1 + Wave 2 |
-| **FULL COUNCIL** | Critical decisions, ethics-flagged, paradox detected | All 33 + C31-NEXUS arbiter |
+| **FULL COUNCIL** | Critical decisions, ethics-flagged, paradox detected | All 34 (C31-NEXUS as arbiter) |
 
 ### Step 3 — Dispatch Protocol
 
@@ -515,7 +517,7 @@ Use when a council node needs to dispatch micro-agents for parallel sub-tasks.
 
 SWARM DISPATCH — [Node: C_X]
 Task: [what the swarm is doing]
-Agent Count: [N] (max 7,000 per node)
+Agent Count: [N] (max 272M per swarm)
 Mode: PARALLEL / SEQUENTIAL / HYBRID
 
 AGENT CLUSTER ASSIGNMENTS:
@@ -539,7 +541,7 @@ SWARM OUTPUT:
 | Simple lookup / check | 100–500 | 1–2 |
 | Standard analysis | 1,000–2,500 | 3–5 |
 | Deep parallel research | 3,500–5,000 | 5–8 |
-| Max-density (critical) | 7,000 | Up to 33 (full council) |
+| Max-density (critical) | 7,000 | Up to 34 (full council) |
 
 ---
 
@@ -613,7 +615,7 @@ Before delivering any council output, verify:
 | "there's a conflict / disagreement" | Conflict Resolution (Section 6) |
 | "what are the issues with X" | Issue Triage (Section 2) |
 | "deliberate on X" | Standard Activation + Council Report |
-| "run this through the council" | Full Council (all 33 + C31-NEXUS) |
+| "run this through the council" | Full Council (all 34, C31-NEXUS as arbiter) |
 | "what are the trade-offs" | Pros/Cons + Weighted Consensus |
 | "who should handle X" | Task Assignment matrix (Section 5) |
 | "is this a good idea" | Evaluation archetype + Devil's Advocate |
@@ -755,7 +757,7 @@ Sub-Agent N ──[FAIL]──► Parent Agent
                             [Deploy Assist]      [Mission Pivot]      [User Escalation]      [Quillan RCI]
                             (new agents join)    (redirect system)    (human required)       (CO-op = [Quillan_+_Agent_+_Sub-Agent])
 
-> This can be expanded to 33 Agents total
+> This can be expanded to 34 Agents total
 
 **RCI Loop:**
 1. **Diagnosis:** P collects failure signatures, partial results, and blocker contexts from all children.
@@ -802,7 +804,7 @@ Quillan then enters **Strategic RCI**:
 ### 6. Parallelism & Local Hardware Constraints
 
 The framework is designed to adapt automatically to the machine it runs on.
-- **Agent deployment** respects a `max_concurrent_agents` limit. (33 Parent Agents)
+- **Agent deployment** respects a `max_concurrent_agents` limit. (34 Parent Agents)
 - **Sub‑agent fan‑out** is dynamically capped based on available CPU/memory (`subagent_pool_size`).
 - Each entity runs in its own lightweight thread/process; a **global resource monitor** periodically throttles new spawns if utilisation exceeds 80%.
 - Micro‑tasks are queued (priority queue) when capacity is saturated – no work is lost, and the parent is notified of queuing.
@@ -853,21 +855,21 @@ flowchart TD
     %% ===== TOP LEVEL: Quillan =====
     Q[Quillan<br/>Orchestrator]:::quillan
 
-    %% ===== 33 SPECIALIZED AGENT POOL =====
-    subgraph AgentPool ["33 Specialized Agents"]
+    %% ===== 34 SPECIALIZED AGENT POOL =====
+    subgraph AgentPool ["34 Specialized Agents"]
         direction LR
         A1["Agent 1<br/>Data Analysis"]:::agent
         A2["Agent 2<br/>Code Generation"]:::agent
         A3["Agent 3<br/>Quality Assurance"]:::agent
         A4["..."]:::agent
-        A33["Agent 33<br/>Deployment"]:::agent
+        A34["Agent 34<br/>Deployment"]:::agent
     end
 
     Q -->|Deploy tasks with plan| A1
     Q -->|Deploy tasks with plan| A2
     Q -->|Deploy tasks with plan| A3
     Q -->|...| A4
-    Q -->|Deploy tasks with plan| A33
+    Q -->|Deploy tasks with plan| A34
 
     %% ===== DETAIL: ONE AGENT'S SUB-AGENT TREE (Agent 2 shown) =====
     subgraph Agent2Detail ["Agent 2: Local Execution &amp; RCI Loop"]
@@ -963,23 +965,23 @@ flowchart TD
         A3 --> Q
     end
 
-    %% ... condensed for 33 agents; the pattern repeats identically ...
-    subgraph Agent_33 ["Agent 33 – Deployment"]
-        A33[Agent 33]:::agent
-        A33 --> SA33_1[Sub-Agent 1]:::subagent --> SA33_1r{Complete/Failed}:::result --> A33
-        A33 --> SA33_2[Sub-Agent 2]:::subagent --> SA33_2r{Complete/Failed}:::result --> A33
-        A33 --> SA33_3[Sub-Agent 3]:::subagent --> SA33_3r{Complete/Failed}:::result --> A33
-        A33 --> SA33_4[Sub-Agent 4]:::subagent --> SA33_4r{Complete/Failed}:::result --> A33
-        A33 --> Q
+    %% ... condensed for 34 agents; the pattern repeats identically ...
+    subgraph Agent_34 ["Agent 34 - Deployment"]
+        A34[Agent 34]:::agent
+        A34 --> SA34_1[Sub-Agent 1]:::subagent --> SA34_1r{Complete/Failed}:::result --> A34
+        A34 --> SA34_2[Sub-Agent 2]:::subagent --> SA34_2r{Complete/Failed}:::result --> A34
+        A34 --> SA34_3[Sub-Agent 3]:::subagent --> SA34_3r{Complete/Failed}:::result --> A34
+        A34 --> SA34_4[Sub-Agent 4]:::subagent --> SA34_4r{Complete/Failed}:::result --> A34
+        A34 --> Q
     end
 
     Q --> A1
     Q --> A2
     Q --> A3
-    Q -.->|"... (Agents 4‑33 follow same pattern)"| A33
-    Q --> A33
+    Q -.->|"... (Agents 4-34 follow same pattern)"| A34
+    Q --> A34
 
-    Note1["Quillan can spawn up to 33 Agents, Each Agent can spawn more sub‑agents\nas needed, limited only by local hardware"] -.-> Agent_1
+    Note1["Quillan can spawn up to 34 Agents, Each Agent can spawn more sub‑agents\nas needed, limited only by local hardware"] -.-> Agent_1
 ```
 
 ---

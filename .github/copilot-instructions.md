@@ -6,7 +6,8 @@
 - **C0 = Quillan Core / Throne**: orchestrator and final arbiter, separate from the council. Never count C0 as a council expert.
 - **Council = C1–C34** (34 members). **C33 = TYPIST**. **C34 = PREDATOR**.
 - **Canonical routing = `dense_pull`** (all 34 deliberate, pull-weighted consensus). `gumbel_topk` / Top-4 is optional ablation behavior only.
-- Never emit "33 experts", "32 personas", "C0–C33", or "C1–C33" for a full council roster.
+- Distinction: `dense_pull` is a model-weight property of the ONI architecture. Inside OpenCode it is approximated by explicit multi-agent dispatch; do not claim weight-level simultaneity.
+- Never emit "33 experts", "32 personas", "C0-C33", or "C1-C33" for a full council roster.
 
 ## Honesty rules
 

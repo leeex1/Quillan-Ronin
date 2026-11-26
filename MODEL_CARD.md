@@ -128,7 +128,7 @@ It combines:
 | **Context** | 512 (flagship 12-layer) / 10%-buffered Gated Compaction |
 | **Tokenizer** | Unified Quillan BPE 50257, EOS=0, custom specials — `quillan_bpe_tokenizer.py` + `tokenizer.json` |
 | **Precision** | Mixed AMP (FP16 master, BitNet forward) |
-| **Developed by** | CrashOverrideX & Quillan Research Team |
+| **Developed by** | CrashOverrideX |
 | **License** | apache-2.0 |
 | **HF Hub** | `CrashOverrideX/Quillan-Ronin` |
 | **GitHub** | `leeex1/Quillan-Ronin` |
@@ -230,7 +230,7 @@ See lineage above. Full script: `transplant_clean.py` (slice/merge) → pretrain
 
 ```bibtex
 @software{QuillanRonin2026,
-  author = {CrashOverrideX and Quillan Research Team},
+  author = {CrashOverrideX},
   title = {Quillan-Ronin v5.4.0-oni: Unified Sovereign Intelligence},
   year = {2026},
   url = {https://github.com/leeex1/Quillan-Ronin},

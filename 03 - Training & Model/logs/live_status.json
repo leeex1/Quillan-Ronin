@@ -6,7 +6,7 @@
   "best_loss": 0.9165,
   "learning_rate": "1.00e-05",
   "speed_steps_per_sec": 0.13,
-  "active_experts": "C0-C33 (MoE Dynamic)",
+  "active_experts": "C1-C34 (MoE Dynamic)",
   "last_updated": "2026-09-10 12:01:45",
   "pid": 11100,
   "latest_probe": {

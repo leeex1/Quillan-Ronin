@@ -8,11 +8,11 @@ Qwen, BitNet, etc.) into Quillan's 34-expert council BitNet 1.58b architecture.
 
 Key Capabilities:
 1. Shape Projection: Adapt dimensions (e.g. 2048/4096/8192 -> 1024) via PCA/slicing.
-2. Council Seeding: Diversify dense MLP weights into 34 Council experts (C0-C33) via EGGROLL rank-24 perturbation.
+2. Council Seeding: Diversify dense MLP weights into 34 Council experts (C1-C34) via EGGROLL rank-24 perturbation.
 3. BitNet Ternarization: Quantize dense FP16/BF16 weights to ternary bounds (-1, 0, 1) using STE.
 4. Security: Safe deserialization strictly enforcing safetensors or weights_only=True.
 
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Version: v5.4.0-oni (2026 Sovereign Release)
 """
 
@@ -186,7 +186,7 @@ class QuillanCrossModelWeightAdapter:
                 w_d = self.adapt_tensor_shape(source_state_dict[down_k], (self.target_hidden_dim, self.target_ffn_dim))
                 quillan_sd[f"{prefix}moe.c_proj.weight"] = w_d
 
-                # Seed Council Experts (C0-C33) from the base down/up weights with EGGROLL perturbation
+                # Seed Council Experts (C1-C34) from the base down/up weights with EGGROLL perturbation
                 for e in range(self.num_experts):
                     perturbation = torch.randn_like(w_d[:self.expert_rank, :self.target_hidden_dim]) * 0.01
                     quillan_sd[f"{prefix}moe.experts.{e}.lora_A"] = perturbation

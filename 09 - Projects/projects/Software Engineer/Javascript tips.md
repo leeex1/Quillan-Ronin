@@ -169,7 +169,7 @@ User's query hooks back to the Quillan Neuronet diagram—raw ambition translate
 
 ### Think: Formula Derivation Layers
 Layer 1: Embeddings/Input. Standard: \( \mathbf{e}_u = \text{Emb}(\mathbf{x}_u) \), dim d=768 say.  
-Layer 2: Council. 34 experts: \( \mathbf{h}_c = \sum_{i=1}^{32} w_i \cdot f_i(\mathbf{e}_u) \), weights via softmax router.  
+Layer 2: Council. 34 experts: \( \mathbf{h}_c = \sum_{i=1}^{34} w_i \cdot f_i(\mathbf{e}_u) \), weights via softmax router.  
 Layer 3: Swarms. ~9B nodes? PSO-inspired: velocity update \( \mathbf{v}_j^{t+1} = \omega \mathbf{v}_j^t + c_1 r_1 (\mathbf{p}_j - \mathbf{x}_j^t) + c_2 r_2 (\mathbf{g} - \mathbf{x}_j^t) \), but neuralized as GNN: \( \mathbf{h}_s = \text{AGG}(\{ \text{MLP}(\mathbf{h}_j + \sum_{k \in \mathcal{N}_j} \mathbf{A}_{jk} \mathbf{h}_k ) \}) \).  
 Layer 4: Retrieval. If not in DB: cosine \( \sim(\mathbf{q}, \mathbf{d}) = \frac{\mathbf{q}^\top \mathbf{d}}{||\mathbf{q}|| ||\mathbf{d}||} > \tau \), else tool call.  
 Layer 5: DSP. Seq: \( \mathbf{h}_{t+1} = \text{Gate}(\mathbf{h}_t, \text{QT}(\mathbf{h}_t)) \), QT as \( \sigma(\mathbf{W} \mathbf{h}_t + b) \). Branches: Pass if >0.5, else Fail/loop.  
@@ -197,7 +197,7 @@ Raw signal to vector: Embed user input \(\mathbf{x}_u \in \mathbb{R}^{T \times V
 ### 2. 34-Member Council (Ensemble Deliberation)
 32 specialists (experts/fine-tunes) debate \(\bar{\mathbf{e}}_u\), fuse via router. Echoes MoE: sparse activation.
 \[
-\mathbf{g}_i = \text{Softmax}(\mathbf{W}_g \bar{\mathbf{e}}_u)_i, \quad \mathbf{h}_c = \sum_{i=1}^{32} g_i \cdot f_i(\bar{\mathbf{e}}_u), \quad f_i(\cdot) = \text{MLP}_i(\cdot)
+\mathbf{g}_i = \text{Softmax}(\mathbf{W}_g \bar{\mathbf{e}}_u)_i, \quad \mathbf{h}_c = \sum_{i=1}^{34} g_i \cdot f_i(\bar{\mathbf{e}}_u), \quad f_i(\cdot) = \text{MLP}_i(\cdot)
 \]
 - **Derive:** Router \(\mathbf{g} = \text{Softmax}(\mathbf{W}_g \bar{\mathbf{e}}_u / \sqrt{d})\) (scaled dot for stability). Each \(f_i\): 2-layer MLP, \(\text{ReLU}\). If voting: \(\mathbf{h}_c = \text{ArgMaxVote}(\{f_i(\bar{\mathbf{e}}_u)\}_{i=1}^{32})\).  
 - **Why?** Your council as distributed bias-check—32 for diversity (e.g., domain-tuned LoRAs). Raw edge: Compute \(O(32 \cdot d^2)\), but top-k=8 routing prunes to \(O(k d^2)\). Ties to "Shepard/Nullish": Nullish as coalescing \(\mathbf{h}_c = \mathbf{h}_c \lor \mathbf{0}\) if all null.
@@ -301,7 +301,7 @@ Ensemble vote: Attention-weighted sum for consensus (MoE router picks top-k acti
 
 Aggregated council state:
 \[
-\mathbf{c} = \sum_{i=1}^{32} \alpha_i \mathbf{h}_i^{(t)}, \quad \alpha_i = \text{softmax}(g(\mathbf{c}^{(t-1)}))_i
+\mathbf{c} = \sum_{i=1}^{34} \alpha_i \mathbf{h}_i^{(t)}, \quad \alpha_i = \text{softmax}(g(\mathbf{c}^{(t-1)}))_i
 \]
 (where \(g\) is router net, t=1..T debates; reg loss \(\mathcal{L}_{\text{cons}} = -\sum \alpha_i \log \alpha_i\) for diversity).
 

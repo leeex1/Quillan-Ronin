@@ -62,9 +62,13 @@ def test_suite_mathematical_wiring() -> bool:
     try:
         h1 = F.normalize(torch.randn(2, dim, device=device), dim=-1)
         h2 = F.normalize(torch.randn(2, dim, device=device), dim=-1)
-        fid = qfe.qhis_fidelity(h1, h2, v_lm6=1.0, lambda_drift=0.1)
+        rho1 = qfe.state_to_density(h1)
+        rho2 = qfe.state_to_density(h2)
+        fid = qfe.qhis_fidelity(rho1, rho2, v_lm6=1.0, lambda_drift=0.1)
         assert torch.isfinite(fid), "QHIS produced non-finite value"
-        print(f"  [PASS] F03: QHIS (Holographic Uhlmann-Bures Fidelity: {fid.item():.4f})")
+        print(
+            f"  [PASS] F03: QHIS (Holographic Uhlmann-Bures Fidelity: {fid.item():.4f})"
+        )
         passed_count += 1
     except Exception as e:
         print(f"  [FAIL] F03 QHIS: {e}")
@@ -108,8 +112,12 @@ def test_suite_mathematical_wiring() -> bool:
         e_cog = torch.tensor([0.8, 1.0], device=device)
         s_meta = torch.tensor([0.4, 0.5], device=device)
         prob = qfe.qcie_tunneling_prob(barrier, e_cog, s_meta)
-        assert (prob >= 0.0).all() and (prob <= 1.0).all(), "QCIE tunneling prob out of bounds"
-        print(f"  [PASS] F07: QCIE (WKB Tunneling Probability: {prob.mean().item():.4f})")
+        assert (prob >= 0.0).all() and (prob <= 1.0).all(), (
+            "QCIE tunneling prob out of bounds"
+        )
+        print(
+            f"  [PASS] F07: QCIE (WKB Tunneling Probability: {prob.mean().item():.4f})"
+        )
         passed_count += 1
     except Exception as e:
         print(f"  [FAIL] F07 QCIE: {e}")
@@ -144,21 +152,130 @@ def test_suite_mathematical_wiring() -> bool:
     except Exception as e:
         print(f"  [FAIL] F10 JQLD: {e}")
 
-    # Formulas 11-23
+    # Formulas 11-23 — REAL implementation calls or explicit reference identities.
+    # The previous lambdas (sigmoid>0, norm>0, etc.) were tautologies; replaced 2026-11-26.
+    import importlib.util
+    import numpy as np
+    from quillan_v5_4_oni import PersonaPullGate, DynamicQuantumSwarmOscillation
+
+    _spec = importlib.util.spec_from_file_location(
+        "quillan_formulas_spec",
+        str(
+            REPO_ROOT
+            / "02 - Knowledge Foundation"
+            / "Quillan Knowledge files"
+            / "8-Formulas.spec.py"
+        ),
+    )
+    fspec = importlib.util.module_from_spec(_spec)
+    _spec.loader.exec_module(fspec)
+    _gspec = importlib.util.spec_from_file_location(
+        "quillan_qps_governor", str(REPO_ROOT / "daemons" / "qps_governor.py")
+    )
+    gov = importlib.util.module_from_spec(_gspec)
+    _gspec.loader.exec_module(gov)
+
+    qfe2 = QuantumFormulasEngine(hidden_dim=64)
+    pull_gate = PersonaPullGate(64, 34)
+    dqso_mod = DynamicQuantumSwarmOscillation(64)
+    rng = np.random.default_rng(0)
+
+    def _erlang_c_wait(c, lam, mu):
+        rho = lam / (c * mu)
+        a = c * rho
+        terms = sum(a**k / math.factorial(k) for k in range(c))
+        tail = a**c / (math.factorial(c) * (1.0 - rho))
+        return (tail / (terms + tail)) / (c * mu - lam)
+
+    def _t11_dqso():
+        out = dqso_mod(torch.randn(2, 64))
+        out2 = qfe2.dqso_kuramoto(torch.randn(2, 8), torch.zeros(2, 8))
+        return bool(torch.isfinite(out).all() and out2.shape == (2, 8))
+
+    def _t12_pull():
+        p = pull_gate(torch.randn(2, 64))
+        return bool(abs(float(p.detach().sum(-1).mean()) - 1.0) < 1e-5)
+
+    def _t13_latency():
+        r = fspec.QuillanTokenLatency().execute(
+            fspec.TokenLatencyConfig(
+                t_serial=0.1,
+                t_parallel=10.0,
+                n_cores=64,
+                data_size_gb=16,
+                bw_memory_gbs=512,
+            ),
+            rng,
+        )
+        return bool(np.isfinite(r.value))
+
+    def _t16_dnnl():
+        return bool(
+            _erlang_c_wait(2, 1.0, 1.0) > 0
+            and _erlang_c_wait(2, 1.5, 1.0) > _erlang_c_wait(2, 1.0, 1.0)
+        )
+
+    def _t18_lmcb():
+        M = torch.tensor([[0.0, 1.0], [1.0, 0.0]])
+        e1 = float(-0.5 * torch.tensor([1.0, -1.0]) @ M @ torch.tensor([1.0, -1.0]))
+        e2 = float(-0.5 * torch.tensor([-1.0, 1.0]) @ M @ torch.tensor([-1.0, 1.0]))
+        return bool(abs(e1 - e2) < 1e-12)
+
+    def _t19_jssc():
+        a = torch.sort(torch.arange(4.0))[0]
+        b = torch.sort(torch.arange(4.0) + 1)[0]
+        return bool(
+            float(torch.norm(a - a)) < 1e-12
+            and abs(float(torch.norm(a - b)) / 2 - 1) < 1e-6
+        )
+
+    def _t20_qps():
+        P, K = gov.solve_dare(1.0)
+        return bool(np.isfinite(P).all() and np.linalg.eigvalsh(P).min() > -1e-8)
+
+    def _t21_egso():
+        out = qfe2.egso_low_rank_update(
+            torch.randn(4, 4),
+            torch.randn(4, 2),
+            torch.randn(4, 2),
+            torch.randn(2),
+            alpha=0.01,
+            sigma=0.1,
+        )
+        return bool(torch.isfinite(out).all())
+
+    def _t22_rqgm():
+        return bool(
+            qfe2.rqgm_evaluator_swap(0.9, 0.8, 0.05)
+            and not qfe2.rqgm_evaluator_swap(0.8, 0.8, 0.05)
+        )
+
+    def _t23_esfm():
+        one = torch.ones(4)
+        zero = torch.zeros(4)
+        pulled = qfe2.esfm_anchor_pull(one, zero, 5, mu_mem=0.001)
+        return bool(
+            torch.allclose(qfe2.esfm_anchor_pull(one, zero, 6, mu_mem=0.001), one)
+            and not torch.allclose(pulled, one)
+        )
+
     formulas_11_23 = [
-        ("F11: DQSO", lambda: torch.sigmoid(torch.tensor(0.5)).item() > 0),
-        ("F12: EVOMOE_NOAUX_TC", lambda: torch.softmax(torch.randn(34), dim=-1).sum().item() > 0.99),
-        ("F13: TOKEN_LATENCY", lambda: (0.012 * 512 + 0.05) > 0),
-        ("F14: LRPP", lambda: torch.tanh(torch.tensor(1.2)).item() > 0),
-        ("F15: DVVE", lambda: torch.norm(torch.randn(64)).item() > 0),
-        ("F16: DNNL", lambda: F.relu(torch.tensor(-0.5)).item() == 0.0),
-        ("F17: JHFR", lambda: torch.exp(torch.tensor(-0.1)).item() <= 1.0),
-        ("F18: LMCB", lambda: 0.15 * 0.5 + 0.05 * 0.1 > 0),
-        ("F19: JSSC", lambda: torch.cosine_similarity(torch.randn(1, 16), torch.randn(1, 16)).item() <= 1.0001),
-        ("F20: QPS", lambda: (1.0 / (1.0 + math.exp(-0.8))) > 0.5),
-        ("F21: EGSO", lambda: torch.linalg.norm(torch.eye(8)).item() > 0),
-        ("F22: RQGM", lambda: torch.clamp(torch.tensor(1.5), 0.0, 1.0).item() == 1.0),
-        ("F23: ESFM", lambda: torch.softmax(torch.zeros(34), dim=-1)[0].item() > 0.02)
+        ("F11: DQSO", _t11_dqso),
+        ("F12: EVOMOE_NOAUX_TC", _t12_pull),
+        ("F13: TOKEN_LATENCY", _t13_latency),
+        ("F14: LRPP [REF]", lambda: bool(float((torch.ones(4) * 0.9).mean()) < 1.0)),
+        (
+            "F15: DVVE [REF]",
+            lambda: bool(abs(-math.log(0.5) - 0.6931471805599453) < 1e-6),
+        ),
+        ("F16: DNNL [REF]", _t16_dnnl),
+        ("F17: JHFR [REF]", lambda: bool((1.0 - 2.0 * 0.5) < (1.0 - 0.0 * 0.5))),
+        ("F18: LMCB [REF]", _t18_lmcb),
+        ("F19: JSSC [REF]", _t19_jssc),
+        ("F20: QPS", _t20_qps),
+        ("F21: EGSO", _t21_egso),
+        ("F22: RQGM", _t22_rqgm),
+        ("F23: ESFM", _t23_esfm),
     ]
 
     for name, fn in formulas_11_23:

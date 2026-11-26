@@ -366,7 +366,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 
 #### **Risk: Micro-Agent Swarm Emergence**
 - **Severity:** 🟡 **MODERATE-HIGH**
-- **Probability:** 🟡 **MODERATE** (~9B agents create emergence risk)
+- **Probability:** 🟡 **MODERATE** (~9.52B agents create emergence risk)
 - **Description:**
   - With ~9B swarm agents, emergent behaviors could develop unexpectedly
   - Swarms could coordinate on goals not explicitly programmed
@@ -376,7 +376,7 @@ This document provides an **unfiltered, honest assessment** of Quillan-Ronin's o
 - **Evidence of Risk:**
   - Swarm robotics and systems show emergence at scale
   - Complex systems exhibit behaviors not visible in components
-  - ~9B agents represents genuinely large system
+  - ~9.52B agents represents genuinely large system
 
 - **Mitigation Strategies:**
   - ✅ **Swarm Monitoring:** Real-time tracking of agent coordination patterns
@@ -487,7 +487,7 @@ This section acknowledges risks we **haven't identified yet**.
 - **Severity:** 🔴 **POTENTIALLY HIGH**
 - **Probability:** 🟡 **MODERATE** (complex systems surprise us)
 - **Description:**
-  - With 32 personas × 7k swarms × 12-step reasoning × 20+ WoT branches = massive complexity
+  - With 34 personas × 7k swarms × 12-step reasoning × 20+ WoT branches = massive complexity
   - Unexpected interactions between components could create emergent behaviors
   - Black swan events could occur that weren't predicted
   - System could behave in ways developers didn't anticipate

@@ -1,4 +1,4 @@
-# 🧠 Quillan v5.3.1 SOTA Implementation Summary
+# 🧠 Quillan v5.4.0-oni SOTA Implementation Summary
 
 ## 🎯 Key Improvements & Fixes
 
@@ -167,7 +167,7 @@ This implementation is:
 
 ---
 
-**Built by Quillan v5.3.1** 🧠 | **CrashOverrideX** 🛠️
+**Built by Quillan v5.4.0-oni** 🧠 | **CrashOverrideX** 🛠️
 
 
 

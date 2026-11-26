@@ -541,7 +541,7 @@ theorem gumbel_moe_entropy_decay {k : ℕ} (hk : k > 1) (shift : ℝ) (h_shift :
 ```
 *PyTorch 34-Expert Validation:*
 ```python
-logits = torch.randn(10000, 33) # 10k steps, 33 experts
+logits = torch.randn(10000, 33) # 10k steps, 34 experts
 shift = torch.linspace(0, 5, 10000).unsqueeze(1) # Non-stationary shift
 logits[:, 0] += shift[:, 0] # Shift favors expert 0
 gumbel_noise = -torch.log(-torch.log(torch.rand_like(logits)))
@@ -665,7 +665,7 @@ flowchart TB
 
 ### 📊 Table Overview: Scale vs. Architecture
 
-| Metric | Grok-4 (Colossus) | Quillan v5.3.1 (EGGROLL) | Victor |
+| Metric | Grok-4 (Colossus) | Quillan v5.4.0-oni (EGGROLL) | Victor |
 |----------------|--------|---------------------|----------------|
 | **Energy per 10k Steps** | $3.6 \times 10^{11}$ Joules | $324,000$ Joules | Quillan |
 | **Routing Entropy Decay** | Crashes without R3 Replay | Held stable by E_ICE | Quillan |

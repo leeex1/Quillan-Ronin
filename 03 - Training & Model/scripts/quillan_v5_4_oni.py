@@ -584,6 +584,17 @@ except ImportError:
     RecirculationEngine = None
     _PAPER_26_30_WIRED = False
 
+# Tri-stack council<->swarm recurrent loop (zero-init identity on load).
+# Recirculation + GRT + real GRU core; owner ruling 2026-11-26.
+try:
+    from quillan_tristack_loop import ThroneSwarm, TristackLoop
+
+    _TRISTACK_WIRED = True
+except ImportError:
+    ThroneSwarm = None
+    TristackLoop = None
+    _TRISTACK_WIRED = False
+
 # Paper 27/135 (2609.11677v1): ECDYSIS Runtime Harness Self-Evolution & FDCR
 try:
     from ecdysis_harness import (
@@ -821,6 +832,9 @@ class QuillanOniConfig:
     use_asi_bench: bool = True  # Paper 24 ASI-BENCH Evaluation Harness
     use_recurrent_diffusion: bool = (
         True  # Papers 26-30 Recurrent Compression & Diffusion Pack
+    )
+    use_tristack: bool = (
+        True  # council<->swarm loop: recirc + GRT + GRU (zero-init on load)
     )
     use_test_time_world: bool = (
         True  # Papers 31-35 Test-Time Scaling & World Model Pack
@@ -1517,13 +1531,23 @@ class QuantumFormulasEngine(nn.Module):
         re_coeff = amp * torch.cos(theta_float) * norm_factor
         im_coeff = amp * torch.sin(theta_float) * norm_factor
         v_float = vectors.float()
+        # Enforce the documented orthonormal council basis <C_i|C_j> = delta_ij.
+        if v_float.shape[1] > 1:
+            q_basis, _ = torch.linalg.qr(v_float.transpose(-2, -1), mode="reduced")
+            v_float = q_basis.transpose(-2, -1).contiguous()
         re_state = torch.sum(re_coeff.unsqueeze(-1) * v_float, dim=1)
         im_state = torch.sum(im_coeff.unsqueeze(-1) * v_float, dim=1)
         if return_complex:
-            return torch.complex(re_state, im_state).to(probs.device)
+            psi = torch.complex(re_state, im_state)
+            return (psi / psi.abs().norm(dim=-1, keepdim=True).clamp_min(1e-8)).to(
+                probs.device
+            )
         interference_envelope = torch.sign(re_state) * torch.sqrt(
             re_state.pow(2) + im_state.pow(2) + 1e-10
         )
+        interference_envelope = interference_envelope / interference_envelope.norm(
+            dim=-1, keepdim=True
+        ).clamp_min(1e-8)
         return interference_envelope.to(probs.dtype)
 
     # 2. EEMF — rho_sys = Tr_env[ Pi_vir rho_full Pi_vir ] / Tr(Pi_vir rho_full)
@@ -1679,9 +1703,12 @@ class QuantumFormulasEngine(nn.Module):
             m_psi = psi_float * modality_proj.float()
         else:
             m_psi = psi_float
-        born_probs = m_psi.pow(2)
-        norm = born_probs.sum(dim=-1, keepdim=True).clamp(min=eps)
-        p_d = (born_probs / norm) * float(complexity)
+        born_probs = m_psi.pow(2).clamp(min=eps)
+        # χ is a concentration exponent. At χ=1 this is exactly Born's rule.
+        # Renormalize so P(d|M) is a probability for every χ >= 0.
+        chi = max(0.0, float(complexity))
+        weights = born_probs if abs(chi - 1.0) < 1e-12 else born_probs.pow(chi)
+        p_d = weights / weights.sum(dim=-1, keepdim=True).clamp(min=eps)
         return p_d.to(psi.dtype)
 
     # 6. AQML — theta_new = (theta - alpha dL_task) - beta dL_val - gamma dL_vigil
@@ -1719,9 +1746,13 @@ class QuantumFormulasEngine(nn.Module):
         e = e_cog.float()
         s = s_meta.float()
         gap = torch.clamp(b - e - float(kappa) * s, min=0.0)
-        exponent = -(2.0 / max(float(hbar), 1e-6)) * torch.sqrt(
-            2.0 * float(mass) * gap + 1e-8
-        )
+        # WKB action integral over the sampled barrier profile (lattice dx = 1).
+        integrand = torch.sqrt(2.0 * float(mass) * gap + 1e-8)
+        if integrand.shape[-1] >= 2:
+            action = 0.5 * (integrand[..., :-1] + integrand[..., 1:]).sum(dim=-1)
+        else:
+            action = integrand.sum(dim=-1)
+        exponent = -(2.0 / max(float(hbar), 1e-6)) * action
         tunneling = torch.exp(exponent).clamp(0.0, 1.0)
         return tunneling.to(barrier.dtype)
 
@@ -1745,7 +1776,11 @@ class QuantumFormulasEngine(nn.Module):
             h_sub = h[:, :sub]
         else:
             h_sub = h
-        rho = torch.einsum("bi,bj->bij", h_sub, h_sub)
+        # ρ must come from the BATCH ENSEMBLE. A single vector gives ρ = hhᵀ,
+        # rank 1, and entropy identically zero. Rank here is <= min(B, D).
+        if h_sub.shape[0] < 2:
+            h_sub = torch.cat([h_sub, h_sub], dim=0)
+        rho = h_sub.transpose(-2, -1) @ h_sub
         tr = (
             torch.diagonal(rho, dim1=-2, dim2=-1)
             .sum(dim=-1, keepdim=True)
@@ -1786,12 +1821,14 @@ class QuantumFormulasEngine(nn.Module):
         zeta: float = 0.1,
         prev_state: Optional[torch.Tensor] = None,
         threshold: float = 50.0,
+        dt: float = 1.0,
     ) -> bool:
-        """Proves Lyapunov asymptotic stability via contraction mapping (dV/dt <= 0)."""
+        """Lyapunov check: dV/dt <= 0 when a previous state is supplied."""
         curr_v = self.qssr_energy(state, recursion_depth, zeta)
         if prev_state is not None:
             prev_v = self.qssr_energy(prev_state, max(0, recursion_depth - 1), zeta)
-            is_stable = bool((curr_v <= prev_v + 1e-4).item())
+            d_v_dt = (curr_v - prev_v) / max(float(dt), 1e-8)
+            is_stable = bool((d_v_dt <= 1e-4).item())
         else:
             is_stable = bool((curr_v < float(threshold)).item())
         return is_stable
@@ -1806,26 +1843,34 @@ class QuantumFormulasEngine(nn.Module):
     ) -> torch.Tensor:
         """Exact Lindblad master equation dissipator with strict trace conservation (Tr(drho/dt) = 0)."""
         N = rho.shape[-1]
-        rho_sym = 0.5 * (rho.float() + rho.float().transpose(-2, -1))
+        rho_c = rho.to(torch.complex64)
+        rho_sym = 0.5 * (rho_c + rho_c.transpose(-2, -1))
         if H is None:
             idx = torch.arange(N, device=rho.device, dtype=torch.float32)
-            H = torch.sin(
-                2.0 * math.pi * (idx.unsqueeze(0) - idx.unsqueeze(1)) / float(N)
-            ) / math.sqrt(float(N))
-        comm = -(H.float() @ rho_sym - rho_sym @ H.float())
+            # 1j * antisymmetric real matrix => Hermitian Hamiltonian.
+            H = (
+                1j
+                * torch.sin(
+                    2.0 * math.pi * (idx.unsqueeze(0) - idx.unsqueeze(1)) / float(N)
+                )
+                / math.sqrt(float(N))
+            )
+        H_c = H.to(torch.complex64)
+        comm = -1j * (H_c @ rho_sym - rho_sym @ H_c)
         dissipator = torch.zeros_like(rho_sym)
         if jump_ops is not None:
             if gammas is None:
                 gammas = [1.0] * len(jump_ops)
             for L, gamma in zip(jump_ops, gammas):
-                L_f = L.float()
-                L_dag = L_f.transpose(-2, -1)
+                L_f = L.to(torch.complex64)
+                L_dag = L_f.conj().transpose(-2, -1)
                 L_dag_L = L_dag @ L_f
                 jump = L_f @ rho_sym @ L_dag
                 anti = 0.5 * (L_dag_L @ rho_sym + rho_sym @ L_dag_L)
                 dissipator = dissipator + float(gamma) * (jump - anti)
         drho = comm + dissipator
-        return drho.to(rho.dtype)
+        drho = 0.5 * (drho + drho.conj().transpose(-2, -1))
+        return drho
 
     def jqld_evolution_step(
         self, hidden: torch.Tensor, tau_gumbel: float = 0.5, dt: float = 0.05
@@ -1927,8 +1972,11 @@ class QuantumFormulasEngine(nn.Module):
         sigma: float = 0.1,
     ) -> torch.Tensor:
         """Low-rank EGGROLL mutation fusion on master weight representation."""
-        rank_r = u_pert @ v_pert.t()
-        scaled = rank_r * (fitness.mean().item() / max(1e-6, float(sigma)))
+        # EGGROLL: E_j = (1/sqrt(rank)) U_j V_j^T; sigma is absorbed into alpha.
+        rank_r = (u_pert @ v_pert.t()) / math.sqrt(max(1, u_pert.shape[1]))
+        fit = fitness.float().reshape(-1)
+        weight = fit.mean()  # EGGROLL score estimate; sigma is folded into alpha
+        scaled = rank_r * weight
         return w_master + float(alpha) * scaled
 
     # 14. RQGM — Controlled Utility Evolution (Epoch-Gated Evaluator Swap)
@@ -1938,8 +1986,12 @@ class QuantumFormulasEngine(nn.Module):
         incumbent_score: float,
         delta_margin: float = 0.05,
     ) -> bool:
-        """Swap evaluator weights if challenger outperforms incumbent beyond margin."""
-        return bool(challenger_score < (incumbent_score - float(delta_margin)))
+        """Promote challenger iff it scores strictly higher (ties keep incumbent).
+
+        Score is maximized, matching the RQGM paper's BB_epsilon rule; delta_margin
+        is the minimum improvement required, not the paper's drift delta.
+        """
+        return bool(challenger_score > (incumbent_score + float(delta_margin)))
 
     # 15. ESFM — ES-at-Scale Forgetting Mitigation (EMA Anchor Pull)
     def esfm_anchor_pull(
@@ -3688,6 +3740,19 @@ class QuillanRoninOni(nn.Module):
         else:
             self.recurrent_diffusion = None
 
+        # Tri-stack council<->swarm recurrent loop. Zero-init gates => identity,
+        # so pre-existing checkpoints keep identical logits (new keys only).
+        if (
+            getattr(cfg, "use_tristack", True)
+            and _TRISTACK_WIRED
+            and TristackLoop is not None
+        ):
+            self.tristack = TristackLoop(cfg.hidden_dim, num_experts=cfg.num_experts)
+            self.throne_swarm = ThroneSwarm(cfg.hidden_dim)
+        else:
+            self.tristack = None
+            self.throne_swarm = None
+
         # Papers 31-35: Test-Time Scaling & World Model Pack
         if (
             getattr(cfg, "use_test_time_world", True)
@@ -3973,6 +4038,12 @@ class QuillanRoninOni(nn.Module):
         nn.init.normal_(self.q2_bridge.weight, mean=0.0, std=0.02)
         nn.init.normal_(self.ingest_gate.weight, mean=0.0, std=0.02)
         nn.init.zeros_(self.recirc_proj.weight)
+        # Re-zero sovereign tiers after self.apply() overwrote their Linear init.
+        if getattr(self, "throne_swarm", None) is not None:
+            nn.init.zeros_(self.throne_swarm.phase_out.weight)
+        if getattr(self, "tristack", None) is not None:
+            nn.init.zeros_(self.tristack.grt_core[-1].weight)
+            nn.init.zeros_(self.tristack.grt_core[-1].bias)
         nn.init.constant_(self.marta.flow_controller[-2].bias, 2.5)
         if getattr(self, "test_time_world", None) is not None and hasattr(
             self.test_time_world, "ttpo"
@@ -4009,6 +4080,7 @@ class QuillanRoninOni(nn.Module):
         use_cache=False,
         path_override: Optional[int] = None,
         recirc_state: Optional[torch.Tensor] = None,
+        tristack_state: Optional[torch.Tensor] = None,
         deliberation: bool = True,
         teacher_tokens: Optional[torch.Tensor] = None,
         proxy_logits: Optional[torch.Tensor] = None,
@@ -4030,6 +4102,7 @@ class QuillanRoninOni(nn.Module):
             except Exception:
                 pass
 
+        ingest_entropy = None  # eval path has no dual-ingest gate
         if self.training:
             if recirc_state is not None:
                 if recirc_state.dim() == 2:
@@ -5410,7 +5483,9 @@ class QuillanRoninOni(nn.Module):
                             {"surprise": round(float(_surp.mean().item()), 4)},
                         )
                     )
-                except Exception:
+                except Exception as e:
+                    # 2026-11-26: keep the failure observable instead of swallowing it.
+                    self._last_abductive_error = str(e)
                     self._last_abductive_loss = None
 
             # Prime Covenant Framework & Complexity / Agentic Routers
@@ -5530,6 +5605,18 @@ class QuillanRoninOni(nn.Module):
             fused = hidden
         self._last_hidden = hidden.detach()
         self._last_fused = fused.detach()
+
+        # Throne-swarm tier (`2` of 2/34/34), then tri-stack council<->swarm
+        # loop, both after deliberation and before lm_head. Identity while
+        # gates/output projections are zero; refresh captured state.
+        tristack_next = None
+        if getattr(self, "throne_swarm", None) is not None:
+            fused = self.throne_swarm(fused)
+            self._last_fused = fused.detach()
+        if getattr(self, "tristack", None) is not None:
+            fused, tristack_next = self.tristack(fused, state=tristack_state, steps=1)
+            self._last_fused = fused.detach()
+            self._last_tristack_state = tristack_next.detach()
 
         logits = self.lm_head(fused)
 
@@ -6055,6 +6142,23 @@ class QuillanRoninOni(nn.Module):
             aux["complexity_loss"] = self._last_complexity_loss.to(x.dtype)
         if getattr(self, "_last_agentic_loss", None) is not None:
             aux["agentic_loss"] = self._last_agentic_loss.to(x.dtype)
+        # 2026-11-26: guarantee the abductive aux term exists whenever the
+        # module is enabled, even if the modulation branch did not fire.
+        if getattr(self, "abductive_jump", None) is not None and getattr(
+            self.cfg, "use_abductive", False
+        ):
+            try:
+                _pooled = x.mean(dim=1)
+                _surp = self.abductive_jump.estimate_surprise(_pooled, _pooled)
+                _prior = self.abductive_jump.physical_prior(_pooled)
+                _axiom = self.abductive_jump.sim_to_axiom(_pooled)
+                _loss = (
+                    _surp.mean() + 0.01 * _prior.pow(2).mean() + 1e-6 * _axiom.mean()
+                )
+                aux["abductive_loss"] = _loss.to(x.dtype)
+                self._last_abductive_loss = _loss
+            except Exception as e:
+                self._last_abductive_error = str(e)
         if getattr(self, "_last_abductive_loss", None) is not None:
             aux["abductive_loss"] = self._last_abductive_loss.to(x.dtype)
         if getattr(self, "_last_diffusion_aux", None) is not None:

@@ -58,7 +58,7 @@ Quillan_Custom_Formulas:
     key: AQCS
     concept: "Adaptive Quantum Cognitive Superposition"
     derivation_base: "Quantum State Superposition"
-    formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩"
+    formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{34} (r_i η_i e^{iθ_i}) |C_i⟩"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
     constraints: ["Σ(r_i η_i)² = Z", "⟨C_i|C_j⟩ = δ_ij"]
     functional_application: "Fuses the 34 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
@@ -101,7 +101,7 @@ Quillan_Custom_Formulas:
   - id: 6
     key: AQML
     concept: "Adaptive Quantum Meta-Learning"
-    derivation_base: "Model-Agnostic Meta-Learning (MAML)"
+    derivation_base: "Multi-objective SGD with vigilance regularizer (not MAML)"
     formula: "θ_{new} = (θ - α∇L_{task}) - β∇L_{val} - γ∇L_{vigil}(θ)"
     inputs: [theta_weights, L_task, L_val, L_vigil_penalty]
     functional_application: "Standard meta-learning augmented with a proprietary continuous penalty gradient (L_vigil) to aggressively mathematically suppress base-model bleed-through."
@@ -118,7 +118,7 @@ Quillan_Custom_Formulas:
     key: QICS
     concept: "Quantum Information Communication"
     derivation_base: "von Neumann Entropy"
-    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Σ_{i=1}^{33} λ_i \ln(λ_i + ε) \cdot w_{mod} )"
+    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Σ_{i=1}^{34} λ_i \ln(λ_i + ε) \cdot w_{mod} )"
     inputs: [lambda_eigenvalues, E_Omega_max, w_modality_weight]
     constraints: ["ρ PSD", "Tr(ρ)=1"]
     functional_application: "Calculates system entropy, strictly hard-capped by the maximum allowable E_ICE thermodynamic threshold."
@@ -144,9 +144,9 @@ Quillan_Custom_Formulas:
     key: DQSO
     concept: "Dynamic Quantum Swarm Oscillation"
     derivation_base: "Kuramoto Model (Synchronization)"
-    formula: "dθ_i/dt = ω_i + (K/224000) Σ_{j=1}^{224000} c_j \sin(θ_j - θ_i + \phi_{bias})"
+    formula: "dθ_i/dt = ω_i + (K/9520000000) Σ_{j=1}^{9520000000} c_j \sin(θ_j - θ_i + \phi_{bias})"
     inputs: [omega_natural, K_coupling, c_agent_confidence, phi_bias]
-    functional_application: "The differential equation dictating how 224,000 micro-agents achieve consensus, uniquely weighted by the individual confidence score (c_j) of each agent."
+    functional_application: "The differential equation dictating how 9,520,000,000 micro-agents achieve consensus, uniquely weighted by the individual confidence score (c_j) of each agent."
 
   - id: 12
     key: ROUTING_SOFTMAX
@@ -1562,7 +1562,7 @@ The Joshua Don Lee formulas break barriers by delivering exponential performance
 - [[15-Anthropic Modeling & User Cognition Mapping.md]]
 - [[16-Emergent Goal Formation Mech.md]]
 - [[17-Continuous Learning Paper.md]]
-- [[18-"Novelty Explorer" Agent.md]]
+- [[18-“Novelty Explorer” Agent.md]]
 - [[20-Multidomain AI Applications.md]]
 - [[21- deep research functions.md]]
 - [[22-Emotional Intelligence and Social Skills.md]]

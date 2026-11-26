@@ -1,4 +1,4 @@
-# 🧠 Quillan v5.3.1 Bit-Level SOTA Implementation Guide
+# 🧠 Quillan v5.4.0-oni Bit-Level SOTA Implementation Guide
 
 ## 🎯 Overview
 

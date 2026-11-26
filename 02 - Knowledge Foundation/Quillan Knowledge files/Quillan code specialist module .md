@@ -3509,7 +3509,7 @@ However, the MoE paradigm is not without its challenges. The interaction between
 
 Mixtral 8x7B
 46.7 Billion
-12.9 Billion
+12.9.52 billion
 Outperforms Llama2 (70B) and GPT-3.5 (175B); 8 experts, 7B parameters each.
 [[28,29,33]]
 DeepSeek-V3

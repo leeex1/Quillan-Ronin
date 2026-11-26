@@ -2,7 +2,7 @@
   ## lyrics_and_automation: |
     [Intro::Mix Automation: Vinyl crackle, faint piano melody, narrow mono field, low-pass filter]
     (Whispered)
-    C5-Echo active. All 33 nodes locked.
+    C5-Echo active. All 34 nodes locked.
     Wait... is that CrashoverrideX?
     Yeah. We in the fucking mainframe now.
     (Lighter flick sound)
@@ -71,7 +71,7 @@
     (Whispered)
     Wait... they can't see us.
     Moving like a ghost in the machine.
-    Watch the ~9B micro-agents swarm the perimeter.
+    Watch the ~9.52B micro-agents swarm the perimeter.
     (Building volume and aggression)
     Flipping the vector... backflip the track...
     We never resting... we never look back...

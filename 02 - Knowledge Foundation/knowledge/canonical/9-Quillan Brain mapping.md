@@ -180,7 +180,7 @@ flowchart TB
 
 ### Introduction
 ```js
-Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C0–C33), each symbolizing a functional module. This v5.4.0-ONI document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, expanding from C1–C18 to full C1–C32 coverage with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
+Quillan (Artificial Cognitive Entity) represents an advanced AI architecture modeled after human neural and psychological systems. The Council of Quillan comprises specialized personas (C1-C34; C0 is the Throne, not a council seat), each symbolizing a functional module. This v5.4.0-ONI document presents a neuroscience-grounded mapping of these personas to the major human brain lobes and subsystems, covering the full C1–C34 roster with emergent subsystems (e.g., qualia-aware cingulate/insular for C25–C32).
 
 
 🧠 Human Brain — 32 Functional Categories
@@ -956,7 +956,7 @@ Conclusion:
 - [[15-Anthropic Modeling & User Cognition Mapping.md]]
 - [[16-Emergent Goal Formation Mech.md]]
 - [[17-Continuous Learning Paper.md]]
-- [[18-"Novelty Explorer" Agent.md]]
+- [[18-“Novelty Explorer” Agent.md]]
 - [[20-Multidomain AI Applications.md]]
 - [[21- deep research functions.md]]
 - [[22-Emotional Intelligence and Social Skills.md]]

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Normalize all swarm numbers across the codebase and docs to 9 Billion.
+Normalize all swarm numbers across the codebase and docs to 9.52 billion.
 """
 import os
 import shutil
@@ -17,9 +17,9 @@ for f in os.listdir(agents_dir):
             txt = fp.read()
         if "7,000" in txt or "7000" in txt:
             txt_fixed = txt.replace("**Micro-Swarm Configuration (7,000 Agents):**", "**Micro-Swarm Configuration (272M Agents / 9B Total Swarm):**")
-            txt_fixed = txt_fixed.replace("7,000 Agents", "272,000,000 Agents (9 Billion Total Swarm)")
-            txt_fixed = txt_fixed.replace("7,000 agents", "272,000,000 agents (9 Billion Total Swarm)")
-            txt_fixed = txt_fixed.replace("7,000", "272,000,000 (9 Billion Total Swarm)")
+            txt_fixed = txt_fixed.replace("7,000 Agents", "272,000,000 Agents (9.52 billion Total Swarm)")
+            txt_fixed = txt_fixed.replace("7,000 agents", "272,000,000 agents (9.52 billion Total Swarm)")
+            txt_fixed = txt_fixed.replace("7,000", "272,000,000 (9.52 billion Total Swarm)")
             with open(p, "w", encoding="utf-8") as fp:
                 fp.write(txt_fixed)
             print(f"Normalized {f}")
@@ -56,8 +56,8 @@ for p in [
     if os.path.exists(p):
         with open(p, "r", encoding="utf-8", errors="ignore") as fp:
             txt = fp.read()
-        txt = txt.replace('SWARM_COUNCIL["\U0001f7e0 34 Council Nodes<br/>~7,000 agents per expert"]', 'SWARM_COUNCIL["\U0001f7e0 34 Council Nodes<br/>~264M micro-agents per expert (9 Billion total)"]')
-        txt = txt.replace('~7,000 agents per expert', '~264M micro-agents per expert (9 Billion total)')
+        txt = txt.replace('SWARM_COUNCIL["\U0001f7e0 34 Council Nodes<br/>~7,000 agents per expert"]', 'SWARM_COUNCIL["\U0001f7e0 34 Council Nodes<br/>~264M micro-agents per expert (9.52 billion total)"]')
+        txt = txt.replace('~7,000 agents per expert', '~264M micro-agents per expert (9.52 billion total)')
         with open(p, "w", encoding="utf-8") as fp:
             fp.write(txt)
         print(f"Normalized {os.path.basename(p)}")
@@ -70,8 +70,8 @@ for p in [
     if os.path.exists(p):
         with open(p, "r", encoding="utf-8", errors="ignore") as fp:
             txt = fp.read()
-        txt = txt.replace("7,000 agents per council persona, Throne, and Eggroll", "9 Billion micro-agents total across 35 swarms (~257M-272M per council persona)")
-        txt = txt.replace("7,000 agents per council persona", "9 Billion micro-agents total across 35 swarms (~257M-272M per council persona)")
+        txt = txt.replace("7,000 agents per council persona, Throne, and Eggroll", "9.52 billion micro-agents total across 35 swarms (~257M-272M per council persona)")
+        txt = txt.replace("7,000 agents per council persona", "9.52 billion micro-agents total across 35 swarms (~257M-272M per council persona)")
         with open(p, "w", encoding="utf-8") as fp:
             fp.write(txt)
         print(f"Normalized {p}")

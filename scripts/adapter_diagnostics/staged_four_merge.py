@@ -27,7 +27,7 @@ from tokenizers import Tokenizer
 from safetensors import safe_open
 
 torch.set_num_threads(2)
-BASE = OUT / "quillan-flagship-hifi-g4-exact.safetensors"
+BASE = Path(r"F:\02_QUILLAN\exports\quillan-flagship-hifi-g4-exact.safetensors")
 LLAMA = r"E:\source_models\llama_1b\model.safetensors"
 QWEN = r"C:\Users\Admin\.cache\huggingface\hub\models--Qwen--Qwen2.5-0.5B-Instruct\snapshots\7ae557604adf67be50417f59c2c2f167def9a775\model.safetensors"
 BITNET = r"E:\source_models\bitnet_2b_4t\model.safetensors"
@@ -162,8 +162,9 @@ def main():
                 mod._wc = None
         written += 1
     print(f"  wrote {written} matrices (both merge bases in Quillan base)", flush=True)
-    host.save_packed_safetensors(OUT / a.out)
-    print(f"SAVED {OUT / a.out}", flush=True)
+    out_path = Path(a.out) if Path(a.out).is_absolute() else (OUT / a.out)
+    host.save_packed_safetensors(out_path)
+    print(f"SAVED {out_path}", flush=True)
 
 
 if __name__ == "__main__":

@@ -34,7 +34,7 @@ for final arbitration by the root agent.
 Quillan-Ronin v5.4.0-ONI operates as a 3-tier fractal cognitive architecture:
 - **Tier 1 (Root Throne):** C0-QUILLAN (Full-parameter sovereign arbiter with private think tank swarm `c0-quillan-swarm`).
 - **Tier 2 (Council of 34 Experts):** Specialized domain nodes cloned from Quillan, acting as autonomous authorities over their disciplines.
-- **Tier 3 (35 Hyper-Quantized Swarms):** 272M micro-agents per swarm (9 Billion total), utilizing BitNet 1.58b STE ternary quantization, EGGROLL rank-32 low-rank mutation ($U @ V^T$), and top-k=19 sparse activation. 100% dynamically reprogrammable by parent experts.
+- **Tier 3 (35 Hyper-Quantized Swarms):** 272M micro-agents per swarm (9,520,000,000 total), utilizing BitNet 1.58b STE ternary quantization, EGGROLL rank-32 low-rank mutation ($U @ V^T$), and top-k=19 sparse activation. 100% dynamically reprogrammable by parent experts.
 - **Tier 0 (Specialist):** FORGE v2 (Low-level PyTorch tensor surgery, 1,441-parameter namespace, Pascal 4GB SFT).
 
 ### Tier 2: The 34 Council Expert Nodes
@@ -82,7 +82,7 @@ Quillan-Ronin v5.4.0-ONI operates as a 3-tier fractal cognitive architecture:
 | :--- | :--- | :--- | :--- | :--- |
 | `forge` | **FORGE v2** | Low-Level PyTorch Tensor Surgery, 1,441-Tensor Namespace, Pascal 4GB SFT Architect | `torch.no_grad()`, Contiguous CPU migration, Win32 `EmptyWorkingSet(-1)` | `subagent(agent="forge", description="forge", prompt="...")` |
 
-### Tier 3: Hyper-Quantized Swarm Sub-Agents (35 Swarms / 9 Billion Micro-Agents)
+### Tier 3: Hyper-Quantized Swarm Sub-Agents (35 Swarms / 9,520,000,000 Micro-Agents)
 
 - **Swarm 0:** `quillan-swarm` (C0 Throne private exploratory think tank; 272M sovereign clones).
 - **Swarms 1–34:** `c1-astra-swarm` through `c34-predator-swarm` (Each parent Council expert commands its own 272M micro-agent swarm).
@@ -484,9 +484,10 @@ Quillan_Custom_Formulas:
     key: AQCS
     concept: "Adaptive Quantum Cognitive Superposition"
     derivation_base: "Quantum State Superposition"
-    formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{33} (r_i η_i e^{iθ_i}) |C_i⟩"
+    formula: "|Ψ_Q⟩ = (1/√Z) Σ_{i=1}^{34} (r_i η_i e^{iθ_i}) |C_i⟩"
     inputs: [r_routing_prob, eta_nemesis_integrity, theta_phase, C_council_vectors]
-    constraints: ["Σ(r_i η_i)² = Z", "⟨C_i|C_j⟩ = δ_ij"]
+    constraints: ["Z = Σ_{i=1}^{34}(r_i η_i)²", "Σ r_i = 1", "η_i ∈ [0,1]", "⟨C_i|C_j⟩ = δ_ij"]
+    implementation_note: "Default engine return is the real interference envelope sign(Re)·√(Re²+Im²); orthonormal basis must be supplied by the caller."
     functional_application: "Fuses the 34 Council nodes (|C_i⟩) into a single latent vector, weighted by Gumbel routing (r) and Nemesis integrity (η)."
 
   - id: 2
@@ -519,18 +520,19 @@ Quillan_Custom_Formulas:
     key: QCRDM
     concept: "Quantum Contextual Reasoning"
     derivation_base: "Born's Rule with Measurement"
-    formula: "P(d|M) = χ \cdot ⟨Ψ| M^† \Pi_d M |Ψ⟩"
+    formula: "P(d|M) = [⟨Ψ| M^† \Pi_d M |Ψ⟩]^χ / Σ_k [⟨Ψ| M^† \Pi_k M |Ψ⟩]^χ"
     inputs: [psi_state, M_modality_matrix, Pi_d_projector, chi_complexity]
-    constraints: ["M is unitary within modality sub-space"]
-    functional_application: "Calculates the probability of a specific deduction (d), mathematically filtered through the Modality-Isolated diffusion matrix (M)."
+    constraints: ["M is unitary within modality sub-space", "Π_d is a complete projective measurement", "χ ≥ 0; χ=1 recovers Born's rule; output renormalized for χ≠1"]
+    functional_application: "Calculates a normalized deduction probability; χ acts as a concentration exponent on the Born weights (implementation 2026-11-26)."
 
   - id: 6
     key: AQML
     concept: "Adaptive Quantum Meta-Learning"
-    derivation_base: "Model-Agnostic Meta-Learning (MAML)"
-    formula: "θ_{new} = (θ - α∇L_{task}) - β∇L_{val} - γ∇L_{vigil}(θ)"
+    derivation_base: "Multi-objective SGD with vigilance regularizer (NOT MAML: no inner adaptation loop)"
+    formula: "L_total = L_task + β L_val + γ L_vigil(θ); θ_new = θ - α∇θ L_total"
     inputs: [theta_weights, L_task, L_val, L_vigil_penalty]
-    functional_application: "Standard meta-learning augmented with a proprietary continuous penalty gradient (L_vigil) to aggressively mathematically suppress base-model bleed-through."
+    implementation_note: "Engine exposes aqml_vigil_penalty() returning the scalar γL_vigil term; the outer update is performed by the trainer."
+    functional_application: "Suppresses base-model bleed-through with a continuous vigilance penalty inside a standard multi-loss gradient step."
 
   - id: 7
     key: QCIE
@@ -544,10 +546,10 @@ Quillan_Custom_Formulas:
     key: QICS
     concept: "Quantum Information Communication"
     derivation_base: "von Neumann Entropy"
-    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, -Σ_{i=1}^{33} λ_i \ln(λ_i + ε) \cdot w_{mod} )"
-    inputs: [lambda_eigenvalues, E_Omega_max, w_modality_weight]
-    constraints: ["ρ PSD", "Tr(ρ)=1"]
-    functional_application: "Calculates system entropy, strictly hard-capped by the maximum allowable E_ICE thermodynamic threshold."
+    formula: "\mathcal{S}_Q = \min( \mathcal{E}_{\Omega\_max}, w_{mod} \cdot [-Tr(ρ\lnρ)] ),  ρ = HᵀH/Tr(HᵀH) over the batch ensemble"
+    inputs: [hidden_ensemble_H, E_Omega_max, w_modality_weight]
+    constraints: ["ρ PSD", "Tr(ρ)=1", "rank(ρ) ≤ min(batch, dim); a single vector gives S=0 (pure state)"]
+    functional_application: "Batch-ensemble von Neumann entropy, hard-capped by E_ICE. Fixed 2026-11-26: the old per-row hhᵀ form was rank-1 and returned ~0 for every input."
 
   - id: 9
     key: QSSR
@@ -555,8 +557,8 @@ Quillan_Custom_Formulas:
     derivation_base: "Lyapunov Stability Function"
     formula: "V(x, d) = x^T P x + ζ \cdot d_{recursion}^2"
     inputs: [x_state, P_matrix, d_recursion_depth, zeta_penalty]
-    constraints: ["P is symmetric positive definite", "dV/dt < 0"]
-    functional_application: "Ensures system stability by penalizing runaway Web-of-Thought recursive loops. If the derivative is positive, execution is forcefully halted."
+    constraints: ["P is symmetric positive definite (therefore V ≥ 0; V<0 is impossible)", "dV/dt < 0 along trajectories (requires supplied ẋ, ḋ)"]
+    functional_application: "V is a Lyapunov candidate; stability requires the derivative to be negative. The runtime check verifies non-increasing V (curr ≤ prev + ε), not V<0."
 
   - id: 10
     key: JQLD
@@ -570,9 +572,10 @@ Quillan_Custom_Formulas:
     key: DQSO
     concept: "Dynamic Quantum Swarm Oscillation"
     derivation_base: "Kuramoto Model (Synchronization)"
-    formula: "dθ_i/dt = ω_i + (K/224000) Σ_{j=1}^{224000} c_j \sin(θ_j - θ_i + \phi_{bias})"
+    formula: "dθ_i/dt = ω_i + (K/N) Σ_{j=1}^{N} c_j \sin(θ_j - θ_i + \phi_{bias}),  N = 9,520,000,000 virtual agents"
     inputs: [omega_natural, K_coupling, c_agent_confidence, phi_bias]
-    functional_application: "The differential equation dictating how ~9B micro-agents achieve consensus, uniquely weighted by the individual confidence score (c_j) of each agent."
+    implementation_note: "Runtime realization is a 64-dimensional learned phase projection with mean coupling (learned scalar, init 0.5); it is a low-rank approximation of the N=9.52e9 sum, not a literal 9.52B-agent integration."
+    functional_application: "Kuramoto-Sakaguchi consensus model for the swarm; the shipped module implements its projected approximation."
 
   - id: 12
     key: ROUTING_SOFTMAX
@@ -685,10 +688,10 @@ Quillan_Custom_Formulas:
 | 29 | `cos θ = (A · B) / ( | | A | | | | B | | )` | Cosine Similarity for measuring vector alignment in embeddings and retrieval-augmented generation |
 | 30 | `L_PPO = E[min(r(θ) Â, clip(r(θ), 1-ε, 1+ε) Â)]` | PPO (Proximal Policy Optimization) clipped objective for stable RL in LLM alignment training |
 | 31 | `BLEU = BP · exp(Σ w_n log p_n)` | BLEU Score for evaluating machine translation and text generation quality via n-gram precision |
-| 32 | `FlashAttn(Q,K,V) ≈ O(N)` (approximate via tiling/blocking) | FlashAttention complexity reduction for efficient transformer inference on long sequences |
+| 32 | `Attention(Q,K,V) = softmax(QKᵀ/√d_k)V` computed by FlashAttention (exact; O(N²) compute, O(N) memory via IO-aware tiling) | FlashAttention reduces HBM traffic, not asymptotic compute (arXiv:2205.14135) |
 | 33 | `NTK(x,x') = E[∇f(x) · ∇f(x')]` | Neural Tangent Kernel for analyzing wide NN training dynamics and infinite-width limits |
-| 34 | `ROUGE-N = Σ (overlapping n-grams) / Σ (candidate n-grams)` | ROUGE-N recall metric for summarization and extractive generation evaluation |
-| 35 | `ELBO = E_q[log p(x/z)] - D_KL(q(z/x)/p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
+| 34 | `ROUGE-N_recall = Σ (overlapping n-grams with reference) / Σ (reference n-grams)` | ROUGE-N recall; dividing by candidate n-grams gives precision (Lin, 2004) |
+| 35 | `ELBO = E_q[log p(x|z)] - D_KL(q(z|x) || p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
 
 ## 🧠 Quillan Brain Mapping - Council to Neuro-Anatomy
 

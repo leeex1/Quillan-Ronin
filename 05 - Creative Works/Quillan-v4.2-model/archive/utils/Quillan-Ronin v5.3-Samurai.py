@@ -3,11 +3,11 @@
 🧠 Quillan-Ronin v5.2.3 "Omni-Fractal" - 4.57B THREE-TIER MULTI-MODAL HNMoE KERNEL
 ---------------------------------------------------------------------------------------
 TIER 1: Quillan (Orchestrator) → Cross-Modal Bridge Flash SDPA, AMP Checkpointing, Tied Embeddings
-TIER 2: Council (33 Experts)   → Z-Loss (1e-3), BitNet 1.58b STE, EGGROLL mutations, Gradient-Safe Routing
-TIER 3: Swarm (~9B Agents)   → Micro-clans nested per expert, low-rank scoring (64), top-k modulation
+TIER 2: Council (34 Experts)   → Z-Loss (1e-3), BitNet 1.58b STE, EGGROLL mutations, Gradient-Safe Routing
+TIER 3: Swarm (~9.52B Agents)   → Micro-clans nested per expert, low-rank scoring (64), top-k modulation
 
 PRODUCTION READY • FRACTAL AGENTIC TOPOLOGY • AUTOREGRESSIVE • ZERO VRAM BLEED
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Philosophy: Iterative co-evolution. Not a wrapper. Not a toy. A living architecture.
 """
 
@@ -84,7 +84,7 @@ class QuillanArchConfig:
     num_experts: int = 33
     capacity_factor: float = 2.0
     min_expert_capacity: int = 64
-    num_micro_subagents: int = 9,000,000,000
+    num_micro_subagents: int = 9,520,000,000
     micro_specializations: int = 128
     swarm_top_k: int = 19
     patch_size: int = 16
@@ -532,7 +532,7 @@ if __name__ == "__main__":
     print(f"   ► Tier 1 Text Logits:        {out['logits'].shape}")
     print(f"   ► Tier 1 Vision Recon:       {out.get('image', None).shape if out.get('image') is not None else 'None'}")
     print(f"   ► Tier 2 Routing Loss:       {out['total_routing_loss'].item():.4f}")
-    print(f"   ► Tier 3 Swarm Active:       9B micro-agents on FFN_DIM (Params Fixed)")
+    print(f"   ► Tier 3 Swarm Active:       9.52B micro-agents on FFN_DIM (Params Fixed)")
     
     # Generation sanity check
     model.eval()

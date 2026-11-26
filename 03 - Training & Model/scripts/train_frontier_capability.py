@@ -123,7 +123,7 @@ def update_live_status(step, total_steps, loss, best_loss, lr, speed, active_exp
             "best_loss": round(float(best_loss), 4),
             "learning_rate": f"{lr:.2e}",
             "speed_steps_per_sec": round(float(speed), 2),
-            "active_experts": active_experts or "C0-C33 (MoE Dynamic)",
+            "active_experts": active_experts or "C1-C34 (MoE Dynamic)",
             "last_updated": time.strftime("%Y-%m-%d %H:%M:%S"),
             "pid": os.getpid()
         }

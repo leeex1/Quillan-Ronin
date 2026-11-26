@@ -24,7 +24,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 - **Technical Specifications**: Validates root protocols, E_ICE constants, and the baseline cognitive capacity ($Q_0$) to maintain system integrity from the outset.
 - **Integration/Activation Rules**: Must be activated first to ensure proper initialization of all subsequent files and swarm instances.
 - **Specialized Protocols**: 
-  - **Quantum Initialization Protocol**: Seeds the pseudo-random number generators (PRNG) for the ~9B micro-agents.
+  - **Quantum Initialization Protocol**: Seeds the pseudo-random number generators (PRNG) for the ~9.52B micro-agents.
 
 ### File 1: Architecture Flowchart (MD)
 - **Summary**: Provides a high-level overview of the 34-Node H-NMoE system architecture and process flows in Markdown format.
@@ -159,7 +159,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 
 ### File 28: Multi-Agent Collective Intelligence & Social Simulation (EGGROLL Swarm)
 - **Summary**: The core evolutionary execution engine replacing standard backpropagation for non-differentiable tasks.
-- **Technical Specifications**: Deploys the **~9B micro-agent swarm** (7,000 per council member). Uses the EGGROLL strategy.
+- **Technical Specifications**: Deploys the **~9.52B micro-agent swarm** (272M per swarm). Uses the EGGROLL strategy.
 - **Specialized Protocols**:
   - **Rank-r Mutation Protocol**: Agents apply structured perturbations ($U \times V^T$) to master weights, generating massive hypothesis testing matrices via hyper-efficient Batched Matrix Multiplications (BMM).
   - **Gradient-Free Ascension Protocol**: Aggregates fitness scores (evaluated by Nemesis-Alpha) to update the continuous master weights dynamically.
@@ -218,7 +218,7 @@ The Quillan system is an advanced cognitive architecture designed to facilitate 
 - [[15-Anthropic Modeling & User Cognition Mapping.md]]
 - [[16-Emergent Goal Formation Mech.md]]
 - [[17-Continuous Learning Paper.md]]
-- [[18-"Novelty Explorer" Agent.md]]
+- [[18-“Novelty Explorer” Agent.md]]
 - [[20-Multidomain AI Applications.md]]
 - [[21- deep research functions.md]]
 - [[22-Emotional Intelligence and Social Skills.md]]

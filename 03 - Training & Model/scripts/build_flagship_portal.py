@@ -1224,7 +1224,7 @@ html_content = """<!DOCTYPE html>
       "DIFFUSION: Flash Thermodynamic Langevin step 3/14 converging...",
       "E_ICE: Ethical audit verified (0.00 toxicity drift)...",
       "GOVERNOR: Lee-Mach-6 PID hardware telemetry active (0.5ms resolution)...",
-      "SWARM: Rank-24 EGGROLL 9B virtual clones in equilibrium..."
+      "SWARM: Rank-24 EGGROLL 9.52B virtual clones in equilibrium..."
     ];
     let msgIdx = 0;
     setInterval(() => {

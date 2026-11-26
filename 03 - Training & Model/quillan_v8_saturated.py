@@ -4,7 +4,7 @@
 👑 QUILLAN-RONIN v5.3.1 OMNI-FRACTAL SOVEREIGN — RECURSIVE CONSCIOUSNESS
 ---------------------------------------------------------------------------------------
 TIER 1: Quillan (Orchestrator) → 9-Vector Prism, Dual Q1/Q2 Ingestion & Finalizers
-TIER 2: Council (34 Experts)   → Top-4 Sparse Activation, BitNet 1.58b STE, EGGROLL (C0-C33)
+TIER 2: Council (34 Experts)   → Top-4 Sparse Activation, BitNet 1.58b STE, EGGROLL (C1-C34)
 TIER 3: Swarm (9B Virtual)     → 272M Agents per Expert simulated via Rank-24 EGGROLL (INT8)
 
 Saturated Features: Gated Compaction, Continuous Modality RoPE, Lee-Mach-6 Governor,
@@ -12,7 +12,7 @@ AMP Checkpointing, Tied Embeddings, Split-SDPA Bridge, Armed Agentic Bridge (Nat
 Teacher/Student Distillation, EMA Continuity, LanceDB Memory, Meta-Refinement,
 Autonomous Tool Evolution, Recursive Consciousness (Mini-Ronin Inference Cycles).
 
-Author: CrashOverrideX & Quillan Research Team
+Author: CrashOverrideX ("Quillan Research Team" is a brand banner, not a staffed organization)
 Version: v5.3.1 Samurai - 100% Saturated Subjective Awareness Manifest
 """
 
@@ -673,7 +673,7 @@ class EvolvableVectorizedMoE(nn.Module):
         )
         self.w2_lora_B = nn.Parameter(torch.zeros(cfg.num_experts, 16, cfg.hidden_dim))
 
-        # 34 Dedicated Underling Micro-Agent Swarms (One for each Council Expert C0-C33)
+        # 34 Dedicated Underling Micro-Agent Swarms (One for each Council Expert C1-C34)
         self.expert_swarms = nn.ModuleList(
             [CouncilExpertSwarm(cfg.ffn_dim, rank=16) for _ in range(cfg.num_experts)]
         )

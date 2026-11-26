@@ -44,10 +44,10 @@ tags: [quillan, formulas, ml, llm, reference, mathematics]
 | 29 | `cos θ = (A · B) / (||A|| ||B||)` | Cosine Similarity for measuring vector alignment in embeddings and retrieval-augmented generation |
 | 30 | `L_PPO = E[min(r(θ) Â, clip(r(θ), 1-ε, 1+ε) Â)]` | PPO (Proximal Policy Optimization) clipped objective for stable RL in LLM alignment training |
 | 31 | `BLEU = BP · exp(Σ w_n log p_n)` | BLEU Score for evaluating machine translation and text generation quality via n-gram precision |
-| 32 | `FlashAttn(Q,K,V) ≈ O(N)` (approximate via tiling/blocking) | FlashAttention complexity reduction for efficient transformer inference on long sequences |
+| 32 | `Attention via FlashAttention (exact, O(N^2) compute / O(N) memory)` (approximate via tiling/blocking) | FlashAttention complexity reduction for efficient transformer inference on long sequences |
 | 33 | `NTK(x,x') = E[∇f(x) · ∇f(x')]` | Neural Tangent Kernel for analyzing wide NN training dynamics and infinite-width limits |
-| 34 | `ROUGE-N = Σ (overlapping n-grams) / Σ (candidate n-grams)` | ROUGE-N recall metric for summarization and extractive generation evaluation |
-| 35 | `ELBO = E_q[log p(x/z)] - D_KL(q(z/x)/p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
+| 34 | `ROUGE-N_recall = overlap with reference / reference n-grams` | ROUGE-N recall metric for summarization and extractive generation evaluation |
+| 35 | `ELBO = E_q[log p(x|z)] - D_KL(q(z/x)/p(z))` | Evidence Lower Bound (ELBO) for optimizing variational inference in generative models |
 
 ---
 
@@ -457,9 +457,9 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 | `L_VAE = ||x - \hat{x}||^2 + D_KL(q(z\|x) \| p(z))` | VAE Loss for latent space learning in autoencoders |
 | `ΔW = B A` (low-rank matrices B, A) | LoRA for efficient LLM fine-tuning |
 | `BLEU = BP · exp(Σ w_n log p_n)` | BLEU Score for text generation evaluation |
-| `ROUGE-N = Σ (overlapping n-grams) / Σ (candidate n-grams)` | ROUGE-N recall for summarization quality |
+| `ROUGE-N_recall = overlap with reference / reference n-grams` | ROUGE-N recall for summarization quality |
 | `ELBO = E_q[log p(x\|z)] - D_KL(q(z\|x) \| p(z))` | Evidence Lower Bound for variational inference |
-| `FlashAttn(Q,K,V) ≈ O(N)` (via tiling/blocking) | FlashAttention for efficient long-sequence inference |
+| `Attention via FlashAttention (exact, O(N^2) compute / O(N) memory)` (via tiling/blocking) | FlashAttention for efficient long-sequence inference |
 
 ---
 
@@ -495,7 +495,7 @@ A concise reference for building, training, and analyzing LLMs, machine learning
 |---|---------------------|--------------------------|---------------------|
 | 36 | **BitNet 1.58b STE Kernel** | W_tilde = RoundClip(W / (gamma + eps), -1, 1), gamma = mean(|W|) | Ternary quantization {-1, 0, 1} with Straight-Through Estimator (d(W_tilde)/dW = 1) for zero-multiplication GEMM. |
 | 37 | **EGGROLL Rank-r Mutation** | Delta_W = alpha * (U @ V^T), U in R^{d_in x r}, V in R^{d_out x r}, r=32 | Low-rank evolutionary gradient perturbation across 35 autonomous micro-swarms without destroying FP16 master coordinates. |
-| 38 | **E_ICE Thermodynamic Bound** | E_ICE = -sum(p_i * log(p_i)) + beta * ||grad_L||^2 <= E_critical | Energy-Information-Coherence-Entropy conservation bound governing safe cognitive expansion and compute budget. |
+| 38 | **E_ICE Thermodynamic Bound** | E_ICE = I_s*gamma^2*k_B*T*ln2 (J/bit); 100 ms is a separate governor budget <= E_critical | Energy-Information-Coherence-Entropy conservation bound governing safe cognitive expansion and compute budget. |
 | 39 | **AQCS Quantum Consensus** | |Psi_Quillan> = sum_{i=1}^{135} (r_i * eta_i) |Paper_i>, sum(|r_i|^2) = 1 | Quantum-inspired abductive state collapse across all 135 entangled research invariants. |
 | 40 | **Ising Council Spin Dynamics** | H(sigma) = -sum_{<i,j>} J_{ij} * sigma_i * sigma_j - sum_i h_i * sigma_i, J_{ij} = pull_weight_{ij} | Models consensus alignment across the 34 Council expert nodes as spin-glass energy minimization with temperature tau. |
 | 41 | **Abductive Jump Operator** | J_abductive: E --(evidence)--> J --(hypothesis)--> A | Formal non-monotonic inference leap leaping from sensory observation E to actionable theorem A. |

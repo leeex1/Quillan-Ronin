@@ -1223,7 +1223,7 @@ The stated goals of Quillan v5.4.0-ONI, as inferred from the repository and asso
 - **Integration of Hierarchical Mixture of Experts (HMoE)** for scalable, modular intelligence.
 - **World modeling loops** that simulate reactive consciousness and enable self-auditing.
 - **Council deliberation** via an 18-persona micro-swarm, supporting deliberative and auditable decision-making.
-- **Swarm arbitration** with up to 224,000 micro-agents, leveraging Tree-of-Thought (ToT) branching and stochastic action selection.
+- **Swarm arbitration** with up to 9,520,000,000 micro-agents, leveraging Tree-of-Thought (ToT) branching and stochastic action selection.
 - **Epistemic humility mechanisms** for confidence calibration, paradox detection, and ethical compliance.
 
 These objectives align with contemporary AGI research priorities, particularly in the areas of modularity, interpretability, and safety.
@@ -1347,7 +1347,7 @@ This architecture supports both interpretability (by exposing the rationales of 
 
 When the council encounters high uncertainty or ethical conflict, a micro-swarm of agents is spawned:
 
-- **Micro-Swarm Size**: The system can instantiate up to 224,000 micro-agents, each exploring alternative hypotheses or action sequences.
+- **Micro-Swarm Size**: The system can instantiate up to 9,520,000,000 micro-agents, each exploring alternative hypotheses or action sequences.
 - **Tree-of-Thought Branching**: Agents branch into sub-trees, simulating diverse lines of reasoning and planning.
 - **Episodic Memory Gating**: Agents access shared episodic memory, enabling transfer of knowledge and rapid adaptation.
 - **Self-Auditing**: Agents cross-validate each other's decisions, flagging inconsistencies or paradoxes for further deliberation.
@@ -1501,7 +1501,7 @@ Quillan-Ronin's architecture leverages the strengths of each mechanism, dynamica
 
 ### 10.1 Micro-Agent Swarm Scaling
 
-The ability to instantiate up to 224,000 micro-agents raises questions about scalability and resource management:
+The ability to instantiate up to 9,520,000,000 micro-agents raises questions about scalability and resource management:
 
 - **Distributed Execution**: The codebase supports distributed execution across multiple devices or nodes, leveraging parallelism for both training and inference.
 - **Capacity Control**: Load balancing and capacity control mechanisms ensure that no single expert or agent becomes a bottleneck.
@@ -2011,7 +2011,7 @@ Paper Title: "Swarm Arbitration in Web-of-Thought: Emergent World Models from 22
 This topic explores the scalability of the agentic framework, moving from the "Council" (Executive Function) to the "Swarm" (Mass Parallelism).
 
 5.1 The "224k Micro-Agent" Architecture
-The claim of simulating 224,000 agents raises immediate skepticism regarding computational feasibility.
+The claim of simulating 9,520,000,000 agents raises immediate skepticism regarding computational feasibility.
 
 5.1.1 Compute Reality Check
 Running 224k concurrent LLM instances (even 7B parameter models) would require a data center comparable to Meta's training cluster. A "Digital Ronin" does not have this hardware.
