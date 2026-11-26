@@ -343,3 +343,9 @@ datasets/
 
 # NextVerse prototype: track source/docs; its nested .gitignore excludes generated content
 !09 - Projects/projects/Nextverse-protype-app--main/
+
+# Runtime daemon state - live telemetry, never commit
+07 - Memory & LanceDB/daemons_registry.json
+07 - Memory & LanceDB/system_telemetry.json
+07 - Memory & LanceDB/daemon_supervisor.pid
+07 - Memory & LanceDB/governor_state.json
