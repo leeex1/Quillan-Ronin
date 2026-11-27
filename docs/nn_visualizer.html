@@ -568,9 +568,9 @@ setInterval(() => {
 
 // ===== SOVEREIGN MODEL FLEET: ONI / MINI / DRAGON =====
 const MODEL_FLEET = {
-  oni:    { label:'QUILLAN ONI',    color:0x00f0ff, x:-9,  layers:16, hidden:2048, params:'~1B',   detail:'16L · 2048h · 24 heads · dense 34-council pull' },
+  oni:    { label:'QUILLAN ONI',    color:0x00f0ff, x:-13, layers:16, hidden:2048, params:'~1B',   detail:'16L · 2048h · 24 heads · dense 34-council pull' },
   mini:   { label:'QUILLAN MINI',   color:0xffd700, x:0,   layers:24, hidden:896,  params:'~0.7B', detail:'24L · 896h · 4864 ffn · 4GB VRAM edge build' },
-  dragon: { label:'QUILLAN DRAGON', color:0xa855f7, x:9,   layers:18, hidden:2048, params:'1B+',   detail:'18L · 2048h · 8192 ffn · sovereign system persona' }
+  dragon: { label:'QUILLAN DRAGON', color:0xa855f7, x:13,  layers:18, hidden:2048, params:'1B+',   detail:'18L · 2048h · 8192 ffn · sovereign system persona' }
 };
 const fleetMeshes = {};
 function makeLabel(text, color) {
@@ -582,34 +582,51 @@ function makeLabel(text, color) {
   x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,256,52);
   const tex = new THREE.CanvasTexture(c);
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false}));
-  sp.scale.set(4.6,0.86,1);
+  sp.scale.set(6.4,1.2,1);
   return sp;
 }
 Object.keys(MODEL_FLEET).forEach(key => {
   const m = MODEL_FLEET[key], grp = new THREE.Group();
-  grp.position.set(m.x, -8.5, 4);
+  grp.position.set(m.x, -4.2, 6);
   const mat = new THREE.MeshBasicMaterial({color:m.color, wireframe:true, transparent:true, opacity:0.9});
   let body;
   if (key==='oni') {
-    body = new THREE.Mesh(new THREE.TorusKnotGeometry(1.15,0.17,96,10,2,3), mat);
+    body = new THREE.Mesh(new THREE.TorusKnotGeometry(2.2,0.3,128,12,2,3), mat);
     const horns = new THREE.Mesh(new THREE.TorusGeometry(0.9,0.06,6,18,Math.PI), mat);
     horns.position.y=1.1; grp.add(horns);
   } else if (key==='mini') {
-    body = new THREE.Mesh(new THREE.OctahedronGeometry(1.25,1), mat);
-    const core = new THREE.Mesh(new THREE.SphereGeometry(0.45,12,12), new THREE.MeshBasicMaterial({color:m.color}));
+    body = new THREE.Mesh(new THREE.OctahedronGeometry(2.5,1), mat);
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.75,12,12), new THREE.MeshBasicMaterial({color:m.color}));
     grp.add(core);
   } else {
-    body = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3,1), mat);
+    body = new THREE.Mesh(new THREE.DodecahedronGeometry(2.5,1), mat);
     [-1,1].forEach(sgn => {
-      const wing = new THREE.Mesh(new THREE.ConeGeometry(0.42,1.9,4), mat);
-      wing.position.set(sgn*1.45,0.25,0); wing.rotation.z = sgn*0.9; grp.add(wing);
+      const wing = new THREE.Mesh(new THREE.ConeGeometry(0.7,3.1,4), mat);
+      wing.position.set(sgn*2.6,0.4,0); wing.rotation.z = sgn*0.9; grp.add(wing);
     });
   }
   grp.add(body);
-  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.85,0.025,6,48), mat);
+  // Transparent internal layer stack with activation nodes — model transparency view
+  const layerCount = key==='mini'?6:key==='dragon'?5:4;
+  for (let li=0; li<layerCount; li++) {
+    const yy = -1.9 + li*(3.8/Math.max(1,layerCount-1));
+    const radius = 2.95 - li*0.14;
+    const disc = new THREE.Mesh(
+      new THREE.TorusGeometry(radius, 0.02, 4, 56),
+      new THREE.MeshBasicMaterial({color:m.color, transparent:true, opacity:0.42}));
+    disc.rotation.x = Math.PI/2; disc.position.y = yy; grp.add(disc);
+    for (let n=0;n<10;n++) {
+      const a = (n/10)*Math.PI*2 + li*0.35;
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.085,8,8),
+        new THREE.MeshBasicMaterial({color:m.color, transparent:true, opacity:0.85}));
+      dot.position.set(Math.cos(a)*radius, yy, Math.sin(a)*radius);
+      grp.add(dot);
+    }
+  }
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(3.2,0.035,6,64), mat);
   ring.rotation.x=Math.PI/2; grp.add(ring);
   const label = makeLabel(m.label, '#'+m.color.toString(16).padStart(6,'0'));
-  label.position.y=2.4; grp.add(label);
+  label.position.y=4.3; grp.add(label);
   grp.userData = {key, body, ring};
   scene.add(grp); fleetMeshes[key]=grp;
 });
@@ -619,11 +636,11 @@ function focusModel(key) {
   Object.keys(fleetMeshes).forEach(k => {
     const g=fleetMeshes[k];
     const on = k===key;
-    g.scale.setScalar(on?1.28:0.82);
+    g.scale.setScalar(on?1.12:0.55);
     g.userData.body.material.opacity = on?1:0.35;
     g.userData.ring.material.opacity = on?0.9:0.22;
   });
-  smoothTransition(m.x+6, 1.5, 15, m.x, -8.5, 4);
+  smoothTransition(m.x+4, 2.2, 18, m.x, -4.2, 6);
   document.querySelector('#hud-header h1').innerText = '👑 '+m.label+' · SOVEREIGN MODEL FLEET';
   document.querySelector('#hud-header .sub').innerText = m.detail+' · '+m.params+' · '+m.layers+' LAYERS';
   document.getElementById('tele-flops').innerText = (m.params==='~0.7B'?'182.4':m.params==='1B+'?'318.6':'251.4')+' GFLOPS';
