@@ -7,3 +7,10 @@
 [submodule "09 - Projects/projects/Validation-test-kit"]
 	path = 09 - Projects/projects/Validation-test-kit
 	url = https://github.com/leeex1/Validation-test-kit-.git
+
+[submodule "09 - Projects/projects/metamon-game"]
+	path = 09 - Projects/projects/metamon-game
+	url = https://github.com/leeex1/metamon-game.git
+[submodule "09 - Projects/projects/muse-open-kernal-research-"]
+	path = 09 - Projects/projects/muse-open-kernal-research-
+	url = https://github.com/leeex1/muse-open-kernal-research-.git
