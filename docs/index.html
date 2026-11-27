@@ -3982,13 +3982,6 @@ function handleConceptImgError(img) {
           <h2 style="font-family:'Cinzel'; font-size:28px; color:#fff;">🔬 Model Transparency Lab · Three Sovereign Builds</h2>
           <p style="font-size:13px; color:var(--text-muted);">Real-time multi-layer neural network architecture visualizer with dynamic synapse activations.</p>
         </div>
-        <div class="card" style="padding:10px; height:650px; border:1px solid var(--accent-cyan);">
-          <!-- src is intentionally empty here — switchTab('nnvis') sets it lazily
-               so Three.js gets real dimensions instead of rendering into a 0x0 hidden div -->
-          <iframe id="nnvis-iframe" src="" data-src="nn_visualizer.html" allowfullscreen
-            style="width:100%; height:100%; border:none; border-radius:8px;"
-            title="Quillan-Ronin 3D Neural Architecture Canvas"></iframe>
-        </div>
       
       <hr style='margin:26px 0;border:0;border-top:1px solid rgba(0,240,255,.2);'>
 
@@ -4004,7 +3997,6 @@ function handleConceptImgError(img) {
           <div id="stageSpec" style="font-size:11px;color:#8de4ff;padding:8px 4px;"></div>
         </div>
       </div>
-      <div id="modelCompare" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;"></div>
 </section>
 
             <!-- ========================================== -->
@@ -13786,12 +13778,12 @@ function handleConceptImgError(img) {
         }
         if (tabId === 'nnvis') {
           try { initModelTransparency(); } catch (e) { console.warn('[Models] init failed:', e); }
-          ([__stage,...(__compares||[])].filter(Boolean)).forEach(v => {
+          [__stage].filter(Boolean).forEach(v => {
             const c=v.renderer.domElement, w=c.clientWidth||340, h=c.clientHeight||380;
             v.renderer.setSize(w,h,false); v.cam.aspect=w/h; v.cam.updateProjectionMatrix();
           });
         }
-        if (typeof setModelsActive==='function') setModelsActive(tabId==='models');
+        if (typeof setModelsActive==='function') setModelsActive(tabId==='nnvis');
         if (tabId === 'nnvis') {
           const nnIframe = document.querySelector('#tab-nnvis iframe');
           if (nnIframe && !nnIframe.getAttribute('data-loaded')) {
@@ -16075,7 +16067,7 @@ function openArtworkLightbox(src, title, tag) {
 
 
     // ===== SELECTABLE STAGE + THREE COMPARISON VIEWERS =====
-    let __stage=null, __compares=[], __modelsActive=false, __modelRaf=0, __stageKey='oni';
+    let __stage=null, __modelsActive=false, __modelRaf=0, __stageKey='oni';
     function mLabel(text,color){
       const c=document.createElement('canvas');c.width=512;c.height=64;const x=c.getContext('2d');
       x.fillStyle='rgba(3,7,16,.82)';x.fillRect(0,0,512,64);x.strokeStyle=color;x.lineWidth=2;x.strokeRect(2,2,508,60);
@@ -16145,18 +16137,12 @@ function openArtworkLightbox(src, title, tag) {
       if(__stage||typeof THREE==='undefined'||typeof MODEL_MANIFEST==='undefined')return;
       document.getElementById('stagePicker').innerHTML=Object.keys(MODEL_MANIFEST).map(k=>
         `<button data-model="${k}" class="btn btn-secondary" style="padding:8px 14px;" onclick="selectModel('${k}')">${MODEL_MANIFEST[k].name}</button>`).join('');
-      document.getElementById('modelCompare').innerHTML=Object.keys(MODEL_MANIFEST).map(k=>{
-        const m=MODEL_MANIFEST[k],c=m.config;
-        return `<div class="card" style="padding:6px;border:1px solid ${k==='mini'?'#ffd70055':k==='dragon'?'#a855f755':'#00f0ff55'};">`+
-          `<div style="font-family:'Orbitron';font-size:11px;color:#fff;padding:4px;">${m.name}</div>`+
-          `<canvas class="cmp-canvas" data-model="${k}" style="width:100%;height:190px;display:block;"></canvas>`+
-          `<div style="font-size:9px;color:#8de4ff;padding:4px;">${c.num_hidden_layers}L · ${c.hidden_size}h · ${c.num_attention_heads}H · FFN ${c.intermediate_size} · ${(m.total_params/1e9).toFixed(2)}B</div></div>`;
-      }).join('');
+
       selectModel(__stageKey);
-      document.querySelectorAll('.cmp-canvas').forEach(cv=>__compares.push(buildScene(cv,cv.dataset.model,true)));
+
       function loop(){
         if(__modelsActive){
-          const all=[__stage,...__compares].filter(Boolean);
+          const all=[__stage].filter(Boolean);
           all.forEach(v=>{
             v.tokens.forEach(p=>{p.userData.phase=(p.userData.phase+p.userData.speed)%1;
               p.position.set(0,-v.L*v.span-1.4+p.userData.phase*(2*v.L*v.span+2.8),0);});
