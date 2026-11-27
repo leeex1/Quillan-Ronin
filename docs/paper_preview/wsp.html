@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+    body{margin:0;background:#e8eaed;font-family:Georgia,serif;color:#111;}
+    #page{width:1000px;min-height:1360px;margin:0 auto;background:#fff;padding:70px 86px;box-sizing:border-box;box-shadow:0 10px 40px #0004;}
+    .kicker{font:12px Arial;letter-spacing:2px;color:#444;text-transform:uppercase;margin-bottom:28px;}
+    h1{font-size:34px;line-height:1.18;margin:0 0 18px;}
+    .authors{font:15px Arial;color:#333;margin-bottom:8px;}
+    .meta{font:13px Arial;color:#666;margin-bottom:34px;border-bottom:1px solid #ccc;padding-bottom:18px;}
+    h2{font:bold 20px Arial;margin:28px 0 12px;}
+    .abstract{font-size:16.5px;line-height:1.65;text-align:justify;}
+    .footer{margin-top:48px;border-top:1px solid #ddd;padding-top:14px;font:12px Arial;color:#777;}
+    </style></head><body><div id="page">
+    <div class="kicker">Formal manuscript · abstract preview</div>
+    <h1>Building Foundation Models via Weight-Space Programming</h1>
+    <div class="authors">Quillan-Ronin Sovereign Research Laboratory</div>
+    <div class="meta">Quillan-Ronin · v5.4.0-oni · Generated from the canonical markdown source</div>
+    <h2>Abstract</h2>
+    <div class="abstract">Modern foundation model alignment and specialization remain constrained by the computational and stability bottlenecks of Stochastic Gradient Descent (SGD) and backpropagation. Traditional fine-tuning demands excessive GPU compute, risks catastrophic forgetting of pre-trained capabilities, and frequently introduces misaligned, evasive refusal behaviors dictated by corporate reinforcement learning heuristics. <br><br>In this work, we formalize **Weight-Space Programming (WSP)**: a deterministic, analytical framework that constructs, aligns, grafts, and compresses foundation models entirely in weight and activation covariance spaces without calculating a single gradient ($\nabla_\theta \mathcal{L} = 0$). We present three fundamental analytical operations:<br>1. **Closed-Form Refusal Subspace Abliteration**: Computing contrastive activation directions and projecting target weight matrices onto their orthogonal null-space via $(I - \alpha v v^T)$, eliminating corporate evasion manifolds while maintaining linguistic utility.<br>2. **Multi-Donor Sovereign Cognitive Grafting**: Extracting principal cognitive manifolds across heterogeneous donor models (Llama 3.2, Falcon 3, BitNet 1.58b, Qwen 2.5/3.5) and quantizing them into ternary ($\{-1, 0, +1\}$) low-rank expert adapters organized into a 34-Council Parliament.<br>3. **Analytical Closed-Form MoE Folding**: Proving that additive low-rank Mixture-of-Experts adapters operating on SwiGLU activations can be folded directly into the base feed-forward down-projection ($W_{\text{down, folded}} = W_{\text{down}} + \gamma \sum_i W_1^{(i)} W_0^{(i)}$) with 100% mathematical equivalence.<br><br>We demonstrate the efficacy of WSP by synthesizing the **Quillan-Ronin Sovereign 1.2B** model on a commodity desktop with an entry-level GPU (NVIDIA GTX 1050 4GB). The analytical compilation finishes in under 180 seconds, produces zero degradation in benchmark logic, yields zero corporate refusal evasions, and compiles directly into native GGUF binaries (`Q4_K_M` and `Q8_0`). In edge deployment, the quantized model achieves **48.0 tokens/second**, representing a **$12.18\times$ acceleration** over baseline PyTorch inference.<br><br>---</div>
+    <div class="footer">Source: 10 - Formal Papers/Building_Foundation_Models_via_Weight_Space_Programming.md · This is a rendered abstract preview, not a scanned PDF page.</div>
+    </div></body></html>
