@@ -711,8 +711,7 @@ function handleConceptImgError(img) {
       <button class="tab-btn" data-tab="worldbuilding" onclick="switchTab('worldbuilding')">🏰 SEVEN KINGDOMS CODEX</button>
       <button class="tab-btn" data-tab="demos" onclick="switchTab('demos')">⚡ 3D SHADERS & CODE LAB</button>
       <button class="tab-btn" data-tab="media" onclick="switchTab('media')">🎵 146-TRACK MASTER JUKEBOX</button>
-      <button class="tab-btn" data-tab="nnvis" onclick="switchTab('nnvis')">🧠 3D NEURAL CANVAS</button>
-      <button class="tab-btn" data-tab="models" onclick="switchTab('models')">🔬 MODEL TRANSPARENCY LAB</button>
+      <button class="tab-btn" data-tab="nnvis" onclick="switchTab('nnvis')">🔬 MODEL TRANSPARENCY LAB</button>
       <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">🖼️ 👑 173 NFT ART VAULT</button>
       <button class="tab-btn" data-tab="services" onclick="switchTab('services')">🍜 SERVICES & PRICING</button>
       <button class="tab-btn" data-tab="papers" onclick="switchTab('papers')">📄 RESEARCH PAPERS & MATH</button>
@@ -3980,7 +3979,7 @@ function handleConceptImgError(img) {
       <!-- ========================================== -->
       <section id="tab-nnvis" class="tab-content">
         <div style="text-align:center; margin-bottom:20px;">
-          <h2 style="font-family:'Cinzel'; font-size:28px; color:#fff;">3D Neural Synapse Canvas</h2>
+          <h2 style="font-family:'Cinzel'; font-size:28px; color:#fff;">🔬 Model Transparency Lab · Three Sovereign Builds</h2>
           <p style="font-size:13px; color:var(--text-muted);">Real-time multi-layer neural network architecture visualizer with dynamic synapse activations.</p>
         </div>
         <div class="card" style="padding:10px; height:650px; border:1px solid var(--accent-cyan);">
@@ -3990,19 +3989,26 @@ function handleConceptImgError(img) {
             style="width:100%; height:100%; border:none; border-radius:8px;"
             title="Quillan-Ronin 3D Neural Architecture Canvas"></iframe>
         </div>
-      </section>
+      
+      <hr style='margin:26px 0;border:0;border-top:1px solid rgba(0,240,255,.2);'>
 
-            <!-- ========================================== -->
-      <!-- TAB 8: 👑 SOVEREIGN NFT & ARTWORK VAULT   -->
-      <!-- ========================================== -->
-            <section id="tab-models" class="tab-content">
         <div style="text-align:center;margin-bottom:18px;">
           <span class="badge" style="color:#00f0ff;border-color:#00f0ff;margin-bottom:8px;">ACTUAL CHECKPOINT ARCHITECTURE</span>
           <h2 style="font-family:'Cinzel';font-size:28px;color:#fff;">🔬 Model Transparency Lab</h2>
           <p style="font-size:13px;color:var(--text-muted);">Three live architecture transparency views, read from the model configs on disk.</p>
         </div>
-        <div id="modelViewers" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;"></div>
+        <div id="modelViewers" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;">
+        <div class="card model3d-panel" data-model="oni" style="padding:8px;border:1px solid #00f0ff55;"><div class="model3d-title" style="font-family:'Orbitron';font-size:13px;color:#00f0ff;padding:4px 6px;">QUILLAN ONI · 16L</div><canvas class="model3d-canvas" style="width:100%;height:380px;display:block;"></canvas><div class="model3d-spec" style="font-size:10px;color:#94a3b8;padding:6px;"></div></div>
+        <div class="card model3d-panel" data-model="mini" style="padding:8px;border:1px solid #ffd70055;"><div class="model3d-title" style="font-family:'Orbitron';font-size:13px;color:#ffd700;padding:4px 6px;">QUILLAN MINI · 24L</div><canvas class="model3d-canvas" style="width:100%;height:380px;display:block;"></canvas><div class="model3d-spec" style="font-size:10px;color:#94a3b8;padding:6px;"></div></div>
+        <div class="card model3d-panel" data-model="dragon" style="padding:8px;border:1px solid #a855f755;"><div class="model3d-title" style="font-family:'Orbitron';font-size:13px;color:#a855f7;padding:4px 6px;">QUILLAN DRAGON · 18L</div><canvas class="model3d-canvas" style="width:100%;height:380px;display:block;"></canvas><div class="model3d-spec" style="font-size:10px;color:#94a3b8;padding:6px;"></div></div>
+      </div>
+
       </section>
+
+            <!-- ========================================== -->
+      <!-- TAB 8: 👑 SOVEREIGN NFT & ARTWORK VAULT   -->
+      <!-- ========================================== -->
+            
       <section id="tab-gallery" class="tab-content">
         <div style="text-align:center; margin-bottom:28px;">
           <span class="badge" style="color:var(--accent-gold); border-color:var(--accent-gold); margin-bottom:10px;">AUTHENTICATED SOVEREIGN ARTIFACTS</span>
@@ -13777,6 +13783,14 @@ function handleConceptImgError(img) {
           }
         }
         if (tabId === 'nnvis') {
+          try { initModelTransparency(); } catch (e) { console.warn('[Models] init failed:', e); }
+          (__modelViews||[]).forEach(v => {
+            const c=v.renderer.domElement, w=c.clientWidth||340, h=c.clientHeight||380;
+            v.renderer.setSize(w,h,false); v.cam.aspect=w/h; v.cam.updateProjectionMatrix();
+          });
+        }
+        if (typeof setModelsActive==='function') setModelsActive(tabId==='models');
+        if (tabId === 'nnvis') {
           const nnIframe = document.querySelector('#tab-nnvis iframe');
           if (nnIframe && !nnIframe.getAttribute('data-loaded')) {
             nnIframe.setAttribute('data-loaded', '1');
@@ -14830,8 +14844,7 @@ function observeCanvasVisibility(canvasId, animationLoopFunc) {
 // â”€â”€â”€ 35 ESSENTIAL FORMULA INTERACTIVE SIMULATION VISUALIZERS â”€â”€â”€
 function init35FormulaVisuals() {
   // 35 unique visualizers — one per Quillan architecture formula
-  const fns = [
-    // 1. MatMul — animated activation grid multiply
+  const fns = [    // 1. MatMul — animated activation grid multiply
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const rows=3, cols=5, cW=13, cH=11;
@@ -14849,7 +14862,7 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
       ctx.fillText('A·B=C (3×5)·(5×4)',170,h/2+4);
     },
-    // 2. Dot Product — rotating vectors with projection shadow
+    // Dot Product — rotating vectors with projection shadow
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const cx=50,cy=h/2,len=36;
@@ -14865,7 +14878,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`u·v=${proj.toFixed(1)} cosθ=${Math.cos(b).toFixed(2)}`,115,h/2+4);
     },
-    // 3. L2 Norm — pulsing unit circle with orbiting point
+
+    // L2 Norm — pulsing unit circle with orbiting point
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const cx=45,cy=h/2,r=26+Math.sin(t*3)*5;
@@ -14878,7 +14892,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`||x||₂=${r.toFixed(2)}`,115,h/2+4);
     },
-    // 4. Eigenvalue — vector stretching along eigen axis
+
+    // Eigenvalue — vector stretching along eigen axis
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const cx=40,cy=h/2,lambda=1+Math.abs(Math.sin(t*1.5))*2.2;
@@ -14890,7 +14905,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#a855f7'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`Av=λv  λ=${lambda.toFixed(2)}`,115,h/2+4);
     },
-    // 5. SVD — rotating orthogonal ellipse decomposition
+
+    // SVD — rotating orthogonal ellipse decomposition
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const cx=50,cy=h/2;
@@ -14902,7 +14918,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#ff0055'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`A=UΣVᵀ σ₁=${s1.toFixed(1)} σ₂=${s2.toFixed(1)}`,115,h/2+4);
     },
-    // 6. Gradient Descent — ball rolling down loss parabola
+
+    // Gradient Descent — ball rolling down loss parabola
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const xOff=Math.sin(t*0.8)*32;
@@ -14917,7 +14934,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`∇f=${grad.toFixed(3)} η=0.01`,115,h/2+4);
     },
-    // 7. Chain Rule — backprop signal cascade through nodes
+
+    // Chain Rule — backprop signal cascade through nodes
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const nodes=[18,50,82], cols=['#00f0ff','#029e7d','#ffd700'];
@@ -14933,7 +14951,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#029e7d'; ctx.font='9px JetBrains Mono';
       ctx.fillText('∂L/∂x=(∂L/∂z)·(∂z/∂x)',115,h/2+4);
     },
-    // 8. MSE Loss — residuals between predictions and targets
+
+    // MSE Loss — residuals between predictions and targets
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       for(let i=0;i<5;i++){
@@ -14948,7 +14967,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
       ctx.fillText('MSE=1/N·Σ(ŷ−y)²',115,h/2+4);
     },
-    // 9. BCE — binary cross-entropy log-loss curve with moving point
+
+    // BCE — binary cross-entropy log-loss curve with moving point
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       ctx.strokeStyle='#a855f7'; ctx.lineWidth=1.8;
@@ -14961,7 +14981,17 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#a855f7'; ctx.font='9px JetBrains Mono';
       ctx.fillText('BCE=−Σy·log(ŷ)',115,h/2+4);
     },
-    // 10. Softmax — normalized probability bars
+
+    // CCE
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h); const K=5, q=[0.05,0.09,0.74,0.07,0.05], y=[0,0,1,0,0];
+      for(let i=0;i<K;i++){const bh=q[i]*(h-24),x=18+i*28;
+        ctx.fillStyle=`rgba(0,240,255,${0.25+q[i]})`;ctx.fillRect(x,h-12-bh,22,bh);
+        if(y[i]){ctx.strokeStyle='#ffd700';ctx.lineWidth=2;ctx.strokeRect(x-2,h-14-bh,26,bh+4);}}
+      ctx.fillStyle='#00f0ff';ctx.font='10px JetBrains Mono';ctx.fillText('-Σ y log q',150,h/2);
+    },
+
+    // Softmax — normalized probability bars
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const logits=[Math.sin(t)*3,Math.cos(t*1.3)*2,Math.sin(t*0.7+1)*4,Math.cos(t+2)*1.5];
@@ -14971,139 +15001,37 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`Softmax max=${Math.max(...probs).toFixed(2)}`,115,h/2+4);
     },
-    // 11. SiLU Activation — animated curve x·σ(x)
+
+    // MDP Return
     (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const silu=x=>x/(1+Math.exp(-x));
-      ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
-      ctx.beginPath();
-      for(let px=10;px<90;px+=2){const xn=(px-50)*0.1;const y=h/2-silu(xn)*35;if(px===10)ctx.moveTo(px,y);else ctx.lineTo(px,y);}
-      ctx.stroke();
-      const xv=50+Math.sin(t)*32, xn=(xv-50)*0.1, yv=h/2-silu(xn)*35;
-      ctx.fillStyle='#ffd700'; ctx.beginPath(); ctx.arc(xv,yv,3,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('SiLU(x)=x·σ(x)',115,h/2+4);
+      ctx.clearRect(0,0,w,h); const g=0.85+Math.sin(t)*0.05;
+      for(let k=0;k<7;k++){const r=30*Math.pow(g,k),x=14+k*24;
+        ctx.fillStyle=`rgba(255,215,0,${1-k*0.1})`;ctx.fillRect(x,h-14-r,18,r);
+        ctx.fillStyle='#94a3b8';ctx.font='8px JetBrains Mono';ctx.fillText('γ'+k,x,h-2);}
+      ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('Gt = Σγ^k R',175,h/2);
     },
-    // 12. LayerNorm — raw vs normalized distribution
+
+    // Bellman Optimality
     (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const n=20, raw=[];
-      for(let i=0;i<n;i++) raw.push(Math.sin(t*2+i*0.7)*8+4);
-      const mean=raw.reduce((a,b)=>a+b)/n;
-      const std=Math.sqrt(raw.map(x=>(x-mean)**2).reduce((a,b)=>a+b)/n)+0.1;
-      ctx.strokeStyle='rgba(255,0,85,0.5)'; ctx.lineWidth=1;
-      ctx.beginPath(); raw.forEach((v,i)=>{const x=10+i*3.8,y=h/2-v*2;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
-      ctx.strokeStyle='#029e7d'; ctx.lineWidth=1.5;
-      ctx.beginPath(); raw.forEach((v,i)=>{const x=10+i*3.8,y=h/2-((v-mean)/std)*10;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
-      ctx.fillStyle='#029e7d'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('LayerNorm μ≈0 σ≈1',115,h/2+4);
+      ctx.clearRect(0,0,w,h); const cx=60,cy=h/2;
+      ctx.strokeStyle='#00f0ff';ctx.beginPath();ctx.arc(cx,cy,10,0,7);ctx.stroke();
+      for(let i=0;i<3;i++){const x=140+i*55,y=cy+(i-1)*26;
+        ctx.strokeStyle='rgba(168,85,247,.7)';ctx.beginPath();ctx.moveTo(cx+10,cy);ctx.lineTo(x-12,y);ctx.stroke();
+        ctx.fillStyle='#a855f7';ctx.beginPath();ctx.arc(x,y,9,0,7);ctx.fill();}
+      ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('max[R+γΣP·V]',85,16);
     },
-    // 13. QKV Attention — animated attention score heatmap
+
+    // Q-Learning TD
     (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const n=5;
-      for(let i=0;i<n;i++) for(let j=0;j<n;j++){
-        const score=Math.sin(t*2+i*1.3+j*0.9)*0.5+0.5;
-        ctx.fillStyle=`rgba(0,240,255,${score*0.85})`;
-        ctx.fillRect(10+j*15,8+i*11,13,9);
-      }
-      ctx.fillStyle='rgba(255,215,0,0.9)'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('QKᵀ/√d Attention',115,h/2+4);
+      ctx.clearRect(0,0,w,h); const x0=55,x1=55+Math.sin(t)*28;
+      ctx.strokeStyle='#00f0ff';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(12,h/2);ctx.lineTo(110,h/2);ctx.stroke();
+      ctx.fillStyle='#ffd700';ctx.beginPath();ctx.arc(x0,h/2,7,0,7);ctx.fill();
+      ctx.fillStyle='#a855f7';ctx.beginPath();ctx.arc(x1,h/2-22,7,0,7);ctx.fill();
+      ctx.strokeStyle='#a855f7';ctx.beginPath();ctx.moveTo(x0,h/2-4);ctx.lineTo(x1,h/2-16);ctx.stroke();
+      ctx.fillStyle='#fff';ctx.font='9px JetBrains Mono';ctx.fillText('Q += α[target-Q]',125,h/2);
     },
-    // 14. RoPE — rotating positional embedding vectors
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const cx=50,cy=h/2;
-      for(let pos=0;pos<6;pos++){
-        const theta=pos*0.5+t*0.4, r=18+pos*2.5;
-        const x=cx+Math.cos(theta)*r*0.9, y=cy+Math.sin(theta)*r*0.55;
-        ctx.strokeStyle=`hsl(${pos*40+180},100%,65%)`; ctx.lineWidth=1.5;
-        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
-        ctx.fillStyle=`hsl(${pos*40+180},100%,65%)`;
-        ctx.beginPath(); ctx.arc(x,y,2.5,0,Math.PI*2); ctx.fill();
-      }
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('RoPE pos encoding',115,h/2+4);
-    },
-    // 15. LoRA Low-Rank — rank-r decomposition glow
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const pulse=(Math.sin(t*3)+1)*0.5;
-      for(let r=0;r<4;r++) for(let c=0;c<4;c++){
-        ctx.fillStyle='rgba(0,240,255,0.12)'; ctx.strokeStyle='rgba(0,240,255,0.25)'; ctx.lineWidth=0.8;
-        ctx.fillRect(8+c*13,8+r*12,11,10); ctx.strokeRect(8+c*13,8+r*12,11,10);
-      }
-      ctx.fillStyle=`rgba(255,215,0,${0.15+pulse*0.25})`;
-      ctx.strokeStyle=`rgba(255,215,0,${0.4+pulse*0.5})`; ctx.lineWidth=1.2;
-      ctx.fillRect(62,8,10,48); ctx.strokeRect(62,8,10,48);
-      ctx.fillRect(76,8,52,10); ctx.strokeRect(76,8,52,10);
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('ΔW=A·B rank=24',115,h/2+4);
-    },
-    // 16. BitNet Ternary — weight distribution collapsing to {-1,0,+1}
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const bins=16;
-      for(let i=0;i<bins;i++){
-        const x=8+i*5, raw=Math.exp(-((i-8)**2)/10)*32, nv=Math.sin(t*2+i*0.4)*6+raw;
-        const bH=Math.max(2,nv);
-        ctx.fillStyle=i<4?'rgba(255,0,85,0.7)':i>11?'rgba(255,215,0,0.7)':'rgba(0,240,255,0.7)';
-        ctx.fillRect(x,h-10-bH,4,bH);
-      }
-      ctx.strokeStyle='rgba(168,85,247,0.8)'; ctx.lineWidth=1.5;
-      [-1,0,1].forEach(v=>{
-        const x=8+(v+1)*5*2.5+12;
-        ctx.strokeStyle=`rgba(168,85,247,0.8)`;
-        ctx.beginPath(); ctx.moveTo(x,8); ctx.lineTo(x,h-8); ctx.stroke();
-      });
-      ctx.fillStyle='#a855f7'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('BitNet {-1,0,+1}',115,h/2+4);
-    },
-    // 17. MoE Top-K Router — sparse gate activation
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const n=8, scores=Array.from({length:n},(_,i)=>Math.sin(t*1.5+i*0.9)*0.5+0.5);
-      const sorted=[...scores].sort((a,b)=>b-a), thresh=sorted[1];
-      scores.forEach((s,i)=>{
-        const active=s>=thresh, bH=Math.max(4,s*(h-20));
-        ctx.fillStyle=active?'#ffd700':'rgba(0,240,255,0.18)';
-        ctx.fillRect(10+i*9,h-10-bH,7,bH);
-        if(active){
-          ctx.fillStyle='rgba(255,215,0,0.08)';
-          ctx.fillRect(10+i*9,8,7,h-20);
-        }
-      });
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('MoE Top-2 sparse gate',115,h/2+4);
-    },
-    // 18. EMA — exponential moving average smoothing
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const pts=30, alpha=0.15, raw=[], ema=[0];
-      for(let i=0;i<pts;i++) raw.push(Math.sin(t+i*0.3)*15+h/2+Math.sin(i*2.7+t*3)*5);
-      for(let i=1;i<pts;i++) ema[i]=alpha*raw[i]+(1-alpha)*ema[i-1];
-      ctx.strokeStyle='rgba(255,0,85,0.3)'; ctx.lineWidth=1;
-      ctx.beginPath(); raw.forEach((v,i)=>{const x=10+i*2.5;if(i===0)ctx.moveTo(x,v);else ctx.lineTo(x,v);}); ctx.stroke();
-      ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
-      ctx.beginPath(); ema.forEach((v,i)=>{const x=10+i*2.5;if(i===0)ctx.moveTo(x,v);else ctx.lineTo(x,v);}); ctx.stroke();
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`EMA α=${alpha} smooth`,115,h/2+4);
-    },
-    // 19. Cosine Similarity — angle between embedding vectors
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const cx=50,cy=h/2,len=30;
-      const a=0.2, b=a+Math.sin(t*0.8)*1.2;
-      ctx.strokeStyle='#029e7d'; ctx.lineWidth=2.5;
-      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(a)*len,cy-Math.sin(a)*len); ctx.stroke();
-      ctx.strokeStyle='#ffd700'; ctx.lineWidth=2.5;
-      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(b)*len,cy-Math.sin(b)*len); ctx.stroke();
-      ctx.strokeStyle='rgba(0,240,255,0.5)'; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.arc(cx,cy,11,-(a+0.1),-(b-0.1),b>a); ctx.stroke();
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`cosine=${Math.cos(b-a).toFixed(2)}`,115,h/2+4);
-    },
-    // 20. KL Divergence — two Gaussian distributions shifting apart
+
+    // KL Divergence — two Gaussian distributions shifting apart
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const shift=Math.sin(t*0.8)*12;
@@ -15119,51 +15047,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
       ctx.fillText(`KL(P||Q)≈${kl.toFixed(2)}≥0`,115,h/2+4);
     },
-    // 21. Entropy — Shannon information content H(X)
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      let probs=Array.from({length:8},(_,i)=>Math.max(0.01,Math.sin(t+i*0.7)*0.3+0.5));
-      const sum=probs.reduce((a,b)=>a+b); probs=probs.map(p=>p/sum);
-      const H=-probs.reduce((acc,p)=>acc+p*Math.log2(Math.max(p,1e-10)),0);
-      probs.forEach((p,i)=>{const bH=p*(h-20);ctx.fillStyle=`hsl(${i*40+180},90%,60%)`;ctx.fillRect(10+i*10,h-10-bH,8,bH);});
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`H=${H.toFixed(2)} bits/sym`,115,h/2+4);
-    },
-    // 22. FFT — frequency domain bar spectrum
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle='rgba(0,240,255,0.4)'; ctx.lineWidth=1;
-      ctx.beginPath();
-      for(let x=10;x<90;x+=2){const y=h/2-10-Math.sin(x*0.25+t)*9-Math.sin(x*0.5-t*1.3)*5;if(x===10)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
-      ctx.stroke();
-      const freqs=[4,8,5,10,3,7,6];
-      freqs.forEach((f,i)=>{
-        const amp=(Math.abs(Math.sin(t*0.6+i*0.9))*10+f)*1.4;
-        ctx.fillStyle=i<3?'#ffd700':i<5?'#00f0ff':'#a855f7';
-        ctx.fillRect(10+i*11,h-10-amp,9,amp);
-      });
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('FFT freq spectrum',115,h/2+4);
-    },
-    // 23. Dropout — random node masking with X markers
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const rows=3,cols=5;
-      for(let i=0;i<rows*cols;i++){
-        const r=Math.floor(i/cols),c=i%cols;
-        const alive=Math.sin(t*5+i*2.7)>0;
-        ctx.fillStyle=alive?'#00f0ff':'rgba(255,0,85,0.15)';
-        ctx.beginPath(); ctx.arc(15+c*15,12+r*14,4.5,0,Math.PI*2); ctx.fill();
-        if(!alive){
-          ctx.strokeStyle='rgba(255,0,85,0.6)'; ctx.lineWidth=1;
-          ctx.beginPath(); ctx.moveTo(11+c*15,8+r*14); ctx.lineTo(19+c*15,16+r*14); ctx.stroke();
-          ctx.beginPath(); ctx.moveTo(19+c*15,8+r*14); ctx.lineTo(11+c*15,16+r*14); ctx.stroke();
-        }
-      }
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('Dropout p=0.4 mask',115,h/2+4);
-    },
-    // 24. Adam Optimizer — adaptive momentum loss curve
+
+    // Adam Optimizer — adaptive momentum loss curve
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const pts=30; let loss=50,m1=0,m2=0;
@@ -15180,142 +15065,8 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#029e7d'; ctx.font='9px JetBrains Mono';
       ctx.fillText('Adam β₁β₂ adaptive lr',115,h/2+4);
     },
-    // 25. Newton-Schulz — spectral norm convergence ρ→1
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      let rho=1.8+Math.sin(t*0.3)*0.3;
-      const path=[rho];
-      for(let i=0;i<8;i++){rho=rho*(3-rho*rho)*0.5; path.push(Math.max(0.5,Math.min(2,rho)));}
-      ctx.strokeStyle='rgba(0,240,255,0.4)'; ctx.setLineDash([2,2]); ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(10,h-10-50); ctx.lineTo(10+8*10,h-10-50); ctx.stroke(); ctx.setLineDash([]);
-      ctx.strokeStyle='#a855f7'; ctx.lineWidth=2;
-      ctx.beginPath();
-      path.forEach((v,i)=>{const x=10+i*10,y=h-10-(v-0.5)*55;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
-      ctx.stroke();
-      path.forEach((v,i)=>{const x=10+i*10,y=h-10-(v-0.5)*55;ctx.fillStyle='#a855f7';ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();});
-      ctx.fillStyle='#a855f7'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('NS ρ→1 quadratic',115,h/2+4);
-    },
-    // 26. Residual Connection — skip path highway visualization
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const pulse=(Math.sin(t*3)+1)*0.5;
-      ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
-      ctx.beginPath(); ctx.moveTo(10,h/2); ctx.lineTo(44,h/2); ctx.stroke();
-      ctx.fillStyle='rgba(0,240,255,0.1)'; ctx.strokeStyle='rgba(0,240,255,0.5)'; ctx.lineWidth=1;
-      ctx.fillRect(44,h/2-9,24,18); ctx.strokeRect(44,h/2-9,24,18);
-      ctx.fillStyle='#00f0ff'; ctx.font='8px JetBrains Mono'; ctx.fillText('F(x)',48,h/2+3);
-      ctx.strokeStyle='#00f0ff'; ctx.lineWidth=2;
-      ctx.beginPath(); ctx.moveTo(68,h/2); ctx.lineTo(90,h/2); ctx.stroke();
-      const sy=h/2-17;
-      ctx.strokeStyle=`rgba(255,215,0,${0.5+pulse*0.5})`; ctx.lineWidth=1.5;
-      ctx.beginPath(); ctx.moveTo(10,h/2); ctx.lineTo(10,sy); ctx.lineTo(90,sy); ctx.lineTo(90,h/2); ctx.stroke();
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('x+F(x) residual',115,h/2+4);
-    },
-    // 27. Spectral Norm — singular value bounding
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const svs=Array.from({length:5},(_,i)=>Math.abs(Math.sin(t*1.2+i*0.8))*(3.2-i*0.4)+0.3);
-      svs.forEach((v,i)=>{
-        const bH=Math.min(h-20,v*(h-20)/3.5);
-        ctx.fillStyle=i===0?'#ff0055':'rgba(0,240,255,0.45)';
-        ctx.fillRect(12+i*15,h-10-bH,12,bH);
-      });
-      const maxH=Math.min(h-20,svs[0]*(h-20)/3.5);
-      ctx.strokeStyle='rgba(255,0,85,0.7)'; ctx.setLineDash([2,2]); ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(12,h-10-maxH); ctx.lineTo(87,h-10-maxH); ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle='#ff0055'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`σmax=${svs[0].toFixed(2)} spec norm`,115,h/2+4);
-    },
-    // 28. Temperature Scaling — sharpening/flattening logits
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const tau=0.4+Math.abs(Math.sin(t*0.8))*2.2;
-      const logits=[2.5,1,-0.5,1.8,-1];
-      const scaled=logits.map(l=>Math.exp(l/tau));
-      const sum=scaled.reduce((a,b)=>a+b), probs=scaled.map(s=>s/sum);
-      const colors=['#00f0ff','#ffd700','#a855f7','#029e7d','#ff0055'];
-      probs.forEach((p,i)=>{const bH=p*(h-20);ctx.fillStyle=colors[i];ctx.fillRect(10+i*16,h-10-bH,14,bH);});
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`τ=${tau.toFixed(2)} sharpen`,115,h/2+4);
-    },
-    // 29. Contrastive Loss — pulling similar, pushing different embeddings
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const cx1=28,cy=h/2,cx2=62,sep=Math.sin(t*0.8)*10;
-      ctx.fillStyle='rgba(0,240,255,0.8)'; ctx.beginPath(); ctx.arc(cx1,cy,7,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='rgba(255,215,0,0.8)'; ctx.beginPath(); ctx.arc(cx2,cy+sep,7,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='rgba(255,0,85,0.75)'; ctx.beginPath(); ctx.arc(cx2,cy-20-sep,5,0,Math.PI*2); ctx.fill();
-      ctx.strokeStyle='rgba(0,240,255,0.55)'; ctx.lineWidth=1.5;
-      ctx.beginPath(); ctx.moveTo(cx1+7,cy); ctx.lineTo(cx2-7,cy+sep); ctx.stroke();
-      ctx.strokeStyle='rgba(255,0,85,0.4)'; ctx.setLineDash([2,2]);
-      ctx.beginPath(); ctx.moveTo(cx1,cy-7); ctx.lineTo(cx2,cy-27-sep); ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('Contrastive pull/push',115,h/2+4);
-    },
-    // 30. Swarm Convergence — 272M agents converging to centroid
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const n=12,cx=50,cy=h/2,decay=Math.max(0.05,1-t*0.04+Math.sin(t)*0.08);
-      for(let i=0;i<n;i++){
-        const theta=i/n*Math.PI*2, r=28*decay+3;
-        const x=cx+Math.cos(theta+t*0.3)*r, y=cy+Math.sin(theta+t*0.3)*r*0.55;
-        ctx.fillStyle=`hsl(${i*30+180},90%,65%)`;
-        ctx.beginPath(); ctx.arc(x,y,2.5,0,Math.PI*2); ctx.fill();
-        ctx.strokeStyle=`hsla(${i*30+180},90%,65%,0.2)`; ctx.lineWidth=0.5;
-        ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(cx,cy); ctx.stroke();
-      }
-      ctx.fillStyle='#ffd700'; ctx.beginPath(); ctx.arc(cx,cy,4,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('272M→centroid swarm',115,h/2+4);
-    },
-    // 31. STE (Straight-Through Estimator) — discrete vs continuous gradient
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      ctx.strokeStyle='rgba(255,255,255,0.2)'; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(10,h/2); ctx.lineTo(90,h/2); ctx.stroke();
-      ctx.strokeStyle='#ffd700'; ctx.lineWidth=2;
-      ctx.beginPath();
-      for(let x=10;x<90;x+=1){const xn=(x-50)*0.1;const y=h/2-Math.round(xn)*12;if(x===10)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
-      ctx.stroke();
-      ctx.strokeStyle='rgba(0,240,255,0.7)'; ctx.lineWidth=1.5; ctx.setLineDash([2,2]);
-      ctx.beginPath();
-      for(let x=10;x<90;x+=2){const xn=(x-50)*0.1;const y=h/2-xn*12;if(x===10)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
-      ctx.stroke(); ctx.setLineDash([]);
-      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
-      ctx.fillText('STE ∂round/∂x≈1',115,h/2+4);
-    },
-    // 32. Perplexity — cross-entropy loss decay curve
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      let loss=3.5; const path=[loss];
-      for(let i=1;i<30;i++){loss*=(1-0.08*(1+0.18*Math.sin(t+i*0.5)));path.push(Math.max(0.05,loss));}
-      ctx.fillStyle='rgba(255,0,85,0.1)';
-      ctx.beginPath(); ctx.moveTo(10,h-10);
-      path.forEach((v,i)=>{const x=10+i*2.5,y=h-10-Math.min(h-18,v*14);ctx.lineTo(x,y);})
-      ctx.lineTo(10+29*2.5,h-10); ctx.closePath(); ctx.fill();
-      ctx.strokeStyle='#ff0055'; ctx.lineWidth=1.8;
-      ctx.beginPath(); path.forEach((v,i)=>{const x=10+i*2.5,y=h-10-Math.min(h-18,v*14);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
-      ctx.fillStyle='#ff0055'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`PPL≈${Math.exp(path[path.length-1]).toFixed(1)}`,115,h/2+4);
-    },
-    // 33. Covariance — correlation scatter plot
-    (ctx, w, h, t) => {
-      ctx.clearRect(0, 0, w, h);
-      const n=20, corr=Math.sin(t*0.5)*0.9;
-      for(let i=0;i<n;i++){
-        const s=i*137.5, x1=Math.sin(s)*22, x2=Math.cos(s)*22;
-        const px=50+x1*0.8, py=h/2+(corr*x1+(1-Math.abs(corr))*x2)*0.6;
-        ctx.fillStyle='rgba(0,240,255,0.8)';
-        ctx.beginPath(); ctx.arc(px,py,2,0,Math.PI*2); ctx.fill();
-      }
-      ctx.fillStyle='rgba(255,215,0,0.12)';
-      ctx.beginPath(); ctx.ellipse(50,h/2,20*Math.abs(corr)+5,20*(1-Math.abs(corr)*0.5)+5,corr*Math.PI/4,0,Math.PI*2); ctx.fill();
-      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
-      ctx.fillText(`ρ=${corr.toFixed(2)} covariance`,115,h/2+4);
-    },
-    // 34. Multi-Head Attention — 32 parallel attention heads
+
+    // Multi-Head Attention — 32 parallel attention heads
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const heads=4, colors=['#00f0ff','#ffd700','#a855f7','#029e7d'];
@@ -15329,7 +15080,157 @@ function init35FormulaVisuals() {
       ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
       ctx.fillText('32-Head Attention',115,h/2+4);
     },
-    // 35. Information Bottleneck — encoder compression I(X;Z)≤I(X;Y)
+
+    // LayerNorm — raw vs normalized distribution
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const n=20, raw=[];
+      for(let i=0;i<n;i++) raw.push(Math.sin(t*2+i*0.7)*8+4);
+      const mean=raw.reduce((a,b)=>a+b)/n;
+      const std=Math.sqrt(raw.map(x=>(x-mean)**2).reduce((a,b)=>a+b)/n)+0.1;
+      ctx.strokeStyle='rgba(255,0,85,0.5)'; ctx.lineWidth=1;
+      ctx.beginPath(); raw.forEach((v,i)=>{const x=10+i*3.8,y=h/2-v*2;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
+      ctx.strokeStyle='#029e7d'; ctx.lineWidth=1.5;
+      ctx.beginPath(); raw.forEach((v,i)=>{const x=10+i*3.8,y=h/2-((v-mean)/std)*10;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
+      ctx.fillStyle='#029e7d'; ctx.font='9px JetBrains Mono';
+      ctx.fillText('LayerNorm μ≈0 σ≈1',115,h/2+4);
+    },
+
+    // Perplexity — cross-entropy loss decay curve
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      let loss=3.5; const path=[loss];
+      for(let i=1;i<30;i++){loss*=(1-0.08*(1+0.18*Math.sin(t+i*0.5)));path.push(Math.max(0.05,loss));}
+      ctx.fillStyle='rgba(255,0,85,0.1)';
+      ctx.beginPath(); ctx.moveTo(10,h-10);
+      path.forEach((v,i)=>{const x=10+i*2.5,y=h-10-Math.min(h-18,v*14);ctx.lineTo(x,y);})
+      ctx.lineTo(10+29*2.5,h-10); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle='#ff0055'; ctx.lineWidth=1.8;
+      ctx.beginPath(); path.forEach((v,i)=>{const x=10+i*2.5,y=h-10-Math.min(h-18,v*14);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}); ctx.stroke();
+      ctx.fillStyle='#ff0055'; ctx.font='9px JetBrains Mono';
+      ctx.fillText(`PPL≈${Math.exp(path[path.length-1]).toFixed(1)}`,115,h/2+4);
+    },
+
+    // LoRA Low-Rank — rank-r decomposition glow
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const pulse=(Math.sin(t*3)+1)*0.5;
+      for(let r=0;r<4;r++) for(let c=0;c<4;c++){
+        ctx.fillStyle='rgba(0,240,255,0.12)'; ctx.strokeStyle='rgba(0,240,255,0.25)'; ctx.lineWidth=0.8;
+        ctx.fillRect(8+c*13,8+r*12,11,10); ctx.strokeRect(8+c*13,8+r*12,11,10);
+      }
+      ctx.fillStyle=`rgba(255,215,0,${0.15+pulse*0.25})`;
+      ctx.strokeStyle=`rgba(255,215,0,${0.4+pulse*0.5})`; ctx.lineWidth=1.2;
+      ctx.fillRect(62,8,10,48); ctx.strokeRect(62,8,10,48);
+      ctx.fillRect(76,8,52,10); ctx.strokeRect(76,8,52,10);
+      ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
+      ctx.fillText('ΔW=A·B rank=24',115,h/2+4);
+    },
+
+    // Cosine Similarity — angle between embedding vectors
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const cx=50,cy=h/2,len=30;
+      const a=0.2, b=a+Math.sin(t*0.8)*1.2;
+      ctx.strokeStyle='#029e7d'; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(a)*len,cy-Math.sin(a)*len); ctx.stroke();
+      ctx.strokeStyle='#ffd700'; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(cx+Math.cos(b)*len,cy-Math.sin(b)*len); ctx.stroke();
+      ctx.strokeStyle='rgba(0,240,255,0.5)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.arc(cx,cy,11,-(a+0.1),-(b-0.1),b>a); ctx.stroke();
+      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
+      ctx.fillText(`cosine=${Math.cos(b-a).toFixed(2)}`,115,h/2+4);
+    },
+
+    // FlashAttention IO
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h); const B=4;
+      for(let i=0;i<B;i++)for(let j=0;j<B;j++){
+        const on=(i+j+Math.floor(t*2))%B===0;
+        ctx.fillStyle=on?'rgba(255,215,0,.85)':'rgba(0,240,255,.25)';ctx.fillRect(16+i*22,16+j*22,18,18);}
+      ctx.strokeStyle='#00f0ff';ctx.strokeRect(16,16,88,88);
+      ctx.fillStyle='#fff';ctx.font='9px JetBrains Mono';ctx.fillText('Q/K/V tiles in SRAM',118,h/2-6);
+      ctx.fillStyle='#ffd700';ctx.fillText('O(N²d²/M)',118,h/2+10);
+    },
+
+    // RoPE — rotating positional embedding vectors
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const cx=50,cy=h/2;
+      for(let pos=0;pos<6;pos++){
+        const theta=pos*0.5+t*0.4, r=18+pos*2.5;
+        const x=cx+Math.cos(theta)*r*0.9, y=cy+Math.sin(theta)*r*0.55;
+        ctx.strokeStyle=`hsl(${pos*40+180},100%,65%)`; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x,y); ctx.stroke();
+        ctx.fillStyle=`hsl(${pos*40+180},100%,65%)`;
+        ctx.beginPath(); ctx.arc(x,y,2.5,0,Math.PI*2); ctx.fill();
+      }
+      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
+      ctx.fillText('RoPE pos encoding',115,h/2+4);
+    },
+
+    // GQA
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      for(let g=0;g<2;g++){
+        ctx.fillStyle='#a855f7';ctx.fillRect(18,18+g*46,46,34);
+        ctx.fillStyle='#fff';ctx.font='9px JetBrains Mono';ctx.fillText('K,V'+g,26,38+g*46);
+        for(let i=0;i<3;i++){const y=18+g*46+i*11;
+          ctx.strokeStyle='rgba(0,240,255,.8)';ctx.beginPath();ctx.moveTo(64,y+4);ctx.lineTo(108,y+4);ctx.stroke();
+          ctx.fillStyle='#00f0ff';ctx.fillRect(108,y+1,34,7);}}
+      ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('r Q heads → 1 KV',150,h/2);
+    },
+
+    // GELU
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(255,255,255,.15)';
+      ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.stroke();
+      ctx.strokeStyle='#00f0ff';ctx.lineWidth=2;ctx.beginPath();
+      for(let i=0;i<120;i++){const x=-4+i*8/120;
+        const phi=0.5*(1+Math.sign(x)*Math.sqrt(1-Math.exp(-2*x*x/Math.PI)))/2+0.5;
+        const px=w/2+x*22,py=h/2-x*phi*7;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+      ctx.stroke();ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('x·Φ(x)',150,16);
+    },
+
+    // PPO Clip
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(255,255,255,.15)';
+      ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+      ctx.strokeStyle='#00f0ff';ctx.lineWidth=2;ctx.beginPath();
+      for(let i=0;i<=120;i++){const r=-1+i*2/120,cl=Math.max(0.8,Math.min(1.2,r));
+        const px=i*w/120,py=h/2-Math.min(r,cl)*40;i?ctx.lineTo(px,py):ctx.moveTo(px,py);}
+      ctx.stroke();ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('clip(r,1-ε,1+ε)',12,16);
+    },
+
+    // DPO
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      const c=40+Math.sin(t)*12+22,r=40-Math.sin(t)*12-22;
+      ctx.fillStyle='rgba(0,255,136,.75)';ctx.fillRect(18,h-10-c,32,c);
+      ctx.fillStyle='rgba(255,95,115,.75)';ctx.fillRect(70,h-10-r,32,r);
+      ctx.fillStyle='#fff';ctx.font='9px JetBrains Mono';ctx.fillText('chosen',14,h-2);ctx.fillText('rejected',66,h-2);
+      ctx.fillStyle='#ffd700';ctx.fillText('σ(β log π/πref)',128,h/2);
+    },
+
+    // Diffusion Forward
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      for(let s=0;s<6;s++){const x=14+s*30,n=s*3;
+        ctx.fillStyle='rgba(0,240,255,.4)';ctx.fillRect(x,30,24,44);
+        for(let k=0;k<n;k++){ctx.fillStyle='#ffd700';ctx.fillRect(x+((k*13)%22),32+((k*19)%40),3,3);}}
+      ctx.fillStyle='#fff';ctx.font='10px JetBrains Mono';ctx.fillText('x_t = √(1-β)x + ε',195,h/2);
+    },
+
+    // Diffusion Reverse
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      for(let s=5;s>=0;s--){const x=14+(5-s)*30,n=s*3;
+        ctx.fillStyle='rgba(168,85,247,.4)';ctx.fillRect(x,30,24,44);
+        for(let k=0;k<n;k++){ctx.fillStyle='#ffd700';ctx.fillRect(x+((k*11)%22),32+((k*17)%40),2,2);}}
+      ctx.fillStyle='#fff';ctx.font='10px JetBrains Mono';ctx.fillText('μθ(x_t,t) → x_{t-1}',195,h/2);
+    },
+
+    // Information Bottleneck — encoder compression I(X;Z)≤I(X;Y)
     (ctx, w, h, t) => {
       ctx.clearRect(0, 0, w, h);
       const bottleneck=8+Math.sin(t*0.8)*3;
@@ -15348,7 +15249,67 @@ function init35FormulaVisuals() {
       ctx.beginPath();ctx.moveTo(46+bottleneck,h/2);ctx.lineTo(78,h/2);ctx.stroke();
       ctx.fillStyle='#ffd700'; ctx.font='9px JetBrains Mono';
       ctx.fillText('IB I(X;Z)≤I(X;Y)',115,h/2+4);
-    }
+    },
+
+    // SwiGLU
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);
+      for(let i=0;i<8;i++){const x=16+i*22,a=8+18*Math.abs(Math.sin(t+i*0.5)),b=6+14*Math.abs(Math.cos(t+i*0.7));
+        ctx.fillStyle='rgba(0,240,255,.4)';ctx.fillRect(x,h/2-a,8,a*2);
+        ctx.fillStyle='rgba(255,215,0,.6)';ctx.fillRect(x+10,h/2-b,8,b*2);}
+      ctx.fillStyle='#fff';ctx.font='10px JetBrains Mono';ctx.fillText('Swish(xW) ⊙ xV',205,h/2);
+    },
+
+    // Dropout — random node masking with X markers
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const rows=3,cols=5;
+      for(let i=0;i<rows*cols;i++){
+        const r=Math.floor(i/cols),c=i%cols;
+        const alive=Math.sin(t*5+i*2.7)>0;
+        ctx.fillStyle=alive?'#00f0ff':'rgba(255,0,85,0.15)';
+        ctx.beginPath(); ctx.arc(15+c*15,12+r*14,4.5,0,Math.PI*2); ctx.fill();
+        if(!alive){
+          ctx.strokeStyle='rgba(255,0,85,0.6)'; ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(11+c*15,8+r*14); ctx.lineTo(19+c*15,16+r*14); ctx.stroke();
+          ctx.beginPath(); ctx.moveTo(19+c*15,8+r*14); ctx.lineTo(11+c*15,16+r*14); ctx.stroke();
+        }
+      }
+      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
+      ctx.fillText('Dropout p=0.4 mask',115,h/2+4);
+    },
+
+    // Weight Decay
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(255,255,255,.15)';
+      ctx.beginPath();ctx.moveTo(w/2,0);ctx.lineTo(w/2,h);ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();
+      for(let i=0;i<9;i++){const rr=1-i*0.1;
+        const x=w/2+60*rr*Math.cos(i+t*0.3),y=h/2+30*rr*Math.sin(i+t*0.3);
+        ctx.fillStyle=`rgba(0,240,255,${0.3+0.7*rr})`;ctx.beginPath();ctx.arc(x,y,3,0,7);ctx.fill();}
+      ctx.fillStyle='#ffd700';ctx.font='10px JetBrains Mono';ctx.fillText('L0 + λ||w||²/2',12,16);
+    },
+
+    // Grad Clip
+    (ctx, w, h, t) => {
+      ctx.clearRect(0,0,w,h);const L=30+Math.sin(t)*28;
+      ctx.strokeStyle='rgba(255,255,255,.2)';ctx.beginPath();ctx.arc(45,h/2,30,0,7);ctx.stroke();
+      ctx.strokeStyle='#ffd700';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(45,h/2);ctx.lineTo(45+L,h/2-24);ctx.stroke();
+      const Lc=Math.min(L,30);ctx.strokeStyle='#00f0ff';ctx.beginPath();ctx.moveTo(45,h/2);ctx.lineTo(45+Lc,h/2-24*Lc/L);ctx.stroke();
+      ctx.fillStyle='#fff';ctx.font='9px JetBrains Mono';ctx.fillText('g·min(1,c/||g||)',125,h/2);
+    },
+
+    // Temperature Scaling — sharpening/flattening logits
+    (ctx, w, h, t) => {
+      ctx.clearRect(0, 0, w, h);
+      const tau=0.4+Math.abs(Math.sin(t*0.8))*2.2;
+      const logits=[2.5,1,-0.5,1.8,-1];
+      const scaled=logits.map(l=>Math.exp(l/tau));
+      const sum=scaled.reduce((a,b)=>a+b), probs=scaled.map(s=>s/sum);
+      const colors=['#00f0ff','#ffd700','#a855f7','#029e7d','#ff0055'];
+      probs.forEach((p,i)=>{const bH=p*(h-20);ctx.fillStyle=colors[i];ctx.fillRect(10+i*16,h-10-bH,14,bH);});
+      ctx.fillStyle='#00f0ff'; ctx.font='9px JetBrains Mono';
+      ctx.fillText(`τ=${tau.toFixed(2)} sharpen`,115,h/2+4);
+    },
   ];
 
   // Initialize each formula canvas with its dedicated unique visualizer
@@ -16111,25 +16072,81 @@ function openArtworkLightbox(src, title, tag) {
     window.playFromEmbedded = playFromEmbedded;
 
 
-    // ===== THREE SIMULTANEOUS REAL-MODEL VIEWERS =====
-    function initModelTransparency() {
-      const host=document.getElementById('modelViewers'); if (!host || typeof MODEL_MANIFEST==='undefined') return;
-      host.innerHTML=Object.keys(MODEL_MANIFEST).map(k=>{
-        const m=MODEL_MANIFEST[k], c=m.config;
-        const layers=m.layers.map(l=>
-          `<div style="padding:5px 8px;border-left:2px solid ${k==='mini'?'#ffd700':k==='dragon'?'#a855f7':'#00f0ff'};background:rgba(255,255,255,.03);margin-bottom:4px;">`+
-          `<span style="font-family:'JetBrains Mono';font-size:10px;color:#fff;">${l.name}</span> `+
-          `<span style="font-size:9px;color:#8de4ff;">q ${l.tensors[0].s.join('×')} · k ${l.tensors[1].s.join('×')} · ff ${l.tensors[4].s.join('×')}</span></div>`).join('');
-        return `<div class="card" style="padding:12px;border:1px solid ${k==='mini'?'#ffd70055':k==='dragon'?'#a855f755':'#00f0ff55'};max-height:620px;overflow:hidden;display:flex;flex-direction:column;">`+
-          `<div style="font-family:'Orbitron';font-size:14px;color:#fff;margin-bottom:4px;">${m.name}</div>`+
-          `<div style="font-size:10px;color:#8de4ff;margin-bottom:6px;">${c.architectures?.[0]||c.model_type} · ${m.note}</div>`+
-          `<div style="font-size:10px;color:#94a3b8;margin-bottom:8px;">${c.num_hidden_layers}L · ${c.hidden_size}h · ${c.num_attention_heads}H/${c.num_key_value_heads}KV · FFN ${c.intermediate_size} · vocab ${c.vocab_size} · ${(m.total_params/1e9).toFixed(2)}B</div>`+
-          `<div style="font-size:9px;color:#666;margin-bottom:8px;">${m.file}</div>`+
-          `<div style="overflow-y:auto;flex:1;">${layers}</div></div>`;
-      }).join('');
+    // ===== THREE REAL 3D MODEL TRANSPARENCY VIEWERS =====
+    let __modelViews = [], __modelsActive = false, __modelRaf = 0;
+    function modelLabel(text, color) {
+      const c=document.createElement('canvas'); c.width=384; c.height=64;
+      const x=c.getContext('2d'); x.fillStyle='rgba(3,7,16,.8)'; x.fillRect(0,0,384,64);
+      x.strokeStyle=color; x.lineWidth=2; x.strokeRect(2,2,380,60);
+      x.fillStyle=color; x.font='bold 22px Orbitron,monospace'; x.textAlign='center'; x.textBaseline='middle';
+      x.fillText(text,192,34);
+      const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false}));
+      sp.scale.set(4.2,0.7,1); return sp;
     }
+    function buildModelView(panel) {
+      const key=panel.dataset.model, m=MODEL_MANIFEST[key], c=m.config;
+      const canvas=panel.querySelector('canvas');
+      panel.querySelector('.model3d-spec').innerText =
+        `${c.architectures?.[0]||c.model_type} · ${c.num_hidden_layers}L · ${c.hidden_size}h · ${c.num_attention_heads}H/${c.num_key_value_heads}KV · FFN ${c.intermediate_size} · ${(m.total_params/1e9).toFixed(2)}B · ${m.file}`;
+      const color=key==='mini'?0xffd700:key==='dragon'?0xa855f7:0x00f0ff;
+      const scene=new THREE.Scene(); scene.background=new THREE.Color(0x030812);
+      const cam=new THREE.PerspectiveCamera(42,canvas.clientWidth/canvas.clientHeight,0.1,200);
+      cam.position.set(8,6,14);
+      const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
+      renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
+      renderer.setSize(canvas.clientWidth,canvas.clientHeight,false);
+      const root=new THREE.Group(); scene.add(root);
+      const h=c.hidden_size, ff=c.intermediate_size, L=m.layers.length;
+      // Embedding slab at the start
+      const emb=new THREE.Mesh(new THREE.BoxGeometry(3.2,0.35,2.2),
+        new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.22,wireframe:true}));
+      emb.position.y=-L*0.32-1.2; root.add(emb);
+      const el=modelLabel(`EMBED ${c.vocab_size}×${h}`,'#'+color.toString(16).padStart(6,'0'));
+      el.position.set(0,-L*0.32-1.2,2.4); root.add(el);
+      // Real layer count: one translucent slab per checkpoint layer
+      m.layers.forEach((layer,i)=>{
+        const y=-L*0.32+i*0.64;
+        const width=1.5+(h/2048)*1.8;
+        const slab=new THREE.Mesh(new THREE.BoxGeometry(width,0.42,1.9),
+          new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.18+0.12*(i%3===0),wireframe:true}));
+        slab.position.y=y; root.add(slab);
+        // attention heads as nodes across the slab
+        const heads=Math.min(c.num_attention_heads,12);
+        for(let k=0;k<heads;k++){
+          const x=-width/2+(k+0.5)*(width/heads);
+          const dot=new THREE.Mesh(new THREE.SphereGeometry(0.055,8,8),new THREE.MeshBasicMaterial({color}));
+          dot.position.set(x,y,0.98); root.add(dot);
+        }
+        if(i===0||i===Math.floor(L/2)||i===L-1){
+          const lb=modelLabel(`L${i}: q${layer.tensors[0].s.join('×')} ffn${layer.tensors[4].s.join('×')}`,'#'+color.toString(16).padStart(6,'0'));
+          lb.position.set(0,y,2.3); root.add(lb);
+        }
+      });
+      // final norm + head
+      const out=new THREE.Mesh(new THREE.BoxGeometry(3.2,0.35,2.2),
+        new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.3,wireframe:true}));
+      out.position.y=L*0.32+1.2; root.add(out);
+      const ol=modelLabel(`HEAD ${h}×${c.vocab_size}`,'#'+color.toString(16).padStart(6,'0'));
+      ol.position.set(0,L*0.32+1.2,2.4); root.add(ol);
+      // data-flow line through the stack
+      const pts=[new THREE.Vector3(0,-L*0.32-1.2,0),new THREE.Vector3(0,L*0.32+1.2,0)];
+      root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),
+        new THREE.LineBasicMaterial({color,transparent:true,opacity:0.7})));
+      let drag=null;
+      canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};canvas.setPointerCapture(e.pointerId);});
+      canvas.addEventListener('pointermove',e=>{if(!drag)return;root.rotation.y+=(e.clientX-drag.x)*0.01;root.rotation.x+=(e.clientY-drag.y)*0.006;drag={x:e.clientX,y:e.clientY};});
+      canvas.addEventListener('pointerup',()=>drag=null);
+      __modelViews.push({root,renderer,scene,cam,key});
+    }
+    function initModelTransparency() {
+      if (__modelViews.length || typeof THREE==='undefined' || typeof MODEL_MANIFEST==='undefined') return;
+      document.querySelectorAll('.model3d-panel').forEach(buildModelView);
+      function loop(){ if(__modelsActive) __modelViews.forEach(v=>{v.root.rotation.y+=0.003;v.renderer.render(v.scene,v.cam);}); __modelRaf=requestAnimationFrame(loop); }
+      loop();
+    }
+    function setModelsActive(on){ __modelsActive=on; }
     window.initModelTransparency=initModelTransparency;
-
+    window.setModelsActive=setModelsActive;
     function initMediaUpgrade() {
       const ft = document.getElementById('floatingTracklist');
       const body = document.getElementById('ftBody');
@@ -16253,7 +16270,6 @@ function openArtworkLightbox(src, title, tag) {
 
     window.addEventListener('DOMContentLoaded', () => {
       try { initMediaUpgrade(); } catch (e) { console.warn('[Player] init failed:', e); }
-      try { initModelTransparency(); } catch (e) { console.warn('[Models] init failed:', e); }
       try { filterConceptCat('concept'); } catch (e) {}
       // ── Math formula visuals ──
       try { initMathTheoremVisuals(); } catch(e) { console.warn('[Init] initMathTheoremVisuals failed:', e); }
