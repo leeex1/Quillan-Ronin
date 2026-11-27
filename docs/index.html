@@ -10209,8 +10209,6 @@ function handleConceptImgError(img) {
           </div>
 
           <form id="svcRequestForm" onsubmit="handleServiceFormSubmit(event)" style="display:flex; flex-direction:column; gap:18px;">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_subject" value="Quillan-Ronin Project Request">
             <!-- 1. Contact Information Row -->
             <div class="grid-3" style="gap:14px;">
               <div>
@@ -10308,7 +10306,7 @@ function handleConceptImgError(img) {
             <!-- 5. Submit Button -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
               <div style="font-size:11.5px; color:#94a3b8; font-family:'JetBrains Mono';">
-                🔒 Direct dispatch via FormSubmit to <strong style="color:#ffd700;">jdxleex@gmail.com</strong> · Zero third-party fees
+                🔒 Direct email via your mail app to <strong style="color:#ffd700;">jdxleex@gmail.com</strong> · No third-party relay
               </div>
               <button type="submit" class="btn btn-primary" style="padding:12px 28px; font-size:13px; font-weight:700; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
                 <span>⚡</span> <span>Transmit Project Request</span>
@@ -10321,12 +10319,12 @@ function handleConceptImgError(img) {
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
               <div style="display:flex; align-items:center; gap:10px;">
                 <span style="font-size:20px;">✅</span>
-                <h4 style="font-family:'Orbitron'; font-size:16px; color:#00ff88; margin:0;">Transmission Delivered</h4>
+                <h4 style="font-family:'Orbitron'; font-size:16px; color:#00ff88; margin:0;">Email Draft Opened</h4>
               </div>
               <span id="svcReceiptId" class="badge" style="color:var(--accent-green); border-color:var(--accent-green); font-family:'JetBrains Mono';">RONIN-SVC-####</span>
             </div>
             <p style="font-size:13px; color:#cbd5e1; line-height:1.6; margin-bottom:14px;">
-              Thank you! Your project scope has been dispatched to <strong>jdxleex@gmail.com</strong>. A formal confirmation and architectural review estimate will be sent back to your email (<span id="svcReceiptEmail" style="color:#00f0ff;">you@domain.com</span>) within <strong>2 to 4 hours</strong>.
+              Your mail app should now contain a pre-filled message. Press <strong>Send</strong> there to deliver it directly to <strong>jdxleex@gmail.com</strong>. No third-party service handles your request. Reply-to: <span id="svcReceiptEmail" style="color:#00f0ff;">you@domain.com</span>.
             </p>
             <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
               <a href="https://discord.gg/PSRMcJE" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-size:11px; padding:6px 14px; border-color:#5865F2; color:#5865F2;">
@@ -12492,66 +12490,40 @@ function inspectNFT(id) {
 }
 
     
-    async function handleServiceFormSubmit(event) {
-      event.preventDefault();
-      const form = event.currentTarget;
-      const btn = form.querySelector('button[type="submit"]');
-      const originalLabel = btn ? btn.innerHTML : '';
-      const receipt = document.getElementById('svcConfirmReceipt');
-      const errBox = document.getElementById('svcErrorNotice');
-      const name = document.getElementById('svcClientName').value.trim();
-      const email = document.getElementById('svcClientEmail').value.trim();
-      const handle = document.getElementById('svcClientHandle').value.trim();
-      const timeline = document.getElementById('svcTimeline').value;
-      const desc = document.getElementById('svcDescription').value.trim();
-      const selectedServices = [];
-      document.querySelectorAll('input[name="svcChoice"]:checked').forEach(cb => selectedServices.push(cb.value));
-      const servicesText = selectedServices.length > 0 ? selectedServices.join(', ') : 'Custom Scope';
-      const refId = 'RONIN-SVC-' + Math.floor(1000 + Math.random() * 9000);
-      receipt.style.display = 'none'; errBox.style.display = 'none';
-      if (btn) { btn.disabled = true; btn.innerHTML = '<span>◌</span> <span>Transmitting…</span>'; }
-
-      const payload = new FormData(form);
-      payload.set('_subject', '[' + refId + '] Project Request: ' + name + ' - ' + servicesText);
-      payload.set('_replyto', email);
-      payload.set('reference_id', refId);
-      payload.set('submitted_from', location.href);
-      payload.set('selected_services', servicesText);
-      payload.set('target_timeline', timeline);
-      const mailto = 'mailto:jdxleex@gmail.com?subject=' + encodeURIComponent('[' + refId + '] Project Request: ' + name) +
-        '&body=' + encodeURIComponent('Reference: ' + refId + '\nName: ' + name + '\nEmail: ' + email +
-        '\nServices: ' + servicesText + '\nTimeline: ' + timeline + '\n\n' + desc);
-
-      try {
-        const ctrl = new AbortController();
-        const timer = setTimeout(() => ctrl.abort(), 15000);
-        let res;
-        try {
-          res = await fetch('https://formsubmit.co/ajax/jdxleex@gmail.com', {
-            method: 'POST', body: payload, headers: { 'Accept': 'application/json' }, signal: ctrl.signal
-          });
-        } finally { clearTimeout(timer); }
-        let data = {};
-        try { data = await res.json(); } catch (e) { /* non-JSON response */ }
-        const rejected = data && typeof data.success === 'string' && data.success.toLowerCase() === 'no';
-        if (!res.ok || rejected) throw new Error('form endpoint rejected the submission');
-        document.getElementById('svcReceiptId').innerText = refId;
-        document.getElementById('svcReceiptEmail').innerText = email;
-        receipt.style.display = 'block';
-        receipt.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        form.reset();
-      } catch (err) {
-        document.getElementById('svcErrorText').textContent =
-          'The delivery endpoint could not be reached (' + (err && err.name === 'AbortError' ? 'timeout' : 'network error') +
-          '). Your message was not sent. You can retry, or open a pre-filled email draft below.';
-        document.getElementById('svcErrorMailto').href = mailto;
-        errBox.style.display = 'block';
-        errBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } finally {
-        if (btn) { btn.disabled = false; btn.innerHTML = originalLabel; }
-      }
+    function buildServiceMailto(){
+      const name=document.getElementById('svcClientName').value.trim();
+      const email=document.getElementById('svcClientEmail').value.trim();
+      const handle=document.getElementById('svcClientHandle').value.trim();
+      const timeline=document.getElementById('svcTimeline').value;
+      const desc=document.getElementById('svcDescription').value.trim();
+      const selected=[];
+      document.querySelectorAll('input[name="svcChoice"]:checked').forEach(cb=>selected.push(cb.value));
+      const services=selected.length?selected.join(', '):'Custom Scope';
+      const refId='RONIN-SVC-'+Math.floor(1000+Math.random()*9000);
+      const subject='['+refId+'] Project Request: '+name+' - '+services;
+      const body='Quillan-Ronin Engineering Commission Request\n'+
+        'Reference ID: '+refId+'\n----------------------------------------\n'+
+        'Client Name: '+name+'\nContact Email: '+email+'\nHandle (Discord/X): '+(handle||'N/A')+'\n'+
+        'Selected Services:\n'+(selected.map(x=>'  • '+x).join('\n')||'  • Custom Scope')+'\n'+
+        'Target Timeline: '+timeline+'\n\nProject Description & Requirements:\n'+desc+'\n\n'+
+        '----------------------------------------\nTransmitted via Quillan-Ronin Sovereign Portal';
+      return {href:'mailto:jdxleex@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body),refId:refId,email:email};
     }
-
+    function handleServiceFormSubmit(event){
+      event.preventDefault();
+      const draft=buildServiceMailto();
+      window.__lastServiceMailto=draft.href;
+      document.getElementById('svcReceiptId').innerText=draft.refId;
+      document.getElementById('svcReceiptEmail').innerText=draft.email;
+      const receipt=document.getElementById('svcConfirmReceipt');
+      receipt.style.display='block';
+      const err=document.getElementById('svcErrorNotice');if(err)err.style.display='none';
+      receipt.scrollIntoView({behavior:'smooth',block:'center'});
+      // Open the visitor's own mail app with everything pre-filled.
+      const a=document.createElement('a');a.href=draft.href;a.style.display='none';
+      document.body.appendChild(a);a.click();a.remove();
+    }
+    window.buildServiceMailto=buildServiceMailto;
     function openOrderModal(serviceName, price) {
       document.getElementById('orderServiceName').innerText = serviceName;
       document.getElementById('orderServicePrice').innerText = price;
