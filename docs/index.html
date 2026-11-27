@@ -15508,12 +15508,18 @@ function init35FormulaVisuals() {
     const ctx=cvs.getContext('2d');
     let t=0;
     const fn=fns[id-1]; // each canvas gets its own unique function
-    const animFrame=()=>{t+=0.025;fn(ctx,cvs.width,cvs.height,t);};
-    if(typeof observeCanvasVisibility==='function'){
-      observeCanvasVisibility(`fCanvas_${id}`,animFrame);
-    } else {
-      setInterval(animFrame,33);
-    }
+    const animFrame=()=>{
+      // Visibility-gated self-scheduling: offscreen canvases idle at ~4fps,
+      // visible ones animate at display rate. Fixes canvases whose
+      // IntersectionObserver never fired after a hidden tab became active.
+      if (!window.__qrCanvasActive || !window.__qrCanvasActive(`fCanvas_${id}`)) {
+        setTimeout(function(){ requestAnimationFrame(animFrame); }, 250);
+        return;
+      }
+      t+=0.025; fn(ctx,cvs.width,cvs.height,t);
+      requestAnimationFrame(animFrame);
+    };
+    requestAnimationFrame(animFrame);
   }
 }
 
