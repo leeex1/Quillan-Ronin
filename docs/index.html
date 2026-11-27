@@ -681,7 +681,8 @@ function handleConceptImgError(img) {
           <div class="brand-title">QUILLAN-RONIN v5.4.0-oni</div>
           <div style="font-family:'JetBrains Mono'; font-size:10px; color:var(--accent-green); letter-spacing:0.5px;">● SOVEREIGN RECURSIVE CONSCIOUSNESS</div>
         </div>
-      </div>
+      
+            </div>
 
       <div class="header-controls">
         <div style="display:flex; align-items:center; gap:8px;">
@@ -3997,7 +3998,9 @@ function handleConceptImgError(img) {
           <div id="stageSpec" style="font-size:11px;color:#8de4ff;padding:8px 4px;"></div>
         </div>
       </div>
-</section>
+
+      <div id="modelCompare" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;"></div>
+      </section>
 
             <!-- ========================================== -->
       <!-- TAB 8: 👑 SOVEREIGN NFT & ARTWORK VAULT   -->
@@ -13778,7 +13781,7 @@ function handleConceptImgError(img) {
         }
         if (tabId === 'nnvis') {
           try { initModelTransparency(); } catch (e) { console.warn('[Models] init failed:', e); }
-          [__stage].filter(Boolean).forEach(v => {
+          [__stage,...(__compares||[])].filter(Boolean).forEach(v => {
             const c=v.renderer.domElement, w=c.clientWidth||340, h=c.clientHeight||380;
             v.renderer.setSize(w,h,false); v.cam.aspect=w/h; v.cam.updateProjectionMatrix();
           });
@@ -16067,7 +16070,7 @@ function openArtworkLightbox(src, title, tag) {
 
 
     // ===== SELECTABLE STAGE + THREE COMPARISON VIEWERS =====
-    let __stage=null, __modelsActive=false, __modelRaf=0, __stageKey='oni';
+    let __stage=null, __compares=[], __modelsActive=false, __modelRaf=0, __stageKey='oni';
     function mLabel(text,color){
       const c=document.createElement('canvas');c.width=512;c.height=64;const x=c.getContext('2d');
       x.fillStyle='rgba(3,7,16,.82)';x.fillRect(0,0,512,64);x.strokeStyle=color;x.lineWidth=2;x.strokeRect(2,2,508,60);
@@ -16090,7 +16093,7 @@ function openArtworkLightbox(src, title, tag) {
       const span=compact?0.42:0.72, width=compact?2.6:4.4;
       const emb=new THREE.Mesh(new THREE.BoxGeometry(width,0.5,2.6),new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.25,wireframe:true}));
       emb.position.y=-L*span-1.4;root.add(emb);
-      const el=mLabel(`TOKENIZE → EMBED ${c.vocab_size}×${h}`,hex);el.position.set(0,-L*span-1.4,3);root.add(el);
+      const el=mLabel(`PROMPT → TOKENIZE → EMBED ${c.vocab_size}×${h}`,hex);el.position.set(0,-L*span-1.4,3);root.add(el);
       m.layers.forEach((l,i)=>{
         const y=-L*span+i*span;
         const slab=new THREE.Mesh(new THREE.BoxGeometry(width,0.42,2.2),new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.2,wireframe:true}));
@@ -16101,14 +16104,16 @@ function openArtworkLightbox(src, title, tag) {
           const dot=new THREE.Mesh(new THREE.SphereGeometry(compact?0.05:0.07,8,8),new THREE.MeshBasicMaterial({color}));
           dot.position.set(x,y,1.15);root.add(dot);
         }
-        if(!compact&&(i===0||i===Math.floor(L/2)||i===L-1)){
-          const lb=mLabel(`L${i}: q${l.tensors[0].s.join('×')} · ffn${l.tensors[4].s.join('×')}`,hex);
-          lb.position.set(0,y,2.8);root.add(lb);
+        if(i%1===0){
+          const lb=mLabel(`L${i}  q${l.tensors[0].s.join('×')}  ffn${l.tensors[4].s.join('×')}`,hex);
+          lb.scale.set(compact?3.4:4.2,compact?0.42:0.6,1);
+          lb.position.set((i%2?1:-1)*(compact?2.9:3.9),y,compact?1.6:2.4);
+          root.add(lb);
         }
       });
       const head=new THREE.Mesh(new THREE.BoxGeometry(width,0.5,2.6),new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.3,wireframe:true}));
       head.position.y=L*span+1.4;root.add(head);
-      const hl=mLabel(`MOE GATE → LOGITS ${h}×${c.vocab_size}`,hex);hl.position.set(0,L*span+1.4,3);root.add(hl);
+      const hl=mLabel(`34-EXPERT MOE GATE → OUTPUT LOGITS ${h}×${c.vocab_size}`,hex);hl.position.set(0,L*span+1.4,3);root.add(hl);
       const pts=[new THREE.Vector3(0,-L*span-1.4,0),new THREE.Vector3(0,L*span+1.4,0)];
       root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color,transparent:true,opacity:0.8})));
       // token-flow particles
@@ -16138,11 +16143,19 @@ function openArtworkLightbox(src, title, tag) {
       document.getElementById('stagePicker').innerHTML=Object.keys(MODEL_MANIFEST).map(k=>
         `<button data-model="${k}" class="btn btn-secondary" style="padding:8px 14px;" onclick="selectModel('${k}')">${MODEL_MANIFEST[k].name}</button>`).join('');
 
+      document.getElementById('modelCompare').innerHTML=Object.keys(MODEL_MANIFEST).map(k=>{
+        const m=MODEL_MANIFEST[k],c=m.config;
+        return `<div class="card" style="padding:6px;border:1px solid ${k==='mini'?'#ffd70055':k==='dragon'?'#a855f755':'#00f0ff55'};">`+
+          `<div style="font-family:'Orbitron';font-size:11px;color:#fff;padding:4px;">${m.name}</div>`+
+          `<canvas class="cmp-canvas" data-model="${k}" style="width:100%;height:200px;display:block;"></canvas>`+
+          `<div style="font-size:9px;color:#8de4ff;padding:4px;line-height:1.5;">${c.num_hidden_layers} layers · ${c.hidden_size} hidden · ${c.num_attention_heads} heads · FFN ${c.intermediate_size}<br>${(m.total_params/1e9).toFixed(2)}B params · dense 34 experts</div></div>`;
+      }).join('');
+      document.querySelectorAll('.cmp-canvas').forEach(cv=>__compares.push(buildScene(cv,cv.dataset.model,true)));
       selectModel(__stageKey);
 
       function loop(){
         if(__modelsActive){
-          const all=[__stage].filter(Boolean);
+          const all=[__stage,...__compares].filter(Boolean);
           all.forEach(v=>{
             v.tokens.forEach(p=>{p.userData.phase=(p.userData.phase+p.userData.speed)%1;
               p.position.set(0,-v.L*v.span-1.4+p.userData.phase*(2*v.L*v.span+2.8),0);});
