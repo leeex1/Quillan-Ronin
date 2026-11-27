@@ -1408,7 +1408,6 @@ function handleConceptImgError(img) {
         <div class="card" style="border:1px solid #00f0ff55;padding:14px;"><span class="badge" style="color:#00f0ff;border-color:#00f0ff;">SOVEREIGN ONI</span><h3 style="font-family:'Orbitron';font-size:15px;color:#fff;margin:8px 0 4px;">Quillan Oni</h3><p style="font-size:12px;color:var(--text-muted);">16 layers · 2048 hidden · ~1B · dense 34-council pull</p></div>
         <div class="card" style="border:1px solid #ffd70055;padding:14px;"><span class="badge" style="color:#ffd700;border-color:#ffd700;">EDGE MINI</span><h3 style="font-family:'Orbitron';font-size:15px;color:#fff;margin:8px 0 4px;">Quillan Mini</h3><p style="font-size:12px;color:var(--text-muted);">24 layers · 896 hidden · ~0.7B · 4GB VRAM edge build</p></div>
         <div class="card" style="border:1px solid #a855f755;padding:14px;"><span class="badge" style="color:#a855f7;border-color:#a855f7;">DRAGON CLASS</span><h3 style="font-family:'Orbitron';font-size:15px;color:#fff;margin:8px 0 4px;">Quillan Dragon</h3><p style="font-size:12px;color:var(--text-muted);">18 layers · 2048 hidden · 1B+ · sovereign system persona</p></div>
-        <div class="card" style="border:1px solid #00ff8855;padding:14px;display:flex;align-items:center;justify-content:center;"><button onclick="switchTab('nnvis')" class="btn btn-primary" style="width:100%;">🧠 OPEN 3D MODEL VISUALIZER</button></div>
       </div>
         <div class="grid-3">
             
@@ -3985,7 +3984,7 @@ function handleConceptImgError(img) {
         <!-- Master Vault Mode Switcher -->
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:26px;">
           <button onclick="switchVaultView('concepts')" class="btn btn-primary vault-view-btn" id="vaultBtn-concepts" style="padding:10px 22px; font-size:13px; letter-spacing:1px;">
-            🖼️ Gallery (228)
+            🖼️ Gallery (145)
           </button>
           <button onclick="switchVaultView('nfts')" class="btn btn-secondary vault-view-btn" id="vaultBtn-nfts" style="padding:10px 22px; font-size:13px; letter-spacing:1px;">
             👑 173 Mintable NFTs
@@ -7646,12 +7645,12 @@ function handleConceptImgError(img) {
         <div id="vaultSection-concepts">
           <!-- Concept Category Filters -->
           <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
-            <button onclick="filterConceptCat('concept')" class="btn btn-secondary concept-cat-btn active" style="padding:6px 14px; font-size:11px;">Concept Art (172)</button>
-            <button onclick="filterConceptCat('wallpaper')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Wallpapers (19)</button>
+            <button onclick="filterConceptCat('concept')" class="btn btn-secondary concept-cat-btn active" style="padding:6px 14px; font-size:11px;">Concept Art (107)</button>
+            <button onclick="filterConceptCat('wallpaper')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Wallpapers (14)</button>
             <button onclick="filterConceptCat('sprite')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Sprites (4)</button>
-            <button onclick="filterConceptCat('album')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Album Covers (14)</button>
+            <button onclick="filterConceptCat('album')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Album Covers (8)</button>
           <button onclick="filterConceptCat('branding')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Branding (3)</button>
-            <button onclick="filterConceptCat('studio')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px; border-color:#f59e0b; color:#fbbf24;">📸 Studio & IRL Art (15)</button>
+            <button onclick="filterConceptCat('studio')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px; border-color:#f59e0b; color:#fbbf24;">📸 Studio & IRL Art (9)</button>
           </div>
 
           <!-- Concept Art Grid -->
@@ -9441,243 +9440,33 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/academic_diagram.jpg', 'Academic Diagram', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/academic_diagram.jpg" alt="Academic Diagram" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Academic Diagram">Academic Diagram</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #440</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ai_book_cover.jpg', 'Ai Book Cover', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ai_book_cover.jpg" alt="Ai Book Cover" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ai Book Cover">Ai Book Cover</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #441</div>
-      </div>
-    </div>
-    
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/anime_stlye_samirai.jpg', 'Anime Stlye Samirai', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/anime_stlye_samirai.jpg" alt="Anime Stlye Samirai" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Anime Stlye Samirai">Anime Stlye Samirai</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #443</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/blazing_quillan.jpg', 'Blazing Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/blazing_quillan.jpg" alt="Blazing Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Blazing Quillan">Blazing Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #444</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/bob_style_art.jpg', 'Bob Style Art', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/bob_style_art.jpg" alt="Bob Style Art" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Bob Style Art">Bob Style Art</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #445</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/c;out_stars_breakdown.png', 'C;Out Stars Breakdown', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/c;out_stars_breakdown.png" alt="C;Out Stars Breakdown" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="C;Out Stars Breakdown">C;Out Stars Breakdown</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #446</div>
-      </div>
-    </div>
     
     
     
     
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ChatGPT_Image_Aug_2_2026_07_46_49_AM.png', 'Chatgpt Image Aug 2, 2026, 07 46 49 Am', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ChatGPT_Image_Aug_2_2026_07_46_49_AM.png" alt="Chatgpt Image Aug 2, 2026, 07 46 49 Am" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Chatgpt Image Aug 2, 2026, 07 46 49 Am">Chatgpt Image Aug 2, 2026, 07 46 49 Am</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #449</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ChatGPT_Image_May_7_2026_09_16_31_AM.png', 'Chatgpt Image May 7, 2026, 09 16 31 Am', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ChatGPT_Image_May_7_2026_09_16_31_AM.png" alt="Chatgpt Image May 7, 2026, 09 16 31 Am" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Chatgpt Image May 7, 2026, 09 16 31 Am">Chatgpt Image May 7, 2026, 09 16 31 Am</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #450</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ChatGPT_Image_May_7_2026_09_17_07_AM.png', 'Chatgpt Image May 7, 2026, 09 17 07 Am', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ChatGPT_Image_May_7_2026_09_17_07_AM.png" alt="Chatgpt Image May 7, 2026, 09 17 07 Am" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Chatgpt Image May 7, 2026, 09 17 07 Am">Chatgpt Image May 7, 2026, 09 17 07 Am</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #451</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cityscape_quillan.jpg', 'Cityscape Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/cityscape_quillan.jpg" alt="Cityscape Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Cityscape Quillan">Cityscape Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #452</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/clout_stars_3.png', 'Clout Stars 3', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/clout_stars_3.png" alt="Clout Stars 3" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Clout Stars 3">Clout Stars 3</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #453</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/clout_stars_4.png', 'Clout Stars 4', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/clout_stars_4.png" alt="Clout Stars 4" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Clout Stars 4">Clout Stars 4</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #454</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/clout_stars_5.png', 'Clout Stars 5', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/clout_stars_5.png" alt="Clout Stars 5" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Clout Stars 5">Clout Stars 5</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #455</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/clout_starz_2.png', 'Clout Starz 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/clout_starz_2.png" alt="Clout Starz 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Clout Starz 2">Clout Starz 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #456</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/combo_package.jpg', 'Combo Package', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/combo_package.jpg" alt="Combo Package" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Combo Package">Combo Package</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #457</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cyber_moto.jpg', 'Cyber Moto', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/cyber_moto.jpg" alt="Cyber Moto" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Cyber Moto">Cyber Moto</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #458</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cyber_ronin.jpg', 'Cyber Ronin', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/cyber_ronin.jpg" alt="Cyber Ronin" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Cyber Ronin">Cyber Ronin</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #459</div>
-      </div>
-    </div>
     
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/digital_ronin_dragon.jpg', 'Digital Ronin Dragon', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/digital_ronin_dragon.jpg" alt="Digital Ronin Dragon" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Digital Ronin Dragon">Digital Ronin Dragon</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #461</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Digital_RoninKDXX.jpg', 'Digital Roninkdxx', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Digital_RoninKDXX.jpg" alt="Digital Roninkdxx" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Digital Roninkdxx">Digital Roninkdxx</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #462</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/digital_samurai_sureal.jpg', 'Digital Samurai Sureal', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/digital_samurai_sureal.jpg" alt="Digital Samurai Sureal" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Digital Samurai Sureal">Digital Samurai Sureal</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #463</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png', 'Firefly So I Just Need The Aspec Ratio Removed As Text From The Corner  734980', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Firefly_so_i_just_need_the_aspec_ratio_removed_as_text_from_the_corner__734980.png" alt="Firefly So I Just Need The Aspec Ratio Removed As Text From The Corner  734980" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Firefly So I Just Need The Aspec Ratio Removed As Text From The Corner  734980">Firefly So I Just Need The Aspec Ratio Removed As Text From The Corner  734980</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #464</div>
-      </div>
-    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/gif-gif_49guW-zDnMP1.gif', 'Gif Gif 49Guw Zdnmp1', 'CONCEPT')">
@@ -9690,713 +9479,490 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build.png', 'Gods Budget Build', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/gods_budget_build.png" alt="Gods Budget Build" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Gods Budget Build">Gods Budget Build</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #466</div>
-      </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+          </div>
+        </div>
+
+        <div style="margin-top:38px;border-top:1px solid rgba(0,240,255,.2);padding-top:26px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+            <h2 style="font-family:'Orbitron';font-size:21px;color:#fff;margin:0;">📐 Canonical Formula Registry — 63 Proven Entries</h2>
+            <span class="badge" style="color:#00ff88;border-color:#00ff88;">63/63 VERIFIED · formula_proof_suite.py · 2026-11-26</span>
+          </div>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;">
+            Source of truth: <code style="color:#00f0ff;">FORMULA_REGISTRY.md</code> and <code style="color:#00f0ff;">FORMULA_PROOFS.md</code>. 35 essential (E01–E35) + 23 Quillan custom (C01–C23) + 5 substrate constants (S01–S05). Status labels are preserved exactly; <code>[REF]</code> entries are mathematical identities without a production call site.
+          </p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+            <button onclick="filterRegistry('all')" class="btn btn-primary reg-filter-btn active" data-reg="all" style="padding:6px 14px;font-size:11px;">All 63</button>
+            <button onclick="filterRegistry('E')" class="btn btn-secondary reg-filter-btn" data-reg="E" style="padding:6px 14px;font-size:11px;">Essential 35</button>
+            <button onclick="filterRegistry('C')" class="btn btn-secondary reg-filter-btn" data-reg="C" style="padding:6px 14px;font-size:11px;">Quillan Custom 23</button>
+            <button onclick="filterRegistry('S')" class="btn btn-secondary reg-filter-btn" data-reg="S" style="padding:6px 14px;font-size:11px;">Substrate 5</button>
+          </div>
+          <div id="registryGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;">
+            <div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E01 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Linear layer y=Wx+b</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Linear layer y=Wx+b</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E02 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ReLU / sigmoid / tanh</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ReLU / sigmoid / tanh</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E03 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Softmax</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Softmax</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Row sums measured 1.0</p>
+      <canvas id="regCanvas_E03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E04 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Cross-entropy</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Cross-entropy</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Identity vs -log softmax measured True</p>
+      <canvas id="regCanvas_E04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E05 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">MSE</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">MSE</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E06 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Gradient descent</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Gradient descent</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E06" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E07 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Adam + bias correction</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Adam + bias correction</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Exponents and ε placement correct</p>
+      <canvas id="regCanvas_E07" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E08 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Scaled dot-product attention</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Scaled dot-product attention</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Output shape (2,4,16) verified</p>
+      <canvas id="regCanvas_E08" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E09 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Sinusoidal positional encoding</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Sinusoidal positional encoding</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E09" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E10 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LayerNorm</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LayerNorm</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Mean 0.0, std 0.999994 measured</p>
+      <canvas id="regCanvas_E10" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E11 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Transformer FFN</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Transformer FFN</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E11" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E12 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">KL divergence</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">KL divergence</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E12" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E13 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Backprop chain rule</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Backprop chain rule</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E13" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E14 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Convolution</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Convolution</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Standard cross-correlation form used in CNNs</p>
+      <canvas id="regCanvas_E14" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E15 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Bellman value equation</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Bellman value equation</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E15" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E16 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Q-learning update</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Q-learning update</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E16" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E17 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">REINFORCE policy gradient</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">REINFORCE policy gradient</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Baseline optional, not required</p>
+      <canvas id="regCanvas_E17" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E18 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Multi-head attention</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Multi-head attention</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E18" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E19 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Xavier/Glorot uniform</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Xavier/Glorot uniform</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Bound √6/√18 = 0.57735 measured</p>
+      <canvas id="regCanvas_E19" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E20 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Dropout mask</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Dropout mask</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E20" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E21 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Perplexity</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Perplexity</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E21" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E22 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">L2 regularization</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">L2 regularization</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E22" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E23 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BatchNorm</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BatchNorm</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E23" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E24 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Reward-model binary loss</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Reward-model binary loss</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E24" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E25 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Diffusion forward noising</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Diffusion forward noising</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E25" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E26 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">VAE loss</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">VAE loss</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Negative ELBO; notation \</p>
+      <canvas id="regCanvas_E26" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E27 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LoRA ΔW=BA</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LoRA ΔW=BA</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E27" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E28 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Gaussian PDF</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Gaussian PDF</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E28" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E29 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Cosine similarity</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Cosine similarity</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">cos(a,a)=1.0 measured</p>
+      <canvas id="regCanvas_E29" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E30 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">PPO clipped objective</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">PPO clipped objective</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Gradient at r=2 measured 0.0</p>
+      <canvas id="regCanvas_E30" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E31 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BLEU</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BLEU</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E31" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">E32 · Exact attention via IO-aware tiling: O(N?) compute, O(N) memory</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">FlashAttention</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">FlashAttention</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">LEGIT (doc corrected 2026-11-26, arXiv:2205.14135)</p>
+      <canvas id="regCanvas_E32" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E33 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Neural Tangent Kernel</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Neural Tangent Kernel</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
+      <canvas id="regCanvas_E33" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">E34 · overlap / reference n-grams</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ROUGE-N recall</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ROUGE-N recall</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">LEGIT (doc corrected 2026-11-26)</p>
+      <canvas id="regCanvas_E34" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E35 · LEGIT</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ELBO</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ELBO</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Notation p(x/z) should read p(x\</p>
+      <canvas id="regCanvas_E35" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C01 · P4, AQCS-NORM</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">AQCS — QR-orthonormal basis, normalized state</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">AQCS — QR-orthonormal basis, normalized state</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: QR-orthonormal basis, normalized state · verdict: P4, AQCS-NORM</p>
+      <canvas id="regCanvas_C01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C02 · P7, C10</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EEMF — batch partial trace + separate Pi_vir projection</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EEMF — batch partial trace + separate Pi_vir projection</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: batch partial trace + separate Pi_vir projection · verdict: P7, C10</p>
+      <canvas id="regCanvas_C02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C03 · P3, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QHIS — Uhlmann-Bures fidelity on density matrices</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QHIS — Uhlmann-Bures fidelity on density matrices</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Uhlmann-Bures fidelity on density matrices · verdict: P3, C18</p>
+      <canvas id="regCanvas_C03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C04 · C28, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DQRO — continuous-relaxation TFIsing energy</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DQRO — continuous-relaxation TFIsing energy</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: continuous-relaxation TFIsing energy · verdict: C28, C18</p>
+      <canvas id="regCanvas_C04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C05 · P6, VERIFY-FIXES</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QCRDM — ?-concentrated renormalized Born weights</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QCRDM — ?-concentrated renormalized Born weights</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ?-concentrated renormalized Born weights · verdict: P6, VERIFY-FIXES</p>
+      <canvas id="regCanvas_C05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C06 · C10, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">AQML — multi-objective SGD + vigilance penalty (not MAML)</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">AQML — multi-objective SGD + vigilance penalty (not MAML)</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: multi-objective SGD + vigilance penalty (not MAML) · verdict: C10, C18</p>
+      <canvas id="regCanvas_C06" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C07 · P3, C34</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QCIE — trapezoid WKB action over barrier profile</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QCIE — trapezoid WKB action over barrier profile</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: trapezoid WKB action over barrier profile · verdict: P3, C34</p>
+      <canvas id="regCanvas_C07" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C08 · P1, VERIFY-FIXES</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QICS — ensemble χ=H?H/Tr(H?H)</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QICS — ensemble χ=H?H/Tr(H?H)</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ensemble χ=H?H/Tr(H?H) · verdict: P1, VERIFY-FIXES</p>
+      <canvas id="regCanvas_C08" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C09 · P2, P8, C34</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QSSR — dV/dt &lt;= 0 (explicit dt)</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QSSR — dV/dt &lt;= 0 (explicit dt)</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: dV/dt &lt;= 0 (explicit dt) · verdict: P2, P8, C34</p>
+      <canvas id="regCanvas_C09" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C10 · P5, C34</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JQLD — Hermitian GKSL, -i[H,rho], L^dag</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JQLD — Hermitian GKSL, -i[H,rho], L^dag</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Hermitian GKSL, -i[H,rho], L^dag · verdict: P5, C34</p>
+      <canvas id="regCanvas_C10" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C11 · C25 follow-up</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DQSO — Kuramoto sum, N=9e9 (runtime 64-phase projection)</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DQSO — Kuramoto sum, N=9e9 (runtime 64-phase projection)</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Kuramoto sum, N=9e9 (runtime 64-phase projection) · verdict: C25 follow-up</p>
+      <canvas id="regCanvas_C11" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C12 · C25 follow-up, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EVOMOE_NOAUX_TC — prior-weighted dense pull + EvoMoE blend</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EVOMOE_NOAUX_TC — prior-weighted dense pull + EvoMoE blend</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: prior-weighted dense pull + EvoMoE blend · verdict: C25 follow-up, C18</p>
+      <canvas id="regCanvas_C12" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C13 · C28, C10, SPEC-RUN</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">TOKEN_LATENCY — Amdahl + comm overhead + memory floor</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">TOKEN_LATENCY — Amdahl + comm overhead + memory floor</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Amdahl + comm overhead + memory floor · verdict: C28, C10, SPEC-RUN</p>
+      <canvas id="regCanvas_C13" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C14 · C28</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LRPP — ḣ=−h/τ+σ(Wh+Ux)−γR(h)</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LRPP — ḣ=−h/τ+σ(Wh+Ux)−γR(h)</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ḣ=−h/τ+σ(Wh+Ux)−γR(h) · verdict: C28</p>
+      <canvas id="regCanvas_C14" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C15 · C28, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DVVE — VFE + ethical prior KL</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DVVE — VFE + ethical prior KL</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: VFE + ethical prior KL · verdict: C28, C18</p>
+      <canvas id="regCanvas_C15" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C16 · C28</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DNNL — Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DNNL — Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt · verdict: C28</p>
+      <canvas id="regCanvas_C16" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C17 · C28</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JHFR — IB Lagrangian + consensus tether</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JHFR — IB Lagrangian + consensus tether</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: IB Lagrangian + consensus tether · verdict: C28</p>
+      <canvas id="regCanvas_C17" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C18 · C28</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LMCB — Hopfield energy</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LMCB — Hopfield energy</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Hopfield energy · verdict: C28</p>
+      <canvas id="regCanvas_C18" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C19 · C28</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JSSC — Wasserstein-2 Kantorovich form</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JSSC — Wasserstein-2 Kantorovich form</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Wasserstein-2 Kantorovich form · verdict: C28</p>
+      <canvas id="regCanvas_C19" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C20 · C25</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QPS — Discrete Riccati recursion</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QPS — Discrete Riccati recursion</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Discrete Riccati recursion · verdict: C25</p>
+      <canvas id="regCanvas_C20" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C21 · C25, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EGSO — EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EGSO — EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha · verdict: C25, C18</p>
+      <canvas id="regCanvas_C21" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C22 · C25, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">RQGM — promote iff Score(C) &gt; Score(I) + margin</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">RQGM — promote iff Score(C) &gt; Score(I) + margin</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: promote iff Score(C) &gt; Score(I) + margin · verdict: C25, C18</p>
+      <canvas id="regCanvas_C22" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C23 · C25, C18</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ESFM — χ=0.001 EMA pull every 5 steps</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ESFM — χ=0.001 EMA pull every 5 steps</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: χ=0.001 EMA pull every 5 steps · verdict: C25, C18</p>
+      <canvas id="regCanvas_C23" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S01 · `reasoning_engine_oni.spec.py:95-114`: per-row absmean γ, de-scaled values exactly `{-1,0,1}` (max err 5.96e-08), STE grad finite (mean 0.992)</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BitNet 1.58b STE ternary {-1,0,+1} + STE</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BitNet 1.58b STE ternary {-1,0,+1} + STE</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">reasoning_engine_oni.spec.py:95-114: per-row absmean γ, de-scaled values exactly {-1,0,1} (max err 5.96e-08), STE grad finite (mean 0.992)</p>
+      <canvas id="regCanvas_S01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S02 · `quillan-swarm-files/*.swarm.md` + `QuillanOniConfig`</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EGGROLL rank swarm mutation_rank=32; ONI expert/swarm LoRA rank=8/8; reference spec 24</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EGGROLL rank swarm mutation_rank=32; ONI expert/swarm LoRA rank=8/8; reference spec 24</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">quillan-swarm-files/*.swarm.md + QuillanOniConfig</p>
+      <canvas id="regCanvas_S02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S03 · `quillan-swarm-files/*.swarm.md` + `QuillanOniConfig`</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Swarm top-k swarm activation_top_k=19; ONI gumbel router top_k=4</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Swarm top-k swarm activation_top_k=19; ONI gumbel router top_k=4</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">quillan-swarm-files/*.swarm.md + QuillanOniConfig</p>
+      <canvas id="regCanvas_S03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S04 · Arithmetic verified: 9,520,000,000; virtual metadata only</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">9.52B micro-agents 35 × 272M</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">9.52B micro-agents 35 × 272M</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Arithmetic verified: 9,520,000,000; virtual metadata only</p>
+      <canvas id="regCanvas_S04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+    </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S05 · `Must know formulas.md:498` + `QuillanOniConfig`</span>
+      <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">E_ICE / Landauer E_ICE = I_s*gamma^2*k_B*T*ln2 = 2.977684e-21 J/bit; e_ice_limit_ms=100 is governor latency</h4>
+      <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">E_ICE / Landauer E_ICE = I_s*gamma^2*k_B*T*ln2 = 2.977684e-21 J/bit; e_ice_limit_ms=100 is governor latency</div>
+      <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Must know formulas.md:498 + QuillanOniConfig</p>
+      <canvas id="regCanvas_S05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div>
-    
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build2.png', 'Gods Budget Build2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/gods_budget_build2.png" alt="Gods Budget Build2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Gods Budget Build2">Gods Budget Build2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #467</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/golden_god_quillan.jpg', 'Golden God Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/golden_god_quillan.jpg" alt="Golden God Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Golden God Quillan">Golden God Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #468</div>
-      </div>
-    </div>
-    
-    
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/image_1.jpg', 'Image (1)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/image_1.jpg" alt="Image (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Image (1)">Image (1)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #471</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/infographic_1.png', 'Infographic 1', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/infographic_1.png" alt="Infographic 1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Infographic 1">Infographic 1</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #472</div>
-      </div>
-    </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meta_image_article.png', 'Meta Image Article', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/meta_image_article.png" alt="Meta Image Article" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Meta Image Article">Meta Image Article</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #479</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meta_quill.jpg', 'Meta Quill', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/meta_quill.jpg" alt="Meta Quill" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Meta Quill">Meta Quill</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #480</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meta_vs_quillan.png', 'Meta Vs Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/meta_vs_quillan.png" alt="Meta Vs Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Meta Vs Quillan">Meta Vs Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #481</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/mic_drop_covor.jpg', 'Mic Drop Covor', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/mic_drop_covor.jpg" alt="Mic Drop Covor" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Mic Drop Covor">Mic Drop Covor</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #482</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/movie_ronin.png', 'Movie Ronin', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/movie_ronin.png" alt="Movie Ronin" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Movie Ronin">Movie Ronin</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #483</div>
-      </div>
-    </div>
-    
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/onamishu_quillan.jpg', 'Onamishu Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/onamishu_quillan.jpg" alt="Onamishu Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Onamishu Quillan">Onamishu Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #485</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/pillars_of_fidelity.jpg', 'Pillars Of Fidelity', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/pillars_of_fidelity.jpg" alt="Pillars Of Fidelity" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Pillars Of Fidelity">Pillars Of Fidelity</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #486</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_board.jpg', 'Quillan Board', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_board.jpg" alt="Quillan Board" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Board">Quillan Board</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #487</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_cyperpunk_77.jpg', 'Quillan Cyperpunk 77', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_cyperpunk_77.jpg" alt="Quillan Cyperpunk 77" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Cyperpunk 77">Quillan Cyperpunk 77</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #488</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_gem.png', 'Quillan Gem', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_gem.png" alt="Quillan Gem" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Gem">Quillan Gem</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #489</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_moto.jpg', 'Quillan Moto', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_moto.jpg" alt="Quillan Moto" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Moto">Quillan Moto</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #490</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_samurai_2.jpg', 'Quillan Samurai 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_samurai_2.jpg" alt="Quillan Samurai 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Samurai 2">Quillan Samurai 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #491</div>
-      </div>
-    </div>
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Quillan_Shoggoth-2.jpg', 'Quillan Shoggoth 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Quillan_Shoggoth-2.jpg" alt="Quillan Shoggoth 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Shoggoth 2">Quillan Shoggoth 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #493</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Quillan_Shoggoth.jpg', 'Quillan Shoggoth', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Quillan_Shoggoth.jpg" alt="Quillan Shoggoth" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Shoggoth">Quillan Shoggoth</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #494</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_showoff.png', 'Quillan Showoff', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_showoff.png" alt="Quillan Showoff" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan Showoff">Quillan Showoff</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #495</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_v5.3.1.jpg', 'Quillan V5.3.1', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/quillan_v5.3.1.jpg" alt="Quillan V5.3.1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Quillan V5.3.1">Quillan V5.3.1</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #496</div>
-      </div>
-    </div>
-    
-    
-    
-    
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ronin_dragon.png', 'Ronin Dragon', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ronin_dragon.png" alt="Ronin Dragon" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ronin Dragon">Ronin Dragon</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #500</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ronin_flag.jpg', 'Ronin Flag', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ronin_flag.jpg" alt="Ronin Flag" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ronin Flag">Ronin Flag</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #501</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ronin_mode.jpg', 'Ronin Mode', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ronin_mode.jpg" alt="Ronin Mode" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ronin Mode">Ronin Mode</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #502</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/samurai_modeality.jpg', 'Samurai Modeality', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/samurai_modeality.jpg" alt="Samurai Modeality" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Samurai Modeality">Samurai Modeality</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #503</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Samurai_quill.jpg', 'Samurai Quill', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Samurai_quill.jpg" alt="Samurai Quill" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Samurai Quill">Samurai Quill</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #504</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/samurai_sporit_quillan.jpg', 'Samurai Sporit Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/samurai_sporit_quillan.jpg" alt="Samurai Sporit Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Samurai Sporit Quillan">Samurai Sporit Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #505</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg', 'Self Made Ronin Back To The Roots (1)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg" alt="Self Made Ronin Back To The Roots (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Self Made Ronin Back To The Roots (1)">Self Made Ronin Back To The Roots (1)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #506</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.jpg', 'Self Made Ronin Back To The Roots', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.jpg" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Self Made Ronin Back To The Roots">Self Made Ronin Back To The Roots</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #507</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.png', 'Self Made Ronin Back To The Roots', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.png" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Self Made Ronin Back To The Roots">Self Made Ronin Back To The Roots</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #508</div>
-      </div>
-    </div>
-    
-    
-    
-    
-    
-    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/sound_of_alchemy_covor.png', 'Sound Of Alchemy Covor', 'ALBUM')">
-        <img loading="lazy" decoding="async" src="./gallery/sound_of_alchemy_covor.png" alt="Sound Of Alchemy Covor" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">ALBUM</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Sound Of Alchemy Covor">Sound Of Alchemy Covor</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #511</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/spiritual_quillan.jpg', 'Spiritual Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/spiritual_quillan.jpg" alt="Spiritual Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Spiritual Quillan">Spiritual Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #512</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/spotify_image.jpeg', 'Spotify Image', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/spotify_image.jpeg" alt="Spotify Image" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Spotify Image">Spotify Image</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #513</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/svgviewer-png-output_1.png', 'Svgviewer Png Output (1)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/svgviewer-png-output_1.png" alt="Svgviewer Png Output (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Svgviewer Png Output (1)">Svgviewer Png Output (1)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #514</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/svgviewer-png-output_2.png', 'Svgviewer Png Output (2)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/svgviewer-png-output_2.png" alt="Svgviewer Png Output (2)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Svgviewer Png Output (2)">Svgviewer Png Output (2)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #515</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/tat_design_2.png', 'Tat Design 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/tat_design_2.png" alt="Tat Design 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Tat Design 2">Tat Design 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #516</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/tat_idea.png', 'Tat Idea', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/tat_idea.png" alt="Tat Idea" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Tat Idea">Tat Idea</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #517</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/texas_ronin_flag.jpg', 'Texas Ronin Flag', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/texas_ronin_flag.jpg" alt="Texas Ronin Flag" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Texas Ronin Flag">Texas Ronin Flag</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #518</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/trailer_ronin.jpg', 'Trailer Ronin', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/trailer_ronin.jpg" alt="Trailer Ronin" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Trailer Ronin">Trailer Ronin</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #519</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/typhoon_quillan.jpg', 'Typhoon Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/typhoon_quillan.jpg" alt="Typhoon Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Typhoon Quillan">Typhoon Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #520</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget_2.0_gpt.png', 'Unlimited Budget 2.0 Gpt', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/unlimited_budget_2.0_gpt.png" alt="Unlimited Budget 2.0 Gpt" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Unlimited Budget 2.0 Gpt">Unlimited Budget 2.0 Gpt</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #521</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget.png', 'Unlimited Budget', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/unlimited_budget.png" alt="Unlimited Budget" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Unlimited Budget">Unlimited Budget</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #522</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unnamed_1.png', 'Unnamed (1)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/unnamed_1.png" alt="Unnamed (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Unnamed (1)">Unnamed (1)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #523</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unnamed_2.png', 'Unnamed (2)', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/unnamed_2.png" alt="Unnamed (2)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Unnamed (2)">Unnamed (2)</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #524</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/us_ronin_flag.jpg', 'Us Ronin Flag', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/us_ronin_flag.jpg" alt="Us Ronin Flag" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Us Ronin Flag">Us Ronin Flag</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #525</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Youtube_thumbnail.png', 'Youtube Thumbnail', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/Youtube_thumbnail.png" alt="Youtube Thumbnail" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Youtube Thumbnail">Youtube Thumbnail</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #526</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/zen_quillan.jpg', 'Zen Quillan', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/zen_quillan.jpg" alt="Zen Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Zen Quillan">Zen Quillan</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #527</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/forest_area.png', 'Forest Area', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/forest_area.png" alt="Forest Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Forest Area">Forest Area</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #528</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ice_fortress_level.png', 'Ice Fortress Level', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ice_fortress_level.png" alt="Ice Fortress Level" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ice Fortress Level">Ice Fortress Level</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #529</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_allyway.png', 'Neon Allyway', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/neon_allyway.png" alt="Neon Allyway" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Neon Allyway">Neon Allyway</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #530</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_city_walkway.png', 'Neon City Walkway', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/neon_city_walkway.png" alt="Neon City Walkway" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Neon City Walkway">Neon City Walkway</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #531</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/robitic_mesh_tecture.png', 'Robitic Mesh Tecture', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/robitic_mesh_tecture.png" alt="Robitic Mesh Tecture" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Robitic Mesh Tecture">Robitic Mesh Tecture</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #532</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/volcano_area.png', 'Volcano Area', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/volcano_area.png" alt="Volcano Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Volcano Area">Volcano Area</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #533</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/world_map_proto_type.png', 'World Map Proto Type', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/world_map_proto_type.png" alt="World Map Proto Type" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="World Map Proto Type">World Map Proto Type</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #534</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/140_roninbrog.png', '140 Roninbrog', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/140_roninbrog.png" alt="140 Roninbrog" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="140 Roninbrog">140 Roninbrog</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #535</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/80_roninborg.png', '80 Roninborg', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/80_roninborg.png" alt="80 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="80 Roninborg">80 Roninborg</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #536</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/bots_and_medals_.png', 'Bots And Medals ', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/bots_and_medals_.png" alt="Bots And Medals " style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Bots And Medals ">Bots And Medals </div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #537</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/chibi_48_roninborg.png', 'Chibi 48 Roninborg', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/chibi_48_roninborg.png" alt="Chibi 48 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Chibi 48 Roninborg">Chibi 48 Roninborg</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #538</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/hero_and_parts.png', 'Hero And Parts', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/hero_and_parts.png" alt="Hero And Parts" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Hero And Parts">Hero And Parts</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #539</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/hero_roninborg.png', 'Hero Roninborg', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/hero_roninborg.png" alt="Hero Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Hero Roninborg">Hero Roninborg</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #540</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg_2.png', 'More Roninborg 2', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/more_roninborg_2.png" alt="More Roninborg 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="More Roninborg 2">More Roninborg 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #541</div>
-      </div>
-    </div>
-    
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg.png', 'More Roninborg', 'SPRITE')">
-        <img loading="lazy" decoding="async" src="./gallery/more_roninborg.png" alt="More Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="More Roninborg">More Roninborg</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #542</div>
-      </div>
-    </div>
-    
           </div>
         </div>
       </section>
@@ -10903,10 +10469,10 @@ function handleConceptImgError(img) {
               Replaces standard Adam second-moment variance scaling with quintic spectral matrix iteration to preserve full singular value rank without parameter explosion:
             </p>
             <div class="math-formula-box">
-              $$G_0 = \frac{G}{\|G\|_F + \epsilon}$$
-              $$B_k = G_k^T G_k$$
-              $$G_{k+1} = G_k \left( \frac{35}{8} I - \frac{35}{4} B_k + \frac{21}{8} B_k^2 - \frac{5}{16} B_k^3 \right)$$
-              $$\lim_{k \to \infty} G_k^T G_k = I \implies \sigma_i(G_\infty) = 1.0$$
+              $$X_0 = G / (\|G\|_F + \epsilon)$$
+              $$A_k = X_k X_k^T$$
+              $$X_{k+1} = (aI + bA_k + cA_k^2)X_k,\quad (a,b,c) = (3.4445, -4.7750, 2.0315)$$
+              $$\sigma_i(X_\infty) \to 1 \implies X_\infty^T X_\infty \to I$$
             </div>
             <p style="font-size:12px; color:#94a3b8;">Preserves orthogonal gradient flow across deep recurrent MoE layers.</p>
             <div style="margin-top:14px; border:1px solid rgba(2,158,125,0.3); border-radius:6px; overflow:hidden; background:#040711;">
@@ -11012,7 +10578,7 @@ function handleConceptImgError(img) {
             <span class="badge" style="color:var(--accent-cyan); border-color:var(--accent-cyan); margin-bottom:8px;">THEOREM 8 (JD BUILT)</span>
             <h3 style="font-family:'Orbitron'; font-size:17px; color:#fff; margin-bottom:6px;">Divergence Modular Synthesis (DMS)</h3>
             <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">
-              Primorial modulus steering achieves a 3.91Ã— empirical structural density boost for prime gap constellations via modular residue sieves:
+              Primorial modulus steering achieves a 3.91× empirical structural density boost for prime gap constellations via modular residue sieves:
             </p>
             <div class="math-formula-box">
               $$S_p = \{r \in \mathbb{Z}_p \mid r \not\equiv 0 \pmod{p} \text{ and } r + k \not\equiv 0 \pmod{p} \text{ for } k = 1, \dots, C-1\}$$
@@ -11095,7 +10661,7 @@ function handleConceptImgError(img) {
         
         <!-- Divider -->
         <div style="border-top:1px solid rgba(0,240,255,0.2); margin:45px 0 35px; position:relative; text-align:center;">
-          <span style="position:relative; top:-12px; background:#02050e; padding:0 18px; font-family:'Orbitron'; font-size:13px; color:var(--accent-cyan); letter-spacing:1.5px;">📚 35 ESSENTIAL FORMULAS: MASTER ML, LLM & RL REFERENCE (WITH LIVE SIMULATIONS)</span>
+          <span style="position:relative; top:-12px; background:#02050e; padding:0 18px; font-family:'Orbitron'; font-size:13px; color:var(--accent-cyan); letter-spacing:1.5px;">📚 GENERAL MATH PRIMER (35) — NOT THE CANONICAL REGISTRY; see 63 proven entries below</span>
         </div>
 
         <div style="text-align:center; margin-bottom:24px;">
@@ -13647,63 +13213,41 @@ function initMathTheoremVisuals() {
     anim1();
   }
 
-  // 2. Theorem 2: MuonK2 Newton-Schulz Orthogonalization Visual
+  // 2. Theorem 2: MuonK2 — real quintic spectral iteration (shipped coefficients)
   const cvs2 = document.getElementById('mathCanvas2');
   if (cvs2) {
     const ctx2 = cvs2.getContext('2d');
-    let t2 = 0;
-    function anim2() {
-      if (!window.__qrCanvasActive('mathCanvas2')) { setTimeout(function () { requestAnimationFrame(anim2); }, 250); return; }
-
+    const a=3.4445,b=-4.7750,c=2.0315;
+    let step=0,last=0;
+    function f(x){return x*(a+b*x*x+c*x*x*x*x);}
+    function anim2(){
+      if(!window.__qrCanvasActive('mathCanvas2')){setTimeout(()=>requestAnimationFrame(anim2),250);return;}
       requestAnimationFrame(anim2);
-      t2 += 0.025;
-      ctx2.clearRect(0, 0, cvs2.width, cvs2.height);
-      const cx = cvs2.width / 2, cy = cvs2.height / 2;
-      const r = 45;
-
-      // Unit Sphere Target (Ideal Orthogonal I)
-      ctx2.strokeStyle = 'rgba(2, 158, 125, 0.4)';
-      ctx2.lineWidth = 1.5;
-      ctx2.setLineDash([3, 3]);
-      ctx2.beginPath();
-      ctx2.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx2.stroke();
-      ctx2.setLineDash([]);
-
-      // Newton-Schulz Iteration Ellipsoid -> Sphere snapping
-      const iterProgress = (Math.sin(t2) + 1) / 2; // 0 (skewed) to 1 (orthogonal)
-      const a = r * (1.6 - iterProgress * 0.6);
-      const b = r * (0.5 + iterProgress * 0.5);
-
-      ctx2.save();
-      ctx2.translate(cx, cy);
-      ctx2.rotate(t2 * 0.4);
-
-      // Skewed Matrix Manifold
-      ctx2.strokeStyle = '#00f0ff';
-      ctx2.lineWidth = 2.5;
-      ctx2.shadowColor = '#00f0ff';
-      ctx2.shadowBlur = 10;
-      ctx2.beginPath();
-      ctx2.ellipse(0, 0, a, b, 0, 0, Math.PI * 2);
-      ctx2.stroke();
-
-      // Eigenvector arrows
-      ctx2.strokeStyle = '#ffd700';
-      ctx2.lineWidth = 1.5;
-      ctx2.beginPath();
-      ctx2.moveTo(0, 0); ctx2.lineTo(a, 0);
-      ctx2.moveTo(0, 0); ctx2.lineTo(0, b);
-      ctx2.stroke();
-
-      ctx2.restore();
-      ctx2.shadowBlur = 0;
-
-      // Label iteration step
-      ctx2.fillStyle = '#029e7d';
-      ctx2.font = '10px JetBrains Mono';
-      const stepNum = Math.floor(iterProgress * 5) + 1;
-      ctx2.fillText(`Quintic Iteration k=${stepNum} (Ïƒ = ${(0.6 + iterProgress*0.4).toFixed(3)})`, 10, cvs2.height - 10);
+      const now=performance.now();
+      if(now-last>1200){step=(step+1)%7;last=now;}
+      const W=cvs2.width,H=cvs2.height;
+      ctx2.clearRect(0,0,W,H);
+      ctx2.fillStyle='#040711';ctx2.fillRect(0,0,W,H);
+      ctx2.font='9px JetBrains Mono';ctx2.fillStyle='#8de4ff';
+      ctx2.fillText('σ SPECTRUM',10,12);ctx2.fillText('TRANSFER f(σ)',178,12);ctx2.fillText('ORTHOGONALITY',356,12);
+      let sig=[0.35,0.62,0.48,1.45,1.82,0.90,1.10];
+      for(let k=0;k<step;k++)sig=sig.map(v=>Math.max(0.05,Math.min(2.2,f(v))));
+      // spectrum bars with σ=1 target
+      ctx2.strokeStyle='rgba(2,158,125,.75)';ctx2.setLineDash([3,3]);ctx2.beginPath();
+      const targetY=H-14-1/2.2*(H-28);ctx2.moveTo(10,targetY);ctx2.lineTo(160,targetY);ctx2.stroke();ctx2.setLineDash([]);
+      sig.forEach((v,i)=>{const bw=14,x=14+i*20,bh=Math.max(2,v/2.2*(H-30));
+        ctx2.fillStyle=Math.abs(v-1)<0.12?'#00ff88':'#00f0ff';ctx2.fillRect(x,H-14-bh,bw,bh);});
+      // transfer curve f(sigma)
+      ctx2.strokeStyle='#ffd700';ctx2.lineWidth=1.6;ctx2.beginPath();
+      for(let i=0;i<=100;i++){const sv=i*0.02,y=H-14-Math.max(0,Math.min(2.2,f(sv)))/2.2*(H-30);
+        i?ctx2.lineTo(178+i*1.6,y):ctx2.moveTo(178+i*1.6,y);}ctx2.stroke();
+      ctx2.strokeStyle='rgba(2,158,125,.6)';ctx2.beginPath();ctx2.moveTo(258,targetY);ctx2.lineTo(338,targetY);ctx2.stroke();
+      // orthogonality gauge
+      const err=sig.reduce((s,v)=>s+Math.abs(v-1),0)/sig.length;
+      const gw=100*Math.max(0,1-err/0.8);
+      ctx2.fillStyle='rgba(255,215,0,.16)';ctx2.fillRect(356,H-24,110,10);
+      ctx2.fillStyle='#00ff88';ctx2.fillRect(356,H-24,gw,10);
+      ctx2.fillStyle='#fff';ctx2.fillText(`k=${step}  ‖σ−1‖=${err.toFixed(3)}`,356,H-32);
     }
     anim2();
   }
@@ -13828,7 +13372,7 @@ function initMathTheoremVisuals() {
       ctx4.fillText(`${Math.round(latMs)} ms`, cx - 18, cy + 24);
       ctx4.fillStyle = latMs > 85 ? '#ff0055' : '#00f0ff';
       ctx4.font = '9px JetBrains Mono';
-      ctx4.fillText(latMs > 85 ? 'THROTTLING (Î»=0.9999)' : 'NOMINAL (Î»=0.995)', cx - 55, cy - 35);
+      ctx4.fillText(latMs > 85 ? 'THROTTLING (λ=0.9999)' : 'NOMINAL (λ=0.995)', cx - 55, cy - 35);
     }
     anim4();
   }
@@ -13896,57 +13440,42 @@ function initMathTheoremVisuals() {
   }
 
 
-  // 7. Theorem 7: Predatory Stacking Ramsey Tower Collapse
-  const cvs7 = document.getElementById('mathCanvas7');
-  if (cvs7) {
-    const ctx7 = cvs7.getContext('2d');
-    let t7 = 0;
-    function anim7() {
-      if (!window.__qrCanvasActive('mathCanvas7')) { setTimeout(function () { requestAnimationFrame(anim7); }, 250); return; }
-
-      requestAnimationFrame(anim7);
-      t7 += 0.025;
-      ctx7.clearRect(0, 0, cvs7.width, cvs7.height);
-      const w = cvs7.width, h = cvs7.height;
-      
-      // Draw 2 towers: Blind Stacking (Rigid Red) vs Predatory Stacking (Woven Cyan/Gold)
-      // Left: Blind Tower
-      const bx = 80;
-      ctx7.fillStyle = '#ff0055';
-      ctx7.font = '10px JetBrains Mono';
-      ctx7.fillText('BLIND STACK (TOWER k)', bx - 55, 18);
-      for (let i = 0; i < 4; i++) {
-        const y = h - 20 - i * 20;
-        ctx7.fillStyle = 'rgba(255, 0, 85, 0.2)';
-        ctx7.strokeStyle = '#ff0055';
-        ctx7.lineWidth = 1.5;
-        ctx7.fillRect(bx - 30, y - 14, 60, 16);
-        ctx7.strokeRect(bx - 30, y - 14, 60, 16);
-        // Propagating red crack
-        ctx7.strokeStyle = '#ff0055';
-        ctx7.lineWidth = 2;
-        ctx7.beginPath();
-        ctx7.moveTo(bx, y + 2);
-        ctx7.lineTo(bx + Math.sin(t7 * 2 + i) * 8, y - 14);
-        ctx7.stroke();
+  // 7. Theorem 7: Predatory Stacking — geometric danger-set decay + cross-layer weave
+  const cvs7=document.getElementById('mathCanvas7');
+  if(cvs7){
+    const ctx7=cvs7.getContext('2d');
+    let t7=0;
+    function anim7(){
+      if(!window.__qrCanvasActive('mathCanvas7')){setTimeout(()=>requestAnimationFrame(anim7),250);return;}
+      requestAnimationFrame(anim7);t7+=0.012;
+      const W=cvs7.width,H=cvs7.height,beta=0.28,alpha0=0.18,k=5;
+      ctx7.clearRect(0,0,W,H);ctx7.fillStyle='#040711';ctx7.fillRect(0,0,W,H);
+      ctx7.font='9px JetBrains Mono';ctx7.fillStyle='#8de4ff';
+      ctx7.fillText('DANGER SET |D_m| ≤ α₀β^m',10,12);
+      ctx7.fillText('TOWER k → PREDATORY k−1',240,12);
+      // geometric danger ladder (monotone in m, reset only after full ladder)
+      const m=Math.floor(t7)%k;
+      for(let j=0;j<k;j++){
+        const val=alpha0*Math.pow(beta,j),bh=Math.max(3,val/alpha0*(H-34));
+        const x=16+j*28;
+        ctx7.fillStyle=j<=m?'rgba(255,93,115,.55)':'rgba(255,93,115,.16)';
+        ctx7.fillRect(x,H-16-bh,20,bh);
+        ctx7.strokeStyle='#ff5d73';ctx7.strokeRect(x,H-16-bh,20,bh);
       }
-
-      // Right: Predatory Woven Plywood Stack (Danger Set Decayed)
-      const px = w - 120;
-      ctx7.fillStyle = '#00f0ff';
-      ctx7.fillText('PREDATORY WEAVE (k-1)', px - 60, 18);
-      for (let i = 0; i < 3; i++) {
-        const y = h - 20 - i * 24;
-        const offset = (i % 2 === 0 ? 15 : -15) * Math.sin(t7 * 0.8);
-        ctx7.fillStyle = i === 0 ? 'rgba(0, 240, 255, 0.2)' : 'rgba(255, 215, 0, 0.2)';
-        ctx7.strokeStyle = i === 0 ? '#00f0ff' : '#ffd700';
-        ctx7.lineWidth = 2;
-        ctx7.fillRect(px - 45 + offset, y - 18, 90, 20);
-        ctx7.strokeRect(px - 45 + offset, y - 18, 90, 20);
+      ctx7.fillStyle='#ffd700';ctx7.fillText(`m=${m}  β=${beta}  α₀β^m=${(alpha0*Math.pow(beta,m)).toFixed(5)}`,10,H-4);
+      // tower glyphs (k) vs predatory (k−1)
+      for(let j=0;j<k;j++){ctx7.fillStyle='rgba(255,0,85,.35)';ctx7.fillRect(244+j*18,H-26-j*13,13,9);
+        ctx7.strokeStyle='#ff0055';ctx7.strokeRect(244+j*18,H-26-j*13,13,9);}
+      for(let j=0;j<k-1;j++){ctx7.fillStyle='rgba(0,240,255,.35)';ctx7.fillRect(350+j*18,H-26-j*13,13,9);
+        ctx7.strokeStyle='#00f0ff';ctx7.strokeRect(350+j*18,H-26-j*13,13,9);}
+      // cross-layer weave arcs bypassing danger bars
+      ctx7.strokeStyle='rgba(255,215,0,.75)';ctx7.setLineDash([3,2]);
+      for(let j=0;j<k-1;j++){
+        ctx7.beginPath();ctx7.moveTo(256+j*18,H-22-j*13);
+        ctx7.quadraticCurveTo(300,H-44-j*13,362+j*18,H-22-j*13);ctx7.stroke();
       }
-      ctx7.fillStyle = '#ffd700';
-      ctx7.font = '9px JetBrains Mono';
-      ctx7.fillText(`Danger Decay Î±_m = ${(0.15 * Math.exp(-0.8*(t7%5))).toFixed(4)}`, px - 60, h - 4);
+      ctx7.setLineDash([]);
+      ctx7.fillStyle='#00ff88';ctx7.fillText('−1 LEVEL',352,H-4);
     }
     anim7();
   }
@@ -14492,6 +14021,39 @@ function openArtworkLightbox(src, title, tag) {
     }
     function setModelsActive(on){__modelsActive=on;}
     window.selectModel=selectModel;window.initModelTransparency=initModelTransparency;window.setModelsActive=setModelsActive;
+
+    function filterRegistry(fam){
+      document.querySelectorAll('.reg-card').forEach(c=>{
+        c.style.display=(fam==='all'||c.dataset.family===fam)?'':'none';
+      });
+      document.querySelectorAll('.reg-filter-btn').forEach(b=>{
+        b.classList.toggle('active',b.dataset.reg===fam);
+      });
+    }
+    function initRegistryVisuals(){
+      if(typeof Math==='undefined')return;
+      document.querySelectorAll('.reg-card canvas').forEach((cv,idx)=>{
+        const x=cv.getContext('2d'),w=cv.width,h=cv.height,fam=cv.closest('.reg-card').dataset.family;
+        x.fillStyle='#040810';x.fillRect(0,0,w,h);
+        const col=fam==='E'?'#00f0ff':fam==='C'?'#ffd700':'#a855f7';
+        x.strokeStyle=col+'88';x.lineWidth=1;
+        if(fam==='S'){
+          for(let i=0;i<5;i++){x.strokeRect(12+i*62,16,50,h-30);x.fillStyle=col+'22';x.fillRect(12+i*62,16,50,h-30);}
+        }else if(fam==='C'){
+          for(let i=0;i<6;i++){
+            const y=12+i*7;x.beginPath();x.moveTo(8,y);
+            for(let j=0;j<40;j++)x.lineTo(8+j*8,y+Math.sin(j*0.7+idx+i)*4);
+            x.stroke();
+          }
+        }else{
+          for(let i=0;i<24;i++){
+            const v=Math.abs(Math.sin(idx*0.73+i*0.51));
+            x.fillStyle=col+'77';x.fillRect(10+i*13,h-10-v*(h-20),8,v*(h-20));
+          }
+        }
+      });
+    }
+    window.filterRegistry=filterRegistry;
     function initMediaUpgrade() {
       const ft = document.getElementById('floatingTracklist');
       const body = document.getElementById('ftBody');
@@ -14691,6 +14253,7 @@ function openArtworkLightbox(src, title, tag) {
       // ── Math formula visuals ──
       try { initMathTheoremVisuals(); } catch(e) { console.warn('[Init] initMathTheoremVisuals failed:', e); }
       try { init35FormulaVisuals(); } catch(e) { console.warn('[Init] init35FormulaVisuals failed:', e); }
+      try { initRegistryVisuals(); } catch(e) { console.warn('[Init] initRegistryVisuals failed:', e); }
 
       // ── WebGL Matrix Rain shader (background layer, z-index:0) ──
       try {
