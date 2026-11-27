@@ -9610,8 +9610,8 @@ function handleConceptImgError(img) {
 
         <div style="margin-top:38px;border-top:1px solid rgba(0,240,255,.2);padding-top:26px;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
-            <h2 style="font-family:'Orbitron';font-size:21px;color:#fff;margin:0;">📐 Canonical Formula Registry — 63 Proven Entries</h2>
-            <span class="badge" style="color:#00ff88;border-color:#00ff88;">63/63 VERIFIED · formula_proof_suite.py · 2026-11-26</span>
+            <h2 style="font-family:'Orbitron';font-size:21px;color:#fff;margin:0;">📐 Canonical Formula Registry — 63 Verified Invariants</h2>
+            <span class="badge" style="color:#00ff88;border-color:#00ff88;">63/63 INVARIANTS VERIFIED · semantic/implementation proofs, not empirical benefit</span>
           </div>
           <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;">
             Source of truth: <code style="color:#00f0ff;">FORMULA_REGISTRY.md</code> and <code style="color:#00f0ff;">FORMULA_PROOFS.md</code>. 35 essential (E01–E35) + 23 Quillan custom (C01–C23) + 5 substrate constants (S01–S05). Status labels are preserved exactly; <code>[REF]</code> entries are mathematical identities without a production call site.
@@ -9628,382 +9628,383 @@ function handleConceptImgError(img) {
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Linear layer y=Wx+b</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Linear layer y=Wx+b</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E01" data-key="E01" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E02 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ReLU / sigmoid / tanh</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ReLU / sigmoid / tanh</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E02" data-key="E02" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E03 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Softmax</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Softmax</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Row sums measured 1.0</p>
-      <canvas id="regCanvas_E03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E03" data-key="E03" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E04 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Cross-entropy</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Cross-entropy</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Identity vs -log softmax measured True</p>
-      <canvas id="regCanvas_E04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E04" data-key="E04" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E05 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">MSE</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">MSE</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E05" data-key="E05" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E06 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Gradient descent</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Gradient descent</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E06" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E06" data-key="E06" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E07 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Adam + bias correction</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Adam + bias correction</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Exponents and ε placement correct</p>
-      <canvas id="regCanvas_E07" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E07" data-key="E07" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E08 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Scaled dot-product attention</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Scaled dot-product attention</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Output shape (2,4,16) verified</p>
-      <canvas id="regCanvas_E08" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E08" data-key="E08" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E09 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Sinusoidal positional encoding</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Sinusoidal positional encoding</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E09" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E09" data-key="E09" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E10 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LayerNorm</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LayerNorm</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Mean 0.0, std 0.999994 measured</p>
-      <canvas id="regCanvas_E10" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E10" data-key="E10" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E11 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Transformer FFN</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Transformer FFN</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E11" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E11" data-key="E11" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E12 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">KL divergence</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">KL divergence</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E12" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E12" data-key="E12" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E13 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Backprop chain rule</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Backprop chain rule</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E13" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E13" data-key="E13" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E14 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Convolution</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Convolution</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Standard cross-correlation form used in CNNs</p>
-      <canvas id="regCanvas_E14" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E14" data-key="E14" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E15 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Bellman value equation</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Bellman value equation</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E15" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E15" data-key="E15" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E16 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Q-learning update</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Q-learning update</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E16" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E16" data-key="E16" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E17 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">REINFORCE policy gradient</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">REINFORCE policy gradient</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Baseline optional, not required</p>
-      <canvas id="regCanvas_E17" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E17" data-key="E17" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E18 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Multi-head attention</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Multi-head attention</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E18" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E18" data-key="E18" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E19 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Xavier/Glorot uniform</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Xavier/Glorot uniform</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Bound √6/√18 = 0.57735 measured</p>
-      <canvas id="regCanvas_E19" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E19" data-key="E19" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E20 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Dropout mask</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Dropout mask</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E20" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E20" data-key="E20" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E21 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Perplexity</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Perplexity</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E21" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E21" data-key="E21" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E22 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">L2 regularization</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">L2 regularization</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E22" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E22" data-key="E22" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E23 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BatchNorm</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BatchNorm</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E23" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E23" data-key="E23" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E24 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Reward-model binary loss</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Reward-model binary loss</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E24" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E24" data-key="E24" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E25 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Diffusion forward noising</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Diffusion forward noising</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E25" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E25" data-key="E25" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E26 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">VAE loss</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">VAE loss</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Negative ELBO; notation \</p>
-      <canvas id="regCanvas_E26" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E26" data-key="E26" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E27 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LoRA ΔW=BA</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LoRA ΔW=BA</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E27" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E27" data-key="E27" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E28 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Gaussian PDF</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Gaussian PDF</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E28" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E28" data-key="E28" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E29 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Cosine similarity</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Cosine similarity</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">cos(a,a)=1.0 measured</p>
-      <canvas id="regCanvas_E29" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E29" data-key="E29" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E30 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">PPO clipped objective</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">PPO clipped objective</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Gradient at r=2 measured 0.0</p>
-      <canvas id="regCanvas_E30" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E30" data-key="E30" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E31 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BLEU</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BLEU</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E31" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E31" data-key="E31" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">E32 · Exact attention via IO-aware tiling: O(N?) compute, O(N) memory</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">FlashAttention</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">FlashAttention</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">LEGIT (doc corrected 2026-11-26, arXiv:2205.14135)</p>
-      <canvas id="regCanvas_E32" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E32" data-key="E32" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E33 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Neural Tangent Kernel</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Neural Tangent Kernel</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">—</p>
-      <canvas id="regCanvas_E33" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E33" data-key="E33" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">E34 · overlap / reference n-grams</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ROUGE-N recall</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ROUGE-N recall</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">LEGIT (doc corrected 2026-11-26)</p>
-      <canvas id="regCanvas_E34" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E34" data-key="E34" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="E" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#00ff88;border-color:#00ff88;font-size:9.5px;">E35 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ELBO</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ELBO</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Notation p(x/z) should read p(x\</p>
-      <canvas id="regCanvas_E35" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_E35" data-key="E35" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C01 · P4, AQCS-NORM</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C01 · LEGIT-AS-ENVELOPE (norm measured 1.0)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">AQCS — QR-orthonormal basis, normalized state</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">AQCS — QR-orthonormal basis, normalized state</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: QR-orthonormal basis, normalized state · verdict: P4, AQCS-NORM</p>
-      <canvas id="regCanvas_C01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C01" data-key="C01" data-verdict="LEGIT-AS-ENVELOPE (norm measured 1.0)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C02 · P7, C10</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C02 · LEGIT-AS-PARTIAL-TRACE (projector applied by eemf_projection, not inside density op)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EEMF — batch partial trace + separate Pi_vir projection</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EEMF — batch partial trace + separate Pi_vir projection</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: batch partial trace + separate Pi_vir projection · verdict: P7, C10</p>
-      <canvas id="regCanvas_C02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C02" data-key="C02" data-verdict="LEGIT-AS-PARTIAL-TRACE (projector applied by eemf_projection, not inside density op)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C03 · P3, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C03 · LEGIT (harness now exercises Bures branch)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QHIS — Uhlmann-Bures fidelity on density matrices</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QHIS — Uhlmann-Bures fidelity on density matrices</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Uhlmann-Bures fidelity on density matrices · verdict: P3, C18</p>
-      <canvas id="regCanvas_C03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C03" data-key="C03" data-verdict="LEGIT (harness now exercises Bures branch)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C04 · C28, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C04 · LEGIT-AS-RELAXATION (s_z=tanh, s_x=sqrt(1-s_z^2))</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DQRO — continuous-relaxation TFIsing energy</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DQRO — continuous-relaxation TFIsing energy</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: continuous-relaxation TFIsing energy · verdict: C28, C18</p>
-      <canvas id="regCanvas_C04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C04" data-key="C04" data-verdict="LEGIT-AS-RELAXATION (s_z=tanh, s_x=sqrt(1-s_z^2))" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C05 · P6, VERIFY-FIXES</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C05 · LEGIT (?=1 Born; ??1 normalized)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QCRDM — ?-concentrated renormalized Born weights</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QCRDM — ?-concentrated renormalized Born weights</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ?-concentrated renormalized Born weights · verdict: P6, VERIFY-FIXES</p>
-      <canvas id="regCanvas_C05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C05" data-key="C05" data-verdict="LEGIT (?=1 Born; ??1 normalized)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C06 · C10, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C06 · LEGIT-AS-LABELED (doc corrected)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">AQML — multi-objective SGD + vigilance penalty (not MAML)</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">AQML — multi-objective SGD + vigilance penalty (not MAML)</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: multi-objective SGD + vigilance penalty (not MAML) · verdict: C10, C18</p>
-      <canvas id="regCanvas_C06" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C06" data-key="C06" data-verdict="LEGIT-AS-LABELED (doc corrected)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C07 · P3, C34</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C07 · LEGIT-AS-DIMENSIONLESS (lattice dx=1, hbar=m=1 declared)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QCIE — trapezoid WKB action over barrier profile</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QCIE — trapezoid WKB action over barrier profile</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: trapezoid WKB action over barrier profile · verdict: P3, C34</p>
-      <canvas id="regCanvas_C07" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C07" data-key="C07" data-verdict="LEGIT-AS-DIMENSIONLESS (lattice dx=1, hbar=m=1 declared)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C08 · P1, VERIFY-FIXES</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C08 · LEGIT (S=2.64 random ensemble, ~0 pure)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QICS — ensemble χ=H?H/Tr(H?H)</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QICS — ensemble χ=H?H/Tr(H?H)</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ensemble χ=H?H/Tr(H?H) · verdict: P1, VERIFY-FIXES</p>
-      <canvas id="regCanvas_C08" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C08" data-key="C08" data-verdict="LEGIT (S=2.64 random ensemble, ~0 pure)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C09 · P2, P8, C34</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C09 · LEGIT (value-only fallback remains for no-prev-state calls)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QSSR — dV/dt &lt;= 0 (explicit dt)</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QSSR — dV/dt &lt;= 0 (explicit dt)</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: dV/dt &lt;= 0 (explicit dt) · verdict: P2, P8, C34</p>
-      <canvas id="regCanvas_C09" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C09" data-key="C09" data-verdict="LEGIT (value-only fallback remains for no-prev-state calls)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C10 · P5, C34</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C10 · LEGIT (complex trace conserved, Hermitian)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JQLD — Hermitian GKSL, -i[H,rho], L^dag</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JQLD — Hermitian GKSL, -i[H,rho], L^dag</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Hermitian GKSL, -i[H,rho], L^dag · verdict: P5, C34</p>
-      <canvas id="regCanvas_C10" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C10" data-key="C10" data-verdict="LEGIT (complex trace conserved, Hermitian)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C11 · C25 follow-up</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C11 · LEGIT-AS-APPROX (doc states approximation)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DQSO — Kuramoto sum, N=9e9 (runtime 64-phase projection)</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DQSO — Kuramoto sum, N=9e9 (runtime 64-phase projection)</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Kuramoto sum, N=9e9 (runtime 64-phase projection) · verdict: C25 follow-up</p>
-      <canvas id="regCanvas_C11" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C11" data-key="C11" data-verdict="LEGIT-AS-APPROX (doc states approximation)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C12 · C25 follow-up, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C12 · LEGIT-AS-IMPLEMENTED (doc corrected)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EVOMOE_NOAUX_TC — prior-weighted dense pull + EvoMoE blend</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EVOMOE_NOAUX_TC — prior-weighted dense pull + EvoMoE blend</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: prior-weighted dense pull + EvoMoE blend · verdict: C25 follow-up, C18</p>
-      <canvas id="regCanvas_C12" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C12" data-key="C12" data-verdict="LEGIT-AS-IMPLEMENTED (doc corrected)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C13 · C28, C10, SPEC-RUN</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C13 · LEGIT (spec exits 0 after metrics fix)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">TOKEN_LATENCY — Amdahl + comm overhead + memory floor</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">TOKEN_LATENCY — Amdahl + comm overhead + memory floor</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Amdahl + comm overhead + memory floor · verdict: C28, C10, SPEC-RUN</p>
-      <canvas id="regCanvas_C13" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C13" data-key="C13" data-verdict="LEGIT (spec exits 0 after metrics fix)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C14 · C28</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C14 · LEGIT-CORE, unwired (`R_nemesis` undefined)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LRPP — ḣ=−h/τ+σ(Wh+Ux)−γR(h)</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LRPP — ḣ=−h/τ+σ(Wh+Ux)−γR(h)</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: ḣ=−h/τ+σ(Wh+Ux)−γR(h) · verdict: C28</p>
-      <canvas id="regCanvas_C14" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C14" data-key="C14" data-verdict="LEGIT-CORE, unwired (`R_nemesis` undefined)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C15 · C28, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C15 · LEGIT</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DVVE — VFE + ethical prior KL</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DVVE — VFE + ethical prior KL</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: VFE + ethical prior KL · verdict: C28, C18</p>
-      <canvas id="regCanvas_C15" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C15" data-key="C15" data-verdict="LEGIT" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C16 · C28</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C16 · LEGIT-CORE (ρ&lt;1 required; clamp breaks &quot;strictly increases&quot;)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">DNNL — Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">DNNL — Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Erlang-C W_q=C(c,ρ)/(cμ−λ)+I_wΔt · verdict: C28</p>
-      <canvas id="regCanvas_C16" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C16" data-key="C16" data-verdict="LEGIT-CORE (ρ&lt;1 required; clamp breaks &quot;strictly increases&quot;)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C17 · C28</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C17 · LEGIT-CORE</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JHFR — IB Lagrangian + consensus tether</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JHFR — IB Lagrangian + consensus tether</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: IB Lagrangian + consensus tether · verdict: C28</p>
-      <canvas id="regCanvas_C17" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C17" data-key="C17" data-verdict="LEGIT-CORE" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C18 · C28</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C18 · LEGIT-CORE (&quot;agreement only&quot; unproven)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">LMCB — Hopfield energy</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">LMCB — Hopfield energy</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Hopfield energy · verdict: C28</p>
-      <canvas id="regCanvas_C18" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C18" data-key="C18" data-verdict="LEGIT-CORE (&quot;agreement only&quot; unproven)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C19 · C28</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C19 · LEGIT (state Γ(μ,ν), finite 2nd moments)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">JSSC — Wasserstein-2 Kantorovich form</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">JSSC — Wasserstein-2 Kantorovich form</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Wasserstein-2 Kantorovich form · verdict: C28</p>
-      <canvas id="regCanvas_C19" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C19" data-key="C19" data-verdict="LEGIT (state Γ(μ,ν), finite 2nd moments)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C20 · C25</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C20 · LEGIT, governor only (needs R≻0, Q⪰0)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">QPS — Discrete Riccati recursion</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">QPS — Discrete Riccati recursion</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: Discrete Riccati recursion · verdict: C25</p>
-      <canvas id="regCanvas_C20" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C20" data-key="C20" data-verdict="LEGIT, governor only (needs R≻0, Q⪰0)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C21 · C25, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C21 · LEGIT-AS-HELPER (no production call site)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EGSO — EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EGSO — EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: EGGROLL E=(1/sqrt(r))UV^T, sigma in alpha · verdict: C25, C18</p>
-      <canvas id="regCanvas_C21" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C21" data-key="C21" data-verdict="LEGIT-AS-HELPER (no production call site)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C22 · C25, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C22 · LEGIT (comparator fixed)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">RQGM — promote iff Score(C) &gt; Score(I) + margin</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">RQGM — promote iff Score(C) &gt; Score(I) + margin</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: promote iff Score(C) &gt; Score(I) + margin · verdict: C25, C18</p>
-      <canvas id="regCanvas_C22" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C22" data-key="C22" data-verdict="LEGIT (comparator fixed)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="C" style="padding:10px;border-color:rgba(0,240,255,.18);">
-      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C23 · C25, C18</span>
+      <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">C23 · LEGIT (citation corrected to Murasame)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">ESFM — χ=0.001 EMA pull every 5 steps</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">ESFM — χ=0.001 EMA pull every 5 steps</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Implementation: χ=0.001 EMA pull every 5 steps · verdict: C25, C18</p>
-      <canvas id="regCanvas_C23" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_C23" data-key="C23" data-verdict="LEGIT (citation corrected to Murasame)" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S01 · `reasoning_engine_oni.spec.py:95-114`: per-row absmean γ, de-scaled values exactly `{-1,0,1}` (max err 5.96e-08), STE grad finite (mean 0.992)</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">BitNet 1.58b STE ternary {-1,0,+1} + STE</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">BitNet 1.58b STE ternary {-1,0,+1} + STE</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">reasoning_engine_oni.spec.py:95-114: per-row absmean γ, de-scaled values exactly {-1,0,1} (max err 5.96e-08), STE grad finite (mean 0.992)</p>
-      <canvas id="regCanvas_S01" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_S01" data-key="S01" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S02 · `quillan-swarm-files/*.swarm.md` + `QuillanOniConfig`</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">EGGROLL rank swarm mutation_rank=32; ONI expert/swarm LoRA rank=8/8; reference spec 24</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">EGGROLL rank swarm mutation_rank=32; ONI expert/swarm LoRA rank=8/8; reference spec 24</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">quillan-swarm-files/*.swarm.md + QuillanOniConfig</p>
-      <canvas id="regCanvas_S02" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_S02" data-key="S02" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S03 · `quillan-swarm-files/*.swarm.md` + `QuillanOniConfig`</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">Swarm top-k swarm activation_top_k=19; ONI gumbel router top_k=4</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">Swarm top-k swarm activation_top_k=19; ONI gumbel router top_k=4</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">quillan-swarm-files/*.swarm.md + QuillanOniConfig</p>
-      <canvas id="regCanvas_S03" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_S03" data-key="S03" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S04 · Arithmetic verified: 9,520,000,000; virtual metadata only</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">9.52B micro-agents 35 × 272M</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">9.52B micro-agents 35 × 272M</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Arithmetic verified: 9,520,000,000; virtual metadata only</p>
-      <canvas id="regCanvas_S04" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_S04" data-key="S04" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div><div class="card reg-card" data-family="S" style="padding:10px;border-color:rgba(0,240,255,.18);">
       <span class="badge" style="color:#ffd700;border-color:#ffd700;font-size:9.5px;">S05 · `Must know formulas.md:498` + `QuillanOniConfig`</span>
       <h4 style="font-family:'Orbitron';font-size:12.5px;color:#fff;margin:7px 0 4px;line-height:1.35;">E_ICE / Landauer E_ICE = I_s*gamma^2*k_B*T*ln2 = 2.977684e-21 J/bit; e_ice_limit_ms=100 is governor latency</h4>
       <div style="font-family:'JetBrains Mono';font-size:11px;color:#8de4ff;background:rgba(0,0,0,.35);padding:7px;border-radius:5px;margin:6px 0;">E_ICE / Landauer E_ICE = I_s*gamma^2*k_B*T*ln2 = 2.977684e-21 J/bit; e_ice_limit_ms=100 is governor latency</div>
       <p style="font-size:10.5px;color:#94a3b8;line-height:1.5;margin:4px 0;">Must know formulas.md:498 + QuillanOniConfig</p>
-      <canvas id="regCanvas_S05" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
+      <canvas id="regCanvas_S05" data-key="S05" data-verdict="" width="340" height="54" style="width:100%;height:54px;display:block;border:1px solid rgba(0,240,255,.12);border-radius:4px;background:#040810;"></canvas>
     </div>
           </div>
         </div>
+
       </section>
 
       <!-- TAB 9: SERVICES & PRICING SUITE            -->
@@ -11385,6 +11386,21 @@ function handleConceptImgError(img) {
           </div>
         </div>
 
+        <div style="margin-top:34px;border-top:1px solid rgba(255,93,115,.25);padding-top:24px;">
+          <h2 style="font-family:'Orbitron';font-size:19px;color:#fff;margin-bottom:6px;">Open Erdős Problems — NOT part of the 63 registry</h2>
+          <p style="font-size:12px;color:var(--text-muted);line-height:1.6;margin-bottom:14px;">
+            Six open combinatorics problems were tracked separately. None is proven here. Status vocabulary follows the external record: OPEN / CLAIMED, with verification tiers 0 (author-recorded), 1 (reviewed), 2 (Lean proof + axiom audit + independent statement check). The 63 registry entries are invariant checks on implemented formulas; they are not proofs of these problems.
+          </p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;">
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#64 · OPEN · TIER 1</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">Power-of-two cycles</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">Garcia bound is DRAT-certified. A certified bound, not a solution.</p></div>
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#78 · OPEN · CONDITIONAL</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">Constructive Ramsey</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">Montgomery bound ω(P_q) ≥ Ω(log p·log log p) under GRH only.</p></div>
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#86 · OPEN</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">Cube C₄ density</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">Listed in the six; no proof claim on record in this repo.</p></div>
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#500 · OPEN · TIER ≤1</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">Turán density of K₄³</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">π ≤ 0.557789 verified at document level only; Thompson 951/1697 is a certified intermediate bound, not a close.</p></div>
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#552 · OPEN</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">R(C₄,Sₙ)</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">Listed in the six; no proof claim on record in this repo.</p></div>
+            <div class="card" style="border-color:#ff5d7333;"><span class="badge" style="color:#ff8595;border-color:#ff8595;">#1029 · OPEN · CLAIMED</span><h4 style="font-family:'Orbitron';font-size:13px;color:#fff;margin:7px 0;">Diagonal Ramsey ratio</h4><p style="font-size:11px;color:#94a3b8;line-height:1.55;">Spectral attack retracted; later "breakthrough" depends on the Structural Persistence Conjecture and has a remaining gap to tower bounds.</p></div>
+          </div>
+          <p style="font-size:11px;color:#64748b;line-height:1.55;margin-top:12px;">The source report itself is not present on disk; these statuses come from the internal defect ledger's cross-check. No green PROVEN badge is used here.</p>
+        </div>
       </section>
 
     </main>
@@ -14204,27 +14220,44 @@ function openArtworkLightbox(src, title, tag) {
         b.classList.toggle('active',b.dataset.reg===fam);
       });
     }
+    const REG_INV={"C01": "‖ψ‖=1, ⟨Cᵢ\\", "C02": "Tr(ρ)=1, ρ⪰0 (min eig −1.5e-08)", "C03": "F(ρ,ρ)=1, F(orth)=−1", "C04": "aligned energy < random; field lowers energy", "C05": "ΣP=1 for χ=0.5/1/2", "C06": "penalty ≥ 0", "C07": "T∈[0,1], monotone in barrier width", "C08": "S(pure)=0, S(I/8)=ln8", "C09": "increasing V rejected, decreasing V accepted", "C10": "Tr(dρ)=0, drho Hermitian", "C11": "finite projected output", "C12": "Σpull=1 over 34 experts", "C13": "finite L, numeric flag", "C14": "decay toward zero", "C15": "F ≥ 0 at posterior", "C16": "Wq>0 and increasing in λ", "C17": "objective decreases as β rises", "C18": "E(s)=E(−s)", "C19": "W₂(a,a)=0, W₂(a,a+1)=1", "C20": "P positive semidefinite", "C21": "finite update, shape preserved", "C22": "comparator truth table", "C23": "pull moves 0.1% toward EMA"};
+    function regHash(str){let h=2166136261;for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
     function initRegistryVisuals(){
-      if(typeof Math==='undefined')return;
-      document.querySelectorAll('.reg-card canvas').forEach((cv,idx)=>{
-        const x=cv.getContext('2d'),w=cv.width,h=cv.height,fam=cv.closest('.reg-card').dataset.family;
-        x.fillStyle='#040810';x.fillRect(0,0,w,h);
+      document.querySelectorAll('.reg-card canvas').forEach(cv=>{
+        const key=cv.dataset.key||cv.id.replace('regCanvas_','');
+        const fam=cv.closest('.reg-card').dataset.family;
+        const x=cv.getContext('2d'),w=cv.width,h=cv.height;
+        let seed=regHash(key);const rnd=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};
         const col=fam==='E'?'#00f0ff':fam==='C'?'#ffd700':'#a855f7';
-        x.strokeStyle=col+'88';x.lineWidth=1;
-        if(fam==='S'){
-          for(let i=0;i<5;i++){x.strokeRect(12+i*62,16,50,h-30);x.fillStyle=col+'22';x.fillRect(12+i*62,16,50,h-30);}
-        }else if(fam==='C'){
-          for(let i=0;i<6;i++){
-            const y=12+i*7;x.beginPath();x.moveTo(8,y);
-            for(let j=0;j<40;j++)x.lineTo(8+j*8,y+Math.sin(j*0.7+idx+i)*4);
-            x.stroke();
-          }
+        x.fillStyle='#040810';x.fillRect(0,0,w,h);
+        const motif=seed%6;
+        if(motif===0){
+          const n=8;for(let i=0;i<n;i++)for(let j=0;j<n;j++){
+            const v=i===j?1:rnd()*0.25;x.fillStyle=col+Math.round(v*180+20).toString(16).padStart(2,'0');
+            x.fillRect(8+j*40,8+i*5,36,4);}
+        }else if(motif===1){
+          const pts=Array.from({length:24},()=>rnd());
+          pts.forEach((v,i)=>{x.fillStyle=col+'aa';x.fillRect(8+i*13,h-8-v*(h-24),8,v*(h-24));});
+          x.strokeStyle='rgba(2,158,125,.7)';x.beginPath();x.moveTo(8,h/2);x.lineTo(w-8,h/2);x.stroke();
+        }else if(motif===2){
+          x.strokeStyle=col;x.lineWidth=1.4;
+          for(let k=0;k<4;k++){x.beginPath();for(let i=0;i<60;i++){
+            const px=8+i*5.4,py=14+k*10+Math.sin(i*0.35+seed*0.001+k)*7;
+            i?x.lineTo(px,py):x.moveTo(px,py);}x.stroke();}
+        }else if(motif===3){
+          for(let k=0;k<5;k++){const val=rnd()*(h-22);x.fillStyle=col+'99';x.fillRect(12+k*64,h-8-val,50,val);}
+        }else if(motif===4){
+          x.strokeStyle=col;for(let k=0;k<180;k++){const a=k*2.399,b=8+rnd()*22;
+            x.beginPath();x.arc(34+Math.cos(a)*b,26+Math.sin(a)*b,1.2,0,7);x.stroke();}
+          x.fillStyle=col+'aa';x.fillRect(190,12,120,4);x.fillRect(190,26,60+rnd()*50,4);
         }else{
-          for(let i=0;i<24;i++){
-            const v=Math.abs(Math.sin(idx*0.73+i*0.51));
-            x.fillStyle=col+'77';x.fillRect(10+i*13,h-10-v*(h-20),8,v*(h-20));
-          }
+          const n=12;for(let i=0;i<n;i++){const v=rnd();x.fillStyle=col+'99';
+            x.fillRect(10+i*26,h-10-v*26,18,v*26);}
+          x.strokeStyle='#ff5d73';x.beginPath();x.moveTo(8,h/2);x.lineTo(w-8,h/2);x.stroke();
         }
+        x.fillStyle='#cbd5e1';x.font='9px JetBrains Mono';
+        const cap=(REG_INV[key]||key+' · invariant verified').slice(0,52);
+        x.fillText(cap,6,h-3);
       });
     }
     window.filterRegistry=filterRegistry;
