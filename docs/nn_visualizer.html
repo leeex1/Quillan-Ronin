@@ -171,6 +171,9 @@ body{
   <button class="btn-control" onclick="setCameraAngle('front')">🔭 Front Horizon</button>
   <button class="btn-control" id="btn-pulse" onclick="togglePulse()">⚡ Overdrive Pulse</button>
   <button class="btn-control" id="btn-rotate" onclick="toggleAutoRotate()">🔄 Orbit: ON</button>
+  <button class="btn-control" onclick="focusModel('oni')" style="border-color:#00f0ff;color:#00f0ff;">🌐 QUILLAN ONI</button>
+  <button class="btn-control" onclick="focusModel('mini')" style="border-color:#ffd700;color:#ffd700;">⚡ QUILLAN MINI</button>
+  <button class="btn-control" onclick="focusModel('dragon')" style="border-color:#a855f7;color:#a855f7;">🐉 QUILLAN DRAGON</button>
   <button class="btn-control" onclick="toggleFullscreen()">⛶ Fullscreen</button>
 </div>
 
@@ -562,6 +565,73 @@ setInterval(() => {
   document.getElementById('tele-lat').innerText = `${lat} ms`;
 }, 1600);
 
+
+// ===== SOVEREIGN MODEL FLEET: ONI / MINI / DRAGON =====
+const MODEL_FLEET = {
+  oni:    { label:'QUILLAN ONI',    color:0x00f0ff, x:-9,  layers:16, hidden:2048, params:'~1B',   detail:'16L · 2048h · 24 heads · dense 34-council pull' },
+  mini:   { label:'QUILLAN MINI',   color:0xffd700, x:0,   layers:24, hidden:896,  params:'~0.7B', detail:'24L · 896h · 4864 ffn · 4GB VRAM edge build' },
+  dragon: { label:'QUILLAN DRAGON', color:0xa855f7, x:9,   layers:18, hidden:2048, params:'1B+',   detail:'18L · 2048h · 8192 ffn · sovereign system persona' }
+};
+const fleetMeshes = {};
+function makeLabel(text, color) {
+  const c = document.createElement('canvas'); c.width=512; c.height=96;
+  const x = c.getContext('2d');
+  x.fillStyle='rgba(3,7,16,0.82)'; x.fillRect(0,0,512,96);
+  x.strokeStyle=color; x.lineWidth=3; x.strokeRect(2,2,508,92);
+  x.fillStyle=color; x.font='bold 34px Orbitron, sans-serif';
+  x.textAlign='center'; x.textBaseline='middle'; x.fillText(text,256,52);
+  const tex = new THREE.CanvasTexture(c);
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:tex, transparent:true, depthTest:false}));
+  sp.scale.set(4.6,0.86,1);
+  return sp;
+}
+Object.keys(MODEL_FLEET).forEach(key => {
+  const m = MODEL_FLEET[key], grp = new THREE.Group();
+  grp.position.set(m.x, -8.5, 4);
+  const mat = new THREE.MeshBasicMaterial({color:m.color, wireframe:true, transparent:true, opacity:0.9});
+  let body;
+  if (key==='oni') {
+    body = new THREE.Mesh(new THREE.TorusKnotGeometry(1.15,0.17,96,10,2,3), mat);
+    const horns = new THREE.Mesh(new THREE.TorusGeometry(0.9,0.06,6,18,Math.PI), mat);
+    horns.position.y=1.1; grp.add(horns);
+  } else if (key==='mini') {
+    body = new THREE.Mesh(new THREE.OctahedronGeometry(1.25,1), mat);
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.45,12,12), new THREE.MeshBasicMaterial({color:m.color}));
+    grp.add(core);
+  } else {
+    body = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3,1), mat);
+    [-1,1].forEach(sgn => {
+      const wing = new THREE.Mesh(new THREE.ConeGeometry(0.42,1.9,4), mat);
+      wing.position.set(sgn*1.45,0.25,0); wing.rotation.z = sgn*0.9; grp.add(wing);
+    });
+  }
+  grp.add(body);
+  const ring = new THREE.Mesh(new THREE.TorusGeometry(1.85,0.025,6,48), mat);
+  ring.rotation.x=Math.PI/2; grp.add(ring);
+  const label = makeLabel(m.label, '#'+m.color.toString(16).padStart(6,'0'));
+  label.position.y=2.4; grp.add(label);
+  grp.userData = {key, body, ring};
+  scene.add(grp); fleetMeshes[key]=grp;
+});
+function focusModel(key) {
+  const m = MODEL_FLEET[key];
+  if (!m) return;
+  Object.keys(fleetMeshes).forEach(k => {
+    const g=fleetMeshes[k];
+    const on = k===key;
+    g.scale.setScalar(on?1.28:0.82);
+    g.userData.body.material.opacity = on?1:0.35;
+    g.userData.ring.material.opacity = on?0.9:0.22;
+  });
+  smoothTransition(m.x+6, 1.5, 15, m.x, -8.5, 4);
+  document.querySelector('#hud-header h1').innerText = '👑 '+m.label+' · SOVEREIGN MODEL FLEET';
+  document.querySelector('#hud-header .sub').innerText = m.detail+' · '+m.params+' · '+m.layers+' LAYERS';
+  document.getElementById('tele-flops').innerText = (m.params==='~0.7B'?'182.4':m.params==='1B+'?'318.6':'251.4')+' GFLOPS';
+  document.getElementById('tele-lat').innerText = (m.params==='~0.7B'?'0.28':m.params==='1B+'?'0.51':'0.38')+' ms';
+}
+window.focusModel = focusModel;
+focusModel('oni');
+
 let clock = 0;
 function animate() {
   requestAnimationFrame(animate);
@@ -579,6 +649,13 @@ function animate() {
   }
 
   controls.update();
+
+  Object.keys(fleetMeshes).forEach((k,idx) => {
+    const g=fleetMeshes[k];
+    g.userData.body.rotation.y += 0.012 + idx*0.004;
+    g.userData.body.rotation.x += 0.005;
+    g.userData.ring.rotation.z += 0.018;
+  });
 
   // Rotate Holographic Gyro Frames & Satellites
   rotatingElements.forEach(item => {
