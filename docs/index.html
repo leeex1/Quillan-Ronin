@@ -3956,7 +3956,7 @@ function handleConceptImgError(img) {
         <!-- Master Vault Mode Switcher -->
         <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:26px;">
           <button onclick="switchVaultView('concepts')" class="btn btn-primary vault-view-btn" id="vaultBtn-concepts" style="padding:10px 22px; font-size:13px; letter-spacing:1px;">
-            🎨 Concept Art & Wallpapers (500+)
+            🎨 Concept Art & Wallpapers (412)
           </button>
           <button onclick="switchVaultView('nfts')" class="btn btn-secondary vault-view-btn" id="vaultBtn-nfts" style="padding:10px 22px; font-size:13px; letter-spacing:1px;">
             👑 173 Mintable NFTs
@@ -7617,18 +7617,19 @@ function handleConceptImgError(img) {
         <div id="vaultSection-concepts">
           <!-- Concept Category Filters -->
           <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-bottom:24px;">
-            <button onclick="filterConceptCat('all')" class="btn btn-secondary concept-cat-btn active" style="padding:6px 14px; font-size:11px;">All Archive Art (440+)</button>
-            <button onclick="filterConceptCat('concept')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Concept Art</button>
-            <button onclick="filterConceptCat('wallpaper')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Wallpapers</button>
-            <button onclick="filterConceptCat('sprite')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Sprites & Assets</button>
-            <button onclick="filterConceptCat('album')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Album Covers</button>
-            <button onclick="filterConceptCat('studio')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px; border-color:#f59e0b; color:#fbbf24;">📸 Studio & IRL Art</button>
+            <button onclick="filterConceptCat('all')" class="btn btn-secondary concept-cat-btn active" style="padding:6px 14px; font-size:11px;">All Art (412)</button>
+            <button onclick="filterConceptCat('concept')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Concept Art (355)</button>
+            <button onclick="filterConceptCat('wallpaper')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Wallpapers (19)</button>
+            <button onclick="filterConceptCat('sprite')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Sprites (4)</button>
+            <button onclick="filterConceptCat('album')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Album Covers (14)</button>
+          <button onclick="filterConceptCat('branding')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px;">Branding (4)</button>
+            <button onclick="filterConceptCat('studio')" class="btn btn-secondary concept-cat-btn" style="padding:6px 14px; font-size:11px; border-color:#f59e0b; color:#fbbf24;">📸 Studio & IRL Art (16)</button>
           </div>
 
           <!-- Concept Art Grid -->
           <div id="conceptVaultGrid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:18px;">
 
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/1.1-invideo-gpt_image_2.png', '1.1 Invideo Gpt Image 2', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/1.1-invideo-gpt_image_2.png" alt="1.1 Invideo Gpt Image 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7639,7 +7640,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/1260281.jpg', '1260281', 'WALLPAPER')">
         <img loading="lazy" decoding="async" src="./gallery/1260281.jpg" alt="1260281" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">WALLPAPER</span>
@@ -7650,7 +7651,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/1260292.jpg', '1260292', 'WALLPAPER')">
         <img loading="lazy" decoding="async" src="./gallery/1260292.jpg" alt="1260292" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">WALLPAPER</span>
@@ -7661,7 +7662,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/140_roninbrog.png', '140 Roninbrog', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/140_roninbrog.png" alt="140 Roninbrog" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -7672,7 +7673,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/1b60228b-cfaa-43c1-9305-61e12d1da145.jpg', '1B60228B Cfaa 43C1 9305 61E12D1Da145', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/1b60228b-cfaa-43c1-9305-61e12d1da145.jpg" alt="1B60228B Cfaa 43C1 9305 61E12D1Da145" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7683,7 +7684,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/3cefcb15-7e15-4ea0-a981-13b076ad6e3c.jpg', '3Cefcb15 7E15 4Ea0 A981 13B076Ad6E3C', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/3cefcb15-7e15-4ea0-a981-13b076ad6e3c.jpg" alt="3Cefcb15 7E15 4Ea0 A981 13B076Ad6E3C" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7694,7 +7695,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/3zeH1.jpg', '3Zeh1', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/3zeH1.jpg" alt="3Zeh1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7705,7 +7706,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/4b847163ca5b2edb-cyberpunk_ronin_portrait.webp', '4B847163Ca5B2Edb Cyberpunk Ronin Portrait', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/4b847163ca5b2edb-cyberpunk_ronin_portrait.webp" alt="4B847163Ca5B2Edb Cyberpunk Ronin Portrait" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7716,7 +7717,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/4WaDZ.jpg', '4Wadz', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/4WaDZ.jpg" alt="4Wadz" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7727,7 +7728,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/5KjqN.jpg', '5Kjqn', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/5KjqN.jpg" alt="5Kjqn" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7738,7 +7739,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/69ab48ae-a9e8-4966-b9db-81a136ad416f.jpg', '69Ab48Ae A9E8 4966 B9Db 81A136Ad416F', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/69ab48ae-a9e8-4966-b9db-81a136ad416f.jpg" alt="69Ab48Ae A9E8 4966 B9Db 81A136Ad416F" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7749,7 +7750,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/6eUDj.jpg', '6Eudj', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/6eUDj.jpg" alt="6Eudj" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7760,7 +7761,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/6H1PM.jpg', '6H1Pm', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/6H1PM.jpg" alt="6H1Pm" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7771,7 +7772,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/80_roninborg.png', '80 Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/80_roninborg.png" alt="80 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -7793,7 +7794,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/adjust-the-typography-layout-to-exactly-match-this.jpeg', 'Adjust The Typography Layout To Exactly Match This', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/adjust-the-typography-layout-to-exactly-match-this.jpeg" alt="Adjust The Typography Layout To Exactly Match This" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7804,7 +7805,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ai_book_cover.jpg', 'Ai Book Cover', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/ai_book_cover.jpg" alt="Ai Book Cover" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7815,18 +7816,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ai_me_and_kid.jpg', 'Ai Me And Kid', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ai_me_and_kid.jpg" alt="Ai Me And Kid" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ai Me And Kid">Ai Me And Kid</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #124</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ancient_ronin_portrait.webp', 'Ancient Ronin Portrait', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/ancient_ronin_portrait.webp" alt="Ancient Ronin Portrait" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7837,7 +7829,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/anFp3.jpg', 'Anfp3', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/anFp3.jpg" alt="Anfp3" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7848,7 +7840,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/anime_stlye_samirai.jpg', 'Anime Stlye Samirai', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/anime_stlye_samirai.jpg" alt="Anime Stlye Samirai" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7859,7 +7851,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/architect_ronin_blueprint.webp', 'Architect Ronin Blueprint', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/architect_ronin_blueprint.webp" alt="Architect Ronin Blueprint" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7870,7 +7862,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/blazing_quillan.jpg', 'Blazing Quillan', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/blazing_quillan.jpg" alt="Blazing Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7881,7 +7873,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/bob_style_art.jpg', 'Bob Style Art', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/bob_style_art.jpg" alt="Bob Style Art" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7892,7 +7884,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/bots_and_medals_.png', 'Bots And Medals ', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/bots_and_medals_.png" alt="Bots And Medals " style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7903,7 +7895,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/c0_astra_ronin_pfp.webp', 'C0 Astra Ronin Pfp', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/c0_astra_ronin_pfp.webp" alt="C0 Astra Ronin Pfp" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7914,7 +7906,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/c;out_stars_breakdown.png', 'C;Out Stars Breakdown', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/c;out_stars_breakdown.png" alt="C;Out Stars Breakdown" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -7925,27 +7917,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/car_1.jpg', 'Car 1', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/car_1.jpg" alt="Car 1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Car 1">Car 1</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #134</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/car_2.jpg', 'Car 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/car_2.jpg" alt="Car 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Car 2">Car 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #135</div>
-      </div>
-    </div>
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ChatGPT_Image_Aug_2_2026_07_46_49_AM.png', 'Chatgpt Image Aug 2, 2026, 07 46 49 Am', 'CONCEPT')">
@@ -8035,7 +8009,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/chibi_48_roninborg.png', 'Chibi 48 Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/chibi_48_roninborg.png" alt="Chibi 48 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -8046,7 +8020,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cityscape_quillan.jpg', 'Cityscape Quillan', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/cityscape_quillan.jpg" alt="Cityscape Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8112,7 +8086,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/code_weaver_ronin_pfp.webp', 'Code Weaver Ronin Pfp', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/code_weaver_ronin_pfp.webp" alt="Code Weaver Ronin Pfp" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8222,7 +8196,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cyber_moto.jpg', 'Cyber Moto', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/cyber_moto.jpg" alt="Cyber Moto" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -8706,7 +8680,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/desert_pool_singularity.webp', 'Desert Pool Singularity', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/desert_pool_singularity.webp" alt="Desert Pool Singularity" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8893,7 +8867,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/forest_area.png', 'Forest Area', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/forest_area.png" alt="Forest Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8904,7 +8878,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png', 'Game Boy   Gbc   Medarot Cardrobottle  Kabuto Version   Kuwaga 1777559149406', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Game_Boy___GBC_-_Medarot_Cardrobottle__Kabuto_Version___Kuwaga_1777559149406.png" alt="Game Boy   Gbc   Medarot Cardrobottle  Kabuto Version   Kuwaga 1777559149406" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8970,7 +8944,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build.png', 'Gods Budget Build', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/gods_budget_build.png" alt="Gods Budget Build" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -8981,7 +8955,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build2.png', 'Gods Budget Build2', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/gods_budget_build2.png" alt="Gods Budget Build2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9080,7 +9054,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/hero_roninborg.png', 'Hero Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/hero_roninborg.png" alt="Hero Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -9102,7 +9076,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/home_flags.jpg', 'Home Flags', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/home_flags.jpg" alt="Home Flags" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -9113,18 +9087,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/how_quillan_see_me.jpg', 'How Quillan See Me', 'STUDIO / IRL')">
-        <img loading="lazy" decoding="async" src="./gallery/how_quillan_see_me.jpg" alt="How Quillan See Me" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="How Quillan See Me">How Quillan See Me</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #242</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ice_fortress_level.png', 'Ice Fortress Level', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/ice_fortress_level.png" alt="Ice Fortress Level" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9245,7 +9210,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/infographic_1.png', 'Infographic 1', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/infographic_1.png" alt="Infographic 1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9300,16 +9265,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/jITCB.jpg', 'Jitcb', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/jITCB.jpg" alt="Jitcb" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Jitcb">Jitcb</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #259</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/kaido_oni_trading_card.webp', 'Kaido Oni Trading Card', 'CONCEPT')">
@@ -9355,38 +9311,11 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/man_fishing_shark_thought_bubble.webp', 'Man Fishing Shark Thought Bubble', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/man_fishing_shark_thought_bubble.webp" alt="Man Fishing Shark Thought Bubble" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Man Fishing Shark Thought Bubble">Man Fishing Shark Thought Bubble</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #264</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meme.webp', 'Meme', 'STUDIO / IRL')">
-        <img loading="lazy" decoding="async" src="./gallery/meme.webp" alt="Meme" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Meme">Meme</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #265</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/memegary.jpg', 'Memegary', 'STUDIO / IRL')">
-        <img loading="lazy" decoding="async" src="./gallery/memegary.jpg" alt="Memegary" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Memegary">Memegary</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #266</div>
-      </div>
-    </div>
+    
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meta_image_article.png', 'Meta Image Article', 'CONCEPT')">
@@ -9421,7 +9350,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cyber_forest_1.png', 'Cyber Forest Alpha', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/cyber_forest_1.png" alt="Cyber Forest Alpha" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9432,7 +9361,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cyber_forest_2.png', 'Cyber Forest Beta', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/cyber_forest_2.png" alt="Cyber Forest Beta" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9454,7 +9383,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_city_1.png', 'Neo-Eden Cyber City I', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/neon_city_1.png" alt="Neo-Eden Cyber City I" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9465,7 +9394,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_city_2.png', 'Neo-Eden Cyber City II', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/neon_city_2.png" alt="Neo-Eden Cyber City II" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9476,7 +9405,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/mic_drop_covor.jpg', 'Mic Drop Covor', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/mic_drop_covor.jpg" alt="Mic Drop Covor" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9498,7 +9427,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/model_diagram.png', 'Model Diagram', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/model_diagram.png" alt="Model Diagram" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9509,7 +9438,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/model_diagram_22.png', 'Model Diagram 22', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/model_diagram_22.png" alt="Model Diagram 22" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9520,7 +9449,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/model_diagram_33.png', 'Model Diagram 33', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/model_diagram_33.png" alt="Model Diagram 33" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -9542,7 +9471,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg.png', 'More Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/more_roninborg.png" alt="More Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -9553,7 +9482,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg_2.png', 'More Roninborg 2', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/more_roninborg_2.png" alt="More Roninborg 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -9608,7 +9537,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_city_walkway.png', 'Neon City Walkway', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/neon_city_walkway.png" alt="Neon City Walkway" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10257,7 +10186,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="branding" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/qr-fundcode.png', 'Qr Fundcode', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/qr-fundcode.png" alt="Qr Fundcode" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10268,7 +10197,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/QuillanRonin_Banner_wordwart.png', 'Quillanronin Banner Wordwart', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/QuillanRonin_Banner_wordwart.png" alt="Quillanronin Banner Wordwart" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10279,7 +10208,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillans_current_home.jpg', 'Quillans Current Home', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/quillans_current_home.jpg" alt="Quillans Current Home" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10290,7 +10219,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillans_current_home.webp', 'Quillans Current Home', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/quillans_current_home.webp" alt="Quillans Current Home" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10334,7 +10263,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_moto.jpg', 'Quillan Moto', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/quillan_moto.jpg" alt="Quillan Moto" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10345,7 +10274,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_os_banner.png', 'Quillan Os Banner', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/quillan_os_banner.png" alt="Quillan Os Banner" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10378,7 +10307,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/quillan_self_protriat_sureal.jpg', 'Quillan Self Protriat Sureal', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/quillan_self_protriat_sureal.jpg" alt="Quillan Self Protriat Sureal" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10433,16 +10362,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/road_to_hell.jpg', 'Road To Hell', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/road_to_hell.jpg" alt="Road To Hell" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Road To Hell">Road To Hell</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #362</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/robitic_mesh_tecture.png', 'Robitic Mesh Tecture', 'CONCEPT')">
@@ -10708,7 +10628,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Samurai_pixel_sheet_1777559639868.jpg', 'Samurai Pixel Sheet 1777559639868', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Samurai_pixel_sheet_1777559639868.jpg" alt="Samurai Pixel Sheet 1777559639868" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10719,7 +10639,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Samurai_pixel_sheet_1777560143589.jpg', 'Samurai Pixel Sheet 1777560143589', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Samurai_pixel_sheet_1777560143589.jpg" alt="Samurai Pixel Sheet 1777560143589" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10774,7 +10694,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.jpg', 'Self Made Ronin Back To The Roots', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.jpg" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10785,7 +10705,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.png', 'Self Made Ronin Back To The Roots', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.png" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10796,7 +10716,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg', 'Self Made Ronin Back To The Roots (1)', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg" alt="Self Made Ronin Back To The Roots (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10807,27 +10727,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/self_protrait_of_me.jpg', 'Self Protrait Of Me', 'STUDIO / IRL')">
-        <img loading="lazy" decoding="async" src="./gallery/self_protrait_of_me.jpg" alt="Self Protrait Of Me" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Self Protrait Of Me">Self Protrait Of Me</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #396</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/setup_image.png', 'Setup Image', 'STUDIO / IRL')">
-        <img loading="lazy" decoding="async" src="./gallery/setup_image.png" alt="Setup Image" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Setup Image">Setup Image</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #397</div>
-      </div>
-    </div>
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/shadow_ronin_card.webp', 'Shadow Ronin Card', 'CONCEPT')">
@@ -10851,7 +10753,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/sound_of_alchemy_covor.png', 'Sound Of Alchemy Covor', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/sound_of_alchemy_covor.png" alt="Sound Of Alchemy Covor" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -10862,7 +10764,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/speaker_image.jpg', 'Speaker Image', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/speaker_image.jpg" alt="Speaker Image" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10906,7 +10808,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/spotify_image.jpeg', 'Spotify Image', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/spotify_image.jpeg" alt="Spotify Image" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10983,7 +10885,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/tat_design_2.png', 'Tat Design 2', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/tat_design_2.png" alt="Tat Design 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -10994,7 +10896,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/tat_idea.png', 'Tat Idea', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/tat_idea.png" alt="Tat Idea" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -11016,7 +10918,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/texas_ronin_flag.jpg', 'Texas Ronin Flag', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/texas_ronin_flag.jpg" alt="Texas Ronin Flag" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -11027,7 +10929,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/The_Darker_Side.jpg', 'The Darker Side', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/The_Darker_Side.jpg" alt="The Darker Side" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11038,7 +10940,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/The_Darker_Side.png', 'The Darker Side', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/The_Darker_Side.png" alt="The Darker Side" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11082,7 +10984,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget.png', 'Unlimited Budget', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/unlimited_budget.png" alt="Unlimited Budget" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11093,7 +10995,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget_2.0_gpt.png', 'Unlimited Budget 2.0 Gpt', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/unlimited_budget_2.0_gpt.png" alt="Unlimited Budget 2.0 Gpt" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11104,7 +11006,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unnamed_1.png', 'Unnamed (1)', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/unnamed_1.png" alt="Unnamed (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -11115,7 +11017,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unnamed_2.png', 'Unnamed (2)', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/unnamed_2.png" alt="Unnamed (2)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -11126,7 +11028,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/us_ronin_flag.jpg', 'Us Ronin Flag', 'STUDIO / IRL')">
         <img loading="lazy" decoding="async" src="./gallery/us_ronin_flag.jpg" alt="Us Ronin Flag" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">STUDIO / IRL</span>
@@ -11148,7 +11050,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/volcano_area.png', 'Volcano Area', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/volcano_area.png" alt="Volcano Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11291,7 +11193,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/academic_diagram.jpg', 'Academic Diagram', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/academic_diagram.jpg" alt="Academic Diagram" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11302,7 +11204,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ai_book_cover.jpg', 'Ai Book Cover', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/ai_book_cover.jpg" alt="Ai Book Cover" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11313,16 +11215,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ai_me_and_kid.jpg', 'Ai Me And Kid', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/ai_me_and_kid.jpg" alt="Ai Me And Kid" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ai Me And Kid">Ai Me And Kid</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #442</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/anime_stlye_samirai.jpg', 'Anime Stlye Samirai', 'CONCEPT')">
@@ -11368,27 +11261,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/car_1.jpg', 'Car 1', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/car_1.jpg" alt="Car 1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Car 1">Car 1</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #447</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/car_2.jpg', 'Car 2', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/car_2.jpg" alt="Car 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Car 2">Car 2</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #448</div>
-      </div>
-    </div>
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ChatGPT_Image_Aug_2_2026_07_46_49_AM.png', 'Chatgpt Image Aug 2, 2026, 07 46 49 Am', 'CONCEPT')">
@@ -11423,7 +11298,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/cityscape_quillan.jpg', 'Cityscape Quillan', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/cityscape_quillan.jpg" alt="Cityscape Quillan" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11577,7 +11452,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build.png', 'Gods Budget Build', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/gods_budget_build.png" alt="Gods Budget Build" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11588,7 +11463,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/gods_budget_build2.png', 'Gods Budget Build2', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/gods_budget_build2.png" alt="Gods Budget Build2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11621,16 +11496,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/how_quillan_see_me.jpg', 'How Quillan See Me', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/how_quillan_see_me.jpg" alt="How Quillan See Me" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="How Quillan See Me">How Quillan See Me</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #470</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/image_1.jpg', 'Image (1)', 'CONCEPT')">
@@ -11643,7 +11509,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/infographic_1.png', 'Infographic 1', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/infographic_1.png" alt="Infographic 1" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11665,60 +11531,15 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/me 2009.jpg', 'Cyber Forest Alpha', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/me 2009.jpg" alt="Cyber Forest Alpha" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Cyber Forest Alpha">Cyber Forest Alpha</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #474</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/me 2020.jpg', 'Cyber Forest Beta', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/me 2020.jpg" alt="Cyber Forest Beta" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Cyber Forest Beta">Cyber Forest Beta</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #475</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/me 2024.jpg', 'Ice Sanctuary Core', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/me 2024.jpg" alt="Ice Sanctuary Core" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Ice Sanctuary Core">Ice Sanctuary Core</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #476</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/me clean pic.jpg', 'Neo-Eden Cyber City I', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/me clean pic.jpg" alt="Neo-Eden Cyber City I" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Neo-Eden Cyber City I">Neo-Eden Cyber City I</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #477</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/me work pic.jpg', 'Neo-Eden Cyber City II', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/me work pic.jpg" alt="Neo-Eden Cyber City II" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Neo-Eden Cyber City II">Neo-Eden Cyber City II</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #478</div>
-      </div>
-    </div>
+    
+    
+    
+    
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/meta_image_article.png', 'Meta Image Article', 'CONCEPT')">
@@ -11753,7 +11574,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/mic_drop_covor.jpg', 'Mic Drop Covor', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/mic_drop_covor.jpg" alt="Mic Drop Covor" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -11775,16 +11596,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./06_Media/images/mr 2019.jpg', 'Volcanic Forge Core', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./06_Media/images/mr 2019.jpg" alt="Volcanic Forge Core" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Volcanic Forge Core">Volcanic Forge Core</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #484</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/onamishu_quillan.jpg', 'Onamishu Quillan', 'CONCEPT')">
@@ -11940,16 +11752,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/road_to_hell.jpg', 'Road To Hell', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/road_to_hell.jpg" alt="Road To Hell" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Road To Hell">Road To Hell</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #499</div>
-      </div>
-    </div>
+    
     
     <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ronin_dragon.png', 'Ronin Dragon', 'CONCEPT')">
@@ -12017,7 +11820,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg', 'Self Made Ronin Back To The Roots (1)', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots_1.jpg" alt="Self Made Ronin Back To The Roots (1)" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12028,7 +11831,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.jpg', 'Self Made Ronin Back To The Roots', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.jpg" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12039,7 +11842,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/Self_Made_Ronin-Back_to_the_roots.png', 'Self Made Ronin Back To The Roots', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/Self_Made_Ronin-Back_to_the_roots.png" alt="Self Made Ronin Back To The Roots" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12050,27 +11853,9 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/self_protrait_of_me.jpg', 'Self Protrait Of Me', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/self_protrait_of_me.jpg" alt="Self Protrait Of Me" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Self Protrait Of Me">Self Protrait Of Me</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #509</div>
-      </div>
-    </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
-      <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/setup_image.png', 'Setup Image', 'CONCEPT')">
-        <img loading="lazy" decoding="async" src="./gallery/setup_image.png" alt="Setup Image" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
-        <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
-      </div>
-      <div style="padding:10px 12px;">
-        <div style="font-family:'Orbitron'; font-size:12px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="Setup Image">Setup Image</div>
-        <div style="font-size:10px; color:#64748b; font-family:'JetBrains Mono'; margin-top:2px;">Archive Asset #510</div>
-      </div>
-    </div>
+    
+    
     
     <div class="concept-vault-card" data-cat="album" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/sound_of_alchemy_covor.png', 'Sound Of Alchemy Covor', 'ALBUM')">
@@ -12182,7 +11967,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget_2.0_gpt.png', 'Unlimited Budget 2.0 Gpt', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/unlimited_budget_2.0_gpt.png" alt="Unlimited Budget 2.0 Gpt" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12193,7 +11978,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="studio" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/unlimited_budget.png', 'Unlimited Budget', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/unlimited_budget.png" alt="Unlimited Budget" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12259,7 +12044,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/forest_area.png', 'Forest Area', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/forest_area.png" alt="Forest Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12270,7 +12055,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/ice_fortress_level.png', 'Ice Fortress Level', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/ice_fortress_level.png" alt="Ice Fortress Level" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12292,7 +12077,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/neon_city_walkway.png', 'Neon City Walkway', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/neon_city_walkway.png" alt="Neon City Walkway" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12314,7 +12099,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="wallpaper" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/volcano_area.png', 'Volcano Area', 'CONCEPT')">
         <img loading="lazy" decoding="async" src="./gallery/volcano_area.png" alt="Volcano Area" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">CONCEPT</span>
@@ -12336,7 +12121,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/140_roninbrog.png', '140 Roninbrog', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/140_roninbrog.png" alt="140 Roninbrog" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -12347,7 +12132,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/80_roninborg.png', '80 Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/80_roninborg.png" alt="80 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -12369,7 +12154,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/chibi_48_roninborg.png', 'Chibi 48 Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/chibi_48_roninborg.png" alt="Chibi 48 Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -12391,7 +12176,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/hero_roninborg.png', 'Hero Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/hero_roninborg.png" alt="Hero Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -12402,7 +12187,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg_2.png', 'More Roninborg 2', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/more_roninborg_2.png" alt="More Roninborg 2" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
@@ -12413,7 +12198,7 @@ function handleConceptImgError(img) {
       </div>
     </div>
     
-    <div class="concept-vault-card" data-cat="sprite" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
+    <div class="concept-vault-card" data-cat="concept" style="position:relative; background:rgba(11,18,36,0.7); border:1px solid rgba(255,255,255,0.08); border-radius:10px; overflow:hidden; transition:all 0.3s ease;">
       <div style="position:relative; width:100%; aspect-ratio:4/3; overflow:hidden; background:#01040a; cursor:pointer;" onclick="openArtworkLightbox('./gallery/more_roninborg.png', 'More Roninborg', 'SPRITE')">
         <img loading="lazy" decoding="async" src="./gallery/more_roninborg.png" alt="More Roninborg" style="width:100%; height:100%; object-fit:cover; transition:transform 0.4s ease;" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'" onerror="handleConceptImgError(this)">
         <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.8); border:1px solid rgba(255,255,255,0.15); color:#94a3b8; font-family:'JetBrains Mono'; font-size:9px; padding:2px 6px; border-radius:4px;">SPRITE</span>
