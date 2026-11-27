@@ -10678,7 +10678,7 @@ function handleConceptImgError(img) {
           </div>
 
           <form id="svcRequestForm" onsubmit="handleServiceFormSubmit(event)" style="display:flex; flex-direction:column; gap:18px;">
-            <input type="text" name="_captcha" style="display:none!important;position:absolute!important;left:-9999px!important;" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_subject" value="Quillan-Ronin Project Request">
             <!-- 1. Contact Information Row -->
             <div class="grid-3" style="gap:14px;">
@@ -12996,7 +12996,7 @@ function inspectNFT(id) {
         const timer = setTimeout(() => ctrl.abort(), 15000);
         let res;
         try {
-          res = await fetch('https://formsubmit.co/jdxleex@gmail.com', {
+          res = await fetch('https://formsubmit.co/ajax/jdxleex@gmail.com', {
             method: 'POST', body: payload, headers: { 'Accept': 'application/json' }, signal: ctrl.signal
           });
         } finally { clearTimeout(timer); }
