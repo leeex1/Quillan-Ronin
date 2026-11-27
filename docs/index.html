@@ -3989,7 +3989,7 @@ function handleConceptImgError(img) {
         <div style="text-align:center;margin-bottom:18px;">
           <span class="badge" style="color:#00f0ff;border-color:#00f0ff;margin-bottom:8px;">ACTUAL CHECKPOINT ARCHITECTURE</span>
           <h2 style="font-family:'Cinzel';font-size:28px;color:#fff;">🔬 Model Transparency Lab</h2>
-          <p style="font-size:13px;color:var(--text-muted);">One selectable Quillan stage plus three cross-model comparison shaders. Quillan geometries are read from the locked configs on disk.</p>
+          <p style="font-size:13px;color:var(--text-muted);">Seven live views: one selectable Quillan stage, three Quillan variant comparisons, and three external reference comparisons. Every view has its own shader.</p>
         </div>
         <div id="modelStage" style="margin-bottom:16px;">
         <div id="stagePicker" style="display:flex;gap:8px;justify-content:center;margin-bottom:10px;flex-wrap:wrap;"></div>
@@ -4000,7 +4000,10 @@ function handleConceptImgError(img) {
       </div>
 
       <div id="modelCompare" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;"></div>
-      <p style="font-size:10.5px;color:#94a3b8;text-align:center;margin-top:10px;line-height:1.5;">Stage: three locked Quillan checkpoints. Comparisons: Claude and GPT are indicative decoder-only profiles (architectures undisclosed); Grok-1 uses its public open configuration. Each viewer runs its own shader.</p>
+      <div style="font-family:'Orbitron';font-size:12px;color:#8de4ff;text-align:center;margin:18px 0 8px;letter-spacing:1px;">QUILLAN VARIANTS — LOCKED CHECKPOINTS</div>
+      <div id="modelCompareExternal" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;"></div>
+      <div style="font-family:'Orbitron';font-size:12px;color:#8de4ff;text-align:center;margin:18px 0 8px;letter-spacing:1px;">EXTERNAL REFERENCE MODELS — CROSS-MODEL COMPARISON</div>
+      <p style="font-size:10.5px;color:#94a3b8;text-align:center;margin-top:10px;line-height:1.5;">Stage and variant row: three locked Quillan checkpoints (Oni 12L, Mini 6L, Dragon 18L). External row: Claude and GPT are indicative decoder-only profiles (architectures undisclosed); Grok-1 uses its public open configuration. Each viewer runs its own shader.</p>
       </section>
 
             <!-- ========================================== -->
@@ -14471,7 +14474,14 @@ function openArtworkLightbox(src, title, tag) {
       if(__stage||typeof THREE==='undefined'||typeof MODEL_MANIFEST==='undefined')return;
       document.getElementById('stagePicker').innerHTML=STAGE_KEYS.map(k=>
         `<button data-model="${k}" class="btn btn-secondary" style="padding:8px 14px;" onclick="selectModel('${k}')">${MODEL_MANIFEST[k].name}</button>`).join('');
-      document.getElementById('modelCompare').innerHTML=REF_KEYS.map(k=>{
+      document.getElementById('modelCompare').innerHTML=STAGE_KEYS.map(k=>{
+        const m=MODEL_MANIFEST[k],c=m.config,accent='#'+COLORS[k][1].toString(16).padStart(6,'0');
+        return `<div class="card" style="padding:6px;border:1px solid ${accent}55;">`+
+          `<div style="font-family:'Orbitron';font-size:11px;color:#fff;padding:4px;">${m.name}</div>`+
+          `<canvas class="cmp-canvas" data-model="${k}" style="width:100%;height:260px;display:block;"></canvas>`+
+          `<div style="font-size:9px;color:#8de4ff;padding:4px;line-height:1.5;">${c.num_hidden_layers}L · ${c.hidden_size}h · ${c.num_attention_heads}H · FFN ${c.intermediate_size}<br>${fmtParams(m.total_params)} · ${m.note}</div></div>`;
+      }).join('');
+      document.getElementById('modelCompareExternal').innerHTML=REF_KEYS.map(k=>{
         const m=REF_MODELS[k],c=m.config,accent='#'+COLORS[k][1].toString(16).padStart(6,'0');
         return `<div class="card" style="padding:6px;border:1px solid ${accent}55;">`+
           `<div style="font-family:'Orbitron';font-size:11px;color:#fff;padding:4px;">${m.name}</div>`+
