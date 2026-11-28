@@ -1,0 +1,102 @@
+{
+ "master": {
+  "kind": "PDF page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Quillan-Ronin-Master-Paper.pdf",
+  "page": 1,
+  "size": [
+   1224,
+   1584
+  ],
+  "label": "PDF page 1 · Quillan-Ronin Master Paper"
+ },
+ "wsp": {
+  "kind": "PDF page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Building_Foundation_Models_via_Weight_Space_Programming.pdf",
+  "page": 1,
+  "size": [
+   1224,
+   1584
+  ],
+  "label": "PDF page 1 · Weight-Space Programming"
+ },
+ "oni": {
+  "kind": "PDF page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\_archive_papers\\Quillan-Ronin-v5.4.0-oni-Model-Paper.pdf",
+  "page": 1,
+  "size": [
+   1224,
+   1584
+  ],
+  "label": "PDF page 1 · v5.4.0-ONI Model Paper"
+ },
+ "reactive": {
+  "kind": "source markdown render, page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Formal Papers\\Reactive_Consciousness_Swarm_Arbitration_and_Epistemic_Humility_Through_Hierarchical_Mixture-of-Experts.md",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "Source MD render page 1 · Quillan v5.3.1 as Proto-AGI: Reactive Consciousness"
+ },
+ "ccrl": {
+  "kind": "PDF page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Formal Papers\\A_Deep_Dive_into_the_Council-Calibrated_Reinforcement_Learning_CCRL_Framework.pdf",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "PDF page 1 · CCRL Framework Deep Dive"
+ },
+ "swarms": {
+  "kind": "source markdown render, page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Formal Papers\\Swarms of Thought_ How Muse Spark and Quillan-Ronin Converged on a New AI Architecture.md",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "Source MD render page 1 · Swarms of Thought"
+ },
+ "predatory": {
+  "kind": "PDF page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Formal Papers\\Predatory Stacking via ALA.pdf",
+  "page": 1,
+  "size": [
+   1224,
+   1584
+  ],
+  "label": "PDF page 1 · Predatory Stacking"
+ },
+ "pwe": {
+  "kind": "source markdown render, page 1",
+  "source": "F:\\02_QUILLAN\\10 - Formal Papers\\Formal Public PWE-RDS.md",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "Source MD render page 1 · Formal Public PWE-RDS"
+ },
+ "epistemology": {
+  "kind": "source markdown render, page 1",
+  "source": "F:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\canonical\\13-Synthetic Epistemology & Truth Calibration Protocol.md",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "Source MD render page 1 · Synthetic Epistemology & Truth Calibration"
+ },
+ "consciousness": {
+  "kind": "source markdown render, page 1",
+  "source": "F:\\02_QUILLAN\\02 - Knowledge Foundation\\knowledge\\canonical\\32-Conciousness theory.md",
+  "page": 1,
+  "size": [
+   1191,
+   1684
+  ],
+  "label": "Source MD render page 1 · Consciousness Theory"
+ }
+}
