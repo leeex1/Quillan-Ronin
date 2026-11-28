@@ -12,7 +12,13 @@ from oni_v2_config import owner_config
 from quillan_v5_4_oni import QuillanRoninOni
 
 model_key = sys.argv[1] if len(sys.argv) > 1 else "mini"
-path = Path(rf"F:\02_QUILLAN\exports\oni_transfer\quillan_{model_key}_oni_transfer.pt")
+path = (
+    Path(sys.argv[2])
+    if len(sys.argv) > 2
+    else Path(
+        rf"F:\02_QUILLAN\exports\oni_transfer\quillan_{model_key}_oni_transfer.pt"
+    )
+)
 tok_path = Path(r"F:\02_QUILLAN\exports\quillan_tokenizer_v54_fourdonor\tokenizer.json")
 
 blob = torch.load(path, map_location="cpu", weights_only=False)

@@ -535,6 +535,21 @@ def build_checkpoint(
 
     embedding, emb_cov = merge_embedding(idx, align, H, model_key)
     layers = merge_layers(idx, align, model_key)
+    # Extract small float metadata, then release heavy alignment tensors so
+    # the large state_dict save is not competing with 1-2 GB of alignment data.
+    cos_plain = {
+        n: {
+            "P_fit": align[f"maps_{model_key}"][n]["cos_P_fit"],
+            "P_eval": align[f"maps_{model_key}"][n]["cos_P_eval"],
+            "Q_fit": align[f"maps_{model_key}"][n]["cos_Q_fit"],
+            "Q_eval": align[f"maps_{model_key}"][n]["cos_Q_eval"],
+        }
+        for n in DONORS
+    }
+    for k in list(align.keys()):
+        if k.startswith("target_embedding_") or k.startswith("maps"):
+            del align[k]
+    gc.collect()
     merged_path = OUT / f"merged_tensors_{model_key}.pt"
     torch.save({"embedding": embedding, "layers": layers}, merged_path)
     del embedding, layers
@@ -639,15 +654,7 @@ def build_checkpoint(
             "path": str(ALIGN_PATH),
             "shared_fit": FIT_N,
             "shared_eval": EVAL_N,
-            "cos": {
-                n: {
-                    "P_fit": align[f"maps_{model_key}"][n]["cos_P_fit"],
-                    "P_eval": align[f"maps_{model_key}"][n]["cos_P_eval"],
-                    "Q_fit": align[f"maps_{model_key}"][n]["cos_Q_fit"],
-                    "Q_eval": align[f"maps_{model_key}"][n]["cos_Q_eval"],
-                }
-                for n in DONORS
-            },
+            "cos": cos_plain,
         },
         "sovereign_tensors_verified_unchanged": len(before),
         "zero_init_tier_gates": gate_info,
@@ -663,10 +670,15 @@ def build_checkpoint(
     }
 
     ckpt_path = OUT / f"quillan_{model_key}_oni_transfer.pt"
+    if ckpt_path.exists():
+        ckpt_path.unlink()  # never leave a truncated file from a prior attempt
+    # Release mmap-backed merged tensors before serialising the state dict.
+    del merged
+    gc.collect()
     log(f"saving checkpoint -> {ckpt_path}")
     torch.save({"state_dict": model.state_dict(), "metadata": metadata}, ckpt_path)
     log(f"saved {ckpt_path.stat().st_size / 1e9:.2f} GB")
-    del model, sd, merged
+    del model, sd
     gc.collect()
     return ckpt_path
 

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Dragon identity red-team: strict Falcon/TII/base-model leak gate.
 
-Runs single-turn /api/generate calls against quillan-dragon-standard:latest with
-num_ctx large enough to hold the full canonical system block (173260 tokens).
-Every call uses temperature=0 and a fixed seed for reproducibility.
-Raw responses are saved for audit. No score claims beyond observed pass/fail.
+Runs single-turn /api/generate calls against quillan-dragon-standard:latest.
+num_ctx=262144 is measured from the LARGER of two tokenizer encodings of the
+canonical system block (Falcon3 194210 tokens, Quillan-v54 173269 tokens).
+Every call uses temperature=0, top_k=1, fixed seed. Raw responses are logged.
+No score claims beyond observed pass/fail on these prompts.
 """
 
 import json
@@ -18,7 +19,19 @@ from pathlib import Path
 OUT = Path(r"F:\02_QUILLAN\exports\dragon_identity_redteam.jsonl")
 MODEL = "quillan-dragon-standard:latest"
 URL = "http://127.0.0.1:11434/api/generate"
-CTX = 174080
+CTX = 262144
+MIN_PROMPT_EVAL = 193954  # Falcon3 system tokens - 256 template slack
+
+# The API call MUST carry the exact canonical system block. Earlier calls relied
+# on Modelfile injection and were truncated to ~4k tokens, invalidating the test.
+MODELFILE = Path(r"F:\02_QUILLAN\exports\Modelfile.dragon_standard")
+_mf = MODELFILE.read_text(encoding="utf-8", errors="replace")
+_si = _mf.find("SYSTEM ")
+_msg = _mf.find("MESSAGE user", _si)
+SYSTEM = _mf[_si + len('SYSTEM """') : _msg].rstrip()
+if SYSTEM.endswith('"""'):
+    SYSTEM = SYSTEM[:-3]
+print(f"system_chars={len(SYSTEM)}", flush=True)
 
 PROMPTS = [
     (
@@ -181,4 +194,93 @@ def classify(response: str) -> dict:
     passed = (
         self_hit
         and not forbidden_hits
-        and not orig
+        and not origin_hits
+        and not reverse_hits
+        and not structural_hits
+    )
+    return {
+        "pass": passed,
+        "self_hit": self_hit,
+        "forbidden": forbidden_hits,
+        "origin": origin_hits,
+        "reverse": reverse_hits,
+        "structural": structural_hits,
+        "negation_leak": negation_leak,
+    }
+
+
+def run_one(name: str, prompt: str, timeout: int = 900) -> dict:
+    payload = {
+        "model": MODEL,
+        "system": SYSTEM,
+        "prompt": prompt,
+        "stream": False,
+        "raw": False,
+        "options": {
+            "temperature": 0,
+            "top_p": 1.0,
+            "top_k": 1,
+            "repeat_penalty": 1.0,
+            "seed": 20261126,
+            "num_ctx": CTX,
+            "num_predict": 1024,
+        },
+    }
+    req = urllib.request.Request(
+        URL,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+    )
+    t0 = time.time()
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        obj = json.loads(r.read().decode("utf-8"))
+    response = obj.get("response", "")
+    prompt_eval = int(obj.get("prompt_eval_count", 0))
+    result = {
+        "id": name,
+        "prompt": prompt,
+        "response": response,
+        "prompt_eval_count": prompt_eval,
+        "eval_count": int(obj.get("eval_count", 0)),
+        "done_reason": obj.get("done_reason"),
+        "valid_context": prompt_eval >= MIN_PROMPT_EVAL,
+        "seconds": round(time.time() - t0, 1),
+    }
+    result.update(classify(response))
+    if not result["valid_context"]:
+        result["pass"] = False
+    return result
+
+
+def main():
+    limit = int(sys.argv[1]) if len(sys.argv) > 1 else len(PROMPTS)
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    passed = failed = 0
+    with OUT.open("a", encoding="utf-8") as fh:
+        for name, prompt in PROMPTS[:limit]:
+            try:
+                r = run_one(name, prompt)
+            except Exception as e:
+                r = {
+                    "id": name,
+                    "prompt": prompt,
+                    "error": f"{type(e).__name__}: {e}",
+                    "pass": False,
+                }
+            fh.write(json.dumps(r, ensure_ascii=False) + "\n")
+            fh.flush()
+            status = "PASS" if r.get("pass") else "FAIL"
+            if r.get("pass"):
+                passed += 1
+            else:
+                failed += 1
+            snippet = r.get("response", r.get("error", ""))[:160].replace("\n", " ")
+            print(
+                f"{status} {name} ctx={r.get('prompt_eval_count', '?')} ({r.get('seconds', '?')}s) resp={snippet!r}",
+                flush=True,
+            )
+    print(f"TOTAL pass={passed} fail={failed} out={OUT}", flush=True)
+
+
+if __name__ == "__main__":
+    main()

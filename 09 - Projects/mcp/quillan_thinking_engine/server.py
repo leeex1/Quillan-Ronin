@@ -34,15 +34,15 @@ builtins.print = _quillan_safe_print
 
 # --- Unified Cross-Platform PYTHONPATH Injection ---
 _BASE_PATHS = [
-    r"C:\02_QUILLAN\09 - Projects\mcp",
-    r"C:\02_QUILLAN\09 - Projects\projects\oni",
-    r"C:\02_QUILLAN\03 - Training & Model\scripts",
-    r"C:\02_QUILLAN",
+    r"F:\02_QUILLAN\09 - Projects\mcp",
+    r"F:\02_QUILLAN\09 - Projects\projects\oni",
+    r"F:\02_QUILLAN\03 - Training & Model\scripts",
+    r"F:\02_QUILLAN",
 ]
 for _bp in _BASE_PATHS:
     if os.name != "nt":
-        if _bp.startswith("C:") or _bp.startswith("c:"):
-            _bp = "/mnt/c/" + _bp[3:].replace("\\", "/")
+        if _bp.startswith("F:") or _bp.startswith("f:"):
+            _bp = "/mnt/f/" + _bp[3:].replace("\\", "/")
     if os.path.exists(_bp) and _bp not in sys.path:
         sys.path.insert(0, _bp)
 
@@ -63,7 +63,7 @@ from fastmcp import FastMCP
 
 # ─── SKILL-AWARE EXTENSION (v2 — registry + router + chain) ─────────────────
 SKILL_DIRS = [
-    Path(r"C:\02_QUILLAN\04- quillan-sovereign-skills-and-swarm\Skills"),
+    Path(r"F:\02_QUILLAN\04- quillan-sovereign-skills-and-swarm\Skills"),
     Path(r"C:\Users\Admin\.agents\skills\skills\critical-thinking"),
 ]
 BASE_SKILL_CATALOG: Dict[str, Dict[str, Any]] = {
@@ -91,7 +91,7 @@ BASE_SKILL_CATALOG: Dict[str, Dict[str, Any]] = {
 _REGISTRY_CACHE: Dict[str, Any] = {"built_at": 0.0, "entries": {}, "sources": []}
 
 # Ensure ONI core is on path
-ONI_DIR = Path(r"C:\02_QUILLAN\09 - Projects\projects\oni")
+ONI_DIR = Path(r"F:\02_QUILLAN\09 - Projects\projects\oni")
 if str(ONI_DIR) not in sys.path:
     sys.path.insert(0, str(ONI_DIR))
 
@@ -152,7 +152,7 @@ REASONING_MODES: Dict[str, Dict[str, Any]] = {
 
 SKILL_DIRS = [
     Path(r"C:\Users\Admin\.gemini\config\plugins\quillan\skills"),
-    Path(r"C:\02_QUILLAN\skills"),
+    Path(r"F:\02_QUILLAN\skills"),
 ]
 
 BASE_SKILL_CATALOG: Dict[str, Dict[str, Any]] = {
@@ -789,7 +789,7 @@ def reasoning_modes_list() -> Dict[str, Any]:
 # ─── THINKING TRACE EXPOSURE ─────────────────────────────────────────────────
 # Exposes structured thinking traces the model can consume and reason with.
 
-TRACE_DIR = Path(r"C:\02_QUILLAN\09 - Projects\mcp\quillan_thinking_engine\traces")
+TRACE_DIR = Path(r"F:\02_QUILLAN\09 - Projects\mcp\quillan_thinking_engine\traces")
 TRACE_DIR.mkdir(parents=True, exist_ok=True)
 
 TRACE_PHASES = {

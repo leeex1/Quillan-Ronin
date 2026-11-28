@@ -182,7 +182,10 @@ class QuillanDaemonSupervisor:
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL,
                 cwd=str(DAEMONS_DIR),
-                creationflags=subprocess.CREATE_NEW_PROCESS_GROUP
+                creationflags=(
+                    subprocess.CREATE_NEW_PROCESS_GROUP
+                    | getattr(subprocess, "CREATE_NO_WINDOW", 0)
+                )
                 if sys.platform == "win32"
                 else 0,
             )
@@ -299,6 +302,16 @@ class QuillanDaemonSupervisor:
                     180.0,
                 ),
             ),
+            "fleet_maintenance": (
+                REPO_ROOT / "daemons" / "quillan_fleet_maintenance.py",
+                "quillan_fleet_maintenance.py",
+                [],
+                (
+                    REPO_ROOT / "daemons" / "fleet_maintenance_state.json",
+                    "last_cycle",
+                    90.0,
+                ),
+            ),
         }
         # One cheap process scan; detect by cmdline substring.
         live = set()
@@ -326,7 +339,7 @@ class QuillanDaemonSupervisor:
                 try:
                     state_path, ts_field, stale_secs = state_spec
                     if state_path.exists():
-                        st = json.loads(state_path.read_text(encoding="ascii"))
+                        st = json.loads(state_path.read_text(encoding="utf-8"))
                         age = time.time() - float(st.get(ts_field, 0.0))
                         if age > stale_secs:
                             strikes = self._hung_strikes.get(key, 0) + 1

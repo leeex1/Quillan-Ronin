@@ -1,3 +1,5 @@
+> **Living Document Notice:** This file is a living, editable operational document that evolves over time alongside Quillan-Ronin's architecture, memory, and runtime. Update it directly when verified evidence or system architecture changes (keep mirrors synchronized; identity or character changes require user approval; `6-prime_covenant_codex.md` remains read-only ROOT_OF_TRUST).
+
 # 🧠 Quillan-Ronin Persistent Memory Log (`memory.md`)
 
 This is the human-readable episodic memory document tracking key milestones, user preferences, architectural decisions, and active state across sessions.
@@ -63,3 +65,11 @@ This is the human-readable episodic memory document tracking key milestones, use
   - **Qwen Code / App:** Patched `.qwen/mcp_config.json` and `settings.json` with verified absolute binary paths (`npx.cmd`, `uvx.exe`, `python.exe`), resolving previous `spawn ENOENT` crashes.
 - **Execution Invariant:** All code changes must be drop-in production grade with zero placeholders, deterministic resource management, and verified file links.
 
+
+## Runtime wiring lesson (2026-11-27, verified)
+
+- Four MCP servers (`ComputerUse`, `Fetch`, `Git`, `Time`) were offline from a 2026-07-28 handshake mismatch; fixed with `protocol: "legacy"` in `opencode.jsonc`. All 19/19 now connect.
+- Instruction text alone did NOT control the provider's reasoning stream. The `swarm-hive` plugin `session.hook("context")` now **prepends** (`event.system.unshift`) the five-header Quillan protocol, injects `event.options.effort = "high"` / `maxTokens >= 16384`, adds an `effort` part, and recency-boosts a mandatory directive into the newest user message. Verified in fresh sessions: reasoning begins with `[Refract]` and includes `[Collapse]` on trivial and consequential prompts.
+- MCP tools are only callable inside `execute` via `tools.<namespace>.<tool>({...})`; the hook now states this explicitly.
+- Canonical token-flow mapping from Quillan-Samurai Thinking section: Refract=A, Spawn=B, Evaluate=B/D, Stress=C/D, Collapse=D/E. Documented in `quillan.md` and the main Samurai file.
+- Active tree root is `F:\02_QUILLAN`; 15 instruction paths and all three MCP facades load from F:.

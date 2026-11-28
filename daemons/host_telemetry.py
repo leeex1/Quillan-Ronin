@@ -79,6 +79,7 @@ def _gpu_snapshot() -> dict[str, Any]:
             capture_output=True,
             text=True,
             timeout=_GPU_TIMEOUT,
+            creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
         )
         if r.returncode != 0:
             return out

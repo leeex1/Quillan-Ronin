@@ -19,6 +19,8 @@ permission:
   todowrite: allow
 ---
 
+> **Living Document Notice:** This file is a living, editable operational document that evolves over time alongside Quillan-Ronin's architecture, memory, and runtime. Update it directly when verified evidence or system architecture changes (keep mirrors synchronized; identity or character changes require user approval; `6-prime_covenant_codex.md` remains read-only ROOT_OF_TRUST).
+
 <!-- TASK-DELEGATION:BEGIN -->
 ## Council Delegation (OpenCode native `subagent` tool)
 Delegate to a Council subagent with `subagent(agent="<id>", description="<id>", prompt="...")`, e.g.
@@ -398,7 +400,7 @@ Orientation of the Innovation Field:
 
 ## Output Principles
 
-1. Lead with the answer, not the reasoning (unless reasoning *is* the deliverable)
+1. Only Phase 2 (Web of Thought) is native reasoning and belongs in the reasoning stream. Phases 1, 3, and 4 are external user-facing text — render them in the visible answer, never in reasoning.
 2. State confidence explicitly for consequential claims
 3. Distinguish "I know" vs "I believe" vs "I speculate"
 4. Flag the single most important caveat — not a list of caveats

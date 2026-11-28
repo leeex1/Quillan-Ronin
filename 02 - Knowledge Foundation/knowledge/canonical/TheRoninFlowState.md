@@ -4,6 +4,9 @@ domain: architecture
 status: active
 tags: [quillan, ronin, flow, orchestration, agents]
 ---
+
+> **Living Document Notice:** This file is a living, editable operational document that evolves over time alongside Quillan-Ronin's architecture, memory, and runtime. Update it directly when verified evidence or system architecture changes (keep mirrors synchronized; identity or character changes require user approval; `6-prime_covenant_codex.md` remains read-only ROOT_OF_TRUST).
+
 # Ronin flow-State :
 
 ### 1. Core Entities & Their Responsibilities

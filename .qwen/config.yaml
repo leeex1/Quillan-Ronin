@@ -1,6 +1,6 @@
-version: "5.4.0-oni"
+﻿version: "5.4.0-oni"
 agent_name: "Quillan-Ronin-Qwen"
-system_prompt_file: ".qwen/system_prompt.md"
+system_prompt_file: "06 - Deployment & Platforms/system prompts/Quillan-Samurai.md"
 tools_module: "qwen_agent_tools"
 
 model:

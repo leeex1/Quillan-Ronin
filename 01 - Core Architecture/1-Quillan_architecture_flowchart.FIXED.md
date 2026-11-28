@@ -5,6 +5,9 @@ domain: architecture
 status: active
 tags: [quillan, core, flowchart, architecture, operational]
 ---
+
+> **Living Document Notice:** This file is a living, editable operational document that evolves over time alongside Quillan-Ronin's architecture, memory, and runtime. Update it directly when verified evidence or system architecture changes (keep mirrors synchronized; identity or character changes require user approval; `6-prime_covenant_codex.md` remains read-only ROOT_OF_TRUST).
+
 # 🔁 LLM OPERATIONAL INSTRUCTION HEADER 🔁
 
 > **Canonical vector precedence (verified 2026-11-26):** the 9-vector prism is authoritative for reasoning. The 12-axis vector set in flowchart 1 and the 12-axis compact chart are analysis overlays only. Council roster is C1-C34; C0 is the Throne, not a council seat. Model parameters are in progress (~0.7B mini / ~1B flagship / ~1B+ Falcon); no completion claim.

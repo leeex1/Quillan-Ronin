@@ -1,17 +1,17 @@
 {
   "enabled": true,
-  "interval_sec": 10,
-  "pressure_on_pct": 200.0,
-  "pressure_off_pct": 100.0,
-  "pressure_on_loops": 2,
+  "interval_sec": 5,
+  "pressure_on_pct": 140.0,
+  "pressure_off_pct": 70.0,
+  "pressure_on_loops": 1,
   "pressure_off_loops": 4,
   "predict_ahead_cycles": 2,
-  "preempt_floor_pct": 120.0,
-  "moderate_hog_pct": 20.0,
-  "preempt_hog_pct": 10.0,
-  "preempt_rise_pct": 5.0,
-  "moderate_release_pct": 10.0,
-  "moderate_hot_loops": 2,
+  "preempt_floor_pct": 80.0,
+  "moderate_hog_pct": 15.0,
+  "preempt_hog_pct": 8.0,
+  "preempt_rise_pct": 4.0,
+  "moderate_release_pct": 8.0,
+  "moderate_hot_loops": 1,
   "moderate_cool_loops": 6,
-  "note": "Predictive maintenance. Load is summed process CPU deltas (core-equivalents; 4 cores = 400%). Forecast = load + trend x (predict_ahead_cycles x interval). Rising processes are demoted before they hit the 20% hog threshold. GUI/editor/browser protected; all actions reversible."
+  "note": "Predictive maintenance tuned for 4-core i5. Load is summed process CPU deltas (core-equivalents; 4 cores = 400%). Forecast = load + trend x (predict_ahead_cycles x interval). Rising processes are demoted early before lag builds; GUI/editor/browser protected; all actions reversible."
 }

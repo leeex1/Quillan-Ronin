@@ -349,6 +349,9 @@ datasets/
 07 - Memory & LanceDB/system_telemetry.json
 07 - Memory & LanceDB/daemon_supervisor.pid
 07 - Memory & LanceDB/governor_state.json
-
-# Mic Drop: owner-ripped masters hosted on GitHub Pages (no Suno watermark)
-!docs/audio/mic_drop/*.mp3
+# Personal photos - kept local, never published
+docs/**/me *.jpg
+docs/**/ai_me_and_kid.jpg
+docs/**/how_quillan_see_me.jpg
+docs/**/self_protrait_of_me.jpg
+docs/**/mr 2019.jpg
