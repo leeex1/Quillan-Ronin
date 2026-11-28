@@ -317,7 +317,7 @@ def main() -> int:
     roundtrip_check = {
         "check_id": 1,
         "name": "Owner tokenizer encode/decode round-trip",
-        "method": "tokenizers.Tokenizer.from_file(owner).encode/decode; skip_special_tokens=False; clean_up_tokenization_spaces=False",
+        "method": "tokenizers.Tokenizer.from_file(owner).encode/decode; skip_special_tokens=False; installed tokenizers decode API has no clean_up_tokenization_spaces kwarg",
         "case_count": len(ROUNDTRIP_STRINGS),
         "pass": roundtrip_pass and len(roundtrip_rows) == len(ROUNDTRIP_STRINGS),
         "cases": roundtrip_rows,
