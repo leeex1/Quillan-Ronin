@@ -13,5 +13,8 @@
   "moderate_release_pct": 8.0,
   "moderate_hot_loops": 1,
   "moderate_cool_loops": 6,
+  "reap_orphans_enabled": true,
+  "reap_interval_sec": 30,
+  "reap_min_age_sec": 20,
   "note": "Predictive maintenance tuned for 4-core i5. Load is summed process CPU deltas (core-equivalents; 4 cores = 400%). Forecast = load + trend x (predict_ahead_cycles x interval). Rising processes are demoted early before lag builds; GUI/editor/browser protected; all actions reversible."
 }

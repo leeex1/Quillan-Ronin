@@ -51,7 +51,132 @@ DEFAULTS = {
     "moderate_release_pct": 10.0,
     "moderate_hot_loops": 2,
     "moderate_cool_loops": 6,
+    "reap_orphans_enabled": True,
+    "reap_interval_sec": 30,
+    "reap_min_age_sec": 20,
 }
+
+LIVE_HOSTS = {
+    "opencode-cli.exe",
+    "opencode.exe",
+    "antigravity.exe",
+    "language_server.exe",
+    "language_server_windows_x64.exe",
+    "quillancode.exe",
+    "quillancode-desktop.exe",
+    "code.exe",
+    "cursor.exe",
+    "claude.exe",
+}
+KEEP_DAEMON_SUBSTRINGS = (
+    "quillan_daemon_supervisor.py",
+    "quillan_governor_daemon.py",
+    "quillan_autoboost_daemon.py",
+    "quillan_fleet_maintenance.py",
+    "f:\\02_quillan\\09 - projects\\projects\\testing\\validation-test-kit",
+)
+EPHEMERAL_OR_MCP_SUBSTRINGS = (
+    "\\temp\\opencode\\",
+    "-m http.server",
+    "c:\\02_quillan\\",
+    "browse.exe serve",
+    "quillan_cortex\\server.py",
+    "quillan_archive\\server.py",
+    "quillan_sensory\\server.py",
+    "@modelcontextprotocol",
+    "mcp-local-rag",
+    "chrome-devtools-mcp",
+    "@playwright\\mcp",
+    "gitnexus",
+    "mempalace-mcp",
+    "mcp-server-",
+    "duckduckgo-mcp-server",
+    "windows_mcp",
+    "windows-mcp",
+)
+
+
+def _has_live_host_ancestor(pid: int, proc_map: dict[int, dict]) -> bool:
+    cur = pid
+    seen: set[int] = set()
+    for _ in range(16):
+        rec = proc_map.get(cur)
+        if not rec:
+            return False
+        ppid = int(rec.get("ppid") or 0)
+        if not ppid or ppid in seen:
+            return False
+        seen.add(ppid)
+        parent = proc_map.get(ppid)
+        if not parent:
+            return False
+        if parent.get("name", "") in LIVE_HOSTS:
+            return True
+        cur = ppid
+    return False
+
+
+def reap_orphans(now: float, st: dict, c: dict, dry: bool) -> list[str]:
+    if psutil is None or not c.get("reap_orphans_enabled", True):
+        return []
+    last_reap = float(st.get("last_reap_ts", 0.0) or 0.0)
+    if now - last_reap < float(c.get("reap_interval_sec", 30)):
+        return []
+    st["last_reap_ts"] = now
+
+    min_age = float(c.get("reap_min_age_sec", 20))
+    me = os.getpid()
+    proc_map: dict[int, dict] = {}
+    for p in psutil.process_iter(["pid", "ppid", "name", "cmdline", "create_time"]):
+        try:
+            info = p.info
+            pid = int(info.get("pid") or 0)
+            if not pid:
+                continue
+            proc_map[pid] = {
+                "pid": pid,
+                "ppid": int(info.get("ppid") or 0),
+                "name": str(info.get("name") or "").lower(),
+                "cmd": " ".join(info.get("cmdline") or []).lower(),
+                "ct": float(info.get("create_time") or now),
+            }
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            continue
+        except Exception:
+            continue
+
+    opencode_alive = any(
+        rec["name"] in ("opencode-cli.exe", "opencode.exe")
+        for rec in proc_map.values()
+    )
+    actions: list[str] = []
+    for pid, rec in proc_map.items():
+        if pid in (0, 4, me) or rec["name"] in LIVE_HOSTS:
+            continue
+        if (now - rec["ct"]) < min_age:
+            continue
+        cmd = rec["cmd"]
+        if not cmd:
+            continue
+        if any(k in cmd for k in KEEP_DAEMON_SUBSTRINGS):
+            continue
+        is_swarm_hive = "swarm-hive\\serve.mjs" in cmd
+        if is_swarm_hive:
+            if opencode_alive:
+                continue
+        elif not any(m in cmd for m in EPHEMERAL_OR_MCP_SUBSTRINGS):
+            continue
+        if _has_live_host_ancestor(pid, proc_map):
+            continue
+        if not dry:
+            try:
+                psutil.Process(pid).terminate()
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                continue
+            except Exception:
+                continue
+        actions.append(f"REAP_ORPHAN pid={pid} name={rec['name']} cmd={cmd[:100]}")
+    return actions
 
 PROTECTED = {
     "system",
@@ -188,7 +313,7 @@ def cycle(st: dict, dry: bool) -> dict:
     now = time.time()
     agg: dict = st.get("agg", {})
     hot: dict = st.get("hot", {})
-    actions: list[str] = []
+    actions: list[str] = reap_orphans(now, st, c, dry)
     load = 0.0
     watched = 0
     demoted = released = 0
