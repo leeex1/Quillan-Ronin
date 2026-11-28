@@ -19,7 +19,7 @@
     "@react-three/drei": "^9.77.0",
     "three": "^0.153.0",
     "@types/three": "^0.153.0",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^7.18.7",
     "axios": "^1.4.0",
     "socket.io-client": "^4.7.0",
     "styled-components": "^5.3.11",
